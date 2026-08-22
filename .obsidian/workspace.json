@@ -1,0 +1,242 @@
+{
+  "main": {
+    "id": "d3ef4ad5f14f4ecc",
+    "type": "split",
+    "children": [
+      {
+        "id": "8674be05f652be17",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1a0fd386ae54dd0b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "💼 個人職涯發展與國際戰略/澳洲482雇主擔保與海外直聘全攻略.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "澳洲482雇主擔保與海外直聘全攻略"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "0088f4b2a261ec70",
+    "type": "split",
+    "children": [
+      {
+        "id": "261576851cfdfd00",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e516d54d9f642458",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "檔案瀏覽器"
+            }
+          },
+          {
+            "id": "6fed4cfda5a3e902",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜尋"
+            }
+          },
+          {
+            "id": "6f7d896e23eb88d8",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "書籤"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "15f043b4b4778574",
+    "type": "split",
+    "children": [
+      {
+        "id": "793c26bf0b6f38ab",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "28f3d76a033a74bb",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "💼 個人職涯發展與國際戰略/澳洲482雇主擔保與海外直聘全攻略.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向連結"
+            }
+          },
+          {
+            "id": "302aa66bd65e61e8",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "💼 個人職涯發展與國際戰略/澳洲482雇主擔保與海外直聘全攻略.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "對外連結"
+            }
+          },
+          {
+            "id": "5475aec835420ce7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "標籤"
+            }
+          },
+          {
+            "id": "a59610f8b43e2f27",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "所有屬性"
+            }
+          },
+          {
+            "id": "39607d1d8eb14b1d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "💼 個人職涯發展與國際戰略/澳洲482雇主擔保與海外直聘全攻略.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大綱"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:開啟快速切換": false,
+      "graph:查看關聯圖": false,
+      "canvas:建立新畫布": false,
+      "daily-notes:開啟今天的每日筆記": false,
+      "templates:插入模板": false,
+      "command-palette:開啟命令面板": false,
+      "markdown-importer:開啟 Markdown 格式轉換器": false,
+      "bases:建立新的 base": false
+    }
+  },
+  "active": "1a0fd386ae54dd0b",
+  "lastOpenFiles": [
+    "scripts/setup_daily_cron.sh",
+    "australia-job-radar.html",
+    "au-job-radar-data.js",
+    "scripts/au_job_radar_crawler.py",
+    "💼 個人職涯發展與國際戰略/澳洲電機設計工程師跳槽與PR移民全攻略.md",
+    "💼 個人職涯發展與國際戰略/職涯戰略_中鼎工程電機設計轉型國際大型專案藍圖.md",
+    "💼 個人職涯發展與國際戰略/澳洲482雇主擔保與海外直聘全攻略.md",
+    "💼 個人職涯發展與國際戰略/資產配置與動態再平衡戰略_00662_00685L.md",
+    "📝 個人題解與錯題本/01_電路學/107年_電路學_全卷完整詳細題解.md",
+    "scripts/test_page_render.py",
+    "依考科分類/01_電路學/images/107年_電路學_第1題_相依電流源節點分析標定圖.svg",
+    "依考科分類/01_電路學/images/106年_電路學_第4題_對稱與反對稱半電路分析圖.svg",
+    "依考科分類/01_電路學/images/106年_電路學_第3題_GIC通用阻抗轉換器節點標定圖.svg",
+    "依考科分類/01_電路學/images/104年_電路學_第5題_雙埠g參數測試分析圖.svg",
+    "依考科分類/01_電路學/images/104年_電路學_第1題_戴維寧等效標定圖.svg",
+    "scripts/generate_all_circuit_svgs.py",
+    "📝 個人題解與錯題本/01_電路學/108年_電路學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/01_電路學/109年_電路學_全卷完整詳細題解.md",
+    "依考科分類/01_電路學/images/107年_電路學_第4題_理想變壓器與等效電阻分析圖.svg",
+    "scripts/generate_107_q4_svg.py",
+    "📝 個人題解與錯題本/01_電路學/105年_電路學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/01_電路學/106年_電路學_全卷完整詳細題解.md",
+    "scripts/solve_107_q4.py",
+    "scripts/audit_107_circuit.py",
+    "scripts/audit_106_circuit.py",
+    "scripts/audit_105_circuit.py",
+    "依考科分類/01_電路學/images/108年_電路學_第2題_節點分析標定圖.svg",
+    "📝 個人題解與錯題本/05_電力系統/108年_電力系統_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/04_電機機械/108年_電機機械_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/04_電機機械/107年_電機機械_全卷完整詳細題解.md",
+    "SPEC_雙欄原題與詳解同步對照旗艦工作台.md",
+    "README.md",
+    "CLAUDE-CODE.md",
+    "CLAUDE-SOLVE.md",
+    "CLAUDE-SPEC.md",
+    "📝 個人題解與錯題本/05_電力系統/109年_電力系統_全卷完整詳細題解.md",
+    "🧠 核心考點知識庫/05_電力系統/02_電力系統穩定度與搖擺方程式.md",
+    "🧠 核心考點知識庫/05_電力系統/01_標么系統與對稱成分故障分析.md",
+    "🧠 核心考點知識庫/04_電機機械/01_變壓器等效電路與效率計算.md",
+    "🧠 核心考點知識庫/03_工程數學/01_常微分方程ODE與尤拉柯西方程.md",
+    "🧠 核心考點知識庫/02_電子學_含電力電子/01_BJT與MOSFET小訊號交流分析.md",
+    "🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",
+    "📝 個人題解與錯題本/04_電機機械/105年_電機機械_全卷完整詳細題解.md",
+    "未命名.canvas",
+    "依考科分類/05_電力系統/images/104年_電力系統_第4題_三匯流排阻抗圖.png",
+    "依考科分類/05_電力系統/images/104年_電力系統_第3題_兩發電機併網圖.png",
+    "依考科分類/05_電力系統/images/104年_電力系統_第2題_變壓器並聯電路圖.png"
+  ]
+}

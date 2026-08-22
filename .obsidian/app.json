@@ -1,0 +1,17 @@
+{
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "current",
+  "attachmentFolderPath": "/",
+  "livePreview": true,
+  "showLineNumber": true,
+  "readableLineLength": false,
+  "strictLineBreaks": false,
+  "foldHeading": true,
+  "foldIndent": true,
+  "defaultViewMode": "preview",
+  "autoPairMarkdown": true,
+  "autoPairMath": true,
+  "autoPairBrackets": true,
+  "tabSize": 2,
+  "promptDelete": false
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>114 年 電機工程技師 — 電力系統 全卷五大題詳細詳解</title>
+  <!-- MathJax for rendering LaTeX math formulas -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --bg-color: #0b1120;
+      --card-bg: #1e293b;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --border: #334155;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.75;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 2.1rem;
+      color: #fff;
+      margin-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 16px;
+    }
+    .nav-box {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 30px;
+    }
+    .nav-box a {
+      color: var(--accent);
+      text-decoration: none;
+      margin-right: 16px;
+      font-weight: 500;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .nav-box a:hover {
+      text-decoration: underline;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px;
+      margin: 30px 0;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    .card-header {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .points {
+      font-size: 0.9rem;
+      background: #0284c7;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .step-box {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .highlight-box {
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-left: 4px solid var(--success);
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 0 8px 8px 0;
+      color: #e2e8f0;
+    }
+    .math-block {
+      overflow-x: auto;
+      padding: 8px 0;
+      text-align: center;
+    }
+    img.diagram {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin: 16px 0;
+      background: #fff;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">⚡ 114 年 專技高考電機工程技師</div>
+    <h1>電力系統 — 全卷五大題詳細題解與步驟推導</h1>
+
+    <div class="nav-box">
+      <strong>📑 題目快速跳轉：</strong><br>
+      <a href="#q1">👉 第一題：交流相量與複數功率</a>
+      <a href="#q2">👉 第二題：二匯流排潮流與 Newton-Raphson</a>
+      <a href="#q3">👉 第三題：二機組最佳經濟調度</a>
+      <a href="#q4">👉 第四題：戴維寧等效三相短路故障</a>
+      <a href="#q5">👉 第五題：發電機轉子加速度與同步轉速</a>
+    </div>
+
+    <!-- 第一題 -->
+    <div class="card" id="q1">
+      <div class="card-header">
+        <span>一、交流負載相量與複數功率計算</span>
+        <span class="points">20 分</span>
+      </div>
+      <p><strong>【題目】</strong> 端電壓 \(v(t) = \sqrt{2} \times 100 \cos(\omega t + \alpha)\text{ V}\)，相量為 \(100\angle\alpha\)；電流 \(i(t) = \sqrt{2} I_{rms} \cos(\omega t + 60^\circ)\text{ A}\)，相量為 \(I_{rms}\angle 60^\circ\)。負載實功率 \(P = 500\sqrt{3}\text{ W}\)，虛功率 \(Q = 500\text{ Var}\)，求 \(I_{rms}\) 及 \(\alpha\)。</p>
+
+      <div class="step-box">
+        <strong>💡 破題關鍵：</strong> 複數功率 \(\mathbf{S} = P + jQ = \mathbf{V}\mathbf{I}^* = |\mathbf{V}|I_{rms}\angle(\theta_v - \theta_i)\)。
+      </div>
+
+      <div class="math-block">
+        $$|\mathbf{S}| = \sqrt{P^2 + Q^2} = \sqrt{(500\sqrt{3})^2 + 500^2} = 1000\text{ VA}$$
+        $$\theta = \tan^{-1}\left(\frac{Q}{P}\right) = \tan^{-1}\left(\frac{500}{500\sqrt{3}}\right) = 30^\circ$$
+        $$\mathbf{S} = (100\angle\alpha)(I_{rms}\angle -60^\circ) = 100 I_{rms}\angle(\alpha - 60^\circ) = 1000\angle 30^\circ$$
+      </div>
+
+      <div class="highlight-box">
+        🎯 <strong>滿分結論：</strong><br>
+        • \(100 I_{rms} = 1000 \implies \mathbf{I_{rms} = 10\text{ A}}\)<br>
+        • \(\alpha - 60^\circ = 30^\circ \implies \mathbf{\alpha = 90^\circ}\)
+      </div>
+    </div>
+
+    <!-- 第二題 -->
+    <div class="card" id="q2">
+      <div class="card-header">
+        <span>二、二匯流排電力潮流與 Newton-Raphson 疊代</span>
+        <span class="points">20 分</span>
+      </div>
+      <p><strong>【題目】</strong> 系統基準 \(S_{base} = 100\text{ MVA}\)。匯流排 1 為 Slack Bus (\(\mathbf{V}_1 = 1.0\angle 0^\circ\text{ pu}\))。匯流排 2 有 \(P_{g2} = 100\text{ MW}\) 發電機與 \(250\text{ MW} + j100\text{ Mvar}\) 負載，線路導納 \(y_{12} = -j10\text{ pu}\)。</p>
+      
+      <p><strong>(一) 求 \(\delta_2\) 與 \(Q_{g2}\)：</strong></p>
+      <div class="step-box">
+        標么值：\(P_{2,sch} = (100 - 250)/100 = -1.5\text{ pu}\)<br>
+        \(P_2 = |V_2||V_1| B_{21}\sin\delta_2 = 10\sin\delta_2 = -1.5 \implies \sin\delta_2 = -0.15\)<br>
+        \(\mathbf{\delta_2 = -0.15057\text{ rad} = -8.627^\circ}\)<br>
+        \(Q_2 = -10(1)(1)\cos(-8.627^\circ) - (1)^2(-10) = -9.8869 + 10 = 0.1131\text{ pu}\)<br>
+        \(Q_{g2} = Q_2 + Q_{d2} = 0.1131 + 1.0 = 1.1131\text{ pu} = \mathbf{111.31\text{ Mvar}}\)
+      </div>
+
+      <p><strong>(二) Q 極限判斷與 Newton-Raphson 疊代：</strong></p>
+      <div class="highlight-box">
+        • \(Q_{g2} = 111.31\text{ Mvar} > 100\text{ Mvar}\)（超出上限！）$\implies$ 轉為 PQ Bus，鎖定 \(Q_{g2} = 1.0\text{ pu}\)，\(Q_{2,sch} = 0.0\text{ pu}\)。<br>
+        • 初值 \(\delta_2^{(0)}=0, |V_2|^{(0)}=1.0\)，不平衡量 \(\Delta P_2 = -1.5, \Delta Q_2 = 0.0\)。<br>
+        • 雅可比矩陣 \(\mathbf{J}^{(0)} = \begin{bmatrix} 10 & 0 \\ 0 & 10 \end{bmatrix}\)<br>
+        • 修正量：\(\Delta\delta_2 = -0.15\text{ rad}, \Delta |V_2| = 0.0\)<br>
+        • 一次疊代後結果：\(\mathbf{\delta_2^{(1)} = -0.15\text{ rad} = -8.594^\circ, \quad |V_2|^{(1)} = 1.0\text{ pu}}\)
+      </div>
+    </div>
+
+    <!-- 第三題 -->
+    <div class="card" id="q3">
+      <div class="card-header">
+        <span>三、二發電機最佳經濟調度</span>
+        <span class="points">20 分</span>
+      </div>
+      <p><strong>【題目】</strong> 成本函數 \(C_1 = 400 + 6.0 P_1 + 0.004 P_1^2\)，\(C_2 = 400 + 6.8 P_2 + 0.002 P_2^2\)，總需求 \(P_D = 550\text{ MW}\)，求各廠最佳出力。</p>
+
+      <div class="step-box">
+        <strong>💡 破題關鍵：</strong> 等微增成本準則 \(\lambda = \frac{dC_1}{dP_1} = \frac{dC_2}{dP_2}\)。
+      </div>
+
+      <div class="math-block">
+        $$\text{IC}_1 = 6.0 + 0.008 P_1 = \lambda \implies P_1 = 125\lambda - 750$$
+        $$\text{IC}_2 = 6.8 + 0.004 P_2 = \lambda \implies P_2 = 250\lambda - 1700$$
+        $$P_1 + P_2 = 375\lambda - 2450 = 550 \implies 375\lambda = 3000 \implies \mathbf{\lambda = 8.0\text{ \$/MWh}}$$
+      </div>
+
+      <div class="highlight-box">
+        🎯 <strong>滿分結論：</strong><br>
+        • \(P_1 = 125(8.0) - 750 = \mathbf{250\text{ MW}}\)<br>
+        • \(P_2 = 250(8.0) - 1700 = \mathbf{300\text{ MW}}\)
+      </div>
+    </div>
+
+    <!-- 第四題 -->
+    <div class="card" id="q4">
+      <div class="card-header">
+        <span>四、戴維寧等效三相短路故障分析</span>
+        <span class="points">20 分</span>
+      </div>
+      <p><strong>【題目】</strong> 匯流排 1 發生三相短路，故障阻抗 \(Z_f = j0.0125\text{ pu}\)。左側發電機 \(j0.1\) 串聯變壓器 \(j0.4\)；右側發電機 \(j0.1\) 串聯線路 \(j0.2\)。</p>
+
+      <div class="step-box">
+        <strong>(一) 故障點阻抗與故障電流：</strong><br>
+        • 戴維寧等效阻抗：\(Z_{th1} = (j0.5) \parallel (j0.3) = \mathbf{j0.1875\text{ pu}}\)<br>
+        • 總故障阻抗：\(Z_{\text{total}} = j0.1875 + j0.0125 = j0.20\text{ pu}\)<br>
+        • 故障電流：\(I_f = \frac{1.0}{j0.20} = \mathbf{-j5.0\text{ pu} = 5.0\angle -90^\circ\text{ pu}}\)
+      </div>
+
+      <div class="highlight-box">
+        <strong>(二) 故障期間電壓與電流：</strong><br>
+        • \(V_1 = I_f \times Z_f = (-j5.0)(j0.0125) = \mathbf{0.0625\text{ pu}}\)<br>
+        • 支路電流：\(I_{31} = \frac{1.0 - 0.0625}{j0.5} = \mathbf{-j1.875\text{ pu}}, \quad I_{21} = \frac{1.0 - 0.0625}{j0.3} = \mathbf{-j3.125\text{ pu}}\)<br>
+        • 匯流排電壓：\(V_3 = 1.0 - (-j1.875)(j0.1) = \mathbf{0.8125\text{ pu}}, \quad V_2 = 1.0 - (-j3.125)(j0.1) = \mathbf{0.6875\text{ pu}}\)
+      </div>
+    </div>
+
+    <!-- 第五題 -->
+    <div class="card" id="q5">
+      <div class="card-header">
+        <span>五、發電機轉子加速度與同步轉速計算</span>
+        <span class="points">20 分</span>
+      </div>
+      <p><strong>【題目】</strong> 2 極，\(60\text{ Hz}\) 發電機，額定 \(250\text{ MVA}\)，\(H = 4.32\text{ s}\)，穩態出力 \(P_m = 60\text{ MW} = 0.24\text{ pu}\)。負載突切（\(P_e = 0\)），求轉子加速度與 12 週期後轉速。</p>
+
+      <div class="step-box">
+        <strong>💡 搖擺方程式推導：</strong><br>
+        • 加速功率：\(P_a = P_m - P_e = 0.24 - 0 = 0.24\text{ pu}\)<br>
+        • 角加速度：\(\alpha = \frac{P_a \cdot \omega_s}{2H} = \frac{0.24 \times 120\pi}{2 \times 4.32} = \mathbf{\frac{10\pi}{3}\text{ rad/s}^2 \approx 10.472\text{ rad/s}^2 = 600^\circ/\text{s}^2}\)
+      </div>
+
+      <div class="highlight-box">
+        🎯 <strong>12 週期末轉速計算：</strong><br>
+        • 時間 \(\Delta t = 12 / 60 = 0.2\text{ s}\)<br>
+        • 轉速加速度：\(a_{\text{rpm}} = \left(\frac{10\pi}{3}\right) \times \frac{60}{2\pi} = 100\text{ rpm/s}\)<br>
+        • 轉速增加量：\(\Delta N = 100 \times 0.2 = 20\text{ rpm}\)<br>
+        • 終點轉速：\(N = N_s + \Delta N = 3600 + 20 = \mathbf{3620\text{ rpm}}\)
+      </div>
+    </div>
+  </div>
+</body>
+</html>

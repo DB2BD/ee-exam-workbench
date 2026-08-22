@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .val-cyan { font-family: monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+  </style>
+
+  <rect width="920" height="540" rx="16" fill="url(#bg)"/>
+  <text x="460" y="38" text-anchor="middle" class="title" font-size="20">104 年 電路學 第一題：橋接電路戴維寧等效 (Rth &amp; Vth) 拓撲標定圖</text>
+  <text x="460" y="60" text-anchor="middle" class="subtitle">分析特點：關閉獨立源後懸空支路判定 暨 節點電壓 KCL 精確推導</text>
+
+  <!-- 左圖：Rth 分析 (關閉獨立源) -->
+  <rect x="25" y="80" width="420" height="435" class="box"/>
+  <text x="45" y="110" class="title" font-size="16" fill="#f59e0b">【圖 A】戴維寧電阻 Rth 求解 (9V短路, 1.8A開路)</text>
+  <text x="45" y="130" font-family="sans-serif" font-size="12" fill="#94a3b8">1.8A 開路後 5Ω 與 25Ω 懸空無電流迴路 ⇒ Rth = 60 || (20 + 10)</text>
+
+  <!-- 短路點與線路 -->
+  <line x1="75" y1="210" x2="75" y2="440" class="wire" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="75" cy="210" r="5" fill="#38bdf8"/><circle cx="75" cy="440" r="5" fill="#38bdf8"/>
+  <text x="65" y="325" text-anchor="middle" class="val-cyan" transform="rotate(-90 65 325)">9V 短路點</text>
+
+  <!-- 頂部 20Ω -->
+  <path d="M 75 210 L 375 210" class="wire"/>
+  <rect x="180" y="200" width="50" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="205" y="215" text-anchor="middle" class="val-amber">20 Ω</text>
+
+  <!-- 底部 10Ω -->
+  <path d="M 75 440 L 375 440" class="wire"/>
+  <rect x="180" y="430" width="50" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="205" y="445" text-anchor="middle" class="val-amber">10 Ω</text>
+
+  <!-- 中間懸空虛線 5Ω & 25Ω -->
+  <path d="M 120 210 L 120 440" stroke="#64748b" stroke-width="1.8" stroke-dasharray="4,4" fill="none"/>
+  <rect x="105" y="250" width="30" height="40" fill="#1e293b" stroke="#64748b" rx="3"/>
+  <text x="120" y="275" text-anchor="middle" font-size="11" fill="#64748b">5Ω</text>
+  <rect x="105" y="340" width="30" height="40" fill="#1e293b" stroke="#64748b" rx="3"/>
+  <text x="120" y="365" text-anchor="middle" font-size="11" fill="#64748b">25Ω</text>
+  <text x="120" y="320" text-anchor="middle" class="val-rose" font-size="11">懸空(無電流)</text>
+
+  <!-- 右側 60Ω -->
+  <path d="M 375 210 L 375 440" class="wire"/>
+  <rect x="365" y="300" width="20" height="50" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="400" y="330" class="val-amber">60 Ω</text>
+
+  <!-- a, b 端點 -->
+  <circle cx="375" cy="210" r="5" fill="#f43f5e"/>
+  <text x="390" y="215" class="val-rose" font-size="14">a</text>
+  <circle cx="375" cy="440" r="5" fill="#38bdf8"/>
+  <text x="390" y="445" class="val-cyan" font-size="14">b</text>
+
+  <rect x="45" y="465" width="380" height="35" fill="#0f172a" stroke="#10b981" rx="6"/>
+  <text x="235" y="488" text-anchor="middle" class="val-emerald" font-size="13">Rth = 60 || (20 + 10) = 60 || 30 = 20 Ω</text>
+
+  <!-- 右圖：Voc 分析 (節點電壓法) -->
+  <rect x="475" y="80" width="420" height="435" class="box"/>
+  <text x="495" y="110" class="title" font-size="16" fill="#38bdf8">【圖 B】開路電壓 Vth 求解 (節點電壓 KCL)</text>
+  <text x="495" y="130" font-family="sans-serif" font-size="12" fill="#94a3b8">設 Vb = 0V ⇒ 9V負端為 Vd ⇒ 9V正端為 Vd+9 ⇒ 聯立解得 Va</text>
+
+  <!-- 9V 電源 -->
+  <circle cx="525" cy="325" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="525" y="330" text-anchor="middle" class="val-cyan">9V</text>
+  <text x="525" y="300" text-anchor="middle" class="val-cyan">+</text>
+  <text x="525" y="355" text-anchor="middle" class="val-cyan">−</text>
+
+  <!-- 頂部與 20Ω -->
+  <path d="M 525 307 L 525 210 L 825 210" class="wire"/>
+  <rect x="670" y="200" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="692" y="215" text-anchor="middle" class="val-amber" font-size="12">20 Ω</text>
+
+  <!-- 中間 c 節點與 1.8A 電流源 -->
+  <path d="M 590 210 L 590 440" class="wire"/>
+  <rect x="578" y="235" width="24" height="35" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="560" y="258" class="val-amber" font-size="11">5Ω</text>
+  
+  <circle cx="590" cy="300" r="4" fill="#f59e0b"/>
+  <text x="575" y="305" text-anchor="end" class="val-amber" font-size="12">Vc</text>
+  
+  <rect x="578" y="360" width="24" height="35" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="560" y="382" class="val-amber" font-size="11">25Ω</text>
+
+  <!-- 1.8A 電流源向右進入 a -->
+  <path d="M 590 300 L 825 300 L 825 210" class="wire"/>
+  <circle cx="710" cy="300" r="15" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+  <line x1="700" y1="300" x2="720" y2="300" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <text x="710" y="280" text-anchor="middle" class="val-amber" font-size="12">1.8 A (→)</text>
+
+  <!-- 底部 10Ω 與 節點 d -->
+  <path d="M 525 343 L 525 440 L 825 440" class="wire"/>
+  <circle cx="525" cy="440" r="4" fill="#38bdf8"/>
+  <text x="525" y="460" text-anchor="middle" class="val-cyan" font-size="12">節點 d (Vd)</text>
+  <rect x="670" y="430" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="692" y="445" text-anchor="middle" class="val-amber" font-size="12">10 Ω</text>
+
+  <!-- 右側 60Ω -->
+  <path d="M 825 210 L 825 440" class="wire"/>
+  <rect x="815" y="335" width="20" height="45" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="845" y="362" class="val-amber" font-size="12">60 Ω</text>
+
+  <circle cx="825" cy="210" r="5" fill="#f43f5e"/>
+  <text x="840" y="215" class="val-rose" font-size="13">a (Va = Vth)</text>
+  <circle cx="825" cy="440" r="5" fill="#38bdf8"/>
+  <text x="840" y="445" class="val-cyan" font-size="13">b (0 V)</text>
+
+  <rect x="495" y="465" width="380" height="35" fill="#0f172a" stroke="#38bdf8" rx="6"/>
+  <text x="685" y="488" text-anchor="middle" class="val-cyan" font-size="13">Vth = Va = 270/7 V ≈ 38.57 V</text>
+</svg>

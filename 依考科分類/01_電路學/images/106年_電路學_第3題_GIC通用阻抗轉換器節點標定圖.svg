@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .val-c { font-family: monospace; font-size: 14px; font-weight: bold; fill: #38bdf8; }
+    .val-a { font-family: monospace; font-size: 14px; font-weight: bold; fill: #f59e0b; }
+    .val-r { font-family: monospace; font-size: 14px; font-weight: bold; fill: #f43f5e; }
+    .val-e { font-family: monospace; font-size: 14px; font-weight: bold; fill: #10b981; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+  </style>
+
+  <rect width="920" height="540" rx="16" fill="url(#bg)"/>
+  <text x="460" y="38" text-anchor="middle" class="title" font-size="20">106 年 電路學 第三題：Antoniou 通用阻抗轉換器 (GIC) 5 個節點標定圖</text>
+  <text x="460" y="60" text-anchor="middle" class="subtitle">虛短路關係：V1 = V3 = V5 = Vin ； 總輸入阻抗推導：Zin = (Z1 · Z3 · Z5) / (Z2 · Z4)</text>
+
+  <rect x="30" y="80" width="860" height="435" class="box"/>
+
+  <!-- 輸入測試電流源 Is -->
+  <circle cx="80" cy="330" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <line x1="80" y1="342" x2="80" y2="318" stroke="#38bdf8" stroke-width="2.5"/>
+  <text x="50" y="335" class="val-c">Is</text>
+  <line x1="80" y1="348" x2="80" y2="450" class="wire"/>
+  <line x1="60" y1="450" x2="100" y2="450" class="wire"/>
+
+  <!-- 主幹階梯阻抗線 (Z1, Z2, Z3, Z4, Z5) -->
+  <path d="M 80 312 L 80 250 L 170 250" class="wire"/>
+  <circle cx="120" cy="250" r="5" fill="#38bdf8"/>
+  <text x="120" y="235" text-anchor="middle" class="val-c">節點 1 (V1)</text>
+
+  <!-- Z1 -->
+  <rect x="170" y="240" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="192" y="255" text-anchor="middle" class="val-a">Z1</text>
+  <path d="M 215 250 L 305 250" class="wire"/>
+  <circle cx="260" cy="250" r="5" fill="#f43f5e"/>
+  <text x="260" y="235" text-anchor="middle" class="val-r">節點 2 (V2)</text>
+
+  <!-- Z2 -->
+  <rect x="305" y="240" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="327" y="255" text-anchor="middle" class="val-a">Z2</text>
+  <path d="M 350 250 L 440 250" class="wire"/>
+  <circle cx="395" cy="250" r="5" fill="#38bdf8"/>
+  <text x="395" y="235" text-anchor="middle" class="val-c">節點 3 (V3)</text>
+
+  <!-- Z3 -->
+  <rect x="440" y="240" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="462" y="255" text-anchor="middle" class="val-a">Z3</text>
+  <path d="M 485 250 L 575 250" class="wire"/>
+  <circle cx="530" cy="250" r="5" fill="#f43f5e"/>
+  <text x="530" y="235" text-anchor="middle" class="val-r">節點 4 (V4)</text>
+
+  <!-- Z4 -->
+  <rect x="575" y="240" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="597" y="255" text-anchor="middle" class="val-a">Z4</text>
+  <path d="M 620 250 L 710 250" class="wire"/>
+  <circle cx="665" cy="250" r="5" fill="#38bdf8"/>
+  <text x="665" y="235" text-anchor="middle" class="val-c">節點 5 (V5)</text>
+
+  <!-- Z5 接地 -->
+  <path d="M 710 250 L 710 320" class="wire"/>
+  <rect x="698" y="320" width="24" height="45" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="735" y="348" class="val-a">Z5</text>
+  <path d="M 710 365 L 710 420" class="wire"/>
+  <line x1="695" y1="420" x2="725" y2="420" class="wire"/>
+
+  <!-- 上方 Op-Amp 1 (輸出接 V4) -->
+  <polygon points="220,130 300,165 220,200" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="235" y="155" fill="#38bdf8" font-size="14" font-weight="bold">+</text>
+  <text x="235" y="185" fill="#f43f5e" font-size="16" font-weight="bold">−</text>
+  <!-- 非反相(+)接 V1 -->
+  <path d="M 120 250 L 120 150 L 220 150" class="wire"/>
+  <!-- 反相(-)接 V3 -->
+  <path d="M 395 250 L 395 180 L 220 180" class="wire"/>
+  <!-- 輸出接 V4 -->
+  <path d="M 300 165 L 530 165 L 530 250" class="wire" stroke="#f43f5e"/>
+
+  <!-- 下方 Op-Amp 2 (輸出接 V2) -->
+  <polygon points="480,330 560,365 480,400" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="495" y="355" fill="#f43f5e" font-size="16" font-weight="bold">−</text>
+  <text x="495" y="385" fill="#38bdf8" font-size="14" font-weight="bold">+</text>
+  <!-- 反相(-)接 V3 -->
+  <path d="M 395 250 L 395 350 L 480 350" class="wire"/>
+  <!-- 非反相(+)接 V5 -->
+  <path d="M 665 250 L 665 380 L 480 380" class="wire"/>
+  <!-- 輸出接 V2 -->
+  <path d="M 560 365 L 260 365 L 260 250" class="wire" stroke="#f43f5e"/>
+
+  <!-- 結論橫幅 -->
+  <rect x="50" y="455" width="820" height="42" fill="#0f172a" stroke="#10b981" rx="8"/>
+  <text x="460" y="482" text-anchor="middle" class="val-e" font-size="14">虛短路 ⇒ V1 = V3 = V5 ； 輸出阻抗 ⇒ Zin = (Z1 · Z3 · Z5) / (Z2 · Z4)</text>
+</svg>

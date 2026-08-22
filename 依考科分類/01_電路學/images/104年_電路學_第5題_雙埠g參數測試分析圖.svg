@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <marker id="arr-c" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-r" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .val-c { font-family: monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-a { font-family: monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-r { font-family: monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-e { font-family: monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+  </style>
+
+  <rect width="920" height="540" rx="16" fill="url(#bg)"/>
+  <text x="460" y="38" text-anchor="middle" class="title" font-size="20">104 年 電路學 第五題：含相依源雙埠網絡 g 參數兩次測試分析圖</text>
+  <text x="460" y="60" text-anchor="middle" class="subtitle">定義：I1 = g11·V1 + g12·I2,  V2 = g21·V1 + g22·I2 (受控電壓源 100 I2)</text>
+
+  <!-- 左圖：測試條件 1 (I2 = 0 埠 2 開路) -->
+  <rect x="25" y="80" width="420" height="435" class="box"/>
+  <text x="45" y="110" class="title" font-size="16" fill="#38bdf8">【測試 1】令 I2 = 0 (埠 2 開路)</text>
+  <text x="45" y="130" font-family="sans-serif" font-size="12" fill="#94a3b8">I2 = 0 ⇒ 100 I2 = 0V (中間短路接地) ⇒ g21 = 0, g11 = 1/(20+j10)</text>
+
+  <!-- 埠 1 測試線路 -->
+  <path d="M 60 210 L 230 210" class="wire"/>
+  <rect x="90" y="200" width="40" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="110" y="215" text-anchor="middle" class="val-a" font-size="11">20Ω</text>
+  <rect x="145" y="200" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="167" y="215" text-anchor="middle" class="val-a" font-size="11">j10Ω</text>
+
+  <!-- 中間接地相依源 (變 0V 短路) -->
+  <path d="M 230 210 L 230 430" class="wire" stroke="#38bdf8" stroke-width="2.5"/>
+  <circle cx="230" cy="210" r="4" fill="#38bdf8"/>
+  <text x="230" y="200" text-anchor="middle" class="val-c" font-size="12">Vmid = 0 V</text>
+  <polygon points="230,290 250,315 230,340 210,315" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
+  <text x="230" y="320" text-anchor="middle" class="val-c" font-size="11">0 V</text>
+
+  <!-- 右側 500Ω 與 -j50Ω (無激勵，V2 = 0) -->
+  <path d="M 230 210 L 380 210" class="wire"/>
+  <rect x="270" y="200" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="292" y="215" text-anchor="middle" class="val-a" font-size="11">500Ω</text>
+  <path d="M 380 210 L 380 430" class="wire"/>
+  <rect x="365" y="295" width="30" height="40" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="380" y="320" text-anchor="middle" class="val-a" font-size="11">-j50Ω</text>
+
+  <path d="M 60 430 L 380 430" class="wire"/>
+  <circle cx="60" cy="210" r="4" fill="#38bdf8"/><circle cx="60" cy="430" r="4" fill="#38bdf8"/>
+  <text x="45" y="215" class="val-c">V1</text>
+  <circle cx="380" cy="210" r="4" fill="#f43f5e"/><circle cx="380" cy="430" r="4" fill="#f43f5e"/>
+  <text x="395" y="215" class="val-r">V2=0</text>
+
+  <rect x="45" y="465" width="380" height="35" fill="#0f172a" stroke="#38bdf8" rx="6"/>
+  <text x="235" y="488" text-anchor="middle" class="val-c" font-size="13">g11 = 0.04 - j0.02 S ,  g21 = 0</text>
+
+  <!-- 右圖：測試條件 2 (V1 = 0 埠 1 短路) -->
+  <rect x="475" y="80" width="420" height="435" class="box"/>
+  <text x="495" y="110" class="title" font-size="16" fill="#f59e0b">【測試 2】令 V1 = 0 (埠 1 短路)</text>
+  <text x="495" y="130" font-family="sans-serif" font-size="12" fill="#94a3b8">埠 2 外加 I2 ⇒ Vmid = 100 I2 ⇒ I1 = -100I2 / (20+j10)</text>
+
+  <!-- 埠 1 短路 -->
+  <line x1="510" y1="210" x2="510" y2="430" class="wire" stroke="#38bdf8" stroke-width="2.5"/>
+  <text x="500" y="325" text-anchor="middle" class="val-c" transform="rotate(-90 500 325)">V1 短路 (0 V)</text>
+
+  <path d="M 510 210 L 680 210" class="wire"/>
+  <rect x="540" y="200" width="40" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="560" y="215" text-anchor="middle" class="val-a" font-size="11">20Ω</text>
+  <rect x="595" y="200" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="617" y="215" text-anchor="middle" class="val-a" font-size="11">j10Ω</text>
+
+  <!-- 相依源 Vmid = 100 I2 -->
+  <path d="M 680 210 L 680 430" class="wire"/>
+  <polygon points="680,285 705,315 680,345 655,315" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <text x="680" y="318" text-anchor="middle" class="val-a" font-size="11">100 I2</text>
+  <circle cx="680" cy="210" r="4" fill="#f59e0b"/>
+  <text x="680" y="198" text-anchor="middle" class="val-a" font-size="11">Vmid = 100 I2</text>
+
+  <!-- 埠 2 注入 I2 -->
+  <path d="M 680 210 L 830 210" class="wire"/>
+  <rect x="720" y="200" width="45" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="742" y="215" text-anchor="middle" class="val-a" font-size="11">500Ω</text>
+  <path d="M 830 210 L 830 430" class="wire"/>
+  <rect x="815" y="295" width="30" height="40" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="830" y="320" text-anchor="middle" class="val-a" font-size="11">-j50Ω</text>
+
+  <path d="M 510 430 L 830 430" class="wire"/>
+  <!-- I2 箭頭 -->
+  <line x1="860" y1="210" x2="835" y2="210" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arr-r)"/>
+  <text x="870" y="200" class="val-r" font-size="13">I2 (流入)</text>
+
+  <rect x="495" y="465" width="380" height="35" fill="#0f172a" stroke="#10b981" rx="6"/>
+  <text x="685" y="488" text-anchor="middle" class="val-e" font-size="12">g12 = -4 + j2 ,  g22 = 600(1-j10)/101 ≈ 5.94-j59.41 Ω</text>
+</svg>

@@ -1,0 +1,62 @@
+{
+  "total_md": 109,
+  "katex_issues": [
+    [
+      "./CLAUDE-SPEC.md",
+      70,
+      "\\end{aligned}$$",
+      "bare_latex"
+    ],
+    [
+      "./📝 個人題解與錯題本/05_電力系統/111年_電力系統_全卷完整詳細題解.md",
+      87,
+      "\\end{bmatrix}\\text{ pu}$$",
+      "bare_latex"
+    ],
+    [
+      "./📝 個人題解與錯題本/05_電力系統/112年_電力系統_全卷完整詳細題解.md",
+      195,
+      "\\end{bmatrix}\\text{ pu}$$",
+      "bare_latex"
+    ],
+    [
+      "./📝 個人題解與錯題本/05_電力系統/106年_電力系統_全卷完整詳細題解.md",
+      119,
+      "\\end{bmatrix}\\text{ pu}$$",
+      "bare_latex"
+    ],
+    [
+      "./📝 個人題解與錯題本/05_電力系統/104年_電力系統_全卷完整詳細題解.md",
+      119,
+      "\\end{bmatrix}\\text{ pu}$$",
+      "bare_latex"
+    ],
+    [
+      "./🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",
+      19,
+      "\\text{戴維寧等效：} \\quad & V_{th} = V_{oc}, \\quad R_{th} = \\frac{V_{oc}}{I_{sc}} \\\\",
+      "bare_latex"
+    ],
+    [
+      "./🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",
+      20,
+      "\\text{諾頓等效：} \\quad & I_N = I_{sc}, \\quad R_N = R_{th} \\\\",
+      "bare_latex"
+    ],
+    [
+      "./🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",
+      21,
+      "\\text{最大功率轉移：} \\quad & P_{\\max} = \\frac{V_{th}^2}{4 R_{th}} = \\frac{I_N^2 R_N}{4}",
+      "bare_latex"
+    ],
+    [
+      "./🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",
+      22,
+      "\\end{aligned}$$",
+      "bare_latex"
+    ]
+  ],
+  "image_issues": [],
+  "warn_missing": [],
+  "fault_files_count": 36
+}

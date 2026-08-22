@@ -1,0 +1,212 @@
+#!/usr/bin/env python3
+import os
+
+def create_svg():
+    svg_content = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+  <defs>
+    <!-- 漸層與濾鏡 -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="glow-amber" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- 箭頭標記 -->
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 600; fill: #e2e8f0; }
+    .val-cyan { font-family: "Courier New", Courier, monospace; font-size: 14px; font-weight: 700; fill: #38bdf8; }
+    .val-amber { font-family: "Courier New", Courier, monospace; font-size: 14px; font-weight: 700; fill: #f59e0b; }
+    .val-rose { font-family: "Courier New", Courier, monospace; font-size: 14px; font-weight: 700; fill: #f43f5e; }
+    .val-emerald { font-family: "Courier New", Courier, monospace; font-size: 14px; font-weight: 700; fill: #10b981; }
+    .wire { stroke: #94a3b8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; fill: none; }
+    .box-frame { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-grad-1); }
+    .note-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #cbd5e1; }
+  </style>
+
+  <!-- 背景 -->
+  <rect width="950" height="560" rx="16" fill="url(#bg-grad)"/>
+  
+  <!-- 頂部標題區 -->
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">107 年 電路學 第四題：4:1 理想變壓器戴維寧等效 (Rth &amp; Voc) 拓撲標定圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">同名端反向配置 (Primary: Top Dot • , Secondary: Bottom Dot • ) 暨 測試源分析法</text>
+
+  <!-- ======================== 左側卡片：圖 (A) 開路電壓 Voc 分析 ======================== -->
+  <rect x="25" y="80" width="435" height="455" class="box-frame"/>
+  <text x="45" y="110" class="title" font-size="16" fill="#38bdf8">【圖 A】開路電壓 Voc 求解 (RL 斷開)</text>
+  <text x="45" y="130" class="note-text">副邊開路 ⇒ I2 = 0 ⇒ 原邊 I1 = 0 ⇒ 20Ω 壓降 = 0 V</text>
+
+  <!-- 左圖電路線條 -->
+  <!-- 原邊電源 -->
+  <circle cx="80" cy="270" r="22" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="80" y="275" text-anchor="middle" class="val-cyan" font-size="13">Vs</text>
+  <text x="80" y="253" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="bold">+</text>
+  <text x="80" y="287" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="bold">−</text>
+  <text x="80" y="310" text-anchor="middle" class="val-cyan" font-size="11">840∠0° V</text>
+
+  <!-- 頂部 60Ω -->
+  <path d="M 80 248 L 80 180 L 140 180" class="wire"/>
+  <rect x="140" y="170" width="40" height="20" fill="#334155" stroke="#f59e0b" stroke-width="1.5" rx="3"/>
+  <text x="160" y="185" text-anchor="middle" class="val-amber" font-size="12">60 Ω</text>
+  <path d="M 180 180 L 230 180 L 230 210" class="wire"/>
+
+  <!-- 原邊繞組 (4 匝) -->
+  <path d="M 230 210 A 10 10 0 0 1 230 230 A 10 10 0 0 1 230 250 A 10 10 0 0 1 230 270 A 10 10 0 0 1 230 290" fill="none" stroke="#f43f5e" stroke-width="2.5"/>
+  <circle cx="215" cy="215" r="4.5" fill="#f43f5e" filter="url(#glow-cyan)"/>
+  <text x="205" y="218" text-anchor="end" class="val-rose" font-size="12">● (點)</text>
+  <text x="215" y="255" text-anchor="end" class="val-rose" font-size="13">N1=4</text>
+  <text x="215" y="275" text-anchor="end" class="val-cyan" font-size="12">V1=840V</text>
+
+  <!-- 鐵芯雙豎線 -->
+  <line x1="250" y1="205" x2="250" y2="335" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="255" y1="205" x2="255" y2="335" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- 副邊繞組 (1 匝) -->
+  <path d="M 275 220 A 15 15 0 0 1 275 250 A 15 15 0 0 1 275 280" fill="none" stroke="#10b981" stroke-width="2.5"/>
+  <circle cx="290" cy="280" r="4.5" fill="#10b981"/>
+  <text x="300" y="285" text-anchor="start" class="val-emerald" font-size="12">● (點)</text>
+  <text x="300" y="245" text-anchor="start" class="val-emerald" font-size="13">N2=1</text>
+  <text x="300" y="265" text-anchor="start" class="val-rose" font-size="12">V2= -210V</text>
+
+  <!-- 中間交會點 (20Ω 頂部) -->
+  <path d="M 230 290 L 230 350 L 275 350 L 275 280" class="wire"/>
+  <circle cx="252" cy="350" r="4" fill="#38bdf8"/>
+  <text x="252" y="340" text-anchor="middle" class="val-cyan" font-size="11">Vmid = 0 V</text>
+  
+  <!-- 20Ω 電阻 -->
+  <path d="M 252 350 L 252 375" class="wire"/>
+  <rect x="242" y="375" width="20" height="40" fill="#334155" stroke="#f59e0b" stroke-width="1.5" rx="3"/>
+  <text x="270" y="400" text-anchor="start" class="val-amber" font-size="12">20 Ω</text>
+  <path d="M 252 415 L 252 460" class="wire"/>
+
+  <!-- 底部地線 -->
+  <path d="M 80 292 L 80 460 L 410 460" class="wire"/>
+
+  <!-- 端點 a 與 b -->
+  <path d="M 275 220 L 410 220" class="wire"/>
+  <circle cx="410" cy="220" r="5" fill="#f43f5e"/>
+  <text x="425" y="225" class="val-rose" font-size="14">a (Va = -210 V)</text>
+
+  <circle cx="410" cy="460" r="5" fill="#38bdf8"/>
+  <text x="425" y="465" class="val-cyan" font-size="14">b (0 V, 接地)</text>
+
+  <!-- 開路電壓標示 -->
+  <line x1="390" y1="235" x2="390" y2="445" stroke="#f43f5e" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-rose)"/>
+  <text x="380" y="340" text-anchor="end" class="val-rose" font-size="14" font-weight="bold">Voc = -210 V</text>
+  <rect x="45" y="480" width="395" height="40" fill="#0f172a" stroke="#38bdf8" rx="6"/>
+  <text x="242" y="505" text-anchor="middle" class="val-cyan" font-size="13">開路電壓幅值：|Voc| = 210 V (rms)</text>
+
+
+  <!-- ======================== 右側卡片：圖 (B) 測試源求 Rth 分析 ======================== -->
+  <rect x="490" y="80" width="435" height="455" class="box-frame"/>
+  <text x="510" y="110" class="title" font-size="16" fill="#f59e0b">【圖 B】戴維寧電阻 Rth 求解 (外加測試源 It)</text>
+  <text x="510" y="130" class="note-text">Vs 短路 ⇒ 端點 a 注入 It ⇒ 原邊電流 I1 = It/4</text>
+
+  <!-- 原邊短路點 -->
+  <line x1="545" y1="210" x2="545" y2="460" class="wire"/>
+  <text x="540" y="335" text-anchor="middle" class="val-cyan" font-size="11" transform="rotate(-90 540 335)">Vs 短路 (0 V)</text>
+
+  <!-- 頂部 60Ω (有電流 I1 = It/4) -->
+  <path d="M 545 210 L 605 210" class="wire"/>
+  <rect x="605" y="200" width="40" height="20" fill="#334155" stroke="#f59e0b" stroke-width="1.5" rx="3"/>
+  <text x="625" y="215" text-anchor="middle" class="val-amber" font-size="12">60 Ω</text>
+  <!-- 電流箭頭 I1 -->
+  <line x1="565" y1="195" x2="600" y2="195" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+  <text x="580" y="188" text-anchor="middle" class="val-cyan" font-size="11">I1 = It/4</text>
+
+  <path d="M 645 210 L 695 210 L 695 230" class="wire"/>
+
+  <!-- 原邊繞組 -->
+  <path d="M 695 230 A 10 10 0 0 1 695 250 A 10 10 0 0 1 695 270 A 10 10 0 0 1 695 290 A 10 10 0 0 1 695 310" fill="none" stroke="#f43f5e" stroke-width="2.5"/>
+  <circle cx="680" cy="235" r="4.5" fill="#f43f5e"/>
+  <text x="680" y="275" text-anchor="end" class="val-rose" font-size="12">V1 = -40 It</text>
+
+  <!-- 鐵芯雙豎線 -->
+  <line x1="715" y1="225" x2="715" y2="355" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="720" y1="225" x2="720" y2="355" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- 副邊繞組 -->
+  <path d="M 740 240 A 15 15 0 0 1 740 270 A 15 15 0 0 1 740 300" fill="none" stroke="#10b981" stroke-width="2.5"/>
+  <circle cx="755" cy="300" r="4.5" fill="#10b981"/>
+  <text x="765" y="265" text-anchor="start" class="val-emerald" font-size="12">V2 = +10 It</text>
+  <text x="765" y="285" text-anchor="start" class="val-rose" font-size="11">(-V1 / 4)</text>
+
+  <!-- 中間交會點 (20Ω 頂部，流入 1.25 It) -->
+  <path d="M 695 310 L 695 360 L 740 360 L 740 300" class="wire"/>
+  <circle cx="717" cy="360" r="4" fill="#f59e0b"/>
+  <text x="717" y="350" text-anchor="middle" class="val-amber" font-size="11">Vmid = 25 It</text>
+  
+  <!-- 20Ω 電阻 -->
+  <path d="M 717 360 L 717 380" class="wire"/>
+  <rect x="707" y="380" width="20" height="40" fill="#334155" stroke="#f59e0b" stroke-width="1.5" rx="3"/>
+  <text x="735" y="405" text-anchor="start" class="val-amber" font-size="12">20 Ω</text>
+  <!-- 電流箭頭 1.25 It -->
+  <line x1="695" y1="375" x2="695" y2="415" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-amber)"/>
+  <text x="690" y="398" text-anchor="end" class="val-amber" font-size="11">1.25 It</text>
+  <path d="M 717 420 L 717 460" class="wire"/>
+
+  <!-- 底部地線 -->
+  <path d="M 545 460 L 870 460" class="wire"/>
+
+  <!-- 測試源連接 -->
+  <path d="M 740 240 L 870 240" class="wire"/>
+  <circle cx="870" cy="240" r="5" fill="#f43f5e"/>
+  <text x="880" y="235" class="val-rose" font-size="13">a</text>
+  
+  <circle cx="870" cy="460" r="5" fill="#38bdf8"/>
+  <text x="880" y="465" class="val-cyan" font-size="13">b</text>
+
+  <!-- 外加測試電流源 It -->
+  <circle cx="870" cy="350" r="20" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+  <line x1="870" y1="362" x2="870" y2="338" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arrow-rose)"/>
+  <text x="895" y="355" class="val-rose" font-size="13">It (測試源)</text>
+  <path d="M 870 240 L 870 330" class="wire"/>
+  <path d="M 870 370 L 870 460" class="wire"/>
+
+  <!-- 測試端電壓 Vt -->
+  <text x="835" y="300" text-anchor="end" class="val-emerald" font-size="13">Vt = V2 + Vmid</text>
+  <text x="835" y="320" text-anchor="end" class="val-emerald" font-size="13">= 10It + 25It = 35It</text>
+
+  <!-- 計算結果框 -->
+  <rect x="510" y="480" width="395" height="40" fill="#0f172a" stroke="#10b981" rx="6"/>
+  <text x="707" y="505" text-anchor="middle" class="val-emerald" font-size="13">Rth = Vt / It = 35 Ω ⇒ 最佳負載 RL = 35 Ω (Pmax = 315 W)</text>
+
+</svg>'''
+
+    target_dir = "/Users/a/技師考試/歷屆試題_104-114年/依考科分類/01_電路學/images"
+    os.makedirs(target_dir, exist_ok=True)
+    target_path = os.path.join(target_dir, "107年_電路學_第4題_理想變壓器與等效電阻分析圖.svg")
+    
+    with open(target_path, "w", encoding="utf-8") as f:
+        f.write(svg_content)
+    
+    print(f"✅ SVG generated: {target_path}")
+
+if __name__ == '__main__':
+    create_svg()

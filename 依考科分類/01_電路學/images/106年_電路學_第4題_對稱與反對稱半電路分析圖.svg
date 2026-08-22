@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <marker id="arr-r" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .val-c { font-family: monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-a { font-family: monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-r { font-family: monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-e { font-family: monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+  </style>
+
+  <rect width="920" height="540" rx="16" fill="url(#bg)"/>
+  <text x="460" y="38" text-anchor="middle" class="title" font-size="20">106 年 電路學 第四題：對稱模式 (Even) 與 反對稱模式 (Odd) 半電路分解圖</text>
+  <text x="460" y="60" text-anchor="middle" class="subtitle">分解原則：VL=30V, VR=60V ⇒ Even Mode (45V, 45V) + Odd Mode (-15V, +15V)</text>
+
+  <!-- 左圖：偶模式 (Even Mode 45V) -->
+  <rect x="25" y="80" width="420" height="435" class="box"/>
+  <text x="45" y="110" class="title" font-size="16" fill="#38bdf8">【偶模式】Ve = 45V (對稱軸開路)</text>
+  <text x="45" y="130" font-family="sans-serif" font-size="12" fill="#94a3b8">對稱線上無橫向電流 ⇒ 2Ω 與 3Ω 支路均等效開路 ⇒ Io,e = 0 A</text>
+
+  <!-- 45V 右電源 -->
+  <circle cx="370" cy="290" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="370" y="295" text-anchor="middle" class="val-c">45V</text>
+  <text x="370" y="265" text-anchor="middle" class="val-c">+</text>
+  <text x="370" y="325" text-anchor="middle" class="val-c">−</text>
+
+  <!-- 頂部與底部 1Ω -->
+  <path d="M 370 272 L 370 200 L 220 200" class="wire"/>
+  <rect x="270" y="190" width="40" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="290" y="205" text-anchor="middle" class="val-a">1 Ω</text>
+  <!-- 電流 Io,e 標記 -->
+  <text x="330" y="188" class="val-c">Io,e = 0 A</text>
+
+  <path d="M 370 308 L 370 380 L 220 380" class="wire"/>
+  <rect x="270" y="370" width="40" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="290" y="385" text-anchor="middle" class="val-a">1 Ω</text>
+
+  <!-- 對稱中軸開路 (懸空標記) -->
+  <circle cx="220" cy="200" r="4" fill="#64748b"/>
+  <line x1="220" y1="200" x2="160" y2="200" stroke="#64748b" stroke-dasharray="3,3" stroke-width="2"/>
+  <text x="175" y="190" fill="#64748b" font-size="11">開路(2Ω/2)</text>
+
+  <circle cx="220" cy="380" r="4" fill="#64748b"/>
+  <line x1="220" y1="380" x2="160" y2="380" stroke="#64748b" stroke-dasharray="3,3" stroke-width="2"/>
+  <text x="175" y="398" fill="#64748b" font-size="11">開路(2Ω/2)</text>
+
+  <rect x="45" y="465" width="380" height="35" fill="#0f172a" stroke="#38bdf8" rx="6"/>
+  <text x="235" y="488" text-anchor="middle" class="val-c" font-size="13">偶模式輸出電流： Io,e = 0 A</text>
+
+
+  <!-- 右圖：奇模式 (Odd Mode +15V) -->
+  <rect x="475" y="80" width="420" height="435" class="box"/>
+  <text x="495" y="110" class="title" font-size="16" fill="#f43f5e">【奇模式】Vo = 15V (對稱軸虛接地)</text>
+  <text x="495" y="130" font-family="sans-serif" font-size="12" fill="#94a3b8">對稱線上電位為 0V ⇒ 2Ω 半支路 1Ω 接地, 3Ω 半支路 1.5Ω 接地</text>
+
+  <!-- 15V 右電源 -->
+  <circle cx="820" cy="290" r="18" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+  <text x="820" y="295" text-anchor="middle" class="val-r">15V</text>
+  <text x="820" y="265" text-anchor="middle" class="val-r">+</text>
+  <text x="820" y="325" text-anchor="middle" class="val-r">−</text>
+
+  <!-- 頂部與底部 1Ω -->
+  <path d="M 820 272 L 820 200 L 670 200" class="wire"/>
+  <rect x="720" y="190" width="40" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="740" y="205" text-anchor="middle" class="val-a">1 Ω</text>
+  <!-- 電流 Io,o 標記 -->
+  <line x1="800" y1="188" x2="770" y2="188" stroke="#f43f5e" stroke-width="2" marker-end="url(#arr-r)"/>
+  <text x="785" y="178" class="val-r" font-size="11">Io,o</text>
+
+  <path d="M 820 308 L 820 380 L 670 380" class="wire"/>
+  <rect x="720" y="370" width="40" height="20" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="740" y="385" text-anchor="middle" class="val-a">1 Ω</text>
+
+  <!-- 節點 B 處 1Ω || 1.5Ω 接地 -->
+  <circle cx="670" cy="200" r="4" fill="#f59e0b"/>
+  <text x="680" y="195" class="val-a" font-size="12">節點 B</text>
+  <path d="M 670 200 L 670 270" class="wire"/>
+  <rect x="655" y="220" width="30" height="35" fill="#334155" stroke="#10b981" rx="3"/>
+  <text x="670" y="242" text-anchor="middle" class="val-e" font-size="11">0.6Ω</text>
+  <line x1="655" y1="270" x2="685" y2="270" class="wire"/>
+  <text x="700" y="242" class="val-e" font-size="10">(1 || 1.5)</text>
+
+  <!-- 節點 D 處 1Ω || 1.5Ω 接地 -->
+  <circle cx="670" cy="380" r="4" fill="#f59e0b"/>
+  <text x="680" y="395" class="val-a" font-size="12">節點 D</text>
+  <path d="M 670 380 L 670 310" class="wire"/>
+  <rect x="655" y="325" width="30" height="35" fill="#334155" stroke="#10b981" rx="3"/>
+  <text x="670" y="347" text-anchor="middle" class="val-e" font-size="11">0.6Ω</text>
+  <line x1="655" y1="310" x2="685" y2="310" class="wire"/>
+
+  <rect x="495" y="465" width="380" height="35" fill="#0f172a" stroke="#10b981" rx="6"/>
+  <text x="685" y="488" text-anchor="middle" class="val-e" font-size="13">Io = Io,e + Io,o = 0 + 15/(1+0.6+0.6+1) = 75/16 A ≈ 4.69 A</text>
+</svg>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>114 年 電機工程技師 — 工程數學 第五題 白話文詳解</title>
+  <!-- MathJax for rendering LaTeX math formulas -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --border: #334155;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.7;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 860px;
+      width: 100%;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 16px;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-box {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .highlight-box {
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-left: 4px solid var(--success);
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 0 8px 8px 0;
+      color: #e2e8f0;
+    }
+    .warning-box {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-left: 4px solid var(--warning);
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .math-block {
+      overflow-x: auto;
+      padding: 8px 0;
+      text-align: center;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #f472b6;
+    }
+    ul, ol {
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">⚡ 114 年 電機工程技師高考專技試題詳解</div>
+    <h1>工程數學 第五題 — 白話文手把手推導</h1>
+
+    <!-- 題目卡片 -->
+    <div class="card">
+      <div class="card-title">📌 題目與已知條件</div>
+      <p>假設矩陣 \(\mathbf{A} = \begin{bmatrix} 0 & -1 & 0 & 1 \\ 0 & 1 & -1 & 0 \end{bmatrix}\) 與向量 \(\mathbf{b} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\)：</p>
+      <ul>
+        <li><strong>(一)</strong> 求得線性方程式 \(\mathbf{A}\mathbf{x} = \mathbf{b}\) 之完整解（Complete Solution）。（20 分）</li>
+        <li><strong>(二)</strong> 求得矩陣 \(\mathbf{A}\) 之零空間（Null Space）\(N(\mathbf{A})\)。（10 分）</li>
+      </ul>
+    </div>
+
+    <!-- 白話文破題卡片 -->
+    <div class="card">
+      <div class="card-title">💡 30 秒白話文破題：這題到底在考什麼？</div>
+      <p>別被「矩陣」嚇到了！這題本質上就是<strong>國中學過的「解聯立方程式」</strong>：</p>
+      <p>我們設 4 個未知數為 \(\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \end{bmatrix}\)。</p>
+      <p>把矩陣乘法展開成一般人看得懂的方程式，其實<strong>只有兩句話</strong>：</p>
+      <div class="step-box">
+        <strong>第 1 式（第 1 列相乘）：</strong> \(-x_2 + x_4 = 0 \implies \mathbf{x_2 = x_4}\)（第 2 個未知數等於第 4 個未知數）<br>
+        <strong>第 2 式（第 2 列相乘）：</strong> \(x_2 - x_3 = 1 \implies \mathbf{x_3 = x_2 - 1}\)（第 3 個未知數比第 2 個未知數少 1）
+      </div>
+      <p>⚠️ <strong>核心邏輯：</strong> 未知數有 <strong>4 個</strong>，但條件只有 <strong>2 條</strong>！方程式不夠用，所以一定有「可以隨便代任何數字」的<strong>自由變數</strong>！</p>
+    </div>
+
+    <!-- 詳細步驟推導 -->
+    <div class="card">
+      <div class="card-title">✏️ 手把手帶你一步一步算</div>
+      
+      <h3 style="color: #38bdf8;">🔹 第 (一) 小題：求「完整解」（20 分）</h3>
+      <p>我們來看看 4 個未知數分別是誰：</p>
+      <ul>
+        <li><strong>\(x_1\) 呢？</strong> 👉 \(x_1\) 根本沒在方程式裡出現過！代表 \(x_1\) 愛等於多少就等於多少，完全不受限制（令 <strong>\(x_1 = c_1\)</strong>）。</li>
+        <li><strong>\(x_4\) 呢？</strong> 👉 \(x_4\) 也沒被限制，可以隨便代數字（令 <strong>\(x_4 = c_2\)</strong>）。</li>
+        <li><strong>\(x_2\) 呢？</strong> 👉 因為 \(x_2 = x_4\)，所以 <strong>\(x_2 = c_2\)</strong>。</li>
+        <li><strong>\(x_3\) 呢？</strong> 👉 因為 \(x_3 = x_2 - 1\)，所以 <strong>\(x_3 = c_2 - 1\)</strong>。</li>
+      </ul>
+
+      <p>把 4 個未知數寫成直立的向量：</p>
+      <div class="math-block">
+        $$\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \end{bmatrix} = \begin{bmatrix} c_1 \\ c_2 \\ -1 + c_2 \\ c_2 \end{bmatrix}$$
+      </div>
+
+      <p>拆成<strong>「純數字特解」+「\(c_1\) 乘的零件」+「\(c_2\) 乘的零件」</strong>：</p>
+      <div class="highlight-box">
+        $$\mathbf{x} = \underbrace{\begin{bmatrix} 0 \\ 0 \\ -1 \\ 0 \end{bmatrix}}_{\mathbf{x}_p \text{ (特解)}} + c_1 \underbrace{\begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}}_{\mathbf{v}_1} + c_2 \underbrace{\begin{bmatrix} 0 \\ 1 \\ 1 \\ 1 \end{bmatrix}}_{\mathbf{v}_2} \quad (c_1, c_2 \in \mathbb{R})$$
+      </div>
+
+      <hr style="border-color: var(--border); margin: 24px 0;">
+
+      <h3 style="color: #38bdf8;">🔹 第 (二) 小題：求「零空間 Null Space」（10 分）</h3>
+      <p><strong>什麼叫零空間？</strong></p>
+      <p>👉 零空間的定義就是：<strong>「如果把等號右邊的答案改成 0（即 \(\mathbf{A}\mathbf{x} = \mathbf{0}\)），解出來的東西是什麼？」</strong></p>
+      <p>既然等號右邊變成 \(0\) 了，前面的「純數字特解」就會變成 0 消失，只會留下 \(c_1\) 和 \(c_2$ 的那兩組方向向量：</p>
+      <div class="highlight-box">
+        $$N(\mathbf{A}) = \text{span}\left\{ \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \\ 1 \\ 1 \end{bmatrix} \right\} = \left\{ c_1 \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} + c_2 \begin{bmatrix} 0 \\ 1 \\ 1 \\ 1 \end{bmatrix} \ \Bigg|\ c_1, c_2 \in \mathbb{R} \right\}$$
+        <p style="margin: 8px 0 0 0; font-size: 0.95rem; color: #a7f3d0;">零空間維度（Nullity）為 \(\dim(N(\mathbf{A})) = 2\)。</p>
+      </div>
+    </div>
+
+    <!-- 考場避坑卡片 -->
+    <div class="card">
+      <div class="card-title">⚠️ 考場最容易被扣分的陷阱</div>
+      <div class="warning-box">
+        <strong>🚨 致命陷阱：以為 \(x_1 = 0\)</strong><br>
+        矩陣第 1 行全是 \(0\)，代表 \(x_1\) 完全不受任何限制，是獨立的自由變數（\(c_1 \in \mathbb{R}\)）。如果誤以為 \(x_1 = 0\) 漏掉 \(c_1 \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}\)，整題 30 分會直接被扣掉 15 分以上！
+      </div>
+    </div>
+  </div>
+</body>
+</html>

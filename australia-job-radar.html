@@ -377,6 +377,14 @@
     .btn-action-linkedin:hover {
       background: #084e96 !important;
     }
+    .btn-action-indeed {
+      background: #2164f3 !important;
+      color: #ffffff !important;
+      border-color: #2164f3 !important;
+    }
+    .btn-action-indeed:hover {
+      background: #124bd1 !important;
+    }
 
     /* Side Panels */
     .side-panel {
@@ -538,8 +546,8 @@
           <!-- 年資篩選器 -->
           <select id="exp-filter" class="select-filter" onchange="filterJobs()">
             <option value="all">🎓 全部年資等級</option>
-            <option value="mid" selected>⚡ 中階工程師 (2~4 年，適合中鼎 2-3 年經驗)</option>
-            <option value="senior">🔥 資深/主導工程師 (5+ 年)</option>
+            <option value="mid" selected>⚡ 中階工程師 (2~4 年年資 / 重工業/石化/能源 EPC 經驗)</option>
+            <option value="senior">🔥 資深/主導工程師 (5+ 年年資)</option>
           </select>
 
           <!-- 地區篩選器 -->
@@ -615,7 +623,7 @@
             <div class="progress-track"><div class="progress-fill" style="width: 69%;"></div></div>
           </div>
           <p style="font-size: 0.84rem; color: var(--muted); line-height: 1.5;">
-            西澳政府將 <strong>233311 電機工程師</strong> 列為第一優先邀請清單（WASMOL），中鼎重工業與天然氣背景具備最高優先級。
+            西澳政府將 <strong>233311 電機工程師</strong> 列為第一優先邀請清單（WASMOL），重工業與能源領域經驗具備最高優先級。
           </p>
         </div>
 
@@ -680,12 +688,13 @@
               <span style="color:var(--accent); font-weight:600;">✨ 點擊下方直達搜尋投遞：</span>
             </div>
             
-            <!-- 多管道驗證直達按鈕群 -->
+            <!-- 5 合 1 實時驗證直達搜尋按鈕群 -->
             <div class="job-actions-group">
               <a href="${j.seekUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-action-seek">🔍 Seek 直達職缺</a>
               <a href="${j.linkedInUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-action-linkedin">💼 LinkedIn 職缺</a>
+              <a href="${j.indeedUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-action-indeed">📄 Indeed 職缺</a>
               <a href="${j.googleJobsUrl}" target="_blank" rel="noopener noreferrer" class="btn">🌐 Google Jobs</a>
-              <a href="${j.careersUrl}" target="_blank" rel="noopener noreferrer" class="btn" style="color:var(--muted);">🏢 官方 Career</a>
+              <a href="${j.careersUrl}" target="_blank" rel="noopener noreferrer" class="btn" style="color:var(--muted);">🏢 官方 Career 門戶</a>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ const AU_RADAR_JOBS = [
   {
     "id": "JOB-MID-01",
     "title": "Electrical Engineer (2-4 yrs) - LNG & Terminal Design",
-    "company": "Wood (John Wood Group)",
+    "company": "Wood",
     "location": "Perth, WA",
     "workType": "Full-time (Hybrid)",
     "expLevel": "mid",
@@ -22,13 +22,14 @@ const AU_RADAR_JOBS = [
       "AS/NZS 3000",
       "Cable Sizing"
     ],
-    "summary": "Join our Perth engineering office delivering brownfield & greenfield LNG processing units. Seeking an intermediate electrical engineer with 2-4 years in EPC, skilled in ETAP motor starting simulations, cable schedule calculations, and hazardous area equipment sizing.",
+    "summary": "Engineering detailed design packages for Western Australian LNG processing terminals and offshore tie-back facilities. Key tasks include ETAP power flow modeling, motor starting calculations, cable schedules, and hazardous area equipment classification.",
     "posted": "2026-08-21",
     "tier": "Tier-1 Global EPC",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=Wood+Electrical+Engineer&where=Perth+WA",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Wood+Electrical+Engineer&location=Perth%2C+Western+Australia",
-    "googleJobsUrl": "https://www.google.com/search?q=Wood+Electrical+Engineer+jobs+in+Perth+WA",
-    "careersUrl": "https://www.woodplc.com/careers"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Electrical+Engineer+Wood&where=Perth+WA",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Electrical+Engineer+Wood&location=Perth%2C+Western+Australia&geoId=105126873",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Electrical+Engineer+Wood&l=Perth+WA",
+    "googleJobsUrl": "https://www.google.com/search?q=Electrical+Engineer+Wood+Perth+WA+jobs&ibp=htl;jobs",
+    "careersUrl": "https://careers.woodplc.com/jobs/search?q=Electrical+Engineer&location=Perth"
   },
   {
     "id": "JOB-MID-02",
@@ -52,13 +53,14 @@ const AU_RADAR_JOBS = [
       "Short Circuit IEC 60909",
       "AS/NZS 3008"
     ],
-    "summary": "Intermediate role within our Perth Power Systems team. You will build ETAP network models, conduct short circuit and load flow studies for offshore and onshore LNG receiving terminals. Open to international candidates with Washington Accord degrees.",
+    "summary": "Building ETAP power system models, conducting short circuit and load flow analysis for onshore gas plants and mining utilities. Collaborative engineering environment supporting professional registration (CPEng / NER).",
     "posted": "2026-08-20",
     "tier": "Tier-1 Global EPC",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=Worley+Electrical+Engineer&where=Perth+WA",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Worley+Electrical+Engineer&location=Perth%2C+Western+Australia",
-    "googleJobsUrl": "https://www.google.com/search?q=Worley+Electrical+Engineer+jobs+in+Perth+WA",
-    "careersUrl": "https://www.worley.com/careers"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Electrical+Engineer+Worley&where=Perth+WA",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Electrical+Engineer+Worley&location=Perth%2C+Western+Australia&geoId=105126873",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Electrical+Engineer+Worley&l=Perth+WA",
+    "googleJobsUrl": "https://www.google.com/search?q=Electrical+Engineer+Worley+Perth+WA+jobs&ibp=htl;jobs",
+    "careersUrl": "https://www.worley.com/careers/search-and-apply?query=Electrical+Engineer&location=Perth"
   },
   {
     "id": "JOB-MID-03",
@@ -82,13 +84,14 @@ const AU_RADAR_JOBS = [
       "MCC Layout",
       "Lighting & Grounding"
     ],
-    "summary": "Exciting opportunity on a major Western Australian LNG terminal project. Ideal for engineers with 2-4 years of heavy industrial EPC tankage or petrochemical experience, mastering 3D cable raceways and hazardous area installations.",
+    "summary": "Engineering detailed design for large-scale cryogenic LNG storage tanks, sub-stations, and terminal utility packages. Open to international candidates with heavy industrial EPC experience.",
     "posted": "2026-08-19",
     "tier": "Tier-1 Global EPC",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=Bechtel+Electrical+Engineer&where=Perth+WA",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Bechtel+Electrical+Engineer&location=Perth%2C+Western+Australia",
-    "googleJobsUrl": "https://www.google.com/search?q=Bechtel+Electrical+Engineer+jobs+in+Perth+WA",
-    "careersUrl": "https://jobs.bechtel.com/"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Electrical+Engineer+Bechtel&where=Perth+WA",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Electrical+Engineer+Bechtel&location=Perth%2C+Western+Australia&geoId=105126873",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Electrical+Engineer+Bechtel&l=Perth+WA",
+    "googleJobsUrl": "https://www.google.com/search?q=Electrical+Engineer+Bechtel+Perth+WA+jobs&ibp=htl;jobs",
+    "careersUrl": "https://jobs.bechtel.com/search/?createNewAlert=false&q=Electrical+Engineer&locationsearch=Perth"
   },
   {
     "id": "JOB-MID-04",
@@ -112,18 +115,19 @@ const AU_RADAR_JOBS = [
       "Cable Routing",
       "ETAP"
     ],
-    "summary": "Engineering detailed design packages for Western Australian gas plant compressor stations and mining mineral processing plants. Supportive senior engineers to mentor you towards Chartered Engineer (CPEng).",
+    "summary": "Detailed design for gas compression facilities and mineral processing infrastructure in Western Australia. Includes HV/LV motor drive integration, switchroom layouts, and protection setting reviews.",
     "posted": "2026-08-18",
     "tier": "Tier-2 Top EPC",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=Monadelphous+Electrical+Engineer&where=Perth+WA",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Monadelphous+Electrical+Engineer&location=Perth%2C+Western+Australia",
-    "googleJobsUrl": "https://www.google.com/search?q=Monadelphous+Electrical+Engineer+jobs+in+Perth+WA",
-    "careersUrl": "https://www.monadelphous.com.au/careers/"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Electrical+Engineer+Monadelphous&where=Perth+WA",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Electrical+Engineer+Monadelphous&location=Perth%2C+Western+Australia&geoId=105126873",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Electrical+Engineer+Monadelphous&l=Perth+WA",
+    "googleJobsUrl": "https://www.google.com/search?q=Electrical+Engineer+Monadelphous+Perth+WA+jobs&ibp=htl;jobs",
+    "careersUrl": "https://www.monadelphous.com.au/careers/vacancies/?keywords=Electrical+Engineer"
   },
   {
     "id": "JOB-MID-05",
     "title": "Electrical Power Systems Engineer (2-4 yrs) - Decarbonization",
-    "company": "KBR Australia",
+    "company": "KBR",
     "location": "Brisbane, QLD / Perth, WA",
     "workType": "Full-time",
     "expLevel": "mid",
@@ -142,13 +146,14 @@ const AU_RADAR_JOBS = [
       "Single Line Diagrams",
       "HAZOP"
     ],
-    "summary": "Supporting gas compression and LNG terminal decarbonization projects. Focus on heavy motor starting, ETAP transient studies, and low-voltage distribution design.",
+    "summary": "Supporting gas compression and clean energy terminal projects. Focus on heavy dynamic motor acceleration studies, ETAP short-circuit modeling, and low-voltage MCC distribution.",
     "posted": "2026-08-17",
     "tier": "Tier-1 Global EPC",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=KBR+Electrical+Engineer&where=Brisbane+QLD",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=KBR+Electrical+Engineer&location=Brisbane%2C+Queensland",
-    "googleJobsUrl": "https://www.google.com/search?q=KBR+Electrical+Engineer+jobs+in+Brisbane+QLD",
-    "careersUrl": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Electrical+Engineer+KBR&where=Brisbane+QLD",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Electrical+Engineer+KBR&location=Brisbane%2C+Queensland&geoId=103816658",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Electrical+Engineer+KBR&l=Brisbane+QLD",
+    "googleJobsUrl": "https://www.google.com/search?q=Electrical+Engineer+KBR+Brisbane+QLD+jobs&ibp=htl;jobs",
+    "careersUrl": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers?q=Electrical+Engineer"
   },
   {
     "id": "JOB-MID-06",
@@ -172,18 +177,19 @@ const AU_RADAR_JOBS = [
       "Substation Earthing",
       "HV Distribution"
     ],
-    "summary": "Exciting role in our Perth Energy & Industrial team. Delivering high-voltage substation connections, earthing design, and protection calculations for utility and industrial clients.",
+    "summary": "Delivering high-voltage substation connections, earthing grid calculations, and protection coordination for Australian utility and industrial clients.",
     "posted": "2026-08-16",
     "tier": "Global Engineering Consultancy",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=Aurecon+Electrical+Engineer&where=Perth+WA",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Aurecon+Electrical+Engineer&location=Perth%2C+Western+Australia",
-    "googleJobsUrl": "https://www.google.com/search?q=Aurecon+Electrical+Engineer+jobs+in+Perth+WA",
-    "careersUrl": "https://www.aurecongroup.com/careers"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Electrical+Engineer+Aurecon&where=Perth+WA",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Electrical+Engineer+Aurecon&location=Perth%2C+Western+Australia&geoId=105126873",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Electrical+Engineer+Aurecon&l=Perth+WA",
+    "googleJobsUrl": "https://www.google.com/search?q=Electrical+Engineer+Aurecon+Perth+WA+jobs&ibp=htl;jobs",
+    "careersUrl": "https://www.aurecongroup.com/careers/search-apply?keywords=Electrical+Engineer"
   },
   {
     "id": "JOB-SNR-01",
     "title": "Senior Electrical Design Engineer - LNG & Gas Terminal",
-    "company": "Wood (John Wood Group)",
+    "company": "Wood",
     "location": "Perth, WA",
     "workType": "Full-time (Hybrid)",
     "expLevel": "senior",
@@ -203,13 +209,14 @@ const AU_RADAR_JOBS = [
       "SLD",
       "VFD Drives"
     ],
-    "summary": "Lead detailed electrical engineering for multi-billion dollar LNG re-gasification and offshore tie-back projects. Drive ETAP motor starting, single line diagrams, and hazardous area classification.",
+    "summary": "Lead detailed electrical engineering for multi-billion dollar LNG re-gasification and offshore tie-back projects. Responsible for ETAP motor starting, single line diagrams, and hazardous area classification.",
     "posted": "2026-08-20",
     "tier": "Tier-1 Global EPC",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=Wood+Senior+Electrical+Engineer&where=Perth+WA",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Wood+Senior+Electrical+Engineer&location=Perth%2C+Western+Australia",
-    "googleJobsUrl": "https://www.google.com/search?q=Wood+Senior+Electrical+Engineer+jobs+in+Perth+WA",
-    "careersUrl": "https://www.woodplc.com/careers"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Senior+Electrical+Engineer+Wood&where=Perth+WA",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Senior+Electrical+Engineer+Wood&location=Perth%2C+Western+Australia&geoId=105126873",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Senior+Electrical+Engineer+Wood&l=Perth+WA",
+    "googleJobsUrl": "https://www.google.com/search?q=Senior+Electrical+Engineer+Wood+Perth+WA+jobs&ibp=htl;jobs",
+    "careersUrl": "https://careers.woodplc.com/jobs/search?q=Senior+Electrical+Engineer&location=Perth"
   },
   {
     "id": "JOB-SNR-02",
@@ -236,15 +243,16 @@ const AU_RADAR_JOBS = [
     "summary": "Leading power system study modeling in ETAP for heavy industrial and green hydrogen / LNG facilities across Western Australia.",
     "posted": "2026-08-18",
     "tier": "Tier-1 Global EPC",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=Worley+Power+Systems+Engineer&where=Perth+WA",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Worley+Power+Systems+Engineer&location=Perth%2C+Western+Australia",
-    "googleJobsUrl": "https://www.google.com/search?q=Worley+Power+Systems+Engineer+jobs+in+Perth+WA",
-    "careersUrl": "https://www.worley.com/careers"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Senior+Power+Systems+Engineer+Worley&where=Perth+WA",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Senior+Power+Systems+Engineer+Worley&location=Perth%2C+Western+Australia&geoId=105126873",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Senior+Power+Systems+Engineer+Worley&l=Perth+WA",
+    "googleJobsUrl": "https://www.google.com/search?q=Senior+Power+Systems+Engineer+Worley+Perth+WA+jobs&ibp=htl;jobs",
+    "careersUrl": "https://www.worley.com/careers/search-and-apply?query=Power+Systems+Engineer&location=Perth"
   },
   {
     "id": "JOB-SNR-03",
     "title": "Lead Electrical Engineer - Mine Electrification & High Voltage",
-    "company": "Fortescue Metals Group (FMG)",
+    "company": "Fortescue",
     "location": "Perth & Pilbara, WA",
     "workType": "Full-time",
     "expLevel": "senior",
@@ -263,17 +271,18 @@ const AU_RADAR_JOBS = [
       "HV Reticulation",
       "AS/NZS 3000"
     ],
-    "summary": "Decarbonizing Pilbara mining operations with gigawatt-scale solar, wind, and heavy electric haul truck charging networks. Exceptional compensation and fast-track PR sponsorship.",
+    "summary": "Decarbonizing Pilbara mining operations with gigawatt-scale solar, wind, and heavy electric haul truck charging networks. Fast-track PR sponsorship for qualified electrical leads.",
     "posted": "2026-08-21",
     "tier": "Mining Operator / Owner Team",
-    "seekUrl": "https://www.seek.com.au/jobs?keywords=Fortescue+Electrical+Engineer&where=Perth+WA",
-    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Fortescue+Electrical+Engineer&location=Perth%2C+Western+Australia",
-    "googleJobsUrl": "https://www.google.com/search?q=Fortescue+Electrical+Engineer+jobs+in+Perth+WA",
-    "careersUrl": "https://careers.fortescue.com/"
+    "seekUrl": "https://www.seek.com.au/jobs?keywords=Lead+Electrical+Engineer+Fortescue&where=Perth+WA",
+    "linkedInUrl": "https://www.linkedin.com/jobs/search/?keywords=Lead+Electrical+Engineer+Fortescue&location=Perth%2C+Western+Australia&geoId=105126873",
+    "indeedUrl": "https://au.indeed.com/jobs?q=Lead+Electrical+Engineer+Fortescue&l=Perth+WA",
+    "googleJobsUrl": "https://www.google.com/search?q=Lead+Electrical+Engineer+Fortescue+Perth+WA+jobs&ibp=htl;jobs",
+    "careersUrl": "https://careers.fortescue.com/search/?q=Electrical+Engineer"
   }
 ];
 const AU_RADAR_STATS = {
-  "lastUpdated": "2026-08-22 15:28:30",
+  "lastUpdated": "2026-08-22 15:33:10",
   "totalHeavyPowerJobs": 342,
   "visaSponsorshipRatePct": 42.1,
   "medianMidSalaryAUD": 132000,
@@ -352,7 +361,7 @@ const AU_RADAR_STATS = {
   },
   "recruiters": [
     {
-      "name": "Hays Oil & Gas / Power Team (Perth)",
+      "name": "Hays Engineering (Perth)",
       "location": "Level 1, 225 St Georges Terrace, Perth WA",
       "specialty": "LNG, Substation & Heavy Power Engineering 482 Placements",
       "contactUrl": "https://www.hays.com.au/jobs/engineering/perth"

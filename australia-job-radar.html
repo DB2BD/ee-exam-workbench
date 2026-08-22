@@ -26,7 +26,8 @@
       --warn: #f59e0b;
       --warn-bg: rgba(245, 158, 11, 0.12);
       --rose: #f43f5e;
-      --purple: #a855f7;
+      --purple: #8b5cf6;
+      --purple-bg: rgba(139, 92, 246, 0.15);
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
@@ -144,7 +145,7 @@
 
     /* Container */
     .container {
-      max-width: 1400px;
+      max-width: 1440px;
       width: 100%;
       margin: 0 auto;
       padding: 32px 24px;
@@ -185,7 +186,7 @@
       gap: 6px;
     }
     .kpi-val {
-      font-size: 1.9rem;
+      font-size: 1.85rem;
       font-weight: 800;
       color: var(--ink);
       margin: 8px 0 4px 0;
@@ -212,7 +213,7 @@
     }
     .dashboard-grid {
       display: grid;
-      grid-template-columns: 2.1fr 1fr;
+      grid-template-columns: 2.2fr 1fr;
       gap: 28px;
       margin-bottom: 36px;
     }
@@ -232,7 +233,7 @@
     }
     .search-input {
       flex: 1;
-      min-width: 240px;
+      min-width: 220px;
       padding: 9px 14px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--line);
@@ -259,7 +260,7 @@
     .job-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
     .job-card {
       background: var(--bg-card);
@@ -270,7 +271,7 @@
       transition: all 0.2s;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
     .job-card:hover {
       border-color: var(--accent);
@@ -284,7 +285,7 @@
       gap: 12px;
     }
     .job-title {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--accent);
     }
@@ -292,33 +293,38 @@
       font-size: 0.95rem;
       font-weight: 700;
       color: var(--ink-light);
-      margin-top: 2px;
+      margin-top: 3px;
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      padding: 3px 8px;
+      padding: 3px 10px;
       border-radius: 9999px;
     }
+    .badge-exp-mid { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple); }
+    .badge-exp-senior { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn); }
     .badge-visa { background: var(--success-bg); color: var(--success); border: 1px solid var(--success); }
     .badge-reloc { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent); }
-    .badge-tier { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn); }
+    .badge-tier { background: var(--bg-secondary); color: var(--ink); border: 1px solid var(--line); }
+
     .job-salary {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-      font-weight: 700;
+      font-size: 1.05rem;
+      font-weight: 800;
       color: var(--success);
+      white-space: nowrap;
     }
     .job-summary {
-      font-size: 0.92rem;
+      font-size: 0.93rem;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .job-skills {
       display: flex;
@@ -336,15 +342,40 @@
     }
     .job-footer {
       display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      margin-top: 2px;
+    }
+    .job-footer-meta {
+      display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 10px;
-      border-top: 1px solid var(--line);
-      margin-top: 4px;
-    }
-    .job-date {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--muted);
+    }
+    .job-actions-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn-action-seek {
+      background: #e60278 !important;
+      color: #ffffff !important;
+      border-color: #e60278 !important;
+    }
+    .btn-action-seek:hover {
+      background: #c20265 !important;
+    }
+    .btn-action-linkedin {
+      background: #0a66c2 !important;
+      color: #ffffff !important;
+      border-color: #0a66c2 !important;
+    }
+    .btn-action-linkedin:hover {
+      background: #084e96 !important;
     }
 
     /* Side Panels */
@@ -468,20 +499,20 @@
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-label">⚡ 全澳活躍重電/天然氣職缺</div>
-        <div class="kpi-val" id="kpi-total-jobs">284</div>
-        <div class="kpi-sub">📍 西澳 (Perth) 佔 62% 職缺量</div>
+        <div class="kpi-val" id="kpi-total-jobs">342</div>
+        <div class="kpi-sub">📍 西澳 (Perth) 佔 64% 職缺量</div>
       </div>
 
       <div class="kpi-card">
         <div class="kpi-label">✈️ 482 雇主擔保支援率</div>
-        <div class="kpi-val" id="kpi-visa-rate">38.5%</div>
+        <div class="kpi-val" id="kpi-visa-rate">42.1%</div>
         <div class="kpi-sub">🔥 跨國 EPC 提供搬遷機票補貼</div>
       </div>
 
       <div class="kpi-card">
-        <div class="kpi-label">💰 資深工程師薪資中位數</div>
-        <div class="kpi-val">$158,000</div>
-        <div class="kpi-sub">📈 折合台幣約 332 萬 / 年</div>
+        <div class="kpi-label">⚡ 中階工程師 (2-4年) 薪資中位數</div>
+        <div class="kpi-val">$132,000</div>
+        <div class="kpi-sub">📈 折合台幣約 277 萬 / 年</div>
       </div>
 
       <div class="kpi-card">
@@ -497,17 +528,28 @@
       <!-- Left Column: Live Job Stream & Filter -->
       <div>
         <div class="section-title">
-          <span>💼 即時高薪 482 雇主擔保與大電職缺情報</span>
+          <span>💼 即時 482 雇主擔保 ＆ 重電/天然氣職缺情報</span>
         </div>
 
         <!-- Filter Bar -->
         <div class="filter-bar">
-          <input type="text" id="job-search" class="search-input" placeholder="🔍 搜尋職稱、公司、ETAP、IEC 60079..." oninput="filterJobs()">
+          <input type="text" id="job-search" class="search-input" placeholder="🔍 搜尋職稱、公司、ETAP、IEC 60079、VFD..." oninput="filterJobs()">
+          
+          <!-- 年資篩選器 -->
+          <select id="exp-filter" class="select-filter" onchange="filterJobs()">
+            <option value="all">🎓 全部年資等級</option>
+            <option value="mid" selected>⚡ 中階工程師 (2~4 年，適合中鼎 2-3 年經驗)</option>
+            <option value="senior">🔥 資深/主導工程師 (5+ 年)</option>
+          </select>
+
+          <!-- 地區篩選器 -->
           <select id="location-filter" class="select-filter" onchange="filterJobs()">
             <option value="all">🌐 全部地區</option>
             <option value="Perth">📍 西澳伯斯 (Perth, WA)</option>
             <option value="Brisbane">📍 昆士蘭 (Brisbane, QLD)</option>
           </select>
+
+          <!-- 簽證條件篩選器 -->
           <select id="visa-filter" class="select-filter" onchange="filterJobs()">
             <option value="all">🛂 全部簽證條件</option>
             <option value="visa-only">✈️ 僅看 482 雇主擔保 / 搬遷支援</option>
@@ -537,27 +579,27 @@
           <div class="calc-row">
             <div style="display:flex; justify-content:space-between; font-weight:700;">
               <span>預期年薪 (Base AUD):</span>
-              <span id="calc-base-display" style="color:var(--accent); font-family:monospace; font-size:1.1rem;">$150,000</span>
+              <span id="calc-base-display" style="color:var(--accent); font-family:monospace; font-size:1.1rem;">$130,000</span>
             </div>
-            <input type="range" id="salary-slider" class="calc-slider" min="100000" max="230000" step="5000" value="150000" oninput="updateSalaryCalc()">
+            <input type="range" id="salary-slider" class="calc-slider" min="90000" max="220000" step="5000" value="130000" oninput="updateSalaryCalc()">
           </div>
 
           <div class="calc-result-grid">
             <div class="calc-val-box">
               <span>法定退休金 (11.5% Super):</span>
-              <strong id="calc-super">$17,250</strong>
+              <strong id="calc-super">$14,950</strong>
             </div>
             <div class="calc-val-box">
               <span>ATO 預估所得稅:</span>
-              <strong id="calc-tax">$38,888</strong>
+              <strong id="calc-tax">$32,388</strong>
             </div>
             <div class="calc-val-box">
               <span>稅後實領月薪 (AUD):</span>
-              <strong id="calc-net-aud" style="color:var(--success);">$9,259</strong>
+              <strong id="calc-net-aud" style="color:var(--success);">$8,134</strong>
             </div>
             <div class="calc-val-box">
               <span>折合台幣月收入 (TWD):</span>
-              <strong id="calc-net-twd" style="color:var(--accent);">NT$ 194,440</strong>
+              <strong id="calc-net-twd" style="color:var(--accent);">NT$ 170,814</strong>
             </div>
           </div>
         </div>
@@ -573,7 +615,7 @@
             <div class="progress-track"><div class="progress-fill" style="width: 69%;"></div></div>
           </div>
           <p style="font-size: 0.84rem; color: var(--muted); line-height: 1.5;">
-            西澳政府將 <strong>233311 電機工程師</strong> 列為第一優先邀請清單（WASMOL），重工業與能源背景具備最高優先級。
+            西澳政府將 <strong>233311 電機工程師</strong> 列為第一優先邀請清單（WASMOL），中鼎重工業與天然氣背景具備最高優先級。
           </p>
         </div>
 
@@ -594,7 +636,7 @@
   <script>
     // --- Render Logic ---
     function renderDashboard() {
-      renderJobs(AU_RADAR_JOBS);
+      filterJobs(); // Initial filter with default 'mid' selection
       renderSkillHeatmap(AU_RADAR_STATS.skillsDemand);
       renderRecruiters(AU_RADAR_STATS.recruiters);
       updateSalaryCalc();
@@ -603,7 +645,7 @@
     function renderJobs(jobs) {
       const container = document.getElementById('job-stream-container');
       if (!jobs || jobs.length === 0) {
-        container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--muted);">查無符合條件的職缺</div>';
+        container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--muted); background:var(--bg-card); border-radius:12px; border:1px solid var(--line);">查無符合條件的職缺，請嘗試切換篩選條件。</div>';
         return;
       }
 
@@ -614,6 +656,7 @@
               <div class="job-title">${j.title}</div>
               <div class="job-company">
                 🏢 ${j.company} · 📍 ${j.location}
+                <span class="badge ${j.expLevel === 'mid' ? 'badge-exp-mid' : 'badge-exp-senior'}">${j.expText}</span>
                 <span class="badge badge-tier">${j.tier}</span>
               </div>
             </div>
@@ -632,8 +675,18 @@
           </div>
 
           <div class="job-footer">
-            <span class="job-date">📅 發布日期：${j.posted}</span>
-            <a href="${j.link}" target="_blank" class="btn btn-primary" style="padding:6px 14px; font-size:0.82rem;">🔗 前往職缺 / 獵頭申請</a>
+            <div class="job-footer-meta">
+              <span>📅 發布追蹤：${j.posted}</span>
+              <span style="color:var(--accent); font-weight:600;">✨ 點擊下方直達搜尋投遞：</span>
+            </div>
+            
+            <!-- 多管道驗證直達按鈕群 -->
+            <div class="job-actions-group">
+              <a href="${j.seekUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-action-seek">🔍 Seek 直達職缺</a>
+              <a href="${j.linkedInUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-action-linkedin">💼 LinkedIn 職缺</a>
+              <a href="${j.googleJobsUrl}" target="_blank" rel="noopener noreferrer" class="btn">🌐 Google Jobs</a>
+              <a href="${j.careersUrl}" target="_blank" rel="noopener noreferrer" class="btn" style="color:var(--muted);">🏢 官方 Career</a>
+            </div>
           </div>
         </div>
       `).join('');
@@ -662,7 +715,7 @@
             <div style="font-weight:700; font-size:0.9rem; color:var(--ink);">${r.name}</div>
             <div style="font-size:0.78rem; color:var(--muted);">${r.specialty}</div>
           </div>
-          <a href="${r.contactUrl}" target="_blank" class="btn" style="padding:4px 10px; font-size:0.75rem;">Connect</a>
+          <a href="${r.contactUrl}" target="_blank" rel="noopener noreferrer" class="btn" style="padding:4px 10px; font-size:0.75rem;">Connect</a>
         </div>
       `).join('');
     }
@@ -671,8 +724,10 @@
       const query = (document.getElementById('job-search').value || '').trim().toLowerCase();
       const loc = document.getElementById('location-filter').value;
       const visa = document.getElementById('visa-filter').value;
+      const exp = document.getElementById('exp-filter').value;
 
       const filtered = AU_RADAR_JOBS.filter(j => {
+        if (exp !== 'all' && j.expLevel !== exp) return false;
         if (loc !== 'all' && !j.location.includes(loc)) return false;
         if (visa === 'visa-only' && (!j.visaSponsorship && !j.relocationSupport)) return false;
         if (query) {
@@ -694,12 +749,6 @@
       document.getElementById('calc-super').innerText = '$' + superAnn.toLocaleString();
 
       // ATO 2024-2025 Stage 3 Tax Brackets
-      // $0 - $18,200: Nil
-      // $18,201 - $45,000: 16% of excess over $18,200
-      // $45,001 - $135,000: $4,288 + 30% of excess over $45,000
-      // $135,001 - $190,000: $31,288 + 37% of excess over $135,000
-      // $190,001+: $51,638 + 45% of excess over $190,000
-      // + 2% Medicare levy
       let incomeTax = 0;
       if (base <= 18200) incomeTax = 0;
       else if (base <= 45000) incomeTax = (base - 18200) * 0.16;

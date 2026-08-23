@@ -19,3 +19,5 @@ __pycache__/
 *$py.class
 *.log
 scripts/au_job_crawler.log
+.verification_assets/
+fig*.png

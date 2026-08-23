@@ -1,0 +1,32 @@
+schema_version: 1
+
+project_id: "ee-exam-workbench"
+
+display_name: "電機技師歷屆試題旗艦工作台 & 澳洲重電求職情報戰情室"
+
+github:
+  repository: "DB2BD/ee-exam-workbench"
+  default_branch: "main"
+  pages_url: "https://db2bd.github.io/ee-exam-workbench/"
+
+collaboration:
+  primary_runtime: "Antigravity"
+  secondary_runtime: "Codex"
+  local_runtime: "Optional (Ollama / Qwen / LocalLLM)"
+  shared_workspace: "GitHub (DB2BD/ee-exam-workbench)"
+  spec_files:
+    - "SPEC_雙欄原題與詳解同步對照旗艦工作台.md"
+    - "SPEC_澳洲重電求職戰情室架構規格書.md"
+
+runtime_routing:
+  antigravity:
+    - "UI/UX Front-end design & Live Preview"
+    - "Browser subagent testing & URL validation"
+    - "Interactive tutoring & MathJax/LaTeX formatting"
+    - "Google ecosystem & Search Grounding"
+  codex:
+    - "Batch code refactoring & algorithm optimization"
+    - "Test runner & CI/CD pipeline execution"
+    - "Automated PR reviews & large-scale file transforms"
+  local:
+    - "Private data filtering & offline sanity checks"

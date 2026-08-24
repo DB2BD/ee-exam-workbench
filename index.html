@@ -12,10 +12,11 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data & Image Map (100% Offline & Instant) -->
-<script src="./dashboard-data.js"></script>
-<script src="./solutions-bundle.js"></script>
-<script src="./national-exams-data.js"></script>
-<script src="./national-solutions-bundle.js"></script>
+<script src="./dashboard-data.js?v=20260824_1325"></script>
+<script src="./solutions-bundle.js?v=20260824_1325"></script>
+<script src="./national-exams-data.js?v=20260824_1325"></script>
+<script src="./national-solutions-bundle.js?v=20260824_1325"></script>
+
 
 <style>
   :root {
@@ -2610,18 +2611,12 @@
       basePath = idx !== -1 ? cleanPath.substring(0, idx + 1) : '';
     }
 
-    if (typeof BUNDLED_MD !== 'undefined' && BUNDLED_MD[cleanPath]) {
-      rawContent = BUNDLED_MD[cleanPath];
-    } else if (typeof NATIONAL_BUNDLED_MD !== 'undefined' && NATIONAL_BUNDLED_MD[cleanPath]) {
-      rawContent = NATIONAL_BUNDLED_MD[cleanPath];
-    } else {
-      for (const k in (typeof BUNDLED_MD !== 'undefined' ? BUNDLED_MD : {})) {
-        if (cleanPath && (k.endsWith(cleanPath) || cleanPath.endsWith(k))) {
-          rawContent = BUNDLED_MD[k];
-          break;
-        }
-      }
-      if (!rawContent && typeof NATIONAL_BUNDLED_MD !== 'undefined') {
+    const isGK = currentExamCategory === 'gk' || (currentModalQid && currentModalQid.startsWith('GK-')) || (cleanPath && cleanPath.includes('國考同級'));
+
+    if (isGK) {
+      if (typeof NATIONAL_BUNDLED_MD !== 'undefined' && NATIONAL_BUNDLED_MD[cleanPath]) {
+        rawContent = NATIONAL_BUNDLED_MD[cleanPath];
+      } else if (typeof NATIONAL_BUNDLED_MD !== 'undefined') {
         for (const k in NATIONAL_BUNDLED_MD) {
           if (cleanPath && (k.endsWith(cleanPath) || cleanPath.endsWith(k))) {
             rawContent = NATIONAL_BUNDLED_MD[k];
@@ -2630,6 +2625,30 @@
         }
       }
     }
+
+    if (!rawContent) {
+      if (typeof BUNDLED_MD !== 'undefined' && BUNDLED_MD[cleanPath]) {
+        rawContent = BUNDLED_MD[cleanPath];
+      } else if (typeof NATIONAL_BUNDLED_MD !== 'undefined' && NATIONAL_BUNDLED_MD[cleanPath]) {
+        rawContent = NATIONAL_BUNDLED_MD[cleanPath];
+      } else {
+        for (const k in (typeof BUNDLED_MD !== 'undefined' ? BUNDLED_MD : {})) {
+          if (cleanPath && (k.endsWith(cleanPath) || cleanPath.endsWith(k))) {
+            rawContent = BUNDLED_MD[k];
+            break;
+          }
+        }
+        if (!rawContent && typeof NATIONAL_BUNDLED_MD !== 'undefined') {
+          for (const k in NATIONAL_BUNDLED_MD) {
+            if (cleanPath && (k.endsWith(cleanPath) || cleanPath.endsWith(k))) {
+              rawContent = NATIONAL_BUNDLED_MD[k];
+              break;
+            }
+          }
+        }
+      }
+    }
+
 
     const qRecord = findQuestionRecord(currentModalQid);
 

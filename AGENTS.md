@@ -37,6 +37,14 @@
 - **架構規格書**: `SPEC_澳洲重電求職戰情室架構規格書.md`
 - **CI/CD 自動排程**: `.github/workflows/job-radar-update.yml` (每日 08:00 AM 台北時間自動爬取)
 
+### 核心 C: 國考同級參考題庫擴充系統 (National Exam Cross-Reference Bank) 🆕
+- **擴充資料庫**: `national-exams-data.js`, `national-solutions-bundle.js` (⚠️ 獨立於 Core A，由獨立編譯器產生)
+- **獨立編譯器**: `scripts/compile_national_exams.py` (含 SHA-256 零覆蓋安全檢查)
+- **試題索引**: `依考科分類/🏛️_國考同級參考題庫/` (獨立目錄，不動既有技師資料)
+- **題解筆記**: `📝 個人題解與錯題本/🏛️_國考同級題解/` (獨立目錄)
+- **架構規格書**: `SPEC_國考同級參考題庫擴充架構規格書.md`
+- **⚠️ 隔離契約**: 任何對 Core C 的操作嚴禁修改 Core A 的 `dashboard-data.js` 或 `solutions-bundle.js`
+
 ---
 
 ## 3. 內容規範與安全不變量 (Content Invariants)

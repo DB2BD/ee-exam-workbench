@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════
 // Auto-generated Australian Heavy Electrical Job & Visa Intelligence DB
-// Generated: 2026-08-24 03:32:53
+// Generated: 2026-08-24 11:51:27
 // ═══════════════════════════════════════════════════════════════════
 
 const AU_RADAR_JOBS = [
@@ -317,7 +317,7 @@ const AU_RADAR_JOBS = [
 ];
 
 const AU_RADAR_STATS = {
-  "lastUpdated": "2026-08-24 03:32:53",
+  "lastUpdated": "2026-08-24 11:51:27",
   "totalHeavyPowerJobs": 342,
   "visaSponsorshipRatePct": 42.1,
   "medianMidSalaryAUD": 132000,

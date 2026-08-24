@@ -27,7 +27,7 @@ def evaluate_question_difficulty(sid, topic, q_body="", score=20):
     l5_math = [
         'svd', '奇異值', '狀態估計', '加權最小平方', '壞資料', '雅可比', '偏微分', 'pde', 
         '次同步諧振', '多機系統', '協調方程', '懲罰因數', '微增成本', '牛頓－拉夫遜', 
-        '快速解耦', '李雅普諾夫', '弧閃'
+        '快速解耦', '李雅普諾夫', '弧閃', 'wls'
     ]
     # Level 4 Math (Complex Variables, Residues, Eigenvalues/Diagonalization, 2nd-order ODE, Symmetric Components)
     l4_math = [
@@ -36,11 +36,11 @@ def evaluate_question_difficulty(sid, topic, q_body="", score=20):
         '幾何均數', 'gmd', 'gmr', 'abcd參數', 'z參數', 'h參數', '轉移函數', '矩陣對角', 
         '諧波', 'thd', 'ieee 519', '短路容量', '非對稱'
     ]
-    # Level 3 Math (1st-order ODE, Phasors, Complex Power, Matrices)
+    # Level 3 Math (1st-order ODE, Phasors, Complex Power, Matrices, 2nd order RLC)
     l3_math = [
-        '一階ode', '拉氏轉換', '行列式', '相量', '阻抗', '三要素', '二階rlc', '欠阻尼', 
-        '臨界阻尼', '複數功率', '三相平衡', 'y-delta', '轉矩轉差率', '感應電動機', '等面積', 
-        '戴維寧', '諾頓', '最大功率', '重疊定理'
+        '一階ode', '拉氏轉換', '行列式', '相量', '阻抗', '三要素', '二階', 'rlc', '暫態', 
+        '欠阻尼', '臨界阻尼', '過阻尼', '阻尼狀態', '複數功率', '三相平衡', 'y-delta', 
+        '轉矩轉差率', '感應電動機', '等面積', '戴維寧', '諾頓', '最大功率', '重疊定理'
     ]
     # Level 1 Math (Direct Algebraic, Single Formula, Ohm's Law)
     l1_math = [
@@ -53,7 +53,7 @@ def evaluate_question_difficulty(sid, topic, q_body="", score=20):
     elif any(k in full_text for k in l4_math):
         math_s = 4.2
     elif any(k in full_text for k in l3_math):
-        math_s = 3.0
+        math_s = 3.2
     elif any(k in full_text for k in l1_math) and not any(k in full_text for k in (l4_math + l5_math)):
         math_s = 1.2
     else:
@@ -67,20 +67,23 @@ def evaluate_question_difficulty(sid, topic, q_body="", score=20):
     l5_concept = [
         'pss', '電力系統穩定器', '低頻振盪', '小訊號穩定度', 'facts', 'statcom', 'svc', 
         'spwm死區', '空間向量', '雙軸凸極', 'ieee std 80', '接地網安全', '跨步電壓', 
-        '接觸電壓', 'agc', '一次頻率響應', '行波反射', '波阻抗', '絕緣配合', '電弧閃絡', 'cmfb', '零空間'
+        '接觸電壓', 'agc', '一次頻率響應', '行波反射', '波阻抗', '絕緣配合', '電弧閃絡', 
+        'cmfb', '零空間', '狀態估計', 'wls', '加權最小平方', '壞資料'
     ]
     # Level 4 Concepts (Fault Analysis, Advanced Machines, Protection Coordination)
     l4_concept = [
         '單相接地故障', 'slg', '線間短路', '雙線接地', '2lg', '反時限', '保護協調', 
         '距離電驛', 'mho', '阻抗圓', '等面積準則', '臨界清除角', '差動放大器', 'cmrr', 
         'buck-boost', '全橋變流器', 'ccm', 'dcm', '自耦變壓器', '開路短路試驗', '零序等效', 
-        '閘流體', '保護協調', 'tcc', '雙鼠籠', '凸極'
+        '閘流體', '保護協調', 'tcc', '雙鼠籠', '凸極', '雙反應'
     ]
     # Level 3 Concepts (Standard Core Subject Principles)
     l3_concept = [
         '三相平衡', '互感', '同名端', '分激電動機', '串激電動機', '運算放大器', '主動濾波器', 
-        'mosfet', 'bjt', '齊納二極體', '交流穩態', '戴維寧', '諾頓', '最大功率', '感應電動機', '諧振'
+        'mosfet', 'bjt', '齊納二極體', '交流穩態', '戴維寧', '諾頓', '最大功率', '感應電動機', 
+        '諧振', 'rlc', '暫態', '阻尼'
     ]
+
     # Level 1 Concepts
     l1_concept = [
         '直流電路', '基本邏輯閘', '理想變壓器', '純電阻', '純電感', '純電容', '照明', '點光源', '功率因數'

@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">114 年 電子學 第三題：電力電子開關切換電感電流週期時域響應等效拓撲圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">週期 Ts = 1ms, 導通率 D = 0.5 (Ton = 0.5ms), τ = L/R = 50ms >> Ts (小漣波線性近似)</text>
+
+  <!-- 左圖：狀態 1 開關導通充電 -->
+  <rect x="25" y="80" width="435" height="450" class="box"/>
+  <text x="45" y="110" class="title" font-size="16" fill="#38bdf8">【狀態一】0 ≤ t ≤ 0.5ms (開關 S 閉合 ON, 二極體 OFF)</text>
+  <text x="45" y="130" class="subtitle">電源 Vs 直接對 L-R 迴路充電，電感電壓 vL = Vs - iL·R > 0</text>
+
+  <!-- 電源 Vs -->
+  <circle cx="75" cy="240" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="75" y="245" text-anchor="middle" class="val-cyan">Vs</text>
+  <text x="75" y="215" text-anchor="middle" class="val-cyan">+</text>
+  <text x="75" y="275" text-anchor="middle" class="val-cyan">−</text>
+
+  <!-- 閉合開關 S (ON) -->
+  <path d="M 75 222 L 75 170 L 140 170" class="wire-active"/>
+  <circle cx="140" cy="170" r="4" fill="#38bdf8"/>
+  <line x1="140" y1="170" x2="190" y2="170" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="190" cy="170" r="4" fill="#38bdf8"/>
+  <text x="165" y="155" text-anchor="middle" class="val-cyan">開關 S (ON)</text>
+
+  <!-- 電感 L (線圈路徑) -->
+  <path d="M 190 170 L 230 170" class="wire-active"/>
+  <!-- 4個拱形線圈 -->
+  <path d="M 230 170 A 10 10 0 0 1 250 170 A 10 10 0 0 1 270 170 A 10 10 0 0 1 290 170 A 10 10 0 0 1 310 170" class="wire-active" fill="none"/>
+  <text x="270" y="150" text-anchor="middle" class="val-amber">L = 100 mH</text>
+
+  <!-- 電阻 R -->
+  <path d="M 310 170 L 350 170" class="wire-active"/>
+  <rect x="350" y="158" width="45" height="24" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="372" y="174" text-anchor="middle" class="val-amber">R = 2Ω</text>
+
+  <!-- 右側接地與迴路閉合 -->
+  <path d="M 395 170 L 420 170 L 420 310 L 75 310 L 75 258" class="wire-active"/>
+  <line x1="240" y1="310" x2="260" y2="310" class="ground"/>
+
+  <!-- 充電電流箭頭 iL(t) -->
+  <line x1="240" y1="200" x2="300" y2="200" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr-cyan)"/>
+  <text x="270" y="220" text-anchor="middle" class="val-cyan">iL(t) 線性上升</text>
+
+  <!-- 結論公式 -->
+  <rect x="45" y="360" width="395" height="150" fill="#0f172a" stroke="#38bdf8" rx="8"/>
+  <text x="60" y="390" class="val-cyan" font-size="13">● 微分方程：L(di/dt) + R·i = Vs</text>
+  <text x="60" y="420" class="val-amber" font-size="13">● 一階近似解：iL(t) ≈ I0 + (Vs/L - R·I0/L)·t</text>
+  <text x="60" y="450" class="val-emerald" font-size="13">● 電流峰值：I1 = iL(0.5ms) ≈ 25.125 A</text>
+  <text x="60" y="480" class="val-cyan" font-size="13">● 初始電流：I0 = iL(0) ≈ 24.875 A</text>
+
+  <!-- 右圖：狀態 2 開關斷開續流 -->
+  <rect x="490" y="80" width="435" height="450" class="box"/>
+  <text x="510" y="110" class="title" font-size="16" fill="#f59e0b">【狀態二】0.5ms ≤ t ≤ 1.0ms (開關 S 開啟 OFF, 續流 D 導通)</text>
+  <text x="510" y="130" class="subtitle">二極體順偏導通提供續流路徑，電感釋能 vL = -iL·R &lt; 0</text>
+
+  <!-- 斷開開關 S (OFF) 虛線 -->
+  <path d="M 530 170 L 570 170" class="wire-dash"/>
+  <circle cx="570" cy="170" r="4" fill="#64748b"/>
+  <line x1="570" y1="170" x2="605" y2="145" stroke="#f43f5e" stroke-width="2.5"/>
+  <circle cx="615" cy="170" r="4" fill="#64748b"/>
+  <text x="595" y="135" text-anchor="middle" class="val-rose">開關 S (OFF)</text>
+
+  <!-- 導通二極體 D (ON) 實線 -->
+  <path d="M 615 170 L 615 240" class="wire-active"/>
+  <polygon points="605,240 625,240 615,220" fill="#10b981" stroke="#10b981"/>
+  <line x1="605" y1="220" x2="625" y2="220" stroke="#10b981" stroke-width="3"/>
+  <path d="M 615 240 L 615 310" class="wire-active"/>
+  <text x="575" y="235" class="val-emerald">D (導通)</text>
+
+  <!-- 電感 L -->
+  <path d="M 615 170 L 670 170" class="wire-active"/>
+  <path d="M 670 170 A 10 10 0 0 1 690 170 A 10 10 0 0 1 710 170 A 10 10 0 0 1 730 170 A 10 10 0 0 1 750 170" class="wire-active" fill="none"/>
+  <text x="710" y="150" text-anchor="middle" class="val-amber">L = 100 mH</text>
+
+  <!-- 電阻 R -->
+  <path d="M 750 170 L 790 170" class="wire-active"/>
+  <rect x="790" y="158" width="45" height="24" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="812" y="174" text-anchor="middle" class="val-amber">R = 2Ω</text>
+
+  <!-- 續流迴路閉合 -->
+  <path d="M 835 170 L 870 170 L 870 310 L 615 310" class="wire-active"/>
+  <line x1="740" y1="310" x2="760" y2="310" class="ground"/>
+
+  <!-- 放電電流箭頭 -->
+  <line x1="740" y1="200" x2="680" y2="200" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <text x="710" y="220" text-anchor="middle" class="val-amber">iL(t) 線性下降</text>
+
+  <!-- 結論公式 -->
+  <rect x="510" y="360" width="395" height="150" fill="#0f172a" stroke="#f59e0b" rx="8"/>
+  <text x="525" y="390" class="val-amber" font-size="13">● 微分方程：L(di/dt) + R·i = 0</text>
+  <text x="525" y="420" class="val-rose" font-size="13">● 一階近似解：iL(t) ≈ I1 - (R·I1/L)·(t - 0.5ms)</text>
+  <text x="525" y="450" class="val-emerald" font-size="13">● 週期穩態條件：iL(1.0ms) = I0 = 24.875 A</text>
+  <text x="525" y="480" class="val-cyan" font-size="13">● 交流電流漣波：ΔiL = I1 - I0 = 0.25 A_pp</text>
+</svg>

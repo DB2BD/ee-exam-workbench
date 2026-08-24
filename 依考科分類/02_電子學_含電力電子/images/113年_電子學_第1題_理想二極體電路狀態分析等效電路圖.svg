@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">113 年 電子學 第一題：理想二極體電路狀態分析與輸出電壓等效分析圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">狀態判定：D1 承受逆偏 (OFF, 開路)、D2 順偏導通 (ON, 短路) ⇒ Vo = 4 V</text>
+
+  <!-- 左圖：假設一 (D1 ON, D2 ON) 矛盾判定 -->
+  <rect x="25" y="80" width="435" height="450" class="box"/>
+  <text x="45" y="110" class="title" font-size="16" fill="#f43f5e">【假設一】D1 導通 (ON), D2 導通 (ON) ⇒ 產生矛盾</text>
+  <text x="45" y="130" class="subtitle">若 D1, D2 皆短路 ⇒ 節點電壓迫使 D1 電流反向流動 (iD1 &lt; 0 矛盾)</text>
+
+  <circle cx="70" cy="220" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="70" y="225" text-anchor="middle" class="val-cyan">10V</text>
+  <path d="M 70 204 L 70 170 L 130 170" class="wire"/>
+  <rect x="130" y="158" width="45" height="24" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="152" y="174" text-anchor="middle" class="val-cyan">R1=2k</text>
+
+  <path d="M 175 170 L 250 170" class="wire"/>
+  <circle cx="250" cy="170" r="5" fill="#f43f5e"/>
+  <text x="250" y="150" text-anchor="middle" class="val-rose">Vx</text>
+
+  <!-- D1 導通線路 (紅色叉標示矛盾) -->
+  <path d="M 250 170 L 320 170" class="wire" stroke="#f43f5e"/>
+  <line x1="320" y1="170" x2="380" y2="170" stroke="#f43f5e" stroke-width="3"/>
+  <text x="350" y="155" text-anchor="middle" class="val-rose">D1 短路</text>
+  <circle cx="380" cy="170" r="16" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+  <text x="380" y="175" text-anchor="middle" class="val-rose">6V</text>
+
+  <rect x="45" y="400" width="395" height="110" fill="#0f172a" stroke="#f43f5e" rx="8"/>
+  <text x="60" y="430" class="val-rose" font-size="13">● 計算得 iD1 = (Vx - 6V)/R = -1.2 mA &lt; 0</text>
+  <text x="60" y="460" class="label">二極體僅具單向導電性，無法逆向導通</text>
+  <text x="60" y="490" class="val-rose" font-size="13">❌ 判定：D1 必處於截止狀態 (OFF)</text>
+
+  <!-- 右圖：正確狀態 (D1 OFF, D2 ON) -->
+  <rect x="490" y="80" width="435" height="450" class="box"/>
+  <text x="510" y="110" class="title" font-size="16" fill="#10b981">【正確等效】D1 截止 (OFF 開路), D2 導通 (ON 短路)</text>
+  <text x="510" y="130" class="subtitle">D1 開路無電流，由 10V 電源與 R1, R2 分壓求得 Vo = 4 V</text>
+
+  <!-- 10V 電源 -->
+  <circle cx="530" cy="220" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="530" y="225" text-anchor="middle" class="val-cyan">10V</text>
+  <path d="M 530 204 L 530 170 L 590 170" class="wire-active"/>
+  
+  <!-- R1 = 3kΩ -->
+  <rect x="590" y="158" width="50" height="24" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="615" y="174" text-anchor="middle" class="val-cyan">R1=3kΩ</text>
+
+  <!-- 節點 Vo -->
+  <path d="M 640 170 L 720 170" class="wire-active"/>
+  <circle cx="720" cy="170" r="6" fill="#10b981"/>
+  <text x="720" y="145" text-anchor="middle" class="val-emerald" font-size="15">Vo</text>
+
+  <!-- D1 截止開路 (上方虛線) -->
+  <path d="M 720 170 L 720 120 L 760 120" class="wire-dash"/>
+  <circle cx="760" cy="120" r="4" fill="#64748b"/>
+  <circle cx="800" cy="120" r="4" fill="#64748b"/>
+  <text x="780" y="105" text-anchor="middle" class="label" font-size="11">D1 (開路 OFF)</text>
+  <path d="M 800 120 L 840 120" class="wire-dash"/>
+  <circle cx="855" cy="120" r="14" fill="#1e293b" stroke="#64748b"/>
+  <text x="855" y="124" text-anchor="middle" class="label" font-size="10">6V</text>
+
+  <!-- D2 導通短路 (實線連接 R2) -->
+  <path d="M 720 170 L 720 220" class="wire-active"/>
+  <polygon points="710,220 730,220 720,240" fill="#10b981" stroke="#10b981"/>
+  <line x1="710" y1="240" x2="730" y2="240" stroke="#10b981" stroke-width="3"/>
+  <text x="750" y="235" class="val-emerald" font-size="11">D2 (ON)</text>
+  <path d="M 720 240 L 720 280" class="wire-active"/>
+
+  <!-- R2 = 2kΩ -->
+  <rect x="708" y="280" width="24" height="45" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="745" y="305" class="val-amber">R2=2kΩ</text>
+  <path d="M 720 325 L 720 370 L 530 370 L 530 236" class="wire-active"/>
+  <line x1="620" y1="370" x2="640" y2="370" class="ground"/>
+
+  <!-- 結論框 -->
+  <rect x="510" y="400" width="395" height="110" fill="#0f172a" stroke="#10b981" rx="8"/>
+  <text x="525" y="430" class="val-emerald" font-size="14">✅ (一) D1 截止 (OFF)、D2 導通 (ON)</text>
+  <text x="525" y="460" class="val-cyan" font-size="14">✅ (二) 輸出電壓分壓公式：</text>
+  <text x="525" y="490" class="val-amber" font-size="15">Vo = 10V × [R2 / (R1 + R2)] = 10 × (2/5) = 4.0 V</text>
+</svg>

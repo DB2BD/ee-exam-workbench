@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">113 年 電子學 第二題：共基極 (CB) BJT 放大器小訊號 T 模型完整等效電路圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">【題目第 (一) 小題明文要求繪製】已知：Rsig = 75Ω, re = 50Ω, α = 0.99, RC||RL = 6kΩ</text>
+
+  <!-- 主 T 模型等效電路框 -->
+  <rect x="30" y="80" width="890" height="340" class="box"/>
+
+  <!-- 信號源 vsig -->
+  <circle cx="80" cy="240" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="80" y="245" text-anchor="middle" class="val-cyan">vsig</text>
+  <path d="M 80 258 L 80 320" class="wire"/>
+  <line x1="70" y1="320" x2="90" y2="320" class="ground"/>
+
+  <!-- 內阻 Rsig -->
+  <path d="M 80 222 L 80 170 L 140 170" class="wire"/>
+  <rect x="140" y="158" width="55" height="24" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="167" y="174" text-anchor="middle" class="val-cyan">Rsig=75Ω</text>
+
+  <!-- 射極節點 E (vi) -->
+  <path d="M 195 170 L 270 170" class="wire"/>
+  <circle cx="270" cy="170" r="5" fill="#38bdf8"/>
+  <text x="270" y="150" text-anchor="middle" class="val-cyan" font-size="14">E (射極 vi)</text>
+
+  <!-- 輸入電流 ie 標記 -->
+  <line x1="220" y1="185" x2="260" y2="185" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr-cyan)"/>
+  <text x="240" y="205" text-anchor="middle" class="val-cyan" font-size="12">ie</text>
+
+  <!-- 動態射極電阻 re (向下連接基極) -->
+  <path d="M 270 170 L 270 210" class="wire"/>
+  <rect x="258" y="210" width="24" height="45" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="220" y="237" class="val-cyan">re = 50Ω</text>
+  <path d="M 270 255 L 270 320" class="wire"/>
+
+  <!-- 基極節點 B (交流接地) -->
+  <circle cx="270" cy="320" r="5" fill="#94a3b8"/>
+  <text x="300" y="325" class="label">B (基極接地)</text>
+  <line x1="255" y1="320" x2="285" y2="320" class="ground"/>
+  <line x1="260" y1="324" x2="280" y2="324" class="ground"/>
+  <line x1="265" y1="328" x2="275" y2="328" class="ground"/>
+
+  <!-- 集極受控電流源 α ie -->
+  <path d="M 530 170 L 530 210" class="wire"/>
+  <circle cx="530" cy="235" r="18" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="530" y1="250" x2="530" y2="220" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <path d="M 530 253 L 530 320" class="wire"/>
+  <line x1="515" y1="320" x2="545" y2="320" class="ground"/>
+  <text x="440" y="240" class="val-amber" font-size="13">ic = α ie = 0.99 ie</text>
+
+  <!-- 集極節點 C (vo) -->
+  <circle cx="530" cy="170" r="5" fill="#f59e0b"/>
+  <text x="530" y="150" text-anchor="middle" class="val-amber" font-size="14">C (集極 vo)</text>
+
+  <!-- 負載電阻 RC || RL -->
+  <path d="M 530 170 L 680 170 L 680 210" class="wire"/>
+  <rect x="668" y="210" width="24" height="50" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="705" y="240" class="val-amber">R'L = RC||RL</text>
+  <text x="705" y="258" class="val-amber" font-size="11">= 6 kΩ</text>
+  <path d="M 680 260 L 680 320" class="wire"/>
+  <line x1="665" y1="320" x2="695" y2="320" class="ground"/>
+
+  <!-- 輸出端 vo -->
+  <path d="M 680 170 L 820 170" class="wire"/>
+  <circle cx="820" cy="170" r="5" fill="#10b981"/>
+  <text x="820" y="150" text-anchor="middle" class="val-emerald" font-size="14">vo</text>
+  <text x="840" y="175" class="val-emerald" font-size="12">+</text>
+  <text x="840" y="320" class="val-emerald" font-size="12">−</text>
+
+  <!-- 下方計算結論卡片 -->
+  <rect x="30" y="435" width="280" height="105" class="box"/>
+  <text x="45" y="460" class="val-cyan" font-size="14">1. 輸入電阻 Rin</text>
+  <text x="45" y="485" class="label">射極看入等效電阻：</text>
+  <text x="45" y="515" class="val-cyan" font-size="15">Rin = re = 50 Ω</text>
+
+  <rect x="335" y="435" width="280" height="105" class="box"/>
+  <text x="350" y="460" class="val-amber" font-size="14">2. 本質增益 vo/vi</text>
+  <text x="350" y="485" class="label">射極到集極電壓放大率：</text>
+  <text x="350" y="515" class="val-amber" font-size="15">Av = α(RC||RL)/re = +118.8</text>
+
+  <rect x="640" y="435" width="280" height="105" class="box"/>
+  <text x="655" y="460" class="val-emerald" font-size="14">3. 總增益 vo/vsig</text>
+  <text x="655" y="485" class="label">考慮信號源分壓損失：</text>
+  <text x="655" y="515" class="val-emerald" font-size="15">Gv = (50/125)·118.8 = +47.52</text>
+</svg>

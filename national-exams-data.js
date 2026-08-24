@@ -107,9 +107,10 @@ const NATIONAL_EXAMS_DATA = {
     "01",
     114,
     2,
-    "某電感－電阻－開關電路圖如圖二所示，已知電路中包含 $12\\,\\text{V}$ 電壓源、$40\\,\\Omega$、$80\\,\\Omega$、$48\\,\\Omega$、$32\\,\\Omega$、$2\\,\\Omega$、$2\\,\\Omega$ 電阻，以及 $2\\,\\text{mH}$ 電感器，開關在 $t=0$ 與 $t=1\\,\\text{ms}$ 切換。試計算：\n\n* **(一)** 該電路中電感器之初始電流 $i(0)$？（10 分）\n\n* **(二)** 該電路圖在時間 $1\\,\\text{ms} \\ge t > 0$ 之時間常數（time constant）值與電感器之響應函數 $i(t)$？（5 分）\n\n* **(三)** 該電路圖在時間 $t > 1\\,\\text{ms}$ 之時間常數值與電感器之響應函數 $i(t)$？（10 分）\n\n* **(四)** 請繪出電感器之響應函數 $i(t)$ 完整之響應圖。（5 分）",
+    "某電感－電阻－開關電路圖如圖二所示，已知電路中包含 $12\\,\\text{V}$ 電壓源、$40\\,\\Omega$、$80\\,\\Omega$ 電阻，以及 $2\\,\\text{mH}$ 電感器，開關在 $t=0$ 與 $t=1\\,\\text{ms}$ 切換。試計算：\n\n\n\n* **(一)** 該電路中電感器之初始電流 $i(0)$？（10 分）\n* **(二)** 該電路圖在時間 $1\\,\\text{ms} \\ge t > 0$ 之時間常數值與電感器之響應函數 $i(t)$？（5 分）\n* **(三)** 該電路圖在時間 $t > 1\\,\\text{ms}$ 之時間常數值與電感器之響應函數 $i(t)$？（10 分）\n* **(四)** 請繪出電感器之響應函數 $i(t)$ 完整之響應圖。（5 分）",
     [
-      "電路學"
+      "電路學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -128,8 +129,8 @@ const NATIONAL_EXAMS_DATA = {
     "一理想變壓器電路圖如圖三所示，若該電路之輸出電壓相量（phasor）$\\mathbf{V}_2 = 48\\angle 30^\\circ\\,\\text{V}$，試計算該電路之輸入電壓 $\\mathbf{V}_S$ 相量值。（20 分）",
     [
       "電機機械",
-      "交流相量",
-      "電路學"
+      "電路學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -149,8 +150,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "以下圖四所示為一 OPA 電路，其負載電阻 $R_L = 50\\,\\Omega$，該電路輸出電壓 $v_o$ 操作於 $\\pm 15\\,\\text{V}$，其輸出電流 $i_o$ 不大於 $200\\,\\text{mA}$。當輸入電壓 $v_s = 1\\,\\text{V}$ 且 $R_1 + R_2 = 10\\,\\text{k}\\Omega$ 時，請問 $R_1$、$R_2$ 及其最大之增益 $A$ 值為多少？（20 分）",
     [
-      "交流相量",
-      "電路學"
+      "電路學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -187,10 +188,10 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "如下圖所示 MOSFET 共源極放大器（Common-Source Amplifier），負載為主動式電流鏡負載。考慮通道長度調變效應（$\\lambda \\ne 0$）與寄生電容 $C_{gs}, C_{gd}$，利用開路時間常數法（OCTC）估算其高頻截止頻率 $f_H$。（25 分）",
     [
-      "交流相量",
-      "配電設計",
       "電子學",
-      "電力電子"
+      "電力電子",
+      "交流相量",
+      "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_114年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -208,10 +209,10 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一降壓型（Buck）DC-DC 轉換器，輸入電壓 $V_d = 48\\,\\text{V}$，輸出電壓 $V_o = 12\\,\\text{V}$，切換頻率 $f_s = 100\\,\\text{kHz}$，負載電阻 $R = 6\\,\\Omega$。若要求電感電流紋波 $\\Delta i_L \\le 20\\% I_L$，輸出電壓紋波 $\\Delta v_o \\le 1\\% V_o$，求所需之最小電感值 $L_{min}$ 與最小電容值 $C_{min}$。（25 分）",
     [
-      "交流相量",
-      "配電設計",
       "電子學",
-      "電力電子"
+      "電力電子",
+      "交流相量",
+      "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_114年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -249,8 +250,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "一階常微分方程求解：求初值問題 $x \\frac{dy}{dx} + 2y = \\frac{\\sin x}{x}, y(\\pi) = 0$ 之特解。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_114年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -268,8 +269,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "二階常微分方程與拉氏轉換：利用拉普拉斯轉換求解初值問題 $y'' + 4y' + 13y = 13e^{-2t}\\cos(3t), y(0)=0, y'(0)=1$。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_114年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -346,9 +347,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "單相變壓器開路與短路試驗：一台 $50\\,\\text{kVA}, 2400/240\\,\\text{V}, 60\\,\\text{Hz}$ 單相變壓器，開路試驗（低壓側）：$V_{oc} = 240\\,\\text{V}, I_{oc} = 5.0\\,\\text{A}, P_{oc} = 200\\,\\text{W}$；短路試驗（高壓側）：$V_{sc} = 60\\,\\text{V}, I_{sc} = 20.8\\,\\text{A}, P_{sc} = 650\\,\\text{W}$。求：\n\n* **(一)** 等效電路參數化為高壓側之 $R_{eq}, X_{eq}, R_c, X_m$。（15 分）\n\n* **(二)** 額定負載功率因數 $0.8$ 落後時之電壓調整率（VR）與滿載效率 $\\eta$。（10 分）",
     [
-      "故障分析",
+      "電機機械",
       "交流相量",
-      "電機機械"
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -368,8 +369,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "三相感應電動機戴維寧等效電路：一額定 $460\\,\\text{V}, 60\\,\\text{Hz}, 4$ 極、$Y$ 連接三相感應電動機，每相等效電路參數已知。試推導其最大轉矩（崩潰轉矩 $T_{max}$）之表示式、發生最大轉矩時之轉差率 $s_{max}$，並求啟動轉矩 $T_{start}$。（25 分）",
     [
-      "交流相量",
       "電機機械",
+      "交流相量",
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
@@ -391,8 +392,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "凸極同步發電機雙反應理論：一三相凸極同步發電機，額定容量 $100\\,\\text{MVA}, 13.8\\,\\text{kV}$，直軸同步抗 $X_d = 1.2\\,\\text{pu}$，交軸同步抗 $X_q = 0.8\\,\\text{pu}$，電樞電阻忽略。當發電機輸出額定功率因數 $0.8$ 落後時，求：\n\n* **(一)** 功角 $\\delta$ 及內部激磁電壓 $E_f$。（15 分）\n\n* **(二)** 電磁功率公式 $P(\\delta)$ 及磁阻轉矩功率佔比。（10 分）",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -412,8 +413,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "直流分激與串激電動機特性比較：一 $220\\,\\text{V}$ 直流分激電動機，電樞電阻 $R_a = 0.2\\,\\Omega$，激磁電阻 $R_f = 110\\,\\Omega$。在額定轉速 $1200\\,\\text{rpm}$ 時電樞電流為 $50\\,\\text{A}$。若串入一 $0.3\\,\\Omega$ 之外部電阻於電樞迴路，且負載轉矩不變，求此時之轉速與電磁轉矩。（25 分）",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -451,9 +452,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "對稱分量法（Symmetrical Components）分析單相接地故障（SLG）：一同步發電機經 $Y-\\Delta$ 變壓器連接至輸電線，在線路某點發生 a 相金屬接地短路。畫出正序、負序、零序網聯圖，推導故障相短路電流 $I_f$、健全相電壓上升值及接地故障因數。（25 分）",
     [
-      "故障分析",
+      "電機機械",
       "電力系統",
-      "電機機械"
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -473,8 +474,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "電力潮流計算牛頓－拉夫遜法（Newton-Raphson Method）：寫出電力系統含 PQ 匯流排與 PV 匯流排之潮流方程，推導雅可比矩陣（Jacobian Matrix）各子矩陣（$J_{11}, J_{12}, J_{21}, J_{22}$）偏微分公式，並比較快速解耦潮流法（FDLF）之簡化假設。（25 分）",
     [
-      "暫態穩定",
       "電力系統",
+      "暫態穩定",
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
@@ -493,10 +494,10 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "單機無窮母線系統（SMIB）等面積準則（Equal-Area Criterion）：一同步發電機向無窮母線輸送功率，輸送極限曲線分別為故障前 $P_{max1}\\sin\\delta$、故障中 $P_{max2}\\sin\\delta$、切除後 $P_{max3}\\sin\\delta$。利用搖擺方程式（Swing Equation）與等面積準則，推導臨界清除角 $\\delta_{cr}$ 之解析表示式。（25 分）",
     [
-      "故障分析",
+      "電機機械",
       "交流相量",
       "電力系統",
-      "電機機械"
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -517,8 +518,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "交流三相平衡電路，三相 $Y$ 連接電源端線電壓為 $208\\,\\text{V}$，連接至 $\\Delta$ 負載每相阻抗為 $Z_\\Delta = 12 + j9\\,\\Omega$，線路阻抗 $Z_{\\text{line}} = 1 + j2\\,\\Omega$。試求：\n\n* **(一)** 線路電流大小 $I_{\\text{line}}$。（10 分）\n\n* **(二)** 負載端線電壓大小 $V_{L,\\text{load}}$。（5 分）\n\n* **(三)** 負載端消耗之總實功率 $P$ 與虛功率 $Q$。（10 分）",
     [
-      "交流相量",
-      "電路學"
+      "電路學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -536,9 +537,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "如圖所示雙埠網路（Two-port network），端點 1-1' 輸入，端點 2-2' 輸出。試求解：\n\n* **(一)** 求其傳輸參數矩陣（ABCD 參數矩陣）。（15 分）\n\n* **(二)** 求其阻抗參數矩陣（Z 參數矩陣），並驗證此網路之可逆性（Reciprocity）。（10 分）",
     [
-      "交流相量",
+      "電路學",
       "線性代數",
-      "電路學"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -556,9 +557,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "如下圖所示一階 $RC$ 暫態電路，已知電阻 $R_1 = 2\\,\\text{k}\\Omega, R_2 = 3\\,\\text{k}\\Omega, C = 10\\,\\mu\\text{F}$。開關在 $t < 0$ 時長期閉合於位置 A 已達穩態，於 $t = 0$ 秒時瞬間切換至位置 B。請求出：\n\n* **(一)** 電容初始電壓 $v_C(0^-)$ 及開關切換瞬間之初始電流 $i(0^+)$。（10 分）\n\n* **(二)** $t > 0$ 時電容電壓 $v_C(t)$ 之時域完整響應表示式。（15 分）",
     [
-      "配電設計",
+      "電路學",
       "暫態穩定",
-      "電路學"
+      "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -576,9 +577,9 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "如圖所示具相依電源之交流穩態電路，已知電源 $\\mathbf{V}_s = 100\\angle 0^\\circ\\,\\text{V}, \\omega = 377\\,\\text{rad/s}$。利用戴維寧定理（Thevenin's Theorem），求負載阻抗 $Z_L$ 可獲得之最大功率傳輸值 $P_{max}$ 及此時之最佳負載阻抗 $Z_L$。（25 分）",
     [
-      "交流相量",
       "電路學",
-      "等效定理"
+      "等效定理",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -598,9 +599,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示 MOSFET 疊接（Cascode）放大器，包含共源極級（CS）與共閘極級（CG）。試推導其小訊號低頻電壓增益 $A_v = v_o/v_i$ 及輸出阻抗 $R_{out}$。（25 分）",
     [
-      "交流相量",
       "電子學",
-      "電力電子"
+      "電力電子",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_113年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -618,8 +619,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "如圖所示之負回授放大器電路，試判斷其回授拓撲型態（電壓串聯、電壓並聯、電流串聯或電流並聯），並求開迴路增益 $A$、回授因數 $\\beta$、閉迴路增益 $A_f$ 及輸入輸出阻抗。（25 分）",
     [
-      "交流相量",
-      "電子學"
+      "電子學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_113年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -637,9 +638,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一升壓型（Boost）切換式轉換器，輸入 $V_d = 12\\,\\text{V}$，輸出 $V_o = 24\\,\\text{V}$，切換頻率 $f_s = 50\\,\\text{kHz}$，負載 $P_o = 48\\,\\text{W}$。試求導通占空比 $D$、電感平均電流 $I_L$ 及維持連續導通模式（CCM）之最小臨界電感值 $L_{crit}$。（25 分）",
     [
-      "交流相量",
       "電子學",
-      "電力電子"
+      "電力電子",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_113年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -677,8 +678,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "微分方程級數解：利用 Frobenius 方法求解微分方程 $2x^2 y'' + x y' - (x+1) y = 0$ 在 $x=0$ 附近之兩線性獨立級數解。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -716,8 +717,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "傅立葉級數與偏微分方程：求週期為 $2\\pi$ 之函數 $f(x) = |x|, -\\pi \\le x \\le \\pi$ 之傅立葉級數展開式，並藉此證明 $\\sum_{n=1}^\\infty \\frac{1}{(2n-1)^2} = \\frac{\\pi^2}{8}$。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -772,8 +773,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "三相自耦變壓器容量提升原理：兩繞組變壓器容量為 $100\\,\\text{kVA}$，額定電壓 $2400/240\\,\\text{V}$，若將其重組成升壓自耦變壓器（$2400/2640\\,\\text{V}$）。試求：\n\n* **(一)** 自耦變壓器之輸出額定容量。（10 分）\n\n* **(二)** 傳導容量（Conducted Power）與感應容量（Transformed Power）各為多少。（10 分）\n\n* **(三)** 效率與電壓調整率之改善幅度分析。（5 分）",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -794,8 +795,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "三相感應電動機轉子串電阻調速與能耗制動：繞線型感應電動機在額定負載下運行，說明轉子外加電阻對啟動電流、啟動轉矩、最大轉矩及運轉轉速之影響，並分析反接制動（Plugging）與直流注入能耗制動（Dynamic Braking）之電氣動作原理。（25 分）",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -815,8 +816,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "同步發電機並聯運轉與 V 形曲線（V-Curve）：三相同步電動機連接於無限母線，說明改變激磁電流（過激、欠激、正常激磁）對電樞電流大小、相位（功率因數）之影響，並繪出不同負載功率下之 V 形曲線。（25 分）",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -854,9 +855,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "標么系統（Per-Unit System）多電壓等級網路阻抗圖繪製：已知一發電系統包含發電機、升壓變壓器、雙迴線輸電線、降壓變壓器及負載。選定系統基準值 $S_{base} = 100\\,\\text{MVA}, V_{base} = 13.8\\,\\text{kV}$，將所有元件換算為統一標么值並繪出標么正序阻抗單線圖。（25 分）",
     [
+      "電機機械",
       "交流相量",
-      "電力系統",
-      "電機機械"
+      "電力系統"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -874,9 +875,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "三相對稱短路故障與斷路器啟斷容量：一發電機端發生三相對稱金屬短路，分析次暫態電流 $I''$、暫態電流 $I'$ 及穩態電流 $I$ 之衰減歷程，說明直流偏移分量（DC Offset）對斷路器對稱與非對稱啟斷容量（Interrupting Capacity）選用之影響。（25 分）",
     [
-      "暫態穩定",
       "交流相量",
       "電力系統",
+      "暫態穩定",
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
@@ -937,8 +938,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如下圖所示電路，利用節點電壓法（Nodal Analysis），計算各節點電壓 $v_1, v_2, v_3$ 及相依電源提供之功率。（25 分）",
     [
-      "交流相量",
-      "電路學"
+      "電路學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_112年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -974,8 +975,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "如下圖所示互感耦合交流電路，電源角頻率 $\\omega = 1000\\,\\text{rad/s}$，線圈自感分別為 $L_1 = 2\\,\\text{mH}, L_2 = 8\\,\\text{mH}$，互感 $M = 3\\,\\text{mH}$。利用網目電流法（Mesh Analysis）求解流經兩線圈之電流相量 $\\mathbf{I}_1, \\mathbf{I}_2$。（25 分）",
     [
-      "交流相量",
-      "電路學"
+      "電路學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_112年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1013,9 +1014,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示之 BJT 共射極（CE）放大器，射極具退化電阻 $R_E$。試繪出其小訊號 $\\pi$ 模型等效電路，並求輸入阻抗 $R_{in}$、電壓增益 $A_v = v_o/v_i$ 及輸出阻抗 $R_o$。（25 分）",
     [
-      "交流相量",
       "電子學",
-      "電力電子"
+      "電力電子",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1091,8 +1092,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "偏微分方程分離變數法：求解一維熱傳導方程 $\\frac{\\partial u}{\\partial t} = c^2 \\frac{\\partial^2 u}{\\partial x^2}, 0 < x < L, t > 0$，邊界條件 $u(0, t) = 0, u(L, t) = 0$，初始條件 $u(x, 0) = \\sin(\\frac{\\pi x}{L}) + 3\\sin(\\frac{2\\pi x}{L})$。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1149,8 +1150,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "二階非齊次 ODE 參數變異法：利用參數變異法（Variation of Parameters）求微分方程 $y'' + y = \\sec x$ 之通解。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1168,8 +1169,8 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "矩陣指數函數：求微分方程系統 $\\frac{d\\mathbf{x}}{dt} = A \\mathbf{x}$ 之解，其中 $A = \\begin{bmatrix} 2 & 1 \\\\ 0 & 2 \\end{bmatrix}, \\mathbf{x}(0) = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$，利用矩陣指數 $e^{At}$ 求解。（20 分）",
     [
-      "暫態穩定",
       "工程數學",
+      "暫態穩定",
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
@@ -1188,9 +1189,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "變壓器三相連接組別與激磁湧流：分析 $Y-\\Delta$ 與 $\\Delta-Y$ 三相變壓器連接時之相移角度（$30^\\circ$）成因，並推導變壓器三次諧波磁通與激磁湧流（Inrush Current）產生之物理機制及抑制方法。（25 分）",
     [
-      "配電設計",
+      "電機機械",
       "交流相量",
-      "電機機械"
+      "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1208,9 +1209,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "感應發電機（Induction Generator）孤島運轉與自激條件：一三相感應機作為自激風力發電機運轉，說明外部並聯電容器組提供虛功率之必要性、激磁電容最小臨界值計算及負載變動時頻率與電壓之維持機制。（25 分）",
     [
-      "配電設計",
+      "電機機械",
       "交流相量",
-      "電機機械"
+      "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1230,9 +1231,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "同步發電機短路比（SCR）與暫態電抗：一三相同步發電機進行開路與三相穩態短路試驗，定義短路比（SCR, Short Circuit Ratio），並說明 SCR 對發電機實體尺寸、氣隙長度、穩態穩定度極限及電壓調整率之工程影響。（25 分）",
     [
-      "暫態穩定",
-      "交流相量",
       "電機機械",
+      "交流相量",
+      "暫態穩定",
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
@@ -1251,8 +1252,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "直流無刷馬達霍爾感測器與換相邏輯：說明三相 BLDC 內嵌三個空間間隔 $120^\\circ$ 霍爾感測器之信號真值表，如何對應至六個 MOSFET 功率開關之導通順序，達成無電刷換向。（25 分）",
     [
-      "交流相量",
       "電機機械",
+      "交流相量",
       "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
@@ -1271,8 +1272,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "線間短路（L-L Fault）與雙線接地短路（2LG Fault）對稱分量分析：分別繪出系統在發生線間故障與雙線接地故障時之正序、負序、零序網路連接拓撲，並推導故障相電流之解析公式。（25 分）",
     [
-      "故障分析",
-      "電力系統"
+      "電力系統",
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1350,9 +1351,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示電路，求端點 a-b 視入之戴維寧等效電壓 $V_{th}$ 與戴維寧等效電阻 $R_{th}$，並求跨接於 a-b 端之負載可獲得之最大功率。（25 分）",
     [
-      "交流相量",
       "電路學",
-      "等效定理"
+      "等效定理",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_111年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1390,8 +1391,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "三相四線式平衡 $Y-Y$ 供電系統，電源線電壓為 $220\\,\\text{V}$，負載每相阻抗為 $Z_Y = 10 + j15\\,\\Omega$，中性線阻抗 $Z_n = 1 + j1\\,\\Omega$。試求線路電流大小、中性線電流及負載總消耗之視在功率 $S$。（25 分）",
     [
-      "交流相量",
-      "電路學"
+      "電路學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_111年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1409,8 +1410,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "如圖所示電路，利用拉氏轉換（Laplace Transform）建立 $s$ 域等效電路，並求在步階輸入 $v_i(t) = 10u(t)\\,\\text{V}$ 下零狀態響應之輸出電壓 $v_o(t)$。（25 分）",
     [
-      "暫態穩定",
-      "電路學"
+      "電路學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_111年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1428,9 +1429,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示之共基極（CB）BJT 放大器，試求其小訊號輸入電阻 $R_{in}$、短路電流增益 $A_{is}$、電壓增益 $A_v$ 及高頻極點分佈。（25 分）",
     [
-      "故障分析",
       "電子學",
-      "電力電子"
+      "電力電子",
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_111年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1466,9 +1467,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一單相全橋電壓源變流器（VSI），直流鏈電壓 $V_{dc} = 400\\,\\text{V}$，採用正弦脈波寬度調變（SPWM），調變率 $m_a = 0.8$。試求輸出基頻相電壓有效值 $V_{o1,\\text{rms}}$ 及直流電源所提供之平均功率。（25 分）",
     [
-      "交流相量",
       "電子學",
-      "電力電子"
+      "電力電子",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_111年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1524,8 +1525,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "傅立葉轉換求解 ODE：利用傅立葉轉換求解微分方程 $-y'' + 4y = e^{-2|x|}, -\\infty < x < \\infty$。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1581,8 +1582,8 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "狄拉克 Delta 函數與拉氏轉換：求解初值問題 $y'' + 2y' + 2y = \\delta(t - \\pi), y(0) = 1, y'(0) = 0$。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1600,8 +1601,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "變壓器並聯運轉條件與負載分配：兩台單相變壓器並聯供應 $500\\,\\text{kVA}$ 負載，一台容量 $300\\,\\text{kVA}, Z_A = 1 + j4\\%$，另一台容量 $200\\,\\text{kVA}, Z_B = 1.2 + j5\\%$。求兩台變壓器各自承擔之複數功率及是否發生過載。（25 分）",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1641,8 +1642,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "同步發電機阻尼繞組（Damper Winding）作用：分析同步機轉子極面設置阻尼繞組在抑制轉子擺動（Hunting）、改善非對稱短路及提供非同步啟動轉矩上之電磁原理。（25 分）",
     [
-      "故障分析",
-      "電機機械"
+      "電機機械",
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1678,9 +1679,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "匯流排阻抗矩陣（$Z_{bus}$）建構演算法：逐步建立包含 3 個母線之 $Z_{bus}$ 矩陣，說明加入由新母線至參考母線、現有母線至新母線及兩現有母線間支路時之修正公式，並利用 $Z_{bus}$ 直接求取任一母線三相短路電流。（25 分）",
     [
-      "故障分析",
       "交流相量",
       "電力系統",
+      "故障分析",
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
@@ -1699,8 +1700,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "輸電線路熱極限（Thermal Limit）、電壓降極限與穩態穩定度極限（Steady-State Stability Limit）：依據線路長度（短程 $<80\\,\\text{km}$、中程 $80\\sim 250\\,\\text{km}$、長程 $>250\\,\\text{km}$），詳細分析限制輸電線最大輸電容量之主導物理因素與改善對策。（25 分）",
     [
-      "暫態穩定",
       "電力系統",
+      "暫態穩定",
       "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
@@ -1740,9 +1741,9 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "距離保護電驛（Distance Relay）三段式保護規劃：分析阻抗型電驛（Impedance Relay）與莫姆電驛（Mho Relay）之特性阻抗圓圖，設計輸電線 Zone 1（$80\\sim 85\\%$ 瞬時）、Zone 2（$120\\sim 150\\%$ 延時）及 Zone 3（遠後衛保護）之定值設定原則與時間協調。（25 分）",
     [
-      "故障分析",
       "交流相量",
-      "電力系統"
+      "電力系統",
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1760,8 +1761,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示直流電路，含有相依電壓源與相依電流源，試求通過 $4\\,\\Omega$ 電阻之電流及相依源所供應之功率。（25 分）",
     [
-      "交流相量",
-      "電路學"
+      "電路學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1779,8 +1780,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "如圖所示交流諧振電路，包含串聯 $RLC$ 網路，已知電源電壓 $v_s(t) = 100\\cos(\\omega t)\\,\\text{V}, R = 10\\,\\Omega, L = 50\\,\\text{mH}, C = 20\\,\\mu\\text{F}$。試求：\n\n* **(一)** 串聯諧振頻率 $\\omega_0$（$\\text{rad/s}$）與品質因數 $Q$。（10 分）\n\n* **(二)** 半功率頻率 $\\omega_1, \\omega_2$ 與頻寬 $BW$。（15 分）",
     [
-      "交流相量",
-      "電路學"
+      "電路學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1798,8 +1799,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "如圖所示電路，開關 $S$ 於 $t=0$ 時由接點 A 切換至接點 B，電容初始電壓為 $v_C(0^-) = 5\\,\\text{V}$。求 $t \\ge 0$ 時之電容電壓響應 $v_C(t)$。（25 分）",
     [
-      "配電設計",
-      "電路學"
+      "電路學",
+      "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1817,8 +1818,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "如下圖之雙埠網路，試求其混合參數矩陣（H 參數矩陣），並驗證其可逆性與對稱性。（25 分）",
     [
-      "線性代數",
-      "電路學"
+      "電路學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1836,9 +1837,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示 MOSFET 電流源負載之共源極放大器，考慮本體效應（Body Effect, $g_{mb}$）與通道長度調變（$r_o$）。試求精確之小訊號電壓增益表示式。（25 分）",
     [
-      "交流相量",
       "電子學",
-      "電力電子"
+      "電力電子",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1856,8 +1857,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "如圖所示儀表放大器（Instrumentation Amplifier, IA），由三個 OPA 與精密電阻組成。試推導其差模輸出電壓 $v_o$ 與雙端輸入 $v_1, v_2$ 之閉迴路增益公式，並說明其高輸入阻抗與高 CMRR 之優點。（25 分）",
     [
-      "交流相量",
-      "電子學"
+      "電子學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -1875,8 +1876,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一返馳式（Flyback）隔離型 DC-DC 轉換器，變壓器匝比為 $N_1:N_2 = 4:1$，輸入電壓 $V_d = 100\\,\\text{V}$，開關切換頻率 $f_s = 50\\,\\text{kHz}$，占空比 $D = 0.4$。求輸出電壓 $V_o$ 及開關承受之最高電壓應力。（25 分）",
     [
-      "電機機械",
       "電子學",
+      "電機機械",
       "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md",
@@ -1968,8 +1969,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "高階變係數 Euler-Cauchy 方程：求解歐拉－柯西常微分方程 $x^2 y'' - 3x y' + 4y = x^2 \\ln x, x > 0$。（20 分）",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -2005,8 +2006,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "單相感應電動機雙旋轉磁場理論與啟動方式：利用雙旋轉磁場理論解釋為何單相感應機無自啟動轉矩，並詳細比較分相式（Split-Phase）、電容啟動式（Capacitor-Start）與永久電容式（Permanent-Split Capacitor）之電路差異與性能。（25 分）",
     [
-      "配電設計",
-      "電機機械"
+      "電機機械",
+      "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -2026,8 +2027,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "變壓器效率極大化條件推導：證明變壓器在鐵損等於銅損（$P_{core} = P_{cu}$）時具有最大工作效率，並計算給定負載曲線下之全日效率（All-Day Efficiency）。（25 分）",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -2045,9 +2046,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "凸極同步電動機功角特性曲線與最大拉入轉矩：推導凸極同步馬達之功率功角關係式，求其最大電磁轉矩所對應之功角 $\\delta$，並說明失步（Pull-out）保護機制。（25 分）",
     [
-      "故障分析",
+      "電機機械",
       "交流相量",
-      "電機機械"
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -2101,10 +2102,10 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "三相變壓器組零序等效電路：詳細畫出五種不同連接方式（$Y-Y$ 雙側接地、$Y-Y$ 單側接地、$Y-\\Delta$ 接地、$Y-\\Delta$ 未接地、$\\Delta-\\Delta$）之變壓器零序等效電路網圖，並解釋零序電流流通之邊界條件。（25 分）",
     [
-      "故障分析",
+      "電機機械",
       "交流相量",
       "電力系統",
-      "電機機械"
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -2124,8 +2125,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "同步發電機小訊號低頻振盪（Low Frequency Oscillation）與 PSS（電力系統穩定器）：說明發電機在弱聯絡線上輸送重載時阻尼不足所引發之區域間振盪模式（$0.1\\sim 2\\,\\text{Hz}$），並分析電力系統穩定器（PSS）如何透過相位超前補償提供正阻尼轉矩。（25 分）",
     [
-      "電力系統",
-      "電機機械"
+      "電機機械",
+      "電力系統"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
@@ -2143,8 +2144,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "變電所接地網安全設計（IEEE Std 80）：定義跨步電壓（Step Voltage）與接觸電壓（Touch Voltage）之容許安全極限公式，說明接地網（Grounding Grid）導體埋深、網格密度及地表碎石層電阻率對降低人體電擊風險之關鍵作用。（25 分）",
     [
-      "故障分析",
-      "電力系統"
+      "電力系統",
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
     "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",

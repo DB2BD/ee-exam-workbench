@@ -94,7 +94,7 @@ const NATIONAL_EXAMS_DATA = {
       "電路學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_114年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -107,13 +107,12 @@ const NATIONAL_EXAMS_DATA = {
     "01",
     114,
     2,
-    "某電感－電阻－開關電路圖如圖二所示，已知電路中包含 $12\\,\\text{V}$ 電壓源、$40\\,\\Omega$、$80\\,\\Omega$ 電阻，以及 $2\\,\\text{mH}$ 電感器，開關在 $t=0$ 與 $t=1\\,\\text{ms}$ 切換。試計算：\n\n\n\n* **(一)** 該電路中電感器之初始電流 $i(0)$？（10 分）\n* **(二)** 該電路圖在時間 $1\\,\\text{ms} \\ge t > 0$ 之時間常數值與電感器之響應函數 $i(t)$？（5 分）\n* **(三)** 該電路圖在時間 $t > 1\\,\\text{ms}$ 之時間常數值與電感器之響應函數 $i(t)$？（10 分）\n* **(四)** 請繪出電感器之響應函數 $i(t)$ 完整之響應圖。（5 分）",
+    "某電感－電阻－開關電路圖如圖二所示，已知電路中包含 $12\\,\\text{V}$ 電壓源、$40\\,\\Omega$、$80\\,\\Omega$、$48\\,\\Omega$、$32\\,\\Omega$、$2\\,\\Omega$、$2\\,\\Omega$ 電阻，以及 $2\\,\\text{mH}$ 電感器，開關在 $t=0$ 與 $t=1\\,\\text{ms}$ 切換。試計算：\n\n* **(一)** 該電路中電感器之初始電流 $i(0)$？（10 分）\n\n* **(二)** 該電路圖在時間 $1\\,\\text{ms} \\ge t > 0$ 之時間常數（time constant）值與電感器之響應函數 $i(t)$？（5 分）\n\n* **(三)** 該電路圖在時間 $t > 1\\,\\text{ms}$ 之時間常數值與電感器之響應函數 $i(t)$？（10 分）\n\n* **(四)** 請繪出電感器之響應函數 $i(t)$ 完整之響應圖。（5 分）",
     [
-      "電路學",
-      "暫態穩定"
+      "電路學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_114年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -133,7 +132,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_114年_高考三級_電路學.pdf",
     3,
     "verified",
     [
@@ -154,7 +153,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_114年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -169,11 +168,11 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "一 BJT 差動對放大器（Differential Amplifier），偏壓電流源 $I_{SS} = 1\\,\\text{mA}$，集極電阻 $R_C = 10\\,\\text{k}\\Omega$，電晶體參數 $\\beta = 100, V_A = 100\\,\\text{V}$。試求差模增益 $A_d$、共模增益 $A_{cm}$ 及共模拒斥比 CMRR（以 dB 表示）。（25 分）",
     [
-      "電子學",
-      "電力電子"
+      "電力電子",
+      "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_114年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_114年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -188,13 +187,13 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "如下圖所示 MOSFET 共源極放大器（Common-Source Amplifier），負載為主動式電流鏡負載。考慮通道長度調變效應（$\\lambda \\ne 0$）與寄生電容 $C_{gs}, C_{gd}$，利用開路時間常數法（OCTC）估算其高頻截止頻率 $f_H$。（25 分）",
     [
-      "電子學",
       "電力電子",
-      "交流相量",
-      "配電設計"
+      "配電設計",
+      "電子學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_114年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_114年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -209,13 +208,13 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一降壓型（Buck）DC-DC 轉換器，輸入電壓 $V_d = 48\\,\\text{V}$，輸出電壓 $V_o = 12\\,\\text{V}$，切換頻率 $f_s = 100\\,\\text{kHz}$，負載電阻 $R = 6\\,\\Omega$。若要求電感電流紋波 $\\Delta i_L \\le 20\\% I_L$，輸出電壓紋波 $\\Delta v_o \\le 1\\% V_o$，求所需之最小電感值 $L_{min}$ 與最小電容值 $C_{min}$。（25 分）",
     [
-      "電子學",
       "電力電子",
-      "交流相量",
-      "配電設計"
+      "配電設計",
+      "電子學",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_114年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_114年_高考三級_電子學.pdf",
     3,
     "verified",
     [
@@ -235,7 +234,7 @@ const NATIONAL_EXAMS_DATA = {
       "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_114年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_114年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -250,11 +249,11 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "一階常微分方程求解：求初值問題 $x \\frac{dy}{dx} + 2y = \\frac{\\sin x}{x}, y(\\pi) = 0$ 之特解。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_114年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_114年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -269,11 +268,11 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "二階常微分方程與拉氏轉換：利用拉普拉斯轉換求解初值問題 $y'' + 4y' + 13y = 13e^{-2t}\\cos(3t), y(0)=0, y'(0)=1$。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_114年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_114年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -292,7 +291,7 @@ const NATIONAL_EXAMS_DATA = {
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_114年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_114年_高考三級_工程數學.pdf",
     3,
     "verified",
     [
@@ -313,7 +312,7 @@ const NATIONAL_EXAMS_DATA = {
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_114年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_114年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -332,7 +331,7 @@ const NATIONAL_EXAMS_DATA = {
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_114年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_114年_高考三級_工程數學.pdf",
     4,
     "verified",
     [],
@@ -352,7 +351,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_114年_高考三級_電機機械.pdf",
     3,
     "verified",
     [
@@ -370,11 +369,11 @@ const NATIONAL_EXAMS_DATA = {
     "三相感應電動機戴維寧等效電路：一額定 $460\\,\\text{V}, 60\\,\\text{Hz}, 4$ 極、$Y$ 連接三相感應電動機，每相等效電路參數已知。試推導其最大轉矩（崩潰轉矩 $T_{max}$）之表示式、發生最大轉矩時之轉差率 $s_{max}$，並求啟動轉矩 $T_{start}$。（25 分）",
     [
       "電機機械",
-      "交流相量",
-      "等效定理"
+      "等效定理",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_114年_高考三級_電機機械.pdf",
     2,
     "verified",
     [
@@ -396,7 +395,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_114年_高考三級_電機機械.pdf",
     4,
     "verified",
     [
@@ -417,7 +416,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_114年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -437,7 +436,7 @@ const NATIONAL_EXAMS_DATA = {
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_114年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -457,7 +456,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_114年_高考三級_電力系統.pdf",
     3,
     "verified",
     [
@@ -474,12 +473,12 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "電力潮流計算牛頓－拉夫遜法（Newton-Raphson Method）：寫出電力系統含 PQ 匯流排與 PV 匯流排之潮流方程，推導雅可比矩陣（Jacobian Matrix）各子矩陣（$J_{11}, J_{12}, J_{21}, J_{22}$）偏微分公式，並比較快速解耦潮流法（FDLF）之簡化假設。（25 分）",
     [
-      "電力系統",
       "暫態穩定",
+      "電力系統",
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_114年_高考三級_電力系統.pdf",
     4,
     "verified",
     [],
@@ -500,7 +499,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_114年_高考三級_電力系統.pdf",
     4,
     "verified",
     [
@@ -522,7 +521,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_113年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -542,7 +541,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_113年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -557,12 +556,12 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "如下圖所示一階 $RC$ 暫態電路，已知電阻 $R_1 = 2\\,\\text{k}\\Omega, R_2 = 3\\,\\text{k}\\Omega, C = 10\\,\\mu\\text{F}$。開關在 $t < 0$ 時長期閉合於位置 A 已達穩態，於 $t = 0$ 秒時瞬間切換至位置 B。請求出：\n\n* **(一)** 電容初始電壓 $v_C(0^-)$ 及開關切換瞬間之初始電流 $i(0^+)$。（10 分）\n\n* **(二)** $t > 0$ 時電容電壓 $v_C(t)$ 之時域完整響應表示式。（15 分）",
     [
-      "電路學",
       "暫態穩定",
+      "電路學",
       "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_113年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -582,7 +581,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_113年_高考三級_電路學.pdf",
     3,
     "verified",
     [
@@ -599,12 +598,12 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示 MOSFET 疊接（Cascode）放大器，包含共源極級（CS）與共閘極級（CG）。試推導其小訊號低頻電壓增益 $A_v = v_o/v_i$ 及輸出阻抗 $R_{out}$。（25 分）",
     [
-      "電子學",
       "電力電子",
+      "電子學",
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_113年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_113年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -623,7 +622,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_113年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_113年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -638,12 +637,12 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一升壓型（Boost）切換式轉換器，輸入 $V_d = 12\\,\\text{V}$，輸出 $V_o = 24\\,\\text{V}$，切換頻率 $f_s = 50\\,\\text{kHz}$，負載 $P_o = 48\\,\\text{W}$。試求導通占空比 $D$、電感平均電流 $I_L$ 及維持連續導通模式（CCM）之最小臨界電感值 $L_{crit}$。（25 分）",
     [
-      "電子學",
       "電力電子",
+      "電子學",
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_113年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_113年_高考三級_電子學.pdf",
     3,
     "verified",
     [
@@ -663,7 +662,7 @@ const NATIONAL_EXAMS_DATA = {
       "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_113年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_113年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -678,11 +677,11 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "微分方程級數解：利用 Frobenius 方法求解微分方程 $2x^2 y'' + x y' - (x+1) y = 0$ 在 $x=0$ 附近之兩線性獨立級數解。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_113年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -702,7 +701,7 @@ const NATIONAL_EXAMS_DATA = {
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_113年_高考三級_工程數學.pdf",
     4,
     "verified",
     [],
@@ -717,11 +716,11 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "傅立葉級數與偏微分方程：求週期為 $2\\pi$ 之函數 $f(x) = |x|, -\\pi \\le x \\le \\pi$ 之傅立葉級數展開式，並藉此證明 $\\sum_{n=1}^\\infty \\frac{1}{(2n-1)^2} = \\frac{\\pi^2}{8}$。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_113年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -740,7 +739,7 @@ const NATIONAL_EXAMS_DATA = {
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_113年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -758,7 +757,7 @@ const NATIONAL_EXAMS_DATA = {
       "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_113年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -777,7 +776,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
     4,
     "verified",
     [
@@ -799,7 +798,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
     3,
     "verified",
     [
@@ -820,7 +819,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
     3,
     "verified",
     [
@@ -840,7 +839,7 @@ const NATIONAL_EXAMS_DATA = {
       "電機機械"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -856,11 +855,11 @@ const NATIONAL_EXAMS_DATA = {
     "標么系統（Per-Unit System）多電壓等級網路阻抗圖繪製：已知一發電系統包含發電機、升壓變壓器、雙迴線輸電線、降壓變壓器及負載。選定系統基準值 $S_{base} = 100\\,\\text{MVA}, V_{base} = 13.8\\,\\text{kV}$，將所有元件換算為統一標么值並繪出標么正序阻抗單線圖。（25 分）",
     [
       "電機機械",
-      "交流相量",
-      "電力系統"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_113年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -875,13 +874,13 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "三相對稱短路故障與斷路器啟斷容量：一發電機端發生三相對稱金屬短路，分析次暫態電流 $I''$、暫態電流 $I'$ 及穩態電流 $I$ 之衰減歷程，說明直流偏移分量（DC Offset）對斷路器對稱與非對稱啟斷容量（Interrupting Capacity）選用之影響。（25 分）",
     [
+      "暫態穩定",
       "交流相量",
       "電力系統",
-      "暫態穩定",
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_113年_高考三級_電力系統.pdf",
     3,
     "verified",
     [
@@ -899,11 +898,11 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "經濟調度與等微增率準則（Equal Incremental Cost）：兩部火力發電機組並聯供電，其燃料成本函數分別為 $C_1(P_1) = 0.008 P_1^2 + 8.0 P_1 + 200\\,\\text{NT\\$/h}$，$C_2(P_2) = 0.009 P_2^2 + 6.4 P_2 + 300\\,\\text{NT\\$/h}$，系統總負載 $P_D = 800\\,\\text{MW}$，忽視線路損失。試求各機組最佳發電出力 $P_1, P_2$ 及系統微增成本 $\\lambda$。（25 分）",
     [
-      "交流相量",
-      "電力系統"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_113年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -923,7 +922,7 @@ const NATIONAL_EXAMS_DATA = {
       "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_113年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -942,7 +941,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_112年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_112年_高考三級_電路學.pdf",
     2,
     "verified",
     [],
@@ -960,7 +959,7 @@ const NATIONAL_EXAMS_DATA = {
       "電路學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_112年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_112年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -979,7 +978,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_112年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_112年_高考三級_電路學.pdf",
     3,
     "verified",
     [
@@ -999,7 +998,7 @@ const NATIONAL_EXAMS_DATA = {
       "電路學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_112年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_112年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -1014,12 +1013,12 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示之 BJT 共射極（CE）放大器，射極具退化電阻 $R_E$。試繪出其小訊號 $\\pi$ 模型等效電路，並求輸入阻抗 $R_{in}$、電壓增益 $A_v = v_o/v_i$ 及輸出阻抗 $R_o$。（25 分）",
     [
-      "電子學",
       "電力電子",
+      "電子學",
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_112年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1037,7 +1036,7 @@ const NATIONAL_EXAMS_DATA = {
       "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_112年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1052,11 +1051,11 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "如下圖所示降升壓型（Buck-Boost）轉換器，在連續導通模式（CCM）操作下，推導輸出電壓與輸入電壓比值 $V_o/V_d$ 與開關占空比 $D$ 之關係式，並說明其輸出電壓極性反轉之物理成因。（25 分）",
     [
-      "電子學",
-      "電力電子"
+      "電力電子",
+      "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_112年_高考三級_電子學.pdf",
     3,
     "verified",
     [
@@ -1077,7 +1076,7 @@ const NATIONAL_EXAMS_DATA = {
       "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_112年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1092,11 +1091,11 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "偏微分方程分離變數法：求解一維熱傳導方程 $\\frac{\\partial u}{\\partial t} = c^2 \\frac{\\partial^2 u}{\\partial x^2}, 0 < x < L, t > 0$，邊界條件 $u(0, t) = 0, u(L, t) = 0$，初始條件 $u(x, 0) = \\sin(\\frac{\\pi x}{L}) + 3\\sin(\\frac{2\\pi x}{L})$。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1115,7 +1114,7 @@ const NATIONAL_EXAMS_DATA = {
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
     4,
     "verified",
     [
@@ -1135,7 +1134,7 @@ const NATIONAL_EXAMS_DATA = {
       "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1150,11 +1149,11 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "二階非齊次 ODE 參數變異法：利用參數變異法（Variation of Parameters）求微分方程 $y'' + y = \\sec x$ 之通解。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
     4,
     "verified",
     [],
@@ -1169,12 +1168,12 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "矩陣指數函數：求微分方程系統 $\\frac{d\\mathbf{x}}{dt} = A \\mathbf{x}$ 之解，其中 $A = \\begin{bmatrix} 2 & 1 \\\\ 0 & 2 \\end{bmatrix}, \\mathbf{x}(0) = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$，利用矩陣指數 $e^{At}$ 求解。（20 分）",
     [
-      "工程數學",
       "暫態穩定",
+      "工程數學",
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1190,11 +1189,11 @@ const NATIONAL_EXAMS_DATA = {
     "變壓器三相連接組別與激磁湧流：分析 $Y-\\Delta$ 與 $\\Delta-Y$ 三相變壓器連接時之相移角度（$30^\\circ$）成因，並推導變壓器三次諧波磁通與激磁湧流（Inrush Current）產生之物理機制及抑制方法。（25 分）",
     [
       "電機機械",
-      "交流相量",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -1210,11 +1209,11 @@ const NATIONAL_EXAMS_DATA = {
     "感應發電機（Induction Generator）孤島運轉與自激條件：一三相感應機作為自激風力發電機運轉，說明外部並聯電容器組提供虛功率之必要性、激磁電容最小臨界值計算及負載變動時頻率與電壓之維持機制。（25 分）",
     [
       "電機機械",
-      "交流相量",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
     3,
     "verified",
     [
@@ -1231,13 +1230,13 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "同步發電機短路比（SCR）與暫態電抗：一三相同步發電機進行開路與三相穩態短路試驗，定義短路比（SCR, Short Circuit Ratio），並說明 SCR 對發電機實體尺寸、氣隙長度、穩態穩定度極限及電壓調整率之工程影響。（25 分）",
     [
+      "暫態穩定",
       "電機機械",
       "交流相量",
-      "暫態穩定",
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -1252,12 +1251,12 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "直流無刷馬達霍爾感測器與換相邏輯：說明三相 BLDC 內嵌三個空間間隔 $120^\\circ$ 霍爾感測器之信號真值表，如何對應至六個 MOSFET 功率開關之導通順序，達成無電刷換向。（25 分）",
     [
+      "電力電子",
       "電機機械",
-      "交流相量",
-      "電力電子"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -1276,7 +1275,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
     3,
     "verified",
     [
@@ -1293,12 +1292,12 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "輸電線路電感與電容幾何均數（GMD, GMR）計算：一三相三線式輸電線路，導線採用複導體（Bundle Conductor）四分裂結構，計算每相導線之幾何均數半徑（$GMR_L, GMR_C$）及三相換位（Transposed）線路之每公里正序電感與電容。（25 分）",
     [
-      "交流相量",
       "電力系統",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -1313,11 +1312,11 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "發電機自動發電控制（AGC）與一次頻率響應（Primary Frequency Control）：推導單區域電力系統在遭受階躍負載擾動 $\\Delta P_L$ 時之穩態頻率偏差 $\\Delta f_{ss}$ 公式，說明調速機下垂特性（Speed Droop, $R$）與系統阻尼常數 $D$ 之物理意義。（25 分）",
     [
-      "交流相量",
-      "電力系統"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -1332,11 +1331,11 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "輸電線路行波反射與透射（Travelling Waves on Transmission Lines）：電壓突波 $V^+$ 沿特性阻抗 $Z_1$ 之架空線傳播，進入特性阻抗 $Z_2$ 之地下電纜。推導接合點處之電壓與電流反射係數 $\\Gamma_v, \\Gamma_i$ 及透射係數 $\\tau_v, \\tau_i$，並說明波前陡度對絕緣配合（Insulation Coordination）之影響。（25 分）",
     [
-      "交流相量",
-      "電力系統"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -1356,7 +1355,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_111年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_111年_高考三級_電路學.pdf",
     2,
     "verified",
     [
@@ -1376,7 +1375,7 @@ const NATIONAL_EXAMS_DATA = {
       "電路學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_111年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_111年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -1395,7 +1394,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_111年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_111年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -1410,11 +1409,11 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "如圖所示電路，利用拉氏轉換（Laplace Transform）建立 $s$ 域等效電路，並求在步階輸入 $v_i(t) = 10u(t)\\,\\text{V}$ 下零狀態響應之輸出電壓 $v_o(t)$。（25 分）",
     [
-      "電路學",
-      "暫態穩定"
+      "暫態穩定",
+      "電路學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_111年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_111年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -1429,12 +1428,12 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示之共基極（CB）BJT 放大器，試求其小訊號輸入電阻 $R_{in}$、短路電流增益 $A_{is}$、電壓增益 $A_v$ 及高頻極點分佈。（25 分）",
     [
-      "電子學",
       "電力電子",
+      "電子學",
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_111年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_111年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1452,7 +1451,7 @@ const NATIONAL_EXAMS_DATA = {
       "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_111年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_111年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1467,12 +1466,12 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一單相全橋電壓源變流器（VSI），直流鏈電壓 $V_{dc} = 400\\,\\text{V}$，採用正弦脈波寬度調變（SPWM），調變率 $m_a = 0.8$。試求輸出基頻相電壓有效值 $V_{o1,\\text{rms}}$ 及直流電源所提供之平均功率。（25 分）",
     [
-      "電子學",
       "電力電子",
+      "電子學",
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_111年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_111年_高考三級_電子學.pdf",
     4,
     "verified",
     [],
@@ -1490,7 +1489,7 @@ const NATIONAL_EXAMS_DATA = {
       "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_111年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_111年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1510,7 +1509,7 @@ const NATIONAL_EXAMS_DATA = {
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1525,11 +1524,11 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "傅立葉轉換求解 ODE：利用傅立葉轉換求解微分方程 $-y'' + 4y = e^{-2|x|}, -\\infty < x < \\infty$。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1548,7 +1547,7 @@ const NATIONAL_EXAMS_DATA = {
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1567,7 +1566,7 @@ const NATIONAL_EXAMS_DATA = {
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
     4,
     "verified",
     [],
@@ -1582,11 +1581,11 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "狄拉克 Delta 函數與拉氏轉換：求解初值問題 $y'' + 2y' + 2y = \\delta(t - \\pi), y(0) = 1, y'(0) = 0$。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1605,7 +1604,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
     3,
     "verified",
     [
@@ -1625,7 +1624,7 @@ const NATIONAL_EXAMS_DATA = {
       "電機機械"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
     3,
     "verified",
     [
@@ -1646,7 +1645,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -1664,7 +1663,7 @@ const NATIONAL_EXAMS_DATA = {
       "電機機械"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -1685,7 +1684,7 @@ const NATIONAL_EXAMS_DATA = {
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_111年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -1700,12 +1699,12 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "輸電線路熱極限（Thermal Limit）、電壓降極限與穩態穩定度極限（Steady-State Stability Limit）：依據線路長度（短程 $<80\\,\\text{km}$、中程 $80\\sim 250\\,\\text{km}$、長程 $>250\\,\\text{km}$），詳細分析限制輸電線最大輸電容量之主導物理因素與改善對策。（25 分）",
     [
-      "電力系統",
       "暫態穩定",
+      "電力系統",
       "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_111年_高考三級_電力系統.pdf",
     3,
     "verified",
     [
@@ -1722,11 +1721,11 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "考慮線路損失之發電機經濟調度（Penalty Factor）：推導考慮輸電損失 $P_L = \\sum \\sum P_i B_{ij} P_j$ 時之協調方程式（Coordination Equations），定義懲罰因數（Penalty Factor $L_i$），並說明其如何影響發電機組之功率分配。（25 分）",
     [
-      "交流相量",
-      "電力系統"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_111年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -1746,7 +1745,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_111年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -1765,7 +1764,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_110年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -1784,7 +1783,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_110年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -1803,7 +1802,7 @@ const NATIONAL_EXAMS_DATA = {
       "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_110年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -1822,7 +1821,7 @@ const NATIONAL_EXAMS_DATA = {
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_110年_高考三級_電路學.pdf",
     3,
     "verified",
     [],
@@ -1837,12 +1836,12 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "如圖所示 MOSFET 電流源負載之共源極放大器，考慮本體效應（Body Effect, $g_{mb}$）與通道長度調變（$r_o$）。試求精確之小訊號電壓增益表示式。（25 分）",
     [
-      "電子學",
       "電力電子",
+      "電子學",
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_110年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1861,7 +1860,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_110年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1876,12 +1875,12 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一返馳式（Flyback）隔離型 DC-DC 轉換器，變壓器匝比為 $N_1:N_2 = 4:1$，輸入電壓 $V_d = 100\\,\\text{V}$，開關切換頻率 $f_s = 50\\,\\text{kHz}$，占空比 $D = 0.4$。求輸出電壓 $V_o$ 及開關承受之最高電壓應力。（25 分）",
     [
-      "電子學",
+      "電力電子",
       "電機機械",
-      "電力電子"
+      "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_110年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1899,7 +1898,7 @@ const NATIONAL_EXAMS_DATA = {
       "電子學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_110年_高考三級_電子學.pdf",
     3,
     "verified",
     [],
@@ -1918,7 +1917,7 @@ const NATIONAL_EXAMS_DATA = {
       "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1936,7 +1935,7 @@ const NATIONAL_EXAMS_DATA = {
       "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1954,7 +1953,7 @@ const NATIONAL_EXAMS_DATA = {
       "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1969,11 +1968,11 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "高階變係數 Euler-Cauchy 方程：求解歐拉－柯西常微分方程 $x^2 y'' - 3x y' + 4y = x^2 \\ln x, x > 0$。（20 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "暫態穩定",
+      "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -1991,7 +1990,7 @@ const NATIONAL_EXAMS_DATA = {
       "工程數學"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
     3,
     "verified",
     [],
@@ -2010,7 +2009,7 @@ const NATIONAL_EXAMS_DATA = {
       "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_110年_高考三級_電機機械.pdf",
     3,
     "verified",
     [
@@ -2031,7 +2030,7 @@ const NATIONAL_EXAMS_DATA = {
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_110年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -2051,7 +2050,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_110年_高考三級_電機機械.pdf",
     4,
     "verified",
     [],
@@ -2069,7 +2068,7 @@ const NATIONAL_EXAMS_DATA = {
       "電機機械"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_110年_高考三級_電機機械.pdf",
     3,
     "verified",
     [],
@@ -2087,7 +2086,7 @@ const NATIONAL_EXAMS_DATA = {
       "電力系統"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_110年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -2108,7 +2107,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_110年_高考三級_電力系統.pdf",
     3,
     "verified",
     [
@@ -2129,7 +2128,7 @@ const NATIONAL_EXAMS_DATA = {
       "電力系統"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_110年_高考三級_電力系統.pdf",
     3,
     "verified",
     [],
@@ -2148,7 +2147,7 @@ const NATIONAL_EXAMS_DATA = {
       "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
-    "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
+    "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_110年_高考三級_電力系統.pdf",
     3,
     "verified",
     [

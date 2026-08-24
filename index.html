@@ -2903,7 +2903,16 @@
           throwOnError: false
         });
       }
-    }, 40);
+    } else {
+      if (subQPillsBar) subQPillsBar.style.display = 'none';
+      body.innerHTML = `
+        <div style="text-align: center; padding: 40px;">
+          <h3 style="color: var(--warn); margin-bottom: 12px;">📑 詳解檔案整理中</h3>
+          <p style="color: var(--muted); margin-bottom: 20px;">本題完整解析正收錄於考科知識庫中，請點擊下方按鈕直接查閱！</p>
+          <a href="${targetPath}" target="_blank" class="btn-sol">🔗 直接前往知識庫頁面</a>
+        </div>
+      `;
+    }
   }
 
   // --- Cross-Exam Modal Navigation (TICKET-05) ---

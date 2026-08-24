@@ -245,9 +245,118 @@
     box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
   }
 
-  /* Panels */
-  .panel { display: none; }
-  .panel.on { display: block; }
+  /* Exam Category Dimension Switcher */
+  .exam-category-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .cat-tab {
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    color: var(--ink-light);
+    padding: 9px 20px;
+    border-radius: 30px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
+  }
+  .cat-tab:hover:not(.disabled) {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .cat-tab.on {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(74, 107, 130, 0.35);
+  }
+  [data-theme="dark"] .cat-tab.on {
+    color: #0b1120;
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+  }
+  .cat-tab.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: var(--bg-secondary);
+  }
+
+  /* Cross-Exam Bridge Card (TICKET-05) */
+  .cross-exam-bridge-card {
+    margin-top: 36px;
+    padding: 20px 22px;
+    background: linear-gradient(135deg, var(--card-hover), var(--accent-bg));
+    border: 1.5px solid var(--accent);
+    border-radius: 14px;
+    box-shadow: var(--shadow-md);
+  }
+  .bridge-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bridge-desc {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .bridge-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bridge-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .bridge-item:hover {
+    border-color: var(--accent);
+    transform: translateX(5px);
+    box-shadow: var(--shadow-sm);
+  }
+  .bridge-qid {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .bridge-topic {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .bridge-arrow {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
 
   /* Search & Filter Toolbar */
   .toolbar {
@@ -1206,6 +1315,22 @@
 
   <!-- Panel 1: Question Bank Explorer -->
   <div class="panel on" id="tab-qlist">
+    <!-- 🏛️ 國考考別維度切換列 (TICKET-04) -->
+    <div class="exam-category-tabs" id="exam-category-tabs">
+      <button class="cat-tab on" id="cat-tab-PE" onclick="switchExamCategory('PE')">
+        🏆 電機工程技師 (318 題)
+      </button>
+      <button class="cat-tab" id="cat-tab-GK" onclick="switchExamCategory('GK')">
+        🏛️ 公務高考三級 (105 題)
+      </button>
+      <button class="cat-tab disabled" title="即將收錄 110~114 年鐵路高員試題">
+        🚆 鐵路特考高員 (規劃中)
+      </button>
+      <button class="cat-tab disabled" title="即將收錄 110~114 年國營聯招試題">
+        ⚡ 國營事業聯招 (規劃中)
+      </button>
+    </div>
+
     <div class="toolbar">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
@@ -1428,13 +1553,22 @@
   const STARRED_KEY = 'EE_EXAM_STARRED_V1';
   const THEME_KEY = 'EE_EXAM_THEME_V1';
 
+  let currentExamCategory = localStorage.getItem('exam_category_tab') || 'PE';
+  let nationalExamsLoaded = false;
+  let modalHistoryStack = [];
+
   let progressState = {};
   let starredState = {};
   let currentFilteredQids = [];
   let currentModalQid = '';
 
-  try { progressState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { progressState = {}; }
-  try { starredState = JSON.parse(localStorage.getItem(STARRED_KEY) || '{}'); } catch (e) { starredState = {}; }
+  function reloadProgressState() {
+    const sKey = currentExamCategory === 'PE' ? STORAGE_KEY : `${currentExamCategory}_EXAM_PROGRESS_V1`;
+    const stKey = currentExamCategory === 'PE' ? STARRED_KEY : `${currentExamCategory}_EXAM_STARRED_V1`;
+    try { progressState = JSON.parse(localStorage.getItem(sKey) || '{}'); } catch (e) { progressState = {}; }
+    try { starredState = JSON.parse(localStorage.getItem(stKey) || '{}'); } catch (e) { starredState = {}; }
+  }
+  reloadProgressState();
 
   // --- Theme Controller ---
   function initTheme() {
@@ -1451,8 +1585,10 @@
   initTheme();
 
   function saveProgress() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progressState)); } catch (e) {}
-    try { localStorage.setItem(STARRED_KEY, JSON.stringify(starredState)); } catch (e) {}
+    const sKey = currentExamCategory === 'PE' ? STORAGE_KEY : `${currentExamCategory}_EXAM_PROGRESS_V1`;
+    const stKey = currentExamCategory === 'PE' ? STARRED_KEY : `${currentExamCategory}_EXAM_STARRED_V1`;
+    try { localStorage.setItem(sKey, JSON.stringify(progressState)); } catch (e) {}
+    try { localStorage.setItem(stKey, JSON.stringify(starredState)); } catch (e) {}
     updateStatsAndBar();
   }
 
@@ -1479,12 +1615,130 @@
     setTimeout(() => { t.style.display = 'none'; }, 2600);
   }
 
+  // --- Dynamic Loader for National Exams (TICKET-04) ---
+  function loadNationalExamsScript(callback) {
+    if (typeof NATIONAL_EXAMS_DATA !== 'undefined' && typeof NATIONAL_BUNDLED_MD !== 'undefined') {
+      nationalExamsLoaded = true;
+      if (callback) callback();
+      return;
+    }
+    let loadedCount = 0;
+    const checkDone = () => {
+      loadedCount++;
+      if (loadedCount >= 2) {
+        nationalExamsLoaded = true;
+        if (callback) callback();
+      }
+    };
+    const s1 = document.createElement('script');
+    s1.src = './national-exams-data.js';
+    s1.onload = checkDone;
+    s1.onerror = () => { console.warn("Failed to load national-exams-data.js"); checkDone(); };
+    document.head.appendChild(s1);
+
+    const s2 = document.createElement('script');
+    s2.src = './national-solutions-bundle.js';
+    s2.onload = checkDone;
+    s2.onerror = () => { console.warn("Failed to load national-solutions-bundle.js"); checkDone(); };
+    document.head.appendChild(s2);
+  }
+
+  function getActiveQuestionsList() {
+    if (currentExamCategory === 'PE') {
+      return (typeof DB_DATA !== 'undefined' && DB_DATA.questions) ? DB_DATA.questions : [];
+    } else if (currentExamCategory === 'GK') {
+      if (typeof NATIONAL_EXAMS_DATA !== 'undefined' && NATIONAL_EXAMS_DATA.questions) {
+        return NATIONAL_EXAMS_DATA.questions.filter(q => q[12] === 'GK');
+      }
+      return [];
+    }
+    return [];
+  }
+
+  function updateFilterDropdownsForCategory() {
+    const yrSelect = document.getElementById('filter-year');
+    const subSelect = document.getElementById('filter-subject');
+    if (!yrSelect || !subSelect) return;
+
+    if (currentExamCategory === 'GK') {
+      yrSelect.innerHTML = `
+        <option value="all">所有年度 (110 ~ 114 年)</option>
+        <option value="114">114 年 (最新)</option>
+        <option value="113">113 年</option>
+        <option value="112">112 年</option>
+        <option value="111">111 年</option>
+        <option value="110">110 年</option>
+      `;
+      subSelect.innerHTML = `
+        <option value="all">所有考科 (5 大考科)</option>
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04">⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+      `;
+    } else {
+      yrSelect.innerHTML = `
+        <option value="all">所有年度 (104 ~ 114 年)</option>
+        <option value="114">114 年 (最新)</option>
+        <option value="113">113 年</option>
+        <option value="112">112 年</option>
+        <option value="111">111 年</option>
+        <option value="110">110 年</option>
+        <option value="109">109 年</option>
+        <option value="108">108 年</option>
+        <option value="107">107 年</option>
+        <option value="106">106 年</option>
+        <option value="105">105 年</option>
+        <option value="104">104 年</option>
+      `;
+      subSelect.innerHTML = `
+        <option value="all">所有考科 (6 大考科)</option>
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04">⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+        <option value="06">🏭 06. 工業配電</option>
+      `;
+    }
+  }
+
+  function switchExamCategory(catId) {
+    currentExamCategory = catId;
+    localStorage.setItem('exam_category_tab', catId);
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('on'));
+    const targetTab = document.getElementById('cat-tab-' + catId);
+    if (targetTab) targetTab.classList.add('on');
+
+    updateFilterDropdownsForCategory();
+    reloadProgressState();
+
+    if (catId === 'PE') {
+      updateStatsAndBar();
+      renderQuestions();
+      showToast('🏆 已切換至「電機工程技師」核心題庫 (318 題)');
+    } else {
+      if (!nationalExamsLoaded) {
+        loadNationalExamsScript(() => {
+          updateStatsAndBar();
+          renderQuestions();
+          showToast('🏛️ 已切換至「公務人員高考三級」參考題庫 (105 題)');
+        });
+      } else {
+        updateStatsAndBar();
+        renderQuestions();
+        showToast('🏛️ 已切換至「公務人員高考三級」參考題庫 (105 題)');
+      }
+    }
+  }
+
   function updateStatsAndBar() {
-    if (typeof DB_DATA === 'undefined' || !DB_DATA.questions) return;
-    const total = DB_DATA.questions.length;
+    const qList = getActiveQuestionsList();
+    const total = qList.length;
     let mastered = 0, review = 0, starred = 0;
     
-    DB_DATA.questions.forEach(q => {
+    qList.forEach(q => {
       const qid = q[0];
       const s = progressState[qid] || 0;
       if (s === 1) mastered++;
@@ -1496,6 +1750,9 @@
     document.getElementById('stat-mastered').innerText = mastered;
     document.getElementById('stat-review').innerText = review;
     document.getElementById('stat-starred').innerText = starred;
+    if (document.getElementById('stat-exams')) {
+      document.getElementById('stat-exams').innerText = currentExamCategory === 'PE' ? 66 : 25;
+    }
     
     const donePercent = total > 0 ? ((mastered / total) * 100).toFixed(1) : 0;
     const reviewPercent = total > 0 ? ((review / total) * 100).toFixed(1) : 0;
@@ -1514,6 +1771,10 @@
   }
 
   function getSubjectMeta(sid) {
+    if (currentExamCategory === 'GK' && typeof NATIONAL_EXAMS_DATA !== 'undefined' && NATIONAL_EXAMS_DATA.subjects) {
+      const s = NATIONAL_EXAMS_DATA.subjects.find(s => s.id === sid);
+      if (s) return s;
+    }
     if (typeof DB_DATA === 'undefined' || !DB_DATA.meta || !DB_DATA.meta.subjects) {
       return { name: '考科', icon: '⚡', color: '#4a7c8f' };
     }
@@ -1529,7 +1790,8 @@
   }
 
   function renderQuestions() {
-    if (typeof DB_DATA === 'undefined' || !DB_DATA.questions) return;
+    const qList = getActiveQuestionsList();
+    if (!qList) return;
 
     const query = (document.getElementById('search-box').value || '').trim().toLowerCase();
     const subFilter = document.getElementById('filter-subject').value;
@@ -1545,7 +1807,7 @@
     const container = document.getElementById('qlist-container');
     container.innerHTML = '';
 
-    const filtered = DB_DATA.questions.filter(q => {
+    const filtered = qList.filter(q => {
       const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, vstatus, ftags, hasDed] = q;
       const status = progressState[qid] || 0;
       const isStarred = !!starredState[qid];
@@ -1834,10 +2096,17 @@
     if (navBtns) navBtns.style.display = 'flex';
     const curStatus = progressState[qid] || 0;
     const isStarred = !!starredState[qid];
-    const q = (typeof DB_DATA !== 'undefined' && DB_DATA.questions) ? DB_DATA.questions.find(item => item[0] === qid) : null;
+    const q = findQuestionRecord(qid);
     const pdfLink = q ? q[7] : '';
 
+    const returnBtnHtml = (modalHistoryStack && modalHistoryStack.length > 0) ? `
+      <button onclick="popModalHistory()" class="btn-sol" style="padding: 4px 12px; font-size: 0.82rem; background: var(--accent); color: #fff; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="返回上一道查看的試題">
+        🔙 返回原題 (${modalHistoryStack[modalHistoryStack.length - 1].qid})
+      </button>
+    ` : '';
+
     bar.innerHTML = `
+      ${returnBtnHtml}
       ${pdfLink ? `<a href="${pdfLink}" target="_blank" class="btn-pdf" style="padding: 4px 10px; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;" title="在新分頁開啟官方考選部原題試卷 PDF">📄 官方原卷 PDF</a>` : ''}
       <button class="btn-star ${isStarred ? 'starred' : ''}" onclick="toggleStar('${qid}', event)" title="收藏題目">${isStarred ? '★' : '☆'}</button>
       <div class="status-toggle">
@@ -1855,7 +2124,7 @@
     const nextIdx = idx + direction;
     if (nextIdx >= 0 && nextIdx < currentFilteredQids.length) {
       const nextQid = currentFilteredQids[nextIdx];
-      const q = DB_DATA.questions.find(item => item[0] === nextQid);
+      const q = findQuestionRecord(nextQid);
       if (q) {
         openSolutionModal(null, q[6], nextQid);
       }
@@ -2092,12 +2361,29 @@
       if (IMAGE_MAP[cleanName]) finalPath = IMAGE_MAP[cleanName];
       else if (IMAGE_MAP[basename]) finalPath = IMAGE_MAP[basename];
     }
+    if (!finalPath && typeof NATIONAL_IMAGE_MAP !== 'undefined') {
+      if (NATIONAL_IMAGE_MAP[cleanName]) finalPath = NATIONAL_IMAGE_MAP[cleanName];
+      else if (NATIONAL_IMAGE_MAP[basename]) finalPath = NATIONAL_IMAGE_MAP[basename];
+    }
     
     if (!finalPath) {
       if (cleanName.includes('/')) finalPath = cleanName;
       else finalPath = (basePath || '') + cleanName;
     }
     return finalPath;
+  }
+
+  function findQuestionRecord(qid) {
+    if (!qid) return null;
+    if (typeof DB_DATA !== 'undefined' && DB_DATA.questions) {
+      const q = DB_DATA.questions.find(item => item[0] === qid);
+      if (q) return q;
+    }
+    if (typeof NATIONAL_EXAMS_DATA !== 'undefined' && NATIONAL_EXAMS_DATA.questions) {
+      const q = NATIONAL_EXAMS_DATA.questions.find(item => item[0] === qid);
+      if (q) return q;
+    }
+    return null;
   }
 
   function handleImageError(imgEl, src, caption) {
@@ -2257,6 +2543,15 @@
           }
         }
       }
+      if (!rawContent && typeof NATIONAL_BUNDLED_MD !== 'undefined') {
+        const cleanKey = decodedPath.replace(/^\.\//, '').trim();
+        if (NATIONAL_BUNDLED_MD[cleanKey]) rawContent = NATIONAL_BUNDLED_MD[cleanKey];
+        else {
+          for (let k in NATIONAL_BUNDLED_MD) {
+            if (k.endsWith(cleanKey) || cleanKey.endsWith(k)) { rawContent = NATIONAL_BUNDLED_MD[k]; break; }
+          }
+        }
+      }
 
       if (!rawContent) {
         if (subQPillsBar) subQPillsBar.style.display = 'none';
@@ -2285,7 +2580,7 @@
       const basePath = decodedPath.substring(0, decodedPath.lastIndexOf('/') + 1);
       let contentToRender = rawContent;
 
-      const qRecord = (typeof DB_DATA !== 'undefined' && DB_DATA.questions) ? DB_DATA.questions.find(item => item[0] === currentModalQid) : null;
+      const qRecord = findQuestionRecord(currentModalQid);
       let targetQ = specificQNum || (qRecord ? qRecord[3] : 1);
       currentModalQNum = targetQ;
 
@@ -2479,7 +2774,52 @@
         return item ? renderLatexDirect(item.math, false) : match;
       });
 
-      body.innerHTML = `<div class="md-content">${html}</div>`;
+      // 🌉 Cross-Exam Topic Bridge (TICKET-05)
+      let bridgeHtml = '';
+      if (currentModalQid) {
+        let candidateList = [];
+        if (currentModalQid.startsWith('EE-') && typeof NATIONAL_EXAMS_DATA !== 'undefined' && NATIONAL_EXAMS_DATA.questions) {
+          candidateList = NATIONAL_EXAMS_DATA.questions;
+        } else if (currentModalQid.startsWith('GK-') && typeof DB_DATA !== 'undefined' && DB_DATA.questions) {
+          candidateList = DB_DATA.questions;
+        }
+
+        if (candidateList.length > 0 && qRecord) {
+          const [curQid, curSid, curYr, curQnum, curTopic, curTags] = qRecord;
+          const isFromPE = curQid.startsWith('EE-');
+          const matches = candidateList.filter(item => {
+            if (isFromPE && item[13] === curQid) return true; // Direct related link
+            if (!isFromPE && item[0] === qRecord[13]) return true;
+            if (item[1] === curSid) {
+              const itemTags = item[5] || [];
+              const shared = itemTags.filter(t => (curTags || []).includes(t) && !t.includes('學') && !t.includes('工程') && !t.includes('機械') && !t.includes('系統'));
+              return shared.length > 0;
+            }
+            return false;
+          }).slice(0, 3);
+
+          if (matches.length > 0) {
+            const targetExamName = isFromPE ? '🏛️ 公務人員高考三級' : '🏆 電機工程技師';
+            bridgeHtml = `
+              <div class="cross-exam-bridge-card">
+                <div class="bridge-title">🔗 國考考點延伸：${targetExamName} 同型真題推薦</div>
+                <div class="bridge-desc">此題型與${targetExamName}常考觀念高度交疊，建議點擊下方卡片進行同考點對照演練：</div>
+                <div class="bridge-items">
+                  ${matches.map(mq => `
+                    <div class="bridge-item" onclick="openCrossExamQuestion('${mq[0]}', '${mq[6]}', ${mq[3]})">
+                      <span class="bridge-qid">${mq[0]}</span>
+                      <span class="bridge-topic">${mq[4]}</span>
+                      <span class="bridge-arrow">秒開對照 ➔</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }
+        }
+      }
+
+      body.innerHTML = `<div class="md-content">${html}${bridgeHtml}</div>`;
       body.scrollTop = 0;
       
       // KaTeX auto render fallback
@@ -2495,21 +2835,44 @@
     }, 40);
   }
 
+  // --- Cross-Exam Modal Navigation (TICKET-05) ---
+  function openCrossExamQuestion(targetQid, targetSolLink, targetQNum) {
+    if (currentModalQid) {
+      modalHistoryStack.push({
+        qid: currentModalQid,
+        solLink: currentModalSolLink,
+        qnum: currentModalQNum,
+        fullView: currentModalFullView
+      });
+    }
+    if (!nationalExamsLoaded) {
+      loadNationalExamsScript(() => {
+        openSolutionModal(null, targetSolLink, targetQid, targetQNum);
+      });
+    } else {
+      openSolutionModal(null, targetSolLink, targetQid, targetQNum);
+    }
+  }
+
+  function popModalHistory() {
+    if (modalHistoryStack.length === 0) return;
+    const prev = modalHistoryStack.pop();
+    openSolutionModal(null, prev.solLink, prev.qid, prev.qnum, prev.fullView);
+  }
+
   // --- URL Hash Deep Routing ---
   function handleUrlHashRouting() {
     const hash = window.location.hash;
     if (hash && hash.startsWith('#q=')) {
       const targetQid = decodeURIComponent(hash.substring(3)).trim();
-      if (typeof DB_DATA !== 'undefined' && DB_DATA.questions) {
-        const qRecord = DB_DATA.questions.find(item => item[0] === targetQid);
-        if (qRecord) {
-          const [qid, sid, yr, qnum, topic, tags, solLink] = qRecord;
-          currentSubject = sid;
-          currentYear = String(yr);
-          updateSubjectUI();
-          renderQuestions();
-          openSolutionModal(null, solLink, qid, qnum);
-        }
+      const qRecord = findQuestionRecord(targetQid);
+      if (qRecord) {
+        const [qid, sid, yr, qnum, topic, tags, solLink] = qRecord;
+        currentSubject = sid;
+        currentYear = String(yr);
+        updateSubjectUI();
+        renderQuestions();
+        openSolutionModal(null, solLink, qid, qnum);
       }
     }
   }
@@ -2624,8 +2987,16 @@
     document.getElementById('exam-select-subj').addEventListener('change', e => localStorage.setItem('exam-select-subj', e.target.value));
     document.getElementById('exam-select-yr').addEventListener('change', e => localStorage.setItem('exam-select-yr', e.target.value));
 
-    updateStatsAndBar();
-    renderQuestions();
+    // Restore exam category selection
+    const savedExamCategory = localStorage.getItem('exam_category_tab') || 'PE';
+    if (savedExamCategory !== 'PE') {
+      switchExamCategory(savedExamCategory);
+    } else {
+      updateFilterDropdownsForCategory();
+      updateStatsAndBar();
+      renderQuestions();
+    }
+
     renderLayers();
     renderTopTopics();
     initPaneResizer();

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">107 年 電子學 第二題：NMOS 混合 π (Hybrid-π) 小訊號等效模型與雙偏壓參數分析圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">轉導 gm = 2ID/(VGS - Vt) = √(2 kn' (W/L) ID)，輸出電阻 ro = (VA + VDS) / ID = 1 / (λ·ID)</text>
+
+  <rect x="30" y="80" width="890" height="340" class="box"/>
+
+  <!-- 閘極 G -->
+  <circle cx="100" cy="180" r="5" fill="#38bdf8"/>
+  <text x="100" y="160" text-anchor="middle" class="val-cyan" font-size="14">G (閘極)</text>
+  <path d="M 100 180 L 220 180" class="wire"/>
+  <circle cx="220" cy="180" r="4" fill="#38bdf8"/>
+  <text x="180" y="170" class="val-cyan">vgs (+)</text>
+
+  <!-- 源極 S (地) -->
+  <circle cx="100" cy="300" r="5" fill="#38bdf8"/>
+  <text x="100" y="325" text-anchor="middle" class="val-cyan" font-size="14">S (源極)</text>
+  <path d="M 100 300 L 220 300" class="wire"/>
+  <circle cx="220" cy="300" r="4" fill="#38bdf8"/>
+  <text x="180" y="290" class="val-cyan">vgs (−)</text>
+  <line x1="220" y1="300" x2="220" y2="330" class="wire"/>
+  <line x1="210" y1="330" x2="230" y2="330" class="ground"/>
+
+  <!-- 閘源開路虛線 -->
+  <line x1="220" y1="180" x2="220" y2="300" class="wire-dash"/>
+  <text x="250" y="245" class="label" font-size="11">Rin = ∞ (絕緣閘極)</text>
+
+  <!-- 汲極受控源 gm vgs -->
+  <path d="M 520 180 L 520 215" class="wire"/>
+  <circle cx="520" cy="240" r="18" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="520" y1="225" x2="520" y2="255" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <path d="M 520 258 L 520 300 L 220 300" class="wire"/>
+  <text x="440" y="245" class="val-amber" font-size="13">id = gm·vgs</text>
+
+  <!-- 通道長度調變輸出電阻 ro -->
+  <path d="M 520 180 L 660 180 L 660 215" class="wire"/>
+  <rect x="648" y="215" width="24" height="50" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="685" y="245" class="val-amber">ro = (VA + VDS)/ID</text>
+  <path d="M 660 265 L 660 300 L 520 300" class="wire"/>
+
+  <!-- 汲極 D -->
+  <circle cx="800" cy="180" r="5" fill="#f59e0b"/>
+  <text x="800" y="160" text-anchor="middle" class="val-amber" font-size="14">D (汲極)</text>
+  <path d="M 660 180 L 800 180" class="wire"/>
+
+  <!-- 結論卡片 -->
+  <rect x="30" y="435" width="280" height="105" class="box"/>
+  <text x="45" y="460" class="val-cyan" font-size="13">1. 偏壓一 (ID1, VGS1, VDS1)</text>
+  <text x="45" y="485" class="val-cyan">gm1 = 2ID1 / (VGS1 - Vt)</text>
+  <text x="45" y="515" class="val-emerald" font-size="14">ro1 = (VA + VDS1) / ID1</text>
+
+  <rect x="335" y="435" width="280" height="105" class="box"/>
+  <text x="350" y="460" class="val-amber" font-size="13">2. 偏壓二 (ID2, VGS2, VDS2)</text>
+  <text x="350" y="485" class="val-amber">gm2 = 2ID2 / (VGS2 - Vt)</text>
+  <text x="350" y="515" class="val-emerald" font-size="14">ro2 = (VA + VDS2) / ID2</text>
+
+  <rect x="640" y="435" width="280" height="105" class="box"/>
+  <text x="655" y="460" class="val-rose" font-size="13">3. 本質電壓增益 A0</text>
+  <text x="655" y="485" class="label">單級共源極極限增益：</text>
+  <text x="655" y="515" class="val-rose" font-size="14">A0 = gm · ro = 2VA / VOV</text>
+</svg>

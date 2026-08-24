@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">109 年 電子學 第二題：昇壓型 (Boost) 轉換器二操作狀態等效電路分析圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">昇壓規律：Vo/Vs = 1/(1-D) > 1，臨界電感 Lmin = D(1-D)² R / (2 fs)</text>
+
+  <!-- 左圖：狀態 1 S ON, D OFF -->
+  <rect x="25" y="80" width="435" height="340" class="box"/>
+  <text x="45" y="110" class="title" font-size="15" fill="#38bdf8">【狀態一】開關 S 閉合導通 (0 ≤ t ≤ DTs)</text>
+  <text x="45" y="130" class="subtitle">電源 Vs 直接對電感 L 充電，vL = Vs > 0，iL 自 ILmin 升至 ILmax</text>
+
+  <!-- Vs -->
+  <circle cx="65" cy="220" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="65" y="225" text-anchor="middle" class="val-cyan">Vs</text>
+  <path d="M 65 204 L 65 170 L 110 170" class="wire-active"/>
+
+  <!-- 電感 L -->
+  <path d="M 110 170 A 7 7 0 0 1 124 170 A 7 7 0 0 1 138 170 A 7 7 0 0 1 152 170 A 7 7 0 0 1 166 170" class="wire-active" fill="none"/>
+  <text x="138" y="150" text-anchor="middle" class="val-amber">L</text>
+
+  <!-- 開關 S (ON 短路接地) -->
+  <path d="M 166 170 L 220 170 L 220 200" class="wire-active"/>
+  <circle cx="220" cy="200" r="4" fill="#38bdf8"/>
+  <line x1="220" y1="200" x2="220" y2="250" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="220" cy="250" r="4" fill="#38bdf8"/>
+  <text x="245" y="225" class="val-cyan">S (ON)</text>
+  <path d="M 220 250 L 220 290 L 65 290 L 65 236" class="wire-active"/>
+  <line x1="140" y1="290" x2="160" y2="290" class="ground"/>
+
+  <!-- 右側負載由電容 C 獨立供電 -->
+  <path d="M 330 200 L 330 290" class="wire-active"/>
+  <line x1="318" y1="220" x2="342" y2="220" stroke="#10b981" stroke-width="3"/>
+  <line x1="318" y1="228" x2="342" y2="228" stroke="#10b981" stroke-width="3"/>
+  <text x="310" y="225" class="val-emerald">C</text>
+
+  <path d="M 330 200 L 400 200 L 400 225" class="wire-active"/>
+  <rect x="388" y="225" width="24" height="40" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="420" y="248" class="val-amber">R</text>
+  <path d="M 400 265 L 400 290 L 330 290" class="wire-active"/>
+
+  <!-- 右圖：狀態 2 S OFF, D ON -->
+  <rect x="490" y="80" width="435" height="340" class="box"/>
+  <text x="510" y="110" class="title" font-size="15" fill="#f59e0b">【狀態二】開關 S 斷開截止 (DTs ≤ t ≤ Ts)</text>
+  <text x="510" y="130" class="subtitle">電源 Vs 與電感釋能疊加供電，vL = Vs - Vo &lt; 0，二極體 D 導通</text>
+
+  <!-- Vs + L 疊加 -->
+  <circle cx="530" cy="220" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="530" y="225" text-anchor="middle" class="val-cyan">Vs</text>
+  <path d="M 530 204 L 530 170 L 570 170" class="wire-active"/>
+  <path d="M 570 170 A 7 7 0 0 1 584 170 A 7 7 0 0 1 598 170 A 7 7 0 0 1 612 170 A 7 7 0 0 1 626 170" class="wire-active" fill="none"/>
+  <text x="598" y="150" text-anchor="middle" class="val-amber">L</text>
+
+  <!-- 二極體 D 順偏導通 -->
+  <path d="M 626 170 L 670 170" class="wire-active"/>
+  <polygon points="670,162 670,178 686,170" fill="#10b981" stroke="#10b981"/>
+  <line x1="686" y1="162" x2="686" y2="178" stroke="#10b981" stroke-width="3"/>
+  <text x="678" y="150" text-anchor="middle" class="val-emerald">D (ON)</text>
+
+  <!-- 負載 C || R -->
+  <path d="M 686 170 L 760 170 L 760 205" class="wire-active"/>
+  <line x1="748" y1="205" x2="772" y2="205" stroke="#10b981" stroke-width="3"/>
+  <line x1="748" y1="213" x2="772" y2="213" stroke="#10b981" stroke-width="3"/>
+  <path d="M 760 213 L 760 290" class="wire-active"/>
+  <text x="740" y="210" class="val-emerald">C</text>
+
+  <path d="M 760 170 L 840 170 L 840 200" class="wire-active"/>
+  <rect x="828" y="200" width="24" height="40" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="860" y="225" class="val-amber">R</text>
+  <path d="M 840 240 L 840 290 L 530 290 L 530 236" class="wire-active"/>
+  <line x1="710" y1="290" x2="730" y2="290" class="ground"/>
+
+  <!-- 下方結論卡片 -->
+  <rect x="25" y="435" width="280" height="105" class="box"/>
+  <text x="40" y="460" class="val-cyan" font-size="13">1. 電壓轉換比 Vo/Vs</text>
+  <text x="40" y="485" class="val-cyan">Vo = Vs / (1 - D)</text>
+  <text x="40" y="515" class="val-emerald" font-size="14">輸出電壓必定高於輸入電壓</text>
+
+  <rect x="330" y="435" width="285" height="105" class="box"/>
+  <text x="345" y="460" class="val-amber" font-size="13">2. 臨界電感 Lmin</text>
+  <text x="345" y="485" class="label">維持連續導通 CCM：</text>
+  <text x="345" y="515" class="val-amber" font-size="14">Lmin = D(1 - D)² · R / (2 fs)</text>
+
+  <rect x="635" y="435" width="290" height="105" class="box"/>
+  <text x="650" y="460" class="val-rose" font-size="13">3. 電壓漣波比 ΔVo/Vo</text>
+  <text x="650" y="485" class="label">電容放電電荷量：</text>
+  <text x="650" y="515" class="val-rose" font-size="14">ΔVo/Vo = D / (R · C · fs)</text>
+</svg>

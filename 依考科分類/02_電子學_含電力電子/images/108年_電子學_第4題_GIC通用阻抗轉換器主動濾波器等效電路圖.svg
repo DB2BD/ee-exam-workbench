@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">108 年 電子學 第四題：雙運算放大器 GIC 通用阻抗轉換器等效電感電路圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">Antoniou 電感模擬：Zin(s) = (Z1·Z3·Z5) / (Z2·Z4) ⇒ 當 Z4 = 1/sC4 時，Zin(s) = s·Leq (無磁芯高品質電感)</text>
+
+  <rect x="30" y="80" width="890" height="340" class="box"/>
+
+  <!-- 輸入節點 1 與 Zin -->
+  <circle cx="80" cy="180" r="5" fill="#38bdf8"/>
+  <text x="80" y="160" text-anchor="middle" class="val-cyan" font-size="14">節點 1 (輸入端)</text>
+  <line x1="80" y1="180" x2="130" y2="180" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr-cyan)"/>
+  <text x="105" y="205" text-anchor="middle" class="val-cyan">Zin(s)</text>
+
+  <!-- GIC 五阻抗鏈 -->
+  <!-- Z1 = R1 -->
+  <path d="M 130 180 L 180 180" class="wire"/>
+  <rect x="180" y="168" width="50" height="24" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="205" y="184" text-anchor="middle" class="val-cyan">Z1 = R1</text>
+
+  <!-- 節點 2 -->
+  <path d="M 230 180 L 280 180" class="wire"/>
+  <circle cx="280" cy="180" r="4" fill="#f59e0b"/>
+
+  <!-- Z2 = R2 -->
+  <rect x="280" y="168" width="50" height="24" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="305" y="184" text-anchor="middle" class="val-amber">Z2 = R2</text>
+
+  <!-- 節點 3 -->
+  <path d="M 330 180 L 380 180" class="wire"/>
+  <circle cx="380" cy="180" r="4" fill="#f59e0b"/>
+
+  <!-- Z3 = R3 -->
+  <rect x="380" y="168" width="50" height="24" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="405" y="184" text-anchor="middle" class="val-amber">Z3 = R3</text>
+
+  <!-- 節點 4 與 Z4 = 1/sC4 -->
+  <path d="M 430 180 L 480 180" class="wire"/>
+  <circle cx="480" cy="180" r="4" fill="#10b981"/>
+  <line x1="495" y1="168" x2="495" y2="192" stroke="#10b981" stroke-width="3"/>
+  <line x1="503" y1="168" x2="503" y2="192" stroke="#10b981" stroke-width="3"/>
+  <text x="499" y="155" text-anchor="middle" class="val-emerald">Z4=1/sC4</text>
+
+  <!-- 節點 5 與 Z5 = R5 (接地) -->
+  <path d="M 503 180 L 560 180" class="wire"/>
+  <circle cx="560" cy="180" r="4" fill="#c084fc"/>
+  <rect x="560" y="168" width="50" height="24" fill="#334155" stroke="#c084fc" rx="3"/>
+  <text x="585" y="184" text-anchor="middle" class="val-purple">Z5 = R5</text>
+  <path d="M 610 180 L 650 180" class="wire"/>
+  <line x1="650" y1="170" x2="650" y2="190" class="ground"/>
+
+  <!-- 等效電感標註方塊 -->
+  <rect x="680" y="140" width="220" height="150" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="8"/>
+  <text x="790" y="175" text-anchor="middle" class="val-cyan" font-size="16">等效模擬電感 Leq</text>
+  <text x="790" y="210" text-anchor="middle" class="val-emerald" font-size="14">Leq = (C4·R1·R3·R5) / R2</text>
+  <text x="790" y="245" text-anchor="middle" class="label" font-size="12">取代笨重、耗能之實體電感</text>
+  <text x="790" y="270" text-anchor="middle" class="val-amber" font-size="12">構成高 Q 階主動帶通濾波器</text>
+
+  <!-- 下方結論卡片 -->
+  <rect x="30" y="435" width="280" height="105" class="box"/>
+  <text x="45" y="460" class="val-cyan" font-size="13">1. GIC 阻抗轉換通式</text>
+  <text x="45" y="485" class="val-cyan">Zin(s) = (Z1·Z3·Z5) / (Z2·Z4)</text>
+  <text x="45" y="515" class="val-emerald" font-size="14">雙 OP 虛短路與負回授推導</text>
+
+  <rect x="335" y="435" width="280" height="105" class="box"/>
+  <text x="350" y="460" class="val-amber" font-size="13">2. 濾波器類型與階數</text>
+  <text x="350" y="485" class="label">並聯 RLC 諧振回路：</text>
+  <text x="350" y="515" class="val-amber" font-size="14">二階帶通濾波器 (2nd BPF)</text>
+
+  <rect x="640" y="435" width="280" height="105" class="box"/>
+  <text x="655" y="460" class="val-rose" font-size="13">3. 中心頻率與品質因數</text>
+  <text x="655" y="485" class="label">ω0 = 1 / √(Leq·C)</text>
+  <text x="655" y="515" class="val-rose" font-size="14">Q = R · √(C / Leq)</text>
+</svg>

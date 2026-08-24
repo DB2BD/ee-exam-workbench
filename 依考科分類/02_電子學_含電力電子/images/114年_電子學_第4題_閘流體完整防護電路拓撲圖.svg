@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">114 年 電子學 第四題：電力電子閘流體 (SCR) 四重全方位保護電路拓撲等效圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">防護機制：Ls 限制 di/dt、Rs-Cs 緩衝抑制 dv/dt、MOV 箝位過壓、閘極抗干擾濾波</text>
+
+  <!-- 主拓撲電路框 -->
+  <rect x="30" y="80" width="890" height="340" class="box"/>
+
+  <!-- 直流電源 Vs 與主開關 S -->
+  <circle cx="80" cy="240" r="18" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="80" y="245" text-anchor="middle" class="val-cyan">Vs</text>
+  <path d="M 80 222 L 80 140 L 130 140" class="wire"/>
+  <circle cx="130" cy="140" r="4" fill="#38bdf8"/>
+  <line x1="130" y1="140" x2="170" y2="125" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="175" cy="140" r="4" fill="#38bdf8"/>
+  <text x="150" y="115" class="val-cyan">主開關 S</text>
+
+  <!-- 負載 RL -->
+  <path d="M 175 140 L 230 140" class="wire"/>
+  <rect x="230" y="128" width="45" height="24" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="252" y="144" text-anchor="middle" class="val-amber">負載 RL</text>
+
+  <!-- 防護 1: 串聯限流電感 Ls (限制 di/dt) -->
+  <path d="M 275 140 L 330 140" class="wire"/>
+  <path d="M 330 140 A 8 8 0 0 1 346 140 A 8 8 0 0 1 362 140 A 8 8 0 0 1 378 140 A 8 8 0 0 1 394 140" class="wire" stroke="#f43f5e" stroke-width="3" fill="none"/>
+  <text x="362" y="120" text-anchor="middle" class="val-rose" font-size="12">Ls (限制 di/dt)</text>
+
+  <!-- 陽極節點 A -->
+  <path d="M 394 140 L 460 140" class="wire"/>
+  <circle cx="460" cy="140" r="5" fill="#38bdf8"/>
+  <text x="440" y="135" class="val-cyan">A (陽極)</text>
+
+  <!-- 主 SCR 閘流體 T -->
+  <path d="M 460 140 L 460 200" class="wire"/>
+  <polygon points="445,200 475,200 460,230" fill="#38bdf8" stroke="#38bdf8"/>
+  <line x1="445" y1="230" x2="475" y2="230" stroke="#38bdf8" stroke-width="3"/>
+  <path d="M 460 230 L 460 300" class="wire"/>
+  <circle cx="460" cy="300" r="5" fill="#38bdf8"/>
+  <text x="440" y="315" class="val-cyan">K (陰極)</text>
+  <text x="420" y="220" class="val-cyan" font-weight="bold">SCR (T)</text>
+
+  <!-- 閘極 G 與抗噪防護 -->
+  <path d="M 452 215 L 400 240 L 400 270" class="wire" stroke="#c084fc"/>
+  <circle cx="400" cy="270" r="4" fill="#c084fc"/>
+  <text x="350" y="275" class="val-purple">Gate 控制信號</text>
+  <!-- 閘極並聯 Rg & Cg 濾波 -->
+  <rect x="390" y="280" width="20" height="30" fill="#334155" stroke="#c084fc" rx="2"/>
+  <text x="365" y="300" class="val-purple" font-size="10">Rg||Cg</text>
+  <path d="M 400 310 L 400 340 L 460 340" class="wire" stroke="#c084fc"/>
+
+  <!-- 防護 2: 並聯 RC Snubber (抑制 dv/dt) -->
+  <path d="M 460 140 L 600 140 L 600 170" class="wire" stroke="#10b981"/>
+  <rect x="588" y="170" width="24" height="35" fill="#334155" stroke="#10b981" rx="3"/>
+  <text x="625" y="192" class="val-emerald" font-size="11">Rs</text>
+  <path d="M 600 205 L 600 235" class="wire" stroke="#10b981"/>
+  <line x1="588" y1="235" x2="612" y2="235" stroke="#10b981" stroke-width="3"/>
+  <line x1="588" y1="243" x2="612" y2="243" stroke="#10b981" stroke-width="3"/>
+  <text x="625" y="244" class="val-emerald" font-size="11">Cs</text>
+  <path d="M 600 243 L 600 300 L 460 300" class="wire" stroke="#10b981"/>
+  <text x="600" y="125" text-anchor="middle" class="val-emerald" font-size="12">RC 緩衝電路 (Snubber)</text>
+
+  <!-- 防護 3: 並聯 MOV 壓敏電阻 (過壓突波箝位) -->
+  <path d="M 600 140 L 760 140 L 760 190" class="wire" stroke="#f59e0b"/>
+  <rect x="748" y="190" width="24" height="45" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <line x1="740" y1="240" x2="780" y2="185" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="740" y1="240" x2="740" y2="232" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="780" y1="185" x2="780" y2="193" stroke="#f59e0b" stroke-width="2"/>
+  <text x="795" y="215" class="val-amber" font-size="11">MOV / TVS</text>
+  <path d="M 760 235 L 760 300 L 600 300" class="wire" stroke="#f59e0b"/>
+  <text x="760" y="125" text-anchor="middle" class="val-amber" font-size="12">過電壓突波吸收器</text>
+
+  <!-- 底部迴路與接地 -->
+  <path d="M 460 300 L 460 360 L 80 360 L 80 258" class="wire"/>
+  <line x1="260" y1="360" x2="280" y2="360" class="ground"/>
+
+  <!-- 四大功能摘要卡片 -->
+  <rect x="30" y="435" width="210" height="105" class="box"/>
+  <text x="45" y="460" class="val-rose" font-size="13">1. 串聯電感 Ls</text>
+  <text x="45" y="485" class="label" font-size="11">限制初始 di/dt 上升率</text>
+  <text x="45" y="505" class="label" font-size="11">避免局域微區熱崩潰</text>
+  <text x="45" y="525" class="val-rose" font-size="11">di/dt &lt; (di/dt)crit</text>
+
+  <rect x="255" y="435" width="210" height="105" class="box"/>
+  <text x="270" y="460" class="val-emerald" font-size="13">2. 並聯 RC 緩衝器</text>
+  <text x="270" y="485" class="label" font-size="11">Cs 吸收階梯電壓突波</text>
+  <text x="270" y="505" class="label" font-size="11">Rs 消耗放電振盪能量</text>
+  <text x="270" y="525" class="val-emerald" font-size="11">dv/dt &lt; (dv/dt)crit</text>
+
+  <rect x="480" y="435" width="210" height="105" class="box"/>
+  <text x="495" y="460" class="val-amber" font-size="13">3. 並聯 MOV / TVS</text>
+  <text x="495" y="485" class="label" font-size="11">奈秒級雪崩快速響應</text>
+  <text x="495" y="505" class="label" font-size="11">將雷擊/切換突波箝位</text>
+  <text x="495" y="525" class="val-amber" font-size="11">Vsurge &lt; VDRM</text>
+
+  <rect x="705" y="435" width="215" height="105" class="box"/>
+  <text x="720" y="460" class="val-purple" font-size="13">4. 閘極濾波防護</text>
+  <text x="720" y="485" class="label" font-size="11">Rg-Cg 濾除高頻噪訊</text>
+  <text x="720" y="505" class="label" font-size="11">齊納二極體防止反壓</text>
+  <text x="720" y="525" class="val-purple" font-size="11">杜絕雜散誤觸發</text>
+</svg>

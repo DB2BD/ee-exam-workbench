@@ -55,20 +55,12 @@ if os.path.exists('📝 個人題解與錯題本/03_工程數學/114年_工程�
 all_questions = []
 subject_counts = {}
 
-def estimate_difficulty(topic, q_body):
-    diff = 3
-    hard_words = ['SVD', '非齊次', '凸極', '牛頓法', '快速解耦', 'SPWM', '反時限', '零空間', '留數', '特徵值對角化', '雙反應', '自耦變壓器', '搖擺方程', '暫態穩定', '保護協調']
-    easy_words = ['戴維寧等效', '節點電壓', '一階ODE', '分壓', '單相二線', '歐姆定律', 'KVL', 'KCL', '變壓器變比']
-    
-    for hw in hard_words:
-        if hw in topic or hw in q_body:
-            diff += 1
-            break
-    for ew in easy_words:
-        if ew in topic or ew in q_body:
-            diff -= 1
-            break
-    return max(1, min(5, diff))
+from difficulty_evaluator import evaluate_question_difficulty
+
+def estimate_difficulty(sid, topic, q_body):
+    stars, raw_score, breakdown = evaluate_question_difficulty(sid, topic, q_body)
+    return stars
+
 
 def extract_formula_tags(topic, q_body):
     ftags = []
@@ -162,7 +154,7 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
                         solLink = f'{md_file}#{yr}年'
                         v_status = 'in_progress'
                         
-                    difficulty = estimate_difficulty(topic, q_body)
+                    difficulty = estimate_difficulty(sid, topic, q_body)
                     ftags = extract_formula_tags(topic, q_body)
                     
                     all_questions.append([

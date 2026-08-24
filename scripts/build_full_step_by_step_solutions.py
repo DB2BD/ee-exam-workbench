@@ -485,6 +485,9 @@ $$
 * **實際短路電流**： $\\mathbf{I_f = 1792.9\\,\\text{A}}$"""
 
 def build_solution_for_question(sid, yr, q_num):
+    if yr != 114:
+        return "### ⏳ 題解狀態\n\n> **本題尚未提供詳解，等待後續人工或 AI 獨立推導中...**\n> *(為確保嚴謹與正確性，目前不提供未經驗證的自動產生內容)*"
+        
     if sid == '01':
         return generate_circuit_solution(yr, q_num)
     elif sid == '02':

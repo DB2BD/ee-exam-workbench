@@ -4,19 +4,19 @@
 
 ---
 
-## 1. 核心原則 (Core Principles)
+## 1. 核心原則與四大工程紀律 (Core Principles & 4-Pillar Disciplines)
 
-1. **原生能力優先 (Native Capabilities First)**:
-   - 充分利用各平台的原生能力（Antigravity 的 Browser/Subagent/UI、Codex 的 Batch Code/Testing），不額外引入多餘的中介框架。
-2. **依能力分工 (Capability-Aware Routing)**:
-   - **Antigravity**: 負責 UI/UX 設計、即時瀏覽器測試、Google 搜尋驗證、LaTeX 數學公式排版、互動式工作台。
-   - **Codex**: 負責大規模程式碼重構、單元測試執行、CI/CD 腳本維護、GitHub Issue/PR 自動化。
-   - **Local Model**: 負責離線敏感資料審查與私密內容過濾。
-3. **有限度委派防護 (One-Hop Delegation Guard)**:
-   - 跨 Runtime 委派深度限制為 1-hop，禁止 A ➔ B ➔ A ➔ B 的遞迴鏈條。接收到外部任務的 Runtime 必須在內部完成並產出結果。
-4. **規格導向與寫入隔離 (Spec-Driven & Write Isolation)**:
-   - 所有破壞性或架構性變更 **必須** 先核對或更新對應的 `SPEC_*.md`。
-   - 修改程式碼時需保證 CI/CD 自動建置與 GitHub Pages 的正確性。
+本專案之所有 Agent 行動**強制遵循四大現代工程紀律**：
+
+1. **`grill-with-docs` (領域語境與架構決策優先)**:
+   - 任何行動前必須先閱讀 [CONTEXT.md](CONTEXT.md) 與 [docs/adr/](docs/adr/)，遵守專案的領域語言與架構鐵律，杜絕無脈絡之重複發問或偏離架構之實作。
+2. **`tdd` (測試驅動與質量關卡)**:
+   - 遵循紅-綠-重構循環，實作前必須先寫好或更新 `tests/` 中的單元/整合測試，執行 `python3 scripts/run_all_tests.py` 全綠燈前嚴禁提交代碼。
+3. **`diagnose` (5 步科學除錯迴圈)**:
+   - 遇到任何 bug 或使用者回饋異常時，嚴禁盲目瞎猜。必須嚴格按照：**1. 觀察極簡復現 ➔ 2. 提出假說 ➔ 3. 最小探針度量 ➔ 4. 原子根因修復 ➔ 5. 迴歸驗證**。
+4. **`improve-codebase-architecture` (持續對抗軟體熵增)**:
+   - 定期運行 `python3 scripts/health_check_codebase.py` 進行架構體檢，確保全庫維持在 100/100 Pristine 零架構負債狀態。
+
 
 ---
 

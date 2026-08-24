@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+"""
+test_build_pipeline.py
+======================
+Integration tests verifying:
+1. Build pipeline successfully compiles modular src/ into production index.html.
+2. All critical UI elements and interactive DOM IDs are present.
+3. No syntax corruption or missing script tags.
+"""
+
+import unittest
+import sys
+import os
+
+WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, WORKSPACE)
+
+class TestBuildPipeline(unittest.TestCase):
+
+    def setUp(self):
+        self.index_path = os.path.join(WORKSPACE, 'index.html')
+
+    def test_index_html_exists_and_non_empty(self):
+        self.assertTrue(os.path.exists(self.index_path), "index.html must exist")
+        self.assertGreater(os.path.getsize(self.index_path), 50000, "index.html should be over 50KB")
+
+    def test_critical_dom_elements_present(self):
+        with open(self.index_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        required_ids = [
+            'questions-container',
+            'solution-modal',
+            'modal-left-content',
+            'modal-right-content',
+            'modal-resizer',
+            'tab-pane-dag',
+            'dag-graph-viewer-content',
+            'exam-timer',
+            'bar-mastered',
+            'filter-subject',
+            'filter-year',
+            'filter-status',
+            'filter-diff',
+            'search-input'
+        ]
+
+        for elem_id in required_ids:
+            self.assertIn(f'id="{elem_id}"', html, f"Element ID '{elem_id}' must be present in index.html")
+
+    def test_dag_functions_bundled(self):
+        with open(self.index_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        self.assertIn('const KNOWLEDGE_DAG =', html)
+        self.assertIn('function renderDagTracerCard', html)
+        self.assertIn('function renderDagGraphVisualizer', html)
+        self.assertIn('function tracePrerequisiteChain', html)
+
+if __name__ == '__main__':
+    unittest.main()

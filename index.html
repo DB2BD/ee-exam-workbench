@@ -2367,8 +2367,9 @@
     }
     
     if (!finalPath) {
-      if (cleanName.includes('/')) finalPath = cleanName;
-      else finalPath = (basePath || '') + cleanName;
+      if (cleanName.startsWith('依考科分類/') || cleanName.startsWith('images/') || cleanName.startsWith('📝 個人題解與錯題本/')) {
+        finalPath = cleanName;
+      }
     }
     return finalPath;
   }
@@ -2647,13 +2648,19 @@
         }
       }
 
-      // Extract Images for Left Pane
+      // Extract Images for Left Pane (only include verified existing images)
       const discoveredImages = [];
       const obsMatches = [...contentToRender.matchAll(/!\[\[([^\|\]]+)(?:\|([^\]]+))?\]\]/g)];
-      obsMatches.forEach(m => discoveredImages.push({ raw: m[1], alt: m[1] }));
+      obsMatches.forEach(m => {
+        const res = resolveImagePath(m[1], basePath);
+        if (res) discoveredImages.push({ raw: m[1], alt: m[1], res: res });
+      });
       const stdMatches = [...contentToRender.matchAll(/!\[([^\]]*)\]\(([^\)]+)\)/g)];
       stdMatches.forEach(m => {
-        if (!m[2].startsWith('http')) discoveredImages.push({ raw: m[2], alt: m[1] || '試卷圖表' });
+        if (!m[2].startsWith('http')) {
+          const res = resolveImagePath(m[2], basePath);
+          if (res) discoveredImages.push({ raw: m[2], alt: m[1] || '試卷圖表', res: res });
+        }
       });
 
       // Populate Left Pane (Diagrams + PDF)
@@ -2668,7 +2675,7 @@
               📋 本題包含 ${discoveredImages.length} 張原題圖表（點擊可全螢幕放大）
             </div>
             ${discoveredImages.map(img => {
-              const res = resolveImagePath(img.raw, basePath);
+              const res = img.res || resolveImagePath(img.raw, basePath);
               return `
                 <div class="textbook-figure" style="margin-top:10px;">
                   <div class="figure-frame" onclick="openLightbox('${res}')" title="點擊放大圖表">
@@ -2736,20 +2743,32 @@
 
       // 提取並保護 Obsidian 圖片標籤 (![[...]])
       contentToRender = contentToRender.replace(/!\[\[([^\|\]]+)(?:\|([^\]]+))?\]\]/g, (match, p1, p2) => {
-        const token = `@@IMAGE_BLOCK_${imagePlaceholders.length}@@`;
         const resolved = resolveImagePath(p1, basePath);
-        const figHtml = `<figure class="textbook-figure"><div class="figure-frame" onclick="openLightbox('${resolved}')" title="點擊放大圖表"><img src="${resolved}" alt="${p1}" onerror="handleImageError(this, '${resolved}', '${p1}')" loading="lazy"><div class="figure-zoom-bar">🔍 點擊原圖可放大高解析度檢視</div></div><figcaption>【試卷圖檔對照】${p1}</figcaption></figure>`;
-        imagePlaceholders.push(figHtml);
-        return token;
+        if (resolved) {
+          const token = `@@IMAGE_BLOCK_${imagePlaceholders.length}@@`;
+          const figHtml = `<figure class="textbook-figure"><div class="figure-frame" onclick="openLightbox('${resolved}')" title="點擊放大圖表"><img src="${resolved}" alt="${p1}" onerror="handleImageError(this, '${resolved}', '${p1}')" loading="lazy"><div class="figure-zoom-bar">🔍 點擊原圖可放大高解析度檢視</div></div><figcaption>【試卷圖檔對照】${p1}</figcaption></figure>`;
+          imagePlaceholders.push(figHtml);
+          return token;
+        }
+        return '';
       });
 
       // 提取並保護標準 Markdown 圖片標籤 (![alt](src))
       contentToRender = contentToRender.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (match, alt, src) => {
-        const token = `@@IMAGE_BLOCK_${imagePlaceholders.length}@@`;
+        if (src.startsWith('http')) {
+          const token = `@@IMAGE_BLOCK_${imagePlaceholders.length}@@`;
+          const figHtml = `<figure class="textbook-figure"><div class="figure-frame" onclick="openLightbox('${src}')"><img src="${src}" alt="${alt}" loading="lazy"></div><figcaption>${alt || '參考圖表'}</figcaption></figure>`;
+          imagePlaceholders.push(figHtml);
+          return token;
+        }
         const resolved = resolveImagePath(src, basePath);
-        const figHtml = `<figure class="textbook-figure"><div class="figure-frame" onclick="openLightbox('${resolved}')" title="點擊放大圖表"><img src="${resolved}" alt="${alt}" onerror="handleImageError(this, '${resolved}', '${alt}')" loading="lazy"><div class="figure-zoom-bar">🔍 點擊原圖可放大高解析度檢視</div></div><figcaption>${alt || '試卷圖檔對照'}</figcaption></figure>`;
-        imagePlaceholders.push(figHtml);
-        return token;
+        if (resolved) {
+          const token = `@@IMAGE_BLOCK_${imagePlaceholders.length}@@`;
+          const figHtml = `<figure class="textbook-figure"><div class="figure-frame" onclick="openLightbox('${resolved}')" title="點擊放大圖表"><img src="${resolved}" alt="${alt}" onerror="handleImageError(this, '${resolved}', '${alt}')" loading="lazy"><div class="figure-zoom-bar">🔍 點擊原圖可放大高解析度檢視</div></div><figcaption>${alt || '試卷圖檔對照'}</figcaption></figure>`;
+          imagePlaceholders.push(figHtml);
+          return token;
+        }
+        return '';
       });
 
       // 🛡️ Step 2: 執行 Markdown 語法轉換（此時公式與圖片完全被純文字佔位符保護）

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">111 年 電子學 第三題：MOSFET 源極退化放大器小訊號 T/π 模型等效電路分析圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">核心參數：ID = 0.5mA, gm = 1 mA/V, RS = 1kΩ, RD = 10kΩ, 等效轉導 Gm = gm / (1 + gm·RS) = 0.5 mA/V</text>
+
+  <!-- 主小訊號等效電路框 -->
+  <rect x="30" y="80" width="890" height="340" class="box"/>
+
+  <!-- 輸入信號 vi 與 閘極 G -->
+  <circle cx="80" cy="180" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="80" y="185" text-anchor="middle" class="val-cyan">vi</text>
+  <path d="M 80 196 L 80 250" class="wire"/>
+  <line x1="70" y1="250" x2="90" y2="250" class="ground"/>
+
+  <path d="M 96 180 L 180 180" class="wire"/>
+  <circle cx="180" cy="180" r="5" fill="#38bdf8"/>
+  <text x="180" y="160" text-anchor="middle" class="val-cyan" font-size="14">G (閘極)</text>
+
+  <!-- 閘極到源極電壓 vgs (開路) -->
+  <line x1="180" y1="180" x2="260" y2="180" class="wire-dash"/>
+  <circle cx="260" cy="180" r="4" fill="#38bdf8"/>
+  <text x="220" y="170" text-anchor="middle" class="val-cyan">vgs (+)</text>
+
+  <!-- 源極節點 S -->
+  <path d="M 260 260 L 260 220" class="wire"/>
+  <circle cx="260" cy="220" r="5" fill="#f59e0b"/>
+  <text x="220" y="225" text-anchor="middle" class="val-cyan">vgs (−)</text>
+  <text x="285" y="215" class="val-amber" font-size="14">S (源極)</text>
+
+  <!-- 1/gm 動態源極電阻 -->
+  <rect x="248" y="230" width="24" height="35" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="210" y="250" class="val-cyan" font-size="11">1/gm=1k</text>
+
+  <!-- 源極退化電阻 RS -->
+  <path d="M 260 265 L 260 280" class="wire"/>
+  <rect x="248" y="280" width="24" height="45" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="210" y="305" class="val-amber">RS = 1kΩ</text>
+  <path d="M 260 325 L 260 350" class="wire"/>
+  <line x1="250" y1="350" x2="270" y2="350" class="ground"/>
+
+  <!-- 汲極受控電流源 gm vgs -->
+  <path d="M 540 180 L 540 220" class="wire"/>
+  <circle cx="540" cy="245" r="18" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <line x1="540" y1="230" x2="540" y2="260" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <path d="M 540 263 L 540 300 L 260 300" class="wire"/>
+  <text x="590" y="245" class="val-amber" font-size="13">id = gm·vgs</text>
+
+  <!-- 汲極節點 D -->
+  <circle cx="540" cy="180" r="5" fill="#f59e0b"/>
+  <text x="540" y="160" text-anchor="middle" class="val-amber" font-size="14">D (汲極)</text>
+
+  <!-- 汲極電阻 RD -->
+  <path d="M 540 180 L 680 180 L 680 220" class="wire"/>
+  <rect x="668" y="220" width="24" height="50" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="705" y="250" class="val-amber">RD = 10 kΩ</text>
+  <path d="M 680 270 L 680 320" class="wire"/>
+  <line x1="665" y1="320" x2="695" y2="320" class="ground"/>
+
+  <!-- 輸出端 vo -->
+  <path d="M 680 180 L 820 180" class="wire"/>
+  <circle cx="820" cy="180" r="5" fill="#10b981"/>
+  <text x="820" y="160" text-anchor="middle" class="val-emerald" font-size="14">vo</text>
+
+  <!-- 下方分析推導結論框 -->
+  <rect x="30" y="435" width="280" height="105" class="box"/>
+  <text x="45" y="460" class="val-cyan" font-size="13">1. 轉導 gm 與 寬長比 W/L</text>
+  <text x="45" y="485" class="val-cyan">gm = 2ID / VOV = 1 mA/V</text>
+  <text x="45" y="515" class="val-emerald" font-size="14">W/L = 25 (μnCox = 40μA/V²)</text>
+
+  <rect x="335" y="435" width="280" height="105" class="box"/>
+  <text x="350" y="460" class="val-amber" font-size="13">2. 複合等效轉導 Gm</text>
+  <text x="350" y="485" class="label">Gm = gm / (1 + gm·RS)</text>
+  <text x="350" y="515" class="val-amber" font-size="14">Gm = 1 / (1 + 1) = 0.5 mA/V</text>
+
+  <rect x="640" y="435" width="280" height="105" class="box"/>
+  <text x="655" y="460" class="val-emerald" font-size="13">3. 閉迴路電壓增益 Av</text>
+  <text x="655" y="485" class="label">Av = -Gm · RD</text>
+  <text x="655" y="515" class="val-emerald" font-size="14">Av = -0.5 mA/V · 10 kΩ = -5 V/V</text>
+</svg>

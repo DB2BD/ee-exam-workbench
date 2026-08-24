@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">110 年 電子學 第一題：BJT 集極回授偏壓電路與小訊號等效分析圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">負回授自穩定機制：溫升使 IC 增加 ⇒ VC 下降 ⇒ IB = (VC - VBE)/RB 下降 ⇒ 抑制 IC 漂移</text>
+
+  <rect x="30" y="80" width="890" height="340" class="box"/>
+
+  <!-- 信號源 vsig, Rsig -->
+  <circle cx="80" cy="220" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="80" y="225" text-anchor="middle" class="val-cyan">vsig</text>
+  <path d="M 80 236 L 80 290" class="wire"/>
+  <line x1="70" y1="290" x2="90" y2="290" class="ground"/>
+
+  <path d="M 96 220 L 150 220" class="wire"/>
+  <rect x="150" y="208" width="45" height="24" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="172" y="224" text-anchor="middle" class="val-cyan">Rsig</text>
+
+  <!-- 基極 B 與 rπ -->
+  <path d="M 195 220 L 260 220" class="wire"/>
+  <circle cx="260" cy="220" r="5" fill="#38bdf8"/>
+  <text x="260" y="200" text-anchor="middle" class="val-cyan">B (基極)</text>
+
+  <path d="M 260 220 L 260 250" class="wire"/>
+  <rect x="248" y="250" width="24" height="40" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="220" y="275" class="val-cyan">rπ</text>
+  <path d="M 260 290 L 260 310" class="wire"/>
+  <line x1="250" y1="310" x2="270" y2="310" class="ground"/>
+
+  <!-- 集極回授電阻 RB 跨接 B 與 C 兩端 -->
+  <path d="M 260 220 L 260 140 L 580 140 L 580 220" class="wire" stroke="#f43f5e" stroke-width="2.2"/>
+  <rect x="390" y="128" width="60" height="24" fill="#334155" stroke="#f43f5e" rx="3"/>
+  <text x="420" y="144" text-anchor="middle" class="val-rose">RB (回授電阻)</text>
+
+  <!-- 集極受控源 gm vbe -->
+  <path d="M 580 220 L 580 250" class="wire"/>
+  <circle cx="580" cy="270" r="16" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+  <line x1="580" y1="282" x2="580" y2="258" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <path d="M 580 286 L 580 310" class="wire"/>
+  <line x1="570" y1="310" x2="590" y2="310" class="ground"/>
+  <text x="510" y="275" class="val-amber">gm·vbe</text>
+
+  <!-- 集極 C 與 RC 負載 -->
+  <circle cx="580" cy="220" r="5" fill="#f59e0b"/>
+  <text x="580" y="200" text-anchor="middle" class="val-amber">C (集極)</text>
+
+  <path d="M 580 220 L 720 220 L 720 250" class="wire"/>
+  <rect x="708" y="250" width="24" height="40" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="745" y="275" class="val-amber">RC</text>
+  <path d="M 720 290 L 720 310" class="wire"/>
+  <line x1="710" y1="310" x2="730" y2="310" class="ground"/>
+
+  <!-- 輸出 vo -->
+  <path d="M 720 220 L 820 220" class="wire"/>
+  <circle cx="820" cy="220" r="5" fill="#10b981"/>
+  <text x="820" y="200" text-anchor="middle" class="val-emerald" font-size="14">vo</text>
+
+  <!-- 結論卡片 -->
+  <rect x="30" y="435" width="280" height="105" class="box"/>
+  <text x="45" y="460" class="val-cyan" font-size="13">1. 直流工作點 IC</text>
+  <text x="45" y="485" class="val-cyan">IB = (VCC - VBE) / [RB + (β+1)RC]</text>
+  <text x="45" y="515" class="val-emerald" font-size="14">IC = β · IB</text>
+
+  <rect x="335" y="435" width="280" height="105" class="box"/>
+  <text x="350" y="460" class="val-rose" font-size="13">2. 負回授穩定機制</text>
+  <text x="350" y="485" class="label">T↑ ⇒ IC↑ ⇒ VC↓ ⇒ IB↓</text>
+  <text x="350" y="515" class="val-rose" font-size="14">自動下拉抑制溫漂</text>
+
+  <rect x="640" y="435" width="280" height="105" class="box"/>
+  <text x="655" y="460" class="val-amber" font-size="13">3. 交流電壓增益 Av</text>
+  <text x="655" y="485" class="label">米勒定理等效分拆 RB：</text>
+  <text x="655" y="515" class="val-amber" font-size="14">Av ≈ -gm · (RC || RB)</text>
+</svg>

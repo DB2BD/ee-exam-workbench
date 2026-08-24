@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">112 年 電子學 第一題：共基極 (CB) 高頻小訊號等效電路與 3-dB 截止頻率分析圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">參數：β = 100, Cπ = 10pF, Cμ = 1pF, re = 25Ω, RC = 5kΩ, RL = 10kΩ, Rsig = 50Ω</text>
+
+  <!-- 主小訊號高頻模型框 -->
+  <rect x="30" y="80" width="890" height="320" class="box"/>
+
+  <!-- 輸入信號源 vsig, Rsig -->
+  <circle cx="80" cy="220" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="80" y="225" text-anchor="middle" class="val-cyan">vsig</text>
+  <path d="M 80 236 L 80 290" class="wire"/>
+  <line x1="70" y1="290" x2="90" y2="290" class="ground"/>
+
+  <path d="M 96 220 L 150 220" class="wire"/>
+  <rect x="150" y="208" width="50" height="24" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="175" y="224" text-anchor="middle" class="val-cyan">Rsig=50</text>
+
+  <!-- 射極節點 E -->
+  <path d="M 200 220 L 260 220" class="wire"/>
+  <circle cx="260" cy="220" r="5" fill="#38bdf8"/>
+  <text x="260" y="200" text-anchor="middle" class="val-cyan" font-size="14">E (射極輸入)</text>
+
+  <!-- 射極動態電阻 re -->
+  <path d="M 260 220 L 260 250" class="wire"/>
+  <rect x="248" y="250" width="24" height="35" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="215" y="270" class="val-cyan">re=25Ω</text>
+  <path d="M 260 285 L 260 310" class="wire"/>
+  <line x1="250" y1="310" x2="270" y2="310" class="ground"/>
+
+  <!-- B-E 寄生電容 Cπ (跨接在射極與基極地之間) -->
+  <path d="M 260 220 L 340 220 L 340 250" class="wire" stroke="#38bdf8"/>
+  <line x1="328" y1="250" x2="352" y2="250" stroke="#38bdf8" stroke-width="3"/>
+  <line x1="328" y1="258" x2="352" y2="258" stroke="#38bdf8" stroke-width="3"/>
+  <path d="M 340 258 L 340 310" class="wire" stroke="#38bdf8"/>
+  <line x1="330" y1="310" x2="350" y2="310" class="ground"/>
+  <text x="375" y="260" class="val-cyan" font-size="12">Cπ = 10 pF</text>
+
+  <!-- 基極接地 B -->
+  <text x="300" y="330" class="label">B (基極交流接地)</text>
+
+  <!-- 集極受控源 gm vbe -->
+  <path d="M 530 220 L 530 245" class="wire"/>
+  <circle cx="530" cy="265" r="16" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+  <line x1="530" y1="277" x2="530" y2="253" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <path d="M 530 281 L 530 310" class="wire"/>
+  <line x1="520" y1="310" x2="540" y2="310" class="ground"/>
+  <text x="440" y="270" class="val-amber">ic = gm·vbe</text>
+
+  <!-- 集極節點 C -->
+  <circle cx="530" cy="220" r="5" fill="#f59e0b"/>
+  <text x="530" y="200" text-anchor="middle" class="val-amber" font-size="14">C (集極輸出)</text>
+
+  <!-- B-C 寄生電容 Cμ (跨接在集極與基極地之間) -->
+  <path d="M 530 220 L 610 220 L 610 250" class="wire" stroke="#f43f5e"/>
+  <line x1="598" y1="250" x2="622" y2="250" stroke="#f43f5e" stroke-width="3"/>
+  <line x1="598" y1="258" x2="622" y2="258" stroke="#f43f5e" stroke-width="3"/>
+  <path d="M 610 258 L 610 310" class="wire" stroke="#f43f5e"/>
+  <line x1="600" y1="310" x2="620" y2="310" class="ground"/>
+  <text x="645" y="260" class="val-rose" font-size="12">Cμ = 1 pF</text>
+
+  <!-- 負載電阻 R'L = RC || RL -->
+  <path d="M 610 220 L 720 220 L 720 250" class="wire"/>
+  <rect x="708" y="250" width="24" height="40" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="740" y="275" class="val-amber">R'L = 3.33k</text>
+  <path d="M 720 290 L 720 310" class="wire"/>
+  <line x1="710" y1="310" x2="730" y2="310" class="ground"/>
+
+  <!-- 輸出 vo -->
+  <path d="M 720 220 L 820 220" class="wire"/>
+  <circle cx="820" cy="220" r="5" fill="#10b981"/>
+  <text x="820" y="200" text-anchor="middle" class="val-emerald" font-size="14">vo</text>
+
+  <!-- 下方高頻分析結論框 -->
+  <rect x="30" y="420" width="280" height="120" class="box"/>
+  <text x="45" y="445" class="val-cyan" font-size="13">🔹 Cπ 對應頻率 fHπ</text>
+  <text x="45" y="470" class="label">Rπ0 = Rsig || re = 50||25 = 16.67 Ω</text>
+  <text x="45" y="495" class="val-cyan">fHπ = 1 / (2π · Rπ0 · Cπ)</text>
+  <text x="45" y="525" class="val-emerald" font-size="15">fHπ ≈ 955.0 MHz</text>
+
+  <rect x="335" y="420" width="280" height="120" class="box"/>
+  <text x="350" y="445" class="val-rose" font-size="13">🔹 Cμ 對應頻率 fHμ</text>
+  <text x="350" y="470" class="label">Rμ0 = RC || RL = 5k||10k = 3.33 kΩ</text>
+  <text x="350" y="495" class="val-rose">fHμ = 1 / (2π · Rμ0 · Cμ)</text>
+  <text x="350" y="525" class="val-emerald" font-size="15">fHμ ≈ 47.75 MHz</text>
+
+  <rect x="640" y="420" width="280" height="120" class="box"/>
+  <text x="655" y="445" class="val-amber" font-size="13">🔹 中頻電壓增益 Av</text>
+  <text x="655" y="470" class="label">Av = vo / vi = gm · (RC || RL)</text>
+  <text x="655" y="495" class="val-amber">Av = 40 mA/V · 3.33 kΩ</text>
+  <text x="655" y="525" class="val-emerald" font-size="15">Av = +133.3 V/V</text>
+</svg>

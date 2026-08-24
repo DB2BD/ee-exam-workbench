@@ -1537,6 +1537,11 @@
     const statusFilter = document.getElementById('filter-status').value;
     const diffFilter = document.getElementById('filter-diff').value;
 
+    localStorage.setItem('filter-subject', subFilter);
+    localStorage.setItem('filter-year', yrFilter);
+    localStorage.setItem('filter-status', statusFilter);
+    localStorage.setItem('filter-diff', diffFilter);
+
     const container = document.getElementById('qlist-container');
     container.innerHTML = '';
 
@@ -2601,6 +2606,24 @@
 
   // --- Initial Execution ---
   document.addEventListener('DOMContentLoaded', () => {
+    // Restore filters from localStorage
+    const savedSubFilter = localStorage.getItem('filter-subject');
+    const savedYrFilter = localStorage.getItem('filter-year');
+    const savedStatusFilter = localStorage.getItem('filter-status');
+    const savedDiffFilter = localStorage.getItem('filter-diff');
+    if (savedSubFilter) document.getElementById('filter-subject').value = savedSubFilter;
+    if (savedYrFilter) document.getElementById('filter-year').value = savedYrFilter;
+    if (savedStatusFilter) document.getElementById('filter-status').value = savedStatusFilter;
+    if (savedDiffFilter) document.getElementById('filter-diff').value = savedDiffFilter;
+
+    // Restore and watch exam selection
+    const savedExamSubj = localStorage.getItem('exam-select-subj');
+    const savedExamYr = localStorage.getItem('exam-select-yr');
+    if (savedExamSubj) document.getElementById('exam-select-subj').value = savedExamSubj;
+    if (savedExamYr) document.getElementById('exam-select-yr').value = savedExamYr;
+    document.getElementById('exam-select-subj').addEventListener('change', e => localStorage.setItem('exam-select-subj', e.target.value));
+    document.getElementById('exam-select-yr').addEventListener('change', e => localStorage.setItem('exam-select-yr', e.target.value));
+
     updateStatsAndBar();
     renderQuestions();
     renderLayers();

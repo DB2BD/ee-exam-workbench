@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
+    </linearGradient>
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
+    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
+    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
+    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
+    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
+    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
+    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
+    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
+    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
+  </style>
+
+  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
+  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">114 年 電子學 第一題：BJT 差動放大器三模式小訊號半電路等效分析圖</text>
+  <text x="475" y="60" text-anchor="middle" class="subtitle">工作點：IE = 1mA, re = 25Ω, rπ = 1025Ω, β = 40, RC = RS = 2kΩ</text>
+
+  <!-- 左圖：差模半電路 -->
+  <rect x="25" y="80" width="435" height="450" class="box"/>
+  <text x="45" y="110" class="title" font-size="16" fill="#38bdf8">【圖 A】純差動模式 (v2 = -v1 ⇒ ve = 0V 虛接地)</text>
+  <text x="45" y="130" class="subtitle">射極節點電位為零，無需流經 RS ⇒ 輸入電阻極小、增益極高</text>
+
+  <!-- 差模電路元件 -->
+  <!-- 輸入信號 v1 -->
+  <circle cx="75" cy="220" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="75" y="225" text-anchor="middle" class="val-cyan" font-size="12">v1</text>
+  <path d="M 75 234 L 75 270" class="wire"/>
+  <line x1="65" y1="270" x2="85" y2="270" class="ground"/>
+  <line x1="68" y1="274" x2="82" y2="274" class="ground"/>
+  <line x1="72" y1="278" x2="78" y2="278" class="ground"/>
+
+  <path d="M 89 220 L 140 220" class="wire" marker-end="url(#arr-cyan)"/>
+  <text x="115" y="210" text-anchor="middle" class="val-cyan" font-size="11">i1</text>
+
+  <!-- BJT 小訊號模型 Q1 -->
+  <!-- 基極節點 B1 -->
+  <circle cx="140" cy="220" r="4" fill="#38bdf8"/>
+  <text x="140" y="205" text-anchor="middle" class="val-cyan">B1</text>
+
+  <!-- rπ 電阻 (水平) -->
+  <path d="M 140 220 L 170 220" class="wire"/>
+  <rect x="170" y="208" width="55" height="24" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="197" y="224" text-anchor="middle" class="val-cyan" font-size="11">rπ=1025Ω</text>
+  <path d="M 225 220 L 260 220 L 260 300" class="wire"/>
+
+  <!-- 射極節點 E (虛接地) -->
+  <circle cx="260" cy="300" r="5" fill="#f43f5e"/>
+  <text x="280" y="305" class="val-rose" font-size="12">E (ve = 0V 虛接地)</text>
+  <path d="M 260 300 L 260 340" class="wire" stroke="#f43f5e"/>
+  <line x1="250" y1="340" x2="270" y2="340" class="ground" stroke="#f43f5e"/>
+  <line x1="253" y1="344" x2="267" y2="344" class="ground" stroke="#f43f5e"/>
+  <line x1="257" y1="348" x2="263" y2="348" class="ground" stroke="#f43f5e"/>
+
+  <!-- 集極受控源 gm vbe -->
+  <path d="M 360 220 L 360 300 L 260 300" class="wire"/>
+  <circle cx="360" cy="260" r="16" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+  <line x1="360" y1="272" x2="360" y2="248" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <text x="390" y="265" class="val-amber" font-size="11">gm vbe1</text>
+
+  <!-- 集極電阻 RC 與輸出 vc1 -->
+  <path d="M 360 220 L 360 160" class="wire"/>
+  <rect x="348" y="160" width="24" height="40" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="330" y="185" class="val-amber" font-size="11">RC=2k</text>
+  <path d="M 360 160 L 360 140" class="wire"/>
+  <line x1="350" y1="140" x2="370" y2="140" class="ground"/>
+  <text x="360" y="132" text-anchor="middle" class="subtitle">交流地</text>
+
+  <circle cx="360" cy="220" r="4" fill="#38bdf8"/>
+  <path d="M 360 220 L 420 220" class="wire"/>
+  <circle cx="420" cy="220" r="4" fill="#10b981"/>
+  <text x="420" y="205" text-anchor="middle" class="val-emerald">vc1</text>
+
+  <!-- 結論框 -->
+  <rect x="45" y="420" width="395" height="90" fill="#0f172a" stroke="#38bdf8" rx="8"/>
+  <text x="60" y="445" class="val-cyan" font-size="13">● 差模輸入電阻：Ri = rπ = 1025 Ω = 1.025 kΩ</text>
+  <text x="60" y="470" class="val-amber" font-size="13">● 單端輸出增益：vc1/v1 = -gm RC ≈ -78.05</text>
+  <text x="60" y="495" class="val-emerald" font-size="13">● 差動輸出增益：Av = vo/v1 = 2 gm RC ≈ +156.10</text>
+
+  <!-- 右圖：共模半電路 -->
+  <rect x="490" y="80" width="435" height="450" class="box"/>
+  <text x="510" y="110" class="title" font-size="16" fill="#f59e0b">【圖 B】純共模模式 (v2 = v1 ⇒ 射極等效 2RS)</text>
+  <text x="510" y="130" class="subtitle">對稱共模信號使 RS 電流倍增 ⇒ 射極退化電阻等效為 2RS = 4kΩ</text>
+
+  <!-- 輸入信號 v1 -->
+  <circle cx="540" cy="220" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <text x="540" y="225" text-anchor="middle" class="val-cyan" font-size="12">v1</text>
+  <path d="M 540 234 L 540 270" class="wire"/>
+  <line x1="530" y1="270" x2="550" y2="270" class="ground"/>
+
+  <path d="M 554 220 L 600" class="wire" marker-end="url(#arr-cyan)"/>
+  <circle cx="600" cy="220" r="4" fill="#38bdf8"/>
+  <text x="600" y="205" text-anchor="middle" class="val-cyan">B1</text>
+
+  <!-- rπ 電阻 -->
+  <path d="M 600 220 L 630 220" class="wire"/>
+  <rect x="630" y="208" width="55" height="24" fill="#334155" stroke="#38bdf8" rx="3"/>
+  <text x="657" y="224" text-anchor="middle" class="val-cyan" font-size="11">rπ=1025Ω</text>
+  <path d="M 685 220 L 720 220 L 720 280" class="wire"/>
+
+  <!-- 射極節點 E 與 2RS 電阻 -->
+  <circle cx="720" cy="280" r="4" fill="#f59e0b"/>
+  <text x="735" y="275" class="val-amber" font-size="11">E</text>
+  <rect x="708" y="280" width="24" height="45" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="660" y="308" class="val-amber" font-size="11">2RS=4kΩ</text>
+  <path d="M 720 325 L 720 350" class="wire"/>
+  <line x1="710" y1="350" x2="730" y2="350" class="ground"/>
+
+  <!-- 集極受控源與 RC -->
+  <path d="M 820 220 L 820 280 L 720 280" class="wire"/>
+  <circle cx="820" cy="250" r="15" fill="#1e293b" stroke="#f59e0b" stroke-width="1.8"/>
+  <line x1="820" y1="262" x2="820" y2="238" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+  
+  <path d="M 820 220 L 820 160" class="wire"/>
+  <rect x="808" y="160" width="24" height="40" fill="#334155" stroke="#f59e0b" rx="3"/>
+  <text x="790" y="185" class="val-amber" font-size="11">RC</text>
+  <path d="M 820 160 L 820 140" class="wire"/>
+  <line x1="810" y1="140" x2="830" y2="140" class="ground"/>
+
+  <circle cx="820" cy="220" r="4" fill="#38bdf8"/>
+  <path d="M 820 220 L 880 220" class="wire"/>
+  <circle cx="880" cy="220" r="4" fill="#10b981"/>
+  <text x="880" y="205" text-anchor="middle" class="val-emerald">vc1</text>
+
+  <!-- 結論框 -->
+  <rect x="510" y="420" width="395" height="90" fill="#0f172a" stroke="#f59e0b" rx="8"/>
+  <text x="525" y="445" class="val-amber" font-size="13">● 共模輸入電阻：Ri = rπ + (β+1)(2RS) = 165.03 kΩ</text>
+  <text x="525" y="470" class="val-cyan" font-size="13">● 共模射極電位：ve = (160/161) v1 ≈ 0.9938 v1</text>
+  <text x="525" y="495" class="val-rose" font-size="13">● 差動輸出電壓：vo = vc2 - vc1 = 0 V (完全對稱抵消)</text>
+</svg>

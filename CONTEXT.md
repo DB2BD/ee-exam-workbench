@@ -57,3 +57,6 @@
    - 編譯國考資料庫（`national-*`）時，嚴禁覆蓋或破壞 PE 技師原始資料庫（`dashboard-data.js`）。
 4. **前端優先權原則**：
    - 瀏覽器開啟 `GK-` 題號時，強制優先自 `NATIONAL_BUNDLED_MD` 提取最新題解，避免快取衝突。
+5. **解題與驗證分離原則 (Solver-Verifier Separation)**：
+   - 任何題解產出必須歷經「Solver Agent（獨立推導）」與「Verifier Agent（對抗驗證）」兩階段。
+   - Verifier 必須使用獨立方法（如逆向代入、能量守恆、極限分析、KCL/KVL 網目核對）進行雙盲交叉審核，嚴禁同一流程自行宣告正確。

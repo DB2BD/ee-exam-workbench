@@ -2437,17 +2437,26 @@
   function extractQuestionSections(rawContent) {
     const lines = rawContent.split('\n');
     const sections = [];
+    const numMap = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10 };
+
+    // Detect heading level for questions
+    let splitRegex = /^##\s+(.+)$/;
+    if (lines.some(l => /^##\s+[一二三四五六七八九十]/.test(l))) {
+      splitRegex = /^##\s+(.+)$/;
+    } else if (lines.some(l => /^####\s+[一二三四五六七八九十]/.test(l))) {
+      splitRegex = /^####\s+(.+)$/;
+    } else if (lines.some(l => /^###\s+[一二三四五六七八九十]/.test(l))) {
+      splitRegex = /^###\s+(.+)$/;
+    }
+
     let currentTitle = '';
     let currentLines = [];
     let preamble = '';
     let foundFirst = false;
 
-    const h2Regex = /^##\s+(.+)$/;
-    const numMap = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6 };
-
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      const match = line.match(h2Regex);
+      const match = line.match(splitRegex);
       if (match) {
         if (!foundFirst) {
           foundFirst = true;
@@ -2466,13 +2475,21 @@
       sections.push({ title: currentTitle, text: currentLines.join('\n') });
     }
 
-    sections.forEach((sec, idx) => {
+    // Filter out non-question sections (e.g. general overview, conclusion tips) if question sections exist
+    const questionSections = sections.filter(sec => {
+      const firstChar = sec.title.charAt(0);
+      return !!numMap[firstChar] || /^(?:第\s*[1-9一二三四五六七八九十]|Q\d|[1-9]\b)/.test(sec.title);
+    });
+
+    const finalSections = questionSections.length > 0 ? questionSections : sections;
+
+    finalSections.forEach((sec, idx) => {
       sec.index = idx + 1;
       const firstChar = sec.title.charAt(0);
       if (numMap[firstChar]) {
         sec.num = numMap[firstChar];
       } else {
-        const m = sec.title.match(/(?:第\s*([1-6一二三四五六])\s*大?題|^([1-6])\b)/);
+        const m = sec.title.match(/(?:第\s*([1-9一二三四五六七八九十])\s*大?題|^([1-9])\b)/);
         if (m) {
           const val = m[1] || m[2];
           sec.num = numMap[val] || parseInt(val, 10) || (idx + 1);
@@ -2482,7 +2499,7 @@
       }
     });
 
-    return { sections, preamble };
+    return { sections: finalSections, preamble };
   }
 
   let currentModalQNum = 1;
@@ -2513,91 +2530,87 @@
     const leftPaneBody = document.getElementById('left-pane-body');
     const layoutToggleGroup = document.getElementById('layout-toggle-group');
     const subQPillsBar = document.getElementById('sub-q-pills-bar');
+    const historyBackBtn = document.getElementById('modal-history-back-btn');
     const fxDrawer = document.getElementById('fx127-quick-drawer');
     if (fxDrawer) fxDrawer.style.display = 'none';
 
-    updateModalStatusButtons(currentModalQid);
+    if (!overlay || !body) return;
 
-    body.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--muted);">⚡ 正在急速載入教科書級解析...</div>';
-    if (leftPaneBody) leftPaneBody.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--muted);">📄 載入試卷中...</div>';
-    overlay.style.display = 'flex';
-    if (window.innerWidth <= 900) {
-      setMobileActiveTab(currentMobileTab || 'solution');
+    // Update History Back Button in Toolbar
+    if (historyBackBtn) {
+      if (modalNavHistory.length > 0) {
+        const prevItem = modalNavHistory[modalNavHistory.length - 1];
+        historyBackBtn.style.display = 'inline-flex';
+        historyBackBtn.innerHTML = `🔙 返回原題 (${prevItem.qid})`;
+      } else {
+        historyBackBtn.style.display = 'none';
+      }
     }
 
-    setTimeout(() => {
-      let decodedPath = decodeURIComponent(targetPath);
-      let anchor = '';
-      if (decodedPath.includes('#')) {
-        const parts = decodedPath.split('#');
-        decodedPath = parts[0];
-        anchor = parts[1];
+    // Determine target question number (default from qid if available)
+    let targetQ = 1;
+    let currentExamCategory = 'ee';
+    if (specificQNum === 'all') {
+      currentModalFullView = true;
+    } else if (typeof specificQNum === 'number') {
+      targetQ = specificQNum;
+      currentModalQNum = targetQ;
+    } else if (qid) {
+      const parts = qid.split('-');
+      if (parts.length >= 4) {
+        targetQ = parseInt(parts[3], 10) || 1;
+        currentModalQNum = targetQ;
       }
+      if (qid.startsWith('GK-')) {
+        currentExamCategory = 'gk';
+      }
+    }
 
-      let rawContent = '';
-      if (typeof BUNDLED_MD !== 'undefined') {
-        const cleanKey = decodedPath.replace(/^\.\//, '').trim();
-        if (BUNDLED_MD[cleanKey]) rawContent = BUNDLED_MD[cleanKey];
-        else {
-          for (let k in BUNDLED_MD) {
-            if (k.endsWith(cleanKey) || cleanKey.endsWith(k)) { rawContent = BUNDLED_MD[k]; break; }
-          }
+    // Try finding content from BUNDLED_MD or NATIONAL_BUNDLED_MD
+    let rawContent = '';
+    let basePath = '';
+    const cleanPath = targetPath ? targetPath.split('#')[0] : '';
+    const anchor = targetPath && targetPath.includes('#') ? targetPath.split('#')[1] : '';
+
+    if (cleanPath) {
+      const idx = cleanPath.lastIndexOf('/');
+      basePath = idx !== -1 ? cleanPath.substring(0, idx + 1) : '';
+    }
+
+    if (typeof BUNDLED_MD !== 'undefined' && BUNDLED_MD[cleanPath]) {
+      rawContent = BUNDLED_MD[cleanPath];
+    } else if (typeof NATIONAL_BUNDLED_MD !== 'undefined' && NATIONAL_BUNDLED_MD[cleanPath]) {
+      rawContent = NATIONAL_BUNDLED_MD[cleanPath];
+    } else {
+      for (const k in (typeof BUNDLED_MD !== 'undefined' ? BUNDLED_MD : {})) {
+        if (cleanPath && (k.endsWith(cleanPath) || cleanPath.endsWith(k))) {
+          rawContent = BUNDLED_MD[k];
+          break;
         }
       }
       if (!rawContent && typeof NATIONAL_BUNDLED_MD !== 'undefined') {
-        const cleanKey = decodedPath.replace(/^\.\//, '').trim();
-        if (NATIONAL_BUNDLED_MD[cleanKey]) rawContent = NATIONAL_BUNDLED_MD[cleanKey];
-        else {
-          for (let k in NATIONAL_BUNDLED_MD) {
-            if (k.endsWith(cleanKey) || cleanKey.endsWith(k)) { rawContent = NATIONAL_BUNDLED_MD[k]; break; }
+        for (const k in NATIONAL_BUNDLED_MD) {
+          if (cleanPath && (k.endsWith(cleanPath) || cleanPath.endsWith(k))) {
+            rawContent = NATIONAL_BUNDLED_MD[k];
+            break;
           }
         }
       }
+    }
 
-      if (!rawContent) {
-        if (subQPillsBar) subQPillsBar.style.display = 'none';
-        body.innerHTML = `
-          <div style="text-align: center; padding: 40px;">
-            <h3 style="color: var(--warn); margin-bottom: 12px;">📑 詳解檔案整理中</h3>
-            <p style="color: var(--muted); margin-bottom: 20px;">本題完整解析正收錄於考科知識庫中，請點擊下方按鈕直接查閱！</p>
-            <a href="${targetPath}" target="_blank" class="btn-sol">🔗 直接前往知識庫頁面</a>
-          </div>
-        `;
-        return;
-      }
+    const qRecord = findQuestionRecord(currentModalQid);
 
-      // Handle Non-Question Documents (Full Solution Mode)
-      if (!currentModalQid) {
-        setModalLayout('solution-only');
-        if (layoutToggleGroup) layoutToggleGroup.style.display = 'none';
-        if (subQPillsBar) subQPillsBar.style.display = 'none';
-      } else {
-        if (layoutToggleGroup) layoutToggleGroup.style.display = 'inline-flex';
-        setModalLayout(currentModalLayout || 'split');
-      }
-
-      applySavedPaneSplitRatio();
-
-      const basePath = decodedPath.substring(0, decodedPath.lastIndexOf('/') + 1);
+    if (rawContent) {
+      const parsed = extractQuestionSections(rawContent);
       let contentToRender = rawContent;
 
-      const qRecord = findQuestionRecord(currentModalQid);
-      let targetQ = specificQNum || (qRecord ? qRecord[3] : 1);
-      currentModalQNum = targetQ;
-
-      // Smart Sub-question Pills Bar & Slicing
-      const parsed = extractQuestionSections(rawContent);
-      if (parsed.sections.length > 0 && currentModalQid) {
+      if (parsed.sections.length > 0) {
         if (subQPillsBar) {
           subQPillsBar.style.display = 'flex';
-          const yr = qRecord ? qRecord[2] : '';
-          const sid = qRecord ? qRecord[1] : '';
-
           subQPillsBar.innerHTML = `
-            <span style="font-size: 0.76rem; font-weight: 700; color: var(--muted);">📑 本卷大題：</span>
             ${parsed.sections.map(sec => {
-              const secQid = (typeof DB_DATA !== 'undefined' && DB_DATA.questions) ? DB_DATA.questions.find(item => item[1] === sid && String(item[2]) === String(yr) && item[3] === sec.num) : null;
-              const nextQid = secQid ? secQid[0] : currentModalQid;
+              const qidParts = currentModalQid ? currentModalQid.split('-') : [];
+              const nextQid = qidParts.length >= 4 ? `${qidParts[0]}-${qidParts[1]}-${qidParts[2]}-${sec.num}` : currentModalQid;
               const isOn = !currentModalFullView && (currentModalQNum === sec.num);
               return `
                 <button class="sub-q-pill ${isOn ? 'on' : ''}" onclick="switchSubQuestion('${nextQid}', '${targetPath}', ${sec.num})">
@@ -2628,7 +2641,7 @@
         }
 
         if (!currentModalFullView) {
-          const matchedSec = parsed.sections.find(s => s.num === targetQ) || parsed.sections.find(s => s.index === targetQ);
+          const matchedSec = parsed.sections.find(s => s.num === targetQ);
           if (matchedSec) {
             contentToRender = matchedSec.text;
           }
@@ -2637,16 +2650,26 @@
         if (subQPillsBar) subQPillsBar.style.display = 'none';
       }
 
-      // Handle section anchor fallback
-      if (anchor && !parsed.sections.length) {
-        const yearMatch = anchor.match(/(\d+)\s*年/);
-        if (yearMatch) {
-          const yrNum = yearMatch[1];
-          const reg = new RegExp(`##\\s+${yrNum}\\s*年[\\s\\S]*?(?=\\n##\\s+\\d+\\s*年|$)`, 'i');
-          const matchedSec = rawContent.match(reg);
-          if (matchedSec) contentToRender = `# ⚡ 民國 ${yrNum} 年 考題與步驟解析\n\n` + matchedSec[0];
-        }
+      updateModalStatusButtons(currentModalQid);
+
+      body.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--muted);">⚡ 正在急速載入教科書級解析...</div>';
+      if (leftPaneBody) leftPaneBody.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--muted);">📄 載入試卷中...</div>';
+      overlay.style.display = 'flex';
+      if (window.innerWidth <= 900) {
+        setMobileActiveTab(currentMobileTab || 'solution');
       }
+
+      // Handle Non-Question Documents (Full Solution Mode)
+      if (!currentModalQid) {
+        setModalLayout('solution-only');
+        if (layoutToggleGroup) layoutToggleGroup.style.display = 'none';
+        if (subQPillsBar) subQPillsBar.style.display = 'none';
+      } else {
+        if (layoutToggleGroup) layoutToggleGroup.style.display = 'inline-flex';
+        setModalLayout(currentModalLayout || 'split');
+      }
+
+      applySavedPaneSplitRatio();
 
       // Extract Images for Left Pane (only include verified existing images)
       const discoveredImages = [];
@@ -2698,15 +2721,44 @@
           `;
         }
 
-        const pdfHtml = pdfLink ? `
-          <div style="height:100%; display:flex; flex-direction:column;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:0.82rem;">
-              <span style="font-weight:600; color:var(--ink);">📄 考選部官方原題試卷</span>
-              <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size:0.78rem; text-decoration:none;">在新分頁放大開啟 ↗</a>
+        let pdfHtml = '';
+        if (pdfLink) {
+          if (pdfLink.startsWith('http')) {
+            pdfHtml = `
+              <div style="height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:30px 20px; background:var(--card); border:1px solid var(--line); border-radius:10px;">
+                <div style="font-size:2.8rem; margin-bottom:12px;">🏛️</div>
+                <h4 style="color:var(--ink); margin-bottom:8px;">考選部官方原題試卷平臺</h4>
+                <p style="font-size:0.85rem; color:var(--muted); max-width:440px; margin-bottom:18px; line-height:1.6;">
+                  本試卷為考選部公務人員高等考試三級考試官方原題。請點擊下方按鈕直接連線考選部官方考畢試題平臺查閱原版試卷！
+                </p>
+                <a href="${pdfLink}" target="_blank" class="btn-sol" style="font-size:0.9rem; padding:10px 22px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                  🌐 連線考選部考畢試題平臺 ↗
+                </a>
+              </div>
+            `;
+          } else {
+            pdfHtml = `
+              <div style="height:100%; display:flex; flex-direction:column;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:0.82rem;">
+                  <span style="font-weight:600; color:var(--ink);">📄 考選部官方原題試卷</span>
+                  <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size:0.78rem; text-decoration:none;">在新分頁放大開啟 ↗</a>
+                </div>
+                <iframe src="${pdfLink}" style="flex:1; width:100%; min-height:550px; border:1px solid var(--line); border-radius:8px; background:#fff;"></iframe>
+              </div>
+            `;
+          }
+        } else {
+          pdfHtml = `
+            <div style="padding:28px 20px; text-align:center; background:var(--card); border:1px dashed var(--line); border-radius:10px; margin-top:10px;">
+              <div style="font-size:2rem; margin-bottom:8px;">📄</div>
+              <h4 style="color:var(--ink); margin-bottom:6px;">官方試卷線上查閱</h4>
+              <p style="font-size:0.83rem; color:var(--muted); margin-bottom:16px;">可直接前往考選部官方平臺查詢本年度完整試題 PDF！</p>
+              <a href="https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx" target="_blank" class="btn-sol" style="font-size:0.82rem; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                🌐 前往考選部考畢試題平臺 ↗
+              </a>
             </div>
-            <iframe src="${pdfLink}" style="flex:1; width:100%; min-height:550px; border:1px solid var(--line); border-radius:8px; background:#fff;"></iframe>
-          </div>
-        ` : `<div style="padding:20px; color:var(--muted); text-align:center;">無試卷 PDF 連結</div>`;
+          `;
+        }
 
         leftPaneBody.innerHTML = `
           <div id="left-tab-content-diagram">${diagramHtml}</div>

@@ -270,10 +270,13 @@ def scan_exam_category(cat):
                         if os.path.exists(sol_path):
                             sol_link = sol_path.replace(os.sep, '/')
                             has_dedicated = True
-                    if not sol_link:
-                        sol_link = fpath.replace(os.sep, '/')
-
-                    pdf_link = ''  # Will be populated when PDFs are added
+                    # Check for local PDF or assign official MOEX PDF link
+                    pdf_link = ''
+                    local_pdf = os.path.join(exam_subj_dir, f'{prefix}_{yr}年_{sname.split("（")[0]}.pdf')
+                    if os.path.exists(local_pdf):
+                        pdf_link = local_pdf.replace(os.sep, '/')
+                    else:
+                        pdf_link = 'https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx'
 
                     # relatedPEQid: cross-reference placeholder (populated in phase 2)
                     related_pe_qid = ''

@@ -497,10 +497,25 @@
   .btn-star:hover { transform: scale(1.25); }
 
   .qtopic {
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 1.02rem;
+    font-weight: 550;
     color: var(--ink);
-    margin: 12px 0 10px 0;
+    margin: 12px 0 14px 0;
+    line-height: 1.68;
+    letter-spacing: 0.01em;
+  }
+  .qtopic .q-sub-item {
+    margin-top: 6px;
+    padding-left: 10px;
+    border-left: 2px solid var(--line, #e2e8f0);
+    font-size: 0.96rem;
+    color: var(--ink-light);
+  }
+  .qtopic code {
+    background: var(--bg-secondary);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
   }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
   .tag {
@@ -1855,6 +1870,11 @@
       const ftagsHtml = (ftags || []).map(f => `<span class="tag" style="color:var(--accent); font-weight:600;">📐 ${f}</span>`).join('');
       const starsStr = '★'.repeat(diff || 3) + '☆'.repeat(5 - (diff || 3));
 
+      // Format multiline question body and sub-questions
+      let formattedTopic = (topic || '')
+        .replace(/\n\s*\*\s*\*\*(\([一二三四五六七八九十1-9]\))\*\*\s*/g, '<div class="q-sub-item"><strong style="color:var(--accent);">$1</strong> ')
+        .replace(/\n/g, '<br>');
+
       card.innerHTML = `
         <div class="qhead">
           <div class="qid-group">
@@ -1875,7 +1895,7 @@
           </div>
         </div>
 
-        <div class="qtopic">${topic}</div>
+        <div class="qtopic">${formattedTopic}</div>
 
         <div class="tags">${tagsHtml} ${ftagsHtml}</div>
 
@@ -1890,6 +1910,17 @@
       `;
       container.appendChild(card);
     });
+
+    // Render KaTeX for all math formulas on question cards
+    if (window.renderMathInElement) {
+      renderMathInElement(container, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+      });
+    }
   }
 
   function filterByTag(tag) {

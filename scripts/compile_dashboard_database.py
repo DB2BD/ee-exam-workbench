@@ -118,13 +118,11 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
                     q_num = num_map.get(q_chinese, 1)
                     q_body = q_blocks[j+1].strip()
                     
-                    first_line = q_body.split('\n')[0].strip()
-                    topic = re.sub(r'[\$\*\#\_\[\]]', '', first_line)
-                    topic = re.sub(r'（\s*\d+\s*分\s*）', '', topic).strip()
-                    if len(topic) > 60:
-                        topic = topic[:57] + '...'
-                    if not topic:
-                        topic = f'{sname} 第 {q_num} 題'
+                    clean_body = re.sub(r'###\s+📷\s+官方試卷[\s\S]*?(?=\n####|\n##|\Z)', '', q_body)
+                    clean_body = re.sub(r'!\[\[.*?\]\]', '', clean_body)
+                    clean_body = re.sub(r'!\[.*?\]\(.*?\)', '', clean_body)
+                    clean_body = re.sub(r'\[⬆\s+回到目錄導覽\].*', '', clean_body).strip()
+                    topic = clean_body if clean_body else f'{sname} 第 {q_num} 題'
                         
                     tags = [sname.split('（')[0]]
                     if any(w in q_body for w in ['定理', '定律', '諾頓', '戴維寧']):

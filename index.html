@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260824_1448"></script>
-<script src="./solutions-bundle.js?v=20260824_1448"></script>
-<script src="./national-exams-data.js?v=20260824_1448"></script>
-<script src="./national-solutions-bundle.js?v=20260824_1448"></script>
+<script src="./dashboard-data.js?v=20260825_1802"></script>
+<script src="./solutions-bundle.js?v=20260825_1802"></script>
+<script src="./national-exams-data.js?v=20260825_1802"></script>
+<script src="./national-solutions-bundle.js?v=20260825_1802"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -2120,57 +2120,115 @@ function setQuickFilter(type, btn) {
 function updateFilterDropdownsForCategory() {
   const yrSelect = document.getElementById('filter-year');
   const subSelect = document.getElementById('filter-subject');
-  if (!yrSelect || !subSelect) return;
+  const examYrSelect = document.getElementById('exam-select-yr');
+  const examSubSelect = document.getElementById('exam-select-subj');
 
-  const currentYr = yrSelect.value;
-  const currentSub = subSelect.value;
+  const currentYr = yrSelect ? yrSelect.value : 'all';
+  const currentSub = subSelect ? subSelect.value : 'all';
+  const currentExamYr = examYrSelect ? examYrSelect.value : '114';
+  const currentExamSub = examSubSelect ? examSubSelect.value : '01';
 
   if (currentExamCategory === 'GK') {
-    yrSelect.innerHTML = `
-      <option value="all">所有年度 (110 ~ 114 年)</option>
-      <option value="114">114 年 (最新)</option>
-      <option value="113">113 年</option>
-      <option value="112">112 年</option>
-      <option value="111">111 年</option>
-      <option value="110">110 年</option>
-    `;
-    subSelect.innerHTML = `
-      <option value="all">所有考科 (5 大考科)</option>
-      <option value="01">⚡ 01. 電路學</option>
-      <option value="02">🔌 02. 電子學（含電力電子）</option>
-      <option value="03">📐 03. 工程數學</option>
-      <option value="04">⚙️ 04. 電機機械</option>
-      <option value="05">🏢 05. 電力系統</option>
-    `;
+    if (yrSelect) {
+      yrSelect.innerHTML = `
+        <option value="all">所有年度 (110 ~ 114 年)</option>
+        <option value="114">114 年 (最新)</option>
+        <option value="113">113 年</option>
+        <option value="112">112 年</option>
+        <option value="111">111 年</option>
+        <option value="110">110 年</option>
+      `;
+    }
+    if (subSelect) {
+      subSelect.innerHTML = `
+        <option value="all">所有考科 (5 大考科)</option>
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04">⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+      `;
+    }
+    if (examYrSelect) {
+      examYrSelect.innerHTML = `
+        <option value="114">114 年全卷</option>
+        <option value="113">113 年全卷</option>
+        <option value="112">112 年全卷</option>
+        <option value="111">111 年全卷</option>
+        <option value="110">110 年全卷</option>
+        <option value="random">🎲 隨機抽 4 題模考</option>
+      `;
+    }
+    if (examSubSelect) {
+      examSubSelect.innerHTML = `
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04">⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+      `;
+    }
   } else {
-    yrSelect.innerHTML = `
-      <option value="all">所有年度 (104 ~ 114 年)</option>
-      <option value="114">114 年 (最新)</option>
-      <option value="113">113 年</option>
-      <option value="112">112 年</option>
-      <option value="111">111 年</option>
-      <option value="110">110 年</option>
-      <option value="109">109 年</option>
-      <option value="108">108 年</option>
-      <option value="107">107 年</option>
-      <option value="106">106 年</option>
-      <option value="105">105 年</option>
-      <option value="104">104 年</option>
-    `;
-    subSelect.innerHTML = `
-      <option value="all">所有考科 (6 大考科)</option>
-      <option value="01">⚡ 01. 電路學</option>
-      <option value="02">🔌 02. 電子學（含電力電子）</option>
-      <option value="03">📐 03. 工程數學</option>
-      <option value="04">⚙️ 04. 電機機械</option>
-      <option value="05">🏢 05. 電力系統</option>
-      <option value="06">🏭 06. 工業配電</option>
-    `;
+    if (yrSelect) {
+      yrSelect.innerHTML = `
+        <option value="all">所有年度 (104 ~ 114 年)</option>
+        <option value="114">114 年 (最新)</option>
+        <option value="113">113 年</option>
+        <option value="112">112 年</option>
+        <option value="111">111 年</option>
+        <option value="110">110 年</option>
+        <option value="109">109 年</option>
+        <option value="108">108 年</option>
+        <option value="107">107 年</option>
+        <option value="106">106 年</option>
+        <option value="105">105 年</option>
+        <option value="104">104 年</option>
+      `;
+    }
+    if (subSelect) {
+      subSelect.innerHTML = `
+        <option value="all">所有考科 (6 大考科)</option>
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04">⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+        <option value="06">🏭 06. 工業配電</option>
+      `;
+    }
+    if (examYrSelect) {
+      examYrSelect.innerHTML = `
+        <option value="114">114 年全卷</option>
+        <option value="113">113 年全卷</option>
+        <option value="112">112 年全卷</option>
+        <option value="111">111 年全卷</option>
+        <option value="110">110 年全卷</option>
+        <option value="109">109 年全卷</option>
+        <option value="108">108 年全卷</option>
+        <option value="107">107 年全卷</option>
+        <option value="106">106 年全卷</option>
+        <option value="105">105 年全卷</option>
+        <option value="104">104 年全卷</option>
+        <option value="random">🎲 隨機抽 4 題模考</option>
+      `;
+    }
+    if (examSubSelect) {
+      examSubSelect.innerHTML = `
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04" selected>⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+        <option value="06">🏭 06. 工業配電</option>
+      `;
+    }
   }
 
   // Restore previous values if valid in the new options
-  if (Array.from(yrSelect.options).some(o => o.value === currentYr)) yrSelect.value = currentYr;
-  if (Array.from(subSelect.options).some(o => o.value === currentSub)) subSelect.value = currentSub;
+  if (yrSelect && Array.from(yrSelect.options).some(o => o.value === currentYr)) yrSelect.value = currentYr;
+  if (subSelect && Array.from(subSelect.options).some(o => o.value === currentSub)) subSelect.value = currentSub;
+  if (examYrSelect && Array.from(examYrSelect.options).some(o => o.value === currentExamYr)) examYrSelect.value = currentExamYr;
+  if (examSubSelect && Array.from(examSubSelect.options).some(o => o.value === currentExamSub)) examSubSelect.value = currentExamSub;
 }
 
 function switchExamCategory(catId) {
@@ -2672,9 +2730,9 @@ function renderQuestions() {
 // === src/components/solutionModal.js ===
 // src/components/solutionModal.js
 /**
- * Split Solution Viewer Modal Component.
- * Features: Left pane PDF/Raw question, Right pane KaTeX Markdown solution,
- * Sub-question pills navigation, and Knowledge DAG Weakness Tracer integration.
+ * Robust Solution Viewer Modal Component.
+ * Intelligent full-paper section extractor, sub-question pill switcher,
+ * KaTeX formula renderer, image map resolver, and DAG Weakness Tracer.
  */
 
 let currentModalQid = null;
@@ -2683,6 +2741,57 @@ let currentModalQNum = null;
 let currentModalFullView = false;
 let currentSubQuestionIdx = 0;
 let modalHistoryStack = [];
+
+const CN_NUM_MAP = {
+  '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8,
+  '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8
+};
+
+/**
+ * Intelligently extracts the target question from full-paper or single-question markdown files.
+ */
+function extractQuestionMarkdown(rawMd, targetQNum) {
+  if (!rawMd) return { content: '', subParts: [] };
+
+  const qNumInt = parseInt(targetQNum, 10) || 1;
+
+  // Split by major question headers: e.g. "## 一、", "## 二、", "## 第 1 題", "## 1."
+  const majorSplitRegex = /(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|(?:[一二三四五六七八九十]|\d+)\s*[、\.\:]))/gi;
+  const sections = rawMd.split(majorSplitRegex);
+
+  let targetSection = rawMd;
+
+  if (sections.length > 1) {
+    // Multi-question full paper file
+    let found = false;
+    for (let i = 1; i < sections.length; i++) {
+      const sec = sections[i];
+      const hMatch = sec.match(/##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十]|\d+)\s*[、\.\:])/i);
+      if (hMatch) {
+        const token = (hMatch[1] || hMatch[2] || '').trim();
+        const parsedNum = CN_NUM_MAP[token];
+        if (parsedNum === qNumInt) {
+          targetSection = sec;
+          found = true;
+          break;
+        }
+      }
+    }
+    // Fallback by array index if heading regex missed
+    if (!found && sections[qNumInt]) {
+      targetSection = sections[qNumInt];
+    }
+  }
+
+  // Check for sub-parts within the question: e.g. "### (一)", "### (二)", "#### (1)"
+  const subPartRegex = /(?=\n###\s+(?:\([一二三四五六七八九十\d]+\)|(?:[一二三四五六七八九十]|\d+)\s*[\.、\)]))/gi;
+  const subParts = targetSection.split(subPartRegex);
+
+  return {
+    fullContent: targetSection,
+    subParts: subParts.length > 1 ? subParts : []
+  };
+}
 
 function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   if (event) event.preventDefault();
@@ -2704,8 +2813,8 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   const titleEl = document.getElementById('modal-title');
   if (titleEl) {
     titleEl.innerHTML = `
-      <span>${qid}</span>
-      <span style="font-size: 0.85rem; color: var(--muted); font-weight: 500;">
+      <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${qid}</span>
+      <span style="font-size: 0.9rem; color: var(--muted); font-weight: 500;">
         · ${meta.icon} ${meta.name}（${yr} 年第 ${curQnum} 大題）
       </span>
     `;
@@ -2716,52 +2825,49 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   if (leftPane) {
     leftPane.innerHTML = `
       <div style="padding: 20px; border-bottom: 1px solid var(--line); background: var(--surface);">
-        <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 6px;">
+        <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 8px;">
           📌 官方原題題幹描述
         </div>
-        <div style="font-size: 0.95rem; line-height: 1.6; color: var(--ink);">
+        <div style="font-size: 0.95rem; line-height: 1.65; color: var(--ink);">
           ${topic}
         </div>
-        <div style="margin-top: 14px; display: flex; gap: 8px;">
-          <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.8rem;">
-            📄 開啟官方原始考卷 PDF ⬈
+        <div style="margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.82rem;">
+            📄 開啟考選部原始試卷 PDF ⬈
           </a>
         </div>
       </div>
-      <div style="flex: 1; min-height: 350px; background: #525659;">
+      <div style="flex: 1; min-height: 380px; background: #525659;">
         <iframe src="${pdfLink}#toolbar=0" style="width: 100%; height: 100%; min-height: 400px; border: none;"></iframe>
       </div>
     `;
   }
 
-  // Load right pane (Markdown Solution + KaTeX + DAG Tracer)
+  // Load right pane (Extracted Question Solution + KaTeX + Sub-part Navigation + DAG)
   const rightPane = document.getElementById('modal-right-content');
   const subQPillsBar = document.getElementById('modal-sub-q-pills');
 
-  let rawMd = resolveSolutionMarkdown(solLink, qid);
+  const rawMd = resolveSolutionMarkdown(solLink, qid);
 
   if (rawMd) {
-    // Check for multiple sub-questions in markdown
-    const subQRegex = /(?:^|\n)##\s+(?:題號\s*)?(\d+|第[一二三四五六七八九十\d]+[小題大題]*|[一二三四五六七八九十]\s*、|Question\s*\d+)/gi;
-    const subSections = rawMd.split(/(?=\n##\s+)/);
+    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, curQnum);
 
-    if (subSections.length > 1 && subQPillsBar) {
+    // If sub-parts exist, render pills for quick navigation
+    if (subParts.length > 1 && subQPillsBar) {
       subQPillsBar.style.display = 'flex';
-      subQPillsBar.innerHTML = subSections.map((sec, idx) => {
-        const titleMatch = sec.match(/##\s+([^\n]+)/);
-        const title = titleMatch ? titleMatch[1].replace(/【.*?】/, '').trim() : `第 ${idx + 1} 小題`;
-        return `
-          <button class="sub-q-pill ${idx === 0 ? 'active' : ''}" onclick="switchSubQuestion(${idx})">
-            ${title}
-          </button>
-        `;
-      }).join('');
+      let pillsHtml = `<button class="sub-q-pill active" onclick="switchSubQuestion(0)">📖 完整全題推導</button>`;
+      for (let i = 0; i < subParts.length; i++) {
+        const titleMatch = subParts[i].match(/###\s+([^\n]+)/);
+        const title = titleMatch ? titleMatch[1].trim() : `第 (${i + 1}) 小題`;
+        pillsHtml += `<button class="sub-q-pill" onclick="switchSubQuestion(${i + 1})">${title}</button>`;
+      }
+      subQPillsBar.innerHTML = pillsHtml;
     } else if (subQPillsBar) {
       subQPillsBar.style.display = 'none';
     }
 
-    // Render first sub-question or full markdown
-    renderSubQuestionContent(subSections.length > 1 ? subSections[0] : rawMd, qRecord);
+    // Default to rendering full content of this question
+    renderSubQuestionContent(fullContent, qRecord);
   } else {
     if (subQPillsBar) subQPillsBar.style.display = 'none';
     if (rightPane) {
@@ -2790,9 +2896,12 @@ function switchSubQuestion(idx) {
   const qRecord = findQuestionRecord(currentModalQid);
   if (!rawMd) return;
 
-  const subSections = rawMd.split(/(?=\n##\s+)/);
-  if (subSections[idx]) {
-    renderSubQuestionContent(subSections[idx], qRecord);
+  const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum);
+
+  if (idx === 0 || subParts.length === 0) {
+    renderSubQuestionContent(fullContent, qRecord);
+  } else if (subParts[idx - 1]) {
+    renderSubQuestionContent(subParts[idx - 1], qRecord);
   }
 }
 
@@ -3151,7 +3260,7 @@ function initPaneResizer() {
 
 // Global DOM Content Loaded Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
-  // Theme initialization
+  // 1. Theme initialization
   const savedTheme = localStorage.getItem('ee_theme_preference');
   if (savedTheme) {
     document.documentElement.setAttribute('data-theme', savedTheme);
@@ -3159,23 +3268,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btn) btn.innerText = savedTheme === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
   }
 
-  // Restore filters
+  // 2. Restore category & populate category dropdown options first
+  const savedCat = localStorage.getItem('exam_category_tab') || 'PE';
+  switchExamCategory(savedCat);
+
+  // 3. Restore persisted filter selections
   const savedSub = localStorage.getItem('filter-subject');
   const savedYr = localStorage.getItem('filter-year');
   const savedStatus = localStorage.getItem('filter-status');
   const savedDiff = localStorage.getItem('filter-diff');
 
-  if (savedSub && document.getElementById('filter-subject')) document.getElementById('filter-subject').value = savedSub;
-  if (savedYr && document.getElementById('filter-year')) document.getElementById('filter-year').value = savedYr;
-  if (savedStatus && document.getElementById('filter-status')) document.getElementById('filter-status').value = savedStatus;
-  if (savedDiff && document.getElementById('filter-diff')) document.getElementById('filter-diff').value = savedDiff;
+  const subSelect = document.getElementById('filter-subject');
+  const yrSelect = document.getElementById('filter-year');
+  const statusSelect = document.getElementById('filter-status');
+  const diffSelect = document.getElementById('filter-diff');
 
-  // Restore category
-  const savedCat = localStorage.getItem('exam_category_tab') || 'PE';
-  switchExamCategory(savedCat);
+  if (savedSub && subSelect && Array.from(subSelect.options).some(o => o.value === savedSub)) {
+    subSelect.value = savedSub;
+  }
+  if (savedYr && yrSelect && Array.from(yrSelect.options).some(o => o.value === savedYr)) {
+    yrSelect.value = savedYr;
+  }
+  if (savedStatus && statusSelect && Array.from(statusSelect.options).some(o => o.value === savedStatus)) {
+    statusSelect.value = savedStatus;
+  }
+  if (savedDiff && diffSelect && Array.from(diffSelect.options).some(o => o.value === savedDiff)) {
+    diffSelect.value = savedDiff;
+  }
 
-  // Render initial components
-  updateFilterDropdownsForCategory();
+  // 4. Render initial components
   updateStatsAndBar();
   renderQuestions();
   renderLayers();

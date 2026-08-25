@@ -274,6 +274,12 @@ def build_workbench():
             <option value="112">112 年全卷</option>
             <option value="111">111 年全卷</option>
             <option value="110">110 年全卷</option>
+            <option value="109">109 年全卷</option>
+            <option value="108">108 年全卷</option>
+            <option value="107">107 年全卷</option>
+            <option value="106">106 年全卷</option>
+            <option value="105">105 年全卷</option>
+            <option value="104">104 年全卷</option>
             <option value="random">🎲 隨機抽 4 題模考</option>
           </select>
           <button onclick="loadMockExam()" class="btn-sol">📄 載入試卷</button>
@@ -324,6 +330,34 @@ def build_workbench():
         <button id="modal-status-btn" class="status-badge s-0">⚪ 未開始</button>
         <button id="modal-star-btn" class="btn-star">☆ 收藏本題</button>
         <button onclick="closeModal()" class="btn-pdf" style="font-size: 0.9rem; font-weight: 700;">✕ 關閉</button>
+      </div>
+    </div>
+
+    <!-- Modal Navigation Toolbar (上一題 / 下一題 / 該年度選題 / 視圖切換) -->
+    <div class="modal-nav-bar">
+      <div class="modal-nav-group">
+        <button class="btn-modal-nav" id="btn-modal-prev" onclick="navModalQuestion(-1)" title="快捷鍵：鍵盤向左鍵 ←">
+          ← 上一題
+        </button>
+        <select class="modal-same-exam-select" id="modal-same-exam-select" onchange="onSameExamSelectChange(this)" title="同年度同考科試題快速切換">
+        </select>
+        <button class="btn-modal-nav" id="btn-modal-next" onclick="navModalQuestion(1)" title="快捷鍵：鍵盤向右鍵 →">
+          下一題 →
+        </button>
+      </div>
+
+      <div class="modal-nav-group">
+        <div class="view-layout-toggle">
+          <button class="btn-layout active" id="btn-layout-split" onclick="setModalLayout('split')" title="雙欄對照檢視 (預設)">
+            ⚖️ 雙欄對照
+          </button>
+          <button class="btn-layout" id="btn-layout-solution" onclick="setModalLayout('solution-only')" title="純詳解全寬檢視">
+            📝 純詳解
+          </button>
+          <button class="btn-layout" id="btn-layout-exam" onclick="setModalLayout('exam-only')" title="原題優先全寬檢視">
+            📄 原題考卷
+          </button>
+        </div>
       </div>
     </div>
 

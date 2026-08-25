@@ -11,14 +11,10 @@
             "id": "1a0fd386ae54dd0b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "GK_114年_電路學_全卷完整詳細題解"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "關聯圖檢視"
             }
           }
         ]
@@ -99,7 +95,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +113,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +155,6 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -191,6 +184,8 @@
   },
   "active": "1a0fd386ae54dd0b",
   "lastOpenFiles": [
+    "tests/test_solution_extractor_and_years.py",
+    "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
     "tests/test_build_pipeline.py",
     "scripts/build_workbench.py",
     "src/main.js",
@@ -201,7 +196,6 @@
     "src/components/header.js",
     "src/components/dagGraphViewer.js",
     "src/components/dagTracer.js",
-    "src/components",
     "docs/adr/0004-textbook-grade-golden-standard-solutions.md",
     "docs/adr/0003-five-dimensional-scientific-difficulty-model.md",
     "docs/adr/0002-dual-database-isolation-for-national-exams.md",
@@ -236,7 +230,6 @@
     "📝 個人題解與錯題本/04_電機機械/107年_電機機械_全卷完整詳細題解.md",
     "📝 個人題解與錯題本/04_電機機械/110年_電機機械_全卷完整詳細題解.md",
     "SPEC_國考同級參考題庫擴充架構規格書.md",
-    "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
     "未命名.canvas"
   ]
 }

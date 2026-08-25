@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260825_1802"></script>
-<script src="./solutions-bundle.js?v=20260825_1802"></script>
-<script src="./national-exams-data.js?v=20260825_1802"></script>
-<script src="./national-solutions-bundle.js?v=20260825_1802"></script>
+<script src="./dashboard-data.js?v=20260825_1806"></script>
+<script src="./solutions-bundle.js?v=20260825_1806"></script>
+<script src="./national-exams-data.js?v=20260825_1806"></script>
+<script src="./national-solutions-bundle.js?v=20260825_1806"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -595,12 +595,12 @@ select:focus {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(28, 33, 37, 0.7);
+  background: rgba(28, 33, 37, 0.75);
   backdrop-filter: blur(6px);
   z-index: 9999;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 16px;
 }
 
 #solution-modal.show {
@@ -611,17 +611,18 @@ select:focus {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  width: 95vw;
-  max-width: 1560px;
-  height: 92vh;
+  width: 96vw;
+  max-width: 1600px;
+  height: 94vh;
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
 
+/* Modal Header */
 .modal-header {
-  padding: 14px 22px;
+  padding: 12px 20px;
   border-bottom: 1px solid var(--line);
   background: var(--bg);
   display: flex;
@@ -647,6 +648,98 @@ select:focus {
   flex-wrap: wrap;
 }
 
+/* Modal Navigation Toolbar */
+.modal-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 18px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-modal-nav {
+  padding: 6px 14px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+
+.btn-modal-nav:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent-dark);
+}
+
+.btn-modal-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: var(--bg);
+  color: var(--muted);
+  border-color: var(--line);
+}
+
+.modal-same-exam-select {
+  padding: 6px 12px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  cursor: pointer;
+  max-width: 320px;
+}
+
+.modal-same-exam-select:focus {
+  border-color: var(--accent);
+}
+
+/* View Layout Toggle Segmented Control */
+.view-layout-toggle {
+  display: inline-flex;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+.btn-layout {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  background: none;
+  color: var(--muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-layout.active {
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
 /* Split Pane Body */
 .modal-split-body {
   display: flex;
@@ -662,6 +755,7 @@ select:focus {
   flex-direction: column;
   background: var(--bg);
   overflow-y: auto;
+  transition: flex 0.2s ease;
 }
 
 .modal-resizer {
@@ -683,29 +777,31 @@ select:focus {
   background: var(--surface);
   overflow-y: auto;
   padding: 24px 32px;
+  transition: flex 0.2s ease;
 }
 
 /* Sub Question Navigation Pills */
 .sub-q-pills-bar {
   display: flex;
   gap: 8px;
-  padding: 10px 18px;
-  background: var(--bg-secondary);
+  padding: 8px 18px;
+  background: var(--bg);
   border-bottom: 1px solid var(--line);
   overflow-x: auto;
   align-items: center;
 }
 
 .sub-q-pill {
-  padding: 5px 12px;
+  padding: 4px 12px;
   border-radius: var(--radius-pill);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--muted);
   cursor: pointer;
   white-space: nowrap;
+  transition: all 0.15s;
 }
 
 .sub-q-pill.active {
@@ -1214,6 +1310,12 @@ select:focus {
             <option value="112">112 年全卷</option>
             <option value="111">111 年全卷</option>
             <option value="110">110 年全卷</option>
+            <option value="109">109 年全卷</option>
+            <option value="108">108 年全卷</option>
+            <option value="107">107 年全卷</option>
+            <option value="106">106 年全卷</option>
+            <option value="105">105 年全卷</option>
+            <option value="104">104 年全卷</option>
             <option value="random">🎲 隨機抽 4 題模考</option>
           </select>
           <button onclick="loadMockExam()" class="btn-sol">📄 載入試卷</button>
@@ -1264,6 +1366,34 @@ select:focus {
         <button id="modal-status-btn" class="status-badge s-0">⚪ 未開始</button>
         <button id="modal-star-btn" class="btn-star">☆ 收藏本題</button>
         <button onclick="closeModal()" class="btn-pdf" style="font-size: 0.9rem; font-weight: 700;">✕ 關閉</button>
+      </div>
+    </div>
+
+    <!-- Modal Navigation Toolbar (上一題 / 下一題 / 該年度選題 / 視圖切換) -->
+    <div class="modal-nav-bar">
+      <div class="modal-nav-group">
+        <button class="btn-modal-nav" id="btn-modal-prev" onclick="navModalQuestion(-1)" title="快捷鍵：鍵盤向左鍵 ←">
+          ← 上一題
+        </button>
+        <select class="modal-same-exam-select" id="modal-same-exam-select" onchange="onSameExamSelectChange(this)" title="同年度同考科試題快速切換">
+        </select>
+        <button class="btn-modal-nav" id="btn-modal-next" onclick="navModalQuestion(1)" title="快捷鍵：鍵盤向右鍵 →">
+          下一題 →
+        </button>
+      </div>
+
+      <div class="modal-nav-group">
+        <div class="view-layout-toggle">
+          <button class="btn-layout active" id="btn-layout-split" onclick="setModalLayout('split')" title="雙欄對照檢視 (預設)">
+            ⚖️ 雙欄對照
+          </button>
+          <button class="btn-layout" id="btn-layout-solution" onclick="setModalLayout('solution-only')" title="純詳解全寬檢視">
+            📝 純詳解
+          </button>
+          <button class="btn-layout" id="btn-layout-exam" onclick="setModalLayout('exam-only')" title="原題優先全寬檢視">
+            📄 原題考卷
+          </button>
+        </div>
       </div>
     </div>
 
@@ -2731,8 +2861,12 @@ function renderQuestions() {
 // src/components/solutionModal.js
 /**
  * Robust Solution Viewer Modal Component.
- * Intelligent full-paper section extractor, sub-question pill switcher,
- * KaTeX formula renderer, image map resolver, and DAG Weakness Tracer.
+ * Features:
+ * 1. Intelligent Question Extraction (Full-paper or single-question)
+ * 2. Navigation toolbar: [← 上一題] / [下一題 →]
+ * 3. Same Exam Year Question Selector (該年度考卷選題)
+ * 4. Split / Solution-only / Exam-only layout toggle
+ * 5. Sub-question pill switcher, KaTeX formula renderer, image map resolver, and DAG Weakness Tracer.
  */
 
 let currentModalQid = null;
@@ -2809,7 +2943,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
   const meta = getSubjectMeta(sid);
 
-  // Update title
+  // 1. Update Title
   const titleEl = document.getElementById('modal-title');
   if (titleEl) {
     titleEl.innerHTML = `
@@ -2820,10 +2954,15 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
     `;
   }
 
-  // Load left pane (Raw Question + PDF embed)
-  const leftPane = document.getElementById('modal-left-content');
-  if (leftPane) {
-    leftPane.innerHTML = `
+  // 2. Update Same Exam Dropdown & Prev/Next Buttons
+  updateSameExamDropdown(sid, yr, qid);
+  updateModalNavButtons(qid);
+
+  // 3. Load Left Pane (Raw Question + PDF embed)
+  const leftPane = document.getElementById('modal-pane-left');
+  const leftContent = document.getElementById('modal-left-content');
+  if (leftContent) {
+    leftContent.innerHTML = `
       <div style="padding: 20px; border-bottom: 1px solid var(--line); background: var(--surface);">
         <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 8px;">
           📌 官方原題題幹描述
@@ -2843,7 +2982,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
     `;
   }
 
-  // Load right pane (Extracted Question Solution + KaTeX + Sub-part Navigation + DAG)
+  // 4. Load Right Pane (Extracted Question Solution + KaTeX + Sub-part Navigation + DAG)
   const rightPane = document.getElementById('modal-right-content');
   const subQPillsBar = document.getElementById('modal-sub-q-pills');
 
@@ -2884,6 +3023,99 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   updateModalStatusButtons(qid);
   modal.classList.add('show');
   document.body.style.overflow = 'hidden';
+}
+
+function updateSameExamDropdown(sid, yr, currentQid) {
+  const select = document.getElementById('modal-same-exam-select');
+  if (!select) return;
+
+  const activeList = getActiveQuestionsList();
+  const sameExamQs = activeList.filter(q => q[1] === sid && q[2] === yr);
+
+  if (sameExamQs.length === 0) {
+    select.style.display = 'none';
+    return;
+  }
+
+  select.style.display = 'inline-block';
+  select.innerHTML = sameExamQs.map(q => {
+    const qid = q[0];
+    const qnum = q[3];
+    const s = progressState[qid] || 0;
+    const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
+    const isCur = qid === currentQid;
+    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${qid})</option>`;
+  }).join('');
+}
+
+function onSameExamSelectChange(selectElem) {
+  const targetQid = selectElem.value;
+  if (!targetQid || targetQid === currentModalQid) return;
+  const qRecord = findQuestionRecord(targetQid);
+  if (qRecord) {
+    const [qid, sid, yr, qnum, topic, tags, solLink] = qRecord;
+    openSolutionModal(null, solLink, qid, qnum);
+  }
+}
+
+function updateModalNavButtons(qid) {
+  const btnPrev = document.getElementById('btn-modal-prev');
+  const btnNext = document.getElementById('btn-modal-next');
+  if (!btnPrev || !btnNext) return;
+
+  const activeList = getActiveQuestionsList();
+  const curIdx = activeList.findIndex(q => q[0] === qid);
+
+  btnPrev.disabled = curIdx <= 0;
+  btnNext.disabled = curIdx < 0 || curIdx >= activeList.length - 1;
+}
+
+function navModalQuestion(direction) {
+  const activeList = getActiveQuestionsList();
+  if (activeList.length === 0 || !currentModalQid) return;
+
+  const curIdx = activeList.findIndex(q => q[0] === currentModalQid);
+  if (curIdx === -1) return;
+
+  const targetIdx = curIdx + direction;
+  if (targetIdx >= 0 && targetIdx < activeList.length) {
+    const targetQ = activeList[targetIdx];
+    const [qid, sid, yr, qnum, topic, tags, solLink] = targetQ;
+    openSolutionModal(null, solLink, qid, qnum);
+  }
+}
+
+function setModalLayout(mode) {
+  const leftPane = document.getElementById('modal-pane-left');
+  const rightPane = document.getElementById('modal-pane-right');
+  const resizer = document.getElementById('modal-resizer');
+  if (!leftPane || !rightPane) return;
+
+  document.querySelectorAll('.view-layout-toggle .btn-layout').forEach(b => b.classList.remove('active'));
+
+  if (mode === 'solution-only') {
+    leftPane.style.display = 'none';
+    if (resizer) resizer.style.display = 'none';
+    rightPane.style.flex = '1 1 100%';
+    const btn = document.getElementById('btn-layout-solution');
+    if (btn) btn.classList.add('active');
+  } else if (mode === 'exam-only') {
+    leftPane.style.display = 'flex';
+    leftPane.style.flex = '1 1 100%';
+    if (resizer) resizer.style.display = 'none';
+    rightPane.style.display = 'none';
+    const btn = document.getElementById('btn-layout-exam');
+    if (btn) btn.classList.add('active');
+  } else {
+    // Split 50/50
+    leftPane.style.display = 'flex';
+    leftPane.style.flex = '0 0 45%';
+    if (resizer) resizer.style.display = 'block';
+    rightPane.style.display = 'flex';
+    rightPane.style.flex = '1';
+    const btn = document.getElementById('btn-layout-split');
+    if (btn) btn.classList.add('active');
+  }
 }
 
 function switchSubQuestion(idx) {
@@ -2967,6 +3199,20 @@ function updateModalStatusButtons(qid) {
   starBtn.innerHTML = isStarred ? '★ 已收藏' : '☆ 收藏本題';
   starBtn.onclick = (e) => toggleStarred(qid, e);
 }
+
+// Global Keyboard Navigation
+window.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('solution-modal');
+  if (!modal || !modal.classList.contains('show')) return;
+
+  if (e.key === 'Escape') {
+    closeModal();
+  } else if (e.key === 'ArrowLeft') {
+    navModalQuestion(-1);
+  } else if (e.key === 'ArrowRight') {
+    navModalQuestion(1);
+  }
+});
 
 
 // === src/components/mockExamTimer.js ===

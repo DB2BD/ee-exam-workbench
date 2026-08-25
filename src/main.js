@@ -69,7 +69,7 @@ function initPaneResizer() {
 
 // Global DOM Content Loaded Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
-  // Theme initialization
+  // 1. Theme initialization
   const savedTheme = localStorage.getItem('ee_theme_preference');
   if (savedTheme) {
     document.documentElement.setAttribute('data-theme', savedTheme);
@@ -77,23 +77,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btn) btn.innerText = savedTheme === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
   }
 
-  // Restore filters
+  // 2. Restore category & populate category dropdown options first
+  const savedCat = localStorage.getItem('exam_category_tab') || 'PE';
+  switchExamCategory(savedCat);
+
+  // 3. Restore persisted filter selections
   const savedSub = localStorage.getItem('filter-subject');
   const savedYr = localStorage.getItem('filter-year');
   const savedStatus = localStorage.getItem('filter-status');
   const savedDiff = localStorage.getItem('filter-diff');
 
-  if (savedSub && document.getElementById('filter-subject')) document.getElementById('filter-subject').value = savedSub;
-  if (savedYr && document.getElementById('filter-year')) document.getElementById('filter-year').value = savedYr;
-  if (savedStatus && document.getElementById('filter-status')) document.getElementById('filter-status').value = savedStatus;
-  if (savedDiff && document.getElementById('filter-diff')) document.getElementById('filter-diff').value = savedDiff;
+  const subSelect = document.getElementById('filter-subject');
+  const yrSelect = document.getElementById('filter-year');
+  const statusSelect = document.getElementById('filter-status');
+  const diffSelect = document.getElementById('filter-diff');
 
-  // Restore category
-  const savedCat = localStorage.getItem('exam_category_tab') || 'PE';
-  switchExamCategory(savedCat);
+  if (savedSub && subSelect && Array.from(subSelect.options).some(o => o.value === savedSub)) {
+    subSelect.value = savedSub;
+  }
+  if (savedYr && yrSelect && Array.from(yrSelect.options).some(o => o.value === savedYr)) {
+    yrSelect.value = savedYr;
+  }
+  if (savedStatus && statusSelect && Array.from(statusSelect.options).some(o => o.value === savedStatus)) {
+    statusSelect.value = savedStatus;
+  }
+  if (savedDiff && diffSelect && Array.from(diffSelect.options).some(o => o.value === savedDiff)) {
+    diffSelect.value = savedDiff;
+  }
 
-  // Render initial components
-  updateFilterDropdownsForCategory();
+  // 4. Render initial components
   updateStatsAndBar();
   renderQuestions();
   renderLayers();

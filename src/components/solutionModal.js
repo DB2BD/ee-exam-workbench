@@ -1,8 +1,12 @@
 // src/components/solutionModal.js
 /**
  * Robust Solution Viewer Modal Component.
- * Intelligent full-paper section extractor, sub-question pill switcher,
- * KaTeX formula renderer, image map resolver, and DAG Weakness Tracer.
+ * Features:
+ * 1. Intelligent Question Extraction (Full-paper or single-question)
+ * 2. Navigation toolbar: [← 上一題] / [下一題 →]
+ * 3. Same Exam Year Question Selector (該年度考卷選題)
+ * 4. Split / Solution-only / Exam-only layout toggle
+ * 5. Sub-question pill switcher, KaTeX formula renderer, image map resolver, and DAG Weakness Tracer.
  */
 
 let currentModalQid = null;
@@ -79,7 +83,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
   const meta = getSubjectMeta(sid);
 
-  // Update title
+  // 1. Update Title
   const titleEl = document.getElementById('modal-title');
   if (titleEl) {
     titleEl.innerHTML = `
@@ -90,10 +94,15 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
     `;
   }
 
-  // Load left pane (Raw Question + PDF embed)
-  const leftPane = document.getElementById('modal-left-content');
-  if (leftPane) {
-    leftPane.innerHTML = `
+  // 2. Update Same Exam Dropdown & Prev/Next Buttons
+  updateSameExamDropdown(sid, yr, qid);
+  updateModalNavButtons(qid);
+
+  // 3. Load Left Pane (Raw Question + PDF embed)
+  const leftPane = document.getElementById('modal-pane-left');
+  const leftContent = document.getElementById('modal-left-content');
+  if (leftContent) {
+    leftContent.innerHTML = `
       <div style="padding: 20px; border-bottom: 1px solid var(--line); background: var(--surface);">
         <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 8px;">
           📌 官方原題題幹描述
@@ -113,7 +122,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
     `;
   }
 
-  // Load right pane (Extracted Question Solution + KaTeX + Sub-part Navigation + DAG)
+  // 4. Load Right Pane (Extracted Question Solution + KaTeX + Sub-part Navigation + DAG)
   const rightPane = document.getElementById('modal-right-content');
   const subQPillsBar = document.getElementById('modal-sub-q-pills');
 
@@ -154,6 +163,99 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   updateModalStatusButtons(qid);
   modal.classList.add('show');
   document.body.style.overflow = 'hidden';
+}
+
+function updateSameExamDropdown(sid, yr, currentQid) {
+  const select = document.getElementById('modal-same-exam-select');
+  if (!select) return;
+
+  const activeList = getActiveQuestionsList();
+  const sameExamQs = activeList.filter(q => q[1] === sid && q[2] === yr);
+
+  if (sameExamQs.length === 0) {
+    select.style.display = 'none';
+    return;
+  }
+
+  select.style.display = 'inline-block';
+  select.innerHTML = sameExamQs.map(q => {
+    const qid = q[0];
+    const qnum = q[3];
+    const s = progressState[qid] || 0;
+    const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
+    const isCur = qid === currentQid;
+    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${qid})</option>`;
+  }).join('');
+}
+
+function onSameExamSelectChange(selectElem) {
+  const targetQid = selectElem.value;
+  if (!targetQid || targetQid === currentModalQid) return;
+  const qRecord = findQuestionRecord(targetQid);
+  if (qRecord) {
+    const [qid, sid, yr, qnum, topic, tags, solLink] = qRecord;
+    openSolutionModal(null, solLink, qid, qnum);
+  }
+}
+
+function updateModalNavButtons(qid) {
+  const btnPrev = document.getElementById('btn-modal-prev');
+  const btnNext = document.getElementById('btn-modal-next');
+  if (!btnPrev || !btnNext) return;
+
+  const activeList = getActiveQuestionsList();
+  const curIdx = activeList.findIndex(q => q[0] === qid);
+
+  btnPrev.disabled = curIdx <= 0;
+  btnNext.disabled = curIdx < 0 || curIdx >= activeList.length - 1;
+}
+
+function navModalQuestion(direction) {
+  const activeList = getActiveQuestionsList();
+  if (activeList.length === 0 || !currentModalQid) return;
+
+  const curIdx = activeList.findIndex(q => q[0] === currentModalQid);
+  if (curIdx === -1) return;
+
+  const targetIdx = curIdx + direction;
+  if (targetIdx >= 0 && targetIdx < activeList.length) {
+    const targetQ = activeList[targetIdx];
+    const [qid, sid, yr, qnum, topic, tags, solLink] = targetQ;
+    openSolutionModal(null, solLink, qid, qnum);
+  }
+}
+
+function setModalLayout(mode) {
+  const leftPane = document.getElementById('modal-pane-left');
+  const rightPane = document.getElementById('modal-pane-right');
+  const resizer = document.getElementById('modal-resizer');
+  if (!leftPane || !rightPane) return;
+
+  document.querySelectorAll('.view-layout-toggle .btn-layout').forEach(b => b.classList.remove('active'));
+
+  if (mode === 'solution-only') {
+    leftPane.style.display = 'none';
+    if (resizer) resizer.style.display = 'none';
+    rightPane.style.flex = '1 1 100%';
+    const btn = document.getElementById('btn-layout-solution');
+    if (btn) btn.classList.add('active');
+  } else if (mode === 'exam-only') {
+    leftPane.style.display = 'flex';
+    leftPane.style.flex = '1 1 100%';
+    if (resizer) resizer.style.display = 'none';
+    rightPane.style.display = 'none';
+    const btn = document.getElementById('btn-layout-exam');
+    if (btn) btn.classList.add('active');
+  } else {
+    // Split 50/50
+    leftPane.style.display = 'flex';
+    leftPane.style.flex = '0 0 45%';
+    if (resizer) resizer.style.display = 'block';
+    rightPane.style.display = 'flex';
+    rightPane.style.flex = '1';
+    const btn = document.getElementById('btn-layout-split');
+    if (btn) btn.classList.add('active');
+  }
 }
 
 function switchSubQuestion(idx) {
@@ -237,3 +339,17 @@ function updateModalStatusButtons(qid) {
   starBtn.innerHTML = isStarred ? '★ 已收藏' : '☆ 收藏本題';
   starBtn.onclick = (e) => toggleStarred(qid, e);
 }
+
+// Global Keyboard Navigation
+window.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('solution-modal');
+  if (!modal || !modal.classList.contains('show')) return;
+
+  if (e.key === 'Escape') {
+    closeModal();
+  } else if (e.key === 'ArrowLeft') {
+    navModalQuestion(-1);
+  } else if (e.key === 'ArrowRight') {
+    navModalQuestion(1);
+  }
+});

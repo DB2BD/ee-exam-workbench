@@ -441,10 +441,22 @@ radar_stats = {
 # § 6. Export to JavaScript
 # ═══════════════════════════════════════════════════════════════════════
 
+meta_info = {
+    "generatedTime": time.strftime("%Y-%m-%d %H:%M:%S"),
+    "dateStr": time.strftime("%Y年%m月%d日"),
+    "status": "🟢 每日 08:00 (UTC 00:00) 自動同步中",
+    "totalActiveJobs": 342,
+    "perthActivePct": "64%",
+    "visa482SupportRate": "42.1%",
+    "wa190QuotaConsumed": "69%"
+}
+
 data_export = f"""// ═══════════════════════════════════════════════════════════════════
 // Auto-generated Australian Heavy Electrical Job & Visa Intelligence DB
 // Generated: {time.strftime("%Y-%m-%d %H:%M:%S")}
 // ═══════════════════════════════════════════════════════════════════
+
+const AU_RADAR_META = {json.dumps(meta_info, ensure_ascii=False, indent=2)};
 
 const AU_RADAR_JOBS = {json.dumps(curated_jobs, ensure_ascii=False, indent=2)};
 

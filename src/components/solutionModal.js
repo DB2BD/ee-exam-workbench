@@ -369,9 +369,9 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
   if (!rightPane) return;
 
   if (isActiveRecallMode) {
-    // Split markdownChunk into: 1. Question stem, 2. Hints, 3. Step Derivations & Conclusion
-    const stepSplitRegex = /(?=\n##\s+(?:✏️|步驟|詳細推導|完整解答|推導|一、|二、|三、|四、|五、))/i;
-    const hintSplitRegex = /(?=\n##\s+(?:💡|核心考點|破題關鍵|解題思路))/i;
+    // Robust split for question stem, hints, and derivations across all 2-4 level headers
+    const hintSplitRegex = /(?=\n#{2,4}\s+(?:💡|核心考點|破題關鍵|解題思路|考點剖析|破題思路|觀念分析))/i;
+    const stepSplitRegex = /(?=\n#{2,4}\s+(?:✏️|步驟|詳細推導|完整解答|推導|計算步驟|解題步驟|詳細數學推導|滿分解答|標準解答|詳解|解法|解答|求解|\([一二三四五六七八九十\d]+\)|(?:第\s*[一二三四五六七八九十\d]+\s*小題))|\n\*\*(?:【解】|解：|解答：|推導：)\*\*)/i;
 
     let stemPart = markdownChunk;
     let hintPart = '';
@@ -387,11 +387,21 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         derivationPart = restParts.slice(1).join('\n');
       } else {
         hintPart = rest;
+        derivationPart = '';
       }
     } else if (stepSplitRegex.test(markdownChunk)) {
       const parts = markdownChunk.split(stepSplitRegex);
       stemPart = parts[0];
       derivationPart = parts.slice(1).join('\n');
+    }
+
+    // Safety fallback: if no header matched, mask everything after initial stem paragraph
+    if (!derivationPart && !hintPart && markdownChunk.includes('\n\n')) {
+      const paras = markdownChunk.split(/\n\n+/);
+      if (paras.length > 2) {
+        stemPart = paras.slice(0, 2).join('\n\n');
+        derivationPart = paras.slice(2).join('\n\n');
+      }
     }
 
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');

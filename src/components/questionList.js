@@ -124,9 +124,12 @@ function renderQuestions() {
             </button>
             ${dueInfo.text ? `<span class="due-badge ${dueInfo.cssClass}" title="SM-2 智能間隔重複排程">${dueInfo.text}</span>` : ''}
           </div>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">
-              📝 檢視推導詳解
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, false, true)" class="btn-sol" style="background: var(--warn); border-color: var(--warn); box-shadow: 0 2px 6px rgba(196, 124, 93, 0.25);" title="開啟白紙蓋牌主動回想抽測">
+              🎴 蓋牌抽測
+            </button>
+            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, false, false)" class="btn-sol" title="直接檢視完整 KaTeX 推導詳解">
+              📝 完整詳解
             </button>
             <a href="${pdfLink}" target="_blank" class="btn-pdf" title="在瀏覽器開啟考選部原題 PDF">
               📄 查看原題 PDF

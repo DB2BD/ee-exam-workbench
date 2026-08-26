@@ -329,6 +329,9 @@ def build_workbench():
         <span>試題推導詳解</span>
       </div>
       <div class="modal-actions">
+        <button id="btn-modal-active-recall" onclick="toggleActiveRecallMode()" class="btn-sol" style="background: var(--warn); border-color: var(--warn); color: #fff; font-weight: 700; padding: 5px 12px; font-size: 0.82rem;" title="切換主動回想白紙蓋牌模式">
+          🎴 主動回想蓋牌
+        </button>
         <button id="modal-status-btn" class="status-badge s-0">⚪ 未開始</button>
         <button id="modal-star-btn" class="btn-star">☆ 收藏本題</button>
         <button onclick="closeModal()" class="btn-pdf" style="font-size: 0.9rem; font-weight: 700;">✕ 關閉</button>

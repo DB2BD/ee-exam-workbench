@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md",
+                "file": "💼 個人職涯發展與國際戰略/信貸時機決策_先借100萬vs等技師到手轉貸降息套利.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "107年_電力系統_全卷完整詳細題解"
+              "title": "信貸時機決策_先借100萬vs等技師到手轉貸降息套利"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md",
+                "file": "💼 個人職涯發展與國際戰略/信貸時機決策_先借100萬vs等技師到手轉貸降息套利.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md",
+                "file": "💼 個人職涯發展與國際戰略/信貸時機決策_先借100萬vs等技師到手轉貸降息套利.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md",
+                "file": "💼 個人職涯發展與國際戰略/信貸時機決策_先借100萬vs等技師到手轉貸降息套利.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -191,6 +191,8 @@
   },
   "active": "1a0fd386ae54dd0b",
   "lastOpenFiles": [
+    "📝 個人題解與錯題本/06_工業配電/111年_工業配電_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md",
     "tests/test_sm2_spaced_repetition.py",
     "src/state/sm2Store.js",
     "pyrefly.toml",
@@ -201,9 +203,7 @@
     "scripts/fix_last_math_blocks_perfectly.py",
     "scripts/fix_final_6_items.py",
     "scripts/fix_the_last_18_issues.py",
-    "scripts/fix_remaining_38_issues.py",
     "📝 個人題解與錯題本/05_電力系統/108年_電力系統_全卷完整詳細題解.md",
-    "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md",
     "walkthrough.md",
     "📝 個人題解與錯題本/05_電力系統/110年_電力系統_全卷完整詳細題解.md",
     "📝 個人題解與錯題本/05_電力系統/105年_電力系統_全卷完整詳細題解.md",

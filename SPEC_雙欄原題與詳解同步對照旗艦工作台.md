@@ -1,7 +1,7 @@
 # 📐 技術規格架構書：雙欄原題與詳解同步對照旗艦工作台 (Split-Screen Solution Workspace)
 
-**檔案識別**：`SPEC-UI-001`  
-**建立時間**：2026-08-21  
+**檔案識別**：`SPEC-UI-001`
+**建立時間**：2026-08-21
 **遵循規範**：[`CLAUDE.md`](file:///Users/a/技師考試/歷屆試題_104-114年/CLAUDE.md) · [`CLAUDE-SPEC.md`](file:///Users/a/技師考試/歷屆試題_104-114年/CLAUDE-SPEC.md) · [`to-spec`](file:///Users/a/技師考試/歷屆試題_104-114年/.agents/skills/to-spec/SKILL.md)
 
 ---
@@ -14,7 +14,7 @@
 
 ### 1.2 核心目標 (Goals)
 1. **雙欄同步對照 (Split-Screen Experience)**：在詳解彈窗內實作左右雙欄架構——**左欄展示官方試卷與原題電路圖，右欄展示步驟式詳細推導**，同屏對照無縫流暢。
-2. **自由拖曳調整比例 (Draggable Resizer)**：中間具備滑鼠拖曳分割線，考生可自由調整左右欄寬度（預設 45% : 55%），並持久化記錄於 `localStorage`。
+2. **自由拖曳調整比例 (Draggable Resizer)**：中間具備滑鼠拖曳分割線，考生可自由調整左右欄寬度（預設 45% : 55\%），並持久化記錄於 `localStorage`。
 3. **三種視圖一鍵切換 (Layout Modes)**：
    - ◫ **雙欄對照模式 (Split View)**：標準桌面刷題模式。
    - 🗖 **純詳解全寬模式 (Full Solution)**：專注閱讀長篇推導。
@@ -64,7 +64,6 @@ interface ModalState {
   layoutMode: ModalLayoutMode;
   splitRatio: number; // 範圍 0.25 ~ 0.75，預設 0.45
   leftTab: 'diagram' | 'pdf';
-}
 ```
 
 ### 3.2 核心 DOM 結構規格

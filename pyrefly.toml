@@ -1,0 +1,20 @@
+[project]
+typeCheckingMode = "off"
+ignore-missing-imports = true
+exclude = [
+  "**/__pyrefly_virtual__/**",
+  "**/*.md",
+  "**/*.js",
+  "**/node_modules/**",
+  "**/.system_generated/**"
+]
+
+[errors]
+disabled = [
+  "parse-error",
+  "unexpected-indentation",
+  "invalid-annotated-assignment-target",
+  "expected-statement",
+  "unbound-variable",
+  "missing-import"
+]

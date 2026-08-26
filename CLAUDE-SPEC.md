@@ -8,7 +8,7 @@
 
 每道試題均有全域唯一之識別碼（QID），其格式嚴格定義如下：
 
-$$\text{QID} = \mathbf{EE\text{-}[年份]\text{-}[考科代號]\text{-}[題號]}$$
+\text{QID} = \mathbf{EE\text{-}[年份]\text{-}[考科代號]\text{-}[題號]}
 
 - **`EE`**：Electrical Engineer（電機工程技師）
 - **`[年份]`**：民國紀年（如 `104` ~ `114`）
@@ -45,7 +45,6 @@ interface QuestionMetadata {
   solutionPath: string;          // '📝 個人題解與錯題本/04_電機機械/114年_電機機械_全卷完整詳細題解.md'
   pdfPath: string;               // '依考科分類/04_電機機械/114年_電機機械.pdf'
   formulaTags: string[];         // ['VR公式', '標么阻抗', '短路容量']
-}
 ```
 
 ---
@@ -59,15 +58,28 @@ interface QuestionMetadata {
    - 範例：
      $$S_{\text{auto}} = \frac{V_H}{V_H - V_X} S_{2w}$$
 3. **矩陣與行列式 (Matrices & Determinants)**：
-   - 嚴格禁止使用 ASCII 方括號，必須使用 `\begin{bmatrix} ... \end{bmatrix}` 或 `\begin{pmatrix} ... \end{pmatrix}`。
+   - 嚴格禁止使用 ASCII 方括號，必須使用 `
+$$
+\begin{bmatrix} ... \end{bmatrix}
+$$` 或 `\begin{pmatrix} ... \end{pmatrix}`。$$
    - 範例：
-     $$\begin{bmatrix} V_1 \\ V_2 \end{bmatrix} = \begin{bmatrix} Z_{11} & Z_{12} \\ Z_{21} & Z_{22} \end{bmatrix} \begin{bmatrix} I_1 \\ I_2 \end{bmatrix}$$
-4. **多行聯立方程式 (Aligned Equations)**：使用 `\begin{aligned} ... \end{aligned}`。
+     $$\begin{bmatrix} V_1 \\ V_2 \end{bmatrix} =$$
+$$
+$$
+\begin{bmatrix} Z_{11} & Z_{12} \\ Z_{21} & Z_{22} \end{bmatrix}
+$$\begin{bmatrix} I_1 \\ I_2 \end{bmatrix}$$
+4. **多行聯立方程式 (Aligned Equations)**：使用 `
+$$
+$$
+\begin{aligned} ... \end{aligned}
+$$`。$$
    - 範例：
-     $$\begin{aligned}
-       P &= \sqrt{3} V_L I_L \cos\theta \\
-       Q &= \sqrt{3} V_L I_L \sin\theta
-     \end{aligned}$$
+     \begin{aligned}
+       $$P &= \sqrt{3} V_L I_L \cos\theta \\$$
+       $$Q &= \sqrt{3} V_L I_L \sin\theta$$
+     \end{aligned}
+$$
+$$
 5. **物理單位**：使用 `\text{...}` 或 `\ ` 分隔，例如 `$50\text{ kVA}$`、`$3.87\%$`、`$60\text{ Hz}$`。
 
 ---

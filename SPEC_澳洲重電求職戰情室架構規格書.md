@@ -1,6 +1,6 @@
 # 🇦🇺 澳洲重電工程師求職情報戰情室 — 架構規格書 (Architecture Spec)
 
-> **版本**: v1.0 · **鎖定日期**: 2026-08-22  
+> **版本**: v1.0 · **鎖定日期**: 2026-08-22
 > **用途**: 任何後續修改 **必須遵守** 本 Spec 中的契約，若需破壞性變更，須先更新本 Spec 並獲得 review。
 
 ---
@@ -84,7 +84,7 @@ graph LR
 
 ### 3.3 Job Entry Schema（每筆職缺的必填欄位）
 
-```python
+```json5
 {
     "id":                str,      # 格式: "MID-{nn}" 或 "SNR-{nn}"
     "title":             str,      # 客觀職稱，不含特定企業偏見用語
@@ -109,7 +109,6 @@ graph LR
     "indeedUrl":         str,      # ← 由 build_links() 自動產生
     "googleJobsUrl":     str,      # ← 由 build_links() 自動產生
     "careersUrl":        str,      # ← 由 build_links() 自動產生
-}
 ```
 
 ---

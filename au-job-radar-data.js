@@ -1,11 +1,11 @@
 // ═══════════════════════════════════════════════════════════════════
 // Auto-generated Australian Heavy Electrical Job & Visa Intelligence DB
-// Generated: 2026-08-26 03:34:36
+// Generated: 2026-08-27 00:37:05
 // ═══════════════════════════════════════════════════════════════════
 
 const AU_RADAR_META = {
-  "generatedTime": "2026-08-26 03:34:36",
-  "dateStr": "2026年08月26日",
+  "generatedTime": "2026-08-27 00:37:05",
+  "dateStr": "2026年08月27日",
   "status": "🟢 每日 08:00 (UTC 00:00) 自動同步中",
   "totalActiveJobs": 342,
   "perthActivePct": "64%",
@@ -327,7 +327,7 @@ const AU_RADAR_JOBS = [
 ];
 
 const AU_RADAR_STATS = {
-  "lastUpdated": "2026-08-26 03:34:36",
+  "lastUpdated": "2026-08-27 00:37:05",
   "totalHeavyPowerJobs": 342,
   "visaSponsorshipRatePct": 42.1,
   "medianMidSalaryAUD": 132000,

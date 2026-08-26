@@ -131,7 +131,7 @@ graph TD
 ```
 
 ### 🌐 澳洲核心求職與獵頭對接管道：
-1. **澳洲本土第一大求職網**：**SEEK Australia (seek.com.\tau)**（每天必刷，搜尋關鍵字：`Electrical Design Engineer Perth`, `Substation Engineer`, `ETAP Hazardous Area`）。
+1. **澳洲本土第一大求職網**：**SEEK Australia (seek.com.$\tau$)**（每天必刷，搜尋關鍵字：`Electrical Design Engineer Perth`, `Substation Engineer`, `ETAP Hazardous Area`）。
 2. **LinkedIn 澳洲獵頭**：將居住地或意向改為 *Perth, Western Australia*，主動連結以下頂級能源獵頭：
    - **NES Fircroft Australia**（全球最大油氣與能源工程獵頭，伯斯辦公室實力最強）
    - **Hays Engineering Perth**

@@ -1,0 +1,2153 @@
+
+// === src/data/knowledge-dag.js ===
+// -*- coding: utf-8 -*-
+/**
+ * knowledge-dag.js
+ * =================
+ * Comprehensive Knowledge Dependency DAG (Directed Acyclic Graph)
+ * across 6 Electrical Engineering Core Subjects (60+ Nodes).
+ *
+ * Provides:
+ * 1. KNOWLEDGE_DAG: Topological nodes with prerequisite links, level, formulas, and traps.
+ * 2. QUESTION_DAG_MAPPER: Automated mapping rules from question content/tags to DAG nodes.
+ * 3. tracePrerequisiteWeaknesses(nodeId, progressState): Traces prerequisite bottleneck nodes.
+ */
+
+const KNOWLEDGE_DAG = {
+  // -------------------------------------------------------------
+  // 01. 電路學 (Circuit Theory)
+  // -------------------------------------------------------------
+  'ct-ohm-kcl-kvl': {
+    id: 'ct-ohm-kcl-kvl',
+    subject: '01',
+    subjectName: '電路學',
+    name: '歐姆定律與基本 KCL/KVL',
+    level: 1,
+    prereqs: [],
+    coreFormula: 'V = I R, \\sum I_{\\text{in}} = \\sum I_{\\text{out}}, \\sum V = 0',
+    keyTrap: '注意參考方向與極性正負號設定。'
+  },
+  'ct-divider-equiv': {
+    id: 'ct-divider-equiv',
+    subject: '01',
+    subjectName: '電路學',
+    name: '分壓分流與電阻等效化簡',
+    level: 1,
+    prereqs: ['ct-ohm-kcl-kvl'],
+    coreFormula: 'V_x = V_s \\frac{R_x}{R_1 + R_2}, I_x = I_s \\frac{R_{\\text{other}}}{R_1 + R_2}',
+    keyTrap: '並聯分流公式分子為「對方電阻」。'
+  },
+  'ct-node-mesh': {
+    id: 'ct-node-mesh',
+    subject: '01',
+    subjectName: '電路學',
+    name: '節點電壓法與網目電流法',
+    level: 2,
+    prereqs: ['ct-ohm-kcl-kvl'],
+    coreFormula: '\\frac{V_1 - V_2}{R} + I_s = 0',
+    keyTrap: '含相依電源與超節點 (Supernode) 時需額外建立輔助約束方程式。'
+  },
+  'ct-thevenin-norton': {
+    id: 'ct-thevenin-norton',
+    subject: '01',
+    subjectName: '電路學',
+    name: '戴維寧與諾頓等效定理',
+    level: 2,
+    prereqs: ['ct-node-mesh', 'ct-divider-equiv'],
+    coreFormula: 'V_{th} = V_{oc}, R_{th} = \\frac{V_{oc}}{I_{sc}} = \\frac{v_{\\text{test}}}{i_{\\text{test}}}',
+    keyTrap: '含受控源時嚴禁用「獨立源關閉直接求電阻」，必須加測試電壓源法。'
+  },
+  'ct-max-power': {
+    id: 'ct-max-power',
+    subject: '01',
+    subjectName: '電路學',
+    name: '最大功率轉移定理',
+    level: 2,
+    prereqs: ['ct-thevenin-norton'],
+    coreFormula: 'R_L = R_{th} \\implies P_{\\max} = \\frac{V_{th}^2}{4 R_{th}}, Z_L = Z_{th}^*',
+    keyTrap: '交流最大功率傳輸負載阻抗為戴維寧阻抗的「共軛複數」。'
+  },
+  'ct-superposition': {
+    id: 'ct-superposition',
+    subject: '01',
+    subjectName: '電路學',
+    name: '重疊定理',
+    level: 2,
+    prereqs: ['ct-node-mesh'],
+    coreFormula: 'x(t) = \\sum x_k(t) \\text{ (獨立電源單獨作用響應之和)}',
+    keyTrap: '受控源不可關閉；功率計算不適用重疊定理（需算完總電壓/電流後再算功率）。'
+  },
+  'ct-first-order-rc-rl': {
+    id: 'ct-first-order-rc-rl',
+    subject: '01',
+    subjectName: '電路學',
+    name: '一階 RC/RL 暫態與三要素法',
+    level: 2,
+    prereqs: ['ct-thevenin-norton'],
+    coreFormula: 'x(t) = x(\\infty) + [x(0^+) - x(\\infty)] e^{-t/\\tau}, \\tau_{RC} = R_{th}C, \\tau_{RL} = \\frac{L}{R_{th}}',
+    keyTrap: '電感電流與電容電壓在換位瞬間連續：i_L(0^+) = i_L(0^-), v_C(0^+) = v_C(0^-)。'
+  },
+  'ct-phasor-ac': {
+    id: 'ct-phasor-ac',
+    subject: '01',
+    subjectName: '電路學',
+    name: '交流穩態相量與阻抗分析',
+    level: 2,
+    prereqs: ['ct-node-mesh'],
+    coreFormula: 'Z_L = j\\omega L, Z_C = \\frac{1}{j\\omega C} = -j \\frac{1}{\\omega C}, \\mathbf{V} = \\mathbf{I} \\mathbf{Z}',
+    keyTrap: '相量運算需注意角頻率 \\omega (rad/s) 與頻率 f (Hz) 轉換 (\\omega = 2\\pi f)。'
+  },
+  'ct-complex-power': {
+    id: 'ct-complex-power',
+    subject: '01',
+    subjectName: '電路學',
+    name: '複數功率與功率因數改善',
+    level: 2,
+    prereqs: ['ct-phasor-ac'],
+    coreFormula: 'S = P + j Q = \\mathbf{V}_{\\text{rms}} \\mathbf{I}_{\\text{rms}}^*, Q_C = P(\\tan\\theta_1 - \\tan\\theta_2)',
+    keyTrap: '複數功率公式電流相量必須取「共軛複數 (Conjugate)」。'
+  },
+  'ct-mutual-inductance': {
+    id: 'ct-mutual-inductance',
+    subject: '01',
+    subjectName: '電路學',
+    name: '互感耦合與同名端分析',
+    level: 3,
+    prereqs: ['ct-phasor-ac'],
+    coreFormula: 'v_1 = L_1 \\frac{di_1}{dt} \\pm M \\frac{di_2}{dt}',
+    keyTrap: '電流同時流入（或流出）同名端時互感項取正號，否則取負號。'
+  },
+  'ct-three-phase': {
+    id: 'ct-three-phase',
+    subject: '01',
+    subjectName: '電路學',
+    name: '三相平衡電路 (Y-Δ 轉換)',
+    level: 3,
+    prereqs: ['ct-complex-power'],
+    coreFormula: 'V_{L-L} = \\sqrt{3} V_{\\phi} \\angle +30^\\circ (Y), I_L = \\sqrt{3} I_{\\phi} \\angle -30^\\circ (\\Delta), P_{3\\phi} = \\sqrt{3} V_L I_L \\cos\\theta',
+    keyTrap: '線電壓超前相電壓 30 度；單相化等效時必須全部換成 Y-Y 連接。'
+  },
+  'ct-two-port': {
+    id: 'ct-two-port',
+    subject: '01',
+    subjectName: '電路學',
+    name: '雙埠網路參數 (ABCD, Z, Y, H)',
+    level: 3,
+    prereqs: ['ct-thevenin-norton', 'ct-phasor-ac'],
+    coreFormula: '\\begin{bmatrix} V_1 \\\\ I_1 \\end{bmatrix} = \\begin{bmatrix} A & B \\\\ C & D \\end{bmatrix} \\begin{bmatrix} V_2 \\\\ -I_2 \\end{bmatrix}, AD - BC = 1',
+    keyTrap: 'ABCD 傳輸矩陣二次側電流方向定義為「流出」端口。'
+  },
+  'ct-second-order-rlc': {
+    id: 'ct-second-order-rlc',
+    subject: '01',
+    subjectName: '電路學',
+    name: '二階 RLC 暫態分析',
+    level: 3,
+    prereqs: ['ct-first-order-rc-rl'],
+    coreFormula: 's^2 + 2\\alpha s + \\omega_0^2 = 0 \\implies \\alpha > \\omega_0 \\text{ (過阻尼)}, \\alpha = \\omega_0 \\text{ (臨界)}, \\alpha < \\omega_0 \\text{ (欠阻尼)}',
+    keyTrap: '串聯 \\alpha = R/(2L)，並聯 \\alpha = 1/(2RC)，兩者公式完全相反！'
+  },
+  'ct-laplace-circuit': {
+    id: 'ct-laplace-circuit',
+    subject: '01',
+    subjectName: '電路學',
+    name: 'S 域拉氏轉換電路求解',
+    level: 3,
+    prereqs: ['ct-second-order-rlc', 'ct-first-order-rc-rl'],
+    coreFormula: 'L \\to sL - L i(0^-), C \\to \\frac{1}{sC} + \\frac{v(0^-)}{s}',
+    keyTrap: '包含初始儲能時，電感初始電流源為 i(0^-)/s（並聯），電容初始電壓源為 v(0^-)/s（串聯）。'
+  },
+
+  // -------------------------------------------------------------
+  // 02. 電子學（含電力電子）(Electronics & Power Electronics)
+  // -------------------------------------------------------------
+  'el-diode-rectifier': {
+    id: 'el-diode-rectifier',
+    subject: '02',
+    subjectName: '電子學',
+    name: '二極體整流與濾波電路',
+    level: 1,
+    prereqs: [],
+    coreFormula: 'V_{dc} = \\frac{2 V_m}{\\pi}, V_{r(p-p)} = \\frac{V_m}{2 f R_L C}',
+    keyTrap: '全波橋式整流二極體 PIV = V_m，中點抽頭 PIV = 2V_m。'
+  },
+  'el-zener-regulator': {
+    id: 'el-zener-regulator',
+    subject: '02',
+    subjectName: '電子學',
+    name: '齊納二極體穩壓電路',
+    level: 2,
+    prereqs: ['el-diode-rectifier'],
+    coreFormula: 'V_L = V_Z, I_Z = I_S - I_L \\ge I_{ZK}',
+    keyTrap: '檢驗最小輸入電壓或最大負載電流時，齊納電流不得小於膝點電流 I_ZK。'
+  },
+  'el-bjt-bias-small-signal': {
+    id: 'el-bjt-bias-small-signal',
+    subject: '02',
+    subjectName: '電子學',
+    name: 'BJT 偏壓分析與小訊號模型',
+    level: 2,
+    prereqs: [],
+    coreFormula: 'I_C = \\beta I_B = I_S e^{V_{BE}/V_T}, g_m = \\frac{I_C}{V_T}, r_\\pi = \\frac{\\beta}{g_m}, r_o = \\frac{V_A}{I_C}',
+    keyTrap: '工作在主動區必須滿足：V_BE = 0.7V 且 V_CE > V_CE(sat) ~ 0.2V。'
+  },
+  'el-mosfet-bias-small-signal': {
+    id: 'el-mosfet-bias-small-signal',
+    subject: '02',
+    subjectName: '電子學',
+    name: 'MOSFET 飽和偏壓與小訊號模型',
+    level: 2,
+    prereqs: [],
+    coreFormula: 'I_D = \\frac{1}{2} k_n\' \\frac{W}{L} (V_{GS} - V_{th})^2 (1 + \\lambda V_{DS}), g_m = \\sqrt{2 k_n I_D}',
+    keyTrap: '飽和區夾止條件：V_DS >= V_GS - V_th 且 V_GS > V_th。'
+  },
+  'el-opamp-ideal': {
+    id: 'el-opamp-ideal',
+    subject: '02',
+    subjectName: '電子學',
+    name: '理想 OPA 與基本運算放大電路',
+    level: 2,
+    prereqs: [],
+    coreFormula: 'v_+ = v_- \\text{ (虛短路)}, i_+ = i_- = 0 \\text{ (虛斷路)}, A_v = -\\frac{R_f}{R_1} \\text{ (反相)}',
+    keyTrap: '虛短路僅在「負回授 (Negative Feedback)」且未飽和時成立。'
+  },
+  'el-diff-amp': {
+    id: 'el-diff-amp',
+    subject: '02',
+    subjectName: '電子學',
+    name: '差動放大器 (Ad, Acm, CMRR)',
+    level: 3,
+    prereqs: ['el-bjt-bias-small-signal', 'el-mosfet-bias-small-signal'],
+    coreFormula: 'A_d = g_m R_D, A_{cm} = -\\frac{g_m R_D}{1 + 2 g_m R_{SS}}, \\text{CMRR} = \\left|\\frac{A_d}{A_{cm}}\\right|',
+    keyTrap: 'CMRR 取 dB 值時需取 20 log10(CMRR)。'
+  },
+  'el-active-filter': {
+    id: 'el-active-filter',
+    subject: '02',
+    subjectName: '電子學',
+    name: '主動濾波器與頻率響應',
+    level: 3,
+    prereqs: ['el-opamp-ideal'],
+    coreFormula: 'H(s) = \\frac{\\omega_0^2}{s^2 + \\frac{\\omega_0}{Q} s + \\omega_0^2}, \\omega_c = \\frac{1}{R C}',
+    keyTrap: '高頻極點透過米勒效應 (Miller Effect) 將 C_gd 放大為 C_in = C_gd(1 + |Av|)。'
+  },
+  'el-feedback-stability': {
+    id: 'el-feedback-stability',
+    subject: '02',
+    subjectName: '電子學',
+    name: '負回授放大器與相位邊限',
+    level: 4,
+    prereqs: ['el-diff-amp', 'el-active-filter'],
+    coreFormula: 'A_f = \\frac{A}{1 + A\\beta}, \\text{PM} = 180^\\circ + \\angle A\\beta(\\omega_{0\\text{dB}})',
+    keyTrap: '閉迴路穩定條件為環路增益 |A\\beta| = 1 時，相位延遲不得達到 180 度 (PM > 0)。'
+  },
+  'el-pe-buck-boost': {
+    id: 'el-pe-buck-boost',
+    subject: '02',
+    subjectName: '電力電子',
+    name: 'DC-DC Buck/Boost 轉換器 (CCM/DCM)',
+    level: 3,
+    prereqs: ['el-diode-rectifier'],
+    coreFormula: 'V_o = D V_d \\text{ (Buck)}, V_o = \\frac{D}{1-D} V_d \\text{ (Buck-Boost)}, \\Delta I_L = \\frac{V_d - V_o}{L} D T_s',
+    keyTrap: '穩態分析立論基礎為「電感伏秒平衡 (Volt-Second Balance)」與「電容電荷平衡」。'
+  },
+  'el-pe-inverter-spwm': {
+    id: 'el-pe-inverter-spwm',
+    subject: '02',
+    subjectName: '電力電子',
+    name: '全橋變流器與 SPWM 調變',
+    level: 4,
+    prereqs: ['el-pe-buck-boost'],
+    coreFormula: 'm_a = \\frac{V_{\\text{control}}}{V_{\\text{tri}}}, V_{o1} = m_a V_d',
+    keyTrap: 'SPWM 調變指標 m_a <= 1.0 為線性區；上下臂切換需設置死區時間 (Dead-time)。'
+  },
+  'el-pe-thyristor-rectifier': {
+    id: 'el-pe-thyristor-rectifier',
+    subject: '02',
+    subjectName: '電力電子',
+    name: '閘流體 (Thyristor) 相控整流',
+    level: 4,
+    prereqs: ['el-diode-rectifier'],
+    coreFormula: 'V_{dc} = \\frac{2 V_m}{\\pi} \\cos\\alpha \\text{ (全控橋)}, V_{dc} = \\frac{V_m}{\\pi}(1 + \\cos\\alpha) \\text{ (半控橋)}',
+    keyTrap: '感性負載下若無續流二極體，輸出電壓會在電感放電期間出現負電壓區。'
+  },
+
+  // -------------------------------------------------------------
+  // 03. 工程數學 (Engineering Mathematics)
+  // -------------------------------------------------------------
+  'em-first-order-ode': {
+    id: 'em-first-order-ode',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '一階可分離與線性 ODE',
+    level: 1,
+    prereqs: [],
+    coreFormula: 'y\' + P(x)y = Q(x) \\implies y(x) = \\frac{1}{I(x)} \\int I(x) Q(x) dx + \\frac{C}{I(x)}, I(x) = e^{\\int P(x) dx}',
+    keyTrap: '積分因子法展開時別忘了積分常數 C 也必須除以 I(x)。'
+  },
+  'em-second-order-ode-homogeneous': {
+    id: 'em-second-order-ode-homogeneous',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '二階常係數齊次 ODE',
+    level: 2,
+    prereqs: ['em-first-order-ode'],
+    coreFormula: 'a r^2 + b r + c = 0 \\implies y_h = c_1 e^{r_1 x} + c_2 e^{r_2 x} \\text{ 或 } e^{\\alpha x}(c_1 \\cos\\beta x + c_2 \\sin\\beta x)',
+    keyTrap: '重根 r 時，第二特解必須乘以 x：c_2 x e^{r x}。'
+  },
+  'em-second-order-ode-nonhomogeneous': {
+    id: 'em-second-order-ode-nonhomogeneous',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '二階非齊次 ODE (未定係數/參數變更法)',
+    level: 3,
+    prereqs: ['em-second-order-ode-homogeneous'],
+    coreFormula: 'y_p = -y_1 \\int \\frac{y_2 r(x)}{W(y_1, y_2)} dx + y_2 \\int \\frac{y_1 r(x)}{W(y_1, y_2)} dx',
+    keyTrap: '未定係數法若假設之形式與齊次解重複時，必須乘以 x（修正法則）。'
+  },
+  'em-laplace-transform': {
+    id: 'em-laplace-transform',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '拉氏轉換與反轉換 (部分分式法)',
+    level: 3,
+    prereqs: ['em-first-order-ode'],
+    coreFormula: '\\mathcal{L}\\{f(t)\\} = \\int_0^\\infty e^{-st} f(t) dt, \\mathcal{L}\\{y\'\'\\} = s^2 Y(s) - s y(0) - y\'(0)',
+    keyTrap: '位移定理 \\mathcal{L}\\{e^{at} f(t)\\} = F(s-a)；t-位移需乘階梯函數 u(t-a)。'
+  },
+  'em-fourier-series': {
+    id: 'em-fourier-series',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '傅立葉級數與週期函數展開',
+    level: 3,
+    prereqs: [],
+    coreFormula: 'f(x) = a_0 + \\sum (a_n \\cos\\frac{n\\pi x}{L} + b_n \\sin\\frac{n\\pi x}{L}), a_n = \\frac{1}{L}\\int_{-L}^L f(x)\\cos\\frac{n\\pi x}{L} dx',
+    keyTrap: '偶函數 b_n = 0，奇函數 a_0 = a_n = 0；利用對稱性可節省一半積分時間。'
+  },
+  'em-matrix-det-inv': {
+    id: 'em-matrix-det-inv',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '矩陣代數、行列式與反矩陣',
+    level: 1,
+    prereqs: [],
+    coreFormula: 'A^{-1} = \\frac{1}{\\det(A)} \\text{adj}(A)',
+    keyTrap: '克拉瑪法則 (Cramer\'s Rule) 僅適用於 det(A) != 0 之非奇異方陣。'
+  },
+  'em-eigen-diagonal': {
+    id: 'em-eigen-diagonal',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '特徵值、特徵向量與矩陣對角化',
+    level: 3,
+    prereqs: ['em-matrix-det-inv'],
+    coreFormula: '\\det(A - \\lambda I) = 0, A v = \\lambda v, A = P D P^{-1}',
+    keyTrap: '矩陣可對角化的充要條件為具有 n 個線性獨立的特徵向量（幾何重數等於代數重數）。'
+  },
+  'em-complex-cauchy-residue': {
+    id: 'em-complex-cauchy-residue',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '複變分析、柯西定理與留數定理',
+    level: 4,
+    prereqs: [],
+    coreFormula: '\\oint_C f(z) dz = 2\\pi j \\sum \\text{Res}(f, z_k), \\text{Res}(f, z_0) = \\lim_{z\\to z_0} (z-z_0) f(z)',
+    keyTrap: '留數計算僅納入圍道 C 內部（Inside the contour）的奇異點！'
+  },
+  'em-pde-separation': {
+    id: 'em-pde-separation',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '偏微分方程 (分離變數法)',
+    level: 4,
+    prereqs: ['em-second-order-ode-nonhomogeneous', 'em-fourier-series'],
+    coreFormula: 'u(x,t) = X(x) T(t) \\implies \\frac{X\'\'}{X} = \\frac{\\dot{T}}{c^2 T} = -\\lambda^2',
+    keyTrap: '邊界條件決定特徵值 \\lambda_n 與特徵函數 X_n(x)；初始條件決定傅立葉級數係數。'
+  },
+  'em-svd-linear-systems': {
+    id: 'em-svd-linear-systems',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '奇異值分解 (SVD) 與零空間分析',
+    level: 5,
+    prereqs: ['em-eigen-diagonal'],
+    coreFormula: 'A = U \\Sigma V^T, \\sigma_i = \\sqrt{\\lambda_i(A^T A)}, A^+ = V \\Sigma^+ U^T',
+    keyTrap: '奇異值依大小降序排列 \\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge 0；右奇異向量 V 為 A^T A 之特徵向量。'
+  },
+
+  // -------------------------------------------------------------
+  // 04. 電機機械 (Electrical Machines)
+  // -------------------------------------------------------------
+  'emach-magnetic-circuits': {
+    id: 'emach-magnetic-circuits',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '磁路定律與磁滯飽和',
+    level: 1,
+    prereqs: [],
+    coreFormula: '\\mathcal{F} = N i = \\phi \\mathcal{R}, \\mathcal{R} = \\frac{l}{\\mu A}',
+    keyTrap: '氣隙磁阻遠大於鐵心磁阻；磁通連續性在氣隙需考慮邊緣效應。'
+  },
+  'emach-single-phase-transformer': {
+    id: 'emach-single-phase-transformer',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '單相變壓器等效電路與開短路試驗',
+    level: 2,
+    prereqs: ['emach-magnetic-circuits'],
+    coreFormula: 'a = \\frac{N_1}{N_2} = \\frac{V_1}{V_2}, R_{eq1} = R_1 + a^2 R_2, X_{eq1} = X_1 + a^2 X_2, \\text{VR} = \\frac{V_{NL} - V_{FL}}{V_{FL}}',
+    keyTrap: '開路試驗（低壓側加額定電壓）測激磁支路 R_c, X_m；短路試驗（高壓側加額定電流）測等效阻抗 R_eq, X_eq。'
+  },
+  'emach-autotransformer': {
+    id: 'emach-autotransformer',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '自耦變壓器容量提升比',
+    level: 3,
+    prereqs: ['emach-single-phase-transformer'],
+    coreFormula: 'S_{\\text{auto}} = \\frac{V_H}{V_H - V_X} S_{\\text{2-wnd}} = (1 + a) S_{\\text{2-wnd}}',
+    keyTrap: '共用繞組電流為高壓側與低壓側電流之差值 (I_X - I_H)；注意共用端接線極性。'
+  },
+  'emach-three-phase-transformer': {
+    id: 'emach-three-phase-transformer',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '三相變壓器組接線 (Y-Y, Y-Δ, Δ-Δ, V-V)',
+    level: 3,
+    prereqs: ['emach-single-phase-transformer'],
+    coreFormula: 'S_{V-V} = \\sqrt{3} V_L I_L = \\sqrt{3} S_{\\text{1\\phi}} = \\frac{\\sqrt{3}}{3} S_{\\Delta-\\Delta} \\approx 57.7\\% S_{\\Delta-\\Delta}',
+    keyTrap: 'Y-Δ 接法高壓側線電壓超前低壓側線電壓 30 度 (ANSI 標準)。'
+  },
+  'emach-dc-motor-generator': {
+    id: 'emach-dc-motor-generator',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '直流電機 (分激/串激特性與調速)',
+    level: 2,
+    prereqs: ['emach-magnetic-circuits'],
+    coreFormula: 'E_a = K_a \\phi \\omega_m, T_e = K_a \\phi I_a, V_t = E_a + I_a R_a',
+    keyTrap: '分激電機降磁通調速時，轉速上升但轉矩容量下降；串激電機嚴禁空載運轉（會飛車！）。'
+  },
+  'emach-induction-motor-equiv': {
+    id: 'emach-induction-motor-equiv',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '感應電動機等效電路與戴維寧化簡',
+    level: 3,
+    prereqs: ['emach-single-phase-transformer'],
+    coreFormula: 's = \\frac{n_s - n_r}{n_s}, R_2\'/s = R_2\' + R_2\'\\frac{1-s}{s}, V_{th} = V_1 \\frac{X_m}{\\sqrt{R_1^2 + (X_1 + X_m)^2}}',
+    keyTrap: '轉子電阻 R2/s 包含銅損電阻 R2 與等效機械負載電阻 R2(1-s)/s。'
+  },
+  'emach-induction-motor-torque': {
+    id: 'emach-induction-motor-torque',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '感應電動機轉矩-轉差率曲線與最大轉矩',
+    level: 3,
+    prereqs: ['emach-induction-motor-equiv'],
+    coreFormula: 's_{\\max} = \\frac{R_2\'}{\\sqrt{R_{th}^2 + (X_{th} + X_2\')^2}}, T_{\\max} = \\frac{3 V_{th}^2}{2 \\omega_s [R_{th} + \\sqrt{R_{th}^2 + (X_{th} + X_2\')^2}]}',
+    keyTrap: '最大轉矩 T_max 與轉子電阻 R2 無關！增大轉子電阻只會讓產生最大轉矩的轉差率 s_max 變大。'
+  },
+  'emach-synchronous-generator-round': {
+    id: 'emach-synchronous-generator-round',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '隱極同步發電機功角與相量圖',
+    level: 3,
+    prereqs: ['emach-single-phase-transformer'],
+    coreFormula: '\\mathbf{E}_f = \\mathbf{V}_t + j I_a X_s, P = \\frac{E_f V_t}{X_s} \\sin\\delta',
+    keyTrap: '滯後功因時 E_f > V_t (過激發提供虛功)；超前功因時 E_f < V_t (欠激發吸收虛功)。'
+  },
+  'emach-synchronous-salient-pole': {
+    id: 'emach-synchronous-salient-pole',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '凸極同步電機雙反應理論 (Xd, Xq)',
+    level: 4,
+    prereqs: ['emach-synchronous-generator-round'],
+    coreFormula: 'P = \\frac{E_f V_t}{X_d} \\sin\\delta + \\frac{V_t^2}{2} \\left(\\frac{1}{X_q} - \\frac{1}{X_d}\\right) \\sin 2\\delta',
+    keyTrap: '第二項為磁阻轉矩 (Reluctance Torque)，即使激磁失去 (Ef=0) 仍可輸出磁阻功率。'
+  },
+
+  // -------------------------------------------------------------
+  // 05. 電力系統 (Power Systems)
+  // -------------------------------------------------------------
+  'ps-per-unit': {
+    id: 'ps-per-unit',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '標么值 (Per-Unit) 系統換算',
+    level: 1,
+    prereqs: [],
+    coreFormula: 'Z_{\\text{base}} = \\frac{V_{\\text{base, L-L}}^2}{S_{\\text{base, 3\\phi}}}, Z_{\\text{pu, new}} = Z_{\\text{pu, old}} \\left(\\frac{V_{\\text{old}}}{V_{\\text{new}}}\\right)^2 \\left(\\frac{S_{\\text{new}}}{S_{\\text{old}}}\\right)',
+    keyTrap: '三相標么公式中，基準阻抗為線電壓平方除以三相總容量！'
+  },
+  'ps-transmission-line-params': {
+    id: 'ps-transmission-line-params',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '輸電線參數計算 (GMD/GMR)',
+    level: 2,
+    prereqs: [],
+    coreFormula: 'L = 2 \\times 10^{-7} \\ln\\frac{\\text{GMD}}{\\text{GMR}_L} \\text{ (H/m)}, C = \\frac{2\\pi\\epsilon}{\\ln(\\text{GMD}/\\text{GMR}_C)} \\text{ (F/m)}',
+    keyTrap: '電感 GMR 包含導體內部磁鏈因子 r\' = r e^{-1/4} = 0.7788r；電容 GMR 直接使用外半徑 r。'
+  },
+  'ps-transmission-line-models': {
+    id: 'ps-transmission-line-models',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '輸電線路中長程模型 (ABCD 參數)',
+    level: 3,
+    prereqs: ['ps-transmission-line-params'],
+    coreFormula: 'A = D = 1 + \\frac{Y Z}{2}, B = Z, C = Y \\left(1 + \\frac{Y Z}{4}\\right) \\text{ (中程 } \\pi \\text{ 模型)}',
+    keyTrap: '輕載或空載時受電端電壓高於送電端電壓之現象稱為費蘭梯效應 (Ferranti Effect)。'
+  },
+  'ps-three-phase-fault': {
+    id: 'ps-three-phase-fault',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '對稱三相短路計算',
+    level: 2,
+    prereqs: ['ps-per-unit'],
+    coreFormula: 'I_f = \\frac{V_f}{Z_1} \\text{ (pu)}, S_{sc} = \\frac{S_{\\text{base}}}{Z_1} = \\sqrt{3} V_L I_f',
+    keyTrap: '計算斷路器容量時，需明確區分次暫態電抗 X"d（瞬間）與暫態電抗 X\'d（啟斷）。'
+  },
+  'ps-symmetrical-components': {
+    id: 'ps-symmetrical-components',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '對稱分量法 (正序、負序、零序網)',
+    level: 3,
+    prereqs: ['ps-per-unit'],
+    coreFormula: '\\begin{bmatrix} I_{a0} \\\\ I_{a1} \\\\ I_{a2} \\end{bmatrix} = \\frac{1}{3} \\begin{bmatrix} 1 & 1 & 1 \\\\ 1 & a & a^2 \\\\ 1 & a^2 & a \\end{bmatrix} \\begin{bmatrix} I_a \\\\ I_b \\\\ I_c \\end{bmatrix}, a = e^{j 120^\\circ}',
+    keyTrap: '整個系統中只有「正序網絡」含有發電機內部感應電動勢 E_a！'
+  },
+  'ps-unsymmetrical-faults': {
+    id: 'ps-unsymmetrical-faults',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '不對稱故障分析 (SLG, L-L, 2LG)',
+    level: 4,
+    prereqs: ['ps-symmetrical-components'],
+    coreFormula: 'I_f = \\frac{3 V_f}{Z_1 + Z_2 + Z_0 + 3 Z_n} \\text{ (SLG: 三序串聯)}, I_f = \\frac{\\sqrt{3} V_f}{Z_1 + Z_2} \\text{ (L-L: 正負反向並聯)}',
+    keyTrap: '單相接地故障中性點接地阻抗需乘以 3 (即 3Z_n) 加入零序網。'
+  },
+  'ps-transient-stability-equal-area': {
+    id: 'ps-transient-stability-equal-area',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '暫態穩定度與等面積準則 (Equal-Area)',
+    level: 3,
+    prereqs: ['ps-transmission-line-models'],
+    coreFormula: 'M \\frac{d^2\\delta}{dt^2} = P_m - P_e, \\int_{\\delta_0}^{\\delta_{cr}} (P_m - P_{e\\text{, fault}}) d\\delta = \\int_{\\delta_{cr}}^{\\delta_{\\max}} (P_{e\\text{, post}} - P_m) d\\delta',
+    keyTrap: '臨界清除角 \\delta_cr 滿足加速面積 A1 等於最大可減速面積 A2。'
+  },
+  'ps-system-protection-relay': {
+    id: 'ps-system-protection-relay',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '距離保護電驛三段式規劃',
+    level: 4,
+    prereqs: ['ps-unsymmetrical-faults'],
+    coreFormula: 'Z_{R1} = 0.8 \\sim 0.85 Z_L (0\\text{s}), Z_{R2} = Z_L + 0.5 Z_{\\text{next}} (0.3\\text{s}), Z_{R3} = Z_L + 1.2 Z_{\\text{next}} (0.8\\text{s})',
+    keyTrap: 'Zone 1 嚴禁設置 100% 線路以避免超越 (Overreach)；Zone 2/3 需配合延時保護相鄰線路。'
+  },
+  'ps-state-estimation-wls': {
+    id: 'ps-state-estimation-wls',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '電力系統狀態估計 (WLS 與壞資料檢測)',
+    level: 5,
+    prereqs: ['ps-three-phase-fault'],
+    coreFormula: 'z = h(x) + e, \\hat{x} = (H^T R^{-1} H)^{-1} H^T R^{-1} z, J(\\hat{x}) = r^T R^{-1} r \\sim \\chi^2(m-n)',
+    keyTrap: '殘差 J(x) 大於卡方分布臨界值時判定存在壞資料 (Bad Data)，透過標準化殘差法剔除。'
+  },
+
+  // -------------------------------------------------------------
+  // 06. 工業配電 (Industrial Power Distribution)
+  // -------------------------------------------------------------
+  'dist-load-characteristics': {
+    id: 'dist-load-characteristics',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '負載特性與需量因數/參差因數',
+    level: 1,
+    prereqs: [],
+    coreFormula: 'f_D = \\frac{P_{\\max}}{\\text{Connected Load}}, \\text{DF} = \\frac{\\sum P_{\\max, i}}{P_{\\max, \\text{sys}}} \\ge 1.0, f_L = \\frac{P_{\\text{avg}}}{P_{\\max}}',
+    keyTrap: '參差因數 (Diversity Factor) 恆大於或等於 1.0；需量因數與負載因數恆小於等於 1.0。'
+  },
+  'dist-voltage-drop': {
+    id: 'dist-voltage-drop',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '配電線路電壓降與導線選用',
+    level: 2,
+    prereqs: ['dist-load-characteristics'],
+    coreFormula: '\\Delta V_{3\\phi} = \\sqrt{3} I (R \\cos\\theta + X \\sin\\theta), \\%\\Delta V = \\frac{\\Delta V}{V_n} \\times 100\\%',
+    keyTrap: '超前功因時 \\sin\\theta 為負值，線路電壓降可能為負（即受電端電壓升高）。'
+  },
+  'dist-power-factor-correction': {
+    id: 'dist-power-factor-correction',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '功率因數改善與電容器組容量',
+    level: 2,
+    prereqs: [],
+    coreFormula: 'Q_C = P (\\tan\\theta_1 - \\tan\\theta_2), I_{\\text{line, new}} = I_{\\text{line, old}} \\frac{\\cos\\theta_1}{\\cos\\theta_2}',
+    keyTrap: '改善功因可釋放變壓器容量與減少線路損失：\\Delta P_{\\text{loss}} \\propto (1/\\cos\\theta)^2。'
+  },
+  'dist-short-circuit-capacity': {
+    id: 'dist-short-circuit-capacity',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '短路容量計算 (MVA 法)',
+    level: 3,
+    prereqs: [],
+    coreFormula: '\\frac{1}{\\text{MVA}_{sc, \\text{total}}} = \\frac{1}{\\text{MVA}_1} + \\frac{1}{\\text{MVA}_2} \\text{ (串聯)}, \\text{MVA}_{\\text{parallel}} = \\sum \\text{MVA}_k',
+    keyTrap: 'MVA 法中元件「串聯」計算方式類似電阻並聯；「並聯」直接相加！'
+  },
+  'dist-protection-coordination': {
+    id: 'dist-protection-coordination',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '過電流電驛與保護協調 (TCC 曲線)',
+    level: 4,
+    prereqs: ['dist-short-circuit-capacity'],
+    coreFormula: 't = \\text{TMS} \\times \\left( \\frac{A}{(I/I_s)^p - 1} + B \\right) \\text{ (IEC 60255 標準反時限)}',
+    keyTrap: '上下游保護電驛之協調時間間隔 (Coordination Time Interval, CTI) 通常需維持 0.3 ~ 0.4 秒。'
+  },
+  'dist-harmonics-mitigation': {
+    id: 'dist-harmonics-mitigation',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '非線性負載諧波分析與抑制 (IEEE 519)',
+    level: 4,
+    prereqs: ['dist-power-factor-correction'],
+    coreFormula: '\\text{THD}_V = \\frac{\\sqrt{\\sum_{h=2}^\\infty V_h^2}}{V_1} \\times 100\\%, X_L = \\frac{1}{h^2} X_C \\text{ (串聯電抗器防止諧振)}',
+    keyTrap: '改善功因電容器串聯 6% 抗流圈可消除 5 次以上諧波，串聯 13% 抗流圈可消除 3 次諧波。'
+  },
+  'dist-arc-flash-ieee80': {
+    id: 'dist-arc-flash-ieee80',
+    subject: '06',
+    subjectName: '工業配電',
+    name: 'IEEE Std 80 變電所接地網跨步/接觸安全電壓',
+    level: 5,
+    prereqs: ['dist-short-circuit-capacity'],
+    coreFormula: 'E_{\\text{touch}} = (1000 + 1.5 C_s \\rho_s) \\frac{0.116}{\\sqrt{t_s}}, E_{\\text{step}} = (1000 + 6.0 C_s \\rho_s) \\frac{0.116}{\\sqrt{t_s}}',
+    keyTrap: '地表鋪設高電阻率碎石層 (\\rho_s ~ 3000 \\Omega\\cdot\\text{m}) 可大幅提升人體安全耐受電壓。'
+  }
+};
+
+/**
+ * Maps question content / keywords to matching DAG Node IDs.
+ */
+function mapQuestionToDagNodes(sid, topic, qBody) {
+  const fullText = `${topic} ${qBody}`.toLowerCase();
+  const matchedNodes = [];
+
+  for (const [nodeId, node] of Object.entries(KNOWLEDGE_DAG)) {
+    if (node.subject !== sid) continue;
+
+    // Direct name or keywords matching
+    const nameKeywords = node.name.toLowerCase().split(/[\s與、（）()\/]+/);
+    const hit = nameKeywords.some(kw => kw.length >= 2 && fullText.includes(kw));
+
+    // Specific domain rules
+    if (nodeId === 'ct-thevenin-norton' && (fullText.includes('戴維寧') || fullText.includes('諾頓') || fullText.includes('等效電阻'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'ct-first-order-rc-rl' && (fullText.includes('開關') || fullText.includes('t=0') || fullText.includes('暫態') || fullText.includes('三要素'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'ct-second-order-rlc' && (fullText.includes('二階') || fullText.includes('欠阻尼') || fullText.includes('臨界阻尼'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'ct-laplace-circuit' && (fullText.includes('拉氏') || fullText.includes('s域') || fullText.includes('laplace'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'ct-three-phase' && (fullText.includes('三相') || fullText.includes('y-') || fullText.includes('delta') || fullText.includes('線電壓'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'el-diff-amp' && (fullText.includes('差動') || fullText.includes('cmrr') || fullText.includes('共模'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'el-pe-buck-boost' && (fullText.includes('buck') || fullText.includes('boost') || fullText.includes('轉換器') || fullText.includes('伏秒'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'em-svd-linear-systems' && (fullText.includes('svd') || fullText.includes('奇異值') || fullText.includes('零空間') || fullText.includes('偽逆'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'em-complex-cauchy-residue' && (fullText.includes('留數') || fullText.includes('複變') || fullText.includes('柯西') || fullText.includes('residue'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'emach-synchronous-salient-pole' && (fullText.includes('凸極') || fullText.includes('雙反應') || fullText.includes('xd') || fullText.includes('xq'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'ps-unsymmetrical-faults' && (fullText.includes('接地故障') || fullText.includes('slg') || fullText.includes('線間短路') || fullText.includes('2lg') || fullText.includes('對稱分量'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'ps-transient-stability-equal-area' && (fullText.includes('等面積') || fullText.includes('搖擺') || fullText.includes('臨界清除') || fullText.includes('smib'))) matchedNodes.push(nodeId);
+    else if (nodeId === 'dist-protection-coordination' && (fullText.includes('保護協調') || fullText.includes('tcc') || fullText.includes('反時限') || fullText.includes('電驛'))) matchedNodes.push(nodeId);
+    else if (hit) {
+      matchedNodes.push(nodeId);
+    }
+  }
+
+  // Fallback to first level-1/2 node of subject if empty
+  if (matchedNodes.length === 0) {
+    const defaultNode = Object.keys(KNOWLEDGE_DAG).find(k => KNOWLEDGE_DAG[k].subject === sid);
+    if (defaultNode) matchedNodes.push(defaultNode);
+  }
+
+  return [...new Set(matchedNodes)];
+}
+
+/**
+ * Traces the complete prerequisite chain for a given node,
+ * evaluating user mastery states.
+ */
+function tracePrerequisiteChain(targetNodeId) {
+  const visited = new Set();
+  const chain = [];
+
+  function dfs(currId) {
+    if (!KNOWLEDGE_DAG[currId] || visited.has(currId)) return;
+    visited.add(currId);
+    const node = KNOWLEDGE_DAG[currId];
+    for (const pId of node.prereqs) {
+      dfs(pId);
+    }
+    chain.push(node);
+  }
+
+  dfs(targetNodeId);
+  return chain;
+}
+
+// Export for Node / Browser
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    KNOWLEDGE_DAG,
+    mapQuestionToDagNodes,
+    tracePrerequisiteChain
+  };
+}
+
+
+// === src/state/store.js ===
+// src/state/store.js
+/**
+ * Global State Store for EE Exam Workbench.
+ * Manages category, progress, starred state, and dual-database bindings.
+ */
+
+const STORAGE_KEY = 'EE_EXAM_PROGRESS_V1';
+const STARRED_KEY = 'EE_EXAM_STARRED_V1';
+
+let currentExamCategory = localStorage.getItem('exam_category_tab') || 'PE';
+let progressState = {};
+let starredState = {};
+let nationalExamsLoaded = false;
+
+function reloadProgressState() {
+  const sKey = currentExamCategory === 'PE' ? STORAGE_KEY : `${currentExamCategory}_EXAM_PROGRESS_V1`;
+  const stKey = currentExamCategory === 'PE' ? STARRED_KEY : `${currentExamCategory}_EXAM_STARRED_V1`;
+  try {
+    progressState = JSON.parse(localStorage.getItem(sKey)) || {};
+    starredState = JSON.parse(localStorage.getItem(stKey)) || {};
+  } catch (e) {
+    progressState = {};
+    starredState = {};
+  }
+}
+
+function saveProgress() {
+  const sKey = currentExamCategory === 'PE' ? STORAGE_KEY : `${currentExamCategory}_EXAM_PROGRESS_V1`;
+  const stKey = currentExamCategory === 'PE' ? STARRED_KEY : `${currentExamCategory}_EXAM_STARRED_V1`;
+  try {
+    localStorage.setItem(sKey, JSON.stringify(progressState));
+    localStorage.setItem(stKey, JSON.stringify(starredState));
+  } catch (e) {
+    console.error('Failed to save progress to localStorage', e);
+  }
+}
+
+function toggleStarred(qid, event) {
+  if (event) event.stopPropagation();
+  starredState[qid] = !starredState[qid];
+  saveProgress();
+  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+  if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
+  showToast(starredState[qid] ? '⭐ 已加入重點收藏' : '⚪ 已移除收藏');
+}
+
+function toggleStatus(qid, event) {
+  if (event) event.stopPropagation();
+  const cur = progressState[qid] || 0;
+  const nxt = (cur + 1) % 3; // 0 -> 1 -> 2 -> 0
+  progressState[qid] = nxt;
+  saveProgress();
+  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+  if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
+
+  const msgs = ['⚪ 狀態重設：未開始', '🟢 狀態更新：已掌握', '🔴 狀態更新：需二刷 (加入錯題本)'];
+  showToast(msgs[nxt]);
+}
+
+function getActiveQuestionsList() {
+  if (currentExamCategory === 'PE') {
+    return (typeof DB_DATA !== 'undefined' && DB_DATA.questions) ? DB_DATA.questions : [];
+  } else if (currentExamCategory === 'GK') {
+    return (typeof NATIONAL_EXAMS_DATA !== 'undefined' && NATIONAL_EXAMS_DATA.questions) ? NATIONAL_EXAMS_DATA.questions : [];
+  }
+  return [];
+}
+
+function findQuestionRecord(qid) {
+  if (typeof DB_DATA !== 'undefined' && DB_DATA.questions) {
+    const q = DB_DATA.questions.find(item => item[0] === qid);
+    if (q) return q;
+  }
+  if (typeof NATIONAL_EXAMS_DATA !== 'undefined' && NATIONAL_EXAMS_DATA.questions) {
+    const q = NATIONAL_EXAMS_DATA.questions.find(item => item[0] === qid);
+    if (q) return q;
+  }
+  return null;
+}
+
+function showToast(msg) {
+  let toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerText = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+// Initial state load
+reloadProgressState();
+
+
+// === src/state/filterStore.js ===
+// src/state/filterStore.js
+/**
+ * Filter State Management & Dropdown Controller
+ */
+
+let activeQuickFilter = 'all';
+
+function setQuickFilter(type, btn) {
+  activeQuickFilter = type;
+  document.querySelectorAll('.pills-bar .pill').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (typeof renderQuestions === 'function') renderQuestions();
+}
+
+function updateFilterDropdownsForCategory() {
+  const yrSelect = document.getElementById('filter-year');
+  const subSelect = document.getElementById('filter-subject');
+  const examYrSelect = document.getElementById('exam-select-yr');
+  const examSubSelect = document.getElementById('exam-select-subj');
+
+  const currentYr = yrSelect ? yrSelect.value : 'all';
+  const currentSub = subSelect ? subSelect.value : 'all';
+  const currentExamYr = examYrSelect ? examYrSelect.value : '114';
+  const currentExamSub = examSubSelect ? examSubSelect.value : '01';
+
+  if (currentExamCategory === 'GK') {
+    if (yrSelect) {
+      yrSelect.innerHTML = `
+        <option value="all">所有年度 (110 ~ 114 年)</option>
+        <option value="114">114 年 (最新)</option>
+        <option value="113">113 年</option>
+        <option value="112">112 年</option>
+        <option value="111">111 年</option>
+        <option value="110">110 年</option>
+      `;
+    }
+    if (subSelect) {
+      subSelect.innerHTML = `
+        <option value="all">所有考科 (5 大考科)</option>
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04">⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+      `;
+    }
+    if (examYrSelect) {
+      examYrSelect.innerHTML = `
+        <option value="114">114 年全卷</option>
+        <option value="113">113 年全卷</option>
+        <option value="112">112 年全卷</option>
+        <option value="111">111 年全卷</option>
+        <option value="110">110 年全卷</option>
+        <option value="random">🎲 隨機抽 4 題模考</option>
+      `;
+    }
+    if (examSubSelect) {
+      examSubSelect.innerHTML = `
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04">⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+      `;
+    }
+  } else {
+    if (yrSelect) {
+      yrSelect.innerHTML = `
+        <option value="all">所有年度 (104 ~ 114 年)</option>
+        <option value="114">114 年 (最新)</option>
+        <option value="113">113 年</option>
+        <option value="112">112 年</option>
+        <option value="111">111 年</option>
+        <option value="110">110 年</option>
+        <option value="109">109 年</option>
+        <option value="108">108 年</option>
+        <option value="107">107 年</option>
+        <option value="106">106 年</option>
+        <option value="105">105 年</option>
+        <option value="104">104 年</option>
+      `;
+    }
+    if (subSelect) {
+      subSelect.innerHTML = `
+        <option value="all">所有考科 (6 大考科)</option>
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04">⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+        <option value="06">🏭 06. 工業配電</option>
+      `;
+    }
+    if (examYrSelect) {
+      examYrSelect.innerHTML = `
+        <option value="114">114 年全卷</option>
+        <option value="113">113 年全卷</option>
+        <option value="112">112 年全卷</option>
+        <option value="111">111 年全卷</option>
+        <option value="110">110 年全卷</option>
+        <option value="109">109 年全卷</option>
+        <option value="108">108 年全卷</option>
+        <option value="107">107 年全卷</option>
+        <option value="106">106 年全卷</option>
+        <option value="105">105 年全卷</option>
+        <option value="104">104 年全卷</option>
+        <option value="random">🎲 隨機抽 4 題模考</option>
+      `;
+    }
+    if (examSubSelect) {
+      examSubSelect.innerHTML = `
+        <option value="01">⚡ 01. 電路學</option>
+        <option value="02">🔌 02. 電子學（含電力電子）</option>
+        <option value="03">📐 03. 工程數學</option>
+        <option value="04" selected>⚙️ 04. 電機機械</option>
+        <option value="05">🏢 05. 電力系統</option>
+        <option value="06">🏭 06. 工業配電</option>
+      `;
+    }
+  }
+
+  // Restore previous values if valid in the new options
+  if (yrSelect && Array.from(yrSelect.options).some(o => o.value === currentYr)) yrSelect.value = currentYr;
+  if (subSelect && Array.from(subSelect.options).some(o => o.value === currentSub)) subSelect.value = currentSub;
+  if (examYrSelect && Array.from(examYrSelect.options).some(o => o.value === currentExamYr)) examYrSelect.value = currentExamYr;
+  if (examSubSelect && Array.from(examSubSelect.options).some(o => o.value === currentExamSub)) examSubSelect.value = currentExamSub;
+}
+
+function switchExamCategory(catId) {
+  currentExamCategory = catId;
+  localStorage.setItem('exam_category_tab', catId);
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('on'));
+  const targetTab = document.getElementById('cat-tab-' + catId);
+  if (targetTab) targetTab.classList.add('on');
+
+  updateFilterDropdownsForCategory();
+  reloadProgressState();
+
+  if (catId === 'PE') {
+    if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+    if (typeof renderQuestions === 'function') renderQuestions();
+    showToast('🏆 已切換至「電機工程技師」核心題庫 (318 題)');
+  } else {
+    if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+    if (typeof renderQuestions === 'function') renderQuestions();
+    showToast('🏛️ 已切換至「公務人員高考三級」參考題庫 (105 題)');
+  }
+}
+
+
+// === src/renderers/katexRenderer.js ===
+// src/renderers/katexRenderer.js
+/**
+ * Direct KaTeX & Math Formula Protection Engine.
+ * Extracts LaTeX delimiters before Markdown parsing and renders them safely.
+ */
+
+function renderLatexDirect(latex, displayMode) {
+  if (typeof katex === 'undefined') {
+    return `<code class="math-fallback">${latex}</code>`;
+  }
+  try {
+    return katex.renderToString(latex, {
+      displayMode: displayMode,
+      throwOnError: false
+    });
+  } catch (err) {
+    console.error('KaTeX rendering error:', err);
+    return `<span class="katex-error">${latex}</span>`;
+  }
+}
+
+function processMarkdownWithMath(rawMarkdown) {
+  if (!rawMarkdown) return '';
+
+  const mathPlaceholders = [];
+
+  // Protect display math $$ ... $$
+  let protectedMd = rawMarkdown.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
+    const idx = mathPlaceholders.length;
+    mathPlaceholders.push({ type: 'display', math: math.trim() });
+    return `@@KATEX_DISPLAY_${idx}@@`;
+  });
+
+  // Protect inline math $ ... $
+  protectedMd = protectedMd.replace(/\$([^\$\n]+?)\$/g, (match, math) => {
+    const idx = mathPlaceholders.length;
+    mathPlaceholders.push({ type: 'inline', math: math.trim() });
+    return `@@KATEX_INLINE_${idx}@@`;
+  });
+
+  // Parse Markdown via marked.js
+  let html = (typeof marked !== 'undefined') ? marked.parse(protectedMd) : protectedMd;
+
+  // Restore and render KaTeX
+  html = html.replace(/@@KATEX_DISPLAY_(\d+)@@/g, (match, idx) => {
+    const item = mathPlaceholders[parseInt(idx, 10)];
+    return item ? renderLatexDirect(item.math, true) : match;
+  });
+
+  html = html.replace(/@@KATEX_INLINE_(\d+)@@/g, (match, idx) => {
+    const item = mathPlaceholders[parseInt(idx, 10)];
+    return item ? renderLatexDirect(item.math, false) : match;
+  });
+
+  return html;
+}
+
+
+// === src/renderers/markdownRenderer.js ===
+// src/renderers/markdownRenderer.js
+/**
+ * Solution Markdown Parser & Image Path Resolver.
+ * Resolves Markdown images from IMAGE_MAP / NATIONAL_IMAGE_MAP.
+ */
+
+function resolveSolutionMarkdown(targetPath, qid) {
+  const cleanPath = targetPath ? targetPath.replace(/^\.\//, '') : '';
+  const isGK = (qid && qid.startsWith('GK-')) || (cleanPath && cleanPath.includes('國考同級')) || (currentExamCategory === 'GK');
+
+  let rawMd = '';
+
+  if (isGK) {
+    if (typeof NATIONAL_BUNDLED_MD !== 'undefined' && NATIONAL_BUNDLED_MD[cleanPath]) {
+      rawMd = NATIONAL_BUNDLED_MD[cleanPath];
+    } else if (typeof BUNDLED_MD !== 'undefined' && BUNDLED_MD[cleanPath]) {
+      rawMd = BUNDLED_MD[cleanPath];
+    }
+  } else {
+    if (typeof BUNDLED_MD !== 'undefined' && BUNDLED_MD[cleanPath]) {
+      rawMd = BUNDLED_MD[cleanPath];
+    } else if (typeof NATIONAL_BUNDLED_MD !== 'undefined' && NATIONAL_BUNDLED_MD[cleanPath]) {
+      rawMd = NATIONAL_BUNDLED_MD[cleanPath];
+    }
+  }
+
+  return rawMd;
+}
+
+function resolveImageMapUrl(src, isGK) {
+  const cleanSrc = src.replace(/^\.\//, '');
+
+  if (isGK && typeof NATIONAL_IMAGE_MAP !== 'undefined' && NATIONAL_IMAGE_MAP[cleanSrc]) {
+    return NATIONAL_IMAGE_MAP[cleanSrc];
+  }
+  if (typeof IMAGE_MAP !== 'undefined' && IMAGE_MAP[cleanSrc]) {
+    return IMAGE_MAP[cleanSrc];
+  }
+  if (typeof NATIONAL_IMAGE_MAP !== 'undefined' && NATIONAL_IMAGE_MAP[cleanSrc]) {
+    return NATIONAL_IMAGE_MAP[cleanSrc];
+  }
+  return src;
+}
+
+
+// === src/components/dagTracer.js ===
+// src/components/dagTracer.js
+/**
+ * Knowledge DAG Weakness Tracer Component.
+ * Analyzes question prerequisites and renders actionable weakness tracing cards.
+ */
+
+function renderDagTracerCard(qid, sid, topic) {
+  if (typeof KNOWLEDGE_DAG === 'undefined' || typeof mapQuestionToDagNodes !== 'function') {
+    return '';
+  }
+
+  const matchedNodeIds = mapQuestionToDagNodes(sid, topic, '');
+  if (!matchedNodeIds || matchedNodeIds.length === 0) return '';
+
+  const targetNodeId = matchedNodeIds[0];
+  const targetNode = KNOWLEDGE_DAG[targetNodeId];
+  if (!targetNode) return '';
+
+  const prereqChain = tracePrerequisiteChain(targetNodeId);
+  if (!prereqChain || prereqChain.length === 0) return '';
+
+  return `
+    <div class="dag-tracer-card">
+      <div class="dag-tracer-header">
+        <div class="dag-tracer-title">
+          <span>🕸️ 觀念相依 DAG 溯源與前置盲點補強</span>
+          <span class="dag-tracer-badge">Level ${targetNode.level} 核心考點</span>
+        </div>
+        <span style="font-size: 0.8rem; color: var(--muted); font-weight: 600;">若本題卡關，建議依循下方拓撲鏈逆向複習：</span>
+      </div>
+
+      <div class="dag-chain-flow">
+        ${prereqChain.map((node, idx) => {
+          const isTarget = node.id === targetNodeId;
+          const arrow = idx < prereqChain.length - 1 ? '<span class="dag-arrow">➔</span>' : '';
+          return `
+            <div class="dag-node-chip ${isTarget ? 'target' : 'prereq'}" title="核心公式：${node.coreFormula}">
+              <span>${isTarget ? '🎯' : '📚'} ${node.name}</span>
+              <span style="font-size: 0.72rem; opacity: 0.8;">L${node.level}</span>
+            </div>
+            ${arrow}
+          `;
+        }).join('')}
+      </div>
+
+      ${targetNode.keyTrap ? `
+        <div class="dag-trap-alert">
+          <strong>⚠️ 考場易錯陷阱提點：</strong> ${targetNode.keyTrap}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+
+// === src/components/dagGraphViewer.js ===
+// src/components/dagGraphViewer.js
+/**
+ * Standalone Knowledge DAG Graph Viewer Component.
+ * Visualizes the full prerequisite graph for all 6 subjects.
+ */
+
+let currentDagSubjectFilter = 'all';
+
+function setDagSubjectFilter(sid) {
+  currentDagSubjectFilter = sid;
+  renderDagGraphVisualizer();
+}
+
+function renderDagGraphVisualizer() {
+  const container = document.getElementById('dag-graph-viewer-content');
+  if (!container || typeof KNOWLEDGE_DAG === 'undefined') return;
+
+  const nodes = Object.values(KNOWLEDGE_DAG).filter(n => {
+    if (currentDagSubjectFilter === 'all') return true;
+    return n.subject === currentDagSubjectFilter;
+  });
+
+  container.innerHTML = `
+    <div class="dag-vis-header">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="pill ${currentDagSubjectFilter === 'all' ? 'active' : ''}" onclick="setDagSubjectFilter('all')">全部考科 (60+ 節點)</button>
+        <button class="pill ${currentDagSubjectFilter === '01' ? 'active' : ''}" onclick="setDagSubjectFilter('01')">⚡ 01. 電路學</button>
+        <button class="pill ${currentDagSubjectFilter === '02' ? 'active' : ''}" onclick="setDagSubjectFilter('02')">🔌 02. 電子學</button>
+        <button class="pill ${currentDagSubjectFilter === '03' ? 'active' : ''}" onclick="setDagSubjectFilter('03')">📐 03. 工程數學</button>
+        <button class="pill ${currentDagSubjectFilter === '04' ? 'active' : ''}" onclick="setDagSubjectFilter('04')">⚙️ 04. 電機機械</button>
+        <button class="pill ${currentDagSubjectFilter === '05' ? 'active' : ''}" onclick="setDagSubjectFilter('05')">🏢 05. 電力系統</button>
+        <button class="pill ${currentDagSubjectFilter === '06' ? 'active' : ''}" onclick="setDagSubjectFilter('06')">🏭 06. 工業配電</button>
+      </div>
+      <span style="font-size: 0.84rem; color: var(--muted); font-weight: 600;">共 ${nodes.length} 個知識拓撲節點</span>
+    </div>
+
+    <div class="dag-vis-grid">
+      ${nodes.map(n => {
+        const prereqNames = n.prereqs.map(pid => KNOWLEDGE_DAG[pid] ? KNOWLEDGE_DAG[pid].name : pid);
+        return `
+          <div class="dag-vis-card">
+            <div class="dag-vis-card-head">
+              <span class="dag-vis-card-title">${n.name}</span>
+              <span class="dag-vis-card-level">⭐ Level ${n.level}</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--accent-dark); font-weight: 600; margin-bottom: 4px;">
+              考科：${n.subjectName}
+            </div>
+            <div class="dag-vis-card-formula">
+              <code>$${n.coreFormula}$</code>
+            </div>
+            ${prereqNames.length > 0 ? `
+              <div class="dag-vis-card-prereqs">
+                <span>前置必備：</span>
+                ${prereqNames.map(pn => `<span class="dag-prereq-tag">⬅️ ${pn}</span>`).join('')}
+              </div>
+            ` : '<div style="font-size: 0.76rem; color: var(--success); margin-top: 6px;">🌱 基礎起始概念 (無前置相依)</div>'}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+
+  // Apply math rendering if auto-render is available
+  if (typeof renderMathInElement !== 'undefined') {
+    renderMathInElement(container, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+}
+
+
+// === src/components/header.js ===
+// src/components/header.js
+/**
+ * Header Stats & Progress Exporter/Importer Component.
+ */
+
+function updateStatsAndBar() {
+  const qList = getActiveQuestionsList();
+  const total = qList.length;
+  let mastered = 0, review = 0, starred = 0;
+
+  qList.forEach(q => {
+    const qid = q[0];
+    const s = progressState[qid] || 0;
+    if (s === 1) mastered++;
+    if (s === 2) review++;
+    if (starredState[qid]) starred++;
+  });
+
+  const unstarted = total - mastered - review;
+  const pct = total > 0 ? Math.round((mastered / total) * 100) : 0;
+
+  const statTotal = document.getElementById('stat-total');
+  const statMastered = document.getElementById('stat-mastered');
+  const statReview = document.getElementById('stat-review');
+  const statUnstarted = document.getElementById('stat-unstarted');
+  const statStarred = document.getElementById('stat-starred');
+  const statExams = document.getElementById('stat-exams');
+
+  if (statTotal) statTotal.innerText = total;
+  if (statMastered) statMastered.innerText = mastered;
+  if (statReview) statReview.innerText = review;
+  if (statUnstarted) statUnstarted.innerText = unstarted;
+  if (statStarred) statStarred.innerText = starred;
+  if (statExams) statExams.innerText = currentExamCategory === 'PE' ? 66 : 25;
+
+  const barMastered = document.getElementById('bar-mastered');
+  const barReview = document.getElementById('bar-review');
+  const barUnstarted = document.getElementById('bar-unstarted');
+  const barPct = document.getElementById('stat-pct');
+
+  if (barMastered && total > 0) barMastered.style.width = `${(mastered / total) * 100}%`;
+  if (barReview && total > 0) barReview.style.width = `${(review / total) * 100}%`;
+  if (barUnstarted && total > 0) barUnstarted.style.width = `${(unstarted / total) * 100}%`;
+  if (barPct) barPct.innerText = `${pct}%`;
+}
+
+function exportProgressJSON() {
+  const data = {
+    version: "2.0",
+    exportTime: new Date().toISOString(),
+    category: currentExamCategory,
+    progressState: progressState,
+    starredState: starredState
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `電機技師備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("💾 備考進度已成功匯出備份！");
+}
+
+function importProgressJSON() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const imported = JSON.parse(event.target.result);
+        if (imported.progressState) progressState = imported.progressState;
+        if (imported.starredState) starredState = imported.starredState;
+        saveProgress();
+        updateStatsAndBar();
+        renderQuestions();
+        showToast("📥 備考進度已成功匯入還原！");
+      } catch (err) {
+        alert("❌ 匯入失敗：檔案格式不正確！");
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('ee_theme_preference', next);
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) btn.innerText = next === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
+}
+
+
+// === src/components/questionList.js ===
+// src/components/questionList.js
+/**
+ * Question List Component.
+ * Filters and renders question cards based on category, subject, year, diff, status, search, and quick filter.
+ */
+
+function getSubjectMeta(sid) {
+  if (currentExamCategory === 'GK' && typeof NATIONAL_EXAMS_DATA !== 'undefined' && NATIONAL_EXAMS_DATA.subjects) {
+    const s = NATIONAL_EXAMS_DATA.subjects.find(s => s.id === sid);
+    if (s) return s;
+  }
+  if (typeof DB_DATA === 'undefined' || !DB_DATA.meta || !DB_DATA.meta.subjects) {
+    return { name: '考科', icon: '⚡', color: '#4a7c8f' };
+  }
+  return DB_DATA.meta.subjects.find(s => s.id === sid) || { name: '未知', icon: '📝', color: '#798694' };
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  if (!container) return;
+
+  const subFilter = document.getElementById('filter-subject').value;
+  const yrFilter = document.getElementById('filter-year').value;
+  const statusFilter = document.getElementById('filter-status').value;
+  const diffFilter = document.getElementById('filter-diff').value;
+  const searchText = document.getElementById('search-input').value.trim().toLowerCase();
+
+  // Save filters
+  localStorage.setItem('filter-subject', subFilter);
+  localStorage.setItem('filter-year', yrFilter);
+  localStorage.setItem('filter-status', statusFilter);
+  localStorage.setItem('filter-diff', diffFilter);
+
+  const activeQuestions = getActiveQuestionsList();
+
+  const filtered = activeQuestions.filter(q => {
+    const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, status, ftags, hasDed, cat, rel] = q;
+
+    if (subFilter !== 'all' && sid !== subFilter) return false;
+    if (yrFilter !== 'all' && String(yr) !== yrFilter) return false;
+    if (diffFilter !== 'all' && String(diff) !== diffFilter) return false;
+
+    const curStatus = progressState[qid] || 0;
+    const isStarred = !!starredState[qid];
+
+    if (statusFilter === 'starred' && !isStarred) return false;
+    if (statusFilter !== 'all' && statusFilter !== 'starred' && String(curStatus) !== statusFilter) return false;
+
+    // Quick filter pills
+    if (activeQuickFilter === 'review' && curStatus !== 2) return false;
+    if (activeQuickFilter === 'starred' && !isStarred) return false;
+    if (activeQuickFilter === 'dedicated' && !hasDed) return false;
+    if (activeQuickFilter === 'top10') {
+      const topKeywords = ['戴維寧', '暫態', '三相', '差動', '微積分', '變壓器', '感應', '短路', '功角', '保護'];
+      const matched = topKeywords.some(k => topic.includes(k) || (tags || []).some(t => t.includes(k)));
+      if (!matched) return false;
+    }
+
+    if (searchText) {
+      const tagStr = (tags || []).join(' ').toLowerCase();
+      const ftagStr = (ftags || []).join(' ').toLowerCase();
+      if (!qid.toLowerCase().includes(searchText) &&
+          !topic.toLowerCase().includes(searchText) &&
+          !tagStr.includes(searchText) &&
+          !ftagStr.includes(searchText)) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+
+  const countBadge = document.getElementById('filtered-count');
+  if (countBadge) countBadge.innerText = `顯示 ${filtered.length} 題`;
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 60px 20px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius);">
+        <div style="font-size: 2.2rem; margin-bottom: 12px;">🔍</div>
+        <h3 style="color: var(--ink); margin-bottom: 6px;">查無符合條件的試題</h3>
+        <p style="font-size: 0.88rem;">請嘗試調整或重設篩選條件與搜尋關鍵字</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(q => {
+    const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, status, ftags, hasDed] = q;
+    const meta = getSubjectMeta(sid);
+    const curStatus = progressState[qid] || 0;
+    const isStarred = !!starredState[qid];
+
+    const starIcons = '⭐'.repeat(Math.max(1, Math.min(5, diff || 3)));
+    const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
+
+    return `
+      <div class="qcard" id="card-${qid}">
+        <div class="qhead">
+          <div class="qmeta">
+            <span class="qid">${qid}</span>
+            <span class="qtag" style="background: ${meta.color}15; color: ${meta.color}; border: 1px solid ${meta.color}30;">
+              ${meta.icon} ${meta.name.split('（')[0]}
+            </span>
+            <span class="diff-badge" title="難度評定：${diff} 星">${starIcons}</span>
+            ${(tags || []).slice(1, 3).map(t => `<span class="qtag">${t}</span>`).join('')}
+          </div>
+          <button class="btn-star ${isStarred ? 'active' : ''}" onclick="toggleStarred('${qid}', event)" title="${isStarred ? '取消收藏' : '加入重點收藏'}">
+            ${isStarred ? '★' : '☆'}
+          </button>
+        </div>
+
+        <div class="qtopic">${topic}</div>
+
+        <div class="qfooter">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button class="status-badge s-${curStatus}" onclick="toggleStatus('${qid}', event)" title="點擊切換做題掌握狀態">
+              ${statusLabels[curStatus]}
+            </button>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">
+              📝 檢視推導詳解
+            </button>
+            <a href="${pdfLink}" target="_blank" class="btn-pdf" title="在瀏覽器開啟考選部原題 PDF">
+              📄 查看原題 PDF
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+
+// === src/components/solutionModal.js ===
+// src/components/solutionModal.js
+/**
+ * Robust Solution Viewer Modal Component.
+ * Features:
+ * 1. Intelligent Question Extraction (Full-paper or single-question)
+ * 2. Navigation toolbar: [← 上一題] / [下一題 →]
+ * 3. Same Exam Year Question Selector (該年度考卷選題)
+ * 4. Split / Solution-only / Exam-only layout toggle
+ * 5. Sub-question pill switcher, KaTeX formula renderer, image map resolver, and DAG Weakness Tracer.
+ */
+
+let currentModalQid = null;
+let currentModalSolLink = null;
+let currentModalQNum = null;
+let currentModalFullView = false;
+let currentSubQuestionIdx = 0;
+let modalHistoryStack = [];
+
+const CN_NUM_MAP = {
+  '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8,
+  '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8
+};
+
+/**
+ * Intelligently extracts the target question from full-paper or single-question markdown files.
+ */
+function extractQuestionMarkdown(rawMd, targetQNum) {
+  if (!rawMd) return { content: '', subParts: [] };
+
+  const qNumInt = parseInt(targetQNum, 10) || 1;
+
+  // Split by major question headers: e.g. "## 一、", "## 二、", "## 第 1 題", "## 1."
+  const majorSplitRegex = /(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|(?:[一二三四五六七八九十]|\d+)\s*[、\.\:]))/gi;
+  const sections = rawMd.split(majorSplitRegex);
+
+  let targetSection = rawMd;
+
+  if (sections.length > 1) {
+    // Multi-question full paper file
+    let found = false;
+    for (let i = 1; i < sections.length; i++) {
+      const sec = sections[i];
+      const hMatch = sec.match(/##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十]|\d+)\s*[、\.\:])/i);
+      if (hMatch) {
+        const token = (hMatch[1] || hMatch[2] || '').trim();
+        const parsedNum = CN_NUM_MAP[token];
+        if (parsedNum === qNumInt) {
+          targetSection = sec;
+          found = true;
+          break;
+        }
+      }
+    }
+    // Fallback by array index if heading regex missed
+    if (!found && sections[qNumInt]) {
+      targetSection = sections[qNumInt];
+    }
+  }
+
+  // Check for sub-parts within the question: e.g. "### (一)", "### (二)", "#### (1)"
+  const subPartRegex = /(?=\n###\s+(?:\([一二三四五六七八九十\d]+\)|(?:[一二三四五六七八九十]|\d+)\s*[\.、\)]))/gi;
+  const subParts = targetSection.split(subPartRegex);
+
+  return {
+    fullContent: targetSection,
+    subParts: subParts.length > 1 ? subParts : []
+  };
+}
+
+function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
+  if (event) event.preventDefault();
+
+  currentModalQid = qid;
+  currentModalSolLink = solLink;
+  currentModalQNum = qnum;
+  currentModalFullView = fullView;
+  currentSubQuestionIdx = 0;
+
+  const modal = document.getElementById('solution-modal');
+  if (!modal) return;
+
+  const qRecord = findQuestionRecord(qid);
+  const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
+  const meta = getSubjectMeta(sid);
+
+  // 1. Update Title
+  const titleEl = document.getElementById('modal-title');
+  if (titleEl) {
+    titleEl.innerHTML = `
+      <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${qid}</span>
+      <span style="font-size: 0.9rem; color: var(--muted); font-weight: 500;">
+        · ${meta.icon} ${meta.name}（${yr} 年第 ${curQnum} 大題）
+      </span>
+    `;
+  }
+
+  // 2. Update Same Exam Dropdown & Prev/Next Buttons
+  updateSameExamDropdown(sid, yr, qid);
+  updateModalNavButtons(qid);
+
+  // 3. Load Left Pane (Space-efficient collapsible stem + Full Height PDF embed)
+  const leftPane = document.getElementById('modal-pane-left');
+  const leftContent = document.getElementById('modal-left-content');
+  if (leftContent) {
+    leftContent.innerHTML = `
+      <div style="padding: 8px 14px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-dark);">📄 官方原始考卷 PDF</span>
+          <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+            🔍 展開題幹文字
+          </button>
+        </div>
+        <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
+          新分頁開啟 ⬈
+        </a>
+      </div>
+
+      <div id="modal-stem-collapse" style="display: none; padding: 12px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--ink); max-height: 180px; overflow-y: auto;">
+        <div style="font-weight: 700; font-size: 0.78rem; color: var(--accent-dark); margin-bottom: 4px;">📌 原題題幹文字描述：</div>
+        <div>${topic}</div>
+      </div>
+
+      <div style="flex: 1; width: 100%; height: 100%; min-height: 500px; background: #525659;">
+        <iframe src="${pdfLink}#toolbar=0" style="width: 100%; height: 100%; min-height: 500px; border: none; display: block;"></iframe>
+      </div>
+    `;
+  }
+
+  // 4. Load Right Pane (Extracted Question Solution + KaTeX + Sub-part Navigation + DAG)
+  const rightPane = document.getElementById('modal-right-content');
+  const subQPillsBar = document.getElementById('modal-sub-q-pills');
+
+  const rawMd = resolveSolutionMarkdown(solLink, qid);
+
+  if (rawMd) {
+    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, curQnum);
+
+    // If sub-parts exist, render pills for quick navigation
+    if (subParts.length > 1 && subQPillsBar) {
+      subQPillsBar.style.display = 'flex';
+      let pillsHtml = `<button class="sub-q-pill active" onclick="switchSubQuestion(0)">📖 完整全題推導</button>`;
+      for (let i = 0; i < subParts.length; i++) {
+        const titleMatch = subParts[i].match(/###\s+([^\n]+)/);
+        const title = titleMatch ? titleMatch[1].trim() : `第 (${i + 1}) 小題`;
+        pillsHtml += `<button class="sub-q-pill" onclick="switchSubQuestion(${i + 1})">${title}</button>`;
+      }
+      subQPillsBar.innerHTML = pillsHtml;
+    } else if (subQPillsBar) {
+      subQPillsBar.style.display = 'none';
+    }
+
+    // Default to rendering full content of this question
+    renderSubQuestionContent(fullContent, qRecord);
+  } else {
+    if (subQPillsBar) subQPillsBar.style.display = 'none';
+    if (rightPane) {
+      rightPane.innerHTML = `
+        <div style="text-align: center; padding: 60px 20px;">
+          <h3 style="color: var(--warn); margin-bottom: 10px;">📑 詳解收錄於題解知識庫中</h3>
+          <p style="color: var(--muted); margin-bottom: 20px;">點擊下方按鈕前往知識庫檢視本題完整解答：</p>
+          <a href="${solLink}" target="_blank" class="btn-sol">🔗 前往考科詳解庫</a>
+        </div>
+      `;
+    }
+  }
+
+  updateModalStatusButtons(qid);
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateSameExamDropdown(sid, yr, currentQid) {
+  const select = document.getElementById('modal-same-exam-select');
+  if (!select) return;
+
+  const activeList = getActiveQuestionsList();
+  const sameExamQs = activeList.filter(q => q[1] === sid && q[2] === yr);
+
+  if (sameExamQs.length === 0) {
+    select.style.display = 'none';
+    return;
+  }
+
+  select.style.display = 'inline-block';
+  select.innerHTML = sameExamQs.map(q => {
+    const qid = q[0];
+    const qnum = q[3];
+    const s = progressState[qid] || 0;
+    const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
+    const isCur = qid === currentQid;
+    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${qid})</option>`;
+  }).join('');
+}
+
+function onSameExamSelectChange(selectElem) {
+  const targetQid = selectElem.value;
+  if (!targetQid || targetQid === currentModalQid) return;
+  const qRecord = findQuestionRecord(targetQid);
+  if (qRecord) {
+    const [qid, sid, yr, qnum, topic, tags, solLink] = qRecord;
+    openSolutionModal(null, solLink, qid, qnum);
+  }
+}
+
+function updateModalNavButtons(qid) {
+  const btnPrev = document.getElementById('btn-modal-prev');
+  const btnNext = document.getElementById('btn-modal-next');
+  if (!btnPrev || !btnNext) return;
+
+  const activeList = getActiveQuestionsList();
+  const curIdx = activeList.findIndex(q => q[0] === qid);
+
+  btnPrev.disabled = curIdx <= 0;
+  btnNext.disabled = curIdx < 0 || curIdx >= activeList.length - 1;
+}
+
+function navModalQuestion(direction) {
+  const activeList = getActiveQuestionsList();
+  if (activeList.length === 0 || !currentModalQid) return;
+
+  const curIdx = activeList.findIndex(q => q[0] === currentModalQid);
+  if (curIdx === -1) return;
+
+  const targetIdx = curIdx + direction;
+  if (targetIdx >= 0 && targetIdx < activeList.length) {
+    const targetQ = activeList[targetIdx];
+    const [qid, sid, yr, qnum, topic, tags, solLink] = targetQ;
+    openSolutionModal(null, solLink, qid, qnum);
+  }
+}
+
+function setModalLayout(mode) {
+  const leftPane = document.getElementById('modal-pane-left');
+  const rightPane = document.getElementById('modal-pane-right');
+  const resizer = document.getElementById('modal-resizer');
+  if (!leftPane || !rightPane) return;
+
+  document.querySelectorAll('.view-layout-toggle .btn-layout').forEach(b => b.classList.remove('active'));
+
+  if (mode === 'solution-only') {
+    leftPane.style.display = 'none';
+    if (resizer) resizer.style.display = 'none';
+    rightPane.style.flex = '1 1 100%';
+    const btn = document.getElementById('btn-layout-solution');
+    if (btn) btn.classList.add('active');
+  } else if (mode === 'exam-only') {
+    leftPane.style.display = 'flex';
+    leftPane.style.flex = '1 1 100%';
+    if (resizer) resizer.style.display = 'none';
+    rightPane.style.display = 'none';
+    const btn = document.getElementById('btn-layout-exam');
+    if (btn) btn.classList.add('active');
+  } else {
+    // Split 50/50
+    leftPane.style.display = 'flex';
+    leftPane.style.flex = '0 0 45%';
+    if (resizer) resizer.style.display = 'block';
+    rightPane.style.display = 'flex';
+    rightPane.style.flex = '1';
+    const btn = document.getElementById('btn-layout-split');
+    if (btn) btn.classList.add('active');
+  }
+}
+
+function switchSubQuestion(idx) {
+  currentSubQuestionIdx = idx;
+  document.querySelectorAll('.sub-q-pill').forEach((p, i) => {
+    p.classList.toggle('active', i === idx);
+  });
+
+  const rawMd = resolveSolutionMarkdown(currentModalSolLink, currentModalQid);
+  const qRecord = findQuestionRecord(currentModalQid);
+  if (!rawMd) return;
+
+  const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum);
+
+  if (idx === 0 || subParts.length === 0) {
+    renderSubQuestionContent(fullContent, qRecord);
+  } else if (subParts[idx - 1]) {
+    renderSubQuestionContent(subParts[idx - 1], qRecord);
+  }
+}
+
+function renderSubQuestionContent(markdownChunk, qRecord) {
+  const rightPane = document.getElementById('modal-right-content');
+  if (!rightPane) return;
+
+  // Render KaTeX protected markdown
+  let html = processMarkdownWithMath(markdownChunk);
+
+  // Replace image URLs from image maps
+  const isGK = currentModalQid && currentModalQid.startsWith('GK-');
+  html = html.replace(/src=["'](.*?)["']/g, (match, src) => {
+    return `src="${resolveImageMapUrl(src, isGK)}"`;
+  });
+
+  // Append Knowledge DAG Weakness Tracer
+  if (qRecord) {
+    const [qid, sid, yr, qnum, topic] = qRecord;
+    const dagCardHtml = renderDagTracerCard(qid, sid, topic);
+    html += dagCardHtml;
+  }
+
+  rightPane.innerHTML = `
+    <div class="solution-content">
+      ${html}
+    </div>
+  `;
+
+  // Auto-render any remaining math formulas
+  if (typeof renderMathInElement !== 'undefined') {
+    renderMathInElement(rightPane, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+}
+
+function closeModal() {
+  const modal = document.getElementById('solution-modal');
+  if (modal) modal.classList.remove('show');
+  document.body.style.overflow = '';
+  currentModalQid = null;
+}
+
+function updateModalStatusButtons(qid) {
+  const statusBtn = document.getElementById('modal-status-btn');
+  const starBtn = document.getElementById('modal-star-btn');
+  if (!qid || !statusBtn || !starBtn) return;
+
+  const curStatus = progressState[qid] || 0;
+  const isStarred = !!starredState[qid];
+
+  const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
+  statusBtn.className = `status-badge s-${curStatus}`;
+  statusBtn.innerText = statusLabels[curStatus];
+  statusBtn.onclick = (e) => toggleStatus(qid, e);
+
+  starBtn.className = `btn-star ${isStarred ? 'active' : ''}`;
+  starBtn.innerHTML = isStarred ? '★ 已收藏' : '☆ 收藏本題';
+  starBtn.onclick = (e) => toggleStarred(qid, e);
+}
+
+function toggleStemDescription() {
+  const collapseEl = document.getElementById('modal-stem-collapse');
+  const btn = document.getElementById('btn-stem-toggle');
+  if (!collapseEl) return;
+
+  const isHidden = collapseEl.style.display === 'none';
+  collapseEl.style.display = isHidden ? 'block' : 'none';
+  if (btn) {
+    btn.innerHTML = isHidden ? '▲ 收合題幹文字' : '🔍 展開題幹文字';
+    btn.style.background = isHidden ? 'var(--accent)' : 'var(--bg-secondary)';
+    btn.style.color = isHidden ? '#ffffff' : 'var(--ink-light)';
+  }
+}
+
+// Global Keyboard Navigation
+window.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('solution-modal');
+  if (!modal || !modal.classList.contains('show')) return;
+
+  if (e.key === 'Escape') {
+    closeModal();
+  } else if (e.key === 'ArrowLeft') {
+    navModalQuestion(-1);
+  } else if (e.key === 'ArrowRight') {
+    navModalQuestion(1);
+  }
+});
+
+
+// === src/components/mockExamTimer.js ===
+// src/components/mockExamTimer.js
+/**
+ * 120-Minute Full Mock Exam System & Countdown Timer.
+ */
+
+let examTimerSeconds = 120 * 60;
+let examTimerInterval = null;
+let examTimerRunning = false;
+
+function formatTime(secs) {
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('exam-timer');
+  if (el) el.innerText = formatTime(examTimerSeconds);
+}
+
+function startExamTimer() {
+  if (examTimerRunning) return;
+  examTimerRunning = true;
+  const toggleBtn = document.getElementById('btn-timer-toggle');
+  if (toggleBtn) {
+    toggleBtn.innerText = '⏸️ 暫停計時';
+    toggleBtn.className = 'btn-timer pause';
+    toggleBtn.onclick = pauseExamTimer;
+  }
+  examTimerInterval = setInterval(() => {
+    if (examTimerSeconds > 0) {
+      examTimerSeconds--;
+      updateTimerDisplay();
+      if (examTimerSeconds === 300) {
+        showToast('⚠️ 提醒：距離考試結束僅剩 5 分鐘！請準備收卷核算。');
+      }
+    } else {
+      clearInterval(examTimerInterval);
+      examTimerRunning = false;
+      showToast('⏰ 考試時間結束！請停止作答。');
+    }
+  }, 1000);
+}
+
+function pauseExamTimer() {
+  if (!examTimerRunning) return;
+  clearInterval(examTimerInterval);
+  examTimerRunning = false;
+  const toggleBtn = document.getElementById('btn-timer-toggle');
+  if (toggleBtn) {
+    toggleBtn.innerText = '▶️ 繼續計時';
+    toggleBtn.className = 'btn-timer start';
+    toggleBtn.onclick = startExamTimer;
+  }
+}
+
+function resetExamTimer() {
+  pauseExamTimer();
+  examTimerSeconds = 120 * 60;
+  updateTimerDisplay();
+  const toggleBtn = document.getElementById('btn-timer-toggle');
+  if (toggleBtn) {
+    toggleBtn.innerText = '▶️ 開始計時';
+    toggleBtn.className = 'btn-timer start';
+    toggleBtn.onclick = startExamTimer;
+  }
+}
+
+function loadMockExam() {
+  const sid = document.getElementById('exam-select-subj').value;
+  const yr = document.getElementById('exam-select-yr').value;
+  const container = document.getElementById('mock-exam-questions');
+  if (!container) return;
+
+  const activeList = getActiveQuestionsList();
+  if (!activeList || activeList.length === 0) return;
+
+  let targetQuestions = [];
+  if (yr === 'random') {
+    const subjQuestions = activeList.filter(q => q[1] === sid);
+    const shuffled = [...subjQuestions].sort(() => 0.5 - Math.random());
+    targetQuestions = shuffled.slice(0, 4);
+  } else {
+    targetQuestions = activeList.filter(q => q[1] === sid && String(q[2]) === yr);
+  }
+
+  if (targetQuestions.length === 0) {
+    container.innerHTML = '<div style="text-align:center; padding: 30px; color: var(--muted);">查無符合的試卷題目</div>';
+    return;
+  }
+
+  const meta = getSubjectMeta(sid);
+  container.innerHTML = `
+    <div style="background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 16px;">
+      <h3 style="color: var(--accent-dark); margin-bottom: 6px;">📋 模考試卷：${meta.icon} ${meta.name}（${yr === 'random' ? '隨機抽 4 題模考' : yr + ' 年全卷'}）</h3>
+      <p style="font-size: 0.85rem; color: var(--muted);">共 ${targetQuestions.length} 道大題 · 滿分 100 分 · 請於 120 分鐘內獨立白紙推導</p>
+    </div>
+    <div class="qlist">
+      ${targetQuestions.map((q, idx) => {
+        const [qid, qsid, qyr, qnum, topic, tags, solLink, pdfLink] = q;
+        return `
+          <div class="qcard" style="border-left: 4px solid var(--accent);">
+            <div class="qhead">
+              <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
+              <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分</span>
+            </div>
+            <div class="qtopic">${topic}</div>
+            <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+              <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">📝 檢視標準推導解答</button>
+              <a href="${pdfLink}" target="_blank" class="btn-pdf">📄 查看官方 PDF</a>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+  resetExamTimer();
+  showToast('📑 模考試卷已載入，準備好後點擊開始計時！');
+}
+
+
+// === src/components/topTopics.js ===
+// src/components/topTopics.js
+/**
+ * Seven Layers & High Frequency Topics Analysis Component.
+ */
+
+let currentStatsSubject = 'all';
+
+const STATS_DATA = {
+  'all': [
+    { name: '戴維寧/諾頓等效與最大功率', count: '48 題', pct: 95, star: '⭐⭐⭐⭐⭐', note: '電路學/電子學/機械核心必考' },
+    { name: '三相短路與對稱分量故障', count: '42 題', pct: 88, star: '⭐⭐⭐⭐⭐', note: '電力系統/工配計算核心' },
+    { name: '一階/二階 RLC 暫態分析', count: '39 題', pct: 82, star: '⭐⭐⭐⭐', note: '電路學/工數三要素法' },
+    { name: '變壓器等效電路與開短路試驗', count: '36 題', pct: 75, star: '⭐⭐⭐⭐', note: '電機機械/工配必考基石' },
+    { name: '差動放大器與 CMRR 分析', count: '32 題', pct: 68, star: '⭐⭐⭐⭐', note: '電子學高分必備' },
+    { name: '二階 ODE 與拉氏轉換求解', count: '30 題', pct: 62, star: '⭐⭐⭐⭐', note: '工程數學及格門檻' }
+  ],
+  '01': [
+    { name: '戴維寧與諾頓等效電路', count: '18 題', pct: 90, star: '⭐⭐⭐⭐⭐', note: '含相依源測試源法' },
+    { name: '一階/二階電路暫態分析', count: '16 題', pct: 82, star: '⭐⭐⭐⭐⭐', note: '開關換位與三要素' },
+    { name: '三相平衡電路 (Y-Δ)', count: '14 題', pct: 70, star: '⭐⭐⭐⭐', note: '線相電壓電流轉換' }
+  ],
+  '02': [
+    { name: '差動放大器 (Ad, Acm, CMRR)', count: '16 題', pct: 88, star: '⭐⭐⭐⭐⭐', note: '半電路分析法' },
+    { name: 'DC-DC Buck/Boost 轉換器', count: '14 題', pct: 78, star: '⭐⭐⭐⭐', note: '伏秒平衡與電荷平衡' },
+    { name: 'BJT/MOSFET 單級放大器', count: '12 題', pct: 65, star: '⭐⭐⭐⭐', note: '小訊號參數計算' }
+  ],
+  '03': [
+    { name: '二階非齊次常微分方程 ODE', count: '16 題', pct: 85, star: '⭐⭐⭐⭐⭐', note: '參數變更法與未定係數' },
+    { name: '拉氏轉換與反轉換求解', count: '14 題', pct: 75, star: '⭐⭐⭐⭐', note: '部分分式法與摺積' },
+    { name: '矩陣特徵值與對角化', count: '12 題', pct: 68, star: '⭐⭐⭐⭐', note: '相似轉換與幾何重數' }
+  ],
+  '04': [
+    { name: '單相/三相變壓器開短路試驗', count: '18 題', pct: 92, star: '⭐⭐⭐⭐⭐', note: '等效電路與效率計算' },
+    { name: '感應電動機轉矩-轉差率曲線', count: '15 題', pct: 80, star: '⭐⭐⭐⭐', note: '戴維寧簡化與最大轉矩' },
+    { name: '凸極同步發電機雙反應理論', count: '12 題', pct: 65, star: '⭐⭐⭐⭐', note: 'Xd, Xq 功角特性' }
+  ],
+  '05': [
+    { name: '對稱分量法與不對稱故障 (SLG)', count: '20 題', pct: 95, star: '⭐⭐⭐⭐⭐', note: '正負零序網串聯' },
+    { name: '輸電線路中長程模型 (ABCD)', count: '15 題', pct: 76, star: '⭐⭐⭐⭐', note: 'π 型等效與電壓調整率' },
+    { name: '單機無窮母線等面積準則', count: '12 題', pct: 64, star: '⭐⭐⭐⭐', note: '臨界清除角推導' }
+  ],
+  '06': [
+    { name: '短路容量計算 (MVA 法)', count: '16 題', pct: 88, star: '⭐⭐⭐⭐⭐', note: '串並聯容量化簡' },
+    { name: '功率因數改善與電容器組', count: '14 題', pct: 78, star: '⭐⭐⭐⭐', note: '釋放容量與降損' },
+    { name: '保護協調 (TCC 曲線) 定值', count: '12 題', pct: 66, star: '⭐⭐⭐⭐', note: 'CTI 時間階差設定' }
+  ]
+};
+
+function renderTopTopics() {
+  const container = document.getElementById('top-topics-container');
+  if (!container) return;
+
+  const list = STATS_DATA[currentStatsSubject] || STATS_DATA['all'];
+
+  container.innerHTML = list.map(t => `
+    <div style="background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.95rem; margin-bottom: 6px; color: var(--ink);">
+        <span style="font-weight: 700;">${t.name}</span>
+        <span style="color: var(--accent-dark); font-weight: 700; font-size: 0.9rem;">${t.count}</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--muted); margin-bottom: 8px;">
+        <span>${t.star}</span>
+        <code style="background: var(--bg-secondary); padding: 1px 6px; border-radius: 4px; color: var(--ink-light); font-size: 0.8rem;">${t.note}</code>
+      </div>
+      <div style="height: 8px; background: var(--line); border-radius: 9999px; overflow: hidden;">
+        <div style="width: ${t.pct}%; background: var(--accent); height: 100%; border-radius: 9999px;"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderLayers() {
+  const container = document.getElementById('layers-container');
+  if (!container || typeof DB_DATA === 'undefined' || !DB_DATA.sevenLayers) return;
+
+  container.innerHTML = DB_DATA.sevenLayers.map(layer => `
+    <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px 22px; margin-bottom: 14px; box-shadow: var(--shadow);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h4 style="color: var(--accent-dark); font-size: 1.05rem; font-weight: 700;">
+          ${layer.icon} ${layer.name}
+        </h4>
+        <span style="font-size: 0.8rem; font-weight: 600; color: var(--muted); background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">
+          ${layer.status || '知識核心'}
+        </span>
+      </div>
+      <p style="font-size: 0.88rem; color: var(--ink-light); line-height: 1.6; margin-bottom: 10px;">
+        ${layer.desc}
+      </p>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        ${(layer.tags || []).map(t => `<span class="qtag">${t}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+
+// === src/main.js ===
+// src/main.js
+/**
+ * Main Application Orchestrator & Entry Point.
+ */
+
+function switchTab(tabId) {
+  document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
+
+  const activeBtn = document.getElementById('tab-btn-' + tabId);
+  const activePane = document.getElementById('tab-pane-' + tabId);
+
+  if (activeBtn) activeBtn.classList.add('active');
+  if (activePane) activePane.style.display = 'block';
+
+  if (tabId === 'dag' && typeof renderDagGraphVisualizer === 'function') {
+    renderDagGraphVisualizer();
+  }
+}
+
+function handleUrlHashRouting() {
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#q=')) {
+    const targetQid = decodeURIComponent(hash.substring(3)).trim();
+    const qRecord = findQuestionRecord(targetQid);
+    if (qRecord) {
+      const [qid, sid, yr, qnum, topic, tags, solLink] = qRecord;
+      const subSelect = document.getElementById('filter-subject');
+      const yrSelect = document.getElementById('filter-year');
+      if (subSelect) subSelect.value = sid;
+      if (yrSelect) yrSelect.value = String(yr);
+      if (typeof renderQuestions === 'function') renderQuestions();
+      if (typeof openSolutionModal === 'function') openSolutionModal(null, solLink, qid, qnum);
+    }
+  }
+}
+
+function initPaneResizer() {
+  const resizer = document.getElementById('modal-resizer');
+  const leftPane = document.getElementById('modal-pane-left');
+  if (!resizer || !leftPane) return;
+
+  let isDragging = false;
+
+  resizer.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    resizer.classList.add('dragging');
+    document.body.style.userSelect = 'none';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const modalContainer = document.querySelector('.modal-container');
+    if (!modalContainer) return;
+    const rect = modalContainer.getBoundingClientRect();
+    const offsetLeft = e.clientX - rect.left;
+    const pct = Math.max(25, Math.min(75, (offsetLeft / rect.width) * 100));
+    leftPane.style.flex = `0 0 ${pct}%`;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      resizer.classList.remove('dragging');
+      document.body.style.userSelect = '';
+    }
+  });
+}
+
+// Global DOM Content Loaded Bootstrap
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Theme initialization
+  const savedTheme = localStorage.getItem('ee_theme_preference');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const btn = document.getElementById('theme-toggle-btn');
+    if (btn) btn.innerText = savedTheme === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
+  }
+
+  // 2. Restore category & populate category dropdown options first
+  const savedCat = localStorage.getItem('exam_category_tab') || 'PE';
+  switchExamCategory(savedCat);
+
+  // 3. Restore persisted filter selections
+  const savedSub = localStorage.getItem('filter-subject');
+  const savedYr = localStorage.getItem('filter-year');
+  const savedStatus = localStorage.getItem('filter-status');
+  const savedDiff = localStorage.getItem('filter-diff');
+
+  const subSelect = document.getElementById('filter-subject');
+  const yrSelect = document.getElementById('filter-year');
+  const statusSelect = document.getElementById('filter-status');
+  const diffSelect = document.getElementById('filter-diff');
+
+  if (savedSub && subSelect && Array.from(subSelect.options).some(o => o.value === savedSub)) {
+    subSelect.value = savedSub;
+  }
+  if (savedYr && yrSelect && Array.from(yrSelect.options).some(o => o.value === savedYr)) {
+    yrSelect.value = savedYr;
+  }
+  if (savedStatus && statusSelect && Array.from(statusSelect.options).some(o => o.value === savedStatus)) {
+    statusSelect.value = savedStatus;
+  }
+  if (savedDiff && diffSelect && Array.from(diffSelect.options).some(o => o.value === savedDiff)) {
+    diffSelect.value = savedDiff;
+  }
+
+  // 4. Render initial components
+  updateStatsAndBar();
+  renderQuestions();
+  renderLayers();
+  renderTopTopics();
+  initPaneResizer();
+  handleUrlHashRouting();
+});
+
+window.addEventListener('hashchange', handleUrlHashRouting);
+

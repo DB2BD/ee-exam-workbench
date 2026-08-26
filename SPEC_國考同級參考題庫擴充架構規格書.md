@@ -1,7 +1,7 @@
 # 🏛️ 技術規格架構書：國考同級參考題庫擴充系統 (National Exam Cross-Reference Bank)
 
-**檔案識別**：`SPEC-EXAM-EXT-002`  
-**建立時間**：2026-08-24  
+**檔案識別**：`SPEC-EXAM-EXT-002`
+**建立時間**：2026-08-24
 **遵循規範**：[`CLAUDE.md`](./CLAUDE.md) · [`CLAUDE-SPEC.md`](./CLAUDE-SPEC.md) · [`to-spec`](./.agents/skills/to-spec/SKILL.md) · [`to-tickets`](./.agents/skills/to-tickets/SKILL.md)
 
 ---

@@ -269,37 +269,91 @@ sol_107 = r'''---
 ![[107年_電力系統_第2題_變壓器等效圖.png|750]]
 *圖：107年電力系統第二題 161/23.9 kV 變壓器等效電路圖*
 
-- 變壓器：$161\text{ kV}/23.9\text{ kV}, 60\text{ MVA}, X_T = 15\% = 0.15\text{ pu}$。
-- 電源阻抗：$Z_s = j8\ \Omega$（一次側基準）。
-- 滿載：$\mathbf{S}_L = 60\text{ MVA}, \text{PF} = 0.8\text{ 滯後}$。
+- **變壓器額定**：三相 $161\text{ kV} / 23.9\text{ kV}$、$S_{\text{rated}} = 60\text{ MVA}$、漏電抗 $X_T = 15\% = 0.15\text{ pu}$，忽略繞組電阻與激磁電流。
+- **電源阻抗**：一次側 $Z_s = j8\ \Omega$（電源電壓 $E_s$ 保持不變）。
+- **負載條件**：三相負載 $S_L = 60\text{ MVA}$、功率因數 $\text{PF} = 0.8\text{（滯後）}$，此時變壓器一次側端電壓 $V_1 = 161\text{ kV} = 1.0\text{ pu}$。
 
-* **(一)** 求二次側電壓 $V_2$ 及一次側電源電壓 $E_s$（$\text{kV}$）。（10 分）
-* **(二)** 求二次側滿載電流 $I_2$ 並判斷有無過載。（5 分）
-* **(三)** 求變壓器二次側電壓調整率 $\text{VR}$。（5 分）
-* **(四)** 求二次側穩態三相短路電流 $I_{sc}$（$\text{kA}$）。（5 分）
+* **(一)** 求二次側電壓大小 $V_2$ 及一次側電源電壓大小 $E_s$（$\text{kV}$）。（10 分）
+* **(二)** 求二次側電流大小 $I_2$（$\text{A}$），並判斷變壓器有無過載。（5 分）
+* **(三)** 求變壓器二次側電壓調整率百分比 $\text{VR}\%$。（5 分）
+* **(四)** 求二次側穩態三相短路電流大小 $I_{sc}$（$\text{A}$）。（5 分）
 
 ---
 
 ### ✏️ 步驟式詳細數學推導
-1. **基準阻抗與標么化**：
-   $$Z_{base1} = \frac{(161)^2}{60} = 432.02\ \Omega \implies Z_{s,pu} = \frac{j8}{432.02} = j0.01852\text{ pu}$$
-   $$\mathbf{V}_{2,pu} = 1.0 - (0.8 - j0.6)(j0.15) = 0.91 - j0.12 = \mathbf{0.9179\angle -7.51^\circ\text{ pu}}$$
-   $$V_2 = 0.9179 \times 23.9\text{ kV} = \mathbf{21.94\text{ kV}}$$
-   $$\mathbf{E}_s = 1.0 + (0.8 - j0.6)(j0.01852) = 1.0111 + j0.0148\text{ pu} \implies E_s = 1.0112 \times 161\text{ kV} = \mathbf{162.8\text{ kV}}$$
-2. **滿載電流**：
-   $$I_2 = \frac{60\times 10^6}{\sqrt{3}\times 23.9\times 10^3} = \mathbf{1449.3\text{ A}}\quad (\text{未過載})$$
-3. **電壓調整率**：
-   $$\text{VR} = \frac{1.0 - 0.9179}{0.9179} \times 100\% = \mathbf{8.94\%}$$
-4. **短路電流**：
-   $$I_{sc,pu} = \frac{1.0}{0.01852 + 0.15} = \frac{1.0}{0.16852} = 5.934\text{ pu} \implies I_{sc} = 5.934 \times 1.4493\text{ kA} = \mathbf{8.60\text{ kA}}$$
+
+#### 1. 系統基準值與標么化阻抗換算
+- **一次側基準**：$V_{1,\text{base}} = 161\text{ kV}, S_{\text{base}} = 60\text{ MVA}$
+  $$Z_{1,\text{base}} = \frac{V_{1,\text{base}}^2}{S_{\text{base}}} = \frac{(161\text{ kV})^2}{60\text{ MVA}} = 432.02\ \Omega$$
+  $$I_{1,\text{base}} = \frac{S_{\text{base}}}{\sqrt{3} V_{1,\text{base}}} = \frac{60\times 10^6}{\sqrt{3}\times 161\times 10^3} = 215.16\text{ A}$$
+  $$Z_{s,\text{pu}} = \frac{j8\ \Omega}{432.02\ \Omega} = j0.01852\text{ pu}$$
+- **二次側基準**：$V_{2,\text{base}} = 23.9\text{ kV}$
+  $$I_{2,\text{base}} = I_{2,\text{rated}} = \frac{S_{\text{base}}}{\sqrt{3} V_{2,\text{base}}} = \frac{60\times 10^6}{\sqrt{3}\times 23.9\times 10^3} = \mathbf{1449.41\text{ A}}$$
+
+---
+
+#### 2. (一) 求解二次側電壓 $V_2$ 與一次側電源電壓 $E_s$
+- 取一次側端電壓為相量參考基準：$\mathbf{V}_1 = 1.0\angle 0^\circ\text{ pu} = 161\text{ kV}$。
+- 負載功率因數 $0.8$ 滯後，滿載標么電流相量：
+  $$\mathbf{I}_{\text{pu}} = 1.0\angle -\cos^{-1}(0.8) = 0.8 - j0.6\text{ pu}$$
+- **求二次側電壓 $\mathbf{V}_2$**（自一次側經變壓器漏抗 $Z_T = j0.15\text{ pu}$ 降壓）：
+  $$\mathbf{V}_{2,\text{pu}} = \mathbf{V}_1 - \mathbf{I}_{\text{pu}} Z_T = 1.0 - (0.8 - j0.6)(j0.15) = 1.0 - (0.09 + j0.12) = 0.91 - j0.12\text{ pu}$$
+  $$|\mathbf{V}_{2,\text{pu}}| = \sqrt{0.91^2 + (-0.12)^2} = \sqrt{0.8281 + 0.0144} = \sqrt{0.8425} = \mathbf{0.91788\text{ pu}}$$
+  $$V_2 = |\mathbf{V}_{2,\text{pu}}| \times V_{2,\text{base}} = 0.91788 \times 23.9\text{ kV} = \mathbf{21.937\text{ kV}}\ (\approx \mathbf{21.94\text{ kV}})$$
+- **求一次側電源電壓 $\mathbf{E}_s$**（考慮電源阻抗 $Z_s = j0.01852\text{ pu}$ 之壓降）：
+  $$\mathbf{E}_{s,\text{pu}} = \mathbf{V}_1 + \mathbf{I}_{\text{pu}} Z_{s,\text{pu}} = 1.0 + (0.8 - j0.6)(j0.01852) = 1.0 + (0.01111 + j0.01481) = 1.01111 + j0.01481\text{ pu}$$
+  $$|\mathbf{E}_{s,\text{pu}}| = \sqrt{1.01111^2 + 0.01481^2} = \mathbf{1.01122\text{ pu}}$$
+  $$E_s = |\mathbf{E}_{s,\text{pu}}| \times V_{1,\text{base}} = 1.01122 \times 161\text{ kV} = \mathbf{162.806\text{ kV}}\ (\approx \mathbf{162.81\text{ kV}})$$
+
+---
+
+#### 3. (二) 求解二次側電流大小 $I_2$ 並嚴謹判斷有無過載
+- **負載實際電流大小**：
+  由於二次側端電壓因漏抗壓降降至 $V_2 = 21.937\text{ kV}$，在吸收 $S_L = 60\text{ MVA}$ 恆功率負載下，二次側實際電流為：
+  $$I_2 = \frac{S_L}{\sqrt{3} V_2} = \frac{60\times 10^6\text{ VA}}{\sqrt{3}\times 21.937\times 10^3\text{ V}} = \mathbf{1579.09\text{ A}}\ (\approx \mathbf{1579.1\text{ A}})$$
+- **過載檢驗判斷**：
+  - 變壓器二次側額定容量為 $60\text{ MVA}$，額定電流為 $I_{2,\text{rated}} = \mathbf{1449.41\text{ A}}$。
+  - 實際電流負載率為：
+    $$\frac{I_2}{I_{2,\text{rated}}} = \frac{1579.09\text{ A}}{1449.41\text{ A}} = 108.95\% > 100\%$$
+  - **結論**：實際電流超過額定電流約 **$8.95\%$**，變壓器處於 **過載（Overloaded）** 運轉狀態！
+  *(註：若依標么額定電流 $1.0\text{ pu} = 1449.4\text{ A}$ 運轉，則恰為滿載；但在實際 $60\text{ MVA}$ 恆功率負載下必因欠壓導致電流上升而過載)*。
+
+---
+
+#### 4. (三) 求解變壓器二次側電壓調整率（VR%）
+題目明確說明「一次側接電源，電源電壓 $E_s$ 不變」：
+- **無載時（No-Load, $I=0$）**：線路與變壓器均無電流壓降，二次側無載電壓即為電源電壓經變壓比轉換值：
+  $$V_{2,\text{NL,pu}} = |\mathbf{E}_{s,\text{pu}}| = 1.01122\text{ pu}\implies V_{2,\text{NL}} = 1.01122 \times 23.9\text{ kV} = 24.168\text{ kV}$$
+- **滿載時（Full-Load）**：$V_{2,\text{FL,pu}} = 0.91788\text{ pu} \implies V_{2,\text{FL}} = 21.937\text{ kV}$
+- **電壓調整率定義**：
+  $$\text{VR} = \frac{V_{2,\text{NL}} - V_{2,\text{FL}}}{V_{2,\text{FL}}} \times 100\% = \frac{1.01122 - 0.91788}{0.91788} \times 100\% = \frac{0.09334}{0.91788} \times 100\% = \mathbf{10.17\%}$$
+  *(註：若僅計算變壓器本體且假設一次端電壓 $V_1=1.0\text{ pu}$ 恆定，則 $\text{VR} = \frac{1.0 - 0.91788}{0.91788} \times 100\% = \mathbf{8.95\%}$；本題含電源阻抗且電源電壓不變時，標準值應為 **$10.17\%$**)*。
+
+---
+
+#### 5. (四) 求解二次側穩態三相短路電流 $I_{sc}$
+當二次側端點發生對稱三相短路時：
+- **總短路標么阻抗**：包含電源阻抗與變壓器漏抗
+  $$Z_{\text{total,pu}} = Z_{s,\text{pu}} + Z_{T,\text{pu}} = j0.01852 + j0.15 = j0.16852\text{ pu}$$
+- **由恆定電源電壓 $\mathbf{E}_s = 1.01122\text{ pu}$ 驅動**：
+  $$I_{sc,\text{pu}} = \frac{|\mathbf{E}_{s,\text{pu}}|}{|Z_{\text{total,pu}}|} = \frac{1.01122}{0.16852} = \mathbf{6.0007\text{ pu}}$$
+- **轉換為二次側安培值（A）**：
+  $$I_{sc} = I_{sc,\text{pu}} \times I_{2,\text{base}} = 6.0007 \times 1449.41\text{ A} = \mathbf{8697.5\text{ A}}\ (\approx \mathbf{8.70\text{ kA}})$$
+  *(註：若依故障前額定端電壓 $1.0\text{ pu}$ 近似計算，則 $I_{sc} = \frac{1.0}{0.16852} \times 1449.4\text{ A} = \mathbf{8601.0\text{ A}} = \mathbf{8.60\text{ kA}}$)*。
 
 ---
 
 ### 🎯 第二題 滿分關鍵與結論
-- **二次側電壓**：$V_2 = \mathbf{21.94\text{ kV}}, E_s = \mathbf{162.8\text{ kV}}$
-- **滿載電流**：$I_2 = \mathbf{1449.3\text{ A}}$（無過載）
-- **電壓調整率**：$\text{VR} = \mathbf{8.94\%}$
-- **短路電流**：$I_{sc} = \mathbf{8.60\text{ kA}}$
+- **(一) 電壓大小**：
+  - 二次側端電壓：$V_2 = \mathbf{21.94\text{ kV}}\ (0.9179\text{ pu})$
+  - 一次側電源電壓：$E_s = \mathbf{162.81\text{ kV}}\ (1.0112\text{ pu})$
+- **(二) 二次側電流與過載判斷**：
+  - 實際電流：$I_2 = \mathbf{1579.1\text{ A}}\ (1.0895\text{ pu})$
+  - 判斷：**變壓器已過載（過載率 $108.95\%$，超載 $8.95\%$）**
+- **(三) 電壓調整率**：
+  - 全系統調整率（電源電壓 $E_s$ 不變）：$\text{VR} = \mathbf{10.17\%}$（變壓器本體端電壓標準：$8.95\%$）
+- **(四) 穩態三相短路電流**：
+  - $I_{sc} = \mathbf{8697.5\text{ A}} = \mathbf{8.70\text{ kA}}\ (6.00\text{ pu})$（標稱電壓基準：$8.60\text{ kA}$）
 
 ---
 

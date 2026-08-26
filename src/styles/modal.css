@@ -335,3 +335,136 @@
   color: var(--muted);
   font-weight: 600;
 }
+
+/* 🎴 Active Recall Mode */
+.active-recall-box {
+  background: var(--bg-secondary);
+  border: 1.5px dashed var(--accent);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin: 18px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.active-recall-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reveal-hint, .btn-reveal-full {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reveal-hint {
+  background: var(--warn-light);
+  color: var(--warn);
+  border-color: var(--warn);
+}
+.btn-reveal-hint:hover {
+  background: var(--warn);
+  color: #ffffff;
+}
+
+.btn-reveal-full {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent-dark);
+}
+.btn-reveal-full:hover {
+  background: var(--accent-dark);
+}
+
+.sm2-rating-bar {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 24px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.sm2-rating-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink-light);
+  text-align: center;
+}
+
+.sm2-rating-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-sm2 {
+  flex: 1 1 140px;
+  max-width: 220px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+
+.btn-sm2 .subtext {
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.btn-sm2-1 {
+  background: var(--review-light);
+  color: var(--review);
+  border-color: var(--review);
+}
+.btn-sm2-1:hover {
+  background: var(--review);
+  color: #ffffff;
+}
+
+.btn-sm2-3 {
+  background: var(--warn-light);
+  color: var(--warn);
+  border-color: var(--warn);
+}
+.btn-sm2-3:hover {
+  background: var(--warn);
+  color: #ffffff;
+}
+
+.btn-sm2-5 {
+  background: var(--success-light);
+  color: var(--success);
+  border-color: var(--success);
+}
+.btn-sm2-5:hover {
+  background: var(--success);
+  color: #ffffff;
+}

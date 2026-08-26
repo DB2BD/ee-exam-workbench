@@ -281,31 +281,200 @@ function switchSubQuestion(idx) {
   }
 }
 
+let isActiveRecallMode = false;
+
+function toggleActiveRecallMode() {
+  isActiveRecallMode = !isActiveRecallMode;
+  const btn = document.getElementById('btn-active-recall');
+  if (btn) {
+    btn.classList.toggle('active', isActiveRecallMode);
+    btn.style.background = isActiveRecallMode ? 'var(--accent)' : 'var(--surface)';
+    btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
+    btn.style.borderColor = isActiveRecallMode ? 'var(--accent-dark)' : 'var(--line)';
+  }
+  showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式 (三階蓋牌)' : '📖 已切換為全開放詳解模式');
+
+  // Re-render current question with or without active recall masking
+  const rawMd = resolveSolutionMarkdown(currentModalSolLink, currentModalQid);
+  const qRecord = findQuestionRecord(currentModalQid);
+  if (rawMd) {
+    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum);
+    if (currentSubQuestionIdx === 0 || subParts.length === 0) {
+      renderSubQuestionContent(fullContent, qRecord);
+    } else if (subParts[currentSubQuestionIdx - 1]) {
+      renderSubQuestionContent(subParts[currentSubQuestionIdx - 1], qRecord);
+    }
+  }
+}
+
+function revealRecallHint() {
+  const hintEl = document.getElementById('recall-hint-section');
+  if (hintEl) {
+    hintEl.style.display = 'block';
+    hintEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function revealRecallFull() {
+  const fullEl = document.getElementById('recall-full-section');
+  const ratingEl = document.getElementById('recall-rating-bar');
+  const boxEl = document.getElementById('recall-step-box');
+  if (fullEl) fullEl.style.display = 'block';
+  if (ratingEl) ratingEl.style.display = 'flex';
+  if (boxEl) boxEl.style.display = 'none';
+
+  // Render any hidden math in full section
+  const rightPane = document.getElementById('modal-right-content');
+  if (rightPane && typeof renderMathInElement !== 'undefined') {
+    renderMathInElement(fullEl, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+}
+
+function submitSM2Rating(rating) {
+  if (!currentModalQid) return;
+  const result = recordSM2Review(currentModalQid, rating);
+  const ratingTexts = { 1: '🔴 遺忘 (明日二刷)', 3: '🟡 勉強 (3天後複習)', 5: '🟢 完美秒殺 (已延長間隔)' };
+  showToast(`🎯 已排程：${ratingTexts[rating]} (下次：${result.nextReviewDate})`);
+
+  // Refresh badges in question list
+  if (typeof renderQuestions === 'function') renderQuestions();
+  updateModalStatusButtons(currentModalQid);
+
+  // Auto transition to next question if rating 5
+  if (rating === 5) {
+    setTimeout(() => {
+      navModalQuestion(1);
+    }, 600);
+  }
+}
+
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
 
-  // Render KaTeX protected markdown
-  let html = processMarkdownWithMath(markdownChunk);
+  if (isActiveRecallMode) {
+    // Split markdownChunk into: 1. Question stem, 2. Hints, 3. Step Derivations & Conclusion
+    const stepSplitRegex = /(?=\n##\s+(?:✏️|步驟|詳細推導|完整解答|推導|一、|二、|三、|四、|五、))/i;
+    const hintSplitRegex = /(?=\n##\s+(?:💡|核心考點|破題關鍵|解題思路))/i;
 
-  // Replace image URLs from image maps
-  const isGK = currentModalQid && currentModalQid.startsWith('GK-');
-  html = html.replace(/src=["'](.*?)["']/g, (match, src) => {
-    return `src="${resolveImageMapUrl(src, isGK)}"`;
-  });
+    let stemPart = markdownChunk;
+    let hintPart = '';
+    let derivationPart = '';
 
-  // Append Knowledge DAG Weakness Tracer
-  if (qRecord) {
-    const [qid, sid, yr, qnum, topic] = qRecord;
-    const dagCardHtml = renderDagTracerCard(qid, sid, topic);
-    html += dagCardHtml;
+    if (hintSplitRegex.test(markdownChunk)) {
+      const parts = markdownChunk.split(hintSplitRegex);
+      stemPart = parts[0];
+      const rest = parts.slice(1).join('\n');
+      if (stepSplitRegex.test(rest)) {
+        const restParts = rest.split(stepSplitRegex);
+        hintPart = restParts[0];
+        derivationPart = restParts.slice(1).join('\n');
+      } else {
+        hintPart = rest;
+      }
+    } else if (stepSplitRegex.test(markdownChunk)) {
+      const parts = markdownChunk.split(stepSplitRegex);
+      stemPart = parts[0];
+      derivationPart = parts.slice(1).join('\n');
+    }
+
+    const isGK = currentModalQid && currentModalQid.startsWith('GK-');
+
+    let stemHtml = processMarkdownWithMath(stemPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
+    let hintHtml = hintPart ? processMarkdownWithMath(hintPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
+    let derivationHtml = derivationPart ? processMarkdownWithMath(derivationPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
+
+    let dagHtml = '';
+    if (qRecord) {
+      const [qid, sid, yr, qnum, topic] = qRecord;
+      dagHtml = renderDagTracerCard(qid, sid, topic);
+    }
+
+    rightPane.innerHTML = `
+      <div class="solution-content">
+        ${stemHtml}
+
+        <div class="active-recall-box" id="recall-step-box">
+          <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
+          <p style="font-size: 0.85rem; color: var(--muted); margin: 0;">白紙蓋牌獨立思考，列出破題公式與關鍵步驟後再揭曉：</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+            ${hintHtml ? '<button class="btn-reveal-hint" onclick="revealRecallHint()">💡 提示核心考點與思路</button>' : ''}
+            <button class="btn-reveal-full" onclick="revealRecallFull()">📖 揭曉完整步驟推導</button>
+          </div>
+        </div>
+
+        <div id="recall-hint-section" style="display: none; margin: 16px 0; padding: 14px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
+          ${hintHtml}
+        </div>
+
+        <div id="recall-full-section" style="display: none;">
+          ${derivationHtml}
+          ${dagHtml}
+        </div>
+
+        <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
+          <div class="sm2-rating-title">🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：</div>
+          <div class="sm2-rating-buttons">
+            <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
+              <span>🔴 遺忘卡關</span>
+              <span class="subtext">明日立即二刷 (EF-0.2)</span>
+            </button>
+            <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
+              <span>🟡 勉強推導</span>
+              <span class="subtext">3 天後再次複習</span>
+            </button>
+            <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
+              <span>🟢 完美秒殺</span>
+              <span class="subtext">延長複習間隔 (EF+0.1)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  } else {
+    // Normal Full Open Mode
+    let html = processMarkdownWithMath(markdownChunk);
+    const isGK = currentModalQid && currentModalQid.startsWith('GK-');
+    html = html.replace(/src=["'](.*?)["']/g, (match, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
+
+    if (qRecord) {
+      const [qid, sid, yr, qnum, topic] = qRecord;
+      html += renderDagTracerCard(qid, sid, topic);
+    }
+
+    // Add SM-2 quick rating footer in normal mode as well!
+    html += `
+      <div class="sm2-rating-bar">
+        <div class="sm2-rating-title">🎯 複習自評反饋（SM-2 智能間隔排程）：</div>
+        <div class="sm2-rating-buttons">
+          <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
+            <span>🔴 遺忘卡關</span>
+            <span class="subtext">明日二刷</span>
+          </button>
+          <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
+            <span>🟡 勉強推導</span>
+            <span class="subtext">3天後複習</span>
+          </button>
+          <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
+            <span>🟢 完美秒殺</span>
+            <span class="subtext">間隔延長</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    rightPane.innerHTML = `
+      <div class="solution-content">
+        ${html}
+      </div>
+    `;
   }
-
-  rightPane.innerHTML = `
-    <div class="solution-content">
-      ${html}
-    </div>
-  `;
 
   // Auto-render any remaining math formulas
   if (typeof renderMathInElement !== 'undefined') {
@@ -371,3 +540,4 @@ window.addEventListener('keydown', (e) => {
     navModalQuestion(1);
   }
 });
+

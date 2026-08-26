@@ -50,6 +50,10 @@ function renderQuestions() {
     if (activeQuickFilter === 'review' && curStatus !== 2) return false;
     if (activeQuickFilter === 'starred' && !isStarred) return false;
     if (activeQuickFilter === 'dedicated' && !hasDed) return false;
+    if (activeQuickFilter === 'due') {
+      const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
+      if (!dueList.includes(qid)) return false;
+    }
     if (activeQuickFilter === 'top10') {
       const topKeywords = ['戴維寧', '暫態', '三相', '差動', '微積分', '變壓器', '感應', '短路', '功角', '保護'];
       const matched = topKeywords.some(k => topic.includes(k) || (tags || []).some(t => t.includes(k)));
@@ -93,6 +97,8 @@ function renderQuestions() {
     const starIcons = '⭐'.repeat(Math.max(1, Math.min(5, diff || 3)));
     const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
 
+    const dueInfo = typeof getReviewBadgeInfo === 'function' ? getReviewBadgeInfo(qid) : { text: '', cssClass: 'due-none' };
+
     return `
       <div class="qcard" id="card-${qid}">
         <div class="qhead">
@@ -112,10 +118,11 @@ function renderQuestions() {
         <div class="qtopic">${topic}</div>
 
         <div class="qfooter">
-          <div style="display: flex; gap: 8px; align-items: center;">
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <button class="status-badge s-${curStatus}" onclick="toggleStatus('${qid}', event)" title="點擊切換做題掌握狀態">
               ${statusLabels[curStatus]}
             </button>
+            ${dueInfo.text ? `<span class="due-badge ${dueInfo.cssClass}" title="SM-2 智能間隔重複排程">${dueInfo.text}</span>` : ''}
           </div>
           <div style="display: flex; gap: 8px; align-items: center;">
             <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">

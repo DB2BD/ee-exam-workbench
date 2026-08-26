@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260827_0037"></script>
-<script src="./solutions-bundle.js?v=20260827_0037"></script>
-<script src="./national-exams-data.js?v=20260827_0037"></script>
-<script src="./national-solutions-bundle.js?v=20260827_0037"></script>
+<script src="./dashboard-data.js?v=20260827_0043"></script>
+<script src="./solutions-bundle.js?v=20260827_0043"></script>
+<script src="./national-exams-data.js?v=20260827_0043"></script>
+<script src="./national-solutions-bundle.js?v=20260827_0043"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -583,6 +583,86 @@ select:focus {
 .btn-timer.pause { background: var(--warn); color: #fff; }
 .btn-timer.reset { background: var(--bg-secondary); color: var(--ink); border: 1px solid var(--line); }
 
+/* 🧠 SM-2 Spaced Repetition Badges */
+.due-badge {
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid transparent;
+}
+.due-badge.due-today {
+  background: var(--review-light);
+  color: var(--review);
+  border-color: var(--review);
+  animation: pulseDue 2s infinite ease-in-out;
+}
+.due-badge.due-soon {
+  background: var(--warn-light);
+  color: var(--warn);
+  border-color: var(--warn);
+}
+.due-badge.due-far {
+  background: var(--success-light);
+  color: var(--success);
+  border-color: var(--success);
+}
+.due-badge.due-none {
+  background: var(--bg-secondary);
+  color: var(--muted);
+  border-color: var(--line);
+}
+
+@keyframes pulseDue {
+  0% { box-shadow: 0 0 0 0 rgba(184, 93, 88, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(184, 93, 88, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(184, 93, 88, 0); }
+}
+
+/* 💾 Backup & Restore Modal */
+#backup-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 33, 37, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 10001;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+#backup-modal.show {
+  display: flex;
+}
+.backup-modal-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  max-width: 580px;
+  width: 100%;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.backup-textarea {
+  width: 100%;
+  height: 140px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  outline: none;
+  resize: vertical;
+}
+
 
 /* === src/styles/modal.css === */
 /* src/styles/modal.css */
@@ -923,6 +1003,139 @@ select:focus {
   font-weight: 600;
 }
 
+/* 🎴 Active Recall Mode */
+.active-recall-box {
+  background: var(--bg-secondary);
+  border: 1.5px dashed var(--accent);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin: 18px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.active-recall-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reveal-hint, .btn-reveal-full {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reveal-hint {
+  background: var(--warn-light);
+  color: var(--warn);
+  border-color: var(--warn);
+}
+.btn-reveal-hint:hover {
+  background: var(--warn);
+  color: #ffffff;
+}
+
+.btn-reveal-full {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent-dark);
+}
+.btn-reveal-full:hover {
+  background: var(--accent-dark);
+}
+
+.sm2-rating-bar {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 24px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.sm2-rating-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink-light);
+  text-align: center;
+}
+
+.sm2-rating-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-sm2 {
+  flex: 1 1 140px;
+  max-width: 220px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+
+.btn-sm2 .subtext {
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.btn-sm2-1 {
+  background: var(--review-light);
+  color: var(--review);
+  border-color: var(--review);
+}
+.btn-sm2-1:hover {
+  background: var(--review);
+  color: #ffffff;
+}
+
+.btn-sm2-3 {
+  background: var(--warn-light);
+  color: var(--warn);
+  border-color: var(--warn);
+}
+.btn-sm2-3:hover {
+  background: var(--warn);
+  color: #ffffff;
+}
+
+.btn-sm2-5 {
+  background: var(--success-light);
+  color: var(--success);
+  border-color: var(--success);
+}
+.btn-sm2-5:hover {
+  background: var(--success);
+  color: #ffffff;
+}
+
 
 /* === src/styles/dag-graph.css === */
 /* src/styles/dag-graph.css */
@@ -1125,8 +1338,7 @@ select:focus {
       </div>
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
-        <button onclick="exportProgressJSON()" class="pill">💾 匯出進度</button>
-        <button onclick="importProgressJSON()" class="pill">📥 匯入進度</button>
+        <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
         <a href="./australia-job-radar.html" target="_blank" class="pill" style="background: var(--accent-light); color: var(--accent-dark); text-decoration: none; font-weight: 700;">
           🇦🇺 澳洲求職戰情室 ➔
         </a>
@@ -1262,6 +1474,7 @@ select:focus {
     <div class="pills-bar">
       <span style="font-size: 0.82rem; color: var(--muted); font-weight: 600;">⚡ 快速篩選：</span>
       <button class="pill active" onclick="setQuickFilter('all', this)">全部試題</button>
+      <button class="pill" onclick="setQuickFilter('due', this)" title="SM-2 今日待複習或逾期試題">⏳ 今日待複習</button>
       <button class="pill" onclick="setQuickFilter('review', this)">🔴 我的錯題本</button>
       <button class="pill" onclick="setQuickFilter('starred', this)">⭐ 我的收藏</button>
       <button class="pill" onclick="setQuickFilter('top10', this)">🔥 高頻核心考點</button>
@@ -1295,16 +1508,17 @@ select:focus {
           <p style="font-size: 0.85rem; color: var(--muted); margin-top: 2px;">白紙蓋牌獨立推導，訓練考場時間分配與作答節奏</p>
         </div>
         
-        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-          <select id="exam-select-subj">
+        <!-- Exam Year & Subject Selector -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+          <select id="exam-select-subj" style="font-weight: 600;">
             <option value="01">⚡ 01. 電路學</option>
             <option value="02">🔌 02. 電子學（含電力電子）</option>
             <option value="03">📐 03. 工程數學</option>
-            <option value="04" selected>⚙️ 04. 電機機械</option>
+            <option value="04">⚙️ 04. 電機機械</option>
             <option value="05">🏢 05. 電力系統</option>
             <option value="06">🏭 06. 工業配電</option>
           </select>
-          <select id="exam-select-yr">
+          <select id="exam-select-yr" style="font-weight: 600;">
             <option value="114">114 年全卷</option>
             <option value="113">113 年全卷</option>
             <option value="112">112 年全卷</option>
@@ -1369,7 +1583,7 @@ select:focus {
       </div>
     </div>
 
-    <!-- Modal Navigation Toolbar (上一題 / 下一題 / 該年度選題 / 視圖切換) -->
+    <!-- Modal Navigation Toolbar (上一題 / 下一題 / 該年度選題 / 視圖切換 / 主動回想) -->
     <div class="modal-nav-bar">
       <div class="modal-nav-group">
         <button class="btn-modal-nav" id="btn-modal-prev" onclick="navModalQuestion(-1)" title="快捷鍵：鍵盤向左鍵 ←">
@@ -1379,6 +1593,9 @@ select:focus {
         </select>
         <button class="btn-modal-nav" id="btn-modal-next" onclick="navModalQuestion(1)" title="快捷鍵：鍵盤向右鍵 →">
           下一題 →
+        </button>
+        <button class="btn-modal-nav" id="btn-active-recall" onclick="toggleActiveRecallMode()" title="主動回想蓋牌模式：先白紙列式，再揭曉破題提示與步驟">
+          🎴 主動回想
         </button>
       </div>
 
@@ -1414,6 +1631,29 @@ select:focus {
       <div class="modal-pane-right" id="modal-pane-right">
         <div id="modal-right-content"></div>
       </div>
+    </div>
+  </div>
+<!-- Backup & Restore Modal -->
+<div id="backup-modal" onclick="closeBackupModal()">
+  <div class="backup-modal-box" onclick="event.stopPropagation()">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 10px;">
+      <h3 style="color: var(--accent-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+        💾 備考進度與 SM-2 排程備份/還原
+      </h3>
+      <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;">✕</button>
+    </div>
+    <p style="font-size: 0.86rem; color: var(--muted);">
+      此代碼包含全庫 423 題做題狀態、重點收藏與 SM-2 智能遺忘曲線週期。複製此 JSON 或在換裝置時貼上即可無縫銜接：
+    </p>
+    <textarea id="backup-json-textarea" class="backup-textarea" placeholder="在此貼上備份 JSON 代碼..."></textarea>
+    <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+      <div style="display: flex; gap: 8px;">
+        <button onclick="copyBackupToClipboard()" class="btn-sol">📋 複製代碼</button>
+        <button onclick="exportProgressJSON()" class="btn-pdf">📥 下載 .json</button>
+      </div>
+      <button onclick="applyImportedBackupJSON()" class="btn-sol" style="background: var(--success); border-color: var(--success);">
+        ✅ 貼上並套用還原
+      </button>
     </div>
   </div>
 </div>
@@ -2383,6 +2623,198 @@ function switchExamCategory(catId) {
 }
 
 
+// === src/state/sm2Store.js ===
+// -*- coding: utf-8 -*-
+/**
+ * sm2Store.js
+ * ============
+ * SuperMemo SM-2 Spaced Repetition Algorithm & Active Recall Manager.
+ *
+ * Provides:
+ * 1. sm2Schedule: Object mapping qid -> { repetitions, interval, easeFactor, lastReviewed, nextReviewDate }
+ * 2. recordSM2Review(qid, rating): rating: 1 (Forgot), 3 (Hard), 5 (Easy)
+ * 3. getDueQuestionsList(): Returns list of qids due for review today or overdue
+ * 4. getReviewBadgeInfo(qid): Returns display badge text and color class
+ * 5. exportAllUserDataJSON(): Exports all progress, starred, and SM2 schedule
+ * 6. importUserDataJSON(jsonStr): Imports and validates backup
+ */
+
+const SM2_STORAGE_KEY = 'EE_EXAM_SM2_SCHEDULE_V1';
+
+let sm2Schedule = {};
+
+function initSM2Store() {
+  try {
+    const raw = localStorage.getItem(SM2_STORAGE_KEY);
+    sm2Schedule = raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    console.error('Failed to load SM-2 schedule from localStorage:', e);
+    sm2Schedule = {};
+  }
+}
+
+function saveSM2Store() {
+  try {
+    localStorage.setItem(SM2_STORAGE_KEY, JSON.stringify(sm2Schedule));
+  } catch (e) {
+    console.error('Failed to save SM-2 schedule to localStorage:', e);
+  }
+}
+
+/**
+ * SuperMemo SM-2 Core Algorithm
+ * @param {string} qid - Question ID (e.g., 'EE-114-05-1')
+ * @param {number} rating - 1: Forgot (🔴), 3: Hard (🟡), 5: Easy/Mastered (🟢)
+ */
+function recordSM2Review(qid, rating) {
+  const now = new Date();
+  const todayStr = now.toISOString().split('T')[0];
+
+  let item = sm2Schedule[qid] || {
+    repetitions: 0,
+    interval: 0,
+    easeFactor: 2.5,
+    lastReviewed: null,
+    nextReviewDate: todayStr
+  };
+
+  let { repetitions, interval, easeFactor } = item;
+
+  if (rating < 3) {
+    // 🔴 Failed to recall: Reset repetition count and schedule for tomorrow
+    repetitions = 0;
+    interval = 1;
+    easeFactor = Math.max(1.3, easeFactor - 0.2);
+  } else if (rating === 3) {
+    // 🟡 Hard recall: Slightly increase interval, small EF penalty
+    if (repetitions === 0) {
+      interval = 1;
+    } else if (repetitions === 1) {
+      interval = 3;
+    } else {
+      interval = Math.max(1, Math.round(interval * 1.2));
+    }
+    repetitions += 1;
+    easeFactor = Math.max(1.3, easeFactor - 0.05);
+  } else {
+    // 🟢 Perfect recall: Standard SM-2 progression
+    if (repetitions === 0) {
+      interval = 1;
+    } else if (repetitions === 1) {
+      interval = 4;
+    } else {
+      interval = Math.round(interval * easeFactor);
+    }
+    repetitions += 1;
+    easeFactor = Math.min(3.0, easeFactor + 0.1);
+  }
+
+  // Calculate next review date
+  const nextDate = new Date();
+  nextDate.setDate(nextDate.getDate() + interval);
+  const nextReviewDateStr = nextDate.toISOString().split('T')[0];
+
+  sm2Schedule[qid] = {
+    repetitions,
+    interval,
+    easeFactor: parseFloat(easeFactor.toFixed(2)),
+    lastReviewed: todayStr,
+    nextReviewDate: nextReviewDateStr
+  };
+
+  saveSM2Store();
+
+  // Also sync with progressState (1: Mastered if rating 5, 2: Review if rating 1)
+  if (typeof progressState !== 'undefined') {
+    if (rating === 5) progressState[qid] = 1;
+    else if (rating === 1) progressState[qid] = 2;
+    if (typeof saveProgress === 'function') saveProgress();
+  }
+
+  return sm2Schedule[qid];
+}
+
+/**
+ * Returns list of question IDs due today or overdue
+ */
+function getDueQuestionsList() {
+  const todayStr = new Date().toISOString().split('T')[0];
+  const dueQids = [];
+
+  for (const [qid, data] of Object.entries(sm2Schedule)) {
+    if (data.nextReviewDate && data.nextReviewDate <= todayStr) {
+      dueQids.push(qid);
+    }
+  }
+  return dueQids;
+}
+
+/**
+ * Returns badge info for a question card
+ */
+function getReviewBadgeInfo(qid) {
+  const item = sm2Schedule[qid];
+  if (!item || !item.nextReviewDate) {
+    return { text: '⚪ 尚未排程', cssClass: 'due-none', isDue: false };
+  }
+
+  const todayStr = new Date().toISOString().split('T')[0];
+  if (item.nextReviewDate <= todayStr) {
+    return { text: '🔔 今日待複習', cssClass: 'due-today', isDue: true };
+  }
+
+  const diffMs = new Date(item.nextReviewDate) - new Date(todayStr);
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays >= 14) {
+    return { text: `🔥 已穩固 (${diffDays}天後)`, cssClass: 'due-far', isDue: false };
+  } else {
+    return { text: `⏳ ${diffDays} 天後複習`, cssClass: 'due-soon', isDue: false };
+  }
+}
+
+/**
+ * Export All User Data to JSON
+ */
+function exportAllUserDataJSON() {
+  const data = {
+    version: '1.0.0',
+    exportedAt: new Date().toISOString(),
+    progressState: typeof progressState !== 'undefined' ? progressState : {},
+    starredState: typeof starredState !== 'undefined' ? starredState : {},
+    sm2Schedule: sm2Schedule
+  };
+  return JSON.stringify(data, null, 2);
+}
+
+/**
+ * Import User Data from JSON string
+ */
+function importUserDataJSON(jsonStr) {
+  try {
+    const data = JSON.parse(jsonStr);
+    if (data.progressState) {
+      progressState = data.progressState;
+      if (typeof saveProgress === 'function') saveProgress();
+    }
+    if (data.starredState) {
+      starredState = data.starredState;
+      if (typeof saveProgress === 'function') saveProgress();
+    }
+    if (data.sm2Schedule) {
+      sm2Schedule = data.sm2Schedule;
+      saveSM2Store();
+    }
+    return { success: true, count: Object.keys(data.progressState || {}).length };
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+}
+
+// Auto-initialize on load
+initSM2Store();
+
+
 // === src/renderers/katexRenderer.js ===
 // src/renderers/katexRenderer.js
 /**
@@ -2669,21 +3101,61 @@ function updateStatsAndBar() {
 }
 
 function exportProgressJSON() {
-  const data = {
+  const jsonStr = typeof exportAllUserDataJSON === 'function' ? exportAllUserDataJSON() : JSON.stringify({
     version: "2.0",
     exportTime: new Date().toISOString(),
     category: currentExamCategory,
     progressState: progressState,
     starredState: starredState
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  }, null, 2);
+
+  const blob = new Blob([jsonStr], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `電機技師備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `電機國考備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast("💾 備考進度已成功匯出備份！");
+  showToast("💾 備考與 SM-2 排程進度已成功匯出備份！");
+}
+
+function openBackupModal() {
+  const modal = document.getElementById('backup-modal');
+  const textarea = document.getElementById('backup-json-textarea');
+  if (!modal) return;
+
+  const jsonStr = typeof exportAllUserDataJSON === 'function' ? exportAllUserDataJSON() : JSON.stringify({ progressState, starredState }, null, 2);
+  if (textarea) textarea.value = jsonStr;
+  modal.classList.add('show');
+}
+
+function closeBackupModal() {
+  const modal = document.getElementById('backup-modal');
+  if (modal) modal.classList.remove('show');
+}
+
+function copyBackupToClipboard() {
+  const textarea = document.getElementById('backup-json-textarea');
+  if (!textarea) return;
+  textarea.select();
+  navigator.clipboard.writeText(textarea.value).then(() => {
+    showToast("📋 已複製 JSON 備份代碼至剪貼簿！");
+  });
+}
+
+function applyImportedBackupJSON() {
+  const textarea = document.getElementById('backup-json-textarea');
+  if (!textarea || !textarea.value.trim()) return;
+
+  const res = typeof importUserDataJSON === 'function' ? importUserDataJSON(textarea.value.trim()) : { success: false, error: 'import handler unavailable' };
+  if (res.success) {
+    updateStatsAndBar();
+    renderQuestions();
+    closeBackupModal();
+    showToast(`📥 成功還原 ${res.count} 筆進度與 SM-2 複習週期！`);
+  } else {
+    alert(`❌ 匯入失敗：${res.error || '無效的 JSON 格式'}`);
+  }
 }
 
 function importProgressJSON() {
@@ -2696,13 +3168,14 @@ function importProgressJSON() {
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
-        const imported = JSON.parse(event.target.result);
-        if (imported.progressState) progressState = imported.progressState;
-        if (imported.starredState) starredState = imported.starredState;
-        saveProgress();
-        updateStatsAndBar();
-        renderQuestions();
-        showToast("📥 備考進度已成功匯入還原！");
+        const res = typeof importUserDataJSON === 'function' ? importUserDataJSON(event.target.result) : null;
+        if (!res || res.success) {
+          updateStatsAndBar();
+          renderQuestions();
+          showToast("📥 備考進度與 SM-2 排程已成功匯入還原！");
+        } else {
+          alert(`❌ 匯入失敗：${res.error}`);
+        }
       } catch (err) {
         alert("❌ 匯入失敗：檔案格式不正確！");
       }
@@ -2775,6 +3248,10 @@ function renderQuestions() {
     if (activeQuickFilter === 'review' && curStatus !== 2) return false;
     if (activeQuickFilter === 'starred' && !isStarred) return false;
     if (activeQuickFilter === 'dedicated' && !hasDed) return false;
+    if (activeQuickFilter === 'due') {
+      const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
+      if (!dueList.includes(qid)) return false;
+    }
     if (activeQuickFilter === 'top10') {
       const topKeywords = ['戴維寧', '暫態', '三相', '差動', '微積分', '變壓器', '感應', '短路', '功角', '保護'];
       const matched = topKeywords.some(k => topic.includes(k) || (tags || []).some(t => t.includes(k)));
@@ -2818,6 +3295,8 @@ function renderQuestions() {
     const starIcons = '⭐'.repeat(Math.max(1, Math.min(5, diff || 3)));
     const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
 
+    const dueInfo = typeof getReviewBadgeInfo === 'function' ? getReviewBadgeInfo(qid) : { text: '', cssClass: 'due-none' };
+
     return `
       <div class="qcard" id="card-${qid}">
         <div class="qhead">
@@ -2837,10 +3316,11 @@ function renderQuestions() {
         <div class="qtopic">${topic}</div>
 
         <div class="qfooter">
-          <div style="display: flex; gap: 8px; align-items: center;">
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <button class="status-badge s-${curStatus}" onclick="toggleStatus('${qid}', event)" title="點擊切換做題掌握狀態">
               ${statusLabels[curStatus]}
             </button>
+            ${dueInfo.text ? `<span class="due-badge ${dueInfo.cssClass}" title="SM-2 智能間隔重複排程">${dueInfo.text}</span>` : ''}
           </div>
           <div style="display: flex; gap: 8px; align-items: center;">
             <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">
@@ -3141,31 +3621,200 @@ function switchSubQuestion(idx) {
   }
 }
 
+let isActiveRecallMode = false;
+
+function toggleActiveRecallMode() {
+  isActiveRecallMode = !isActiveRecallMode;
+  const btn = document.getElementById('btn-active-recall');
+  if (btn) {
+    btn.classList.toggle('active', isActiveRecallMode);
+    btn.style.background = isActiveRecallMode ? 'var(--accent)' : 'var(--surface)';
+    btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
+    btn.style.borderColor = isActiveRecallMode ? 'var(--accent-dark)' : 'var(--line)';
+  }
+  showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式 (三階蓋牌)' : '📖 已切換為全開放詳解模式');
+
+  // Re-render current question with or without active recall masking
+  const rawMd = resolveSolutionMarkdown(currentModalSolLink, currentModalQid);
+  const qRecord = findQuestionRecord(currentModalQid);
+  if (rawMd) {
+    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum);
+    if (currentSubQuestionIdx === 0 || subParts.length === 0) {
+      renderSubQuestionContent(fullContent, qRecord);
+    } else if (subParts[currentSubQuestionIdx - 1]) {
+      renderSubQuestionContent(subParts[currentSubQuestionIdx - 1], qRecord);
+    }
+  }
+}
+
+function revealRecallHint() {
+  const hintEl = document.getElementById('recall-hint-section');
+  if (hintEl) {
+    hintEl.style.display = 'block';
+    hintEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function revealRecallFull() {
+  const fullEl = document.getElementById('recall-full-section');
+  const ratingEl = document.getElementById('recall-rating-bar');
+  const boxEl = document.getElementById('recall-step-box');
+  if (fullEl) fullEl.style.display = 'block';
+  if (ratingEl) ratingEl.style.display = 'flex';
+  if (boxEl) boxEl.style.display = 'none';
+
+  // Render any hidden math in full section
+  const rightPane = document.getElementById('modal-right-content');
+  if (rightPane && typeof renderMathInElement !== 'undefined') {
+    renderMathInElement(fullEl, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  }
+}
+
+function submitSM2Rating(rating) {
+  if (!currentModalQid) return;
+  const result = recordSM2Review(currentModalQid, rating);
+  const ratingTexts = { 1: '🔴 遺忘 (明日二刷)', 3: '🟡 勉強 (3天後複習)', 5: '🟢 完美秒殺 (已延長間隔)' };
+  showToast(`🎯 已排程：${ratingTexts[rating]} (下次：${result.nextReviewDate})`);
+
+  // Refresh badges in question list
+  if (typeof renderQuestions === 'function') renderQuestions();
+  updateModalStatusButtons(currentModalQid);
+
+  // Auto transition to next question if rating 5
+  if (rating === 5) {
+    setTimeout(() => {
+      navModalQuestion(1);
+    }, 600);
+  }
+}
+
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
 
-  // Render KaTeX protected markdown
-  let html = processMarkdownWithMath(markdownChunk);
+  if (isActiveRecallMode) {
+    // Split markdownChunk into: 1. Question stem, 2. Hints, 3. Step Derivations & Conclusion
+    const stepSplitRegex = /(?=\n##\s+(?:✏️|步驟|詳細推導|完整解答|推導|一、|二、|三、|四、|五、))/i;
+    const hintSplitRegex = /(?=\n##\s+(?:💡|核心考點|破題關鍵|解題思路))/i;
 
-  // Replace image URLs from image maps
-  const isGK = currentModalQid && currentModalQid.startsWith('GK-');
-  html = html.replace(/src=["'](.*?)["']/g, (match, src) => {
-    return `src="${resolveImageMapUrl(src, isGK)}"`;
-  });
+    let stemPart = markdownChunk;
+    let hintPart = '';
+    let derivationPart = '';
 
-  // Append Knowledge DAG Weakness Tracer
-  if (qRecord) {
-    const [qid, sid, yr, qnum, topic] = qRecord;
-    const dagCardHtml = renderDagTracerCard(qid, sid, topic);
-    html += dagCardHtml;
+    if (hintSplitRegex.test(markdownChunk)) {
+      const parts = markdownChunk.split(hintSplitRegex);
+      stemPart = parts[0];
+      const rest = parts.slice(1).join('\n');
+      if (stepSplitRegex.test(rest)) {
+        const restParts = rest.split(stepSplitRegex);
+        hintPart = restParts[0];
+        derivationPart = restParts.slice(1).join('\n');
+      } else {
+        hintPart = rest;
+      }
+    } else if (stepSplitRegex.test(markdownChunk)) {
+      const parts = markdownChunk.split(stepSplitRegex);
+      stemPart = parts[0];
+      derivationPart = parts.slice(1).join('\n');
+    }
+
+    const isGK = currentModalQid && currentModalQid.startsWith('GK-');
+
+    let stemHtml = processMarkdownWithMath(stemPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
+    let hintHtml = hintPart ? processMarkdownWithMath(hintPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
+    let derivationHtml = derivationPart ? processMarkdownWithMath(derivationPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
+
+    let dagHtml = '';
+    if (qRecord) {
+      const [qid, sid, yr, qnum, topic] = qRecord;
+      dagHtml = renderDagTracerCard(qid, sid, topic);
+    }
+
+    rightPane.innerHTML = `
+      <div class="solution-content">
+        ${stemHtml}
+
+        <div class="active-recall-box" id="recall-step-box">
+          <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
+          <p style="font-size: 0.85rem; color: var(--muted); margin: 0;">白紙蓋牌獨立思考，列出破題公式與關鍵步驟後再揭曉：</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+            ${hintHtml ? '<button class="btn-reveal-hint" onclick="revealRecallHint()">💡 提示核心考點與思路</button>' : ''}
+            <button class="btn-reveal-full" onclick="revealRecallFull()">📖 揭曉完整步驟推導</button>
+          </div>
+        </div>
+
+        <div id="recall-hint-section" style="display: none; margin: 16px 0; padding: 14px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
+          ${hintHtml}
+        </div>
+
+        <div id="recall-full-section" style="display: none;">
+          ${derivationHtml}
+          ${dagHtml}
+        </div>
+
+        <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
+          <div class="sm2-rating-title">🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：</div>
+          <div class="sm2-rating-buttons">
+            <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
+              <span>🔴 遺忘卡關</span>
+              <span class="subtext">明日立即二刷 (EF-0.2)</span>
+            </button>
+            <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
+              <span>🟡 勉強推導</span>
+              <span class="subtext">3 天後再次複習</span>
+            </button>
+            <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
+              <span>🟢 完美秒殺</span>
+              <span class="subtext">延長複習間隔 (EF+0.1)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  } else {
+    // Normal Full Open Mode
+    let html = processMarkdownWithMath(markdownChunk);
+    const isGK = currentModalQid && currentModalQid.startsWith('GK-');
+    html = html.replace(/src=["'](.*?)["']/g, (match, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
+
+    if (qRecord) {
+      const [qid, sid, yr, qnum, topic] = qRecord;
+      html += renderDagTracerCard(qid, sid, topic);
+    }
+
+    // Add SM-2 quick rating footer in normal mode as well!
+    html += `
+      <div class="sm2-rating-bar">
+        <div class="sm2-rating-title">🎯 複習自評反饋（SM-2 智能間隔排程）：</div>
+        <div class="sm2-rating-buttons">
+          <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
+            <span>🔴 遺忘卡關</span>
+            <span class="subtext">明日二刷</span>
+          </button>
+          <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
+            <span>🟡 勉強推導</span>
+            <span class="subtext">3天後複習</span>
+          </button>
+          <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
+            <span>🟢 完美秒殺</span>
+            <span class="subtext">間隔延長</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    rightPane.innerHTML = `
+      <div class="solution-content">
+        ${html}
+      </div>
+    `;
   }
-
-  rightPane.innerHTML = `
-    <div class="solution-content">
-      ${html}
-    </div>
-  `;
 
   // Auto-render any remaining math formulas
   if (typeof renderMathInElement !== 'undefined') {
@@ -3231,6 +3880,7 @@ window.addEventListener('keydown', (e) => {
     navModalQuestion(1);
   }
 });
+
 
 
 // === src/components/mockExamTimer.js ===

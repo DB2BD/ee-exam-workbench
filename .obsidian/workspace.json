@@ -191,6 +191,8 @@
   },
   "active": "1a0fd386ae54dd0b",
   "lastOpenFiles": [
+    "tests/test_sm2_spaced_repetition.py",
+    "src/state/sm2Store.js",
     "pyrefly.toml",
     "scripts/fix_all_matrix_bold_and_percents.py",
     "scripts/fix_final_25_lines.py",
@@ -200,8 +202,6 @@
     "scripts/fix_final_6_items.py",
     "scripts/fix_the_last_18_issues.py",
     "scripts/fix_remaining_38_issues.py",
-    "scripts/fix_final_59_issues.py",
-    "scripts/restore_display_math_endings.py",
     "📝 個人題解與錯題本/05_電力系統/108年_電力系統_全卷完整詳細題解.md",
     "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md",
     "walkthrough.md",

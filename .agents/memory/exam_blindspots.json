@@ -1,0 +1,97 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-08-26T00:00:00Z",
+  "description": "個人考科思維盲點、常犯計算錯誤與易漏物理觀念記憶庫 (Hermes Persistent Memory)",
+  "subjects": {
+    "circuit_theory": {
+      "name": "電路學",
+      "blindspots": [
+        {
+          "topic": "三相電路",
+          "note": "中性點不接地（浮接）時注意對稱分量電壓降與位能偏移",
+          "severity": "medium"
+        },
+        {
+          "topic": "拉氏轉換與暫態分析",
+          "note": "切換瞬間電感電流 i(0+) 與電容電壓 v(0+) 需嚴格滿足初值連續性定理",
+          "severity": "high"
+        },
+        {
+          "topic": "二埠網路",
+          "note": "Z, Y, h, ABCD 參數互相轉換時注意參考方向（I2 進入 vs 流出）",
+          "severity": "low"
+        }
+      ]
+    },
+    "power_systems": {
+      "name": "電力系統",
+      "blindspots": [
+        {
+          "topic": "標么值轉換 (Per-Unit)",
+          "note": "變壓器變比不匹配時，跨基準容量/電壓換算需先統一 S_base 再轉換 Z_base",
+          "severity": "high"
+        },
+        {
+          "topic": "故障分析 (Fault Analysis)",
+          "note": "單線接地故障 (SLG) 零序阻抗網路之變壓器接法（Y-Δ, Y_g-Δ, Y_g-Y_g）開路/接地規則",
+          "severity": "high"
+        },
+        {
+          "topic": "電力潮流計算",
+          "note": "PV 節點之無效功率 Q 是否超越極限 (Q_min, Q_max) 需轉化為 PQ 節點判斷",
+          "severity": "medium"
+        }
+      ]
+    },
+    "electrical_machinery": {
+      "name": "電機機械",
+      "blindspots": [
+        {
+          "topic": "感應電動機",
+          "note": "等效電路轉子電阻 R2/s 拆分為 R2 + R2(1-s)/s，機械功率推導勿混淆轉差率定義",
+          "severity": "medium"
+        },
+        {
+          "topic": "同步電機",
+          "note": "凸極機 (Salient Pole) 雙反應理論之 Id, Iq 分解與功率角 δ 符號約定",
+          "severity": "high"
+        }
+      ]
+    },
+    "engineering_mathematics": {
+      "name": "工程數學",
+      "blindspots": [
+        {
+          "topic": "常微分方程 (ODE)",
+          "note": "二階常係數非齊次 ODE 之未定係數法若與齊次解重根時需乘 x^s 修正項",
+          "severity": "medium"
+        },
+        {
+          "topic": "線性代數",
+          "note": "特徵值分解與對稱矩陣正交對角化時正規化單位向量易遺漏",
+          "severity": "low"
+        }
+      ]
+    },
+    "power_electronics": {
+      "name": "電力電子學",
+      "blindspots": [
+        {
+          "topic": "DC-DC 轉換器",
+          "note": "Buck/Boost 連續導通模式 (CCM) 與不連續導通模式 (DCM) 之電感伏秒平衡與電容電荷平衡條件",
+          "severity": "medium"
+        }
+      ]
+    },
+    "industrial_distribution": {
+      "name": "工業配電",
+      "blindspots": [
+        {
+          "topic": "短路容量與斷路器啟斷容量",
+          "note": "非對稱短路電流係數乘以對稱短路容量，高低壓斷路器計算依據標準規範",
+          "severity": "medium"
+        }
+      ]
+    }
+  }
+}

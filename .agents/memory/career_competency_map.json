@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-08-26T00:00:00Z",
+  "target_standard": "Engineers Australia (EA) Stage 1 Competency Standard for Professional Engineer",
+  "profile": {
+    "target_roles": [
+      "Senior Electrical Engineer",
+      "Power Systems Studies Engineer",
+      "Substation Primary/Secondary Design Engineer"
+    ],
+    "target_regions": ["Perth, WA", "Brisbane, QLD", "Sydney, NSW", "Melbourne, VIC"]
+  },
+  "competency_elements": {
+    "PE1_KNOWLEDGE_BASE": {
+      "PE1.1_theory_knowledge": {
+        "title": "Comprehensive, theory-based understanding of the underpinning natural and physical sciences and engineering fundamentals",
+        "evidence_summary": "104-114年台灣電機技師國家考試高階專業認證 (電路學、電力系統、電機機械、工數)",
+        "status": "strong"
+      },
+      "PE1.2_discipline_knowledge": {
+        "title": "Conceptual understanding of the, mathematics, numerical analysis, statistics, and computer and information sciences which underpin the engineering discipline",
+        "evidence_summary": "高階電力潮流矩陣計算、故障分析演算法、自動化分析 Python/SymPy 工具鏈",
+        "status": "strong"
+      },
+      "PE1.3_specialist_knowledge": {
+        "title": "In-depth understanding of specialist body of knowledge within the engineering discipline",
+        "evidence_summary": "重電設備選型、變電所系統、特高壓供電與配電保護協調",
+        "status": "developing"
+      }
+    },
+    "PE2_ENGINEERING_APPLICATION_ABILITY": {
+      "PE2.1_problem_solving": {
+        "title": "Application of established engineering methods to complex engineering problem solving",
+        "evidence_summary": "高階工業工程與重電設計專案經驗，解決複雜電氣負載與電壓降問題",
+        "status": "strong"
+      },
+      "PE2.2_fluent_application": {
+        "title": "Fluent application of engineering techniques, tools and resources",
+        "evidence_summary": "ETAP / PSCAD / PSS/E / Python 數據管線及工程圖面分析",
+        "status": "developing"
+      },
+      "PE2.3_design_processes": {
+        "title": "Application of systematic engineering synthesis and design processes",
+        "evidence_summary": "遵循 AS/NZS 標準與國際 IEC/IEEE 規範之變電所與配電設計",
+        "status": "developing"
+      }
+    },
+    "PE3_PROFESSIONAL_AND_PERSONAL_ATTRIBUTES": {
+      "PE3.1_ethical_conduct": {
+        "title": "Ethical conduct and professional accountability",
+        "evidence_summary": "恪守專業技師倫理與重電安全規範",
+        "status": "strong"
+      },
+      "PE3.2_communication": {
+        "title": "Effective oral and written communication in professional and lay domains",
+        "evidence_summary": "撰寫 CDR (Competency Demonstration Report) 與技術規格書",
+        "status": "in_progress"
+      },
+      "PE3.6_leadership_teamwork": {
+        "title": "Effective team membership and team leadership",
+        "evidence_summary": "跨領域工程協調與專案時程管理",
+        "status": "strong"
+      }
+    }
+  }
+}

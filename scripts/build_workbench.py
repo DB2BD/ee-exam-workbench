@@ -39,6 +39,7 @@ def build_workbench():
         'src/data/knowledge-dag.js',
         'src/state/store.js',
         'src/state/filterStore.js',
+        'src/state/sm2Store.js',
         'src/renderers/katexRenderer.js',
         'src/renderers/markdownRenderer.js',
         'src/components/dagTracer.js',
@@ -89,8 +90,7 @@ def build_workbench():
       </div>
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
-        <button onclick="exportProgressJSON()" class="pill">💾 匯出進度</button>
-        <button onclick="importProgressJSON()" class="pill">📥 匯入進度</button>
+        <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
         <a href="./australia-job-radar.html" target="_blank" class="pill" style="background: var(--accent-light); color: var(--accent-dark); text-decoration: none; font-weight: 700;">
           🇦🇺 澳洲求職戰情室 ➔
         </a>
@@ -226,6 +226,7 @@ def build_workbench():
     <div class="pills-bar">
       <span style="font-size: 0.82rem; color: var(--muted); font-weight: 600;">⚡ 快速篩選：</span>
       <button class="pill active" onclick="setQuickFilter('all', this)">全部試題</button>
+      <button class="pill" onclick="setQuickFilter('due', this)" title="SM-2 今日待複習或逾期試題">⏳ 今日待複習</button>
       <button class="pill" onclick="setQuickFilter('review', this)">🔴 我的錯題本</button>
       <button class="pill" onclick="setQuickFilter('starred', this)">⭐ 我的收藏</button>
       <button class="pill" onclick="setQuickFilter('top10', this)">🔥 高頻核心考點</button>
@@ -259,16 +260,17 @@ def build_workbench():
           <p style="font-size: 0.85rem; color: var(--muted); margin-top: 2px;">白紙蓋牌獨立推導，訓練考場時間分配與作答節奏</p>
         </div>
         
-        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-          <select id="exam-select-subj">
+        <!-- Exam Year & Subject Selector -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+          <select id="exam-select-subj" style="font-weight: 600;">
             <option value="01">⚡ 01. 電路學</option>
             <option value="02">🔌 02. 電子學（含電力電子）</option>
             <option value="03">📐 03. 工程數學</option>
-            <option value="04" selected>⚙️ 04. 電機機械</option>
+            <option value="04">⚙️ 04. 電機機械</option>
             <option value="05">🏢 05. 電力系統</option>
             <option value="06">🏭 06. 工業配電</option>
           </select>
-          <select id="exam-select-yr">
+          <select id="exam-select-yr" style="font-weight: 600;">
             <option value="114">114 年全卷</option>
             <option value="113">113 年全卷</option>
             <option value="112">112 年全卷</option>
@@ -333,7 +335,7 @@ def build_workbench():
       </div>
     </div>
 
-    <!-- Modal Navigation Toolbar (上一題 / 下一題 / 該年度選題 / 視圖切換) -->
+    <!-- Modal Navigation Toolbar (上一題 / 下一題 / 該年度選題 / 視圖切換 / 主動回想) -->
     <div class="modal-nav-bar">
       <div class="modal-nav-group">
         <button class="btn-modal-nav" id="btn-modal-prev" onclick="navModalQuestion(-1)" title="快捷鍵：鍵盤向左鍵 ←">
@@ -343,6 +345,9 @@ def build_workbench():
         </select>
         <button class="btn-modal-nav" id="btn-modal-next" onclick="navModalQuestion(1)" title="快捷鍵：鍵盤向右鍵 →">
           下一題 →
+        </button>
+        <button class="btn-modal-nav" id="btn-active-recall" onclick="toggleActiveRecallMode()" title="主動回想蓋牌模式：先白紙列式，再揭曉破題提示與步驟">
+          🎴 主動回想
         </button>
       </div>
 
@@ -378,6 +383,29 @@ def build_workbench():
       <div class="modal-pane-right" id="modal-pane-right">
         <div id="modal-right-content"></div>
       </div>
+    </div>
+  </div>
+<!-- Backup & Restore Modal -->
+<div id="backup-modal" onclick="closeBackupModal()">
+  <div class="backup-modal-box" onclick="event.stopPropagation()">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 10px;">
+      <h3 style="color: var(--accent-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+        💾 備考進度與 SM-2 排程備份/還原
+      </h3>
+      <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;">✕</button>
+    </div>
+    <p style="font-size: 0.86rem; color: var(--muted);">
+      此代碼包含全庫 423 題做題狀態、重點收藏與 SM-2 智能遺忘曲線週期。複製此 JSON 或在換裝置時貼上即可無縫銜接：
+    </p>
+    <textarea id="backup-json-textarea" class="backup-textarea" placeholder="在此貼上備份 JSON 代碼..."></textarea>
+    <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+      <div style="display: flex; gap: 8px;">
+        <button onclick="copyBackupToClipboard()" class="btn-sol">📋 複製代碼</button>
+        <button onclick="exportProgressJSON()" class="btn-pdf">📥 下載 .json</button>
+      </div>
+      <button onclick="applyImportedBackupJSON()" class="btn-sol" style="background: var(--success); border-color: var(--success);">
+        ✅ 貼上並套用還原
+      </button>
     </div>
   </div>
 </div>

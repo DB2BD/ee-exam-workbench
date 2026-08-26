@@ -45,21 +45,61 @@ function updateStatsAndBar() {
 }
 
 function exportProgressJSON() {
-  const data = {
+  const jsonStr = typeof exportAllUserDataJSON === 'function' ? exportAllUserDataJSON() : JSON.stringify({
     version: "2.0",
     exportTime: new Date().toISOString(),
     category: currentExamCategory,
     progressState: progressState,
     starredState: starredState
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  }, null, 2);
+
+  const blob = new Blob([jsonStr], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `電機技師備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `電機國考備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast("💾 備考進度已成功匯出備份！");
+  showToast("💾 備考與 SM-2 排程進度已成功匯出備份！");
+}
+
+function openBackupModal() {
+  const modal = document.getElementById('backup-modal');
+  const textarea = document.getElementById('backup-json-textarea');
+  if (!modal) return;
+
+  const jsonStr = typeof exportAllUserDataJSON === 'function' ? exportAllUserDataJSON() : JSON.stringify({ progressState, starredState }, null, 2);
+  if (textarea) textarea.value = jsonStr;
+  modal.classList.add('show');
+}
+
+function closeBackupModal() {
+  const modal = document.getElementById('backup-modal');
+  if (modal) modal.classList.remove('show');
+}
+
+function copyBackupToClipboard() {
+  const textarea = document.getElementById('backup-json-textarea');
+  if (!textarea) return;
+  textarea.select();
+  navigator.clipboard.writeText(textarea.value).then(() => {
+    showToast("📋 已複製 JSON 備份代碼至剪貼簿！");
+  });
+}
+
+function applyImportedBackupJSON() {
+  const textarea = document.getElementById('backup-json-textarea');
+  if (!textarea || !textarea.value.trim()) return;
+
+  const res = typeof importUserDataJSON === 'function' ? importUserDataJSON(textarea.value.trim()) : { success: false, error: 'import handler unavailable' };
+  if (res.success) {
+    updateStatsAndBar();
+    renderQuestions();
+    closeBackupModal();
+    showToast(`📥 成功還原 ${res.count} 筆進度與 SM-2 複習週期！`);
+  } else {
+    alert(`❌ 匯入失敗：${res.error || '無效的 JSON 格式'}`);
+  }
 }
 
 function importProgressJSON() {
@@ -72,13 +112,14 @@ function importProgressJSON() {
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
-        const imported = JSON.parse(event.target.result);
-        if (imported.progressState) progressState = imported.progressState;
-        if (imported.starredState) starredState = imported.starredState;
-        saveProgress();
-        updateStatsAndBar();
-        renderQuestions();
-        showToast("📥 備考進度已成功匯入還原！");
+        const res = typeof importUserDataJSON === 'function' ? importUserDataJSON(event.target.result) : null;
+        if (!res || res.success) {
+          updateStatsAndBar();
+          renderQuestions();
+          showToast("📥 備考進度與 SM-2 排程已成功匯入還原！");
+        } else {
+          alert(`❌ 匯入失敗：${res.error}`);
+        }
       } catch (err) {
         alert("❌ 匯入失敗：檔案格式不正確！");
       }

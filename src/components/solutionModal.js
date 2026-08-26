@@ -67,7 +67,7 @@ function extractQuestionMarkdown(rawMd, targetQNum) {
   };
 }
 
-function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
+function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRecall = false) {
   if (event) event.preventDefault();
 
   currentModalQid = qid;
@@ -75,6 +75,9 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   currentModalQNum = qnum;
   currentModalFullView = fullView;
   currentSubQuestionIdx = 0;
+  if (activeRecall) {
+    isActiveRecallMode = true;
+  }
 
   const modal = document.getElementById('solution-modal');
   if (!modal) return;
@@ -97,6 +100,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   // 2. Update Same Exam Dropdown & Prev/Next Buttons
   updateSameExamDropdown(sid, yr, qid);
   updateModalNavButtons(qid);
+  syncActiveRecallButtonState();
 
   // 3. Load Left Pane (Space-efficient collapsible stem + Full Height PDF embed)
   const leftPane = document.getElementById('modal-pane-left');
@@ -283,15 +287,21 @@ function switchSubQuestion(idx) {
 
 let isActiveRecallMode = false;
 
+function syncActiveRecallButtonState() {
+  const btns = [document.getElementById('btn-active-recall'), document.getElementById('btn-modal-active-recall')];
+  btns.forEach(btn => {
+    if (!btn) return;
+    btn.classList.toggle('active', isActiveRecallMode);
+    btn.style.background = isActiveRecallMode ? 'var(--warn)' : 'var(--surface)';
+    btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
+    btn.style.borderColor = isActiveRecallMode ? 'var(--warn)' : 'var(--line)';
+    btn.innerHTML = isActiveRecallMode ? '🎴 蓋牌思考中 (點此全開)' : '🎴 主動回想蓋牌';
+  });
+}
+
 function toggleActiveRecallMode() {
   isActiveRecallMode = !isActiveRecallMode;
-  const btn = document.getElementById('btn-active-recall');
-  if (btn) {
-    btn.classList.toggle('active', isActiveRecallMode);
-    btn.style.background = isActiveRecallMode ? 'var(--accent)' : 'var(--surface)';
-    btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
-    btn.style.borderColor = isActiveRecallMode ? 'var(--accent-dark)' : 'var(--line)';
-  }
+  syncActiveRecallButtonState();
   showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式 (三階蓋牌)' : '📖 已切換為全開放詳解模式');
 
   // Re-render current question with or without active recall masking

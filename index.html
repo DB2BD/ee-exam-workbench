@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260827_0043"></script>
-<script src="./solutions-bundle.js?v=20260827_0043"></script>
-<script src="./national-exams-data.js?v=20260827_0043"></script>
-<script src="./national-solutions-bundle.js?v=20260827_0043"></script>
+<script src="./dashboard-data.js?v=20260827_0058"></script>
+<script src="./solutions-bundle.js?v=20260827_0058"></script>
+<script src="./national-exams-data.js?v=20260827_0058"></script>
+<script src="./national-solutions-bundle.js?v=20260827_0058"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -1577,6 +1577,9 @@ select:focus {
         <span>試題推導詳解</span>
       </div>
       <div class="modal-actions">
+        <button id="btn-modal-active-recall" onclick="toggleActiveRecallMode()" class="btn-sol" style="background: var(--warn); border-color: var(--warn); color: #fff; font-weight: 700; padding: 5px 12px; font-size: 0.82rem;" title="切換主動回想白紙蓋牌模式">
+          🎴 主動回想蓋牌
+        </button>
         <button id="modal-status-btn" class="status-badge s-0">⚪ 未開始</button>
         <button id="modal-star-btn" class="btn-star">☆ 收藏本題</button>
         <button onclick="closeModal()" class="btn-pdf" style="font-size: 0.9rem; font-weight: 700;">✕ 關閉</button>
@@ -3322,9 +3325,12 @@ function renderQuestions() {
             </button>
             ${dueInfo.text ? `<span class="due-badge ${dueInfo.cssClass}" title="SM-2 智能間隔重複排程">${dueInfo.text}</span>` : ''}
           </div>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">
-              📝 檢視推導詳解
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, false, true)" class="btn-sol" style="background: var(--warn); border-color: var(--warn); box-shadow: 0 2px 6px rgba(196, 124, 93, 0.25);" title="開啟白紙蓋牌主動回想抽測">
+              🎴 蓋牌抽測
+            </button>
+            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, false, false)" class="btn-sol" title="直接檢視完整 KaTeX 推導詳解">
+              📝 完整詳解
             </button>
             <a href="${pdfLink}" target="_blank" class="btn-pdf" title="在瀏覽器開啟考選部原題 PDF">
               📄 查看原題 PDF
@@ -3407,7 +3413,7 @@ function extractQuestionMarkdown(rawMd, targetQNum) {
   };
 }
 
-function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
+function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRecall = false) {
   if (event) event.preventDefault();
 
   currentModalQid = qid;
@@ -3415,6 +3421,9 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   currentModalQNum = qnum;
   currentModalFullView = fullView;
   currentSubQuestionIdx = 0;
+  if (activeRecall) {
+    isActiveRecallMode = true;
+  }
 
   const modal = document.getElementById('solution-modal');
   if (!modal) return;
@@ -3437,6 +3446,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   // 2. Update Same Exam Dropdown & Prev/Next Buttons
   updateSameExamDropdown(sid, yr, qid);
   updateModalNavButtons(qid);
+  syncActiveRecallButtonState();
 
   // 3. Load Left Pane (Space-efficient collapsible stem + Full Height PDF embed)
   const leftPane = document.getElementById('modal-pane-left');
@@ -3623,15 +3633,21 @@ function switchSubQuestion(idx) {
 
 let isActiveRecallMode = false;
 
+function syncActiveRecallButtonState() {
+  const btns = [document.getElementById('btn-active-recall'), document.getElementById('btn-modal-active-recall')];
+  btns.forEach(btn => {
+    if (!btn) return;
+    btn.classList.toggle('active', isActiveRecallMode);
+    btn.style.background = isActiveRecallMode ? 'var(--warn)' : 'var(--surface)';
+    btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
+    btn.style.borderColor = isActiveRecallMode ? 'var(--warn)' : 'var(--line)';
+    btn.innerHTML = isActiveRecallMode ? '🎴 蓋牌思考中 (點此全開)' : '🎴 主動回想蓋牌';
+  });
+}
+
 function toggleActiveRecallMode() {
   isActiveRecallMode = !isActiveRecallMode;
-  const btn = document.getElementById('btn-active-recall');
-  if (btn) {
-    btn.classList.toggle('active', isActiveRecallMode);
-    btn.style.background = isActiveRecallMode ? 'var(--accent)' : 'var(--surface)';
-    btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
-    btn.style.borderColor = isActiveRecallMode ? 'var(--accent-dark)' : 'var(--line)';
-  }
+  syncActiveRecallButtonState();
   showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式 (三階蓋牌)' : '📖 已切換為全開放詳解模式');
 
   // Re-render current question with or without active recall masking

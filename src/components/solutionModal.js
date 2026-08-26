@@ -98,26 +98,30 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false) {
   updateSameExamDropdown(sid, yr, qid);
   updateModalNavButtons(qid);
 
-  // 3. Load Left Pane (Raw Question + PDF embed)
+  // 3. Load Left Pane (Space-efficient collapsible stem + Full Height PDF embed)
   const leftPane = document.getElementById('modal-pane-left');
   const leftContent = document.getElementById('modal-left-content');
   if (leftContent) {
     leftContent.innerHTML = `
-      <div style="padding: 20px; border-bottom: 1px solid var(--line); background: var(--surface);">
-        <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 8px;">
-          📌 官方原題題幹描述
+      <div style="padding: 8px 14px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-dark);">📄 官方原始考卷 PDF</span>
+          <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+            🔍 展開題幹文字
+          </button>
         </div>
-        <div style="font-size: 0.95rem; line-height: 1.65; color: var(--ink);">
-          ${topic}
-        </div>
-        <div style="margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap;">
-          <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.82rem;">
-            📄 開啟考選部原始試卷 PDF ⬈
-          </a>
-        </div>
+        <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
+          新分頁開啟 ⬈
+        </a>
       </div>
-      <div style="flex: 1; min-height: 380px; background: #525659;">
-        <iframe src="${pdfLink}#toolbar=0" style="width: 100%; height: 100%; min-height: 400px; border: none;"></iframe>
+
+      <div id="modal-stem-collapse" style="display: none; padding: 12px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--ink); max-height: 180px; overflow-y: auto;">
+        <div style="font-weight: 700; font-size: 0.78rem; color: var(--accent-dark); margin-bottom: 4px;">📌 原題題幹文字描述：</div>
+        <div>${topic}</div>
+      </div>
+
+      <div style="flex: 1; width: 100%; height: 100%; min-height: 500px; background: #525659;">
+        <iframe src="${pdfLink}#toolbar=0" style="width: 100%; height: 100%; min-height: 500px; border: none; display: block;"></iframe>
       </div>
     `;
   }
@@ -338,6 +342,20 @@ function updateModalStatusButtons(qid) {
   starBtn.className = `btn-star ${isStarred ? 'active' : ''}`;
   starBtn.innerHTML = isStarred ? '★ 已收藏' : '☆ 收藏本題';
   starBtn.onclick = (e) => toggleStarred(qid, e);
+}
+
+function toggleStemDescription() {
+  const collapseEl = document.getElementById('modal-stem-collapse');
+  const btn = document.getElementById('btn-stem-toggle');
+  if (!collapseEl) return;
+
+  const isHidden = collapseEl.style.display === 'none';
+  collapseEl.style.display = isHidden ? 'block' : 'none';
+  if (btn) {
+    btn.innerHTML = isHidden ? '▲ 收合題幹文字' : '🔍 展開題幹文字';
+    btn.style.background = isHidden ? 'var(--accent)' : 'var(--bg-secondary)';
+    btn.style.color = isHidden ? '#ffffff' : 'var(--ink-light)';
+  }
 }
 
 // Global Keyboard Navigation

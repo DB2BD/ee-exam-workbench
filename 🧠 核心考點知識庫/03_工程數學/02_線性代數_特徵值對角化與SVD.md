@@ -12,7 +12,7 @@
    - 任何 $m \times n$ 矩陣 $\mathbf{A}$ 可分解為：$\mathbf{A} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^T$
    - 奇異值 $\sigma_i = \sqrt{\lambda_i(\mathbf{A}^T \mathbf{A})}$（按降序排列 $\sigma_1 \ge \sigma_2 \ge \dots \ge 0$）。
 4. **二次型極值（Quadratic Form）**：
-   - $\max_{\|\mathbf{x}\|=1} \mathbf{x}^T \mathbf{A} \mathbf{x} = \lambda_{\max}(\mathbf{A})$，$\min_{\|\mathbf{x}\|=1} \mathbf{x}^T \mathbf{A} \mathbf{x} = \lambda_{\min}(\mathbf{A})$。
+   -$\max_{\|\mathbf{x}\|=1} \mathbf{x}^T \mathbf{A} \mathbf{x} = \lambda_{\max}(\mathbf{A})，\min_{\|\mathbf{x}\|=1} \mathbf{x}^T \mathbf{A} \mathbf{x} = \lambda_{\min}(\mathbf{A})$。
 
 ---
 

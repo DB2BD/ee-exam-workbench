@@ -4,7 +4,7 @@
 1. **開關切換連續性定律**：
    i_L(0^+) = i_L(0^-), \quad v_C(0^+) = v_C(0^-)
 2. **一階電路步階響應三要素公式**：
-   x(t) = x(\infty) + [x(0^+) - x(\infty)] e^{-t/\tau}, \quad t \ge 0
+   $$x(t) = x(\infty) + [x(0^+) - x(\infty)] e^{-t/\tau}, \quad t \ge 0$$
    - $RC$ 電路時間常數：$\tau = R_{th} C$
    - $RL$ 電路時間常數：$\tau = \frac{L}{R_{th}}$
 3. **二階 RLC 電路特徵根與響應分類**：

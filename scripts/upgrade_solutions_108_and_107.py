@@ -292,9 +292,11 @@ sol_107 = r'''---
 
 ---
 
-#### 2. (一) 求解二次側電壓 $V_2$ 與一次側電源電壓 $E_s$
+#### 2. (一) 求解二次側電壓 $V_2$ 與一次側電源電壓 $E_s$（雙解法對照）
+
+##### 🔹 解法一：相量壓降法（一次端相量參考，國考最常用速解法）
 - 取一次側端電壓為相量參考基準：$\mathbf{V}_1 = 1.0\angle 0^\circ\text{ pu} = 161\text{ kV}$。
-- 負載功率因數 $0.8$ 滯後，滿載標么電流相量：
+- 負載功率因數 $0.8$ 滯後，標么電流相量：
   $$\mathbf{I}_{\text{pu}} = 1.0\angle -\cos^{-1}(0.8) = 0.8 - j0.6\text{ pu}$$
 - **求二次側電壓 $\mathbf{V}_2$**（自一次側經變壓器漏抗 $Z_T = j0.15\text{ pu}$ 降壓）：
   $$\mathbf{V}_{2,\text{pu}} = \mathbf{V}_1 - \mathbf{I}_{\text{pu}} Z_T = 1.0 - (0.8 - j0.6)(j0.15) = 1.0 - (0.09 + j0.12) = 0.91 - j0.12\text{ pu}$$
@@ -304,6 +306,20 @@ sol_107 = r'''---
   $$\mathbf{E}_{s,\text{pu}} = \mathbf{V}_1 + \mathbf{I}_{\text{pu}} Z_{s,\text{pu}} = 1.0 + (0.8 - j0.6)(j0.01852) = 1.0 + (0.01111 + j0.01481) = 1.01111 + j0.01481\text{ pu}$$
   $$|\mathbf{E}_{s,\text{pu}}| = \sqrt{1.01111^2 + 0.01481^2} = \mathbf{1.01122\text{ pu}}$$
   $$E_s = |\mathbf{E}_{s,\text{pu}}| \times V_{1,\text{base}} = 1.01122 \times 161\text{ kV} = \mathbf{162.806\text{ kV}}\ (\approx \mathbf{162.81\text{ kV}})$$
+
+##### 🔹 解法二：雙匯流排功率潮流精確公式法（受電端 $S_L = 60\text{ MVA}$ 恆功率負載）
+若將「二次側負載 $60\text{ MVA}$」嚴格視為受電端匯流排之恆定功率負載（$P_2 = 0.8\text{ pu}, Q_2 = 0.6\text{ pu}$）：
+- 設受電端電壓為參考 $\mathbf{V}_2 = V_2\angle 0^\circ$，送電端電壓 $\mathbf{V}_1 = V_1\angle\delta$：
+  $$\mathbf{V}_1 = \mathbf{V}_2 + jX_T \left(\frac{P_2 - jQ_2}{\mathbf{V}_2^*}\right) = \left(V_2 + \frac{Q_2 X_T}{V_2}\right) + j\left(\frac{P_2 X_T}{V_2}\right)$$
+- 兩邊取模平方，整理得**雙匯流排電壓四次方特徵方程式**：
+  $$V_2^4 + (2 Q_2 X_T - V_1^2) V_2^2 + (P_2^2 + Q_2^2) X_T^2 = 0$$
+- 代入 $V_1 = 1.0, X_T = 0.15, P_2 = 0.8, Q_2 = 0.6$：
+  $$V_2^4 + (2\times 0.6\times 0.15 - 1.0^2) V_2^2 + (1.0)^2 (0.15)^2 = 0 \implies V_2^4 - 0.82 V_2^2 + 0.0225 = 0$$
+  $$V_2^2 = \frac{0.82 \pm \sqrt{(-0.82)^2 - 4\times 0.0225}}{2} = \frac{0.82 \pm \sqrt{0.5824}}{2} = \frac{0.82 + 0.76315}{2} = 0.79158$$
+  $$V_2 = \sqrt{0.79158} = \mathbf{0.8897\text{ pu}} \implies V_2 = 0.8897 \times 23.9\text{ kV} = \mathbf{21.264\text{ kV}}$$
+  - 功角：$\delta = \sin^{-1}\left(\frac{P_2 X_T}{V_1 V_2}\right) = \sin^{-1}\left(\frac{0.8\times 0.15}{1.0\times 0.8897}\right) = \mathbf{7.75^\circ}$
+  - 電源電壓：$\mathbf{E}_s = \mathbf{V}_1 + \mathbf{I} Z_s \implies E_s = \mathbf{163.15\text{ kV}}\ (1.0134\text{ pu})$
+*(考試時兩法皆可，解法一計算迅速最受考選部青睞；若考科為電力系統且強調受電端常功率，解法二更為嚴密，本題解同時提供雙重視角以保滿分)*。
 
 ---
 

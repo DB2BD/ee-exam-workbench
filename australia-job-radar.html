@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🇦🇺 澳洲重電工程師求職與移民情報戰情室</title>
+  <title>澳洲重電工程師求職與移民情報戰情室</title>
   <meta name="description" content="澳洲西澳伯斯 Perth 重工業 LNG 礦業電機工程師職缺情報、482/190/189/491 簽證路徑分析、薪資計算與獵頭名冊">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
     /* ═══ Header ═══ */
     header { background: var(--bg-card); border-bottom: 1px solid var(--line); padding: 16px 28px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); }
     .brand { display: flex; align-items: center; gap: 12px; }
-    .brand-icon { font-size: 1.6rem; background: var(--accent-bg); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent); }
+    .brand-icon { font-size: 1rem; font-weight: 800; background: var(--accent-bg); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent); color: var(--accent); font-family: 'JetBrains Mono', monospace; }
     .brand-title { font-size: 1.15rem; font-weight: 800; }
     .brand-sub { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
     .nav-actions { display: flex; gap: 10px; align-items: center; }
@@ -126,7 +126,6 @@
     .visa-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 22px; box-shadow: var(--sh-sm); transition: all .18s; }
     .visa-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--sh-md); }
     .visa-card-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .visa-card-title .visa-icon { font-size: 1.4rem; }
     .visa-detail { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
     .visa-detail strong { color: var(--ink); }
     .visa-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed var(--line); }
@@ -150,7 +149,7 @@
 <body>
   <header>
     <div class="brand">
-      <div class="brand-icon">🇦🇺</div>
+      <div class="brand-icon">AU</div>
       <div>
         <div class="brand-title">澳洲重電工程師求職與移民情報戰情室</div>
         <div class="brand-sub">Perth · Brisbane · LNG · 礦業 · 482/190/189 簽證全路徑</div>
@@ -159,11 +158,11 @@
     <div class="nav-actions">
       <div class="live-badge" id="live-sync-badge" style="font-size:0.8rem; font-weight:700; color:var(--ok); background:var(--ok-bg); padding:6px 12px; border-radius:var(--r-sm); border:1px solid var(--ok); display:flex; align-items:center; gap:6px;">
         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--ok); animation:pulse 2s infinite;"></span>
-        <span id="meta-sync-text">🟢 每日 08:00 自動同步中 · 最後更新：今日 00:17</span>
+        <span id="meta-sync-text">每日 08:00 自動同步中 · 最後更新：今日 00:17</span>
       </div>
-      <button class="btn" onclick="refreshRadarData()" title="手動重新同步最新職缺資料">🔄 立即刷新</button>
-      <a href="index.html" class="btn">📚 國考題解工作台</a>
-      <button class="btn" onclick="toggleTheme()" id="theme-btn">🌓 切換色彩</button>
+      <button class="btn" onclick="refreshRadarData()" title="手動重新同步最新職缺資料">立即刷新</button>
+      <a href="index.html" class="btn">國考題解工作台</a>
+      <button class="btn" onclick="toggleTheme()" id="theme-btn">切換色彩</button>
     </div>
   </header>
 
@@ -171,9 +170,9 @@
 
     <!-- Section Tabs -->
     <div class="section-tabs">
-      <button class="section-tab active" onclick="switchSection('jobs')">💼 職缺情報</button>
-      <button class="section-tab" onclick="switchSection('visa')">🛂 簽證路徑 (189/190/482/491)</button>
-      <button class="section-tab" onclick="switchSection('salary')">🧮 薪資計算機</button>
+      <button class="section-tab active" onclick="switchSection('jobs')">職缺情報</button>
+      <button class="section-tab" onclick="switchSection('visa')">簽證路徑 (189/190/482/491)</button>
+      <button class="section-tab" onclick="switchSection('salary')">薪資計算機</button>
     </div>
 
     <!-- ═══════════ SECTION 1: Job Intelligence ═══════════ -->
@@ -182,47 +181,47 @@
       <!-- KPI Row -->
       <div class="kpi-grid">
         <div class="kpi-card">
-          <div class="kpi-label">⚡ 全澳活躍重電/天然氣職缺</div>
+          <div class="kpi-label">全澳活躍重電/天然氣職缺</div>
           <div class="kpi-val">342</div>
-          <div class="kpi-sub">📍 西澳 (Perth) 佔 64% 職缺量</div>
+          <div class="kpi-sub">西澳 (Perth) 佔 64% 職缺量</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">✈️ 482 雇主擔保支援率</div>
+          <div class="kpi-label">482 雇主擔保支援率</div>
           <div class="kpi-val">42.1%</div>
-          <div class="kpi-sub">🔥 跨國 EPC 提供搬遷機票補貼</div>
+          <div class="kpi-sub">跨國 EPC 提供搬遷機票補貼</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">💰 中階 (2-4年) 薪資中位數</div>
+          <div class="kpi-label">中階 (2-4年) 薪資中位數</div>
           <div class="kpi-val">$132k</div>
-          <div class="kpi-sub">📈 折合台幣約 277 萬/年</div>
+          <div class="kpi-sub">折合台幣約 277 萬/年</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">🎯 WA 190 州擔保配額消耗</div>
+          <div class="kpi-label">WA 190 州擔保配額消耗</div>
           <div class="kpi-val">69%</div>
-          <div class="kpi-sub">🏆 電機工程師獲邀門檻 75 分</div>
+          <div class="kpi-sub">電機工程師獲邀門檻 75 分</div>
         </div>
       </div>
 
       <!-- Dashboard Grid -->
       <div class="dash-grid">
         <div>
-          <div class="section-title">💼 即時職缺搜尋（點擊按鈕直達各平台）</div>
+          <div class="section-title">即時職缺搜尋（點擊按鈕直達各平台）</div>
 
           <div class="filter-bar">
-            <input type="text" id="job-search" class="search-input" placeholder="🔍 搜尋 ETAP、IEC 60079、VFD、公司名..." oninput="filterJobs()">
+            <input type="text" id="job-search" class="search-input" placeholder="搜尋 ETAP、IEC 60079、VFD、公司名..." oninput="filterJobs()">
             <select id="exp-filter" class="sel-filter" onchange="filterJobs()">
-              <option value="all">🎓 全部年資</option>
-              <option value="mid" selected>⚡ 中階 2~4 年 (重工業 EPC 經驗)</option>
-              <option value="senior">🔥 資深 5+ 年</option>
+              <option value="all">全部年資</option>
+              <option value="mid" selected>中階 2~4 年 (重工業 EPC 經驗)</option>
+              <option value="senior">資深 5+ 年</option>
             </select>
             <select id="location-filter" class="sel-filter" onchange="filterJobs()">
-              <option value="all">🌐 全部地區</option>
-              <option value="Perth">📍 Perth, WA</option>
-              <option value="Brisbane">📍 Brisbane, QLD</option>
+              <option value="all">全部地區</option>
+              <option value="Perth">Perth, WA</option>
+              <option value="Brisbane">Brisbane, QLD</option>
             </select>
             <select id="visa-filter" class="sel-filter" onchange="filterJobs()">
-              <option value="all">🛂 全部簽證</option>
-              <option value="visa-only">✈️ 僅 482 雇主擔保/搬遷</option>
+              <option value="all">全部簽證</option>
+              <option value="visa-only">僅 482 雇主擔保/搬遷</option>
             </select>
           </div>
 
@@ -232,12 +231,12 @@
         <div class="side-panel">
           <!-- Skills Heatmap -->
           <div class="card-box">
-            <div class="section-title" style="font-size:1.1rem;">🔥 技能需求熱度榜</div>
+            <div class="section-title" style="font-size:1.1rem;">技能需求熱度榜</div>
             <div id="skills-heatmap"></div>
           </div>
           <!-- Migration Quota Radar -->
           <div class="card-box">
-            <div class="section-title" style="font-size:1.1rem;">🏛️ WA 190 配額雷達</div>
+            <div class="section-title" style="font-size:1.1rem;">WA 190 配額雷達</div>
             <div style="margin-bottom:10px;">
               <div style="display:flex; justify-content:space-between; font-size:.83rem; font-weight:700; margin-bottom:3px;">
                 <span>消耗率 (3,450 / 5,000)</span>
@@ -251,7 +250,7 @@
           </div>
           <!-- Recruiters -->
           <div class="card-box">
-            <div class="section-title" style="font-size:1.1rem;">🤝 Perth 重電獵頭</div>
+            <div class="section-title" style="font-size:1.1rem;">Perth 重電獵頭</div>
             <div id="recruiters-list"></div>
           </div>
         </div>
@@ -260,7 +259,7 @@
 
     <!-- ═══════════ SECTION 2: Visa Pathways ═══════════ -->
     <div class="section-content" id="sec-visa">
-      <div class="section-title">🛂 澳洲電機工程師移民簽證全路徑比較 (ANZSCO 233311)</div>
+      <div class="section-title">澳洲電機工程師移民簽證全路徑比較 (ANZSCO 233311)</div>
 
       <div class="visa-recommend" id="visa-strategy"></div>
 
@@ -268,7 +267,7 @@
 
       <!-- Points Calculator -->
       <div class="card-box" style="max-width:700px;">
-        <div class="section-title" style="font-size:1.1rem;">📊 189/190 積分快速估算</div>
+        <div class="section-title" style="font-size:1.1rem;">189/190 積分快速估算</div>
         <div id="points-calc" style="font-size:.88rem; line-height:1.8; color:var(--muted);">
           <div class="visa-row"><span>年齡 25~32 歲</span><strong style="color:var(--ok);">+30 分</strong></div>
           <div class="visa-row"><span>學士學位 (Washington Accord)</span><strong>+15 分</strong></div>
@@ -278,8 +277,8 @@
           <div class="visa-row"><span>190 州擔保加分</span><strong style="color:var(--accent);">+5 分</strong></div>
           <div class="visa-row"><span>491 偏遠地區州擔保加分</span><strong style="color:var(--accent);">+15 分</strong></div>
           <div class="visa-highlight">
-            💡 PTE 65+ 情境估算: 30 + 15 + 5 + 10 + 5 (190) = <strong>65 ~ 75 分</strong> ← WA 190 獲邀線<br>
-            🔥 PTE 79+ 情境估算: 30 + 15 + 5 + 20 + 5 (190) = <strong>75 ~ 85 分</strong> ← 秒獲邀！
+            PTE 65+ 情境估算: 30 + 15 + 5 + 10 + 5 (190) = <strong>65 ~ 75 分</strong> ← WA 190 獲邀線<br>
+            PTE 79+ 情境估算: 30 + 15 + 5 + 20 + 5 (190) = <strong>75 ~ 85 分</strong> ← 獲邀優勢線
           </div>
         </div>
       </div>
@@ -287,7 +286,7 @@
 
     <!-- ═══════════ SECTION 3: Salary Calculator ═══════════ -->
     <div class="section-content" id="sec-salary">
-      <div class="section-title">🧮 澳洲年薪與 ATO Stage 3 稅後實領計算機</div>
+      <div class="section-title">澳洲年薪與 ATO Stage 3 稅後實領計算機</div>
       <div class="card-box" style="max-width:600px;">
         <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:4px;">
           <span>預期年薪 (Base AUD):</span>
@@ -330,7 +329,7 @@
             <div>
               <div class="job-title">${j.title}</div>
               <div class="job-company">
-                🏢 ${j.company} · 📍 ${j.location}
+                ${j.company} · ${j.location}
                 <span class="badge ${j.expLevel === 'mid' ? 'badge-mid' : 'badge-senior'}">${j.expText}</span>
                 <span class="badge badge-tier">${j.tier}</span>
               </div>
@@ -338,22 +337,22 @@
             <div class="job-salary">${j.salaryText}</div>
           </div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            ${j.visaSponsorship ? `<span class="badge badge-visa">✈️ ${j.visaType}</span>` : ''}
-            ${j.relocationSupport ? `<span class="badge badge-reloc">📦 搬遷補助</span>` : ''}
+            ${j.visaSponsorship ? `<span class="badge badge-visa">${j.visaType}</span>` : ''}
+            ${j.relocationSupport ? `<span class="badge badge-reloc">搬遷補助</span>` : ''}
           </div>
           <div class="job-summary">${j.summary}</div>
           <div class="job-skills">${j.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}</div>
           <div class="job-footer">
             <div class="job-footer-meta">
-              <span>📅 ${j.posted}</span>
-              <span style="color:var(--accent); font-weight:600;">👇 點擊直達搜尋</span>
+              <span>${j.posted}</span>
+              <span style="color:var(--accent); font-weight:600;">點擊直達搜尋</span>
             </div>
             <div class="job-actions">
-              <a href="${j.seekUrl}" target="_blank" rel="noopener" class="btn btn-seek">🔍 Seek</a>
-              <a href="${j.linkedInUrl}" target="_blank" rel="noopener" class="btn btn-linkedin">💼 LinkedIn</a>
-              <a href="${j.indeedUrl}" target="_blank" rel="noopener" class="btn btn-indeed">📄 Indeed</a>
-              <a href="${j.googleJobsUrl}" target="_blank" rel="noopener" class="btn btn-google">🌐 Google Jobs</a>
-              <a href="${j.careersUrl}" target="_blank" rel="noopener" class="btn">🏢 官方Career</a>
+              <a href="${j.seekUrl}" target="_blank" rel="noopener" class="btn btn-seek">Seek</a>
+              <a href="${j.linkedInUrl}" target="_blank" rel="noopener" class="btn btn-linkedin">LinkedIn</a>
+              <a href="${j.indeedUrl}" target="_blank" rel="noopener" class="btn btn-indeed">Indeed</a>
+              <a href="${j.googleJobsUrl}" target="_blank" rel="noopener" class="btn btn-google">Google Jobs</a>
+              <a href="${j.careersUrl}" target="_blank" rel="noopener" class="btn">官方 Career</a>
             </div>
           </div>
         </div>
@@ -407,10 +406,10 @@
       document.getElementById('visa-strategy').innerHTML = vp.recommendedStrategy;
 
       const cards = [
-        { icon: '🏢', title: 'Subclass 482 — 雇主擔保工簽', data: vp.subclass482, color: 'var(--ok)' },
-        { icon: '🏛️', title: 'Subclass 190 — 州擔保永居 PR', data: vp.subclass190, color: 'var(--accent)' },
-        { icon: '🌏', title: 'Subclass 189 — 獨立技術移民 PR', data: vp.subclass189, color: 'var(--purple)' },
-        { icon: '🏔️', title: 'Subclass 491 — 偏遠地區臨時', data: vp.subclass491, color: 'var(--warn)' }
+        { title: 'Subclass 482 — 雇主擔保工簽', data: vp.subclass482, color: 'var(--ok)' },
+        { title: 'Subclass 190 — 州擔保永居 PR', data: vp.subclass190, color: 'var(--accent)' },
+        { title: 'Subclass 189 — 獨立技術移民 PR', data: vp.subclass189, color: 'var(--purple)' },
+        { title: 'Subclass 491 — 偏遠地區臨時', data: vp.subclass491, color: 'var(--warn)' }
       ];
 
       document.getElementById('visa-cards-container').innerHTML = cards.map(c => {
@@ -432,7 +431,7 @@
         // Render nested state objects for 190
         if (d.waState) {
           rows += `<div style="margin-top:10px; padding:10px; background:var(--bg); border-radius:var(--r-sm); border:1px solid var(--line);">
-            <div style="font-weight:800; font-size:.85rem; margin-bottom:6px;">🦘 西澳 (WA) 州擔保</div>
+            <div style="font-weight:800; font-size:.85rem; margin-bottom:6px;">西澳 (WA) 州擔保</div>
             <div class="visa-row"><span>2025-26 配額</span><strong>${d.waState.totalQuota2526}</strong></div>
             <div class="visa-row"><span>已核發</span><strong>${d.waState.allocated}</strong></div>
             <div class="visa-row"><span>消耗率</span><strong>${d.waState.burnRatePct}%</strong></div>
@@ -442,7 +441,7 @@
         }
         if (d.qldState) {
           rows += `<div style="margin-top:10px; padding:10px; background:var(--bg); border-radius:var(--r-sm); border:1px solid var(--line);">
-            <div style="font-weight:800; font-size:.85rem; margin-bottom:6px;">☀️ 昆士蘭 (QLD) 州擔保</div>
+            <div style="font-weight:800; font-size:.85rem; margin-bottom:6px;">昆士蘭 (QLD) 州擔保</div>
             <div class="visa-row"><span>2025-26 配額</span><strong>${d.qldState.totalQuota2526}</strong></div>
             <div class="visa-row"><span>已核發</span><strong>${d.qldState.allocated}</strong></div>
             <div class="visa-row"><span>消耗率</span><strong>${d.qldState.burnRatePct}%</strong></div>
@@ -452,7 +451,7 @@
         }
         return `
           <div class="visa-card">
-            <div class="visa-card-title"><span class="visa-icon">${c.icon}</span> <span style="color:${c.color}">${c.title}</span></div>
+            <div class="visa-card-title"><span style="color:${c.color}">${c.title}</span></div>
             <div class="visa-detail">${rows}</div>
           </div>`;
       }).join('');
@@ -490,13 +489,13 @@
     /* ═══ Refresh Radar ═══ */
     function refreshRadarData() {
       const syncEl = document.getElementById('meta-sync-text');
-      if (syncEl) syncEl.innerText = '🔄 正在同步全澳求職資料庫...';
+      if (syncEl) syncEl.innerText = '正在同步全澳求職資料庫...';
       setTimeout(() => {
         filterJobs();
         if (typeof AU_RADAR_META !== 'undefined' && syncEl) {
-          syncEl.innerText = `🟢 每日 08:00 自動同步中 · 最後更新：${AU_RADAR_META.generatedTime || '今日 00:17'}`;
+          syncEl.innerText = `每日 08:00 自動同步中 · 最後更新：${AU_RADAR_META.generatedTime || '今日 00:17'}`;
         }
-        alert('✅ 職缺情報與 190 簽證配額數據已刷新至最新版本！');
+        alert('職缺情報與 190 簽證配額數據已刷新至最新版本！');
       }, 400);
     }
 
@@ -507,7 +506,7 @@
       if (typeof AU_RADAR_META !== 'undefined') {
         const syncEl = document.getElementById('meta-sync-text');
         if (syncEl && AU_RADAR_META.generatedTime) {
-          syncEl.innerText = `🟢 每日 08:00 自動同步中 · 最後更新：${AU_RADAR_META.generatedTime}`;
+          syncEl.innerText = `每日 08:00 自動同步中 · 最後更新：${AU_RADAR_META.generatedTime}`;
         }
       }
 

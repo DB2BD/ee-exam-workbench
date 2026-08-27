@@ -1,4 +1,4 @@
-# 🏛️ 技術規格架構書：國考同級參考題庫擴充系統 (National Exam Cross-Reference Bank)
+# 技術規格架構書：國考同級參考題庫擴充系統 (National Exam Cross-Reference Bank)
 
 **檔案識別**：`SPEC-EXAM-EXT-002`
 **建立時間**：2026-08-24
@@ -6,7 +6,7 @@
 
 ---
 
-## 🎯 一、問題陳述與核心目標 (Problem Statement & Goals)
+## 一、問題陳述與核心目標 (Problem Statement & Goals)
 
 ### 1.1 現狀與痛點
 1. **考點命題重疊率高達 85%**：考選部「專技高考電機技師」之命題委員群與「公務高考三級（電力/電子）」、「鐵路特考高員三級」、「地方特考三級」高度重疊，同一個觀念（如：NR 潮流計算、變壓器等效、SVD 矩陣特徵值、Buck/Boost BCM、短路容量）常在同年度或隔年在不同國考中交互換皮出題。
@@ -17,13 +17,13 @@
 1. **獨立資料層架構 (Isolated Data Architecture)**：
    - 建立獨立的 `national-exams-data.js` 與 `national-solutions-bundle.js`，原 `dashboard-data.js` 與 `solutions-bundle.js` 保持完全不變。
 2. **頂部考別維度切換列 (Exam Category Dimension Switcher)**：
-   - 🏆 **專技高考：電機工程技師**（主戰場・預設 318 題）
-   - 🏛️ **公務高考三級：電力工程 / 電子工程**
-   - 🚆 **鐵路特考高員三級：電力工程**
-   - 🏙️ **地方特考三級：電力工程**
-   - ⚡ **國營事業聯招：台電/中油/中鋼 電機類**
+   - **專技高考：電機工程技師**（主戰場・預設 318 題）
+   - **公務高考三級：電力工程 / 電子工程**
+   - **鐵路特考高員三級：電力工程**
+   - **地方特考三級：電力工程**
+   - **國營事業聯招：台電/中油/中鋼 電機類**
 3. **跨試題同考點穿梭機制 (Cross-Exam Topic Bridge)**：
-   - 在閱讀技師詳解時，右欄底端提供「🔗 同考點公務高考 / 鐵路特考推薦題」，點擊後原地無縫切換，並提供「🔙 返回原技師試題」歷史堆疊。
+   - 在閱讀技師詳解時，右欄底端提供「同考點公務高考 / 鐵路特考推薦題」，點擊後原地無縫切換，並提供「返回原技師試題」歷史堆疊。
 4. **零覆蓋與向後相容性保證**：
    - 原有 318 題之 `qid`（如 `EE-114-01-1`）格式完全不變。
    - 國考題目採用前綴隔離 ID（如 `GK-114-01-1`、`RW-113-05-2`、`SOE-112-05-1`）。
@@ -34,27 +34,27 @@
 
 ---
 
-## 🏗️ 二、系統架構與資料解耦模型 (Architecture & Data Model)
+## 二、系統架構與資料解耦模型 (Architecture & Data Model)
 
 ```mermaid
 graph TD
     subgraph UI_Layer["前端雙欄工作台 (index.html)"]
-        Nav["頂部考別維度切換列<br>[🏆 電機技師 | 🏛️ 高考三級 | 🚆 鐵路高員 | ⚡ 國營聯招]"]
+        Nav["頂部考別維度切換列<br>[電機技師 | 高考三級 | 鐵路高員 | 國營聯招]"]
         Filter["考科與年度多維過濾器"]
         Split["雙欄工作台核心 Modal"]
         Bridge["跨試題同考點推薦卡片"]
     end
 
     subgraph Data_Isolation_Layer["完全隔離資料層 (Zero Overwrite)"]
-        PE_DB[("主資料庫<br>dashboard-data.js<br>(技師 318 題)<br>🔒 READ ONLY")]
+        PE_DB[("主資料庫<br>dashboard-data.js<br>(技師 318 題)<br>READ ONLY")]
         NAT_DB[("擴充資料庫<br>national-exams-data.js<br>(高考/鐵路/國營)")]
-        BUNDLE_PE[("技師題解包<br>solutions-bundle.js<br>🔒 READ ONLY")]
+        BUNDLE_PE[("技師題解包<br>solutions-bundle.js<br>READ ONLY")]
         BUNDLE_NAT[("國考題解包<br>national-solutions-bundle.js")]
     end
 
     subgraph Compilation_Layer["編譯管線 (獨立)"]
-        COMP_PE["compile_dashboard_database.py<br>🔒 不得修改"]
-        COMP_NAT["compile_national_exams.py<br>🆕 獨立編譯器"]
+        COMP_PE["compile_dashboard_database.py<br>不得修改"]
+        COMP_NAT["compile_national_exams.py<br>獨立編譯器"]
     end
 
     Nav --> PE_DB
@@ -72,7 +72,7 @@ graph TD
 
 ---
 
-## 📐 三、資料結構規格 (Schema Specification)
+## 三、資料結構規格 (Schema Specification)
 
 ### 3.1 題庫 ID 前綴與命名規範
 
@@ -110,22 +110,22 @@ graph TD
 
 ```
 技師考試/歷屆試題_104-114年/
-├── dashboard-data.js              🔒 不動
-├── solutions-bundle.js            🔒 不動
-├── national-exams-data.js         🆕 國考擴充資料庫（獨立）
-├── national-solutions-bundle.js   🆕 國考題解包（獨立）
+├── dashboard-data.js              (唯讀/不變)
+├── solutions-bundle.js            (唯讀/不變)
+├── national-exams-data.js         (國考擴充資料庫・獨立)
+├── national-solutions-bundle.js   (國考題解包・獨立)
 │
 ├── 依考科分類/
-│   ├── 01_電路學/                 🔒 既有技師試題與 PDF（不動）
-│   ├── 01_電路學.md               🔒 既有技師索引（不動）
+│   ├── 01_電路學/                 (既有技師試題與 PDF・不變)
+│   ├── 01_電路學.md               (既有技師索引・不變)
 │   ├── ...
-│   └── 🏛️_國考同級參考題庫/      🆕 獨立國考資料夾
-│       ├── README.md              🆕 本擴充模組說明
+│   └── 🏛️_國考同級參考題庫/      (獨立國考資料夾)
+│       ├── README.md              (本擴充模組說明)
 │       ├── 01_電路學/
-│       │   ├── GK_114年_電路學.md  🆕 高考電路學試題 Markdown
+│       │   ├── GK_114年_電路學.md  (高考電路學試題 Markdown)
 │       │   ├── GK_113年_電路學.md
-│       │   ├── RW_114年_電路學.md  🆕 鐵路特考
-│       │   └── images/            🆕 試卷圖檔
+│       │   ├── RW_114年_電路學.md  (鐵路特考)
+│       │   └── images/            (試卷圖檔)
 │       ├── 02_電子學_含電力電子/
 │       ├── 03_工程數學/
 │       ├── 04_電機機械/
@@ -133,9 +133,9 @@ graph TD
 │       └── 06_工業配電/
 │
 ├── 📝 個人題解與錯題本/
-│   ├── 01_電路學/                 🔒 既有技師題解（不動）
+│   ├── 01_電路學/                 (既有技師題解・不變)
 │   ├── ...
-│   └── 🏛️_國考同級題解/          🆕 國考獨立題解
+│   └── 🏛️_國考同級題解/          (國考獨立題解)
 │       ├── 01_電路學/
 │       │   ├── GK_114年_電路學_全卷完整詳細題解.md
 │       │   └── ...
@@ -143,8 +143,8 @@ graph TD
 │       └── ...
 │
 ├── scripts/
-│   ├── compile_dashboard_database.py   🔒 不動
-│   └── compile_national_exams.py       🆕 獨立編譯器（已建立）
+│   ├── compile_dashboard_database.py   (唯讀/不變)
+│   └── compile_national_exams.py       (獨立編譯器・已建立)
 ```
 
 ### 3.4 Markdown 試題檔案命名慣例
@@ -161,7 +161,7 @@ graph TD
 
 ---
 
-## 🚦 四、安全與隔離規範 (Safety & Boundary Constraints)
+## 四、安全與隔離規範 (Safety & Boundary Constraints)
 
 1. **資料層完全唯讀分離**：
    - `compile_national_exams.py` 的 `safety_check()` 在執行前後計算 `dashboard-data.js` 與 `solutions-bundle.js` 的 SHA-256，任何不符即 abort。
@@ -175,7 +175,7 @@ graph TD
 
 ---
 
-## 🎫 五、開發工單清單 (Ticket Breakdown by `/to-tickets`)
+## 五、開發工單清單 (Ticket Breakdown by `/to-tickets`)
 
 ```mermaid
 graph LR
@@ -186,57 +186,57 @@ graph LR
     T5 --> T6["TICKET-06<br>回歸測試與零覆蓋驗證"]
 ```
 
-### 📋 工單詳細規格
+### 工單詳細規格
 
-#### 🎫 `TICKET-01`：高考三級 110~114 年試題爬取與 Markdown 建檔
+#### `TICKET-01`：高考三級 110~114 年試題爬取與 Markdown 建檔
 - **目標**：從考選部歷屆試題下載區取得 110~114 年「公務高考三級・電力工程」之電路學、電子學、工程數學、電機機械、電力系統共 5 科 × 5 年 = 25 份試卷 PDF，OCR 後轉寫為標準 Markdown。
 - **輸出位置**：`依考科分類/🏛️_國考同級參考題庫/{科號}_{科名}/GK_{年度}年_{科名}.md`
 - **圖檔位置**：`依考科分類/🏛️_國考同級參考題庫/{科號}_{科名}/images/`
 - **驗收標準**：25 份 Markdown 使用 `#### 一、` 標記題號，可被 `compile_national_exams.py` 正確掃描解析。
 
-#### 🎫 `TICKET-02`：試題 Markdown 標準化與 LaTeX 格式化
+#### `TICKET-02`：試題 Markdown 標準化與 LaTeX 格式化
 - **目標**：對 TICKET-01 產出的 25 份 Markdown 進行 LaTeX 公式精修（確保 KaTeX 相容）、圖檔嵌入語法 `![[]]` 統一。
 - **驗收標準**：在 Obsidian 與 index.html 雙欄工作台中可正確渲染公式與圖片。
 
-#### 🎫 `TICKET-03`：compile_national_exams.py 編譯全量驗證
+#### `TICKET-03`：compile_national_exams.py 編譯全量驗證
 - **目標**：執行 `python3 scripts/compile_national_exams.py`，確認產出 `national-exams-data.js` 含 ≥ 100 題，且零覆蓋驗證通過。
 - **驗收標準**：
   - `national-exams-data.js` 含 `NATIONAL_EXAMS_DATA.questions` 陣列
   - `national-solutions-bundle.js` 含 `NATIONAL_BUNDLED_MD` 映射
   - `dashboard-data.js` SHA-256 前後一致
 
-#### 🎫 `TICKET-04`：前端工作台考別維度切換 UI
-- **目標**：在 `index.html` 頂部 `<nav class="tabs">` 之上方新增一組膠囊標籤切換器（`🏆 電機技師`、`🏛️ 公務高考`、`🚆 鐵路特考`、`⚡ 國營聯招`），切換時動態替換 `renderQuestions()` 的資料來源。
+#### `TICKET-04`：前端工作台考別維度切換 UI
+- **目標**：在 `index.html` 頂部 `<nav class="tabs">` 之上方新增一組膠囊標籤切換器（`電機技師`、`公務高考`、`鐵路特考`、`國營聯招`），切換時動態替換 `renderQuestions()` 的資料來源。
 - **載入方式**：按需 async `<script>` 注入 `national-exams-data.js`，首次切換到非 PE 標籤時才載入。
 - **驗收標準**：
-  - 預設「🏆 電機技師」顯示原 318 題（使用既有 `DB_DATA`）
-  - 切換「🏛️ 公務高考」時使用 `NATIONAL_EXAMS_DATA.questions`
+  - 預設「電機技師」顯示原 318 題（使用既有 `DB_DATA`）
+  - 切換「公務高考」時使用 `NATIONAL_EXAMS_DATA.questions`
   - 重整頁面後 `localStorage` 記憶上次考別選擇
   - 若 `national-exams-data.js` 不存在或載入失敗，僅顯示技師題庫不報錯
 
-#### 🎫 `TICKET-05`：跨試題同考點推薦穿梭卡片 (Cross-Exam Bridge)
+#### `TICKET-05`：跨試題同考點推薦穿梭卡片 (Cross-Exam Bridge)
 - **目標**：在雙欄對照工作台右欄底部，若當前技師題目有 `relatedPEQid` 反向關聯到國考題，顯示推薦卡片。
-- **UX**：點擊後原地切換為高考題目與詳解（markdown 從 `NATIONAL_BUNDLED_MD` 取得），並顯示 **「🔙 返回原技師試題」** 按鈕（使用 JS 歷史堆疊，非瀏覽器 back）。
+- **UX**：點擊後原地切換為高考題目與詳解（markdown 從 `NATIONAL_BUNDLED_MD` 取得），並顯示 **「返回原技師試題」** 按鈕（使用 JS 歷史堆疊，非瀏覽器 back）。
 - **驗收標準**：考生可在不離開當前視窗下，秒開高考對應考點之題目與詳解。
 
-#### 🎫 `TICKET-06`：回歸測試與零覆蓋嚴格驗證
+#### `TICKET-06`：回歸測試與零覆蓋嚴格驗證
 - **目標**：自動化腳本核對 318 題技師資料庫之 SHA-256 與題目數量，確保 100% 無變動。
 - **驗收標準**：全項測試通過，`git diff dashboard-data.js solutions-bundle.js` 為空。
 
 ---
 
-## 🤝 六、架構問答與決策共識記錄 (Grill-Me Consensus Log)
+## 六、架構問答與決策共識記錄 (Grill-Me Consensus Log)
 
 1. **第一波收錄範疇**：
    - 先以 **110～114 年 公務高考三級（電力工程 / 電子工程）** 作為首波旗艦試點，驗證零覆蓋隔離與同考點關聯機制。
 2. **資源加載策略**：
    - 採用 **「按需動態非同步加載（Dynamic Async Loading）」**，首頁載入保持 0 負擔，切換至國考維度或點開推薦題時動態載入資料包。
 3. **同考點穿梭互動 (Bridge UX)**：
-   - 在雙欄工作台右欄底端嵌入 **「同考點推薦卡片」**，點擊後原地切換為高考題目與詳解，並提供 **「🔙 返回原技師試題」** 快捷歷史堆疊。
+   - 在雙欄工作台右欄底端嵌入 **「同考點推薦卡片」**，點擊後原地切換為高考題目與詳解，並提供 **「返回原技師試題」** 快捷歷史堆疊。
 
 ---
 
-## 🔧 七、已建置基礎設施 (Pre-Built Infrastructure)
+## 七、已建置基礎設施 (Pre-Built Infrastructure)
 
 以下架構已由 Claude Opus 4.6 完成建置，Gemini 3.7 可直接使用：
 
@@ -244,32 +244,32 @@ graph LR
 
 ```
 依考科分類/🏛️_國考同級參考題庫/
-├── README.md ✅
-├── 01_電路學/ ✅ (空，待填充)
-├── 02_電子學_含電力電子/ ✅
-├── 03_工程數學/ ✅
-├── 04_電機機械/ ✅
-├── 05_電力系統/ ✅
-└── 06_工業配電/ ✅
+├── README.md
+├── 01_電路學/ (空，待填充)
+├── 02_電子學_含電力電子/
+├── 03_工程數學/
+├── 04_電機機械/
+├── 05_電力系統/
+└── 06_工業配電/
 
 📝 個人題解與錯題本/🏛️_國考同級題解/
-├── 01_電路學/ ✅ (空，待填充)
-├── 02_電子學_含電力電子/ ✅
-├── 03_工程數學/ ✅
-├── 04_電機機械/ ✅
-├── 05_電力系統/ ✅
-└── 06_工業配電/ ✅
+├── 01_電路學/ (空，待填充)
+├── 02_電子學_含電力電子/
+├── 03_工程數學/
+├── 04_電機機械/
+├── 05_電力系統/
+└── 06_工業配電/
 ```
 
 ### 已建立的腳本
 
 | 檔案 | 狀態 | 說明 |
 | :--- | :---: | :--- |
-| [`scripts/compile_national_exams.py`](./scripts/compile_national_exams.py) | ✅ 已建立 | 獨立編譯器，含 SHA-256 零覆蓋安全檢查，已通過空跑測試 |
+| [`scripts/compile_national_exams.py`](./scripts/compile_national_exams.py) | 已建立 | 獨立編譯器，含 SHA-256 零覆蓋安全檢查，已通過空跑測試 |
 
 ### 已建立的輸出檔案
 
 | 檔案 | 狀態 | 說明 |
 | :--- | :---: | :--- |
-| `national-exams-data.js` | ✅ Schema Ready | 目前含 0 題（待 TICKET-01 填充 Markdown 後重新編譯） |
-| `national-solutions-bundle.js` | ✅ Schema Ready | 目前含 1 篇 README（待填充） |
+| `national-exams-data.js` | Schema Ready | 目前含 0 題（待 TICKET-01 填充 Markdown 後重新編譯） |
+| `national-solutions-bundle.js` | Schema Ready | 目前含 1 篇 README（待填充） |

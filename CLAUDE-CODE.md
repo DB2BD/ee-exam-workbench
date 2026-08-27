@@ -1,10 +1,10 @@
-# 💻 電機工程技師 知識庫指令集與維護 Runbook (CLAUDE-CODE.md)
+# 電機工程技師 知識庫指令集與維護 Runbook (CLAUDE-CODE.md)
 
 本文件提供知識庫維護、資料庫編譯、試題審計與模考產生的完整常用命令清單。
 
 ---
 
-## 🚀 一、核心建置與編譯指令
+## 一、核心建置與編譯指令
 
 ### 1. 全自動編譯核心資料庫
 掃描所有 Markdown 題庫與題解檔案，重新產生 `dashboard-data.js` 與 `solutions-bundle.js`：
@@ -32,7 +32,7 @@ python3 scripts/analyze_topic_frequency.py
 
 ---
 
-## 🛠️ 二、題解生成與自動化腳本
+## 二、題解生成與自動化腳本
 
 | 腳本名稱 | 功能描述 |
 | :--- | :--- |
@@ -44,11 +44,11 @@ python3 scripts/analyze_topic_frequency.py
 
 ---
 
-## 🤖 三、AI 批改與解題常用對話 Prompt 模板
+## 三、AI 批改與解題常用對話 Prompt 模板
 
 在 IDE 對話框中，您可以直接使用以下指令與 AI 協同：
 
-### 1. 📸 批改手寫解答
+### 1. 批改手寫解答
 ```markdown
 @antigravity 幫我批改 EE-114-04-1 的手寫解答：
 1. 請對照標準答案，逐小題進行步驟與計算數值核對。
@@ -57,7 +57,7 @@ python3 scripts/analyze_topic_frequency.py
 4. 提供加分建議與防坑技巧。
 ```
 
-### 2. 💡 白話觀念深入剖析
+### 2. 白話觀念深入剖析
 ```markdown
 @antigravity 請針對 EE-112-05-2 (電力系統牛頓-拉夫森法) 進行白話深度剖析：
 1. 為什麼需要形成 Jacobian 矩陣？各子矩陣的物理意義是什麼？
@@ -65,7 +65,7 @@ python3 scripts/analyze_topic_frequency.py
 3. 考試時遇到這題的 3 分鐘速解破局思維是什麼？
 ```
 
-### 3. 🔄 類似變形考題生成
+### 3. 類似變形考題生成
 ```markdown
 @antigravity 請根據 EE-110-02-1 (Buck-Boost 轉換器) 生成 1 道進階變形題：
 1. 修改電路架構（如加入非理想二極體壓降或電感 ESR）。

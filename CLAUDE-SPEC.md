@@ -1,10 +1,10 @@
-# 📋 電機工程技師 知識庫規格與 Metadata 規範 (CLAUDE-SPEC.md)
+# 電機工程技師 知識庫規格與 Metadata 規範 (CLAUDE-SPEC.md)
 
 本文件定義本知識庫的**檔案命名標準、目錄架構、題目 Metadata 欄位規範、KaTeX 數學排版規範與標籤分類法**。
 
 ---
 
-## 🏷️ 一、題目識別碼 (QID) 命名標準
+## 一、題目識別碼 (QID) 命名標準
 
 每道試題均有全域唯一之識別碼（QID），其格式嚴格定義如下：
 
@@ -28,7 +28,7 @@
 
 ---
 
-## 🗂️ 二、題目中繼資料 (Metadata Schema)
+## 二、題目中繼資料 (Metadata Schema)
 
 在 `dashboard-data.js` 與資料庫編譯時，每道試題之資料格式定義如下：
 
@@ -45,11 +45,12 @@ interface QuestionMetadata {
   solutionPath: string;          // '📝 個人題解與錯題本/04_電機機械/114年_電機機械_全卷完整詳細題解.md'
   pdfPath: string;               // '依考科分類/04_電機機械/114年_電機機械.pdf'
   formulaTags: string[];         // ['VR公式', '標么阻抗', '短路容量']
+}
 ```
 
 ---
 
-## 📐 三、KaTeX 數學公式排版規範
+## 三、KaTeX 數學公式排版規範
 
 1. **行內公式 (Inline Math)**：使用單一美元符號 `$ ... $`。
    - 範例：`$V_o = D V_d$`、`$S = P + jQ$`。
@@ -73,7 +74,7 @@ interface QuestionMetadata {
 
 ---
 
-## 🏷️ 四、考點標籤體系 (Taxonomy)
+## 四、考點標籤體系 (Taxonomy)
 
 | 科目 | 標籤分類 (Tags) | 代表公式 / 關鍵字 |
 | :--- | :--- | :--- |
@@ -86,7 +87,7 @@ interface QuestionMetadata {
 
 ---
 
-## ✅ 五、題解驗證狀態碼 (Verification Status)
+## 五、題解驗證狀態碼 (Verification Status)
 
 - **`verified` (已驗證)**：經人工逐步計算、逆向核對無誤，符合考選部標準答案，具備完整公式與防坑提示。
 - **`in_progress` (推導中)**：基本推導完成，待補充圖表或第二種解法驗證。

@@ -58,28 +58,17 @@ interface QuestionMetadata {
    - 範例：
      $$S_{\text{auto}} = \frac{V_H}{V_H - V_X} S_{2w}$$
 3. **矩陣與行列式 (Matrices & Determinants)**：
-   - 嚴格禁止使用 ASCII 方括號，必須使用 `
-$$
-\begin{bmatrix} ... \end{bmatrix}
-$$` 或 `\begin{pmatrix} ... \end{pmatrix}`。$$
+   - 嚴格禁止使用 ASCII 方括號，必須使用 `\begin{bmatrix} ... \end{bmatrix}` 或 `\begin{pmatrix} ... \end{pmatrix}`。
    - 範例：
-     $$\begin{bmatrix} V_1 \\ V_2 \end{bmatrix} =$$
-$$
-$$
-\begin{bmatrix} Z_{11} & Z_{12} \\ Z_{21} & Z_{22} \end{bmatrix}
-$$\begin{bmatrix} I_1 \\ I_2 \end{bmatrix}$$
-4. **多行聯立方程式 (Aligned Equations)**：使用 `
-$$
-$$
-\begin{aligned} ... \end{aligned}
-$$`。$$
+     $$\begin{bmatrix} V_1 \\ V_2 \end{bmatrix} = \begin{bmatrix} Z_{11} & Z_{12} \\ Z_{21} & Z_{22} \end{bmatrix} \begin{bmatrix} I_1 \\ I_2 \end{bmatrix}$$
+4. **多行聯立方程式 (Aligned Equations)**：使用 `\begin{aligned} ... \end{aligned}`。
    - 範例：
+     $$
      \begin{aligned}
-       $$P &= \sqrt{3} V_L I_L \cos\theta \\$$
-       $$Q &= \sqrt{3} V_L I_L \sin\theta$$
+       P &= \sqrt{3} V_L I_L \cos\theta \\
+       Q &= \sqrt{3} V_L I_L \sin\theta
      \end{aligned}
-$$
-$$
+     $$
 5. **物理單位**：使用 `\text{...}` 或 `\ ` 分隔，例如 `$50\text{ kVA}$`、`$3.87\%$`、`$60\text{ Hz}$`。
 
 ---

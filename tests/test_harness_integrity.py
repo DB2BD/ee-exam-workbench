@@ -95,7 +95,7 @@ class TestHarnessIntegrity(unittest.TestCase):
 
     def test_skills_frontmatter(self):
         """Test skill markdown files exist and have YAML frontmatter."""
-        skills_to_check = ['exam-memory-evolver', 'au-competency-tracker']
+        skills_to_check = ['exam-memory-evolver', 'au-competency-tracker', 'pi-harness-circuit-verifier']
         for s in skills_to_check:
             skill_md = os.path.join(SKILLS_DIR, s, 'SKILL.md')
             self.assertTrue(os.path.exists(skill_md), f"{s}/SKILL.md must exist")

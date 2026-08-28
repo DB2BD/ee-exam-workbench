@@ -160,6 +160,22 @@ select:focus {
   margin-bottom: 14px;
 }
 
+.qtopic p {
+  margin: 0 0 8px;
+}
+
+.qtopic p:last-child {
+  margin-bottom: 0;
+}
+
+.qtopic strong {
+  font-weight: 750;
+}
+
+.qtopic .katex {
+  font-size: 1em;
+}
+
 .qfooter {
   display: flex;
   justify-content: space-between;

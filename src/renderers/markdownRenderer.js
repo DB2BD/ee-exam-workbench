@@ -41,3 +41,11 @@ function resolveImageMapUrl(src, isGK) {
   }
   return src;
 }
+
+/** Render question stems so Markdown emphasis and inline/display math are not shown literally. */
+function renderQuestionTopic(rawText) {
+  if (!rawText) return '';
+  return typeof processMarkdownWithMath === 'function'
+    ? processMarkdownWithMath(rawText)
+    : rawText;
+}

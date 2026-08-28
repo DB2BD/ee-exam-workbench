@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260828_1813"></script>
-<script src="./solutions-bundle.js?v=20260828_1813"></script>
-<script src="./national-exams-data.js?v=20260828_1813"></script>
-<script src="./national-solutions-bundle.js?v=20260828_1813"></script>
+<script src="./dashboard-data.js?v=20260828_1840"></script>
+<script src="./solutions-bundle.js?v=20260828_1840"></script>
+<script src="./national-exams-data.js?v=20260828_1840"></script>
+<script src="./national-solutions-bundle.js?v=20260828_1840"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -443,6 +443,22 @@ select:focus {
   line-height: 1.6;
   color: var(--ink);
   margin-bottom: 14px;
+}
+
+.qtopic p {
+  margin: 0 0 8px;
+}
+
+.qtopic p:last-child {
+  margin-bottom: 0;
+}
+
+.qtopic strong {
+  font-weight: 750;
+}
+
+.qtopic .katex {
+  font-size: 1em;
 }
 
 .qfooter {
@@ -2990,6 +3006,14 @@ function resolveImageMapUrl(src, isGK) {
   return src;
 }
 
+/** Render question stems so Markdown emphasis and inline/display math are not shown literally. */
+function renderQuestionTopic(rawText) {
+  if (!rawText) return '';
+  return typeof processMarkdownWithMath === 'function'
+    ? processMarkdownWithMath(rawText)
+    : rawText;
+}
+
 
 // === src/components/dagTracer.js ===
 // src/components/dagTracer.js
@@ -3384,7 +3408,7 @@ function renderQuestions() {
           </button>
         </div>
 
-        <div class="qtopic">${topic}</div>
+        <div class="qtopic">${renderQuestionTopic(topic)}</div>
 
         <div class="qfooter">
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
@@ -4086,7 +4110,7 @@ function loadMockExam() {
               <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
               <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分</span>
             </div>
-            <div class="qtopic">${topic}</div>
+            <div class="qtopic">${renderQuestionTopic(topic)}</div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
               <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">📝 檢視標準推導解答</button>
               <a href="${pdfLink}" target="_blank" class="btn-pdf">📄 查看官方 PDF</a>

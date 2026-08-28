@@ -115,7 +115,7 @@ function renderQuestions() {
           </button>
         </div>
 
-        <div class="qtopic">${topic}</div>
+        <div class="qtopic">${renderQuestionTopic(topic)}</div>
 
         <div class="qfooter">
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">

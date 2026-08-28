@@ -104,7 +104,7 @@ function loadMockExam() {
               <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
               <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分</span>
             </div>
-            <div class="qtopic">${topic}</div>
+            <div class="qtopic">${renderQuestionTopic(topic)}</div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
               <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">📝 檢視標準推導解答</button>
               <a href="${pdfLink}" target="_blank" class="btn-pdf">📄 查看官方 PDF</a>

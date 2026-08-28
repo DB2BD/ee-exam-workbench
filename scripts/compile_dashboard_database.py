@@ -168,15 +168,15 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
 # Sort questions by year descending, then subject id ascending, then question number ascending
 all_questions.sort(key=lambda q: (-q[2], q[1], q[3]))
 
-# Seven Layers with 100% verified existing files
+# Seven-layer score-oriented study path. Each layer is actionable in the UI.
 sevenLayers = [
-    { "id": "L1", "title": "歷屆考題總目錄", "desc": "依考科分類（電路、電子、工數、機械、電力、配電）總攬 11 年試題", "link": "依考科分類/01_電路學.md" },
-    { "id": "L2", "title": "歷年考題全真索引", "desc": "104 ~ 114 年 11 個年度 66 份考卷時間、代號與 PDF 下載", "link": "依年度分類/114年/README.md" },
-    { "id": "L3", "title": "核心考點觀念庫", "desc": "6 大考科高頻公式彙整、SOP 解題標準程序與理論推導", "link": "🧠 核心考點知識庫/README.md" },
-    { "id": "L4", "title": "6 大考科考點頻率統計", "desc": "104~114 年 330 道大題考點頻率雷達、佔比統計與 80/20 命中率分析", "link": "🧠 核心考點知識庫/📊_電機工程技師_6大考科11年高頻考點統計與命中率分析.md" },
-    { "id": "L5", "title": "E-MORE fx-127 計算機寶典", "desc": "相量直角/極座標一鍵互轉、免開根號求幅值與實體按鍵秒殺指引", "link": "📝 個人題解與錯題本/🧮_EMORE_fx127_國考計算機電類相量與複數秒殺操作寶典.md" },
-    { "id": "L6", "title": "看到題目發呆破局指南", "desc": "考場拿到題目 5 秒內精準識別題型、決定解題步驟與公式 SOP", "link": "📝 個人題解與錯題本/💡_電機技師看到題目發呆破局指南與秒解SOP.md" },
-    { "id": "L7", "title": "職涯與資產總藍圖", "desc": "重工業工程設計躍升 ➔ 技師優利融資 ➔ 30 歲突破 300 萬資產終極藍圖", "link": "💼 個人職涯發展與國際戰略/🌟_電機工程師職涯躍升與資產質押複利_終極整合總藍圖.md" }
+    { "id": "L1", "title": "題型辨識與範圍盤點", "desc": "先用歷屆題建立出題輪廓，避免把時間耗在低命中率內容。", "objective": "建立考科與題型地圖", "action": "all" },
+    { "id": "L2", "title": "核心公式與單位", "desc": "先能在無提示下寫出公式、符號意義與單位，再進入計算。", "objective": "降低公式與單位失分", "action": "formula" },
+    { "id": "L3", "title": "標準題型 SOP", "desc": "使用完整推導題練習固定解題順序，建立可重複的得分步驟。", "objective": "把會觀念轉成可拿分步驟", "action": "dedicated" },
+    { "id": "L4", "title": "錯題與高難陷阱", "desc": "優先處理曾答錯與高難度題，記錄錯因、判斷點及下一次的防錯動作。", "objective": "直接降低重複錯誤", "action": "review" },
+    { "id": "L5", "title": "跨章節整合題", "desc": "練習同時使用多個考點的綜合題，補足從單一公式到完整推導的斷層。", "objective": "提升大題中後段得分率", "action": "top10" },
+    { "id": "L6", "title": "到期複習閉環", "desc": "依 SM-2 到期清單複習；不追求全部重讀，只處理目前最容易遺忘的題目。", "objective": "把短期記憶轉成穩定回憶", "action": "due" },
+    { "id": "L7", "title": "限時模考與考場輸出", "desc": "以 120 分鐘整卷演練驗證速度、取捨與書寫完整度，將知識轉成考場分數。", "objective": "在時間限制下穩定拿分", "action": "mock" }
 ]
 
 subject_meta_list = []

@@ -163,7 +163,7 @@ def build_workbench():
       <span>⏱️ 120 分鐘計時全真模考</span>
     </button>
     <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')">
-      <span>🧠 7 層認知考點架構</span>
+      <span>7 層得分路徑</span>
     </button>
     <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')">
       <span>🔥 高頻必考命題分析</span>
@@ -303,8 +303,8 @@ def build_workbench():
   <!-- TAB 4: Seven Layers -->
   <div class="tab-pane" id="tab-pane-layers" style="display: none;">
     <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
-      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">🧠 7 層階梯式認知考點架構</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">從基礎元件、核心定理到綜合電網保護，系統化掌握 11 年試題骨架：</p>
+      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">7 層階梯式得分路徑</h2>
+      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">以剩餘時間為優先，依序處理辨識、公式、SOP、錯題、整合、複習與限時輸出：</p>
       <div id="layers-container"></div>
     </div>
   </div>

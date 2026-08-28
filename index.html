@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260827_2313"></script>
-<script src="./solutions-bundle.js?v=20260827_2313"></script>
-<script src="./national-exams-data.js?v=20260827_2313"></script>
-<script src="./national-solutions-bundle.js?v=20260827_2313"></script>
+<script src="./dashboard-data.js?v=20260828_0001"></script>
+<script src="./solutions-bundle.js?v=20260828_0001"></script>
+<script src="./national-exams-data.js?v=20260828_0001"></script>
+<script src="./national-solutions-bundle.js?v=20260828_0001"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -1340,7 +1340,7 @@ select:focus {
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">暗色模式</button>
         <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">備份/還原</button>
         <a href="./australia-job-radar.html" target="_blank" class="pill" style="background: var(--accent-light); color: var(--accent-dark); text-decoration: none; font-weight: 700;">
-          澳洲求職戰情室 ➔
+          澳洲求職戰情室
         </a>
       </div>
     </div>
@@ -1462,11 +1462,11 @@ select:focus {
 
       <select id="filter-diff" onchange="renderQuestions()">
         <option value="all">所有難度</option>
-        <option value="5">★★★★★ 5星 地獄壓軸</option>
-        <option value="4">★★★★ 4星 高難挑戰</option>
-        <option value="3">★★★ 3星 中等進階</option>
-        <option value="2">★★ 2星 常規核心</option>
-        <option value="1">★ 1星 入門基礎</option>
+        <option value="5">5/5 地獄壓軸</option>
+        <option value="4">4/5 高難挑戰</option>
+        <option value="3">3/5 中等進階</option>
+        <option value="2">2/5 常規核心</option>
+        <option value="1">1/5 入門基礎</option>
       </select>
     </div>
 
@@ -3363,7 +3363,7 @@ function renderQuestions() {
     const curStatus = progressState[qid] || 0;
     const isStarred = !!starredState[qid];
 
-    const starIcons = '★'.repeat(Math.max(1, Math.min(5, diff || 3)));
+    const difficultyLabel = `難度 ${Math.max(1, Math.min(5, diff || 3))}/5`;
     const statusLabels = ['未開始', '已掌握', '需二刷'];
 
     const dueInfo = typeof getReviewBadgeInfo === 'function' ? getReviewBadgeInfo(qid) : { text: '', cssClass: 'due-none' };
@@ -3374,13 +3374,13 @@ function renderQuestions() {
           <div class="qmeta">
             <span class="qid">${qid}</span>
             <span class="qtag" style="background: ${meta.color}15; color: ${meta.color}; border: 1px solid ${meta.color}30;">
-              ${meta.icon} ${meta.name.split('（')[0]}
+              ${meta.name.split('（')[0]}
             </span>
-            <span class="diff-badge" title="難度評定：${diff} 星">${starIcons}</span>
+            <span class="diff-badge" title="難度評定：${diff}/5">${difficultyLabel}</span>
             ${(tags || []).slice(1, 3).map(t => `<span class="qtag">${t}</span>`).join('')}
           </div>
           <button class="btn-star ${isStarred ? 'active' : ''}" onclick="toggleStarred('${qid}', event)" title="${isStarred ? '取消收藏' : '加入重點收藏'}">
-            ${isStarred ? '★' : '☆'}
+            ${isStarred ? '已收藏' : '收藏'}
           </button>
         </div>
 
@@ -3507,7 +3507,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
     titleEl.innerHTML = `
       <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${currentModalQid}</span>
       <span style="font-size: 0.9rem; color: var(--muted); font-weight: 500;">
-        · ${meta.icon} ${meta.name}（${yr} 年第 ${currentModalQNum} 大題）
+        · ${meta.name}（${yr} 年第 ${currentModalQNum} 大題）
       </span>
     `;
   }
@@ -3945,7 +3945,7 @@ function updateModalStatusButtons(qid) {
   statusBtn.onclick = (e) => toggleStatus(qid, e);
 
   starBtn.className = `btn-star ${isStarred ? 'active' : ''}`;
-  starBtn.innerHTML = isStarred ? '★ 已收藏' : '☆ 收藏本題';
+  starBtn.innerHTML = isStarred ? '已收藏' : '收藏本題';
   starBtn.onclick = (e) => toggleStarred(qid, e);
 }
 
@@ -4111,42 +4111,42 @@ let currentStatsSubject = 'all';
 
 const STATS_DATA = {
   'all': [
-    { name: '戴維寧/諾頓等效與最大功率', count: '48 題', pct: 95, star: '★★★★★', note: '電路學/電子學/機械核心必考' },
-    { name: '三相短路與對稱分量故障', count: '42 題', pct: 88, star: '★★★★★', note: '電力系統/工配計算核心' },
-    { name: '一階/二階 RLC 暫態分析', count: '39 題', pct: 82, star: '★★★★', note: '電路學/工數三要素法' },
-    { name: '變壓器等效電路與開短路試驗', count: '36 題', pct: 75, star: '★★★★', note: '電機機械/工配必考基石' },
-    { name: '差動放大器與 CMRR 分析', count: '32 題', pct: 68, star: '★★★★', note: '電子學高分必備' },
-    { name: '二階 ODE 與拉氏轉換求解', count: '30 題', pct: 62, star: '★★★★', note: '工程數學及格門檻' }
+    { name: '戴維寧/諾頓等效與最大功率', count: '48 題', pct: 95, star: '5/5', note: '電路學/電子學/機械核心必考' },
+    { name: '三相短路與對稱分量故障', count: '42 題', pct: 88, star: '5/5', note: '電力系統/工配計算核心' },
+    { name: '一階/二階 RLC 暫態分析', count: '39 題', pct: 82, star: '4/5', note: '電路學/工數三要素法' },
+    { name: '變壓器等效電路與開短路試驗', count: '36 題', pct: 75, star: '4/5', note: '電機機械/工配必考基石' },
+    { name: '差動放大器與 CMRR 分析', count: '32 題', pct: 68, star: '4/5', note: '電子學高分必備' },
+    { name: '二階 ODE 與拉氏轉換求解', count: '30 題', pct: 62, star: '4/5', note: '工程數學及格門檻' }
   ],
   '01': [
-    { name: '戴維寧與諾頓等效電路', count: '18 題', pct: 90, star: '★★★★★', note: '含相依源測試源法' },
-    { name: '一階/二階電路暫態分析', count: '16 題', pct: 82, star: '★★★★★', note: '開關換位與三要素' },
-    { name: '三相平衡電路 (Y-Δ)', count: '14 題', pct: 70, star: '★★★★', note: '線相電壓電流轉換' }
+    { name: '戴維寧與諾頓等效電路', count: '18 題', pct: 90, star: '5/5', note: '含相依源測試源法' },
+    { name: '一階/二階電路暫態分析', count: '16 題', pct: 82, star: '5/5', note: '開關換位與三要素' },
+    { name: '三相平衡電路 (Y-Δ)', count: '14 題', pct: 70, star: '4/5', note: '線相電壓電流轉換' }
   ],
   '02': [
-    { name: '差動放大器 (Ad, Acm, CMRR)', count: '16 題', pct: 88, star: '★★★★★', note: '半電路分析法' },
-    { name: 'DC-DC Buck/Boost 轉換器', count: '14 題', pct: 78, star: '★★★★', note: '伏秒平衡與電荷平衡' },
-    { name: 'BJT/MOSFET 單級放大器', count: '12 題', pct: 65, star: '★★★★', note: '小訊號參數計算' }
+    { name: '差動放大器 (Ad, Acm, CMRR)', count: '16 題', pct: 88, star: '5/5', note: '半電路分析法' },
+    { name: 'DC-DC Buck/Boost 轉換器', count: '14 題', pct: 78, star: '4/5', note: '伏秒平衡與電荷平衡' },
+    { name: 'BJT/MOSFET 單級放大器', count: '12 題', pct: 65, star: '4/5', note: '小訊號參數計算' }
   ],
   '03': [
-    { name: '二階非齊次常微分方程 ODE', count: '16 題', pct: 85, star: '★★★★★', note: '參數變更法與未定係數' },
-    { name: '拉氏轉換與反轉換求解', count: '14 題', pct: 75, star: '★★★★', note: '部分分式法與摺積' },
-    { name: '矩陣特徵值與對角化', count: '12 題', pct: 68, star: '★★★★', note: '相似轉換與幾何重數' }
+    { name: '二階非齊次常微分方程 ODE', count: '16 題', pct: 85, star: '5/5', note: '參數變更法與未定係數' },
+    { name: '拉氏轉換與反轉換求解', count: '14 題', pct: 75, star: '4/5', note: '部分分式法與摺積' },
+    { name: '矩陣特徵值與對角化', count: '12 題', pct: 68, star: '4/5', note: '相似轉換與幾何重數' }
   ],
   '04': [
-    { name: '單相/三相變壓器開短路試驗', count: '18 題', pct: 92, star: '★★★★★', note: '等效電路與效率計算' },
-    { name: '感應電動機轉矩-轉差率曲線', count: '15 題', pct: 80, star: '★★★★', note: '戴維寧簡化與最大轉矩' },
-    { name: '凸極同步發電機雙反應理論', count: '12 題', pct: 65, star: '★★★★', note: 'Xd, Xq 功角特性' }
+    { name: '單相/三相變壓器開短路試驗', count: '18 題', pct: 92, star: '5/5', note: '等效電路與效率計算' },
+    { name: '感應電動機轉矩-轉差率曲線', count: '15 題', pct: 80, star: '4/5', note: '戴維寧簡化與最大轉矩' },
+    { name: '凸極同步發電機雙反應理論', count: '12 題', pct: 65, star: '4/5', note: 'Xd, Xq 功角特性' }
   ],
   '05': [
-    { name: '對稱分量法與不對稱故障 (SLG)', count: '20 題', pct: 95, star: '★★★★★', note: '正負零序網串聯' },
-    { name: '輸電線路中長程模型 (ABCD)', count: '15 題', pct: 76, star: '★★★★', note: 'π 型等效與電壓調整率' },
-    { name: '單機無窮母線等面積準則', count: '12 題', pct: 64, star: '★★★★', note: '臨界清除角推導' }
+    { name: '對稱分量法與不對稱故障 (SLG)', count: '20 題', pct: 95, star: '5/5', note: '正負零序網串聯' },
+    { name: '輸電線路中長程模型 (ABCD)', count: '15 題', pct: 76, star: '4/5', note: 'π 型等效與電壓調整率' },
+    { name: '單機無窮母線等面積準則', count: '12 題', pct: 64, star: '4/5', note: '臨界清除角推導' }
   ],
   '06': [
-    { name: '短路容量計算 (MVA 法)', count: '16 題', pct: 88, star: '★★★★★', note: '串並聯容量化簡' },
-    { name: '功率因數改善與電容器組', count: '14 題', pct: 78, star: '★★★★', note: '釋放容量與降損' },
-    { name: '保護協調 (TCC 曲線) 定值', count: '12 題', pct: 66, star: '★★★★', note: 'CTI 時間階差設定' }
+    { name: '短路容量計算 (MVA 法)', count: '16 題', pct: 88, star: '5/5', note: '串並聯容量化簡' },
+    { name: '功率因數改善與電容器組', count: '14 題', pct: 78, star: '4/5', note: '釋放容量與降損' },
+    { name: '保護協調 (TCC 曲線) 定值', count: '12 題', pct: 66, star: '4/5', note: 'CTI 時間階差設定' }
   ]
 };
 
@@ -4181,7 +4181,7 @@ function renderLayers() {
     <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px 22px; margin-bottom: 14px; box-shadow: var(--shadow);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h4 style="color: var(--accent-dark); font-size: 1.05rem; font-weight: 700;">
-          ${layer.icon} ${layer.name}
+          ${layer.name}
         </h4>
         <span style="font-size: 0.8rem; font-weight: 600; color: var(--muted); background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">
           ${layer.status || '知識核心'}

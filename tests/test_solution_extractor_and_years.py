@@ -4,7 +4,7 @@ test_solution_extractor_and_years.py
 ====================================
 Comprehensive calibration and verification test:
 1. Verifies that all 11 years (104~114) are fully present in PE and 5 years (110~114) in GK.
-2. Verifies that 100% of the 423 questions (318 PE + 105 GK) extract valid, non-empty solutions with derivations.
+2. Verifies that all active GK records have an explicit solution-validation state.
 3. Verifies that multi-question full paper files correctly extract individual question sections instead of just header metadata.
 """
 
@@ -40,6 +40,12 @@ class TestSolutionExtractorAndYears(unittest.TestCase):
             nb = f.read()
         m_nb = re.search(r'const NATIONAL_BUNDLED_MD\s*=\s*(\{[\s\S]+?\});\s*const NATIONAL_IMAGE_MAP', nb)
         cls.gk_md = json.loads(m_nb.group(1)) if m_nb else {}
+        with open(os.path.join(WORKSPACE, 'data', 'moex-question-crops.json'), 'r', encoding='utf-8') as f:
+            cls.crop_manifest = json.load(f)
+        cls.manifest_gk_count = sum(
+            entry.get('question_count', len(entry.get('questions', [])))
+            for entry in cls.crop_manifest['entries']
+        )
 
         cls.cn_num_map = {
             '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8,
@@ -57,7 +63,10 @@ class TestSolutionExtractorAndYears(unittest.TestCase):
                 h_match = re.search(r'##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十]|\d+)\s*[、\.\:])', sec)
                 if h_match:
                     token = (h_match.group(1) or h_match.group(2) or '').strip()
-                    if self.cn_num_map.get(token) == qnum_int:
+                    token_value = self.cn_num_map.get(token)
+                    if token_value is None and token.isdigit():
+                        token_value = int(token)
+                    if token_value == qnum_int:
                         return sec
             if qnum_int < len(sections):
                 return sections[qnum_int]
@@ -73,7 +82,7 @@ class TestSolutionExtractorAndYears(unittest.TestCase):
         years = set(q[2] for q in self.gk_qs)
         for expected_yr in range(110, 115):
             self.assertIn(expected_yr, years, f"Year {expected_yr} must exist in GK database")
-        self.assertEqual(len(self.gk_qs), 105)
+        self.assertEqual(len(self.gk_qs), self.manifest_gk_count)
 
     def test_100_percent_pe_solutions_extractable(self):
         failures = []
@@ -90,18 +99,22 @@ class TestSolutionExtractorAndYears(unittest.TestCase):
 
         self.assertEqual(len(failures), 0, f"PE solution failures: {failures[:5]}")
 
-    def test_100_percent_gk_solutions_extractable(self):
+    def test_gk_solution_validation_state_is_explicit(self):
         failures = []
         for q in self.gk_qs:
             qid, sid, yr, qnum, topic, tags, sol_link = q[:7]
-            clean_path = sol_link.replace('./', '')
-            raw_md = self.gk_md.get(clean_path, '')
-            if not raw_md:
-                failures.append((qid, 'Markdown file missing in bundle', clean_path))
-                continue
-            extracted = self._extract_question_md(raw_md, qnum)
-            if len(extracted.strip()) < 50:
-                failures.append((qid, f'Extracted content too short ({len(extracted)} chars)', clean_path))
+            status = q[9] if len(q) > 9 else None
+            if status not in {'in_progress', 'verified'}:
+                failures.append((qid, f'Unknown validation status: {status}', ''))
+            if status == 'verified':
+                clean_path = sol_link.replace('./', '')
+                raw_md = self.gk_md.get(clean_path, '')
+                if not raw_md:
+                    failures.append((qid, 'Verified solution missing in bundle', clean_path))
+                elif len(self._extract_question_md(raw_md, qnum).strip()) < 50:
+                    failures.append((qid, 'Verified solution content too short', clean_path))
+            elif sol_link:
+                failures.append((qid, 'Unvalidated question must not expose a solution link', sol_link))
 
         self.assertEqual(len(failures), 0, f"GK solution failures: {failures[:5]}")
 

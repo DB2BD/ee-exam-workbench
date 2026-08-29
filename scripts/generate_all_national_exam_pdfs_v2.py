@@ -13,6 +13,11 @@ import re
 import sys
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if os.environ.get('EE_EXAM_ALLOW_SYNTHETIC') != '1':
+    raise SystemExit(
+        'Blocked: this legacy script creates substitute PDFs. '
+        'Use scripts/download_moex_national_exams.py for official sources.'
+    )
 sys.path.insert(0, os.path.join(WORKSPACE, "scripts", "lib"))
 os.chdir(WORKSPACE)
 

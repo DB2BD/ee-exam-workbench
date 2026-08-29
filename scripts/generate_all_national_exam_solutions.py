@@ -10,6 +10,11 @@ import os
 import re
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if os.environ.get('EE_EXAM_ALLOW_SYNTHETIC') != '1':
+    raise SystemExit(
+        'Blocked: this legacy script creates unverified solution templates. '
+        'Write only independently validated MOEX solutions.'
+    )
 SRC_BASE = os.path.join(WORKSPACE, "依考科分類", "🏛️_國考同級參考題庫")
 TARGET_BASE = os.path.join(WORKSPACE, "📝 個人題解與錯題本", "🏛️_國考同級題解")
 

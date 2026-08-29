@@ -119,6 +119,49 @@ NUM_MAP = {'一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7,
 
 OUTPUT_DATA_JS = 'national-exams-data.js'
 OUTPUT_BUNDLE_JS = 'national-solutions-bundle.js'
+MOEX_CROP_MANIFEST = os.path.join(WORKSPACE, 'data', 'moex-question-crops.json')
+
+
+def load_moex_crop_index():
+    """Load attested question/figure crop metadata without trusting OCR text."""
+    if not os.path.exists(MOEX_CROP_MANIFEST):
+        return {}
+    try:
+        with open(MOEX_CROP_MANIFEST, 'r', encoding='utf-8') as fp:
+            manifest = json.load(fp)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    index = {}
+    for entry in manifest.get('entries', []):
+        for question in entry.get('questions', []):
+            metadata = {
+                'question_crop': question.get('question_crop', ''),
+                'figure_crops': question.get('figure_crops', []),
+                'source_pages': question.get('source_pages', []),
+                'source_pdf_sha256': entry.get('sha256', ''),
+                'source_type': entry.get('source_type', ''),
+                'question_kind': question.get('question_kind', ''),
+                'app_question_number': question.get('app_question_number'),
+            }
+            index[question.get('question_id')] = metadata
+            # The app's legacy tuple id is GK-year-subject-id-question-number;
+            # preserve it while accepting the more descriptive manifest id.
+            sid = SUBJECT_NAME_TO_ID.get(entry.get('subject', ''), '')
+            number = question.get('question_number')
+            app_number = question.get('app_question_number')
+            is_mc = question.get('question_kind') == 'multiple_choice' or (
+                app_number is not None and app_number >= 101
+            )
+            if sid and number:
+                if is_mc:
+                    index[f"GK-{entry['year']}-{sid}-MC{number:02d}"] = metadata
+                else:
+                    index[f"GK-{entry['year']}-{sid}-{number}"] = metadata
+            if sid and is_mc and app_number:
+                # Also support manifests that expose only the app-facing
+                # number; MC entries use 101..120 while their qids use MC01..MC20.
+                index[f"GK-{entry['year']}-{sid}-{app_number}"] = metadata
+    return index
 
 # ═══════════════════════════════════════════════════════════════════════
 # § 2. Question Extraction (mirrors compile_dashboard_database.py logic)
@@ -189,6 +232,7 @@ def scan_exam_category(cat):
     [qid, sid, year, qnum, topic, tags, solLink, pdfLink, diff, vstatus, ftags, hasDed, examCat, relatedPEQid]
     """
     questions = []
+    crop_index = load_moex_crop_index() if cat['prefix'] == 'GK' else {}
     scan_dir = cat.get('scanDir', '')
     sol_dir = cat.get('solDir', '')
     prefix = cat['prefix']
@@ -229,20 +273,39 @@ def scan_exam_category(cat):
             with open(fpath, 'r', encoding='utf-8') as f:
                 text = f.read()
 
-            # Extract questions using the same #### 一、 pattern
-            q_blocks = re.split(r'\n####\s+([一二三四五六七八九十]+)[、\.]\s*', text)
+            # Parse both essay headings (#### 一、...) and multiple-choice
+            # headings (#### 測驗題 1、...).  MC qids are deliberately
+            # distinct from essay qids; their app question numbers remain
+            # 101..120 for compatibility with the dashboard.
+            heading_pattern = re.compile(
+                r'\n####\s+(?:(?P<essay>[一二三四五六七八九十]+)[、\.]|'
+                r'測驗題\s*(?P<mc>\d+)[、\.)]?)\s*'
+            )
+            q_blocks = []
+            last_end = 0
+            for heading in heading_pattern.finditer(text):
+                q_blocks.extend([text[last_end:heading.start()], heading])
+                last_end = heading.end()
+            q_blocks.append(text[last_end:])
             if len(q_blocks) > 1:
                 for j in range(1, len(q_blocks), 2):
-                    q_chinese = q_blocks[j]
-                    q_num = NUM_MAP.get(q_chinese, 1)
+                    heading = q_blocks[j]
+                    q_num = NUM_MAP.get(heading.group('essay'), 1) if heading.group('essay') else int(heading.group('mc'))
+                    is_mc = heading.group('mc') is not None
+                    app_qnum = q_num + 100 if is_mc else q_num
                     q_body = q_blocks[j + 1].strip() if j + 1 < len(q_blocks) else ''
                     clean_body = re.sub(r'###\s+📷\s+官方試卷[\s\S]*?(?=\n####|\n##|\Z)', '', q_body)
                     clean_body = re.sub(r'!\[\[.*?\]\]', '', clean_body)
                     clean_body = re.sub(r'!\[.*?\]\(.*?\)', '', clean_body)
                     clean_body = re.sub(r'\[⬆\s+回到目錄導覽\].*', '', clean_body).strip()
-                    topic = clean_body if clean_body else f'{sname} 第 {q_num} 題'
+                    # The source Markdown also contains the authoritative crop
+                    # headings. Keep only the transcription before those headings
+                    # as the card topic; the crop paths are stored separately.
+                    topic = clean_body.split('### 原始題目裁切', 1)[0].strip()
+                    topic = topic.split('### 原始圖形裁切', 1)[0].strip()
+                    topic = topic if topic else f'{sname} 第 {q_num} 題'
 
-                    qid = f'{prefix}-{yr}-{sid}-{q_num}'
+                    qid = f'{prefix}-{yr}-{sid}-MC{q_num:02d}' if is_mc else f'{prefix}-{yr}-{sid}-{q_num}'
                     tags = extract_content_tags(topic, q_body)
                     tags.insert(0, sname.split('（')[0])
                     ftags = extract_formula_tags(topic, q_body)
@@ -255,8 +318,25 @@ def scan_exam_category(cat):
                         sol_pattern = f'{prefix}_{yr}年_{sname.split("（")[0]}_全卷完整詳細題解.md'
                         sol_path = os.path.join(sol_subj_dir, sol_pattern)
                         if os.path.exists(sol_path):
-                            sol_link = sol_path.replace(os.sep, '/')
-                            has_dedicated = True
+                            with open(sol_path, 'r', encoding='utf-8') as sol_fp:
+                                solution_text = sol_fp.read()
+                            # A paper-level file may be partial. Only expose it
+                            # for a question explicitly listed as validated.
+                            validated_match = re.search(
+                                r'validated_question_ids:\s*\[([^\]]*)\]',
+                                solution_text,
+                            )
+                            validated_ids = {
+                                item.strip().strip("'\"")
+                                for item in validated_match.group(1).split(',')
+                            } if validated_match else set()
+                            qid_candidate = (
+                                f'{prefix}-{yr}-{sid}-MC{q_num:02d}'
+                                if is_mc else f'{prefix}-{yr}-{sid}-{q_num}'
+                            )
+                            if qid_candidate in validated_ids:
+                                sol_link = sol_path.replace(os.sep, '/')
+                                has_dedicated = True
                     # Check for local PDF
                     pdf_link = ''
                     candidates = [
@@ -279,10 +359,14 @@ def scan_exam_category(cat):
                     # relatedPEQid: cross-reference placeholder (populated in phase 2)
                     related_pe_qid = ''
 
+                    qid = f'{prefix}-{yr}-{sid}-MC{q_num:02d}' if is_mc else f'{prefix}-{yr}-{sid}-{q_num}'
+                    crop = crop_index.get(qid, {})
                     questions.append([
-                        qid, sid, yr, q_num, topic, list(set(tags)),
+                        qid, sid, yr, app_qnum, topic, list(set(tags)),
                         sol_link, pdf_link, diff, 'verified' if has_dedicated else 'in_progress',
-                        ftags, has_dedicated, cat['id'], related_pe_qid
+                        ftags, has_dedicated, cat['id'], related_pe_qid,
+                        crop.get('question_crop', ''), crop.get('figure_crops', []),
+                        crop.get('source_pages', []), crop.get('source_pdf_sha256', ''),
                     ])
 
     return questions

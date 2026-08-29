@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260829_2319"></script>
-<script src="./solutions-bundle.js?v=20260829_2319"></script>
-<script src="./national-exams-data.js?v=20260829_2319"></script>
-<script src="./national-solutions-bundle.js?v=20260829_2319"></script>
+<script src="./dashboard-data.js?v=dev"></script>
+<script src="./solutions-bundle.js?v=dev"></script>
+<script src="./national-exams-data.js?v=dev"></script>
+<script src="./national-solutions-bundle.js?v=dev"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -1488,7 +1488,7 @@ select:focus {
         <select id="review-subject" onchange="setReviewSubjectFilter(this.value)"><option value="all">所有考科</option></select>
         <span id="review-filter-count"></span>
       </div>
-      <div class="review-type-filter" id="review-type-filter" aria-label="題型分類篩選"></div>
+      <div class="review-type-filter" id="review-type-filter" aria-label="教科書章節篩選"></div>
       <div id="review-container"></div>
     </div>
   </div>
@@ -1737,6 +1737,84 @@ select:focus {
 </div>
 
 <script>
+// === src/domain/questionRecord.js ===
+// src/domain/questionRecord.js
+/**
+ * Stable named-field boundary for legacy PE/GK question tuples.
+ *
+ * The generated bundles remain positional for backwards compatibility, while
+ * UI and future domain code can consume one explicit QuestionRecord shape.
+ */
+
+const QUESTION_SCHEMA_VERSION = '1.0.0';
+const QUESTION_STATUSES = ['verified', 'in_progress', 'pending', 'ambiguous', 'unavailable'];
+
+function toQuestionRecord(record, examFamily) {
+  const family = examFamily || (String(record && record[0] || '').startsWith('GK-') ? 'GK' : 'PE');
+  if (record && !Array.isArray(record)) {
+    return Object.assign({
+      schemaVersion: QUESTION_SCHEMA_VERSION,
+      examFamily: family,
+    }, record);
+  }
+  if (!Array.isArray(record) || record.length < 12) throw new Error('Invalid question tuple');
+  const view = {
+    schemaVersion: QUESTION_SCHEMA_VERSION,
+    id: record[0],
+    examFamily: family,
+    subjectId: record[1],
+    year: record[2],
+    number: record[3],
+    stem: record[4],
+    tags: Array.isArray(record[5]) ? record[5] : [],
+    solutionLink: record[6] || '',
+    sourceLink: record[7] || '',
+    difficulty: record[8],
+    solutionStatus: record[9] || 'pending',
+    formulaTags: Array.isArray(record[10]) ? record[10] : [],
+    hasDedicatedSolution: !!record[11],
+    taxonomy: {
+      primaryChapter: record.primaryChapter || null,
+      secondaryTopics: Array.isArray(record.secondaryTopics) ? record.secondaryTopics : [],
+      confidence: typeof record.confidence === 'number' ? record.confidence : null,
+    },
+    provenance: {
+      questionCrop: '',
+      figureCrops: [],
+      sourcePages: [],
+      sourcePdfSha256: '',
+    },
+  };
+  if (family === 'GK' || record.length >= 18) {
+    view.categoryId = record[12] || family;
+    view.relatedPEId = record[13] || '';
+    view.provenance.questionCrop = record[14] || '';
+    view.provenance.figureCrops = Array.isArray(record[15]) ? record[15] : [];
+    view.provenance.sourcePages = Array.isArray(record[16]) ? record[16] : [];
+    view.provenance.sourcePdfSha256 = record[17] || '';
+  }
+  return view;
+}
+
+function questionField(record, field, examFamily) {
+  return toQuestionRecord(record, examFamily)[field];
+}
+
+function isValidQuestionStatus(status) {
+  return QUESTION_STATUSES.includes(status);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    QUESTION_SCHEMA_VERSION,
+    QUESTION_STATUSES,
+    toQuestionRecord,
+    questionField,
+    isValidQuestionStatus,
+  };
+}
+
+
 // === src/data/knowledge-dag.js ===
 // -*- coding: utf-8 -*-
 /**
@@ -3003,6 +3081,26 @@ function reviewHtmlEscape(value) {
   }[ch]));
 }
 
+function getReviewRecord(q) {
+  if (typeof toQuestionRecord === 'function') return toQuestionRecord(q);
+  return {
+    id: q[0], subjectId: q[1], year: q[2], number: q[3], stem: q[4],
+    tags: q[5], solutionLink: q[6], formulaTags: q[10],
+  };
+}
+
+function getReviewSubjectFilterValues(questions) {
+  return [...new Set((questions || []).map(q => getReviewRecord(q).subjectId).filter(Boolean))].sort();
+}
+
+function getReviewChapterFilterValues(questions, subjectId) {
+  const selected = subjectId || 'all';
+  return [...new Set((questions || [])
+    .filter(q => selected === 'all' || getReviewRecord(q).subjectId === selected)
+    .map(getReviewTypeLabel))]
+    .sort((a, b) => a.localeCompare(b, 'zh-Hant'));
+}
+
 function setReviewFilter(filter) {
   reviewFilter = ['due', 'wrong', 'starred', 'all'].includes(filter) ? filter : 'due';
   const scope = document.getElementById('review-scope');
@@ -3114,8 +3212,15 @@ const REVIEW_CHAPTER_RULES = {
   ]
 };
 
+// Public integrity seam: the classifier's rule IDs must remain resolvable in
+// the canonical knowledge DAG (the DAG owns the display chapter names).
+function getReviewChapterRuleIds(subjectId) {
+  return (REVIEW_CHAPTER_RULES[subjectId] || []).map(([id]) => id);
+}
+
 function getReviewChapterKey(q) {
-  const sid = q[1];
+  const record = getReviewRecord(q);
+  const sid = record.subjectId;
   const normalize = value => String(value || '').toLowerCase()
     .replace(/th[eéè]venin|thevenin/g, '戴維寧')
     .replace(/norton/g, '諾頓')
@@ -3126,9 +3231,9 @@ function getReviewChapterKey(q) {
     .replace(/induction motor/g, '感應電動機')
     .replace(/transformer/g, '變壓器')
     .replace(/fortescue|sequence components/g, '對稱分量');
-  const topic = normalize(q[4]);
-  const tags = Array.isArray(q[5]) ? q[5].map(normalize) : [];
-  const formulaTags = Array.isArray(q[10]) ? q[10].map(normalize) : [];
+  const topic = normalize(record.stem);
+  const tags = Array.isArray(record.tags) ? record.tags.map(normalize) : [];
+  const formulaTags = Array.isArray(record.formulaTags) ? record.formulaTags.map(normalize) : [];
   const text = `${topic} ${tags.join(' ')} ${formulaTags.join(' ')}`;
   const rules = REVIEW_CHAPTER_RULES[sid] || [];
   let best = null;
@@ -3159,11 +3264,11 @@ function getReviewQuestions() {
   const subject = document.getElementById('review-subject');
   const subjectFilter = subject ? subject.value : 'all';
   return questions.filter(q => {
-    const qid = q[0];
+    const qid = getReviewRecord(q).id;
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
     const starred = typeof starredState !== 'undefined' && !!starredState[qid];
     const inScope = reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : true;
-    return inScope && (subjectFilter === 'all' || q[1] === subjectFilter) && (reviewTypeFilter === 'all' || getReviewTypeLabel(q) === reviewTypeFilter);
+    return inScope && (subjectFilter === 'all' || getReviewRecord(q).subjectId === subjectFilter) && (reviewTypeFilter === 'all' || getReviewTypeLabel(q) === reviewTypeFilter);
   });
 }
 
@@ -3172,7 +3277,7 @@ function populateReviewSubjects() {
   if (!select) return;
   const current = select.value || 'all';
   const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
-  const ids = [...new Set(questions.map(q => q[1]))].sort();
+  const ids = getReviewSubjectFilterValues(questions);
   select.innerHTML = '<option value="all">所有考科</option>' + ids.map(sid => {
     const meta = getSubjectMeta(sid);
     return `<option value="${reviewHtmlEscape(sid)}">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</option>`;
@@ -3187,27 +3292,27 @@ function renderReviewPage() {
   const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
   const subject = document.getElementById('review-subject');
   const subjectFilter = subject ? subject.value : 'all';
-  const subjectQuestions = questions.filter(q => subjectFilter === 'all' || q[1] === subjectFilter);
+  const subjectQuestions = questions.filter(q => subjectFilter === 'all' || getReviewRecord(q).subjectId === subjectFilter);
   const due = new Set(typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
-  const wrong = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[q[0]] || 0) === 2).length;
-  const starred = subjectQuestions.filter(q => typeof starredState !== 'undefined' && starredState[q[0]]).length;
+  const wrong = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[getReviewRecord(q).id] || 0) === 2).length;
+  const starred = subjectQuestions.filter(q => typeof starredState !== 'undefined' && starredState[getReviewRecord(q).id]).length;
   const stats = document.getElementById('review-stats');
-  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(q[0])).length], ['錯題本', wrong], ['收藏', starred], ['目前題庫', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
+  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length], ['錯題本', wrong], ['收藏', starred], ['目前題庫', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
 
   // Only chapters that actually occur in the selected subject are offered.
   // This also removes empty/unmatched textbook chapters from the dropdown.
-  const allTypes = [...new Set(subjectQuestions.map(getReviewTypeLabel))].sort((a, b) => a.localeCompare(b, 'zh-Hant'));
+  const allTypes = getReviewChapterFilterValues(subjectQuestions, 'all');
   if (reviewTypeFilter !== 'all' && !allTypes.includes(reviewTypeFilter)) reviewTypeFilter = 'all';
   const typeFilter = document.getElementById('review-type-filter');
   if (typeFilter) {
     const scopeQuestions = subjectQuestions.filter(q => {
-      const qid = q[0];
+      const qid = getReviewRecord(q).id;
       const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
       const starred = typeof starredState !== 'undefined' && !!starredState[qid];
       return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : true;
     });
     const counts = scopeQuestions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
-    const buttons = [['all', '全部題型', scopeQuestions.length]].concat(allTypes.map(type => [type, type, counts[type] || 0]));
+    const buttons = [['all', '全部章節', scopeQuestions.length]].concat(allTypes.map(type => [type, type, counts[type] || 0]));
     typeFilter.innerHTML = buttons.map(([value, label, count]) => `<button type="button" class="pill ${reviewTypeFilter === value ? 'active' : ''}" data-review-type-filter="${reviewHtmlEscape(value)}">${reviewHtmlEscape(label)} (${count})</button>`).join('');
     typeFilter.querySelectorAll('[data-review-type-filter]').forEach(button => button.addEventListener('click', () => setReviewTypeFilter(button.dataset.reviewTypeFilter)));
   }
@@ -3217,14 +3322,15 @@ function renderReviewPage() {
   if (count) count.innerText = `目前 ${filtered.length} 題`;
   if (!filtered.length) {
     const title = reviewFilter === 'due' ? '今天沒有到期複習題' : '目前沒有符合條件的題目';
-    container.innerHTML = `<div class="review-empty"><strong>${title}</strong><span>可切換複習範圍或題型，完成題目後再回來集中複習。</span></div>`;
+    container.innerHTML = `<div class="review-empty"><strong>${title}</strong><span>可切換複習範圍或教科書章節，完成題目後再回來集中複習。</span></div>`;
     return;
   }
 
   const groups = {};
   filtered.forEach(q => { const type = getReviewTypeLabel(q); (groups[type] ||= []).push(q); });
   container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div><div class="review-card-grid">${list.map(q => {
-    const [qid, sid, year, qnum, topic, tags, solLink] = q;
+    const record = getReviewRecord(q);
+    const { id: qid, subjectId: sid, year, number: qnum, stem: topic, solutionLink: solLink } = record;
     const meta = getSubjectMeta(sid);
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
     const statusText = status === 2 ? '錯題' : status === 1 ? '已掌握' : '未開始';
@@ -3232,8 +3338,11 @@ function renderReviewPage() {
     return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span>${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
   }).join('')}</div></section>`).join('')}</div>`;
   container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
-    const q = filtered.find(item => item[0] === button.dataset.reviewOpen);
-    if (q && typeof openSolutionModal === 'function') openSolutionModal(null, q[6], q[0], q[3], false, false);
+    const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewOpen);
+    if (q && typeof openSolutionModal === 'function') {
+      const record = getReviewRecord(q);
+      openSolutionModal(null, record.solutionLink, record.id, record.number, false, false);
+    }
   }));
   container.querySelectorAll('[data-review-status]').forEach(button => button.addEventListener('click', () => {
     if (typeof toggleStatus === 'function') toggleStatus(button.dataset.reviewStatus);
@@ -3243,7 +3352,10 @@ function renderReviewPage() {
 function startReviewSession() {
   setReviewFilter('due');
   const first = getReviewQuestions()[0];
-  if (first && typeof openSolutionModal === 'function') openSolutionModal(null, first[6], first[0], first[3], false, true);
+  if (first && typeof openSolutionModal === 'function') {
+    const record = getReviewRecord(first);
+    openSolutionModal(null, record.solutionLink, record.id, record.number, false, true);
+  }
 }
 
 

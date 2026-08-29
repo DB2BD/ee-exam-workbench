@@ -21,8 +21,21 @@ def read_file(rel_path):
 
 def build_workbench():
     print("🔨 Building Workbench from modular src/ components...")
-    
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
+
+    # Reproducible builds: CI supplies BUILD_VERSION (usually the commit
+    # SHA); SOURCE_DATE_EPOCH is supported for deterministic local builds.
+    build_version = os.environ.get('BUILD_VERSION')
+    if not build_version:
+        source_epoch = os.environ.get('SOURCE_DATE_EPOCH')
+        if source_epoch:
+            try:
+                build_version = datetime.datetime.fromtimestamp(
+                    int(source_epoch), tz=datetime.timezone.utc
+                ).strftime('%Y%m%d_%H%M')
+            except (TypeError, ValueError, OverflowError):
+                build_version = 'dev'
+        else:
+            build_version = 'dev'
     
     # 1. Bundle Styles
     css_files = [
@@ -36,6 +49,7 @@ def build_workbench():
 
     # 2. Bundle Scripts
     js_files = [
+        'src/domain/questionRecord.js',
         'src/data/knowledge-dag.js',
         'src/state/store.js',
         'src/state/filterStore.js',
@@ -69,10 +83,10 @@ def build_workbench():
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v={timestamp}"></script>
-<script src="./solutions-bundle.js?v={timestamp}"></script>
-<script src="./national-exams-data.js?v={timestamp}"></script>
-<script src="./national-solutions-bundle.js?v={timestamp}"></script>
+<script src="./dashboard-data.js?v={build_version}"></script>
+<script src="./solutions-bundle.js?v={build_version}"></script>
+<script src="./national-exams-data.js?v={build_version}"></script>
+<script src="./national-solutions-bundle.js?v={build_version}"></script>
 
 <style>
 {bundled_css}
@@ -197,7 +211,7 @@ def build_workbench():
         <select id="review-subject" onchange="setReviewSubjectFilter(this.value)"><option value="all">所有考科</option></select>
         <span id="review-filter-count"></span>
       </div>
-      <div class="review-type-filter" id="review-type-filter" aria-label="題型分類篩選"></div>
+      <div class="review-type-filter" id="review-type-filter" aria-label="教科書章節篩選"></div>
       <div id="review-container"></div>
     </div>
   </div>
@@ -456,7 +470,7 @@ def build_workbench():
     with open(out_path, 'w', encoding='utf-8') as f:
         f.write(html_template)
 
-    print(f"✅ Successfully compiled production index.html ({len(html_template)} bytes, version timestamp: {timestamp})")
+    print(f"✅ Successfully compiled production index.html ({len(html_template)} bytes, build version: {build_version})")
     return True
 
 if __name__ == '__main__':

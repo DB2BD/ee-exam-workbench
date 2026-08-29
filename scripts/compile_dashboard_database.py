@@ -158,7 +158,7 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
                     ftags = extract_formula_tags(topic, q_body)
                     
                     all_questions.append([
-                        qid, sid, yr, q_num, topic, list(set(tags)), solLink, pdf_file,
+                        qid, sid, yr, q_num, topic, sorted(set(tags)), solLink, pdf_file,
                         difficulty, v_status, ftags, has_dedicated
                     ])
                     count_for_subj += 1

@@ -16,6 +16,9 @@ function switchTab(tabId) {
   if (tabId === 'dag' && typeof renderDagGraphVisualizer === 'function') {
     renderDagGraphVisualizer();
   }
+  if (tabId === 'review' && typeof renderReviewPage === 'function') {
+    renderReviewPage();
+  }
 }
 
 function handleUrlHashRouting() {
@@ -108,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Render initial components
   updateStatsAndBar();
   renderQuestions();
+  renderReviewPage();
   renderLayers();
   renderTopTopics();
   initPaneResizer();

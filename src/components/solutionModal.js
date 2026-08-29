@@ -354,6 +354,7 @@ function submitSM2Rating(rating) {
 
   // Refresh badges in question list
   if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof renderReviewPage === 'function') renderReviewPage();
   updateModalStatusButtons(currentModalQid);
 
   // Auto transition to next question if rating 5
@@ -560,4 +561,3 @@ window.addEventListener('keydown', (e) => {
     navModalQuestion(1);
   }
 });
-

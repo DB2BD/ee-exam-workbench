@@ -60,6 +60,11 @@ class TestBuildPipeline(unittest.TestCase):
         self.assertIn("function setReviewFilter", html)
         self.assertIn("getDueQuestionsList()", html)
         self.assertIn("data-review-type", html)
+        self.assertIn("setReviewSubjectFilter(this.value)", html)
+        self.assertIn("const subjectQuestions = questions.filter", html)
+        self.assertIn("subjectQuestions.map(getReviewTypeLabel)", html)
+        self.assertIn("review-card-grid", html)
+        self.assertIn("box-shadow: var(--shadow)", html)
 
     def test_review_taxonomy_uses_textbook_chapter_names(self):
         with open(self.index_path, 'r', encoding='utf-8') as f:

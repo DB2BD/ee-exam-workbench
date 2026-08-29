@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260829_2303"></script>
-<script src="./solutions-bundle.js?v=20260829_2303"></script>
-<script src="./national-exams-data.js?v=20260829_2303"></script>
-<script src="./national-solutions-bundle.js?v=20260829_2303"></script>
+<script src="./dashboard-data.js?v=20260829_2319"></script>
+<script src="./solutions-bundle.js?v=20260829_2319"></script>
+<script src="./national-exams-data.js?v=20260829_2319"></script>
+<script src="./national-solutions-bundle.js?v=20260829_2319"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -476,13 +476,14 @@ select:focus {
 .review-controls span { margin-left: auto; color: var(--muted); font-size: 0.8rem; font-weight: 700; }
 .review-type-filter { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
 .review-type-filter .pill { padding: 5px 10px; font-size: 0.78rem; }
-.review-type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-.review-type-section { border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); overflow: hidden; }
+.review-type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; align-items: start; }
+.review-type-section { min-width: 0; align-self: start; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); overflow: hidden; padding-bottom: 10px; }
 .review-type-title { padding: 10px 14px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); color: var(--accent-dark); font-size: 0.92rem; font-weight: 800; display: flex; justify-content: space-between; gap: 8px; }
-.review-card { padding: 12px 14px; border-bottom: 1px solid var(--line); }
-.review-card:last-child { border-bottom: 0; }
+.review-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; padding: 10px; }
+.review-card { min-width: 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow); }
+.review-card:last-child { border-bottom: 1px solid var(--line); }
 .review-card-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 5px; }
-.review-card-topic { color: var(--ink); font-size: 0.88rem; line-height: 1.5; margin-bottom: 9px; }
+.review-card-topic { color: var(--ink); font-size: 0.88rem; line-height: 1.5; margin-bottom: 9px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .review-card-actions { display: flex; gap: 7px; flex-wrap: wrap; }
 .review-card-actions button { font-size: 0.78rem; padding: 5px 9px; }
 .review-empty { text-align: center; padding: 42px 20px; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius-sm); }
@@ -1484,7 +1485,7 @@ select:focus {
           <option value="all">全部題目</option>
         </select>
         <label for="review-subject">考科</label>
-        <select id="review-subject" onchange="renderReviewPage()"><option value="all">所有考科</option></select>
+        <select id="review-subject" onchange="setReviewSubjectFilter(this.value)"><option value="all">所有考科</option></select>
         <span id="review-filter-count"></span>
       </div>
       <div class="review-type-filter" id="review-type-filter" aria-label="題型分類篩選"></div>
@@ -3014,6 +3015,15 @@ function setReviewTypeFilter(type) {
   renderReviewPage();
 }
 
+function setReviewSubjectFilter(subject) {
+  // A chapter belongs to one textbook/subject. Never carry a chapter
+  // selection across subjects where it does not exist.
+  reviewTypeFilter = 'all';
+  const select = document.getElementById('review-subject');
+  if (select && select.value !== subject) select.value = subject;
+  renderReviewPage();
+}
+
 /*
  * Textbook taxonomy.  IDs and names intentionally mirror KNOWLEDGE_DAG so
  * review groups and the prerequisite graph use one canonical chapter name.
@@ -3175,18 +3185,29 @@ function renderReviewPage() {
   if (!container) return;
   populateReviewSubjects();
   const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
+  const subject = document.getElementById('review-subject');
+  const subjectFilter = subject ? subject.value : 'all';
+  const subjectQuestions = questions.filter(q => subjectFilter === 'all' || q[1] === subjectFilter);
   const due = new Set(typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
-  const wrong = questions.filter(q => typeof progressState !== 'undefined' && (progressState[q[0]] || 0) === 2).length;
-  const starred = questions.filter(q => typeof starredState !== 'undefined' && starredState[q[0]]).length;
+  const wrong = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[q[0]] || 0) === 2).length;
+  const starred = subjectQuestions.filter(q => typeof starredState !== 'undefined' && starredState[q[0]]).length;
   const stats = document.getElementById('review-stats');
-  if (stats) stats.innerHTML = [['今日到期', questions.filter(q => due.has(q[0])).length], ['錯題本', wrong], ['收藏', starred], ['目前題庫', questions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
+  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(q[0])).length], ['錯題本', wrong], ['收藏', starred], ['目前題庫', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
 
-  const allTypes = [...new Set(questions.map(getReviewTypeLabel))].sort((a, b) => a.localeCompare(b, 'zh-Hant'));
+  // Only chapters that actually occur in the selected subject are offered.
+  // This also removes empty/unmatched textbook chapters from the dropdown.
+  const allTypes = [...new Set(subjectQuestions.map(getReviewTypeLabel))].sort((a, b) => a.localeCompare(b, 'zh-Hant'));
   if (reviewTypeFilter !== 'all' && !allTypes.includes(reviewTypeFilter)) reviewTypeFilter = 'all';
   const typeFilter = document.getElementById('review-type-filter');
   if (typeFilter) {
-    const counts = questions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
-    const buttons = [['all', '全部題型', questions.length]].concat(allTypes.map(type => [type, type, counts[type]]));
+    const scopeQuestions = subjectQuestions.filter(q => {
+      const qid = q[0];
+      const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
+      const starred = typeof starredState !== 'undefined' && !!starredState[qid];
+      return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : true;
+    });
+    const counts = scopeQuestions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
+    const buttons = [['all', '全部題型', scopeQuestions.length]].concat(allTypes.map(type => [type, type, counts[type] || 0]));
     typeFilter.innerHTML = buttons.map(([value, label, count]) => `<button type="button" class="pill ${reviewTypeFilter === value ? 'active' : ''}" data-review-type-filter="${reviewHtmlEscape(value)}">${reviewHtmlEscape(label)} (${count})</button>`).join('');
     typeFilter.querySelectorAll('[data-review-type-filter]').forEach(button => button.addEventListener('click', () => setReviewTypeFilter(button.dataset.reviewTypeFilter)));
   }
@@ -3202,14 +3223,14 @@ function renderReviewPage() {
 
   const groups = {};
   filtered.forEach(q => { const type = getReviewTypeLabel(q); (groups[type] ||= []).push(q); });
-  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div>${list.map(q => {
+  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div><div class="review-card-grid">${list.map(q => {
     const [qid, sid, year, qnum, topic, tags, solLink] = q;
     const meta = getSubjectMeta(sid);
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
     const statusText = status === 2 ? '錯題' : status === 1 ? '已掌握' : '未開始';
     const dueText = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
     return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span>${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
-  }).join('')}</section>`).join('')}</div>`;
+  }).join('')}</div></section>`).join('')}</div>`;
   container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => item[0] === button.dataset.reviewOpen);
     if (q && typeof openSolutionModal === 'function') openSolutionModal(null, q[6], q[0], q[3], false, false);

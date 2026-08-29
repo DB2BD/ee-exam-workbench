@@ -191,13 +191,14 @@ select:focus {
 .review-controls span { margin-left: auto; color: var(--muted); font-size: 0.8rem; font-weight: 700; }
 .review-type-filter { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
 .review-type-filter .pill { padding: 5px 10px; font-size: 0.78rem; }
-.review-type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-.review-type-section { border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); overflow: hidden; }
+.review-type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; align-items: start; }
+.review-type-section { min-width: 0; align-self: start; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); overflow: hidden; padding-bottom: 10px; }
 .review-type-title { padding: 10px 14px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); color: var(--accent-dark); font-size: 0.92rem; font-weight: 800; display: flex; justify-content: space-between; gap: 8px; }
-.review-card { padding: 12px 14px; border-bottom: 1px solid var(--line); }
-.review-card:last-child { border-bottom: 0; }
+.review-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; padding: 10px; }
+.review-card { min-width: 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow); }
+.review-card:last-child { border-bottom: 1px solid var(--line); }
 .review-card-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 5px; }
-.review-card-topic { color: var(--ink); font-size: 0.88rem; line-height: 1.5; margin-bottom: 9px; }
+.review-card-topic { color: var(--ink); font-size: 0.88rem; line-height: 1.5; margin-bottom: 9px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .review-card-actions { display: flex; gap: 7px; flex-wrap: wrap; }
 .review-card-actions button { font-size: 0.78rem; padding: 5px 9px; }
 .review-empty { text-align: center; padding: 42px 20px; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius-sm); }

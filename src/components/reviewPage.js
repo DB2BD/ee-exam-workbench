@@ -22,6 +22,15 @@ function setReviewTypeFilter(type) {
   renderReviewPage();
 }
 
+function setReviewSubjectFilter(subject) {
+  // A chapter belongs to one textbook/subject. Never carry a chapter
+  // selection across subjects where it does not exist.
+  reviewTypeFilter = 'all';
+  const select = document.getElementById('review-subject');
+  if (select && select.value !== subject) select.value = subject;
+  renderReviewPage();
+}
+
 /*
  * Textbook taxonomy.  IDs and names intentionally mirror KNOWLEDGE_DAG so
  * review groups and the prerequisite graph use one canonical chapter name.
@@ -183,18 +192,29 @@ function renderReviewPage() {
   if (!container) return;
   populateReviewSubjects();
   const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
+  const subject = document.getElementById('review-subject');
+  const subjectFilter = subject ? subject.value : 'all';
+  const subjectQuestions = questions.filter(q => subjectFilter === 'all' || q[1] === subjectFilter);
   const due = new Set(typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
-  const wrong = questions.filter(q => typeof progressState !== 'undefined' && (progressState[q[0]] || 0) === 2).length;
-  const starred = questions.filter(q => typeof starredState !== 'undefined' && starredState[q[0]]).length;
+  const wrong = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[q[0]] || 0) === 2).length;
+  const starred = subjectQuestions.filter(q => typeof starredState !== 'undefined' && starredState[q[0]]).length;
   const stats = document.getElementById('review-stats');
-  if (stats) stats.innerHTML = [['今日到期', questions.filter(q => due.has(q[0])).length], ['錯題本', wrong], ['收藏', starred], ['目前題庫', questions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
+  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(q[0])).length], ['錯題本', wrong], ['收藏', starred], ['目前題庫', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
 
-  const allTypes = [...new Set(questions.map(getReviewTypeLabel))].sort((a, b) => a.localeCompare(b, 'zh-Hant'));
+  // Only chapters that actually occur in the selected subject are offered.
+  // This also removes empty/unmatched textbook chapters from the dropdown.
+  const allTypes = [...new Set(subjectQuestions.map(getReviewTypeLabel))].sort((a, b) => a.localeCompare(b, 'zh-Hant'));
   if (reviewTypeFilter !== 'all' && !allTypes.includes(reviewTypeFilter)) reviewTypeFilter = 'all';
   const typeFilter = document.getElementById('review-type-filter');
   if (typeFilter) {
-    const counts = questions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
-    const buttons = [['all', '全部題型', questions.length]].concat(allTypes.map(type => [type, type, counts[type]]));
+    const scopeQuestions = subjectQuestions.filter(q => {
+      const qid = q[0];
+      const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
+      const starred = typeof starredState !== 'undefined' && !!starredState[qid];
+      return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : true;
+    });
+    const counts = scopeQuestions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
+    const buttons = [['all', '全部題型', scopeQuestions.length]].concat(allTypes.map(type => [type, type, counts[type] || 0]));
     typeFilter.innerHTML = buttons.map(([value, label, count]) => `<button type="button" class="pill ${reviewTypeFilter === value ? 'active' : ''}" data-review-type-filter="${reviewHtmlEscape(value)}">${reviewHtmlEscape(label)} (${count})</button>`).join('');
     typeFilter.querySelectorAll('[data-review-type-filter]').forEach(button => button.addEventListener('click', () => setReviewTypeFilter(button.dataset.reviewTypeFilter)));
   }
@@ -210,14 +230,14 @@ function renderReviewPage() {
 
   const groups = {};
   filtered.forEach(q => { const type = getReviewTypeLabel(q); (groups[type] ||= []).push(q); });
-  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div>${list.map(q => {
+  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div><div class="review-card-grid">${list.map(q => {
     const [qid, sid, year, qnum, topic, tags, solLink] = q;
     const meta = getSubjectMeta(sid);
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
     const statusText = status === 2 ? '錯題' : status === 1 ? '已掌握' : '未開始';
     const dueText = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
     return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span>${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
-  }).join('')}</section>`).join('')}</div>`;
+  }).join('')}</div></section>`).join('')}</div>`;
   container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => item[0] === button.dataset.reviewOpen);
     if (q && typeof openSolutionModal === 'function') openSolutionModal(null, q[6], q[0], q[3], false, false);

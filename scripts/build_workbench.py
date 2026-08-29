@@ -194,7 +194,7 @@ def build_workbench():
           <option value="all">全部題目</option>
         </select>
         <label for="review-subject">考科</label>
-        <select id="review-subject" onchange="renderReviewPage()"><option value="all">所有考科</option></select>
+        <select id="review-subject" onchange="setReviewSubjectFilter(this.value)"><option value="all">所有考科</option></select>
         <span id="review-filter-count"></span>
       </div>
       <div class="review-type-filter" id="review-type-filter" aria-label="題型分類篩選"></div>

@@ -135,14 +135,19 @@ function switchExamCategory(catId) {
 
   updateFilterDropdownsForCategory();
   reloadProgressState();
+  const categoryCount = typeof getQuestionCountForCategory === 'function'
+    ? getQuestionCountForCategory(catId)
+    : (catId === 'PE' ? 318 : 161);
 
   if (catId === 'PE') {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
-    showToast('🏆 已切換至「電機工程技師」核心題庫 (318 題)');
+    if (typeof renderReviewPage === 'function') renderReviewPage();
+    showToast(`🏆 已切換至「電機工程技師」核心題庫 (${categoryCount} 題)`);
   } else {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
-    showToast('🏛️ 已切換至「公務人員高考三級」參考題庫 (105 題)');
+    if (typeof renderReviewPage === 'function') renderReviewPage();
+    showToast(`🏛️ 已切換至「公務人員高考三級」參考題庫 (${categoryCount} 題)`);
   }
 }

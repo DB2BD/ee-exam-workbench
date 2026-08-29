@@ -40,6 +40,7 @@ def build_workbench():
         'src/state/store.js',
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
+        'src/components/reviewPage.js',
         'src/renderers/katexRenderer.js',
         'src/renderers/markdownRenderer.js',
         'src/components/dagTracer.js',
@@ -86,7 +87,7 @@ def build_workbench():
     <div class="header-top">
       <div class="title-area">
         <h1>⚡ 電機工程技師 & 公務高考三級 歷屆試題工作台</h1>
-        <p>104 ~ 114 年 6 大考科 · 423 道試題 · 100% 步驟推導 · 5 大維度難度評級 · 離線極速載入</p>
+        <p>104 ~ 114 年 6 大考科 · <span id="hero-total-count">479 道試題</span> · 100% 步驟推導 · 5 大維度難度評級 · 離線極速載入</p>
       </div>
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
@@ -101,11 +102,11 @@ def build_workbench():
     <div class="category-switcher">
       <button class="cat-tab on" id="cat-tab-PE" onclick="switchExamCategory('PE')">
         <span>🏆 專技高考：電機工程技師</span>
-        <span class="cat-badge">318 題 · 66 卷</span>
+        <span class="cat-badge" id="cat-count-PE">318 題 · 66 卷</span>
       </button>
       <button class="cat-tab" id="cat-tab-GK" onclick="switchExamCategory('GK')">
         <span>🏛️ 公務高考：三級電力/電子</span>
-        <span class="cat-badge">105 題 · 25 卷</span>
+        <span class="cat-badge" id="cat-count-GK">161 題 · 25 卷</span>
       </button>
     </div>
 
@@ -113,7 +114,7 @@ def build_workbench():
     <div class="stats-grid">
       <div class="stat-card">
         <span class="label">📚 收錄試題總數</span>
-        <span class="val" id="stat-total">423</span>
+        <span class="val" id="stat-total">318</span>
       </div>
       <div class="stat-card">
         <span class="label">🟢 已掌握題數</span>
@@ -156,6 +157,9 @@ def build_workbench():
     <button class="main-tab-btn active" id="tab-btn-questions" onclick="switchTab('questions')">
       <span>📚 歷屆真題雙欄刷題庫</span>
     </button>
+    <button class="main-tab-btn" id="tab-btn-review" onclick="switchTab('review')">
+      <span>📝 複習中心</span>
+    </button>
     <button class="main-tab-btn" id="tab-btn-dag" onclick="switchTab('dag')">
       <span>🕸️ 全科知識相依圖譜 (DAG)</span>
     </button>
@@ -168,6 +172,34 @@ def build_workbench():
     <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')">
       <span>🔥 高頻必考命題分析</span>
     </button>
+  </div>
+
+  <!-- TAB 1.5: Review Center -->
+  <div class="tab-pane" id="tab-pane-review" style="display: none;">
+    <div class="review-shell">
+      <div class="review-header">
+        <div>
+          <h2>📝 複習中心</h2>
+          <p>集中處理今日到期、錯題本與收藏題目；可直接開啟標準解題視窗。</p>
+        </div>
+        <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
+      </div>
+      <div class="review-stats" id="review-stats"></div>
+      <div class="review-controls">
+        <label for="review-scope">複習範圍</label>
+        <select id="review-scope" onchange="setReviewFilter(this.value)">
+          <option value="due">今日到期</option>
+          <option value="wrong">錯題本</option>
+          <option value="starred">收藏題目</option>
+          <option value="all">全部題目</option>
+        </select>
+        <label for="review-subject">考科</label>
+        <select id="review-subject" onchange="renderReviewPage()"><option value="all">所有考科</option></select>
+        <span id="review-filter-count"></span>
+      </div>
+      <div class="review-type-filter" id="review-type-filter" aria-label="題型分類篩選"></div>
+      <div id="review-container"></div>
+    </div>
   </div>
 
   <!-- TAB 1: Questions Explorer -->
@@ -313,7 +345,7 @@ def build_workbench():
   <div class="tab-pane" id="tab-pane-stats" style="display: none;">
     <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
       <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">🔥 歷屆高頻命題考點命中分析</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">統計 104~114 年 423 道大題中出現頻率最高的核心命題題型：</p>
+      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">統計 104~114 年 <span id="stats-total-count">479</span> 道大題中出現頻率最高的核心命題題型：</p>
       <div id="top-topics-container"></div>
     </div>
   </div>
@@ -398,7 +430,7 @@ def build_workbench():
       <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;">✕</button>
     </div>
     <p style="font-size: 0.86rem; color: var(--muted);">
-      此代碼包含全庫 423 題做題狀態、重點收藏與 SM-2 智能遺忘曲線週期。複製此 JSON 或在換裝置時貼上即可無縫銜接：
+      此代碼包含全庫 479 題做題狀態、重點收藏與 SM-2 智能遺忘曲線週期。複製此 JSON 或在換裝置時貼上即可無縫銜接：
     </p>
     <textarea id="backup-json-textarea" class="backup-textarea" placeholder="在此貼上備份 JSON 代碼..."></textarea>
     <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">

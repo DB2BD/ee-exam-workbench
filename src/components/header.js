@@ -3,7 +3,33 @@
  * Header Stats & Progress Exporter/Importer Component.
  */
 
+function getQuestionCountForCategory(category) {
+  if (category === 'PE') {
+    return typeof DB_DATA !== 'undefined' && Array.isArray(DB_DATA.questions) ? DB_DATA.questions.length : 0;
+  }
+  if (category === 'GK') {
+    return typeof NATIONAL_EXAMS_DATA !== 'undefined' && Array.isArray(NATIONAL_EXAMS_DATA.questions) ? NATIONAL_EXAMS_DATA.questions.length : 0;
+  }
+  return 0;
+}
+
+function updateQuestionCountLabels() {
+  const peCount = getQuestionCountForCategory('PE');
+  const gkCount = getQuestionCountForCategory('GK');
+  const total = peCount + gkCount;
+  const peLabel = document.getElementById('cat-count-PE');
+  const gkLabel = document.getElementById('cat-count-GK');
+  const totalLabel = document.getElementById('hero-total-count');
+  const statsTotalLabel = document.getElementById('stats-total-count');
+  if (peLabel) peLabel.innerText = `${peCount} 題 · 66 卷`;
+  if (gkLabel) gkLabel.innerText = `${gkCount} 題 · 25 卷`;
+  if (totalLabel) totalLabel.innerText = `${total} 道試題`;
+  if (statsTotalLabel) statsTotalLabel.innerText = total;
+  return total;
+}
+
 function updateStatsAndBar() {
+  updateQuestionCountLabels();
   const qList = getActiveQuestionsList();
   const total = qList.length;
   let mastered = 0, review = 0, starred = 0;

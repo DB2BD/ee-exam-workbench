@@ -42,11 +42,23 @@ class TestBuildPipeline(unittest.TestCase):
             'filter-year',
             'filter-status',
             'filter-diff',
-            'search-input'
+            'search-input',
+            'review-container',
+            'tab-pane-review',
+            'tab-btn-review'
         ]
 
         for elem_id in required_ids:
             self.assertIn(f'id="{elem_id}"', html, f"Element ID '{elem_id}' must be present in index.html")
+
+    def test_review_page_supports_due_and_taxonomy_filters(self):
+        with open(self.index_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        self.assertIn("function renderReviewPage", html)
+        self.assertIn("function setReviewFilter", html)
+        self.assertIn("getDueQuestionsList()", html)
+        self.assertIn("data-review-type", html)
 
     def test_dag_functions_bundled(self):
         with open(self.index_path, 'r', encoding='utf-8') as f:

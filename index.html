@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=20260829_1459"></script>
-<script src="./solutions-bundle.js?v=20260829_1459"></script>
-<script src="./national-exams-data.js?v=20260829_1459"></script>
-<script src="./national-solutions-bundle.js?v=20260829_1459"></script>
+<script src="./dashboard-data.js?v=20260829_2242"></script>
+<script src="./solutions-bundle.js?v=20260829_2242"></script>
+<script src="./national-exams-data.js?v=20260829_2242"></script>
+<script src="./national-solutions-bundle.js?v=20260829_2242"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -460,6 +460,33 @@ select:focus {
 .qtopic .katex {
   font-size: 1em;
 }
+
+/* Review Center */
+.review-shell { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+.review-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.review-header h2 { color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 5px; }
+.review-header p { color: var(--muted); font-size: 0.86rem; }
+.review-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }
+.review-stat { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; }
+.review-stat .label { display: block; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
+.review-stat .value { display: block; color: var(--ink); font: 700 1.45rem var(--font-mono); margin-top: 2px; }
+.review-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--line); border-radius: var(--radius-sm); margin-bottom: 18px; }
+.review-controls label { color: var(--muted); font-size: 0.8rem; font-weight: 700; }
+.review-controls select { min-width: 150px; }
+.review-controls span { margin-left: auto; color: var(--muted); font-size: 0.8rem; font-weight: 700; }
+.review-type-filter { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.review-type-filter .pill { padding: 5px 10px; font-size: 0.78rem; }
+.review-type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.review-type-section { border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); overflow: hidden; }
+.review-type-title { padding: 10px 14px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); color: var(--accent-dark); font-size: 0.92rem; font-weight: 800; display: flex; justify-content: space-between; gap: 8px; }
+.review-card { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.review-card:last-child { border-bottom: 0; }
+.review-card-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 5px; }
+.review-card-topic { color: var(--ink); font-size: 0.88rem; line-height: 1.5; margin-bottom: 9px; }
+.review-card-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+.review-card-actions button { font-size: 0.78rem; padding: 5px 9px; }
+.review-empty { text-align: center; padding: 42px 20px; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius-sm); }
+.review-empty strong { display: block; color: var(--ink); margin-bottom: 5px; font-size: 1rem; }
 
 .qfooter {
   display: flex;
@@ -1350,7 +1377,7 @@ select:focus {
     <div class="header-top">
       <div class="title-area">
         <h1>⚡ 電機工程技師 & 公務高考三級 歷屆試題工作台</h1>
-        <p>104 ~ 114 年 6 大考科 · 423 道試題 · 100% 步驟推導 · 5 大維度難度評級 · 離線極速載入</p>
+        <p>104 ~ 114 年 6 大考科 · <span id="hero-total-count">479 道試題</span> · 100% 步驟推導 · 5 大維度難度評級 · 離線極速載入</p>
       </div>
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
@@ -1365,11 +1392,11 @@ select:focus {
     <div class="category-switcher">
       <button class="cat-tab on" id="cat-tab-PE" onclick="switchExamCategory('PE')">
         <span>🏆 專技高考：電機工程技師</span>
-        <span class="cat-badge">318 題 · 66 卷</span>
+        <span class="cat-badge" id="cat-count-PE">318 題 · 66 卷</span>
       </button>
       <button class="cat-tab" id="cat-tab-GK" onclick="switchExamCategory('GK')">
         <span>🏛️ 公務高考：三級電力/電子</span>
-        <span class="cat-badge">105 題 · 25 卷</span>
+        <span class="cat-badge" id="cat-count-GK">161 題 · 25 卷</span>
       </button>
     </div>
 
@@ -1377,7 +1404,7 @@ select:focus {
     <div class="stats-grid">
       <div class="stat-card">
         <span class="label">📚 收錄試題總數</span>
-        <span class="val" id="stat-total">423</span>
+        <span class="val" id="stat-total">318</span>
       </div>
       <div class="stat-card">
         <span class="label">🟢 已掌握題數</span>
@@ -1420,6 +1447,9 @@ select:focus {
     <button class="main-tab-btn active" id="tab-btn-questions" onclick="switchTab('questions')">
       <span>📚 歷屆真題雙欄刷題庫</span>
     </button>
+    <button class="main-tab-btn" id="tab-btn-review" onclick="switchTab('review')">
+      <span>📝 複習中心</span>
+    </button>
     <button class="main-tab-btn" id="tab-btn-dag" onclick="switchTab('dag')">
       <span>🕸️ 全科知識相依圖譜 (DAG)</span>
     </button>
@@ -1432,6 +1462,34 @@ select:focus {
     <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')">
       <span>🔥 高頻必考命題分析</span>
     </button>
+  </div>
+
+  <!-- TAB 1.5: Review Center -->
+  <div class="tab-pane" id="tab-pane-review" style="display: none;">
+    <div class="review-shell">
+      <div class="review-header">
+        <div>
+          <h2>📝 複習中心</h2>
+          <p>集中處理今日到期、錯題本與收藏題目；可直接開啟標準解題視窗。</p>
+        </div>
+        <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
+      </div>
+      <div class="review-stats" id="review-stats"></div>
+      <div class="review-controls">
+        <label for="review-scope">複習範圍</label>
+        <select id="review-scope" onchange="setReviewFilter(this.value)">
+          <option value="due">今日到期</option>
+          <option value="wrong">錯題本</option>
+          <option value="starred">收藏題目</option>
+          <option value="all">全部題目</option>
+        </select>
+        <label for="review-subject">考科</label>
+        <select id="review-subject" onchange="renderReviewPage()"><option value="all">所有考科</option></select>
+        <span id="review-filter-count"></span>
+      </div>
+      <div class="review-type-filter" id="review-type-filter" aria-label="題型分類篩選"></div>
+      <div id="review-container"></div>
+    </div>
   </div>
 
   <!-- TAB 1: Questions Explorer -->
@@ -1577,7 +1635,7 @@ select:focus {
   <div class="tab-pane" id="tab-pane-stats" style="display: none;">
     <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
       <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">🔥 歷屆高頻命題考點命中分析</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">統計 104~114 年 423 道大題中出現頻率最高的核心命題題型：</p>
+      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">統計 104~114 年 <span id="stats-total-count">479</span> 道大題中出現頻率最高的核心命題題型：</p>
       <div id="top-topics-container"></div>
     </div>
   </div>
@@ -1662,7 +1720,7 @@ select:focus {
       <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;">✕</button>
     </div>
     <p style="font-size: 0.86rem; color: var(--muted);">
-      此代碼包含全庫 423 題做題狀態、重點收藏與 SM-2 智能遺忘曲線週期。複製此 JSON 或在換裝置時貼上即可無縫銜接：
+      此代碼包含全庫 479 題做題狀態、重點收藏與 SM-2 智能遺忘曲線週期。複製此 JSON 或在換裝置時貼上即可無縫銜接：
     </p>
     <textarea id="backup-json-textarea" class="backup-textarea" placeholder="在此貼上備份 JSON 代碼..."></textarea>
     <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
@@ -2436,6 +2494,7 @@ function toggleStarred(qid, event) {
   saveProgress();
   if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
   if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
   showToast(starredState[qid] ? '⭐ 已加入重點收藏' : '⚪ 已移除收藏');
 }
@@ -2448,6 +2507,7 @@ function toggleStatus(qid, event) {
   saveProgress();
   if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
   if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
 
   const msgs = ['⚪ 狀態重設：未開始', '🟢 狀態更新：已掌握', '🔴 狀態更新：需二刷 (加入錯題本)'];
@@ -2629,15 +2689,20 @@ function switchExamCategory(catId) {
 
   updateFilterDropdownsForCategory();
   reloadProgressState();
+  const categoryCount = typeof getQuestionCountForCategory === 'function'
+    ? getQuestionCountForCategory(catId)
+    : (catId === 'PE' ? 318 : 161);
 
   if (catId === 'PE') {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
-    showToast('🏆 已切換至「電機工程技師」核心題庫 (318 題)');
+    if (typeof renderReviewPage === 'function') renderReviewPage();
+    showToast(`🏆 已切換至「電機工程技師」核心題庫 (${categoryCount} 題)`);
   } else {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
-    showToast('🏛️ 已切換至「公務人員高考三級」參考題庫 (105 題)');
+    if (typeof renderReviewPage === 'function') renderReviewPage();
+    showToast(`🏛️ 已切換至「公務人員高考三級」參考題庫 (${categoryCount} 題)`);
   }
 }
 
@@ -2834,6 +2899,147 @@ function importUserDataJSON(jsonStr) {
 initSM2Store();
 
 
+// === src/components/reviewPage.js ===
+// src/components/reviewPage.js
+/** Review Center: shared progress pool with subject and taxonomy filters. */
+
+let reviewFilter = 'due';
+let reviewTypeFilter = 'all';
+
+function reviewHtmlEscape(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+
+function setReviewFilter(filter) {
+  reviewFilter = ['due', 'wrong', 'starred', 'all'].includes(filter) ? filter : 'due';
+  const scope = document.getElementById('review-scope');
+  if (scope) scope.value = reviewFilter;
+  renderReviewPage();
+}
+
+function setReviewTypeFilter(type) {
+  reviewTypeFilter = type || 'all';
+  renderReviewPage();
+}
+
+function getReviewTypeLabel(q) {
+  const sid = q[1];
+  const topic = String(q[4] || '');
+  const tags = Array.isArray(q[5]) ? q[5] : [];
+  const formulaTags = Array.isArray(q[10]) ? q[10] : [];
+  const haystack = `${topic} ${tags.join(' ')} ${formulaTags.join(' ')}`;
+  const keywordTypes = [
+    ['電路定理／等效', ['戴維寧', '諾頓', '等效定理', '最大功率轉移']],
+    ['暫態與拉氏分析', ['暫態', '拉氏', '開關', '一階電路', '二階電路']],
+    ['交流與頻率響應', ['交流', '相量', '頻率響應', '正弦穩態', '諧振']],
+    ['三相電路', ['三相', '三線', '三線式']],
+    ['功率與功率因數', ['功率因數', '無效功率', '視在功率', '功率']],
+    ['半導體與二極體', ['二極體', '二極管', '半導體', '整流']],
+    ['放大器與回授', ['放大器', '運算放大', '回授', '差動對']],
+    ['數位與邏輯', ['數位', '邏輯閘', '布林', '正反器', '計數器']],
+    ['微積分與微分方程', ['微積分', '微分方程', '常微分', '偏微分']],
+    ['傅立葉與級數', ['傅立葉', '傅氏', '級數', '拉格朗日']],
+    ['線性代數', ['矩陣', '特徵值', '特徵向量', '線性代數']],
+    ['控制與系統', ['控制系統', '根軌跡', '奈奎斯特', '波德圖', '狀態空間']],
+    ['電機機械', ['變壓器', '感應機', '同步機', '直流機', '電動機']],
+    ['電力系統', ['潮流', '短路', '功角', '保護電驛', '電力系統', '穩定度']],
+  ];
+  const matched = keywordTypes.find(([, words]) => words.some(word => haystack.includes(word)));
+  if (matched) return matched[0];
+  const subjectName = typeof getSubjectMeta === 'function' ? (getSubjectMeta(sid).name || '') : '';
+  const tag = [...tags, ...formulaTags].find(item => item && item !== subjectName && item !== subjectName.split('（')[0]);
+  if (tag) return String(tag);
+  if (sid === '03') return '工程數學綜合';
+  if (sid === '04') return '電機機械綜合';
+  if (sid === '05') return '電力系統綜合';
+  return '綜合題';
+}
+
+function getReviewQuestions() {
+  const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
+  const due = new Set(typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
+  const subject = document.getElementById('review-subject');
+  const subjectFilter = subject ? subject.value : 'all';
+  return questions.filter(q => {
+    const qid = q[0];
+    const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
+    const starred = typeof starredState !== 'undefined' && !!starredState[qid];
+    const inScope = reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : true;
+    return inScope && (subjectFilter === 'all' || q[1] === subjectFilter) && (reviewTypeFilter === 'all' || getReviewTypeLabel(q) === reviewTypeFilter);
+  });
+}
+
+function populateReviewSubjects() {
+  const select = document.getElementById('review-subject');
+  if (!select) return;
+  const current = select.value || 'all';
+  const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
+  const ids = [...new Set(questions.map(q => q[1]))].sort();
+  select.innerHTML = '<option value="all">所有考科</option>' + ids.map(sid => {
+    const meta = getSubjectMeta(sid);
+    return `<option value="${reviewHtmlEscape(sid)}">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</option>`;
+  }).join('');
+  select.value = ids.includes(current) ? current : 'all';
+}
+
+function renderReviewPage() {
+  const container = document.getElementById('review-container');
+  if (!container) return;
+  populateReviewSubjects();
+  const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
+  const due = new Set(typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
+  const wrong = questions.filter(q => typeof progressState !== 'undefined' && (progressState[q[0]] || 0) === 2).length;
+  const starred = questions.filter(q => typeof starredState !== 'undefined' && starredState[q[0]]).length;
+  const stats = document.getElementById('review-stats');
+  if (stats) stats.innerHTML = [['今日到期', questions.filter(q => due.has(q[0])).length], ['錯題本', wrong], ['收藏', starred], ['目前題庫', questions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
+
+  const allTypes = [...new Set(questions.map(getReviewTypeLabel))].sort((a, b) => a.localeCompare(b, 'zh-Hant'));
+  if (reviewTypeFilter !== 'all' && !allTypes.includes(reviewTypeFilter)) reviewTypeFilter = 'all';
+  const typeFilter = document.getElementById('review-type-filter');
+  if (typeFilter) {
+    const counts = questions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
+    const buttons = [['all', '全部題型', questions.length]].concat(allTypes.map(type => [type, type, counts[type]]));
+    typeFilter.innerHTML = buttons.map(([value, label, count]) => `<button type="button" class="pill ${reviewTypeFilter === value ? 'active' : ''}" data-review-type-filter="${reviewHtmlEscape(value)}">${reviewHtmlEscape(label)} (${count})</button>`).join('');
+    typeFilter.querySelectorAll('[data-review-type-filter]').forEach(button => button.addEventListener('click', () => setReviewTypeFilter(button.dataset.reviewTypeFilter)));
+  }
+
+  const filtered = getReviewQuestions();
+  const count = document.getElementById('review-filter-count');
+  if (count) count.innerText = `目前 ${filtered.length} 題`;
+  if (!filtered.length) {
+    const title = reviewFilter === 'due' ? '今天沒有到期複習題' : '目前沒有符合條件的題目';
+    container.innerHTML = `<div class="review-empty"><strong>${title}</strong><span>可切換複習範圍或題型，完成題目後再回來集中複習。</span></div>`;
+    return;
+  }
+
+  const groups = {};
+  filtered.forEach(q => { const type = getReviewTypeLabel(q); (groups[type] ||= []).push(q); });
+  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div>${list.map(q => {
+    const [qid, sid, year, qnum, topic, tags, solLink] = q;
+    const meta = getSubjectMeta(sid);
+    const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
+    const statusText = status === 2 ? '錯題' : status === 1 ? '已掌握' : '未開始';
+    const dueText = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
+    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span>${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
+  }).join('')}</section>`).join('')}</div>`;
+  container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
+    const q = filtered.find(item => item[0] === button.dataset.reviewOpen);
+    if (q && typeof openSolutionModal === 'function') openSolutionModal(null, q[6], q[0], q[3], false, false);
+  }));
+  container.querySelectorAll('[data-review-status]').forEach(button => button.addEventListener('click', () => {
+    if (typeof toggleStatus === 'function') toggleStatus(button.dataset.reviewStatus);
+  }));
+}
+
+function startReviewSession() {
+  setReviewFilter('due');
+  const first = getReviewQuestions()[0];
+  if (first && typeof openSolutionModal === 'function') openSolutionModal(null, first[6], first[0], first[3], false, true);
+}
+
+
 // === src/renderers/katexRenderer.js ===
 // src/renderers/katexRenderer.js
 /**
@@ -2944,34 +3150,6 @@ function renderQuestionTopic(rawText) {
   return typeof processMarkdownWithMath === 'function'
     ? processMarkdownWithMath(rawText)
     : rawText;
-}
-
-function getNationalSourceAssets(qid) {
-  const record = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
-  if (!record || !qid || !qid.startsWith('GK-')) {
-    return { questionCrop: '', figureCrops: [] };
-  }
-  return {
-    questionCrop: record[14] || '',
-    figureCrops: Array.isArray(record[15]) ? record[15] : []
-  };
-}
-
-function renderNationalSourceCrops(qid) {
-  const assets = getNationalSourceAssets(qid);
-  if (!assets.questionCrop) return '';
-  const questionSrc = resolveImageMapUrl(`./${assets.questionCrop}`, true);
-  const figures = assets.figureCrops.map(path => {
-    const src = resolveImageMapUrl(`./${path}`, true);
-    return `<img src="${src}" alt="${qid} 原始電路圖" style="display: block; width: 100%; max-width: 980px; height: auto; margin: 10px auto 0; border: 1px solid var(--line); background: #fff;">`;
-  }).join('');
-  return `
-    <section style="padding: 12px 14px; background: #fff; border-bottom: 1px solid var(--line);">
-      <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 7px;">官方原題裁切（文字與符號以此圖為準）</div>
-      <img src="${questionSrc}" alt="${qid} 官方原題裁切" style="display: block; width: 100%; max-width: 980px; height: auto; margin: 0 auto; border: 1px solid var(--line); background: #fff;">
-      ${figures ? `<div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-dark); margin: 12px 0 7px;">原始電路／示意圖裁切</div>${figures}` : ''}
-    </section>
-  `;
 }
 
 
@@ -3114,7 +3292,33 @@ function renderDagGraphVisualizer() {
  * Header Stats & Progress Exporter/Importer Component.
  */
 
+function getQuestionCountForCategory(category) {
+  if (category === 'PE') {
+    return typeof DB_DATA !== 'undefined' && Array.isArray(DB_DATA.questions) ? DB_DATA.questions.length : 0;
+  }
+  if (category === 'GK') {
+    return typeof NATIONAL_EXAMS_DATA !== 'undefined' && Array.isArray(NATIONAL_EXAMS_DATA.questions) ? NATIONAL_EXAMS_DATA.questions.length : 0;
+  }
+  return 0;
+}
+
+function updateQuestionCountLabels() {
+  const peCount = getQuestionCountForCategory('PE');
+  const gkCount = getQuestionCountForCategory('GK');
+  const total = peCount + gkCount;
+  const peLabel = document.getElementById('cat-count-PE');
+  const gkLabel = document.getElementById('cat-count-GK');
+  const totalLabel = document.getElementById('hero-total-count');
+  const statsTotalLabel = document.getElementById('stats-total-count');
+  if (peLabel) peLabel.innerText = `${peCount} 題 · 66 卷`;
+  if (gkLabel) gkLabel.innerText = `${gkCount} 題 · 25 卷`;
+  if (totalLabel) totalLabel.innerText = `${total} 道試題`;
+  if (statsTotalLabel) statsTotalLabel.innerText = total;
+  return total;
+}
+
 function updateStatsAndBar() {
+  updateQuestionCountLabels();
   const qList = getActiveQuestionsList();
   const total = qList.length;
   let mastered = 0, review = 0, starred = 0;
@@ -3414,14 +3618,6 @@ let currentModalFullView = false;
 let currentSubQuestionIdx = 0;
 let modalHistoryStack = [];
 
-function getQuestionDisplayLabel(qid, qnum) {
-  const number = parseInt(qnum, 10) || 0;
-  if (String(qid || '').includes('-MC') && number >= 101 && number <= 120) {
-    return `測驗題 ${number - 100}`;
-  }
-  return `第 ${number} 大題`;
-}
-
 const CN_NUM_MAP = {
   '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8,
   '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8
@@ -3430,16 +3626,13 @@ const CN_NUM_MAP = {
 /**
  * Intelligently extracts the target question from full-paper or single-question markdown files.
  */
-function extractQuestionMarkdown(rawMd, targetQNum, targetQid = '') {
+function extractQuestionMarkdown(rawMd, targetQNum) {
   if (!rawMd) return { content: '', subParts: [] };
 
   const qNumInt = parseInt(targetQNum, 10) || 1;
-  const isMultipleChoice = String(targetQid || '').includes('-MC') || (qNumInt >= 101 && qNumInt <= 120);
-  const targetNumber = isMultipleChoice ? qNumInt - 100 : qNumInt;
 
-  // Split by major question headers, including full-paper MC sections:
-  // "## 一、", "## 第 1 題", "## 1.", or "## 測驗題 1、".
-  const majorSplitRegex = /(?=\n##\s+(?:測驗題\s*\d+\s*[、\.\:]|\d+\s*[、\.\:]\s*測驗題\s*\d*|第\s*[一二三四五六七八九十\d]+\s*[大題題]|(?:[一二三四五六七八九十]|\d+)\s*[、\.\:]))/gi;
+  // Split by major question headers: e.g. "## 一、", "## 二、", "## 第 1 題", "## 1."
+  const majorSplitRegex = /(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|(?:[一二三四五六七八九十]|\d+)\s*[、\.\:]))/gi;
   const sections = rawMd.split(majorSplitRegex);
 
   let targetSection = rawMd;
@@ -3449,14 +3642,11 @@ function extractQuestionMarkdown(rawMd, targetQNum, targetQid = '') {
     let found = false;
     for (let i = 1; i < sections.length; i++) {
       const sec = sections[i];
-      const hMatch = sec.match(/##\s+(?:測驗題\s*(\d+)\s*[、\.\:]|(\d+)\s*[、\.\:]\s*測驗題\s*(\d*)|第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十]|\d+)\s*[、\.\:])/i);
+      const hMatch = sec.match(/##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十]|\d+)\s*[、\.\:])/i);
       if (hMatch) {
-        const token = (hMatch[1] || hMatch[2] || hMatch[4] || hMatch[5] || '').trim();
-        const appQNum = parseInt(hMatch[2], 10);
-        const parsedNum = hMatch[2]
-          ? (appQNum >= 101 && appQNum <= 120 ? appQNum - 100 : parseInt(hMatch[3], 10))
-          : (CN_NUM_MAP[token] || parseInt(token, 10));
-        if (parsedNum === targetNumber) {
+        const token = (hMatch[1] || hMatch[2] || '').trim();
+        const parsedNum = CN_NUM_MAP[token];
+        if (parsedNum === qNumInt) {
           targetSection = sec;
           found = true;
           break;
@@ -3464,8 +3654,8 @@ function extractQuestionMarkdown(rawMd, targetQNum, targetQid = '') {
       }
     }
     // Fallback by array index if heading regex missed
-    if (!found && sections[targetNumber]) {
-      targetSection = sections[targetNumber];
+    if (!found && sections[qNumInt]) {
+      targetSection = sections[qNumInt];
     }
   }
 
@@ -3497,7 +3687,6 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   const qRecord = findQuestionRecord(qid);
   const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
   const meta = getSubjectMeta(sid);
-  const sourceCropsHtml = renderNationalSourceCrops(qid);
 
   // 1. Update Title
   const titleEl = document.getElementById('modal-title');
@@ -3505,7 +3694,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
     titleEl.innerHTML = `
       <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${qid}</span>
       <span style="font-size: 0.9rem; color: var(--muted); font-weight: 500;">
-        · ${meta.icon} ${meta.name}（${yr} 年${getQuestionDisplayLabel(curQid, curQnum)}）
+        · ${meta.icon} ${meta.name}（${yr} 年第 ${curQnum} 大題）
       </span>
     `;
   }
@@ -3537,8 +3726,6 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
         <div>${topic}</div>
       </div>
 
-      ${sourceCropsHtml}
-
       <div style="flex: 1; width: 100%; height: 100%; min-height: 500px; background: #525659;">
         <iframe src="${pdfLink}#toolbar=0" style="width: 100%; height: 100%; min-height: 500px; border: none; display: block;"></iframe>
       </div>
@@ -3552,7 +3739,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   const rawMd = resolveSolutionMarkdown(solLink, qid);
 
   if (rawMd) {
-    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, curQnum, curQid);
+    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, curQnum);
 
     // If sub-parts exist, render pills for quick navigation
     if (subParts.length > 1 && subQPillsBar) {
@@ -3607,7 +3794,7 @@ function updateSameExamDropdown(sid, yr, currentQid) {
     const s = progressState[qid] || 0;
     const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
     const isCur = qid === currentQid;
-    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} ${getQuestionDisplayLabel(qid, qnum)} (${qid})</option>`;
+    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${qid})</option>`;
   }).join('');
 }
 
@@ -3691,7 +3878,7 @@ function switchSubQuestion(idx) {
   const qRecord = findQuestionRecord(currentModalQid);
   if (!rawMd) return;
 
-  const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum, currentModalQid);
+  const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum);
 
   if (idx === 0 || subParts.length === 0) {
     renderSubQuestionContent(fullContent, qRecord);
@@ -3723,7 +3910,7 @@ function toggleActiveRecallMode() {
   const rawMd = resolveSolutionMarkdown(currentModalSolLink, currentModalQid);
   const qRecord = findQuestionRecord(currentModalQid);
   if (rawMd) {
-    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum, currentModalQid);
+    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum);
     if (currentSubQuestionIdx === 0 || subParts.length === 0) {
       renderSubQuestionContent(fullContent, qRecord);
     } else if (subParts[currentSubQuestionIdx - 1]) {
@@ -3769,6 +3956,7 @@ function submitSM2Rating(rating) {
 
   // Refresh badges in question list
   if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof renderReviewPage === 'function') renderReviewPage();
   updateModalStatusButtons(currentModalQid);
 
   // Auto transition to next question if rating 5
@@ -3977,7 +4165,6 @@ window.addEventListener('keydown', (e) => {
 });
 
 
-
 // === src/components/mockExamTimer.js ===
 // src/components/mockExamTimer.js
 /**
@@ -4082,7 +4269,7 @@ function loadMockExam() {
         return `
           <div class="qcard" style="border-left: 4px solid var(--accent);">
             <div class="qhead">
-              <span class="qid">${getQuestionDisplayLabel(qid, qnum)} (${qid})</span>
+              <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
               <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分</span>
             </div>
             <div class="qtopic">${renderQuestionTopic(topic)}</div>
@@ -4264,6 +4451,9 @@ function switchTab(tabId) {
   if (tabId === 'dag' && typeof renderDagGraphVisualizer === 'function') {
     renderDagGraphVisualizer();
   }
+  if (tabId === 'review' && typeof renderReviewPage === 'function') {
+    renderReviewPage();
+  }
 }
 
 function handleUrlHashRouting() {
@@ -4356,6 +4546,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Render initial components
   updateStatsAndBar();
   renderQuestions();
+  renderReviewPage();
   renderLayers();
   renderTopTopics();
   initPaneResizer();

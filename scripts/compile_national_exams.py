@@ -222,7 +222,7 @@ def extract_content_tags(topic, q_body):
     for keywords, tag in tag_rules:
         if any(kw in combined for kw in keywords):
             tags.append(tag)
-    return list(set(tags))
+    return sorted(set(tags))
 
 
 def scan_exam_category(cat):
@@ -362,7 +362,7 @@ def scan_exam_category(cat):
                     qid = f'{prefix}-{yr}-{sid}-MC{q_num:02d}' if is_mc else f'{prefix}-{yr}-{sid}-{q_num}'
                     crop = crop_index.get(qid, {})
                     questions.append([
-                        qid, sid, yr, app_qnum, topic, list(set(tags)),
+                        qid, sid, yr, app_qnum, topic, sorted(set(tags)),
                         sol_link, pdf_link, diff, 'verified' if has_dedicated else 'in_progress',
                         ftags, has_dedicated, cat['id'], related_pe_qid,
                         crop.get('question_crop', ''), crop.get('figure_crops', []),

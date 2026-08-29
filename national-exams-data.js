@@ -168,9 +168,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一理想變壓器電路圖如圖三所示，若該電路之輸出電壓相量（phasor）\n0\n48 30\nV \n\n，試計算該電路之輸入電壓VS 相量值。（20 分）\n圖三\nI1\n6 Ω\n-j6Ω\nVS\n1:2\nI2\n24 Ω\nV2\nV1\nVO\n\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
+      "電機機械",
       "電路學",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_114年_電路學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_114年_高考三級_電路學.pdf",
@@ -276,8 +276,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "如圖二所示電路，vs 為輸入的交流小信號，BJT 操作在作用區（active\nregion），若=199，VT= 25 mV，請計算下列各項參數：（一）集極直流電位\nVC，（二）gm，（三）r，（四）Rin，vo/vs，其中gm 與r為電晶體小信號參數。\n（25 分）\n+5 V\n+1.5 V\nvs\nvo\n10 mA\n10 kW\nRs\n1 kW\n100 W\nRin\nRib\n\n\n圖二\n代號：27460-27660\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
-      "電力電子",
-      "電子學"
+      "電子學",
+      "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_114年_電子學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_114年_高考三級_電子學.pdf",
@@ -354,8 +354,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "如圖四所示之MOSFET 電路，若Q1、Q2、Q3之參數分別如下：VT1=VT2=0.8V，\nVT3 =-2 V，\n1\n2\n(\n)\n(\n)\n4\nW\nW\nL\nL\n\n\n，\n3\n(\n)\n1\nW\nL\n。試求：\n（一）說明此數位電路之邏輯函數名稱。（5 分）\n（二）當A=5 V，B=0 V，Vo=？（10 分）\n（三）當A=B=5 V，Vo=？（10 分）\nVDD=5 V\nQ3\nVo\nQ1\nQ2\nA\nB\n圖四\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "電力電子",
-      "電子學"
+      "電子學",
+      "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_114年_電子學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_114年_高考三級_電子學.pdf",
@@ -425,9 +425,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "一配電變壓器的規格100 kVA，6900/220 V，其參考至一次側的阻抗為\n30+j100 ，激磁分路上元件參考至一次側數值為Rc=110 k，XM=25 k，\n試求：（每小題10 分，共20 分）\n（一）當一次側電壓為6800 V 且負載阻抗ZL=2+j0.7 時，變壓器的二次側\n電壓為何？\n（二）如果（一）中負載改為-j3 時，變壓器的二次側電壓為何？\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
-      "交流相量",
       "電機機械",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_114年_高考三級_電機機械.pdf",
@@ -491,8 +491,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "一60 Hz，六極感應電動機，其氣隙功率PAG=26 kW，由電能轉換到機\n械能的功率Pconv=24 kW。試求：（每小題10 分，共20 分）\n（一）此時感應電動機的轉差率與感應轉矩為何？\n（二）若在此轉差率下之機械損失為330W，則其負載轉矩為何？\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_114年_高考三級_電機機械.pdf",
@@ -535,8 +535,8 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "一發電廠共有三部並聯運轉的同步發電機，每部規格300 MVA，20 kV，\n0.9 PF 落後，其有相同的轉速下降特性。發電機之原動機上調速機\n（governors）滿載到無載之間產生3 Hz 的轉速下降。其中兩部在60 Hz\n下供應穩定功率250 MW，而第三部發電機負責系統上負載的變化增量，\n使系統頻率維持在60 Hz。試求：（每小題10 分，共20 分）\n（一）當系統的總負載為600 MW 時其系統頻率為60 Hz，則系統中每部發\n電機的無載頻率為何？\n（二）若系統的負載增加到700 MW 時且發電機之調速機設定點不變，新的\n系統頻率將為何？\n\n<!-- question_kind: essay; question_number: 5; app_question_number: 5 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_114年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_114年_高考三級_電機機械.pdf",
@@ -603,10 +603,10 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "某三相Δ-Y 連接15 MVA、33/11 kV 之變壓器，由差動電驛（Differential\nRelay）所保護。請設計差動電驛的比流器（Current Transformer）之比例\n值，使得通過變壓器Δ側之循環電流不超過5A。（25 分）\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
-      "電力系統",
+      "電機機械",
       "故障分析",
-      "交流相量",
-      "電機機械"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_114年_高考三級_電力系統.pdf",
@@ -638,9 +638,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "某交流三相50 Hz 同步發電機之慣量常數（Inertia Constant）為6\nMJ/MVA。該發電機透過傳輸線，連接到無限匯流排B3，如圖一所示。\n發電機以0.9 落後之功率因數，輸送0.9 標么（Per Unit）的有效功率（Real\nPower），到無限匯流排。若該電力系統發生小擾動，觀察得知該同步發\n電機之轉矩角偏差量為9°。請計算以下物理量：（每小題5 分，共25 分）\n（一）同步發電機提供之視在功率（Apparent Power）標么值。\n（二）流經傳輸線路之電流。\n（三）同步發電機輸出之電壓振幅值。\n（四）同步發電機之同步功率係數（Synchronizing Power Coefficient）。\n電力系統之無阻尼振盪角頻率（Undamped Angular Frequency of\nOscillation）。\n0.24 pu\nG\n0.12 pu\n0.34 pu\nLine\n圖一\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
+      "電機機械",
       "電力系統",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_114年_高考三級_電力系統.pdf",
@@ -688,8 +688,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "如圖二所示之電力系統，各設備之參數如圖上所標註。假設三相短路故\n障發生於F 點位置。請計算此時之故障電流。（25 分）\n(3 + j15) Ω\nF\n33 kV\n1 : 3\n30 MVA, 5%\n10 MVA, 10%\n20 MVA, 15%\n圖二\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "電力系統",
       "故障分析",
+      "電力系統",
       "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_114年_電力系統_全卷完整詳細題解.md",
@@ -913,8 +913,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "如圖二之電路中，已知此兩個雙極性接面（BJT）電晶體（Q1 及Q2）之\n電路：電流增益（β）均為80、基-射極電壓（VBE(on)）均為0.7 V，試\n求：Q1 及Q2 中之靜態基極、集極與射極電流值。（25 分）\n圖二\n+5 V\nQ2\nQ1\n－5 V\nRE2=1 kΩ\nRE1=20 kΩ\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
-      "電力電子",
-      "電子學"
+      "電子學",
+      "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_113年_電子學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_113年_高考三級_電子學.pdf",
@@ -1060,8 +1060,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "某單相變壓器的額定為100 kVA、22.8 kV/220V，額定操作的銅損為2 kW、\n鐵損為1.6 kW。採用此三個單相變壓器接成一具三相變壓器，高壓側為\n接線、低壓側為接線。三相平衡負載接於低壓側，其端電壓為變壓器\n的額定，負載總消耗功率為120 kW，功率因數為0.8 落後，計算三相變\n壓器低壓側的線電流及相電流、三相變頻器的效率。（20 分）\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
@@ -1095,8 +1095,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "某三相、Y 接線、6 極、380 V、60 Hz 的同步發電機，每相同步電抗為\n2.5\nj\n，忽略電樞電阻及鐵心磁飽和。在額定電壓及頻率，發電機輸出\n三相總實功率為42 kW，功率因數為0.8 落後，此時發電機的激磁場電流\n為15 A。若在額定電壓、頻率，輸出總實功率也維持42 kW 時，調整激磁\n場電流使其功率因數為0.6 落後，計算激磁場電流及功率角。（20 分）\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
@@ -1139,9 +1139,9 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "某台他激式直流發電機的額定電流為100 A，轉速及激磁電流維持固定，\n忽略電刷壓降及電樞反應。當電樞電流為40 A，其電樞端（輸出）電壓\n為212 V，當電樞電流為60 A，其電樞端電壓為208 V。若發電機在額\n定電流操作，計算電樞電阻消耗功率及電壓調整率。（20 分）\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "交流相量",
       "電機機械",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
@@ -1175,8 +1175,8 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "某三相、Y 接線、220 V、8 極、60 Hz 的感應電動機，忽略激磁電抗及\n鐵損等效電阻的等效至定子側每相電路如圖二所示，s 表示滑差率、\n1\n0.22\nR \n、\n2\n0.18\nR \n、\n1\n1.10\nX \n、\n2\n1.40\nX\n\n。此感應電動機在\n額定電壓、頻率操作，計算下列問題：（每小題10 分，共20 分）\n（一）起動電流及功率因數。\n（二）最大電磁轉矩及其對應的轉速。\n圖二\n\n\n2\nR\ns\n1I\n1\nR\n1\njX\n2\njX\n1V\n～\n\n<!-- question_kind: essay; question_number: 5; app_question_number: 5 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_113年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
@@ -1250,9 +1250,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "某一台三相Δ-Δ 接線變壓器是由三個單相變壓器組成（每個單相變壓器\n之額定值為5 kVA，其二次側線電壓為220 V），並在220 V 下提供三相\n平衡的15 kW 純電阻性負載。之後，因三相負載降低至10 kW，但仍然\n是純電阻且平衡的。於此情形下，有人建議，在三分之二負載下，可以\n去除一個單相變壓器，並以V-V 接線運作如圖二所示。假設相序為abc，\nܸ෨௔௕= 220∠0° V。\n（一）求移除一個變壓器後的每個線電流相量（ܫሚ௔、ܫሚ௕、ܫሚ௖）。（12 分）\n（二）求其餘兩個變壓器各自所提供的複數功率。（8 分）\n（三）對此開Δ 操作的變壓器，必須對負載施加什麼限制？（5 分）\n圖二：某三相Δ-Δ連接變壓器去除一個單相變壓器之示意圖\na\nb\nc\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
+      "電機機械",
       "電力系統",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_113年_高考三級_電力系統.pdf",
@@ -1297,9 +1297,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "某三相、Y 接線同步發電機經輸電線路連接至25 kV 無限母線。輸電線\n的電抗每相為4 Ω，發電機的同步電抗每相為1 Ω，發電機可以提供無限\n母線的最大有效功率為150 MW。假設發電機正在提供其最大有效功率\n的15%，試求輸送到無限母線的無效功率。（25 分）\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
+      "電機機械",
       "電力系統",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_113年_高考三級_電力系統.pdf",
@@ -1363,9 +1363,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "三相理想降壓（step-down）變壓器以0.8滯後（lagging）pf饋入120 kW\n三相負載，如圖一所示。\n（一）說明變壓器連接的類型。（5分）\n（二）計算ILP,ILS,IPP,及IPS電流值。（每一電流值各5分，共20分）\n圖一\n\n<!-- question_kind: essay; question_number: 1; app_question_number: 1 -->",
     [
+      "電機機械",
       "電路學",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_112年_電路學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_112年_高考三級_電路學.pdf",
@@ -1512,8 +1512,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "對於增強型（Enhancement Mode）P-channel MOSFET電晶體。（每小題10\n分，共20分）\n（一）試說明閘源極電壓（Gate-source Voltage）和汲源極電壓（Drain-source\nVoltage）與汲極電流（Drain Current）的關係。\n（二）繪製閘源極電壓和汲源極電壓與汲極電流關係的電流—電壓圖（i-v\ncurve）。\n\n<!-- question_kind: essay; question_number: 1; app_question_number: 1 -->",
     [
-      "電力電子",
-      "電子學"
+      "電子學",
+      "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_112年_高考三級_電子學.pdf",
@@ -1624,8 +1624,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "如圖三所示的npn雙極性電晶體（BJT）共集極電路（Common Collector\ncircuit），\n(exp(\n/\n) 1)\nc\ns\nBE\nT\ni\nI\nv\nV\n\n\n且β = 110，其中\n1\nsI\npA\n\n，\nT\nV 即熱電壓為\n26 mV，試求準確至小數點第三位之\nBE\nv\n值。（20分）\n圖三\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "電力電子",
-      "電子學"
+      "電子學",
+      "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_112年_高考三級_電子學.pdf",
@@ -1668,8 +1668,8 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "如圖四所示一電路由三個半橋組成，每個半橋由高壓側之PMOS其\n2\nTp\nV\nV\n\n與低壓側之NMOS其\n2\nTn\nV\nV\n\n組成，忽略各MOSFET的寄生電\n容，三個輸入\n1v 、\n2v 、\n3v 個別具有0V、1.65V、3.3V三種離散（discrete）\n狀態。（每小題10分，共20分）\n（一）\nov 的電壓共有幾種，各是幾伏特。\n（二）說明如何控制三個輸入使\nov 產生近似弦波的階梯輸出。\n圖四\n\n<!-- question_kind: essay; question_number: 5; app_question_number: 5 -->",
     [
-      "電力電子",
-      "電子學"
+      "電子學",
+      "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_112年_高考三級_電子學.pdf",
@@ -1799,8 +1799,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "2\n0\n0\n1\n0\n2\n0\n0\n3\nA\n\n\n\n\n\n\n\n\n\n\n，求特徵值（eigenvalues ）與其對應的特徵向量\n（eigenvectors）。（15分）\n乙、測驗題部分：（50分）\n代號：2373\n（一）本試題為單一選擇題，請選出一個正確或最適當答案。\n（二）共20題\n每題25分須用2B鉛筆在試卡上依題號清楚劃記於本試題或申論試卷上作答者不予計分\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
@@ -1836,8 +1836,8 @@ const NATIONAL_EXAMS_DATA = {
     101,
     "（二）共題\n每題\n分須用\n筆在試卡\n依題號清楚劃\n本試題或申論試卷作答者不予計分\n1\n二階微分方程\n2\n''\n' 12\n2sinh ( )\ny\ny\ny\nx\n\n\n\n，初始值未知，試問其全解（通解加特解）為何？\n\n4\n3\n2\n2\n1\n2\n1\n1\n(1\n)\n6\n12\nx\nx\nx\nx\nC e\nC e\ne\ne\n\n\n\n\n\n\n\n4\n3\n2\n2\n1\n2\n1\n1\n(1\n)\n12\n20\nx\nx\nx\nx\nC e\nC e\ne\ne\n\n\n\n\n\n\n\n4\n3\n2\n2\n1\n1\n1\n(\n)\nx\nx\nx\nx\nC e\nC e\ne\ne\n\n\n\n\n\n4\n3\n2\n2\n1\n1\nx\nx\nx\nx\nC e\nC e\ne\ne\n\n\n\n\n\n<!-- question_kind: multiple_choice; question_number: 1; app_question_number: 101 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
@@ -1869,8 +1869,8 @@ const NATIONAL_EXAMS_DATA = {
     102,
     "12\n10\n6\n12\n20\n2\n二階微分方程3 '' 12\n2tan(2 )\ny\ny\nx\n\n\n，試問其特解為何？\n\n1 sin(2 )\nsec(2 )\ntan(2 )\n6\nx\nln\nx\nx\n\n\n\n\n1 sin(2 )\ncsc(2 )\ncot(2 )\n2\nx\nln\nx\nx\n\n\n\n\n1 cos(2 )\ncsc(2 )\ntan(2 )\nx\nln\nx\nx\n\n\n\n\n1 cos(2 )\nsec(2 )\ntan(2 )\nx\nln\nx\nx\n\n\n\n\n<!-- question_kind: multiple_choice; question_number: 2; app_question_number: 102 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
@@ -1943,8 +1943,8 @@ const NATIONAL_EXAMS_DATA = {
     104,
     "矩陣\n1\n0\n1\nA\n1\n1\n1\n2\n1 1\n\n\n\n\n\n\n\n\n\n\n\n\n，\n1\n0\n1\nB\n2\n1\n0\n3\n2\n5\n\n\n\n\n\n\n\n\n\n\n\n\n，試問\n1\nA？，\n1\nB？\n\n1\n2\n1\n1\n1\n1\n2\n1\n1\n1\nA\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n，\n1\n3.5\n1\n1.5\n5.5\n1\n1\n3.5\n1\n0.5\nB\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1\n2\n1\n1\n3\n1\n2\n1\n1\n1\nA\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n，\n1\n2.5\n1\n0.5\n5\n1\n1\n3.5\n1\n0.5\nB\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1\n2\n1\n1\n3\n1\n2\n1\n1\n1\nA\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n，\n1\n2.5\n1\n0.5\n1.5\n1\n1.5\n3.5\n1\n0.5\nB\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1\n2.5\n1\n1.5\n5\n1\n1\nA\n\n\n\n\n\n\n\n\n\n\n\n，\n1\n2\n1\n1\n3\n1\n2\nB\n\n\n\n\n\n\n\n\n\n\n\n\n\n<!-- question_kind: multiple_choice; question_number: 4; app_question_number: 104 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
@@ -1976,8 +1976,8 @@ const NATIONAL_EXAMS_DATA = {
     105,
     "2.5\n1\n0.5\n\n\n\n\n1\n1\n1\n\n\n\n\n5\n若\n( )\nf x {\n, 0\n1\n0, 1\n2\nx\nx\nx\n\n\n\n\n，且\n\n\n\n2\nf x\nf x\n\n\n。若\n\nf x 之傅立葉級數（Fourier Series ）為\n0\n1\n( )\n(\ncos\nsin\n)\nk\nk\nk\nf x\na\na\nkx\nb\nkx\n\n\n\n\n\n\n\n，下列何者為非？\n0\n1\na \n1\n2\n2\na \n\n2\n2\n1\na \n3\n2\n2\na \n\n<!-- question_kind: multiple_choice; question_number: 5; app_question_number: 105 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
@@ -2009,8 +2009,8 @@ const NATIONAL_EXAMS_DATA = {
     106,
     "4\n\n2\n9\n6\n一組聯立方程式以A\nB\nx \n的方式表示如下：\n2\n1\n2\n3\n4\n1\n11\n2\n4\n1\n2\n1\n4\n6\n7\n6\nT\nx\nT\nx\nx\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n其中T為常數，若上式之增廣矩陣（augmented matrix）為C，又此一聯立方程式已知有無限多組解，\n試問rank(C)之最大值為何？T又為何？\nrank(C)之最大值為3，T=-3\nrank(C)之最大值為4，T=3\n\n<!-- question_kind: multiple_choice; question_number: 6; app_question_number: 106 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
@@ -2211,8 +2211,8 @@ const NATIONAL_EXAMS_DATA = {
     112,
     "矩陣A=\n0\n2\n3\n3\n2\n0\n0\n3\n1\n2\n0\n0\n0\n1\n3\n0\n0\n0\n0\n4\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n，B=\n2\n2\n0\n0\n0\n3\n1\n3\n0\n0\n1\n2\n1\n4\n0\n2\n1 1 1 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n，試問行列式det(AB)=？\n0\n576\n22\n121\n代號：37320-37520\n\n<!-- question_kind: multiple_choice; question_number: 12; app_question_number: 112 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
@@ -2349,8 +2349,8 @@ const NATIONAL_EXAMS_DATA = {
     116,
     "已知矩陣\n5\n4\n1\n2\nA\n\n\n\n\n\n\n具有特徵向量\n4\n1\n\n\n\n及\n1\n1\n\n\n\n\n\n\n\n，請問下列何者可為其對角化（Diagonalization）矩陣？\n\n6\n0\n0\n1\n\n\n\n\n\n\n\n5\n0\n0\n2\n\n\n\n\n\n\n\n4\n0\n0\n3\n\n\n\n\n\n\n\n3\n0\n0\n2\n\n\n\n\n\n\n\n<!-- question_kind: multiple_choice; question_number: 16; app_question_number: 116 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
@@ -2546,9 +2546,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "額定230 V、12 HP的直流串激電動機，以Vs=230 V直流電源供電時，汲取\n40 A的電流，轉速為1200 rpm。此直流機的電樞電阻Ra=0.25 Ω，串激磁場\n繞組電阻Rs=0.1 Ω，磁飽和、電刷壓降及機械損失皆可忽略。\n（每小題10分，共20分）\n（一）繪出此電動機之等效電路圖，標示電樞電壓之極性、電樞電流方向及電\n源電壓極性。\n（二）計算此電動機輸出之機械功率及轉矩。\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
-      "交流相量",
       "電機機械",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
@@ -2591,9 +2591,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "額定60 Hz、460 V、Y接、300馬力之三相六極鼠籠式感應電動機，每相等\n效電路如圖二中虛線所圍繞的部分，s為轉差率，參照至定子側的等效電\n路每相歐姆值為\n1\n0.007\nR \n，\n2\n0.011\nR \n，\n1\n2\n0.05\nX\nX\n\n\n，\n2.4\nm\nX\n\n，此電\n動機在額定電壓下啟動。鐵心損失、風阻及摩擦損失均可忽略。\n（每小題10分，共20分）\n（一）計算此電動機之啟動電流\nstI 及啟動時之功率因數。\n（二）若欲使啟動時之功率因數提升至0.95落後，計算必須在A-B節點間並聯\n的每相電容值，及並聯此電容器之後，新的啟動電流。\n\n\n460 V\n3\n2\njX\n2\nR\ns\nstI\n1\njX\nm\njX\n1\nR\nA\nB\n圖二\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
-      "交流相量",
       "電機機械",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
@@ -2630,8 +2630,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "三部15 kVA、460/120 V、60 Hz之單相雙繞組變壓器，每一部單相變壓器\n參照至高壓側的等效阻抗為0.5+j1.5 Ω，鐵心損失與磁化電流可忽略。將\n此三部單相變壓器連接成一部460/208 V之三相變壓器組，供應三相208 V\n功率因數0.8落後之額定負載。\n（一）繪出變壓器之接線圖。（10分）\n（二）計算變壓器高、低壓側之繞組電流。（10分）\n（三）計算此變壓器組之效率。（5分）\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
@@ -2665,8 +2665,8 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "兩部三相同步發電機G1與G2並聯運轉，共同供應實功率300 kW、功率因\n數0.8落後之負載。G1與G2之電機規格及原動機的轉速降（speed droop）\n特性如下表所示：（每小題10分，共20分）\n發電機\n電機規格\n原動機轉速(rpm)\n無載\n滿載\nG1\n2極、60 Hz、250 kVA、480 V、\n功率因數0.8落後\n3650\n3570\nG2\n4極、60 Hz、250 kVA、480 V、\n功率因數0.85落後\n1800\n1780\n（一）求此電力系統之運轉頻率fs。\n（二）計算G1與G2分別供應之實功率。\n\n<!-- question_kind: essay; question_number: 5; app_question_number: 5 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_112年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
@@ -2702,9 +2702,9 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "一部額定三相、380 V、60 Hz、200 hp、定子繞組為連接之大型感應電動\n機運轉於滿載條件下，經由一條三相輸電線連接至一個三相、380 V、60\nHz、負相序之平衡電源。已知該感應電動機之滿載效率為80%、滿載功率\n因數為0.8 lagging，忽略輸電線的阻抗，試求：（一）該電源所提供之電流峰\n值、複數功率；（二）該電動機轉軸輸出的功率。（註：1 hp = 746 W）（25分）\n\n<!-- question_kind: essay; question_number: 1; app_question_number: 1 -->",
     [
+      "電機機械",
       "電力系統",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
@@ -2739,11 +2739,11 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "一部額定500 MVA、24 kV、60 Hz之三相同步發電機，以其額定做為基準\n值，已知該發電機之次暫態電抗、暫態電抗、同步電抗分別為19%、26%、\n130%，且忽略該發電機之電阻值。若該發電機經由一個5週波（cycles）之\n三相斷路器連接至一個三相電力變壓器，並工作於開路之額定端電壓。當\n該變壓器與斷路器之間發生三相短路故障時，試以安培(A)來表示斷路器\n之：（一）「持續短路電流」（sustained short-circuit current）；（二）「初始對稱均\n方根電流」（initial symmetrical rms current）；（三）「短路電流的最大可能直流\n成分」（maximum possible dc component of short-circuit current）。（25分）\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
+      "交流相量",
+      "電機機械",
       "暫態穩定",
       "電力系統",
-      "交流相量",
-      "故障分析",
-      "電機機械"
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
@@ -2777,10 +2777,10 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一部大型蒸汽渦輪同步發電機組之額定為三相、100 MVA、24 kV、60 Hz、\n4極，該發電機在故障發生之前係以滿載發電運轉，其輸出功率因數保持\n在0.9 lagging。當故障發生瞬間，致使該發電機之輸出實功降低50%。假\n定該發電機之轉軸輸入機械功率保持不變且忽略發電機之損失，試求故\n障發生時該發電機之加速轉矩（accelerating torque）。（25分）\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
-      "電力系統",
+      "電機機械",
       "故障分析",
-      "交流相量",
-      "電機機械"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
@@ -2815,9 +2815,9 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "一具雙繞組單相變壓器之額定為單相、220/110 V、11 kVA、60 Hz，已知\n該變壓器經基本實驗量測所獲得之鐵損（core loss）、滿載銅損（full-load\ncopper loss）分別為250 W、500 W。當該變壓器之兩側繞組適當連接成為\n一個單相自耦變壓器（autotransformer），該自耦變壓器的電源側連接至一\n個單相、330 V、60 Hz之電壓源，其負載側則連接至一個單相、110 V、\n60 Hz之負載。試求：（一）單相自耦變壓器之額定容量；（二）單相自耦變壓器\n在額定容量運轉下且滿載功率因數為0.8 lagging時之效率。（25分）\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
+      "電機機械",
       "電力系統",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_112年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
@@ -3082,8 +3082,8 @@ const NATIONAL_EXAMS_DATA = {
     "圖三BJT 工作於主動區，= 48 >>1，r= 1.2 k，rx = 0，ro = ，\nC= 1.25 pF，C= 0.3 pF；CC1 = 2.2 F，CE = 4 F，RS = 3 k，RB1 = 30 k，\nRB2 = 20 k，RC = 0.8 k，IE 為理想偏壓電流。以短路常數法與開路常數\n法分別估算放大器電壓增益響應之高頻3-dB 頻率H 與低頻3-dB 頻率\nL，必須列出過程計算式。（20 分）\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
       "故障分析",
-      "電力電子",
-      "電子學"
+      "電子學",
+      "電力電子"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_111年_電子學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_111年_高考三級_電子學.pdf",
@@ -3217,8 +3217,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "考慮如下所示之初始值問題（initial-value problem）：\n2\n2\n,\ndy\nd y\ny\ny\ndx\ndx\n\n\n\n\n\n\n\n\n\n\ny + 3y + 2y = x\ny(0) = 0 y (0) = 0\n\n\n\n\n\n\n：\n：\n微分方程式\n初始條件\n、\n（每小題7 分，共14 分）\n（一）請求出本題目中之微分方程式的齊次解（homogeneous solution），該齊\n次解應為一般形式（general form）解。\n（二）請求出本初始值問題的精確解（exact solution）。\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3325,8 +3325,8 @@ const NATIONAL_EXAMS_DATA = {
     101,
     "假設A 與B 為維度相同之方陣（square matrix）且\n,\n,\nA B A\nB\n\n均為可逆（invertible）矩陣，則下列\n何者不一定為可逆矩陣？\n\nT\nA B\nI\nAB\n\n\n1\nI\nA B\n\n\n\n1\nI\nAB\n\n\n<!-- question_kind: multiple_choice; question_number: 1; app_question_number: 101 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3358,8 +3358,8 @@ const NATIONAL_EXAMS_DATA = {
     102,
     "假設矩陣\n1\n0\n3\n2\n2\n6\n0\n7\n3\nA\n\n\n\n\n\n\n\n\n\n\n，\n1\n3\n0\n2\n4\n1\n5\n2\n2\nB\n\n\n\n\n\n\n\n\n\n\n\n\n\n，則行列式值\n\n\n1\ndet 2\nT\nA B\n為何？\n12\n17\n\n12\n17\n\n\n48\n17\n\n48\n17\n\n<!-- question_kind: multiple_choice; question_number: 2; app_question_number: 102 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3391,8 +3391,8 @@ const NATIONAL_EXAMS_DATA = {
     103,
     "若\n2\n0\n1\n0\n1\n3\n1\n1\n0\nB\nB\nP\n\n\n\n\n\n\n\n\n\n\n\n\n為從\n3\nR 的基底B 轉換至基底\n\n\n(1,1,1),(1,1,0),(1,0,0)\nB\n之轉移矩陣（transition\nmatrix），則B ？\n\n\n(3,2,2),(2,1,0),(4,4,1)\n\n\n(3,4,2),(2,1,2),(2,0,1)\n\n\n(3 1 2) (1 2 1) (4 1 4)\n\n\n(3 2 1) (1 2 0) (2 1 0)\n\n<!-- question_kind: multiple_choice; question_number: 3; app_question_number: 103 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3424,8 +3424,8 @@ const NATIONAL_EXAMS_DATA = {
     104,
     "\n\n\n\n4\n下列那一個矩陣無法被對角化（diagonalizable）？\n\n4\n0\n1\n2\n1\n0\n2\n0\n1\n\n\n\n\n\n\n\n\n\n\n\n\n\n0\n1\n0\n0\n0\n1\n2\n5\n1\n\n\n\n\n\n\n\n\n\n\n\n\n4\n0\n1\n0\n3\n0\n1\n0\n2\n\n\n\n\n\n\n\n\n\n\n\n\n1\n0\n2\n0\n0\n0\n2\n0\n4\n\n\n\n\n\n\n\n\n\n\n\n\n代號：37020\n37120\n頁次：4 3\n\n<!-- question_kind: multiple_choice; question_number: 4; app_question_number: 104 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3532,8 +3532,8 @@ const NATIONAL_EXAMS_DATA = {
     107,
     "矩陣\n2\n2\n2\n4\n2\n4\n2\n1\n6\n2\n4\n14\nA\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n的LU 分解（LU decomposition），可化為\n2\n2\n2\n4\n0\n2\n4\n3\n0\n0\n10\n2x\n\n\n\n\n\n\n\n\n\n\n\n\n\n，x ？\nx\n1\nx\n2\nx\n3\nx\n4\n\n<!-- question_kind: multiple_choice; question_number: 7; app_question_number: 107 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3565,8 +3565,8 @@ const NATIONAL_EXAMS_DATA = {
     108,
     "設和為矩陣\n1\n2\n2\n0\nA\n\n\n\n\n\n\n\n之特徵值（eigenvalues），則\n\n\n\n\n？\n\n<!-- question_kind: multiple_choice; question_number: 8; app_question_number: 108 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3737,8 +3737,8 @@ const NATIONAL_EXAMS_DATA = {
     113,
     "一階常微分方程式\n'\n3\nx y\ne\ny\nx\n\n\n，下列何者為正確的解答？\ndy\ny\ndx\n\n\n\n\n\n\n\n\n\n\n3\n1\ny\nx\ne\ne\nx\nc\n\n\n\n\n\n，其中c 為常數\n\n\n\n3\n2\ny\nx\ne\ne\nx\nc\n\n\n，其中c 為常數\n\n<!-- question_kind: multiple_choice; question_number: 13; app_question_number: 113 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3770,8 +3770,8 @@ const NATIONAL_EXAMS_DATA = {
     114,
     "\n\n\n3\n1\ny\nx\ne\ne\nx\nc\n\n\n\n，其中c 為常數\n\n\n\n3\n2\ny\nx\ne\ne\nx\nc\n\n\n\n\n\n，其中c 為常數\n14\n二階微分方程式\n\n\n2 '' 9\n' 24\n0,\n1\n1,\n' 1\n10\nx y\nxy\ny\ny\ny\n\n\n\n\n\n，設\n6\n5\n4\n3\na\nb\nc\nd\ny\nx\nx\nx\nx\n\n\n\n\n為其解，下列何\n者正確？\n2\n2\n,\ndy\nd y\ny\ny\ndx\ndx\n\n\n\n\n\n\n\n\n\n\na\n1\n\nb\n1\n\nc\n2\n\nd\n4\n\n\n<!-- question_kind: multiple_choice; question_number: 14; app_question_number: 114 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
@@ -3995,8 +3995,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "圖一為變壓器於二次低壓側進行開路試驗，一次高壓側進行短路試驗，\n並將試驗量測數據運算得到參考至一次側之近似等效電路圖。若高、低\n壓側額定電壓比為\nH\nL\nV\na\nV\n\n，敘述如何進行開路試驗與短路試驗的程序，\n以取得那些試驗的數據，直接推算等效電路上Rc、Xm、Req 及Xeq 的參數\n值，並說明等效電路上每一參數在變壓器運轉時所代表的意義。（25 分）\nRc\njXm\nReq\njXeq\n+\n-\n+\n-\nVH\nIH\naVL\nLI\na\n圖一變壓器近似等效電路圖\n\n<!-- question_kind: essay; question_number: 1; app_question_number: 1 -->",
     [
-      "故障分析",
-      "電機機械"
+      "電機機械",
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
@@ -4030,9 +4030,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "一部感應繞線式轉子運轉電動機在額定電壓與頻率下運轉，滑環短路並\n且負載是電動機額定值的100%，如果在轉子電路中插入額外的電阻，\n使得電動機的轉子電阻可以調變。試由感應繞線式轉子電阻變動之轉矩\n與速度特性曲線，詳細說明轉子電阻增加時，對以下各項參數的影響：\n（每小題5 分，共25 分）\n（一）轉差率s\n（二）電動機速度nm\n（三）轉子的感應電壓\n（四）電動機啟動轉矩\n電動機最大轉矩（脫出轉矩,Pull-out torque）\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
+      "電機機械",
       "故障分析",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
@@ -4075,8 +4075,8 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一部三相Y 連接同步發電機之額定為60 MVA、13.8 kV、0.8 PF 落後，\n60 Hz。其每相同步電抗為1.2 Ω，電樞電阻可忽略。\n（一）此同步發電機之電壓調整率為何？（10 分）\n（二）發電機若維持在額定狀況下運轉。但內部生成電壓EA 因激磁調整而\n下降10%，則激磁調降10%後的電樞電流IA 將為何？（15 分）\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
@@ -4108,9 +4108,9 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "如圖二所示之單相全控式固態直流機驅動系統，含一部額定輸入電壓\n180 V、輸出功率5 馬力的它激式直流馬達，電樞電阻Ra = 0.25 歐姆，\n電樞電感La，磁場電流if，額定滿載電樞電流20 安培，由一單相全控式\n相位控制整流器驅動。以交流電源正弦波由負轉正之零交越點為基準的\n觸發角零度，當開關S1 與S3 觸發角為時，則S2 與S4 的觸發角為+ 。\n若其交流側弦波電源電壓之均方根值為Vs = 220 V，假定電樞電感La 夠\n大且足以使電樞電流連續，可忽略漣波，且開關元件壓降亦可忽略。此\n時整流器的輸出電壓EA 與觸發角的關係式如下：\nA\ns\nE\n(2 2V cosα) / π\n\n（一）在額定激磁場電流及滿載電樞電流運轉時，觸發角為45°，轉速為\n800 rpm。此時的平均電樞電壓EA 與反電勢電壓（Back electromotive\nforce）Eg 應是多少？（10 分）\n（二）若在額定激磁場電流及額定滿載下，欲使馬達轉速控制為1000 rpm，\n此時的平均電樞電壓EＡ、反電勢電壓Eg與觸發角應為多少？（15 分）\n圖二單相全控式固態直流機驅動系統圖\nS1\nS2\nis\nS4\nS3\nEA\nia\nRa\nLa\nif\nLf\nVf\neLa\nEg\n交流電源VS\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "交流相量",
       "電機機械",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_111年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
@@ -4183,9 +4183,9 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "一個60 Hz 電力系統由三個區域電力系統互聯組成，各區域的速度下垂\n（speed droop）控制特性由各區域基準額定得到，各區域基準額定與實際\n發電量如下表所示，三個區域負載的頻率敏感系數（D 值）不計。\n（每小題10 分，共20 分）\n區域\n速度下垂控制特性\n基準額定\n實際發電量\nA\n0.02 pu\n16,000MW\n12,800MW\nB\n0.0125 pu\n12,000MW\n9,600MW\nC\n0.01 pu\n6,400MW\n5,120MW\n（一）請以方塊圖、特性曲線與公式等，說明同步發電機以速度下垂控制功\n率的原理。\n（二）若此電力系統在區域B 有一部滿載400 MW 發電機因故跳機解聯，試\n計算此電力系統僅使用速度下垂控制進入穩態時的頻率實際值（Hz），\n與各區域的發電量變動實際值（MW）。\n代號：37080\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
+      "電機機械",
       "電力系統",
-      "交流相量",
-      "電機機械"
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_111年_高考三級_電力系統.pdf",
@@ -4228,10 +4228,10 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "頁次：2 2\n三、圖2 為一個三相電力系統單線圖，各設備的正、負、零相序電抗標么（pu）\n值與基準（Base）值已標示於圖上。假設在匯流排4 的b-c 相發生完全\n雙線短路接地（2LG）事故，事故前故障相的電壓為1.0 pu，變壓器的\n正、負、零相序電抗值假設相等，且變壓器相位移不予考慮。\n（每小題10 分，共20 分）\n（一）繪出圖2 系統的正、負、零序電路。\n（二）以圖2 相序電路組合，計算此事故流入地面故障電流的標么值與實際值。\nG1\nG2\nBus 1\nBus 2\n100MVA,\n20kV\n0\n0 5\nX\n. pu\n\n1\n0 15\nX\n.\npu\n\n2\n0 15\nX\n.\npu\n\nTransmission Line\nTr.1, 100MVA,\n20kV/345kV\n1\n0 08\nTr\nX\n.\npu\n\nTr.2, 100MVA\n345kV/20kV\n2\n0 08\nTr\nX\n.\npu\n\n100MVA,\n20kV\n0\n0 04\nX\n.\npu\n\n1\n0 2\nX\n. pu\n\n2\n0 2\nX\n. pu\n\n100MVA\nB\nS\n\n345kV\nB\nV\n\n2LG\nBus 3\nBus 4\nn\nX\nn\nX\n1\n0 2\nX\n. pu\n\n2\n0 2\nX\n. pu\n\n0\n0 04\nX\n.\npu\n\n0 05\nn\nX\n.\npu\n\n0 05\nn\nX\n.\npu\n\n圖2 一個三相電力系統單線圖\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
-      "電力系統",
+      "電機機械",
       "故障分析",
-      "交流相量",
-      "電機機械"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_111年_高考三級_電力系統.pdf",
@@ -4267,8 +4267,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "圖3 為一個以標么（pu）值表示的輻射型饋電系統。\n（一）若要維持負載匯流排電壓\n2\nV 在1.0 pu，計算負載匯流排電壓相角\n2\n，\n與電容器組所需的虛功率補償量\n2\nG\nQ\n。（15 分）\n（二）計算負載匯流的短路容量（short-circuit capacity）標么值。（5 分）\n1\n1 0\no\nV\n1\n1\n0 2\n\nD\nS\nj .\n2\n1\n\nD\nS\n2\n2\n2\n\n\nV\nV\nG\n1\nG\nS\n2\nG\njQ\n0 5\n\nZ\nj .\n圖3 一個輻射型饋電系統\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "電力系統",
       "故障分析",
+      "電力系統",
       "交流相量",
       "配電設計"
     ],
@@ -4306,8 +4306,8 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "在電力系統中，常用的過電流保護電驛有以下四種，請繪出此四種過電\n流保護電驛的基本接線方塊圖與動作公式，並說明其過電流保護電驛的\n典型保護應用：（每小題5 分，共20 分）\n（一）瞬時／延時過電流電驛（ANSI 保護代碼50/51）。\n（二）差動電驛（ANSI 保護代碼87）。\n（三）方向性過電流電驛（ANSI 保護代碼67）。\n（四）測距電驛（ANSI 保護代碼21）。\n\n<!-- question_kind: essay; question_number: 5; app_question_number: 5 -->",
     [
-      "電力系統",
-      "故障分析"
+      "故障分析",
+      "電力系統"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_111年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_111年_高考三級_電力系統.pdf",
@@ -4339,8 +4339,8 @@ const NATIONAL_EXAMS_DATA = {
     1,
     "（三）本科\n得\n本國\n字或英\n作答\n一、圖一中A、B 為電源電路的兩端點。（每小題10 分，共30 分）\n（一）請利用網目電流法（mesh current analysis）求得A、B 兩點的開路電壓。\n（二）請利用節點電壓分析法（node voltage analysis）求得A、B 兩點的短路\n電流。\n（三）請繪出圖一電路之戴維寧等效電路（Thévenin equivalent network）和\n諾頓等效電路（Norton equivalent network）。\n圖一\n2Ix\nIx\n1 kΩ\n1 kΩ\n1 kΩ\n4 mA\n6 V\nA\nB\n12 V\n\n<!-- question_kind: essay; question_number: 1; app_question_number: 1 -->",
     [
-      "電路學",
       "故障分析",
+      "電路學",
       "等效定理"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
@@ -4377,8 +4377,8 @@ const NATIONAL_EXAMS_DATA = {
     2,
     "圖二中，vs為電源，R、L、C分別為電阻、電感和電容。\n（一）試推導iL(t)之微分方程，找出iL(t)與vs(t)之關係式（以R、L、C和vs(t)表\n示之，並讓iL(t)最高階微分項之係數為1）。（10 分）\n（二）若L = 2 H、R = 5 W、C =\n1\n50 F，且\n10 V\n0\n( )\n30 V\n0\ns\nt\nv t\nt\n\n\n\n\n試求iL൫0+൯、iL\n' ൫0+൯以及t > 0 之iL(t) 。其中iL൫0+൯和iL\n' ൫0+൯分別為電源切\n換發生後那一刻之iL(t)以及iL(t) 的一次微分值。（t=0+係指\n( )\nsv t 切換之後\n瞬間之時刻。）（15 分）\n圖二\nL\n代號：37640\n|\n37840\n頁\n\n<!-- question_kind: essay; question_number: 2; app_question_number: 2 -->",
     [
-      "暫態穩定",
       "電路學",
+      "暫態穩定",
       "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md",
@@ -4779,8 +4779,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "5\n4\n4\n12\n11 12\n4\n4\n5\nA\n\n\n\n\n\n\n\n\n\n\n\n\n，\n（一）求其行列式值（determinant）。（5 分）\n（二）求特徵值（eigenvalues）與其對應的特徵向量（eigenvectors）。（10 分）\n（三）求P，使\n1\nP AP\n\n為A 之對角化（diagonalized）矩陣。（5 分）\n乙、測驗題部分：（50 分）\n代號：2376\n（一）本測驗試題為單一選擇題，請選出一個正確或最適當的答案，複選作答者，該題不予計分。\n每\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -4816,8 +4816,8 @@ const NATIONAL_EXAMS_DATA = {
     101,
     "（二）共20題每題2.5分須用2B鉛筆在試卡上依題號清楚劃記於本試題或申論試卷上作答者不予計分\n1\n2 2\n實數矩陣Q 的特徵值為2\n、3\n。若定義矩陣跡（trace）為對角線元素相加，則Q 的跡（trace）\n為何值？\n5\n3\n\n<!-- question_kind: multiple_choice; question_number: 1; app_question_number: 101 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -4851,8 +4851,8 @@ const NATIONAL_EXAMS_DATA = {
     102,
     "5\n3\n2\n5\n2\n令T 和S 為\n3\nR 映射至\n2\nR 的線性轉換（linear transformation），其中\n( , , )\n(\n,\n)\nT x y z\nx\ny z\ny\n\n\n\n，\n( , , )\n(\n,\n)\nS x y z\nx\nz x\ny\n\n\n\n。下列向量何者屬於T\nS\n\n的零空間（nullspace）？\n(6,2, 10)\n\n(3,2, 5)\n\n(3, 2,5)\n\n( 6, 2, 10)\n\n\n\n\n<!-- question_kind: multiple_choice; question_number: 2; app_question_number: 102 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -4884,8 +4884,8 @@ const NATIONAL_EXAMS_DATA = {
     103,
     "給定矩陣\n1\n3\n1\n5\n0\n2\n4\n4\n1\nA\n\n\n\n\n\n\n\n\n，\n1\n4\n3\n5\n7\n9\n4\n2\n6\nB\n\n\n\n\n\n\n\n\n，\n2\n6\n2\n10\n0\n4\n8\n8\n2\nC\n\n\n\n\n\n\n\n\n。則矩陣\n1\nABC的行列式值為何？\n6\n\n0.75\n\n0.25\n0.75\n代號：37620\n|\n37820\n\n<!-- question_kind: multiple_choice; question_number: 3; app_question_number: 103 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -5022,8 +5022,8 @@ const NATIONAL_EXAMS_DATA = {
     107,
     "我們考慮一個矩陣：\n1\n3\n0\n2\nx\n1\n0\n2\n1\n\n\n\n\n\n\n\n\n\n\n\n，若已知此矩陣為不可逆（notinvertible），那麼請問x 的數值為何？\n3\n12\n2 3\n4\n\n<!-- question_kind: multiple_choice; question_number: 7; app_question_number: 107 -->",
     [
-      "線性代數",
-      "工程數學"
+      "工程數學",
+      "線性代數"
     ],
     "",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -5256,8 +5256,8 @@ const NATIONAL_EXAMS_DATA = {
     114,
     "假設y(x)可以由下列微分方程來描述：\n2\ndy\n3x\n1\n=\ndx\n2y+5\n\n而且合乎初始條件：y(1)\n1\n。請問y(0)=？\n2\n或3\n或5\n2\n4\n或1\n\n3 或4\n代號：37620\n|\n37820\n\n<!-- question_kind: multiple_choice; question_number: 14; app_question_number: 114 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -5298,8 +5298,8 @@ const NATIONAL_EXAMS_DATA = {
     115,
     "頁次：4 4\n15\n下列選項之中，何者屬於線性（linear）微分方程式？\n\n\n\n2\n2\ny (t)+t\ny (t)+cos(t)\ny(t)\n=0\n\n\n\n\n\nt\ny (t)+2y (t)+e\ny(t)=sin(2t)\n\n\n\n\n\n2\ny(t) y (t)+t\ny (t)+cos(t) y(t)=0\n\n\n\nt\ny (t)+2t y (t)+e\ny(t)= y(t)\n\n\n\n\n\n\n<!-- question_kind: multiple_choice; question_number: 15; app_question_number: 115 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -5331,8 +5331,8 @@ const NATIONAL_EXAMS_DATA = {
     116,
     "給定微分方程式\n2\n(\n2)\ndy\ny\nt\nt\ndt\n\n\n\n\n，初始值為(0)\n0\ny\n\n，( )t\n\n為脈衝函數（impulse function）。則\n( )\ny t 的拉氏轉換（Laplace transform）為何？\n\n2\n2\n2\ns\ne\n\n\n2\n2\n1\n(\n2)\ns\ne\n\n2\n2\n2(\n2)\ns\ns\ne\n\n2\n2\n2\n2\n(\n2)\ns\ns\ne\n\n<!-- question_kind: multiple_choice; question_number: 16; app_question_number: 116 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -5364,8 +5364,8 @@ const NATIONAL_EXAMS_DATA = {
     117,
     "(\n)\n(\n)\n(\n)\n17\n考慮微分方程式\n5\n6\ny\ny\ny\nx\n\n\n\n\n\n，初始值為\n(0)\ny\nA\n\n和\n(0)\ny\nB\n\n\n。若其解為\n2\n3\n1\n1\n1\n2\n3\n6\nx\nx\ny\ne\ne\nx\nC\n\n\n\n\n\n\n，則A\nB\nC\n\n\n為下列何值？\n2\n1\n3\n1\n18\n1\n36\n\n<!-- question_kind: multiple_choice; question_number: 17; app_question_number: 117 -->",
     [
-      "暫態穩定",
-      "工程數學"
+      "工程數學",
+      "暫態穩定"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
@@ -5560,9 +5560,9 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "下表為一個單相、50 kVA、60 Hz、2,400/240 V 配電變壓器的短路（SC）\n與開路（OC）實驗測試結果。\n電壓（V）\n電流（A）\n功率（Watt）\n開路實驗，在一次側進行\nOC\nV\n=2,400\nOC\nI\n=0.541\nOC\nP\n=186\n短路實驗，在一次側進行\nSC\nV =168\nSC\nI\n=20.8\nSC\nP =650\n（一）繪出轉換到一次側的等效電路，計算其中各電路元件參數，並標示於\n等效電路上。（10 分）\n（二）若此變壓器二次側操作在全載、功率因數0.8 落後、端電壓240 V，試\n計算此變壓器的效率與電壓調整率（V.R.%）。（15 分）\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
+      "電機機械",
       "故障分析",
       "交流相量",
-      "電機機械",
       "配電設計"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
@@ -5608,8 +5608,8 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "一部三相、460 V、60 Hz、4 極、Y 接線感應電動機有以下等效到定子側\n的單相等效電路參數，包含鐵芯損失的總旋轉損失為1 kW。\nR1=0.3 ，R2=0.3 ，X1=1.0 ，X2=1.0 ，XM=25 \n若此感應電動機操作轉差率為3%，試計算：（每小題5 分，共25 分）\n（一）轉子轉速多少rpm？\n（二）轉子感應電流頻率多少Hz？\n（三）定子電流與功率因數（power factor）。\n（四）轉子輸出轉矩多少kg-m？\n感應電動機效率。\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_110年_高考三級_電機機械.pdf",
@@ -5644,8 +5644,8 @@ const NATIONAL_EXAMS_DATA = {
     5,
     "一部三相、1.5 MVA、2.3 kV、60 Hz、30 極、Y 接線凸極式轉子（salient\npole rotor）同步電動機，直軸電抗為Xd=1.95 /每相、交軸電抗為Xq=1.4\n/每相，電樞電阻忽略不計。此電動機以額定電壓、額定容量、功率因\n數（power factor）1.0 運轉，所有損失均不計。\n（一）說明直軸電抗Xd 為何大於交軸電抗Xq。（5 分）\n（二）計算電樞感應電壓（induced armature voltage,\nA\nE ）與功率角（power\nangle, ）。（10 分）\n（三）計算運轉輸出轉矩多少N-m。（5 分）\n\n<!-- question_kind: essay; question_number: 5; app_question_number: 5 -->",
     [
-      "交流相量",
-      "電機機械"
+      "電機機械",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/04_電機機械/GK_110年_電機機械_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_110年_高考三級_電機機械.pdf",
@@ -5680,8 +5680,8 @@ const NATIONAL_EXAMS_DATA = {
     "功率因數為落後0.707 的三相負載自線電壓440 V 汲取250 kW 功率，\n與此負載併聯的是三相電容器組，其汲取60 kVA 功率。試求總電流及\n合併的功率因數。（20 分）\n\n<!-- question_kind: essay; question_number: 1; app_question_number: 1 -->",
     [
       "電力系統",
-      "交流相量",
-      "配電設計"
+      "配電設計",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_110年_高考三級_電力系統.pdf",
@@ -5749,11 +5749,11 @@ const NATIONAL_EXAMS_DATA = {
     3,
     "一部300 MVA、20 kV 的三相發電機，其次暫態電抗為20%。此發電機\n經由64 公里且二端皆有變壓器的輸電線路供電給數台同步電動機，如\n圖2 所示的單線圖。所有電動機的額定皆為13.2 kV，而且以二台等效電\n動機來表示。電動機M1的中性點經由電抗接地，而第二台電動機M2的中\n性點並未接地。電動機M1與M2的額定輸入分別為200 MVA 與100 MVA。\n二台電動機之次暫態電抗\n20%\n\"\nd\nX\n\n，三相變壓器T1 的額定為350 MVA，\n20 kV/230 kV，其漏磁電抗為10%；變壓器T2 由三個單相變壓器所組成，\n每一個額定為127 kV/13.2 kV，100 MVA，漏磁電抗為10%，輸電線路\n的串聯電抗為0.5 Ω/km。假設發電機及電動機的零序電抗為0.05 標么，\n發電機及電動機M1 的中性點都有0.4 Ω 的限流電抗器。輸電線路的零序\n電抗為1.5 Ω/km，試繪出此系統的零序網路，以標么表示。選擇發電機\n的額定為此系統的基準值。（20 分）\n代號：37680\n頁次：3－2\n圖2\n\n<!-- question_kind: essay; question_number: 3; app_question_number: 3 -->",
     [
+      "交流相量",
+      "電機機械",
       "暫態穩定",
       "電力系統",
-      "交流相量",
-      "故障分析",
-      "電機機械"
+      "故障分析"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_110年_高考三級_電力系統.pdf",
@@ -5798,10 +5798,10 @@ const NATIONAL_EXAMS_DATA = {
     4,
     "當一台發電機經由兩條併聯的輸電線路提供電力至無限匯流排時，開啟\n其中一條線路可能會造成發電機失去同步。在穩態情況下，負載可以經\n由剩餘的線路供電。如果在兩條併聯線路連接的情形，故障是發生在一\n條線路的一端，則可將此線路兩端的斷路器開啟，將故障從系統隔離，\n並允許電力經由另一條併聯的線路流動。當一個三相接地故障發生在兩\n條併聯的其中一條線路上的某一點時（發生在併聯的匯流排或在線路的\n末端除外），則在併聯匯流排與故障點之間會有一些阻抗存在。因此，當\n故障仍存在於系統上時，會有一部分電力被傳送。如果在故障發生前，\n傳輸的實功率為Pmaxsinδ；在故障期間，可以傳輸的實功率為r1Pmaxsinδ，\n而當故障在δ=δcr 瞬間由於開關動作而被清除後（即，開啟故障的線路），\n可以傳輸的實功率為r2Pmaxsinδ。檢視圖3 可發現在此情況下，δcr為臨界清\n除角度。利用A1及A2等面積的程序步驟，試求臨界清除角度δcr。（20 分）\n圖3\n\n<!-- question_kind: essay; question_number: 4; app_question_number: 4 -->",
     [
-      "電力系統",
+      "電機機械",
       "故障分析",
-      "交流相量",
-      "電機機械"
+      "電力系統",
+      "交流相量"
     ],
     "📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_110年_電力系統_全卷完整詳細題解.md",
     "./依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_110年_高考三級_電力系統.pdf",

@@ -44,6 +44,7 @@ class TestBuildPipeline(unittest.TestCase):
             'filter-diff',
             'search-input',
             'review-container',
+            'review-type-filter',
             'tab-pane-review',
             'tab-btn-review'
         ]
@@ -59,6 +60,24 @@ class TestBuildPipeline(unittest.TestCase):
         self.assertIn("function setReviewFilter", html)
         self.assertIn("getDueQuestionsList()", html)
         self.assertIn("data-review-type", html)
+
+    def test_review_taxonomy_uses_textbook_chapter_names(self):
+        with open(self.index_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        chapter_names = [
+            '節點電壓法與網目電流法',
+            '二極體整流與濾波電路',
+            '複變分析、柯西定理與留數定理',
+            '電力潮流與導納矩陣',
+            '經濟調度與發電協調方程式',
+            '系統接地與設備接地',
+            '照明設計與照度計算',
+        ]
+        for chapter in chapter_names:
+            self.assertIn(chapter, html, f"Textbook chapter '{chapter}' must be available to review taxonomy")
+        self.assertIn('function getReviewChapterKey', html)
+        self.assertIn('needle.length >= 4 ? 4 : 3', html, 'Question text should have the strongest classification weight')
 
     def test_dag_functions_bundled(self):
         with open(self.index_path, 'r', encoding='utf-8') as f:

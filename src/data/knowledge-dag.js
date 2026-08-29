@@ -373,6 +373,26 @@ const KNOWLEDGE_DAG = {
     coreFormula: 'A = U \\Sigma V^T, \\sigma_i = \\sqrt{\\lambda_i(A^T A)}, A^+ = V \\Sigma^+ U^T',
     keyTrap: '奇異值依大小降序排列 \\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge 0；右奇異向量 V 為 A^T A 之特徵向量。'
   },
+  'em-probability-statistics': {
+    id: 'em-probability-statistics',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '機率與統計',
+    level: 2,
+    prereqs: [],
+    coreFormula: 'E[X] = \\sum_x x p(x), \\operatorname{Var}(X) = E[(X-E[X])^2]',
+    keyTrap: '期望值、變異數與標準差的定義不可混用。'
+  },
+  'em-vector-analysis': {
+    id: 'em-vector-analysis',
+    subject: '03',
+    subjectName: '工程數學',
+    name: '向量分析與向量微積分',
+    level: 2,
+    prereqs: [],
+    coreFormula: '\\nabla f, \\nabla\\cdot\\mathbf{F}, \\nabla\\times\\mathbf{F}',
+    keyTrap: '梯度、散度與旋度的運算對象及結果型態不同。'
+  },
 
   // -------------------------------------------------------------
   // 04. 電機機械 (Electrical Machines)
@@ -481,6 +501,36 @@ const KNOWLEDGE_DAG = {
     coreFormula: 'Z_{\\text{base}} = \\frac{V_{\\text{base, L-L}}^2}{S_{\\text{base, 3\\phi}}}, Z_{\\text{pu, new}} = Z_{\\text{pu, old}} \\left(\\frac{V_{\\text{old}}}{V_{\\text{new}}}\\right)^2 \\left(\\frac{S_{\\text{new}}}{S_{\\text{old}}}\\right)',
     keyTrap: '三相標么公式中，基準阻抗為線電壓平方除以三相總容量！'
   },
+  'ps-load-flow-admittance': {
+    id: 'ps-load-flow-admittance',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '電力潮流與導納矩陣',
+    level: 2,
+    prereqs: ['ps-per-unit'],
+    coreFormula: 'P_i = \\sum_j |V_i||V_j||Y_{ij}|\\cos(\\theta_i-\\theta_j-\\angle Y_{ij})',
+    keyTrap: 'PV、PQ 與 swing 匯流排的已知量不同，反覆計算時不可混用。'
+  },
+  'ps-power-analysis': {
+    id: 'ps-power-analysis',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '電力系統功率與相量分析',
+    level: 1,
+    prereqs: ['ps-per-unit'],
+    coreFormula: 'S = P + jQ = \\sqrt{3}V_L I_L^*, \\quad \\cos\\phi = P/|S|',
+    keyTrap: '三相功率使用線電壓與線電流時才乘以 \\sqrt{3}，相量角度需保持一致。'
+  },
+  'ps-economic-dispatch': {
+    id: 'ps-economic-dispatch',
+    subject: '05',
+    subjectName: '電力系統',
+    name: '經濟調度與發電協調方程式',
+    level: 2,
+    prereqs: ['ps-per-unit'],
+    coreFormula: '\\frac{dC_1}{dP_1} = \\frac{dC_2}{dP_2} = \\lambda, \\quad \\sum_i P_i = P_D',
+    keyTrap: '忽略損耗時以增量成本相等求解；有上下限時需檢查邊界機組。'
+  },
   'ps-transmission-line-params': {
     id: 'ps-transmission-line-params',
     subject: '05',
@@ -574,6 +624,46 @@ const KNOWLEDGE_DAG = {
     prereqs: [],
     coreFormula: 'f_D = \\frac{P_{\\max}}{\\text{Connected Load}}, \\text{DF} = \\frac{\\sum P_{\\max, i}}{P_{\\max, \\text{sys}}} \\ge 1.0, f_L = \\frac{P_{\\text{avg}}}{P_{\\max}}',
     keyTrap: '參差因數 (Diversity Factor) 恆大於或等於 1.0；需量因數與負載因數恆小於等於 1.0。'
+  },
+  'dist-grounding-system': {
+    id: 'dist-grounding-system',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '系統接地與設備接地',
+    level: 1,
+    prereqs: [],
+    coreFormula: 'R_g = V_g/I_g, \\quad E_{touch}, E_{step} \\le E_{allow}',
+    keyTrap: '系統接地穩定電位，設備接地則提供故障電流回路，兩者目的不可混淆。'
+  },
+  'dist-lighting-design': {
+    id: 'dist-lighting-design',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '照明設計與照度計算',
+    level: 2,
+    prereqs: ['dist-load-characteristics'],
+    coreFormula: 'E = \\frac{N F CU MF}{A}',
+    keyTrap: '照度計算須同時考慮照明率 CU、維護係數 MF 與工作面面積。'
+  },
+  'dist-distribution-equipment': {
+    id: 'dist-distribution-equipment',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '配電變壓器與供電接線',
+    level: 2,
+    prereqs: ['dist-load-characteristics'],
+    coreFormula: 'S_{V-V} = \\sqrt{3} S_{1\\phi}, \\quad V_{LL} = \\sqrt{3} V_\\phi',
+    keyTrap: 'V-V（開三角）容量約為完整 Δ-Δ 組的 57.7%，且須核對相序與接線極性。'
+  },
+  'dist-motor-installation': {
+    id: 'dist-motor-installation',
+    subject: '06',
+    subjectName: '工業配電',
+    name: '電動機配線與啟動',
+    level: 2,
+    prereqs: ['dist-load-characteristics'],
+    coreFormula: 'I_{start} = k I_{FL}, \\quad S_{motor} = \\frac{P_{out}}{\\eta \\cos\\phi}',
+    keyTrap: '導線安培容量與啟動壓降需按連續運轉及啟動電流分別校核。'
   },
   'dist-voltage-drop': {
     id: 'dist-voltage-drop',

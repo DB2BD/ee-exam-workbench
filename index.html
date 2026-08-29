@@ -2946,6 +2946,34 @@ function renderQuestionTopic(rawText) {
     : rawText;
 }
 
+function getNationalSourceAssets(qid) {
+  const record = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
+  if (!record || !qid || !qid.startsWith('GK-')) {
+    return { questionCrop: '', figureCrops: [] };
+  }
+  return {
+    questionCrop: record[14] || '',
+    figureCrops: Array.isArray(record[15]) ? record[15] : []
+  };
+}
+
+function renderNationalSourceCrops(qid) {
+  const assets = getNationalSourceAssets(qid);
+  if (!assets.questionCrop) return '';
+  const questionSrc = resolveImageMapUrl(`./${assets.questionCrop}`, true);
+  const figures = assets.figureCrops.map(path => {
+    const src = resolveImageMapUrl(`./${path}`, true);
+    return `<img src="${src}" alt="${qid} 原始電路圖" style="display: block; width: 100%; max-width: 980px; height: auto; margin: 10px auto 0; border: 1px solid var(--line); background: #fff;">`;
+  }).join('');
+  return `
+    <section style="padding: 12px 14px; background: #fff; border-bottom: 1px solid var(--line);">
+      <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 7px;">官方原題裁切（文字與符號以此圖為準）</div>
+      <img src="${questionSrc}" alt="${qid} 官方原題裁切" style="display: block; width: 100%; max-width: 980px; height: auto; margin: 0 auto; border: 1px solid var(--line); background: #fff;">
+      ${figures ? `<div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-dark); margin: 12px 0 7px;">原始電路／示意圖裁切</div>${figures}` : ''}
+    </section>
+  `;
+}
+
 
 // === src/components/dagTracer.js ===
 // src/components/dagTracer.js
@@ -3386,6 +3414,14 @@ let currentModalFullView = false;
 let currentSubQuestionIdx = 0;
 let modalHistoryStack = [];
 
+function getQuestionDisplayLabel(qid, qnum) {
+  const number = parseInt(qnum, 10) || 0;
+  if (String(qid || '').includes('-MC') && number >= 101 && number <= 120) {
+    return `測驗題 ${number - 100}`;
+  }
+  return `第 ${number} 大題`;
+}
+
 const CN_NUM_MAP = {
   '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8,
   '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8
@@ -3394,13 +3430,16 @@ const CN_NUM_MAP = {
 /**
  * Intelligently extracts the target question from full-paper or single-question markdown files.
  */
-function extractQuestionMarkdown(rawMd, targetQNum) {
+function extractQuestionMarkdown(rawMd, targetQNum, targetQid = '') {
   if (!rawMd) return { content: '', subParts: [] };
 
   const qNumInt = parseInt(targetQNum, 10) || 1;
+  const isMultipleChoice = String(targetQid || '').includes('-MC') || (qNumInt >= 101 && qNumInt <= 120);
+  const targetNumber = isMultipleChoice ? qNumInt - 100 : qNumInt;
 
-  // Split by major question headers: e.g. "## 一、", "## 二、", "## 第 1 題", "## 1."
-  const majorSplitRegex = /(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|(?:[一二三四五六七八九十]|\d+)\s*[、\.\:]))/gi;
+  // Split by major question headers, including full-paper MC sections:
+  // "## 一、", "## 第 1 題", "## 1.", or "## 測驗題 1、".
+  const majorSplitRegex = /(?=\n##\s+(?:測驗題\s*\d+\s*[、\.\:]|\d+\s*[、\.\:]\s*測驗題\s*\d*|第\s*[一二三四五六七八九十\d]+\s*[大題題]|(?:[一二三四五六七八九十]|\d+)\s*[、\.\:]))/gi;
   const sections = rawMd.split(majorSplitRegex);
 
   let targetSection = rawMd;
@@ -3410,11 +3449,14 @@ function extractQuestionMarkdown(rawMd, targetQNum) {
     let found = false;
     for (let i = 1; i < sections.length; i++) {
       const sec = sections[i];
-      const hMatch = sec.match(/##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十]|\d+)\s*[、\.\:])/i);
+      const hMatch = sec.match(/##\s+(?:測驗題\s*(\d+)\s*[、\.\:]|(\d+)\s*[、\.\:]\s*測驗題\s*(\d*)|第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十]|\d+)\s*[、\.\:])/i);
       if (hMatch) {
-        const token = (hMatch[1] || hMatch[2] || '').trim();
-        const parsedNum = CN_NUM_MAP[token];
-        if (parsedNum === qNumInt) {
+        const token = (hMatch[1] || hMatch[2] || hMatch[4] || hMatch[5] || '').trim();
+        const appQNum = parseInt(hMatch[2], 10);
+        const parsedNum = hMatch[2]
+          ? (appQNum >= 101 && appQNum <= 120 ? appQNum - 100 : parseInt(hMatch[3], 10))
+          : (CN_NUM_MAP[token] || parseInt(token, 10));
+        if (parsedNum === targetNumber) {
           targetSection = sec;
           found = true;
           break;
@@ -3422,8 +3464,8 @@ function extractQuestionMarkdown(rawMd, targetQNum) {
       }
     }
     // Fallback by array index if heading regex missed
-    if (!found && sections[qNumInt]) {
-      targetSection = sections[qNumInt];
+    if (!found && sections[targetNumber]) {
+      targetSection = sections[targetNumber];
     }
   }
 
@@ -3455,6 +3497,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   const qRecord = findQuestionRecord(qid);
   const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
   const meta = getSubjectMeta(sid);
+  const sourceCropsHtml = renderNationalSourceCrops(qid);
 
   // 1. Update Title
   const titleEl = document.getElementById('modal-title');
@@ -3462,7 +3505,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
     titleEl.innerHTML = `
       <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${qid}</span>
       <span style="font-size: 0.9rem; color: var(--muted); font-weight: 500;">
-        · ${meta.icon} ${meta.name}（${yr} 年第 ${curQnum} 大題）
+        · ${meta.icon} ${meta.name}（${yr} 年${getQuestionDisplayLabel(curQid, curQnum)}）
       </span>
     `;
   }
@@ -3494,6 +3537,8 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
         <div>${topic}</div>
       </div>
 
+      ${sourceCropsHtml}
+
       <div style="flex: 1; width: 100%; height: 100%; min-height: 500px; background: #525659;">
         <iframe src="${pdfLink}#toolbar=0" style="width: 100%; height: 100%; min-height: 500px; border: none; display: block;"></iframe>
       </div>
@@ -3507,7 +3552,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   const rawMd = resolveSolutionMarkdown(solLink, qid);
 
   if (rawMd) {
-    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, curQnum);
+    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, curQnum, curQid);
 
     // If sub-parts exist, render pills for quick navigation
     if (subParts.length > 1 && subQPillsBar) {
@@ -3562,7 +3607,7 @@ function updateSameExamDropdown(sid, yr, currentQid) {
     const s = progressState[qid] || 0;
     const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
     const isCur = qid === currentQid;
-    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${qid})</option>`;
+    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} ${getQuestionDisplayLabel(qid, qnum)} (${qid})</option>`;
   }).join('');
 }
 
@@ -3646,7 +3691,7 @@ function switchSubQuestion(idx) {
   const qRecord = findQuestionRecord(currentModalQid);
   if (!rawMd) return;
 
-  const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum);
+  const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum, currentModalQid);
 
   if (idx === 0 || subParts.length === 0) {
     renderSubQuestionContent(fullContent, qRecord);
@@ -3678,7 +3723,7 @@ function toggleActiveRecallMode() {
   const rawMd = resolveSolutionMarkdown(currentModalSolLink, currentModalQid);
   const qRecord = findQuestionRecord(currentModalQid);
   if (rawMd) {
-    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum);
+    const { fullContent, subParts } = extractQuestionMarkdown(rawMd, currentModalQNum, currentModalQid);
     if (currentSubQuestionIdx === 0 || subParts.length === 0) {
       renderSubQuestionContent(fullContent, qRecord);
     } else if (subParts[currentSubQuestionIdx - 1]) {
@@ -4037,7 +4082,7 @@ function loadMockExam() {
         return `
           <div class="qcard" style="border-left: 4px solid var(--accent);">
             <div class="qhead">
-              <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
+              <span class="qid">${getQuestionDisplayLabel(qid, qnum)} (${qid})</span>
               <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分</span>
             </div>
             <div class="qtopic">${renderQuestionTopic(topic)}</div>

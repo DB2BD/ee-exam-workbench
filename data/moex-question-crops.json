@@ -1,0 +1,4470 @@
+{
+  "schema_version": 1,
+  "source_manifest": "data/moex-national-exams.json",
+  "render_dpi": 220,
+  "question_boundary_policy": "top-level Chinese-numbered question; official 113 electronics 如圖一至四 fallback; 110-112 engineering-math MC 1..20 at left margin after 乙、測驗題部分",
+  "entries": [
+    {
+      "year": 110,
+      "calendar_year": 2021,
+      "exam_code": "110090",
+      "class_code": "376",
+      "subject": "電路學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=110090&y=2021",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=110090&c=376&s=1205&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_110年_高考三級_電路學.pdf",
+      "status": "downloaded",
+      "bytes": 365961,
+      "sha256": "2060a527e32418392c8c40b266d5a14dcc7ad11b0fa550189774408fb04b2e9b",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:43.279697+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-110-電路學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、圖一中A、B 為電源電路的兩端點。（每小題10 分，共30 分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                189.3,
+                595.22,
+                478.55
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_110年_電路學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_110年_電路學_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電路學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、圖二中，vs為電源，R、L、C分別為電阻、電感和電容。",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                486.55,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                79.78
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_110年_電路學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_110年_電路學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電路學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、圖三所示之電路中，Vs=100∠0°為電源vs(t)=100 cos(ωt)的相量（phasor）",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                87.78,
+                595.22,
+                305.27
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_110年_電路學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_110年_電路學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電路學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、圖四為一濾波電路，其中vs和vo分別為輸入與輸出電壓，其轉移函數",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                313.27,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_110年_電路學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_110年_電路學_Q04_figure-01.png",
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_110年_電路學_Q04_figure-02.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 110,
+      "calendar_year": 2021,
+      "exam_code": "110090",
+      "class_code": "376",
+      "subject": "電子學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=110090&y=2021",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=110090&c=376&s=1206&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_110年_高考三級_電子學.pdf",
+      "status": "downloaded",
+      "bytes": 202546,
+      "sha256": "115182855474618cba1ea6369813758f87099c03d2438eb77648de9a9d6eff77",
+      "page_count": 3,
+      "downloaded_at": "2026-08-29T08:24:43.531597+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-110-電子學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、下圖電路VDD = VSS = 5 V，ID2 = 1 mA，電晶體M1與M2具有相同的長度",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                198.3,
+                595.22,
+                456.8
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電子學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、下圖電路R1 = 0.5 k，R2 = 0.5 k，RL = 1 k。",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                464.8,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                76.64
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電子學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、下圖電路Rsig=125k，RG1=250k，RG2=250k，RD=4k，RS=2k，",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                84.64,
+                595.22,
+                380.25
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電子學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、下圖電路RS = 10 k，R1 = 1 k，R2 = 1 M，RL = 2 k，運算放大器參",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                388.25,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                33.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q04_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電子學-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "| 37860 頁次：3－3 五、CMOS 邏輯包含上拉網路（pull-up network）與下拉網路（pull-down",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                41.51,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q05.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q05_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 110,
+      "calendar_year": 2021,
+      "exam_code": "110090",
+      "class_code": "376",
+      "subject": "工程數學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=110090&y=2021",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=110090&c=376&s=1201&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_110年_高考三級_工程數學.pdf",
+      "status": "downloaded",
+      "bytes": 259465,
+      "sha256": "25af48e7dcc8ee1e183c2866675307a211e9691f16aeba841979b2a567b6c343",
+      "page_count": 4,
+      "downloaded_at": "2026-08-29T08:24:43.839620+00:00",
+      "question_count": 24,
+      "questions": [
+        {
+          "question_id": "GK-110-工程數學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、求 4 8 16 1 x y xy + y +e     的通解（general solution）。（15 分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                235.6,
+                595.22,
+                270.01
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_Q01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、求 2z dz  ，其中 2 t i t  ，0t 1。（10 分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                278.01,
+                595.22,
+                321.59
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、一副標準52 張的撲克牌，隨意抽出3 張。求其為同花（3 張為同一花色）的機率。",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                329.59,
+                595.22,
+                400.05
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_Q03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                408.05,
+                595.22,
+                572.87
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/figures/GK_110年_工程數學_Q04_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-工程數學-MC01",
+          "question_kind": "multiple_choice",
+          "question_number": 1,
+          "app_question_number": 101,
+          "essay": false,
+          "source_heading": "1",
+          "source_text_excerpt": "1 2 2 實數矩陣Q 的特徵值為2 、3 。若定義矩陣跡（trace）為對角線元素相加，則Q 的跡（trace）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                580.87,
+                595.22,
+                643.8
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC02",
+          "question_kind": "multiple_choice",
+          "question_number": 2,
+          "app_question_number": 102,
+          "essay": false,
+          "source_heading": "2",
+          "source_text_excerpt": "2 令T 和S 為 3 R 映射至 2 R 的線性轉換（linear transformation），其中 ( , , ) ( , ) T x y z x y z y    ，",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                651.8,
+                595.22,
+                729.6
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC03",
+          "question_kind": "multiple_choice",
+          "question_number": 3,
+          "app_question_number": 103,
+          "essay": false,
+          "source_heading": "3",
+          "source_text_excerpt": "3 給定矩陣",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                737.6,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                88.31
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC04",
+          "question_kind": "multiple_choice",
+          "question_number": 4,
+          "app_question_number": 104,
+          "essay": false,
+          "source_heading": "4",
+          "source_text_excerpt": "4 考慮如下所示之過度限制（over-determined）線性聯立方程式：",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                96.31,
+                595.22,
+                286.31
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC04.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC05",
+          "question_kind": "multiple_choice",
+          "question_number": 5,
+          "app_question_number": 105,
+          "essay": false,
+          "source_heading": "5",
+          "source_text_excerpt": "5 考慮一個作用在     2 , , x y x y    的線性轉換（linear transformation）T。已知T(1, 1) (3,2)   、",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                294.31,
+                595.22,
+                413.28
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC05.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC06",
+          "question_kind": "multiple_choice",
+          "question_number": 6,
+          "app_question_number": 106,
+          "essay": false,
+          "source_heading": "6",
+          "source_text_excerpt": "6 考慮如下所示之線性聯立方程式：",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                421.28,
+                595.22,
+                591.48
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC06.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC07",
+          "question_kind": "multiple_choice",
+          "question_number": 7,
+          "app_question_number": 107,
+          "essay": false,
+          "source_heading": "7",
+          "source_text_excerpt": "7 我們考慮一個矩陣：",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                599.48,
+                595.22,
+                669.96
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC07.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC08",
+          "question_kind": "multiple_choice",
+          "question_number": 8,
+          "app_question_number": 108,
+          "essay": false,
+          "source_heading": "8",
+          "source_text_excerpt": "8 有一條三維空間中的曲線，曲線上的點的坐標(x,y,z)以參數式來表示為：x(t)=2sin(t)、y(t)=2cos(t)、",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                677.96,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                91.67
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC08.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC09",
+          "question_kind": "multiple_choice",
+          "question_number": 9,
+          "app_question_number": 109,
+          "essay": false,
+          "source_heading": "9",
+          "source_text_excerpt": "9 如果   iπ/3 -iπ/4 iπ 3e +5e +2e =x+iy i= 1  ，那麼下列有關於x、y 之敘述，何者正確？",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                99.67,
+                595.22,
+                182.87
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC09.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC10",
+          "question_kind": "multiple_choice",
+          "question_number": 10,
+          "app_question_number": 110,
+          "essay": false,
+          "source_heading": "10",
+          "source_text_excerpt": "10 令i 為單位虛數，則sin( )i  的實部（real part）為何？",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                190.87,
+                595.22,
+                248.28
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC10.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC11",
+          "question_kind": "multiple_choice",
+          "question_number": 11,
+          "app_question_number": 111,
+          "essay": false,
+          "source_heading": "11",
+          "source_text_excerpt": "11 若積分路徑C 為逆時鐘方向且滿足 1 z ，則複變函數積分",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                256.28,
+                595.22,
+                314.87
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC11.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC12",
+          "question_kind": "multiple_choice",
+          "question_number": 12,
+          "app_question_number": 112,
+          "essay": false,
+          "source_heading": "12",
+          "source_text_excerpt": "12 我們考慮複變函數 2 f(z)=z +1 (z=x+iy) 沿著曲線Γ 作線積分（line integral），其中Γ 代表在複數平",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                322.87,
+                595.22,
+                456.24
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC12.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC13",
+          "question_kind": "multiple_choice",
+          "question_number": 13,
+          "app_question_number": 113,
+          "essay": false,
+          "source_heading": "13",
+          "source_text_excerpt": "13 考慮如下所示之初始值問題（initial-value problem）：",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                464.24,
+                595.22,
+                661.19
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC13.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC14",
+          "question_kind": "multiple_choice",
+          "question_number": 14,
+          "app_question_number": 114,
+          "essay": false,
+          "source_heading": "14",
+          "source_text_excerpt": "14 假設y(x)可以由下列微分方程來描述：",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                669.19,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                88.31
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC14.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC15",
+          "question_kind": "multiple_choice",
+          "question_number": 15,
+          "app_question_number": 115,
+          "essay": false,
+          "source_heading": "15",
+          "source_text_excerpt": "15 下列選項之中，何者屬於線性（linear）微分方程式？",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                96.31,
+                595.22,
+                187.67
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC15.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC16",
+          "question_kind": "multiple_choice",
+          "question_number": 16,
+          "app_question_number": 116,
+          "essay": false,
+          "source_heading": "16",
+          "source_text_excerpt": "16 給定微分方程式 2 ( 2) dy y t t dt     ，初始值為(0) 0 y  ，( )t  為脈衝函數（impulse function）。則",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                195.67,
+                595.22,
+                295.19
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC16.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC17",
+          "question_kind": "multiple_choice",
+          "question_number": 17,
+          "app_question_number": 117,
+          "essay": false,
+          "source_heading": "17",
+          "source_text_excerpt": "17 考慮微分方程式 5 6 y y y x      ，初始值為 (0) y A  和 (0) y B   。若其解為",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                303.19,
+                595.22,
+                408.35
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC17.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC18",
+          "question_kind": "multiple_choice",
+          "question_number": 18,
+          "app_question_number": 118,
+          "essay": false,
+          "source_heading": "18",
+          "source_text_excerpt": "18 有兩位桌球選手，根據以往的經驗，在每一局的比賽之中兩人的勝率比例為6 比4。如果他們進",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                416.35,
+                595.22,
+                531.48
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC18.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC19",
+          "question_kind": "multiple_choice",
+          "question_number": 19,
+          "app_question_number": 119,
+          "essay": false,
+          "source_heading": "19",
+          "source_text_excerpt": "19 有兩個隨機變數X 與Y，我們以 XY P (x,y)=Prob(X=x,Y=y) 來代表其合併機率函數（joint probability",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                539.48,
+                595.22,
+                674.39
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC19.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-工程數學-MC20",
+          "question_kind": "multiple_choice",
+          "question_number": 20,
+          "app_question_number": 120,
+          "essay": false,
+          "source_heading": "20",
+          "source_text_excerpt": "20 設X 為一連續隨機變數（random variable），機率密度函數（probability density function）為常態分",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                682.39,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC20.png",
+          "figure_crops": []
+        }
+      ]
+    },
+    {
+      "year": 110,
+      "calendar_year": 2021,
+      "exam_code": "110090",
+      "class_code": "376",
+      "subject": "電機機械",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=110090&y=2021",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=110090&c=376&s=1208&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_110年_高考三級_電機機械.pdf",
+      "status": "downloaded",
+      "bytes": 184156,
+      "sha256": "297509ab97cbf2ef1e7fb9fa37495f51bb31b7013efa797879b7c80721192af5",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:44.045582+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-110-電機機械-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、一個方型鐵芯磁路平均長度60 cm，截面積150 cm2，鐵芯上繞有一組",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                173.6,
+                595.22,
+                521.86
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_110年_電機機械_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_110年_電機機械_Q01_figure-01.png",
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_110年_電機機械_Q01_figure-02.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電機機械-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、對於直流串激電動機：（每小題5 分，共10 分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                529.86,
+                595.22,
+                602.39
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_110年_電機機械_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-電機機械-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、下表為一個單相、50 kVA、60 Hz、2,400/240 V 配電變壓器的短路（SC）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                610.39,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_110年_電機機械_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_110年_電機機械_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電機機械-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "代號：37670 頁次：2－2 四、一部三相、460 V、60 Hz、4 極、Y 接線感應電動機有以下等效到定子側",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                259.78
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_110年_電機機械_Q04.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-電機機械-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "五、一部三相、1.5 MVA、2.3 kV、60 Hz、30 極、Y 接線凸極式轉子（salient",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                267.78,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_110年_電機機械_Q05.png",
+          "figure_crops": []
+        }
+      ]
+    },
+    {
+      "year": 110,
+      "calendar_year": 2021,
+      "exam_code": "110090",
+      "class_code": "376",
+      "subject": "電力系統",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=110090&y=2021",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=110090&c=376&s=1210&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_110年_高考三級_電力系統.pdf",
+      "status": "downloaded",
+      "bytes": 330804,
+      "sha256": "88e49acba88e8a988c7c0e3c97513a7ada7099e8d0f848f011276063c5694bc6",
+      "page_count": 3,
+      "downloaded_at": "2026-08-29T08:24:44.412706+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-110-電力系統-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、功率因數為落後0.707 的三相負載自線電壓440 V 汲取250 kW 功率，",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                174.3,
+                595.22,
+                244.72
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_110年_電力系統_Q01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-110-電力系統-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、針對圖1 的二個匯流排系統， 2 2 1.2 0.5 T T P jQ j    ，所有的數值皆為標 么（pu）值。試執行兩次的高斯賽得電力潮流疊代（Gauss-Seidel Power Flow Iteration），求解匯流排2 的電壓大小及相角。假設匯流排1 為鬆弛",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                252.72,
+                595.22,
+                529.43
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_110年_電力系統_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_110年_電力系統_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電力系統-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、一部300 MVA、20 kV 的三相發電機，其次暫態電抗為20%。此發電機",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                537.43,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                196.42
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_110年_電力系統_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_110年_電力系統_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電力系統-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、當一台發電機經由兩條併聯的輸電線路提供電力至無限匯流排時，開啟",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                204.42,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_110年_電力系統_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_110年_電力系統_Q04_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-110-電力系統-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "代號：37680 頁次：3－3 五、考慮一個具有N 台火力發電機組的電力系統，如圖4 所示。",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_110年_電力系統_Q05.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_110年_電力系統_Q05_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 111,
+      "calendar_year": 2022,
+      "exam_code": "111090",
+      "class_code": "370",
+      "subject": "電路學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=111090&y=2022",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=111090&c=370&s=2602&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_111年_高考三級_電路學.pdf",
+      "status": "downloaded",
+      "bytes": 280155,
+      "sha256": "e6e1df82da2eb7228c42392fe2d46b657bd900eba5f517db76b77f91138e9ede",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:46.464952+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-111-電路學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、某電路圖(a)及其等效電路圖(b)，如下圖所示，試計算：",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                186.3,
+                595.22,
+                438.95
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_111年_電路學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_111年_電路學_Q01_figure-01.png",
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_111年_電路學_Q01_figure-02.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電路學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、某開關電路如下圖所示，此開關在時間t = 0 前已經關閉很長一段時間，",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                446.95,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                33.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_111年_電路學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_111年_電路學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電路學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "37140 頁次：2－2 三、某具有弦波輸入之電路圖如下圖所示，此開關在時間t = 0 前已經關閉很",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                41.51,
+                595.22,
+                279.46
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_111年_電路學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_111年_電路學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電路學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、下列所示(a)、(b)及(c)三個電路為運算放大器（OPA）加上RC 選頻網路",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                287.46,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_111年_電路學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_111年_電路學_Q04_figure-01.png",
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_111年_電路學_Q04_figure-02.png",
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_111年_電路學_Q04_figure-03.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 111,
+      "calendar_year": 2022,
+      "exam_code": "111090",
+      "class_code": "370",
+      "subject": "電子學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=111090&y=2022",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=111090&c=370&s=2605&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_111年_高考三級_電子學.pdf",
+      "status": "downloaded",
+      "bytes": 201241,
+      "sha256": "986c2b9b7868ecdf794477f829b239d72b7df59330f5d3569f90ca9b8a298d92",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:46.910727+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-111-電子學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、圖一(a) 電晶體Q 之參數kn’(W/L) = 1 mA/V2 ，Vt = 1 V ，VA = ，",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                220.03,
+                595.22,
+                504.68
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q01_figure-01.png",
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q01_figure-02.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電子學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、圖二放大器中R1 + R2 = 3 k，所有晶體VA = 5 V ；Q1 與Q2 ：",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                512.68,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                33.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電子學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "37160 頁次：2－2 三、圖三BJT 工作於主動區，= 48 >>1，r= 1.2 k，rx = 0，ro = ，",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                41.51,
+                595.22,
+                353.13
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電子學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、圖四電路使用理想運算放大器，R = 1 k，C = 0.1 F，R2 = aR1 = 3 k，",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                361.13,
+                595.22,
+                588.34
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q04_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電子學-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "五、圖五為一數位電路的狀態圖（state diagram），圖中箭頭表示狀態改變的",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                596.34,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q05.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q05_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 111,
+      "calendar_year": 2022,
+      "exam_code": "111090",
+      "class_code": "370",
+      "subject": "工程數學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=111090&y=2022",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=111090&c=370&s=2601&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_111年_高考三級_工程數學.pdf",
+      "status": "downloaded",
+      "bytes": 235261,
+      "sha256": "d69b7d99406f248570f8e9529678b6d453b59ef17c6bdc3b185181f9de3e7987",
+      "page_count": 4,
+      "downloaded_at": "2026-08-29T08:24:47.662946+00:00",
+      "question_count": 24,
+      "questions": [
+        {
+          "question_id": "GK-111-工程數學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、我們考慮空間中的三個向量：a ( 3, 2,1)    、b (2,4, 5)   ",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                208.84,
+                595.22,
+                335.86
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_Q01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、考慮如下所示之初始值問題（initial-value problem）：",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                343.86,
+                595.22,
+                555.11
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、我們準備從一疊標準的撲克牌[共52 張牌，沒有鬼牌（Joker）]裡面來隨",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                563.11,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                69.59
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_Q03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、在本題目中，我們考慮複變函數（complex-valued function）沿著曲線",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                77.59,
+                595.22,
+                342.48
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/figures/GK_111年_工程數學_Q04_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-工程數學-MC01",
+          "question_kind": "multiple_choice",
+          "question_number": 1,
+          "app_question_number": 101,
+          "essay": false,
+          "source_heading": "1",
+          "source_text_excerpt": "1 假設A 與B 為維度相同之方陣（square matrix）且 , , A B A B  均為可逆（invertible）矩陣，則下列",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                350.48,
+                595.22,
+                435.48
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC02",
+          "question_kind": "multiple_choice",
+          "question_number": 2,
+          "app_question_number": 102,
+          "essay": false,
+          "source_heading": "2",
+          "source_text_excerpt": "2 假設矩陣",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                443.48,
+                595.22,
+                541.08
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC03",
+          "question_kind": "multiple_choice",
+          "question_number": 3,
+          "app_question_number": 103,
+          "essay": false,
+          "source_heading": "3",
+          "source_text_excerpt": "3 若",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                549.08,
+                595.22,
+                666.83
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC04",
+          "question_kind": "multiple_choice",
+          "question_number": 4,
+          "app_question_number": 104,
+          "essay": false,
+          "source_heading": "4",
+          "source_text_excerpt": "4 下列那一個矩陣無法被對角化（diagonalizable）？",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                674.83,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                83.64
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC04.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC05",
+          "question_kind": "multiple_choice",
+          "question_number": 5,
+          "app_question_number": 105,
+          "essay": false,
+          "source_heading": "5",
+          "source_text_excerpt": "5 下列那一組 3 R 中之向量基於歐幾里得內積（Euclidean inner product）可作為規格化正交基底",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                91.64,
+                595.22,
+                328.92
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC05.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC06",
+          "question_kind": "multiple_choice",
+          "question_number": 6,
+          "app_question_number": 106,
+          "essay": false,
+          "source_heading": "6",
+          "source_text_excerpt": "6 設T 是 3 R 到 2 R 的線性轉換，",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                336.92,
+                595.22,
+                443.15
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC06.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC07",
+          "question_kind": "multiple_choice",
+          "question_number": 7,
+          "app_question_number": 107,
+          "essay": false,
+          "source_heading": "7",
+          "source_text_excerpt": "7 矩陣",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                451.15,
+                595.22,
+                530.87
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC07.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC08",
+          "question_kind": "multiple_choice",
+          "question_number": 8,
+          "app_question_number": 108,
+          "essay": false,
+          "source_heading": "8",
+          "source_text_excerpt": "8 設和為矩陣 1 2",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                538.87,
+                595.22,
+                595.8
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC08.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC09",
+          "question_kind": "multiple_choice",
+          "question_number": 9,
+          "app_question_number": 109,
+          "essay": false,
+          "source_heading": "9",
+          "source_text_excerpt": "9 定義 1 i  ，若z a bi   為 2 (6 2 ) +17 6 0 z i z i     之一解，且 0 ab  ，則 2 2 ? a b  ",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                603.8,
+                595.22,
+                641.76
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC09.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC10",
+          "question_kind": "multiple_choice",
+          "question_number": 10,
+          "app_question_number": 110,
+          "essay": false,
+          "source_heading": "10",
+          "source_text_excerpt": "10 定義 1 i  ，複變數z x iy   與其共軛複數z x iy   。下列那一個複變函數為完整（entire），即",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                649.76,
+                595.22,
+                736.55
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC10.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC11",
+          "question_kind": "multiple_choice",
+          "question_number": 11,
+          "app_question_number": 111,
+          "essay": false,
+          "source_heading": "11",
+          "source_text_excerpt": "11 複變級數",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                744.55,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                81.35
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC11.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC12",
+          "question_kind": "multiple_choice",
+          "question_number": 12,
+          "app_question_number": 112,
+          "essay": false,
+          "source_heading": "12",
+          "source_text_excerpt": "12 計算 zdz    ？其中軌跡( ) it t e   , 0 t   。  1 i  ",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                89.35,
+                595.22,
+                139.44
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC12.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC13",
+          "question_kind": "multiple_choice",
+          "question_number": 13,
+          "app_question_number": 113,
+          "essay": false,
+          "source_heading": "13",
+          "source_text_excerpt": "13 一階常微分方程式 ' 3 x y e y x   ，下列何者為正確的解答？ dy y dx       ",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                147.44,
+                595.22,
+                215.64
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC13.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC14",
+          "question_kind": "multiple_choice",
+          "question_number": 14,
+          "app_question_number": 114,
+          "essay": false,
+          "source_heading": "14",
+          "source_text_excerpt": "14 二階微分方程式   2 '' 9 ' 24 0, 1 1, ' 1 10 x y xy y y y      ，設 6 5 4 3 a b c d y x x x x     為其解，下列何",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                223.64,
+                595.22,
+                309.24
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC14.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC15",
+          "question_kind": "multiple_choice",
+          "question_number": 15,
+          "app_question_number": 115,
+          "essay": false,
+          "source_heading": "15",
+          "source_text_excerpt": "15 反拉普拉斯轉換（inverse Laplace transform） 1",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                317.24,
+                595.22,
+                400.92
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC15.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC16",
+          "question_kind": "multiple_choice",
+          "question_number": 16,
+          "app_question_number": 116,
+          "essay": false,
+          "source_heading": "16",
+          "source_text_excerpt": "16 假設",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                408.92,
+                595.22,
+                474.48
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC16.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC17",
+          "question_kind": "multiple_choice",
+          "question_number": 17,
+          "app_question_number": 117,
+          "essay": false,
+          "source_heading": "17",
+          "source_text_excerpt": "17 定義傅立葉轉換 ( ) ( ) i x F f x e dx  ",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                482.48,
+                595.22,
+                542.99
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC17.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC18",
+          "question_kind": "multiple_choice",
+          "question_number": 18,
+          "app_question_number": 118,
+          "essay": false,
+          "source_heading": "18",
+          "source_text_excerpt": "18",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                550.99,
+                595.22,
+                616.08
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC18.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC19",
+          "question_kind": "multiple_choice",
+          "question_number": 19,
+          "app_question_number": 119,
+          "essay": false,
+          "source_heading": "19",
+          "source_text_excerpt": "19 將一副正常的撲克牌（52 張牌包含四種花色：黑桃、方塊、紅心、梅花，每種花色各13 張牌，",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                624.08,
+                595.22,
+                714.48
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC19.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-工程數學-MC20",
+          "question_kind": "multiple_choice",
+          "question_number": 20,
+          "app_question_number": 120,
+          "essay": false,
+          "source_heading": "20",
+          "source_text_excerpt": "20 設X 和Y 為連續隨機變數，其聯合機率密度函數（joint probability density function ）",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                722.48,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC20.png",
+          "figure_crops": []
+        }
+      ]
+    },
+    {
+      "year": 111,
+      "calendar_year": 2022,
+      "exam_code": "111090",
+      "class_code": "370",
+      "subject": "電機機械",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=111090&y=2022",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=111090&c=370&s=2607&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_111年_高考三級_電機機械.pdf",
+      "status": "downloaded",
+      "bytes": 208582,
+      "sha256": "e4ceb26a1c4e17702b663eed1cd3c4da0ccae1ca72567a54a39cc516e828b6ec",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:47.966348+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-111-電機機械-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、圖一為變壓器於二次低壓側進行開路試驗，一次高壓側進行短路試驗，",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                175.74,
+                595.22,
+                495.83
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_111年_電機機械_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_111年_電機機械_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電機機械-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、一部感應繞線式轉子運轉電動機在額定電壓與頻率下運轉，滑環短路並",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                503.83,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_111年_電機機械_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-電機機械-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "代號：37070 頁次：2－2 三、一部三相Y 連接同步發電機之額定為60 MVA、13.8 kV、0.8 PF 落後，",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                177.1
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_111年_電機機械_Q03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-111-電機機械-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、如圖二所示之單相全控式固態直流機驅動系統，含一部額定輸入電壓",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                185.1,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_111年_電機機械_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_111年_電機機械_Q04_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 111,
+      "calendar_year": 2022,
+      "exam_code": "111090",
+      "class_code": "370",
+      "subject": "電力系統",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=111090&y=2022",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=111090&c=370&s=2609&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_111年_高考三級_電力系統.pdf",
+      "status": "downloaded",
+      "bytes": 141519,
+      "sha256": "247f55141cfb810485d9f4a108c77dd076fa53af48069291afacfea73d98dd92",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:48.213417+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-111-電力系統-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、如圖1 所示，一個單相、480 伏電力系統供應三組單相負載，其中負載",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                174.3,
+                595.22,
+                452.39
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_111年_電力系統_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_111年_電力系統_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電力系統-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、一個60 Hz 電力系統由三個區域電力系統互聯組成，各區域的速度下垂",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                460.39,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                54.34
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_111年_電力系統_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_111年_電力系統_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電力系統-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、圖2 為一個三相電力系統單線圖，各設備的正、負、零相序電抗標么（pu）",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                62.34,
+                595.22,
+                376.43
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_111年_電力系統_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_111年_電力系統_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電力系統-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、圖3 為一個以標么（pu）值表示的輻射型饋電系統。",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                384.43,
+                595.22,
+                591.58
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_111年_電力系統_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_111年_電力系統_Q04_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-111-電力系統-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "五、在電力系統中，常用的過電流保護電驛有以下四種，請繪出此四種過電",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                599.58,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_111年_電力系統_Q05.png",
+          "figure_crops": []
+        }
+      ]
+    },
+    {
+      "year": 112,
+      "calendar_year": 2023,
+      "exam_code": "112090",
+      "class_code": "373",
+      "subject": "電路學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=112090&y=2023",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=112090&c=373&s=2802&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_112年_高考三級_電路學.pdf",
+      "status": "downloaded",
+      "bytes": 161111,
+      "sha256": "b4193f5840550ee012eb0022e2631022012ce912661ae40b82b6642f041167ac",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:49.817317+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-112-電路學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、三相理想降壓（step-down）變壓器以0.8滯後（lagging）pf饋入120 kW",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                178.75,
+                595.22,
+                511.78
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_112年_電路學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_112年_電路學_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-電路學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、如圖二，求R的最大功率。（25分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                519.78,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_112年_電路學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_112年_電路學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-電路學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "代號：37340-37540 頁次：2－2 三、試求出圖三中端子a-b處的等效電阻Rab值。（25分）",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                294.11
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_112年_電路學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_112年_電路學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-電路學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、計算圖四網絡中阻抗Zab的值。（25分）",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                302.11,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_112年_電路學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_112年_電路學_Q04_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 112,
+      "calendar_year": 2023,
+      "exam_code": "112090",
+      "class_code": "373",
+      "subject": "電子學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=112090&y=2023",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=112090&c=373&s=2808&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_112年_高考三級_電子學.pdf",
+      "status": "downloaded",
+      "bytes": 221680,
+      "sha256": "b7eee1a9d589c3389595834efe2a825dc49c876830780d7ed7c0dbdf792010b3",
+      "page_count": 3,
+      "downloaded_at": "2026-08-29T08:24:50.195507+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-112-電子學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、對於增強型（Enhancement Mode）P-channel MOSFET電晶體。（每小題10",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                178.75,
+                595.22,
+                313.66
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-電子學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、如圖一為了將原本數位信號之0V關閉與10V導通之閘極驅動信號輸入至",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                321.66,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_112年_電子學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-電子學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "代號：37360-37560 頁次：3－2 三、如圖二之一個將輸入為vin(t)，且在正負電壓之間變化的交流電壓輸入信號",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                389.02
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_112年_電子學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-電子學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、如圖三所示的npn雙極性電晶體（BJT）共集極電路（Common Collector",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                397.02,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_112年_電子學_Q04_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-電子學-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "代號：37360-37560 頁次：3－3 五、如圖四所示一電路由三個半橋組成，每個半橋由高壓側之PMOS其",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q05.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_112年_電子學_Q05_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 112,
+      "calendar_year": 2023,
+      "exam_code": "112090",
+      "class_code": "373",
+      "subject": "工程數學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=112090&y=2023",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=112090&c=373&s=2801&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/GK_112年_高考三級_工程數學.pdf",
+      "status": "downloaded",
+      "bytes": 233814,
+      "sha256": "2fb9d5e4ba6c3c7396906960cd6a263200432517c4411768a26d6616b736db66",
+      "page_count": 4,
+      "downloaded_at": "2026-08-29T08:24:50.605653+00:00",
+      "question_count": 24,
+      "questions": [
+        {
+          "question_id": "GK-112-工程數學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、求 2 '' ( ') yy y  的通解（general solution）。（15分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                208.13,
+                595.22,
+                240.83
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_Q01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、求",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                248.83,
+                595.22,
+                296.54
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、求平面2 2 1 x y z   與平面 2 x y   之夾角（ 0 0 90    ）。（10分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                304.54,
+                595.22,
+                364.67
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_Q03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                372.67,
+                595.22,
+                508.08
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/figures/GK_112年_工程數學_Q04_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-工程數學-MC01",
+          "question_kind": "multiple_choice",
+          "question_number": 1,
+          "app_question_number": 101,
+          "essay": false,
+          "source_heading": "1",
+          "source_text_excerpt": "1 二階微分方程 2 '' ' 12 2sinh ( ) y y y x    ，初始值未知，試問其全解（通解加特解）為何？",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                516.08,
+                595.22,
+                601.08
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC02",
+          "question_kind": "multiple_choice",
+          "question_number": 2,
+          "app_question_number": 102,
+          "essay": false,
+          "source_heading": "2",
+          "source_text_excerpt": "2 二階微分方程3 '' 12 2tan(2 ) y y x   ，試問其特解為何？",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                609.08,
+                595.22,
+                696.35
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC03",
+          "question_kind": "multiple_choice",
+          "question_number": 3,
+          "app_question_number": 103,
+          "essay": false,
+          "source_heading": "3",
+          "source_text_excerpt": "3 函數 2 f(t) t ωt t e sin   ，請問其經過拉式轉換（Laplace Transform）後為下列何者？",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                704.35,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                80.28
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC04",
+          "question_kind": "multiple_choice",
+          "question_number": 4,
+          "app_question_number": 104,
+          "essay": false,
+          "source_heading": "4",
+          "source_text_excerpt": "4 矩陣",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                88.28,
+                595.22,
+                352.08
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC04.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC05",
+          "question_kind": "multiple_choice",
+          "question_number": 5,
+          "app_question_number": 105,
+          "essay": false,
+          "source_heading": "5",
+          "source_text_excerpt": "5 若 ( ) f x {",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                360.08,
+                595.22,
+                454.92
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC05.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC06",
+          "question_kind": "multiple_choice",
+          "question_number": 6,
+          "app_question_number": 106,
+          "essay": false,
+          "source_heading": "6",
+          "source_text_excerpt": "6 一組聯立方程式以A B x  的方式表示如下：",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                462.92,
+                595.22,
+                626.15
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC06.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC07",
+          "question_kind": "multiple_choice",
+          "question_number": 7,
+          "app_question_number": 107,
+          "essay": false,
+          "source_heading": "7",
+          "source_text_excerpt": "7 兩向量分別為 2 ˆ ˆ ˆ ( ) 2 8 H t i tj t k    ",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                634.15,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                63.96
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC07.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC08",
+          "question_kind": "multiple_choice",
+          "question_number": 8,
+          "app_question_number": 108,
+          "essay": false,
+          "source_heading": "8",
+          "source_text_excerpt": "8 一曲線參數式為x( ) cos t t e t  ，y( ) sin t t e t  ，z( ) t t e  ，0 π t   ，其單位切線向量為何？（其中",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                71.96,
+                595.22,
+                284.76
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC08.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC09",
+          "question_kind": "multiple_choice",
+          "question_number": 9,
+          "app_question_number": 109,
+          "essay": false,
+          "source_heading": "9",
+          "source_text_excerpt": "9 利用梯度求解曲面φ ： 3 2 4 xy z  在(-1, -1, 2)點之法向量的過程與結果，以下何者錯誤？（其中ˆi ，",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                292.76,
+                595.22,
+                462.83
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC09.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC10",
+          "question_kind": "multiple_choice",
+          "question_number": 10,
+          "app_question_number": 110,
+          "essay": false,
+          "source_heading": "10",
+          "source_text_excerpt": "10 某大學111學年度第二學期工程數學某班共有男生6人，女生5人，期中考試成績如下：",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                470.83,
+                595.22,
+                603.35
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC10.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC11",
+          "question_kind": "multiple_choice",
+          "question_number": 11,
+          "app_question_number": 111,
+          "essay": false,
+          "source_heading": "11",
+          "source_text_excerpt": "11 請利用柯西—里曼方程式（Cauchy-Riemann Equation）驗證下列何者非可解析函數（non-analytic",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                611.35,
+                595.22,
+                714.83
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC11.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC12",
+          "question_kind": "multiple_choice",
+          "question_number": 12,
+          "app_question_number": 112,
+          "essay": false,
+          "source_heading": "12",
+          "source_text_excerpt": "12 矩陣A=",
+          "source_pages": [
+            {
+              "page": 3,
+              "crop_rect": [
+                0.0,
+                722.83,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                63.96
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC12.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC13",
+          "question_kind": "multiple_choice",
+          "question_number": 13,
+          "app_question_number": 113,
+          "essay": false,
+          "source_heading": "13",
+          "source_text_excerpt": "13 定義 1 i  ，求 12 (1 )i  的運算結果為何？",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                71.96,
+                595.22,
+                118.44
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC13.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC14",
+          "question_kind": "multiple_choice",
+          "question_number": 14,
+          "app_question_number": 114,
+          "essay": false,
+          "source_heading": "14",
+          "source_text_excerpt": "14 函數 ( ) f t 經拉式轉換後為 2",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                126.44,
+                595.22,
+                261.35
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC14.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC15",
+          "question_kind": "multiple_choice",
+          "question_number": 15,
+          "app_question_number": 115,
+          "essay": false,
+          "source_heading": "15",
+          "source_text_excerpt": "15 若",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                269.35,
+                595.22,
+                347.64
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC15.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC16",
+          "question_kind": "multiple_choice",
+          "question_number": 16,
+          "app_question_number": 116,
+          "essay": false,
+          "source_heading": "16",
+          "source_text_excerpt": "16 已知矩陣",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                355.64,
+                595.22,
+                427.55
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC16.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC17",
+          "question_kind": "multiple_choice",
+          "question_number": 17,
+          "app_question_number": 117,
+          "essay": false,
+          "source_heading": "17",
+          "source_text_excerpt": "17 方程式x 2 e y' 2(x+1)y , y(0) 1/ 6   之解為下列何者？",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                435.55,
+                595.22,
+                503.87
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC17.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC18",
+          "question_kind": "multiple_choice",
+          "question_number": 18,
+          "app_question_number": 118,
+          "essay": false,
+          "source_heading": "18",
+          "source_text_excerpt": "18 求 2 1 1 ( ) 1 s s s",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                511.87,
+                595.22,
+                563.87
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC18.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC19",
+          "question_kind": "multiple_choice",
+          "question_number": 19,
+          "app_question_number": 119,
+          "essay": false,
+          "source_heading": "19",
+          "source_text_excerpt": "19 求cosh(at)cos(at) 之拉式轉換為下列何者？（其中a為實數）",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                571.87,
+                595.22,
+                639.83
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC19.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-工程數學-MC20",
+          "question_kind": "multiple_choice",
+          "question_number": 20,
+          "app_question_number": 120,
+          "essay": false,
+          "source_heading": "20",
+          "source_text_excerpt": "20 已知 sin8 ( ) t f t t  ， 5 ( ) j t f t e dt     之值為下列何者？（ 1 j  ）",
+          "source_pages": [
+            {
+              "page": 4,
+              "crop_rect": [
+                0.0,
+                647.83,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC20.png",
+          "figure_crops": []
+        }
+      ]
+    },
+    {
+      "year": 112,
+      "calendar_year": 2023,
+      "exam_code": "112090",
+      "class_code": "373",
+      "subject": "電機機械",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=112090&y=2023",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=112090&c=373&s=2805&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_112年_高考三級_電機機械.pdf",
+      "status": "downloaded",
+      "bytes": 213948,
+      "sha256": "6aee0652dc3a0909198bc89481cca5f1e0a37c8828ca0841a3ef6f4b9c5f52b2",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:50.785106+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-112-電機機械-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、一磁路如圖一所示，繞組匝數N = 600匝，通以直流電流i，氣隙長度",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                185.95,
+                595.22,
+                586.18
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_112年_電機機械_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_112年_電機機械_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-電機機械-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、額定230 V、12 HP的直流串激電動機，以Vs=230 V直流電源供電時，汲取",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                594.18,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_112年_電機機械_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-電機機械-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "代號：37370 頁次：2－2 三、額定60 Hz、460 V、Y接、300馬力之三相六極鼠籠式感應電動機，每相等",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                375.95
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_112年_電機機械_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_112年_電機機械_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-112-電機機械-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、三部15 kVA、460/120 V、60 Hz之單相雙繞組變壓器，每一部單相變壓器",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                383.95,
+                595.22,
+                538.07
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_112年_電機機械_Q04.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-電機機械-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "五、兩部三相同步發電機G1與G2並聯運轉，共同供應實功率300 kW、功率因",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                546.07,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_112年_電機機械_Q05.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_112年_電機機械_Q05_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 112,
+      "calendar_year": 2023,
+      "exam_code": "112090",
+      "class_code": "373",
+      "subject": "電力系統",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=112090&y=2023",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=112090&c=373&s=2807&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_112年_高考三級_電力系統.pdf",
+      "status": "downloaded",
+      "bytes": 128409,
+      "sha256": "313fe5d9ff3e05b8a3803c0b8353b0263f4c6f0cbda4a51a188df95bbd134197",
+      "page_count": 1,
+      "downloaded_at": "2026-08-29T08:24:51.145514+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-112-電力系統-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、一部額定三相、380 V、60 Hz、200 hp、定子繞組為連接之大型感應電動",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                177.77,
+                595.22,
+                293.62
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_112年_電力系統_Q01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-電力系統-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、一部額定500 MVA、24 kV、60 Hz之三相同步發電機，以其額定做為基準",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                301.62,
+                595.22,
+                478.18
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_112年_電力系統_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-電力系統-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、一部大型蒸汽渦輪同步發電機組之額定為三相、100 MVA、24 kV、60 Hz、",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                486.18,
+                595.22,
+                600.23
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_112年_電力系統_Q03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-112-電力系統-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、一具雙繞組單相變壓器之額定為單相、220/110 V、11 kVA、60 Hz，已知",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                608.23,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_112年_電力系統_Q04.png",
+          "figure_crops": []
+        }
+      ]
+    },
+    {
+      "year": 113,
+      "calendar_year": 2024,
+      "exam_code": "113080",
+      "class_code": "371",
+      "subject": "電路學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=113080&y=2024",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=113080&c=371&s=2602&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_113年_高考三級_電路學.pdf",
+      "status": "downloaded",
+      "bytes": 191834,
+      "sha256": "8fc6cfaed5498a07aec5d414840ccf725eb908af5819fe51d65608d10ae0ec08",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:53.157376+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-113-電路學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、如圖一，該開關已閉合一段長時間後，於時間為t=100 sec 時，突然開關",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                164.46,
+                595.22,
+                468.71
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_113年_電路學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_113年_電路學_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電路學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、如圖二，可變電阻 L R 連接於a、b 兩端點，虛線內電路之雙埠電路表示式為",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                476.71,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_113年_電路學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_113年_電路學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電路學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "代號：37140-37340 頁次：2－2 三、如圖三，該開關已開路一段長時間後，於時間為t=0 sec 時，突然開關閉",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                400.66
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_113年_電路學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_113年_電路學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電路學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、如圖四，連接於n、N 兩端點之支路電流為零安培，方塊內為功率因數",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                408.66,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_113年_電路學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_113年_電路學_Q04_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 113,
+      "calendar_year": 2024,
+      "exam_code": "113080",
+      "class_code": "371",
+      "subject": "電子學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=113080&y=2024",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=113080&c=371&s=2605&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_113年_高考三級_電子學.pdf",
+      "status": "downloaded",
+      "bytes": 195953,
+      "sha256": "2b6be930935c24c88b3311003eb457c6b3956d34df3d105a002e5d5443f69ecb",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:53.349626+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-113-電子學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "如圖一之電路中，假設所有二極體均為理想（Ideal），且當R1 為5 k、 R2 為10 k時，試求該電路的I 和V 值。（25 分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                164.32,
+                595.22,
+                410.5
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_113年_電子學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_113年_電子學_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電子學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "如圖二之電路中，已知此兩個雙極性接面（BJT）電晶體（Q1 及Q2）之 電路：電流增益（β）均為80、基-射極電壓（VBE(on)）均為0.7 V，試 求：Q1 及Q2 中之靜態基極、集極與射極電流值。（25 分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                418.5,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_113年_電子學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_113年_電子學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電子學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "代號：37160-37360 頁次：2－2 如圖三之電路參數為：VTN=0.8V 和k’n=40 μA/V2，以及λ=0。當ML 之 寬長比(W/L)L=1，若VI=5V、使得Vo=0.10 V 時，試求其驅動電晶體之寬 長比[(W/L)D]。（25 分）",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                348.8
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_113年_電子學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_113年_電子學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電子學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "如圖四之電路中，假設所有二極體均為理想（Ideal），且當R1為1 k，且 vA = +1 V、vB = +2 V、vC = +3 V 時，試求該電路的I 和V 值。（25 分）",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                356.8,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_113年_電子學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_113年_電子學_Q04_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 113,
+      "calendar_year": 2024,
+      "exam_code": "113080",
+      "class_code": "371",
+      "subject": "工程數學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=113080&y=2024",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "status": "not_available_in_selected_exam_class",
+      "official_url": null,
+      "reason": "The official result page has no question link for this subject in this year/class.",
+      "question_count": 0,
+      "questions": []
+    },
+    {
+      "year": 113,
+      "calendar_year": 2024,
+      "exam_code": "113080",
+      "class_code": "371",
+      "subject": "電機機械",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=113080&y=2024",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=113080&c=371&s=2607&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_113年_高考三級_電機機械.pdf",
+      "status": "downloaded",
+      "bytes": 133050,
+      "sha256": "03c639f77666c2e8e3f1ce0e21ccdd866bbc0e00da96642bb79ad5339c5f12b6",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:53.662526+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-113-電機機械-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、某電感結構由兩個相同鐵心與兩個線圈串聯如圖一所示，兩個線圈匝數",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                175.74,
+                595.22,
+                459.59
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_113年_電機機械_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_113年_電機機械_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電機機械-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、某單相變壓器的額定為100 kVA、22.8 kV/220V，額定操作的銅損為2 kW、",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                467.59,
+                595.22,
+                581.62
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_113年_電機機械_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-113-電機機械-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、某三相、Y 接線、6 極、380 V、60 Hz 的同步發電機，每相同步電抗為",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                589.62,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_113年_電機機械_Q03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-113-電機機械-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "代號：37170 頁次：2－2 四、某台他激式直流發電機的額定電流為100 A，轉速及激磁電流維持固定，",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                154.78
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_113年_電機機械_Q04.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-113-電機機械-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "五、某三相、Y 接線、220 V、8 極、60 Hz 的感應電動機，忽略激磁電抗及",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                162.78,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_113年_電機機械_Q05.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_113年_電機機械_Q05_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 113,
+      "calendar_year": 2024,
+      "exam_code": "113080",
+      "class_code": "371",
+      "subject": "電力系統",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=113080&y=2024",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=113080&c=371&s=2601&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_113年_高考三級_電力系統.pdf",
+      "status": "downloaded",
+      "bytes": 290418,
+      "sha256": "0aa7399b601d6d2bf042f4c737c3e27afa06ed78aa2abd89e36308b08cca00a7",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:53.884499+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-113-電力系統-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、圖一為一個三相平衡電路，電源為正相序經輸電線（line）饋電於三個",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                165.3,
+                595.22,
+                427.55
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_113年_電力系統_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_113年_電力系統_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電力系統-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、某一台三相Δ-Δ 接線變壓器是由三個單相變壓器組成（每個單相變壓器",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                435.55,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_113年_電力系統_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_113年_電力系統_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-113-電力系統-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "代號：37120 頁次：2－2 三、某三相、Y 接線同步發電機經輸電線路連接至25 kV 無限母線。輸電線",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                154.78
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_113年_電力系統_Q03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-113-電力系統-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、假設ݔଵ和ݔଶ的初始值皆為1，使用Gauss-Seidel 方法執行兩次疊代來",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                162.78,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_113年_電力系統_Q04.png",
+          "figure_crops": []
+        }
+      ]
+    },
+    {
+      "year": 114,
+      "calendar_year": 2025,
+      "exam_code": "114080",
+      "class_code": "274",
+      "subject": "電路學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=114080&y=2025",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=114080&c=274&s=2502&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/01_電路學/GK_114年_高考三級_電路學.pdf",
+      "status": "downloaded",
+      "bytes": 353324,
+      "sha256": "de506894783a42a57c1fc823e44d079dc6d05df5550d91fbf621c9f3d8c08f4d",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:55.715430+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-114-電路學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、某電路如圖一所示，試計算每一個電阻兩端之電壓及流通之電流。（30 分）",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                174.3,
+                595.22,
+                384.94
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_114年_電路學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_114年_電路學_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-114-電路學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、某電感－電阻－開關電路圖如圖二所示，試計算：",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                392.94,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_114年_電路學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_114年_電路學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-114-電路學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "代號：27440-27640 頁次：2－2 三、一理想變壓器電路圖如圖三所示，若該電路之輸出電壓相量（phasor）",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                311.84
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_114年_電路學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_114年_電路學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-114-電路學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、以下圖四所示為一OPA 電路，其負載電阻RL=50 ，該電路輸出電壓vo",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                319.84,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/questions/GK_114年_電路學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_114年_電路學_Q04_figure-01.png",
+            "依考科分類/🏛️_國考同級參考題庫/01_電路學/images/figures/GK_114年_電路學_Q04_figure-02.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 114,
+      "calendar_year": 2025,
+      "exam_code": "114080",
+      "class_code": "274",
+      "subject": "電子學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=114080&y=2025",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=114080&c=274&s=2505&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/GK_114年_高考三級_電子學.pdf",
+      "status": "downloaded",
+      "bytes": 138260,
+      "sha256": "15d6234a061b7a7c75c0ef61575f95cf41ab34c9dc43161bf89afce14bdfdff8",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:55.901607+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-114-電子學-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、如圖一所示之運算放大器電路，若採用一個10 k的可變電阻調整此電",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                173.32,
+                595.22,
+                418.66
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_114年_電子學_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_114年_電子學_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-114-電子學-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、如圖二所示電路，vs 為輸入的交流小信號，BJT 操作在作用區（active",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                426.66,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                52.64
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_114年_電子學_Q02.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_114年_電子學_Q02_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-114-電子學-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、如圖三所示之回授放大電路，其中gm1=gm2=4 mA/V，ro1=，ro2=20 k，",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                60.64,
+                595.22,
+                408.82
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_114年_電子學_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_114年_電子學_Q03_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-114-電子學-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、如圖四所示之MOSFET 電路，若Q1、Q2、Q3之參數分別如下：VT1=VT2=0.8V，",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                416.82,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_114年_電子學_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_114年_電子學_Q04_figure-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 114,
+      "calendar_year": 2025,
+      "exam_code": "114080",
+      "class_code": "274",
+      "subject": "工程數學",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=114080&y=2025",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "status": "not_available_in_selected_exam_class",
+      "official_url": null,
+      "reason": "The official result page has no question link for this subject in this year/class.",
+      "question_count": 0,
+      "questions": []
+    },
+    {
+      "year": 114,
+      "calendar_year": 2025,
+      "exam_code": "114080",
+      "class_code": "274",
+      "subject": "電機機械",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=114080&y=2025",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=114080&c=274&s=2507&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/GK_114年_高考三級_電機機械.pdf",
+      "status": "downloaded",
+      "bytes": 125983,
+      "sha256": "8d49ed86c6bd0fda2bc772db5384b623d3a8b7dfd5c124f6b3bb1422b5319f36",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:56.182569+00:00",
+      "question_count": 5,
+      "questions": [
+        {
+          "question_id": "GK-114-電機機械-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、圖一所示為啟動時之線性直流機，其中速度為v，導體感應電壓eind，電",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                174.3,
+                595.22,
+                414.34
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_114年_電機機械_Q01.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/figures/GK_114年_電機機械_Q01_figure-01.png"
+          ]
+        },
+        {
+          "question_id": "GK-114-電機機械-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、一配電變壓器的規格100 kVA，6900/220 V，其參考至一次側的阻抗為",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                422.34,
+                595.22,
+                558.93
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_114年_電機機械_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-114-電機機械-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、一8 hp，120 V 串激電動機，其電樞電阻=0.1 ，串激場電阻=0.07 。",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                566.93,
+                595.22,
+                703.66
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_114年_電機機械_Q03.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-114-電機機械-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "四、一60 Hz，六極感應電動機，其氣隙功率PAG=26 kW，由電能轉換到機",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                711.66,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_114年_電機機械_Q04.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-114-電機機械-Q05",
+          "question_kind": "essay",
+          "question_number": 5,
+          "app_question_number": 5,
+          "essay": true,
+          "source_heading": "五",
+          "source_text_excerpt": "代號：27470 頁次：2－2 五、一發電廠共有三部並聯運轉的同步發電機，每部規格300 MVA，20 kV，",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_114年_電機機械_Q05.png",
+          "figure_crops": []
+        }
+      ]
+    },
+    {
+      "year": 114,
+      "calendar_year": 2025,
+      "exam_code": "114080",
+      "class_code": "274",
+      "subject": "電力系統",
+      "source_page": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=114080&y=2025",
+      "official_host": "wwwq.moex.gov.tw",
+      "source_type": "moex-official-question-pdf",
+      "official_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=114080&c=274&s=2501&q=1",
+      "target_path": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/GK_114年_高考三級_電力系統.pdf",
+      "status": "downloaded",
+      "bytes": 150788,
+      "sha256": "c2fb1965c191183bb27843f2dc75c05584746e5635e7233bdf0d577f84f050e1",
+      "page_count": 2,
+      "downloaded_at": "2026-08-29T08:24:56.387266+00:00",
+      "question_count": 4,
+      "questions": [
+        {
+          "question_id": "GK-114-電力系統-Q01",
+          "question_kind": "essay",
+          "question_number": 1,
+          "app_question_number": 1,
+          "essay": true,
+          "source_heading": "一",
+          "source_text_excerpt": "一、某單相交流短距離之輸電線路將12 kW 之有效功率（Active Power）由",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                174.3,
+                595.22,
+                329.98
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_114年_電力系統_Q01.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-114-電力系統-Q02",
+          "question_kind": "essay",
+          "question_number": 2,
+          "app_question_number": 2,
+          "essay": true,
+          "source_heading": "二",
+          "source_text_excerpt": "二、某三相Δ-Y 連接15 MVA、33/11 kV 之變壓器，由差動電驛（Differential",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                337.98,
+                595.22,
+                410.5
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_114年_電力系統_Q02.png",
+          "figure_crops": []
+        },
+        {
+          "question_id": "GK-114-電力系統-Q03",
+          "question_kind": "essay",
+          "question_number": 3,
+          "app_question_number": 3,
+          "essay": true,
+          "source_heading": "三",
+          "source_text_excerpt": "三、某交流三相50 Hz 同步發電機之慣量常數（Inertia Constant）為6",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                418.5,
+                595.22,
+                824.0
+              ]
+            },
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                18.0,
+                595.22,
+                21.51
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_114年_電力系統_Q03.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_114年_電力系統_Q03_figure-01.png",
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_114年_電力系統_Q03_figure-02.png",
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_114年_電力系統_Q03_figure-03.png",
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_114年_電力系統_Q03_figure-04.png"
+          ]
+        },
+        {
+          "question_id": "GK-114-電力系統-Q04",
+          "question_kind": "essay",
+          "question_number": 4,
+          "app_question_number": 4,
+          "essay": true,
+          "source_heading": "四",
+          "source_text_excerpt": "代號：27420 頁次：2－2 四、如圖二所示之電力系統，各設備之參數如圖上所標註。假設三相短路故",
+          "source_pages": [
+            {
+              "page": 2,
+              "crop_rect": [
+                0.0,
+                29.51,
+                595.22,
+                824.0
+              ]
+            }
+          ],
+          "question_crop": "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/questions/GK_114年_電力系統_Q04.png",
+          "figure_crops": [
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_114年_電力系統_Q04_figure-01.png",
+            "依考科分類/🏛️_國考同級參考題庫/05_電力系統/images/figures/GK_114年_電力系統_Q04_figure-02.png"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "papers": 23,
+    "unavailable_papers": 2,
+    "questions": 161,
+    "figure_crops": 78
+  }
+}

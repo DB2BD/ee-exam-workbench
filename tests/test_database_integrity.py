@@ -3,7 +3,7 @@
 test_database_integrity.py
 ==========================
 Integration tests verifying:
-1. Total 423 questions (318 PE + 105 GK) exist and are valid.
+1. The active question total is derived from the official crop manifest and is valid.
 2. Every question maps to a valid Markdown file in the bundle.
 3. Zero placeholder text ('待解', '尚未提供') exists.
 """
@@ -22,6 +22,8 @@ class TestDatabaseIntegrity(unittest.TestCase):
         self.pe_bundle_path = os.path.join(WORKSPACE, 'solutions-bundle.js')
         self.gk_db_path = os.path.join(WORKSPACE, 'national-exams-data.js')
         self.gk_bundle_path = os.path.join(WORKSPACE, 'national-solutions-bundle.js')
+        with open(os.path.join(WORKSPACE, 'data', 'moex-question-crops.json'), encoding='utf-8') as f:
+            self.crop_manifest = json.load(f)
 
     def test_pe_database_records(self):
         self.assertTrue(os.path.exists(self.pe_db_path))
@@ -39,7 +41,11 @@ class TestDatabaseIntegrity(unittest.TestCase):
         m = re.search(r'questions:\s*(\[[\s\S]+?\])\s*\}\;', text)
         self.assertIsNotNone(m, "GK questions array must be parseable")
         gk_questions = json.loads(m.group(1))
-        self.assertEqual(len(gk_questions), 105, "GK database must contain exactly 105 questions")
+        expected = sum(
+            entry.get('question_count', len(entry.get('questions', [])))
+            for entry in self.crop_manifest['entries']
+        )
+        self.assertEqual(len(gk_questions), expected, "GK database must match the crop manifest question count")
 
     def test_zero_placeholders_in_gk_bundle(self):
         self.assertTrue(os.path.exists(self.gk_bundle_path))

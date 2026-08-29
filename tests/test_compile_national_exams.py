@@ -8,7 +8,7 @@ import unittest
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(WORKSPACE, "scripts"))
 
-from compile_national_exams import extract_content_tags
+from compile_national_exams import extract_content_tags, resolve_subject_id
 
 
 class TestCompileNationalExams(unittest.TestCase):
@@ -19,6 +19,10 @@ class TestCompileNationalExams(unittest.TestCase):
         expected = sorted(extract_content_tags(topic, body))
         for _ in range(10):
             self.assertEqual(extract_content_tags(topic, body), expected)
+
+    def test_unknown_subject_fails_closed(self):
+        with self.assertRaises(ValueError):
+            resolve_subject_id("不存在的考科")
 
 
 if __name__ == "__main__":

@@ -57,12 +57,14 @@ class TestBuildPipeline(unittest.TestCase):
             html = f.read()
 
         self.assertIn("function renderReviewPage", html)
+        self.assertIn("const QUESTION_SCHEMA_VERSION", html)
         self.assertIn("function setReviewFilter", html)
         self.assertIn("getDueQuestionsList()", html)
         self.assertIn("data-review-type", html)
         self.assertIn("setReviewSubjectFilter(this.value)", html)
         self.assertIn("const subjectQuestions = questions.filter", html)
-        self.assertIn("subjectQuestions.map(getReviewTypeLabel)", html)
+        self.assertIn("getReviewChapterFilterValues(subjectQuestions, 'all')", html)
+        self.assertIn('全部章節', html)
         self.assertIn("review-card-grid", html)
         self.assertIn("box-shadow: var(--shadow)", html)
 
@@ -92,6 +94,19 @@ class TestBuildPipeline(unittest.TestCase):
         self.assertIn('function renderDagTracerCard', html)
         self.assertIn('function renderDagGraphVisualizer', html)
         self.assertIn('function tracePrerequisiteChain', html)
+
+    def test_pages_workflow_runs_quality_gates_before_upload(self):
+        workflow_path = os.path.join(WORKSPACE, '.github', 'workflows', 'deploy-pages.yml')
+        with open(workflow_path, 'r', encoding='utf-8') as f:
+            workflow = f.read()
+
+        self.assertIn('python3 scripts/run_all_tests.py', workflow)
+        self.assertIn('python3 scripts/check_html_js_syntax.py', workflow)
+        self.assertLess(
+            workflow.index('python3 scripts/run_all_tests.py'),
+            workflow.index('actions/upload-pages-artifact@v3'),
+            'quality gates must run before the Pages artifact is uploaded',
+        )
 
 if __name__ == '__main__':
     unittest.main()

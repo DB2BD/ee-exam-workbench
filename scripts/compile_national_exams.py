@@ -172,7 +172,7 @@ def resolve_subject_id(name_str):
     for key, sid in SUBJECT_NAME_TO_ID.items():
         if key in name_str:
             return sid
-    return '01'  # fallback
+    raise ValueError(f"Unknown national-exam subject: {name_str!r}")
 
 
 from difficulty_evaluator import evaluate_question_difficulty

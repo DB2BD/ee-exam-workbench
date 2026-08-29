@@ -29,6 +29,30 @@ jobs:
       - name: 🛠️ Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 🟩 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 🔨 Build reproducible workbench
+        run: BUILD_VERSION="${GITHUB_SHA}" python3 scripts/build_workbench.py
+
+      - name: ✅ Run quality gates
+        run: |
+          python3 scripts/run_all_tests.py
+          syntax_log="${{ runner.temp }}/html-js-syntax.log"
+          python3 scripts/check_html_js_syntax.py > "$syntax_log"
+          cat "$syntax_log"
+          if grep -q "Syntax Error" "$syntax_log"; then
+            echo "❌ Inline JavaScript syntax gate failed."
+            exit 1
+          fi
+
       - name: 📦 Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:

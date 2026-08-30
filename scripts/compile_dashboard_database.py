@@ -35,6 +35,22 @@ ENGINEERING_MATH_TOPIC_OVERRIDES = {
         '求 Ax=b 的完整解與矩陣 A 的零空間 N(A)。'
     ),
 }
+PE_TOPIC_OVERRIDES = {
+    'EE-109-02-1': '如圖一 BJT 開關電路，已知 R_C=11 Ω、V_CC=200 V、V_B=10 V、V_CE(sat)=1.0 V、V_BE(sat)=1.5 V、β_F∈[8,40]。求 ODF=6 時的 R_B 與電晶體總功率損耗 P_T。（25 分）',
+    'EE-109-02-2': '如圖二理想 Boost 轉換器，V_s=15 V、V_o=30 V、I_o=3 A、f=25 kHz、L=100 μH、C=200 μF。求導通率 D、電感漣波與峰值電流、電容漣波及臨界 L_c、C_c。（25 分）',
+    'EE-109-02-3': '如圖三返馳式（Flyback）轉換器，N_p/N_s=4、R_L=0.8 Ω、V_o=24 V、V_d=0.7 V、V_t=1.2 V、f=1.5 kHz、D=0.75。求 Q 的平均／峰值電流、L_p 與效率 η。（25 分）',
+    'EE-109-02-4': '增強型 n 通道 NMOS 於 V_GS=V_DS=12 V 時 I_D=6 mA，於 V_GS=V_DS=8 V 時 I_D=1.5 mA。求臨界電壓 V_t 與製程參數 β。（25 分）',
+}
+# A few OCR-heavy annual sections contain terms from neighbouring chapters
+# (for example「功率」in a BJT loss question).  Keep their textbook chapter
+# tags deterministic at the question boundary so the review DAG does not let
+# generic words outweigh the device/converter keyword.
+QUESTION_TAG_OVERRIDES = {
+    'EE-109-02-1': ['電子學', 'BJT 偏壓'],
+    'EE-109-02-2': ['電子學', '電力電子', 'Boost 轉換器'],
+    'EE-109-02-3': ['電子學', '電力電子', 'Flyback 轉換器'],
+    'EE-109-02-4': ['電子學', 'MOSFET 偏壓'],
+}
 PE_CROP_MANIFEST = 'data/pe-question-crops.json'
 if os.path.exists(PE_CROP_MANIFEST):
     try:
@@ -230,8 +246,12 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
                         tags.append('電力電子')
                     
                     qid = f'EE-{yr}-{sid}-{q_num}'
+                    if qid in QUESTION_TAG_OVERRIDES:
+                        tags = QUESTION_TAG_OVERRIDES[qid][:]
                     if qid in ENGINEERING_MATH_TOPIC_OVERRIDES:
                         topic = ENGINEERING_MATH_TOPIC_OVERRIDES[qid]
+                    if qid in PE_TOPIC_OVERRIDES:
+                        topic = PE_TOPIC_OVERRIDES[qid]
                     
                     pdf_file = ''
                     if os.path.exists(pdf_dir):

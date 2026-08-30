@@ -1,12 +1,12 @@
 // ⚡ 電機工程技師 歷屆試題與詳解知識庫 — 核心資料庫 (104 ~ 114 年)
-// 全自動編譯：收錄 6 大考科 × 11 個年度共 318 道題目
+// 全自動編譯：收錄 6 大考科 × 11 個年度共 321 道題目
 
 const DB_DATA = {
   meta: {
     title: "⚡ 電機工程技師 歷屆試題與知識庫儀表板 (104–114 年)",
     years: [114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104],
     totalExams: 66,
-    totalQuestions: 318,
+    totalQuestions: 321,
     subjects: [
       {
             "id": "01",
@@ -20,14 +20,14 @@ const DB_DATA = {
             "name": "電子學（含電力電子）",
             "icon": "",
             "color": "#686b8f",
-            "count": 46
+            "count": 48
       },
       {
             "id": "03",
             "name": "工程數學",
             "icon": "",
             "color": "#54826b",
-            "count": 64
+            "count": 65
       },
       {
             "id": "04",
@@ -1230,14 +1230,14 @@ const DB_DATA = {
     "03",
     112,
     1,
-    "求解初始值問題：$y'' + 4y = g(t), \\quad y(0) = 0, \\quad y'(0) = 0$，其中\n$$g(t) = \\begin{cases} 1, & 5 \\le t < 20 \\\\ 0, & \\text{其他} \\end{cases}$$\n（20 分）",
+    "請以拉式轉換法求解 $2y''+y'+2y=g(t)$，其中 $y(0)=y'(0)=0$，且 $g(t)=1$（$5\\le t<20$），其餘為零。（20 分）",
     [
       "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-1.md",
     "依考科分類/03_工程數學/112年_電機工程技師_工程數學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -1246,14 +1246,14 @@ const DB_DATA = {
     "03",
     112,
     2,
-    "假設 $f(x) = \\begin{cases} -2x, & -2 \\le x < 0 \\\\ 2x, & 0 \\le x < 2 \\end{cases}$，週期為 $4$（即 $f(x+4) = f(x)$）。若以傅立葉級數表示 $f(x) = a_0 + \\sum_{n=1}^\\infty (a_n \\cos\\frac{n\\pi x}{L} + b_n \\sin\\frac{n\\pi x}{L})$，計算其傅立葉係數 $a_0, a_n, b_n$。（20 分）",
+    "假設 $f(x)=-2x$（$-2\\le x<0$）、$f(x)=2x$（$0\\le x<4$），且 $f(x+4)=f(x)$。請以傅立葉級數計算各階係數。（15 分）",
     [
       "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-2.md",
     "依考科分類/03_工程數學/112年_電機工程技師_工程數學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -1262,7 +1262,7 @@ const DB_DATA = {
     "03",
     112,
     3,
-    "假設三維曲線 $C$ 的位置向量為 $\\mathbf{r}(t) = [\\cos t + t\\sin t]\\mathbf{i} + [\\sin t - t\\cos t]\\mathbf{j} + t^2\\mathbf{k}, \\quad t \\ge 0$。計算曲線 $C$ 在 $t = \\pi$ 時的單位切線向量 $\\mathbf{T}$ 與曲率（Curvature）$\\kappa$。（20 分）",
+    "甲、乙、丙三人命中靶心的單發機率分別為 $0.75,0.72,0.70$；某次練習同時對同一靶射擊，甲、乙、丙分別發射 50、53、60 發。求：(一) 此三人所發射之子彈射中靶心的機率；(二) 其中一發命中靶心之子彈為乙所射擊的機率。（15 分）",
     [
       "工程數學"
     ],
@@ -1278,15 +1278,14 @@ const DB_DATA = {
     "03",
     112,
     4,
-    "假設矩陣 $\\mathbf{A} = \\begin{bmatrix} 1 & 0 & 1 \\\\ 3 & 0 & 3 \\\\ 0 & 1 & 1 \\end{bmatrix}$，向量 $\\mathbf{b} = \\begin{bmatrix} 2 \\\\ 4 \\\\ 6 \\end{bmatrix}，\\mathbf{c} = \\begin{bmatrix} 1 \\\\ 6 \\\\ 7 \\end{bmatrix}$：\n\n* **(一)** 求解滿足線性方程組 $\\mathbf{A}\\mathbf{x} = \\mathbf{b}$ 之所有解向量 $\\mathbf{x} = \\begin{bmatrix} x_1 & x_2 & x_3 \\end{bmatrix}$\n^$T$。（10 分）\n\n* **(二)** 判斷 $\\mathbf{c}$ 是否在 $\\mathbf{A}$ 的行空間（Column Space）中。（10 分）",
+    "假定 $u=e^{-x}(x\\sin y-y\\cos y)$。求函數 $v$，使得 $f(z)=u+iv$ 為解析函數。（15 分）",
     [
-      "工程數學",
-      "線性代數"
+      "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-4.md",
     "依考科分類/03_工程數學/112年_電機工程技師_工程數學.pdf",
-    3,
-    "needs_manual_review",
+    2,
+    "verified",
     [],
     true
   ],
@@ -1295,15 +1294,34 @@ const DB_DATA = {
     "03",
     112,
     5,
-    "假設隨機變數 $X$ 的機率密度函數為 $p(x) = \\begin{cases} c(2x - x^2), & 0 < x < 2 \\\\ 0, & \\text{其他} \\end{cases}$：\n\n* **(一)** 計算常數 $c$。（10 分）\n\n* **(二)** 計算 $X$ 的期望值 $E[X]$ 與變異數 $\\text{Var}(X)$。（10 分）",
+    "三維曲線位置向量為 $\\mathbf r(t)=(\\cos t+t\\sin t,\\ \\sin t-t\\cos t,\\ t^2)$，$t\\ge0$。求單位切線向量 $\\mathbf T(t)$ 與曲率 $\\kappa(t)$。（10 分）",
     [
       "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-5.md",
     "依考科分類/03_工程數學/112年_電機工程技師_工程數學.pdf",
-    3,
-    "needs_manual_review",
+    2,
+    "verified",
     [],
+    true
+  ],
+  [
+    "EE-112-03-6",
+    "03",
+    112,
+    6,
+    "設 $A=\\begin{bmatrix}1&3&0\\\\0&0&1\\\\1&3&1\\end{bmatrix}$、$b=(2,4,6)^T$、$c=(1,6,7)^T$。求增廣系統 $[A\\ b]x=c$（$x\\in\\mathbb R^4$）之所有解，並求 $A$ 的特徵值與對應單位特徵向量。（25 分）",
+    [
+      "工程數學",
+      "線性代數"
+    ],
+    "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-6.md",
+    "依考科分類/03_工程數學/112年_電機工程技師_工程數學.pdf",
+    4,
+    "verified",
+    [
+      "det(A - λI) = 0"
+    ],
     true
   ],
   [
@@ -2671,17 +2689,15 @@ const DB_DATA = {
     "02",
     109,
     1,
-    "如圖一所示雙極性接面電晶體（BJT）電路，其中\n11\nC\nR =\nΩ、\n200 V\nCC\nV\n、\n10 V\nB\nV =\n、\n(sat)\n1.0 V\nCE\nV\n、\n(sat)\n1.5 V\nBE\nV\n，其順向電流增益（forward current\ngain,\nF\nβ）介於8 至40 之間，試求使電晶體進入飽和時具過載係數\n（overdrive factor, ODF）為6 之\nB\nR 值，以及電晶體上之總功率損耗\nTP 值。\n（25 分）\n圖一\n如圖二所示昇壓型轉換器（boost converter）電路，其中輸入電壓\n15 V\ns\nV =\n、平均輸出電壓\n30 V\no\nV =\n、平均輸出電流\n3 A\noI =\n、切換頻率\n25 kHz\nf =\n、電感值\n100\nH\nL\nμ\n、電容值\n200\nC\nF\nμ\n，試求對應之開關\n導通率D 、電感器上漣波電流值\nLI\nΔ\n、電感器上峰值電流\n,peak\nLI\n、電容器\n上漣波電壓值\nC\nV\nΔ\n，以及電感器與輸出電容器之臨界值\ncL 與\nc\nC 。（25 分）\n圖二\nis, Is\n+ eL\niL, IL\ni1\nio\nLoad\nvc\nvD\nVs\nM1\nG\nC\nic, Ic\nL",
+    "如圖一 BJT 開關電路，已知 R_C=11 Ω、V_CC=200 V、V_B=10 V、V_CE(sat)=1.0 V、V_BE(sat)=1.5 V、β_F∈[8,40]。求 ODF=6 時的 R_B 與電晶體總功率損耗 P_T。（25 分）",
     [
-      "交流相量",
-      "配電設計",
-      "電力電子",
+      "BJT 偏壓",
       "電子學"
     ],
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-109-02-1.md",
     "依考科分類/02_電子學_含電力電子/109年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -2690,21 +2706,54 @@ const DB_DATA = {
     "02",
     109,
     2,
-    "如圖三所示返馳式轉換器（flyback converter）電路，其中變壓器匝數\n比\n/\np\ns\nN\nN =\n、電阻性負載\n0.8\nL\nR =\nΩ、平均輸出電壓\n24 V\no\nV =\n、二極\n體\nD 之導通壓降（on-state voltage drop）為\n0.7 V\nd\nV =\n、電晶體\nQ 之導\n通壓降、切換頻率與導通率（duty ratio）分別為\n1.2 V\ntV =\n、\n1.5 kHz\nf =\n與\n0.75\nD =\n，設變壓器損耗及負載電流漣波均可忽略，試求電晶體\nQ 上\n之平均電流\n(avg)\npI\n與峰值電流\n(max)\npI\n，以及初級側激磁電感\np\nL 與電路轉\n換效率θ。（25 分）\n圖三\n一增強型n- 通道金氧半場效電晶體（NMOS transistor ），於\n12 V\nGS\nDS\nV\nV\n時，測得其汲極電流\n$6\\text{ mA}$\nD\n，並於\n8 V\nGS\nDS\nV\nV\n時測\n得\n$1.5\\text{ mA}$\nD\n，試求其臨界電壓（threshold voltage）\ntV 值與製程參數\n（process parameter）β值，其中\n(\n/\n)\nn\nox\nC\nW\nL\nβ\nμ\n、\nn\nox\nC\nμ\n為製程互導參數、\n(\n/\n)\nW\nL 為寬長比。（25 分）\nVs\nD1\nvs\nis\nNs\nNp\nip\nC\nv0\nQ\nV\nQ1\nControl",
+    "如圖二理想 Boost 轉換器，V_s=15 V、V_o=30 V、I_o=3 A、f=25 kHz、L=100 μH、C=200 μF。求導通率 D、電感漣波與峰值電流、電容漣波及臨界 L_c、C_c。（25 分）",
     [
-      "交流相量",
-      "配電設計",
+      "Boost 轉換器",
       "電力電子",
-      "電子學",
-      "電機機械"
+      "電子學"
     ],
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-109-02-2.md",
+    "依考科分類/02_電子學_含電力電子/109年_電機工程技師_電子學（包括電力電子學）.pdf",
+    3,
+    "verified",
+    [],
+    true
+  ],
+  [
+    "EE-109-02-3",
+    "02",
+    109,
+    3,
+    "如圖三返馳式（Flyback）轉換器，N_p/N_s=4、R_L=0.8 Ω、V_o=24 V、V_d=0.7 V、V_t=1.2 V、f=1.5 kHz、D=0.75。求 Q 的平均／峰值電流、L_p 與效率 η。（25 分）",
+    [
+      "Flyback 轉換器",
+      "電力電子",
+      "電子學"
+    ],
+    "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-109-02-3.md",
     "依考科分類/02_電子學_含電力電子/109年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
     "needs_manual_review",
     [
       "ΔV = √3 I (R cosθ + X sinθ)"
     ],
+    true
+  ],
+  [
+    "EE-109-02-4",
+    "02",
+    109,
+    4,
+    "增強型 n 通道 NMOS 於 V_GS=V_DS=12 V 時 I_D=6 mA，於 V_GS=V_DS=8 V 時 I_D=1.5 mA。求臨界電壓 V_t 與製程參數 β。（25 分）",
+    [
+      "MOSFET 偏壓",
+      "電子學"
+    ],
+    "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-109-02-4.md",
+    "依考科分類/02_電子學_含電力電子/109年_電機工程技師_電子學（包括電力電子學）.pdf",
+    3,
+    "verified",
+    [],
     true
   ],
   [
@@ -4483,7 +4532,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-106-04-5.md",
     "依考科分類/04_電機機械/106年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -5024,7 +5073,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-105-04-3.md",
     "依考科分類/04_電機機械/105年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "s = (Ns - N)/Ns"
     ],
@@ -5043,7 +5092,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-105-04-4.md",
     "依考科分類/04_電機機械/105年_電機工程技師_電機機械.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],

@@ -118,7 +118,7 @@ def build_workbench():
     <div class="category-switcher">
       <button class="cat-tab on" id="cat-tab-PE" onclick="switchExamCategory('PE')">
         <span>🏆 專技高考：電機工程技師</span>
-        <span class="cat-badge" id="cat-count-PE">318 題 · 66 卷</span>
+        <span class="cat-badge" id="cat-count-PE">321 題 · 66 卷</span>
       </button>
       <button class="cat-tab" id="cat-tab-GK" onclick="switchExamCategory('GK')">
         <span>🏛️ 公務高考：三級電力/電子</span>
@@ -130,7 +130,7 @@ def build_workbench():
     <div class="stats-grid">
       <div class="stat-card">
         <span class="label">📚 收錄試題總數</span>
-        <span class="val" id="stat-total">318</span>
+        <span class="val" id="stat-total">321</span>
       </div>
       <div class="stat-card">
         <span class="label">🟢 已掌握題數</span>

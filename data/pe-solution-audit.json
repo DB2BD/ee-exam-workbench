@@ -408,10 +408,10 @@
       "question_number": 1,
       "chapter": "如圖一所示之二極體電路，假設二極體皆為理想元件。(一)請分析D1、D2\n之正確操作狀態（導通或截止？）；（15 分）(二)Vo=?（10 分）\n圖一",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "c5a4e8a792dcc625b925e344737aac9ba964cda620070c3fbbe16c455dd3f1e0",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_diode_state_assumption_and_piecewise_DC_recalculation",
+      "solution_hash": "36b6683535a632039d293702295bbc7289e29c2faa61f3fd990674aa88f9eaa2",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_113年_電子學（包括電力電子學）_Q01.png"
     },
@@ -424,8 +424,8 @@
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-2.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "cb1570515a4514082cc9b158014cd134e343ab0bf24d5393f5362b79d6a5edc0",
+      "method": "official_crop_T_model_and_common_base_gain_recalculation_with_VT_assumption",
+      "solution_hash": "0fa0584fcca50bd2d77efbe075c0a667fc104474a7287faa57af6e5bb84c83f7",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_113年_電子學（包括電力電子學）_Q02.png"
     },
@@ -436,10 +436,10 @@
       "question_number": 3,
       "chapter": "如圖三所示之電源轉換器，其開關之切換頻率(switching frequency)fs，責\n任週期(duty cycle)D，假設所有元件皆為理想，且可正常操作於邊界導通\n模式（boundary conduction mode, BCM），請根據圖三標示之各元件符號，\n回答以下參數或關係式之數學表示式：(一)繪出此轉換器在二個操作狀態\n下之等效電路；(二)輸出電壓Vo；(三)電感L 之電流最大值ILmax；(四)電感L\n之最小值Lmin；(五)漣波對輸出電壓之比值\nDVo\nVo 。（25 分）\n圖三",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "7b912a4913571ca3554386ed62a285a52f8710bf96dbc3cbf36d088c493cde1b",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_boost_converter_bcm",
+      "solution_hash": "9b4efba9de0c9531ed9de4b47f7fe57e6c79956ae22a25bb905b2e42d60ebd74",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_113年_電子學（包括電力電子學）_Q03.png"
     },
@@ -450,10 +450,10 @@
       "question_number": 4,
       "chapter": "如圖四所示之全橋轉換器，其開關之切換頻率(switching frequency)fs，責\n任週期(duty cycle)D，假設所有元件皆為理想，且可正常操作於邊界導通\n模式（boundary conduction mode, BCM），請根據圖四中之符號，回答以\n下參數或關係式之數學表示式：(一)請說明功率開關S1、S2、S3、S4 各需\n承受之耐壓；（5 分）(二)\nz\nL；（10 分）(三)電感值Lx。（10 分）\n圖四",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "286bf08a1088635513227071433f857f188ef2cbdc3318102cda20b0839fa9dd",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-full-bridge-volt-second-and-BCM-recalculation",
+      "solution_hash": "a861bb2957a2e245e39a227563142125c6b3962e29a7d47d6172a6fdcd4d8702",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_113年_電子學（包括電力電子學）_Q04.png"
     },
@@ -509,7 +509,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_recalculation_source_conflict",
-      "solution_hash": "1997361d270a36ad75c1859838f66403495e72e8ee6a85bead07274b1644e519",
+      "solution_hash": "17291e0b9abbc6036918bfeb6d4a3ce6d865fa5dd31e9c3bca1d4e2841f88da9",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_113年_電機機械_Q04.png"
     },
@@ -562,10 +562,10 @@
       "question_number": 3,
       "chapter": "兩部額定容量$1300\\text{ MW}$ 之火力發電機組，以每小時美元為單位之燃料\n成本函數（fuel-cost function）分別為：C1 = 500 + 8P1 +(0.005)(P1)2、\nC2 = 700 +(α)P2+(β)(P2)2，其中發電量P1、P2 均以MW 為單位。當總功\n率需量為$800\\text{ MW}$ 時，發電的增量成本為10 美元/MWh；當總功率需量\n提高至$1500\\text{ MW}$ 時，發電的增量成本提高至12 美元/MWh。若忽略損\n失，試求α、β之值。（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-113-05-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "b5208a584a2a27e1ef04528619ffb02674288d13efb788ab64375958613d15a8",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_incremental_cost_coefficient_identification",
+      "solution_hash": "a5d9ad914fa36612b231c038c6af21f842fbe16eec3b58d739eca3db2fe9441a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_113年_電力系統_Q03.png"
     },
@@ -593,7 +593,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "official_crop_and_meter_increment_recalculation",
-      "solution_hash": "c4234d559b734fdeea2ed32516bc00837ba0dec03bfea0e67d6408610882b094",
+      "solution_hash": "a576dab450724cb247de2fa05657a7877cd7324c9916f7f41689f5600d9284b9",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_113年_工業配電_Q01.png"
     },
@@ -901,7 +901,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official text crop independently checked; written grounding principles verified, required grounding drawings not independently auditable from text-only crop",
-      "solution_hash": "d30461ef3a3f5060d1e662232c79c1c6fcce037a78afeeb2ff762d509275f526",
+      "solution_hash": "1c9ec312ba118272c7e64952f87e7d075a32e32a25da691a4e6cd0575fc6627e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_112年_工業配電_Q01.png"
     },
@@ -1055,7 +1055,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "mosfet-gain-square-law-consistency-check",
-      "solution_hash": "c52b95fd052b51d568ebb4201d90a641b9af7fb8d353435d3f97751ce3c0ba1e",
+      "solution_hash": "002a58dd7cf7a7a9c5c005879b429af4734ee2acab7eeea0e72d6584f754f64b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png"
     },
@@ -1069,7 +1069,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_parameter_insufficient_for_unique_h_parameter_solution",
-      "solution_hash": "aa03ffbc0ffde57b011fb88860bf89f98bc4ff943de6273664f744d85d5d571d",
+      "solution_hash": "64daeec72e38906814c43a9050a5118effc7cb0b47a15ae82ffd317d95db86de",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 124,
+    "verified": 128,
     "suspected_error": 0,
-    "needs_manual_review": 132,
+    "needs_manual_review": 128,
     "not_attempted": 0
   }
 }

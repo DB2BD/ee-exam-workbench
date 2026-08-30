@@ -15,7 +15,10 @@ from typing import Any, Dict, List
 
 PE_SUBJECTS = {"01", "02", "03", "04", "05", "06"}
 GK_SUBJECTS = {"01", "02", "03", "04", "05"}
-VALID_STATUSES = {"verified", "in_progress", "pending", "ambiguous", "unavailable"}
+VALID_STATUSES = {
+    "verified", "in_progress", "pending", "ambiguous", "unavailable",
+    "suspected_error", "needs_manual_review", "not_attempted",
+}
 
 
 @dataclass(frozen=True)

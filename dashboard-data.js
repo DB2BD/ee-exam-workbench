@@ -3241,7 +3241,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-108-02-3.md",
     "依考科分類/02_電子學_含電力電子/108年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3486,7 +3486,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-108-05-2.md",
     "依考科分類/05_電力系統/108年_電機工程技師_電力系統.pdf",
     5,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],

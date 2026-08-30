@@ -122,7 +122,10 @@ def make_entries(records: list[list], crop_map: dict[str, dict], existing: dict)
             "solution_link": solution_link,
             "source_crop": crop.get("question_crop", ""),
             "source_pages": crop.get("source_pages", []),
-            "solution_version": metadata.get("solution_version", old.get("solution_version", "canonical-1.0.0" if metadata.get("audit_status") else old.get("solution_version", "legacy"))),
+            "solution_version": metadata.get("solution_version") or (
+                "canonical-1.0.0" if "/canonical/" in solution_link
+                else old.get("solution_version", "legacy")
+            ),
             "audit_status": status,
             "verified_at": metadata.get("verified_at") or old.get("verified_at") or (date.today().isoformat() if status == "verified" else None),
             "method": metadata.get("method", old.get("method", "template_hash_screening")),

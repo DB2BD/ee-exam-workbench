@@ -2600,7 +2600,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "characteristic_equation_and_polynomial_particular",
@@ -2629,7 +2629,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "separation_of_variables",
@@ -2907,7 +2907,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "integrating_factor",
@@ -2936,7 +2936,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "exponential_substitution",
@@ -3297,7 +3297,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "reduction_of_order",
@@ -3326,7 +3326,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "undetermined_coefficients_and_initial_conditions",
@@ -3687,7 +3687,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "unilateral_laplace_and_step_response",
@@ -4048,7 +4048,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "substitution_and_variation_of_parameters",
@@ -4077,7 +4077,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "laplace_transform_identity",
@@ -4604,7 +4604,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "symbolic_substitution_and_initial_conditions",
@@ -4702,7 +4702,7 @@
       "qid": "EE-114-03-5",
       "year": 114,
       "question_number": 5,
-      "chapter": "假設矩陣 $\\mathbf{A} = \\begin{bmatrix} 0 & 1 \\\\ -1 & 0 \\\\ 0 & 1 \\\\ -1 & 0 \\end{bmatrix}$ 與向量 $\\mathbf{b} = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}$：\n\n* **(一)** 找出 $\\mathbf{A}$ 的奇異值分解（Singular Value Decomposition, SVD）之奇異值（Singular values）。（15 分）\n\n* **(二)** 假設 $\\mathbf{x} = \\begin{bmatrix} x_1 \\\\ x_2 \\end{bmatrix}$，計算最小平方問題（Least Squares Problem）$\\min_{\\mathbf{x}} \\|\\mathbf{A}\\mathbf{x} - \\mathbf{b}\\|_2$ 之解。（15 分）",
+      "chapter": "假設矩陣 A = [[0, -1, 0, 1], [0, 1, -1, 0]] 與 b = [0, 1]^T；求 Ax=b 的完整解與矩陣 A 的零空間 N(A)。",
       "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-114-03-5.md",
       "source_crop": "依考科分類/03_工程數學/images/questions/PE_114年_工程數學_Q05.png",
       "source_pages": [
@@ -4716,7 +4716,7 @@
           ]
         }
       ],
-      "solution_version": "legacy",
+      "solution_version": "canonical-1.0.0",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "row_reduction_and_null_space",

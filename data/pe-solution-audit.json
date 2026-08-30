@@ -2269,13 +2269,13 @@
       "year": 107,
       "question_number": 3,
       "chapter": "圖3 中，試利用Δ 至Y 之阻抗轉換，求出電流I0、I1、I2、I3 及V1、V2\n值。（I0、I1、I2、I3 各4 分，V1、V2 各2 分，共20 分）\n圖3\n$40\\ \\Omega$\n$15\\ \\Omega$\n$10\\ \\Omega$\n8 A\n4 A\ni1(t)\ni2(t)\ni3(t)\n$$t=0v(t)$$\n$4\\ \\Omega$\n$5\\ \\Omega$\n$1\\ \\Omega$\n50 V\n$4\\ \\Omega$\n$20\\ \\Omega$\n15iψ\niψ\nL1(5 H)\nL2(20 H)",
-      "solution_link": "📝 個人題解與錯題本/01_電路學/107年_電路學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "fb01418225f6c55b62a8a2f86ea2b4853ae97f33aecaf26ce6ab1a271e2e5fc7",
+      "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-3.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "delta-wye-conversion-and-nodal-cross-check",
+      "solution_hash": "c5a534140af916b9131b24ad26c2d027d1fd784ec736c43c88313a5e149369ba",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/01_電路學/images/questions/PE_107年_電路學_Q03.png"
     },
     {
       "qid": "EE-107-01-4",
@@ -3568,9 +3568,9 @@
   ],
   "summary": {
     "questions": 254,
-    "verified": 24,
+    "verified": 25,
     "suspected_error": 0,
     "needs_manual_review": 0,
-    "not_attempted": 230
+    "not_attempted": 229
   }
 }

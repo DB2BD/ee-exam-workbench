@@ -1460,8 +1460,8 @@
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-1.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "independent_recalculation_synchronous_machine_power_angle",
-      "solution_hash": "6392db28488af76d5eb6fbc712c1368903ecae82eed13f1fd82d2458a029aa23",
+      "method": "annual_solution_extraction_pending_independent_check",
+      "solution_hash": "7f00e335a136592ae7db0360bf1c267230abbcd9c73de8644a6534e20ae025a8",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q01.png"
     },
@@ -1472,10 +1472,10 @@
       "question_number": 2,
       "chapter": "如圖之電力系統，若電力系統的\np.u.\n，\n母線1 為搖擺母線（swing bus），其電壓大小V1 = 1 p.u.，相角0 度；\n母線2 為PV 母線，其電壓大小V2 = 1.05 p.u.、相角為θ2 且發電量\nPG2 = 0.6 p.u.；母線3 為PQ 母線，其電壓大小為V3、相角為θ3 且負載\nP3+jQ3 = 3+j1 p.u.。\n* **(一)** 寫出注入母線2 的實功率P2 電力潮流方程式（不代入數值）。（5 分）\n* **(二)** 寫出注入母線3 的虛功率Q3 電力潮流方程式（不代入數值）。（5 分）\n* **(三)** 若V3 初始大小為1 p.u.、θ2，θ3 的初始值為0 度。用快速解耦電力潮\n流法（fast decoupled power flow method）解一次疊代的θ3 及V3 為何？\n（10 分）\n母線1\n母線2\n母線3",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "10d12bb3187fc03a822f13efe6af5dd1565197493ae989897d7ca8a4d4ca191b",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_fdlf_three_bus_power_flow",
+      "solution_hash": "54e0e26f7203cf4052f5df8a4a6aec804269f120395b3cf56e075ddf07cfcc2e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q02.png"
     },
@@ -1598,10 +1598,10 @@
       "question_number": 1,
       "chapter": "試求下圖電路之輸出與輸入的關係。（25 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-109-01-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "018427b7b6ecc3be755e286813ad20ad6d0d368069ee442a83c09f1afaeff97e",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop topology read; independent ideal-op-amp KCL recalculation and sign check",
+      "solution_hash": "0224e519dc03566fe86788c0abdc05c0c9dbe9a69440616822685fecfcedff4c",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_109年_電路學_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 71,
+    "verified": 73,
     "suspected_error": 0,
-    "needs_manual_review": 185,
+    "needs_manual_review": 183,
     "not_attempted": 0
   }
 }

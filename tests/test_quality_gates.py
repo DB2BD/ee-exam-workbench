@@ -34,8 +34,10 @@ class TestReviewPageSeams(unittest.TestCase):
         review_source = (WORKSPACE / "src/components/reviewPage.js").read_text(encoding="utf-8")
         domain_path = WORKSPACE / "src/domain/questionRecord.js"
         domain_source = domain_path.read_text(encoding="utf-8") if domain_path.exists() else ""
+        alias_path = WORKSPACE / "src/data/taxonomyAliases.js"
+        alias_source = alias_path.read_text(encoding="utf-8") if alias_path.exists() else ""
         dag_source = (WORKSPACE / "src/data/knowledge-dag.js").read_text(encoding="utf-8")
-        source = domain_source + "\n" + dag_source + "\n" + review_source
+        source = domain_source + "\n" + alias_source + "\n" + dag_source + "\n" + review_source
         script = f"""
 const vm = require('vm');
 const source = {json.dumps(source, ensure_ascii=False)};
@@ -97,6 +99,26 @@ process.stdout.write(JSON.stringify(context.__missing));
         completed = subprocess.run(["node", "-e", script], cwd=WORKSPACE, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertEqual(json.loads(completed.stdout), [])
+
+    def test_classifier_fails_closed_on_equal_conflicting_signals(self):
+        question = [
+            "EE-ambiguous", "03", 114, 1,
+            "拉普拉斯轉換與傅立葉級數", [], "", "", 3, "verified", [], True,
+        ]
+        result = self._run_node(
+            "context.getReviewTypeLabel(" + json.dumps(question, ensure_ascii=False) + ")"
+        )
+        self.assertEqual(result, "待人工複核")
+
+    def test_alias_normalization_maps_english_text_to_textbook_chapter(self):
+        question = [
+            "EE-laplace", "01", 114, 1,
+            "Solve the Laplace transform circuit in the s-domain", [], "", "", 3, "verified", [], True,
+        ]
+        result = self._run_node(
+            "context.getReviewTypeLabel(" + json.dumps(question, ensure_ascii=False) + ")"
+        )
+        self.assertEqual(result, "S 域拉氏轉換電路求解")
 
 
 class TestBuildReproducibility(unittest.TestCase):

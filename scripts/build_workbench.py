@@ -50,10 +50,12 @@ def build_workbench():
     # 2. Bundle Scripts
     js_files = [
         'src/domain/questionRecord.js',
+        'src/data/taxonomyAliases.js',
         'src/data/knowledge-dag.js',
         'src/state/store.js',
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
+        'src/state/recallStore.js',
         'src/components/reviewPage.js',
         'src/renderers/katexRenderer.js',
         'src/renderers/markdownRenderer.js',

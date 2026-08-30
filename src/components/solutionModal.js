@@ -15,6 +15,8 @@ let currentModalQNum = null;
 let currentModalFullView = false;
 let currentSubQuestionIdx = 0;
 let modalHistoryStack = [];
+let currentRecallAchievedLevel = 0;
+let currentRecallErrorType = null;
 
 const CN_NUM_MAP = {
   '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8,
@@ -75,6 +77,8 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   currentModalQNum = qnum;
   currentModalFullView = fullView;
   currentSubQuestionIdx = 0;
+  currentRecallAchievedLevel = 0;
+  currentRecallErrorType = null;
   if (activeRecall) {
     isActiveRecallMode = true;
   }
@@ -318,11 +322,7 @@ function toggleActiveRecallMode() {
 }
 
 function revealRecallHint() {
-  const hintEl = document.getElementById('recall-hint-section');
-  if (hintEl) {
-    hintEl.style.display = 'block';
-    hintEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
+  revealRecallLayer(2);
 }
 
 function revealRecallFull() {
@@ -332,6 +332,7 @@ function revealRecallFull() {
   if (fullEl) fullEl.style.display = 'block';
   if (ratingEl) ratingEl.style.display = 'flex';
   if (boxEl) boxEl.style.display = 'none';
+  currentRecallAchievedLevel = 4;
 
   // Render any hidden math in full section
   const rightPane = document.getElementById('modal-right-content');
@@ -346,8 +347,34 @@ function revealRecallFull() {
   }
 }
 
+function revealRecallLayer(layer) {
+  const target = document.getElementById(`recall-layer-${layer}`);
+  if (target) {
+    target.style.display = 'block';
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, Number(layer) || 0);
+  const full = document.getElementById('recall-full-section');
+  const rating = document.getElementById('recall-rating-bar');
+  if (layer >= 4) {
+    if (full) full.style.display = 'block';
+    if (rating) rating.style.display = 'flex';
+  }
+}
+
+function chooseRecallError(errorType) {
+  currentRecallErrorType = errorType || null;
+  document.querySelectorAll('[data-recall-error]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.recallError === currentRecallErrorType);
+  });
+}
+
 function submitSM2Rating(rating) {
   if (!currentModalQid) return;
+  const achieved = rating === 5 ? 4 : rating === 3 ? Math.max(2, currentRecallAchievedLevel) : 0;
+  if (typeof recordRecallAttempt === 'function') {
+    recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
+  }
   const result = recordSM2Review(currentModalQid, rating);
   const ratingTexts = { 1: '🔴 遺忘 (明日二刷)', 3: '🟡 勉強 (3天後複習)', 5: '🟢 完美秒殺 (已延長間隔)' };
   showToast(`🎯 已排程：${ratingTexts[rating]} (下次：${result.nextReviewDate})`);
@@ -406,6 +433,9 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     }
 
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
+    const recallHints = typeof getRecallHintBundle === 'function'
+      ? getRecallHintBundle(currentModalQid, qRecord)
+      : { chapter: '待人工複核', activation: '先列出已知量、未知量與要求量。', formula: '寫出本章節核心公式。', trap: '檢查單位、極性與邊界條件。' };
 
     let stemHtml = processMarkdownWithMath(stemPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
     let hintHtml = hintPart ? processMarkdownWithMath(hintPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
@@ -423,15 +453,23 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
 
         <div class="active-recall-box" id="recall-step-box">
           <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
-          <p style="font-size: 0.85rem; color: var(--muted); margin: 0;">白紙蓋牌獨立思考，列出破題公式與關鍵步驟後再揭曉：</p>
+          <p style="font-size: 0.85rem; color: var(--muted); margin: 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-            ${hintHtml ? '<button class="btn-reveal-hint" onclick="revealRecallHint()">💡 提示核心考點與思路</button>' : ''}
-            <button class="btn-reveal-full" onclick="revealRecallFull()">📖 揭曉完整步驟推導</button>
+            <button class="btn-reveal-hint" onclick="revealRecallLayer(1)">① 顯示章節</button>
+            <button class="btn-reveal-hint" onclick="revealRecallLayer(2)">② 顯示起手式</button>
+            <button class="btn-reveal-hint" onclick="revealRecallLayer(3)">③ 顯示公式／陷阱</button>
+            <button class="btn-reveal-full" onclick="revealRecallFull()">④ 揭曉完整推導</button>
           </div>
         </div>
 
-        <div id="recall-hint-section" style="display: none; margin: 16px 0; padding: 14px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
-          ${hintHtml}
+        <div id="recall-layer-1" style="display: none; margin: 16px 0; padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--accent);">
+          <strong>章節：</strong> ${reviewHtmlEscape(recallHints.chapter)}
+        </div>
+        <div id="recall-layer-2" style="display: none; margin: 16px 0; padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
+          <strong>起手式：</strong> ${reviewHtmlEscape(recallHints.activation)}
+        </div>
+        <div id="recall-layer-3" style="display: none; margin: 16px 0; padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
+          <strong>核心公式：</strong> <span class="math-inline">$${recallHints.formula}$</span><br><strong>常見陷阱：</strong> ${reviewHtmlEscape(recallHints.trap)}
         </div>
 
         <div id="recall-full-section" style="display: none;">
@@ -441,6 +479,13 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
 
         <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
           <div class="sm2-rating-title">🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：</div>
+          <div class="recall-error-buttons" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0;">
+            <button type="button" class="pill" data-recall-error="題型辨識錯" onclick="chooseRecallError('題型辨識錯')">題型辨識錯</button>
+            <button type="button" class="pill" data-recall-error="起手式不會" onclick="chooseRecallError('起手式不會')">起手式不會</button>
+            <button type="button" class="pill" data-recall-error="公式忘記" onclick="chooseRecallError('公式忘記')">公式忘記</button>
+            <button type="button" class="pill" data-recall-error="計算錯" onclick="chooseRecallError('計算錯')">計算錯</button>
+            <button type="button" class="pill" data-recall-error="觀念混淆" onclick="chooseRecallError('觀念混淆')">觀念混淆</button>
+          </div>
           <div class="sm2-rating-buttons">
             <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
               <span>🔴 遺忘卡關</span>

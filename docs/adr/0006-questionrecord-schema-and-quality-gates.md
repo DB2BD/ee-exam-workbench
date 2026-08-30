@@ -16,6 +16,7 @@ PE 題目目前以 12 欄位置陣列序列化，GK 題目以 18 欄位置陣列
 4. 教科書章節節點使用穩定 slug；題目保留一個主章節與多個次要考點，低信心分類不得靜默歸類。
 5. build 版本由 `BUILD_VERSION` 或 `SOURCE_DATE_EPOCH` 決定，不使用本機 wall-clock；GitHub Pages 部署前必須通過 schema、測試與 inline JavaScript 語法閘門。
 6. 官方題目裁切與原圖是電氣語意的唯一來源；向量重繪為輔助資產，必須保留溯源與狀態。
+7. 複習提取狀態獨立儲存於 `recallState`：L1～L4 連續兩次達標才升級，失敗只退一級；分類器使用 alias 正規化、0.65 信心與 0.15 margin 門檻，低信心題進入人工複核。
 
 ## 影響
 

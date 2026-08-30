@@ -4,6 +4,10 @@
 let reviewFilter = 'due';
 let reviewTypeFilter = 'all';
 
+const REVIEW_CLASSIFIER_MIN_CONFIDENCE = 0.65;
+const REVIEW_CLASSIFIER_MIN_MARGIN = 0.15;
+const REVIEW_CLASSIFIER_MIN_SCORE = 3;
+
 function reviewHtmlEscape(value) {
   return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -150,22 +154,23 @@ function getReviewChapterRuleIds(subjectId) {
 function getReviewChapterKey(q) {
   const record = getReviewRecord(q);
   const sid = record.subjectId;
-  const normalize = value => String(value || '').toLowerCase()
-    .replace(/th[eéè]venin|thevenin/g, '戴維寧')
-    .replace(/norton/g, '諾頓')
-    .replace(/laplace/g, '拉氏轉換')
-    .replace(/fourier/g, '傅立葉')
-    .replace(/per[- ]?unit|p\.u\./g, '標么')
-    .replace(/power factor/g, '功率因數')
-    .replace(/induction motor/g, '感應電動機')
-    .replace(/transformer/g, '變壓器')
-    .replace(/fortescue|sequence components/g, '對稱分量');
+  const normalize = value => {
+    let normalized = String(value || '').toLowerCase();
+    if (typeof TAXONOMY_ALIASES !== 'undefined') {
+      Object.entries(TAXONOMY_ALIASES)
+        .sort((a, b) => b[0].length - a[0].length)
+        .forEach(([alias, canonical]) => { normalized = normalized.replace(new RegExp(alias, 'gi'), canonical); });
+    }
+    return normalized;
+  };
+  const override = typeof TAXONOMY_OVERRIDES !== 'undefined' ? TAXONOMY_OVERRIDES[record.id] : null;
+  if (override && override.primaryChapter && typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG[override.primaryChapter]) return override.primaryChapter;
   const topic = normalize(record.stem);
   const tags = Array.isArray(record.tags) ? record.tags.map(normalize) : [];
   const formulaTags = Array.isArray(record.formulaTags) ? record.formulaTags.map(normalize) : [];
   const text = `${topic} ${tags.join(' ')} ${formulaTags.join(' ')}`;
   const rules = REVIEW_CHAPTER_RULES[sid] || [];
-  let best = null;
+  const matches = [];
   rules.forEach(([id, terms], order) => {
     let score = 0;
     terms.forEach(term => {
@@ -176,9 +181,17 @@ function getReviewChapterKey(q) {
     });
     // Keep rule order as a deterministic tie-breaker for overlapping terms,
     // but never turn a no-hit into a false positive.
-    if (score > 0 && (!best || score > best.score || (score === best.score && order < best.order))) best = { id, score, order };
+    if (score > 0) matches.push({ id, score, order });
   });
-  return best ? best.id : null;
+  matches.sort((a, b) => b.score - a.score || a.order - b.order);
+  const best = matches[0];
+  const second = matches[1];
+  if (!best || best.score < REVIEW_CLASSIFIER_MIN_SCORE) return null;
+  const denominator = best.score + (second ? second.score : 0);
+  const confidence = denominator ? best.score / denominator : 0;
+  const margin = confidence - (second ? second.score / denominator : 0);
+  if (confidence < REVIEW_CLASSIFIER_MIN_CONFIDENCE || margin < REVIEW_CLASSIFIER_MIN_MARGIN) return null;
+  return best.id;
 }
 
 function getReviewTypeLabel(q) {
@@ -262,15 +275,23 @@ function renderReviewPage() {
     const { id: qid, subjectId: sid, year, number: qnum, stem: topic, solutionLink: solLink } = record;
     const meta = getSubjectMeta(sid);
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
+    const recall = typeof getRecallState === 'function' ? getRecallState(qid) : { level: 1 };
     const statusText = status === 2 ? '錯題' : status === 1 ? '已掌握' : '未開始';
     const dueText = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
-    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span>${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
+    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span><span class="qtag">提取 L${recall.level}</span>${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取訓練</button><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
   }).join('')}</div></section>`).join('')}</div>`;
   container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewOpen);
     if (q && typeof openSolutionModal === 'function') {
       const record = getReviewRecord(q);
       openSolutionModal(null, record.solutionLink, record.id, record.number, false, false);
+    }
+  }));
+  container.querySelectorAll('[data-review-recall]').forEach(button => button.addEventListener('click', () => {
+    const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewRecall);
+    if (q && typeof openSolutionModal === 'function') {
+      const record = getReviewRecord(q);
+      openSolutionModal(null, record.solutionLink, record.id, record.number, false, true);
     }
   }));
   container.querySelectorAll('[data-review-status]').forEach(button => button.addEventListener('click', () => {

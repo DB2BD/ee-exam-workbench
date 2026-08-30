@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.0.0",
+  "taxonomyVersion": "2026.08.30",
+  "normalization": {
+    "unicodeForm": "NFKC",
+    "caseFold": true,
+    "stripWhitespace": true,
+    "dashVariants": ["-", "–", "—", "－"],
+    "aliasesAreRegex": false
+  },
+  "subjects": {
+    "01": {"name": "電路學", "chapters": {
+      "ct-ohm-kcl-kvl": {"name": "歐姆定律與基本 KCL/KVL", "aliases": ["歐姆定律", "ohm", "kcl", "kvl", "基本電路"]},
+      "ct-divider-equiv": {"name": "分壓分流與電阻等效化簡", "aliases": ["分壓", "分流", "電阻等效", "電阻組合", "delta 至 y"]},
+      "ct-node-mesh": {"name": "節點電壓法與網目電流法", "aliases": ["節點電壓", "節點分析", "nodal analysis", "網目電流", "網目分析", "mesh analysis"]},
+      "ct-thevenin-norton": {"name": "戴維寧與諾頓等效定理", "aliases": ["戴維寧", "thevenin", "諾頓", "norton", "等效定理", "等效電阻"]},
+      "ct-max-power": {"name": "最大功率轉移定理", "aliases": ["最大功率", "最大平均功率", "maximum power transfer"]},
+      "ct-superposition": {"name": "重疊定理", "aliases": ["重疊定理", "疊加定理", "superposition", "對偶網路"]},
+      "ct-first-order-rc-rl": {"name": "一階 RC/RL 暫態與三要素法", "aliases": ["一階", "暫態", "開關暫態", "時間常數", "三要素", "rc", "rl"]},
+      "ct-phasor-ac": {"name": "交流穩態相量與阻抗分析", "aliases": ["相量", "交流穩態", "phasor", "阻抗", "弦波穩態"]},
+      "ct-complex-power": {"name": "複數功率與功率因數改善", "aliases": ["複數功率", "功率因數", "無效功率", "視在功率", "complex power"]},
+      "ct-mutual-inductance": {"name": "互感耦合與同名端分析", "aliases": ["互感", "耦合電路", "耦合電感", "同名端", "mutual inductance"]},
+      "ct-three-phase": {"name": "三相平衡電路 (Y-Δ 轉換)", "aliases": ["三相平衡", "三相", "y-y", "y-delta", "線電壓"]},
+      "ct-two-port": {"name": "雙埠網路參數 (ABCD, Z, Y, H)", "aliases": ["雙埠", "二埠", "z-參數", "y-參數", "h 參數", "傳輸參數"]},
+      "ct-second-order-rlc": {"name": "二階 RLC 暫態分析", "aliases": ["二階", "rlc", "欠阻尼", "過阻尼", "臨界阻尼", "自然響應"]},
+      "ct-laplace-circuit": {"name": "S 域拉氏轉換電路求解", "aliases": ["拉普拉斯", "拉氏", "laplace circuit", "s域", "s-domain"]}
+    }},
+    "02": {"name": "電子學（含電力電子）", "chapters": {
+      "el-diode-rectifier": {"name": "二極體整流與濾波電路", "aliases": ["二極體", "二極管", "整流", "濾波", "piv"]},
+      "el-zener-regulator": {"name": "齊納二極體穩壓電路", "aliases": ["齊納", "zener", "穩壓二極體", "zener regulator"]},
+      "el-bjt-bias-small-signal": {"name": "BJT 偏壓分析與小訊號模型", "aliases": ["bjt", "雙極性接面電晶體", "電晶體偏壓", "小訊號模型", "beta"]},
+      "el-mosfet-bias-small-signal": {"name": "MOSFET 飽和偏壓與小訊號模型", "aliases": ["mosfet", "mos", "場效電晶體", "vth", "ids", "夾止"]},
+      "el-opamp-ideal": {"name": "理想 OPA 與基本運算放大電路", "aliases": ["運算放大器", "opa", "op amp", "反相", "非反相", "虛短"]},
+      "el-diff-amp": {"name": "差動放大器 (Ad, Acm, CMRR)", "aliases": ["差動放大器", "差動對", "共模", "cmrr"]},
+      "el-active-filter": {"name": "主動濾波器與頻率響應", "aliases": ["主動濾波器", "濾波器頻率響應", "米勒", "增益函數", "3 db", "bode"]},
+      "el-feedback-stability": {"name": "負回授放大器與相位邊限", "aliases": ["負回授", "回授因素", "相位邊限", "穩定度", "feedback", "phase margin"]},
+      "el-pe-buck-boost": {"name": "DC-DC Buck/Boost 轉換器 (CCM/DCM)", "aliases": ["buck", "boost", "降壓", "升壓", "降升壓", "電源轉換器", "責任週期", "伏秒平衡"]},
+      "el-pe-inverter-spwm": {"name": "全橋變流器與 SPWM 調變", "aliases": ["全橋變流器", "全橋轉換器", "逆變器", "inverter", "spwm", "脈寬調變"]},
+      "el-pe-thyristor-rectifier": {"name": "閘流體 (Thyristor) 相控整流", "aliases": ["閘流體", "thyristor", "相控整流", "半波整流", "續流二極體"]}
+    }},
+    "03": {"name": "工程數學", "chapters": {
+      "em-first-order-ode": {"name": "一階可分離與線性 ODE", "aliases": ["一階微分方程", "常微分方程", "可分離", "積分因子", "伯努利"]},
+      "em-second-order-ode-homogeneous": {"name": "二階常係數齊次 ODE", "aliases": ["二階常係數", "齊次微分方程", "重根", "初始值問題"]},
+      "em-second-order-ode-nonhomogeneous": {"name": "二階非齊次 ODE (未定係數/參數變更法)", "aliases": ["非齊次", "參數變更法", "未定係數", "特解", "降階法"]},
+      "em-laplace-transform": {"name": "拉氏轉換與反轉換 (部分分式法)", "aliases": ["拉氏轉換", "拉普拉斯轉換", "反轉換", "部分分式", "laplace transform"]},
+      "em-fourier-series": {"name": "傅立葉級數與週期函數展開", "aliases": ["傅立葉", "傅氏", "級數", "週期函數", "fourier series"]},
+      "em-matrix-det-inv": {"name": "矩陣代數、行列式與反矩陣", "aliases": ["矩陣", "行列式", "反矩陣", "克拉瑪", "線性轉換", "最小平方"]},
+      "em-eigen-diagonal": {"name": "特徵值、特徵向量與矩陣對角化", "aliases": ["特徵值", "特徵向量", "對角化", "eigenvalue", "eigenvector"]},
+      "em-complex-cauchy-residue": {"name": "複變分析、柯西定理與留數定理", "aliases": ["留數", "複變", "複數平面", "柯西", "residue", "解析函數"]},
+      "em-pde-separation": {"name": "偏微分方程 (分離變數法)", "aliases": ["偏微分方程", "分離變數", "熱傳導", "波動方程", "pde"]},
+      "em-svd-linear-systems": {"name": "奇異值分解 (SVD) 與零空間分析", "aliases": ["奇異值", "svd", "零空間", "偽逆", "奇異值分解"]},
+      "em-probability-statistics": {"name": "機率與統計", "aliases": ["機率", "統計", "隨機變數", "常態分布", "期望值", "probability"]},
+      "em-vector-analysis": {"name": "向量分析與向量微積分", "aliases": ["向量分析", "向量微積分", "梯度", "散度", "旋度", "線積分"]}
+    }},
+    "04": {"name": "電機機械", "chapters": {
+      "emach-magnetic-circuits": {"name": "磁路定律與磁滯飽和", "aliases": ["磁路", "磁滯", "飽和", "磁通", "氣隙", "磁化曲線"]},
+      "emach-single-phase-transformer": {"name": "單相變壓器等效電路與開短路試驗", "aliases": ["單相變壓器", "開路試驗", "短路試驗", "電壓調整率"]},
+      "emach-autotransformer": {"name": "自耦變壓器容量提升比", "aliases": ["自耦變壓器", "自耦", "autotransformer"]},
+      "emach-three-phase-transformer": {"name": "三相變壓器組接線 (Y-Y, Y-Δ, Δ-Δ, V-V)", "aliases": ["三相變壓器", "y-δ變壓器", "δ-δ", "v-v"]},
+      "emach-dc-motor-generator": {"name": "直流電機 (分激/串激特性與調速)", "aliases": ["直流電機", "直流馬達", "直流發電機", "dc motor"]},
+      "emach-induction-motor-equiv": {"name": "感應電動機等效電路與戴維寧化簡", "aliases": ["感應電動機", "感應馬達", "等效電路", "induction motor"]},
+      "emach-induction-motor-torque": {"name": "感應電動機轉矩-轉差率曲線與最大轉矩", "aliases": ["最大轉矩", "轉矩", "轉差率", "torque", "slip"]},
+      "emach-synchronous-generator-round": {"name": "隱極同步發電機功角與相量圖", "aliases": ["同步發電機", "同步機", "功角", "激磁", "同步速度"]},
+      "emach-synchronous-salient-pole": {"name": "凸極同步電機雙反應理論 (Xd, Xq)", "aliases": ["凸極", "雙反應", "xq", "xd", "salient pole"]}
+    }},
+    "05": {"name": "電力系統", "chapters": {
+      "ps-per-unit": {"name": "標么值 (Per-Unit) 系統換算", "aliases": ["標么", "pu", "per-unit", "基準容量", "基準電壓"]},
+      "ps-load-flow-admittance": {"name": "電力潮流與導納矩陣", "aliases": ["電力潮流", "導納矩陣", "牛頓拉福森", "高斯賽德", "潮流計算", "匯流排"]},
+      "ps-power-analysis": {"name": "電力系統功率與相量分析", "aliases": ["實功率", "虛功率", "複數功率", "功率因數", "負載阻抗"]},
+      "ps-economic-dispatch": {"name": "經濟調度與發電協調方程式", "aliases": ["經濟調度", "發電協調", "燃料成本", "最佳發電量", "增量成本"]},
+      "ps-transmission-line-params": {"name": "輸電線參數計算 (GMD/GMR)", "aliases": ["輸電線", "gmd", "gmr", "導線幾何", "電感電容"]},
+      "ps-transmission-line-models": {"name": "輸電線路中長程模型 (ABCD 參數)", "aliases": ["輸電線模型", "長程線", "短程線", "abcd", "費蘭梯"]},
+      "ps-three-phase-fault": {"name": "對稱三相短路計算", "aliases": ["三相短路", "短路容量", "故障電流", "對稱故障"]},
+      "ps-symmetrical-components": {"name": "對稱分量法 (正序、負序、零序網)", "aliases": ["對稱分量", "正序", "負序", "零序", "sequence components"]},
+      "ps-unsymmetrical-faults": {"name": "不對稱故障分析 (SLG, L-L, 2LG)", "aliases": ["不對稱故障", "單相接地", "線間短路", "2lg", "slg"]},
+      "ps-transient-stability-equal-area": {"name": "暫態穩定度與等面積準則 (Equal-Area)", "aliases": ["暫態穩定", "等面積", "搖擺方程", "臨界清除", "功角曲線"]},
+      "ps-system-protection-relay": {"name": "距離保護電驛三段式規劃", "aliases": ["距離電驛", "保護電驛", "保護協調", "zone 1", "zone 2"]},
+      "ps-state-estimation-wls": {"name": "電力系統狀態估計 (WLS 與壞資料檢測)", "aliases": ["狀態估計", "wls", "壞資料", "加權最小平方"]}
+    }},
+    "06": {"name": "工業配電", "chapters": {
+      "dist-load-characteristics": {"name": "負載特性與需量因數/參差因數", "aliases": ["需量因數", "參差因數", "負載因數", "最高需量", "契約容量"]},
+      "dist-grounding-system": {"name": "系統接地與設備接地", "aliases": ["系統接地", "設備接地", "接地系統", "接地方式", "接地電阻"]},
+      "dist-lighting-design": {"name": "照明設計與照度計算", "aliases": ["照明設計", "照度", "照明率", "燈具配置", "lux"]},
+      "dist-distribution-equipment": {"name": "配電變壓器與供電接線", "aliases": ["配電設備", "變壓器組接線", "開三角", "v-v 接線", "受電方式", "責任分界點"]},
+      "dist-motor-installation": {"name": "電動機配線與啟動", "aliases": ["電動機配線", "馬達配線", "全壓啟動", "y-δ 啟動", "啟動電流"]},
+      "dist-voltage-drop": {"name": "配電線路電壓降與導線選用", "aliases": ["電壓降", "電壓突降", "百分壓降", "導線選用", "線路損失"]},
+      "dist-power-factor-correction": {"name": "功率因數改善與電容器組容量", "aliases": ["功率因數改善", "功因改善", "並聯電容", "無效功率補償", "kvar"]},
+      "dist-short-circuit-capacity": {"name": "短路容量計算 (MVA 法)", "aliases": ["短路容量", "短路電流", "mva 法", "故障點", "對稱啟斷電流"]},
+      "dist-protection-coordination": {"name": "過電流電驛與保護協調 (TCC 曲線)", "aliases": ["過電流電驛", "保護協調", "反時限", "tcc", "比流器", "time dial"]},
+      "dist-harmonics-mitigation": {"name": "非線性負載諧波分析與抑制 (IEEE 519)", "aliases": ["諧波", "諧波共振", "thd", "諧波濾波器", "電壓閃爍", "電力品質"]},
+      "dist-arc-flash-ieee80": {"name": "IEEE Std 80 變電所接地網跨步/接觸安全電壓", "aliases": ["跨步電壓", "接觸電壓", "接地網", "ieee 80", "弧閃"]}
+    }}
+  }
+}

@@ -845,7 +845,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "independent_recalculation_transposed_four_bundle_line_parameters",
-      "solution_hash": "3ab5d5570fcc3124101e10248a8b804267c70ed6a9b9c01fa50824659d9f874c",
+      "solution_hash": "c596326ffbb4b6bbf7f7577299d2de71d38852825b61b556fbfd613f16b7bf1a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_112年_電力系統_Q01.png"
     },
@@ -968,10 +968,10 @@
       "question_number": 1,
       "chapter": "在圖一電路中，如果vs =2 sin(400 t) V，試求解vo(t)=？（25 分）\n圖一",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-111-01-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "12d21ee5d4a07c1157cfdd3ee2672fb7ac2707c193751945b52d0cffcd305680",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "ideal-opamp-phasor-nodal-independent-check",
+      "solution_hash": "7f072fbcf72c1f436d154b5c6e0d90afef9b6474f59ff376fcc7439f593f056a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_111年_電路學_Q01.png"
     },
@@ -1164,10 +1164,10 @@
       "question_number": 2,
       "chapter": "如圖示之五個匯流排的電力系統，圖上的標示值皆為標么值（p.u.），匯\n流排1與匯流排3為發電機匯流排，其中j0.1111p.u.與j0.1333p.u.分別為\n二部發電機的次暫態電抗，此系統的阻抗矩陣Zbus 為\n試求匯流排5發生直接接地三相短路故障時，匯流排3的電壓標么值及從\n匯流排2流至匯流排1的故障電流標么值。假設故障前的電流可忽略，且\n故障前各節點的電壓為1標么。（25分）\n]]",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-111-05-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "f97e7205a61f1ac087dbf4591a90359565726b60e4eae4aef0efde50112783dc",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_three_phase_fault_using_zbus",
+      "solution_hash": "8792ec76a9208f2af35ee509786ed80508afc30fae7d7c2acc586ab63c0d913f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_111年_電力系統_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 75,
+    "verified": 77,
     "suspected_error": 0,
-    "needs_manual_review": 181,
+    "needs_manual_review": 179,
     "not_attempted": 0
   }
 }

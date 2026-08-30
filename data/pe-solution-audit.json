@@ -2161,7 +2161,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "7563971cce1f4ce8bca4c07eb67f00bdff72718f530b54907bf7178de0fc3bd4",
+      "solution_hash": "09e1ff36ce4e5206b3f8fcea1f640cd7e646fe05cb9b4dde65d3b3edc2a7683b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_108年_電力系統_Q03.png"
     },

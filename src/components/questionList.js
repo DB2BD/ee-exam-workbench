@@ -96,6 +96,13 @@ function renderQuestions() {
 
     const starIcons = '⭐'.repeat(Math.max(1, Math.min(5, diff || 3)));
     const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
+    const auditLabels = {
+      verified: '✅ 解答已校驗',
+      suspected_error: '⚠️ 待更正',
+      needs_manual_review: '🟡 待人工覆核',
+      not_attempted: '⏳ 尚未校驗',
+    };
+    const auditLabel = auditLabels[status] || '';
 
     const dueInfo = typeof getReviewBadgeInfo === 'function' ? getReviewBadgeInfo(qid) : { text: '', cssClass: 'due-none' };
 
@@ -109,6 +116,7 @@ function renderQuestions() {
             </span>
             <span class="diff-badge" title="難度評定：${diff} 星">${starIcons}</span>
             ${(tags || []).slice(1, 3).map(t => `<span class="qtag">${t}</span>`).join('')}
+            ${auditLabel ? `<span class="qtag solution-audit s-audit-${status}" title="詳解稽核狀態">${auditLabel}</span>` : ''}
           </div>
           <button class="btn-star ${isStarred ? 'active' : ''}" onclick="toggleStarred('${qid}', event)" title="${isStarred ? '取消收藏' : '加入重點收藏'}">
             ${isStarred ? '★' : '☆'}

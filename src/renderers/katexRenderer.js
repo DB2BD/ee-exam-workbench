@@ -11,7 +11,11 @@ function renderLatexDirect(latex, displayMode) {
   try {
     return katex.renderToString(latex, {
       displayMode: displayMode,
-      throwOnError: false
+      throwOnError: false,
+      // Chinese explanatory text and punctuation occasionally appears inside
+      // imported math blocks. KaTeX can render it correctly; ignore only this
+      // compatibility warning while keeping all other strict-mode warnings.
+      strict: (errorCode) => errorCode === 'unicodeTextInMathMode' ? 'ignore' : 'warn'
     });
   } catch (err) {
     console.error('KaTeX rendering error:', err);

@@ -1633,7 +1633,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-111-01-3.md",
     "依考科分類/01_電路學/111年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -1649,7 +1649,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-111-01-4.md",
     "依考科分類/01_電路學/111年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],

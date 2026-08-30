@@ -58,6 +58,9 @@ class TestBuildPipeline(unittest.TestCase):
 
         self.assertIn("function renderReviewPage", html)
         self.assertIn("const QUESTION_SCHEMA_VERSION", html)
+        self.assertIn("const TAXONOMY_VERSION", html)
+        self.assertIn("const RECALL_STORAGE_KEY", html)
+        self.assertIn("recordRecallAttempt", html)
         self.assertIn("function setReviewFilter", html)
         self.assertIn("getDueQuestionsList()", html)
         self.assertIn("data-review-type", html)

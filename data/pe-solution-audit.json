@@ -1626,10 +1626,10 @@
       "question_number": 3,
       "chapter": "試寫出下圖電路之節點電壓方程式，將其轉換為對偶方程式後，繪出其對偶網路。（25 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-109-01-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "3caf9772c83ecb7e05e19808d2e8d4f74c98a641e1a686bed1d9b4c1ff191aae",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_topology_reconstruction_supernode_solution_and_dual_mapping",
+      "solution_hash": "c5c88db20281356867fd705b704fbd053d59a33936f2a1cc25782c02b41cc9e1",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_109年_電路學_Q03.png"
     },
@@ -1836,10 +1836,10 @@
       "question_number": 5,
       "chapter": "二座發電廠，有相同燃料成本 $C_i = \\beta P_{Gi} + \\gamma P_{Gi}^2\\ (\\text{\\$/h}), i=1, 2$。其中 $\\beta = 6\\ \\text{\\$/MWh}, \\gamma = 5 \\times 10^{-3}\\ \\text{\\$/MW}^2\\text{h}$。輸電線損失 $P_L = B_{11} P_{G1}^2 + B_{22} P_{G2}^2$，其中 $B_{11} = 0.5 \\times 10^{-3}\\text{ MW}^{-1}, B_{22} = 0.2 \\times 10^{-3}\\text{ MW}^{-1}$。負載需求 $600\\text{ MW}$，請將各數值代入列出，求 $P_{G1}、P_{G2}$ 最佳調度值之方程式。（20 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-109-05-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "e6239829537454038e92dd98edf37d89ff0a9a6779185f45addd4a4359ecc7e7",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_economic_dispatch_penalty_factors",
+      "solution_hash": "99d2242d64a3f09627ee24aed7cff4966cd32f754194a6cae0d0943455392b6a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q05.png"
     },
@@ -1864,10 +1864,10 @@
       "question_number": 1,
       "chapter": "一工廠於設廠規劃初期打算向台電申請高壓電力二段式時間電價用電，請說明：（每小題 10 分，共 20 分）\n* **(一)** 如何決定變壓器的裝置容量。\n* **(二)** 如何決定其契約容量（最大需用電力）。",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-109-06-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "45fd153c0ad96838a716265bebce5701f9cb508d04346f57f5dff09f5c96f841",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-load-forecast-and-time-of-use-demand-check",
+      "solution_hash": "04c5e0fb1237b05ca2012d183ddec6fae526fbcf10357b3a0ec325d723f0c896",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_109年_工業配電_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 109,
+    "verified": 112,
     "suspected_error": 0,
-    "needs_manual_review": 147,
+    "needs_manual_review": 144,
     "not_attempted": 0
   }
 }

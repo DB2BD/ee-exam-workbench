@@ -22,6 +22,7 @@ dedicated_notes = {}
 # silently fall back to the whole exam page once a crop is available.
 QUESTION_CROP_MAP = {}
 ENGINEERING_MATH_AUDIT_STATUS = {}
+PE_SOLUTION_AUDIT_STATUS = {}
 # Official crop corrections for legacy annual notes whose question statement
 # was copied from a different year/question number.
 ENGINEERING_MATH_TOPIC_OVERRIDES = {
@@ -84,6 +85,17 @@ if os.path.exists(MATH_AUDIT_MANIFEST):
                 ENGINEERING_MATH_AUDIT_STATUS[str(item['qid'])] = str(item['audit_status'])
     except (OSError, ValueError, TypeError) as exc:
         print(f'⚠️ Engineering-math audit manifest ignored: {exc}')
+
+PE_AUDIT_MANIFEST = 'data/pe-solution-audit.json'
+if os.path.exists(PE_AUDIT_MANIFEST):
+    try:
+        with open(PE_AUDIT_MANIFEST, 'r', encoding='utf-8') as f:
+            audit_data = json.load(f)
+        for item in audit_data.get('entries', []):
+            if isinstance(item, dict) and item.get('qid') and item.get('audit_status'):
+                PE_SOLUTION_AUDIT_STATUS[str(item['qid'])] = str(item['audit_status'])
+    except (OSError, ValueError, TypeError) as exc:
+        print(f'⚠️ PE solution audit manifest ignored: {exc}')
 
 # Scan all solution files in 📝 個人題解與錯題本/
 for root, dirs, files in os.walk('📝 個人題解與錯題本'):
@@ -229,9 +241,10 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
                     if qid in dedicated_notes:
                         solLink = dedicated_notes[qid]
                         has_dedicated = True
-                        v_status = ENGINEERING_MATH_AUDIT_STATUS.get(
-                            qid, 'verified' if sid != '03' else 'pending'
-                        )
+                        if sid == '03':
+                            v_status = ENGINEERING_MATH_AUDIT_STATUS.get(qid, 'pending')
+                        else:
+                            v_status = PE_SOLUTION_AUDIT_STATUS.get(qid, 'verified')
                     else:
                         solLink = f'{md_file}#{yr}年'
                         v_status = 'in_progress'

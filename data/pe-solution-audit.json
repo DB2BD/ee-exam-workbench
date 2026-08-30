@@ -1486,10 +1486,10 @@
       "question_number": 3,
       "chapter": "若有一配電饋線，電源端電壓大小1 p.u.、相角0 度，經一正序感抗大小\n為0.1 p.u.的饋線連接至末端負載。若末端A 相發生單相接地故障，也同\n時發生BC 相間故障，此時A 相故障電流為\n9 p.u.\n，B 相故障電流為\n6.92 p.u.\n。試求：\n* **(一)** 正序及零序故障電流（p.u.）。（10 分）\n* **(二)** 負序故障電壓（p.u.）。（5 分）\n* **(三)** 饋線零序感抗（p.u.）。（5 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "ddde9046d8c595c63dd4cfad0cdcabadbaeb08f9e6707673e53e3a9c99f14014",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official crop independently transcribed; phase-current boundary condition, Fortescue transform, sequence-network voltage equations, and zero-sequence reactance back-substituted",
+      "solution_hash": "4875b7f3ef820c95449834c4cb20d1ba66f566d9b88f01b8b2fd1f84a83b683d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q03.png"
     },
@@ -1500,10 +1500,10 @@
       "question_number": 4,
       "chapter": "如圖之有實功損耗的電力系統，符號PG1 及PG2 分別為兩部發電機的\n實功率發電量。若兩部機組的發電增量成本（Incremental Cost）分別為\n$$IC1 = 0.007PG1+4.0 \\text{元/MWh}（PG1 單位為MW）$$\n$$IC2 = 0.007PG2+4.0 \\text{元/MWh}（PG2 單位為MW）$$\n若母線1 的電壓大小為1p.u.、相角θ1=0 度（degree）、負載PD 為$300\\text{ MW}$\n（功率基準= $100\\text{ MW}$）；母線2 的電壓大小為1 p.u.、相角θ2 度。令符號\nθ12 = θ1-θ2，若母線1 及2 上實功率（p.u.）注入之數學式分別用下列式\n表示：\nPG1-PD = P1 = 3(1-cosθ12)+10sinθ12\n$$PG2 = P2 = 3(1-cosθ12)-10sinθ12$$\n則：\n* **(一)** 此電力系統的實功損耗PL 之數學表示式為何？（5 分）\n* **(二)** 母線2 的增量損失（dPL/dPG2, incremental loss）為何？（10 分）\n* **(三)** 若初始θ12= -5 度，則此時母線1 的增量成本（\\text{元/MWh}）為何？（5 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "64a64447cf7d25260b1912646393cba608860916041bd3f85c92d32acb862be0",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_incremental_transmission_loss",
+      "solution_hash": "1acf9a27fd46c28d13a58e355b81828d1499aaa66fc01e7fd9c7e1d6e0ae0f25",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q04.png"
     },
@@ -1528,10 +1528,10 @@
       "question_number": 1,
       "chapter": "(一)請說明系統改善功率因數之效益為何？又現行臺灣電力公司對於功\n率因數於電價獎罰之規定為何？（10 分）\n\n* **(二)** 工配系統等效電路，如圖一所示，其中電源( )\nsin(\n)\nm\nV t\nV\nt\nα\n°，\nm\nV\n為電壓峰值，R 與X 分別為電源到故障點間之等效電阻與電抗。試解\n出故障電流之穩態交流成分與暫態直流成分為何？（本題以開關閉合\n來模擬短路故障發生）（10 分）\nAC\nS.W.\nR\nX\n負\n載\ni(t)\nV(t)\n圖一\n開關閉合來模擬短路故障之R-L 電路",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "82166a12a1c21ee042473f30537b1e4643a26bbdbb9204c48761ae2b34c3b1b3",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "rl-short-circuit-transient-and-official-tariff-cross-check",
+      "solution_hash": "20e1a5bdd5389dbce5c2fbb43f261ece86f2bbf2eac863b844b1339cf97e8c6e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 85,
+    "verified": 88,
     "suspected_error": 0,
-    "needs_manual_review": 171,
+    "needs_manual_review": 168,
     "not_attempted": 0
   }
 }

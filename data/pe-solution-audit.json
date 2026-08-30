@@ -1304,10 +1304,10 @@
       "question_number": 3,
       "chapter": "設一RLC 串聯電路施加以頻率可調之交流電源\n( )\n100cos(2\n) V\nsv t\nft\nπ\n，\n已知\n5 kHz\nf =\n時之電路參數為\n$$R_1 = 10\\ \\Omega，$$\n25\nL\nX =\nΩ，\n64\nC\nX\nΩ，試求\n其諧振頻率\n0f 與串聯諧振電路之品質因數\nQ ，以及電路諧振時各電路元\n件之端電壓峰值，並求得使\n( )\nC\nv\nt 與\n( )\nLv t 端電壓值最大之電源頻率\n*f ，以\n及對應之\n( )\nC\nv\nt 與\n( )\nLv t 端電壓最大值。（25 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-110-01-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "8883097e8f49cc9ff4b1cdd827de29aa41cba370a77040004e0acadc44cd84e2",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_exact_RLC_parameter_recovery_and_extremum_derivation",
+      "solution_hash": "ba16423c6e363bbdec8f0bc60be671f5a2d13be3633c5a2ee67132006e948477",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_110年_電路學_Q03.png"
     },
@@ -1332,10 +1332,10 @@
       "question_number": 1,
       "chapter": "一電晶體集極回授偏壓電路，其中VCC＝12 V，RB＝$100\\text{ k}\\Omega$，RC＝$10\\text{ k}\\Omega$。\n25℃時βdc＝100，VBE＝0.7 V；75℃時βdc＝150，VBE＝0.5 V。請繪出集\n極回授偏壓電路，並求由25℃升至75℃時之Q 點變化率。（25 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-110-02-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "7efb929af5fc2bf78ef915d127c4ff4820fe8f7aa0a091c4c7c0a21fc46f1d5b",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_collector_feedback_bias_temperature_shift",
+      "solution_hash": "a73f5a1381c54affb1c4640ce6db1551f609d7e52870a164e27f2d13c91c9587",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_110年_電子學（包括電力電子學）_Q01.png"
     },
@@ -1558,8 +1558,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "c169b89bd2742905c48b85bb63845194d9d1cb07bad3129a30a06b01eda7879a",
+      "method": "official-crop-real-power-and-apparent-power-consistency-audit",
+      "solution_hash": "facf2e48a739f4e420bd7589f0c5454aae56e436cbfe6f870cdb1a80791805d3",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 118,
+    "verified": 120,
     "suspected_error": 0,
-    "needs_manual_review": 138,
+    "needs_manual_review": 136,
     "not_attempted": 0
   }
 }

@@ -135,10 +135,15 @@ if os.path.exists('📝 個人題解與錯題本/03_工程數學/114年_工程�
 # Canonical, question-level notes take precedence over legacy annual templates.
 # This keeps the original files available while routing the UI to a verified
 # per-question derivation as soon as one exists.
-canonical_dir = '📝 個人題解與錯題本/03_工程數學/canonical'
-if os.path.isdir(canonical_dir):
+for subject_dir in (
+    '01_電路學', '02_電子學_含電力電子', '03_工程數學',
+    '04_電機機械', '05_電力系統', '06_工業配電',
+):
+    canonical_dir = os.path.join('📝 個人題解與錯題本', subject_dir, 'canonical')
+    if not os.path.isdir(canonical_dir):
+        continue
     for f in os.listdir(canonical_dir):
-        match = re.match(r'(EE-\d{3}-03-\d+)\.md$', f)
+        match = re.match(r'(EE-\d{3}-\d{2}-\d+)\.md$', f)
         if match:
             dedicated_notes[match.group(1)] = os.path.join(canonical_dir, f).replace('\\', '/')
 

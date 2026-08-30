@@ -26,6 +26,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
             text = path.read_text(encoding="utf-8")
             status = re.search(r"^audit_status:\s*(\S+)\s*$", text, re.M)
             if status and status.group(1) == "verified":
+                legacy_status = re.search(r"^status:\s*(\S+)\s*$", text, re.M)
+                if legacy_status:
+                    self.assertEqual(legacy_status.group(1), "verified", f"conflicting legacy status: {path.name}")
                 verified_at = re.search(r"^verified_at:\s*(\S+)\s*$", text, re.M)
                 self.assertIsNotNone(verified_at, f"verified note lacks verified_at: {path.name}")
                 self.assertNotEqual(verified_at.group(1), "null", f"verified note has null verified_at: {path.name}")

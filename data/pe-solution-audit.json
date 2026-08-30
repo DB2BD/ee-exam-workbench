@@ -1192,10 +1192,10 @@
       "question_number": 4,
       "chapter": "一條三相輸電線路，長度為483 公里，供電至$345\\text{ kV}$、$400\\text{ MVA}$、且功\n率因數為0.8 落後之負載。線路的ABCD 常數如下：\n°\n∠\nB =\n∠\n°Ω\n∠\n°\n* **(一)** 試求送電端的線至中性點電壓、送電端電流、以及滿載時的百分比電\n壓降。（12 分）\n* **(二)** 試求無載時受電端的線至中性點電壓、無載時的送電端電流、以及電\n壓調整率。（13 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-111-05-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "c9a8f6fa89fa3da4257226a6fe0f3804bfbe7f50b441c06ee0a9c637a7e52afc",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_abcd_sending_receiving_end",
+      "solution_hash": "fc870c9eb5021bf61d659679bc89c679c51b466eaba570b5881c026915c02032",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_111年_電力系統_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 78,
+    "verified": 79,
     "suspected_error": 0,
-    "needs_manual_review": 178,
+    "needs_manual_review": 177,
     "not_attempted": 0
   }
 }

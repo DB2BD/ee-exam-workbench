@@ -1811,7 +1811,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "independent_recalculation_newton_raphson_two_bus_power_flow",
-      "solution_hash": "7d4ceff0eef0a310df13bf9d1c5be9fb2973bcbffd21330cbf1baf587032055e",
+      "solution_hash": "9553283af98820d72833f478396336079f4707c1cdea3fe4b9ee091517dedabc",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q03.png"
     },
@@ -1934,10 +1934,10 @@
       "question_number": 1,
       "chapter": "圖1 電路中之電源電壓\nt\nt\nv\ncos\n12\n)\n(\nV，其電源電壓之最大值為12 V，\n求穩態電流i(t)及$1\\ \\Omega$ 電阻所吸收之功率。（25 分）\ni\nΩ\n$2\\ \\Omega$\nH\nF\n10\nt5\ncos\n12\nH\nA\n圖1",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-108-01-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "ca1bbef62addbf27646097b362b7bd344a2dce107efc9678eaf5e94579215018",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official waveform crop independently transcribed; RMS phasor product-to-sum derivation, average-power integration, and P/Q interpretation checked",
+      "solution_hash": "a505e9f24172cc6ddca5a7ee0485e1e0310d8ad72a12c87090d68d741ab37995",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_108年_電路學_Q01.png"
     },
@@ -2200,10 +2200,10 @@
       "question_number": 1,
       "chapter": "電容式比壓器用於高壓系統的電壓偵測，圖一為電容式比壓器等效電\n路，試推導其比壓式。（20 分）\n圖一",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-108-06-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "cf7369d1d38255236cb2b0d4f84e155763ddc67df01281c34ab316cdde562564",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "cvt-loaded-node-voltage-transfer-derivation",
+      "solution_hash": "662488f3f2488694d0d36d16e489085feefa66e83ff36ffda834b9adf059cb5e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_108年_工業配電_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 94,
+    "verified": 96,
     "suspected_error": 0,
-    "needs_manual_review": 162,
+    "needs_manual_review": 160,
     "not_attempted": 0
   }
 }

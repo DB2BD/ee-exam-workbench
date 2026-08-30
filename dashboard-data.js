@@ -2456,7 +2456,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-2.md",
     "依考科分類/05_電力系統/110年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "M d^2δ/dt^2 = Pm - Pe"
     ],
@@ -2631,7 +2631,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-109-01-1.md",
     "依考科分類/01_電路學/109年_電機工程技師_電路學.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],

@@ -658,7 +658,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-1.md",
     "依考科分類/02_電子學_含電力電子/113年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -692,7 +692,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-3.md",
     "依考科分類/02_電子學_含電力電子/113年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -710,7 +710,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-4.md",
     "依考科分類/02_電子學_含電力電子/113年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -960,7 +960,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-113-05-3.md",
     "依考科分類/05_電力系統/113年_電機工程技師_電力系統.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -1186,7 +1186,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-112-02-2.md",
     "依考科分類/02_電子學_含電力電子/112年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -1543,7 +1543,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-3.md",
     "依考科分類/06_工業配電/112年_電機工程技師_工業配電.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "Ssc = Sbase / Xpu"
     ],

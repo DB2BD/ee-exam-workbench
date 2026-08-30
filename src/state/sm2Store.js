@@ -156,7 +156,8 @@ function exportAllUserDataJSON() {
     exportedAt: new Date().toISOString(),
     progressState: typeof progressState !== 'undefined' ? progressState : {},
     starredState: typeof starredState !== 'undefined' ? starredState : {},
-    sm2Schedule: sm2Schedule
+    sm2Schedule: sm2Schedule,
+    recallState: typeof recallState !== 'undefined' ? recallState : {}
   };
   return JSON.stringify(data, null, 2);
 }
@@ -178,6 +179,10 @@ function importUserDataJSON(jsonStr) {
     if (data.sm2Schedule) {
       sm2Schedule = data.sm2Schedule;
       saveSM2Store();
+    }
+    if (data.recallState && typeof recallState !== 'undefined') {
+      recallState = data.recallState;
+      if (typeof saveRecallStore === 'function') saveRecallStore();
     }
     return { success: true, count: Object.keys(data.progressState || {}).length };
   } catch (e) {

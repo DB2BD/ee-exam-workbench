@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://db2bd.github.io/ee-exam-workbench/taxonomy/override-schema.json",
+  "title": "Question taxonomy override manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "taxonomyVersion", "overrides"],
+  "properties": {
+    "schemaVersion": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "taxonomyVersion": {"type": "string", "minLength": 1},
+    "overrides": {"type": "array", "items": {"$ref": "#/$defs/override"}}
+  },
+  "$defs": {
+    "override": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questionId", "primaryChapterId", "status", "reason", "updatedAt", "taxonomyVersion"],
+      "properties": {
+        "questionId": {"type": "string", "pattern": "^(EE|GK)-[0-9]{3}-[0-9]{2}-[0-9]+$"},
+        "primaryChapterId": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)+$"},
+        "secondaryTopicIds": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "status": {"enum": ["reviewed", "ambiguous", "unclassified"]},
+        "reason": {"type": "string", "minLength": 1},
+        "updatedBy": {"type": "string", "minLength": 1},
+        "updatedAt": {"type": "string", "format": "date-time"},
+        "taxonomyVersion": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "enum": ["review-ui", "golden-set-review", "manual-audit"]}
+      }
+    }
+  }
+}

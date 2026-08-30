@@ -1962,10 +1962,10 @@
       "question_number": 3,
       "chapter": "如圖3 所示之三相平衡電路，其負載由兩個平衡負載並聯而成，其中Y\n接負載每一相的阻抗為\nΩ\nj\nZY\n，而Δ 接負載每一相的阻抗為\nΩ\nΔ\nj\nZ\n，若電源電壓\n)\n120\ncos(\n220\n)\n(\nt\nt\nvab\nπ\n，試求三相負載總吸\n收之有效功率及無效功率。（25 分）（提示：\n°\n))\n(\n))\n(-\n9.\n36\n\\tan 1\n；\n°\n))\n(\n))\n(\n1.\n53\n\\tan 1\n；\n°\n))\n(\n))\n(\n9.\n126\n\\tan 1\n；\n°\n))\n(\n))\n(\n9.\n36\n\\tan 1\n）\na\nb\nc\nZΔ\nab\nv\nai\nZΔ\nZΔ\nY\nZ\nY\nZ\nY\nZ\nn\nbi\nci\nab\ni\n\\tan\ni\nac\ni\nbc\ni\ncn\ni\nbn\ni\n圖3",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-108-01-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "7c17d826be918495eafc2f2ec6fb805a1d1c223733bd455860647f3ad0a0d545",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official circuit crop independently transcribed; Y/Delta branch voltages, complex-power conjugation, equivalent-impedance cross-check, and sign convention verified",
+      "solution_hash": "7d6d20f561012e55f67cb73a8232234eeb3b5ba56e8f2f77d2c9a7c5e13e3a15",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_108年_電路學_Q03.png"
     },
@@ -2228,10 +2228,10 @@
       "question_number": 3,
       "chapter": "一低壓用戶以二台單相變壓器作V-V 連接，提供三相四線式燈力併供配\n電系統電力。V-V 連接變壓器自台電三相$11.4\\text{ kV}$ 配電線路變壓成三相\n220 V、單相220 V 與單相110 V 用電電壓。試繪出該變壓器及配電線路\n之複線圖，並標示出電壓。（20 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-108-06-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "78f0ff90f62ed4cde97f4a98c2abfd7213073ca821fba9a6d32b1054ae5cf8ca",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "open-delta-vv-four-wire-voltage-phasor-check",
+      "solution_hash": "4868f2f18c580ab41e8baeddf6c38b0bae1d0eb202c5ad600fb9bab1f2312946",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_108年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 97,
+    "verified": 99,
     "suspected_error": 0,
-    "needs_manual_review": 159,
+    "needs_manual_review": 157,
     "not_attempted": 0
   }
 }

@@ -1640,10 +1640,10 @@
       "question_number": 4,
       "chapter": "試以時域分析法求解下圖電路之 $v_2(t)$（註：$u(t)$ 為單位步級函數，$\\delta(t)$ 為脈衝函數）。（25 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-109-01-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "257c785bee76fd223a334220d39b311116e365a827704e2362f35a76b7015d57",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_state_jump_derivation_and_post_impulse_state_space_back_substitution",
+      "solution_hash": "2923c0a64bc447e6c3800a6725c984b712c313ddf3d4f81a4d809cb724ed072d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_109年_電路學_Q04.png"
     },
@@ -1850,10 +1850,10 @@
       "question_number": 6,
       "chapter": "包含二發電機組之單區域，二機組之額定為 $500\\text{ MVA}$ 及 $800\\text{ MVA}$，以各自額定為基準時，其速率調整率分別為 5% 及 5\\%，假設沒有受制於頻率的負載，即 $D=0$，二機並聯運轉，且供應負載 $700\\text{ MW}$；當頻率為 1.0 pu（$60\\text{ Hz}$）時，機組 1 供應 $200\\text{ MW}$，機組 2 供應 $500\\text{ MW}$。若負載增加 $150\\text{ MW}$，試求穩態時之頻率偏移量，及每一機組新的發電量？（20 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-109-05-6.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "9843430c22b07ecb00d65b5581b25eff693bc856b1eac5acc33e427d59018c64",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_single_area_multi_generator_frequency_response",
+      "solution_hash": "84b669b65d49b90713d25032d953fd74aafacc9760b9ce2d515daf6d69b96a11",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q06.png"
     },
@@ -1878,10 +1878,10 @@
       "question_number": 2,
       "chapter": "一配電電壓 220 伏特 $\\Delta$ 接，以 $(0.1 + j0.2)\\ \\Omega/\\text{km}$，長度 50 公尺的導線，供應 $100\\text{ kVA}$，功因 0.9 落後的三相平衡負載。試求：（每小題 10 分，共 20 分）\n* **(一)** 額定條件下穩態運轉時，線到線間之百分壓降為多少？\n* **(二)** 若配電電壓改為 380 V，負載亦改為 Y 接以符合供電電壓需求，則線到線間之百分壓降為多少？",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-109-06-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "c8d354e5816d63f6f9795658ef69478a67dcadcff975c290dd8572174cbfb5e4",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-delta-wye-line-drop-recalculation",
+      "solution_hash": "b04467a31f8eb1c353c36717dc9588503b0817d3bcc1e618235b7731ad92fc9f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_109年_工業配電_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 112,
+    "verified": 115,
     "suspected_error": 0,
-    "needs_manual_review": 144,
+    "needs_manual_review": 141,
     "not_attempted": 0
   }
 }

@@ -1276,10 +1276,10 @@
       "question_number": 1,
       "chapter": "試求圖一所示耦合電路之弦波穩態電壓\n2( )\nv t ，其中( )\n10cos A\nsi t\nt\n。\n（25 分）\n圖一",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-110-01-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "d96d5c35e497c6bb4f9b7722e3aff4fd9e0abe7d4d67131ed8b9063b7babe2bc",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "coupled-inductor-nodal-admittance-independent-check",
+      "solution_hash": "3f0586ed190318ab24323e0d60513a40ce9b190a7f0793280a4e46a834cedf6e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_110年_電路學_Q01.png"
     },
@@ -1531,7 +1531,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "rl-short-circuit-transient-and-official-tariff-cross-check",
-      "solution_hash": "20e1a5bdd5389dbce5c2fbb43f261ece86f2bbf2eac863b844b1339cf97e8c6e",
+      "solution_hash": "24c63cc77325c544ff8874930d5349935df0d75eeb22b4a33455b3cc8212d469",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q01.png"
     },
@@ -1780,10 +1780,10 @@
       "question_number": 1,
       "chapter": "一負載的端電壓 $v(t) = \\sqrt{2} V_{rms} \\cos(\\omega t + \\theta_v)\\text{ V}$，其相量為 $V_{rms}\\angle \\theta_v$；通過的電流 $i(t) = \\sqrt{2} I_{rms} \\cos(\\omega t + \\theta_i)\\text{ A}$，其相量為 $I_{rms}\\angle \\theta_i$。此負載之平均功率為何？請推導此負載之瞬時功率（instantaneous power），並說明瞬時功率式子中何者是實功率（real power）P？何者是虛功率（reactive power）Q？（8 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-109-05-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "d54c1163cdf1eb66dcf0cd584cd79c7c8626c3ad1f4ea4d0bb42c5279ba40301",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official crop independently transcribed; trigonometric product-to-sum derivation, period averaging, P/Q identification, and sign interpretation checked",
+      "solution_hash": "410bd2a85457c2ddcf7f11008ee556a71e2e3d10974ca9206307d4d30bbab6bd",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q01.png"
     },
@@ -1794,10 +1794,10 @@
       "question_number": 2,
       "chapter": "有一三相、$345\\text{ kV}$、$60\\text{ Hz}$ 有換位的輸電線，每相由兩條 ACSR、1,113,000 cmil、45/7 Bluejay 之導體所構成，水平排列且相間間隔為 10 m。導體直徑為 3.195 cm 且 GMR 為 1.268 cm。每相之導體間隔為 40 cm，輸電線之電阻、對地電導忽略不計，輸電線長 200 公里，$\\mathbf{V}_S = 345\\angle 30^\\circ\\text{ kV}，\\mathbf{V}_R = 327.75\\angle 0^\\circ\\text{ kV}$，試利用 $\\pi$ 模型，計算輸電線傳輸的實功率。（12 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-109-05-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "e52cec1c2b3e2d94654c22c958a675911123c07d5d5a3874765064f04d4da0b5",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_nominal_pi_transmission_power",
+      "solution_hash": "03b5005b9c0a365d0053f00e71087ede736cb9c7d0a6ddf0f115ea212efede9f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 88,
+    "verified": 91,
     "suspected_error": 0,
-    "needs_manual_review": 168,
+    "needs_manual_review": 165,
     "not_attempted": 0
   }
 }

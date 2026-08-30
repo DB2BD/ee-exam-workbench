@@ -31,8 +31,24 @@ function processMarkdownWithMath(rawMarkdown) {
     return `@@KATEX_DISPLAY_${idx}@@`;
   });
 
+  // Also accept the standard LaTeX display delimiters \[ ... \].  Several
+  // imported solutions use this form; leaving it to marked.js would expose
+  // the delimiters as literal text instead of rendering the equation.
+  protectedMd = protectedMd.replace(/\\\[([\s\S]+?)\\\]/g, (match, math) => {
+    const idx = mathPlaceholders.length;
+    mathPlaceholders.push({ type: 'display', math: math.trim() });
+    return `@@KATEX_DISPLAY_${idx}@@`;
+  });
+
   // Protect inline math $ ... $
   protectedMd = protectedMd.replace(/\$([^\$\n]+?)\$/g, (match, math) => {
+    const idx = mathPlaceholders.length;
+    mathPlaceholders.push({ type: 'inline', math: math.trim() });
+    return `@@KATEX_INLINE_${idx}@@`;
+  });
+
+  // Standard LaTeX inline delimiters \( ... \).
+  protectedMd = protectedMd.replace(/\\\(([^\n]+?)\\\)/g, (match, math) => {
     const idx = mathPlaceholders.length;
     mathPlaceholders.push({ type: 'inline', math: math.trim() });
     return `@@KATEX_INLINE_${idx}@@`;

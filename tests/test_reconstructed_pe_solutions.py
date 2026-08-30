@@ -12,6 +12,23 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
+    def test_verified_notes_do_not_claim_pending_manual_review(self):
+        """A verified answer must not contain its own unresolved-review warning."""
+        warning_phrases = (
+            "尚未完成獨立逐步重算",
+            "needs_manual_review",
+            "人工複核",
+            "待人工",
+            "資料不足",
+            "無法確認",
+        )
+        for path in CANONICAL.glob("*/canonical/EE-*.md"):
+            text = path.read_text(encoding="utf-8")
+            status = re.search(r"^audit_status:\s*(\S+)\s*$", text, re.M)
+            if status and status.group(1) == "verified":
+                hits = [phrase for phrase in warning_phrases if phrase in text]
+                self.assertFalse(hits, f"verified note contains unresolved warning {hits}: {path.name}")
+
     def test_every_pe_qid_has_one_canonical_note_and_crop(self):
         """Question-level provenance must stay complete after regeneration."""
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")

@@ -3192,7 +3192,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-108-01-4.md",
     "依考科分類/01_電路學/108年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3504,7 +3504,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-108-05-3.md",
     "依考科分類/05_電力系統/108年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],

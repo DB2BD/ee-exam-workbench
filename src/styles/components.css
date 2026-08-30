@@ -176,6 +176,15 @@ select:focus {
   font-size: 1em;
 }
 
+/* Keep long display equations readable on narrow screens instead of clipping
+   the right-hand side of a matrix or multi-step derivation. */
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 3px 0;
+}
+
 /* Review Center */
 .review-shell { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
 .review-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }

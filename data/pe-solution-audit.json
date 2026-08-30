@@ -1038,10 +1038,10 @@
       "question_number": 2,
       "chapter": "一SPICE 電路如圖二，其Vin=15 V，Vo=6 V，負載電阻R=$2\\ \\Omega$，切換頻率\nf = 250 kHz，求(一)電感L1與L2之值，使其電感電流之變化為其電流平均值\n之40%(二)電容C1與C2之值，使其電容電壓之變化為Vo之2%。（25 分）\nin\nV\no\nV\nL\nL\nC\nC\nR\n圖二\no\n$v_s(t)$",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "18533efb8c4d6059ca4bd3210d551b5f85e518696d4ce71bff9e8b76095ab4f3",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "sepic_ccm_independent_recalculation_with_ripple_back_substitution",
+      "solution_hash": "d6846fd8af3bd724e92fa034377fd829b3d3b54efa5ace74120b820c82d6ae9c",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q02.png"
     },
@@ -1068,8 +1068,8 @@
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-4.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "ffbbfcc28eb993a187fff68b41bf6f158d653cf6c8a5cf644b1888cbf63a7d63",
+      "method": "official_crop_parameter_insufficient_for_unique_h_parameter_solution",
+      "solution_hash": "aa03ffbc0ffde57b011fb88860bf89f98bc4ff943de6273664f744d85d5d571d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q04.png"
     },
@@ -1124,8 +1124,8 @@
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-4.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "695d37f8404dee4a5cc317dea24499e0e96fdc3c5fac03ddc58a4e23e78f267d",
+      "method": "official crop independently transcribed; phasor and per-unit calculations recomputed, while OCC/SCC interpolation limitation is retained",
+      "solution_hash": "6aeddafbc5540026003b30756c229dd40fc66cd33d314196110d2d0299620ee3",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 83,
+    "verified": 84,
     "suspected_error": 0,
-    "needs_manual_review": 173,
+    "needs_manual_review": 172,
     "not_attempted": 0
   }
 }

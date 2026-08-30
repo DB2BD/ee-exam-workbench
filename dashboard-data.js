@@ -1684,7 +1684,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-2.md",
     "依考科分類/02_電子學_含電力電子/111年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],

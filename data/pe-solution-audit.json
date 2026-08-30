@@ -1094,10 +1094,10 @@
       "question_number": 2,
       "chapter": "某三相、$60\\text{ Hz}$ 交流之四極繞線式（wound-rotor）感應馬達，其扭力（$T_{mech}$）與轉差率（$s$）之間的數值關係為：\nT_{mech} = \\frac{207.63 s}{s^2 + 0.0925 s + 0.0382}\\text{ 牛頓}\\cdot\\text{米 (N}\\cdot\\text{m)}$\n* **(一)** 當此感應馬達帶動 $100\\text{ N}\\cdot\\text{m}$ 之負載時，其轉速應為若干 rpm？（5 分）\n* **(二)** 若 $R_2$ 增加為原來的兩倍，且負載保持在 $100\\text{ N}\\cdot\\text{m}$ 大小，則轉速將如何變化？（10 分）\n* **(三)** 在帶動同樣 $100\\text{ N}\\cdot\\text{m}$ 負載的情況下，欲利用加入轉子電阻（即從原本的 $R_2$ 變為 $R_2'$），使轉速降為 $1700\\text{ rpm}$，試問比值 $\\frac{R_2'}{R_2}$ 應為若干？（10 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "d4c21c098fdedf3b6b7360b79c25ad75e13fdb3bee4db30ec3ac9d7ec8086d25",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official equation crop independently transcribed; physical-root selection, synchronous-speed calculation, torque invariance under R2/s, and numerical back-substitution checked",
+      "solution_hash": "eb1a6506d16657d41d21d44f5e624e1335fe684e95c72e4d7366dfcf33fca75b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 79,
+    "verified": 80,
     "suspected_error": 0,
-    "needs_manual_review": 177,
+    "needs_manual_review": 176,
     "not_attempted": 0
   }
 }

@@ -1024,10 +1024,10 @@
       "question_number": 1,
       "chapter": "如圖一所示之電路，其中Vm=100 V，f = $60\\text{ Hz}$，R=$10\\ \\Omega$，L=$12\\text{ mH}$，且\n其輸出電壓vo(t)之傅立葉級數表示式為Vo+ ∑\nVncos（nωt+π）\n∞\n$$n=2,4,…$$\n，\n$$Vn=Vo×（$$\nn-1 -\nn+1 ），求出(一)Vo (二)最初兩個ac 項之電流大小（I2，I4）\n\n* **(三)** 負載消耗功率(四)電路之功率因素（power factor）。（25 分）\nt\nV\nt\nv\nm\ns\nsin\n)\n(\nR\nL\n)\n(t\noi\n圖一",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "f15c6ea1395be8a6c8b711fcfc08a7ff5d14eeb12394ff29c8ffae762686d8ea",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "full-wave-rectifier-fourier-rms-power-independent-summation",
+      "solution_hash": "2649c3a46748898b36bb78c313a11a4a045f34224187c37639588c09623b92b8",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 80,
+    "verified": 81,
     "suspected_error": 0,
-    "needs_manual_review": 176,
+    "needs_manual_review": 175,
     "not_attempted": 0
   }
 }

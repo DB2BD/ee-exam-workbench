@@ -1288,7 +1288,7 @@
       "qid": "EE-108-03-5",
       "year": 108,
       "question_number": 5,
-      "chapter": "試求函數 $f(x) = x, \\quad -\\pi < x < \\pi, \\quad f(x+2\\pi) = f(x)$ 之傅立葉級數。（20 分）",
+      "chapter": "複變函數線積分：被積函數 1/(z²−1)，圓心 (±1,0)、半徑 1 的圓周。",
       "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-5.md",
       "source_crop": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q05.png",
       "source_pages": [
@@ -1375,7 +1375,7 @@
       "qid": "EE-109-03-3",
       "year": 109,
       "question_number": 3,
-      "chapter": "計算複變曲線積分 $\\oint_C \\frac{e^z}{(z-1)^2(z+2)} dz$，其中積分路徑 $C$ 為 $|z| = 3$ 之逆時針圓周。（25 分）",
+      "chapter": "聯合機率密度：矩形區域 0≤x≤5、0≤y≤3，求 P(X>Y)。",
       "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-109-03-3.md",
       "source_crop": "依考科分類/03_工程數學/images/questions/PE_109年_工程數學_Q03.png",
       "source_pages": [
@@ -1574,7 +1574,7 @@
       "qid": "EE-110-03-3",
       "year": 110,
       "question_number": 3,
-      "chapter": "試求函數 $f(t) = \\begin{cases} 1, & |t| \\le a \\\\ 0, & |t| > a \\end{cases}$ 之傅立葉轉換（Fourier Transform）。（15 分）",
+      "chapter": "傅立葉級數：f(x)=x−x²（−π<x<π）的 2π 週期延拓。",
       "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-3.md",
       "source_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q03.png",
       "source_pages": [
@@ -1829,7 +1829,7 @@
       "qid": "EE-111-03-3",
       "year": 111,
       "question_number": 3,
-      "chapter": "試求週期函數 $f(t) = |\\sin t|$ 之傅立葉級數（Fourier Series）。（20 分）",
+      "chapter": "複變留數定理：C 為 |z|=2.5 的逆時針圓周，計算兩個留數積分。",
       "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-111-03-3.md",
       "source_crop": "依考科分類/03_工程數學/images/questions/PE_111年_工程數學_Q03.png",
       "source_pages": [

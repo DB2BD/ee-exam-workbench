@@ -1318,10 +1318,10 @@
       "question_number": 4,
       "chapter": "設一Y-Y 接不平衡三相四線制系統中，不平衡Y 接三相負載：\n8 30\n=∠\n°Ω\n\\tan\nZ\n，\n50\n=∠-\n°Ω\nbn\nZ\n，\n6 20\n=∠\n°Ω\ncn\nZ\n，外接至平衡三相線電\n壓：\n208 0\n∠°\nab\nV\nrms\nV\n，\n208\n120\n∠-\n°\nbc\nV\nrms\nV\n，\n208 120\n∠\n°\nca\nV\nrms\nV\n，\n試求該Y 接三相負載消耗之總平均功率\nTP 。（25 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-110-01-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "5f60cbeccdf9b14eeb55a1bd21e0fb5bf1ec77618959d6f7d9694f650c521b0f",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_phase_voltage_reconstruction_and_complex_power_back_substitution",
+      "solution_hash": "d7806830f34fb7a2dcd37955bfc445a535645fa06fce78fab59e8497e33f461f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_110年_電路學_Q04.png"
     },
@@ -1346,10 +1346,10 @@
       "question_number": 2,
       "chapter": "一差動放大器之CMRR＝20000，Av(d)＝1500，於一工作環境中有1 Vrms，\n$60\\text{ Hz}$ 之雜訊，求該放大器之(一)共模電壓增益Av(c)，(二)CMRR 之dB 值，\n\n* **(三)** 於I/P1 輸入一500 μVrms 之信號，I/P2 接地，求輸出信號大小（以rms\n表示），(四)於I/P1 輸入一500 μVrms 之信號，而於I/P2 輸入一等幅之反相\n信號，求輸出信號大小（以rms 表示），(五)求輸出端之干擾信號（以rms\n表示）。（25 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-110-02-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "fe90b066adc898053077a4a3a43cedcd37482294680e4c8b9af464dfe0e00934",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_differential_common_mode_gain_and_noise",
+      "solution_hash": "2c6ecf9553285476e65b71657a3b6de3059ab869a8ca61d42822ff15e56f7804",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_110年_電子學（包括電力電子學）_Q02.png"
     },
@@ -1572,8 +1572,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-4.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "7aae159549d942cbf3b893687d93c51e7bd69ce4032893f469b60d5b5d1f49ac",
+      "method": "official-crop-pcc-voltage-flicker-recalculation",
+      "solution_hash": "5e22387d51e54a003244366b5e10a476bc29874b4d34df4a277ff588b870165d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 120,
+    "verified": 122,
     "suspected_error": 0,
-    "needs_manual_review": 136,
+    "needs_manual_review": 134,
     "not_attempted": 0
   }
 }

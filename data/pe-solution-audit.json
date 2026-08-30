@@ -2018,10 +2018,10 @@
       "question_number": 3,
       "chapter": "圖三電晶體偏壓於飽和區，小訊號參數僅考慮gm 與ro，負載RL。以回\n授放大器原理分析此放大器，虛線內含RS 者為回授網路。可先將電路化\n為「理想回授放大器」（理想信號源、理想負載），得無回授之放大器\n增益A，再以理想回授放大器公式求算完整電路的參數。說明此回授放\n大器之類型（串串、串並、並串、並並）、寫出A、β（回授量）及完整\n放大器之Rof 與電壓增益Avf = vo/vsig 之數學式。（20 分）\n圖三",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-108-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "e3fe29910ad3b0f8f6dc0534b7b336ca308390ef232879c23365425cccf5cf73",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_feedback_topology_and_small_signal_nodal_recalculation",
+      "solution_hash": "329c628298da19c1058e0ceff5dde971ffd874853ff81bdc69b1714fa523b83a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_108年_電子學（包括電力電子學）_Q03.png"
     },
@@ -2144,10 +2144,10 @@
       "question_number": 2,
       "chapter": "請對下圖利用快速解耦\n行二次疊代（iteration）\n技師（含第二次食品技師）考\n座\n試題題號及答案依照順序寫在試卷上，於本試題\n理公式外，應使用本國文字作答。\n發電機，忽略電樞電阻，其同步電\n接至一個無限匯流排。發電機的\n至系統的電流為0.8 標么，0.9 落後\n定為基準求得。試求同步發電機內\n限匯流排的實功率P 與無效功率\n，但發電機的激磁增加20\\%，試\n及發電機傳送至匯流排的無效功\n耦電力潮流法（Fast decoupled pow\n）。圖上所標示的參數皆為標么值\n築師、\n考試暨\n試試題\n題上作答者，不予計分。\n步電抗為Xd =1.7241\n的端電壓為$1.0\\angle 0^\\circ$∘\n落後功因。所有的標\n內部電壓Ei 的大小\n率Q。如果發電機的\n試求\niE 與匯流排側的\n率Q。（20 分）\nwer flow method）執\n值。（20 分）\n0°",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-108-05-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "e74b3edbbc292dcd212bd3bb0244b3f2956f43765e7964fb06deec0682689428",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_fdlf_two_iterations",
+      "solution_hash": "01b4612e85d53533368f978ecb195982fb553b2276f5353664a064402a10a93b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_108年_電力系統_Q02.png"
     },
@@ -2217,7 +2217,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-per-unit-recalculation-and-consistency-audit",
-      "solution_hash": "d5265292589e84dcdfc323c089c83c3daf455e72bb14927eb583bb555240fae5",
+      "solution_hash": "6fc303be4f6fd4b6d92ad7706f5ccc4eb4e733b4ded599c3ac3cb4073b49f3fe",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_108年_工業配電_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 107,
+    "verified": 109,
     "suspected_error": 0,
-    "needs_manual_review": 149,
+    "needs_manual_review": 147,
     "not_attempted": 0
   }
 }

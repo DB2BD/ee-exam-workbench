@@ -996,10 +996,10 @@
       "question_number": 3,
       "chapter": "在圖三電路中，求解：\n\n* **(一)** H(s)=Vo(s)/Vi(s)=？（10 分）\n\n* **(二)** 當電路元件值為Ro =$6\\ \\Omega$, R =$4\\ \\Omega$, L = $1\\text{ mH}$, C =$4\\ \\mu\\text{F}$，試求頻帶寬度\n（bandwidth）BW=？及轉角頻率（corner or cutoff frequency）ω1 =？ω2 =？\n（15 分）\n圖三",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-111-01-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "fd26d8a561a157bbb92bdc6efffe2c03d033f52c7892f645a3702b6c28402fa7",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "rlc-nodal-transfer-function-independent-frequency-check",
+      "solution_hash": "c8ac3fbb5e38d4b08571ddf49d04d642cfb3295f97773071c217b7b280d47ddb",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_111年_電路學_Q03.png"
     },
@@ -1010,10 +1010,10 @@
       "question_number": 4,
       "chapter": "在圖四電路中，試求此雙埠網路之h 參數[h11\nh12\nh21\nh22]=？（25 分）\n圖四\nvi(t)\nRo\n$4\\ \\mu\\text{F}$\n$4\\ \\Omega$\n$1\\text{ mH}$\n$6\\ \\Omega$\nR\nL\nC\n4I1\n$1\\ \\Omega$\n$2\\ \\Omega$\n$2\\ \\Omega$\n$1\\ \\Omega$\nI1\nI2",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-111-01-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "a06eacedb1f25655628fca469896c30f538ce7a3ee0d40c99bc9eae34d3d4c56",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_two_port_h_parameters_nodal",
+      "solution_hash": "ec278d065733c268a69d3df490b9294cbe29bb75d5c2cc3ec0af8ba7da21b081",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_111年_電路學_Q04.png"
     },
@@ -1054,8 +1054,8 @@
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "18ad8fdc684b7d7ee8bbf6b5eb6555377589e508857c979161f319da42a61ca1",
+      "method": "mosfet-gain-square-law-consistency-check",
+      "solution_hash": "a317d34be3dfee8536e1fe1e477cdccbc39889e78ede91cd0f1ddfdbf58d5c87",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png"
     },
@@ -1081,9 +1081,9 @@
       "chapter": "下圖為一典型的環形電感，其環形鐵磁材料之導磁係數（permeability）為 $\\mu$，外部繞線圈數為 $N$ 匝。請依所使用之材料以及幾何結構，提出四種提高該電感值的方法。（16 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-1.md",
       "audit_status": "verified",
-      "verified_at": "2026-08-30",
-      "method": "magnetic_circuit_derivation",
-      "solution_hash": "5d8a4ecb0db99c8f1840c1ab1a20f20e04baa692cd6cd649611b59bb14cc4a10",
+      "verified_at": "2026-08-31",
+      "method": "official geometry crop independently transcribed; Ampere-law/magnetic-reluctance derivation and four monotonic design changes checked",
+      "solution_hash": "2a655afc0dce90f94097bb6b02f97e5e1bf9dc62b9f889094d9f5f662c494f3c",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q01.png"
     },
@@ -1110,8 +1110,8 @@
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "2342854b491578611ff11b11f4f314bde03defa292d152122f4225170cf838e9",
+      "method": "official crop/table independently transcribed; no-load and full-load equations recomputed, with explicit ambiguity retained for field-control setting and table interpolation",
+      "solution_hash": "c5eb2603c7577815a60f3909d30d91a773221a1489a725334dd259eab4c3ace4",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 81,
+    "verified": 83,
     "suspected_error": 0,
-    "needs_manual_review": 175,
+    "needs_manual_review": 173,
     "not_attempted": 0
   }
 }

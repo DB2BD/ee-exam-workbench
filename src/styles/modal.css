@@ -269,15 +269,6 @@
   background: #525659;
 }
 
-.question-crop-label {
-  margin: 0 auto 10px;
-  max-width: 980px;
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
 .question-crop-preview {
   display: block;
   width: auto;

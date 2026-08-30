@@ -1290,10 +1290,10 @@
       "question_number": 2,
       "chapter": "試求圖二所示雙埠網絡之傳輸參數矩陣（transmission parameter matrix）\nT。（25 分）\n圖二\nI1\nL\nI2\nC\n$v_2$\n$v_1$\n$1\\ \\Omega$\n2 F\n3H\n1H\n$i_s(t)$\n$$M=1H$$\n$2\\ \\Omega$",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-110-01-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "3dc972138fef0d8fc1a05a8776ae53b362272c20e9582654b2e2125ed599aaf0",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_cascade_ABCD_derivation_and_current_sign_check",
+      "solution_hash": "a38b65f60fcdcb72cf403719a3cb581c9127c4f990c647650da570f2d8c95234",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_110年_電路學_Q02.png"
     },
@@ -1514,10 +1514,10 @@
       "question_number": 5,
       "chapter": "若有一部3 相Y 接$2500\\text{ kVA}$、6600 V 具圓型轉子的發電機工作在滿載且\n功因0.8 滯後的條件，每相同步感抗大小是8 歐姆，此發電機依其功率角\n特性（power angle characteristic）表示實功率發電量為Pmax×sinδ MW，\n其中符號δ為功率角（power angle），(一)試計算電壓調節百分比（percent\nvoltage regulation），（5 分）(二)若δ的初始值為10 度（degree），不考慮阻\n尼（damping）及控制系統時，則機械輸入功率（mechanical input power）\n至多可突然增加到多少MW，使得發電機不失去穩定度？（答案以Pmax\n表示，15 分）\n母線1\n母線2",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "8af57ef66a542b65c8fb44be9e46eccf9fad76038b6a383cb0b85b6a436f37e1",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_voltage_regulation_and_equal_area_criterion",
+      "solution_hash": "427b5d4763a74ee1911d5eae6de782875e0eaf34d53064df729ea72caf15f657",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q05.png"
     },
@@ -1542,10 +1542,10 @@
       "question_number": 2,
       "chapter": "線路主變壓器供應三迴路之負載，各個迴路包含之負載變壓器及裝置1~8，\n詳細資料如下表，其中fD為需量因數，fL為負載因數，fdiv為參差因數，設\n所有負載運轉時之效率100%來估算各裝置之設備容量。試設計主變壓器\n與變壓器A、B、C 之容量（以kVA 為單位），如圖二所示。（15 分）設每\n一裝置之功率因數為0.9 落後，日用電量為何（kWH）？（5 分）\nB\n主變壓器\nA\nC\n設\n備\n設\n備\n設\n備\n設\n備\n設\n備\n設\n備\n設\n備\n設\n備\n圖二\n系統架構圖",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "40f47dfa8618a55027e8b9a537b76d3ae33f6b53434bd2a8f1b02e94788197c0",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-demand-diversity-factor-and-daily-energy-recalculation",
+      "solution_hash": "8c4cf20798b3ad0d3b2ffc15ee2c66f6264096a3920a684638b0f9c96c83f8a5",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 115,
+    "verified": 118,
     "suspected_error": 0,
-    "needs_manual_review": 141,
+    "needs_manual_review": 138,
     "not_attempted": 0
   }
 }

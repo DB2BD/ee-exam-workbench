@@ -2439,7 +2439,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-1.md",
     "依考科分類/05_電力系統/110年_電機工程技師_電力系統.pdf",
     5,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],

@@ -1151,9 +1151,9 @@
       "chapter": "(一)何謂輸電線路之串聯補償？（15 分）\n* **(二)** 試說明有串聯補償相對於未經補償的輸電線路，能增加線路最大傳送\n實功率的原因。（10 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-111-05-1.md",
       "audit_status": "verified",
-      "verified_at": "2026-08-30",
-      "method": "series_compensation_power_angle_relation",
-      "solution_hash": "6da82513f0f847ad526b1e8d1e96110e7a9a7f173ae582f694870bf869d64dfd",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_series_compensation_power_angle_relation",
+      "solution_hash": "4d15d6d0a3ca267c23413ca23ac388e95deab7eee6870ef1de810976d1d0d718",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_111年_電力系統_Q01.png"
     },
@@ -1208,8 +1208,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-1.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "5a239a9673b045d5f8672a577bd8760f01add15abe2e2da7031d5e29a1662065",
+      "method": "official CT equivalent-circuit and excitation-curve crop independently read; burden equations and relay threshold checked, graph readings retained as approximate",
+      "solution_hash": "bc5397b1c3122df9ebc139632c621af0a31089c84dbbde64af85d0da14bc7e1a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q01.png"
     },
@@ -1222,8 +1222,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-2.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "8a548ee5255ec812c15d1689c54c581491034e27efa1aec5b8877a98f304d3df",
+      "method": "per-unit-voltage-drop-with-motor-starting-impedance",
+      "solution_hash": "66df2b3f4a29da76a61215387e2b6adf0ce3d2039f2ddb67e00afe9ac32f7a7e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q02.png"
     },
@@ -1458,10 +1458,10 @@
       "question_number": 1,
       "chapter": "(一)若有一具圓型轉子（cylindrical rotor）之同步發電機，其同步感抗大小\n為0.7 p.u.。此同步機經兩條感抗均為0.6 p.u.的並聯輸電線接到無窮\n母線（infinite bus）。若無窮母線電壓大小為1 p.u.，此同步發電機的激\n磁電壓為1.5 p.u.，且供應到無窮母線的實功率為0.75 p.u.。則此時的\n功率角為多少度（degree）？（4 分）\n* **(二)** 若一凸極式（salient pole）同步發電機併接一無窮母線，以供應功因為\n1 的負載1.0 p.u.。此時若無窮母線電壓大小為1.05 p.u.且發電機激磁\n電壓為1.4 p.u.，功率角為25 度（degree），則同步機的直軸和交軸感\n抗各為多少p.u.？（16 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "7f00e335a136592ae7db0360bf1c267230abbcd9c73de8644a6534e20ae025a8",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_synchronous_machine_power_angle",
+      "solution_hash": "c7738f9fded0330fc65bfa4849b239c8e896f75bae52407335efe8ad06eec9ab",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 84,
+    "verified": 85,
     "suspected_error": 0,
-    "needs_manual_review": 172,
+    "needs_manual_review": 171,
     "not_attempted": 0
   }
 }

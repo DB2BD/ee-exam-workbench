@@ -2126,7 +2126,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-110-01-2.md",
     "依考科分類/01_電路學/110年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -2515,7 +2515,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-110-05-5.md",
     "依考科分類/05_電力系統/110年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -2556,7 +2556,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-2.md",
     "依考科分類/06_工業配電/110年_電機工程技師_工業配電.pdf",
     1,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],

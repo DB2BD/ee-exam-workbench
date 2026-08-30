@@ -1948,10 +1948,10 @@
       "question_number": 2,
       "chapter": "如圖2 所示電路，請求(一)電阻$4\\ \\Omega$ 所跨之電壓v 值；(二)電阻$2\\ \\Omega$ 所消耗\n之功率P$2\\ \\Omega$。（25 分）\nΩ\n2v\nΩ\n$1\\ \\Omega$\n$2\\ \\Omega$\nA\nV\n1v\n3 v\n4i\n1i\nv\n圖2",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-108-01-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-with-equation-residual",
-      "solution_hash": "b7af2dde954402848aa6c5da5bc4c65eff0637b5baed1ab32e3ed61a299b7a96",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official circuit crop independently transcribed; node-voltage/supernode equations, dependent-source polarity, KCL residuals and resistor power back-substituted",
+      "solution_hash": "5a95344fe8de93f83eac040f8acf86e76eb8a7388d7540e1ec0744e3206c0d24",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_108年_電路學_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 96,
+    "verified": 97,
     "suspected_error": 0,
-    "needs_manual_review": 160,
+    "needs_manual_review": 159,
     "not_attempted": 0
   }
 }

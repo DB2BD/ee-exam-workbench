@@ -886,8 +886,8 @@
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-4.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "3d8de58a7a11c371442857952c78325675aba2582f80f4e1b690eb855d96b8fe",
+      "method": "independent_recalculation_three_phase_fault_equal_area",
+      "solution_hash": "87ad6e44470bee2247e059f05b1852dc2a8bb575409feea638d0387745f591b3",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_112年_電力系統_Q04.png"
     },
@@ -1250,8 +1250,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-4.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "32cd73ebe98e333bbe13e21afed5e4e06bcd36d1575ae0d17ff17f05563bd040",
+      "method": "official-crop-motor-wiring-conditional-recalculation",
+      "solution_hash": "41546764f6f801d75e73d75638680c83e46eac366bb1e2639017fa676811c425",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q04.png"
     },
@@ -1262,10 +1262,10 @@
       "question_number": 5,
       "chapter": "一煉油廠以$161\\text{ kV}$ 受電，系統短路容量為10,$000\\text{ MVA}$，其主變壓器規\n格為3 相 $161\\text{ kV} / 33\\text{ kV}，100\\text{ MVA}$，百分阻抗為12\\%，主變壓器二次側\n以$18\\ \\Omega$ 電阻器接地，假設依照標準電阻器的額定電流為主變壓器二次\n側短路電流的5%～20%範圍內，則符合低電阻接地之要求。試求(一)電阻\n器的電壓與電流額定，（10 分）(二)假設以變壓器$100\\text{ MVA}$ 為基準值，電\n阻器是否符合低電阻接地之要求。（10 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "23e2f0523aba291e079ccb2bf1bf11fa6ac59ecadd7ed855b94a20762a887b87",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_per_unit_short_circuit_and_grounding_resistor_rating_recalculation",
+      "solution_hash": "8e5a0de00053b1971efcfa1c0f9dea52881be3505f63115fa32f7ade6e39544c",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q05.png"
     },
@@ -1559,7 +1559,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-real-power-and-apparent-power-consistency-audit",
-      "solution_hash": "facf2e48a739f4e420bd7589f0c5454aae56e436cbfe6f870cdb1a80791805d3",
+      "solution_hash": "a64b0cbb669bff99e1998c625e676d5c80963be304b86691129b46f4c4eb3083",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 129,
+    "verified": 130,
     "suspected_error": 0,
-    "needs_manual_review": 127,
+    "needs_manual_review": 126,
     "not_attempted": 0
   }
 }

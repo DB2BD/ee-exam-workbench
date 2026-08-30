@@ -72,7 +72,7 @@ class PEQuestionCropTests(unittest.TestCase):
             for question in entry["questions"]
             if question.get("app_question_id")
         }
-        self.assertEqual(len(app_ids), 318)
+        self.assertEqual(len(app_ids), 321)
         self.assertTrue(app_ids <= manifest_ids)
         for entry in self.entries:
             for question in entry["questions"]:

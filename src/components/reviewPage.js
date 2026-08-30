@@ -81,7 +81,7 @@ const REVIEW_CHAPTER_RULES = {
   '02': [
     ['el-pe-inverter-spwm', ['全橋變流器', '全橋轉換器', '全橋式變頻器', '方波變頻器', '逆變器', 'spwm', '脈寬調變']],
     ['el-pe-thyristor-rectifier', ['閘流體', 'thyristor', '相控整流', '半波整流', '續流二極體']],
-    ['el-pe-buck-boost', ['buck', 'boost', '降壓', '升壓', '降升壓', '電源轉換器', '責任週期', '理想開關', 'pwm', '連續導通']],
+    ['el-pe-buck-boost', ['buck', 'boost', 'flyback', '返馳', '降壓', '升壓', '降升壓', '電源轉換器', '責任週期', '理想開關', 'pwm', '連續導通']],
     ['el-feedback-stability', ['負回授', '回授因素', '相位邊限', '穩定度']],
     ['el-active-filter', ['主動濾波器', '濾波器', '頻率響應', '米勒', '增益函數', '高頻', '極點', '3 db']],
     ['el-diff-amp', ['差動放大器', '差動對', '共模', 'cmrr']],
@@ -169,6 +169,11 @@ function getReviewChapterKey(q) {
   const tags = Array.isArray(record.tags) ? record.tags.map(normalize) : [];
   const formulaTags = Array.isArray(record.formulaTags) ? record.formulaTags.map(normalize) : [];
   const text = `${topic} ${tags.join(' ')} ${formulaTags.join(' ')}`;
+  // OCR can leave a generic「電晶體」token in converter questions.  Prefer
+  // the explicit converter/device marker before generic BJT rules so a
+  // Flyback or MOSFET item never falls into a neighbouring chapter.
+  if (sid === '02' && /flyback|返馳/.test(text)) return 'el-pe-buck-boost';
+  if (sid === '02' && /mosfet|金氧半場效/.test(text)) return 'el-mosfet-bias-small-signal';
   const rules = REVIEW_CHAPTER_RULES[sid] || [];
   const matches = [];
   rules.forEach(([id, terms], order) => {

@@ -37,10 +37,10 @@ def diagnose():
     m2 = re.search(r'questions:\s*(\[[\s\S]+?\])\s*\}\;', t2)
     gk_len = len(json.loads(m2.group(1))) if m2 else 0
     
-    if pe_len == 318 and gk_len == 105:
+    if pe_len == 321 and gk_len == 161:
         print(f"  ✅ Database counts 100% healthy (PE: {pe_len}, GK: {gk_len}, Total: {pe_len + gk_len})")
     else:
-        findings.append(f"Database count anomaly: PE={pe_len} (expected 318), GK={gk_len} (expected 105)")
+        findings.append(f"Database count anomaly: PE={pe_len} (expected 321), GK={gk_len} (expected 161)")
         print(f"  ❌ Anomaly detected: PE={pe_len}, GK={gk_len}")
 
     # 2. Bundle Shadowing Check
@@ -59,7 +59,7 @@ def diagnose():
     print("\n🔍 [Check 3/5] Checking Frontend Precedence Rules in index.html...")
     with open('index.html', 'r', encoding='utf-8') as f:
         html = f.read()
-    if 'const isGK = currentExamCategory === \'gk\'' in html and 'NATIONAL_BUNDLED_MD[cleanPath]' in html:
+    if re.search(r"const isGK\s*=.*currentExamCategory\s*===\s*'GK'", html) and 'NATIONAL_BUNDLED_MD[cleanPath]' in html:
         print("  ✅ Frontend precedence rule is active: GK questions strictly prioritize NATIONAL_BUNDLED_MD.")
     else:
         findings.append("Frontend precedence rule missing in index.html!")

@@ -45,13 +45,13 @@ def run_health_check():
 
         crop_manifest = json.load(open('data/moex-question-crops.json', encoding='utf-8'))
         expected_gk = crop_manifest['summary']['questions']
-        if pe_len == 318 and gk_len == expected_gk:
+        if pe_len == 321 and gk_len == expected_gk:
             print(f"  PASS: {pe_len + gk_len} active questions verified (PE: {pe_len}, GK: {gk_len}).")
         else:
-            diff = abs(pe_len - 318) + abs(gk_len - expected_gk)
+            diff = abs(pe_len - 321) + abs(gk_len - expected_gk)
             penalty = min(30, diff * 5)
             score -= penalty
-            deductions.append(f"-{penalty} pts: Question count mismatch (PE: {pe_len}/318, GK: {gk_len}/{expected_gk})")
+            deductions.append(f"-{penalty} pts: Question count mismatch (PE: {pe_len}/321, GK: {gk_len}/{expected_gk})")
     except Exception as e:
         score -= 30
         deductions.append(f"-30 pts: Failed to parse databases ({e})")

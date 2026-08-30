@@ -137,7 +137,7 @@ function switchExamCategory(catId) {
   reloadProgressState();
   const categoryCount = typeof getQuestionCountForCategory === 'function'
     ? getQuestionCountForCategory(catId)
-    : (catId === 'PE' ? 318 : 161);
+    : (catId === 'PE' ? 321 : 161);
 
   if (catId === 'PE') {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();

@@ -11,7 +11,7 @@ const NATIONAL_EXAMS_DATA = {
     {
         "id": "PE",
         "name": "🏆 電機工程技師",
-        "total": 318,
+        "total": 321,
         "isPrimary": true
     },
     {

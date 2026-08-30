@@ -76,7 +76,7 @@ class TestSolutionExtractorAndYears(unittest.TestCase):
         years = set(q[2] for q in self.pe_qs)
         for expected_yr in range(104, 115):
             self.assertIn(expected_yr, years, f"Year {expected_yr} must exist in PE database")
-        self.assertEqual(len(self.pe_qs), 318)
+        self.assertEqual(len(self.pe_qs), 321)
 
     def test_gk_all_5_years_present(self):
         years = set(q[2] for q in self.gk_qs)

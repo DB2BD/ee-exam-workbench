@@ -3208,7 +3208,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-108-02-1.md",
     "依考科分類/02_電子學_含電力電子/108年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3224,7 +3224,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-108-02-2.md",
     "依考科分類/02_電子學_含電力電子/108年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3468,7 +3468,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-108-05-1.md",
     "依考科分類/05_電力系統/108年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3525,7 +3525,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-108-05-4.md",
     "依考科分類/05_電力系統/108年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -3622,7 +3622,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-108-06-4.md",
     "依考科分類/06_工業配電/108年_電機工程技師_工業配電.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)",
       "Ssc = Sbase / Xpu"
@@ -3643,7 +3643,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-108-06-5.md",
     "依考科分類/06_工業配電/108年_電機工程技師_工業配電.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*",
       "ΔV = √3 I (R cosθ + X sinθ)"

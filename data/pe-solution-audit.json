@@ -940,10 +940,10 @@
       "question_number": 4,
       "chapter": "一供電系統之單線圖如圖三所示。由 $11.4\\text{ kV}$ 受電，已知電源側之三相短路容量為 $500\\text{ MVA}$，三相變壓器額定為 $750\\text{ kVA}$，11400 V / 220-380 V，$Z\\% = 5.7\\%$。若在 220-380V 側之 F 點發生三相短路故障，忽略線路電阻。試求：（20 分）\n* **(一)** 對稱故障電流為多少安培？（8 分）\n* **(二)** 電驛的動作時間為反時性，其參考公式為 $T_s = \\frac{k \\times 80}{(I/I_s)^2 - 1} \\times 0.808$，其中 $I$ 為故障電流，$I_s$ 為始動電流，$k$ 為用戶曲線選擇。若設定始動電流為 135\\% 滿載電流時，上述短路故障過電流電驛在 0.3 秒動作，則最接近的 $k$ 值須為多少（至小數點第 2 位）？（12 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "72ca5bf8215d52c04b3f12cf06b2df92eaa7d7039781b4a8b3642df21d94ddba",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-per-unit-three-phase-fault-and-relay-recalculation",
+      "solution_hash": "e8b8ede623527e5e1af19d5707ba4b1bdc823103a58b5b1d7b3e7df8bb5aa3aa",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_112年_工業配電_Q04.png"
     },
@@ -1209,7 +1209,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official CT equivalent-circuit and excitation-curve crop independently read; burden equations and relay threshold checked, graph readings retained as approximate",
-      "solution_hash": "bc5397b1c3122df9ebc139632c621af0a31089c84dbbde64af85d0da14bc7e1a",
+      "solution_hash": "89b27bbb35e4394c64944aad49c69657023ea4de3ed22dfb8a79ff5985e05e7e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q01.png"
     },
@@ -1223,7 +1223,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "per-unit-voltage-drop-with-motor-starting-impedance",
-      "solution_hash": "66df2b3f4a29da76a61215387e2b6adf0ce3d2039f2ddb67e00afe9ac32f7a7e",
+      "solution_hash": "b06029c6d23d3c5dcb38985a1ca703e4dc4ebe643b65021aaf7c2f5d04e92245",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q02.png"
     },
@@ -1236,8 +1236,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "fa75e55087d5ac2db84579df7f8696f72a923f85222eefdf94d96e47d091e68a",
+      "method": "independent_symmetrical_three_phase_fault_recalculation_with_motor_count_and_rating_ambiguity",
+      "solution_hash": "d19e361ad78136e10700a882dc213e554923036476b9ea5823659ee5d3509509",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 128,
+    "verified": 129,
     "suspected_error": 0,
-    "needs_manual_review": 128,
+    "needs_manual_review": 127,
     "not_attempted": 0
   }
 }

@@ -10,6 +10,31 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class TestFormulaFormat(unittest.TestCase):
+    def test_renderer_converts_obsidian_image_embeds_before_markdown_parse(self):
+        source = (ROOT / "src/renderers/katexRenderer.js").read_text(encoding="utf-8")
+        self.assertIn("normalizeObsidianImageEmbeds", source)
+        self.assertIn(r"!\[\[([^|\]]+?)(?:\|([^\]]+?))?\]\]", source)
+        self.assertIn('width="${dimensions[1]}"', source)
+
+    def test_image_resolver_handles_nested_paths_and_rendered_img_tags(self):
+        source = (ROOT / "src/renderers/markdownRenderer.js").read_text(encoding="utf-8")
+        self.assertIn("resolveRenderedImageSources", source)
+        self.assertIn("decodeURIComponent(path)", source)
+        self.assertIn("part === '..'", source)
+        self.assertIn("basename", source)
+        self.assertIn("html.replace(/(\\bsrc\\s*=", source)
+        self.assertIn("resolveImageMapUrl(src, isGK, qid)", source)
+
+    def test_national_image_map_has_images_subpath_aliases(self):
+        source = (ROOT / "scripts/compile_national_exams.py").read_text(encoding="utf-8")
+        self.assertIn("sub_img = rel_path.split('images/', 1)[-1]", source)
+        self.assertIn("img_map['images/' + sub_img]", source)
+
+    def test_pe_image_map_has_encoded_subpath_aliases(self):
+        source = (ROOT / "scripts/compile_dashboard_database.py").read_text(encoding="utf-8")
+        self.assertIn("img_map[urllib.parse.quote(sub_img)]", source)
+        self.assertIn("img_map[urllib.parse.quote('images/' + sub_img)]", source)
+
     def test_renderer_supports_standard_latex_delimiters(self):
         source = (ROOT / "src/renderers/katexRenderer.js").read_text(encoding="utf-8")
         self.assertIn(r"/\\\[([\s\S]+?)\\\]/g", source)

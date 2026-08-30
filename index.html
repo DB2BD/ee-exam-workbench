@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=dev"></script>
-<script src="./solutions-bundle.js?v=dev"></script>
-<script src="./national-exams-data.js?v=dev"></script>
-<script src="./national-solutions-bundle.js?v=dev"></script>
+<script src="./dashboard-data.js?v=question-crops-20260830"></script>
+<script src="./solutions-bundle.js?v=question-crops-20260830"></script>
+<script src="./national-exams-data.js?v=question-crops-20260830"></script>
+<script src="./national-solutions-bundle.js?v=question-crops-20260830"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -960,6 +960,85 @@ select:focus {
 .solution-content p {
   margin-bottom: 12px;
   line-height: 1.7;
+}
+
+/* Keep source-page crops and generated circuit diagrams inside the solution
+   pane.  Markdown/Obsidian embeds may carry an explicit width (750/850 px),
+   so max-width is essential on narrow split panes to prevent overlap. */
+.solution-content img,
+.qtopic img,
+.review-card-topic img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 14px auto;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+/* Question-level source preview.  Crops are deliberately bounded to the
+   left pane so a tall scan cannot cover the solution pane or modal controls. */
+.question-crop-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px;
+  background: #525659;
+}
+
+.question-crop-label {
+  margin: 0 auto 10px;
+  max-width: 980px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.question-crop-preview {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(94vh - 190px);
+  margin: 0 auto;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.question-crop-fallback {
+  padding: 12px 16px;
+  color: var(--muted);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.82rem;
+}
+
+.question-pdf-frame {
+  flex: 1;
+  min-height: 500px;
+  width: 100%;
+  background: #525659;
+}
+
+.question-pdf-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  border: none;
+}
+
+.solution-content img[width],
+.qtopic img[width],
+.review-card-topic img[width] {
+  max-width: 100%;
 }
 
 .solution-content blockquote {
@@ -3533,13 +3612,50 @@ function renderLatexDirect(latex, displayMode) {
   }
 }
 
+/**
+ * Convert Obsidian's image embed syntax to HTML before marked.js sees it.
+ *
+ * `marked` intentionally does not parse `![[file.png|750]]`, so without this
+ * pass the wiki embed is displayed literally in the solution pane.  Keep the
+ * source path untouched here; the later IMAGE_MAP/NATIONAL_IMAGE_MAP pass is
+ * responsible for mapping the basename to the published asset path.
+ */
+function normalizeObsidianImageEmbeds(markdown) {
+  if (!markdown || !markdown.includes('![[')) return markdown;
+
+  const escapeAttribute = (value) => String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  return markdown.replace(/!\[\[([^|\]]+?)(?:\|([^\]]+?))?\]\]/g, (match, rawTarget, rawSize) => {
+    const target = rawTarget.trim();
+    if (!target) return match;
+
+    const size = (rawSize || '').trim();
+    // Obsidian accepts a numeric width and a WxH size. Only emit dimensions
+    // for strict numeric values so arbitrary pipe text cannot become HTML.
+    const dimensions = size.match(/^(\d{1,4})(?:x(\d{1,4}))?$/i);
+    const attrs = dimensions
+      ? ` width="${dimensions[1]}"${dimensions[2] ? ` height="${dimensions[2]}"` : ''}`
+      : '';
+    const alt = target.split(/[\\/]/).pop().replace(/\.[^.]+$/, '') || '題目圖片';
+    return `<img src="${escapeAttribute(target)}" alt="${escapeAttribute(alt)}"${attrs}>`;
+  });
+}
+
 function processMarkdownWithMath(rawMarkdown) {
   if (!rawMarkdown) return '';
 
   const mathPlaceholders = [];
 
+  // Convert wiki image embeds before math protection/Markdown parsing. This
+  // covers all existing `![[...|750]]` and `![[...|850]]` solution embeds.
+  let protectedMd = normalizeObsidianImageEmbeds(rawMarkdown);
+
   // Protect display math $$ ... $$
-  let protectedMd = rawMarkdown.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
+  protectedMd = protectedMd.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
     const idx = mathPlaceholders.length;
     mathPlaceholders.push({ type: 'display', math: math.trim() });
     return `@@KATEX_DISPLAY_${idx}@@`;
@@ -3616,27 +3732,78 @@ function resolveSolutionMarkdown(targetPath, qid) {
   return rawMd;
 }
 
-function resolveImageMapUrl(src, isGK) {
-  const cleanSrc = src.replace(/^\.\//, '');
+function resolveImageMapUrl(src, isGK, qid) {
+  if (!src || /^(?:data:|blob:|https?:|\/\/)/i.test(src)) return src;
 
-  if (isGK && typeof NATIONAL_IMAGE_MAP !== 'undefined' && NATIONAL_IMAGE_MAP[cleanSrc]) {
-    return NATIONAL_IMAGE_MAP[cleanSrc];
+  // Keep query/hash fragments for browsers, but exclude them while looking
+  // up the repository asset. This also supports URL-encoded Chinese names.
+  const rawSrc = String(src).trim();
+  const split = rawSrc.match(/^([^?#]*)([?#].*)?$/);
+  const rawPath = (split ? split[1] : rawSrc).replace(/^\.\//, '');
+  const path = rawPath.split('/').reduce((parts, part) => {
+    if (!part || part === '.') return parts;
+    if (part === '..') { parts.pop(); return parts; }
+    parts.push(part);
+    return parts;
+  }, []).join('/');
+  const suffix = split && split[2] ? split[2] : '';
+  const decodedPath = (() => {
+    try { return decodeURIComponent(path); } catch (_) { return path; }
+  })();
+  const basename = decodedPath.split('/').pop() || decodedPath;
+
+  // Legacy PE notes commonly embed a whole page (…_p1.png) at the start of
+  // every question.  Prefer the attested question-level crop for the active
+  // QID when the crop compiler has supplied one.  Dedicated circuit SVG/PNG
+  // assets are intentionally left untouched.
+  if (!isGK && qid && typeof QUESTION_CROP_MAP !== 'undefined'
+      && QUESTION_CROP_MAP[qid]
+      && /_p\d+\.(?:png|jpe?g|webp)$/i.test(basename)
+      && !/\/questions\//i.test(decodedPath)) {
+    return `${QUESTION_CROP_MAP[qid]}${suffix}`;
   }
-  if (typeof IMAGE_MAP !== 'undefined' && IMAGE_MAP[cleanSrc]) {
-    return IMAGE_MAP[cleanSrc];
-  }
-  if (typeof NATIONAL_IMAGE_MAP !== 'undefined' && NATIONAL_IMAGE_MAP[cleanSrc]) {
-    return NATIONAL_IMAGE_MAP[cleanSrc];
-  }
-  return src;
+
+  const lookup = (map) => {
+    if (!map) return '';
+    const candidates = [
+      path,
+      decodedPath,
+      `./${path}`,
+      `./${decodedPath}`,
+      basename,
+      encodeURIComponent(decodedPath),
+      encodeURIComponent(basename),
+    ];
+    for (const candidate of candidates) {
+      if (map[candidate]) return map[candidate];
+    }
+    return '';
+  };
+
+  const preferred = isGK && typeof NATIONAL_IMAGE_MAP !== 'undefined'
+    ? lookup(NATIONAL_IMAGE_MAP) : '';
+  const fallback = typeof IMAGE_MAP !== 'undefined' ? lookup(IMAGE_MAP) : '';
+  const nationalFallback = typeof NATIONAL_IMAGE_MAP !== 'undefined'
+    ? lookup(NATIONAL_IMAGE_MAP) : '';
+  return `${preferred || fallback || nationalFallback || path}${suffix}`;
+}
+
+/** Resolve every image emitted by marked.js, including images in card topics. */
+function resolveRenderedImageSources(html, isGK, qid) {
+  if (!html || typeof html !== 'string') return html;
+  return html.replace(/(\bsrc\s*=\s*["'])([^"']+)(["'])/gi, (match, prefix, src, suffix) => {
+    return `${prefix}${resolveImageMapUrl(src, isGK, qid)}${suffix}`;
+  });
 }
 
 /** Render question stems so Markdown emphasis and inline/display math are not shown literally. */
 function renderQuestionTopic(rawText) {
   if (!rawText) return '';
-  return typeof processMarkdownWithMath === 'function'
+  const html = typeof processMarkdownWithMath === 'function'
     ? processMarkdownWithMath(rawText)
     : rawText;
+  const isGK = typeof currentExamCategory !== 'undefined' && currentExamCategory === 'GK';
+  return resolveRenderedImageSources(html, isGK);
 }
 
 
@@ -4178,6 +4345,15 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   const qRecord = findQuestionRecord(qid);
   const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
   const meta = getSubjectMeta(sid);
+  // Prefer an attested question-level crop for the stem preview.  GK crops
+  // are stored on the question record; PE crops are compiled into the map
+  // alongside the legacy page-image map.  Keep the official PDF link below
+  // as the source-of-truth fallback/access path.
+  const isGK = Boolean(qid && qid.startsWith('GK-'));
+  const questionCrop = isGK
+    ? (qRecord && qRecord[14])
+    : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] : '');
+  const questionCropSrc = questionCrop ? resolveImageMapUrl(questionCrop, isGK, qid) : '';
 
   // 1. Update Title
   const titleEl = document.getElementById('modal-title');
@@ -4195,10 +4371,17 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   updateModalNavButtons(qid);
   syncActiveRecallButtonState();
 
-  // 3. Load Left Pane (Space-efficient collapsible stem + Full Height PDF embed)
+  // 3. Load Left Pane (question crop + official PDF access)
   const leftPane = document.getElementById('modal-pane-left');
   const leftContent = document.getElementById('modal-left-content');
   if (leftContent) {
+    const sourcePreview = questionCropSrc
+      ? `<div class="question-crop-wrap">
+          <div class="question-crop-label">✂️ 本題裁切範圍（依題號獨立裁切）</div>
+          <img class="question-crop-preview" src="${questionCropSrc}" alt="${qid} 本題裁切圖" loading="eager" />
+        </div>`
+      : `<div class="question-crop-fallback">尚未建立本題裁切圖，以下保留官方 PDF 預覽。</div>
+         <div class="question-pdf-frame"><iframe src="${pdfLink}#toolbar=0" title="官方原始考卷 PDF" loading="lazy"></iframe></div>`;
     leftContent.innerHTML = `
       <div style="padding: 8px 14px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -4214,12 +4397,10 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
 
       <div id="modal-stem-collapse" style="display: none; padding: 12px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--ink); max-height: 180px; overflow-y: auto;">
         <div style="font-weight: 700; font-size: 0.78rem; color: var(--accent-dark); margin-bottom: 4px;">📌 原題題幹文字描述：</div>
-        <div>${topic}</div>
+        <div>${renderQuestionTopic(topic)}</div>
       </div>
 
-      <div style="flex: 1; width: 100%; height: 100%; min-height: 500px; background: #525659;">
-        <iframe src="${pdfLink}#toolbar=0" style="width: 100%; height: 100%; min-height: 500px; border: none; display: block;"></iframe>
-      </div>
+      ${sourcePreview}
     `;
   }
 
@@ -4526,9 +4707,9 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
       ? getRecallHintBundle(currentModalQid, qRecord)
       : { chapter: '待人工複核', activation: '先列出已知量、未知量與要求量。', formula: '寫出本章節核心公式。', trap: '檢查單位、極性與邊界條件。' };
 
-    let stemHtml = processMarkdownWithMath(stemPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
-    let hintHtml = hintPart ? processMarkdownWithMath(hintPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
-    let derivationHtml = derivationPart ? processMarkdownWithMath(derivationPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
+    let stemHtml = resolveRenderedImageSources(processMarkdownWithMath(stemPart), isGK, currentModalQid);
+    let hintHtml = hintPart ? resolveRenderedImageSources(processMarkdownWithMath(hintPart), isGK, currentModalQid) : '';
+    let derivationHtml = derivationPart ? resolveRenderedImageSources(processMarkdownWithMath(derivationPart), isGK, currentModalQid) : '';
 
     let dagHtml = '';
     if (qRecord) {
@@ -4596,7 +4777,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     // Normal Full Open Mode
     let html = processMarkdownWithMath(markdownChunk);
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
-    html = html.replace(/src=["'](.*?)["']/g, (match, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
+    html = resolveRenderedImageSources(html, isGK, currentModalQid);
 
     if (qRecord) {
       const [qid, sid, yr, qnum, topic] = qRecord;

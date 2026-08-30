@@ -121,7 +121,6 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   if (leftContent) {
     const sourcePreview = questionCropSrc
       ? `<div class="question-crop-wrap">
-          <div class="question-crop-label">✂️ 本題裁切範圍（依題號獨立裁切）</div>
           <img class="question-crop-preview" src="${questionCropSrc}" alt="${qid} 本題裁切圖" loading="eager" />
         </div>`
       : `<div class="question-crop-fallback">尚未建立本題裁切圖，以下保留官方 PDF 預覽。</div>

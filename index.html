@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=question-crops-20260830"></script>
-<script src="./solutions-bundle.js?v=question-crops-20260830"></script>
-<script src="./national-exams-data.js?v=question-crops-20260830"></script>
-<script src="./national-solutions-bundle.js?v=question-crops-20260830"></script>
+<script src="./dashboard-data.js?v=question-crops-20260830-nolabel"></script>
+<script src="./solutions-bundle.js?v=question-crops-20260830-nolabel"></script>
+<script src="./national-exams-data.js?v=question-crops-20260830-nolabel"></script>
+<script src="./national-solutions-bundle.js?v=question-crops-20260830-nolabel"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -987,15 +987,6 @@ select:focus {
   overflow: auto;
   padding: 14px;
   background: #525659;
-}
-
-.question-crop-label {
-  margin: 0 auto 10px;
-  max-width: 980px;
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
 }
 
 .question-crop-preview {
@@ -4377,7 +4368,6 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   if (leftContent) {
     const sourcePreview = questionCropSrc
       ? `<div class="question-crop-wrap">
-          <div class="question-crop-label">✂️ 本題裁切範圍（依題號獨立裁切）</div>
           <img class="question-crop-preview" src="${questionCropSrc}" alt="${qid} 本題裁切圖" loading="eager" />
         </div>`
       : `<div class="question-crop-fallback">尚未建立本題裁切圖，以下保留官方 PDF 預覽。</div>

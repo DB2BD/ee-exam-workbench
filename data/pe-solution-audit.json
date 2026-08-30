@@ -842,10 +842,10 @@
       "question_number": 1,
       "chapter": "一條單回路三相換位輸電線每相由四條ACSR 1,272,000 cmil 導線組成，\n採水平方式架設，如圖一所示。捆紮間距為50 cm。導線直徑為3.5103 cm，\n幾何平均半徑（Geometric Mean Radius, GMR）為1.4173 cm。試決定此\n輸電線每相每公里的電感值及電容值。（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "947473d009c709c12a6bc5fa6a966f7fa29d5f24008f4552afa871d03d8e744a",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_transposed_four_bundle_line_parameters",
+      "solution_hash": "3ab5d5570fcc3124101e10248a8b804267c70ed6a9b9c01fa50824659d9f874c",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_112年_電力系統_Q01.png"
     },
@@ -900,8 +900,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-1.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "b67339208c8977c2ec6fdfbde44f77f572009b910335db6172c7408eaf714d92",
+      "method": "official text crop independently checked; written grounding principles verified, required grounding drawings not independently auditable from text-only crop",
+      "solution_hash": "d30461ef3a3f5060d1e662232c79c1c6fcce037a78afeeb2ff762d509275f526",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_112年_工業配電_Q01.png"
     },
@@ -912,10 +912,10 @@
       "question_number": 2,
       "chapter": "某工廠配電系統方塊如圖一所示，各負載特性如表所示，試計算：（20 分）\n* **(一)** 變壓器 A 的最高需量（kW）。（5 分）\n* **(二)** 變壓器 B 的最高需量（kW）。（5 分）\n* **(三)** 主變壓器的最高需量（kW）。（5 分）\n* **(四)** 主變壓器每日的總用電度數（kWh）。（5 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "75cafd6208423df362458381a051b5c31d1ca2ba7676f8b612cf0a1e942aebd4",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official table crop independently transcribed; demand, transformer-kVA, average-power and monthly-energy calculations recomputed",
+      "solution_hash": "4d32f4959717d0a138a266faf00c84356f727aaa5400988dee0a82cb5a8d8ed2",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_112年_工業配電_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 73,
+    "verified": 75,
     "suspected_error": 0,
-    "needs_manual_review": 183,
+    "needs_manual_review": 181,
     "not_attempted": 0
   }
 }

@@ -15,13 +15,13 @@
       "year": 114,
       "question_number": 1,
       "chapter": "請依節點電壓法（nodal analysis）分析如下所示電路圖，請求：\n\n* **(一)** 電流I = ?（5 分）\n\n* **(二)** 節點電壓v1、$v_2$、$v_3$ 分別為何？（15 分）",
-      "solution_link": "📝 個人題解與錯題本/01_電路學/114年_電路學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "358fe4f0aba15dbba793d300b831dcd6079fc3e5001fb9f691d481bc868035e2",
+      "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-114-01-1.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "nodal-analysis-independent-symbolic",
+      "solution_hash": "5dbfea17c75de149c1c746b58005707ca44473a0fea3d8b7b1b2050bac2dcc49",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q01.png"
     },
     {
       "qid": "EE-114-01-2",
@@ -29,13 +29,13 @@
       "year": 114,
       "question_number": 2,
       "chapter": "如下所示電路，請依諾頓定理（Norton’s theorem）求端點a-b 所視之諾\n頓等效電路圖（Norton’s equivalent circuit）。（20 分）\n$v_1$\n$v_2$\n$v_3$",
-      "solution_link": "📝 個人題解與錯題本/01_電路學/114年_電路學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "c5359daa4604d1626ecaa00829e7410c17e1c815cfcec935b099cb6204c11d7c",
+      "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-114-01-2.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "norton-test-source",
+      "solution_hash": "44a4ae8de4aedbe80576b6f2fefbb630aceb0add3e53f94e2acb8279d5cffc9a",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q02.png"
     },
     {
       "qid": "EE-114-01-3",
@@ -43,13 +43,13 @@
       "year": 114,
       "question_number": 3,
       "chapter": "如圖所示電路，在t = 0 秒之前開關為閉合狀態且電路已到達穩態；在t = 0\n秒時開關打開並維持打開狀態。請求：\n\n* **(一)** 開關打開瞬間，v($t = 0$) = ?；i($t = 0$) = ?（10 分）\n\n* **(二)** v($t > 0$)之表示式為何？（10 分）",
-      "solution_link": "📝 個人題解與錯題本/01_電路學/114年_電路學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "5bd428ce1aa266a7bb1138a3fac3d0119c4b5c3eb2895cba9a14afb32612ba5a",
+      "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-114-01-3.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "state-continuity-second-order",
+      "solution_hash": "c8924b6b3695d0e109ab1108950d010dc4fb87c38cf314fe911e43ea8c3215cc",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q03.png"
     },
     {
       "qid": "EE-114-01-4",
@@ -57,13 +57,13 @@
       "year": 114,
       "question_number": 4,
       "chapter": "如圖所示交流電路其電源具有不同頻率，請依重疊定理（superposition\ntheorem），求vo(t)之交流輸出響應。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/01_電路學/114年_電路學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "a6a9d92a447b57becc3616e7a79a52da6cba82b5204249b96782ee325991dde0",
+      "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-114-01-4.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "phasor-superposition",
+      "solution_hash": "7bac07a390a6ea9373d3df55a16b82b8536be9760ba5a174000cd83fe249788c",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q04.png"
     },
     {
       "qid": "EE-114-01-5",
@@ -71,13 +71,13 @@
       "year": 114,
       "question_number": 5,
       "chapter": "如下圖所示電路，在t = 0 秒時電感並無儲存能量。假設is = 10 $u(t)$ A，\n請依拉氏轉換（Laplace transform），求vo($t > 0$)之表示式。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/01_電路學/114年_電路學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "16b22f11b894b9221df60207cf159949161ff4ba80f843cfed0b763e9a8f985e",
+      "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-114-01-5.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "s-domain-nodal-analysis",
+      "solution_hash": "02845486a034d932b91c8b72cc9b9f1162e8549c982da8a22b00741149077f5a",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q05.png"
     },
     {
       "qid": "EE-114-02-1",
@@ -85,13 +85,13 @@
       "year": 114,
       "question_number": 1,
       "chapter": "如下圖差動放大器中，工作於主動區的Q1 = Q2，β= 40，ro = ∞，熱等效\n電壓（thermal voltage）VT= 25 mV，IS = $2\\text{ mA}$，RC = RS = $2\\text{ k}\\Omega$。依照以下\n三種情況請算Ri = $v_1$/i1與Av = vo/$v_1$。(一)$v_2$ = –$v_1$，(二)$v_2$ = $v_1$，(三)$v_2$ = –3v1。\n（25 分）",
-      "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "e38233cbb5aa4adf18857688d63a96f87eee962bd2427bb86bac88461d415d56",
+      "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-114-02-1.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "hybrid-pi-small-signal",
+      "solution_hash": "f0104d3f2e6fb6b3c7bd5b0bf28e01601948965253164353430e42d7fdeae117",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_114年_電子學（包括電力電子學）_Q01.png"
     },
     {
       "qid": "EE-114-02-2",
@@ -99,13 +99,13 @@
       "year": 114,
       "question_number": 2,
       "chapter": "如下圖(a)電路Rs = $15\\text{ k}\\Omega$，Ra = $3\\text{ k}\\Omega$，Ca = $3\\text{ pF}$，Gm = $15\\text{ mA}$/V，RL =$1\\text{ k}\\Omega$，\nCL = $2\\text{ pF}$，已知增益函數Av(s) = vo(s)/vs(s)可近似為下圖(b)的數學式，其中\nAvo為直流增益，ωz為Av(s)零點。已知ωz >> ωH，且ωH為其近似的3-dB 頻\n寬。求算Avo與ωz之值，再利用開路時間常數法近似求算ωH。（25 分）\n圖(a)\n圖(b)\nz",
-      "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "ede1e3bae7eb1939cdc086c595d41d4b71bd320b9685d1c7038d1a25528eef6f",
+      "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-114-02-2.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "two-node-nodal-transfer-and-pole-check",
+      "solution_hash": "c9e406dabf87069b3c89d8b25b3ae1b6853c5f01e91a8ce928458ac9e86e4a51",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_114年_電子學（包括電力電子學）_Q02.png"
     },
     {
       "qid": "EE-114-02-3",
@@ -113,13 +113,13 @@
       "year": 114,
       "question_number": 3,
       "chapter": "如下圖(a)電路Q 為理想開關，下圖(b)為控制Q 之週期電壓vQ。當vQ = VQ\n時，Q 短路；vQ = 0 時，Q 開路，va為Q 兩端電壓。L = $25\\text{ mH}$，R = 0.$5\\ \\Omega$，\nVS = 5 V，E = 10 V。定義時間常數τ= L/R，請算0 ≤t ≤1 ms 之間電流時間\n函數iL(t)。計算時使用以下近似，若|x| << 1，e–x ≈1 – x，(1 – x)2 ≈1 – 2x。\n（25 分）",
-      "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "b7e75ce3387d4100d8cb935fab6b5c54de3da11f5998a82510995ffd658f442a",
+      "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-114-02-3.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "piecewise-inductor-state-equation",
+      "solution_hash": "bd7e7d47339424e0ea1cf5b85a9fd52fe1cfecdb559601b5183bfc7debd449c3",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_114年_電子學（包括電力電子學）_Q03.png"
     },
     {
       "qid": "EE-114-02-4",
@@ -127,13 +127,13 @@
       "year": 114,
       "question_number": 4,
       "chapter": "如下圖電路中S 為理想開關，當S 導通時，直流電壓源VS 分配到負載電\n壓VL 由閘流體T 控制。（25 分）\n\n* **(一)** 在S 由開路切換至短路（導通）瞬間，可能損毀閘流體T，原因為何？\n\n* **(二)** 接續(一)，請設計保護閘流體的電路，並解釋電路中各元件的功能。\n\n* **(三)** 接續(二)，請另說明其他兩種保護閘流體的電路設計方法與其概念。\n圖(a)\n圖(b)",
-      "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "7e496239d3efe1961920c992ade43874f4c37a5e1160f4060695a95a96670a6d",
+      "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-114-02-4.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "dvdt-didt-protection-design",
+      "solution_hash": "00c6bfc96bbf9ceaabcd74bdd5b1c2eb318b0481057749654795ede7d2e01a1c",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_114年_電子學（包括電力電子學）_Q04.png"
     },
     {
       "qid": "EE-114-04-1",
@@ -141,13 +141,13 @@
       "year": 114,
       "question_number": 1,
       "chapter": "如圖1 所示之簡化兩極電機結構，其磁路參數規格如下：每一氣隙長度\nlg = 2 mm、磁極面之截面積Ag = 400 cm2、匝數N = 400 匝、電流I = 4 A、\n鐵心之導磁係數（μc）無限大，若漏磁通與氣隙的邊緣（fringing）效應\n忽略不計，請回答以下問題：（每小題10 分，共20 分）\n* **(一)** 畫出其對應的等效磁路並求氣隙中之磁通密度為何？\n* **(二)** 求線圈之電感值為何？",
-      "solution_link": "📝 個人題解與錯題本/04_電機機械/114年_電機機械_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "0471bb5b8b72a4c624255bcb2c571da188bf3d40c191059f360190e93e5367be",
+      "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-114-04-1.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_symbolic_check",
+      "solution_hash": "518c896c1567313917ab90874a2bdd571a3fb8d94fc3a3eaf66951a2b45bc16f",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/04_電機機械/images/questions/PE_114年_電機機械_Q01.png"
     },
     {
       "qid": "EE-114-04-2",
@@ -155,13 +155,13 @@
       "year": 114,
       "question_number": 2,
       "chapter": "如圖2 之單相變壓器，其二次側繞組具有可調整電壓的分接頭，一次側\n接一內阻為j$1\\ \\Omega$ 之110$\\sqrt{2}$\\text{ V} 電壓源，二次側接一等效電阻可由$1\\ \\Omega$ 變\n到$4\\ \\Omega$ 之電阻性負載。若在負載電阻變動範圍內，負載都要從電源獲得\n最大功率，請回答以下問題：（每小題10 分，共20 分）\n* **(一)** 當負載電阻為$2.5\\ \\Omega$ 時，變壓器匝數比a 應調整為何？\n* **(二)** 根據問題(一)，負載兩端的電壓Vo 應調整為何？",
-      "solution_link": "📝 個人題解與錯題本/04_電機機械/114年_電機機械_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "a6a0ef16ac42098207763fc727ef2167327f99d3d7082c666774ecfe355b1670",
+      "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-114-04-2.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_phasor_check",
+      "solution_hash": "f7d2c8cfe5932e26f4cab0d23e8f2172d3af52ff98c54f3fb21ebb068a12735a",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/04_電機機械/images/questions/PE_114年_電機機械_Q02.png"
     },
     {
       "qid": "EE-114-04-3",
@@ -169,13 +169,13 @@
       "year": 114,
       "question_number": 3,
       "chapter": "圖3(a)為一單相感應電動機剖面圖，其定子具有互隔90°電機角之主繞組\n（M-M '）與輔助繞組（A-A'），主繞組與輔助繞組之電流i M 與i A 波形如\n圖3(b)所示。圖3(a)中之正電流方向表示由M、A 端流入（），而由M'、A'\n端流出（），而負電流方向則相反。若兩繞組所產生的磁通量與流過的\n電流大小成正比，且在電流最大值Im 時可產生最大磁通量φm，請回答以\n下問題：（每小題10 分，共20 分）\n* **(一)** 請在X-Y 平面上畫出按時間順序在t = t 1、t 3、t 5、t 7 時，兩繞組所產\n生的合成磁通之大小與相位，並說明所產生的二相旋轉磁場之轉向\n（順或反時針）？\n* **(二)** 根據問題(一)，請證明任意對調其中任一繞組（以輔助繞組為例）的頭\n尾兩端接線，則旋轉磁場會反轉。",
-      "solution_link": "📝 個人題解與錯題本/04_電機機械/114年_電機機械_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "88dcb5934c03a9eee39da7b8f089620f13809486487378ad2b84d28aeecc8219",
+      "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-114-04-3.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_space_vector_check",
+      "solution_hash": "815ce03be07b583135167f9fd0cb7a1e9552975e967a6ab9b4a6764880ffc888",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/04_電機機械/images/questions/PE_114年_電機機械_Q03.png"
     },
     {
       "qid": "EE-114-04-4",
@@ -183,13 +183,13 @@
       "year": 114,
       "question_number": 4,
       "chapter": "一部$3.2\\text{ kV}$、$1000\\text{ kVA}$、功率因數為0.9 落後之三相、四極、$60\\text{ Hz}$、Y 接\n同步發電機，其電樞電阻為$0.1\\ \\Omega$、同步電抗為$2.0\\ \\Omega$。在$60\\text{ Hz}$ 下，其鐵\n損為$15\\text{ kW}$、摩擦風阻損為$14\\text{ kW}$，請回答以下問題：（每小題10 分，\n共20 分）\n* **(一)** 於額定下正常運轉，求此機每相之內生電壓（internal generated voltage）\n與功率角（power angle）各約為何？\n* **(二)** 為能在額定下正常運轉，則帶動此發電機轉軸之原動機（prime mover）\n所需的轉矩約為何？",
-      "solution_link": "📝 個人題解與錯題本/04_電機機械/114年_電機機械_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "299223b5677f65d2760aa037395fa88c74b1ef6b2d10b24e66032654df35dad3",
+      "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-114-04-4.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_phasor_check",
+      "solution_hash": "453ec6e40c2ef401b5475ffae2cc4d6a16ed8d01d5d64f569192b8a6f2196417",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/04_電機機械/images/questions/PE_114年_電機機械_Q04.png"
     },
     {
       "qid": "EE-114-04-5",
@@ -197,13 +197,13 @@
       "year": 114,
       "question_number": 5,
       "chapter": "如圖4 所示轉子為四極之磁阻電動機，磁路之磁阻\\mathcal{R}為θ函數，可表示為\n$$\n\\mathcal{R}(\\theta) = \\mathcal{R}_0 - \\mathcal{R}_1\\cos(4\\theta)，\\quad \\text{其中 } \\theta = \\omega_m t + \\delta, \\quad \\mathcal{R}_0 = 2 \\times 10^5, \\quad \\mathcal{R}_1 = 1 \\times 10^5\n$$ 105，ωm 為轉\n子角速度，δ為時間t = 0 時之轉子位置。定子繞組線圈匝數N 為50 匝\n且繞組電阻忽略不計，當此電機接一v(t)= 110$\\sqrt{2}$ sinωt 之單相$60\\text{ Hz}$ 電\n源時，請回答以下問題：（每小題10 分，共20 分）\n* **(一)** 推導此電機之瞬時轉矩T。\n（提示：$v(t) = N\\frac{d\\Phi}{dt}, T = \\frac{\\partial W_{fld}}{\\partial\\theta} = -\\frac{1}{2}\\Phi^2\\frac{d\\mathcal{R}}{d\\theta}$）\n* **(二)** 當\nm\nω=±\n時，求此電機的最大轉矩與最大機械功率各約為何？",
-      "solution_link": "📝 個人題解與錯題本/04_電機機械/114年_電機機械_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "3a645ee20fd83eb782840f04aa1cf8a9b74c899c1d97c52e2d136768fbc812d8",
+      "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-114-04-5.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_energy_check",
+      "solution_hash": "4d66dc42400e47ef19bc632ee760a077af654e1e5e375e93eb757906b67ed88a",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/04_電機機械/images/questions/PE_114年_電機機械_Q05.png"
     },
     {
       "qid": "EE-114-05-1",
@@ -211,13 +211,13 @@
       "year": 114,
       "question_number": 1,
       "chapter": "一負載的端電壓v(t) = √2 × 100 cos(ωt+ α)伏特，其相量為100∠α，\n通過的電流i(t) = √2Irmscos(ωt+ 60°) 安培，其相量為$Irms\\angle 60^\\circ$，此負\n載之實功率P(real power)=500√3 W，虛功率Q (reactive power)=500 Var，\n求Irms及α。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/05_電力系統/114年_電力系統_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "25d1d6f73e439fd250600fe6fb11504fe86df16983fff1bf6dc2ffe9f9664df0",
+      "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-114-05-1.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_complex_power_check",
+      "solution_hash": "8c5597178660ca9eecd60450f8b5110f601548e6fa1b99917ad8b34fc0222476",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/05_電力系統/images/questions/PE_114年_電力系統_Q01.png"
     },
     {
       "qid": "EE-114-05-2",
@@ -225,13 +225,13 @@
       "year": 114,
       "question_number": 2,
       "chapter": "如下圖所示為具有二匯流排之電力系統，匯流排1 是搖擺匯流排（swingbus）\n或又稱匱乏匯流排（slack bus），其電壓E1= $1.0\\angle 0^\\circ$pu，匯流排2 有發\n電量$100\\text{ MW}$ 之發電機以及$250\\text{ MW}$ 及$100\\text{ Mvar}$ 負載，輸電線導納\n$y_{12} = -j10\\text{ pu}$，系統基準值為 $100\\text{ MVA}$，很明顯地從匯流排 1 經輸電線\n傳送至匯流排2 的實功率為$150\\text{ MW}$，(一)請算出m2，以及匯流排2 發電\n機之發電虛功率。（10 分）(二)若匯流排2 發電機的發電虛功率上限為\n$100\\text{ Mvar}$，請判斷小題(一)算出之匯流排2 發電機之發電虛功率是否有\n超出上限？若有，則匯流排2 發電機之發電虛功率定為上限值，即匯\n流排2 不再是發電機匯流排，而會是以負載匯流排形式納入電力潮流\n運算，此時|E2|不再是一定值，而是變數，請寫出匯流排2 的電力潮流\n方程式，並以Newton-Raphson 方法計算一次疊代後的E2及δ2值， δ2初\n始值為0.0，|E2|初始值為1.0。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/05_電力系統/114年_電力系統_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "b104cafee0d5e48c23eb75b3862cbffb3a1f0f76d84eb9cc575056a283067704",
+      "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-114-05-2.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_newton_raphson_check",
+      "solution_hash": "a9c5f6b87dc854f6b50773cd3a9eaa341ee8eb19c4e73fe33a59c55a6162a47a",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/05_電力系統/images/questions/PE_114年_電力系統_Q02.png"
     },
     {
       "qid": "EE-114-05-3",
@@ -239,13 +239,13 @@
       "year": 114,
       "question_number": 3,
       "chapter": "二座 $800\\text{ MW}$ 的火力發電廠，其單位為 \\text{元/h} 之燃料成本函數為\nC1= 400 + 6.0 P_1+ 0.004 P_1^2，C2= 400 + 6.8 P_2+ 0.002 P_2^2，其中P1及P2\n之單位為MW 忽略耗損，當總功率需求為 $550\\text{ MW}$ 時，請決定每一座\n發電廠之最佳發電量。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/05_電力系統/114年_電力系統_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "5cecafd77b613e0b4240f5387efc8798b8419dfcf613253359d80bfddbc07d79",
+      "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-114-05-3.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_incremental_cost_check",
+      "solution_hash": "c45110cbf23cee5a066f912c25dd1ea66961c2d25e05ed93232fa7f00216acd1",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/05_電力系統/images/questions/PE_114年_電力系統_Q03.png"
     },
     {
       "qid": "EE-114-05-4",
@@ -253,13 +253,13 @@
       "year": 114,
       "question_number": 4,
       "chapter": "一簡單的電力系統的單線圖如下圖。各發電機以一暫態電抗後接一電動\n勢表示。全部阻抗均以共通MVA 基準的標么值表示。所有電阻與並聯\n電容均忽略。發電機均在無負載下運轉在其額定電壓，且電動勢均同\n相位。三相短路故障透過一故障阻抗Z f = j0.0125 pu 發生在匯流排1。\n* **(一)** 利用戴維寧定理求故障點的阻抗與故障電流，以pu 表示。（10 分）\n* **(二)** 請決定故障期間的匯流排電壓與線路電流。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/05_電力系統/114年_電力系統_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "c9ca6755b74d657ded45c8336315bbb88744ea63932fa25ecdeaa121f66ffb66",
+      "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-114-05-4.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_thevenin_check",
+      "solution_hash": "48253c953c87060bb83ceb547096491e40aa4ef7966532c65776fdb3ea0279c8",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/05_電力系統/images/questions/PE_114年_電力系統_Q04.png"
     },
     {
       "qid": "EE-114-05-5",
@@ -267,13 +267,13 @@
       "year": 114,
       "question_number": 5,
       "chapter": "一部二極，$60\\text{ Hz}$ 同步發電機，其額定功率為$250\\text{ MVA}$，標么慣量常數\nH = 4.32 秒，發電機穩定的運轉在同步速度下，送出$60\\text{ MW}$（以額定功\n率$250\\text{ MVA}$ 為基準值，等於0.24 pu）到負載。當負載突然被移除，請\n決定轉子的加速度。假設所計算之發電機加速度在12 週期內是定值，請\n決定在這段時間終點時的rpm 值。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/05_電力系統/114年_電力系統_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "b76082cc5830c2dad28ffe0d4337714fe2f4a74e6e0c9b52630f4906f2b97e05",
+      "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-114-05-5.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_swing_equation_check",
+      "solution_hash": "91a2e763916d9a9816e3b492433e693f110bb8f5fb883b911f331a54486c96ad",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/05_電力系統/images/questions/PE_114年_電力系統_Q05.png"
     },
     {
       "qid": "EE-114-06-1",
@@ -281,13 +281,13 @@
       "year": 114,
       "question_number": 1,
       "chapter": "三台容量相同為 $50\\text{ kVA}$，高低壓側電壓 $3300\\text{ V}/220\\text{ V}$ 之變壓器以 $\\Delta-\\Delta$ 接線方式供應三相負載，假設其中一台變壓器故障，試求：（每小題 10 分，共 20 分）\n* **(一)** 請繪圖說明可改用開 \\Delta 或 V-V 接線方式緊急供電。\n* **(二)** 改接後可供應之最大負載。",
-      "solution_link": "📝 個人題解與錯題本/06_工業配電/114年_工業配電_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "aec87874223057169fe9f6571743b32c3750886b79fc15ebdae865317b449d8d",
+      "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-1.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_transformer_capacity_check",
+      "solution_hash": "3ddf9b9924b5570a9275d0f301d40a7aa5dce179fc67650279ed1920d3d0695f",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/06_工業配電/images/questions/PE_114年_工業配電_Q01.png"
     },
     {
       "qid": "EE-114-06-2",
@@ -295,13 +295,13 @@
       "year": 114,
       "question_number": 2,
       "chapter": "一鋼鐵廠如下圖所示啟用一座 50 噸煉鋼用電弧爐，主變壓器及爐用變壓器之裝置容量皆為 $25\\text{ MVA}$，其等效電抗分別為 $Z_{MTr} = j0.06\\text{ pu}$ 與 $Z_{FTr} = j0.05\\text{ pu}$，電弧爐及其配線之等效阻抗為 $Z_F = j0.4\\text{ pu}$。台電經由一次變電所單獨供應 $69\\text{ kV}$ 電力，一次變電所至鋼鐵廠的線路阻抗為 $Z_L = j0.01\\text{ pu}$，上述線路與變壓器之電阻 $R$ 忽略不計，系統短路容量為 $2000\\text{ MVA}$，以主變壓器 $25\\text{ MVA}$ 為基準值。試求：（每小題 10 分，共 20 分）\n* **(一)** 電弧爐運轉時，電極短路以及電極斷弧時主變壓器二次側的百分壓降值。\n* **(二)** 主變壓器二次側的所產生之閃爍電壓變動率。",
-      "solution_link": "📝 個人題解與錯題本/06_工業配電/114年_工業配電_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "1322de8ff1ce3951007b2b5933d5190a94d81b08acf4585d81b6030f623842bf",
+      "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-2.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_crop_reconstruction_and_voltage_flicker_check",
+      "solution_hash": "786045e59c4a8488e74843652b36474266424f9378673fe048ebef5b1f649c3d",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/06_工業配電/images/questions/PE_114年_工業配電_Q02.png"
     },
     {
       "qid": "EE-114-06-3",
@@ -309,13 +309,13 @@
       "year": 114,
       "question_number": 3,
       "chapter": "一石化廠的汽電共生系統有兩部發電機組並聯運轉，發電機 1 的容量 $50\\text{ MW}$，發電機 2 的容量 $30\\text{ MW}$，每部發電機的次暫態電抗同為 $25\\%$，其經由一 $100\\text{ MVA}$，電抗 $X_{Tr} = 10\\%$，三相 $22\\text{ kV}/69\\text{ kV}$ ($\\Delta/\\text{Y}$) 的變壓器升壓輸出電力，故障發生前變壓器高壓側的電壓為 $65\\text{ kV}$，假設負載電流忽略不計，以變壓器 $100\\text{ MVA}$ 為基準值。試求：（每小題 10 分，共 20 分）\n* **(一)** 變壓器 $69\\text{ kV}$ 側的三相短路電流 pu。\n* **(二)** 各發電機的次暫態短路電流值 A。",
-      "solution_link": "📝 個人題解與錯題本/06_工業配電/114年_工業配電_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "3de79b5065c58c604be79d436ac4021edbdb207c64ebc1d79a95dc8031634186",
+      "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-3.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_pdf_reconstruction_and_symmetrical_short_circuit_check",
+      "solution_hash": "8340262d85284b9920fa38a13843e2f41d5ec71535cd27bed1a4e30bd06cc9a1",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/06_工業配電/images/questions/PE_114年_工業配電_Q03.png"
     },
     {
       "qid": "EE-114-06-4",
@@ -323,13 +323,13 @@
       "year": 114,
       "question_number": 4,
       "chapter": "一鋁材料加工廠擬裝設 3 相 $220\\text{ V}$ 電動機 $20\\text{ hp}$ 一台，以及 $10\\text{ hp}$ 一台；假設 $20\\text{ hp}$ 的電動機起動階級為 E，起動電流約 4.5~4.99 kVA/hp，線路採 PVC 配管施工，試求：（每小題 10 分，共 20 分）\n* **(一)** 請繪圖說明如何以 Y-\\Delta 起動器降低起動電流。\n* **(二)** 請設計此兩台電動機線路，並註明幹線/分路之線徑、以及過電流保護斷路器之 AT 值。",
-      "solution_link": "📝 個人題解與錯題本/06_工業配電/114年_工業配電_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "55650b75fae44d116cd9497ed1b071fff752fd4c5629c2f67a6b0074ead1cbe0",
+      "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-4.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_pdf_reconstruction_and_motor_feeder_check",
+      "solution_hash": "392c75ad8fd65a705965268a0ae6490349bd76bc1c91da68ebbbf809ff1edb41",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/06_工業配電/images/questions/PE_114年_工業配電_Q04.png"
     },
     {
       "qid": "EE-114-06-5",
@@ -337,13 +337,13 @@
       "year": 114,
       "question_number": 5,
       "chapter": "一加工廠的負載特性如下：經常性負載 $200\\text{ kW}$ 功率因數 0.85 落後，負載持續時間：1~24 時。現擬新增 $100\\text{ kW}$ 功率因數 0.7 落後，負載持續時間：8~17 時，如欲提升工廠全天的功率因數到 0.95 落後以上，現以每組為 $50\\text{ kvar}$ 共六組電容器盤結合自動功因調整器調控功率因數，每組電容器可獨立操作，試求：（每小題 10 分，共 20 分）\n* **(一)** 各時段需補償的無效功率 kvar。\n* **(二)** 各時段實際投入的電容器組容量與組數，以及實際的功率因數值。",
-      "solution_link": "📝 個人題解與錯題本/06_工業配電/114年_工業配電_全卷完整詳細題解.md",
-      "audit_status": "not_attempted",
-      "verified_at": null,
-      "method": "template_hash_screening",
-      "solution_hash": "c93044b18700bf2f48bd4ab8b517a0637f330ec6548be0695721b3f87f2acd36",
+      "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-5.md",
+      "audit_status": "verified",
+      "verified_at": "2026-08-30",
+      "method": "official_pdf_reconstruction_and_power_factor_check",
+      "solution_hash": "7f49d78d428e816e7be0b9e32b37ef0bb5a9cb3c98441e3fbe3a58d3e9e40182",
       "duplicate_qids": [],
-      "source_crop": ""
+      "source_crop": "依考科分類/06_工業配電/images/questions/PE_114年_工業配電_Q05.png"
     },
     {
       "qid": "EE-113-01-1",
@@ -3568,9 +3568,9 @@
   ],
   "summary": {
     "questions": 254,
-    "verified": 0,
+    "verified": 24,
     "suspected_error": 0,
     "needs_manual_review": 0,
-    "not_attempted": 254
+    "not_attempted": 230
   }
 }

@@ -1612,10 +1612,10 @@
       "question_number": 2,
       "chapter": "試詳述轉移函數之極點與系統穩定度的關係。（25 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-109-01-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "e61d9f6a7f1e6054a6c346455490ce650b19d6bce4e97558f1ebe413823a2363",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "pole-location-bibo-and-internal-stability-analysis",
+      "solution_hash": "c4a4ca5933a256548af96ac36f886daf42d8c9b72a51c9351a74b7d541ff64c3",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_109年_電路學_Q02.png"
     },
@@ -1808,10 +1808,10 @@
       "question_number": 3,
       "chapter": "圖一所示為一具有二匯流排之電力系統（two-bus power system），匯流排 1 是匱乏匯流排（slack bus），且 $\\mathbf{V}_1 = 1.0\\angle 0^\\circ\\text{ pu}$；匯流排 2 之負載為 $200\\text{ MW}$ 及 $50\\text{ Mvar}$；輸電線導納為 $y_{12} = -j10\\text{ pu}$，以 $100\\text{ MVA}$ 為基準。請寫出匯流排 2 之電力潮流方程式，並利用牛頓－拉弗森法（Newton-Raphson method），求解匯流排 2 之電壓大小及相角。以起始估計值為 $|V_2|^{(0)} = 1.0\\text{ pu}, \\delta_2^{(0)} = 0^\\circ$ 開始，執行二次疊代。（20 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-109-05-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "e6b19123168c34fa32e79ce5276035499be948d5a642e4a90683a033ce3af087",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_recalculation_newton_raphson_two_bus_power_flow",
+      "solution_hash": "7d4ceff0eef0a310df13bf9d1c5be9fb2973bcbffd21330cbf1baf587032055e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q03.png"
     },
@@ -1822,10 +1822,10 @@
       "question_number": 4,
       "chapter": "圖二所示電力系統的電抗資料，係以共通基準值的標么值表示。試針對發生在匯流排 1 的故障，求其戴維寧相序阻抗並計算直接三相故障發生在匯流排 1 的故障電流，以及直接線對線故障（b、c 相短接）發生在匯流排 1 的故障電流，以標么值表示。（20 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-109-05-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "fc1e1a170338a4df61a9812d97b58867b6aa0a4ee9a9bb61d7a3de7a01084007",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official crop independently transcribed; three-phase and line-to-line sequence-network equations, phase-current conversion, and voltage/current back-substitution checked",
+      "solution_hash": "73bbc25d4726f614142a2902e5656fbf5f3f21578d330103efae94fb73bce1a5",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 91,
+    "verified": 94,
     "suspected_error": 0,
-    "needs_manual_review": 165,
+    "needs_manual_review": 162,
     "not_attempted": 0
   }
 }

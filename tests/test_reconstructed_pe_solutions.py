@@ -26,6 +26,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
             text = path.read_text(encoding="utf-8")
             status = re.search(r"^audit_status:\s*(\S+)\s*$", text, re.M)
             if status and status.group(1) == "verified":
+                verified_at = re.search(r"^verified_at:\s*(\S+)\s*$", text, re.M)
+                self.assertIsNotNone(verified_at, f"verified note lacks verified_at: {path.name}")
+                self.assertNotEqual(verified_at.group(1), "null", f"verified note has null verified_at: {path.name}")
                 hits = [phrase for phrase in warning_phrases if phrase in text]
                 self.assertFalse(hits, f"verified note contains unresolved warning {hits}: {path.name}")
 

@@ -718,8 +718,8 @@
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-112-02-1.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "6a951cb561fbd8d68cdf9489e696f0e851cbe41beefee1941e2f89b11a0d52d3",
+      "method": "official_crop_hybrid_pi_pole_and_midband_gain_recalculation_with_VT_assumption",
+      "solution_hash": "f68d00ad8f15c5df6fc2ccba3dd6f4694c086752a76a258daf0e5f18d8423e6d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_112年_電子學（包括電力電子學）_Q01.png"
     },
@@ -730,10 +730,10 @@
       "question_number": 2,
       "chapter": "如圖二的史密特（Schmitt）觸發振盪器電路，運算放大器為理想元件，\nR1=$10\\text{ k}\\Omega$、R2=$20\\text{ k}\\Omega$、RX= $40\\text{ k}\\Omega$、CX= $0.02\\ \\mu\\text{F}$，輸出飽和電壓為±5 V。\n試求vX (t)時間函數表示式，取t = 0 時vo 已切換至高電位（high state）\n狀態，此振盪器的振盪頻率、及責任週期（duty cycle）（即輸出電壓在高\n電位狀態時間的百分比）。（25 分）\n圖二\n5V\n∞\n+_\nvi\nRE\n$0.5\\text{ k}\\Omega$\n$$RB = 100\\text{ k}\\Omega$$\n$$Rs = 50\\ \\Omega$$\n$1\\text{ k}\\Omega$\n∞\n∞\n$$IQ = 0.5\\text{ mA}$$\n_\n_\nCX\nvX\nRX",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-112-02-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "b3d04cb7410108edb20e08f21de1be26b3c91f6956b74ef0a45162907574d22f",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_schmitt_threshold_and_RC_waveform_recalculation",
+      "solution_hash": "c76361bcb9c5c6a483a066d935c5884ed886a325ec64036e7e5d15d6eb8a4cf6",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_112年_電子學（包括電力電子學）_Q02.png"
     },
@@ -859,7 +859,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_symbolic_recalculation_with_generation_limit_audit",
-      "solution_hash": "e8890a4e9c316b4586c2dc37e2c99dab1bfbd2330ffc56b027a60018199fa392",
+      "solution_hash": "365c2aefdae2b8cac5f676e6a6a630dffc8ddb7031665c2d8a728daa3c01bded",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_112年_電力系統_Q02.png"
     },
@@ -872,8 +872,8 @@
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "d277099ae900af7fe95faa8f3cd229706d70c3425c8a3db5dea2332386f2c2b2",
+      "method": "independent_recalculation_off_nominal_transformer_tap_ybus",
+      "solution_hash": "a8e21f491136fe4e23b2881212f43a8623f0adefd089a18de3aaa17b62398537",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_112年_電力系統_Q03.png"
     },
@@ -926,10 +926,10 @@
       "question_number": 3,
       "chapter": "有一放射狀配電系統如圖二所示，省略馬達倒灌電流，試以 MVA 法求在 F1，F2 及 F3 發生三相短路時，斷路器的對稱啟斷電流值。（20 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "06e94c79398d06856d3a3db2c9324b93bf915bcb2c989c0aaf5ea9209bd17380",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-mva-three-phase-fault-current-recalculation",
+      "solution_hash": "142f8d0e55267d620d89a127b485f049f558a808a84080f448c0a2e41c3b97b0",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_112年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 122,
+    "verified": 124,
     "suspected_error": 0,
-    "needs_manual_review": 134,
+    "needs_manual_review": 132,
     "not_attempted": 0
   }
 }

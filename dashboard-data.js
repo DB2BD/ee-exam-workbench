@@ -592,7 +592,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-113-01-1.md",
     "依考科分類/01_電路學/113年_電機工程技師_電路學.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -608,7 +608,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-113-01-2.md",
     "依考科分類/01_電路學/113年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -625,7 +625,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-113-01-3.md",
     "依考科分類/01_電路學/113年_電機工程技師_電路學.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -642,7 +642,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-113-01-4.md",
     "依考科分類/01_電路學/113年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -842,7 +842,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-113-04-2.md",
     "依考科分類/04_電機機械/113年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -860,7 +860,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-113-04-3.md",
     "依考科分類/04_電機機械/113年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -898,7 +898,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-113-04-5.md",
     "依考科分類/04_電機機械/113年_電機工程技師_電機機械.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "s = (Ns - N)/Ns"
     ],
@@ -917,7 +917,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-113-05-1.md",
     "依考科分類/05_電力系統/113年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -939,7 +939,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-113-05-2.md",
     "依考科分類/05_電力系統/113年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*",
       "Ia1 = Vf / (Z1+Z2+Z0)"
@@ -997,7 +997,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-113-06-1.md",
     "依考科分類/06_工業配電/113年_電機工程技師_工業配電.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -1017,7 +1017,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-113-06-2.md",
     "依考科分類/06_工業配電/113年_電機工程技師_工業配電.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*",
       "ΔV = √3 I (R cosθ + X sinθ)"
@@ -1039,7 +1039,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-113-06-3.md",
     "依考科分類/06_工業配電/113年_電機工程技師_工業配電.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ssc = Sbase / Xpu"
     ],
@@ -1060,7 +1060,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-113-06-4.md",
     "依考科分類/06_工業配電/113年_電機工程技師_工業配電.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)",
       "Ssc = Sbase / Xpu"
@@ -1081,7 +1081,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-113-06-5.md",
     "依考科分類/06_工業配電/113年_電機工程技師_工業配電.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -1100,7 +1100,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-112-01-1.md",
     "依考科分類/01_電路學/112年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -1117,7 +1117,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-112-01-2.md",
     "依考科分類/01_電路學/112年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -1135,7 +1135,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-112-01-3.md",
     "依考科分類/01_電路學/112年_電機工程技師_電路學.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "戴維寧等效"
     ],
@@ -1154,7 +1154,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-112-01-4.md",
     "依考科分類/01_電路學/112年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -1353,7 +1353,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-112-04-2.md",
     "依考科分類/04_電機機械/112年_電機工程技師_電機機械.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -1372,7 +1372,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-112-04-3.md",
     "依考科分類/04_電機機械/112年_電機工程技師_電機機械.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -1392,7 +1392,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-112-04-4.md",
     "依考科分類/04_電機機械/112年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*",
       "s = (Ns - N)/Ns"
@@ -1411,7 +1411,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-112-04-5.md",
     "依考科分類/04_電機機械/112年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3159,7 +3159,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-108-01-2.md",
     "依考科分類/01_電路學/108年_電機工程技師_電路學.pdf",
     4,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -3663,7 +3663,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-1.md",
     "依考科分類/01_電路學/107年_電機工程技師_電路學.pdf",
     2,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -3679,7 +3679,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-2.md",
     "依考科分類/01_電路學/107年_電機工程技師_電路學.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -3731,7 +3731,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-5.md",
     "依考科分類/01_電路學/107年_電機工程技師_電路學.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -4177,7 +4177,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-106-01-1.md",
     "依考科分類/01_電路學/106年_電機工程技師_電路學.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -4225,7 +4225,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-106-01-4.md",
     "依考科分類/01_電路學/106年_電機工程技師_電路學.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5341,7 +5341,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-2.md",
     "依考科分類/01_電路學/104年_電機工程技師_電路學.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5376,7 +5376,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-4.md",
     "依考科分類/01_電路學/104年_電機工程技師_電路學.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5392,7 +5392,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-5.md",
     "依考科分類/01_電路學/104年_電機工程技師_電路學.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],

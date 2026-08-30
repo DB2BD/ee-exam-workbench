@@ -89,6 +89,15 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   const qRecord = findQuestionRecord(qid);
   const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
   const meta = getSubjectMeta(sid);
+  // Prefer an attested question-level crop for the stem preview.  GK crops
+  // are stored on the question record; PE crops are compiled into the map
+  // alongside the legacy page-image map.  Keep the official PDF link below
+  // as the source-of-truth fallback/access path.
+  const isGK = Boolean(qid && qid.startsWith('GK-'));
+  const questionCrop = isGK
+    ? (qRecord && qRecord[14])
+    : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] : '');
+  const questionCropSrc = questionCrop ? resolveImageMapUrl(questionCrop, isGK, qid) : '';
 
   // 1. Update Title
   const titleEl = document.getElementById('modal-title');
@@ -106,10 +115,17 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   updateModalNavButtons(qid);
   syncActiveRecallButtonState();
 
-  // 3. Load Left Pane (Space-efficient collapsible stem + Full Height PDF embed)
+  // 3. Load Left Pane (question crop + official PDF access)
   const leftPane = document.getElementById('modal-pane-left');
   const leftContent = document.getElementById('modal-left-content');
   if (leftContent) {
+    const sourcePreview = questionCropSrc
+      ? `<div class="question-crop-wrap">
+          <div class="question-crop-label">✂️ 本題裁切範圍（依題號獨立裁切）</div>
+          <img class="question-crop-preview" src="${questionCropSrc}" alt="${qid} 本題裁切圖" loading="eager" />
+        </div>`
+      : `<div class="question-crop-fallback">尚未建立本題裁切圖，以下保留官方 PDF 預覽。</div>
+         <div class="question-pdf-frame"><iframe src="${pdfLink}#toolbar=0" title="官方原始考卷 PDF" loading="lazy"></iframe></div>`;
     leftContent.innerHTML = `
       <div style="padding: 8px 14px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -125,12 +141,10 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
 
       <div id="modal-stem-collapse" style="display: none; padding: 12px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--ink); max-height: 180px; overflow-y: auto;">
         <div style="font-weight: 700; font-size: 0.78rem; color: var(--accent-dark); margin-bottom: 4px;">📌 原題題幹文字描述：</div>
-        <div>${topic}</div>
+        <div>${renderQuestionTopic(topic)}</div>
       </div>
 
-      <div style="flex: 1; width: 100%; height: 100%; min-height: 500px; background: #525659;">
-        <iframe src="${pdfLink}#toolbar=0" style="width: 100%; height: 100%; min-height: 500px; border: none; display: block;"></iframe>
-      </div>
+      ${sourcePreview}
     `;
   }
 
@@ -437,9 +451,9 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
       ? getRecallHintBundle(currentModalQid, qRecord)
       : { chapter: '待人工複核', activation: '先列出已知量、未知量與要求量。', formula: '寫出本章節核心公式。', trap: '檢查單位、極性與邊界條件。' };
 
-    let stemHtml = processMarkdownWithMath(stemPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
-    let hintHtml = hintPart ? processMarkdownWithMath(hintPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
-    let derivationHtml = derivationPart ? processMarkdownWithMath(derivationPart).replace(/src=["'](.*?)["']/g, (m, src) => `src="${resolveImageMapUrl(src, isGK)}"`) : '';
+    let stemHtml = resolveRenderedImageSources(processMarkdownWithMath(stemPart), isGK, currentModalQid);
+    let hintHtml = hintPart ? resolveRenderedImageSources(processMarkdownWithMath(hintPart), isGK, currentModalQid) : '';
+    let derivationHtml = derivationPart ? resolveRenderedImageSources(processMarkdownWithMath(derivationPart), isGK, currentModalQid) : '';
 
     let dagHtml = '';
     if (qRecord) {
@@ -507,7 +521,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     // Normal Full Open Mode
     let html = processMarkdownWithMath(markdownChunk);
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
-    html = html.replace(/src=["'](.*?)["']/g, (match, src) => `src="${resolveImageMapUrl(src, isGK)}"`);
+    html = resolveRenderedImageSources(html, isGK, currentModalQid);
 
     if (qRecord) {
       const [qid, sid, yr, qnum, topic] = qRecord;

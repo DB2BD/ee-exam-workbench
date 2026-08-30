@@ -23,13 +23,50 @@ function renderLatexDirect(latex, displayMode) {
   }
 }
 
+/**
+ * Convert Obsidian's image embed syntax to HTML before marked.js sees it.
+ *
+ * `marked` intentionally does not parse `![[file.png|750]]`, so without this
+ * pass the wiki embed is displayed literally in the solution pane.  Keep the
+ * source path untouched here; the later IMAGE_MAP/NATIONAL_IMAGE_MAP pass is
+ * responsible for mapping the basename to the published asset path.
+ */
+function normalizeObsidianImageEmbeds(markdown) {
+  if (!markdown || !markdown.includes('![[')) return markdown;
+
+  const escapeAttribute = (value) => String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  return markdown.replace(/!\[\[([^|\]]+?)(?:\|([^\]]+?))?\]\]/g, (match, rawTarget, rawSize) => {
+    const target = rawTarget.trim();
+    if (!target) return match;
+
+    const size = (rawSize || '').trim();
+    // Obsidian accepts a numeric width and a WxH size. Only emit dimensions
+    // for strict numeric values so arbitrary pipe text cannot become HTML.
+    const dimensions = size.match(/^(\d{1,4})(?:x(\d{1,4}))?$/i);
+    const attrs = dimensions
+      ? ` width="${dimensions[1]}"${dimensions[2] ? ` height="${dimensions[2]}"` : ''}`
+      : '';
+    const alt = target.split(/[\\/]/).pop().replace(/\.[^.]+$/, '') || '題目圖片';
+    return `<img src="${escapeAttribute(target)}" alt="${escapeAttribute(alt)}"${attrs}>`;
+  });
+}
+
 function processMarkdownWithMath(rawMarkdown) {
   if (!rawMarkdown) return '';
 
   const mathPlaceholders = [];
 
+  // Convert wiki image embeds before math protection/Markdown parsing. This
+  // covers all existing `![[...|750]]` and `![[...|850]]` solution embeds.
+  let protectedMd = normalizeObsidianImageEmbeds(rawMarkdown);
+
   // Protect display math $$ ... $$
-  let protectedMd = rawMarkdown.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
+  protectedMd = protectedMd.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
     const idx = mathPlaceholders.length;
     mathPlaceholders.push({ type: 'display', math: math.trim() });
     return `@@KATEX_DISPLAY_${idx}@@`;

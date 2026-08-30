@@ -242,6 +242,85 @@
   line-height: 1.7;
 }
 
+/* Keep source-page crops and generated circuit diagrams inside the solution
+   pane.  Markdown/Obsidian embeds may carry an explicit width (750/850 px),
+   so max-width is essential on narrow split panes to prevent overlap. */
+.solution-content img,
+.qtopic img,
+.review-card-topic img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 14px auto;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+/* Question-level source preview.  Crops are deliberately bounded to the
+   left pane so a tall scan cannot cover the solution pane or modal controls. */
+.question-crop-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px;
+  background: #525659;
+}
+
+.question-crop-label {
+  margin: 0 auto 10px;
+  max-width: 980px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.question-crop-preview {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(94vh - 190px);
+  margin: 0 auto;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.question-crop-fallback {
+  padding: 12px 16px;
+  color: var(--muted);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.82rem;
+}
+
+.question-pdf-frame {
+  flex: 1;
+  min-height: 500px;
+  width: 100%;
+  background: #525659;
+}
+
+.question-pdf-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  border: none;
+}
+
+.solution-content img[width],
+.qtopic img[width],
+.review-card-topic img[width] {
+  max-width: 100%;
+}
+
 .solution-content blockquote {
   border-left: 4px solid var(--accent);
   background: var(--bg-secondary);

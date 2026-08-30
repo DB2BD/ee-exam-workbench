@@ -522,6 +522,17 @@ def generate_bundle_js():
                     img_map['./' + rel_path] = rel_path
                     img_map[urllib.parse.quote(f)] = rel_path
                     img_map[urllib.parse.quote(rel_path)] = rel_path
+                    # Markdown source files use both `images/foo.png` and
+                    # basename-only Obsidian embeds. Keep the same aliases as
+                    # the PE compiler so either form resolves to the Pages
+                    # asset instead of a root-relative 404.
+                    if 'images/' in rel_path:
+                        sub_img = rel_path.split('images/', 1)[-1]
+                        img_map[sub_img] = rel_path
+                        img_map['./' + sub_img] = rel_path
+                        img_map['images/' + sub_img] = rel_path
+                        img_map[urllib.parse.quote(sub_img)] = rel_path
+                        img_map[urllib.parse.quote('images/' + sub_img)] = rel_path
 
     bundle_js = 'const NATIONAL_BUNDLED_MD = ' + json.dumps(bundle, ensure_ascii=False) + ';\n'
     bundle_js += 'const NATIONAL_IMAGE_MAP = ' + json.dumps(img_map, ensure_ascii=False) + ';\n'

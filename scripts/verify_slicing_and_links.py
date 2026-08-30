@@ -112,6 +112,46 @@ print(f"PE Total: {len(pe_questions)} | Slicing Failures: {len(pe_slicing_failur
 if pe_slicing_failures[:5]:
     print("Sample failures:", pe_slicing_failures[:5])
 
+# Canonical notes are the question-level source of truth.  Check that every
+# dashboard PE qid has exactly one note with a valid per-question crop.  This
+# catches the common failure mode where a newly added crop is present in the
+# manifest but the corresponding explanation was never created.
+canonical_qids = {}
+canonical_missing_crop = []
+canonical_full_page = []
+for root, _dirs, names in os.walk('📝 個人題解與錯題本'):
+    if os.path.basename(root) != 'canonical':
+        continue
+    for name in names:
+        if not name.startswith('EE-') or not name.endswith('.md'):
+            continue
+        path = os.path.join(root, name)
+        text = open(path, encoding='utf-8').read()
+        qid_match = re.search(r'^qid:\s*(\S+)\s*$', text, re.MULTILINE)
+        if not qid_match:
+            continue
+        qid = qid_match.group(1)
+        canonical_qids.setdefault(qid, []).append(path)
+        crop_match = re.search(r'^source_crop:\s*(\S+)\s*$', text, re.MULTILINE)
+        if not crop_match or not os.path.exists(crop_match.group(1)):
+            canonical_missing_crop.append((qid, path))
+        if re.search(r'_p[12]\.png', text):
+            canonical_full_page.append((qid, path))
+dashboard_qids = {q[0] for q in pe_questions}
+canonical_duplicates = sorted(qid for qid, paths in canonical_qids.items() if len(paths) > 1)
+canonical_missing = sorted(dashboard_qids - set(canonical_qids))
+canonical_extra = sorted(set(canonical_qids) - dashboard_qids)
+print(
+    "PE canonical notes: "
+    f"{len(canonical_qids)}/{len(dashboard_qids)} qids | "
+    f"missing={len(canonical_missing)} duplicate={len(canonical_duplicates)} "
+    f"invalid_crop={len(canonical_missing_crop)} full_page_embed={len(canonical_full_page)}"
+)
+if canonical_missing[:5]:
+    print("Sample canonical missing:", canonical_missing[:5])
+if canonical_full_page[:5]:
+    print("Sample full-page embeds (replace with source_crop):", canonical_full_page[:5])
+
 print("\n🔍 === 2. Verifying All 161 National Exam Questions ===")
 nat_slicing_failures = []
 nat_pdf_issues = []
@@ -148,4 +188,4 @@ if nat_pdf_issues:
     print("PDF issues:", nat_pdf_issues)
 
 if len(pe_slicing_failures) == 0 and len(nat_slicing_failures) == 0 and len(nat_pdf_issues) == 0:
-    print("\n🎉 ALL 426 QUESTIONS (321 PE + 105 GK) HAVE 100% ACCURATE SLICING & VALID PDF LINKS!")
+    print(f"\n🎉 ALL {len(pe_questions) + len(nat_questions)} QUESTIONS ({len(pe_questions)} PE + {len(nat_questions)} GK) HAVE 100% ACCURATE SLICING & VALID PDF LINKS!")

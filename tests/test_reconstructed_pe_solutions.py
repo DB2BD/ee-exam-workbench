@@ -12,6 +12,26 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
+    def test_every_pe_qid_has_one_canonical_note_and_crop(self):
+        """Question-level provenance must stay complete after regeneration."""
+        dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")
+        records = json.loads(re.search(r"questions:\s*(\[.*?\]),\s*\n\s*sevenLayers:", dashboard, re.S).group(1))
+        expected = {row[0] for row in records}
+        found = {}
+        for path in CANONICAL.glob("*/canonical/EE-*.md"):
+            text = path.read_text(encoding="utf-8")
+            match = re.search(r"^qid:\s*(\S+)\s*$", text, re.M)
+            if not match:
+                continue
+            qid = match.group(1)
+            self.assertNotIn(qid, found, f"duplicate canonical note: {qid}")
+            found[qid] = path
+            crop = re.search(r"^source_crop:\s*(\S+)\s*$", text, re.M)
+            self.assertIsNotNone(crop, f"missing source_crop: {qid}")
+            self.assertTrue((ROOT / crop.group(1)).is_file(), f"invalid source_crop: {qid}")
+            self.assertNotRegex(text, r"_p[12]\\.png", f"whole-page embed remains: {qid}")
+        self.assertEqual(found.keys(), expected)
+
     def test_109_electronics_has_four_independent_question_records(self):
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")
         records = json.loads(re.search(r"questions:\s*(\[.*?\]),\s*\n\s*sevenLayers:", dashboard, re.S).group(1))

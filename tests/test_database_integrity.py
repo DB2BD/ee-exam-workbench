@@ -32,7 +32,7 @@ class TestDatabaseIntegrity(unittest.TestCase):
         m = re.search(r'questions:\s*(\[[\s\S]+?\]),\s*\n\s*sevenLayers:', text)
         self.assertIsNotNone(m, "PE questions array must be parseable")
         pe_questions = json.loads(m.group(1))
-        self.assertEqual(len(pe_questions), 318, "PE database must contain exactly 318 questions")
+        self.assertEqual(len(pe_questions), 321, "PE database must contain exactly 321 questions")
 
     def test_engineering_math_status_matches_audit_manifest(self):
         """Do not expose template engineering-math notes as verified."""

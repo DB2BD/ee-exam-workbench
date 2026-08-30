@@ -11,14 +11,14 @@
 
 ### 1.1 現狀與痛點
 1. **考點命題重疊率高達 85%**：考選部「專技高考電機技師」之命題委員群與「公務高考三級（電力/電子）」、「鐵路特考高員三級」、「地方特考三級」高度重疊，同一個觀念（如：NR 潮流計算、變壓器等效、SVD 矩陣特徵值、Buck/Boost BCM、短路容量）常在同年度或隔年在不同國考中交互換皮出題。
-2. **跨考別資料仍需持續擴充**：工作台目前已有 104~114 年電機技師 318 題及 110~114 年公務高考 161 筆記錄；鐵路特考、地方特考與國營聯招仍保留獨立擴充介面，避免把尚未取得的資料誤宣告為已收錄。
-3. **資料庫防覆蓋剛性要求**：原有 318 題電機技師題庫、進度記錄、雙欄工作台、SVG 向量電路圖已全面通過 SymPy 與 LaTeX 驗證，**任何擴充模組必須 100% 零污染、零覆蓋、獨立解耦**。
+2. **跨考別資料仍需持續擴充**：工作台目前已有 104~114 年電機技師 321 題及 110~114 年公務高考 161 筆記錄；鐵路特考、地方特考與國營聯招仍保留獨立擴充介面，避免把尚未取得的資料誤宣告為已收錄。
+3. **資料庫防覆蓋剛性要求**：原有 321 題電機技師題庫、進度記錄、雙欄工作台、SVG 向量電路圖均保留可追溯的驗證狀態（其中未完成獨立核算者明確標為人工複核），**任何擴充模組必須 100% 零污染、零覆蓋、獨立解耦**。
 
 ### 1.2 核心目標 (Goals)
 1. **獨立資料層架構 (Isolated Data Architecture)**：
-   - 維持獨立的 `national-exams-data.js`（GK 161 筆）與 `national-solutions-bundle.js`，原 `dashboard-data.js`（PE 318 題）與 `solutions-bundle.js` 保持完全不變。
+   - 維持獨立的 `national-exams-data.js`（GK 161 筆）與 `national-solutions-bundle.js`，原 `dashboard-data.js`（PE 321 題）與 `solutions-bundle.js` 保持完全不變。
 2. **頂部考別維度切換列 (Exam Category Dimension Switcher)**：
-   - **專技高考：電機工程技師**（主戰場・預設 318 題）
+   - **專技高考：電機工程技師**（主戰場・預設 321 題）
    - **公務高考三級：電力工程 / 電子工程**
    - **鐵路特考高員三級：電力工程**
    - **地方特考三級：電力工程**
@@ -26,7 +26,7 @@
 3. **跨試題同考點穿梭機制 (Cross-Exam Topic Bridge)**：
    - 在閱讀技師詳解時，右欄底端提供「同考點公務高考 / 鐵路特考推薦題」，點擊後原地無縫切換，並提供「返回原技師試題」歷史堆疊。
 4. **零覆蓋與向後相容性保證**：
-   - 原有 318 題之 `qid`（如 `EE-114-01-1`）格式完全不變。
+   - 原有 321 題之 `qid`（如 `EE-114-01-1`）格式完全不變。
    - 國考題目採用前綴隔離 ID（如 `GK-114-01-1`、`RW-113-05-2`、`SOE-112-05-1`）。
 
 ### 1.3 非目標 (Non-Goals)
@@ -47,7 +47,7 @@ graph TD
     end
 
     subgraph Data_Isolation_Layer["完全隔離資料層 (Zero Overwrite)"]
-        PE_DB[("主資料庫<br>dashboard-data.js<br>(技師 318 題)<br>READ ONLY")]
+        PE_DB[("主資料庫<br>dashboard-data.js<br>(技師 321 題)<br>READ ONLY")]
         NAT_DB[("擴充資料庫<br>national-exams-data.js<br>(高考/鐵路/國營)")]
         BUNDLE_PE[("技師題解包<br>solutions-bundle.js<br>READ ONLY")]
         BUNDLE_NAT[("國考題解包<br>national-solutions-bundle.js")]
@@ -226,7 +226,7 @@ graph LR
 - **目標**：在 `index.html` 頂部 `<nav class="tabs">` 之上方新增一組膠囊標籤切換器（`電機技師`、`公務高考`、`鐵路特考`、`國營聯招`），切換時動態替換 `renderQuestions()` 的資料來源。
 - **載入方式**：按需 async `<script>` 注入 `national-exams-data.js`，首次切換到非 PE 標籤時才載入。
 - **驗收標準**：
-  - 預設「電機技師」顯示原 318 題（使用既有 `DB_DATA`）
+  - 預設「電機技師」顯示原 321 題（使用既有 `DB_DATA`）
   - 切換「公務高考」時使用 `NATIONAL_EXAMS_DATA.questions`
   - 重整頁面後 `localStorage` 記憶上次考別選擇
   - 若 `national-exams-data.js` 不存在或載入失敗，僅顯示技師題庫不報錯
@@ -237,7 +237,7 @@ graph LR
 - **驗收標準**：考生可在不離開當前視窗下，秒開高考對應考點之題目與詳解。
 
 #### `TICKET-06`：回歸測試與零覆蓋嚴格驗證
-- **目標**：自動化腳本核對 318 題技師資料庫之 SHA-256 與題目數量，確保 100% 無變動。
+- **目標**：自動化腳本核對 321 題技師資料庫之 SHA-256 與題目數量，確保 100% 無變動。
 - **驗收標準**：全項測試通過，`git diff dashboard-data.js solutions-bundle.js` 為空。
 
 ---

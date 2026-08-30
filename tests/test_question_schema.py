@@ -18,7 +18,7 @@ class TestQuestionSchema(unittest.TestCase):
         questions = load_questions_from_bundle(WORKSPACE / "dashboard-data.js", "sevenLayers")
         result = validate_question_records(questions, exam_family="PE")
         self.assertTrue(result.ok, result.errors[:5])
-        self.assertEqual(result.count, 318)
+        self.assertEqual(result.count, 321)
         self.assertTrue(all(len(record) == 12 for record in questions))
 
     def test_gk_bundle_has_provenance_fields(self):

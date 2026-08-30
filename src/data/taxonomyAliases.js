@@ -18,6 +18,8 @@ const TAXONOMY_ALIASES = {
   'op[- ]?amp|operational amplifier': '運算放大器',
   'two[- ]?port': '雙埠',
   'three[- ]?phase': '三相',
+  '金氧半場效電晶體|增強型\\s*n[-－]通道': 'MOSFET',
+  '返馳式轉換器|返馳轉換器': 'Flyback',
 };
 
 // Manual corrections are intentionally empty in the base distribution. A

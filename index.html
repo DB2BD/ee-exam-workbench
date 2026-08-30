@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=math-audit-20260830"></script>
-<script src="./solutions-bundle.js?v=math-audit-20260830"></script>
-<script src="./national-exams-data.js?v=math-audit-20260830"></script>
-<script src="./national-solutions-bundle.js?v=math-audit-20260830"></script>
+<script src="./dashboard-data.js?v=dev"></script>
+<script src="./solutions-bundle.js?v=dev"></script>
+<script src="./national-exams-data.js?v=dev"></script>
+<script src="./national-solutions-bundle.js?v=dev"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -585,6 +585,9 @@ select:focus {
 .status-badge.s-0 { color: var(--muted); background: var(--bg); }
 .status-badge.s-1 { color: var(--success); background: var(--success-light); border-color: var(--success); }
 .status-badge.s-2 { color: var(--review); background: var(--review-light); border-color: var(--review); }
+.solution-audit.s-audit-suspected_error { color: #a04a3f; background: #fff0ed; border-color: #e6a49a; }
+.solution-audit.s-audit-needs_manual_review { color: #8a6410; background: #fff8df; border-color: #e4c56b; }
+.solution-audit.s-audit-not_attempted { color: #6d7480; background: #f1f3f5; border-color: #c8ced6; }
 
 /* Difficulty Stars Badge */
 .diff-badge {
@@ -1472,7 +1475,7 @@ select:focus {
     <div class="category-switcher">
       <button class="cat-tab on" id="cat-tab-PE" onclick="switchExamCategory('PE')">
         <span>🏆 專技高考：電機工程技師</span>
-        <span class="cat-badge" id="cat-count-PE">318 題 · 66 卷</span>
+        <span class="cat-badge" id="cat-count-PE">321 題 · 66 卷</span>
       </button>
       <button class="cat-tab" id="cat-tab-GK" onclick="switchExamCategory('GK')">
         <span>🏛️ 公務高考：三級電力/電子</span>
@@ -1484,7 +1487,7 @@ select:focus {
     <div class="stats-grid">
       <div class="stat-card">
         <span class="label">📚 收錄試題總數</span>
-        <span class="val" id="stat-total">318</span>
+        <span class="val" id="stat-total">321</span>
       </div>
       <div class="stat-card">
         <span class="label">🟢 已掌握題數</span>
@@ -1826,7 +1829,12 @@ select:focus {
  */
 
 const QUESTION_SCHEMA_VERSION = '1.0.0';
-const QUESTION_STATUSES = ['verified', 'in_progress', 'pending', 'ambiguous', 'unavailable'];
+const QUESTION_STATUSES = [
+  'verified', 'in_progress', 'pending', 'ambiguous', 'unavailable',
+  // Engineering-math audit states. These are intentionally explicit so the
+  // UI cannot present a template or unattempted derivation as verified.
+  'suspected_error', 'needs_manual_review', 'not_attempted',
+];
 
 function toQuestionRecord(record, examFamily) {
   const family = examFamily || (String(record && record[0] || '').startsWith('GK-') ? 'GK' : 'PE');
@@ -1915,6 +1923,8 @@ const TAXONOMY_ALIASES = {
   'op[- ]?amp|operational amplifier': '運算放大器',
   'two[- ]?port': '雙埠',
   'three[- ]?phase': '三相',
+  '金氧半場效電晶體|增強型\\s*n[-－]通道': 'MOSFET',
+  '返馳式轉換器|返馳轉換器': 'Flyback',
 };
 
 // Manual corrections are intentionally empty in the base distribution. A
@@ -2968,7 +2978,7 @@ function switchExamCategory(catId) {
   reloadProgressState();
   const categoryCount = typeof getQuestionCountForCategory === 'function'
     ? getQuestionCountForCategory(catId)
-    : (catId === 'PE' ? 318 : 161);
+    : (catId === 'PE' ? 321 : 161);
 
   if (catId === 'PE') {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
@@ -3349,7 +3359,7 @@ const REVIEW_CHAPTER_RULES = {
   '02': [
     ['el-pe-inverter-spwm', ['全橋變流器', '全橋轉換器', '全橋式變頻器', '方波變頻器', '逆變器', 'spwm', '脈寬調變']],
     ['el-pe-thyristor-rectifier', ['閘流體', 'thyristor', '相控整流', '半波整流', '續流二極體']],
-    ['el-pe-buck-boost', ['buck', 'boost', '降壓', '升壓', '降升壓', '電源轉換器', '責任週期', '理想開關', 'pwm', '連續導通']],
+    ['el-pe-buck-boost', ['buck', 'boost', 'flyback', '返馳', '降壓', '升壓', '降升壓', '電源轉換器', '責任週期', '理想開關', 'pwm', '連續導通']],
     ['el-feedback-stability', ['負回授', '回授因素', '相位邊限', '穩定度']],
     ['el-active-filter', ['主動濾波器', '濾波器', '頻率響應', '米勒', '增益函數', '高頻', '極點', '3 db']],
     ['el-diff-amp', ['差動放大器', '差動對', '共模', 'cmrr']],
@@ -3437,6 +3447,11 @@ function getReviewChapterKey(q) {
   const tags = Array.isArray(record.tags) ? record.tags.map(normalize) : [];
   const formulaTags = Array.isArray(record.formulaTags) ? record.formulaTags.map(normalize) : [];
   const text = `${topic} ${tags.join(' ')} ${formulaTags.join(' ')}`;
+  // OCR can leave a generic「電晶體」token in converter questions.  Prefer
+  // the explicit converter/device marker before generic BJT rules so a
+  // Flyback or MOSFET item never falls into a neighbouring chapter.
+  if (sid === '02' && /flyback|返馳/.test(text)) return 'el-pe-buck-boost';
+  if (sid === '02' && /mosfet|金氧半場效/.test(text)) return 'el-mosfet-bias-small-signal';
   const rules = REVIEW_CHAPTER_RULES[sid] || [];
   const matches = [];
   rules.forEach(([id, terms], order) => {
@@ -4198,6 +4213,13 @@ function renderQuestions() {
 
     const starIcons = '⭐'.repeat(Math.max(1, Math.min(5, diff || 3)));
     const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
+    const auditLabels = {
+      verified: '✅ 解答已校驗',
+      suspected_error: '⚠️ 待更正',
+      needs_manual_review: '🟡 待人工覆核',
+      not_attempted: '⏳ 尚未校驗',
+    };
+    const auditLabel = auditLabels[status] || '';
 
     const dueInfo = typeof getReviewBadgeInfo === 'function' ? getReviewBadgeInfo(qid) : { text: '', cssClass: 'due-none' };
 
@@ -4211,6 +4233,7 @@ function renderQuestions() {
             </span>
             <span class="diff-badge" title="難度評定：${diff} 星">${starIcons}</span>
             ${(tags || []).slice(1, 3).map(t => `<span class="qtag">${t}</span>`).join('')}
+            ${auditLabel ? `<span class="qtag solution-audit s-audit-${status}" title="詳解稽核狀態">${auditLabel}</span>` : ''}
           </div>
           <button class="btn-star ${isStarred ? 'active' : ''}" onclick="toggleStarred('${qid}', event)" title="${isStarred ? '取消收藏' : '加入重點收藏'}">
             ${isStarred ? '★' : '☆'}

@@ -954,7 +954,7 @@ function switchExamCategory(catId) {
   if (catId === 'PE') {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
-    showToast('🏆 已切換至「電機工程技師」核心題庫 (318 題)');
+    showToast('🏆 已切換至「電機工程技師」核心題庫 (321 題)');
   } else {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
@@ -2150,4 +2150,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.addEventListener('hashchange', handleUrlHashRouting);
-

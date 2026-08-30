@@ -7,7 +7,12 @@
  */
 
 const QUESTION_SCHEMA_VERSION = '1.0.0';
-const QUESTION_STATUSES = ['verified', 'in_progress', 'pending', 'ambiguous', 'unavailable'];
+const QUESTION_STATUSES = [
+  'verified', 'in_progress', 'pending', 'ambiguous', 'unavailable',
+  // Engineering-math audit states. These are intentionally explicit so the
+  // UI cannot present a template or unattempted derivation as verified.
+  'suspected_error', 'needs_manual_review', 'not_attempted',
+];
 
 function toQuestionRecord(record, examFamily) {
   const family = examFamily || (String(record && record[0] || '').startsWith('GK-') ? 'GK' : 'PE');

@@ -21,6 +21,15 @@ dedicated_notes = {}
 # override for legacy page embeds (e.g. *_p1.png), so a solution can never
 # silently fall back to the whole exam page once a crop is available.
 QUESTION_CROP_MAP = {}
+ENGINEERING_MATH_AUDIT_STATUS = {}
+# Official crop corrections for legacy annual notes whose question statement
+# was copied from a different year/question number.
+ENGINEERING_MATH_TOPIC_OVERRIDES = {
+    'EE-114-03-5': (
+        '假設矩陣 A = [[0, -1, 0, 1], [0, 1, -1, 0]] 與 b = [0, 1]^T；'
+        '求 Ax=b 的完整解與矩陣 A 的零空間 N(A)。'
+    ),
+}
 PE_CROP_MANIFEST = 'data/pe-question-crops.json'
 if os.path.exists(PE_CROP_MANIFEST):
     try:
@@ -58,6 +67,20 @@ if os.path.exists(PE_CROP_MANIFEST):
     except (OSError, ValueError, TypeError) as exc:
         print(f'⚠️ PE crop manifest ignored: {exc}')
 
+# Engineering-math solutions are audited independently from the PE question
+# compiler.  Never advertise a legacy/template solution as verified when the
+# audit manifest has evidence to the contrary.
+MATH_AUDIT_MANIFEST = 'data/engineering-math-audit.json'
+if os.path.exists(MATH_AUDIT_MANIFEST):
+    try:
+        with open(MATH_AUDIT_MANIFEST, 'r', encoding='utf-8') as f:
+            audit_data = json.load(f)
+        for item in audit_data.get('entries', []):
+            if isinstance(item, dict) and item.get('qid') and item.get('audit_status'):
+                ENGINEERING_MATH_AUDIT_STATUS[str(item['qid'])] = str(item['audit_status'])
+    except (OSError, ValueError, TypeError) as exc:
+        print(f'⚠️ Engineering-math audit manifest ignored: {exc}')
+
 # Scan all solution files in 📝 個人題解與錯題本/
 for root, dirs, files in os.walk('📝 個人題解與錯題本'):
     for f in files:
@@ -92,6 +115,16 @@ if os.path.exists('📝 個人題解與錯題本/03_工程數學/114年_工程�
     dedicated_notes['EE-114-03-5'] = '📝 個人題解與錯題本/03_工程數學/114年_工程數學_第五題_線性系統完整解與零空間.md'
 if os.path.exists('📝 個人題解與錯題本/03_工程數學/114年_工程數學_第三題_二階線性ODE.md'):
     dedicated_notes['EE-114-03-3'] = '📝 個人題解與錯題本/03_工程數學/114年_工程數學_第三題_二階線性ODE.md'
+
+# Canonical, question-level notes take precedence over legacy annual templates.
+# This keeps the original files available while routing the UI to a verified
+# per-question derivation as soon as one exists.
+canonical_dir = '📝 個人題解與錯題本/03_工程數學/canonical'
+if os.path.isdir(canonical_dir):
+    for f in os.listdir(canonical_dir):
+        match = re.match(r'(EE-\d{3}-03-\d+)\.md$', f)
+        if match:
+            dedicated_notes[match.group(1)] = os.path.join(canonical_dir, f).replace('\\', '/')
 
 all_questions = []
 subject_counts = {}
@@ -176,6 +209,8 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
                         tags.append('電力電子')
                     
                     qid = f'EE-{yr}-{sid}-{q_num}'
+                    if qid in ENGINEERING_MATH_TOPIC_OVERRIDES:
+                        topic = ENGINEERING_MATH_TOPIC_OVERRIDES[qid]
                     
                     pdf_file = ''
                     if os.path.exists(pdf_dir):
@@ -190,7 +225,9 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
                     if qid in dedicated_notes:
                         solLink = dedicated_notes[qid]
                         has_dedicated = True
-                        v_status = 'verified'
+                        v_status = ENGINEERING_MATH_AUDIT_STATUS.get(
+                            qid, 'verified' if sid != '03' else 'pending'
+                        )
                     else:
                         solLink = f'{md_file}#{yr}年'
                         v_status = 'in_progress'

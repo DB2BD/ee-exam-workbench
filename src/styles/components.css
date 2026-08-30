@@ -300,6 +300,9 @@ select:focus {
 .status-badge.s-0 { color: var(--muted); background: var(--bg); }
 .status-badge.s-1 { color: var(--success); background: var(--success-light); border-color: var(--success); }
 .status-badge.s-2 { color: var(--review); background: var(--review-light); border-color: var(--review); }
+.solution-audit.s-audit-suspected_error { color: #a04a3f; background: #fff0ed; border-color: #e6a49a; }
+.solution-audit.s-audit-needs_manual_review { color: #8a6410; background: #fff8df; border-color: #e4c56b; }
+.solution-audit.s-audit-not_attempted { color: #6d7480; background: #f1f3f5; border-color: #c8ced6; }
 
 /* Difficulty Stars Badge */
 .diff-badge {

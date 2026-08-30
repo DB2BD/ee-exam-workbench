@@ -34,6 +34,17 @@ class TestDatabaseIntegrity(unittest.TestCase):
         pe_questions = json.loads(m.group(1))
         self.assertEqual(len(pe_questions), 318, "PE database must contain exactly 318 questions")
 
+    def test_engineering_math_status_matches_audit_manifest(self):
+        """Do not expose template engineering-math notes as verified."""
+        text = open(self.pe_db_path, encoding='utf-8').read()
+        records = json.loads(re.search(r'questions:\s*(\[[\s\S]+?\]),\s*\n\s*sevenLayers:', text).group(1))
+        audit_path = os.path.join(WORKSPACE, 'data', 'engineering-math-audit.json')
+        with open(audit_path, encoding='utf-8') as f:
+            audit = {item['qid']: item['audit_status'] for item in json.load(f)['entries']}
+        for record in records:
+            if record[1] == '03':
+                self.assertEqual(record[9], audit.get(record[0], 'pending'), record[0])
+
     def test_gk_database_records(self):
         self.assertTrue(os.path.exists(self.gk_db_path))
         with open(self.gk_db_path, 'r', encoding='utf-8') as f:

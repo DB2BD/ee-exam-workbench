@@ -14,6 +14,7 @@ class TestFormulaFormat(unittest.TestCase):
         source = (ROOT / "src/renderers/katexRenderer.js").read_text(encoding="utf-8")
         self.assertIn(r"/\\\[([\s\S]+?)\\\]/g", source)
         self.assertIn(r"/\\\(([^\n]+?)\\\)/g", source)
+        self.assertIn("unicodeTextInMathMode", source)
 
     def test_known_malformed_formula_delimiters_are_fixed(self):
         files = [

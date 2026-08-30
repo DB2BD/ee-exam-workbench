@@ -25,6 +25,10 @@ ENGINEERING_MATH_AUDIT_STATUS = {}
 # Official crop corrections for legacy annual notes whose question statement
 # was copied from a different year/question number.
 ENGINEERING_MATH_TOPIC_OVERRIDES = {
+    'EE-108-03-5': '複變函數線積分：被積函數 1/(z²−1)，圓心 (±1,0)、半徑 1 的圓周。',
+    'EE-109-03-3': '聯合機率密度：矩形區域 0≤x≤5、0≤y≤3，求 P(X>Y)。',
+    'EE-110-03-3': '傅立葉級數：f(x)=x−x²（−π<x<π）的 2π 週期延拓。',
+    'EE-111-03-3': '複變留數定理：C 為 |z|=2.5 的逆時針圓周，計算兩個留數積分。',
     'EE-114-03-5': (
         '假設矩陣 A = [[0, -1, 0, 1], [0, 1, -1, 0]] 與 b = [0, 1]^T；'
         '求 Ax=b 的完整解與矩陣 A 的零空間 N(A)。'

@@ -91,7 +91,8 @@ def canonical_metadata(path: Path) -> dict[str, str]:
         if ":" not in line:
             continue
         key, value = line.split(":", 1)
-        result[key.strip()] = value.strip().strip("'\"")
+        value = value.strip().strip("'\"")
+        result[key.strip()] = None if value.lower() in {"", "null", "none", "~"} else value
     return result
 
 
@@ -127,7 +128,9 @@ def make_entries(records: list[list], crop_map: dict[str, dict], existing: dict)
                 else old.get("solution_version", "legacy")
             ),
             "audit_status": status,
-            "verified_at": metadata.get("verified_at") or old.get("verified_at") or (date.today().isoformat() if status == "verified" else None),
+            "verified_at": metadata.get("verified_at") or (
+                old.get("verified_at") if old.get("verified_at") not in {"", "null", "none", "~"} else None
+            ) or (date.today().isoformat() if status == "verified" else None),
             "method": metadata.get("method", old.get("method", "template_hash_screening")),
             "evidence_hash": old.get("evidence_hash", digest),
             "solution_hash": digest,

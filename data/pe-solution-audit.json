@@ -982,10 +982,10 @@
       "question_number": 2,
       "chapter": "在圖二所示之耦合電路中，其中兩電感之耦合電感值為0.5 H，如果電壓\n源vs =36cos(2t +30o)V，試求出I1、I2 及$4\\ \\Omega$電阻之吸收功率=？（25 分）\n圖二\n$10\\text{ k}\\Omega$\nvs\n$0.25\\ \\mu\\text{F}$\n$20\\text{ k}\\Omega$\n$0.5\\ \\mu\\text{F}$\n$10\\text{ k}\\Omega$\n$20\\text{ k}\\Omega$\n$40\\text{ k}\\Omega$\nvs\n0.5 H\n$5\\ \\Omega$\n0.125 F\n3 H\n$2\\ \\Omega$\n$4\\ \\Omega$\n+-\nI1\nI2\n1.5 H\n(t)",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-111-01-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "9af4fab354893d59b24fe3a6be456d605f1f7a5f605747b4b8969ee5a7ffb443",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "mutual-inductance-mesh-kvl-independent-check",
+      "solution_hash": "922ed201cf3560582a4d957bb82b2f9948ae94b00ecce09f6c6c2f9eb8e10e08",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_111年_電路學_Q02.png"
     },
@@ -1180,8 +1180,8 @@
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-111-05-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "d7eedbdbb390fb9d516e1f68d50210d39912b650907c7d745cb5dd9c10b8d398",
+      "method": "independent_recalculation_equal_area_and_swing_time_frequency_pending",
+      "solution_hash": "c373b5ced68f372800021d020a744b89451f032cae2e67a2dee58c121ccecbc7",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_111年_電力系統_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 77,
+    "verified": 78,
     "suspected_error": 0,
-    "needs_manual_review": 179,
+    "needs_manual_review": 178,
     "not_attempted": 0
   }
 }

@@ -1430,10 +1430,10 @@
       "question_number": 4,
       "chapter": "額定 3 馬力、$180\\text{ V}$ 之永磁式直流電動機，電樞電阻 $R_a = 2.01\\ \\Omega$，無載時之轉速為 4200 rpm。機械損失、鐵心損失及無載時之電樞電流均可忽略。當此電動機以直流 $180\\text{ V}$ 供電，輸出額定機械功率時：\n* **(一)** 繪出此直流電動機的等效電路圖，計算其電樞電壓 $E_a$ 及電樞電流 $I_a$。（10 分）\n* **(二)** 計算其轉速（以 rpm 表示）及轉矩。（10 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-110-04-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official_crop_quadratic_recalculation_with_two_operating_branches",
-      "solution_hash": "cec6eebc6a9fb3c4197d531c3c37042452846c88506a53acba4ff5cc975dab3b",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_quadratic_recalculation_with_stability_selection",
+      "solution_hash": "28eb566f58ff3c12aeb2bd5b2e838f85ad50d768a1550ad50962ddd99ffc16dd",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_110年_電機機械_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 223,
+    "verified": 224,
     "suspected_error": 0,
-    "needs_manual_review": 33,
+    "needs_manual_review": 32,
     "not_attempted": 0
   }
 }

@@ -2402,7 +2402,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-110-04-4.md",
     "依考科分類/04_電機機械/110年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],

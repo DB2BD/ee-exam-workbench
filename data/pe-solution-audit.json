@@ -2886,10 +2886,10 @@
       "question_number": 4,
       "chapter": "一台$30\\text{ MVA}$、11.4/$69\\text{ kV}$、Y-Δ 接之三相變壓器，單線圖如圖二所示。(一)圖中87 代\n表什麼意義？（5 分）(二)試繪出整體三相接線圖。（10 分）(三)考慮比流器的靈敏度，\nCT1 及CT2 的變流比選用多少為恰當？（5 分）\n圖二\n\n建築師、技師、第二次食品技師考試暨\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "9863f9c8c2b77af5327825edca52c382be31f468bba835cf5342e81b4db1f4d2",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_transformer_differential_relay_ct_ratio_and_phase_compensation",
+      "solution_hash": "1150c5bdfa2178ea03b8456964a7d91a7cf62f73a8b6103e83cbea1b76e9df7f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_106年_工業配電_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 218,
+    "verified": 219,
     "suspected_error": 0,
-    "needs_manual_review": 38,
+    "needs_manual_review": 37,
     "not_attempted": 0
   }
 }

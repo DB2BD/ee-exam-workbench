@@ -509,7 +509,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_recalculation_source_conflict",
-      "solution_hash": "8b6e6469f19591b4a78a1518714bf1be2095f367bd4d2602bae9e8f754e9c8f3",
+      "solution_hash": "62da925f3b08c60a72ea82df45a973e937038c6955acddc6d59d5be618f629aa",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_113年_電機機械_Q04.png"
     },
@@ -1055,7 +1055,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "mosfet-gain-square-law-consistency-check",
-      "solution_hash": "2203497216c029ec71846cf900dc8711c8c74d03c93f8f18db3dbaff444e2c9e",
+      "solution_hash": "ca82a2ccd3ee86a8442e170062ee9b763b12bee2f1d41876eb92f420c781b405",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png"
     },
@@ -1069,7 +1069,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_parameter_insufficient_for_unique_h_parameter_solution",
-      "solution_hash": "2ab3954bbed12d133741f6ca4977b87e5f27941653efa5f0187002a7de9b42e7",
+      "solution_hash": "3026cee2372c739026afe7ed3cc1acf36f2f710b1e735eb982a84b545d3a8133",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q04.png"
     },
@@ -1111,7 +1111,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official crop/table independently transcribed; no-load and full-load equations recomputed, with explicit ambiguity retained for field-control setting and table interpolation",
-      "solution_hash": "8a50f007f4f86b60ee3afe78174fe9d3214da2b178658be1d5af3aa1baec4d33",
+      "solution_hash": "6ef35fd8ba267866af5771d41633cb12af94a52377d652295179f92e6a3e7d1a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q03.png"
     },
@@ -1125,7 +1125,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official crop independently transcribed; phasor and per-unit calculations recomputed, while OCC/SCC interpolation limitation is retained",
-      "solution_hash": "6ff0917c445eb5186837a2720261b3ca4eb6a24a2e620dbdba840b318e386fd6",
+      "solution_hash": "31dc67f32434e832c2ba35c0fbf74a5edee625175bd15032a70900885f883cfc",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q04.png"
     },
@@ -1181,7 +1181,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_equal_area_recalculation_with_frequency_parameterization",
-      "solution_hash": "5a88322f735dbeb2973e2b13de39845ab6ac9ff1f18b676bfb73be38824e82c1",
+      "solution_hash": "f975d9e9da343b32bc83bdd215438b8d2e9e0f5cb2488fbd2a6df87140d98f54",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_111年_電力系統_Q03.png"
     },
@@ -1209,7 +1209,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official CT equivalent-circuit and excitation-curve crop independently read; burden equations and relay threshold checked, graph readings retained as approximate",
-      "solution_hash": "cdefeb7dcbe04212cc39ebb9311b4ad629ce551be3814834fb5ce3f7e4265583",
+      "solution_hash": "29a7fa724763117dae85b0d10916133f6ad5d7af32a89f9b830c33483f456f2a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q01.png"
     },
@@ -1223,7 +1223,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "per-unit-voltage-drop-with-motor-starting-impedance",
-      "solution_hash": "390839a57701ca6562ffbd412edb574dc8d1c6b58052c70e0b573d9f29c9ed01",
+      "solution_hash": "598c81780339e1557e65a991f12db483b63b385cc990e0da0568b202b8c02e73",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q02.png"
     },
@@ -1237,7 +1237,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_symmetrical_three_phase_fault_recalculation_with_motor_count_and_rating_ambiguity",
-      "solution_hash": "2dc19de5bc4fa3b3d76050aa2b17a2886d400589845ee243e36bf2d302c97f60",
+      "solution_hash": "5501d0e0a16583ae91f1b1182525f175f243b3a4ae54d06a770114791c7eca25",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q03.png"
     },
@@ -1573,7 +1573,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-pcc-voltage-flicker-recalculation",
-      "solution_hash": "62a741a75eb0e70fbfdb4ecb44dcc028e1c1634d2eb0b6198418233cb4a1bb94",
+      "solution_hash": "b1d181243e6847bc782d40d9f83f4f825efd1a521cc5117d9f58fa6600276616",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q04.png"
     },
@@ -1587,7 +1587,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_common_base_short_circuit_recalculation_with_motor_rating_assumption",
-      "solution_hash": "d53a321d698ebbf83f4fce299bcbeb021d32ace7be1b3e6a27f0d93001e1cdbe",
+      "solution_hash": "bc14380cc8b804e0902163a6c8fe842947fbf464ead3a34ef4dc7a377fcae4a9",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q05.png"
     },
@@ -2217,7 +2217,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-per-unit-recalculation-and-consistency-audit",
-      "solution_hash": "87a173d612c6efcc48ef9e79993b8a6b54f4d90349caee50e7de1142bddb7920",
+      "solution_hash": "6b49c1d9853ea65a2cf9facb42172177ff41802b7fe68c2155194dee0a4fa2c4",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_108年_工業配電_Q02.png"
     },
@@ -3589,7 +3589,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "fifth_harmonic_network_recalculation_with_rectifier_pf_assumption",
-      "solution_hash": "6596e10353c14e3e6507c892c8e0d1d64126f6e84801078c2bd8d6da367ec6cb",
+      "solution_hash": "9b7a574c2479abc1b34cd83da8d5607948c040979c45204aab13f8552d93118d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q05.png"
     }

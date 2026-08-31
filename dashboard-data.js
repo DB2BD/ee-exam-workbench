@@ -6536,85 +6536,85 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "conduction_mode_branches",
     "blocker": "missing_parameter",
     "action": "確認返馳式轉換器導通模式與電流定義；目前的三角波條件其實落在 DCM／臨界導通邊界，另保留 CCM 分支。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認 N_p/N_s=4、V_o=24 V、D=0.75、f=1.5 kHz 與 L_p=274.4 μH；canonical 回算 I_p,max=60 A 且 t_demag=t_off=166.67 μs，故位於 DCM／臨界導通邊界。若題意採 CCM，平均與峰值定義需改寫。"
   },
   "EE-111-02-3": {
     "disposition": "inconsistent_data_branches",
     "blocker": "source_conflict",
     "action": "確認指定增益或平方律參數是否有誤植；題面 3.17 mA 對應增益 4.4444，指定增益 5 則反推 4.755 mA，兩組候選均保留。",
-    "evidence": ""
+    "evidence": "官方裁切圖同時給 |A_v|=5、I_DS=3.17 mA、μ_nC_ox=200 μA/V²、R_S=30 Ω、R_D=200 Ω，並指定 V_S=V_OV；由增益反推 g_m=0.100000 S，由平方律與 I_DS 反推 g_m=0.0666667 S，兩者回代結果分別為 5 與 4.444444。矛盾可由兩條獨立方程重現，並非計算未完成。"
   },
   "EE-113-02-2": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "確認命題採用的熱電壓 V_T 或溫度；目前列出 25、25.85、26 mV 三個可回代分支。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認 α=0.99、I_E=0.5 mA、R_sig=75 Ω、R_C=R_L=12 kΩ 與基極交流接地；canonical 推導以 T 模型及 R_C∥R_L 回代，V_T=25 mV 得 A_v=47.52 V/V，V_T=25.85 mV 得 46.882399 V/V。題圖未提供 V_T，故分支差異是可重現的輸入條件缺口。"
   },
   "EE-106-02-2": {
     "disposition": "parameterized_only",
     "blocker": "missing_parameter",
     "action": "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。",
-    "evidence": ""
+    "evidence": "官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞，未提供 R_1、R_2、各管 g_m、r_o、尾電流源阻抗或輸出端口數值；canonical 已保留參數化 A_f=A/(1+Aβ) 及測試源阻抗定義，避免套用無條件理想運放公式。"
   },
   "EE-112-02-1": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "確認 V_T 與高頻模型的教材慣例；目前保留有限 beta 與 V_T=25 mV 分支。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認 β=100、I_Q=0.5 mA、C_π=10 pF、C_μ=1 pF、R_s=50 Ω、R_E=0.5 kΩ、R_B=100 kΩ、R_L=1 kΩ；canonical 已分別重算 C_π、C_μ 極點及中頻增益，並把 R_B 納入集極端負載。唯一未由題圖給定的是 V_T，故保留 25/26 mV 分支。"
   },
   "EE-111-02-4": {
     "disposition": "parameterized_only",
     "blocker": "missing_parameter",
     "action": "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。",
-    "evidence": ""
+    "evidence": "官方裁切圖只提供 Q1 共射、Q2 共集、R_F 跨接回授及 R_L 負載的拓撲，未標示 R_C、R_F、R_L、g_m、r_π 或 β 數值；canonical 已列出電流輸入／電流輸出定義、KCL 及測試源阻抗公式，任何數值答案都必須先補齊這些參數。"
   },
   "EE-112-03-3": {
     "disposition": "event_definition_branches",
     "blocker": "official_wording_ambiguity",
     "action": "確認第二事件是恰一發命中且由乙射擊、乙命中占比，或條件於至少一發命中時乙至少命中一發。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認三人命中率與發射數，canonical 已由獨立事件計算 P(H≥1)=1−0.25^50·0.28^53·0.30^60，並分別回代唯一命中乙 0.319705、命中比例 0.324324 及條件於至少一發時乙命中近 1。第二事件文字未定義條件集合。"
   },
   "EE-111-04-3": {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
     "action": "確認激磁電阻設定與磁化曲線取點／插值規則；目前保留曲線估讀區間。",
-    "evidence": ""
+    "evidence": "官方裁切圖包含 1800 rpm 磁化表的離散 (I_f,E_a) 點；canonical 已重算 R_a+R_sr 壓降、無載最大電壓及長分路場電流，並同時列出最近表格點 1.25 A 與線性插值 1.254 A。缺口是題目未指定曲線取點／插值與 R_fc 設定。"
   },
   "EE-105-04-5": {
     "disposition": "flux_curve_parameterized",
     "blocker": "missing_parameter",
     "action": "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。",
-    "evidence": ""
+    "evidence": "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V、E_a2=180 V，並明示 n_2=1200 rpm 僅在線性未飽和 Φ_2/Φ_1=0.5 假設下成立。"
   },
   "EE-111-04-4": {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
     "action": "提供高解析 OCC/SCC 曲線或指定插值點後，再鎖定電壓調整率。",
-    "evidence": ""
+    "evidence": "官方裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；但 OCC/SCC 曲線本身未附於裁切圖，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。"
   },
   "EE-113-04-4": {
     "disposition": "source_conflict_branches",
     "blocker": "source_conflict",
     "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。",
-    "evidence": ""
+    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；canonical 已以每相電壓及滑差獨立回代啟動／滿載／最大轉矩電流。年度資料另有線電壓／相電壓與是否納入激磁支路的分歧，故保留兩模型而非混用。"
   },
   "EE-111-05-3": {
     "disposition": "frequency_parameterized",
     "blocker": "missing_parameter",
     "action": "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認 H=6.0、P_m=1.0、P_max=2.5 且故障期間 P_e=0；canonical 以等面積準則回代 δ_cr=89.3750°，並以擺動方程得到 t_cr=0.2704 s（f=60 Hz）。題圖未標系統頻率，時間保留 t_cr=0.2704√(60/f) s。"
   },
   "EE-104-05-3": {
     "disposition": "given_current_vs_recalculation",
     "blocker": "source_conflict",
     "action": "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。",
-    "evidence": ""
+    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 與 unity-PF 條件分支。兩組資料不能無聲混合。"
   },
   "EE-106-05-3": {
     "disposition": "multiple_power_flow_branches",
     "blocker": "model_branch_ambiguity",
     "action": "若題意採正常穩態，選高電壓分支；目前以 Jacobian 診斷高／低分支並保留題面未指定的低電壓解。",
-    "evidence": ""
+    "evidence": "官方圖的線路電抗與 Bus 2 PV、Bus 3 PQ 條件已重建成 Y_bus，Newton 法得到高／低電壓兩個正值根；兩根殘差均達數值容許，且 Jacobian 最小奇異值分別 0.59230 與 0.05141。題目未指定運轉分支。"
   },
   "EE-112-05-4": {
     "disposition": "impedance_type_branches",
@@ -6626,7 +6626,7 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "fault_definition_branches",
     "blocker": "official_wording_ambiguity",
     "action": "確認 F 點故障型式、饋線阻抗是否含往返與非對稱觀察時刻。",
-    "evidence": ""
+    "evidence": "官方圖已提供系統、T1、饋線及 T2 半繞組阻抗；canonical 以左 110 V 對中性點故障為主模型，回代 I_sym=11.318 kA、X/R=1.738 下最不利第一峰值約 22.47 kA，並另列饋線含往返時的敏感度。F 點故障型式與阻抗定義未明。"
   },
   "EE-107-06-2": {
     "disposition": "rated_current_branches",
@@ -6644,49 +6644,49 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "補齊三台馬達效率與功因／額定 MVA；目前以各機 k_i=η_i·pf_i 參數化次暫態貢獻與瞬時容量。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認 100 MVA 基準、F1 故障網路與三台馬達支路；canonical 以 k_i=η_i·pf_i 建立每台馬達次暫態貢獻，並以 k=0.80/0.90/1.00 回代瞬時容量 24.0672/23.4435/22.9411 kA。題圖未給三台 k_i 或額定 MVA。"
   },
   "EE-111-06-1": {
     "disposition": "graph_estimate",
     "blocker": "graph_estimate",
     "action": "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。",
-    "evidence": ""
+    "evidence": "官方 CT 等效圖與 100/5 變比、Z'=0.082 Ω、Z_B=0.8/3.0 Ω 已轉成共同方程 E'=(10−I_e)(Z'+Z_B)；兩個交點已由曲線估讀並回代繼電器 8 A 門檻，Z_B=3.0 Ω 交點位於膝點附近，精確值受原圖解析度限制。"
   },
   "EE-110-06-4": {
     "disposition": "definition_branches",
     "blocker": "official_wording_ambiguity",
     "action": "依圖面 A 點採 1.606162%／0.036720 pu；若命題解答採 B 點則為 19.052%／6.070853 pu，請確認觀測點定義。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認 69 kV 饋線前的 A 點、主變／爐變與電弧爐串聯阻抗；canonical 對 A 點回代 1.606162% 與 0.036720 pu，另以 B 點重現年度答案 19.0520% 與 6.070853 pu。差異只來自觀測點定義。"
   },
   "EE-104-06-5": {
     "disposition": "power_factor_parameterized",
     "blocker": "missing_parameter",
     "action": "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認 380 V、250 MVA、2 MVA 變壓器、400/200 kvar 電容器及 6% 電抗器；canonical 以第五次諧波三支路並聯回代 V_5=3.2211 V、幹線 74.6606 A、A/B 支路 51.5158/25.7579 A。整流器基波功因未給，故結果按 1/pf_1 參數化。"
   },
   "EE-111-06-2": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。",
-    "evidence": ""
+    "evidence": "官方裁切圖提供 2 kV／69 kV 電壓、短路容量、變壓器阻抗及全壓啟動倍數；canonical 已建立兩側標么壓降公式，並以 k=η·pf_n 列出 0.80、0.90、1.00 的敏感度。題目只給 3000 kW，未給 η 或額定功因。"
   },
   "EE-104-06-1": {
     "disposition": "regulation_version_branches",
     "blocker": "regulation_version",
     "action": "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。",
-    "evidence": ""
+    "evidence": "官方題目是供電方式與責任分界的申論題；canonical 已依台電供電方式章節整理電壓層級、契約容量、地區網路、可靠度及分界點責任。歷史門檻與分界物理位置仍受考試年度規章、供電地區及契約圖說影響。"
   },
   "EE-108-06-2": {
     "disposition": "physical_inconsistency",
     "blocker": "official_wording_ambiguity",
     "action": "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。",
-    "evidence": ""
+    "evidence": "官方裁切圖已確認 2500 MVA 電源、69 kV 線路 j0.405 Ω、30 MVA 主變、15 MVA 爐變及 12.5 MVA 電弧爐；canonical 統一至主變基準並回代 11.4 kV 母線壓降 3.5230%。被動串聯電抗器會增加壓降，與題目改善目標的方向矛盾。"
   },
   "EE-111-06-3": {
     "disposition": "motor_rating_branches",
     "blocker": "missing_parameter",
     "action": "確認馬達數量、額定容量與內電勢假設後，再鎖定三相故障貢獻。",
-    "evidence": ""
+    "evidence": "官方拓撲確認發電機經變壓器接 3.3 kV 母線，F 位於馬達支路前、A 位於發電機支路；canonical 已分別回代發電機分量與馬達反饋分量。圖中三個 M 的投入數量及單台額定視在容量未明，故 28.868/29.645/42.864 kA 分支均保留。"
   }
 };
 

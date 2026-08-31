@@ -6655,7 +6655,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-110-06-4": {
     "disposition": "definition_branches",
     "blocker": "official_wording_ambiguity",
-    "action": "確認官方閃爍觀測點與電壓變動率定義，再決定唯一數值。",
+    "action": "依圖面 A 點採 1.606162%／0.036720 pu；若命題解答採 B 點則為 19.052%／6.070853 pu，請確認觀測點定義。",
     "evidence": ""
   },
   "EE-104-06-5": {

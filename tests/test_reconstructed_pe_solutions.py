@@ -128,6 +128,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("0.3425\\ \\Omega", starter)
         self.assertIn("38.32\\text{ N}\\cdot\\text{m}", starter)
 
+        dc_machine = (CANONICAL / "04_電機機械" / "canonical" / "EE-109-04-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", dc_machine)
+        self.assertIn("131.061\\text{ A}", dc_machine)
+        self.assertIn("101.914\\text{ A}", dc_machine)
+        self.assertIn("8202.27", dc_machine)
+
 
 if __name__ == "__main__":
     unittest.main()

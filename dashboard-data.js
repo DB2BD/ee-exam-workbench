@@ -1446,7 +1446,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-2.md",
     "依考科分類/05_電力系統/112年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -6586,11 +6586,6 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "source_conflict_branches",
     "blocker": "source_conflict",
     "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。"
-  },
-  "EE-112-05-2": {
-    "disposition": "capacity_boundary_and_unconstrained",
-    "blocker": "capacity_semantics",
-    "action": "確認 800 MW 是否為最佳化硬上限；同時保留無約束與 P_2=800 MW 的 KKT 分支。"
   },
   "EE-111-05-3": {
     "disposition": "frequency_parameterized",

@@ -156,6 +156,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("S_{auto}=600 I_{in}=480 I_{out}=25.0", buck_auto)
         self.assertIn("S_{cond}=V_{load}I_{in}=480(41.6667)=20.0", buck_auto)
 
+        dc_motor_108 = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", dc_motor_108)
+        self.assertIn("I_a=\\frac{V_t-E_a}{R_a}=\\frac{128-125}{0.03}=100", dc_motor_108)
+        self.assertIn("P_{em}=E_aI_a=125(100)=12.5", dc_motor_108)
+        self.assertIn("39.79\\,\\mathrm{N\\cdot m}", dc_motor_108)
+
 
 if __name__ == "__main__":
     unittest.main()

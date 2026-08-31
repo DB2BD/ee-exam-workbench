@@ -48,6 +48,17 @@ REVIEWS = {
     "EE-112-03-3": ("event_definition_branches", "official_wording_ambiguity", "確認第二事件是恰一發命中且由乙射擊，或以乙的命中占比定義。"),
 }
 
+# Optional evidence can narrow a branch without pretending that the official
+# crop supplied the missing datum.  Keep the source link in the note so a
+# reviewer can reproduce the decision before promoting the question.
+REVIEW_EVIDENCE = {
+    "EE-112-05-4": (
+        "公開參考解答（2024-07-17 更正）將故障阻抗明寫為 j0.01，支持純電抗分支；"
+        "官方裁切仍只寫 0.01 pu，故尚不能單獨視為官方唯一條件。 "
+        "來源：https://kentchen1980.pixnet.net/blog/posts/10357120259"
+    ),
+}
+
 
 def find_note(qid: str) -> Path:
     matches = list(CANONICAL.glob(f"*/canonical/{qid}.md"))
@@ -66,13 +77,16 @@ def update_frontmatter(path: Path, qid: str) -> None:
         raise SystemExit(f"unterminated frontmatter: {path}")
     fm = text[4:end]
     # Replace existing generated fields so the script is idempotent.
-    for key in ("review_disposition", "review_blocker", "review_action"):
+    for key in ("review_disposition", "review_blocker", "review_action", "review_evidence"):
         fm = re.sub(rf"^{re.escape(key)}:.*$\n?", "", fm, flags=re.M)
     fm = fm.rstrip() + (
         f"\nreview_disposition: {disposition}"
         f"\nreview_blocker: {blocker}"
         f"\nreview_action: {action}"
     )
+    evidence = REVIEW_EVIDENCE.get(qid)
+    if evidence:
+        fm += f"\nreview_evidence: {evidence}"
     path.write_text("---\n" + fm + "\n---\n" + text[end + len("\n---\n"):], encoding="utf-8")
 
 

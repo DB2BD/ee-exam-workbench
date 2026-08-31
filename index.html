@@ -4487,6 +4487,7 @@ function renderSolutionReviewCard(qid) {
         <div><strong>目前可用分支：</strong>${esc(meta.disposition)}</div>
         <div><strong>阻擋原因：</strong>${esc(meta.blocker)}</div>
         <div><strong>收斂所需動作：</strong>${esc(meta.action)}</div>
+        ${meta.evidence ? `<div><strong>交叉證據：</strong>${esc(meta.evidence)}</div>` : ''}
       </div>
     </aside>
   `;

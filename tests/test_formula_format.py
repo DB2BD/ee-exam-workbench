@@ -16,7 +16,7 @@ class TestFormulaFormat(unittest.TestCase):
         """Run the production renderer in a small Node VM fixture."""
         script = r'''
 const fs = require('fs'), vm = require('vm');
-const ctx = { console };
+const ctx = { console, window: { addEventListener() {} } };
 vm.createContext(ctx);
 vm.runInContext(fs.readFileSync('libs/katex.min.js', 'utf8'), ctx);
 vm.runInContext(fs.readFileSync('libs/marked.min.js', 'utf8'), ctx);
@@ -152,6 +152,29 @@ process.stdout.write(JSON.stringify(errors));
         self.assertIn("function normalizeLatexSyntax", source)
         self.assertIn("latex = normalizeLatexSyntax(latex)", source)
         self.assertIn("\\\\mathrm\\s+", source)
+
+    def test_solution_modal_strips_canonical_frontmatter_before_rendering(self):
+        """YAML provenance must not become visible solution content."""
+        source = (ROOT / "src/components/solutionModal.js").read_text(encoding="utf-8")
+        script = r'''
+const fs = require('fs'), vm = require('vm');
+const ctx = { console, window: { addEventListener() {} } };
+vm.createContext(ctx);
+vm.runInContext(fs.readFileSync('src/components/solutionModal.js', 'utf8'), ctx);
+const raw = `---\nqid: EE-TEST\naudit_status: verified\n---\n\n## 一、測試題\n\n答案 $x=1$`;
+const result = ctx.extractQuestionMarkdown(raw, 1);
+process.stdout.write(JSON.stringify(result));
+'''
+        result = subprocess.run(
+            ['node', '-e', script],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        payload = json.loads(result.stdout)
+        self.assertNotIn('qid: EE-TEST', payload['fullContent'])
+        self.assertIn('## 一、測試題', payload['fullContent'])
 
     def test_known_malformed_formula_delimiters_are_fixed(self):
         files = [

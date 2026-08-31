@@ -29,6 +29,13 @@ const CN_NUM_MAP = {
 function extractQuestionMarkdown(rawMd, targetQNum) {
   if (!rawMd) return { content: '', subParts: [] };
 
+  // Canonical question notes carry YAML provenance frontmatter.  It is data
+  // for the audit/compiler, not part of the learner-facing solution.  Strip a
+  // leading frontmatter document before splitting/rendering; otherwise the
+  // metadata is parsed as a large Markdown heading in the solution pane.
+  const frontmatter = /^\uFEFF?---\s*\r?\n[\s\S]*?\r?\n---\s*(?:\r?\n|$)/;
+  rawMd = rawMd.replace(frontmatter, '');
+
   const qNumInt = parseInt(targetQNum, 10) || 1;
 
   // Split by major question headers: e.g. "## 一、", "## 二、", "## 第 1 題", "## 1."

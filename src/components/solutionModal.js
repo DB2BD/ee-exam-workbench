@@ -190,6 +190,32 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   document.body.style.overflow = 'hidden';
 }
 
+function getSolutionReviewMetadata(qid) {
+  if (typeof SOLUTION_REVIEW_METADATA === 'undefined' || !qid) return null;
+  return SOLUTION_REVIEW_METADATA[qid] || null;
+}
+
+function renderSolutionReviewCard(qid) {
+  const meta = getSolutionReviewMetadata(qid);
+  if (!meta) return '';
+  const esc = typeof reviewHtmlEscape === 'function' ? reviewHtmlEscape : (value) => String(value || '');
+  const sourceUrl = typeof meta.officialSourceUrl === 'string' && /^https:\/\//i.test(meta.officialSourceUrl)
+    ? meta.officialSourceUrl
+    : '';
+  return `
+    <aside class="solution-review-card" aria-label="人工覆核說明">
+      <div class="review-title">🟡 本題保留人工覆核（不代表答案已定稿）</div>
+      <div class="review-meta">
+        <div><strong>目前可用分支：</strong>${esc(meta.disposition)}</div>
+        <div><strong>阻擋原因：</strong>${esc(meta.blocker)}</div>
+        <div><strong>收斂所需動作：</strong>${esc(meta.action)}</div>
+        ${meta.evidence ? `<div><strong>交叉證據：</strong>${esc(meta.evidence)}</div>` : ''}
+        ${sourceUrl ? `<div><strong>官方來源：</strong><a href="${esc(sourceUrl)}" target="_blank" rel="noopener noreferrer">開啟考選部原始試題</a></div>` : ''}
+      </div>
+    </aside>
+  `;
+}
+
 function updateSameExamDropdown(sid, yr, currentQid) {
   const select = document.getElementById('modal-same-exam-select');
   if (!select) return;
@@ -453,6 +479,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     let stemHtml = resolveRenderedImageSources(processMarkdownWithMath(stemPart), isGK, currentModalQid);
     let hintHtml = hintPart ? resolveRenderedImageSources(processMarkdownWithMath(hintPart), isGK, currentModalQid) : '';
     let derivationHtml = derivationPart ? resolveRenderedImageSources(processMarkdownWithMath(derivationPart), isGK, currentModalQid) : '';
+    const reviewCardHtml = renderSolutionReviewCard(currentModalQid);
 
     let dagHtml = '';
     if (qRecord) {
@@ -463,6 +490,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     rightPane.innerHTML = `
       <div class="solution-content">
         ${stemHtml}
+        ${reviewCardHtml}
 
         <div class="active-recall-box" id="recall-step-box">
           <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
@@ -521,6 +549,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     let html = processMarkdownWithMath(markdownChunk);
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     html = resolveRenderedImageSources(html, isGK, currentModalQid);
+    html = renderSolutionReviewCard(currentModalQid) + html;
 
     if (qRecord) {
       const [qid, sid, yr, qnum, topic] = qRecord;

@@ -13,6 +13,7 @@ const TAXONOMY_ALIASES = {
   'per[- ]?unit|p\\.u\\.': '標么',
   'power factor': '功率因數',
   'induction motor': '感應電動機',
+  '外激式直流電動機|直流電動機': '直流電機',
   'transformer': '變壓器',
   'fortescue|sequence components': '對稱分量',
   'op[- ]?amp|operational amplifier': '運算放大器',

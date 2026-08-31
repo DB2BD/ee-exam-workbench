@@ -321,6 +321,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("166.67", note)
         self.assertIn("t_{demag}", note)
 
+    def test_flyback_annual_note_defines_both_average_current_conventions(self):
+        """Annual pages must not leave the 22.5 A average-current convention ambiguous."""
+        annual = (CANONICAL / "02_電子學_含電力電子" / "109年_電子學_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        self.assertIn(r"I_{p,\,avg\mid on}=\frac{I_{p(max)}}2=30\text{ A}", annual)
+        self.assertIn(r"I_{p(avg)}=D\,I_{p,\,avg\mid on}", annual)
+        self.assertIn("整個週期平均", annual)
+        self.assertIn("導通平均值 30 A", annual)
+
     def test_mosfet_manual_review_records_minimal_correction_candidates(self):
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-3.md").read_text(encoding="utf-8")
         self.assertIn("最小更正候選", note)
@@ -834,7 +842,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertNotIn("I_{5,sys} = \\mathbf{42.5", annual_104)
         self.assertIn("canonical 優先", annual_108)
         self.assertIn("EE-108-06-2 條件式校驗", annual_108)
-        self.assertIn("歷史模板，勿直接採用", annual_108)
+        self.assertIn("條件式；完整回代見 canonical", annual_108)
+        self.assertIn("非唯一官方答案", annual_108)
         self.assertIn("canonical 優先", annual_110)
         self.assertIn("EE-110-06-4 已驗證校驗", annual_110)
         self.assertIn("僅保留作歷史來源，不作 A 點答案", annual_110)

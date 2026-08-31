@@ -3113,7 +3113,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "conditional_recalculation_flux_curve_missing",
-      "solution_hash": "d23f0428f2d6e4e5f5835db63814e3bfc23c3d2d3247d93badb3ae467a7c8899",
+      "solution_hash": "4edb45ec9916a870245ee974233380f58b49b2c6c8aeab58b3b4ac0f3a2bf5c1",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_105年_電機機械_Q05.png"
     },

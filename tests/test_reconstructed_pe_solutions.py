@@ -186,6 +186,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("24.0672", note)
         self.assertIn("22.9411", note)
 
+    def test_dc_motor_manual_review_uses_flux_ratio_in_current_and_speed(self):
+        note = (CANONICAL / "04_電機機械" / "canonical" / "EE-105-04-5.md").read_text(encoding="utf-8")
+        self.assertIn("\\frac{300}{r}\\ \\mathrm{A}", note)
+        self.assertIn("\\frac{800}{r}-\\frac{100}{r^2}", note)
+        self.assertIn("0.45", note)
+        self.assertIn("1283.951", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

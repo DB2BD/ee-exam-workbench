@@ -106,7 +106,15 @@ vm.runInContext(fs.readFileSync('src/renderers/katexRenderer.js', 'utf8'), ctx);
 const paths = JSON.parse(fs.readFileSync(0, 'utf8'));
 const failures = paths.filter(path => {
   const rendered = ctx.processMarkdownWithMath(fs.readFileSync(path, 'utf8'));
-  return rendered.includes('katex-error') || rendered.includes('@@KATEX_');
+  // KaTeX's <annotation> intentionally contains the original LaTeX source;
+  // remove it before checking the text that a reader can actually see.
+  const visible = rendered
+    .replace(/<annotation[\s\S]*?<\/annotation>/g, '')
+    .replace(/<[^>]+>/g, '');
+  const rawCommand = /\\(?:text|mathrm|operatorname|mathcal|Delta|Omega|Phi|theta|omega|lambda|mu|sigma|alpha|beta|gamma)\b/;
+  return rendered.includes('katex-error')
+    || rendered.includes('@@KATEX_')
+    || rawCommand.test(visible);
 });
 process.stdout.write(JSON.stringify(failures));
 '''

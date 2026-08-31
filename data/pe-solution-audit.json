@@ -3418,10 +3418,10 @@
       "question_number": 2,
       "chapter": "一台單相變壓器之額定為$1.0\\text{ kVA}$、200 V：100 V、$60\\text{ Hz}$，請說明若將此變壓器之\n低壓側連接至一大小為$10\\ \\Omega$的純電阻負載，而將其高壓側連接至一200 V，但頻率\n僅為$50\\text{ Hz}$ 的單相交流電源時，此一電路的可能操作情形？（20 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-104-04-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "6203b470e65ca93b970320dd5c95f35f3d6b4d6b1667b759dde9ec91d214b183",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_transformer_v_over_f_and_reflected_load_verification",
+      "solution_hash": "505fb467c1dc80f81652e05d043c9e0da020a4fd29ffee912ac9662d4399b459",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_104年_電機機械_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 220,
+    "verified": 221,
     "suspected_error": 0,
-    "needs_manual_review": 36,
+    "needs_manual_review": 35,
     "not_attempted": 0
   }
 }

@@ -3532,8 +3532,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-1.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "e52d1f667991b096fe3f837ec1517ca472e851ce36afc6e34ac138f3316edae4",
+      "method": "official_taipower_supply_rules_and_boundary_point_recalculation",
+      "solution_hash": "a8a10b72313569a9f4a917c7a240c6d8e558d21b880f12112d605d1e4e202768",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q01.png"
     },

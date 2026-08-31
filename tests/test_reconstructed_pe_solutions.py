@@ -139,6 +139,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("72.67\\text{ N}\\cdot\\text{m}", induction)
         self.assertIn("18.66\\text{ N}\\cdot\\text{m}", induction)
 
+        rotating_mmfs = (CANONICAL / "04_電機機械" / "canonical" / "EE-109-04-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", rotating_mmfs)
+        self.assertIn("1.5 N I \\angle 0^\\circ", rotating_mmfs)
+        self.assertIn("1.5 N I \\angle 60^\\circ", rotating_mmfs)
+        self.assertIn("50\\text{ Hz}", rotating_mmfs)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -148,6 +148,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
                 self.assertNotEqual(match.group(1).strip().lower(), "todo", f"{entry['qid']} has placeholder {key}")
                 if key == "review_evidence":
                     self.assertGreater(len(match.group(1).strip()), 20, f"{entry['qid']} has weak {key}")
+            official = re.search(r"^official_source_url:\s*(\S+)$", text, re.M)
+            self.assertIsNotNone(official, f"{entry['qid']} lacks an official source URL")
+            self.assertTrue(official.group(1).startswith("https://wwwq.moex.gov.tw/"), f"{entry['qid']} has non-primary source URL")
             self.assertNotIn("尚未完成獨立逐步重算", text, f"{entry['qid']} was left as an unworked placeholder")
 
     def test_annual_notes_identify_every_manual_question(self):

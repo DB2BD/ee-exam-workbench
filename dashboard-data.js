@@ -6536,49 +6536,57 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "conduction_mode_branches",
     "blocker": "missing_parameter",
     "action": "確認返馳式轉換器導通模式與電流定義；目前的三角波條件其實落在 DCM／臨界導通邊界，另保留 CCM 分支。",
-    "evidence": "官方裁切圖已確認 N_p/N_s=4、V_o=24 V、D=0.75、f=1.5 kHz 與 L_p=274.4 μH；canonical 回算 I_p,max=60 A 且 t_demag=t_off=166.67 μs，故位於 DCM／臨界導通邊界。若題意採 CCM，平均與峰值定義需改寫。"
+    "evidence": "官方裁切圖已確認 N_p/N_s=4、V_o=24 V、D=0.75、f=1.5 kHz 與 L_p=274.4 μH；canonical 回算 I_p,max=60 A 且 t_demag=t_off=166.67 μs，故位於 DCM／臨界導通邊界。若題意採 CCM，平均與峰值定義需改寫。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=109180&q=1&s=0601&t=Q"
   },
   "EE-111-02-3": {
     "disposition": "inconsistent_data_branches",
     "blocker": "source_conflict",
     "action": "確認指定增益或平方律參數是否有誤植；題面 3.17 mA 對應增益 4.4444，指定增益 5 則反推 4.755 mA，兩組候選均保留。",
-    "evidence": "官方裁切圖同時給 |A_v|=5、I_DS=3.17 mA、μ_nC_ox=200 μA/V²、R_S=30 Ω、R_D=200 Ω，並指定 V_S=V_OV；由增益反推 g_m=0.100000 S，由平方律與 I_DS 反推 g_m=0.0666667 S，兩者回代結果分別為 5 與 4.444444。矛盾可由兩條獨立方程重現，並非計算未完成。"
+    "evidence": "官方裁切圖同時給 |A_v|=5、I_DS=3.17 mA、μ_nC_ox=200 μA/V²、R_S=30 Ω、R_D=200 Ω，並指定 V_S=V_OV；由增益反推 g_m=0.100000 S，由平方律與 I_DS 反推 g_m=0.0666667 S，兩者回代結果分別為 5 與 4.444444。矛盾可由兩條獨立方程重現，並非計算未完成。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
   },
   "EE-113-02-2": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "確認命題採用的熱電壓 V_T 或溫度；目前列出 25、25.85、26 mV 三個可回代分支。",
-    "evidence": "官方裁切圖已確認 α=0.99、I_E=0.5 mA、R_sig=75 Ω、R_C=R_L=12 kΩ 與基極交流接地；canonical 推導以 T 模型及 R_C∥R_L 回代，V_T=25 mV 得 A_v=47.52 V/V，V_T=25.85 mV 得 46.882399 V/V。題圖未提供 V_T，故分支差異是可重現的輸入條件缺口。"
+    "evidence": "官方裁切圖已確認 α=0.99、I_E=0.5 mA、R_sig=75 Ω、R_C=R_L=12 kΩ 與基極交流接地；canonical 推導以 T 模型及 R_C∥R_L 回代，V_T=25 mV 得 A_v=47.52 V/V，V_T=25.85 mV 得 46.882399 V/V。題圖未提供 V_T，故分支差異是可重現的輸入條件缺口。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0701&t=Q"
   },
   "EE-106-02-2": {
     "disposition": "parameterized_only",
     "blocker": "missing_parameter",
     "action": "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。",
-    "evidence": "官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞，未提供 R_1、R_2、各管 g_m、r_o、尾電流源阻抗或輸出端口數值；canonical 已保留參數化 A_f=A/(1+Aβ) 及測試源阻抗定義，避免套用無條件理想運放公式。"
+    "evidence": "官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞，未提供 R_1、R_2、各管 g_m、r_o、尾電流源阻抗或輸出端口數值；canonical 已保留參數化 A_f=A/(1+Aβ) 及測試源阻抗定義，避免套用無條件理想運放公式。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0601&t=Q"
   },
   "EE-112-02-1": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "確認 V_T 與高頻模型的教材慣例；目前保留有限 beta 與 V_T=25 mV 分支。",
-    "evidence": "官方裁切圖已確認 β=100、I_Q=0.5 mA、C_π=10 pF、C_μ=1 pF、R_s=50 Ω、R_E=0.5 kΩ、R_B=100 kΩ、R_L=1 kΩ；canonical 已分別重算 C_π、C_μ 極點及中頻增益，並把 R_B 納入集極端負載。公開阿摩題庫與 Scribd 解析亦交叉得到 I_E≈0.5 mA、R_s=50 Ω、R_E=500 Ω、R_L=1 kΩ；該解析屬非官方二手資料，只能支持 V_T=25 mV 分支，不能補足官方題圖未給定的 V_T，故仍保留 25/26 mV 分支。來源：https://yamol.tw/exam-112%E5%B9%B4%2B%2B112%E5%B9%B4%2B%E5%B0%88%E6%8A%80%E9%AB%98%E8%80%83_%E9%9B%BB%E6%A9%9F%E5%B7%A5%E7%A8%8B%E6%8A%80%E5%B8%AB%EF%BC%9A%E9%9B%BB%E5%AD%B8%EF%BC%88%E5%8C%85%E6%8B%AC%E9%9B%BB%E5%8A%9B%E9%9B%BB%E5%AD%B8%EF%BC%89117584-117584.htm；https://www.scribd.com/document/1031258563/112%E5%B9%B4%E9%9B%BB%E6%A9%9F%E6%8A%80%E5%B8%AB%E9%9B%BB%E5%AD%B8%E8%A7%A3%E7%AD%94"
+    "evidence": "官方裁切圖已確認 β=100、I_Q=0.5 mA、C_π=10 pF、C_μ=1 pF、R_s=50 Ω、R_E=0.5 kΩ、R_B=100 kΩ、R_L=1 kΩ；canonical 已分別重算 C_π、C_μ 極點及中頻增益，並把 R_B 納入集極端負載。公開阿摩題庫與 Scribd 解析亦交叉得到 I_E≈0.5 mA、R_s=50 Ω、R_E=500 Ω、R_L=1 kΩ；該解析屬非官方二手資料，只能支持 V_T=25 mV 分支，不能補足官方題圖未給定的 V_T，故仍保留 25/26 mV 分支。來源：https://yamol.tw/exam-112%E5%B9%B4%2B%2B112%E5%B9%B4%2B%E5%B0%88%E6%8A%80%E9%AB%98%E8%80%83_%E9%9B%BB%E6%A9%9F%E5%B7%A5%E7%A8%8B%E6%8A%80%E5%B8%AB%EF%BC%9A%E9%9B%BB%E5%AD%B8%EF%BC%88%E5%8C%85%E6%8B%AC%E9%9B%BB%E5%8A%9B%E9%9B%BB%E5%AD%B8%EF%BC%89117584-117584.htm；https://www.scribd.com/document/1031258563/112%E5%B9%B4%E9%9B%BB%E6%A9%9F%E6%8A%80%E5%B8%AB%E9%9B%BB%E5%AD%B8%E8%A7%A3%E7%AD%94",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0701&t=Q"
   },
   "EE-111-02-4": {
     "disposition": "parameterized_only",
     "blocker": "missing_parameter",
     "action": "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。",
-    "evidence": "官方裁切圖只提供 Q1 共射、Q2 共集、R_F 跨接回授及 R_L 負載的拓撲，未標示 R_C、R_F、R_L、g_m、r_π 或 β 數值；canonical 已列出電流輸入／電流輸出定義、KCL 及測試源阻抗公式，任何數值答案都必須先補齊這些參數。"
+    "evidence": "官方裁切圖只提供 Q1 共射、Q2 共集、R_F 跨接回授及 R_L 負載的拓撲，未標示 R_C、R_F、R_L、g_m、r_π 或 β 數值；canonical 已列出電流輸入／電流輸出定義、KCL 及測試源阻抗公式，任何數值答案都必須先補齊這些參數。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
   },
   "EE-105-04-5": {
     "disposition": "flux_curve_parameterized",
     "blocker": "missing_parameter",
     "action": "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。",
-    "evidence": "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V、E_a2=180 V，並明示 n_2=1200 rpm 僅在線性未飽和 Φ_2/Φ_1=0.5 假設下成立。"
+    "evidence": "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V、E_a2=180 V，並明示 n_2=1200 rpm 僅在線性未飽和 Φ_2/Φ_1=0.5 假設下成立。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=105170&q=1&s=0610&t=Q"
   },
   "EE-111-04-4": {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
-    "action": "提供高解析 OCC/SCC 曲線或指定插值點後，再鎖定電壓調整率。",
-    "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。"
+    "action": "依官方原卷第 3-3 頁確認 OCC/SCC 曲線的插值點；目前已完成相量方程，僅需人工接受圖解有效位數。",
+    "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0610&t=Q"
   },
   "EE-113-04-4": {
     "disposition": "source_conflict_branches",
@@ -6591,13 +6599,15 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "given_current_vs_recalculation",
     "blocker": "source_conflict",
     "action": "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。",
-    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 與 unity-PF 條件分支。兩組資料不能無聲混合。"
+    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 與 unity-PF 條件分支。兩組資料不能無聲混合。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {
     "disposition": "impedance_definition_branches",
     "blocker": "official_wording_ambiguity",
     "action": "依圖面固定 F 為左 110 V 導體對中性點；確認饋線阻抗是否含往返，以及非對稱電流的觀察時刻／故障相角。",
-    "evidence": "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，故故障拓撲已按左 110 V 對中性點處理；canonical 回代 I_sym=11.318 kA、X/R=1.738 下最不利第一峰值約 22.47 kA，並另列饋線含往返時的敏感度。剩餘缺口是阻抗是否為每導體或往返值，以及非對稱電流的觀察條件。"
+    "evidence": "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，故故障拓撲已按左 110 V 對中性點處理；canonical 回代 I_sym=11.318 kA、X/R=1.738 下最不利第一峰值約 22.47 kA，並另列饋線含往返時的敏感度。剩餘缺口是阻抗是否為每導體或往返值，以及非對稱電流的觀察條件。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0612&t=Q"
   },
   "EE-107-06-2": {
     "disposition": "rated_current_branches",
@@ -6610,13 +6620,15 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "code_compliance_branches",
     "blocker": "missing_parameter",
     "action": "補齊導線材質、敷設、環境修正與效率／規範版本；現行表可作交叉檢查，但 8 HP 無精確列值，仍須確認考試年度表。",
-    "evidence": "經濟部《用戶用電設備裝置規則》馬達滿載電流表 258-3 的現行 220 V 列值為：20 HP=55 A、10 HP=28 A、7.5 HP=21 A；題目為 8 HP，無精確列值，且導線安培容量仍取決於材質、配管載流導線數、修正係數與規範版本，故只能作交叉檢查。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
+    "evidence": "經濟部《用戶用電設備裝置規則》馬達滿載電流表 258-3 的現行 220 V 列值為：20 HP=55 A、10 HP=28 A、7.5 HP=21 A；題目為 8 HP，無精確列值，且導線安培容量仍取決於材質、配管載流導線數、修正係數與規範版本，故只能作交叉檢查。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   },
   "EE-110-06-5": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "補齊三台馬達效率與功因／額定 MVA；目前以各機 k_i=η_i·pf_i 參數化次暫態貢獻與瞬時容量。",
-    "evidence": "官方裁切圖已確認 100 MVA 基準、F1 故障網路與三台馬達支路；canonical 以 k_i=η_i·pf_i 建立每台馬達次暫態貢獻，並以 k=0.80/0.90/1.00 回代瞬時容量 24.0672/23.4435/22.9411 kA。題圖未給三台 k_i 或額定 MVA。"
+    "evidence": "官方裁切圖已確認 100 MVA 基準、F1 故障網路與三台馬達支路；canonical 以 k_i=η_i·pf_i 建立每台馬達次暫態貢獻，並以 k=0.80/0.90/1.00 回代瞬時容量 24.0672/23.4435/22.9411 kA。題圖未給三台 k_i 或額定 MVA。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=110180&q=1&s=0612&t=Q"
   },
   "EE-111-06-1": {
     "disposition": "graph_estimate",
@@ -6629,25 +6641,29 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "power_factor_parameterized",
     "blocker": "missing_parameter",
     "action": "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。",
-    "evidence": "官方裁切圖已確認 380 V、250 MVA、2 MVA 變壓器、400/200 kvar 電容器及 6% 電抗器；canonical 以第五次諧波三支路並聯回代 V_5=3.2211 V、幹線 74.6606 A、A/B 支路 51.5158/25.7579 A。整流器基波功因未給，故結果按 1/pf_1 參數化。"
+    "evidence": "官方裁切圖已確認 380 V、250 MVA、2 MVA 變壓器、400/200 kvar 電容器及 6% 電抗器；canonical 以第五次諧波三支路並聯回代 V_5=3.2211 V、幹線 74.6606 A、A/B 支路 51.5158/25.7579 A。整流器基波功因未給，故結果按 1/pf_1 參數化。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0612&t=Q"
   },
   "EE-111-06-2": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。",
-    "evidence": "官方裁切圖提供 2 kV／69 kV 電壓、短路容量、變壓器阻抗及全壓啟動倍數；canonical 已建立兩側標么壓降公式，並以 k=η·pf_n 列出 0.80、0.90、1.00 的敏感度。題目只給 3000 kW，未給 η 或額定功因。"
+    "evidence": "官方裁切圖提供 2 kV／69 kV 電壓、短路容量、變壓器阻抗及全壓啟動倍數；canonical 已建立兩側標么壓降公式，並以 k=η·pf_n 列出 0.80、0.90、1.00 的敏感度。題目只給 3000 kW，未給 η 或額定功因。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   },
   "EE-108-06-2": {
     "disposition": "physical_inconsistency",
     "blocker": "official_wording_ambiguity",
     "action": "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。",
-    "evidence": "官方裁切圖已確認 2500 MVA 電源、69 kV 線路 j0.405 Ω、30 MVA 主變、15 MVA 爐變及 12.5 MVA 電弧爐；canonical 統一至主變基準並回代 11.4 kV 母線壓降 3.5230%。被動串聯電抗器會增加壓降，與題目改善目標的方向矛盾。"
+    "evidence": "官方裁切圖已確認 2500 MVA 電源、69 kV 線路 j0.405 Ω、30 MVA 主變、15 MVA 爐變及 12.5 MVA 電弧爐；canonical 統一至主變基準並回代 11.4 kV 母線壓降 3.5230%。被動串聯電抗器會增加壓降，與題目改善目標的方向矛盾。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=108180&q=1&s=0612&t=Q"
   },
   "EE-111-06-3": {
     "disposition": "motor_rating_branches",
     "blocker": "missing_parameter",
     "action": "以官方圖示三個 M 支路為已知拓撲；補齊每台馬達額定視在容量（或額定功因／效率）及內電勢初始值後，再鎖定三相故障貢獻。",
-    "evidence": "官方裁切圖明確畫出三個 M 支路，F 位於中間馬達支路前、A 位於發電機／變壓器支路；因此支路數量 N_M=3 已確認。題目仍未給每台馬達由 6000 kW 換算額定 MVA 所需的額定功因／效率，亦未明示三支路是否均投入，故 28.868/29.645/42.864 kA 僅能作條件分支。"
+    "evidence": "官方裁切圖明確畫出三個 M 支路，F 位於中間馬達支路前、A 位於發電機／變壓器支路；因此支路數量 N_M=3 已確認。題目仍未給每台馬達由 6000 kW 換算額定 MVA 所需的額定功因／效率，亦未明示三支路是否均投入，故 28.868/29.645/42.864 kA 僅能作條件分支。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   }
 };
 

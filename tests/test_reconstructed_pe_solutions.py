@@ -264,6 +264,22 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("阻抗是否為每導體或往返值", note)
         self.assertNotIn("或兩外線 220 V 相間故障", note)
 
+    def test_single_phase_fault_prefers_complete_line_line_return_model(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
+        self.assertIn("review_disposition: source_per_conductor_line_line_main_model", note)
+        self.assertIn("I_{sym,LL}=9.927", note)
+        self.assertIn("I_{peak,max,LL}", note)
+        self.assertIn("19.36", note)
+        self.assertIn("11.318 kA／22.47 kA", note)
+
+    def test_furnace_flicker_review_prefers_source_pcc_model(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-108-06-2.md").read_text(encoding="utf-8")
+        self.assertIn("review_disposition: source_end_PCC_impedance_model", note)
+        self.assertIn("source/PCC", note)
+        self.assertIn("3.0261", note)
+        self.assertIn("1.748", note)
+        self.assertIn("3.6696", note)
+
     def test_induction_motor_source_conflict_keeps_both_impedance_branches(self):
         note = (CANONICAL / "04_電機機械" / "canonical" / "EE-113-04-4.md").read_text(encoding="utf-8")
         self.assertIn("圖示 0.2/s", note)

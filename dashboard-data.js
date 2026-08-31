@@ -6609,14 +6609,14 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "given_current_vs_recalculation",
     "blocker": "source_conflict",
     "action": "確認 2.5/3.0 kA 是直接給定的同相標量貢獻或需以相量合成，並補正常功因／勵磁與 440 MW 的分配。",
-    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定值的同相標量總和 5.5 kA。若兩支路相角未指定，嚴格相量合成還可能落在 |2.5−3.0| 至 5.5 kA；兩組資料不能無聲混合。",
+    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 的同相標量分支；若兩電流需作相量合成，題圖未給相角，只能寫成 |2.5∠θ₁+3.0∠θ₂|。正常功因／勵磁與 440 MW 分配亦未由題面補足，兩組資料不能無聲混合。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {
-    "disposition": "impedance_definition_branches",
+    "disposition": "source_per_conductor_line_line_main_model",
     "blocker": "official_wording_ambiguity",
-    "action": "依圖面固定 F 為左 110 V 導體對中性點；確認 380 V 一次側線間回路的源／變壓器／饋線阻抗是否已含往返，以及非對稱電流的觀察時刻／故障相角。",
-    "evidence": "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地；380 V 一次側跨兩相，故若圖示阻抗是每導體值，源／T1／饋線均應形成線間往返回路。canonical 已列單一路徑 11.318 kA、僅電纜加倍 10.516 kA、全上游加倍 9.927 kA 三種分支，並說明非對稱峰值仍需故障角與觀察時刻。",
+    "action": "依圖面固定 F 為左 110 V 導體對中性點；以每導體阻抗組成完整 380 V 線間往返為首選，並確認題面是否已含往返，以及非對稱電流的觀察時刻／故障相角。",
+    "evidence": "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，且 T2 一次側跨兩相 380 V；canonical 以每導體阻抗形成完整線間往返為首選，回代 I_sym=9.927 kA、X/R=1.6195，最不利第一峰值約 19.36 kA；並分開列出全單一路徑 11.318 kA／22.47 kA 與僅饋線加倍 10.516 kA 替代分支。剩餘缺口是阻抗是否已含往返，以及非對稱電流的觀察條件。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0612&t=Q"
   },
   "EE-107-06-2": {
@@ -6633,8 +6633,8 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-111-06-4": {
     "disposition": "code_compliance_branches",
     "blocker": "missing_parameter",
-    "action": "補齊導線材質、敷設、環境修正與效率／規範版本；現行表可作交叉檢查，但 8 HP 無精確列值，仍須確認考試年度表。",
-    "evidence": "經濟部《用戶用電設備裝置規則》馬達滿載電流表 258-3 的現行 220 V 列值為：20 HP=55 A、10 HP=28 A、7.5 HP=21 A；題目為 8 HP，無精確列值，且導線安培容量仍取決於材質、配管載流導線數、修正係數與規範版本，故只能作交叉檢查。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf",
+    "action": "確認 111 年適用的歷史安培容量表與導線敷設條件；歷史表可核對 20 HP=54 A、10 HP=28 A、7.5 HP=22 A，但 8 HP 無精確列值，且仍缺材質、載流導線數與修正係數。",
+    "evidence": "111 年適用的歷史規章表 163-7-3 可核對 220 V 三相感應馬達 20 HP=54 A、10 HP=28 A、7.5 HP=22 A；8 HP 未列值，不能逕自四捨五入成 7.5 HP。現行表 258-3 另列 20 HP=55 A、10 HP=28 A、7.5 HP=21 A，僅作版本交叉檢查；導線安培容量仍取決於材質、配管載流導線數、修正係數與規範版本。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   },
   "EE-110-06-5": {
@@ -6666,17 +6666,17 @@ const SOLUTION_REVIEW_METADATA = {
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   },
   "EE-108-06-2": {
-    "disposition": "measurement_point_model_ambiguity",
+    "disposition": "source_end_PCC_impedance_model",
     "blocker": "official_wording_ambiguity",
-    "action": "依官方圖確認測定點位置，並確認電弧爐採額定電流或定阻抗模型；再決定串聯電抗器的設計目標與計算分支。",
-    "evidence": "官方裁切圖將「測定點」畫在 69 kV 電源側、主變壓器之前；同圖另標示 69 kV 線路阻抗與 11.4 kV／300 V 爐用變壓器。canonical 已分列測定點在電源端、線路受電端與 11.4 kV 母線的模型，並區分額定電流近似與定阻抗分壓；原題未說明採用哪一種，故不把單一百分比或電抗值冒充唯一答案。",
+    "action": "依官方圖固定 69 kV 電源側 PCC 為首選測定點，並確認電弧爐採額定電流或定阻抗模型；再決定串聯電抗器的設計目標與計算分支。",
+    "evidence": "官方裁切圖已確認 2500 MVA 電源、69 kV 線路 j0.405 Ω、30 MVA 主變、15 MVA 爐變及 12.5 MVA 電弧爐；圖示測定點位於 69 kV 電源側，canonical 以 source/PCC 為首選定阻抗分壓（3.0261%、XR=0.403448 pu=1.748 Ω/相），並分開列出額定電流分支 0.5000%／0.6063%／3.5230% 與線路受端替代值 3.6696%、XR=0.573580 pu=2.485 Ω/相。負載擾動與電流模型未由題面唯一指定，故不把任一分支升格為官方唯一答案。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=108180&q=1&s=0612&t=Q"
   },
   "EE-111-06-3": {
     "disposition": "motor_rating_branches",
     "blocker": "missing_parameter",
     "action": "以官方圖示三個 M 支路均投入且 E''=1 pu 作主分支；補齊每台馬達額定視在容量（或額定功因／效率）及故障前內電勢後，再鎖定三相故障貢獻。",
-    "evidence": "官方裁切圖明確畫出三個相同 M 支路，F 位於中間馬達支路前、A 位於發電機／變壓器支路；支路數量 N_M=3 已確認，工程上以三台均投入作主分支。題目仍未給每台馬達由 6000 kW 換算額定 MVA 所需的額定功因／效率，也未給故障前內電勢；42.864 kA（ηpf=1）與 45.196 kA（ηpf=0.9）為主分支敏感度，29.645 kA 僅是其餘支路未投入的替代情境。",
+    "evidence": "官方裁切圖明確畫出三個 M 支路，F 位於中間馬達支路前、A 位於發電機／變壓器支路；因此支路數量 N_M=3 已確認。canonical 以三支路均投入且 E''=1 pu 作主分支（ηpf=1 得 42.864 kA、ηpf=0.9 得 45.196 kA），另列單一支路敏感度；題目仍未給每台馬達由 6000 kW 換算額定 MVA 所需的額定功因／效率，故無法鎖定唯一數值。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   }
 };

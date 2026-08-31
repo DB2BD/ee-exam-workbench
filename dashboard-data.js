@@ -4209,7 +4209,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-106-01-3.md",
     "依考科分類/01_電路學/106年_電機工程技師_電路學.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],

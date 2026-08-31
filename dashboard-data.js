@@ -6578,7 +6578,7 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
     "action": "提供高解析 OCC/SCC 曲線或指定插值點後，再鎖定電壓調整率。",
-    "evidence": "官方裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；但 OCC/SCC 曲線本身未附於裁切圖，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。"
+    "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。"
   },
   "EE-113-04-4": {
     "disposition": "source_conflict_branches",

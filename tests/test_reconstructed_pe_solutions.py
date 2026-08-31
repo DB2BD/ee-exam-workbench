@@ -174,6 +174,59 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("3.0999\\,\\mathrm{MW}", synchronous_108)
         self.assertIn("1.2334\\times10^5", synchronous_108)
 
+        transformer_107 = (CANONICAL / "04_電機機械" / "canonical" / "EE-107-04-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", transformer_107)
+        self.assertIn("I_L=\\frac{S_L}{\\sqrt3V_{LL}}", transformer_107)
+        self.assertIn("8.725\\,\\mathrm A", transformer_107)
+        self.assertIn("83.33\\%", transformer_107)
+
+        series_107 = (CANONICAL / "04_電機機械" / "canonical" / "EE-107-04-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", series_107)
+        self.assertIn("n=1200\\frac{49.5}{40}=1485", series_107)
+        self.assertIn("76.394\\,\\mathrm{N\\cdot m}", series_107)
+
+        induction_107 = (CANONICAL / "04_電機機械" / "canonical" / "EE-107-04-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", induction_107)
+        self.assertIn("34.40\\text{ N}\\cdot\\text{m}", induction_107)
+        self.assertIn("42.78\\text{ N}\\cdot\\text{m}", induction_107)
+
+        synchronous_107 = (CANONICAL / "04_電機機械" / "canonical" / "EE-107-04-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", synchronous_107)
+        self.assertIn("396.35\\,\\mathrm V", synchronous_107)
+        self.assertIn("94.12\\%", synchronous_107)
+
+        vf_107 = (CANONICAL / "04_電機機械" / "canonical" / "EE-107-04-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", vf_107)
+        self.assertIn("1425\\,\\mathrm{rpm}", vf_107)
+        self.assertIn("120\\,\\mathrm V", vf_107)
+        self.assertIn("855\\,\\mathrm{rpm}", vf_107)
+
+        flyback_109 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-109-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: needs_manual_review", flyback_109)
+        self.assertIn("DCM 三角波", flyback_109)
+        self.assertIn("60\\text{ A}", flyback_109)
+        self.assertIn("274.4\\ \\mu\\text{H}", flyback_109)
+        self.assertIn("93.75\\%", flyback_109)
+
+        fault_109 = (CANONICAL / "06_工業配電" / "canonical" / "EE-109-06-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", fault_109)
+        self.assertIn("11.659\\,\\mathrm{kA}", fault_109)
+
+        lighting_109 = (CANONICAL / "06_工業配電" / "canonical" / "EE-109-06-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", lighting_109)
+        self.assertIn("43.41", lighting_109)
+        self.assertIn("304.05\\,\\mathrm{lx}", lighting_109)
+
+        pf_109 = (CANONICAL / "06_工業配電" / "canonical" / "EE-109-06-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", pf_109)
+        self.assertIn("242.968\\,\\mathrm{kvar}", pf_109)
+        self.assertIn("0.84805", pf_109)
+
+        magnetic_110 = (CANONICAL / "04_電機機械" / "canonical" / "EE-110-04-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", magnetic_110)
+        self.assertIn("0.07603\\text{ T}", magnetic_110)
+        self.assertIn("0.4704\\text{ mJ}", magnetic_110)
+
 
 if __name__ == "__main__":
     unittest.main()

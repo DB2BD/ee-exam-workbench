@@ -282,6 +282,16 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("601.051", sequence_107)
         self.assertIn("73.613", sequence_107)
 
+        diversity_107 = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", diversity_107)
+        self.assertIn("127.533", diversity_107)
+        self.assertIn("2025.72", diversity_107)
+
+        capacitor_107 = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", capacitor_107)
+        self.assertIn("655.547", capacitor_107)
+        self.assertIn("13.31", capacitor_107)
+
 
 if __name__ == "__main__":
     unittest.main()

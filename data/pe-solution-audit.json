@@ -2522,10 +2522,10 @@
       "question_number": 1,
       "chapter": "下表所示A、B、C、D 四用戶間之負載參差因數（Diversity factor）為\n1.5，試求：（每小題5 分，共20 分）\n\n* **(一)** 總和最大負載（kW）。\n\n* **(二)** 總和平均負載（kW）。\n\n* **(三)** 綜合負載因數。\n\n* **(四)** 每日用電量（kWH）。\n用戶\n設備容量（kVA） 功率因數（滯後）需量因數（\\%） 負載因數（\\%）\nA\n100\n0.85\n50\n45\nB\n60\n0.8\n55\n40\nC\n150\n0.88\n60\n50\nD\n120\n0.9\n40\n35",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "b435bd3623faf9147cc05f35ed50d90c9c7e71d0c6826d18ca37696de25f9304",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_diversity_factor_load_factor_recalculation",
+      "solution_hash": "48fa3dcfd3c194753e601344a5d0e42c75649f6e311c16d7cdefe2a9b74c20fe",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_107年_工業配電_Q01.png"
     },
@@ -2578,10 +2578,10 @@
       "question_number": 5,
       "chapter": "一高壓用戶於責任分界點的總負載為$1200\\text{ kVA}$，功率因數0.65 落後，\n現欲改善其功率因數至0.95 落後，試求：（每小題10 分，共20 分）\n\n* **(一)** 所需安裝電容器容量Qc 為多少kVAR？\n\n* **(二)** 若負載側電壓為$6.6\\text{ kV}$，頻率為60 HZ，電容器採Δ接，則每相所需電\n容C 值為多少μF？",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "3f6998dcb7d22e8ec251eda58263d1db00e0a2307105c209e5da09ce93116636",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_power_factor_correction_delta_capacitor_recalculation",
+      "solution_hash": "b252b5a3f55d400f13333af39243fa5c3ab65ccaa0152c94a54bc3c5ec96f2fe",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_107年_工業配電_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 167,
+    "verified": 169,
     "suspected_error": 0,
-    "needs_manual_review": 89,
+    "needs_manual_review": 87,
     "not_attempted": 0
   }
 }

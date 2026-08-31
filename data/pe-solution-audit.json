@@ -1251,7 +1251,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-motor-wiring-conditional-recalculation",
-      "solution_hash": "b2fbfebc6d02f9400720bb9e7b71cbafba8d3eb059b14c55addb96400494c4e5",
+      "solution_hash": "4134f633e21aa9a3c6f3ad5e8408bffcf5345d4c337db95daa2c8bda7ed63497",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q04.png"
     },

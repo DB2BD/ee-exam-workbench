@@ -159,6 +159,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("官方裁切仍只寫 0.01 pu", note)
         self.assertIn("Z_f=j0.01", note)
 
+    def test_annual_power_note_does_not_expose_stale_104_q3_answer(self):
+        note = (ROOT / "📝 個人題解與錯題本/05_電力系統/104年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        self.assertIn("EE-104-05-3.md", note)
+        self.assertIn("舊版年度模板曾把未出現在官方題面的 4.5 kA", note)
+        self.assertNotIn("I_{sc} = 2.5 + 3.0 + 4.5", note)
+
     def test_flicker_verified_note_records_official_point_and_b_point_alternative(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-110-06-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", note)

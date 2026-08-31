@@ -2844,10 +2844,10 @@
       "question_number": 1,
       "chapter": "(一)試述設計工業配電系統計算短路電流的目的。（10 分）\n\n* **(二)** 試述工業配電系統設備接地之目的及其重要性。（10 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "ea7bcb828a8237f91de6e40adb4a58bcb015f63b1894bcf0c1f91871e9c4237f",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_protection_and_grounding_concept_review",
+      "solution_hash": "899f773311aa9f09d3f91bb7898343f9f5b4c9668df063e23f072056ba855578",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_106年_工業配電_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 175,
+    "verified": 176,
     "suspected_error": 0,
-    "needs_manual_review": 81,
+    "needs_manual_review": 80,
     "not_attempted": 0
   }
 }

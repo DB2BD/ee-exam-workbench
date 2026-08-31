@@ -1360,10 +1360,10 @@
       "question_number": 3,
       "chapter": "如圖一之半波整流器，電源為$60\\text{ Hz}$、110 Vrms 之弦波。負載電阻器為\n$10\\ \\Omega$。試求：(一)平均負載電流，(二)負載所吸收的平均功率，(三)電路之功\n率因數。（25 分）\n$$vs=Vm sin(ωt)$$\nR\ni\nvd\n圖一",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-110-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official-crop-half-wave-rectifier-recalculation; diode-model-unspecified",
-      "solution_hash": "213bb0ee9cb5d6718fd98f1ef3ce55f4355fa7526a4f3ecc4de869711edd9315",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_half_wave_rectifier_ideal_diode_recalculation_with_drop_sensitivity",
+      "solution_hash": "05d336082662e740de51695f883bd62383ac0eb1a20b2ca273b6dfe1503d3442",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_110年_電子學（包括電力電子學）_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 227,
+    "verified": 228,
     "suspected_error": 0,
-    "needs_manual_review": 29,
+    "needs_manual_review": 28,
     "not_attempted": 0
   }
 }

@@ -1055,7 +1055,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "mosfet-gain-square-law-consistency-check",
-      "solution_hash": "32e9998000cfcd7675752098f34841e765cdd2f58547c0318defeaf295faa143",
+      "solution_hash": "2203497216c029ec71846cf900dc8711c8c74d03c93f8f18db3dbaff444e2c9e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png"
     },

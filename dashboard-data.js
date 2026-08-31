@@ -6541,7 +6541,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-111-02-3": {
     "disposition": "inconsistent_data_branches",
     "blocker": "source_conflict",
-    "action": "確認指定增益或平方律參數是否有誤植；目前並列兩組可回代候選值。",
+    "action": "確認指定增益或平方律參數是否有誤植；題面 3.17 mA 對應增益 4.4444，指定增益 5 則反推 4.755 mA，兩組候選均保留。",
     "evidence": ""
   },
   "EE-113-02-2": {

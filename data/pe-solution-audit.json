@@ -758,10 +758,10 @@
       "question_number": 4,
       "chapter": "如圖四的飛輪二極體之半波整流器，其中vs(t) = 170 sin(377t) V、R = $10\\ \\Omega$、\nVdc= 24 V。假設元件皆為理想，藉由傅立葉級數，試求可使負載電流峰\n對峰值Δio 不超過1A 之L 值、dc 電源Vdc 所吸收的功率及電阻R 所吸收\n的功率。（25 分）\n圖四\n+_\nVs\n_\nVo\n_vL\niD\niC\niL\nQ\nC\nL\nR\n+_\n$v_s(t)$\n_\nVdc\niO\nD1\nL\nR\nD2",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-112-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "67158f2c345c2cad35811bf1a7b805a1ac5674454015eac92efaf9b3b34b6343",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_freewheel_rectifier_fourier_recalculation",
+      "solution_hash": "21ede2205f7cb4a1f31c18825be42f75f45bad79916d53c2fc2774c709e81672",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_112年_電子學（包括電力電子學）_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 202,
+    "verified": 203,
     "suspected_error": 0,
-    "needs_manual_review": 54,
+    "needs_manual_review": 53,
     "not_attempted": 0
   }
 }

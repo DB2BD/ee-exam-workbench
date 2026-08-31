@@ -56,6 +56,7 @@ def build_workbench():
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
         'src/state/recallStore.js',
+        'src/data/manualTopicLabels.js',
         'src/components/reviewPage.js',
         'src/renderers/katexRenderer.js',
         'src/renderers/markdownRenderer.js',
@@ -198,7 +199,10 @@ def build_workbench():
           <h2>📝 複習中心</h2>
           <p>集中處理今日到期、錯題本與收藏題目；可直接開啟標準解題視窗。</p>
         </div>
-        <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
+        <div class="review-header-actions">
+          <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
+          <button class="btn-sol" id="manual-label-open" type="button" onclick="openManualLabelModal()">🧭 逐題標注題型</button>
+        </div>
       </div>
       <div class="review-stats" id="review-stats"></div>
       <div class="review-controls">
@@ -437,6 +441,27 @@ def build_workbench():
       </div>
     </div>
   </div>
+<!-- Manual Review Topic Annotation Modal -->
+<div id="manual-label-modal" role="dialog" aria-modal="true" aria-labelledby="manual-label-title" onclick="if (event.target === this) closeManualLabelModal()">
+  <div class="manual-label-dialog" onclick="event.stopPropagation()">
+    <div class="manual-label-header">
+      <div>
+        <h3 id="manual-label-title">🧭 人工覆核題型標注</h3>
+        <span id="manual-label-progress" class="manual-label-progress">0 / 0</span>
+      </div>
+      <button type="button" class="btn-pdf" onclick="closeManualLabelModal()">✕ 關閉</button>
+    </div>
+    <div id="manual-label-body" class="manual-label-body"></div>
+    <div class="manual-label-footer">
+      <button type="button" class="btn-modal-nav" id="manual-label-prev" onclick="moveManualLabel(-1)">← 上一題</button>
+      <button type="button" class="btn-pdf" onclick="moveManualLabel(1, false)">略過（不儲存）→</button>
+      <div class="manual-label-footer-spacer"></div>
+      <button type="button" class="btn-sol" onclick="saveManualLabel()">💾 儲存標注</button>
+      <button type="button" class="btn-sol" id="manual-label-next" onclick="saveManualLabelAndNext()">儲存並下一題 →</button>
+    </div>
+  </div>
+</div>
+
 <!-- Backup & Restore Modal -->
 <div id="backup-modal" onclick="closeBackupModal()">
   <div class="backup-modal-box" onclick="event.stopPropagation()">

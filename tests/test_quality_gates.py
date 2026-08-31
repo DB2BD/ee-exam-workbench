@@ -130,6 +130,76 @@ process.stdout.write(JSON.stringify(context.__missing));
         )
         self.assertEqual(result, "直流電機 (分激/串激特性與調速)")
 
+    def test_manual_topic_label_overrides_auto_classifier_for_same_subject(self):
+        question = [
+            "EE-manual-label", "02", 114, 1,
+            "返馳式轉換器與連續導通", [], "", "", 3, "needs_manual_review", [], True,
+        ]
+        expression = (
+            "(() => { "
+            "context.findQuestionRecord = qid => qid === 'EE-manual-label' ? "
+            + json.dumps(question, ensure_ascii=False)
+            + " : null; "
+            "context.renderReviewPage = () => {}; "
+            "context.replaceManualTopicLabels({'EE-manual-label': {chapterId: 'el-bjt-bias-small-signal'}}); "
+            "return context.getReviewTypeLabel("
+            + json.dumps(question, ensure_ascii=False)
+            + "); })()"
+        )
+        result = self._run_node(expression)
+        self.assertEqual(result, "BJT 偏壓分析與小訊號模型")
+
+    def test_manual_label_options_are_scoped_to_selected_subject(self):
+        result = self._run_node("context.getManualLabelOptions('02').map(item => item.id)")
+        self.assertIn("el-pe-buck-boost", result)
+        self.assertNotIn("ct-thevenin-norton", result)
+
+    def test_manual_review_queue_follows_selected_subject(self):
+        questions = [
+            ["EE-manual-02", "02", 114, 1, "返馳式轉換器", [], "", "", 3, "needs_manual_review", [], True],
+            ["EE-manual-04", "04", 114, 1, "直流電機調速", [], "", "", 3, "needs_manual_review", [], True],
+        ]
+        expression = (
+            "(() => { "
+            "context.document = { getElementById: () => ({ value: '02' }) }; "
+            "context.getActiveQuestionsList = () => "
+            + json.dumps(questions, ensure_ascii=False)
+            + "; return context.getManualReviewQuestions().map(q => q[0]); })()"
+        )
+        result = self._run_node(expression)
+        self.assertEqual(result, ["EE-manual-02"])
+
+    def test_manual_label_modal_renders_crop_and_subject_selector(self):
+        question = [
+            "EE-manual-ui", "02", 114, 1, "返馳式轉換器與連續導通", [], "", "", 3,
+            "needs_manual_review", [], True,
+        ]
+        expression = (
+            "(() => { "
+            "const elements = {}; "
+            "['manual-label-modal','manual-label-body','manual-label-progress','manual-label-prev','manual-label-next']"
+            ".forEach(id => elements[id] = { classList: { add: () => {}, remove: () => {} }, querySelector: () => null, innerHTML: '', innerText: '', disabled: false }); "
+            "elements['manual-label-modal'].classList = { added: '', add(value) { this.added = value; }, remove() {} }; "
+            "context.document = { body: { style: {} }, getElementById: id => elements[id] }; "
+            "context.getActiveQuestionsList = () => " + json.dumps([question], ensure_ascii=False) + "; "
+            "context.getSubjectMeta = () => ({ name: '電子學（含電力電子）', icon: '' }); "
+            "context.renderQuestionTopic = text => text; "
+            "context.showToast = () => {}; "
+            "context.findQuestionRecord = () => " + json.dumps(question, ensure_ascii=False) + "; "
+            "context.QUESTION_CROP_MAP = { 'EE-manual-ui': 'assets/questions/EE-manual-ui.png' }; "
+            "context.resolveImageMapUrl = src => src; "
+            "context.openManualLabelModal(); "
+            "return { "
+            "opened: elements['manual-label-modal'].classList.added === 'show', "
+            "progress: elements['manual-label-progress'].innerText, "
+            "hasCrop: elements['manual-label-body'].innerHTML.includes('assets/questions/EE-manual-ui.png'), "
+            "hasSelector: elements['manual-label-body'].innerHTML.includes('manual-label-select'), "
+            "hasQid: elements['manual-label-body'].innerHTML.includes('EE-manual-ui') "
+            "}; })()"
+        )
+        result = self._run_node(expression)
+        self.assertEqual(result, {"opened": True, "progress": "1 / 1", "hasCrop": True, "hasSelector": True, "hasQid": True})
+
 
 class TestBuildReproducibility(unittest.TestCase):
     """A fixed input tree must produce byte-identical HTML across timezones."""

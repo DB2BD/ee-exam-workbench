@@ -207,6 +207,7 @@ def build_workbench():
           <option value="due">今日到期</option>
           <option value="wrong">錯題本</option>
           <option value="starred">收藏題目</option>
+          <option value="manual">待人工覆核</option>
           <option value="all">全部題目</option>
         </select>
         <label for="review-subject">考科</label>

@@ -3516,10 +3516,10 @@
       "question_number": 4,
       "chapter": "一系統有三個匯流排Bus-1、Bus-2 及Bus-3，Bus-1 及Bus-2 間相連的輸電線阻抗\n為j0.1 pu，Bus-2 及Bus-3 間相連的輸電線阻抗為j0.2 pu，而Bus-1 及Bus-3 間相連\n的輸電線阻抗為j0.25 pu。Bus-1 及 Bus-3 均有接發電機組，其電源等效阻抗分別為\nj0.4 pu 及j0.5 pu，Bus-2 為負載匯流排。當Bus-2 無負載時，所有匯流排電壓相同\n均為1.25pu。當Bus-2 無負載時，試繪出系統電路模型，並求出匯流排導納矩陣\nYbus及匯流排阻抗矩陣Zbus。當Bus-2 接負載且負載阻抗為0.4+j0.3 pu 時，根據Zbus\n求各匯流排電壓大小。若於Bus-2 再並接一電容抗-j0.3 pu，則各匯流排電壓大小為\n何？（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-104-05-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "48d93d4011dbeac2d6efdc81e6d967765ed0539f2477c4fcd66baa64527ba583",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_three_bus_ybus_zbus_and_shunt_capacitor_recalculation",
+      "solution_hash": "31966514d2b435e6ab9927a2045cc1ed5a95bcd33454b3ccd400cc106c6b6a7d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_104年_電力系統_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 222,
+    "verified": 223,
     "suspected_error": 0,
-    "needs_manual_review": 34,
+    "needs_manual_review": 33,
     "not_attempted": 0
   }
 }

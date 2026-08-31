@@ -146,7 +146,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for qid in manual_qids:
             self.assertIn(qid, report)
         self.assertIn("工業配電系統電壓降與串聯電抗器", report)
-        self.assertIn("待依教科書章節覆核", report)
+        self.assertIn("MOSFET 差動放大器與負回授", report)
+        self.assertNotIn("待依教科書章節覆核", report)
         self.assertIn("電子學（含電力電子）", report)
         self.assertNotIn("兩部相同發電機各自經由其升壓變壓器", report)
 
@@ -196,6 +197,15 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617", note)
         self.assertIn("238 A", note)
         self.assertIn("250 A", note)
+
+    def test_ct_curve_review_traces_official_question_and_reading_limit(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn("official_source_url: https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q", note)
+        self.assertIn("含完整曲線的官方裁切圖", note)
+        self.assertIn("I_e\\approx0.20", note)
+        self.assertIn("I_e\\approx2.5", note)
+        self.assertIn("圖解有效位數而非方程或裁切缺漏", note)
 
     def test_single_phase_fault_review_uses_diagram_fault_location(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")

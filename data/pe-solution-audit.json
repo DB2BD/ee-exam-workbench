@@ -1402,10 +1402,10 @@
       "question_number": 2,
       "chapter": "一部 $60\\text{ Hz}、220/160\\text{ V}、30\\text{ kVA}$、雙繞組之單相變壓器，連接成自耦變壓器，從 $380\\text{ V}$ 電源供應 $220\\text{ V}$ 之單相負載。\n* **(一)** 繪出此自耦變壓器之電路圖，標註變壓器繞組的極性及電壓值。（5 分）\n* **(二)** 計算此自耦變壓器之 kVA 容量。（5 分）\n* **(三)** 欲使用兩部上述的自耦變壓器，連接成一個三相變壓器組，從三相 $380\\text{ V}$ 電源，供應三相 $220\\text{ V}$ 之負載。試繪出此三相變壓器組的連接電路圖，標註變壓器繞組的極性及電壓值。（5 分）\n* **(四)** 計算此三相變壓器組的 kVA 容量。（5 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-110-04-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "e36014a52adb212166cf848e01c5058aac15214492d67a7f03aa204db33fb4b9",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_autotransformer_current_and_open_delta_capacity_check",
+      "solution_hash": "52a86ac6143eaad1757e039597e8a78e5acf875a879af1e5c9f74c889056f0ae",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_110年_電機機械_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 135,
+    "verified": 136,
     "suspected_error": 0,
-    "needs_manual_review": 121,
+    "needs_manual_review": 120,
     "not_attempted": 0
   }
 }

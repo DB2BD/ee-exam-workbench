@@ -337,6 +337,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("\\sqrt{49}=7", resonance_106)
         self.assertIn("第 7 次諧波", resonance_106)
 
+        nonlinear_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", nonlinear_105)
+        self.assertIn("300\\sqrt{3}", nonlinear_105)
+        self.assertIn("0.9242", nonlinear_105)
+
 
 if __name__ == "__main__":
     unittest.main()

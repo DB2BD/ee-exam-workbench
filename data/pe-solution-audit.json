@@ -3446,10 +3446,10 @@
       "question_number": 4,
       "chapter": "有一台定子線圈為Y 連接之三相四極感應電動機，若選擇以$2.2\\text{ kVA}$ 及380 V 為此\n三相電機之系統基準值，則此一感應電動機等效至定子側之單相電路可表示如圖\n二，而其中各參數之標么值（per unit value, p.u.）分別為：rs = 0.05 p.u.，rr = 0.05\np.u.，xs = 0.15 p.u.，xr = 0.15 p.u.，Rc = 30 p.u.，Xm = 40 p.u.。試求此感應電動機的啟\n動電流is 為多少安培（A）？（20 分）\n圖二",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-104-04-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "22c3ab5a74fe34aea0535bec92806414713784d0128f0944ba41a3257e9422c2",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_induction_motor_startup_slip_one_recalculation",
+      "solution_hash": "f5c018ab7acef671e5f85c77eadff7d147b83e25dd0f3990013fc964a9e85900",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_104年_電機機械_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 197,
+    "verified": 198,
     "suspected_error": 0,
-    "needs_manual_review": 59,
+    "needs_manual_review": 58,
     "not_attempted": 0
   }
 }

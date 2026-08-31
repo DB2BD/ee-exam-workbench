@@ -2606,10 +2606,10 @@
       "question_number": 2,
       "chapter": "試寫出以下電路中有關dt\ndvC3 的狀態方程式。（25 分）\n\n建築師、技師、第二次食品技師考試暨\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-106-01-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "eaa51386a528b7bc19d2fc5d6ab022db9aafb6da75062ec5a34219d0a4cb9804",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_mna_state_equation_derivation",
+      "solution_hash": "89c44024cc6f8d1b920d26788aa681e182b5654d7419d5696c0aaf8f36c2ee03",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_106年_電路學_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 224,
+    "verified": 225,
     "suspected_error": 0,
-    "needs_manual_review": 32,
+    "needs_manual_review": 31,
     "not_attempted": 0
   }
 }

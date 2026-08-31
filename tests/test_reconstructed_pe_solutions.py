@@ -150,6 +150,25 @@ class TestReconstructedPESolutions(unittest.TestCase):
                     self.assertGreater(len(match.group(1).strip()), 20, f"{entry['qid']} has weak {key}")
             self.assertNotIn("尚未完成獨立逐步重算", text, f"{entry['qid']} was left as an unworked placeholder")
 
+    def test_annual_notes_identify_every_manual_question(self):
+        """年度彙整頁需明示每個條件式題號，避免讀者誤用舊模板答案。"""
+        subject_dirs = {
+            "01": "01_電路學",
+            "02": "02_電子學_含電力電子",
+            "03": "03_工程數學",
+            "04": "04_電機機械",
+            "05": "05_電力系統",
+            "06": "06_工業配電",
+        }
+        manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
+        for entry in manifest["entries"]:
+            if entry.get("audit_status") != "needs_manual_review":
+                continue
+            annuals = sorted((CANONICAL / subject_dirs[entry["subject_id"]]).glob(f"{entry['year']}年_*全卷完整詳細題解.md"))
+            self.assertTrue(annuals, f"missing annual note for {entry['qid']}")
+            annual_text = annuals[0].read_text(encoding="utf-8")
+            self.assertIn(entry["qid"], annual_text, f"annual note does not identify manual question {entry['qid']}")
+
     def test_manual_review_index_is_complete_and_uses_canonical_taxonomy(self):
         """The central queue must cover every manual item without leaking prompt text as chapters."""
         report = (ROOT / "reports" / "manual-review-index.md").read_text(encoding="utf-8")
@@ -262,6 +281,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("EE-104-05-3.md", note)
         self.assertIn("舊版年度模板曾把未出現在官方題面的 4.5 kA", note)
         self.assertNotIn("I_{sc} = 2.5 + 3.0 + 4.5", note)
+
+    def test_annual_107_power_note_uses_corrected_generator_q3_branch(self):
+        """年度彙整頁不得重新暴露已校正的基準與無效功率方向錯誤。"""
+        note = (ROOT / "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        self.assertIn("canonical 校驗版", note)
+        self.assertIn(r"\boxed{Q_G=-84.0\text{ Mvar}}", note)
+        self.assertIn("進相（leading）運轉", note)
+        self.assertNotIn("+82.6\\text{ Mvar}", note)
 
     def test_flicker_verified_note_records_official_point_and_b_point_alternative(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-110-06-4.md").read_text(encoding="utf-8")

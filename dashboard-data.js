@@ -6622,7 +6622,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-107-06-2": {
     "disposition": "rated_current_branches",
     "blocker": "missing_parameter",
-    "action": "確認考試年度採用的 100 HP 馬達滿載電流表、107 年歷史附件或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。",
+    "action": "確認考試年度採用的 100 HP 馬達滿載電流表、107 年歷史附件或銘牌效率；同時保留歷史表 258 A、現行表 238 A、常用 250 A 與反算分支。",
     "evidence": "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，107 年歷史版第 152 條另規定原則上採銘牌全載電流、一般用電動機才得以國家標準值為準；題圖未附銘牌或 107 年表格附件，故僅作官方交叉證據，不能取代題幹缺漏。公開題目鏡像逐字確認 100 HP、220 V、120 m 與阻抗數值，但未提供可核對的逐步詳解。 來源：https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617；https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf；https://www.scribd.com/document/941350020/107%E5%B9%B4%E5%B7%A5%E6%A5%AD%E9%85%8D%E9%9B%BB",
     "publicReferenceUrls": [
       "https://www.scribd.com/document/941350020/107%E5%B9%B4%E5%B7%A5%E6%A5%AD%E9%85%8D%E9%9B%BB"
@@ -6654,8 +6654,8 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-104-06-5": {
     "disposition": "power_factor_parameterized",
     "blocker": "missing_parameter",
-    "action": "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。",
-    "evidence": "官方裁切圖已確認 380 V、250 MVA、2 MVA 變壓器、400/200 kvar 電容器及 6% 電抗器；canonical 以第五次諧波三支路並聯回代 V_5=3.2211 V、幹線 74.6606 A、A/B 支路 51.5158/25.7579 A。整流器基波功因未給，故結果按 1/pf_1 參數化。",
+    "action": "釐清 500 kW 是整流器 DC 輸出或 AC 側有功輸入，並補齊基波功因 pf_1 與效率 η；依定義選用對應的額定電流分支。",
+    "evidence": "官方裁切圖已確認 380 V、250 MVA、2 MVA 變壓器、400/200 kvar 電容器及 6% 電抗器；canonical 以第五次諧波三支路並聯回代 V_5=3.2211 V、幹線 74.6606 A、A/B 支路 51.5158/25.7579 A。題面只寫新設整流器 500 kW，未說明是 DC 輸出或 AC 側有功輸入，也未給基波功因與效率；因此 DC 輸出分支按 1/(η·pf_1) 參數化，AC 輸入分支按 1/pf_1 參數化。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0612&t=Q"
   },
   "EE-111-06-2": {

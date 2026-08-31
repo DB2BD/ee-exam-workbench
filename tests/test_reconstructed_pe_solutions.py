@@ -649,6 +649,18 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", power_104)
         self.assertIn("4912.23", power_104)
 
+    def test_annual_notes_flag_superseded_industrial_distribution_answers(self):
+        """年度彙整頁不得讓已稽核否定的舊模板答案看似仍可直接採用。"""
+        industrial = CANONICAL / "06_工業配電"
+        annual_108 = (industrial / "108年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        annual_110 = (industrial / "110年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        self.assertIn("canonical 優先", annual_108)
+        self.assertIn("EE-108-06-2 條件式校驗", annual_108)
+        self.assertIn("歷史模板，勿直接採用", annual_108)
+        self.assertIn("canonical 優先", annual_110)
+        self.assertIn("EE-110-06-4 觀測點分支校驗", annual_110)
+        self.assertIn("歷史模板，勿直接採用", annual_110)
+
 
 if __name__ == "__main__":
     unittest.main()

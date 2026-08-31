@@ -33,7 +33,7 @@ REVIEWS = {
     "EE-111-06-2": ("conditional_numeric", "missing_parameter", "補齊馬達額定 kVA、效率與額定功因，才能唯一化啟動電流與電壓變動率。"),
     "EE-111-06-3": ("motor_rating_branches", "missing_parameter", "確認馬達數量、額定容量與內電勢假設後，再鎖定三相故障貢獻。"),
     "EE-111-06-4": ("code_compliance_branches", "missing_parameter", "補齊導線材質、敷設、環境修正與效率／規範版本；現行表可作交叉檢查，但 8 HP 無精確列值，仍須確認考試年度表。"),
-    "EE-110-06-4": ("definition_branches", "official_wording_ambiguity", "確認官方閃爍觀測點與電壓變動率定義，再決定唯一數值。"),
+    "EE-110-06-4": ("definition_branches", "official_wording_ambiguity", "依圖面 A 點採 1.606162%／0.036720 pu；若命題解答採 B 點則為 19.052%／6.070853 pu，請確認觀測點定義。"),
     "EE-110-06-5": ("conditional_numeric", "missing_parameter", "補齊三台馬達效率與功因／額定 MVA，才能唯一化共同基準短路電流。"),
     "EE-109-02-3": ("conduction_mode_branches", "missing_parameter", "確認返馳式轉換器導通模式與電流定義；目前保留 DCM 三角波條件解。"),
     "EE-108-06-2": ("physical_inconsistency", "official_wording_ambiguity", "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。"),

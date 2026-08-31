@@ -1573,7 +1573,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-pcc-voltage-flicker-recalculation",
-      "solution_hash": "c0502c14a1e705e3de3b91866554a32c9b5d9280bd54099c0f6bc7b487eb3632",
+      "solution_hash": "62a741a75eb0e70fbfdb4ecb44dcc028e1c1634d2eb0b6198418233cb4a1bb94",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q04.png"
     },

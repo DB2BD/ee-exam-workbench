@@ -3530,9 +3530,9 @@
       "question_number": 1,
       "chapter": "(一)試說明台電公司高壓及特高壓電力用戶之供電方式，又供給用戶之供電方式依什\n麼來決定？（16 分）\n\n* **(二)** 何謂責任分界點？（4 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official_taipower_supply_rules_and_boundary_point_recalculation",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_taipower_supply_rules_conceptual_verification",
       "solution_hash": "a8a10b72313569a9f4a917c7a240c6d8e558d21b880f12112d605d1e4e202768",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q01.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 235,
+    "verified": 236,
     "suspected_error": 0,
-    "needs_manual_review": 21,
+    "needs_manual_review": 20,
     "not_attempted": 0
   }
 }

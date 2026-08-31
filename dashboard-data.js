@@ -5742,7 +5742,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-1.md",
     "依考科分類/06_工業配電/104年_電機工程技師_工業配電.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -6642,12 +6642,6 @@ const SOLUTION_REVIEW_METADATA = {
     "blocker": "missing_parameter",
     "action": "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。",
     "evidence": "官方裁切圖提供 2 kV／69 kV 電壓、短路容量、變壓器阻抗及全壓啟動倍數；canonical 已建立兩側標么壓降公式，並以 k=η·pf_n 列出 0.80、0.90、1.00 的敏感度。題目只給 3000 kW，未給 η 或額定功因。"
-  },
-  "EE-104-06-1": {
-    "disposition": "regulation_version_branches",
-    "blocker": "regulation_version",
-    "action": "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。",
-    "evidence": "官方題目是供電方式與責任分界的申論題；canonical 已依台電供電方式章節整理電壓層級、契約容量、地區網路、可靠度及分界點責任。歷史門檻與分界物理位置仍受考試年度規章、供電地區及契約圖說影響。"
   },
   "EE-108-06-2": {
     "disposition": "physical_inconsistency",

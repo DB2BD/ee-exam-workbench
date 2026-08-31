@@ -50,9 +50,9 @@
     {"subjectId":"04","chapterId":"emach-magnetic-circuits","questionIds":["EE-114-04-1","EE-113-04-1","EE-112-04-1","EE-112-04-5","EE-111-04-1"],"rationale":"題幹明確涉及磁路、磁通、磁滯或氣隙。"},
     {"subjectId":"04","chapterId":"emach-single-phase-transformer","questionIds":["EE-114-04-2","EE-112-04-2","EE-104-04-2"],"rationale":"題幹明確指定單相變壓器試驗或電壓調整率。"},
     {"subjectId":"04","chapterId":"emach-autotransformer","questionIds":["EE-110-04-2","EE-108-04-1","EE-106-04-2"],"rationale":"題幹明確指定自耦變壓器。"},
-    {"subjectId":"04","chapterId":"emach-dc-motor-generator","questionIds":["EE-113-04-3","EE-111-04-3"],"rationale":"題幹明確涉及直流電機或直流發電機。"},
+    {"subjectId":"04","chapterId":"emach-dc-motor-generator","questionIds":["EE-113-04-3","EE-111-04-3","EE-105-04-5"],"rationale":"題幹明確涉及直流電機或直流發電機。"},
     {"subjectId":"04","chapterId":"emach-induction-motor-equiv","questionIds":["EE-114-04-3","EE-113-04-4","EE-113-04-5","EE-112-04-4","EE-111-04-2"],"rationale":"題幹明確涉及感應電動機等效電路。"},
-    {"subjectId":"04","chapterId":"emach-induction-motor-torque","questionIds":["EE-114-04-5","EE-108-04-4","EE-105-04-5","EE-104-04-3"],"rationale":"題幹明確涉及轉矩或轉差率。"},
+    {"subjectId":"04","chapterId":"emach-induction-motor-torque","questionIds":["EE-114-04-5","EE-108-04-4","EE-104-04-3"],"rationale":"題幹明確涉及轉矩或轉差率。"},
     {"subjectId":"04","chapterId":"emach-synchronous-generator-round","questionIds":["EE-114-04-4","EE-113-04-2","EE-112-04-3","EE-111-04-4","EE-111-04-5"],"rationale":"題幹明確涉及同步發電機、功角或激磁。"},
 
     {"subjectId":"05","chapterId":"ps-per-unit","questionIds":["EE-113-05-4","EE-109-05-6","EE-104-05-1"],"rationale":"題幹明確指定標么值或基準換算。"},

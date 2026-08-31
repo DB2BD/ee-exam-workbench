@@ -40,7 +40,6 @@ REVIEWS = {
     "EE-106-06-2": ("impedance_definition_branches", "official_wording_ambiguity", "依圖面固定 F 為左 110 V 導體對中性點；確認饋線阻抗是否含往返，以及非對稱電流的觀察時刻／故障相角。"),
     "EE-105-04-5": ("flux_curve_parameterized", "missing_parameter", "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。"),
     "EE-104-05-3": ("given_current_vs_recalculation", "source_conflict", "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。"),
-    "EE-104-06-1": ("regulation_version_branches", "regulation_version", "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。"),
     "EE-104-06-5": ("power_factor_parameterized", "missing_parameter", "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。"),
 }
 
@@ -138,10 +137,6 @@ REVIEW_EVIDENCE = {
     "EE-104-05-3": (
         "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，"
         "並保留直接給定總電流 5.5 kA 與 unity-PF 條件分支。兩組資料不能無聲混合。"
-    ),
-    "EE-104-06-1": (
-        "官方題目是供電方式與責任分界的申論題；canonical 已依台電供電方式章節整理電壓層級、契約容量、地區網路、可靠度及分界點責任。"
-        "歷史門檻與分界物理位置仍受考試年度規章、供電地區及契約圖說影響。"
     ),
     "EE-104-06-5": (
         "官方裁切圖已確認 380 V、250 MVA、2 MVA 變壓器、400/200 kvar 電容器及 6% 電抗器；canonical 以第五次諧波三支路並聯回代 V_5=3.2211 V、"

@@ -209,6 +209,14 @@ function renderSolutionReviewCard(qid) {
   const sourceUrl = typeof meta.officialSourceUrl === 'string' && /^https:\/\//i.test(meta.officialSourceUrl)
     ? meta.officialSourceUrl
     : '';
+  const publicUrls = Array.isArray(meta.publicReferenceUrls)
+    ? meta.publicReferenceUrls.filter(url => typeof url === 'string' && /^https:\/\//i.test(url))
+    : [];
+  const publicLinks = publicUrls.length
+    ? `<div><strong>公開參考：</strong>${publicUrls.map((url, index) =>
+        `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">來源 ${index + 1}</a>`
+      ).join('、')}${meta.publicReferenceNote ? `<div class="review-public-note">${esc(meta.publicReferenceNote)}</div>` : ''}</div>`
+    : '';
   return `
     <aside class="solution-review-card" aria-label="人工覆核說明">
       <div class="review-title">🟡 本題保留人工覆核（不代表答案已定稿）</div>
@@ -218,6 +226,7 @@ function renderSolutionReviewCard(qid) {
         <div><strong>收斂所需動作：</strong>${esc(meta.action)}</div>
         ${meta.evidence ? `<div><strong>交叉證據：</strong>${esc(meta.evidence)}</div>` : ''}
         ${sourceUrl ? `<div><strong>官方來源：</strong><a href="${esc(sourceUrl)}" target="_blank" rel="noopener noreferrer">開啟考選部原始試題</a></div>` : ''}
+        ${publicLinks}
       </div>
     </aside>
   `;

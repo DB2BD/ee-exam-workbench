@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=4cda6a1b284cc74528c6aba7ed9eeaeb8e96d0b3"></script>
-<script src="./solutions-bundle.js?v=4cda6a1b284cc74528c6aba7ed9eeaeb8e96d0b3"></script>
-<script src="./national-exams-data.js?v=4cda6a1b284cc74528c6aba7ed9eeaeb8e96d0b3"></script>
-<script src="./national-solutions-bundle.js?v=4cda6a1b284cc74528c6aba7ed9eeaeb8e96d0b3"></script>
+<script src="./dashboard-data.js?v=57dd89af322f22adf6701af623cbdcb0591116ef"></script>
+<script src="./solutions-bundle.js?v=57dd89af322f22adf6701af623cbdcb0591116ef"></script>
+<script src="./national-exams-data.js?v=57dd89af322f22adf6701af623cbdcb0591116ef"></script>
+<script src="./national-solutions-bundle.js?v=57dd89af322f22adf6701af623cbdcb0591116ef"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -591,6 +591,7 @@ select:focus {
 .solution-review-card { margin: 14px 0; padding: 12px 14px; border: 1px solid #e4c56b; border-left: 4px solid #c28b2c; border-radius: var(--radius-sm); background: #fffaf0; color: var(--ink); }
 .solution-review-card .review-title { font-weight: 700; color: #8a6410; margin-bottom: 6px; }
 .solution-review-card .review-meta { display: grid; gap: 4px; font-size: .86rem; line-height: 1.45; }
+.solution-review-card .review-public-note { margin-top: 2px; color: var(--muted); font-size: .8rem; }
 
 /* Difficulty Stars Badge */
 .diff-badge {
@@ -4754,6 +4755,14 @@ function renderSolutionReviewCard(qid) {
   const sourceUrl = typeof meta.officialSourceUrl === 'string' && /^https:\/\//i.test(meta.officialSourceUrl)
     ? meta.officialSourceUrl
     : '';
+  const publicUrls = Array.isArray(meta.publicReferenceUrls)
+    ? meta.publicReferenceUrls.filter(url => typeof url === 'string' && /^https:\/\//i.test(url))
+    : [];
+  const publicLinks = publicUrls.length
+    ? `<div><strong>公開參考：</strong>${publicUrls.map((url, index) =>
+        `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">來源 ${index + 1}</a>`
+      ).join('、')}${meta.publicReferenceNote ? `<div class="review-public-note">${esc(meta.publicReferenceNote)}</div>` : ''}</div>`
+    : '';
   return `
     <aside class="solution-review-card" aria-label="人工覆核說明">
       <div class="review-title">🟡 本題保留人工覆核（不代表答案已定稿）</div>
@@ -4763,6 +4772,7 @@ function renderSolutionReviewCard(qid) {
         <div><strong>收斂所需動作：</strong>${esc(meta.action)}</div>
         ${meta.evidence ? `<div><strong>交叉證據：</strong>${esc(meta.evidence)}</div>` : ''}
         ${sourceUrl ? `<div><strong>官方來源：</strong><a href="${esc(sourceUrl)}" target="_blank" rel="noopener noreferrer">開啟考選部原始試題</a></div>` : ''}
+        ${publicLinks}
       </div>
     </aside>
   `;

@@ -306,6 +306,7 @@ select:focus {
 .solution-review-card { margin: 14px 0; padding: 12px 14px; border: 1px solid #e4c56b; border-left: 4px solid #c28b2c; border-radius: var(--radius-sm); background: #fffaf0; color: var(--ink); }
 .solution-review-card .review-title { font-weight: 700; color: #8a6410; margin-bottom: 6px; }
 .solution-review-card .review-meta { display: grid; gap: 4px; font-size: .86rem; line-height: 1.45; }
+.solution-review-card .review-public-note { margin-top: 2px; color: var(--muted); font-size: .8rem; }
 
 /* Difficulty Stars Badge */
 .diff-badge {

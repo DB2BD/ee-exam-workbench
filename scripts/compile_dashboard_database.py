@@ -203,6 +203,18 @@ for subject_dir in (
                 'action': fields.get('review_action', ''),
                 'evidence': fields.get('review_evidence', ''),
             }
+            public_urls = fields.get('public_reference_urls', '')
+            if public_urls:
+                # The annotation script stores a semicolon-delimited list so
+                # each URL remains a single frontmatter scalar.  Preserve the
+                # list as an array for safe rendering in the browser.
+                review_meta['publicReferenceUrls'] = [
+                    url.strip() for url in public_urls.split(';')
+                    if url.strip().startswith('https://')
+                ]
+            public_note = fields.get('public_reference_note', '')
+            if public_note:
+                review_meta['publicReferenceNote'] = public_note
             official_url = fields.get('official_source_url', '')
             if official_url:
                 review_meta['officialSourceUrl'] = official_url

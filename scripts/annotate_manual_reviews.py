@@ -50,6 +50,8 @@ REVIEW_EVIDENCE = {
         "官方裁切圖已確認 α=0.99、I_E=0.5 mA、R_sig=75 Ω、R_C=R_L=12 kΩ 與基極交流接地；"
         "canonical 推導以 T 模型及 R_C∥R_L 回代，V_T=25 mV 得 A_v=47.52 V/V，V_T=25.85 mV 得 46.882399 V/V。"
         "題圖未提供 V_T，故分支差異是可重現的輸入條件缺口。"
+        "公開影音與圖像解答均將本題辨識為共基極 T 模型題，僅作方法交叉，未用來補填官方缺漏。"
+        "來源：https://kentchen1980.pixnet.net/blog/posts/10357159118；https://www.youtube.com/watch?v=oe_n90CtJcI"
     ),
     "EE-113-04-4": (
         "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；"
@@ -69,10 +71,12 @@ REVIEW_EVIDENCE = {
         "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；"
         "現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，"
         "107 年歷史版第 152 條另規定原則上採銘牌全載電流、一般用電動機才得以國家標準值為準；"
-        "題圖未附銘牌或 107 年表格附件，故僅作官方交叉證據，不能取代題幹缺漏。 "
+        "題圖未附銘牌或 107 年表格附件，故僅作官方交叉證據，不能取代題幹缺漏。"
+        "公開題目鏡像逐字確認 100 HP、220 V、120 m 與阻抗數值，但未提供可核對的逐步詳解。 "
         "來源：https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617；"
         "https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；"
-        "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
+        "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf；"
+        "https://www.scribd.com/document/941350020/107%E5%B9%B4%E5%B7%A5%E6%A5%AD%E9%85%8D%E9%9B%BB"
     ),
     "EE-111-06-4": (
         "經濟部《用戶用電設備裝置規則》馬達滿載電流表 258-3 的現行 220 V 列值為："
@@ -146,6 +150,28 @@ REVIEW_EVIDENCE = {
     ),
 }
 
+# Public, non-primary references discovered during the cross-check.  These
+# links are deliberately separate from ``official_source_url``: a public
+# worked answer can validate a method or expose a common convention, but it
+# must never silently supply a number omitted from the official crop.
+PUBLIC_REFERENCES = {
+    "EE-112-02-1": (
+        "https://www.scribd.com/document/1031258563/112%E5%B9%B4%E9%9B%BB%E6%A9%9F%E6%8A%80%E5%B8%AB%E9%9B%BB%E5%AD%B8%E8%A7%A3%E7%AD%94;"
+        "https://yamol.tw/exam-112%E5%B9%B4%2B%2B112%E5%B9%B4%2B%E5%B0%88%E6%8A%80%E9%AB%98%E8%80%83_%E9%9B%BB%E6%A9%9F%E5%B7%A5%E7%A8%8B%E6%8A%80%E5%B8%AB%EF%BC%9A%E9%9B%BB%E5%AD%B8%EF%BC%88%E5%8C%85%E6%8B%AC%E9%9B%BB%E5%8A%9B%E9%9B%BB%E5%AD%B8%EF%BC%89117584-117584.htm"
+    ),
+    "EE-113-02-2": (
+        "https://kentchen1980.pixnet.net/blog/posts/10357159118;"
+        "https://www.youtube.com/watch?v=oe_n90CtJcI"
+    ),
+    "EE-107-06-2": "https://www.scribd.com/document/941350020/107%E5%B9%B4%E5%B7%A5%E6%A5%AD%E9%85%8D%E9%9B%BB",
+}
+
+PUBLIC_REFERENCE_NOTES = {
+    "EE-112-02-1": "Scribd 為公開逐步解答（採 V_T=25 mV）；阿摩頁面為題目索引。兩者僅支持該假設分支。",
+    "EE-113-02-2": "Kentchen 圖像解答與 KENT CHEN 影音解析可交叉確認題型；頁面未提供可引用的完整數值文本。",
+    "EE-107-06-2": "Scribd 為公開題目鏡像，非逐步解答；用來核對題幹文字，不取代銘牌／效率缺口。",
+}
+
 # Stable official question endpoints discovered during the public cross-check.
 # These are question PDFs/text pages (not claims that a public worked answer
 # exists); unresolved notes keep their manual status until every quantity can
@@ -189,7 +215,10 @@ def update_frontmatter(path: Path, qid: str) -> bool:
         raise SystemExit(f"unterminated frontmatter: {path}")
     fm = text[4:end]
     # Replace existing generated fields so the script is idempotent.
-    for key in ("review_disposition", "review_blocker", "review_action", "review_evidence"):
+    for key in (
+        "review_disposition", "review_blocker", "review_action", "review_evidence",
+        "public_reference_urls", "public_reference_note",
+    ):
         fm = re.sub(rf"^{re.escape(key)}:.*$\n?", "", fm, flags=re.M)
     # A question that has since been promoted must not retain stale manual-
     # review metadata.  Keep the explicit REVIEWS entry as an audit breadcrumb,
@@ -217,6 +246,12 @@ def update_frontmatter(path: Path, qid: str) -> bool:
     evidence = REVIEW_EVIDENCE.get(qid)
     if evidence:
         fm += f"\nreview_evidence: {evidence}"
+    public_urls = PUBLIC_REFERENCES.get(qid)
+    if public_urls:
+        fm += f"\npublic_reference_urls: {public_urls}"
+    public_note = PUBLIC_REFERENCE_NOTES.get(qid)
+    if public_note:
+        fm += f"\npublic_reference_note: {public_note}"
     path.write_text("---\n" + fm + "\n---\n" + text[end + len("\n---\n"):], encoding="utf-8")
     return True
 

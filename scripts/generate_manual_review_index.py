@@ -49,6 +49,13 @@ def main() -> None:
             meta = frontmatter(note)
             source = meta.get("official_source_url", "")
             source_cell = f"[官方試題]({source})" if source.startswith("https://") else "—"
+            public_urls = [
+                url.strip() for url in meta.get("public_reference_urls", "").split(";")
+                if url.strip().startswith("https://")
+            ]
+            public_cell = "、".join(
+                f"[來源{i + 1}]({url})" for i, url in enumerate(public_urls)
+            ) or "—"
             raw_subject = meta.get("subject", meta.get("考科", entry.get("subject_id", "")))
             chapter = meta.get("chapter", meta.get("章節", "")).strip()
             if not chapter:
@@ -67,6 +74,7 @@ def main() -> None:
                 "action": meta.get("review_action", ""),
                 "note": f"[{entry['qid']}]({entry['solution_link']})",
                 "source": source_cell,
+                "public": public_cell,
             })
     rows.sort(key=lambda row: (str(row["subject"]), int(row["year"]), int(row["number"])))
     lines = [
@@ -76,9 +84,10 @@ def main() -> None:
         "> 任何題目在缺參數、圖形估讀或來源衝突未解除前，不得升級為 `verified`。",
         "",
         f"目前共 **{len(rows)} 題**待人工覆核。",
+        "> 公開參考欄僅供方法／題幹交叉比對；若與官方原卷不一致，以官方原卷為準，且不得以二手資料解除缺參數阻擋。",
         "",
-        "| 題號 | 科目／年度 | 教科書章節 | 阻擋原因 | 收斂所需動作 | 詳解 | 官方來源 |",
-        "| --- | --- | --- | --- | --- | --- | --- |",
+        "| 題號 | 科目／年度 | 教科書章節 | 阻擋原因 | 收斂所需動作 | 詳解 | 官方來源 | 公開參考 |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
     for row in rows:
         lines.append("| " + " | ".join([
@@ -89,6 +98,7 @@ def main() -> None:
             escape_cell(row["action"]),
             row["note"],
             row["source"],
+            row["public"],
         ]) + " |")
     OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"generated {OUT} with {len(rows)} manual-review rows")

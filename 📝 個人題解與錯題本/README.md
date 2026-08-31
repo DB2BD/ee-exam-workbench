@@ -2,6 +2,9 @@
 
 本目錄用來存放您在刷題過程中的**手寫/打字詳解、標準解題步驟、失分原因與避坑筆記**。
 
+> [!IMPORTANT]
+> **答案來源優先順序**：請以各科 `canonical/EE-年-科目-題號.md` 的題號級詳解為準；年度「全卷完整詳細題解」是歷史彙整入口，若與 canonical 不一致，應依 canonical 的 `audit_status`、條件分支與 `review_evidence` 判讀。人工覆核題不可視為唯一答案。完整稽核紀錄見 [`reports/pe-solution-audit-2026-08-30.md`](../reports/pe-solution-audit-2026-08-30.md) 與 [`reports/engineering-math-audit-2026-08-30.md`](../reports/engineering-math-audit-2026-08-30.md)。
+
 ---
 
 ## 📂 各科題解目錄

@@ -380,6 +380,15 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("48.62", circuit_105_4)
         self.assertIn("1\\text{ H}", circuit_105_5)
 
+        mutual_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-2.md").read_text(encoding="utf-8")
+        transient_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-4.md").read_text(encoding="utf-8")
+        gparam_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-5.md").read_text(encoding="utf-8")
+        for note in (mutual_104, transient_104, gparam_104):
+            self.assertIn("audit_status: verified", note)
+        self.assertIn("0.6634", mutual_104)
+        self.assertIn("(s+100)^2", transient_104)
+        self.assertIn("0.04 - j0.02", gparam_104)
+
 
 if __name__ == "__main__":
     unittest.main()

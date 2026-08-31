@@ -6594,7 +6594,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-111-04-4": {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
-    "action": "依官方原卷第 3-3 頁確認 OCC/SCC 曲線的插值點；目前已完成相量方程，僅需人工接受圖解有效位數。",
+    "action": "補齊實際 OCC/SCC 曲線或官方線性插值規則；目前第（一）小題已由相量方程驗證，第（二）、（三）僅保留線性比例條件值。",
     "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0610&t=Q"
   },
@@ -6608,15 +6608,15 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-104-05-3": {
     "disposition": "given_current_vs_recalculation",
     "blocker": "source_conflict",
-    "action": "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。",
-    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 與 unity-PF 條件分支。兩組資料不能無聲混合。",
+    "action": "確認 2.5/3.0 kA 是直接給定的同相標量貢獻或需以相量合成，並補正常功因／勵磁與 440 MW 的分配。",
+    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定值的同相標量總和 5.5 kA。若兩支路相角未指定，嚴格相量合成還可能落在 |2.5−3.0| 至 5.5 kA；兩組資料不能無聲混合。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {
     "disposition": "impedance_definition_branches",
     "blocker": "official_wording_ambiguity",
-    "action": "依圖面固定 F 為左 110 V 導體對中性點；確認饋線阻抗是否含往返，以及非對稱電流的觀察時刻／故障相角。",
-    "evidence": "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，故故障拓撲已按左 110 V 對中性點處理；canonical 回代 I_sym=11.318 kA、X/R=1.738 下最不利第一峰值約 22.47 kA，並另列饋線含往返時的敏感度。剩餘缺口是阻抗是否為每導體或往返值，以及非對稱電流的觀察條件。",
+    "action": "依圖面固定 F 為左 110 V 導體對中性點；確認 380 V 一次側線間回路的源／變壓器／饋線阻抗是否已含往返，以及非對稱電流的觀察時刻／故障相角。",
+    "evidence": "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地；380 V 一次側跨兩相，故若圖示阻抗是每導體值，源／T1／饋線均應形成線間往返回路。canonical 已列單一路徑 11.318 kA、僅電纜加倍 10.516 kA、全上游加倍 9.927 kA 三種分支，並說明非對稱峰值仍需故障角與觀察時刻。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0612&t=Q"
   },
   "EE-107-06-2": {
@@ -6662,21 +6662,21 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。",
-    "evidence": "官方裁切圖提供 2 kV／69 kV 電壓、短路容量、變壓器阻抗及全壓啟動倍數；canonical 已建立兩側標么壓降公式，並以 k=η·pf_n 列出 0.80、0.90、1.00 的敏感度。題目只給 3000 kW，未給 η 或額定功因。",
+    "evidence": "官方裁切圖提供 3.3 kV／69 kV 電壓、短路容量、變壓器阻抗及全壓啟動倍數；canonical 已建立兩側標么壓降公式，並以 k=η·pf_n 列出 0.80、0.90、1.00 的敏感度。題目只給 3000 kW，未給 η 或額定功因。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   },
   "EE-108-06-2": {
-    "disposition": "physical_inconsistency",
+    "disposition": "measurement_point_model_ambiguity",
     "blocker": "official_wording_ambiguity",
-    "action": "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。",
-    "evidence": "官方裁切圖已確認 2500 MVA 電源、69 kV 線路 j0.405 Ω、30 MVA 主變、15 MVA 爐變及 12.5 MVA 電弧爐；canonical 統一至主變基準並回代 11.4 kV 母線壓降 3.5230%。被動串聯電抗器會增加壓降，與題目改善目標的方向矛盾。",
+    "action": "依官方圖確認測定點位置，並確認電弧爐採額定電流或定阻抗模型；再決定串聯電抗器的設計目標與計算分支。",
+    "evidence": "官方裁切圖將「測定點」畫在 69 kV 電源側、主變壓器之前；同圖另標示 69 kV 線路阻抗與 11.4 kV／300 V 爐用變壓器。canonical 已分列測定點在電源端、線路受電端與 11.4 kV 母線的模型，並區分額定電流近似與定阻抗分壓；原題未說明採用哪一種，故不把單一百分比或電抗值冒充唯一答案。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=108180&q=1&s=0612&t=Q"
   },
   "EE-111-06-3": {
     "disposition": "motor_rating_branches",
     "blocker": "missing_parameter",
-    "action": "以官方圖示三個 M 支路為已知拓撲；補齊每台馬達額定視在容量（或額定功因／效率）及內電勢初始值後，再鎖定三相故障貢獻。",
-    "evidence": "官方裁切圖明確畫出三個 M 支路，F 位於中間馬達支路前、A 位於發電機／變壓器支路；因此支路數量 N_M=3 已確認。題目仍未給每台馬達由 6000 kW 換算額定 MVA 所需的額定功因／效率，亦未明示三支路是否均投入，故 28.868/29.645/42.864 kA 僅能作條件分支。",
+    "action": "以官方圖示三個 M 支路均投入且 E''=1 pu 作主分支；補齊每台馬達額定視在容量（或額定功因／效率）及故障前內電勢後，再鎖定三相故障貢獻。",
+    "evidence": "官方裁切圖明確畫出三個相同 M 支路，F 位於中間馬達支路前、A 位於發電機／變壓器支路；支路數量 N_M=3 已確認，工程上以三台均投入作主分支。題目仍未給每台馬達由 6000 kW 換算額定 MVA 所需的額定功因／效率，也未給故障前內電勢；42.864 kA（ηpf=1）與 45.196 kA（ηpf=0.9）為主分支敏感度，29.645 kA 僅是其餘支路未投入的替代情境。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   }
 };

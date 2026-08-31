@@ -43,6 +43,16 @@ process.stdout.write(ctx.processMarkdownWithMath(process.argv[1]));
         self.assertNotIn('katex-error', rendered)
         self.assertIn('<p>電源容量 <span class="katex">', rendered)
 
+    def test_angle_bracket_grouping_is_katex_safe(self):
+        """相量角度的方括號需明確分組，避免被當成命令可選參數。"""
+        rendered = self._render_with_bundled_katex(
+            r'$I=3.68768\angle\left[-\cos^{-1}(0.1)\right]$'
+        )
+        self.assertNotIn('katex-error', rendered)
+        self.assertIn('class="katex"', rendered)
+        path = ROOT / "📝 個人題解與錯題本/06_工業配電/canonical/EE-105-06-2.md"
+        self.assertNotRegex(path.read_text(encoding="utf-8"), r"\\angle\[")
+
     def test_multiline_formula_sources_have_valid_environment_closures(self):
         path = ROOT / "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-6.md"
         text = path.read_text(encoding="utf-8")

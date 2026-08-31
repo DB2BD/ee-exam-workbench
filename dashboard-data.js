@@ -6667,7 +6667,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-111-06-2": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
-    "action": "補齊馬達額定 kVA、效率與額定功因，才能唯一化啟動電流與電壓變動率。",
+    "action": "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。",
     "evidence": ""
   },
   "EE-104-06-1": {

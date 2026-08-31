@@ -1223,7 +1223,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "per-unit-voltage-drop-with-motor-starting-impedance",
-      "solution_hash": "d99a3f53753d42163357efd4dd27cb30e6ed090425047bcf0299729fe73bc441",
+      "solution_hash": "390839a57701ca6562ffbd412edb574dc8d1c6b58052c70e0b573d9f29c9ed01",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q02.png"
     },

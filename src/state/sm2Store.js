@@ -11,6 +11,7 @@
  * 4. getReviewBadgeInfo(qid): Returns display badge text and color class
  * 5. exportAllUserDataJSON(): Exports all progress, starred, and SM2 schedule
  * 6. importUserDataJSON(jsonStr): Imports and validates backup
+ * 7. Manual topic labels are included so chapter annotations survive backup
  */
 
 const SM2_STORAGE_KEY = 'EE_EXAM_SM2_SCHEDULE_V1';
@@ -157,7 +158,8 @@ function exportAllUserDataJSON() {
     progressState: typeof progressState !== 'undefined' ? progressState : {},
     starredState: typeof starredState !== 'undefined' ? starredState : {},
     sm2Schedule: sm2Schedule,
-    recallState: typeof recallState !== 'undefined' ? recallState : {}
+    recallState: typeof recallState !== 'undefined' ? recallState : {},
+    manualTopicLabels: typeof getManualTopicLabels === 'function' ? getManualTopicLabels() : {}
   };
   return JSON.stringify(data, null, 2);
 }
@@ -183,6 +185,9 @@ function importUserDataJSON(jsonStr) {
     if (data.recallState && typeof recallState !== 'undefined') {
       recallState = data.recallState;
       if (typeof saveRecallStore === 'function') saveRecallStore();
+    }
+    if (data.manualTopicLabels && typeof replaceManualTopicLabels === 'function') {
+      replaceManualTopicLabels(data.manualTopicLabels);
     }
     return { success: true, count: Object.keys(data.progressState || {}).length };
   } catch (e) {

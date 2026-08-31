@@ -101,12 +101,19 @@ class TestSM2SpacedRepetition(unittest.TestCase):
                     "lastReviewed": "2026-08-27",
                     "nextReviewDate": "2026-08-31"
                 }
+            },
+            "manualTopicLabels": {
+                "EE-109-02-3": {
+                    "chapterId": "el-pe-buck-boost",
+                    "updatedAt": "2026-08-27T00:00:00.000Z"
+                }
             }
         }
         json_str = json.dumps(sample_payload)
         parsed = json.loads(json_str)
         self.assertIn("sm2Schedule", parsed)
         self.assertEqual(parsed["sm2Schedule"]["EE-114-05-1"]["interval"], 4)
+        self.assertEqual(parsed["manualTopicLabels"]["EE-109-02-3"]["chapterId"], "el-pe-buck-boost")
 
 if __name__ == '__main__':
     unittest.main()

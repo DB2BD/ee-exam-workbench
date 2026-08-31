@@ -28,6 +28,14 @@ def parse_dag_nodes():
     return {node_id: {"subjectId": subject, "name": name} for node_id, subject, name in pattern.findall(text)}
 
 
+def parse_manual_topic_seed():
+    text = (WORKSPACE / "src/data/manualTopicLabels.js").read_text(encoding="utf-8")
+    pattern = re.compile(
+        r"'([^']+)':\s*\{\s*chapterId:\s*'([^']+)'\s*,\s*source:\s*'user-confirmed'\s*\}"
+    )
+    return dict(pattern.findall(text))
+
+
 class TestTaxonomyData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -36,6 +44,7 @@ class TestTaxonomyData(unittest.TestCase):
         cls.overrides = load_json("overrides.json")
         cls.override_schema = load_json("override-schema.json")
         cls.dag = parse_dag_nodes()
+        cls.manual_topic_seed = parse_manual_topic_seed()
         cls.questions = {
             row[0]: row for row in load_questions_from_bundle(WORKSPACE / "dashboard-data.js")
         }
@@ -67,6 +76,13 @@ class TestTaxonomyData(unittest.TestCase):
         self.assertIn("questionId", definition["required"])
         self.assertIn("primaryChapterId", definition["required"])
         self.assertIn("reason", definition["required"])
+
+    def test_manual_topic_seed_covers_only_current_manual_review_questions(self):
+        manual_ids = {qid for qid, row in self.questions.items() if row[9] == "needs_manual_review"}
+        self.assertEqual(set(self.manual_topic_seed), manual_ids)
+        for qid, chapter_id in self.manual_topic_seed.items():
+            self.assertIn(chapter_id, self.dag)
+            self.assertEqual(self.questions[qid][1], self.dag[chapter_id]["subjectId"])
 
     def test_golden_positive_cases_reference_existing_questions_and_dag_nodes(self):
         self.assertEqual(self.golden["labeling"]["status"], "human-reviewed")

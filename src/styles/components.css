@@ -190,6 +190,8 @@ select:focus {
 .review-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
 .review-header h2 { color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 5px; }
 .review-header p { color: var(--muted); font-size: 0.86rem; }
+.review-header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.review-header-actions button:disabled { opacity: .55; cursor: not-allowed; }
 .review-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }
 .review-stat { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; }
 .review-stat .label { display: block; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
@@ -210,6 +212,7 @@ select:focus {
 .review-card-topic { color: var(--ink); font-size: 0.88rem; line-height: 1.5; margin-bottom: 9px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .review-card-actions { display: flex; gap: 7px; flex-wrap: wrap; }
 .review-card-actions button { font-size: 0.78rem; padding: 5px 9px; }
+.manual-label-chip { color: var(--success); border-color: var(--success); background: var(--success-light); }
 .review-empty { text-align: center; padding: 42px 20px; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius-sm); }
 .review-empty strong { display: block; color: var(--ink); margin-bottom: 5px; font-size: 1rem; }
 

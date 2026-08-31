@@ -6596,7 +6596,7 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "source_conflict_branches",
     "blocker": "source_conflict",
     "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。",
-    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；canonical 已以每相電壓及滑差獨立回代啟動／滿載／最大轉矩電流。年度資料另有線電壓／相電壓與是否納入激磁支路的分歧，故保留兩模型而非混用。"
+    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致；canonical 已以每相電壓及滑差獨立回代兩模型，故保留來源矛盾而不混用。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
   },
   "EE-111-05-3": {
     "disposition": "frequency_parameterized",

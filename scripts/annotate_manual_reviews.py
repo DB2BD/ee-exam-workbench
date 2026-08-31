@@ -178,7 +178,6 @@ def find_note(qid: str) -> Path:
 
 
 def update_frontmatter(path: Path, qid: str) -> None:
-    disposition, blocker, action = REVIEWS[qid]
     text = path.read_text(encoding="utf-8")
     if not text.startswith("---\n"):
         raise SystemExit(f"missing frontmatter: {path}")
@@ -189,6 +188,16 @@ def update_frontmatter(path: Path, qid: str) -> None:
     # Replace existing generated fields so the script is idempotent.
     for key in ("review_disposition", "review_blocker", "review_action", "review_evidence"):
         fm = re.sub(rf"^{re.escape(key)}:.*$\n?", "", fm, flags=re.M)
+
+    # A question that has since been promoted must not retain stale manual-
+    # review metadata.  Keep the explicit REVIEWS entry as an audit breadcrumb,
+    # but make the generated note and dashboard reflect the verified state.
+    status = re.search(r"^audit_status:\s*(\S+)\s*$", fm, flags=re.M)
+    if status and status.group(1) == "verified":
+        path.write_text("---\n" + fm.rstrip() + "\n---\n" + text[end + len("\n---\n"):], encoding="utf-8")
+        return
+
+    disposition, blocker, action = REVIEWS[qid]
     fm = fm.rstrip() + (
         f"\nreview_disposition: {disposition}"
         f"\nreview_blocker: {blocker}"

@@ -884,9 +884,9 @@
       "question_number": 4,
       "chapter": "一部$60\\text{ Hz}$ 三相交流同步發電機藉由純電感性線路連接到一個無限匯流\n排上，發電機慣量常數H = 5 MJ/MVA 和直軸暫態電抗zd\n'= 0.2 標么，\n如圖三所示，其他電抗值是以共同基值標記在圖上。發電機送出實功率\nPe = 0.8 標么和虛功率Q = 0.074 標么，到電壓V = 1 標么之無限匯流排\n上。若在輸電線送電端F 處發生三相故障，故障阻抗為0.01 標么，當故\n障清除後，輸電線成功復閉到故障前之原始狀態。試決定該同步機之臨\n界清除角。（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "independent_recalculation_three_phase_fault_equal_area",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_cross_checked_corrected_reference_equal_area",
       "solution_hash": "87ad6e44470bee2247e059f05b1852dc2a8bb575409feea638d0387745f591b3",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_112年_電力系統_Q04.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 232,
+    "verified": 233,
     "suspected_error": 0,
-    "needs_manual_review": 24,
+    "needs_manual_review": 23,
     "not_attempted": 0
   }
 }

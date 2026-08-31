@@ -1484,7 +1484,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-4.md",
     "依考科分類/05_電力系統/112年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -6611,13 +6611,6 @@ const SOLUTION_REVIEW_METADATA = {
     "blocker": "model_branch_ambiguity",
     "action": "若題意採正常穩態，選高電壓分支；目前以 Jacobian 診斷高／低分支並保留題面未指定的低電壓解。",
     "evidence": "官方圖的線路電抗與 Bus 2 PV、Bus 3 PQ 條件已重建成 Y_bus，Newton 法得到高／低電壓兩個正值根；兩根殘差均達數值容許，且 Jacobian 最小奇異值分別 0.59230 與 0.05141。題目未指定運轉分支。"
-  },
-  "EE-112-05-4": {
-    "disposition": "impedance_type_branches",
-    "blocker": "missing_parameter",
-    "action": "確認故障阻抗 0.01 pu 為複數阻抗或純電抗；目前保留兩個臨界清除角分支。",
-    "evidence": "公開參考解答（2024-07-17 更正）將故障阻抗明寫為 j0.01，支持純電抗分支；官方裁切仍只寫 0.01 pu，故尚不能單獨視為官方唯一條件。 來源：https://kentchen1980.pixnet.net/blog/posts/10357120259",
-    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0710&t=Q"
   },
   "EE-106-06-2": {
     "disposition": "fault_definition_branches",

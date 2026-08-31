@@ -232,6 +232,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("V_2=15i_\\phi", ccvs_107)
         self.assertIn("P_{4\\Omega}=I_4^2(4)=2^2(4)=16", ccvs_107)
 
+        inductors_107 = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", inductors_107)
+        self.assertIn("-4.8-3.2e^{-2t}", inductors_107)
+        self.assertIn("1.28e^{-2t}", inductors_107)
+
 
 if __name__ == "__main__":
     unittest.main()

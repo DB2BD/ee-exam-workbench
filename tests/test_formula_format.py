@@ -43,6 +43,24 @@ process.stdout.write(ctx.processMarkdownWithMath(process.argv[1]));
         self.assertNotIn('katex-error', rendered)
         self.assertIn('<p>電源容量 <span class="katex">', rendered)
 
+    def test_tab_corrupted_text_macro_is_restored(self):
+        rendered = self._render_with_bundled_katex("單位 $\text{deg}$")
+        self.assertNotIn('katex-error', rendered)
+        self.assertIn('class="katex"', rendered)
+
+    def test_nested_parenthetical_latex_fragment_is_wrapped(self):
+        rendered = self._render_with_bundled_katex(
+            r'所以 (i_p(t_{on})\approx60\,\mathrm A)。'
+        )
+        self.assertNotIn('katex-error', rendered)
+        self.assertIn('class="katex"', rendered)
+
+    def test_bare_latex_commands_in_prose_are_normalized(self):
+        rendered = self._render_with_bundled_katex(r'採用開 \Delta 接線，符號 \mathcal R 代表磁阻。')
+        self.assertNotIn(r'\Delta', rendered)
+        self.assertNotIn(r'\mathcal', rendered)
+        self.assertIn('Δ', rendered)
+
     def test_angle_bracket_grouping_is_katex_safe(self):
         """相量角度的方括號需明確分組，避免被當成命令可選參數。"""
         rendered = self._render_with_bundled_katex(

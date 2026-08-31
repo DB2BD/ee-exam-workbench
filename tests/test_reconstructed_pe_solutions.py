@@ -401,6 +401,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("17.121", rectifier_104)
         self.assertIn("9.885", rectifier_104)
 
+        thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
+        power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", thevenin_104)
+        self.assertIn("1.8 +", thevenin_104)
+        self.assertIn("audit_status: verified", power_104)
+        self.assertIn("4912.23", power_104)
+
 
 if __name__ == "__main__":
     unittest.main()

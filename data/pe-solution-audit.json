@@ -3264,10 +3264,10 @@
       "question_number": 1,
       "chapter": "求圖一電路a、b 兩點間的戴維寧等效電路（Thévenin equivalent circuit）。（20 分）\n圖一",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "79d5b34728391e771b9430581291dddbbd629e0fbe80d1b58ef03cafa2d43e8f",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_superposition_and_nodal_recalculation",
+      "solution_hash": "62d23d85b82b2870385880f4adc9315280d32adaa127b5f6d759ec7e4b14d476",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_104年_電路學_Q01.png"
     },
@@ -3292,9 +3292,9 @@
       "question_number": 3,
       "chapter": "平衡三相系統內，電源為Y 連結abc 相序，Yan=$120\\angle 20^\\circ$ Vrms。兩個並聯的Y 型負\n載其中之一是(8+j$6\\ \\Omega$)/φ ，另一個負載a 相的複數功率是$600\\angle 36^\\circ$VA。求電源提供\n的總複數功率。（20 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_balanced_three_phase_complex_power_recalculation",
       "solution_hash": "d225e800abe1bafbcbf774c3ef26658114d3fa7517c0e1c2e377b21c4c5916a0",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_104年_電路學_Q03.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 195,
+    "verified": 197,
     "suspected_error": 0,
-    "needs_manual_review": 61,
+    "needs_manual_review": 59,
     "not_attempted": 0
   }
 }

@@ -2818,8 +2818,8 @@
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-106-05-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "ad7c5de828c90019951aaa62e7291e8454343f78dc0237919d1d6accb9b02aef",
+      "method": "official_crop_newton_power_flow_two_voltage_branches",
+      "solution_hash": "5f263a86778055d95462931e57f3ff4d476dd682a07de6747b7c5b0e28719111",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_106年_電力系統_Q03.png"
     },

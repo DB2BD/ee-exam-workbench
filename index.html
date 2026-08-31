@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=57dd89af322f22adf6701af623cbdcb0591116ef"></script>
-<script src="./solutions-bundle.js?v=57dd89af322f22adf6701af623cbdcb0591116ef"></script>
-<script src="./national-exams-data.js?v=57dd89af322f22adf6701af623cbdcb0591116ef"></script>
-<script src="./national-solutions-bundle.js?v=57dd89af322f22adf6701af623cbdcb0591116ef"></script>
+<script src="./dashboard-data.js?v=dev"></script>
+<script src="./solutions-bundle.js?v=dev"></script>
+<script src="./national-exams-data.js?v=dev"></script>
+<script src="./national-solutions-bundle.js?v=dev"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -475,6 +475,8 @@ select:focus {
 .review-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
 .review-header h2 { color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 5px; }
 .review-header p { color: var(--muted); font-size: 0.86rem; }
+.review-header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.review-header-actions button:disabled { opacity: .55; cursor: not-allowed; }
 .review-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }
 .review-stat { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; }
 .review-stat .label { display: block; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
@@ -495,6 +497,7 @@ select:focus {
 .review-card-topic { color: var(--ink); font-size: 0.88rem; line-height: 1.5; margin-bottom: 9px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .review-card-actions { display: flex; gap: 7px; flex-wrap: wrap; }
 .review-card-actions button { font-size: 0.78rem; padding: 5px 9px; }
+.manual-label-chip { color: var(--success); border-color: var(--success); background: var(--success-light); }
 .review-empty { text-align: center; padding: 42px 20px; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius-sm); }
 .review-empty strong { display: block; color: var(--ink); margin-bottom: 5px; font-size: 1rem; }
 
@@ -745,6 +748,83 @@ select:focus {
 
 #solution-modal.show {
   display: flex;
+}
+
+/* Manual-review topic annotation modal */
+#manual-label-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  padding: 18px;
+  background: rgba(28, 33, 37, 0.78);
+  backdrop-filter: blur(6px);
+  justify-content: center;
+  align-items: center;
+}
+
+#manual-label-modal.show { display: flex; }
+
+.manual-label-dialog {
+  width: min(1120px, 96vw);
+  max-height: 94vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.manual-label-header,
+.manual-label-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 18px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.manual-label-header { justify-content: space-between; }
+.manual-label-header h3 { color: var(--accent-dark); font-size: 1.08rem; }
+.manual-label-progress { color: var(--muted); font-size: .82rem; font-weight: 700; }
+.manual-label-footer { border-top: 1px solid var(--line); border-bottom: 0; }
+.manual-label-footer-spacer { flex: 1 1 auto; }
+
+.manual-label-body { overflow-y: auto; padding: 16px 18px; }
+.manual-label-question-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.manual-label-qid { color: var(--accent-dark); font: 800 .98rem var(--font-mono); }
+.manual-label-subject { color: var(--muted); font-size: .82rem; margin-top: 2px; }
+.manual-label-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: 16px; }
+.manual-label-question-pane,
+.manual-label-decision-pane { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg-secondary); }
+.manual-label-question-pane h4,
+.manual-label-decision-pane h4 { color: var(--accent-dark); font-size: .92rem; margin-bottom: 8px; }
+.manual-label-crop { display: block; width: 100%; max-height: 48vh; object-fit: contain; object-position: top center; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+.manual-label-no-crop { padding: 32px 12px; text-align: center; color: var(--muted); background: var(--surface); border: 1px dashed var(--line-strong); border-radius: 6px; }
+.manual-label-stem { max-height: 18vh; overflow: auto; margin-top: 10px; padding: 10px; color: var(--ink); background: var(--surface); border-radius: 6px; font-size: .86rem; line-height: 1.55; }
+.manual-label-decision-pane { display: flex; flex-direction: column; gap: 10px; }
+.manual-label-decision-pane label { color: var(--ink-light); font-size: .86rem; font-weight: 600; }
+.manual-label-select { width: 100%; font-size: .9rem; }
+.manual-label-auto,
+.manual-label-saved,
+.manual-label-blocker { padding: 9px 10px; border-radius: 6px; font-size: .82rem; line-height: 1.5; background: var(--surface); }
+.manual-label-auto { color: var(--muted); }
+.manual-label-saved { color: var(--success); }
+.manual-label-blocker { color: #8a6410; background: #fff8df; }
+.manual-label-source { align-self: flex-start; text-decoration: none; }
+.manual-label-solution { align-self: flex-start; }
+.manual-label-empty { padding: 48px 12px; text-align: center; color: var(--muted); }
+
+@media (max-width: 760px) {
+  #manual-label-modal { padding: 8px; }
+  .manual-label-dialog { width: 100%; max-height: 96vh; }
+  .manual-label-grid { grid-template-columns: 1fr; }
+  .manual-label-crop { max-height: 38vh; }
+  .manual-label-stem { max-height: 16vh; }
 }
 
 .modal-container {
@@ -1559,7 +1639,10 @@ select:focus {
           <h2>📝 複習中心</h2>
           <p>集中處理今日到期、錯題本與收藏題目；可直接開啟標準解題視窗。</p>
         </div>
-        <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
+        <div class="review-header-actions">
+          <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
+          <button class="btn-sol" id="manual-label-open" type="button" onclick="openManualLabelModal()">🧭 逐題標注題型</button>
+        </div>
       </div>
       <div class="review-stats" id="review-stats"></div>
       <div class="review-controls">
@@ -1798,6 +1881,27 @@ select:focus {
       </div>
     </div>
   </div>
+<!-- Manual Review Topic Annotation Modal -->
+<div id="manual-label-modal" role="dialog" aria-modal="true" aria-labelledby="manual-label-title" onclick="if (event.target === this) closeManualLabelModal()">
+  <div class="manual-label-dialog" onclick="event.stopPropagation()">
+    <div class="manual-label-header">
+      <div>
+        <h3 id="manual-label-title">🧭 人工覆核題型標注</h3>
+        <span id="manual-label-progress" class="manual-label-progress">0 / 0</span>
+      </div>
+      <button type="button" class="btn-pdf" onclick="closeManualLabelModal()">✕ 關閉</button>
+    </div>
+    <div id="manual-label-body" class="manual-label-body"></div>
+    <div class="manual-label-footer">
+      <button type="button" class="btn-modal-nav" id="manual-label-prev" onclick="moveManualLabel(-1)">← 上一題</button>
+      <button type="button" class="btn-pdf" onclick="moveManualLabel(1, false)">略過（不儲存）→</button>
+      <div class="manual-label-footer-spacer"></div>
+      <button type="button" class="btn-sol" onclick="saveManualLabel()">💾 儲存標注</button>
+      <button type="button" class="btn-sol" id="manual-label-next" onclick="saveManualLabelAndNext()">儲存並下一題 →</button>
+    </div>
+  </div>
+</div>
+
 <!-- Backup & Restore Modal -->
 <div id="backup-modal" onclick="closeBackupModal()">
   <div class="backup-modal-box" onclick="event.stopPropagation()">
@@ -3014,6 +3118,7 @@ function switchExamCategory(catId) {
  * 4. getReviewBadgeInfo(qid): Returns display badge text and color class
  * 5. exportAllUserDataJSON(): Exports all progress, starred, and SM2 schedule
  * 6. importUserDataJSON(jsonStr): Imports and validates backup
+ * 7. Manual topic labels are included so chapter annotations survive backup
  */
 
 const SM2_STORAGE_KEY = 'EE_EXAM_SM2_SCHEDULE_V1';
@@ -3160,7 +3265,8 @@ function exportAllUserDataJSON() {
     progressState: typeof progressState !== 'undefined' ? progressState : {},
     starredState: typeof starredState !== 'undefined' ? starredState : {},
     sm2Schedule: sm2Schedule,
-    recallState: typeof recallState !== 'undefined' ? recallState : {}
+    recallState: typeof recallState !== 'undefined' ? recallState : {},
+    manualTopicLabels: typeof getManualTopicLabels === 'function' ? getManualTopicLabels() : {}
   };
   return JSON.stringify(data, null, 2);
 }
@@ -3186,6 +3292,9 @@ function importUserDataJSON(jsonStr) {
     if (data.recallState && typeof recallState !== 'undefined') {
       recallState = data.recallState;
       if (typeof saveRecallStore === 'function') saveRecallStore();
+    }
+    if (data.manualTopicLabels && typeof replaceManualTopicLabels === 'function') {
+      replaceManualTopicLabels(data.manualTopicLabels);
     }
     return { success: true, count: Object.keys(data.progressState || {}).length };
   } catch (e) {
@@ -3281,6 +3390,37 @@ function getRecallHintBundle(qid, qRecord) {
 initRecallStore();
 
 
+// === src/data/manualTopicLabels.js ===
+// src/data/manualTopicLabels.js
+//
+// User-confirmed chapter labels for the questions that were deliberately
+// kept in the manual-review queue.  These are topic decisions only: the
+// solution audit status remains ``needs_manual_review`` until the numerical
+// derivation is independently verified.
+
+const MANUAL_TOPIC_LABEL_SEED = {
+  'EE-113-02-2': { chapterId: 'el-bjt-bias-small-signal', source: 'user-confirmed' },
+  'EE-113-04-4': { chapterId: 'emach-induction-motor-equiv', source: 'user-confirmed' },
+  'EE-112-02-1': { chapterId: 'el-bjt-bias-small-signal', source: 'user-confirmed' },
+  'EE-111-02-3': { chapterId: 'el-mosfet-bias-small-signal', source: 'user-confirmed' },
+  'EE-111-02-4': { chapterId: 'el-feedback-stability', source: 'user-confirmed' },
+  'EE-111-04-4': { chapterId: 'emach-synchronous-generator-round', source: 'user-confirmed' },
+  'EE-111-06-1': { chapterId: 'dist-protection-coordination', source: 'user-confirmed' },
+  'EE-111-06-2': { chapterId: 'dist-motor-installation', source: 'user-confirmed' },
+  'EE-111-06-3': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed' },
+  'EE-111-06-4': { chapterId: 'dist-motor-installation', source: 'user-confirmed' },
+  'EE-110-06-5': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed' },
+  'EE-109-02-3': { chapterId: 'el-pe-buck-boost', source: 'user-confirmed' },
+  'EE-108-06-2': { chapterId: 'dist-voltage-drop', source: 'user-confirmed' },
+  'EE-107-06-2': { chapterId: 'dist-voltage-drop', source: 'user-confirmed' },
+  'EE-106-02-2': { chapterId: 'el-feedback-stability', source: 'user-confirmed' },
+  'EE-106-06-2': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed' },
+  'EE-105-04-5': { chapterId: 'emach-dc-motor-generator', source: 'user-confirmed' },
+  'EE-104-05-3': { chapterId: 'ps-three-phase-fault', source: 'user-confirmed' },
+  'EE-104-06-5': { chapterId: 'dist-harmonics-mitigation', source: 'user-confirmed' },
+};
+
+
 // === src/components/reviewPage.js ===
 // src/components/reviewPage.js
 /** Review Center: shared progress pool with subject and taxonomy filters. */
@@ -3291,6 +3431,91 @@ let reviewTypeFilter = 'all';
 const REVIEW_CLASSIFIER_MIN_CONFIDENCE = 0.65;
 const REVIEW_CLASSIFIER_MIN_MARGIN = 0.15;
 const REVIEW_CLASSIFIER_MIN_SCORE = 3;
+const MANUAL_TOPIC_LABELS_STORAGE_KEY = 'EE_MANUAL_TOPIC_LABELS_V1';
+
+function getManualTopicSeed() {
+  if (typeof MANUAL_TOPIC_LABEL_SEED === 'undefined') return {};
+  return Object.fromEntries(Object.entries(MANUAL_TOPIC_LABEL_SEED).map(([qid, value]) => [qid, Object.assign({}, value)]));
+}
+
+function loadManualTopicLabels() {
+  const seed = getManualTopicSeed();
+  if (typeof localStorage === 'undefined') return seed;
+  try {
+    const raw = localStorage.getItem(MANUAL_TOPIC_LABELS_STORAGE_KEY);
+    // Seed labels represent the user's latest explicit "全部採用建議"
+    // confirmation.  Once a browser has saved anything, its local copy is
+    // authoritative so a deliberate clear/edit remains persistent.
+    return raw ? JSON.parse(raw) : seed;
+  } catch (_) {
+    return seed;
+  }
+}
+
+let manualTopicLabels = loadManualTopicLabels();
+
+function saveManualTopicLabels() {
+  if (typeof localStorage === 'undefined') return;
+  try {
+    localStorage.setItem(MANUAL_TOPIC_LABELS_STORAGE_KEY, JSON.stringify(manualTopicLabels));
+  } catch (e) {
+    console.error('Failed to save manual topic labels', e);
+  }
+}
+
+function getManualTopicLabel(qid) {
+  const value = manualTopicLabels && manualTopicLabels[qid];
+  if (typeof value === 'string') return value;
+  return value && typeof value.chapterId === 'string' ? value.chapterId : '';
+}
+
+function getManualTopicLabels() {
+  return Object.fromEntries(Object.entries(manualTopicLabels || {}).map(([qid, value]) => [qid, {
+    chapterId: typeof value === 'string' ? value : value.chapterId,
+    updatedAt: value && value.updatedAt ? value.updatedAt : null,
+  }]));
+}
+
+function isValidManualTopicLabel(qid, chapterId) {
+  if (!qid || !chapterId || typeof KNOWLEDGE_DAG === 'undefined') return false;
+  const record = findQuestionRecord(qid);
+  if (!record) return false;
+  const subjectId = getReviewRecord(record).subjectId;
+  const node = KNOWLEDGE_DAG[chapterId];
+  return !!node && node.subject === subjectId;
+}
+
+function setManualTopicLabel(qid, chapterId) {
+  if (!qid) return false;
+  if (!chapterId) {
+    delete manualTopicLabels[qid];
+    saveManualTopicLabels();
+    return true;
+  }
+  if (!isValidManualTopicLabel(qid, chapterId)) return false;
+  manualTopicLabels[qid] = { chapterId, updatedAt: new Date().toISOString() };
+  saveManualTopicLabels();
+  return true;
+}
+
+function replaceManualTopicLabels(payload) {
+  const next = {};
+  if (payload && typeof payload === 'object') {
+    Object.entries(payload).forEach(([qid, value]) => {
+      const chapterId = typeof value === 'string' ? value : value && value.chapterId;
+      if (isValidManualTopicLabel(qid, chapterId)) {
+        next[qid] = {
+          chapterId,
+          updatedAt: value && value.updatedAt ? value.updatedAt : new Date().toISOString(),
+        };
+      }
+    });
+  }
+  manualTopicLabels = next;
+  saveManualTopicLabels();
+  if (typeof renderReviewPage === 'function') renderReviewPage();
+  return getManualTopicLabels();
+}
 
 function reviewHtmlEscape(value) {
   return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
@@ -3440,7 +3665,7 @@ function getReviewChapterRuleIds(subjectId) {
   return (REVIEW_CHAPTER_RULES[subjectId] || []).map(([id]) => id);
 }
 
-function getReviewChapterKey(q) {
+function getReviewChapterKey(q, options = {}) {
   const record = getReviewRecord(q);
   const sid = record.subjectId;
   const normalize = value => {
@@ -3452,6 +3677,17 @@ function getReviewChapterKey(q) {
     }
     return normalized;
   };
+  // A learner's explicit chapter label is the strongest signal.  It is kept
+  // in localStorage and intentionally applied before automatic keyword rules;
+  // passing ``ignoreManualLabel`` lets the annotation dialog show the raw
+  // classifier suggestion beside the human decision.
+  const manualLabel = !options.ignoreManualLabel && typeof getManualTopicLabel === 'function'
+    ? getManualTopicLabel(record.id)
+    : '';
+  if (manualLabel && typeof KNOWLEDGE_DAG !== 'undefined'
+      && KNOWLEDGE_DAG[manualLabel] && KNOWLEDGE_DAG[manualLabel].subject === sid) {
+    return manualLabel;
+  }
   const override = typeof TAXONOMY_OVERRIDES !== 'undefined' ? TAXONOMY_OVERRIDES[record.id] : null;
   if (override && override.primaryChapter && typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG[override.primaryChapter]) return override.primaryChapter;
   const topic = normalize(record.stem);
@@ -3508,6 +3744,165 @@ function getReviewQuestions() {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Manual topic annotation queue
+// ---------------------------------------------------------------------------
+
+let manualLabelQueue = [];
+let manualLabelIndex = 0;
+
+function getManualReviewQuestions() {
+  const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
+  const subjectSelect = typeof document !== 'undefined' ? document.getElementById('review-subject') : null;
+  const subjectFilter = subjectSelect && subjectSelect.value ? subjectSelect.value : 'all';
+  return questions.filter(q => {
+    if (!isManualReviewQuestion(q)) return false;
+    return subjectFilter === 'all' || getReviewRecord(q).subjectId === subjectFilter;
+  });
+}
+
+function getManualLabelOptions(subjectId) {
+  const rules = REVIEW_CHAPTER_RULES[subjectId] || [];
+  return rules
+    .map(([id]) => {
+      const node = typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[id] : null;
+      return node ? { id, name: node.name } : null;
+    })
+    .filter(Boolean);
+}
+
+function getManualLabelDisplayName(chapterId) {
+  if (!chapterId) return '尚未標注';
+  if (typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG[chapterId]) return KNOWLEDGE_DAG[chapterId].name;
+  return chapterId;
+}
+
+function getManualQuestionCrop(q, qid) {
+  const isGK = Boolean(qid && qid.startsWith('GK-'));
+  const crop = isGK ? q[14] : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] : '');
+  if (!crop) return '';
+  return typeof resolveImageMapUrl === 'function' ? resolveImageMapUrl(crop, isGK, qid) : crop;
+}
+
+function openManualLabelModal(startQid) {
+  manualLabelQueue = getManualReviewQuestions();
+  if (!manualLabelQueue.length) {
+    showToast('目前沒有待人工覆核題目');
+    return;
+  }
+  const requestedIndex = manualLabelQueue.findIndex(q => getReviewRecord(q).id === startQid);
+  manualLabelIndex = requestedIndex >= 0 ? requestedIndex : 0;
+  const modal = document.getElementById('manual-label-modal');
+  if (!modal) return;
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  renderManualLabelModal();
+}
+
+function closeManualLabelModal() {
+  const modal = document.getElementById('manual-label-modal');
+  if (modal) modal.classList.remove('show');
+  document.body.style.overflow = '';
+  if (typeof renderReviewPage === 'function') renderReviewPage();
+}
+
+function getCurrentManualLabelQuestion() {
+  return manualLabelQueue[manualLabelIndex] || null;
+}
+
+function renderManualLabelModal() {
+  const body = document.getElementById('manual-label-body');
+  const progress = document.getElementById('manual-label-progress');
+  const prev = document.getElementById('manual-label-prev');
+  const next = document.getElementById('manual-label-next');
+  if (!body) return;
+  const q = getCurrentManualLabelQuestion();
+  if (!q) {
+    body.innerHTML = '<div class="manual-label-empty">目前沒有待人工覆核題目。</div>';
+    if (progress) progress.innerText = '0 / 0';
+    return;
+  }
+  const record = getReviewRecord(q);
+  const qid = record.id;
+  const autoKey = getReviewChapterKey(q, { ignoreManualLabel: true });
+  const autoName = getManualLabelDisplayName(autoKey);
+  const selected = getManualTopicLabel(qid);
+  const options = getManualLabelOptions(record.subjectId);
+  const cropSrc = getManualQuestionCrop(q, qid);
+  const meta = typeof getSolutionReviewMetadata === 'function' ? getSolutionReviewMetadata(qid) : null;
+  const sourceUrl = record.sourceLink && /^https:\/\//i.test(record.sourceLink) ? record.sourceLink : '';
+  const solutionLink = record.solutionLink || '';
+  const selectOptions = [`<option value="">尚未標注（保留自動候選）</option>`]
+    .concat(options.map(option => `<option value="${reviewHtmlEscape(option.id)}" ${option.id === selected ? 'selected' : ''}>${reviewHtmlEscape(option.name)}</option>`));
+  if (progress) progress.innerText = `${manualLabelIndex + 1} / ${manualLabelQueue.length}`;
+  if (prev) prev.disabled = manualLabelIndex <= 0;
+  if (next) next.disabled = manualLabelIndex >= manualLabelQueue.length - 1;
+  body.innerHTML = `
+    <div class="manual-label-question-head">
+      <div>
+        <div class="manual-label-qid">${reviewHtmlEscape(qid)}</div>
+        <div class="manual-label-subject">${reviewHtmlEscape(getSubjectMeta(record.subjectId).name)} · ${record.year} 年第 ${record.number} 題</div>
+      </div>
+      <span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工覆核</span>
+    </div>
+    <div class="manual-label-grid">
+      <section class="manual-label-question-pane">
+        <h4>題目裁切圖</h4>
+        ${cropSrc
+          ? `<img class="manual-label-crop" src="${reviewHtmlEscape(cropSrc)}" alt="${reviewHtmlEscape(qid)} 本題裁切圖" loading="eager" />`
+          : `<div class="manual-label-no-crop">尚未建立本題裁切圖</div>`}
+        <div class="manual-label-stem">${renderQuestionTopic(record.stem)}</div>
+        ${sourceUrl ? `<a class="btn-pdf manual-label-source" href="${reviewHtmlEscape(sourceUrl)}" target="_blank" rel="noopener noreferrer">開啟官方原卷</a>` : ''}
+      </section>
+      <section class="manual-label-decision-pane">
+        <h4>題型標注</h4>
+        <label for="manual-label-select">請選擇本題最符合的教科書章節</label>
+        <select id="manual-label-select" class="manual-label-select">${selectOptions.join('')}</select>
+        <div class="manual-label-auto"><strong>自動候選：</strong>${reviewHtmlEscape(autoName)}</div>
+        ${selected ? `<div class="manual-label-saved">✅ 已保存：${reviewHtmlEscape(getManualLabelDisplayName(selected))}</div>` : '<div class="manual-label-saved">尚未保存人工標注</div>'}
+        ${meta && meta.blocker ? `<div class="manual-label-blocker"><strong>覆核阻擋：</strong>${reviewHtmlEscape(meta.blocker)}<br>${reviewHtmlEscape(meta.action || '')}</div>` : ''}
+        ${solutionLink ? `<button type="button" class="btn-sol manual-label-solution" data-manual-open-solution="${reviewHtmlEscape(qid)}">📝 開啟本題詳解</button>` : ''}
+      </section>
+    </div>
+  `;
+  const solutionButton = body.querySelector('[data-manual-open-solution]');
+  if (solutionButton) solutionButton.addEventListener('click', () => {
+    if (typeof openSolutionModal === 'function') openSolutionModal(null, solutionLink, qid, record.number, false, false);
+  });
+}
+
+function saveCurrentManualLabel(showMessage = true) {
+  const q = getCurrentManualLabelQuestion();
+  const select = document.getElementById('manual-label-select');
+  if (!q || !select) return false;
+  const qid = getReviewRecord(q).id;
+  const ok = setManualTopicLabel(qid, select.value);
+  if (!ok) {
+    showToast('標注無效：請選擇本考科的教科書章節');
+    return false;
+  }
+  if (showMessage) showToast(select.value ? '✅ 題型標注已保存' : '已清除本題人工標注');
+  return true;
+}
+
+function saveManualLabel() {
+  saveCurrentManualLabel(true);
+  renderManualLabelModal();
+}
+
+function moveManualLabel(delta, saveFirst = false) {
+  if (saveFirst && !saveCurrentManualLabel(true)) return;
+  const nextIndex = manualLabelIndex + delta;
+  if (nextIndex < 0 || nextIndex >= manualLabelQueue.length) return;
+  manualLabelIndex = nextIndex;
+  renderManualLabelModal();
+}
+
+function saveManualLabelAndNext() {
+  if (!saveCurrentManualLabel(true)) return;
+  moveManualLabel(1, false);
+}
+
 function populateReviewSubjects() {
   const select = document.getElementById('review-subject');
   if (!select) return;
@@ -3533,8 +3928,17 @@ function renderReviewPage() {
   const wrong = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[getReviewRecord(q).id] || 0) === 2).length;
   const starred = subjectQuestions.filter(q => typeof starredState !== 'undefined' && starredState[getReviewRecord(q).id]).length;
   const manual = subjectQuestions.filter(isManualReviewQuestion).length;
+  const manualLabeled = subjectQuestions.filter(q => isManualReviewQuestion(q) && getManualTopicLabel(getReviewRecord(q).id)).length;
   const stats = document.getElementById('review-stats');
   if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length], ['錯題本', wrong], ['收藏', starred], ['待人工', manual], ['目前題庫', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
+  const manualButton = document.getElementById('manual-label-open');
+  if (manualButton) {
+    manualButton.disabled = manual === 0;
+    manualButton.innerText = manual === 0
+      ? '🧭 暫無人工標注題'
+      : `🧭 逐題標注題型 (${manualLabeled}/${manual})`;
+    manualButton.title = manual === 0 ? '目前考科沒有待人工覆核題' : '逐題檢視裁切圖並標注教科書章節';
+  }
 
   // Only chapters that actually occur in the selected subject are offered.
   // This also removes empty/unmatched textbook chapters from the dropdown.
@@ -3574,7 +3978,10 @@ function renderReviewPage() {
     const statusText = status === 2 ? '錯題' : status === 1 ? '已掌握' : '未開始';
     const dueText = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
     const auditText = isManualReviewQuestion(q) ? '<span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工</span>' : '';
-    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span><span class="qtag">提取 L${recall.level}</span>${auditText}${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取訓練</button><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
+    const manualLabel = getManualTopicLabel(qid);
+    const manualLabelText = manualLabel ? `<span class="qtag manual-label-chip">✅ ${reviewHtmlEscape(getManualLabelDisplayName(manualLabel))}</span>` : '';
+    const manualLabelButton = isManualReviewQuestion(q) ? `<button class="btn-sol" type="button" data-review-label="${reviewHtmlEscape(qid)}">🧭 標注題型</button>` : '';
+    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span><span class="qtag">提取 L${recall.level}</span>${auditText}${manualLabelText}${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取訓練</button><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button>${manualLabelButton}<button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
   }).join('')}</div></section>`).join('')}</div>`;
   container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewOpen);
@@ -3592,6 +3999,9 @@ function renderReviewPage() {
   }));
   container.querySelectorAll('[data-review-status]').forEach(button => button.addEventListener('click', () => {
     if (typeof toggleStatus === 'function') toggleStatus(button.dataset.reviewStatus);
+  }));
+  container.querySelectorAll('[data-review-label]').forEach(button => button.addEventListener('click', () => {
+    openManualLabelModal(button.dataset.reviewLabel);
   }));
 }
 

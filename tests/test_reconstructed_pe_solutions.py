@@ -211,6 +211,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("publicReferenceUrls", dashboard)
         self.assertIn("publicReferenceNote", dashboard)
         self.assertIn("公開參考", index)
+        self.assertIn("manual-label-modal", index)
+        self.assertIn("openManualLabelModal", index)
+        self.assertIn("manual-label-select", index)
+        self.assertIn("replaceManualTopicLabels", index)
+        self.assertIn("儲存並下一題", index)
         self.assertIn("noopener noreferrer", index)
 
     def test_power_flow_manual_review_records_jacobian_branch_diagnostic(self):

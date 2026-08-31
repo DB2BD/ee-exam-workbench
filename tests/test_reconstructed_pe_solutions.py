@@ -428,6 +428,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("120\\,\\mu\\text{F}", buck_boost_112)
         self.assertIn("V_o=-36", buck_boost_112)
 
+        rectifier_fourier_112 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", rectifier_fourier_112)
+        self.assertIn("0.4962", rectifier_fourier_112)
+        self.assertIn("72.2704", rectifier_fourier_112)
+        self.assertIn("91.7538", rectifier_fourier_112)
+
         thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
         power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", thevenin_104)

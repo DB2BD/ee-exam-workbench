@@ -1374,10 +1374,10 @@
       "question_number": 4,
       "chapter": "圖二所示為方波變頻器（Inverter），其RL 負載為R＝$12\\ \\Omega$，L＝$10\\text{ mH}$，\n輸出頻率為$300\\text{ Hz}$。若負載電流之基本波有效值為6 A，試求所需之DC\n電源大小與負載電流之總諧波失真（THD）。（25 分）\n圖二",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-110-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "2d0623e09c434c3271b8d6b815072a04204bfaf62f137fa0455dba74890c1810",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "Fourier_harmonic_RL_current_and_numeric_tail_sum",
+      "solution_hash": "16457a006ff222b58cace77190de742829451c4543ede271b0ceeffc3d48d59b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_110年_電子學（包括電力電子學）_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 133,
+    "verified": 134,
     "suspected_error": 0,
-    "needs_manual_review": 123,
+    "needs_manual_review": 122,
     "not_attempted": 0
   }
 }

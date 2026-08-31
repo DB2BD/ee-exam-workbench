@@ -411,6 +411,17 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("-79.9676", opamp_105)
         self.assertIn("-0.0405\\%", opamp_105)
 
+        freq_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", freq_105)
+        self.assertIn("1750.7", freq_105)
+        self.assertIn("1.607", freq_105)
+
+        limiter_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", limiter_105)
+        self.assertIn("3.84", limiter_105)
+        self.assertIn("-4.625", limiter_105)
+        self.assertIn("1.156", limiter_105)
+
         thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
         power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", thevenin_104)

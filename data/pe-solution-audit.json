@@ -2676,10 +2676,10 @@
       "question_number": 3,
       "chapter": "如圖三所示之電路，假定\n100\nβ\n，\nV\nV\non\nBE\n7.0\n)\n(\n，爾立（Early）電壓\n∞\nA\nV\n，\npF\nC\n25\nπ\n且\npF\nC\nμ\n，求(一)CQ\n（直流）值。（10 分）(二)米勒（Miller）電容值。（5 分）(三)上（upper）\n3-dB 頻率。（5 分）\nΩ\nk\n5.2\nV\niv\nV\nΩ\nk\nov\nΩ\nk\n$1\\ \\Omega$\nk\n$20\\ \\Omega$\nk\n$20\\ \\Omega$\nk\n∞\n∞\n∞\nCQ\n圖三",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "461f7b3e83b556550455da8f412a9bd02b631ef28a4c13665d8b541a8291a015",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "bjt_bias_miller_two_pole_recalculation",
+      "solution_hash": "0ce2c51f733aa247c1497fca22cd0610a4b6e6b1d4c52cc45031e4ac6d202fc3",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_106年_電子學（包括電力電子學）_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 214,
+    "verified": 215,
     "suspected_error": 0,
-    "needs_manual_review": 42,
+    "needs_manual_review": 41,
     "not_attempted": 0
   }
 }

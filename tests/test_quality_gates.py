@@ -200,6 +200,36 @@ process.stdout.write(JSON.stringify(context.__missing));
         result = self._run_node(expression)
         self.assertEqual(result, {"opened": True, "progress": "1 / 1", "hasCrop": True, "hasSelector": True, "hasQid": True})
 
+    def test_manual_label_backup_normalizes_legacy_and_null_values(self):
+        question = [
+            "EE-manual-valid", "02", 114, 1, "返馳式轉換器與連續導通", [], "", "", 3,
+            "needs_manual_review", [], True,
+        ]
+        expression = (
+            "(() => { "
+            "context.findQuestionRecord = qid => qid === 'EE-manual-valid' ? "
+            + json.dumps(question, ensure_ascii=False)
+            + " : null; "
+            "context.renderReviewPage = () => {}; "
+            "context.replaceManualTopicLabels({"
+            "'EE-null': null, "
+            "'EE-empty': {chapterId: ''}, "
+            "'EE-manual-valid': {chapterId: 'el-pe-buck-boost', source: 'backup', updatedAt: '2026-09-01T00:00:00Z'}"
+            "}); "
+            "return context.getManualTopicLabels(); })()"
+        )
+        result = self._run_node(expression)
+        self.assertEqual(
+            result,
+            {
+                "EE-manual-valid": {
+                    "chapterId": "el-pe-buck-boost",
+                    "source": "backup",
+                    "updatedAt": "2026-09-01T00:00:00Z",
+                }
+            },
+        )
+
 
 class TestBuildReproducibility(unittest.TestCase):
     """A fixed input tree must produce byte-identical HTML across timezones."""

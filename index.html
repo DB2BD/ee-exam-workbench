@@ -3454,6 +3454,17 @@ function loadManualTopicLabels() {
 
 let manualTopicLabels = loadManualTopicLabels();
 
+function normalizeManualTopicValue(value) {
+  const chapterId = typeof value === 'string' ? value : value && value.chapterId;
+  if (typeof chapterId !== 'string' || !chapterId) return null;
+  const normalized = { chapterId };
+  if (value && typeof value === 'object') {
+    if (typeof value.updatedAt === 'string' && value.updatedAt) normalized.updatedAt = value.updatedAt;
+    if (typeof value.source === 'string' && value.source) normalized.source = value.source;
+  }
+  return normalized;
+}
+
 function saveManualTopicLabels() {
   if (typeof localStorage === 'undefined') return;
   try {
@@ -3464,16 +3475,17 @@ function saveManualTopicLabels() {
 }
 
 function getManualTopicLabel(qid) {
-  const value = manualTopicLabels && manualTopicLabels[qid];
-  if (typeof value === 'string') return value;
-  return value && typeof value.chapterId === 'string' ? value.chapterId : '';
+  const normalized = normalizeManualTopicValue(manualTopicLabels && manualTopicLabels[qid]);
+  return normalized ? normalized.chapterId : '';
 }
 
 function getManualTopicLabels() {
-  return Object.fromEntries(Object.entries(manualTopicLabels || {}).map(([qid, value]) => [qid, {
-    chapterId: typeof value === 'string' ? value : value.chapterId,
-    updatedAt: value && value.updatedAt ? value.updatedAt : null,
-  }]));
+  const labels = {};
+  Object.entries(manualTopicLabels || {}).forEach(([qid, value]) => {
+    const normalized = normalizeManualTopicValue(value);
+    if (normalized) labels[qid] = normalized;
+  });
+  return labels;
 }
 
 function isValidManualTopicLabel(qid, chapterId) {
@@ -3493,7 +3505,7 @@ function setManualTopicLabel(qid, chapterId) {
     return true;
   }
   if (!isValidManualTopicLabel(qid, chapterId)) return false;
-  manualTopicLabels[qid] = { chapterId, updatedAt: new Date().toISOString() };
+  manualTopicLabels[qid] = { chapterId, source: 'user', updatedAt: new Date().toISOString() };
   saveManualTopicLabels();
   return true;
 }
@@ -3502,12 +3514,9 @@ function replaceManualTopicLabels(payload) {
   const next = {};
   if (payload && typeof payload === 'object') {
     Object.entries(payload).forEach(([qid, value]) => {
-      const chapterId = typeof value === 'string' ? value : value && value.chapterId;
-      if (isValidManualTopicLabel(qid, chapterId)) {
-        next[qid] = {
-          chapterId,
-          updatedAt: value && value.updatedAt ? value.updatedAt : new Date().toISOString(),
-        };
+      const normalized = normalizeManualTopicValue(value);
+      if (normalized && isValidManualTopicLabel(qid, normalized.chapterId)) {
+        next[qid] = Object.assign({ updatedAt: new Date().toISOString() }, normalized);
       }
     });
   }

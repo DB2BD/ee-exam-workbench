@@ -1178,10 +1178,10 @@
       "question_number": 3,
       "chapter": "一部具有H = 6.0 MJ/MVA 的發電機，經由一純電抗網路傳送1.0 標么\n的實功率到一個無限匯流排，可以被傳送的最大實功率為2.5 標么，當\n三相短路故障發生在發電機輸出端時，發電機的輸出實功率降為零，在\n故障清除後，系統再度恢復到原來的網路狀態。試求臨界清除角及臨界\n清除時間。（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-111-05-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
       "method": "independent_equal_area_recalculation_with_frequency_parameterization",
-      "solution_hash": "e47344c9cea956f961e0ed50c4a5047377dec53b8de72be4dfb711cf32ed9ef2",
+      "solution_hash": "52047dd21037041e3c362db38cb05fde98a5488f6088dcdcd4eaa77bdd5885f0",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_111年_電力系統_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 236,
+    "verified": 237,
     "suspected_error": 0,
-    "needs_manual_review": 20,
+    "needs_manual_review": 19,
     "not_attempted": 0
   }
 }

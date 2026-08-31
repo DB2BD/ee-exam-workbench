@@ -1968,7 +1968,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-111-05-3.md",
     "依考科分類/05_電力系統/111年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -6586,13 +6586,6 @@ const SOLUTION_REVIEW_METADATA = {
     "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。",
     "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致；canonical 已以每相電壓及滑差獨立回代兩模型，故保留來源矛盾而不混用。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
-  },
-  "EE-111-05-3": {
-    "disposition": "frequency_parameterized",
-    "blocker": "missing_parameter",
-    "action": "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。",
-    "evidence": "官方裁切圖已確認 H=6.0、P_m=1.0、P_max=2.5 且故障期間 P_e=0；canonical 以等面積準則回代 δ_cr=89.3750°，並以擺動方程得到 t_cr=0.2704 s（f=60 Hz）。題圖未標系統頻率，時間保留 t_cr=0.2704√(60/f) s。",
-    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q"
   },
   "EE-104-05-3": {
     "disposition": "given_current_vs_recalculation",

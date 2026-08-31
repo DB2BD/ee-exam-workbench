@@ -2550,10 +2550,10 @@
       "question_number": 3,
       "chapter": "如圖所示為一$69\\text{ kV}$ Δ 接/$11.4\\text{ kV}$ Y 接 $40\\text{ MVA}$，低壓側相角領先高壓側\n相角30°，$11.4\\text{ kV}$ 側多繞組比流器規格C400：3000/5，$69\\text{ kV}$ 側多繞組\n比流器規格C400：400/5。請利用如圖所示之三差動電驛，完成此三相變\n壓器的差動保護接線圖，並計算兩側電驛的電流與電流比值。（20 分）\n\nA\nB\nC\nA’\nB’\nC’\nIA\nIB\nIC\n$11.4\\text{ kV}$ $40\\text{ MVA}$ $69\\text{ kV}$\nR\nR\nOP\nR\nR\nOP\nR\nR\nOP\n差動電驛A\n差動電驛B\n差動電驛C",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "55bcdbbe8a2fb85578c31f8690a318ec84820f93ed6e6f7d2ef7c6d4a5e98d7d",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_transformer_differential_relay_ct_connection_recalculation",
+      "solution_hash": "bb51dfd6497f701e9ac2dabdab1edba00dae03a8e132868a7c4319193158cb8e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_107年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 169,
+    "verified": 170,
     "suspected_error": 0,
-    "needs_manual_review": 87,
+    "needs_manual_review": 86,
     "not_attempted": 0
   }
 }

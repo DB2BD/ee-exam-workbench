@@ -342,6 +342,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("300\\sqrt{3}", nonlinear_105)
         self.assertIn("0.9242", nonlinear_105)
 
+        stability_105 = (CANONICAL / "05_電力系統" / "canonical" / "EE-105-05-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", stability_105)
+        self.assertIn("同步調相機", stability_105)
+        self.assertIn("虛擬慣性", stability_105)
+
 
 if __name__ == "__main__":
     unittest.main()

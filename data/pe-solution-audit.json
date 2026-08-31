@@ -1738,10 +1738,10 @@
       "question_number": 3,
       "chapter": "有一部三相、Y-接 $220\\text{ V}、60\\text{ Hz}、7.5\\text{ kW}$、六極之感應馬達，其每相之定子、轉子繞組參數值分別為：$R_1 = 0.3\\ \\Omega, X_1 = 0.5\\ \\Omega, R_2 = 0.2\\ \\Omega, X_2 = 0.4\\ \\Omega$，不計鐵心效應。（20 分）\n* **(一)** 求此感應馬達之起始轉矩（starting torque）。\n* **(二)** 當此感應馬達以每分鐘 1188 轉穩態運轉時，試問其負載轉矩為若干牛頓・米？",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-109-04-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "bd99646173773b15c25bae5662034861d7144d2bb3c388fce7ef5e4fa2313a47",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_induction_motor_torque_recalculation",
+      "solution_hash": "88414bf9298619b99f6da76ffc2b9c2a53eeb900258330cb268330e0782247ff",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_109年_電機機械_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 139,
+    "verified": 140,
     "suspected_error": 0,
-    "needs_manual_review": 117,
+    "needs_manual_review": 116,
     "not_attempted": 0
   }
 }

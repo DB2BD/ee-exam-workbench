@@ -103,6 +103,26 @@ class TestReconstructedPESolutions(unittest.TestCase):
                 hits = [phrase for phrase in warning_phrases if phrase in text]
                 self.assertFalse(hits, f"verified note contains unresolved warning {hits}: {path.name}")
 
+    def test_manual_review_notes_have_actionable_disposition(self):
+        """Every unresolved question must explain the blocker and next check."""
+        manifests = [
+            ROOT / "data" / "pe-solution-audit.json",
+            ROOT / "data" / "engineering-math-audit.json",
+        ]
+        manual = []
+        for manifest in manifests:
+            data = json.loads(manifest.read_text(encoding="utf-8"))
+            manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
+        self.assertEqual(len(manual), 29, "manual-review count changed; update the explicit review register")
+        for entry in manual:
+            path = ROOT / entry["solution_link"]
+            text = path.read_text(encoding="utf-8")
+            for key in ("review_disposition", "review_blocker", "review_action"):
+                match = re.search(rf"^{key}:\s*(.+)$", text, re.M)
+                self.assertIsNotNone(match, f"{entry['qid']} lacks {key}")
+                self.assertNotEqual(match.group(1).strip().lower(), "todo", f"{entry['qid']} has placeholder {key}")
+            self.assertNotIn("尚未完成獨立逐步重算", text, f"{entry['qid']} was left as an unworked placeholder")
+
     def test_every_pe_qid_has_one_canonical_note_and_crop(self):
         """Question-level provenance must stay complete after regeneration."""
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")

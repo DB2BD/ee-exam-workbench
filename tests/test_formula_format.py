@@ -48,6 +48,17 @@ process.stdout.write(ctx.processMarkdownWithMath(process.argv[1]));
         self.assertNotIn('katex-error', rendered)
         self.assertIn('class="katex"', rendered)
 
+    def test_markdown_sources_have_no_tab_corrupted_text_macros(self):
+        """來源層不得重新引入 `$<tab>ext{...}` 的不可見字元污染。"""
+        roots = [ROOT / "📝 個人題解與錯題本", ROOT / "🧠 核心考點知識庫", ROOT / "依考科分類"]
+        bad = []
+        for root in roots:
+            for path in root.rglob("*.md"):
+                text = path.read_text(encoding="utf-8")
+                if re.search(r"\$\t+ext\{", text):
+                    bad.append(str(path.relative_to(ROOT)))
+        self.assertEqual(bad, [])
+
     def test_nested_parenthetical_latex_fragment_is_wrapped(self):
         rendered = self._render_with_bundled_katex(
             r'所以 (i_p(t_{on})\approx60\,\mathrm A)。'

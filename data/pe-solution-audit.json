@@ -3026,9 +3026,9 @@
       "question_number": 4,
       "chapter": "弦波電壓源v(t) = 100 sin(ωt) ，施加至一非線性負載，產生一非弦波電流\n$i(t) = 7 + 12\\sin(\\omega t + 30^\\circ) + 5\\sin(3\\omega t + 60^\\circ)$，計算：\n\n* **(一)** 負載吸收之功率。（5 分）\n\n* **(二)** 負載之功率因數。（5 分）\n\n* **(三)** 負載電流之失真因數。（5 分）\n\n* **(四)** 負載電流之總諧波失真。（5 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-105-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_fourier_power_and_distortion_recalculation",
       "solution_hash": "14c9dcd2330ff70510d19626b74750865b35b375c844bd3f1a009c3926363e6a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_105年_電子學（包括電力電子學）_Q04.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 178,
+    "verified": 179,
     "suspected_error": 0,
-    "needs_manual_review": 78,
+    "needs_manual_review": 77,
     "not_attempted": 0
   }
 }

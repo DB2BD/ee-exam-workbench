@@ -140,6 +140,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("function renderSolutionReviewCard", index)
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
         self.assertIn("meta.evidence", index)
+        self.assertIn("officialSourceUrl", dashboard)
+        self.assertIn("noopener noreferrer", index)
 
     def test_power_flow_manual_review_records_jacobian_branch_diagnostic(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-106-05-3.md").read_text(encoding="utf-8")

@@ -6596,13 +6596,15 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "source_conflict_branches",
     "blocker": "source_conflict",
     "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。",
-    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致；canonical 已以每相電壓及滑差獨立回代兩模型，故保留來源矛盾而不混用。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
+    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致；canonical 已以每相電壓及滑差獨立回代兩模型，故保留來源矛盾而不混用。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
   },
   "EE-111-05-3": {
     "disposition": "frequency_parameterized",
     "blocker": "missing_parameter",
     "action": "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。",
-    "evidence": "官方裁切圖已確認 H=6.0、P_m=1.0、P_max=2.5 且故障期間 P_e=0；canonical 以等面積準則回代 δ_cr=89.3750°，並以擺動方程得到 t_cr=0.2704 s（f=60 Hz）。題圖未標系統頻率，時間保留 t_cr=0.2704√(60/f) s。"
+    "evidence": "官方裁切圖已確認 H=6.0、P_m=1.0、P_max=2.5 且故障期間 P_e=0；canonical 以等面積準則回代 δ_cr=89.3750°，並以擺動方程得到 t_cr=0.2704 s（f=60 Hz）。題圖未標系統頻率，時間保留 t_cr=0.2704√(60/f) s。",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q"
   },
   "EE-104-05-3": {
     "disposition": "given_current_vs_recalculation",
@@ -6620,7 +6622,8 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "impedance_type_branches",
     "blocker": "missing_parameter",
     "action": "確認故障阻抗 0.01 pu 為複數阻抗或純電抗；目前保留兩個臨界清除角分支。",
-    "evidence": "公開參考解答（2024-07-17 更正）將故障阻抗明寫為 j0.01，支持純電抗分支；官方裁切仍只寫 0.01 pu，故尚不能單獨視為官方唯一條件。 來源：https://kentchen1980.pixnet.net/blog/posts/10357120259"
+    "evidence": "公開參考解答（2024-07-17 更正）將故障阻抗明寫為 j0.01，支持純電抗分支；官方裁切仍只寫 0.01 pu，故尚不能單獨視為官方唯一條件。 來源：https://kentchen1980.pixnet.net/blog/posts/10357120259",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0710&t=Q"
   },
   "EE-106-06-2": {
     "disposition": "fault_definition_branches",
@@ -6632,7 +6635,8 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "rated_current_branches",
     "blocker": "missing_parameter",
     "action": "確認考試年度採用的 100 HP 馬達滿載電流表或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。",
-    "evidence": "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，且考試年度版本可能不同，故僅作官方交叉證據，不能取代題幹缺漏。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
+    "evidence": "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，且考試年度版本可能不同，故僅作官方交叉證據，不能取代題幹缺漏。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=107180&q=1&s=0612&t=Q"
   },
   "EE-111-06-4": {
     "disposition": "code_compliance_branches",

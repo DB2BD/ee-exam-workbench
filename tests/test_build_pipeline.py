@@ -46,7 +46,9 @@ class TestBuildPipeline(unittest.TestCase):
             'review-container',
             'review-type-filter',
             'tab-pane-review',
-            'tab-btn-review'
+            'tab-btn-review',
+            'recall-step-box',
+            'recall-full-section'
         ]
 
         for elem_id in required_ids:
@@ -70,6 +72,18 @@ class TestBuildPipeline(unittest.TestCase):
         self.assertIn('全部章節', html)
         self.assertIn("review-card-grid", html)
         self.assertIn("box-shadow: var(--shadow)", html)
+
+    def test_active_recall_steps_precede_and_gate_solution(self):
+        """The four-step recall workflow must be above a hidden full solution."""
+        with open(self.index_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        step_pos = html.index('id="recall-step-box"')
+        full_pos = html.index('id="recall-full-section"')
+        self.assertLess(step_pos, full_pos)
+        self.assertIn('四步驟蓋牌', html)
+        self.assertIn('const fullSolutionHtml =', html)
+        self.assertIn('class="solution-content active-recall-active"', html)
 
     def test_review_taxonomy_uses_textbook_chapter_names(self):
         with open(self.index_path, 'r', encoding='utf-8') as f:

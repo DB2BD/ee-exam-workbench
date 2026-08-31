@@ -76,18 +76,34 @@ def run_health_check():
     with open('data/moex-national-exams.json', 'r', encoding='utf-8') as fp:
         source_manifest = json.load(fp)
     solution_audit = audit_solutions(source_manifest)
-    total_solution_questions = solution_audit['total_questions']
-    validated_solution_questions = solution_audit['validated_questions']
-    pending_solution_questions = len(solution_audit['pending_question_ids'])
-    invalid_solution_entries = len(solution_audit['invalid_solution_entries'])
-    if pending_solution_questions == 0 and invalid_solution_entries == 0:
-        print(f"  PASS: All {validated_solution_questions}/{total_solution_questions} official questions are validated.")
+    gk_total = solution_audit['total_questions']
+    gk_verified = solution_audit['validated_questions']
+    gk_pending = len(solution_audit['pending_question_ids'])
+    gk_invalid = len(solution_audit['invalid_solution_entries'])
+
+    # PE solutions have a separate question-level audit manifest.  Do not let
+    # the complete GK coverage hide unresolved PE derivations in the headline.
+    with open('data/pe-solution-audit.json', encoding='utf-8') as fp:
+        pe_manifest = json.load(fp)
+    pe_summary = pe_manifest.get('summary', {})
+    pe_total = int(pe_summary.get('questions', len(pe_manifest.get('entries', []))))
+    pe_verified = int(pe_summary.get('verified', 0))
+    pe_manual = int(pe_summary.get('needs_manual_review', 0))
+    pe_suspected = int(pe_summary.get('suspected_error', 0))
+    unresolved = gk_pending + gk_invalid + pe_manual + pe_suspected
+
+    if unresolved == 0:
+        print(f"  PASS: GK {gk_verified}/{gk_total}; PE {pe_verified}/{pe_total} questions validated.")
     else:
         penalty = 20
         score -= penalty
+        print(
+            f"  PARTIAL: GK {gk_verified}/{gk_total}; PE {pe_verified}/{pe_total} verified, "
+            f"{pe_manual} manual-review, {pe_suspected} suspected-error."
+        )
         deductions.append(
-            f"-{penalty} pts: {validated_solution_questions}/{total_solution_questions} questions validated; "
-            f"{pending_solution_questions} pending, {invalid_solution_entries} invalid"
+            f"-{penalty} pts: solution coverage incomplete; GK pending={gk_pending}, invalid={gk_invalid}; "
+            f"PE manual-review={pe_manual}, suspected-error={pe_suspected}"
         )
 
     # 4. Stray Files & Image Mappings (15 pts)

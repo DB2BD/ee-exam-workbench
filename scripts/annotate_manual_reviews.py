@@ -42,7 +42,6 @@ REVIEWS = {
     "EE-106-05-3": ("multiple_power_flow_branches", "model_branch_ambiguity", "確認穩定運轉分支或 Newton 初值；目前保留高、低電壓兩個正值解。"),
     "EE-106-06-2": ("fault_definition_branches", "official_wording_ambiguity", "確認 F 點故障型式、饋線阻抗是否含往返與非對稱觀察時刻。"),
     "EE-105-04-5": ("flux_curve_parameterized", "missing_parameter", "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。"),
-    "EE-104-05-1": ("sequence_network_branches", "model_branch_ambiguity", "確認故障時系統等效電源、ES 零序接地位置與端電壓定義。"),
     "EE-104-05-3": ("given_current_vs_recalculation", "source_conflict", "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。"),
     "EE-104-06-1": ("regulation_version_branches", "regulation_version", "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。"),
     "EE-104-06-5": ("power_factor_parameterized", "missing_parameter", "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。"),

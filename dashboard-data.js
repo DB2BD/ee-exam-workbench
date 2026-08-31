@@ -5665,7 +5665,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-104-05-1.md",
     "依考科分類/05_電力系統/104年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -6591,11 +6591,6 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "frequency_parameterized",
     "blocker": "missing_parameter",
     "action": "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。"
-  },
-  "EE-104-05-1": {
-    "disposition": "sequence_network_branches",
-    "blocker": "model_branch_ambiguity",
-    "action": "確認故障時系統等效電源、ES 零序接地位置與端電壓定義。"
   },
   "EE-104-05-3": {
     "disposition": "given_current_vs_recalculation",

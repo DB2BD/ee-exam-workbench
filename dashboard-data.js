@@ -6643,7 +6643,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-110-06-5": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
-    "action": "補齊三台馬達效率與功因／額定 MVA，才能唯一化共同基準短路電流。",
+    "action": "補齊三台馬達效率與功因／額定 MVA；目前以各機 k_i=η_i·pf_i 參數化次暫態貢獻與瞬時容量。",
     "evidence": ""
   },
   "EE-111-06-1": {

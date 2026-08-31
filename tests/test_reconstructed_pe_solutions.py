@@ -440,6 +440,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("20.5206", motor_drop_105)
         self.assertIn("5.5I_{rated}", motor_drop_105)
 
+        fault_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", fault_105)
+        self.assertIn("34.366", fault_105)
+        self.assertIn("37.373", fault_105)
+        self.assertIn("0.0643678", fault_105)
+
         thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
         power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", thevenin_104)

@@ -352,6 +352,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("1.16036", sequence_104)
         self.assertIn("0.99741", sequence_104)
 
+        open_neutral_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", open_neutral_105)
+        self.assertIn("183.482", open_neutral_105)
+        self.assertIn("36.5185", open_neutral_105)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -29,14 +29,14 @@ REVIEWS = {
     "EE-111-06-1": ("graph_estimate", "graph_estimate", "依官方原卷第 3-1 頁確認 100:5 曲線的交點讀值；目前已取得含完整曲線的官方裁切圖，僅需人工接受圖解有效位數。"),
     "EE-111-06-2": ("conditional_numeric", "missing_parameter", "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。"),
     "EE-111-06-3": ("motor_rating_branches", "missing_parameter", "以官方圖示三個 M 支路均投入且 E''=1 pu 作主分支；補齊每台馬達額定視在容量（或額定功因／效率）及故障前內電勢後，再鎖定三相故障貢獻。"),
-    "EE-111-06-4": ("code_compliance_branches", "missing_parameter", "補齊導線材質、敷設、環境修正與效率／規範版本；現行表可作交叉檢查，但 8 HP 無精確列值，仍須確認考試年度表。"),
+    "EE-111-06-4": ("code_compliance_branches", "missing_parameter", "確認 111 年適用的歷史安培容量表與導線敷設條件；歷史表可核對 20 HP=54 A、10 HP=28 A、7.5 HP=22 A，但 8 HP 無精確列值，且仍缺材質、載流導線數與修正係數。"),
     "EE-110-06-4": ("definition_branches", "official_wording_ambiguity", "依圖面 A 點採 1.606162%／0.036720 pu；若命題解答採 B 點則為 19.052%／6.070853 pu，請確認觀測點定義。"),
     "EE-110-06-5": ("conditional_numeric", "missing_parameter", "補齊三台馬達效率與功因／額定 MVA；目前以各機 k_i=η_i·pf_i 參數化次暫態貢獻與瞬時容量。"),
     "EE-109-02-3": ("conduction_mode_branches", "missing_parameter", "確認返馳式轉換器導通模式與電流定義；目前的三角波條件其實落在 DCM／臨界導通邊界，另保留 CCM 分支。"),
-    "EE-108-06-2": ("measurement_point_model_ambiguity", "official_wording_ambiguity", "依官方圖確認測定點位置，並確認電弧爐採額定電流或定阻抗模型；再決定串聯電抗器的設計目標與計算分支。"),
+    "EE-108-06-2": ("source_end_PCC_impedance_model", "official_wording_ambiguity", "依官方圖固定 69 kV 電源側 PCC 為首選測定點，並確認電弧爐採額定電流或定阻抗模型；再決定串聯電抗器的設計目標與計算分支。"),
     "EE-107-06-2": ("rated_current_branches", "missing_parameter", "確認考試年度採用的 100 HP 馬達滿載電流表、107 年歷史附件或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。"),
     "EE-106-02-2": ("parameterized_only", "missing_parameter", "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。"),
-    "EE-106-06-2": ("impedance_definition_branches", "official_wording_ambiguity", "依圖面固定 F 為左 110 V 導體對中性點；確認 380 V 一次側線間回路的源／變壓器／饋線阻抗是否已含往返，以及非對稱電流的觀察時刻／故障相角。"),
+    "EE-106-06-2": ("source_per_conductor_line_line_main_model", "official_wording_ambiguity", "依圖面固定 F 為左 110 V 導體對中性點；以每導體阻抗組成完整 380 V 線間往返為首選，並確認題面是否已含往返，以及非對稱電流的觀察時刻／故障相角。"),
     "EE-105-04-5": ("flux_curve_parameterized", "missing_parameter", "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。"),
     "EE-104-05-3": ("given_current_vs_recalculation", "source_conflict", "確認 2.5/3.0 kA 是直接給定的同相標量貢獻或需以相量合成，並補正常功因／勵磁與 440 MW 的分配。"),
     "EE-104-06-5": ("power_factor_parameterized", "missing_parameter", "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。"),
@@ -79,9 +79,9 @@ REVIEW_EVIDENCE = {
         "https://www.scribd.com/document/941350020/107%E5%B9%B4%E5%B7%A5%E6%A5%AD%E9%85%8D%E9%9B%BB"
     ),
     "EE-111-06-4": (
-        "經濟部《用戶用電設備裝置規則》馬達滿載電流表 258-3 的現行 220 V 列值為："
-        "20 HP=55 A、10 HP=28 A、7.5 HP=21 A；題目為 8 HP，無精確列值，且導線安培容量仍取決於材質、"
-        "配管載流導線數、修正係數與規範版本，故只能作交叉檢查。 "
+        "111 年適用的歷史規章表 163-7-3 可核對 220 V 三相感應馬達 20 HP=54 A、10 HP=28 A、7.5 HP=22 A；"
+        "8 HP 未列值，不能逕自四捨五入成 7.5 HP。現行表 258-3 另列 20 HP=55 A、10 HP=28 A、7.5 HP=21 A，"
+        "僅作版本交叉檢查；導線安培容量仍取決於材質、配管載流導線數、修正係數與規範版本。 "
         "來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；"
         "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
     ),
@@ -127,18 +127,18 @@ REVIEW_EVIDENCE = {
     ),
     "EE-108-06-2": (
         "官方裁切圖已確認 2500 MVA 電源、69 kV 線路 j0.405 Ω、30 MVA 主變、15 MVA 爐變及 12.5 MVA 電弧爐；"
-        "圖示測定點位於 69 kV 電源側，canonical 分開回代電源標記 0.5000%、線路受端 0.6063% 與 11.4 kV 母線 3.5230%；"
-        "固定阻抗模型在線路受端目標 1.5% 時需 XR=0.573580 pu（2.485 Ω/相），若嚴格採電源標記則 XR=0.403448 pu（1.748 Ω/相）。"
-        "測定點與電弧爐負載模型未由題面唯一指定，故不把任一分支升格為官方唯一答案。"
+        "圖示測定點位於 69 kV 電源側，canonical 以 source/PCC 為首選定阻抗分壓（3.0261%、XR=0.403448 pu=1.748 Ω/相），"
+        "並分開列出額定電流分支 0.5000%／0.6063%／3.5230% 與線路受端替代值 3.6696%、XR=0.573580 pu=2.485 Ω/相。"
+        "負載擾動與電流模型未由題面唯一指定，故不把任一分支升格為官方唯一答案。"
     ),
     "EE-106-02-2": (
         "官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞，未提供 R_1、R_2、各管 g_m、r_o、尾電流源阻抗或輸出端口數值；"
         "canonical 已保留參數化 A_f=A/(1+Aβ) 及測試源阻抗定義，避免套用無條件理想運放公式。"
     ),
     "EE-106-06-2": (
-        "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，故故障拓撲已按左 110 V 對中性點處理；canonical 回代 I_sym=11.318 kA、"
-        "並分開列出只將電纜加倍的 10.516 kA，以及將系統／T1／電纜全部按線間往返加倍的 9.927 kA；"
-        "X/R=1.738 下最不利第一峰值約 22.47 kA。剩餘缺口是阻抗是否為每導體或往返值，以及非對稱電流的觀察條件。"
+        "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，且 T2 一次側跨兩相 380 V；"
+        "canonical 以每導體阻抗形成完整線間往返為首選，回代 I_sym=9.927 kA、X/R=1.6195，最不利第一峰值約 19.36 kA；"
+        "並分開列出全單一路徑 11.318 kA／22.47 kA 與僅饋線加倍 10.516 kA 替代分支。剩餘缺口是阻抗是否已含往返，以及非對稱電流的觀察條件。"
     ),
     "EE-105-04-5": (
         "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V、E_a2=180 V，"

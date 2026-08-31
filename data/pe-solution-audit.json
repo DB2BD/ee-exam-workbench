@@ -2984,10 +2984,10 @@
       "question_number": 1,
       "chapter": "圖一之放大器具有gm = $40\\text{ mA}$/V，Rs = $2\\text{ k}\\Omega$，Ri = $8\\text{ k}\\Omega$，Ro = $15\\text{ k}\\Omega$，RL = $10\\text{ k}\\Omega$，\nCi = $5\\text{ pF}$，Co = $1\\text{ pF}$。電路的電容值為C1 = $0.01\\ \\mu\\text{F}$，C2 = $0.04\\ \\mu\\text{F}$，C = $3.32\\text{ pF}$。\n\n* **(一)** 使用短路法求低3 dB 頻率fL。（7 分）\n\n* **(二)** 使用零值法求高3 dB 頻率fH。（7 分）\n\n* **(三)** 求帶通電壓增益APB。（6 分）\n圖一",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-105-02-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "35d5c18050ad0c9e7b3133c6fb6fedcf814f7da7be538d2dd0d5f6e811f1b226",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_sctc_octc_recalculation",
+      "solution_hash": "e9994eb6183497b9ee353600689db8ba88d98697274c1f59fb16a380ce50c952",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_105年_電子學（包括電力電子學）_Q01.png"
     },
@@ -3012,9 +3012,9 @@
       "question_number": 3,
       "chapter": "圖三之可調限幅器，具有R1 = $15\\text{ k}\\Omega$，RF = $60\\text{ k}\\Omega$，R2 = $4\\text{ k}\\Omega$，R3 = $1\\text{ k}\\Omega$，R4 = $5\\text{ k}\\Omega$，\nR5 = $1\\text{ k}\\Omega$，VA = 15 V，－VB = －15 V，VD = 0.7 V。求：\n\n* **(一)** 正的箝位電壓vO(max)和相對應的輸入電壓vS(min)。（8 分）\n\n* **(二)** 負的箝位電壓vO(min)和相對應的輸入電壓vS(max)。（6 分）\n\n* **(三)** 當輸入電壓vS = 5V 時的輸出電壓。（6 分）\n∞\nA\n圖三",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-105-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_adjustable_diode_limiter_recalculation",
       "solution_hash": "937af275bc1bf841e68b262210b896c6029e021ef0c0c3512c3a18df798b9dae",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_105年_電子學（包括電力電子學）_Q03.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 199,
+    "verified": 201,
     "suspected_error": 0,
-    "needs_manual_review": 57,
+    "needs_manual_review": 55,
     "not_attempted": 0
   }
 }

@@ -227,6 +227,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("0.07603\\text{ T}", magnetic_110)
         self.assertIn("0.4704\\text{ mJ}", magnetic_110)
 
+        ccvs_107 = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", ccvs_107)
+        self.assertIn("V_2=15i_\\phi", ccvs_107)
+        self.assertIn("P_{4\\Omega}=I_4^2(4)=2^2(4)=16", ccvs_107)
+
 
 if __name__ == "__main__":
     unittest.main()

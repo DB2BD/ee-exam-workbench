@@ -2270,10 +2270,10 @@
       "question_number": 1,
       "chapter": "圖1 中，試求消耗在4 歐姆（Ω）電阻之功率。（20 分）\n圖1",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-with-equation-residual",
-      "solution_hash": "615e8c3f4ba9d110050c4c391d332572c315bc0bfe1f2f8d60fb58340184b6ce",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_nodal_analysis_ccvs_recalculation",
+      "solution_hash": "508087bc9acc62b61a197a5ca5faa5cbadb6107eba2ec41ae9907fbb4757211b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_107年_電路學_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 156,
+    "verified": 157,
     "suspected_error": 0,
-    "needs_manual_review": 100,
+    "needs_manual_review": 99,
     "not_attempted": 0
   }
 }

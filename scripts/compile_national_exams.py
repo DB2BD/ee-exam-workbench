@@ -376,6 +376,32 @@ def scan_exam_category(cat):
 # § 3. Cross-Reference Builder (PE ↔ National Exam Topic Bridge)
 # ═══════════════════════════════════════════════════════════════════════
 
+def choose_related_pe_qid(n_tags, n_topic, pe_entries, min_score=3):
+    """Return a PE qid only when one candidate is the unique best match.
+
+    A previous implementation selected the first candidate on a score tie.
+    That made the result depend on dashboard ordering and could silently point
+    a national-exam card at an unrelated question.  Ties now fail closed;
+    users can still reach the textbook chapter without a speculative qid.
+    """
+    n_tags = set(n_tags or ())
+    n_topic = str(n_topic or '')
+    scored = []
+    for pe_entry in pe_entries:
+        pe_tags = set(pe_entry.get('tags') or ())
+        pe_topic = str(pe_entry.get('topic') or '')
+        tag_overlap = len(n_tags & pe_tags)
+        topic_overlap = len(set(n_topic) & set(pe_topic))
+        scored.append((tag_overlap * 3 + topic_overlap, pe_entry.get('qid', '')))
+    if not scored:
+        return ''
+    best_score = max(score for score, _ in scored)
+    winners = sorted({qid for score, qid in scored if score == best_score and qid})
+    if best_score < min_score or len(winners) != 1:
+        return ''
+    return winners[0]
+
+
 def build_cross_references(nat_questions, pe_data_path='dashboard-data.js'):
     """
     Read PE technician questions from dashboard-data.js (read-only!)
@@ -419,19 +445,9 @@ def build_cross_references(nat_questions, pe_data_path='dashboard-data.js'):
         if n_sid not in pe_index:
             continue
 
-        best_match = None
-        best_score = 0
-        for pe_entry in pe_index[n_sid]:
-            # Score = tag overlap + topic keyword overlap
-            tag_overlap = len(n_tags & pe_entry['tags'])
-            topic_words = set(n_topic) & set(pe_entry['topic'])
-            score = tag_overlap * 3 + len(topic_words)
-            if score > best_score:
-                best_score = score
-                best_match = pe_entry['qid']
-
-        if best_match and best_score >= 3:
-            nq[13] = best_match  # relatedPEQid
+        # Score = tag overlap + topic keyword overlap.  Only a unique best
+        # candidate is accepted; equal scores intentionally remain unlinked.
+        nq[13] = choose_related_pe_qid(n_tags, n_topic, pe_index[n_sid])
 
 
 # ═══════════════════════════════════════════════════════════════════════

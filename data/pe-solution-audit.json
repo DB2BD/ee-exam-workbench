@@ -2060,10 +2060,10 @@
       "question_number": 1,
       "chapter": "某部單相480/120 V、$5\\text{ kVA}$ 的雙繞組變壓器，改接成單相的自耦變壓\n器。此自耦變壓器一次側接600 V 的電壓源，二次側供應480 V 的負載。\n試回答下列問題：（每小題5 分，共20 分）\n* **(一)** 計算此自耦變壓器的kVA 值。\n* **(二)** 繪出此自耦變壓器的接線圖。\n* **(三)** 說明與一般雙繞組變壓器比較，自耦變壓器有什麼優點。\n* **(四)** 說明與一般雙繞組變壓器比較，自耦變壓器有什麼缺點。",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-108-04-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "3cd8eb1006299d2970e9a041c0ad55355139b16985399e0c02b4c43abea4d0df",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_buck_autotransformer_capacity_and_concept_recalculation",
+      "solution_hash": "789bf24a090d633944b346eb12bb1ae44653e0d82fe8337a9668da79e32ac6e4",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_108年_電機機械_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 142,
+    "verified": 143,
     "suspected_error": 0,
-    "needs_manual_review": 114,
+    "needs_manual_review": 113,
     "not_attempted": 0
   }
 }

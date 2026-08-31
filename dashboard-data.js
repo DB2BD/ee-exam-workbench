@@ -3375,7 +3375,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-108-04-1.md",
     "依考科分類/04_電機機械/108年_電機工程技師_電機機械.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "S_auto = [VH/(VH-VX)] S2w"
     ],

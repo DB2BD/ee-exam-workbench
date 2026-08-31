@@ -2,6 +2,7 @@
 """Regression locks for the source-reconstructed PE questions."""
 
 import json
+import hashlib
 import re
 import unittest
 from pathlib import Path
@@ -54,6 +55,19 @@ class TestReconstructedPESolutions(unittest.TestCase):
             self.assertTrue((ROOT / crop.group(1)).is_file(), f"invalid source_crop: {qid}")
             self.assertNotRegex(text, r"_p[12]\\.png", f"whole-page embed remains: {qid}")
         self.assertEqual(found.keys(), expected)
+
+    def test_canonical_solution_bodies_are_not_accidentally_reused(self):
+        """Different questions must not silently inherit an identical answer body."""
+        bodies = {}
+        for path in CANONICAL.glob("*/canonical/EE-*.md"):
+            text = path.read_text(encoding="utf-8")
+            body = re.sub(r"^---.*?---\s*", "", text, flags=re.S)
+            body = re.sub(r"^# .*?\n", "", body, count=1, flags=re.M)
+            body = re.sub(r"EE-\d{3}-\d{2}-\d+", "EE-Q", body)
+            body = re.sub(r"\d{3} 年", "YEAR 年", body)
+            digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+            self.assertNotIn(digest, bodies, f"identical canonical solution body reused: {path.name} and {bodies.get(digest)}")
+            bodies[digest] = path.name
 
     def test_109_electronics_has_four_independent_question_records(self):
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")

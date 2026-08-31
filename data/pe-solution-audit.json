@@ -2665,7 +2665,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "07f50d6a68b11f51c6d82fac98497a0ba50d7dd3f3a3b80842449f32d38b4e41",
+      "solution_hash": "14afb8860738df942ac2416207e2d9e9da9a6316e2a0189b19c79271f54012ae",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_106年_電子學（包括電力電子學）_Q02.png"
     },

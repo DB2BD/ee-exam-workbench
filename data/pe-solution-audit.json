@@ -3572,10 +3572,10 @@
       "question_number": 4,
       "chapter": "電力公司提供供電饋線資料如下：供電電壓$22.8\\text{ kV}$，三相短路容量$448\\text{ MVA}$，單\n相短路容量$470\\text{ MVA}$。試求電力系統正相序、負相序及零相序之等效阻抗（電阻部\n分可忽略不計）。（20 分）\n\n類  科： 電機工程技師\n科  目： 工業配電\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "793f6948cc31d38021a3f01aa64b89f41ac38f1e949b18509567c298b2a48efd",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_three_phase_and_single_line_fault_mva_recalculation",
+      "solution_hash": "17cf35269228a085cd4d49d65a83ebc15255beae7a6da2cb12aa47e3fe9b5392",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 180,
+    "verified": 181,
     "suspected_error": 0,
-    "needs_manual_review": 76,
+    "needs_manual_review": 75,
     "not_attempted": 0
   }
 }

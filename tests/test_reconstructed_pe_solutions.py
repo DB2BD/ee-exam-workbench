@@ -347,6 +347,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("同步調相機", stability_105)
         self.assertIn("虛擬慣性", stability_105)
 
+        sequence_104 = (CANONICAL / "06_工業配電" / "canonical" / "EE-104-06-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", sequence_104)
+        self.assertIn("1.16036", sequence_104)
+        self.assertIn("0.99741", sequence_104)
+
 
 if __name__ == "__main__":
     unittest.main()

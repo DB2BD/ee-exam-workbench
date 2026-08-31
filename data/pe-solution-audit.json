@@ -1251,7 +1251,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-motor-wiring-conditional-recalculation",
-      "solution_hash": "41546764f6f801d75e73d75638680c83e46eac366bb1e2639017fa676811c425",
+      "solution_hash": "e14e83b20b36cdd3bac38d92ea76d92c7bb5ccbfec98334cdcf09d1c08c9fa4f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q04.png"
     },
@@ -1362,8 +1362,8 @@
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-110-02-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "a50f92b02d519ab40c10c3895e0c21af48f6126e84479a45adf381620c06e3c7",
+      "method": "official-crop-half-wave-rectifier-recalculation; diode-model-unspecified",
+      "solution_hash": "213bb0ee9cb5d6718fd98f1ef3ce55f4355fa7526a4f3ecc4de869711edd9315",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_110年_電子學（包括電力電子學）_Q03.png"
     },
@@ -2032,10 +2032,10 @@
       "question_number": 4,
       "chapter": "圖四之運算放大器具有理想特性，完整電路之轉換函數T(s) = Vo(s)/Vi(s)\n為何？根據所得T(s)說明此濾波器之類型（低通、高通、全通或帶阻）\n與階數。（20 分）\n圖四",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-108-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "b6789af5d029c9d86b6a2d80801a8bd1ec836a28735ab5ddb578e5666180aebb",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-GIC-impedance-and-node-transfer-recalculation",
+      "solution_hash": "541524fe49037d9682728e5917a1e8e9888aef393f332e258295a4c9a8a1d694",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_108年_電子學（包括電力電子學）_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 130,
+    "verified": 131,
     "suspected_error": 0,
-    "needs_manual_review": 126,
+    "needs_manual_review": 125,
     "not_attempted": 0
   }
 }

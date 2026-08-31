@@ -147,6 +147,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("6.03777", note)
         self.assertIn("0.05141", note)
 
+    def test_equal_area_manual_review_traces_official_frequency_gap(self):
+        note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")
+        self.assertIn("official_source_url: https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q", note)
+        self.assertIn("題圖未標系統頻率", note)
+        self.assertIn("t_{cr}=0.2704\\sqrt", note)
+
     def test_flicker_verified_note_records_official_point_and_b_point_alternative(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-110-06-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", note)

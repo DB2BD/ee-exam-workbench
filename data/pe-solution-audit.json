@@ -1586,8 +1586,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-5.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "9d4e91360b42e214384480ec0a7f319e03aa82fbbde79bdbb137b7a39cc0100e",
+      "method": "official_crop_common_base_short_circuit_recalculation_with_motor_rating_assumption",
+      "solution_hash": "11db9d266a8578583b86f474cc500481102d1e40276072e2065b7db4df082d05",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q05.png"
     },

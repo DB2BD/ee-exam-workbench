@@ -53,8 +53,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
             ]
             self.assertTrue(annual_candidates, f"missing annual note for {qid.group(1)}")
             annual = annual_candidates[0].read_text(encoding="utf-8")
-            headings = list(re.finditer(r"^## ([一二三四五六七八九十]+)、", annual, re.M))
-            target = ordinal[question_number - 1]
+            heading_pattern = re.compile(
+                r"^## (?:(?P<ordinal>[一二三四五六七八九十]+)、|"
+                r"(?P<heading_year>\d{3})\s*年第\s*(?P<heading_number>\d+)\s*題)",
+                re.M,
+            )
+            headings = list(heading_pattern.finditer(annual))
             candidates = []
             official_values = {
                 value
@@ -64,7 +68,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
             if len(official_values) < 4:
                 continue
             for index, heading in enumerate(headings):
-                if heading.group(1) != target:
+                heading_number = (
+                    ordinal.index(heading.group("ordinal")) + 1
+                    if heading.group("ordinal")
+                    else int(heading.group("heading_number"))
+                )
+                if heading_number != question_number:
                     continue
                 end = headings[index + 1].start() if index + 1 < len(headings) else len(annual)
                 block = annual[heading.start():end]
@@ -114,7 +123,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 25, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 24, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -203,10 +212,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("4.444444", note)
         self.assertIn("4.755", note)
 
-    def test_probability_manual_review_records_third_event_interpretation(self):
+    def test_probability_solution_uses_weighted_shot_model(self):
         note = (CANONICAL / "03_工程數學" / "canonical" / "EE-112-03-3.md").read_text(encoding="utf-8")
-        self.assertIn("乙至少有一發命中", note)
-        self.assertIn("5.0\\times10^{-30}", note)
+        self.assertIn("audit_status: verified", note)
+        self.assertIn("5883}{8150", note)
+        self.assertIn("12}{37", note)
+        self.assertNotIn("review_blocker:", note)
 
     def test_synchronous_motor_manual_review_records_parameter_sensitivity(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-2.md").read_text(encoding="utf-8")

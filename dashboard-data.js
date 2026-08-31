@@ -1269,7 +1269,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-3.md",
     "依考科分類/03_工程數學/112年_電機工程技師_工程數學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -6567,12 +6567,6 @@ const SOLUTION_REVIEW_METADATA = {
     "blocker": "missing_parameter",
     "action": "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。",
     "evidence": "官方裁切圖只提供 Q1 共射、Q2 共集、R_F 跨接回授及 R_L 負載的拓撲，未標示 R_C、R_F、R_L、g_m、r_π 或 β 數值；canonical 已列出電流輸入／電流輸出定義、KCL 及測試源阻抗公式，任何數值答案都必須先補齊這些參數。"
-  },
-  "EE-112-03-3": {
-    "disposition": "event_definition_branches",
-    "blocker": "official_wording_ambiguity",
-    "action": "確認第二事件是恰一發命中且由乙射擊、乙命中占比，或條件於至少一發命中時乙至少命中一發。",
-    "evidence": "官方裁切圖已確認三人命中率與發射數，canonical 已由獨立事件計算 P(H≥1)=1−0.25^50·0.28^53·0.30^60，並分別回代唯一命中乙 0.319705、命中比例 0.324324 及條件於至少一發時乙命中近 1。第二事件文字未定義條件集合。"
   },
   "EE-111-04-3": {
     "disposition": "curve_interpolation_branches",

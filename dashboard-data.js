@@ -4241,7 +4241,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-1.md",
     "依考科分類/02_電子學_含電力電子/106年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -4293,7 +4293,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-4.md",
     "依考科分類/02_電子學_含電力電子/106年_電機工程技師_電子學（包括電力電子學）.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -4312,7 +4312,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-5.md",
     "依考科分類/02_電子學_含電力電子/106年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -4475,7 +4475,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-106-04-2.md",
     "依考科分類/04_電機機械/106年_電機工程技師_電機機械.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*",
       "S_auto = [VH/(VH-VX)] S2w"

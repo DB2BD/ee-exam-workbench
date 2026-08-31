@@ -2648,9 +2648,9 @@
       "question_number": 1,
       "chapter": "如圖一所示之電路，假設所有運算放大器皆為理想，求(一)\n)\n(s\nv\nv\nout\nX\n？（6 分）(二)\n)\n(s\nv\nv\nout\nY\n？\n（6 分）(三)由此電路可推得\nout\nin\nout\nv\nB\nv\nA\nv\n⋅\n⋅\n，則\nA\n？、\nB\n？（8 分）\nin\nv\nout\nv\nX\nY\nR\nC\nR\nC\nR\nR\nR\nR\n圖一",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_ideal_opamp_state_variable_filter_recalculation",
       "solution_hash": "1510979d940f0f916d0547f4a0ab08a6f46836f065fd06cd852a6d32b6ee4c58",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_106年_電子學（包括電力電子學）_Q01.png"
@@ -2690,9 +2690,9 @@
       "question_number": 4,
       "chapter": "如圖四所示之電路，輸入電源之\n340\nP\nV\nV，\ns\nrad /\n377\n且\nΩ\n= 4\nR\n，假設L 值無窮\n大(一)畫出ov ，\nD\ni\n，\nDi\n之波形。（5 分）(二)求oi 之平均值。（5 分）(三)求輸入電流之rms\n值。（5 分）(四)求輸入端之功率因數（power factor, PF）。（5 分）\nt\nVP\nsin\nD\nD\nR\nL\nov\noi\nDi\nDi\n圖四",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_continuous_current_freewheeling_diode_recalculation",
       "solution_hash": "fcb97cafd3f81f52142d5c261108336c6ea20911e2480548bf3ce411d35d0a2a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_106年_電子學（包括電力電子學）_Q04.png"
@@ -2704,10 +2704,10 @@
       "question_number": 5,
       "chapter": "如圖五所示之轉換器電路，所有元件及開關皆為理想且開關Q1 與Q2 之驅動信號為同\n步之脈波寬度調變（pulse width modulation, PWM）信號，假設這兩個開關之工作週\n期（duty cycle）為D，切換頻率為f，且此電路操作於連續導通模式，求穩態時之\n\n* **(一)** Vo/Vin（須有推導過程）。（10 分）(二)流經開關Q1 電流之rms 值。（10 分）\nQ\nQ\nD\nD\nL\nC\nR\nin\nV\no\nV\n圖五",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "71dc2787050860d4589357257d6ae14cfd289b2883abea0c03034e6e59a00a27",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_ccm_boost_converter_volt_second_and_rms_recalculation",
+      "solution_hash": "bee2214e5b5225e5b2bf1322d6d09f8f2938a965d163190c6cee43fb5616d2b9",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_106年_電子學（包括電力電子學）_Q05.png"
     },
@@ -2732,10 +2732,10 @@
       "question_number": 2,
       "chapter": "一具額定為2400/240 伏特，50 仟伏安，60 赫茲之雙繞組變壓器，在滿載及功率因數\n為1.0 下，效率為98%。今將它用來改接為從2400 伏特電源供應2640 伏特負載之自\n耦變壓器。試求自耦變壓器之：（每小題10 分，共20 分）\n* **(一)** 額定為若干仟伏安？\n* **(二)** 效率為若干%？",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-106-04-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "fecd671d826e83b76c63a00c598d4e7fcff47700ee4abdb575c816eac8d29280",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_autotransformer_rating_and_efficiency_recalculation",
+      "solution_hash": "5d6f649ed5c72de90598264bd985f50d550aadb942707d653c4c328e96d7144f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_106年_電機機械_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 171,
+    "verified": 175,
     "suspected_error": 0,
-    "needs_manual_review": 85,
+    "needs_manual_review": 81,
     "not_attempted": 0
   }
 }

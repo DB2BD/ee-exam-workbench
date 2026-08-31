@@ -954,10 +954,10 @@
       "question_number": 5,
       "chapter": "圖四為一高壓受電之用戶之迴路單線圖，欲在虛線範圍加入配電設備：50/51、51N、CT、PT、AS、VS、V、A、27、kW。請繪出合理接線方式。（20 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "ab16794b7cc086772fefc7f59fd958e0026059e25a340bda6f3c0eddb9c3863f",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "protection_metering_wiring_reference_design",
+      "solution_hash": "d5048de562abcebbde1b9b40b7f0419d4e1c64e9a067a76e5fc9d8339021f217",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_112年_工業配電_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 216,
+    "verified": 217,
     "suspected_error": 0,
-    "needs_manual_review": 40,
+    "needs_manual_review": 39,
     "not_attempted": 0
   }
 }

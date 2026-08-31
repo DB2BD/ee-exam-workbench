@@ -1108,10 +1108,10 @@
       "question_number": 3,
       "chapter": "某 $20\\text{ kW}、200\\text{ V}、1800\\text{ rpm}$ 直流發電機（DC generator）之電樞電阻值為 $R_a = 0.1\\ \\Omega$。首先，在並激無載（no load）運轉下，如下圖(a)所示，調整其激磁控制電阻（field control resistance）$R_{fc}$，且並激繞組之電阻值為 $R_{fw} = 150\\ \\Omega$，得磁化曲線（magnetization curve）如下表：\n\n| $I_f\\text{ (A)}$ | 0.0 | 0.125 | 0.25 | 0.5 | 0.625 | 0.75 | 0.875 | 1.0 | 1.25 | 1.48 |\n| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| $E_a\\text{ (V)}$ | 5 | 33.5 | 67 | 134 | 160 | 175 | 190 | 200 | 214 | 222 |\n\n今以下圖(b)所示的積複勵（cumulative compound）的長分路複激（long shunt compound）方式運轉之，其中串激繞組電阻值為 $R_{sr} = 0.04\\ \\Omega$。\n* **(一)** 在 $1800\\text{ rpm}$ 運轉且無負載的情況下，試問此發電機輸出端電壓之最大值為多少 V？（5 分）\n* **(二)** 不考慮電樞反應，當發電機為額定滿載（full load）輸出時，按圖(b)的串激與並激之加總效應，試問：相當於上表（磁化曲線）所列之總激磁電流 $I_f$ 應為多少 A？（10 分）\n* **(三)** 已知並激繞組匝數為 $N_f = 1200\\text{ 匝/每極}$，今欲使此發電機之無載與滿載輸出端電壓俱為 $200\\text{ V}$，則串激繞組之每極匝數 $N_s$ 應為多少？（10 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official crop/table independently transcribed; no-load and full-load equations recomputed, with explicit ambiguity retained for field-control setting and table interpolation",
-      "solution_hash": "6ef35fd8ba267866af5771d41633cb12af94a52377d652295179f92e6a3e7d1a",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_table_linear_interpolation_and_long_shunt_compound_recalculation",
+      "solution_hash": "5aee7c110e252c4b89e34340351e9c8cd0038023e68d56ee0e3d13276ea30b7d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q03.png"
     },
@@ -2860,7 +2860,7 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-2.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "independent_recalculation_line_to_neutral_fault_with_asymmetrical_waveform",
+      "method": "independent_recalculation_line_to_neutral_fault_with_impedance_and_asymmetry_sensitivity",
       "solution_hash": "11d70949b2ab619341fe08216cba5295c8d87003e9f09ecedac3a33e53d21b65",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_106年_工業配電_Q02.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 233,
+    "verified": 234,
     "suspected_error": 0,
-    "needs_manual_review": 23,
+    "needs_manual_review": 22,
     "not_attempted": 0
   }
 }

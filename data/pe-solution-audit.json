@@ -1752,10 +1752,10 @@
       "question_number": 4,
       "chapter": "如下圖（左）之三相電機定子繞組，其 $a、b、c$ 相軸各相差 $120^\\circ$；又下圖（右）之三相電流時間函數分別為 $i_a(t) = I \\cos\\omega_e t, i_b(t) = I \\cos(\\omega_e t - 120^\\circ), i_c(t) = I \\cos(\\omega_e t - 240^\\circ)$，其中 $\\omega_e = 100\\pi\\text{ rad/s}$。試以計算或作圖回答下列問題：（15 分）\n* **(一)** 令三相繞組匝數皆為 $N$，請根據此三個相軸之空間關係，畫出時間 $t$ 為 0 時之三相電流所產生的磁動勢（$\\mathcal{F} = N \\times i$, mmf）向量和。\n* **(二)** 當時間 $\\omega_e t = \\frac{\\pi}{3} = 60^\\circ$ 時，畫出三相電流所產生的磁動勢向量和。\n* **(三)** 此旋轉磁動勢之旋轉頻率為多少 Hz？",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-109-04-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "600218bed6ed8d2594418b5028ed30f3f2968d21b2def7724cef3baadf59a930",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_space_vector_superposition_recalculation",
+      "solution_hash": "7c7d68034366a829e375d8132b7cf9cdcccdc8ff132702fd19fc9b9697441c7c",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_109年_電機機械_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 140,
+    "verified": 141,
     "suspected_error": 0,
-    "needs_manual_review": 116,
+    "needs_manual_review": 115,
     "not_attempted": 0
   }
 }

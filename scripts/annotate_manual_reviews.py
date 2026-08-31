@@ -30,7 +30,7 @@ REVIEWS = {
     "EE-111-05-3": ("frequency_parameterized", "missing_parameter", "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。"),
     "EE-111-06-1": ("graph_estimate", "graph_estimate", "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。"),
     "EE-111-06-2": ("conditional_numeric", "missing_parameter", "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。"),
-    "EE-111-06-3": ("motor_rating_branches", "missing_parameter", "確認馬達數量、額定容量與內電勢假設後，再鎖定三相故障貢獻。"),
+    "EE-111-06-3": ("motor_rating_branches", "missing_parameter", "以官方圖示三個 M 支路為已知拓撲；補齊每台馬達額定視在容量（或額定功因／效率）及內電勢初始值後，再鎖定三相故障貢獻。"),
     "EE-111-06-4": ("code_compliance_branches", "missing_parameter", "補齊導線材質、敷設、環境修正與效率／規範版本；現行表可作交叉檢查，但 8 HP 無精確列值，仍須確認考試年度表。"),
     "EE-110-06-4": ("definition_branches", "official_wording_ambiguity", "依圖面 A 點採 1.606162%／0.036720 pu；若命題解答採 B 點則為 19.052%／6.070853 pu，請確認觀測點定義。"),
     "EE-110-06-5": ("conditional_numeric", "missing_parameter", "補齊三台馬達效率與功因／額定 MVA；目前以各機 k_i=η_i·pf_i 參數化次暫態貢獻與瞬時容量。"),
@@ -110,8 +110,8 @@ REVIEW_EVIDENCE = {
         "並以 k=η·pf_n 列出 0.80、0.90、1.00 的敏感度。題目只給 3000 kW，未給 η 或額定功因。"
     ),
     "EE-111-06-3": (
-        "官方拓撲確認發電機經變壓器接 3.3 kV 母線，F 位於馬達支路前、A 位於發電機支路；canonical 已分別回代發電機分量與馬達反饋分量。"
-        "圖中三個 M 的投入數量及單台額定視在容量未明，故 28.868/29.645/42.864 kA 分支均保留。"
+        "官方裁切圖明確畫出三個 M 支路，F 位於中間馬達支路前、A 位於發電機／變壓器支路；因此支路數量 N_M=3 已確認。"
+        "題目仍未給每台馬達由 6000 kW 換算額定 MVA 所需的額定功因／效率，亦未明示三支路是否均投入，故 28.868/29.645/42.864 kA 僅能作條件分支。"
     ),
     "EE-110-06-4": (
         "官方裁切圖已確認 69 kV 饋線前的 A 點、主變／爐變與電弧爐串聯阻抗；canonical 對 A 點回代 1.606162% 與 0.036720 pu，"
@@ -167,7 +167,7 @@ def find_note(qid: str) -> Path:
     return matches[0]
 
 
-def update_frontmatter(path: Path, qid: str) -> None:
+def update_frontmatter(path: Path, qid: str) -> bool:
     text = path.read_text(encoding="utf-8")
     if not text.startswith("---\n"):
         raise SystemExit(f"missing frontmatter: {path}")
@@ -185,7 +185,7 @@ def update_frontmatter(path: Path, qid: str) -> None:
     status = re.search(r"^audit_status:\s*(\S+)\s*$", fm, flags=re.M)
     if status and status.group(1) == "verified":
         path.write_text("---\n" + fm.rstrip() + "\n---\n" + text[end + len("\n---\n"):], encoding="utf-8")
-        return
+        return False
 
     disposition, blocker, action = REVIEWS[qid]
     fm = fm.rstrip() + (
@@ -197,12 +197,12 @@ def update_frontmatter(path: Path, qid: str) -> None:
     if evidence:
         fm += f"\nreview_evidence: {evidence}"
     path.write_text("---\n" + fm + "\n---\n" + text[end + len("\n---\n"):], encoding="utf-8")
+    return True
 
 
 def main() -> None:
-    for qid in REVIEWS:
-        update_frontmatter(find_note(qid), qid)
-    print(f"annotated {len(REVIEWS)} manual-review notes")
+    annotated = sum(update_frontmatter(find_note(qid), qid) for qid in REVIEWS)
+    print(f"annotated {annotated} manual-review notes ({len(REVIEWS) - annotated} verified notes skipped)")
 
 
 if __name__ == "__main__":

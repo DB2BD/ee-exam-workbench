@@ -2609,7 +2609,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "official_crop_mna_state_equation_derivation",
-      "solution_hash": "89c44024cc6f8d1b920d26788aa681e182b5654d7419d5696c0aaf8f36c2ee03",
+      "solution_hash": "280e246fe6ec5902f48df7ee9ea18a66aaea5d1bd1884b694806ed1d66bdec87",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_106年_電路學_Q02.png"
     },

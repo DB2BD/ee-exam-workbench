@@ -6609,8 +6609,8 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-107-06-2": {
     "disposition": "rated_current_branches",
     "blocker": "missing_parameter",
-    "action": "確認考試年度採用的 100 HP 馬達滿載電流表或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。",
-    "evidence": "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，且考試年度版本可能不同，故僅作官方交叉證據，不能取代題幹缺漏。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf",
+    "action": "確認考試年度採用的 100 HP 馬達滿載電流表、107 年歷史附件或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。",
+    "evidence": "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，107 年歷史版第 152 條另規定原則上採銘牌全載電流、一般用電動機才得以國家標準值為準；題圖未附銘牌或 107 年表格附件，故僅作官方交叉證據，不能取代題幹缺漏。 來源：https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617；https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=107180&q=1&s=0612&t=Q"
   },
   "EE-111-06-4": {

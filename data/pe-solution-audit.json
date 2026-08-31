@@ -3194,10 +3194,10 @@
       "question_number": 1,
       "chapter": "有一表燈用戶以單相三線方式（如下圖所示）分別供應110 V（VAN、VBN）與220 V\n（VAB）的電壓。A、B 為電阻性負載其容量各為$1\\text{ kW}$ 與$5\\text{ kW}$，假設線路的阻抗忽\n略不計，中性線端子M 經由接地電阻Rg 接地。假設中性線端子N 點因生鏽而與端\n子M 斷開，負載A、B 的額定電壓為110 V，\n\n* **(一)** 若接地電阻Rg = $0\\ \\Omega$，試求VAN 與VBN 並請說明結果。（10 分）\n\n* **(二)** 又若接地電阻Rg = $1000\\ \\Omega$，試求VAN 與VBN 並請說明結果。（10 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-105-06-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "5414a9f3cb1b866f389cd198ded036c133bccd43d80335bc86ab3d718d66f001",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_open_neutral_ground_resistance_recalculation",
+      "solution_hash": "25cbdff531d6361bbfb46d12460d8917a67a497a5c64db586977f9e1f5da1d37",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_105年_工業配電_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 181,
+    "verified": 182,
     "suspected_error": 0,
-    "needs_manual_review": 75,
+    "needs_manual_review": 74,
     "not_attempted": 0
   }
 }

@@ -93,6 +93,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("2.625\\text{ A}", interleaved)
         self.assertNotIn("0.3\\text{ A}", interleaved)
 
+        double_line = (CANONICAL / "05_電力系統" / "canonical" / "EE-108-05-5.md").read_text(encoding="utf-8")
+        self.assertIn("2.2859614\\sin\\delta", double_line)
+        self.assertIn("0.7526946\\sin\\delta", double_line)
+        self.assertIn("1.4695465\\sin\\delta", double_line)
+
 
 if __name__ == "__main__":
     unittest.main()

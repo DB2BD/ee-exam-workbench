@@ -35,7 +35,7 @@ REVIEWS = {
     "EE-110-06-5": ("conditional_numeric", "missing_parameter", "補齊三台馬達效率與功因／額定 MVA；目前以各機 k_i=η_i·pf_i 參數化次暫態貢獻與瞬時容量。"),
     "EE-109-02-3": ("conduction_mode_branches", "missing_parameter", "確認返馳式轉換器導通模式與電流定義；目前的三角波條件其實落在 DCM／臨界導通邊界，另保留 CCM 分支。"),
     "EE-108-06-2": ("physical_inconsistency", "official_wording_ambiguity", "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。"),
-    "EE-107-06-2": ("rated_current_branches", "missing_parameter", "確認考試年度採用的 100 HP 馬達滿載電流表或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。"),
+    "EE-107-06-2": ("rated_current_branches", "missing_parameter", "確認考試年度採用的 100 HP 馬達滿載電流表、107 年歷史附件或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。"),
     "EE-106-02-2": ("parameterized_only", "missing_parameter", "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。"),
     "EE-106-06-2": ("impedance_definition_branches", "official_wording_ambiguity", "依圖面固定 F 為左 110 V 導體對中性點；確認饋線阻抗是否含往返，以及非對稱電流的觀察時刻／故障相角。"),
     "EE-105-04-5": ("flux_curve_parameterized", "missing_parameter", "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。"),
@@ -66,8 +66,10 @@ REVIEW_EVIDENCE = {
     "EE-107-06-2": (
         "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；"
         "現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，"
-        "且考試年度版本可能不同，故僅作官方交叉證據，不能取代題幹缺漏。 "
-        "來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；"
+        "107 年歷史版第 152 條另規定原則上採銘牌全載電流、一般用電動機才得以國家標準值為準；"
+        "題圖未附銘牌或 107 年表格附件，故僅作官方交叉證據，不能取代題幹缺漏。 "
+        "來源：https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617；"
+        "https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；"
         "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
     ),
     "EE-111-06-4": (

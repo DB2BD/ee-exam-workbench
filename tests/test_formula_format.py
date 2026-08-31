@@ -38,6 +38,11 @@ process.stdout.write(ctx.processMarkdownWithMath(process.argv[1]));
         self.assertNotIn('katex-error', rendered)
         self.assertIn('class="katex"', rendered)
 
+    def test_bare_parenthetical_latex_units_are_wrapped(self):
+        rendered = self._render_with_bundled_katex(r'電源容量 (2500\,\mathrm{MVA}) 已知。')
+        self.assertNotIn('katex-error', rendered)
+        self.assertIn('<p>電源容量 <span class="katex">', rendered)
+
     def test_multiline_formula_sources_have_valid_environment_closures(self):
         path = ROOT / "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-6.md"
         text = path.read_text(encoding="utf-8")

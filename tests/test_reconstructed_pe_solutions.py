@@ -13,6 +13,52 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
+    def test_explicit_crop_questions_align_with_annual_notes(self):
+        """Annual notes must not silently contain another year's numeric template."""
+        ordinal = "一二三四五六七八九十"
+        checked = 0
+        for path in CANONICAL.glob("*/canonical/EE-*.md"):
+            text = path.read_text(encoding="utf-8")
+            qid = re.search(r"^qid:\s*(EE-\d{3}-\d{2}-(\d+))\s*$", text, re.M)
+            prompt = re.search(r"^## 官方題目.*?\n(.*?)(?=\n## |\Z)", text, re.S | re.M)
+            if not qid or not prompt:
+                continue
+            year = qid.group(1).split("-")[1]
+            question_number = int(qid.group(2))
+            annual_candidates = [
+                candidate
+                for candidate in CANONICAL.glob(f"*/{year}年_*全卷完整詳細題解.md")
+                if candidate.parent.name == path.parent.parent.name
+            ]
+            self.assertTrue(annual_candidates, f"missing annual note for {qid.group(1)}")
+            annual = annual_candidates[0].read_text(encoding="utf-8")
+            headings = list(re.finditer(r"^## ([一二三四五六七八九十]+)、", annual, re.M))
+            target = ordinal[question_number - 1]
+            candidates = []
+            official_values = {
+                value
+                for value in re.findall(r"(?<![A-Za-z])\d+(?:\.\d+)?", prompt.group(1))
+                if value not in {str(year), "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114"}
+            }
+            if len(official_values) < 4:
+                continue
+            for index, heading in enumerate(headings):
+                if heading.group(1) != target:
+                    continue
+                end = headings[index + 1].start() if index + 1 < len(headings) else len(annual)
+                block = annual[heading.start():end]
+                annual_values = set(re.findall(r"(?<![A-Za-z])\d+(?:\.\d+)?", block))
+                overlap = len(official_values & annual_values) / len(official_values)
+                candidates.append(overlap)
+            self.assertTrue(candidates, f"missing question section in annual note: {qid.group(1)}")
+            checked += 1
+            self.assertGreaterEqual(
+                max(candidates),
+                0.35,
+                f"annual note appears to use a mismatched template: {qid.group(1)}",
+            )
+        self.assertGreaterEqual(checked, 50, "alignment guard unexpectedly covers too few explicit crop questions")
+
     def test_verified_notes_do_not_claim_pending_manual_review(self):
         """A verified answer must not contain its own unresolved-review warning."""
         warning_phrases = (

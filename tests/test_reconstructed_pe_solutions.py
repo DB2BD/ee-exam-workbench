@@ -451,6 +451,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("IC}_2=9", penalty_105)
         self.assertIn("發電廠 2", penalty_105)
 
+        capacity_104 = (CANONICAL / "06_工業配電" / "canonical" / "EE-104-06-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", capacity_104)
+        self.assertIn("406.84", capacity_104)
+        self.assertIn("402.7673", capacity_104)
+
         fault_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", fault_105)
         self.assertIn("34.366", fault_105)

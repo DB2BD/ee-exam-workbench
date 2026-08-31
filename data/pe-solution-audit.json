@@ -3544,10 +3544,10 @@
       "question_number": 2,
       "chapter": "三相配電線路其裝接負載如下表所示，若馬達與電燈負載之參差因數為1.1，配電線路\n之電力損失為10\\%，求變電站應備有多少之KVA 容量才能供應該負載所需。（20 分）\n裝接負載\n設備容量（kW）\n需量因數（\\%）\n參差因數\n功率因數（滯後）\n電    燈\n150\n100\n0.95\n馬    達\n200\n100\n0.80",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "e4981a7094c8f1690228e6c9d5a1f0ec0a07a4f4ed8902c516300bf246a9d6bf",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_diversity_factor_capacity_recalculation",
+      "solution_hash": "a11241fcfb6b16391a92853ece52d87ae795250874818517b593882c93a54e9f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 207,
+    "verified": 208,
     "suspected_error": 0,
-    "needs_manual_review": 49,
+    "needs_manual_review": 48,
     "not_attempted": 0
   }
 }

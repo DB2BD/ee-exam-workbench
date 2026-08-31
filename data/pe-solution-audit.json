@@ -3166,10 +3166,10 @@
       "question_number": 4,
       "chapter": "某獨立電力系統考慮由兩種可能的電源規劃供電給其負載，第一種規劃全部由傳統\n的大型火力發電機組（使用化石燃料）供電，第二種規劃為50%的傳統火力發電機\n組及50%的再生能源發電（風力發電及太陽能發電）來供電。正常運轉情形下，那\n一種電源規劃方式下的電力系統較容易發生暫態穩定度的問題？請說明，並列舉兩\n種可提升該電源規劃方式下的系統暫態穩定度的方法。（20 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-105-05-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "3f9025501727910e0b7223582e550412559a0e1d8fc4989233fda1d53295cf90",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_inverter_based_generation_transient_stability_review",
+      "solution_hash": "db222f6ef885eb77b5c8daf07e75138b915bf467970f7fd18f46c3047bdb9de1",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_105年_電力系統_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 179,
+    "verified": 180,
     "suspected_error": 0,
-    "needs_manual_review": 77,
+    "needs_manual_review": 76,
     "not_attempted": 0
   }
 }

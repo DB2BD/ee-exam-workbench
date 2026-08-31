@@ -3180,10 +3180,10 @@
       "question_number": 5,
       "chapter": "有一電力系統由三個發電廠在經濟調度的情形下供電。在發電廠1 並聯的匯流排，\n其增量成本為\n；在發電廠2 並聯的匯流排，其增量成本為\n；在發\n電廠3 並聯的匯流排，其增量成本為\n。假設各發電機的出力上下限可忽略，\n那一個電廠具有最高的罰點因數（Penalty Factor）及最高的增量損失（Incremental\nLoss）？請列式說明。（20 分）\n2 =\n2 =\n3 =\n3 =\n°\n∠",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-105-05-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "53439a448c8dea84a9e2e859ccbcfcd7911e8899858af3e8ed10f8ac66915138",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_penalty_factor_incremental_loss_recalculation",
+      "solution_hash": "69ae7f540614af48a9e0151bc8eece1c95aa10b34e40281bd0dc44f512c7eb25",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_105年_電力系統_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 206,
+    "verified": 207,
     "suspected_error": 0,
-    "needs_manual_review": 50,
+    "needs_manual_review": 49,
     "not_attempted": 0
   }
 }

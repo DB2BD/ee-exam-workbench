@@ -327,6 +327,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("遮斷容量", grounding_106)
         self.assertIn("接觸電壓", grounding_106)
 
+        transformer_106 = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", transformer_106)
+        self.assertIn("Δ–Y", transformer_106)
+        self.assertIn("3150 V 一次分接頭、210 V 二次分接頭", transformer_106)
+
 
 if __name__ == "__main__":
     unittest.main()

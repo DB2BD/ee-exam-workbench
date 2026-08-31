@@ -2872,10 +2872,10 @@
       "question_number": 3,
       "chapter": "某工廠擬新設供電設備，採三台相同規格之單相$200\\text{ kVA}$ 變壓器供電，變壓器電源\n側係以三相$3.3\\text{ kV}$ 受電，提供廠內三相380V 電動機用電，若單相變壓器規格為\n（3450-3300-3150 V / 110-220 V），試問：（每小題10 分，共20 分）\n\n* **(一)** 該三台單相變壓器應如何接線，請繪圖表示，並標明極性與電壓。\n\n* **(二)** 若該三台變壓器中有一台發生故障，臨時由其他工廠借到一台（3450-3300-3150 V /\n105-210 V）單相變壓器代用，請問應如何選擇電壓分接頭，才可以使二次側三相\n電壓接近平衡。",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "2cf90c1b96364b41fc46b14e39dec43eb430d3d8cd41874633b33b59fb2d8779",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_three_phase_transformer_connection_and_tap_recalculation",
+      "solution_hash": "74288fc578bd50e28e46fdc43e3574817da6a13bbaea2747282ea5a866724376",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_106年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 176,
+    "verified": 177,
     "suspected_error": 0,
-    "needs_manual_review": 80,
+    "needs_manual_review": 79,
     "not_attempted": 0
   }
 }

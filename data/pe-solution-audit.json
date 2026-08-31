@@ -856,10 +856,10 @@
       "question_number": 2,
       "chapter": "二座 $800\\text{ MW}$ 的火力發電廠，其單位為 \\text{元/h} 之燃料成本函數為C1= 400 +\n7.0P1+ kP1\n2，C2= 450 + θP2+ 0.002 P_2^2，其中P1 及P2 之單位為MW，\nβ 與γ 為二未知係數。當忽略耗損，總功率需求為 $550\\text{ MW}$ 時，功率之\n增量成本 $\\lambda = 8\\text{ 元/MWh}$，當總功率需求為 $1300\\text{ MW}$ 時，功率之增量成本\n$\\lambda = 10\\text{ 元/MWh}$。試求發電廠之燃料成本係數β 及γ。（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "independent_symbolic_recalculation_with_generation_limit_audit",
-      "solution_hash": "26cfd30bd10fbb9336290ef39b9d0dfba813ac71e868d908881de3a44f66e1c2",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_symbolic_recalculation_with_generation_limit_kkt",
+      "solution_hash": "ff13f47fac8e1149f06e28fc92dc3bb9ad658613a2a1037aa28699b99c8e5951",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_112年_電力系統_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 228,
+    "verified": 229,
     "suspected_error": 0,
-    "needs_manual_review": 28,
+    "needs_manual_review": 27,
     "not_attempted": 0
   }
 }

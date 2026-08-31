@@ -113,7 +113,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 29, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 28, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -128,8 +128,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("const SOLUTION_REVIEW_METADATA", dashboard)
-        self.assertIn('"EE-112-05-2"', dashboard)
-        self.assertIn('"capacity_boundary_and_unconstrained"', dashboard)
+        self.assertIn('"EE-112-05-4"', dashboard)
+        self.assertIn('"impedance_type_branches"', dashboard)
         self.assertIn("function renderSolutionReviewCard", index)
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
 

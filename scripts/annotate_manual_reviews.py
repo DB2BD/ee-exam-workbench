@@ -32,12 +32,12 @@ REVIEWS = {
     "EE-111-06-1": ("graph_estimate", "graph_estimate", "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。"),
     "EE-111-06-2": ("conditional_numeric", "missing_parameter", "補齊馬達額定 kVA、效率與額定功因，才能唯一化啟動電流與電壓變動率。"),
     "EE-111-06-3": ("motor_rating_branches", "missing_parameter", "確認馬達數量、額定容量與內電勢假設後，再鎖定三相故障貢獻。"),
-    "EE-111-06-4": ("code_compliance_branches", "missing_parameter", "補齊導線材質、敷設、環境修正與效率／規範版本，才能唯一選線徑與保護器。"),
+    "EE-111-06-4": ("code_compliance_branches", "missing_parameter", "補齊導線材質、敷設、環境修正與效率／規範版本；現行表可作交叉檢查，但 8 HP 無精確列值，仍須確認考試年度表。"),
     "EE-110-06-4": ("definition_branches", "official_wording_ambiguity", "確認官方閃爍觀測點與電壓變動率定義，再決定唯一數值。"),
     "EE-110-06-5": ("conditional_numeric", "missing_parameter", "補齊三台馬達效率與功因／額定 MVA，才能唯一化共同基準短路電流。"),
     "EE-109-02-3": ("conduction_mode_branches", "missing_parameter", "確認返馳式轉換器導通模式與電流定義；目前保留 DCM 三角波條件解。"),
     "EE-108-06-2": ("physical_inconsistency", "official_wording_ambiguity", "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。"),
-    "EE-107-06-2": ("rated_current_branches", "missing_parameter", "確認 100 HP 馬達滿載電流表或效率；目前並列查表 250 A 與反算分支。"),
+    "EE-107-06-2": ("rated_current_branches", "missing_parameter", "確認考試年度採用的 100 HP 馬達滿載電流表或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。"),
     "EE-106-02-2": ("parameterized_only", "missing_parameter", "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。"),
     "EE-106-05-3": ("multiple_power_flow_branches", "model_branch_ambiguity", "確認穩定運轉分支或 Newton 初值；目前保留高、低電壓兩個正值解。"),
     "EE-106-06-2": ("fault_definition_branches", "official_wording_ambiguity", "確認 F 點故障型式、饋線阻抗是否含往返與非對稱觀察時刻。"),
@@ -52,6 +52,20 @@ REVIEWS = {
 # crop supplied the missing datum.  Keep the source link in the note so a
 # reviewer can reproduce the decision before promoting the question.
 REVIEW_EVIDENCE = {
+    "EE-107-06-2": (
+        "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；"
+        "現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，"
+        "且考試年度版本可能不同，故僅作官方交叉證據，不能取代題幹缺漏。 "
+        "來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；"
+        "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
+    ),
+    "EE-111-06-4": (
+        "經濟部《用戶用電設備裝置規則》馬達滿載電流表 258-3 的現行 220 V 列值為："
+        "20 HP=55 A、10 HP=28 A、7.5 HP=21 A；題目為 8 HP，無精確列值，且導線安培容量仍取決於材質、"
+        "配管載流導線數、修正係數與規範版本，故只能作交叉檢查。 "
+        "來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；"
+        "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
+    ),
     "EE-112-05-4": (
         "公開參考解答（2024-07-17 更正）將故障阻抗明寫為 j0.01，支持純電抗分支；"
         "官方裁切仍只寫 0.01 pu，故尚不能單獨視為官方唯一條件。 "

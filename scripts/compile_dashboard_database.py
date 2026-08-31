@@ -201,6 +201,7 @@ for subject_dir in (
                 'disposition': fields.get('review_disposition', ''),
                 'blocker': fields.get('review_blocker', ''),
                 'action': fields.get('review_action', ''),
+                'evidence': fields.get('review_evidence', ''),
             }
 
 all_questions = []

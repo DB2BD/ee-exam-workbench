@@ -130,8 +130,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("const SOLUTION_REVIEW_METADATA", dashboard)
         self.assertIn('"EE-112-05-4"', dashboard)
         self.assertIn('"impedance_type_branches"', dashboard)
+        self.assertIn('"evidence"', dashboard)
+        self.assertIn("j0.01", dashboard)
         self.assertIn("function renderSolutionReviewCard", index)
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
+        self.assertIn("meta.evidence", index)
 
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""

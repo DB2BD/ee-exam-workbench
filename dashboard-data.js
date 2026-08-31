@@ -6535,132 +6535,158 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-109-02-3": {
     "disposition": "conduction_mode_branches",
     "blocker": "missing_parameter",
-    "action": "確認返馳式轉換器導通模式與電流定義；目前保留 DCM 三角波條件解。"
+    "action": "確認返馳式轉換器導通模式與電流定義；目前保留 DCM 三角波條件解。",
+    "evidence": ""
   },
   "EE-111-02-3": {
     "disposition": "inconsistent_data_branches",
     "blocker": "source_conflict",
-    "action": "確認指定增益或平方律參數是否有誤植；目前並列兩組可回代候選值。"
+    "action": "確認指定增益或平方律參數是否有誤植；目前並列兩組可回代候選值。",
+    "evidence": ""
   },
   "EE-113-02-2": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
-    "action": "確認命題採用的熱電壓 V_T；目前保留 V_T=25 mV 分支。"
+    "action": "確認命題採用的熱電壓 V_T；目前保留 V_T=25 mV 分支。",
+    "evidence": ""
   },
   "EE-106-02-2": {
     "disposition": "parameterized_only",
     "blocker": "missing_parameter",
-    "action": "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。"
+    "action": "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。",
+    "evidence": ""
   },
   "EE-112-02-1": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
-    "action": "確認 V_T 與高頻模型的教材慣例；目前保留有限 beta 與 V_T=25 mV 分支。"
+    "action": "確認 V_T 與高頻模型的教材慣例；目前保留有限 beta 與 V_T=25 mV 分支。",
+    "evidence": ""
   },
   "EE-111-02-4": {
     "disposition": "parameterized_only",
     "blocker": "missing_parameter",
-    "action": "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。"
+    "action": "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。",
+    "evidence": ""
   },
   "EE-112-03-3": {
     "disposition": "event_definition_branches",
     "blocker": "official_wording_ambiguity",
-    "action": "確認第二事件是恰一發命中且由乙射擊，或以乙的命中占比定義。"
+    "action": "確認第二事件是恰一發命中且由乙射擊，或以乙的命中占比定義。",
+    "evidence": ""
   },
   "EE-111-04-3": {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
-    "action": "確認激磁電阻設定與磁化曲線取點／插值規則；目前保留曲線估讀區間。"
+    "action": "確認激磁電阻設定與磁化曲線取點／插值規則；目前保留曲線估讀區間。",
+    "evidence": ""
   },
   "EE-105-04-5": {
     "disposition": "flux_curve_parameterized",
     "blocker": "missing_parameter",
-    "action": "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。"
+    "action": "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。",
+    "evidence": ""
   },
   "EE-111-04-4": {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
-    "action": "提供高解析 OCC/SCC 曲線或指定插值點後，再鎖定電壓調整率。"
+    "action": "提供高解析 OCC/SCC 曲線或指定插值點後，再鎖定電壓調整率。",
+    "evidence": ""
   },
   "EE-113-04-4": {
     "disposition": "source_conflict_branches",
     "blocker": "source_conflict",
-    "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。"
+    "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。",
+    "evidence": ""
   },
   "EE-111-05-3": {
     "disposition": "frequency_parameterized",
     "blocker": "missing_parameter",
-    "action": "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。"
+    "action": "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。",
+    "evidence": ""
   },
   "EE-104-05-3": {
     "disposition": "given_current_vs_recalculation",
     "blocker": "source_conflict",
-    "action": "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。"
+    "action": "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。",
+    "evidence": ""
   },
   "EE-106-05-3": {
     "disposition": "multiple_power_flow_branches",
     "blocker": "model_branch_ambiguity",
-    "action": "確認穩定運轉分支或 Newton 初值；目前保留高、低電壓兩個正值解。"
+    "action": "確認穩定運轉分支或 Newton 初值；目前保留高、低電壓兩個正值解。",
+    "evidence": ""
   },
   "EE-112-05-4": {
     "disposition": "impedance_type_branches",
     "blocker": "missing_parameter",
-    "action": "確認故障阻抗 0.01 pu 為複數阻抗或純電抗；目前保留兩個臨界清除角分支。"
+    "action": "確認故障阻抗 0.01 pu 為複數阻抗或純電抗；目前保留兩個臨界清除角分支。",
+    "evidence": "公開參考解答（2024-07-17 更正）將故障阻抗明寫為 j0.01，支持純電抗分支；官方裁切仍只寫 0.01 pu，故尚不能單獨視為官方唯一條件。 來源：https://kentchen1980.pixnet.net/blog/posts/10357120259"
   },
   "EE-106-06-2": {
     "disposition": "fault_definition_branches",
     "blocker": "official_wording_ambiguity",
-    "action": "確認 F 點故障型式、饋線阻抗是否含往返與非對稱觀察時刻。"
+    "action": "確認 F 點故障型式、饋線阻抗是否含往返與非對稱觀察時刻。",
+    "evidence": ""
   },
   "EE-107-06-2": {
     "disposition": "rated_current_branches",
     "blocker": "missing_parameter",
-    "action": "確認 100 HP 馬達滿載電流表或效率；目前並列查表 250 A 與反算分支。"
+    "action": "確認 100 HP 馬達滿載電流表或效率；目前並列查表 250 A 與反算分支。",
+    "evidence": ""
   },
   "EE-111-06-4": {
     "disposition": "code_compliance_branches",
     "blocker": "missing_parameter",
-    "action": "補齊導線材質、敷設、環境修正與效率／規範版本，才能唯一選線徑與保護器。"
+    "action": "補齊導線材質、敷設、環境修正與效率／規範版本，才能唯一選線徑與保護器。",
+    "evidence": ""
   },
   "EE-110-06-5": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
-    "action": "補齊三台馬達效率與功因／額定 MVA，才能唯一化共同基準短路電流。"
+    "action": "補齊三台馬達效率與功因／額定 MVA，才能唯一化共同基準短路電流。",
+    "evidence": ""
   },
   "EE-111-06-1": {
     "disposition": "graph_estimate",
     "blocker": "graph_estimate",
-    "action": "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。"
+    "action": "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。",
+    "evidence": ""
   },
   "EE-110-06-4": {
     "disposition": "definition_branches",
     "blocker": "official_wording_ambiguity",
-    "action": "確認官方閃爍觀測點與電壓變動率定義，再決定唯一數值。"
+    "action": "確認官方閃爍觀測點與電壓變動率定義，再決定唯一數值。",
+    "evidence": ""
   },
   "EE-104-06-5": {
     "disposition": "power_factor_parameterized",
     "blocker": "missing_parameter",
-    "action": "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。"
+    "action": "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。",
+    "evidence": ""
   },
   "EE-111-06-2": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
-    "action": "補齊馬達額定 kVA、效率與額定功因，才能唯一化啟動電流與電壓變動率。"
+    "action": "補齊馬達額定 kVA、效率與額定功因，才能唯一化啟動電流與電壓變動率。",
+    "evidence": ""
   },
   "EE-104-06-1": {
     "disposition": "regulation_version_branches",
     "blocker": "regulation_version",
-    "action": "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。"
+    "action": "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。",
+    "evidence": ""
   },
   "EE-108-06-2": {
     "disposition": "physical_inconsistency",
     "blocker": "official_wording_ambiguity",
-    "action": "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。"
+    "action": "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。",
+    "evidence": ""
   },
   "EE-111-06-3": {
     "disposition": "motor_rating_branches",
     "blocker": "missing_parameter",
-    "action": "確認馬達數量、額定容量與內電勢假設後，再鎖定三相故障貢獻。"
+    "action": "確認馬達數量、額定容量與內電勢假設後，再鎖定三相故障貢獻。",
+    "evidence": ""
   }
 };
 

@@ -144,6 +144,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("6.03777", note)
         self.assertIn("0.05141", note)
 
+    def test_flicker_manual_review_records_b_point_alternative(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-110-06-4.md").read_text(encoding="utf-8")
+        self.assertIn("另一觀測點分支：B 點", note)
+        self.assertIn("19.0520", note)
+        self.assertIn("6.070853", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

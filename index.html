@@ -3676,6 +3676,59 @@ function normalizeObsidianImageEmbeds(markdown) {
   });
 }
 
+function isEscapedCharacter(text, index) {
+  let slashCount = 0;
+  for (let i = index - 1; i >= 0 && text[i] === '\\'; i -= 1) slashCount += 1;
+  return slashCount % 2 === 1;
+}
+
+/**
+ * Protect inline `$...$` blocks without treating an escaped currency marker
+ * (`\$`) inside a unit such as `\text{\$/h}` as the closing delimiter.
+ * A scanner is used instead of a single regex so escaped backslashes and
+ * same-line Markdown text remain distinguishable.
+ */
+function protectInlineDollarMath(markdown, mathPlaceholders) {
+  let result = '';
+  let cursor = 0;
+
+  while (cursor < markdown.length) {
+    const isOpening = markdown[cursor] === '$'
+      && markdown[cursor + 1] !== '$'
+      && !isEscapedCharacter(markdown, cursor);
+    if (!isOpening) {
+      result += markdown[cursor];
+      cursor += 1;
+      continue;
+    }
+
+    let closing = cursor + 1;
+    while (closing < markdown.length && markdown[closing] !== '\n') {
+      if (markdown[closing] === '$'
+          && markdown[closing + 1] !== '$'
+          && !isEscapedCharacter(markdown, closing)) break;
+      closing += 1;
+    }
+
+    if (closing < markdown.length && markdown[closing] === '$') {
+      const math = markdown.slice(cursor + 1, closing).trim();
+      if (math) {
+        const idx = mathPlaceholders.length;
+        mathPlaceholders.push({ type: 'inline', math });
+        result += `@@KATEX_INLINE_${idx}@@`;
+        cursor = closing + 1;
+        continue;
+      }
+    }
+
+    // No valid closing delimiter on this line: preserve the source literally.
+    result += markdown[cursor];
+    cursor += 1;
+  }
+
+  return result;
+}
+
 function processMarkdownWithMath(rawMarkdown) {
   if (!rawMarkdown) return '';
 
@@ -3701,15 +3754,12 @@ function processMarkdownWithMath(rawMarkdown) {
     return `@@KATEX_DISPLAY_${idx}@@`;
   });
 
-  // Protect inline math $ ... $
-  protectedMd = protectedMd.replace(/\$([^\$\n]+?)\$/g, (match, math) => {
-    const idx = mathPlaceholders.length;
-    mathPlaceholders.push({ type: 'inline', math: math.trim() });
-    return `@@KATEX_INLINE_${idx}@@`;
-  });
+  // Protect inline math $ ... $.  The scanner deliberately skips escaped
+  // currency markers inside a formula (for example `\text{\$/MWh}`).
+  protectedMd = protectInlineDollarMath(protectedMd, mathPlaceholders);
 
   // Standard LaTeX inline delimiters \( ... \).
-  protectedMd = protectedMd.replace(/\\\(([^\n]+?)\\\)/g, (match, math) => {
+  protectedMd = protectedMd.replace(/\\\(([\s\S]+?)\\\)/g, (match, math) => {
     const idx = mathPlaceholders.length;
     mathPlaceholders.push({ type: 'inline', math: math.trim() });
     return `@@KATEX_INLINE_${idx}@@`;

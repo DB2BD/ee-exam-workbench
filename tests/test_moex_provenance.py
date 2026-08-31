@@ -76,6 +76,24 @@ class TestMoexProvenance(unittest.TestCase):
         for record in records:
             self.assertRegex(record["question_id"], r"^GK-(110|111|112)-工程數學-MC\d{2}$")
 
+    def test_engineering_math_matrix_crops_keep_leading_rows(self):
+        """Regression guard for matrix rows placed above the question number."""
+        by_id = {
+            question["question_id"]: question
+            for entry in self.crops["entries"]
+            for question in entry.get("questions", [])
+        }
+        # These rows sit 12–18 pt above the Arabic number in the source PDF;
+        # a crop beginning at the number silently changed a 3x3 matrix to 2x3.
+        expected = {
+            "GK-110-工程數學-MC03": 726.2,
+            "GK-110-工程數學-MC07": 588.1,
+            "GK-111-工程數學-MC02": 426.6,
+        }
+        for qid, top_limit in expected.items():
+            first_page = by_id[qid]["source_pages"][0]
+            self.assertLessEqual(first_page["crop_rect"][1], top_limit, qid)
+
     def test_compiled_records_keep_crop_provenance(self):
         data_text = (WORKSPACE / "national-exams-data.js").read_text(encoding="utf-8")
         match = __import__("re").search(r"questions:\s*(\[[\s\S]+?\])\s*\}\;", data_text)

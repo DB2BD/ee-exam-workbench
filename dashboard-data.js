@@ -4022,7 +4022,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-2.md",
     "依考科分類/05_電力系統/107年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],

@@ -1871,7 +1871,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-3.md",
     "依考科分類/04_電機機械/111年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -6567,12 +6567,6 @@ const SOLUTION_REVIEW_METADATA = {
     "blocker": "missing_parameter",
     "action": "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。",
     "evidence": "官方裁切圖只提供 Q1 共射、Q2 共集、R_F 跨接回授及 R_L 負載的拓撲，未標示 R_C、R_F、R_L、g_m、r_π 或 β 數值；canonical 已列出電流輸入／電流輸出定義、KCL 及測試源阻抗公式，任何數值答案都必須先補齊這些參數。"
-  },
-  "EE-111-04-3": {
-    "disposition": "curve_interpolation_branches",
-    "blocker": "graph_estimate",
-    "action": "確認激磁電阻設定與磁化曲線取點／插值規則；目前保留曲線估讀區間。",
-    "evidence": "官方裁切圖包含 1800 rpm 磁化表的離散 (I_f,E_a) 點；canonical 已重算 R_a+R_sr 壓降、無載最大電壓及長分路場電流，並同時列出最近表格點 1.25 A 與線性插值 1.254 A。缺口是題目未指定曲線取點／插值與 R_fc 設定。"
   },
   "EE-105-04-5": {
     "disposition": "flux_curve_parameterized",

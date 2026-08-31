@@ -25,7 +25,6 @@ REVIEWS = {
     "EE-112-02-1": ("conditional_numeric", "missing_parameter", "確認 V_T 與高頻模型的教材慣例；目前保留有限 beta 與 V_T=25 mV 分支。"),
     "EE-111-02-3": ("inconsistent_data_branches", "source_conflict", "確認指定增益或平方律參數是否有誤植；題面 3.17 mA 對應增益 4.4444，指定增益 5 則反推 4.755 mA，兩組候選均保留。"),
     "EE-111-02-4": ("parameterized_only", "missing_parameter", "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。"),
-    "EE-111-04-3": ("curve_interpolation_branches", "graph_estimate", "確認激磁電阻設定與磁化曲線取點／插值規則；目前保留曲線估讀區間。"),
     "EE-111-04-4": ("curve_interpolation_branches", "graph_estimate", "提供高解析 OCC/SCC 曲線或指定插值點後，再鎖定電壓調整率。"),
     "EE-111-05-3": ("frequency_parameterized", "missing_parameter", "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。"),
     "EE-111-06-1": ("graph_estimate", "graph_estimate", "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。"),
@@ -88,10 +87,6 @@ REVIEW_EVIDENCE = {
     "EE-111-02-4": (
         "官方裁切圖只提供 Q1 共射、Q2 共集、R_F 跨接回授及 R_L 負載的拓撲，未標示 R_C、R_F、R_L、g_m、r_π 或 β 數值；"
         "canonical 已列出電流輸入／電流輸出定義、KCL 及測試源阻抗公式，任何數值答案都必須先補齊這些參數。"
-    ),
-    "EE-111-04-3": (
-        "官方裁切圖包含 1800 rpm 磁化表的離散 (I_f,E_a) 點；canonical 已重算 R_a+R_sr 壓降、無載最大電壓及長分路場電流，"
-        "並同時列出最近表格點 1.25 A 與線性插值 1.254 A。缺口是題目未指定曲線取點／插值與 R_fc 設定。"
     ),
     "EE-111-04-4": (
         "官方裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；"

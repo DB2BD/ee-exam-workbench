@@ -39,7 +39,7 @@ REVIEWS = {
     "EE-108-06-2": ("physical_inconsistency", "official_wording_ambiguity", "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。"),
     "EE-107-06-2": ("rated_current_branches", "missing_parameter", "確認考試年度採用的 100 HP 馬達滿載電流表或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。"),
     "EE-106-02-2": ("parameterized_only", "missing_parameter", "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。"),
-    "EE-106-05-3": ("multiple_power_flow_branches", "model_branch_ambiguity", "確認穩定運轉分支或 Newton 初值；目前保留高、低電壓兩個正值解。"),
+    "EE-106-05-3": ("multiple_power_flow_branches", "model_branch_ambiguity", "若題意採正常穩態，選高電壓分支；目前以 Jacobian 診斷高／低分支並保留題面未指定的低電壓解。"),
     "EE-106-06-2": ("fault_definition_branches", "official_wording_ambiguity", "確認 F 點故障型式、饋線阻抗是否含往返與非對稱觀察時刻。"),
     "EE-105-04-5": ("flux_curve_parameterized", "missing_parameter", "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。"),
     "EE-104-05-3": ("given_current_vs_recalculation", "source_conflict", "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。"),

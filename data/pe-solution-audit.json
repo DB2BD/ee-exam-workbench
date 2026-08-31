@@ -2480,10 +2480,10 @@
       "question_number": 2,
       "chapter": "某三相變壓器額定為$161\\text{ kV}$/$23.9\\text{ kV}$, $60\\text{ MVA}$, 漏電抗15%忽略繞組電\n阻及激磁電流。一次側接電源，電源電壓不變，電源阻抗j$8\\ \\Omega$；二次側\n接負載，當負載為$60\\text{ MVA}$ 功率因數0.8（滯後）時，變壓器一次側電\n壓為$161\\text{ kV}$。試計算：\n* **(一)** 變壓器二次側電壓大小及一次側電源電壓大小（kV）。（10 分）\n* **(二)** 變壓器二次側電流大小（A），並判斷有無過載。（5 分）\n* **(三)** 變壓器二次側電壓調整率百分比。（5 分）\n* **(四)** 變壓器二次側穩態三相短路電流大小（A）。（5 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "65efbe38f110214b69142cd571d88e9b0ae855d2da4db3ea8b652873130b2cb7",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_rated_transformer_voltage_regulation_recalculation",
+      "solution_hash": "43f8d80db1079065f88f0be06cbd2461c431384b4eff5653cac3c84b946d0f30",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_107年_電力系統_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 170,
+    "verified": 171,
     "suspected_error": 0,
-    "needs_manual_review": 86,
+    "needs_manual_review": 85,
     "not_attempted": 0
   }
 }

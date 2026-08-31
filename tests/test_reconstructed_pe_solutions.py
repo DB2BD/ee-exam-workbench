@@ -277,6 +277,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("-84.0", generator_107)
         self.assertIn("804.40", generator_107)
 
+        transformer_107_power = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", transformer_107_power)
+        self.assertIn("21.937", transformer_107_power)
+        self.assertIn("8697.5", transformer_107_power)
+
         sequence_107 = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", sequence_107)
         self.assertIn("601.051", sequence_107)

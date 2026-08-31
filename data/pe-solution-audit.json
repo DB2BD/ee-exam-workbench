@@ -3334,10 +3334,10 @@
       "question_number": 1,
       "chapter": "如圖一電路，電晶體參數為\nV\nmA\n/\n.\nKP =\n，\nV\n0.\nV P\n，\nλ\n。若\nmA\n0.\nIDQ =\n且\nV\nSDQ\nV\n，試求：\n\n* **(一)** RS 大小？（4 分）\n\n* **(二)** RD 大小？（4 分）\n\n* **(三)** 轉換函數\n)\n(\n)\n(\ns\nv\n/\ns\nv\ni\no\n？（8 分）\n\n* **(四)** 轉角頻率？（4 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-104-02-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "c28e8a38c745d4454c74433b52611fd2ea3e0cc37120ed73befbde4b728068d3",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_pmos_source_degeneration_recalculation",
+      "solution_hash": "ca14c60f7aef206424d8e6576d7256297088df103dbac505c40f07597bd96023",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_104年_電子學（包括電力電子學）_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 208,
+    "verified": 209,
     "suspected_error": 0,
-    "needs_manual_review": 48,
+    "needs_manual_review": 47,
     "not_attempted": 0
   }
 }

@@ -26,7 +26,6 @@ REVIEWS = {
     "EE-111-02-3": ("inconsistent_data_branches", "source_conflict", "確認指定增益或平方律參數是否有誤植；題面 3.17 mA 對應增益 4.4444，指定增益 5 則反推 4.755 mA，兩組候選均保留。"),
     "EE-111-02-4": ("parameterized_only", "missing_parameter", "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。"),
     "EE-111-04-4": ("curve_interpolation_branches", "graph_estimate", "提供高解析 OCC/SCC 曲線或指定插值點後，再鎖定電壓調整率。"),
-    "EE-111-05-3": ("frequency_parameterized", "missing_parameter", "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。"),
     "EE-111-06-1": ("graph_estimate", "graph_estimate", "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。"),
     "EE-111-06-2": ("conditional_numeric", "missing_parameter", "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。"),
     "EE-111-06-3": ("motor_rating_branches", "missing_parameter", "以官方圖示三個 M 支路為已知拓撲；補齊每台馬達額定視在容量（或額定功因／效率）及內電勢初始值後，再鎖定三相故障貢獻。"),
@@ -91,10 +90,6 @@ REVIEW_EVIDENCE = {
     "EE-111-04-4": (
         "官方裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；"
         "但 OCC/SCC 曲線本身未附於裁切圖，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。"
-    ),
-    "EE-111-05-3": (
-        "官方裁切圖已確認 H=6.0、P_m=1.0、P_max=2.5 且故障期間 P_e=0；canonical 以等面積準則回代 δ_cr=89.3750°，"
-        "並以擺動方程得到 t_cr=0.2704 s（f=60 Hz）。題圖未標系統頻率，時間保留 t_cr=0.2704√(60/f) s。"
     ),
     "EE-111-06-1": (
         "官方 CT 等效圖與 100/5 變比、Z'=0.082 Ω、Z_B=0.8/3.0 Ω 已轉成共同方程 E'=(10−I_e)(Z'+Z_B)；"

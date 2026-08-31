@@ -123,7 +123,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 20, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 19, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -145,7 +145,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertEqual(report.count("| EE-"), len(manual_qids))
         for qid in manual_qids:
             self.assertIn(qid, report)
-        self.assertIn("暫態穩定度與等面積準則", report)
+        self.assertIn("工業配電系統電壓降與串聯電抗器", report)
         self.assertIn("待依教科書章節覆核", report)
         self.assertIn("電子學（含電力電子）", report)
         self.assertNotIn("兩部相同發電機各自經由其升壓變壓器", report)
@@ -156,8 +156,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("const SOLUTION_REVIEW_METADATA", dashboard)
         self.assertIn('"EE-112-05-4"', dashboard)
-        self.assertIn('"EE-111-05-3"', dashboard)
-        self.assertIn('"frequency_parameterized"', dashboard)
+        self.assertIn('"EE-109-02-3"', dashboard)
+        self.assertIn('"conduction_mode_branches"', dashboard)
         self.assertIn('"evidence"', dashboard)
         self.assertIn("238 A", dashboard)
         self.assertIn("20 HP=55 A", dashboard)
@@ -211,11 +211,18 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("完整重算的第二組結果", note)
         self.assertIn("audit_status: needs_manual_review", note)
 
-    def test_equal_area_manual_review_traces_official_frequency_gap(self):
+    def test_equal_area_verified_solution_traces_official_frequency(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")
         self.assertIn("official_source_url: https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q", note)
-        self.assertIn("題圖未標系統頻率", note)
+        self.assertIn("交流電頻率定為 $f=60", note)
         self.assertIn("t_{cr}=0.2704\\sqrt", note)
+
+    def test_equal_area_uses_taiwan_statutory_frequency(self):
+        note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", note)
+        self.assertIn("電業供電電壓及頻率標準", note)
+        self.assertIn("file_id=7592", note)
+        self.assertNotIn("review_blocker:", note)
 
     def test_fault_impedance_solution_traces_corrected_reference_convention(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-112-05-4.md").read_text(encoding="utf-8")

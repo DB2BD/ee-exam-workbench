@@ -3376,9 +3376,9 @@
       "question_number": 4,
       "chapter": "圖四之全橋式變頻器電路，其開關切換順序可在負載兩端產生方波電壓，開關切換\n頻率為$100\\text{ Hz}$，\nV\n100\ndc\nV\n，負載為$10\\ \\Omega$電阻與$20\\text{ mH}$ 電感串聯，試求負載電流\n表示式\n)\n(t\nIo\n？（必須有推導、計算步驟）（20 分）\n圖四",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-104-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_full_bridge_square_wave_rl_transient_recalculation",
       "solution_hash": "6893b0854c5bcc1080aa7fe94017f39710daf6070cb1569a2b8d03d33e310b5e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_104年_電子學（包括電力電子學）_Q04.png"
@@ -3390,9 +3390,9 @@
       "question_number": 5,
       "chapter": "圖五之振盪器電路，(一)試求迴路增益？（必須有推導步驟）（10 分）當\nΩ\nk\nR\n，\n為獲得5 kHz 振盪頻率，試求：(二)C 大小？（5 分）(三)\nf\nR 大小？（5 分）\nov\nf\nR\nR\nC\nR\n1V\n2V\n3V\n1I→\n2I→\n3I→\nR\nC\nC\n圖五\n\\tan\nv\nbn\nv\ncn\nv\nD\nD\nD\nD\nD\nD\n負\n載\nov\nai\n→\noi\n→\n三相電源\n三相整流器\na\nb\nc\ndc\nV\n1S\noi→\nS\n負載\nov\nS\nS\nsi\n圖三\nRf\nVo\nVo\nIo\nVo\nIa\nIo\nVdc\nVan\nVbn\nVcn",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-104-02-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_three_section_rc_phase_shift_oscillator_recalculation",
       "solution_hash": "580adb960e9ceadf0b8a0bd41e4daa212afa32b9edf2cd054e7c4cbfbaa73958",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_104年_電子學（包括電力電子學）_Q05.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 192,
+    "verified": 194,
     "suspected_error": 0,
-    "needs_manual_review": 64,
+    "needs_manual_review": 62,
     "not_attempted": 0
   }
 }

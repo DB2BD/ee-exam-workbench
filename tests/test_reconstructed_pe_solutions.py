@@ -180,6 +180,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("阻抗是否為每導體或往返值", note)
         self.assertNotIn("或兩外線 220 V 相間故障", note)
 
+    def test_induction_motor_source_conflict_keeps_both_impedance_branches(self):
+        note = (CANONICAL / "04_電機機械" / "canonical" / "EE-113-04-4.md").read_text(encoding="utf-8")
+        self.assertIn("圖示 0.2/s", note)
+        self.assertIn("0.1(1-s)/s", note)
+        self.assertIn("完整重算的第二組結果", note)
+        self.assertIn("audit_status: needs_manual_review", note)
+
     def test_equal_area_manual_review_traces_official_frequency_gap(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")
         self.assertIn("official_source_url: https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q", note)

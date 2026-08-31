@@ -1432,8 +1432,8 @@
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-110-04-4.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "eb16dea66cd06accdddbab488d079b1fbd602793662b5071b6f50a6b832a844d",
+      "method": "official_crop_quadratic_recalculation_with_two_operating_branches",
+      "solution_hash": "cec6eebc6a9fb3c4197d531c3c37042452846c88506a53acba4ff5cc975dab3b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_110年_電機機械_Q04.png"
     },
@@ -1444,10 +1444,10 @@
       "question_number": 5,
       "chapter": "額定 $60\\text{ Hz}、208\\text{ V}、\\text{Y}$ 接、30 馬力之三相六極鼠籠式感應電動機，每相等效電路如圖二中虛線所包圍的部分，$s$ 為轉差率，參照至定子側的等效電路每相歐姆值為 $R_1 = 0.10\\ \\Omega、R_2 = 0.07\\ \\Omega、X_1 = X_2 = 0.21\\ \\Omega、X_m = 10\\ \\Omega$，此電動機在額定電壓下啟動。\n* **(一)** 若不使用啟動電抗器 $X_{st}$（啟動時 SW 閉合），計算此電動機之啟動電流與啟動轉矩。（10 分）\n* **(二)** 若欲抑制啟動電流為原來的 $\\frac{1}{\\sqrt{3}}$ 倍，計算啟動電抗 $X_{st}$ 之值及使用此啟動電抗時的啟動轉矩。（10 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-110-04-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "10fc0b7963c62e58dcdf4f0886a06af4f098800a38885c1b968384366e5f64fc",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_equivalent_circuit_and_current_scaling_recalculation",
+      "solution_hash": "0697c4c7698bc998cbbf48f1e56facfbcfc2f04c25e4c2c1e4956447353b3b37",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_110年_電機機械_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 136,
+    "verified": 137,
     "suspected_error": 0,
-    "needs_manual_review": 120,
+    "needs_manual_review": 119,
     "not_attempted": 0
   }
 }

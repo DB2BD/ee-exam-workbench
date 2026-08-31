@@ -123,6 +123,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("I_L-I_H=323.86-187.50=136.36", autotransformer)
         self.assertIn("\\sqrt3\\times71.25=123.41", autotransformer)
 
+        starter = (CANONICAL / "04_電機機械" / "canonical" / "EE-110-04-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", starter)
+        self.assertIn("0.3425\\ \\Omega", starter)
+        self.assertIn("38.32\\text{ N}\\cdot\\text{m}", starter)
+
 
 if __name__ == "__main__":
     unittest.main()

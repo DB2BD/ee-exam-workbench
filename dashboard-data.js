@@ -5322,7 +5322,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-1.md",
     "依考科分類/01_電路學/104年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "戴維寧等效"
     ],
@@ -5358,7 +5358,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-3.md",
     "依考科分類/01_電路學/104年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],

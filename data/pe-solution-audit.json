@@ -1587,7 +1587,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_common_base_short_circuit_recalculation_with_motor_rating_assumption",
-      "solution_hash": "c85cacd50e39fd8063208069da861e8e8b8b4cb69cfb726856de78713a9dacb2",
+      "solution_hash": "d53a321d698ebbf83f4fce299bcbeb021d32ace7be1b3e6a27f0d93001e1cdbe",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q05.png"
     },

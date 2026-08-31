@@ -178,6 +178,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("25.85", note)
         self.assertIn("46.882399", note)
 
+    def test_motor_fault_manual_review_records_rating_parameterization(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-110-06-5.md").read_text(encoding="utf-8")
+        self.assertIn("效率／功因參數化", note)
+        self.assertIn("24.0672", note)
+        self.assertIn("22.9411", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

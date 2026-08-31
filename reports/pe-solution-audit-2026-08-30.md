@@ -5,7 +5,7 @@
 - 官方逐題裁切圖仍是題目來源；年度 Markdown 只作為待稽核詳解來源。
 - 新增 `scripts/audit_pe_solutions.py` 與 `data/pe-solution-audit.json`。
 - 編譯器會依 manifest 顯示 `verified`、`suspected_error`、`needs_manual_review`、`not_attempted`，避免年度模板被誤標為 verified。
-- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。現有非工程數學稽核 manifest 統計為 `verified=232`、`needs_manual_review=24`、`not_attempted=0`、`suspected_error=0`；工程數學 manifest 已更新為 `verified=65`、`needs_manual_review=0`。全部 321 題均已具備官方逐題裁切與題號級記錄；非工程數學的 24 題均已完成條件式獨立重算與證據登錄，僅待人工裁定缺參數、曲線估讀或題意分支，未宣稱已校驗成唯一答案。
+- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。現有非工程數學稽核 manifest 統計為 `verified=233`、`needs_manual_review=23`、`not_attempted=0`、`suspected_error=0`；工程數學 manifest 已更新為 `verified=65`、`needs_manual_review=0`。全部 321 題均已具備官方逐題裁切與題號級記錄；非工程數學的 23 題均已完成條件式獨立重算與證據登錄，僅待人工裁定缺參數、曲線估讀或題意分支，未宣稱已校驗成唯一答案。
 
 2026-08-31 追加顯示層防護：詳解中歷史匯入的 `\mathrm A`／`\mathrm V` 等無括號單位巨集，現在於 KaTeX 渲染前統一正規化為標準 `\mathrm{A}`／`\mathrm{V}` 語法；原始推導文字不被改寫，並以公式格式回歸測試保護。國考參考題庫亦重新編譯並確認跨題型關聯輸出可重現。
 
@@ -238,6 +238,8 @@
 本輪修正 105 年電機機械 Q5 的通式：原稿把線性磁通假設下的 (I_{a2}=600\,\mathrm{A}) 當成一般值；現改為令 (r=\Phi_2/\Phi_1)，由 (I_{a2}=300/r) 與 (n_2=800/r-100/r^2) 回代，並加入 (r=0.45\sim0.60) 敏感度表，避免將 1200 rpm 誤列為無條件答案。
 
 本輪補齊原 26 題人工覆核卡的 `review_evidence`；其中 110 年工業配電 Q4 已由考選部官方圖說確認 A 點位於 69 kV 母線並升級為 verified，現餘 25 題（非工程數學 24 題＋工程數學 1 題）。每題仍保留官方裁切條件、canonical 獨立回代結果及尚未能唯一化的資料缺口，覆核頁可沿證據鏈重現分支。
+
+2026-08-31 再以官方題圖與 2024-07-17 更正參考解答核對 112 年電力系統第 4 題：更正解答將故障阻抗明示為等效接地電抗 (j0.01)，canonical 以同一拓撲做正序 KCL 與等面積回代，得到主答案 (101.0936492^\circ)，並保留實阻抗 (102.0837294^\circ) 作敏感度對照。題級狀態升級為 `verified`，全庫人工覆核索引由 24 題降為 23 題。
 
 複習介面已讀取上述登錄：開啟任一待人工覆核題的「完整詳解」或「蓋牌抽測」時，會在推導前顯示目前分支、阻擋原因與收斂所需動作；資料以獨立 `SOLUTION_REVIEW_METADATA` map 輸出，不改動既有 12 欄題目 tuple 相容性。
 

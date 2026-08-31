@@ -156,6 +156,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("166.67", note)
         self.assertIn("t_{demag}", note)
 
+    def test_mosfet_manual_review_records_minimal_correction_candidates(self):
+        note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("最小更正候選", note)
+        self.assertIn("4.444444", note)
+        self.assertIn("4.755", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

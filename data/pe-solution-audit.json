@@ -3588,8 +3588,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-5.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "affff9e9eaf79b1871330a94eea7cc263f06359888f644dde9f5bcc0f96d9e2f",
+      "method": "fifth_harmonic_network_recalculation_with_rectifier_pf_assumption",
+      "solution_hash": "00c3e62b0992a191a708a13805326bdf0939b597614c7f89c5277c8cc921fa04",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q05.png"
     }

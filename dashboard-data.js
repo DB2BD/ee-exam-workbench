@@ -6562,7 +6562,7 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "parameterized_only",
     "blocker": "missing_parameter",
     "action": "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。",
-    "evidence": "官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞，未提供 R_1、R_2、各管 g_m、r_o、尾電流源阻抗或輸出端口數值；canonical 已保留參數化 A_f=A/(1+Aβ) 及測試源阻抗定義，避免套用無條件理想運放公式。",
+    "evidence": "官方裁切圖只提供 MOSFET 差動／回授拓撲，並以文字要求考慮所有 MOSFET 的 r_o；圖中未提供 V_A、R_1、R_2、各管 g_m、r_o、尾電流源阻抗或輸出端口數值；canonical 已保留參數化 A_f=A/(1+Aβ) 及測試源阻抗定義，避免套用無條件理想運放公式。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0601&t=Q"
   },
   "EE-112-02-1": {

@@ -17,6 +17,11 @@ SUBJECT_NAMES = {
     "04": "電機機械",
     "05": "電力系統",
     "06": "工業配電",
+    # Canonical notes historically used several textual aliases for subject 02.
+    # Normalize them to the same textbook-facing label used by the UI/report.
+    "電子學_含電力電子": "電子學（含電力電子）",
+    "電子學（包括電力電子學）": "電子學（含電力電子）",
+    "電子學（含電力電子）": "電子學（含電力電子）",
 }
 
 

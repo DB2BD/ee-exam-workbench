@@ -292,6 +292,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("655.547", capacitor_107)
         self.assertIn("13.31", capacitor_107)
 
+        differential_107 = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", differential_107)
+        self.assertIn("5.8539", differential_107)
+        self.assertIn("1.399", differential_107)
+
 
 if __name__ == "__main__":
     unittest.main()

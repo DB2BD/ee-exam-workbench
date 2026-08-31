@@ -3348,10 +3348,10 @@
       "question_number": 2,
       "chapter": "圖二之放大器電路，在常溫下電晶體參數為β = 100 且\n∞\nA\nV\n，試求：\n\n* **(一)** 基極電壓VB，集極電壓VC，射極電壓VE？（6 分）\n\n* **(二)** 輸入電阻 Ri？（8 分）\n\n* **(三)** 電壓增益\ns\no\nv\nV\n/\nV\nA =\n？（6 分）\n1 k\nE\nR =\nΩ\nO\nv\nC\nC\nsv\n5 V\nV + = +\n$0.5\\text{ mA}$\nCC\nC\nC\n1.5 k\nL\nR =\nΩ\niR\nB\nC\n100 k\nB\nR =\nΩ\n50\nS\nR =\nΩ\n圖二\nVo\nVs\n5 V\niv\n$200\\text{ k}\\Omega$\nov\nD\nR\n$10\\text{ pF}$\nL\nC =\n5 V\nS\nR\n↓DQ\n圖一\n\n類  科： 電機工程技師\n科  目： 電子學（包括電力電子學）\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-104-02-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "ab329c79a2f3b1162779f28637d1a3a0d91aaf543e6dd6a2e310e9edd453efa8",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_common_base_bias_gain_recalculation",
+      "solution_hash": "d5c8294c0a5d7831744c407154b0d2ead78a7453f6103d4829d9d947485440c9",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_104年_電子學（包括電力電子學）_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 209,
+    "verified": 210,
     "suspected_error": 0,
-    "needs_manual_review": 47,
+    "needs_manual_review": 46,
     "not_attempted": 0
   }
 }

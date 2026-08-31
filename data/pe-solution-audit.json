@@ -2284,10 +2284,10 @@
       "question_number": 2,
       "chapter": "圖2 中，兩個電感L1、L2 各有起始電流（initial current）8 A 及4 A，開\n關維持關閉已一段很長時間，在t = 0 時，開關打開，試求出t≧0 時之\n電流i1(t)及i3(t)值。（i1(t)及i3(t)各10 分，共20 分）\n圖2",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-with-equation-residual",
-      "solution_hash": "ab6f27201d28f55f4457ff7b3e4c402d9a496180abcc0073da50bab0dadb799c",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_parallel_inductor_transient_signed_initial_current_recalculation",
+      "solution_hash": "79c18caf7158bb2160cbb14eb4f6ba902fff1ff220f984f69e2f53f7612aa03f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_107年_電路學_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 157,
+    "verified": 158,
     "suspected_error": 0,
-    "needs_manual_review": 99,
+    "needs_manual_review": 98,
     "not_attempted": 0
   }
 }

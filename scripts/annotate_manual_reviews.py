@@ -39,7 +39,7 @@ REVIEWS = {
     "EE-107-06-2": ("rated_current_branches", "missing_parameter", "確認考試年度採用的 100 HP 馬達滿載電流表或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。"),
     "EE-106-02-2": ("parameterized_only", "missing_parameter", "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。"),
     "EE-106-05-3": ("multiple_power_flow_branches", "model_branch_ambiguity", "若題意採正常穩態，選高電壓分支；目前以 Jacobian 診斷高／低分支並保留題面未指定的低電壓解。"),
-    "EE-106-06-2": ("fault_definition_branches", "official_wording_ambiguity", "確認 F 點故障型式、饋線阻抗是否含往返與非對稱觀察時刻。"),
+    "EE-106-06-2": ("impedance_definition_branches", "official_wording_ambiguity", "依圖面固定 F 為左 110 V 導體對中性點；確認饋線阻抗是否含往返，以及非對稱電流的觀察時刻／故障相角。"),
     "EE-105-04-5": ("flux_curve_parameterized", "missing_parameter", "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。"),
     "EE-104-05-3": ("given_current_vs_recalculation", "source_conflict", "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。"),
     "EE-104-06-1": ("regulation_version_branches", "regulation_version", "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。"),
@@ -139,8 +139,8 @@ REVIEW_EVIDENCE = {
         "來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q"
     ),
     "EE-106-06-2": (
-        "官方圖已提供系統、T1、饋線及 T2 半繞組阻抗；canonical 以左 110 V 對中性點故障為主模型，回代 I_sym=11.318 kA、"
-        "X/R=1.738 下最不利第一峰值約 22.47 kA，並另列饋線含往返時的敏感度。F 點故障型式與阻抗定義未明。"
+        "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，故故障拓撲已按左 110 V 對中性點處理；canonical 回代 I_sym=11.318 kA、"
+        "X/R=1.738 下最不利第一峰值約 22.47 kA，並另列饋線含往返時的敏感度。剩餘缺口是阻抗是否為每導體或往返值，以及非對稱電流的觀察條件。"
     ),
     "EE-105-04-5": (
         "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V、E_a2=180 V，"

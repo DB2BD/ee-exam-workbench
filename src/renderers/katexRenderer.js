@@ -128,7 +128,18 @@ function normalizeBareLatexFragments(markdown) {
     }
 
     if (markdown[cursor] === '(') {
-      const end = markdown.indexOf(')', cursor + 1);
+      // Find the matching close rather than the first close; equations often
+      // contain nested calls such as ``i_p(t_{on})`` or ``\arctan(...)``.
+      let end = -1;
+      let depth = 0;
+      for (let probe = cursor; probe < markdown.length; probe += 1) {
+        if (markdown[probe] === '(' && !isEscapedCharacter(markdown, probe)) depth += 1;
+        if (markdown[probe] === ')' && !isEscapedCharacter(markdown, probe)) {
+          depth -= 1;
+          if (depth === 0) { end = probe; break; }
+        }
+        if (markdown[probe] === '\n') break;
+      }
       if (end >= 0 && !markdown.slice(cursor + 1, end).includes('\n')) {
         const fragment = markdown.slice(cursor, end + 1);
         // Parentheses which merely surround an existing delimiter, e.g.
@@ -153,6 +164,92 @@ function normalizeBareLatexFragments(markdown) {
     }
 
     result += markdown[cursor++];
+  }
+  return result;
+}
+
+// A small number of legacy notes have a standalone equation line such as
+// ``|Y_p| = \\sqrt{...}`` with no `$`/`\\(` fence.  Wrap only equation-shaped
+// lines (leading ASCII symbol and an equality/LaTeX command) so prose that
+// merely mentions a unit is never swallowed into a math span.
+function normalizeUndelimitedEquationLines(markdown) {
+  const command = /\\(?:frac|sqrt|mathrm|operatorname|text|cdot|times|pi|theta|angle|left|right|boxed|sum|int|cos|sin|tan|log|ln|pm|leq|geq|approx|infty|mathcal|mathbb|mathbf|widetilde|overline|Delta|Omega|Phi|eta|omega|lambda|mu|sigma|delta|alpha|beta|gamma|partial|nabla|Im|Re)\b/;
+  return String(markdown || '').split(/(\n)/).map((line) => {
+    if (line === '\n' || !line.trim()) return line;
+    if (/@@KATEX_(?:INLINE|DISPLAY)_\d+@@/.test(line)) return line;
+    if (/\$\$|\\\(|\\\[|(^|[^\\])\$(?!\$)/.test(line)) return line;
+    const body = line.trim();
+    const equationLike = /^(?:[|A-Za-z\\]|[-+]?\d+(?:\.\d+)?\s*[A-Za-z_])/.test(body)
+      && (body.includes('=') || command.test(body)) && command.test(body);
+    if (!equationLike || /^<!--|^-->|^```|^\s*(?:https?:|!\[\[)/.test(body)) return line;
+    const lead = line.match(/^\s*/)[0];
+    return `${lead}\\(${body}\\)`;
+  }).join('');
+}
+
+// Legacy annual notes occasionally leave a Greek/operator command in prose,
+// e.g. "開 \\Delta 接" or "\\mathcal R". Once fenced equations have become
+// placeholders, normalize only the remaining prose commands so raw
+// backslashes cannot leak into the rendered answer. Unknown commands remain
+// untouched for manual review.
+function normalizeBareLatexCommands(markdown) {
+  const replacements = [
+    [/\\text\{([^{}\n]*)\}/g, '$1'],
+    [/\\mathrm\{([^{}\n]*)\}/g, '$1'],
+    [/\\operatorname\{([^{}\n]*)\}/g, '$1'],
+    [/\\mathcal\s*([A-Za-z])/g, '$1'],
+    [/\\Delta\b/g, 'Δ'],
+    [/\\Omega\b/g, 'Ω'],
+    [/\\Phi\b/g, 'Φ'],
+    [/\\theta\b/g, 'θ'],
+    [/\\omega\b/g, 'ω'],
+    [/\\lambda\b/g, 'λ'],
+    [/\\mu\b/g, 'μ'],
+    [/\\sigma\b/g, 'σ'],
+    [/\\alpha\b/g, 'α'],
+    [/\\beta\b/g, 'β'],
+    [/\\gamma\b/g, 'γ']
+  ];
+  let result = '';
+  let cursor = 0;
+  let inFence = false;
+  while (cursor < markdown.length) {
+    if (markdown.startsWith('```', cursor)) {
+      const end = markdown.indexOf('```', cursor + 3);
+      if (end < 0) return result + markdown.slice(cursor);
+      result += markdown.slice(cursor, end + 3);
+      cursor = end + 3;
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) {
+      result += markdown[cursor++];
+      continue;
+    }
+    if (markdown[cursor] === '`') {
+      const end = markdown.indexOf('`', cursor + 1);
+      if (end < 0) return result + markdown.slice(cursor);
+      result += markdown.slice(cursor, end + 1);
+      cursor = end + 1;
+      continue;
+    }
+    const placeholder = markdown.slice(cursor).match(/^@@KATEX_(?:INLINE|DISPLAY)_\d+@@/);
+    if (placeholder) {
+      result += placeholder[0];
+      cursor += placeholder[0].length;
+      continue;
+    }
+    let next = cursor + 1;
+    while (next < markdown.length
+      && markdown[next] !== '`'
+      && !markdown.startsWith('```', next)
+      && !markdown.slice(next).match(/^@@KATEX_(?:INLINE|DISPLAY)_\d+@@/)) next += 1;
+    let segment = markdown.slice(cursor, next);
+    replacements.forEach(([pattern, replacement]) => {
+      segment = segment.replace(pattern, replacement);
+    });
+    result += segment;
+    cursor = next;
   }
   return result;
 }
@@ -209,6 +306,12 @@ function processMarkdownWithMath(rawMarkdown) {
 
   const mathPlaceholders = [];
 
+  // Some legacy exports converted the backslash in ``\text`` to a tab (for
+  // example ``$\text{deg}$`` became ``$\text{deg}$`` with a literal tab).
+  // Restore that exact corruption before delimiter scanning so the unit label
+  // remains a normal inline formula instead of leaking as plain text.
+  rawMarkdown = String(rawMarkdown).replace(/\$(?:\t| )ext\{/g, '$\\text{');
+
   // Convert wiki image embeds before math protection/Markdown parsing. This
   // covers all existing `![[...|750]]` and `![[...|850]]` solution embeds.
   let protectedMd = normalizeObsidianImageEmbeds(rawMarkdown);
@@ -231,12 +334,17 @@ function processMarkdownWithMath(rawMarkdown) {
 
   // Protect inline math $ ... $.  The scanner deliberately skips escaped
   // currency markers inside a formula (for example `\text{\$/MWh}`).
+  // Keep this after the legacy normalizers so existing dollar-delimited
+  // formulas remain visible to their delimiter guard.
   protectedMd = protectInlineDollarMath(protectedMd, mathPlaceholders);
 
-  // Normalize legacy parenthetical fragments before the standard inline
-  // delimiter pass, so the generated \(...\) wrapper is captured as a
-  // placeholder rather than emitted as literal Markdown text.
+  // Normalize legacy parenthetical fragments after dollar protection; this
+  // prevents a parenthesis inside an existing `$...$` expression from being
+  // wrapped a second time.
   protectedMd = normalizeBareLatexFragments(protectedMd);
+
+  protectedMd = normalizeUndelimitedEquationLines(protectedMd);
+
 
   // Standard LaTeX inline delimiters \( ... \).
   protectedMd = protectedMd.replace(/\\\(([\s\S]+?)\\\)/g, (match, math) => {
@@ -244,6 +352,10 @@ function processMarkdownWithMath(rawMarkdown) {
     mathPlaceholders.push({ type: 'inline', math: math.trim() });
     return `@@KATEX_INLINE_${idx}@@`;
   });
+
+  // Any remaining LaTeX commands are in ordinary prose; convert the small
+  // legacy compatibility set to readable Unicode/text before Markdown parse.
+  protectedMd = normalizeBareLatexCommands(protectedMd);
 
   // Parse Markdown via marked.js
   let html = (typeof marked !== 'undefined') ? marked.parse(protectedMd) : protectedMd;

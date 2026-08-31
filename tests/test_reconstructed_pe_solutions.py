@@ -145,6 +145,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("1.5 N I \\angle 60^\\circ", rotating_mmfs)
         self.assertIn("50\\text{ Hz}", rotating_mmfs)
 
+        reluctance = (CANONICAL / "04_電機機械" / "canonical" / "EE-109-04-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", reluctance)
+        self.assertIn("1.3572 \\times 10^{-3}", reluctance)
+        self.assertIn("0.2714\\text{ N}\\cdot\\text{m}", reluctance)
+
 
 if __name__ == "__main__":
     unittest.main()

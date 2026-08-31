@@ -1766,10 +1766,10 @@
       "question_number": 5,
       "chapter": "考慮下圖之電磁系統，線圈之總匝數為 $N = 120$，氣隙寬度為 $g = 3\\text{ mm}$，整個鐵心（含轉子）之厚度為 $h = 1.8\\text{ cm}$，轉子半徑長為 $r_1 = 2.5\\text{ cm}$。已知空氣之導磁率為 $\\mu_0 = 4\\pi \\times 10^{-7}\\text{ H/m}$，又令鐵心之相對導磁率為無限大。（20 分）\n* **(一)** 如下圖，當轉子之角度為 $\\theta$ 時，試計算本電磁系統之電感值。\n* **(二)** 又當轉子角度為 $30^\\circ$，輸入電流為 $i = 20\\text{ A}$ 時，試求此系統之產生扭力。",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-109-04-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "cb999962da9330328f24acbe068c2e66817d53a946b6c40403499269fb23c2b8",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_two_air_gap_reluctance_and_coenergy_recalculation",
+      "solution_hash": "2d7b065bdcdeba0946a41bd33dc28a55b421f15b77afcc7c9e5988829576acae",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_109年_電機機械_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 141,
+    "verified": 142,
     "suspected_error": 0,
-    "needs_manual_review": 115,
+    "needs_manual_review": 114,
     "not_attempted": 0
   }
 }

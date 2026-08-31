@@ -123,7 +123,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 24, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 23, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -156,9 +156,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("const SOLUTION_REVIEW_METADATA", dashboard)
         self.assertIn('"EE-112-05-4"', dashboard)
-        self.assertIn('"impedance_type_branches"', dashboard)
+        self.assertIn('"EE-111-05-3"', dashboard)
+        self.assertIn('"frequency_parameterized"', dashboard)
         self.assertIn('"evidence"', dashboard)
-        self.assertIn("j0.01", dashboard)
         self.assertIn("238 A", dashboard)
         self.assertIn("20 HP=55 A", dashboard)
         self.assertIn("function renderSolutionReviewCard", index)
@@ -179,11 +179,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("題圖未標系統頻率", note)
         self.assertIn("t_{cr}=0.2704\\sqrt", note)
 
-    def test_fault_impedance_manual_review_traces_official_wording(self):
+    def test_fault_impedance_solution_traces_corrected_reference_convention(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-112-05-4.md").read_text(encoding="utf-8")
         self.assertIn("official_source_url: https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0710&t=Q", note)
-        self.assertIn("官方裁切仍只寫 0.01 pu", note)
+        self.assertIn("audit_status: verified", note)
+        self.assertIn("verification_evidence:", note)
         self.assertIn("Z_f=j0.01", note)
+        self.assertIn("101.0936492", note)
 
     def test_annual_power_note_does_not_expose_stale_104_q3_answer(self):
         note = (ROOT / "📝 個人題解與錯題本/05_電力系統/104年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")

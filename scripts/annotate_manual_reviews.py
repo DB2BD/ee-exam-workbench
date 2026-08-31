@@ -23,7 +23,6 @@ REVIEWS = {
     "EE-113-02-2": ("conditional_numeric", "missing_parameter", "確認命題採用的熱電壓 V_T 或溫度；目前列出 25、25.85、26 mV 三個可回代分支。"),
     "EE-113-04-4": ("source_conflict_branches", "source_conflict", "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。"),
     "EE-112-02-1": ("conditional_numeric", "missing_parameter", "確認 V_T 與高頻模型的教材慣例；目前保留有限 beta 與 V_T=25 mV 分支。"),
-    "EE-112-05-4": ("impedance_type_branches", "missing_parameter", "確認故障阻抗 0.01 pu 為複數阻抗或純電抗；目前保留兩個臨界清除角分支。"),
     "EE-111-02-3": ("inconsistent_data_branches", "source_conflict", "確認指定增益或平方律參數是否有誤植；題面 3.17 mA 對應增益 4.4444，指定增益 5 則反推 4.755 mA，兩組候選均保留。"),
     "EE-111-02-4": ("parameterized_only", "missing_parameter", "補齊 RC、RF、RL、gm、rpi 與輸出量定義後再數值化回授五量。"),
     "EE-111-04-3": ("curve_interpolation_branches", "graph_estimate", "確認激磁電阻設定與磁化曲線取點／插值規則；目前保留曲線估讀區間。"),
@@ -80,11 +79,6 @@ REVIEW_EVIDENCE = {
         "配管載流導線數、修正係數與規範版本，故只能作交叉檢查。 "
         "來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；"
         "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
-    ),
-    "EE-112-05-4": (
-        "公開參考解答（2024-07-17 更正）將故障阻抗明寫為 j0.01，支持純電抗分支；"
-        "官方裁切仍只寫 0.01 pu，故尚不能單獨視為官方唯一條件。 "
-        "來源：https://kentchen1980.pixnet.net/blog/posts/10357120259"
     ),
     "EE-111-02-3": (
         "官方裁切圖同時給 |A_v|=5、I_DS=3.17 mA、μ_nC_ox=200 μA/V²、R_S=30 Ω、R_D=200 Ω，並指定 V_S=V_OV；"

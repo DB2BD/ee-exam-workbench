@@ -6550,7 +6550,12 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
     "action": "確認命題採用的熱電壓 V_T 或溫度；目前列出 25、25.85、26 mV 三個可回代分支。",
-    "evidence": "官方裁切圖已確認 α=0.99、I_E=0.5 mA、R_sig=75 Ω、R_C=R_L=12 kΩ 與基極交流接地；canonical 推導以 T 模型及 R_C∥R_L 回代，V_T=25 mV 得 A_v=47.52 V/V，V_T=25.85 mV 得 46.882399 V/V。題圖未提供 V_T，故分支差異是可重現的輸入條件缺口。",
+    "evidence": "官方裁切圖已確認 α=0.99、I_E=0.5 mA、R_sig=75 Ω、R_C=R_L=12 kΩ 與基極交流接地；canonical 推導以 T 模型及 R_C∥R_L 回代，V_T=25 mV 得 A_v=47.52 V/V，V_T=25.85 mV 得 46.882399 V/V。題圖未提供 V_T，故分支差異是可重現的輸入條件缺口。公開影音與圖像解答均將本題辨識為共基極 T 模型題，僅作方法交叉，未用來補填官方缺漏。來源：https://kentchen1980.pixnet.net/blog/posts/10357159118；https://www.youtube.com/watch?v=oe_n90CtJcI",
+    "publicReferenceUrls": [
+      "https://kentchen1980.pixnet.net/blog/posts/10357159118",
+      "https://www.youtube.com/watch?v=oe_n90CtJcI"
+    ],
+    "publicReferenceNote": "Kentchen 圖像解答與 KENT CHEN 影音解析可交叉確認題型；頁面未提供可引用的完整數值文本。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0701&t=Q"
   },
   "EE-106-02-2": {
@@ -6565,6 +6570,11 @@ const SOLUTION_REVIEW_METADATA = {
     "blocker": "missing_parameter",
     "action": "確認 V_T 與高頻模型的教材慣例；目前保留有限 beta 與 V_T=25 mV 分支。",
     "evidence": "官方裁切圖已確認 β=100、I_Q=0.5 mA、C_π=10 pF、C_μ=1 pF、R_s=50 Ω、R_E=0.5 kΩ、R_B=100 kΩ、R_L=1 kΩ；canonical 已分別重算 C_π、C_μ 極點及中頻增益，並把 R_B 納入集極端負載。公開阿摩題庫與 Scribd 解析亦交叉得到 I_E≈0.5 mA、R_s=50 Ω、R_E=500 Ω、R_L=1 kΩ；該解析屬非官方二手資料，只能支持 V_T=25 mV 分支，不能補足官方題圖未給定的 V_T，故仍保留 25/26 mV 分支。來源：https://yamol.tw/exam-112%E5%B9%B4%2B%2B112%E5%B9%B4%2B%E5%B0%88%E6%8A%80%E9%AB%98%E8%80%83_%E9%9B%BB%E6%A9%9F%E5%B7%A5%E7%A8%8B%E6%8A%80%E5%B8%AB%EF%BC%9A%E9%9B%BB%E5%AD%B8%EF%BC%88%E5%8C%85%E6%8B%AC%E9%9B%BB%E5%8A%9B%E9%9B%BB%E5%AD%B8%EF%BC%89117584-117584.htm；https://www.scribd.com/document/1031258563/112%E5%B9%B4%E9%9B%BB%E6%A9%9F%E6%8A%80%E5%B8%AB%E9%9B%BB%E5%AD%B8%E8%A7%A3%E7%AD%94",
+    "publicReferenceUrls": [
+      "https://www.scribd.com/document/1031258563/112%E5%B9%B4%E9%9B%BB%E6%A9%9F%E6%8A%80%E5%B8%AB%E9%9B%BB%E5%AD%B8%E8%A7%A3%E7%AD%94",
+      "https://yamol.tw/exam-112%E5%B9%B4%2B%2B112%E5%B9%B4%2B%E5%B0%88%E6%8A%80%E9%AB%98%E8%80%83_%E9%9B%BB%E6%A9%9F%E5%B7%A5%E7%A8%8B%E6%8A%80%E5%B8%AB%EF%BC%9A%E9%9B%BB%E5%AD%B8%EF%BC%88%E5%8C%85%E6%8B%AC%E9%9B%BB%E5%8A%9B%E9%9B%BB%E5%AD%B8%EF%BC%89117584-117584.htm"
+    ],
+    "publicReferenceNote": "Scribd 為公開逐步解答（採 V_T=25 mV）；阿摩頁面為題目索引。兩者僅支持該假設分支。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0701&t=Q"
   },
   "EE-111-02-4": {
@@ -6613,7 +6623,11 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "rated_current_branches",
     "blocker": "missing_parameter",
     "action": "確認考試年度採用的 100 HP 馬達滿載電流表、107 年歷史附件或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。",
-    "evidence": "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，107 年歷史版第 152 條另規定原則上採銘牌全載電流、一般用電動機才得以國家標準值為準；題圖未附銘牌或 107 年表格附件，故僅作官方交叉證據，不能取代題幹缺漏。 來源：https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617；https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf",
+    "evidence": "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，107 年歷史版第 152 條另規定原則上採銘牌全載電流、一般用電動機才得以國家標準值為準；題圖未附銘牌或 107 年表格附件，故僅作官方交叉證據，不能取代題幹缺漏。公開題目鏡像逐字確認 100 HP、220 V、120 m 與阻抗數值，但未提供可核對的逐步詳解。 來源：https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617；https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf；https://www.scribd.com/document/941350020/107%E5%B9%B4%E5%B7%A5%E6%A5%AD%E9%85%8D%E9%9B%BB",
+    "publicReferenceUrls": [
+      "https://www.scribd.com/document/941350020/107%E5%B9%B4%E5%B7%A5%E6%A5%AD%E9%85%8D%E9%9B%BB"
+    ],
+    "publicReferenceNote": "Scribd 為公開題目鏡像，非逐步解答；用來核對題幹文字，不取代銘牌／效率缺口。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=107180&q=1&s=0612&t=Q"
   },
   "EE-111-06-4": {

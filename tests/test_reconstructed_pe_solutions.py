@@ -173,6 +173,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("20.0000%", note)
         self.assertIn("3.3333%", note)
 
+    def test_common_base_manual_review_records_thermal_voltage_sensitivity(self):
+        note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-113-02-2.md").read_text(encoding="utf-8")
+        self.assertIn("25.85", note)
+        self.assertIn("46.882399", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

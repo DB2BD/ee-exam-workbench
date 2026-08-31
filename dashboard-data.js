@@ -6547,7 +6547,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-113-02-2": {
     "disposition": "conditional_numeric",
     "blocker": "missing_parameter",
-    "action": "確認命題採用的熱電壓 V_T；目前保留 V_T=25 mV 分支。",
+    "action": "確認命題採用的熱電壓 V_T 或溫度；目前列出 25、25.85、26 mV 三個可回代分支。",
     "evidence": ""
   },
   "EE-106-02-2": {

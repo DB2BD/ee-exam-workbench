@@ -2620,10 +2620,10 @@
       "question_number": 3,
       "chapter": "試以節點分析法寫出下面運算放大器電路的五個節點電壓方程式，並求解其輸入阻\n抗Zin。（25 分）\nZ1\nZ2\nZ3\nZ4\nZ5",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-106-01-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "6ff38eb1ca6a2c2f2ddcf55a616e680be40aecfca7b1eea1feec28af0c8cd68c",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "antoniou_gic_virtual_short_kcl_recalculation",
+      "solution_hash": "47570f92a751b0f550d3937151141db1f58cd107fde05702fdc1c1809bab0740",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_106年_電路學_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 213,
+    "verified": 214,
     "suspected_error": 0,
-    "needs_manual_review": 43,
+    "needs_manual_review": 42,
     "not_attempted": 0
   }
 }

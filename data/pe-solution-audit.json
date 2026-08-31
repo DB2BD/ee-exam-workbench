@@ -3476,7 +3476,7 @@
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-104-05-1.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
+      "method": "independent_sequence_network_recalculation_with_source_model_branch",
       "solution_hash": "e7535ad7e8a9a6b5ee22211680dd464a3b663ab83125fb24db04b3d301c3b5ae",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_104年_電力系統_Q01.png"

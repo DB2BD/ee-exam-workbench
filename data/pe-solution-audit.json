@@ -1556,10 +1556,10 @@
       "question_number": 3,
       "chapter": "試進行下列情境之功因改善：\n\n* **(一)** 工廠中一備用額定$800\\text{ kW}$ 發電機組，原預計以$1000\\text{ kVA}$，功率因數0.8\n落後下運轉，但因故系統上卻另外加上一組$150\\text{ kW}$，功率因數0.75 落\n後的負載；欲使發電機不超載，試問需並聯多少kVAR 之電容器？\n（10 分）\n\n* **(二)** 工廠中一台額定$1000\\text{ kVA}$ 之變壓器供應$1000\\text{ kVA}$，功率因數0.8 落\n後之負載，今若再加入一灯力負載$100\\text{ kVA}$，功率因數1.0，試問欲使\n變壓器不超載，需並聯多少kVAR 之電容器？（10 分）\n裝置\n容量\nfD\nfL\n各設備間fdiv\n變壓器間fdiv\n$9\\text{ kVA}$\n0.9\n0.7\n1.35\n1.25\n$30\\text{ kVA}$\n0.83\n0.65\n$25\\text{ kVA}$\n0.65\n0.65\n$50\\text{ kVA}$\n0.63\n0.7\n1.56\n$30\\text{ kVA}$\n0.8\n0.78\n$20\\text{ kVA}$\n0.75\n0.75\n$16\\text{ kVA}$\n0.7\n0.5\n1.6\n$25\\text{ kVA}$\n0.65\n0.6",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official-crop-real-power-and-apparent-power-consistency-audit",
-      "solution_hash": "e6af78bd8ead46d626fb82379c458b24869ff72ac67d97fc9819efa1a1982eec",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-real-power-capacity-constraint-proof",
+      "solution_hash": "aadf3c8939b7c415bed682b09a4f085ef715749510635be2b19dd7e7b791e3d6",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 229,
+    "verified": 230,
     "suspected_error": 0,
-    "needs_manual_review": 27,
+    "needs_manual_review": 26,
     "not_attempted": 0
   }
 }

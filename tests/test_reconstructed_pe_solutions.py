@@ -422,6 +422,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("-4.625", limiter_105)
         self.assertIn("1.156", limiter_105)
 
+        buck_boost_112 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", buck_boost_112)
+        self.assertIn("13.33", buck_boost_112)
+        self.assertIn("120\\,\\mu\\text{F}", buck_boost_112)
+        self.assertIn("V_o=-36", buck_boost_112)
+
         thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
         power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", thevenin_104)

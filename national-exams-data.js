@@ -251,7 +251,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-105-02-2",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_114年_電子學_Q01.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_114年_電子學_Q01_figure-01.png"
@@ -286,7 +286,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_114年_電子學_Q02.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_114年_電子學_Q02_figure-01.png"
@@ -329,7 +329,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-4",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_114年_電子學_Q03.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_114年_電子學_Q03_figure-01.png"
@@ -364,7 +364,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-4",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_114年_電子學_Q04.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_114年_電子學_Q04_figure-01.png"
@@ -888,7 +888,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-4",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_113年_電子學_Q01.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_113年_電子學_Q01_figure-01.png"
@@ -923,7 +923,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-1",
+    "EE-104-02-2",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_113年_電子學_Q02.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_113年_電子學_Q02_figure-01.png"
@@ -967,7 +967,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-111-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_113年_電子學_Q03.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_113年_電子學_Q03_figure-01.png"
@@ -1001,7 +1001,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-112-02-4",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_113年_電子學_Q04.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_113年_電子學_Q04_figure-01.png"
@@ -1522,7 +1522,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q01.png",
     [],
     [
@@ -1555,7 +1555,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q02.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_112年_電子學_Q02_figure-01.png"
@@ -1599,7 +1599,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-1",
+    "EE-113-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q03.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_112年_電子學_Q03_figure-01.png"
@@ -1634,7 +1634,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-112-02-2",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q04.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_112年_電子學_Q04_figure-01.png"
@@ -1678,7 +1678,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_112年_電子學_Q05.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_112年_電子學_Q05_figure-01.png"
@@ -1811,7 +1811,7 @@ const NATIONAL_EXAMS_DATA = {
     ],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-111-03-4",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_Q04.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/figures/GK_112年_工程數學_Q04_figure-01.png"
@@ -1953,7 +1953,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-110-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC04.png",
     [],
     [
@@ -2019,7 +2019,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-112-03-4",
+    "EE-113-03-5",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC06.png",
     [],
     [
@@ -2221,7 +2221,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-113-03-4",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC12.png",
     [],
     [
@@ -2361,7 +2361,7 @@ const NATIONAL_EXAMS_DATA = {
     ],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-104-03-2",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_112年_工程數學_MC16.png",
     [],
     [
@@ -3012,7 +3012,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-105-02-2",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q01.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q01_figure-01.png",
@@ -3047,7 +3047,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-105-02-2",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q02.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q02_figure-01.png"
@@ -3092,7 +3092,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-1",
+    "EE-105-02-1",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q03.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q03_figure-01.png"
@@ -3126,7 +3126,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-112-02-2",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q04.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q04_figure-01.png"
@@ -3160,7 +3160,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_111年_電子學_Q05.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_111年_電子學_Q05_figure-01.png"
@@ -3194,7 +3194,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-113-03-5",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_Q01.png",
     [],
     [
@@ -3227,7 +3227,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-113-03-5",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_Q02.png",
     [],
     [
@@ -3335,7 +3335,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-111-03-4",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC01.png",
     [],
     [
@@ -3368,7 +3368,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     false,
     "GK",
-    "EE-112-03-4",
+    "EE-113-03-4",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC02.png",
     [],
     [
@@ -3401,7 +3401,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-113-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC03.png",
     [],
     [
@@ -3436,7 +3436,7 @@ const NATIONAL_EXAMS_DATA = {
     ],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-110-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC04.png",
     [],
     [
@@ -3509,7 +3509,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-112-03-4",
+    "EE-113-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC06.png",
     [],
     [
@@ -3542,7 +3542,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-110-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC07.png",
     [],
     [
@@ -3577,7 +3577,7 @@ const NATIONAL_EXAMS_DATA = {
     ],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-110-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC08.png",
     [],
     [
@@ -3714,7 +3714,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-113-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC12.png",
     [],
     [
@@ -3844,7 +3844,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-113-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC16.png",
     [],
     [
@@ -3876,7 +3876,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-113-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_111年_工程數學_MC17.png",
     [],
     [
@@ -4503,7 +4503,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-111-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q01.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q01_figure-01.png"
@@ -4537,7 +4537,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-111-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q02.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q02_figure-01.png"
@@ -4580,7 +4580,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q03.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q03_figure-01.png"
@@ -4615,7 +4615,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-105-02-2",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q04.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q04_figure-01.png"
@@ -4658,7 +4658,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-109-02-2",
+    "EE-113-02-3",
     "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/questions/GK_110年_電子學_Q05.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/02_電子學_含電力電子/images/figures/GK_110年_電子學_Q05_figure-01.png"
@@ -4791,7 +4791,7 @@ const NATIONAL_EXAMS_DATA = {
     ],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-111-03-4",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_Q04.png",
     [
       "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/figures/GK_110年_工程數學_Q04_figure-01.png"
@@ -4828,7 +4828,7 @@ const NATIONAL_EXAMS_DATA = {
     ],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-110-03-6",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC01.png",
     [],
     [
@@ -4861,7 +4861,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-112-03-4",
+    "EE-113-03-5",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC02.png",
     [],
     [
@@ -4894,7 +4894,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     false,
     "GK",
-    "EE-114-03-5",
+    "EE-113-03-5",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC03.png",
     [],
     [
@@ -4999,7 +4999,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-112-03-4",
+    "EE-113-03-5",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC06.png",
     [],
     [
@@ -5032,7 +5032,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     false,
     "GK",
-    "EE-114-03-5",
+    "EE-104-03-2",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC07.png",
     [],
     [
@@ -5266,7 +5266,7 @@ const NATIONAL_EXAMS_DATA = {
     [],
     true,
     "GK",
-    "EE-114-03-5",
+    "EE-104-03-1",
     "依考科分類/🏛️_國考同級參考題庫/03_工程數學/images/questions/GK_110年_工程數學_MC14.png",
     [],
     [

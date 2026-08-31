@@ -2860,8 +2860,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-2.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "ee55268990995fbea5829627454c5f47058283048cab0ac0f01bc274d1e22d64",
+      "method": "independent_recalculation_line_to_neutral_fault_with_asymmetrical_waveform",
+      "solution_hash": "11d70949b2ab619341fe08216cba5295c8d87003e9f09ecedac3a33e53d21b65",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_106年_工業配電_Q02.png"
     },

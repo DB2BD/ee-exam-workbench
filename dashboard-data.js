@@ -2347,7 +2347,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-110-04-1.md",
     "依考科分類/04_電機機械/110年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3086,7 +3086,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-109-06-3.md",
     "依考科分類/06_工業配電/109年_電機工程技師_工業配電.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)",
       "Ssc = Sbase / Xpu"
@@ -3105,7 +3105,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-109-06-4.md",
     "依考科分類/06_工業配電/109年_電機工程技師_工業配電.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3123,7 +3123,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-109-06-5.md",
     "依考科分類/06_工業配電/109年_電機工程技師_工業配電.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -3450,7 +3450,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-108-04-5.md",
     "依考科分類/04_電機機械/108年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -3904,7 +3904,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-107-04-1.md",
     "依考科分類/04_電機機械/107年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -3922,7 +3922,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-107-04-2.md",
     "依考科分類/04_電機機械/107年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "s = (Ns - N)/Ns"
     ],
@@ -3942,7 +3942,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-107-04-3.md",
     "依考科分類/04_電機機械/107年_電機工程技師_電機機械.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "戴維寧等效",
       "s = (Ns - N)/Ns"
@@ -3962,7 +3962,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-107-04-4.md",
     "依考科分類/04_電機機械/107年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -3981,7 +3981,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-107-04-5.md",
     "依考科分類/04_電機機械/107年_電機工程技師_電機機械.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "s = (Ns - N)/Ns"
     ],

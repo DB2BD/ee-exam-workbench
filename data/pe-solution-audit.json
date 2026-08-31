@@ -3250,10 +3250,10 @@
       "question_number": 5,
       "chapter": "下圖所示為一工業用戶之供電系統單線圖，責任分界點的系統短路容量為\n$100\\text{ MVA}$，電抗電阻比$X/R = 2.5$，主變壓器額定 $2000\\text{ kVA}，11.4\\text{ kV}/480\\text{ V}$，阻抗\nZT = j0.06 p.u.，低壓側之功因補償電容裝置容量為600 kVAR，試求：\n\n* **(一)** 諧波等效電路圖並標示RT、jXT 與C 值。（10 分）\n\n* **(二)** 並聯共振頻率fr Hz 與諧波共振的階次。（10 分）\n/",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-105-06-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "4f18e82a1b2f41f4b71189bad5572588795f50995bc34444058217d2ee8865c2",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_source_xr_transformer_capacitor_resonance_recalculation",
+      "solution_hash": "317bfd6f299fc8a691001b440cb6921a9dfe0d0408310f03bd30b450e644d7e2",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_105年_工業配電_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 182,
+    "verified": 183,
     "suspected_error": 0,
-    "needs_manual_review": 74,
+    "needs_manual_review": 73,
     "not_attempted": 0
   }
 }

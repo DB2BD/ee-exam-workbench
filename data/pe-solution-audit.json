@@ -3278,9 +3278,9 @@
       "question_number": 2,
       "chapter": "圖二電路操作在$\\omega = 4000\\text{ rad/s}$，若a、b 兩點間的阻抗為實數，則k 是多少？（20 分）\n圖二",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-with-equation-residual",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_mutual_inductance_reflected_impedance_recalculation",
       "solution_hash": "ffe68415d9255952408155aa1afc9938ceb4cebc07a22e4d790b237bcc24ac0b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_104年_電路學_Q02.png"
@@ -3306,10 +3306,10 @@
       "question_number": 4,
       "chapter": "圖三電路中t = 0 時沒有儲存能量，ig=20u(t)mA，$u(t)$是單位步階函數（unit step\nfunction）。求vo（t）。（20 分）\n圖三",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-with-equation-residual",
-      "solution_hash": "6e12da1a115db32fe08bd3c9240b6c253985cd52ba7c076cbc62b67f7e32e141",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_laplace_dependent_source_transient_recalculation",
+      "solution_hash": "d6d866756c0c7d30d5e9dba452c8cd17ea247dd864786d5f5a16eaab6002ff12",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_104年_電路學_Q04.png"
     },
@@ -3320,9 +3320,9 @@
       "question_number": 5,
       "chapter": "求圖四電路中的g 參數。I1 = g11V1+ g12 I2，V2 = g21V1+ g22 I2。（20 分）\n$60\\ \\Omega$\n$10\\ \\Omega$\n$25\\ \\Omega$\n$20\\ \\Omega$\n$5\\ \\Omega$\na\nb\n9V\n1.8A\n$12.5\\ \\mu\\text{F}$\n$20\\ \\Omega$\n$5\\ \\Omega$\n$8\\text{ mH}$\n$12.5\\text{ mH}$\na\nb\nφv\n10\n15\n×\n$100\\ \\mu\\text{F}$\n1 H\n$50\\ \\Omega$\nig\n_\n_\nφv\n$12.5\\ \\mu\\text{F}$\nΩ\n$20\\ \\Omega$\n10\nj\nΩ\n$500\\ \\Omega$\n-50\nj\nV\nV\n2I\n1I\n2I\n100\n圖四",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-with-equation-residual",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_inverse_hybrid_parameter_test_conditions_recalculation",
       "solution_hash": "c322630d3163559eef26161f5ba67feea550d0eba27337f572f51b7a3f025215",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_104年_電路學_Q05.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 189,
+    "verified": 192,
     "suspected_error": 0,
-    "needs_manual_review": 67,
+    "needs_manual_review": 64,
     "not_attempted": 0
   }
 }

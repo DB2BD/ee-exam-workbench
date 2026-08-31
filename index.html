@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=919b15e"></script>
-<script src="./solutions-bundle.js?v=919b15e"></script>
-<script src="./national-exams-data.js?v=919b15e"></script>
-<script src="./national-solutions-bundle.js?v=919b15e"></script>
+<script src="./dashboard-data.js?v=frontmatter-fix"></script>
+<script src="./solutions-bundle.js?v=frontmatter-fix"></script>
+<script src="./national-exams-data.js?v=frontmatter-fix"></script>
+<script src="./national-solutions-bundle.js?v=frontmatter-fix"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -4373,6 +4373,13 @@ const CN_NUM_MAP = {
  */
 function extractQuestionMarkdown(rawMd, targetQNum) {
   if (!rawMd) return { content: '', subParts: [] };
+
+  // Canonical question notes carry YAML provenance frontmatter.  It is data
+  // for the audit/compiler, not part of the learner-facing solution.  Strip a
+  // leading frontmatter document before splitting/rendering; otherwise the
+  // metadata is parsed as a large Markdown heading in the solution pane.
+  const frontmatter = /^\uFEFF?---\s*\r?\n[\s\S]*?\r?\n---\s*(?:\r?\n|$)/;
+  rawMd = rawMd.replace(frontmatter, '');
 
   const qNumInt = parseInt(targetQNum, 10) || 1;
 

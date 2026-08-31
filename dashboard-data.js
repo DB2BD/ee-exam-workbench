@@ -6631,14 +6631,14 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-107-06-2": {
     "disposition": "rated_current_branches",
     "blocker": "missing_parameter",
-    "action": "確認 100 HP 馬達滿載電流表或效率；目前並列查表 250 A 與反算分支。",
-    "evidence": ""
+    "action": "確認考試年度採用的 100 HP 馬達滿載電流表或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。",
+    "evidence": "經濟部《用戶用電設備裝置規則》要求馬達導線與保護依表 258-1～258-3 的滿載電流檢核；現行表 258-3 三相感應電動機 220 V、100 HP 列值為 238 A，但表下注明 60 HP 以上得採製造廠資料，且考試年度版本可能不同，故僅作官方交叉證據，不能取代題幹缺漏。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
   },
   "EE-111-06-4": {
     "disposition": "code_compliance_branches",
     "blocker": "missing_parameter",
-    "action": "補齊導線材質、敷設、環境修正與效率／規範版本，才能唯一選線徑與保護器。",
-    "evidence": ""
+    "action": "補齊導線材質、敷設、環境修正與效率／規範版本；現行表可作交叉檢查，但 8 HP 無精確列值，仍須確認考試年度表。",
+    "evidence": "經濟部《用戶用電設備裝置規則》馬達滿載電流表 258-3 的現行 220 V 列值為：20 HP=55 A、10 HP=28 A、7.5 HP=21 A；題目為 8 HP，無精確列值，且導線安培容量仍取決於材質、配管載流導線數、修正係數與規範版本，故只能作交叉檢查。 來源：https://law.moea.gov.tw/LawContent.aspx?id=FL011045&kw=E%26M；https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028166/ch04/type3/gov31/num7/images/BB.pdf"
   },
   "EE-110-06-5": {
     "disposition": "conditional_numeric",

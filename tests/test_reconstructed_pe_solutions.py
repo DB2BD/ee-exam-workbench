@@ -132,6 +132,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn('"impedance_type_branches"', dashboard)
         self.assertIn('"evidence"', dashboard)
         self.assertIn("j0.01", dashboard)
+        self.assertIn("238 A", dashboard)
+        self.assertIn("20 HP=55 A", dashboard)
         self.assertIn("function renderSolutionReviewCard", index)
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
         self.assertIn("meta.evidence", index)

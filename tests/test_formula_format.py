@@ -41,6 +41,12 @@ class TestFormulaFormat(unittest.TestCase):
         self.assertIn(r"/\\\(([^\n]+?)\\\)/g", source)
         self.assertIn("unicodeTextInMathMode", source)
 
+    def test_renderer_normalizes_legacy_unbraced_unit_macros(self):
+        source = (ROOT / "src/renderers/katexRenderer.js").read_text(encoding="utf-8")
+        self.assertIn("function normalizeLatexSyntax", source)
+        self.assertIn("latex = normalizeLatexSyntax(latex)", source)
+        self.assertIn("\\\\mathrm\\s+", source)
+
     def test_known_malformed_formula_delimiters_are_fixed(self):
         files = [
             ROOT / "🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",

@@ -56,7 +56,7 @@ process.stdout.write(ctx.processMarkdownWithMath(process.argv[1]));
         self.assertIn('class="katex"', rendered)
 
     def test_bare_latex_commands_in_prose_are_normalized(self):
-        rendered = self._render_with_bundled_katex(r'採用開 \Delta 接線，符號 \mathcal R 代表磁阻。')
+        rendered = self._render_with_bundled_katex(r'採用開 \Delta 接線，符號 \mathcal R 與 \mathcal{R} 代表磁阻。')
         self.assertNotIn(r'\Delta', rendered)
         self.assertNotIn(r'\mathcal', rendered)
         self.assertIn('Δ', rendered)

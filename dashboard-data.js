@@ -6610,7 +6610,8 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "multiple_power_flow_branches",
     "blocker": "model_branch_ambiguity",
     "action": "若題意採正常穩態，選高電壓分支；目前以 Jacobian 診斷高／低分支並保留題面未指定的低電壓解。",
-    "evidence": "官方圖的線路電抗與 Bus 2 PV、Bus 3 PQ 條件已重建成 Y_bus，Newton 法得到高／低電壓兩個正值根；兩根殘差均達數值容許，且 Jacobian 最小奇異值分別 0.59230 與 0.05141。題目未指定運轉分支。"
+    "evidence": "官方圖的線路電抗與 Bus 2 PV、Bus 3 PQ 條件已重建成 Y_bus，Newton 法得到高／低電壓兩個正值根；兩根殘差均達數值容許，且 Jacobian 最小奇異值分別 0.59230 與 0.05141。考選部原始檔明載本題為承上題並指定 Bus 1 為無限匯流排、Bus 2 為發電機匯流排；題目仍未指定運轉分支。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {
     "disposition": "fault_definition_branches",

@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=latex-delimiter-fix"></script>
-<script src="./solutions-bundle.js?v=latex-delimiter-fix"></script>
-<script src="./national-exams-data.js?v=latex-delimiter-fix"></script>
-<script src="./national-solutions-bundle.js?v=latex-delimiter-fix"></script>
+<script src="./dashboard-data.js?v=bare-latex-wrap-v2"></script>
+<script src="./solutions-bundle.js?v=bare-latex-wrap-v2"></script>
+<script src="./national-exams-data.js?v=bare-latex-wrap-v2"></script>
+<script src="./national-solutions-bundle.js?v=bare-latex-wrap-v2"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -3683,6 +3683,88 @@ function isEscapedCharacter(text, index) {
 }
 
 /**
+ * Legacy notes occasionally put LaTeX units inside ordinary parentheses,
+ * e.g. ``(2500\,\mathrm{MVA})`` without an opening ``\(``.  Markdown leaves
+ * those commands as visible backslashes.  Wrap only same-line parenthetical
+ * fragments that actually contain a LaTeX command; existing math blocks and
+ * inline-code spans are copied untouched.
+ */
+function normalizeBareLatexFragments(markdown) {
+  let result = '';
+  let cursor = 0;
+  let inFence = false;
+
+  while (cursor < markdown.length) {
+    if (markdown.startsWith('```', cursor)) {
+      const end = markdown.indexOf('```', cursor + 3);
+      if (end < 0) return result + markdown.slice(cursor);
+      result += markdown.slice(cursor, end + 3);
+      cursor = end + 3;
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) {
+      result += markdown[cursor++];
+      continue;
+    }
+    if (markdown[cursor] === '`') {
+      const end = markdown.indexOf('`', cursor + 1);
+      if (end < 0) return result + markdown.slice(cursor);
+      result += markdown.slice(cursor, end + 1);
+      cursor = end + 1;
+      continue;
+    }
+
+    // Do not rewrite text that is already inside a supported math delimiter.
+    const mathStart = markdown.startsWith('$$', cursor)
+      || markdown.startsWith('\\[', cursor)
+      || markdown.startsWith('\\(', cursor)
+      || (markdown[cursor] === '$' && markdown[cursor + 1] !== '$');
+    if (mathStart) {
+      const isDouble = markdown.startsWith('$$', cursor);
+      const left = isDouble ? '$$' : markdown.startsWith('\\[', cursor) ? '\\[' : markdown.startsWith('\\(', cursor) ? '\\(' : '$';
+      const right = isDouble ? '$$' : left === '\\[' ? '\\]' : left === '\\(' ? '\\)' : '$';
+      const end = markdown.indexOf(right, cursor + left.length);
+      if (end < 0) {
+        result += markdown[cursor++];
+      } else {
+        result += markdown.slice(cursor, end + right.length);
+        cursor = end + right.length;
+      }
+      continue;
+    }
+
+    if (markdown[cursor] === '(') {
+      const end = markdown.indexOf(')', cursor + 1);
+      if (end >= 0 && !markdown.slice(cursor + 1, end).includes('\n')) {
+        const fragment = markdown.slice(cursor, end + 1);
+        // Parentheses which merely surround an existing delimiter, e.g.
+        // ``(\\(-\\pi,0]\\)`` must remain untouched.
+        const containsDelimiter = /(?:\\\\?\(|\\\\?\[|\$)/.test(fragment);
+        if (!containsDelimiter && /\\(?:[A-Za-z]+|[,;%])/.test(fragment)) {
+          // A few legacy notes used ``(\\frac{...}\\right)`` without the
+          // matching ``\\left``.  Reconstruct the intended paired fence so
+          // KaTeX receives valid syntax while preserving the visual grouping.
+          const rightFence = fragment.match(/\\right\s*([)\]}])\s*$/);
+          if (rightFence && !/\\left/.test(fragment)) {
+            const inner = fragment.slice(1, -1).replace(/\\right\s*$/, '');
+            const leftFence = { ')': '(', ']': '[', '}': '{' }[rightFence[1]];
+            result += `\\(\\left${leftFence}${inner}\\right${rightFence[1]}\\)`;
+          } else {
+            result += `\\(${fragment}\\)`;
+          }
+          cursor = end + 1;
+          continue;
+        }
+      }
+    }
+
+    result += markdown[cursor++];
+  }
+  return result;
+}
+
+/**
  * Protect inline `$...$` blocks without treating an escaped currency marker
  * (`\$`) inside a unit such as `\text{\$/h}` as the closing delimiter.
  * A scanner is used instead of a single regex so escaped backslashes and
@@ -3757,6 +3839,11 @@ function processMarkdownWithMath(rawMarkdown) {
   // Protect inline math $ ... $.  The scanner deliberately skips escaped
   // currency markers inside a formula (for example `\text{\$/MWh}`).
   protectedMd = protectInlineDollarMath(protectedMd, mathPlaceholders);
+
+  // Normalize legacy parenthetical fragments before the standard inline
+  // delimiter pass, so the generated \(...\) wrapper is captured as a
+  // placeholder rather than emitted as literal Markdown text.
+  protectedMd = normalizeBareLatexFragments(protectedMd);
 
   // Standard LaTeX inline delimiters \( ... \).
   protectedMd = protectedMd.replace(/\\\(([\s\S]+?)\\\)/g, (match, math) => {

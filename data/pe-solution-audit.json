@@ -2592,9 +2592,9 @@
       "question_number": 1,
       "chapter": "試以拉普拉斯轉換法（Laplace Transform）求解以下電路之輸出電壓Vab。其中，$u(t)$\n為單位步級函數（unit step function），$\\delta(t)$為脈衝函數（impulse function）。（25 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-106-01-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-with-equation-residual",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "laplace_domain_nodal_recalculation_with_equation_residual",
       "solution_hash": "7c1188a24c1ec931f5adfe3808d4f0f7cce18ea7fa2a12ab55485dfb97b600db",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_106年_電路學_Q01.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 212,
+    "verified": 213,
     "suspected_error": 0,
-    "needs_manual_review": 44,
+    "needs_manual_review": 43,
     "not_attempted": 0
   }
 }

@@ -73,6 +73,19 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("(1-p_B)^{53}", q3)
         self.assertIn("(1-p_C)^{60}", q3)
 
+    def test_corrected_gic_and_lv_fault_notes_keep_distinct_verified_results(self):
+        """Guard against the earlier band-stop/short-circuit answer substitutions."""
+        gic = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-108-02-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", gic)
+        self.assertIn("10sRC", gic)
+        self.assertIn("二階帶通", gic)
+        self.assertNotIn("二階帶阻（陷波）", gic)
+
+        fault = (CANONICAL / "06_工業配電" / "canonical" / "EE-112-06-4.md").read_text(encoding="utf-8")
+        self.assertIn("19\\,478.754", fault)
+        self.assertIn("0.4827765", fault)
+        self.assertIn("\\boxed{0.48}", fault)
+
 
 if __name__ == "__main__":
     unittest.main()

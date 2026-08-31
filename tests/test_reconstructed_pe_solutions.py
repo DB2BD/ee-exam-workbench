@@ -13,6 +13,27 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
+    def test_engineering_math_annual_notes_use_canonical_bodies(self):
+        """Annual engineering-math pages must expose solved canonical questions."""
+        math_dir = CANONICAL / "03_工程數學"
+        generic_markers = (
+            "精確識別題型屬於常微分方程",
+            "完整數學推導完成，步驟條理分明",
+            "套用拉氏反轉換、Gram-Schmidt 正交化程序或留數計算公式",
+        )
+        for year in range(104, 115):
+            notes = sorted(math_dir.glob(f"canonical/EE-{year:03d}-03-*.md"))
+            annual = math_dir / f"{year}年_工程數學_全卷完整詳細題解.md"
+            self.assertTrue(notes, f"missing canonical engineering-math notes for {year}")
+            self.assertTrue(annual.is_file(), f"missing annual engineering-math note for {year}")
+            annual_text = annual.read_text(encoding="utf-8")
+            for marker in generic_markers:
+                self.assertNotIn(marker, annual_text, f"generic template remains in {annual.name}")
+            for note in notes:
+                title = next((line for line in note.read_text(encoding="utf-8").splitlines() if line.startswith("# ")), note.stem)
+                self.assertIn(title, annual_text, f"canonical question missing from annual note: {note.name}")
+            self.assertIn("題級校驗狀態", annual_text, f"audit state missing from annual note: {annual.name}")
+
     def test_explicit_crop_questions_align_with_annual_notes(self):
         """Annual notes must not silently contain another year's numeric template."""
         ordinal = "一二三四五六七八九十"

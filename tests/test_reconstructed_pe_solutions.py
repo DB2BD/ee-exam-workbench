@@ -123,7 +123,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 22, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 21, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -172,6 +172,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("Jacobian 分支診斷", note)
         self.assertIn("6.03777", note)
         self.assertIn("0.05141", note)
+
+    def test_power_flow_verified_outputs_are_invariant_to_voltage_branch(self):
+        note = (CANONICAL / "05_電力系統" / "canonical" / "EE-106-05-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", note)
+        self.assertIn("P_1=0", note)
+        self.assertIn("Bus 2–3 線路無效功率流向", note)
+        self.assertIn("低電壓根亦保留作數值診斷", note)
+        self.assertNotIn("review_blocker:", note)
 
     def test_single_phase_fault_review_uses_diagram_fault_location(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")

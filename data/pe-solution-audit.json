@@ -2816,9 +2816,9 @@
       "question_number": 3,
       "chapter": "承上題，若匯流排3 增加一負載SL=1+j0.9 p.u.；匯流排1 為無限匯流排（Infinite Bus）：\nV1=$1\\angle 0^\\circ$ p.u.；匯流排2 為發電機匯流排：P2=1 p.u.，電壓振幅為|V2|=1 p.u.。\n* **(一)** 求出該系統導納矩陣（Admittance Matrix）。（8 分）\n* **(二)** 試寫出該系統之電力潮流方程式。（8 分）\n* **(三)** 請問於該工作條件下，匯流排1 之有效功率輸出為何？（4 分）\n* **(四)** 請問於該工作條件下，由匯流排2 至匯流排3 之傳輸線上，無效功率之流向為由\n匯流排2 流至匯流排3，或是由匯流排3 流至匯流排2？（5 分）\n建築師、技師、第二次食品技師考試暨\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-106-05-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official_crop_newton_power_flow_two_voltage_branches",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_newton_power_flow_invariant_outputs_with_branch_diagnostic",
       "solution_hash": "5aefc4fa9d0943febb55363a53fca6609a3034bc25d420ff1046fa1787b274b5",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_106年_電力系統_Q03.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 234,
+    "verified": 235,
     "suspected_error": 0,
-    "needs_manual_review": 22,
+    "needs_manual_review": 21,
     "not_attempted": 0
   }
 }

@@ -4594,7 +4594,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-106-05-3.md",
     "依考科分類/05_電力系統/106年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -6599,13 +6599,6 @@ const SOLUTION_REVIEW_METADATA = {
     "blocker": "source_conflict",
     "action": "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。",
     "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 與 unity-PF 條件分支。兩組資料不能無聲混合。"
-  },
-  "EE-106-05-3": {
-    "disposition": "multiple_power_flow_branches",
-    "blocker": "model_branch_ambiguity",
-    "action": "若題意採正常穩態，選高電壓分支；目前以 Jacobian 診斷高／低分支並保留題面未指定的低電壓解。",
-    "evidence": "官方圖的線路電抗與 Bus 2 PV、Bus 3 PQ 條件已重建成 Y_bus，Newton 法得到高／低電壓兩個正值根；兩根殘差均達數值容許，且 Jacobian 最小奇異值分別 0.59230 與 0.05141。考選部原始檔明載本題為承上題並指定 Bus 1 為無限匯流排、Bus 2 為發電機匯流排；題目仍未指定運轉分支。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q",
-    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {
     "disposition": "impedance_definition_branches",

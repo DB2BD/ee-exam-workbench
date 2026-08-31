@@ -37,7 +37,6 @@ REVIEWS = {
     "EE-108-06-2": ("physical_inconsistency", "official_wording_ambiguity", "確認串聯電抗器用途與允許壓降／功因條件；目前指出被動電抗與題意方向矛盾。"),
     "EE-107-06-2": ("rated_current_branches", "missing_parameter", "確認考試年度採用的 100 HP 馬達滿載電流表或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。"),
     "EE-106-02-2": ("parameterized_only", "missing_parameter", "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。"),
-    "EE-106-05-3": ("multiple_power_flow_branches", "model_branch_ambiguity", "若題意採正常穩態，選高電壓分支；目前以 Jacobian 診斷高／低分支並保留題面未指定的低電壓解。"),
     "EE-106-06-2": ("impedance_definition_branches", "official_wording_ambiguity", "依圖面固定 F 為左 110 V 導體對中性點；確認饋線阻抗是否含往返，以及非對稱電流的觀察時刻／故障相角。"),
     "EE-105-04-5": ("flux_curve_parameterized", "missing_parameter", "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。"),
     "EE-104-05-3": ("given_current_vs_recalculation", "source_conflict", "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。"),
@@ -127,11 +126,6 @@ REVIEW_EVIDENCE = {
     "EE-106-02-2": (
         "官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞，未提供 R_1、R_2、各管 g_m、r_o、尾電流源阻抗或輸出端口數值；"
         "canonical 已保留參數化 A_f=A/(1+Aβ) 及測試源阻抗定義，避免套用無條件理想運放公式。"
-    ),
-    "EE-106-05-3": (
-        "官方圖的線路電抗與 Bus 2 PV、Bus 3 PQ 條件已重建成 Y_bus，Newton 法得到高／低電壓兩個正值根；"
-        "兩根殘差均達數值容許，且 Jacobian 最小奇異值分別 0.59230 與 0.05141。考選部原始檔明載本題為承上題並指定 Bus 1 為無限匯流排、Bus 2 為發電機匯流排；題目仍未指定運轉分支。"
-        "來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q"
     ),
     "EE-106-06-2": (
         "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，故故障拓撲已按左 110 V 對中性點處理；canonical 回代 I_sym=11.318 kA、"

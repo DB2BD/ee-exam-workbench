@@ -197,6 +197,7 @@ function normalizeBareLatexCommands(markdown) {
     [/\\text\{([^{}\n]*)\}/g, '$1'],
     [/\\mathrm\{([^{}\n]*)\}/g, '$1'],
     [/\\operatorname\{([^{}\n]*)\}/g, '$1'],
+    [/\\mathcal\{([^{}\n]*)\}/g, '$1'],
     [/\\mathcal\s*([A-Za-z])/g, '$1'],
     [/\\Delta\b/g, 'Δ'],
     [/\\Omega\b/g, 'Ω'],

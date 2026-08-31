@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=formula-fix-20260831c"></script>
-<script src="./solutions-bundle.js?v=formula-fix-20260831c"></script>
-<script src="./national-exams-data.js?v=formula-fix-20260831c"></script>
-<script src="./national-solutions-bundle.js?v=formula-fix-20260831c"></script>
+<script src="./dashboard-data.js?v=formula-fix-20260831d"></script>
+<script src="./solutions-bundle.js?v=formula-fix-20260831d"></script>
+<script src="./national-exams-data.js?v=formula-fix-20260831d"></script>
+<script src="./national-solutions-bundle.js?v=formula-fix-20260831d"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -3804,6 +3804,7 @@ function normalizeBareLatexCommands(markdown) {
     [/\\text\{([^{}\n]*)\}/g, '$1'],
     [/\\mathrm\{([^{}\n]*)\}/g, '$1'],
     [/\\operatorname\{([^{}\n]*)\}/g, '$1'],
+    [/\\mathcal\{([^{}\n]*)\}/g, '$1'],
     [/\\mathcal\s*([A-Za-z])/g, '$1'],
     [/\\Delta\b/g, 'Δ'],
     [/\\Omega\b/g, 'Ω'],

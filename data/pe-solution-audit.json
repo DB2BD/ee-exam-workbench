@@ -2186,10 +2186,10 @@
       "question_number": 5,
       "chapter": "下圖所示的單線圖為\n限匯流排。此發電機傳\n皆為1.0 標么。圖上所\n么值。發電機的暫態電\n線路送電端30%線路長\nMJ/MVA，系統頻率為\n開啟故障線路兩端之\n（Power-Angle Equatio\n一部發電機經由兩條並聯的輸電\n傳送0.8 標么的功率，且端電壓及\n所標示的數字表示在一個共同系\n電抗為0.2 標么，如果其中一條輸\n長度之處發生三相故障，假設發\n為$60\\text{ Hz}$。如果該故障在發生後的\n之斷路器而予以清除，試求功\non）。（20 分）\n電線路連接至一無\n壓及無限匯流排電壓\n系統基準上的電抗標\n條輸電線路，在距離\n發生故障時，H = 5.0\n的4.5 週期時，同時\n功率-角度方程式",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-108-05-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "8c3ecfb36ab13a3cf63c303a062c8042188e2ecf9527b81782d4f870c76cb81e",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official-crop-network-reduction-and-power-angle-recalculation",
+      "solution_hash": "bf7953dc6265d765044fe53c9f2178a5b7955ef3f8416440d8632e8b156c2c84",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_108年_電力系統_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 132,
+    "verified": 133,
     "suspected_error": 0,
-    "needs_manual_review": 124,
+    "needs_manual_review": 123,
     "not_attempted": 0
   }
 }

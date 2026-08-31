@@ -167,6 +167,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("乙至少有一發命中", note)
         self.assertIn("5.0\\times10^{-30}", note)
 
+    def test_synchronous_motor_manual_review_records_parameter_sensitivity(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-2.md").read_text(encoding="utf-8")
+        self.assertIn("參數化敏感度", note)
+        self.assertIn("20.0000%", note)
+        self.assertIn("3.3333%", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

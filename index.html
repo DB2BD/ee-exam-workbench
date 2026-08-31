@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=formula-fix-20260831e"></script>
-<script src="./solutions-bundle.js?v=formula-fix-20260831e"></script>
-<script src="./national-exams-data.js?v=formula-fix-20260831e"></script>
-<script src="./national-solutions-bundle.js?v=formula-fix-20260831e"></script>
+<script src="./dashboard-data.js?v=ui-recall-20260831"></script>
+<script src="./solutions-bundle.js?v=ui-recall-20260831"></script>
+<script src="./national-exams-data.js?v=ui-recall-20260831"></script>
+<script src="./national-solutions-bundle.js?v=ui-recall-20260831"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -4897,7 +4897,7 @@ function syncActiveRecallButtonState() {
 function toggleActiveRecallMode() {
   isActiveRecallMode = !isActiveRecallMode;
   syncActiveRecallButtonState();
-  showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式 (三階蓋牌)' : '📖 已切換為全開放詳解模式');
+  showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式（四步驟蓋牌）' : '📖 已切換為全開放詳解模式');
 
   // Re-render current question with or without active recall masking
   const rawMd = resolveSolutionMarkdown(currentModalSolLink, currentModalQid);
@@ -4988,49 +4988,17 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
   if (!rightPane) return;
 
   if (isActiveRecallMode) {
-    // Robust split for question stem, hints, and derivations across all 2-4 level headers
-    const hintSplitRegex = /(?=\n#{2,4}\s+(?:💡|核心考點|破題關鍵|解題思路|考點剖析|破題思路|觀念分析))/i;
-    const stepSplitRegex = /(?=\n#{2,4}\s+(?:✏️|步驟|詳細推導|完整解答|推導|計算步驟|解題步驟|詳細數學推導|滿分解答|標準解答|詳解|解法|解答|求解|\([一二三四五六七八九十\d]+\)|(?:第\s*[一二三四五六七八九十\d]+\s*小題))|\n\*\*(?:【解】|解：|解答：|推導：)\*\*)/i;
-
-    let stemPart = markdownChunk;
-    let hintPart = '';
-    let derivationPart = '';
-
-    if (hintSplitRegex.test(markdownChunk)) {
-      const parts = markdownChunk.split(hintSplitRegex);
-      stemPart = parts[0];
-      const rest = parts.slice(1).join('\n');
-      if (stepSplitRegex.test(rest)) {
-        const restParts = rest.split(stepSplitRegex);
-        hintPart = restParts[0];
-        derivationPart = restParts.slice(1).join('\n');
-      } else {
-        hintPart = rest;
-        derivationPart = '';
-      }
-    } else if (stepSplitRegex.test(markdownChunk)) {
-      const parts = markdownChunk.split(stepSplitRegex);
-      stemPart = parts[0];
-      derivationPart = parts.slice(1).join('\n');
-    }
-
-    // Safety fallback: if no header matched, mask everything after initial stem paragraph
-    if (!derivationPart && !hintPart && markdownChunk.includes('\n\n')) {
-      const paras = markdownChunk.split(/\n\n+/);
-      if (paras.length > 2) {
-        stemPart = paras.slice(0, 2).join('\n\n');
-        derivationPart = paras.slice(2).join('\n\n');
-      }
-    }
-
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     const recallHints = typeof getRecallHintBundle === 'function'
       ? getRecallHintBundle(currentModalQid, qRecord)
       : { chapter: '待人工複核', activation: '先列出已知量、未知量與要求量。', formula: '寫出本章節核心公式。', trap: '檢查單位、極性與邊界條件。' };
 
-    let stemHtml = resolveRenderedImageSources(processMarkdownWithMath(stemPart), isGK, currentModalQid);
-    let hintHtml = hintPart ? resolveRenderedImageSources(processMarkdownWithMath(hintPart), isGK, currentModalQid) : '';
-    let derivationHtml = derivationPart ? resolveRenderedImageSources(processMarkdownWithMath(derivationPart), isGK, currentModalQid) : '';
+    // In active-recall mode the right pane must not leak any solution text.
+    // The question crop is already visible in the left pane, so keep the
+    // entire rendered Markdown in the fourth-step reveal section instead of
+    // heuristically exposing a "stem" prefix (which could contain equations
+    // when a note has no conventional solution heading).
+    const fullSolutionHtml = resolveRenderedImageSources(processMarkdownWithMath(markdownChunk), isGK, currentModalQid);
     const reviewCardHtml = renderSolutionReviewCard(currentModalQid);
 
     let dagHtml = '';
@@ -5040,10 +5008,8 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     }
 
     rightPane.innerHTML = `
-      <div class="solution-content">
-        ${stemHtml}
-        ${reviewCardHtml}
-
+      <div class="solution-content active-recall-active">
+        <!-- Keep the four-step workflow immediately above the hidden solution. -->
         <div class="active-recall-box" id="recall-step-box">
           <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
           <p style="font-size: 0.85rem; color: var(--muted); margin: 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
@@ -5066,9 +5032,11 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         </div>
 
         <div id="recall-full-section" style="display: none;">
-          ${derivationHtml}
+          ${fullSolutionHtml}
           ${dagHtml}
         </div>
+
+        ${reviewCardHtml}
 
         <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
           <div class="sm2-rating-title">🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：</div>

@@ -30,7 +30,7 @@ REVIEWS = {
     "EE-111-04-4": ("curve_interpolation_branches", "graph_estimate", "提供高解析 OCC/SCC 曲線或指定插值點後，再鎖定電壓調整率。"),
     "EE-111-05-3": ("frequency_parameterized", "missing_parameter", "確認系統頻率；目前以臺灣常用 60 Hz 參數化清除時間。"),
     "EE-111-06-1": ("graph_estimate", "graph_estimate", "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。"),
-    "EE-111-06-2": ("conditional_numeric", "missing_parameter", "補齊馬達額定 kVA、效率與額定功因，才能唯一化啟動電流與電壓變動率。"),
+    "EE-111-06-2": ("conditional_numeric", "missing_parameter", "補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。"),
     "EE-111-06-3": ("motor_rating_branches", "missing_parameter", "確認馬達數量、額定容量與內電勢假設後，再鎖定三相故障貢獻。"),
     "EE-111-06-4": ("code_compliance_branches", "missing_parameter", "補齊導線材質、敷設、環境修正與效率／規範版本；現行表可作交叉檢查，但 8 HP 無精確列值，仍須確認考試年度表。"),
     "EE-110-06-4": ("definition_branches", "official_wording_ambiguity", "依圖面 A 點採 1.606162%／0.036720 pu；若命題解答採 B 點則為 19.052%／6.070853 pu，請確認觀測點定義。"),

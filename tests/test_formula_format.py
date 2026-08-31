@@ -116,6 +116,19 @@ process.stdout.write(JSON.stringify(errors));
         errors = json.loads(result.stdout)
         self.assertEqual(errors, [], result.stderr)
 
+    def test_canonical_latex_delimiters_are_balanced(self):
+        """孤立的 \\) / \\] 會被當成純文字露出，需在來源層直接攔截。"""
+        for path in (ROOT / "📝 個人題解與錯題本").glob("**/canonical/*.md"):
+            text = path.read_text(encoding="utf-8")
+            # Ignore LaTeX row-break syntax such as ``\\\\[4pt]``; it is not
+            # a display-math opener.  A single backslash is a real delimiter.
+            inline_open = len(re.findall(r"(?<!\\)\\\(", text))
+            inline_close = len(re.findall(r"(?<!\\)\\\)", text))
+            display_open = len(re.findall(r"(?<!\\)\\\[", text))
+            display_close = len(re.findall(r"(?<!\\)\\\]", text))
+            self.assertEqual(inline_open, inline_close, f"unbalanced inline delimiters: {path}")
+            self.assertEqual(display_open, display_close, f"unbalanced display delimiters: {path}")
+
     def test_renderer_converts_obsidian_image_embeds_before_markdown_parse(self):
         source = (ROOT / "src/renderers/katexRenderer.js").read_text(encoding="utf-8")
         self.assertIn("normalizeObsidianImageEmbeds", source)

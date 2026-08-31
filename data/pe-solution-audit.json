@@ -3040,10 +3040,10 @@
       "question_number": 5,
       "chapter": "(一)請說明半波整流器與全波整流器之差異為何？請畫出電路圖。（10 分）\n\n* **(二)** 請說明半橋整流器與全橋整流器之差異為何？請畫出電路圖。（10 分）\nD1\n+VA\nR5\nR4\nRF\nD2\n－VB\nVy\nvS\n$$ii=0$$\n$$Rx=(R1||RF)$$\nAo=∞\nvO",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-105-02-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "13890b6b38e5d9bde5b4f580d0a0734e3237d28bd3d1225bd2e05c1d5bce5b30",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_rectifier_topology_and_waveform_verification",
+      "solution_hash": "9f7aff3861b3ba119c014d92d7057dc58ec41743da4ddfde0162581d64423c1b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_105年_電子學（包括電力電子學）_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 217,
+    "verified": 218,
     "suspected_error": 0,
-    "needs_manual_review": 39,
+    "needs_manual_review": 38,
     "not_attempted": 0
   }
 }

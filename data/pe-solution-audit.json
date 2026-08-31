@@ -1136,10 +1136,10 @@
       "question_number": 5,
       "chapter": "某工廠內部以電感性負載為主，由線電壓 $2300\\text{ V}$ 之三相輸電電纜供電，工廠之用電量為 $3000\\text{ kW}$，功率因數（power factor）為 0.85。今欲選用一具同步阻抗為 $1.6\\ \\Omega$ 之同步機，做為同步電容器（synchronous capacitor）使用，目的是將工廠用電之功率因數矯正為 1.0。\n* **(一)** 試問所選用之同步機額定 kVA 值應為何？（4 分）\n* **(二)** 對於輸電的三相電纜而言，工廠安裝此同步電容器之前與安裝之後，輸電電纜所需提供給工廠之線電流大小有何改變？（4 分）\n* **(三)** 欲達成上述功因改善之要求，應將同步機之電樞電壓值調整為多少？（6 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "dfbaff4c035d1e1690765a71e022044ca94220ee7a2040113cb43e9356caae50",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_synchronous_condenser_kvar_line_current_and_phasor_verification",
+      "solution_hash": "8a75ab572727fa45bbcd025415ce28dffd94df9535cefc7f6b3793383e524d4e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 221,
+    "verified": 222,
     "suspected_error": 0,
-    "needs_manual_review": 35,
+    "needs_manual_review": 34,
     "not_attempted": 0
   }
 }

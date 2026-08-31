@@ -29,6 +29,10 @@ MAJOR_HEADING = re.compile(rf"(?<!圖)(?<!第)([{NUMERALS}]+)、")
 FIGURE_QUESTION = re.compile(rf"如圖([{NUMERALS}]+)")
 MC_HEADING = re.compile(r"^\s*([0-9]{1,2})(?=\s|$)")
 MC_ENGINEERING_YEARS = {110, 111, 112}
+# Matrix rows in the official engineering-math PDFs are positioned slightly
+# above the Arabic question-number text.  Keep enough headroom so a question
+# crop never drops the first matrix row while still ending at the next number.
+MC_TOP_PADDING = 24.0
 
 
 def rel(path: Path) -> str:
@@ -170,7 +174,7 @@ def multiple_choice_starts(doc: fitz.Document) -> list[dict]:
             starts.append(
                 {
                     "page": page_index,
-                    "y": max(0.0, y0 - 1.0),
+                    "y": max(0.0, y0 - MC_TOP_PADDING),
                     "number": expected,
                     "text": clean,
                 }
@@ -284,7 +288,14 @@ def process_entry(entry: dict, dpi: int) -> dict:
         for page_index in range(start["page"], doc.page_count):
             if index + 1 < len(starts) and page_index > starts[index + 1]["page"]:
                 break
-            mc_end = mc_starts[0]["y"] - 8.0 if index == 3 and mc_starts else None
+            # ``mc_starts[0]["y"]`` includes the matrix headroom.  The essay
+            # section must still end at the original question-number boundary;
+            # otherwise the last essay's figure can be clipped by the padding.
+            mc_end = (
+                mc_starts[0]["y"] + MC_TOP_PADDING - 8.0
+                if index == 3 and mc_starts
+                else None
+            )
             if mc_end is not None and page_index > mc_starts[0]["page"]:
                 break
             segment = segment_bounds(doc, starts, index, page_index, end_override=mc_end)

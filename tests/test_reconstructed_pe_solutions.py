@@ -117,10 +117,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
-            for key in ("review_disposition", "review_blocker", "review_action"):
+            for key in ("review_disposition", "review_blocker", "review_action", "review_evidence"):
                 match = re.search(rf"^{key}:\s*(.+)$", text, re.M)
                 self.assertIsNotNone(match, f"{entry['qid']} lacks {key}")
                 self.assertNotEqual(match.group(1).strip().lower(), "todo", f"{entry['qid']} has placeholder {key}")
+                if key == "review_evidence":
+                    self.assertGreater(len(match.group(1).strip()), 20, f"{entry['qid']} has weak {key}")
             self.assertNotIn("尚未完成獨立逐步重算", text, f"{entry['qid']} was left as an unworked placeholder")
 
     def test_dashboard_exposes_manual_review_metadata_to_solution_modal(self):

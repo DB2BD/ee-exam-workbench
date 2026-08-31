@@ -13,6 +13,17 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
+    def test_114_circuit_q1_supernode_excludes_internal_resistor(self):
+        """The 6-ohm link is internal to the three-node supernode."""
+        note = (CANONICAL / "01_電路學" / "canonical" / "EE-114-01-1.md").read_text(encoding="utf-8")
+        self.assertIn("6 Ω 連接 \\(v_1\\) 與 \\(v_3\\)，屬超節點內部支路", note)
+        self.assertIn(r"\frac{v_1}{2}+\frac{v_2}{4}+\frac{v_3}{3}=0", note)
+        self.assertIn(r"\boxed{v_1=\frac{175}{23}=7.6087\text{ V}}", note)
+        self.assertIn(r"\boxed{v_2=-\frac{400}{23}=-17.3913\text{ V}}", note)
+        self.assertIn(r"\boxed{v_3=\frac{75}{46}=1.6304\text{ V}}", note)
+        self.assertIn(r"\boxed{I=\frac{175}{46}=3.8043\text{ A}}", note)
+        self.assertNotIn(r"\frac{v_1-v_3}{6}=0", note)
+
     def test_engineering_math_annual_notes_use_canonical_bodies(self):
         """Annual engineering-math pages must expose solved canonical questions."""
         math_dir = CANONICAL / "03_工程數學"

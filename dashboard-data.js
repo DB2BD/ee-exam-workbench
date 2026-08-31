@@ -6535,7 +6535,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-109-02-3": {
     "disposition": "conduction_mode_branches",
     "blocker": "missing_parameter",
-    "action": "確認返馳式轉換器導通模式與電流定義；目前保留 DCM 三角波條件解。",
+    "action": "確認返馳式轉換器導通模式與電流定義；目前的三角波條件其實落在 DCM／臨界導通邊界，另保留 CCM 分支。",
     "evidence": ""
   },
   "EE-111-02-3": {

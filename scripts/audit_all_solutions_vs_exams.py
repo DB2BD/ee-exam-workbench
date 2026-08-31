@@ -41,6 +41,13 @@ for sdir, sname in subjects:
             sol_path = os.path.join(sol_dir, f)
             with open(sol_path, 'r', encoding='utf-8') as sf:
                 sol_text = sf.read()
+
+            # Superseded answer drafts are deliberately kept inside HTML
+            # comments for provenance.  They must not count as live question
+            # headings when comparing the annual solution with the official
+            # paper; otherwise a year can be falsely reported as having six
+            # questions instead of five.
+            live_sol_text = re.sub(r'<!--.*?-->', '', sol_text, flags=re.S)
                 
             if yr not in exam_years:
                 print(f"⚠️ Year {yr} not found in exam md for {sdir}")
@@ -51,13 +58,19 @@ for sdir, sname in subjects:
             # Extract numbers / keywords from both to check for mismatch
             # Check question count
             exam_q_matches = re.findall(r'####\s+([一二三四五六七八九十]+)[、\.]', exam_sec)
-            sol_q_matches = re.findall(r'##\s+([一二三四五六七八九十]+)[、\.]', sol_text)
+            # A few annual notes retain a live, explicitly labelled
+            # "independent cross-check" section for one question.  Count
+            # each ordinal once so that such a second derivation is not
+            # mistaken for an extra question.
+            sol_q_matches = list(dict.fromkeys(
+                re.findall(r'^##\s+([一二三四五六七八九十]+)[、\.]', live_sol_text, flags=re.M)
+            ))
             
             print(f"[{sdir}] {yr}年: Exam has {len(exam_q_matches)} Qs, Solution has {len(sol_q_matches)} Qs")
             
             # Check snippet of Q1
             q1_exam = exam_sec.split('#### 一、')[1].split('#### 二、')[0] if '#### 一、' in exam_sec and '#### 二、' in exam_sec else ""
-            q1_sol = sol_text.split('## 一、')[1].split('## 二、')[0] if '## 一、' in sol_text and '## 二、' in sol_text else ""
+            q1_sol = live_sol_text.split('## 一、')[1].split('## 二、')[0] if '## 一、' in live_sol_text and '## 二、' in live_sol_text else ""
             
             # Extract numbers of 3+ digits or distinct words
             exam_nums = set(re.findall(r'\b\d+(?:\.\d+)?\b', q1_exam[:300]))

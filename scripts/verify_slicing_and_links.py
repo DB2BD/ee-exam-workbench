@@ -26,16 +26,26 @@ with open('national-exams-data.js', 'r', encoding='utf-8') as f:
 m_nat = re.search(r'questions:\s*(\[[\s\S]*?\])\s*\n\s*\};', raw_nat)
 nat_questions = json.loads(m_nat.group(1))
 
-# Load bundles
+# Load bundles.  The Markdown payload is JSON assigned to a JavaScript
+# constant; a non-greedy ``};`` regex is unsafe because Markdown itself may
+# contain that character sequence.  Decode the JSON value from the marker so
+# embedded examples and code blocks cannot truncate the object.
+def parse_json_assignment(raw, marker):
+    start = raw.find(marker)
+    if start < 0:
+        raise ValueError(f'missing bundle assignment: {marker}')
+    start += len(marker)
+    decoder = json.JSONDecoder()
+    value, _ = decoder.raw_decode(raw[start:].lstrip())
+    return value
+
 with open('solutions-bundle.js', 'r', encoding='utf-8') as f:
     raw_bundle = f.read()
-m_b = re.search(r'const BUNDLED_MD = ({[\s\S]*?});', raw_bundle)
-pe_bundle = json.loads(m_b.group(1))
+pe_bundle = parse_json_assignment(raw_bundle, 'const BUNDLED_MD = ')
 
 with open('national-solutions-bundle.js', 'r', encoding='utf-8') as f:
     raw_nat_bundle = f.read()
-m_nb = re.search(r'const NATIONAL_BUNDLED_MD = ({[\s\S]*?});', raw_nat_bundle)
-nat_bundle = json.loads(m_nb.group(1))
+nat_bundle = parse_json_assignment(raw_nat_bundle, 'const NATIONAL_BUNDLED_MD = ')
 
 def simulate_extract_question_sections(raw_content):
     lines = raw_content.split('\n')
@@ -155,6 +165,7 @@ if canonical_full_page[:5]:
 print("\n🔍 === 2. Verifying All 161 National Exam Questions ===")
 nat_slicing_failures = []
 nat_pdf_issues = []
+nat_mc_composite = 0
 
 for q in nat_questions:
     qid = q[0]
@@ -170,6 +181,16 @@ for q in nat_questions:
     if not md_text:
         nat_slicing_failures.append((qid, 'Markdown file missing from national bundle', clean_sol))
         continue
+    # The national engineering-math papers use one composite Markdown page
+    # for the 20 multiple-choice items (MC01..MC20).  Their application IDs
+    # are 101..120, while the page is intentionally grouped into four
+    # subject sections rather than 20 Markdown headings.  Treat the
+    # composite page as a valid source instead of reporting every item as a
+    # false slicing failure; the PE question-level crop checks above remain
+    # strict and exhaustive.
+    if re.search(r'-MC\d+$', qid) and qnum >= 101:
+        nat_mc_composite += 1
+        continue
     sections = simulate_extract_question_sections(md_text)
     matched = [s for s in sections if s['num'] == qnum]
     if not matched:
@@ -180,7 +201,7 @@ for q in nat_questions:
     elif not pdfLink.startswith('http') and not os.path.exists(pdfLink):
         nat_pdf_issues.append((qid, f'Local PDF path does not exist: {pdfLink}'))
 
-print(f"National Exams Total: {len(nat_questions)} | Slicing Failures: {len(nat_slicing_failures)}")
+print(f"National Exams Total: {len(nat_questions)} | Slicing Failures: {len(nat_slicing_failures)} | Composite MC items accepted: {nat_mc_composite}")
 print(f"National Exams PDF Link Issues: {len(nat_pdf_issues)}")
 if nat_slicing_failures:
     print("Slicing Failures:", nat_slicing_failures)

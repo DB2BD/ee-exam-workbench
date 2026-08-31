@@ -19,7 +19,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "nodal-analysis-independent-symbolic",
-      "solution_hash": "5dbfea17c75de149c1c746b58005707ca44473a0fea3d8b7b1b2050bac2dcc49",
+      "solution_hash": "72fdc6e966f63e4664685210d42a3fa86f6d83805c77b79ae2852501f0dd1fd8",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q01.png"
     },
@@ -196,7 +196,7 @@
       "subject_id": "04",
       "year": 114,
       "question_number": 5,
-      "chapter": "如圖4 所示轉子為四極之磁阻電動機，磁路之磁阻\\mathcal{R}為θ函數，可表示為\n$$\n\\mathcal{R}(\\theta) = \\mathcal{R}_0 - \\mathcal{R}_1\\cos(4\\theta)，\\quad \\text{其中 } \\theta = \\omega_m t + \\delta, \\quad \\mathcal{R}_0 = 2 \\times 10^5, \\quad \\mathcal{R}_1 = 1 \\times 10^5\n$$ 105，ωm 為轉\n子角速度，δ為時間t = 0 時之轉子位置。定子繞組線圈匝數N 為50 匝\n且繞組電阻忽略不計，當此電機接一v(t)= 110$\\sqrt{2}$ sinωt 之單相$60\\text{ Hz}$ 電\n源時，請回答以下問題：（每小題10 分，共20 分）\n* **(一)** 推導此電機之瞬時轉矩T。\n（提示：$v(t) = N\\frac{d\\Phi}{dt}, T = \\frac{\\partial W_{fld}}{\\partial\\theta} = -\\frac{1}{2}\\Phi^2\\frac{d\\mathcal{R}}{d\\theta}$）\n* **(二)** 當\nm\nω=±\n時，求此電機的最大轉矩與最大機械功率各約為何？",
+      "chapter": "如圖4 所示轉子為四極之磁阻電動機，磁路之磁阻 $\\mathcal{R}$ 為 $\\theta$ 函數，可表示為\n$$\n\\mathcal{R}(\\theta) = \\mathcal{R}_0 - \\mathcal{R}_1\\cos(4\\theta)，\\quad \\text{其中 } \\theta = \\omega_m t + \\delta, \\quad \\mathcal{R}_0 = 2 \\times 10^5, \\quad \\mathcal{R}_1 = 1 \\times 10^5\n$$，$\\omega_m$ 為轉\n子角速度，δ為時間t = 0 時之轉子位置。定子繞組線圈匝數N 為50 匝\n且繞組電阻忽略不計，當此電機接一 $v(t)=110\\sqrt{2}\\sin\\omega t$ 之單相 $60\\text{ Hz}$ 電\n源時，請回答以下問題：（每小題10 分，共20 分）\n* **(一)** 推導此電機之瞬時轉矩T。\n（提示：$v(t) = N\\frac{d\\Phi}{dt}, T = \\frac{\\partial W_{fld}}{\\partial\\theta} = -\\frac{1}{2}\\Phi^2\\frac{d\\mathcal{R}}{d\\theta}$）\n* **(二)** 當\nm\nω=±\n時，求此電機的最大轉矩與最大機械功率各約為何？",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-114-04-5.md",
       "audit_status": "verified",
       "verified_at": "2026-08-30",
@@ -635,7 +635,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "official_crop_and_per_unit_short_circuit_recalculation",
-      "solution_hash": "acda91179083697dfb28d3ec4ce799710cdc6ad0d710eb905f50804b5ccbe168",
+      "solution_hash": "122bc2a202e2d49af13cdcd499c4e490b954370390960ef430fc80ee8a9674b6",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_113年_工業配電_Q04.png"
     },
@@ -915,7 +915,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "official table crop independently transcribed; demand, transformer-kVA, average-power and monthly-energy calculations recomputed",
-      "solution_hash": "4d32f4959717d0a138a266faf00c84356f727aaa5400988dee0a82cb5a8d8ed2",
+      "solution_hash": "45243f118597f19639ba69befc5f62c898fa2f79e4cc936e45f4a48767e760b4",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_112年_工業配電_Q02.png"
     },
@@ -1013,7 +1013,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "independent_recalculation_two_port_h_parameters_nodal",
-      "solution_hash": "ec278d065733c268a69d3df490b9294cbe29bb75d5c2cc3ec0af8ba7da21b081",
+      "solution_hash": "d14dd98705c265af1e89dedbac2be08e29d8e30152d7df2e64f7d802576cd8fb",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_111年_電路學_Q04.png"
     },
@@ -1092,7 +1092,7 @@
       "subject_id": "04",
       "year": 111,
       "question_number": 2,
-      "chapter": "某三相、$60\\text{ Hz}$ 交流之四極繞線式（wound-rotor）感應馬達，其扭力（$T_{mech}$）與轉差率（$s$）之間的數值關係為：\nT_{mech} = \\frac{207.63 s}{s^2 + 0.0925 s + 0.0382}\\text{ 牛頓}\\cdot\\text{米 (N}\\cdot\\text{m)}$\n* **(一)** 當此感應馬達帶動 $100\\text{ N}\\cdot\\text{m}$ 之負載時，其轉速應為若干 rpm？（5 分）\n* **(二)** 若 $R_2$ 增加為原來的兩倍，且負載保持在 $100\\text{ N}\\cdot\\text{m}$ 大小，則轉速將如何變化？（10 分）\n* **(三)** 在帶動同樣 $100\\text{ N}\\cdot\\text{m}$ 負載的情況下，欲利用加入轉子電阻（即從原本的 $R_2$ 變為 $R_2'$），使轉速降為 $1700\\text{ rpm}$，試問比值 $\\frac{R_2'}{R_2}$ 應為若干？（10 分）",
+      "chapter": "某三相、$60\\text{ Hz}$ 交流之四極繞線式（wound-rotor）感應馬達，其扭力（$T_{mech}$）與轉差率（$s$）之間的數值關係為：\n$T_{mech} = \\frac{207.63 s}{s^2 + 0.0925 s + 0.0382}\\,\\text{N}\\!\\cdot\\!\\text{m}$\n* **(一)** 當此感應馬達帶動 $100\\text{ N}\\cdot\\text{m}$ 之負載時，其轉速應為若干 rpm？（5 分）\n* **(二)** 若 $R_2$ 增加為原來的兩倍，且負載保持在 $100\\text{ N}\\cdot\\text{m}$ 大小，則轉速將如何變化？（10 分）\n* **(三)** 在帶動同樣 $100\\text{ N}\\cdot\\text{m}$ 負載的情況下，欲利用加入轉子電阻（即從原本的 $R_2$ 變為 $R_2'$），使轉速降為 $1700\\text{ rpm}$，試問比值 $\\frac{R_2'}{R_2}$ 應為若干？（10 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-2.md",
       "audit_status": "verified",
       "verified_at": "2026-08-31",
@@ -1125,7 +1125,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official crop independently transcribed; phasor and per-unit calculations recomputed, while OCC/SCC interpolation limitation is retained",
-      "solution_hash": "31dc67f32434e832c2ba35c0fbf74a5edee625175bd15032a70900885f883cfc",
+      "solution_hash": "fbb7288c0802005dade855ff6188c214a1060ef3371337809139420af13ea5f5",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q04.png"
     },
@@ -1167,7 +1167,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "independent_recalculation_three_phase_fault_using_zbus",
-      "solution_hash": "8792ec76a9208f2af35ee509786ed80508afc30fae7d7c2acc586ab63c0d913f",
+      "solution_hash": "35edde6c66834d6130c8b4be6973a9a4a699c8f51c5138dbedf542265323ddc8",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_111年_電力系統_Q02.png"
     },
@@ -1209,7 +1209,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official CT equivalent-circuit and excitation-curve crop independently read; burden equations and relay threshold checked, graph readings retained as approximate",
-      "solution_hash": "29a7fa724763117dae85b0d10916133f6ad5d7af32a89f9b830c33483f456f2a",
+      "solution_hash": "748d53c76024ad2e65ff75887fa9148f2d6cf6e6d701fc51eabcde5fcd40865a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q01.png"
     },
@@ -2189,7 +2189,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "official-crop-network-reduction-and-power-angle-recalculation",
-      "solution_hash": "bf7953dc6265d765044fe53c9f2178a5b7955ef3f8416440d8632e8b156c2c84",
+      "solution_hash": "cac0cb545c59e21429d9a95b36ee94323821159a686dcedae1626561baff7bbb",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_108年_電力系統_Q05.png"
     },
@@ -2217,7 +2217,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-per-unit-recalculation-and-consistency-audit",
-      "solution_hash": "6b49c1d9853ea65a2cf9facb42172177ff41802b7fe68c2155194dee0a4fa2c4",
+      "solution_hash": "5fdfbf10752244a729f14dc0ede9d89cdec2530b8d1fc1321e09d7e6c790033d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_108年_工業配電_Q02.png"
     },
@@ -2539,7 +2539,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "motor_feeder_voltage_drop_recalculation_with_flc_branch",
-      "solution_hash": "121a5d11cac947d667c49aa768b1a6f2e2e5c5fafd60d4b2f25fab866bddf700",
+      "solution_hash": "9d4c052c38d67263f4263d01882babcacb7f4e1bacdd49682695faddb4e11ea8",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_107年_工業配電_Q02.png"
     },
@@ -2637,7 +2637,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "symmetry_antisymmetry_nodal_recalculation",
-      "solution_hash": "c7da3a08bb4960f19e87bbe13ad637be170a28e150c22471743ebed4992c123e",
+      "solution_hash": "00e219d7bb2866b83a360ad2ea514a24acba3bd990e24b8f45d9e7e6561f2d93",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_106年_電路學_Q04.png"
     },
@@ -3211,7 +3211,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "official_crop_motor_start_voltage_drop_phasor_recalculation",
-      "solution_hash": "2b759e237eefdc1854f2d9f5bee225d3e2b6aa3fa925db4ce6a547ab3ce25fed",
+      "solution_hash": "9e00e75ff9d3037a83b76a56297f104aa726e4d448d4953b83184b7fbf5d077a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_105年_工業配電_Q02.png"
     },
@@ -3561,7 +3561,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-31",
       "method": "arc_furnace_thevenin_voltage_variation_recalculation",
-      "solution_hash": "5b090d4af5d5f3a7c38b15580e1f0e2d936c3a9a8f0ef14baabb742f778b3785",
+      "solution_hash": "3c50d3ab9ceded0d105e493a0a3d9bea4c127a81c01d93e1ff7197ba91f24dd0",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q03.png"
     },

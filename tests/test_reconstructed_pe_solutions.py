@@ -150,6 +150,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("1.3572 \\times 10^{-3}", reluctance)
         self.assertIn("0.2714\\text{ N}\\cdot\\text{m}", reluctance)
 
+        buck_auto = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", buck_auto)
+        self.assertIn("一次側接 $600", buck_auto)
+        self.assertIn("S_{auto}=600 I_{in}=480 I_{out}=25.0", buck_auto)
+        self.assertIn("S_{cond}=V_{load}I_{in}=480(41.6667)=20.0", buck_auto)
+
 
 if __name__ == "__main__":
     unittest.main()

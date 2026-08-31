@@ -362,6 +362,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("390.7", harmonic_105)
         self.assertIn("第 7 次", harmonic_105)
 
+        lighting_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", lighting_105)
+        self.assertIn("1{,}978{,}022", lighting_105)
+        self.assertIn("1501.5", lighting_105)
+
 
 if __name__ == "__main__":
     unittest.main()

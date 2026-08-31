@@ -162,6 +162,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("P_{em}=E_aI_a=125(100)=12.5", dc_motor_108)
         self.assertIn("39.79\\,\\mathrm{N\\cdot m}", dc_motor_108)
 
+        induction_108 = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", induction_108)
+        self.assertIn("P_{ag}=3|I_2'|^2\\frac{R_2'}s=5747.72", induction_108)
+        self.assertIn("42.47\\,\\mathrm{N\\cdot m}", induction_108)
+        self.assertIn("0.8637", induction_108)
+
 
 if __name__ == "__main__":
     unittest.main()

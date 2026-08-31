@@ -3488,10 +3488,10 @@
       "question_number": 2,
       "chapter": "有三台變壓器TR1、TR2及TR3，其額定容量均為$200\\text{ MVA}$，額定電壓均為$161\\text{ kV}$/$69\\text{ kV}$，\n阻抗分別為（0.5+j10）%、（0.6+j12）%、（0.7+j14）%。若這三台變壓器並聯供\n電給$69\\text{ kV}$ 側之負載，若負載為320+j$240\\text{ MVA}$，電壓大小維持為$69\\text{ kV}$ 不變，並\n忽略激磁電流。試求$161\\text{ kV}$ 側實際電壓大小（kV）、各台變壓器之輸出功率\n（MVA）及電力損失（kW）。若使用兩台變壓器並聯供電給上述負載，且變壓器\n不得過載超過其額定容量之10\\%，則不允許那兩台變壓器並聯供電？應使用那兩台\n並聯供電，使得電力損失最低？並計算每台變壓器輸出功率（MVA）及其電力損\n失。假設各變壓器之鐵損均為其滿載銅損的25%。（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-104-05-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "e5b012d9d3f66505cf2ab114380cee101c0ff137380b8ff64fdb2958009cf3ff",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_parallel_transformer_sharing_loss_recalculation",
+      "solution_hash": "d3de9487e332182025f643a9b27c8d8d165ac6d6a1fabcf986c74bbade6f9a34",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_104年_電力系統_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 210,
+    "verified": 211,
     "suspected_error": 0,
-    "needs_manual_review": 46,
+    "needs_manual_review": 45,
     "not_attempted": 0
   }
 }

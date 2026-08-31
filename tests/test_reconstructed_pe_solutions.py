@@ -461,6 +461,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("14.3479", cb_104)
         self.assertIn("R_L\\parallel R_B", cb_104)
 
+        parallel_104 = (CANONICAL / "05_電力系統" / "canonical" / "EE-104-05-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", parallel_104)
+        self.assertIn("169.369", parallel_104)
+        self.assertIn("2.73182", parallel_104)
+        self.assertIn("TR1+TR2", parallel_104)
+
         capacity_104 = (CANONICAL / "06_工業配電" / "canonical" / "EE-104-06-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", capacity_104)
         self.assertIn("406.84", capacity_104)

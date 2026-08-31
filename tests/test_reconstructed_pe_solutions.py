@@ -126,6 +126,21 @@ class TestReconstructedPESolutions(unittest.TestCase):
                     self.assertGreater(len(match.group(1).strip()), 20, f"{entry['qid']} has weak {key}")
             self.assertNotIn("尚未完成獨立逐步重算", text, f"{entry['qid']} was left as an unworked placeholder")
 
+    def test_manual_review_index_is_complete_and_uses_canonical_taxonomy(self):
+        """The central queue must cover every manual item without leaking prompt text as chapters."""
+        report = (ROOT / "reports" / "manual-review-index.md").read_text(encoding="utf-8")
+        manual_qids = []
+        for manifest in (ROOT / "data" / "pe-solution-audit.json", ROOT / "data" / "engineering-math-audit.json"):
+            data = json.loads(manifest.read_text(encoding="utf-8"))
+            manual_qids.extend(entry["qid"] for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
+        self.assertEqual(report.count("| EE-"), len(manual_qids))
+        for qid in manual_qids:
+            self.assertIn(qid, report)
+        self.assertIn("暫態穩定度與等面積準則", report)
+        self.assertIn("待依教科書章節覆核", report)
+        self.assertIn("電子學（含電力電子）", report)
+        self.assertNotIn("兩部相同發電機各自經由其升壓變壓器", report)
+
     def test_dashboard_exposes_manual_review_metadata_to_solution_modal(self):
         """The UI must be able to show why a conditional answer is unresolved."""
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")

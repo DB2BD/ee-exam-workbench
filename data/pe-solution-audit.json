@@ -2564,10 +2564,10 @@
       "question_number": 4,
       "chapter": "一低壓電力用戶採用三相220 V 供電，並裝設電動機三相220 V $10\\text{ HP}$\n及三相220 V $30\\text{ HP}$ 各一台，各電動機採連續運轉，導線配管採硬質PVC\n管配線，$10\\text{ HP}$ 與$30\\text{ HP}$ 的電動機皆採全壓啟動；假設$10\\text{ HP}$ 與$30\\text{ HP}$\n電動機的額定電流分別為27 A 與78 A，其啟動階級為A，過電流保護\n設備額定選用1.5 倍之滿載電流。試依電動機配線設計準則決定：\n（每小題10 分，共20 分）\n\n* **(一)** 分路導線線徑及過電流保護設備規格。\n\n* **(二)** 幹線導線線徑及過電流保護設備規格。",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "57d1a67f53bd37e39a067e74de0382999cc6a935ba69a8f09cfee1fd5345045d",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_motor_wiring_design_recalculation",
+      "solution_hash": "97253d3d23bf1e96384237d4652670d431a9c01ca1d23098a1b77b3c41e57c45",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_107年_工業配電_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 225,
+    "verified": 226,
     "suspected_error": 0,
-    "needs_manual_review": 31,
+    "needs_manual_review": 30,
     "not_attempted": 0
   }
 }

@@ -3474,10 +3474,10 @@
       "question_number": 1,
       "chapter": "如圖一所示之電力系統，各發電機及變壓器之額定值及其正相序電抗（X1）、負相\n序電抗（X2）與零相序電抗（X0）均已標示，X1、 X2 及X0 之數據是以各設備本\n身額定值為基準計算的，並忽略各設備相序阻抗之電阻成分。圖中主變壓器\n（MTR）繞組中性點設有一接地開關（ES），輔助變壓器（ATR）及啟動變壓器\n（STR）的負載，均假設為定阻抗（Constant Impedance）負載，系統等效電源假設\n為中性點直接接地，其各相序電抗是以MTR 額定值為基準計算的，並忽略相序阻抗\n之電阻成分。當系統匯流排供電給系統的有效功率及無效功率分別為$360\\text{ MW}$ 及\n270 MVAR 時，其電壓大小為$345\\text{ kV}$，試計算發電機端電壓大小（kV）。繪出此系\n統之正相序、負相序及零相序之電路模型，模型中電壓、電流、功率及阻抗等之單\n位均以標么值（pu）表示（以MTR 之額定值為基準值）。若在系統匯流排發生單相\n（a 相）接地短路故障，分別針對接地開關投入與切離兩種狀況，計算MTR $345\\text{ kV}$\n側之故障相（a 相）電流大小（kA）及系統匯流排零相序電壓大小（kV）。（計算\n故障電流時可忽略ATR 及STR 負載之影響）。（25 分）\n發電機\n$$500\\text{ MVA}, 18\\text{ kV}, Xd =100\\%$$\n′′\n$$X0 = 12\\%$$\n輔助變壓器(ATR)\n$25\\text{ MVA}$, $18\\text{ kV}$/$4.16\\text{ kV}$\n$$X1 = X2 = X0 = 8\\%$$\n主變壓器(MTR)\n$500\\text{ MVA}$, $18\\text{ kV}$/$345\\text{ kV}$\n$$X1 = X2 = 15\\%$$\n$$X0 = 10\\%$$\n負載A(定阻抗)\n25\\text{ MVA}$, $\\text{PF} = 0.8\\text{ (滯後)}\n$4.16\\text{ kV}$\n負載B(定阻抗)\n50\\text{ MVA}$, $\\text{PF} = 0.8\\text{ (滯後)}\n$13.8\\text{ kV}$\n系統等效電源\n$$X1 = X2 = X0 = 2.5\\%$$\n起動變壓器(STR)\n$$X1 = X2 = X0 = 10\\%$$\n$50\\text{ MVA}$\n$345\\text{ kV}$/$13.8\\text{ kV}$\n$$P = 360\\text{ MW}$$\n$$Q = 270MVAR$$\n⎜⎜\n⎝\n⎛\n$345\\text{ MVA}$\n基準電壓\n基準容量\n$10\\ \\Omega$\n$2\\text{ k}\\Omega$\n接地開關\n系統匯流排\n$5\\ \\Omega$\n類  科： 電機工程技師\n科  目： 電力系統\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-104-05-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "independent_sequence_network_recalculation_with_source_model_branch",
-      "solution_hash": "e7535ad7e8a9a6b5ee22211680dd464a3b663ab83125fb24db04b3d301c3b5ae",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "independent_sequence_network_recalculation_with_es_switch",
+      "solution_hash": "c2eec9798b0a271eac404a4f1b59b6cfb560584eb27d90fb28f4a95bfb7fc68e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_104年_電力系統_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 230,
+    "verified": 231,
     "suspected_error": 0,
-    "needs_manual_review": 26,
+    "needs_manual_review": 25,
     "not_attempted": 0
   }
 }

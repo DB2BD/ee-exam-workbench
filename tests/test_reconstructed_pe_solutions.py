@@ -148,6 +148,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
                 self.assertNotEqual(match.group(1).strip().lower(), "todo", f"{entry['qid']} has placeholder {key}")
                 if key == "review_evidence":
                     self.assertGreater(len(match.group(1).strip()), 20, f"{entry['qid']} has weak {key}")
+            public_urls = re.search(r"^public_reference_urls:\s*(.+)$", text, re.M)
+            if public_urls:
+                urls = [url.strip() for url in public_urls.group(1).split(';') if url.strip()]
+                self.assertTrue(urls, f"{entry['qid']} has an empty public reference list")
+                self.assertTrue(all(url.startswith("https://") for url in urls), f"{entry['qid']} has unsafe public reference URL")
             official = re.search(r"^official_source_url:\s*(\S+)$", text, re.M)
             self.assertIsNotNone(official, f"{entry['qid']} lacks an official source URL")
             self.assertTrue(official.group(1).startswith("https://wwwq.moex.gov.tw/"), f"{entry['qid']} has non-primary source URL")
@@ -203,6 +208,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
         self.assertIn("meta.evidence", index)
         self.assertIn("officialSourceUrl", dashboard)
+        self.assertIn("publicReferenceUrls", dashboard)
+        self.assertIn("publicReferenceNote", dashboard)
+        self.assertIn("公開參考", index)
         self.assertIn("noopener noreferrer", index)
 
     def test_power_flow_manual_review_records_jacobian_branch_diagnostic(self):

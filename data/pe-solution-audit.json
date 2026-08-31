@@ -2998,9 +2998,9 @@
       "question_number": 2,
       "chapter": "圖二之放大器電路參數RF=$800\\text{ k}\\Omega$，R1 = $10\\text{ k}\\Omega$，Ao = 2×105。計算：\n\n* **(一)** 閉迴路電壓增益Af = vO/vS。（9 分）\n\n* **(二)** 輸出電壓vO。（5 分）\n\n* **(三)** 若Ao 趨近無限大時，輸出電壓vO 和增益Af 的誤差，假設電源電阻Rs = 0 及\n$$vS = 100 mV。（6 分）$$\ns\ns\nin\ni\nv\nR\n圖二\nRs\nC\nC1\nC2\nvO\n放大器\nvS\nRF\nvO\nvS\nvn\nvp\nvd\nRout\nis\n$v_2$=0\n$$Rx=(R1||RF)$$\ns\nS\nin\ni\nv\nR\nii\n$v_1$\nif\nAo\n\n技師、第二次食品技師考試暨普通\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-105-02-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_finite_gain_inverting_amplifier_recalculation",
       "solution_hash": "3eeffd359ac63a8785cc0ae838bc0e31b20a433720239edcfa25087c0bf3b523",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_105年_電子學（包括電力電子學）_Q02.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 198,
+    "verified": 199,
     "suspected_error": 0,
-    "needs_manual_review": 58,
+    "needs_manual_review": 57,
     "not_attempted": 0
   }
 }

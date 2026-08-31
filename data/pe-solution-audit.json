@@ -1710,10 +1710,10 @@
       "question_number": 1,
       "chapter": "有一具 $50\\text{ kVA}、2400:240\\text{ V}、60\\text{ Hz}$ 雙繞組變壓器如下圖所示，其中主線圈繞組（primary winding）匝數為 $N_P = 1000\\text{ 匝}$、副線圈繞組（secondary winding）匝數為 $N_S = 100\\text{ 匝}$。設鐵心之導磁係數為接近無限大，主、副線圈繞組之電阻值皆為 0，且此變壓器於額定操作時之鐵損（core loss）為 $500\\text{ W}$。令主線圈繞組之漏磁路徑磁阻為 $\\mathcal{R}_P = 4 \\times 10^8\\text{ A}\\cdot\\text{t/Wb}$、副線圈繞組之漏磁路徑磁阻為 $\\mathcal{R}_S = 5 \\times 10^6\\text{ A}\\cdot\\text{t/Wb}$。（20 分）\n* **(一)** 求此變壓器之磁化電流 $I_\\phi$（請以主線圈繞組側為參考邊，亦即 refer to the primary side）。\n* **(二)** 求此變壓器之主線圈繞組漏磁電抗（leakage reactance）$X_P$。",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-109-04-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "3d8cc14b7cacd1cf4e070ed20b22a97ee2522d62901fb197e9f9fae880483205",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_magnetic_circuit_and_core_loss_recalculation",
+      "solution_hash": "ffbd54712a65c1272d6c5461322ac428a30358209a3e4f0c4c2ac17ef9f6d480",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_109年_電機機械_Q01.png"
     },
@@ -1724,10 +1724,10 @@
       "question_number": 2,
       "chapter": "有一具固定激磁的他激（separately excited）直流機，已知其電樞電阻值為 $R_a = 0.02\\ \\Omega$。當以發電機模式、轉速為每分鐘 3000 轉（即 3000 rpm）運轉時，得其開路端電壓為 125 V。（25 分）\n* **(一)** 提高此發電機之轉速為 4000 rpm。此時，若輸出功率為 $21.5\\text{ kW}$，試問其輸出端電壓為何？\n* **(二)** 將此直流機改以馬達模式運轉，機械負載功率為 $21.5\\text{ kW}$，此時改以端電壓輸入為 213 V，試求此時之電樞電流 $I_a$ 為何？\n* **(三)** 此時馬達之輸出轉矩為何？",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-109-04-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "85b573a1dc4787b7287ab94a270b25891c2e6c6895b51ad4ab16ef21bdb79cfc",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_dc_machine_quadratic_and_rating_bound_recalculation",
+      "solution_hash": "0937716bca727d931035850f7ff7862dd025ff92dd287b9911f8bd0206554a64",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_109年_電機機械_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 137,
+    "verified": 139,
     "suspected_error": 0,
-    "needs_manual_review": 119,
+    "needs_manual_review": 117,
     "not_attempted": 0
   }
 }

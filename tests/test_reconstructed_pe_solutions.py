@@ -396,6 +396,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", oscillator_104)
         self.assertIn("2.166", oscillator_104)
 
+        rectifier_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", rectifier_104)
+        self.assertIn("17.121", rectifier_104)
+        self.assertIn("9.885", rectifier_104)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1181,7 +1181,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_equal_area_recalculation_with_frequency_parameterization",
-      "solution_hash": "f975d9e9da343b32bc83bdd215438b8d2e9e0f5cb2488fbd2a6df87140d98f54",
+      "solution_hash": "1080d7ddd053fec43530432782d37f3d6f1567b4ab137bb37713b62412d928fd",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_111年_電力系統_Q03.png"
     },

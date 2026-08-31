@@ -509,7 +509,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_recalculation_source_conflict",
-      "solution_hash": "4a7c7db603df0edca5fd6cb32b79a204ffb8e0899f41accadda5046b80375db4",
+      "solution_hash": "77ef98375326b3db704694a11a688c2c83faba0cf42398afa0252d818bf96a25",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_113年_電機機械_Q04.png"
     },

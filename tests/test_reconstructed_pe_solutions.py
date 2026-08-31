@@ -389,6 +389,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("(s+100)^2", transient_104)
         self.assertIn("0.04 - j0.02", gparam_104)
 
+        inverter_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-4.md").read_text(encoding="utf-8")
+        oscillator_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", inverter_104)
+        self.assertIn("8.483", inverter_104)
+        self.assertIn("audit_status: verified", oscillator_104)
+        self.assertIn("2.166", oscillator_104)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -5,7 +5,7 @@
 - 官方逐題裁切圖仍是題目來源；年度 Markdown 只作為待稽核詳解來源。
 - 新增 `scripts/audit_pe_solutions.py` 與 `data/pe-solution-audit.json`。
 - 編譯器會依 manifest 顯示 `verified`、`suspected_error`、`needs_manual_review`、`not_attempted`，避免年度模板被誤標為 verified。
-- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。現有非工程數學稽核 manifest 統計為 `verified=192`、`needs_manual_review=64`、`not_attempted=0`、`suspected_error=0`；工程數學 manifest 為 `verified=64`、`needs_manual_review=1`。全部 321 題均已具備官方逐題裁切與題號級記錄；非工程數學仍有 64 題待 Sol/Luna 獨立重算，未宣稱已校驗。
+- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。現有非工程數學稽核 manifest 統計為 `verified=194`、`needs_manual_review=62`、`not_attempted=0`、`suspected_error=0`；工程數學 manifest 為 `verified=64`、`needs_manual_review=1`。全部 321 題均已具備官方逐題裁切與題號級記錄；非工程數學仍有 62 題待 Sol/Luna 獨立重算，未宣稱已校驗。
 
 所有已校驗題目均綁定官方逐題裁切圖、章節分類與標準 LaTeX 推導；本輪由 Luna 追加 109 年電路學第 1 題與 110 年電力系統第 2 題的獨立重算，並修正 110 年快速解耦題的 (Y_{bus}) 相角符號與 Q 方程式。另已完成 112/113 年電路、電機機械、電力系統與工業配電題的獨立重算。109 年電子學已依官方題圖拆成 Q1–Q4，其中 Q1、Q2、Q4 完成回代驗證，Q3 Flyback 因導通模式與電流定義仍保留人工複核。112 年工程數學 Q1–Q6 已依官方 PDF 重新轉錄並逐題重算，修正原索引錯版；其中 Q3 官方文字未明確指定「至少一發／恰一發」與條件事件，因此保留多種解讀並標記人工複核，Q6 也保留增廣系統的兩個自由參數，避免把欠約束系統誤寫成單參數解。逐題交叉檢查另發現 112 年電路學 Q2/Q3 的互感極性與 CCVS 正負端會造成大幅答案差異，及 112 年電機機械 Q1 磁通峰值漏乘電感抗，均已按官方裁切重算修正；104 年電路學第 1 題的年度答案與獨立 KCL 計算不一致（30 V 對 270/7 V），因此維持 `needs_manual_review`；工業配電題若缺少可辨識網路參數，也會維持人工複核。
 
@@ -104,6 +104,8 @@
 本輪追加 105 年電路學 Q1–Q5：依各官方裁切重建節點 KCL、相依源測試電源、交流複數功率、Y 接電容功因改善及串聯 RLC 帶通設計，分別回代 $I_o=-1.333$ mA、$R_{th}=1.429$ k$\Omega$、$P=93.6$ W、$C=48.62\,\mu$F、$L=1$ H／$R=100\,\Omega$，五題均升級為 verified。
 
 本輪再完成 104 年電路學 Q2、Q4、Q5：Q2 依點標記與反映阻抗求得耦合係數 $k=0.6634$；Q4 重新核對相依電流源的 s 域導納，修正誤列的欠阻尼特徵式，得到 $(s+100)^2$ 臨界阻尼響應；Q5 依官方 g 參數端口方向完成四個測試條件，三題均升級為 verified。
+
+本輪追加 104 年電子學 Q4、Q5：Q4 依全橋方波的 $5$ ms 半週與 RL 時常數重算週期電流；Q5 依官方三階 RC 移相網路重算 $\omega_0=1/(\sqrt6RC)$、$C=2.166$ nF 與 $R_f=174$ k$\Omega$，兩題均升級為 verified。
 
 本輪追加 107 年工業配電 Q3：依 69/11.4 kV Δ–Y 變壓器的 30° 相移，採 HV CT 星形、LV CT 三角形補償接線，重算兩側 CT 二次電流與電驛比值 $1.399$，升級為 verified。
 

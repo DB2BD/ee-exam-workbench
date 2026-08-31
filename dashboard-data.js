@@ -4001,7 +4001,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-1.md",
     "依考科分類/05_電力系統/107年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -4042,7 +4042,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-3.md",
     "依考科分類/05_電力系統/107年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -4060,7 +4060,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-4.md",
     "依考科分類/05_電力系統/107年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],

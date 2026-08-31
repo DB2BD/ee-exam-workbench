@@ -267,6 +267,21 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("0.03125\\text{ V}", cuk_107)
         self.assertIn("3.25\\text{ A}", cuk_107)
 
+        transmission_107 = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", transmission_107)
+        self.assertIn("1.0805", transmission_107)
+        self.assertIn("1.6512", transmission_107)
+
+        generator_107 = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", generator_107)
+        self.assertIn("-84.0", generator_107)
+        self.assertIn("804.40", generator_107)
+
+        sequence_107 = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", sequence_107)
+        self.assertIn("601.051", sequence_107)
+        self.assertIn("73.613", sequence_107)
+
 
 if __name__ == "__main__":
     unittest.main()

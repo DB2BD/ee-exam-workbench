@@ -2466,10 +2466,10 @@
       "question_number": 1,
       "chapter": "某輸電線路阻抗為0.02+j0.2 p.u.，受電端接一負載及電容器組，當負載\n有效功率為1.6 p.u.功率因數為0.8（滯後）時，受電端電壓大小為1 p.u.，\n電容器補償之虛功率為1.2 p.u.。試計算：\n* **(一)** 輸電線電流大小及有效功率損失（p.u.）。（6 分）\n* **(二)** 送電端電壓大小（p.u.）。（6 分）\n* **(三)** 電容器組之阻抗（p.u.）。（5 分）\n* **(四)** 送電端送出之有效功率與無效功率（p.u.）。（8 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "253a85f60e0593f97a5c20e79cdeb40b4e4c81460cfe320d88e748673d68045b",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_transmission_line_capacitor_compensation_recalculation",
+      "solution_hash": "fbd3ecc509119bc5c5403cc2d4c9b30d8ad6d82b723ca2b361b3b817661ec011",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_107年_電力系統_Q01.png"
     },
@@ -2494,10 +2494,10 @@
       "question_number": 3,
       "chapter": "某三相同步發電機（額定$24\\text{ kV}$、$850\\text{ MVA}$、同步電抗100\\%），經由升\n壓變壓器（額定$25\\text{ kV}$/$345\\text{ kV}$、$850\\text{ MVA}$、漏電抗20\\%）併接至$345\\text{ kV}$\n無限匯流排（Infinite bus）。忽略發電機之繞組電阻及變壓器之繞組電阻\n與激磁電流，發電機輸出$800\\text{ MW}$ 時其端電壓為額定值。\n* **(一)** 繪出電路模型（阻抗p.u.值以發電機額定為基準）。（5 分）\n* **(二)** 計算發電機輸出之無效功率（MVAR），並判斷是否進相運轉（Leading\noperation）。（10 分）\n* **(三)** 計算升壓變壓器輸出至無限匯流排之無效功率（MVAR），並判斷是否\n過載。（10 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "0aa4e1ba2ad8c077b5a0e78c3ade0fc09f6008cfc89c6596c53bce45bd6395f5",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_generator_transformer_infinite_bus_power_flow_recalculation",
+      "solution_hash": "62b63a3fbb5b99d2ea5b531de320f6bc2aaddc913c072f89d436aef28f1628cd",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_107年_電力系統_Q03.png"
     },
@@ -2508,10 +2508,10 @@
       "question_number": 4,
       "chapter": "某負載其三相阻抗為$10\\ \\Omega$、-j$10\\ \\Omega$及j$10\\ \\Omega$且Y 接中性點未接地，並分\n別由三相電源\n∠\n0° V、\n∠\n-120° V、\n∠\n120° V 供電，三相電源\nY 接中性點接地，電源至負載導線阻抗不計。\n* **(一)** 若採三相四線（3Φ4W）式供電，負載中性點與電源中性點有中性線\n連接，中性線阻抗不計，試計算正相序電流、負相序電流、零相序電\n流及中性線電流大小。（12 分）\n* **(二)** 若採三相三線（3Φ3W）式供電，負載中性點與電源中性點無中性線\n連接，試計算正相序電流、負相序電流、最大導線電流及中性點電壓\n大小。（13 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "0d88e6d2c67782f2286a6a8b3b494509ccc942c423e2b0492481a29caa09a228",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_four_wire_three_wire_symmetrical_components_recalculation",
+      "solution_hash": "aa9fca00f04dacd4cd344184562922b5c1e4b5f298251ee4179518dde521e7e6",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_107年_電力系統_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 164,
+    "verified": 167,
     "suspected_error": 0,
-    "needs_manual_review": 92,
+    "needs_manual_review": 89,
     "not_attempted": 0
   }
 }

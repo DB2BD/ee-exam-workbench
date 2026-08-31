@@ -2598,7 +2598,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-4.md",
     "依考科分類/06_工業配電/110年_電機工程技師_工業配電.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -6651,12 +6651,6 @@ const SOLUTION_REVIEW_METADATA = {
     "blocker": "graph_estimate",
     "action": "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。",
     "evidence": "官方 CT 等效圖與 100/5 變比、Z'=0.082 Ω、Z_B=0.8/3.0 Ω 已轉成共同方程 E'=(10−I_e)(Z'+Z_B)；兩個交點已由曲線估讀並回代繼電器 8 A 門檻，Z_B=3.0 Ω 交點位於膝點附近，精確值受原圖解析度限制。"
-  },
-  "EE-110-06-4": {
-    "disposition": "definition_branches",
-    "blocker": "official_wording_ambiguity",
-    "action": "依圖面 A 點採 1.606162%／0.036720 pu；若命題解答採 B 點則為 19.052%／6.070853 pu，請確認觀測點定義。",
-    "evidence": "官方裁切圖已確認 69 kV 饋線前的 A 點、主變／爐變與電弧爐串聯阻抗；canonical 對 A 點回代 1.606162% 與 0.036720 pu，另以 B 點重現年度答案 19.0520% 與 6.070853 pu。差異只來自觀測點定義。"
   },
   "EE-104-06-5": {
     "disposition": "power_factor_parameterized",

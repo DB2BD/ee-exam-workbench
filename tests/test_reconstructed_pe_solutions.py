@@ -113,7 +113,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 26, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 25, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -146,8 +146,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("6.03777", note)
         self.assertIn("0.05141", note)
 
-    def test_flicker_manual_review_records_b_point_alternative(self):
+    def test_flicker_verified_note_records_official_point_and_b_point_alternative(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-110-06-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", note)
+        self.assertIn("official_source_url:", note)
+        self.assertIn("A 點在 69 kV 母線上", note)
         self.assertIn("另一觀測點分支：B 點", note)
         self.assertIn("19.0520", note)
         self.assertIn("6.070853", note)
@@ -658,8 +661,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("EE-108-06-2 條件式校驗", annual_108)
         self.assertIn("歷史模板，勿直接採用", annual_108)
         self.assertIn("canonical 優先", annual_110)
-        self.assertIn("EE-110-06-4 觀測點分支校驗", annual_110)
-        self.assertIn("歷史模板，勿直接採用", annual_110)
+        self.assertIn("EE-110-06-4 已驗證校驗", annual_110)
+        self.assertIn("僅保留作歷史來源，不作 A 點答案", annual_110)
 
 
 if __name__ == "__main__":

@@ -4732,7 +4732,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-1.md",
     "依考科分類/01_電路學/105年_電機工程技師_電路學.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -4749,7 +4749,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-2.md",
     "依考科分類/01_電路學/105年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "戴維寧等效"
     ],
@@ -4768,7 +4768,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-3.md",
     "依考科分類/01_電路學/105年_電機工程技師_電路學.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -4786,7 +4786,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-4.md",
     "依考科分類/01_電路學/105年_電機工程技師_電路學.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -4806,7 +4806,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-5.md",
     "依考科分類/01_電路學/105年_電機工程技師_電路學.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],

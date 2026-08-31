@@ -2914,9 +2914,9 @@
       "question_number": 1,
       "chapter": "圖1 中，試求電流IO 值。（20 分）\n圖1",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_nodal_analysis_recalculation",
       "solution_hash": "f5b7d099c7e28750f1e0461518ba9d02b1e81fa0ef75172b788ea5be3f4094df",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_105年_電路學_Q01.png"
@@ -2928,9 +2928,9 @@
       "question_number": 2,
       "chapter": "圖2 中，試求A-B 端看進去的戴維寧電阻（Thevenin's resistance）RTH。（20 分）\n圖2",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_test_source_dependent_voltage_source_recalculation",
       "solution_hash": "e3dded55bf5d7cf8503f633c91e73f0a2c64d9959d32c151a670676d2cd4630d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_105年_電路學_Q02.png"
@@ -2942,9 +2942,9 @@
       "question_number": 3,
       "chapter": "圖3 中，試求平均所吸收的總功率及電壓源平均所供應的總功率。（20 分）\n圖3\n6 V\n$4\\text{ mA}$\n$2\\text{ mA}$\n$1\\text{ k}\\Omega$\n$1\\text{ k}\\Omega$\n$2\\text{ k}\\Omega$\n$2\\text{ k}\\Omega$\nIO\n$2\\text{ k}\\Omega$\n$3\\text{ k}\\Omega$\n$2\\text{ k}\\Omega$\n$1\\text{ k}\\Omega$\n2000 Ix\nIx\nA\nB\n- j1\\ \\Omega\n$2\\ \\Omega$\nI2\nV\nI1\n$4\\ \\Omega$\n12 45°V\n\n技師、第二次食品技師考試暨普通\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_ac_parallel_network_complex_power_recalculation",
       "solution_hash": "0f72c9ca99c7986301d633e3085f197906ca04277f97e8262afb0104b8ae278e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_105年_電路學_Q03.png"
@@ -2956,9 +2956,9 @@
       "question_number": 4,
       "chapter": "圖4 中，為一平衡三相系統，線電壓為34.5 kVrms，頻率為$60\\text{ Hz}$，試求出電容C，\n使得總負載之功率因數變為0.94 領先。（20 分）\n圖4",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_balanced_three_phase_pf_correction_recalculation",
       "solution_hash": "fb0061096fd129398ac146fd6decfc79383a769e4ff8f5ba6282c3880c41f708",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_105年_電路學_Q04.png"
@@ -2970,9 +2970,9 @@
       "question_number": 5,
       "chapter": "圖5 中，試求出R、L 值使得此帶通濾波器（band-pass filter）之共振頻率為$1000\\text{ rad/s}$，\n頻寬（bandwidth）為$100\\text{ rad/s}$（電容C 為$1\\ \\mu\\text{F}$）。（20 分）\n圖5\na\nb\nc\nC\nC\nC\n平衡三相電源\n平衡負載\n$24\\text{ MVA}$\n0.78\n功率因數\n落後\nVR\nR\nL\nC\nVS\n中性點",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_series_rlc_bandpass_design_recalculation",
       "solution_hash": "194a80432b7f1ffc2860a22b2ee5445ddedbbdcb991ded184b88e327c98a6c6d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_105年_電路學_Q05.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 184,
+    "verified": 189,
     "suspected_error": 0,
-    "needs_manual_review": 72,
+    "needs_manual_review": 67,
     "not_attempted": 0
   }
 }

@@ -6571,7 +6571,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-112-03-3": {
     "disposition": "event_definition_branches",
     "blocker": "official_wording_ambiguity",
-    "action": "確認第二事件是恰一發命中且由乙射擊，或以乙的命中占比定義。",
+    "action": "確認第二事件是恰一發命中且由乙射擊、乙命中占比，或條件於至少一發命中時乙至少命中一發。",
     "evidence": ""
   },
   "EE-111-04-3": {

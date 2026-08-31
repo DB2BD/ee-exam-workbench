@@ -45,7 +45,7 @@ REVIEWS = {
     "EE-104-05-3": ("given_current_vs_recalculation", "source_conflict", "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。"),
     "EE-104-06-1": ("regulation_version_branches", "regulation_version", "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。"),
     "EE-104-06-5": ("power_factor_parameterized", "missing_parameter", "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。"),
-    "EE-112-03-3": ("event_definition_branches", "official_wording_ambiguity", "確認第二事件是恰一發命中且由乙射擊，或以乙的命中占比定義。"),
+    "EE-112-03-3": ("event_definition_branches", "official_wording_ambiguity", "確認第二事件是恰一發命中且由乙射擊、乙命中占比，或條件於至少一發命中時乙至少命中一發。"),
 }
 
 # Optional evidence can narrow a branch without pretending that the official

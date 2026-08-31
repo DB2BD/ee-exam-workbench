@@ -322,6 +322,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("550.0\\text{ kVA}", auto_106)
         self.assertIn("99.81\\%", auto_106)
 
+        grounding_106 = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", grounding_106)
+        self.assertIn("遮斷容量", grounding_106)
+        self.assertIn("接觸電壓", grounding_106)
+
 
 if __name__ == "__main__":
     unittest.main()

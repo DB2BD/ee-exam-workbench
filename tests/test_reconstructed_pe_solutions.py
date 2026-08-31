@@ -112,6 +112,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("0.7526946\\sin\\delta", double_line)
         self.assertIn("1.4695465\\sin\\delta", double_line)
 
+        synchronous = (CANONICAL / "04_電機機械" / "canonical" / "EE-110-04-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", synchronous)
+        self.assertIn("178.70\\text{ V/相}", synchronous)
+        self.assertIn("0.8379\\text{ 落後}", synchronous)
+        self.assertIn("15.000\\,\\mathrm{kW}", synchronous)
+
 
 if __name__ == "__main__":
     unittest.main()

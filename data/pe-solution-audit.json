@@ -1416,10 +1416,10 @@
       "question_number": 3,
       "chapter": "一部 $380\\text{ V}、60\\text{ Hz}、15\\text{ kW}$、八極、Y 接之三相同步電動機，每相同步電抗為 $5.80\\ \\Omega$，電樞電阻、鐵心損失及機械損失均可忽略。\n* **(一)** 此電動機工作在額定電壓並輸出額定機械功率時，調整其激磁電流使電動機的功率因數為 0.8 落後。繪出電動機的每相等效電路圖、計算其電樞電流 $I_a$、每相激勵電勢 $E_a$ 及轉矩角 $\\delta$。（10 分）\n* **(二)** 若此電動機的供電電壓下降 10\\%，成為 $342\\text{ V}$，但激磁電流及機械輸出功率保持不變，計算其轉矩角 $\\delta$、電樞電流 $I_a$ 及功率因數。（10 分）",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-110-04-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "04d0aecf6f9b38d26e1402ba89b5bc0cc7066290d1983635c4b7896cb45d12b4",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_phasor_and_power_balance_recalculation",
+      "solution_hash": "705a33fff248cfeb2256c97cf720433118fbe667455543469c7834d02f2b23ff",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_110年_電機機械_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 134,
+    "verified": 135,
     "suspected_error": 0,
-    "needs_manual_review": 122,
+    "needs_manual_review": 121,
     "not_attempted": 0
   }
 }

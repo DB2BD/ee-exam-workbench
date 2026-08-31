@@ -118,6 +118,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("0.8379\\text{ 落後}", synchronous)
         self.assertIn("15.000\\,\\mathrm{kW}", synchronous)
 
+        autotransformer = (CANONICAL / "04_電機機械" / "canonical" / "EE-110-04-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", autotransformer)
+        self.assertIn("I_L-I_H=323.86-187.50=136.36", autotransformer)
+        self.assertIn("\\sqrt3\\times71.25=123.41", autotransformer)
+
 
 if __name__ == "__main__":
     unittest.main()

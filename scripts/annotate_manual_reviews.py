@@ -20,7 +20,7 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 # Keep this table deliberately explicit.  A new manual-review question must be
 # classified here (and will be caught by the regression test if it is not).
 REVIEWS = {
-    "EE-113-02-2": ("conditional_numeric", "missing_parameter", "確認命題採用的熱電壓 V_T；目前保留 V_T=25 mV 分支。"),
+    "EE-113-02-2": ("conditional_numeric", "missing_parameter", "確認命題採用的熱電壓 V_T 或溫度；目前列出 25、25.85、26 mV 三個可回代分支。"),
     "EE-113-04-4": ("source_conflict_branches", "source_conflict", "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。"),
     "EE-112-02-1": ("conditional_numeric", "missing_parameter", "確認 V_T 與高頻模型的教材慣例；目前保留有限 beta 與 V_T=25 mV 分支。"),
     "EE-112-05-4": ("impedance_type_branches", "missing_parameter", "確認故障阻抗 0.01 pu 為複數阻抗或純電抗；目前保留兩個臨界清除角分支。"),

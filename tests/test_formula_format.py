@@ -76,6 +76,46 @@ process.stdout.write(JSON.stringify(failures));
         )
         self.assertEqual(json.loads(result.stdout), [], result.stderr)
 
+    def test_all_active_markdown_has_no_strict_katex_parse_errors(self):
+        """Catch nested or orphaned delimiters that throwOnError=False hides."""
+        roots = [ROOT / "📝 個人題解與錯題本", ROOT / "🧠 核心考點知識庫"]
+        paths = sorted(str(path.relative_to(ROOT)) for root in roots for path in root.rglob("*.md"))
+        script = r'''
+const fs = require('fs'), vm = require('vm');
+const ctx = { console };
+vm.createContext(ctx);
+vm.runInContext(fs.readFileSync('libs/katex.min.js', 'utf8'), ctx);
+vm.runInContext(fs.readFileSync('libs/marked.min.js', 'utf8'), ctx);
+const original = ctx.katex.renderToString;
+const errors = [];
+let currentPath = '';
+ctx.katex.renderToString = (latex, options) => {
+  try {
+    original(latex, { ...options, throwOnError: true });
+  } catch (error) {
+    errors.push({ path: currentPath, message: error.message });
+  }
+  return original(latex, options);
+};
+vm.runInContext(fs.readFileSync('src/renderers/katexRenderer.js', 'utf8'), ctx);
+const paths = JSON.parse(fs.readFileSync(0, 'utf8'));
+for (const path of paths) {
+  currentPath = path;
+  ctx.processMarkdownWithMath(fs.readFileSync(path, 'utf8'));
+}
+process.stdout.write(JSON.stringify(errors));
+'''
+        result = subprocess.run(
+            ['node', '-e', script],
+            cwd=ROOT,
+            input=json.dumps(paths, ensure_ascii=False),
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        errors = json.loads(result.stdout)
+        self.assertEqual(errors, [], result.stderr)
+
     def test_renderer_converts_obsidian_image_embeds_before_markdown_parse(self):
         source = (ROOT / "src/renderers/katexRenderer.js").read_text(encoding="utf-8")
         self.assertIn("normalizeObsidianImageEmbeds", source)

@@ -247,6 +247,26 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("39.5 + j28.6", three_phase_107)
         self.assertIn("2.4\\angle -36.87", three_phase_107)
 
+        pn_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", pn_107)
+        self.assertIn("0.738", pn_107)
+        self.assertIn("0.259\\ \\mu\\text{m}", pn_107)
+
+        nmos_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", nmos_107)
+        self.assertIn("0.64\\text{ mA/V}", nmos_107)
+        self.assertIn("390.6\\text{ k}\\Omega", nmos_107)
+
+        boost_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", boost_107)
+        self.assertIn("32.66\\%", boost_107)
+        self.assertIn("不連續導通模式", boost_107)
+
+        cuk_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", cuk_107)
+        self.assertIn("0.03125\\text{ V}", cuk_107)
+        self.assertIn("3.25\\text{ A}", cuk_107)
+
 
 if __name__ == "__main__":
     unittest.main()

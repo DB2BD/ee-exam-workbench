@@ -302,6 +302,26 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("5.8539", differential_107)
         self.assertIn("1.399", differential_107)
 
+        state_filter_106 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-106-02-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", state_filter_106)
+        self.assertIn("v_X}{v_{out}}(s) = -", state_filter_106)
+        self.assertIn("R_5 (R_3 + R_6)", state_filter_106)
+
+        rectifier_106 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-106-02-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", rectifier_106)
+        self.assertIn("I_o = \\frac{V_{o,avg}}{R}", rectifier_106)
+        self.assertIn("PF = \\frac{2}{\\pi}", rectifier_106)
+
+        boost_106 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-106-02-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", boost_106)
+        self.assertIn("V_o}{V_{in}} = \\frac{D}{1 - D}", boost_106)
+        self.assertIn("(\\Delta I_L)^2}{12}", boost_106)
+
+        auto_106 = (CANONICAL / "04_電機機械" / "canonical" / "EE-106-04-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", auto_106)
+        self.assertIn("550.0\\text{ kVA}", auto_106)
+        self.assertIn("99.81\\%", auto_106)
+
 
 if __name__ == "__main__":
     unittest.main()

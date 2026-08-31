@@ -168,6 +168,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("42.47\\,\\mathrm{N\\cdot m}", induction_108)
         self.assertIn("0.8637", induction_108)
 
+        synchronous_108 = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", synchronous_108)
+        self.assertIn("2628.18", synchronous_108)
+        self.assertIn("3.0999\\,\\mathrm{MW}", synchronous_108)
+        self.assertIn("1.2334\\times10^5", synchronous_108)
+
 
 if __name__ == "__main__":
     unittest.main()

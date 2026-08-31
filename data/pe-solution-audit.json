@@ -2102,10 +2102,10 @@
       "question_number": 4,
       "chapter": "某部三相、Y 接、線電壓2300 V、$1500\\text{ kW}$、$60\\text{ Hz}$、30 極的圓筒型同\n步電動機，已知每相的同步電抗為1.$95\\ \\Omega$，假設所有的損失均可忽略不\n計。此電動機由三相、$60\\text{ Hz}$、線電壓2300 V 的無窮匯流排（infinite bus）\n供電。此同步機在額定負載下運轉，並調整激磁電流使得輸入側的功率\n因數為1，試回答下列問題：（每小題5 分，共20 分）\n* **(一)** 計算反電動勢的線電壓為若干kV？\n* **(二)** 當反電動勢如問題(一)時，試計算最大功率為若干kW？\n* **(三)** 當反電動勢如問題(一)時，試計算最大轉矩為若干\nm\nN ⋅\n？\n* **(四)** 如問題(一)時，繪出此時同步機的相量圖（phasor diagram），包括每相\n的輸入電壓、輸入電流、同步電抗壓降及反電動勢電壓？",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-108-04-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "cc27ddb289758e1dea1a5f870fcd3a7492f8bd74b1390d1e2a4c1ed0a3b3203b",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_synchronous_motor_unity_pf_phasor_recalculation",
+      "solution_hash": "a28a0511e086a58e4a1ada17284cacdfe97ee805469dff3d4251d7dbdfd62a9f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_108年_電機機械_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 145,
+    "verified": 146,
     "suspected_error": 0,
-    "needs_manual_review": 111,
+    "needs_manual_review": 110,
     "not_attempted": 0
   }
 }

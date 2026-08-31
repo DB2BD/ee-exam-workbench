@@ -2340,9 +2340,9 @@
       "question_number": 1,
       "chapter": "設一矽二極體pn 接面之摻雜濃度\n16\nA\nN\n5 10\n/ cm\n= ×\n與摻雜濃度\n16\nD\nN\n2 10 /cm\n×\n且本質濃度\n10\nin\n2 10 /cm\n×\n，試求於T\n300 K\n時之內建\n電壓\nV 、空乏區寬度\ndep\nW\n與空乏區在p 側及n 側之延伸寬度。（25 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-107-02-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_pn_junction_depletion_recalculation",
       "solution_hash": "835ea88a46befe312cc4abdb107e3aba1d3281470377a35ce4d76eeb24c8a9de",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_107年_電子學（包括電力電子學）_Q01.png"
@@ -2354,9 +2354,9 @@
       "question_number": 2,
       "chapter": "設一增強型n-通道金氧半場效電晶體（NMOS transistor），已知其\nn\nox\nC\n20 A/V\nμ\nμ\n、W\n400 m\nμ\n、L\n10 m\nμ\n、\nt\nV\n1.2 V\n以及\n-1\n0.01 V\nλ =\n，分別試求其操作於偏壓電壓\nGS\nV\n2 V\n下之\nm\ng 與or 值，以及\n於偏壓電流\nDI\n$2\\text{ mA}$\n下之\nm\ng 與or 值。（25 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-107-02-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_nmos_gm_ro_recalculation",
       "solution_hash": "b22712716f73434db97d8338601454d70d5dc8f7566fdea876bc51f28ae3e73e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_107年_電子學（包括電力電子學）_Q02.png"
@@ -2368,9 +2368,9 @@
       "question_number": 3,
       "chapter": "設一切換頻率為25 kHz 之降升壓型轉換器（buck-boost converter），其輸\n入電壓\nd\nV\n15 V\n、電感器之感值L\n40 H\nμ\n，且令輸出電容器之容值甚\n大，試求得使輸出電壓調節於\no\nV\n10 V\n且供應負載功率\noP\n12 W\n之對應\n開關導通率（duty ratio）與導通模式。（25 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-107-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_buck_boost_dcm_recalculation",
       "solution_hash": "1ad696142de1e694267f1806920f885354bb4a4fb0fe9154a75d996c8eaa0b39",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_107年_電子學（包括電力電子學）_Q03.png"
@@ -2382,9 +2382,9 @@
       "question_number": 4,
       "chapter": "設一邱克轉換器（Cúk converter）示如下圖，已知其中\ns\nV\n10 V\n、\nL\n200 H\nμ\n、\nL\n100 H\nμ\n、\nC\n100 F\nμ 、\nC\n200 F\nμ ，令電晶體導通\n率（duty ratio）為D\n0.2\n、切換頻率為20 kHz、負載平均電流為2 A，\n試求\nC 與\nC 上電壓漣波之峰對峰值\nC\nv\nΔ\n與\nC\nv\nΔ\n，以及電晶體開關元件上\n之峰值電流Ip。（25 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-107-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_cuk_converter_ripple_recalculation",
       "solution_hash": "7b34858f64b5309f1f52bb7fe9e9d94407bf7cbc398388e38a5ca7d6ccf1160b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_107年_電子學（包括電力電子學）_Q04.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 160,
+    "verified": 164,
     "suspected_error": 0,
-    "needs_manual_review": 96,
+    "needs_manual_review": 92,
     "not_attempted": 0
   }
 }

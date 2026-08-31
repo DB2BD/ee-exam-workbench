@@ -23,6 +23,10 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn(r"\boxed{v_3=\frac{75}{46}=1.6304\text{ V}}", note)
         self.assertIn(r"\boxed{I=\frac{175}{46}=3.8043\text{ A}}", note)
         self.assertNotIn(r"\frac{v_1-v_3}{6}=0", note)
+        annual = (CANONICAL / "01_電路學" / "114年_電路學_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        self.assertIn(r"v_1 = \frac{175}{23}\text{ V}", annual)
+        self.assertIn(r"I = \frac{175}{46}\text{ A}", annual)
+        self.assertNotIn(r"\mathbf{v_1 = -\frac{400}{23}\text{ V}", annual)
 
     def test_engineering_math_annual_notes_use_canonical_bodies(self):
         """Annual engineering-math pages must expose solved canonical questions."""

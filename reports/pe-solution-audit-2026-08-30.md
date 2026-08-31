@@ -5,7 +5,7 @@
 - 官方逐題裁切圖仍是題目來源；年度 Markdown 只作為待稽核詳解來源。
 - 新增 `scripts/audit_pe_solutions.py` 與 `data/pe-solution-audit.json`。
 - 編譯器會依 manifest 顯示 `verified`、`suspected_error`、`needs_manual_review`、`not_attempted`，避免年度模板被誤標為 verified。
-- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。現有非工程數學稽核 manifest 統計為 `verified=229`、`needs_manual_review=27`、`not_attempted=0`、`suspected_error=0`；工程數學 manifest 為 `verified=64`、`needs_manual_review=1`。全部 321 題均已具備官方逐題裁切與題號級記錄；非工程數學仍有 27 題待 Sol/Luna 獨立重算，未宣稱已校驗。
+- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。現有非工程數學稽核 manifest 統計為 `verified=231`、`needs_manual_review=25`、`not_attempted=0`、`suspected_error=0`；工程數學 manifest 為 `verified=64`、`needs_manual_review=1`。全部 321 題均已具備官方逐題裁切與題號級記錄；非工程數學仍有 25 題待 Sol/Luna 獨立重算，未宣稱已校驗。
 
 所有已校驗題目均綁定官方逐題裁切圖、章節分類與標準 LaTeX 推導；本輪由 Luna 追加 109 年電路學第 1 題與 110 年電力系統第 2 題的獨立重算，並修正 110 年快速解耦題的 (Y_{bus}) 相角符號與 Q 方程式。另已完成 112/113 年電路、電機機械、電力系統與工業配電題的獨立重算。109 年電子學已依官方題圖拆成 Q1–Q4，其中 Q1、Q2、Q4 完成回代驗證，Q3 Flyback 因導通模式與電流定義仍保留人工複核。112 年工程數學 Q1–Q6 已依官方 PDF 重新轉錄並逐題重算，修正原索引錯版；其中 Q3 官方文字未明確指定「至少一發／恰一發」與條件事件，因此保留多種解讀並標記人工複核，Q6 也保留增廣系統的兩個自由參數，避免把欠約束系統誤寫成單參數解。逐題交叉檢查另發現 112 年電路學 Q2/Q3 的互感極性與 CCVS 正負端會造成大幅答案差異，及 112 年電機機械 Q1 磁通峰值漏乘電感抗，均已按官方裁切重算修正；104 年電路學第 1 題的年度答案與獨立 KCL 計算不一致（30 V 對 270/7 V），因此維持 `needs_manual_review`；工業配電題若缺少可辨識網路參數，也會維持人工複核。
 
@@ -207,9 +207,11 @@
 
 本輪同步重建 104–114 年工程數學年度詳解：原年度檔的通用模板已全部替換為 65 份題級 canonical 內容，逐題帶入官方裁切圖、標準 LaTeX 與審查狀態；64 題 verified、112 年第 3 題因事件定義歧義保留 `needs_manual_review`。並新增回歸測試，阻擋通用模板再次覆蓋年度詳解。
 
-本輪再將 27 個 `needs_manual_review` 題目建立結構化覆核登錄：每題均標示 `review_disposition`、`review_blocker` 與 `review_action`，區分缺參數、題圖／文字歧義、來源矛盾、曲線估讀及規章版本等阻擋類型，並以回歸測試確保人工項目不會退化成無說明的待辦模板。這些題目仍不升級為 `verified`，除非補齊指定資料或由人工裁決採用分支。
+本輪再將 25 個 `needs_manual_review` 題目建立結構化覆核登錄：每題均標示 `review_disposition`、`review_blocker` 與 `review_action`，區分缺參數、題圖／文字歧義、來源矛盾、曲線估讀及規章版本等阻擋類型，並以回歸測試確保人工項目不會退化成無說明的待辦模板。這些題目仍不升級為 `verified`，除非補齊指定資料或由人工裁決採用分支。
 
 本輪進一步以 KKT 容量約束重算 112 年電力系統第 2 題：兩座機組均明載 800 MW，無約束解會要求 (P_2=925\,\mathrm{MW}) 而不可行；採 (P_2=800\,\mathrm{MW})、(P_1=500\,\mathrm{MW}) 並檢查邊界增量成本後，唯一可行係數為 ((\beta,\gamma)=(6.4667,0.003))，已升級為 `verified`。無約束 ((6.3,0.004)) 僅保留為對照。
+
+本輪再以官方完整序網資料重算 104 年電力系統第 1 題：題幹已明示系統等效電源、主變壓器序阻抗、ES 接地切換與 ATR／STR 負載忽略條件；完整模型得到發電機端電壓 19.555 kV 及 ES 投入／切離故障電流 37.44／34.84 kA，已升級為 `verified`。
 
 複習介面已讀取上述登錄：開啟任一待人工覆核題的「完整詳解」或「蓋牌抽測」時，會在推導前顯示目前分支、阻擋原因與收斂所需動作；資料以獨立 `SOLUTION_REVIEW_METADATA` map 輸出，不改動既有 12 欄題目 tuple 相容性。
 

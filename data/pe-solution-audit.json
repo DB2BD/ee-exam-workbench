@@ -1570,10 +1570,10 @@
       "question_number": 4,
       "chapter": "某鋼鐵廠煉鋼用電弧爐之配電線路如下圖三所示，該線路以$69\\text{ kV}$ 受電，\n電弧爐與其引線之等效總電抗為ZF= j0.35 pu.（系統以$69\\text{ kV}，12.5\\text{ MVA}$\n為基準）。饋線阻抗為ZL= j4.$0\\ \\Omega$，主變壓器與爐用變壓器之電抗標么值\n為已換算至$69\\text{ kV}，12.5\\text{ MVA}$ 基準下，試求A 點之閃爍電壓變動率。\n（10 分）若閃爍電壓變動率欲控制在1.5%以下，採串聯電抗器進行改善，\n請問電抗應為多少pu.？（10 分）\n主變壓器\n$12.5\\text{ MVA}$\nZ% = 8 pu.\n$69\\text{ kV}$\nMVAsc\n$$= 1500\\text{ MVA}$$\n爐用變壓器\n$12.5\\text{ MVA}$\nZ% = 7 pu.\nZL\n至電弧爐\nZF\nA\nB\n圖三\n電弧爐配電線路圖",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
       "method": "official-crop-pcc-voltage-flicker-recalculation",
-      "solution_hash": "b1d181243e6847bc782d40d9f83f4f825efd1a521cc5117d9f58fa6600276616",
+      "solution_hash": "17af8f516f783305a455d11136df4f7fa0b8128d5a8024dafbb180af49816162",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 231,
+    "verified": 232,
     "suspected_error": 0,
-    "needs_manual_review": 25,
+    "needs_manual_review": 24,
     "not_attempted": 0
   }
 }

@@ -2074,10 +2074,10 @@
       "question_number": 2,
       "chapter": "某部$25\\text{ kW}$、125 V 的它激式（separately excited）直流電動機運轉在\n3000 轉/分，並適當調整激磁電流使得反電動勢的電壓為125 V。已知\n電樞電阻為0.$03\\ \\Omega$，電樞電感可忽略不計。當電動機輸入的端電壓為\n128 V 時，試問此電動機的：（每小題5 分，共20 分）\n* **(一)** 電樞電流為若干A？\n* **(二)** 輸入功率為若干kW？\n* **(三)** 電磁功率（electromagnetic power）為若干kW？\n* **(四)** 電磁轉矩（electromagnetic torque）為若干\nm\nN ⋅\n？",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-108-04-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "e54565c10bc91a6c997e42baf8b1cb1a1e4dade742e964e29c5453ea51d71e51",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_separately_excited_dc_motor_power_balance_recalculation",
+      "solution_hash": "eb4fad0bb4938a60acda9bf60347803adfc55f7ff569184647259f4e744e40df",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_108年_電機機械_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 143,
+    "verified": 144,
     "suspected_error": 0,
-    "needs_manual_review": 113,
+    "needs_manual_review": 112,
     "not_attempted": 0
   }
 }

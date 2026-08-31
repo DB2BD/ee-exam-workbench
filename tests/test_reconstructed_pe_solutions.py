@@ -123,6 +123,16 @@ class TestReconstructedPESolutions(unittest.TestCase):
                 self.assertNotEqual(match.group(1).strip().lower(), "todo", f"{entry['qid']} has placeholder {key}")
             self.assertNotIn("尚未完成獨立逐步重算", text, f"{entry['qid']} was left as an unworked placeholder")
 
+    def test_dashboard_exposes_manual_review_metadata_to_solution_modal(self):
+        """The UI must be able to show why a conditional answer is unresolved."""
+        dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")
+        index = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn("const SOLUTION_REVIEW_METADATA", dashboard)
+        self.assertIn('"EE-112-05-2"', dashboard)
+        self.assertIn('"capacity_boundary_and_unconstrained"', dashboard)
+        self.assertIn("function renderSolutionReviewCard", index)
+        self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
+
     def test_every_pe_qid_has_one_canonical_note_and_crop(self):
         """Question-level provenance must stay complete after regeneration."""
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")

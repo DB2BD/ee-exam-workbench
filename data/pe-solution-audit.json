@@ -3558,10 +3558,10 @@
       "question_number": 3,
       "chapter": "一座30 噸煉鋼電弧爐，主變壓器及爐用變壓器容量分別為$15\\text{ MVA}$ 及$12.5\\text{ MVA}$，\n電抗為6.7\\%及6.1\\%，主變壓器變壓比為$69\\text{ kV}$/$11.4\\text{ kV}$，爐用變壓器二次側以下電\n抗為44%。煉鋼廠自電力公司變電所以$69\\text{ kV}$ 受電，該饋線上尚有其他用戶，線路\n為477 MCM 之鋁導線，每公里阻抗為0.131+j0.$405\\ \\Omega$，長度為430 公尺，電源端之\n短路容量為$1230\\text{ MVA}$。經製造廠家提供之資料，電弧爐之運轉特性，在熔化期間\n從爐用變壓器一次側測得電弧爐負載電阻之變化為0～$10\\ \\Omega$，則在熔化期產生的電\n壓變動為多少百分標么？（20 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "f345badab9ad9240d9491e7b8bad53aebce583258e66f5f548b4ba4b89c6b2dd",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "arc_furnace_thevenin_voltage_variation_recalculation",
+      "solution_hash": "5b090d4af5d5f3a7c38b15580e1f0e2d936c3a9a8f0ef14baabb742f778b3785",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 215,
+    "verified": 216,
     "suspected_error": 0,
-    "needs_manual_review": 41,
+    "needs_manual_review": 40,
     "not_attempted": 0
   }
 }

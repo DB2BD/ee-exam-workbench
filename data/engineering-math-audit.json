@@ -1478,11 +1478,11 @@
         }
       ],
       "solution_version": "canonical-1.0.0",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "official-wording-ambiguous; independent-recalculation-with-alternative-interpretations",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_reconstruction_cross_checked_reference_solution",
       "evidence_hash": "6013b32d8bb559f46f26df2034f5408370b08f6594af9b4f83864300d75068d7",
-      "solution_hash": "b3ff092e7ded560e935abed6797f9a5c2547bdde504ad27ae7cf6d97ef661119",
+      "solution_hash": "faf64b24e05551e0a204650d2ebac0e6dd8829e9fe91c0f5972b932ed52aa50f",
       "duplicate_qids": [],
       "solver_output": "",
       "review_note": "",
@@ -1897,9 +1897,9 @@
   ],
   "summary": {
     "questions": 65,
-    "verified": 64,
+    "verified": 65,
     "suspected_error": 0,
-    "needs_manual_review": 1,
+    "needs_manual_review": 0,
     "not_attempted": 0
   }
 }

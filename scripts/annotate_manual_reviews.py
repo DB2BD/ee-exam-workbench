@@ -45,7 +45,6 @@ REVIEWS = {
     "EE-104-05-3": ("given_current_vs_recalculation", "source_conflict", "確認 2.5/3.0 kA 是否為直接給定量或需由 X''+XT 反算，並補正常功因／勵磁。"),
     "EE-104-06-1": ("regulation_version_branches", "regulation_version", "確認考試年度台電規章版本、供電地區與契約圖說後再定門檻與責任位置。"),
     "EE-104-06-5": ("power_factor_parameterized", "missing_parameter", "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。"),
-    "EE-112-03-3": ("event_definition_branches", "official_wording_ambiguity", "確認第二事件是恰一發命中且由乙射擊、乙命中占比，或條件於至少一發命中時乙至少命中一發。"),
 }
 
 # Optional evidence can narrow a branch without pretending that the official
@@ -163,10 +162,6 @@ REVIEW_EVIDENCE = {
     "EE-104-06-5": (
         "官方裁切圖已確認 380 V、250 MVA、2 MVA 變壓器、400/200 kvar 電容器及 6% 電抗器；canonical 以第五次諧波三支路並聯回代 V_5=3.2211 V、"
         "幹線 74.6606 A、A/B 支路 51.5158/25.7579 A。整流器基波功因未給，故結果按 1/pf_1 參數化。"
-    ),
-    "EE-112-03-3": (
-        "官方裁切圖已確認三人命中率與發射數，canonical 已由獨立事件計算 P(H≥1)=1−0.25^50·0.28^53·0.30^60，"
-        "並分別回代唯一命中乙 0.319705、命中比例 0.324324 及條件於至少一發時乙命中近 1。第二事件文字未定義條件集合。"
     ),
 }
 

@@ -2577,7 +2577,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-3.md",
     "依考科分類/06_工業配電/110年_電機工程技師_工業配電.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -6646,11 +6646,6 @@ const SOLUTION_REVIEW_METADATA = {
     "disposition": "power_factor_parameterized",
     "blocker": "missing_parameter",
     "action": "補齊整流器基波功因或額定交流電流定義；目前以 pf=1 條件分支回代。"
-  },
-  "EE-110-06-3": {
-    "disposition": "contradiction_proven",
-    "blocker": "source_conflict",
-    "action": "確認 800 kW 額定或 950 kW 負載是否誤植；目前明示電容器無法消除有功超載。"
   },
   "EE-111-06-2": {
     "disposition": "conditional_numeric",

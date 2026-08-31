@@ -33,7 +33,6 @@ REVIEWS = {
     "EE-111-06-2": ("conditional_numeric", "missing_parameter", "補齊馬達額定 kVA、效率與額定功因，才能唯一化啟動電流與電壓變動率。"),
     "EE-111-06-3": ("motor_rating_branches", "missing_parameter", "確認馬達數量、額定容量與內電勢假設後，再鎖定三相故障貢獻。"),
     "EE-111-06-4": ("code_compliance_branches", "missing_parameter", "補齊導線材質、敷設、環境修正與效率／規範版本，才能唯一選線徑與保護器。"),
-    "EE-110-06-3": ("contradiction_proven", "source_conflict", "確認 800 kW 額定或 950 kW 負載是否誤植；目前明示電容器無法消除有功超載。"),
     "EE-110-06-4": ("definition_branches", "official_wording_ambiguity", "確認官方閃爍觀測點與電壓變動率定義，再決定唯一數值。"),
     "EE-110-06-5": ("conditional_numeric", "missing_parameter", "補齊三台馬達效率與功因／額定 MVA，才能唯一化共同基準短路電流。"),
     "EE-109-02-3": ("conduction_mode_branches", "missing_parameter", "確認返馳式轉換器導通模式與電流定義；目前保留 DCM 三角波條件解。"),

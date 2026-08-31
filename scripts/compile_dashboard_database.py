@@ -197,12 +197,16 @@ for subject_dir in (
             key, value = line.split(':', 1)
             fields[key.strip()] = value.strip().strip("'\"")
         if fields.get('review_disposition'):
-            SOLUTION_REVIEW_METADATA[match.group(1)] = {
+            review_meta = {
                 'disposition': fields.get('review_disposition', ''),
                 'blocker': fields.get('review_blocker', ''),
                 'action': fields.get('review_action', ''),
                 'evidence': fields.get('review_evidence', ''),
             }
+            official_url = fields.get('official_source_url', '')
+            if official_url:
+                review_meta['officialSourceUrl'] = official_url
+            SOLUTION_REVIEW_METADATA[match.group(1)] = review_meta
 
 all_questions = []
 subject_counts = {}

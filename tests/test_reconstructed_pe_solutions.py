@@ -367,6 +367,19 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("1{,}978{,}022", lighting_105)
         self.assertIn("1501.5", lighting_105)
 
+        circuit_105_1 = (CANONICAL / "01_電路學" / "canonical" / "EE-105-01-1.md").read_text(encoding="utf-8")
+        circuit_105_2 = (CANONICAL / "01_電路學" / "canonical" / "EE-105-01-2.md").read_text(encoding="utf-8")
+        circuit_105_3 = (CANONICAL / "01_電路學" / "canonical" / "EE-105-01-3.md").read_text(encoding="utf-8")
+        circuit_105_4 = (CANONICAL / "01_電路學" / "canonical" / "EE-105-01-4.md").read_text(encoding="utf-8")
+        circuit_105_5 = (CANONICAL / "01_電路學" / "canonical" / "EE-105-01-5.md").read_text(encoding="utf-8")
+        for note in (circuit_105_1, circuit_105_2, circuit_105_3, circuit_105_4, circuit_105_5):
+            self.assertIn("audit_status: verified", note)
+        self.assertIn("-\\frac{4}{3}", circuit_105_1)
+        self.assertIn("10000}{7}", circuit_105_2)
+        self.assertIn("93.6", circuit_105_3)
+        self.assertIn("48.62", circuit_105_4)
+        self.assertIn("1\\text{ H}", circuit_105_5)
+
 
 if __name__ == "__main__":
     unittest.main()

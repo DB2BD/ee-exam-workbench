@@ -870,10 +870,10 @@
       "question_number": 3,
       "chapter": "有一四匯流排電力系統（4-Bus Power System），如圖二所示，所給之電抗\n係基於共同MVA 基準之標么值。變壓器T1 之抽頭設定為0.8：1，連接匯\n流排1（Bus 1）及匯流排3（Bus 3）。變壓器T2 之抽頭設定為1.25：1，\n連接匯流排4（Bus 4）及匯流排2（Bus 2）。試求匯流排導納矩陣Ybus。\n（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "independent_recalculation_off_nominal_transformer_tap_ybus",
-      "solution_hash": "a8e21f491136fe4e23b2881212f43a8623f0adefd089a18de3aaa17b62398537",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_off_nominal_transformer_tap_ybus_first_bus_convention",
+      "solution_hash": "b3afa585307fa4e45024aea0d264d72e84ac0451c377b6c57513aca9364aab0a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_112年_電力系統_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 226,
+    "verified": 227,
     "suspected_error": 0,
-    "needs_manual_review": 30,
+    "needs_manual_review": 29,
     "not_attempted": 0
   }
 }

@@ -6614,10 +6614,10 @@ const SOLUTION_REVIEW_METADATA = {
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {
-    "disposition": "fault_definition_branches",
+    "disposition": "impedance_definition_branches",
     "blocker": "official_wording_ambiguity",
-    "action": "確認 F 點故障型式、饋線阻抗是否含往返與非對稱觀察時刻。",
-    "evidence": "官方圖已提供系統、T1、饋線及 T2 半繞組阻抗；canonical 以左 110 V 對中性點故障為主模型，回代 I_sym=11.318 kA、X/R=1.738 下最不利第一峰值約 22.47 kA，並另列饋線含往返時的敏感度。F 點故障型式與阻抗定義未明。"
+    "action": "依圖面固定 F 為左 110 V 導體對中性點；確認饋線阻抗是否含往返，以及非對稱電流的觀察時刻／故障相角。",
+    "evidence": "官方裁切圖將 F 標在 T2 左側 110 V 導體端、中央中性點接地，故故障拓撲已按左 110 V 對中性點處理；canonical 回代 I_sym=11.318 kA、X/R=1.738 下最不利第一峰值約 22.47 kA，並另列饋線含往返時的敏感度。剩餘缺口是阻抗是否為每導體或往返值，以及非對稱電流的觀察條件。"
   },
   "EE-107-06-2": {
     "disposition": "rated_current_branches",

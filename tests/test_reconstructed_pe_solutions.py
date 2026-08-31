@@ -332,6 +332,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("Δ–Y", transformer_106)
         self.assertIn("3150 V 一次分接頭、210 V 二次分接頭", transformer_106)
 
+        resonance_106 = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", resonance_106)
+        self.assertIn("\\sqrt{49}=7", resonance_106)
+        self.assertIn("第 7 次諧波", resonance_106)
+
 
 if __name__ == "__main__":
     unittest.main()

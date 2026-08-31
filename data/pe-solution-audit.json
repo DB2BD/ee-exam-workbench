@@ -2900,10 +2900,10 @@
       "question_number": 5,
       "chapter": "圖三中之三相整流器由一台三相變壓器Tr 供電，變壓器二次側之短路容量為$15.68\\text{ MVA}$。在接近整流器之線路上有一台$320\\text{ kvar}$ 之電容器組作為功因補償，則此一系\n統可能引起諧波共振之諧波為幾次諧波？（20 分）\n圖三",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "2271616bf46fb8f919f7a98278bd133b56a3fda4eef59a084b89788c9ee777f4",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_parallel_resonance_harmonic_order_recalculation",
+      "solution_hash": "fc301b8574dd61926f38e8aa6f612d707e12f288fdb3265c85fa6f4e07cc2ead",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_106年_工業配電_Q05.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 177,
+    "verified": 178,
     "suspected_error": 0,
-    "needs_manual_review": 79,
+    "needs_manual_review": 78,
     "not_attempted": 0
   }
 }

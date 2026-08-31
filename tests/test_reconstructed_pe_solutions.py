@@ -401,6 +401,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("17.121", rectifier_104)
         self.assertIn("9.885", rectifier_104)
 
+        induction_104 = (CANONICAL / "04_電機機械" / "canonical" / "EE-104-04-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", induction_104)
+        self.assertIn("11.006", induction_104)
+        self.assertIn("$(1-s)r_r/s$", induction_104)
+
         thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
         power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", thevenin_104)

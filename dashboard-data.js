@@ -6621,8 +6621,9 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-111-06-1": {
     "disposition": "graph_estimate",
     "blocker": "graph_estimate",
-    "action": "提供高解析 CT 激磁曲線並確認交點讀值；目前僅呈現可回代的估讀範圍。",
-    "evidence": "官方 CT 等效圖與 100/5 變比、Z'=0.082 Ω、Z_B=0.8/3.0 Ω 已轉成共同方程 E'=(10−I_e)(Z'+Z_B)；兩個交點已由曲線估讀並回代繼電器 8 A 門檻，Z_B=3.0 Ω 交點位於膝點附近，精確值受原圖解析度限制。"
+    "action": "依官方原卷第 3-1 頁確認 100:5 曲線的交點讀值；目前已取得含完整曲線的官方裁切圖，僅需人工接受圖解有效位數。",
+    "evidence": "官方原卷（代號 01160）與裁切圖均含完整 100:5 激磁曲線、等效圖、100/5 變比、Z'=0.082 Ω 及 Z_B=0.8/3.0 Ω；已轉成共同方程 E'=(10−I_e)(Z'+Z_B)。兩個交點分別估讀 I_e≈0.20 A、2.5 A 並回代 8 A 繼電器門檻；Z_B=3.0 Ω 交點位於膝點附近，剩餘不確定性是圖解有效位數而非方程或裁切缺漏。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
   },
   "EE-104-06-5": {
     "disposition": "power_factor_parameterized",

@@ -1567,6 +1567,7 @@ select:focus {
           <option value="due">今日到期</option>
           <option value="wrong">錯題本</option>
           <option value="starred">收藏題目</option>
+          <option value="manual">待人工覆核</option>
           <option value="all">全部題目</option>
         </select>
         <label for="review-subject">考科</label>
@@ -3303,6 +3304,11 @@ function getReviewRecord(q) {
   };
 }
 
+function isManualReviewQuestion(q) {
+  const record = getReviewRecord(q);
+  return !!record && record.solutionStatus === 'needs_manual_review';
+}
+
 function getReviewSubjectFilterValues(questions) {
   return [...new Set((questions || []).map(q => getReviewRecord(q).subjectId).filter(Boolean))].sort();
 }
@@ -3316,7 +3322,7 @@ function getReviewChapterFilterValues(questions, subjectId) {
 }
 
 function setReviewFilter(filter) {
-  reviewFilter = ['due', 'wrong', 'starred', 'all'].includes(filter) ? filter : 'due';
+  reviewFilter = ['due', 'wrong', 'starred', 'manual', 'all'].includes(filter) ? filter : 'due';
   const scope = document.getElementById('review-scope');
   if (scope) scope.value = reviewFilter;
   renderReviewPage();
@@ -3495,7 +3501,7 @@ function getReviewQuestions() {
     const qid = getReviewRecord(q).id;
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
     const starred = typeof starredState !== 'undefined' && !!starredState[qid];
-    const inScope = reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : true;
+    const inScope = reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : reviewFilter === 'manual' ? isManualReviewQuestion(q) : true;
     return inScope && (subjectFilter === 'all' || getReviewRecord(q).subjectId === subjectFilter) && (reviewTypeFilter === 'all' || getReviewTypeLabel(q) === reviewTypeFilter);
   });
 }
@@ -3524,8 +3530,9 @@ function renderReviewPage() {
   const due = new Set(typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
   const wrong = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[getReviewRecord(q).id] || 0) === 2).length;
   const starred = subjectQuestions.filter(q => typeof starredState !== 'undefined' && starredState[getReviewRecord(q).id]).length;
+  const manual = subjectQuestions.filter(isManualReviewQuestion).length;
   const stats = document.getElementById('review-stats');
-  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length], ['錯題本', wrong], ['收藏', starred], ['目前題庫', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
+  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length], ['錯題本', wrong], ['收藏', starred], ['待人工', manual], ['目前題庫', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
 
   // Only chapters that actually occur in the selected subject are offered.
   // This also removes empty/unmatched textbook chapters from the dropdown.
@@ -3537,7 +3544,7 @@ function renderReviewPage() {
       const qid = getReviewRecord(q).id;
       const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
       const starred = typeof starredState !== 'undefined' && !!starredState[qid];
-      return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : true;
+      return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : reviewFilter === 'manual' ? isManualReviewQuestion(q) : true;
     });
     const counts = scopeQuestions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
     const buttons = [['all', '全部章節', scopeQuestions.length]].concat(allTypes.map(type => [type, type, counts[type] || 0]));
@@ -3549,7 +3556,7 @@ function renderReviewPage() {
   const count = document.getElementById('review-filter-count');
   if (count) count.innerText = `目前 ${filtered.length} 題`;
   if (!filtered.length) {
-    const title = reviewFilter === 'due' ? '今天沒有到期複習題' : '目前沒有符合條件的題目';
+    const title = reviewFilter === 'due' ? '今天沒有到期複習題' : reviewFilter === 'manual' ? '目前沒有待人工覆核題' : '目前沒有符合條件的題目';
     container.innerHTML = `<div class="review-empty"><strong>${title}</strong><span>可切換複習範圍或教科書章節，完成題目後再回來集中複習。</span></div>`;
     return;
   }
@@ -3564,7 +3571,8 @@ function renderReviewPage() {
     const recall = typeof getRecallState === 'function' ? getRecallState(qid) : { level: 1 };
     const statusText = status === 2 ? '錯題' : status === 1 ? '已掌握' : '未開始';
     const dueText = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
-    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span><span class="qtag">提取 L${recall.level}</span>${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取訓練</button><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
+    const auditText = isManualReviewQuestion(q) ? '<span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工</span>' : '';
+    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span><span class="qtag">提取 L${recall.level}</span>${auditText}${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取訓練</button><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
   }).join('')}</div></section>`).join('')}</div>`;
   container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewOpen);

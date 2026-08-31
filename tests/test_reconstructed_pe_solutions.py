@@ -133,6 +133,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("function renderSolutionReviewCard", index)
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
 
+    def test_review_center_can_filter_manual_review_queue(self):
+        """The review center must expose a dedicated queue for unresolved items."""
+        index = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn('<option value="manual">待人工覆核</option>', index)
+        self.assertIn("reviewFilter === 'manual'", index)
+        self.assertIn("isManualReviewQuestion(q)", index)
+
     def test_every_pe_qid_has_one_canonical_note_and_crop(self):
         """Question-level provenance must stay complete after regeneration."""
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")

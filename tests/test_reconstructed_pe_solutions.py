@@ -280,6 +280,16 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("1.748", note)
         self.assertIn("3.6696", note)
 
+    def test_electronics_manual_review_provenance_matches_official_crop(self):
+        mosfet = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-106-02-2.md").read_text(encoding="utf-8")
+        self.assertIn("未提供 V_A", mosfet)
+        self.assertNotIn("官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞", mosfet)
+
+        feedback = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-4.md").read_text(encoding="utf-8")
+        self.assertIn(r"未標示 \(4I_1\) 受控源", feedback)
+        self.assertNotIn(r"受控源標示 \(4I_1\)", feedback)
+        self.assertIn("subject: 電子學_含電力電子", feedback)
+
     def test_induction_motor_source_conflict_keeps_both_impedance_branches(self):
         note = (CANONICAL / "04_電機機械" / "canonical" / "EE-113-04-4.md").read_text(encoding="utf-8")
         self.assertIn("圖示 0.2/s", note)

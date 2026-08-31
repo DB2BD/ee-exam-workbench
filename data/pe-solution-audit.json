@@ -3222,10 +3222,10 @@
       "question_number": 3,
       "chapter": "一商業大樓以$22.8\\text{ kV}$ 受電，其單線圖如下圖所示，責任分界點的系統短路容量為\n$200\\text{ MVA}$；主變壓器容量、電壓比與電抗分別為 $2000\\text{ kVA}$、$22.8\\text{ kV}/480\\text{ V}$、$Z_T = 6\\%$，\n該大樓同時由一$500\\text{ kVA}$、480 V 次暫態電抗ZG\n″ = 20\\%之發電機作為輔助電源供應\n電力。假設F 點發生三相短路故障，容量基值與電壓基值分別為kVAb=$2000\\text{ kVA}$、\nVb = 480 V，試求：\n\n* **(一)** 當CB1 閉合、CB2 開路時，F 點的對稱故障電流kA。（10 分）\n\n* **(二)** 當CB1 與CB2 同時閉合時，F 點的對稱故障電流kA。（10 分）\n\n技師、第二次食品技師考試暨普通\n全一張\n（背面）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-105-06-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "bc2f4cdd5414c2f45a5fdbdd2445badcb3454b476c9cb8ee083cc8030352756d",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_parallel_source_fault_recalculation",
+      "solution_hash": "9444e804668eb9bd72d60f90d10fc422c0b0a2355e9c9cf1157f4df4a45866dd",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_105年_工業配電_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 204,
+    "verified": 205,
     "suspected_error": 0,
-    "needs_manual_review": 52,
+    "needs_manual_review": 51,
     "not_attempted": 0
   }
 }

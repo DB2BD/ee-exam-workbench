@@ -5264,7 +5264,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-105-06-3.md",
     "依考科分類/06_工業配電/105年_電機工程技師_工業配電.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)",
       "Ssc = Sbase / Xpu"

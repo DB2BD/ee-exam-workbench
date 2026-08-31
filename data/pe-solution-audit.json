@@ -2819,7 +2819,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_newton_power_flow_two_voltage_branches",
-      "solution_hash": "5f263a86778055d95462931e57f3ff4d476dd682a07de6747b7c5b0e28719111",
+      "solution_hash": "5aefc4fa9d0943febb55363a53fca6609a3034bc25d420ff1046fa1787b274b5",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_106年_電力系統_Q03.png"
     },

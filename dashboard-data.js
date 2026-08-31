@@ -6613,7 +6613,7 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-106-05-3": {
     "disposition": "multiple_power_flow_branches",
     "blocker": "model_branch_ambiguity",
-    "action": "確認穩定運轉分支或 Newton 初值；目前保留高、低電壓兩個正值解。",
+    "action": "若題意採正常穩態，選高電壓分支；目前以 Jacobian 診斷高／低分支並保留題面未指定的低電壓解。",
     "evidence": ""
   },
   "EE-112-05-4": {

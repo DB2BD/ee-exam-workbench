@@ -138,6 +138,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
         self.assertIn("meta.evidence", index)
 
+    def test_power_flow_manual_review_records_jacobian_branch_diagnostic(self):
+        note = (CANONICAL / "05_電力系統" / "canonical" / "EE-106-05-3.md").read_text(encoding="utf-8")
+        self.assertIn("Jacobian 分支診斷", note)
+        self.assertIn("6.03777", note)
+        self.assertIn("0.05141", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

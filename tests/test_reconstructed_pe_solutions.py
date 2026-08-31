@@ -237,6 +237,16 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("-4.8-3.2e^{-2t}", inductors_107)
         self.assertIn("1.28e^{-2t}", inductors_107)
 
+        transformer_107_circuit = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", transformer_107_circuit)
+        self.assertIn("R_L = R_{th} = \\mathbf{35", transformer_107_circuit)
+        self.assertIn("315\\text{ W}", transformer_107_circuit)
+
+        three_phase_107 = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", three_phase_107)
+        self.assertIn("39.5 + j28.6", three_phase_107)
+        self.assertIn("2.4\\angle -36.87", three_phase_107)
+
 
 if __name__ == "__main__":
     unittest.main()

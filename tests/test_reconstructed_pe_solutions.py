@@ -173,6 +173,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("6.03777", note)
         self.assertIn("0.05141", note)
 
+    def test_single_phase_fault_review_uses_diagram_fault_location(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
+        self.assertIn("F 標在 T2 左側 110 V 導體端", note)
+        self.assertIn("左 110 V 導體對中性點故障", note)
+        self.assertIn("阻抗是否為每導體或往返值", note)
+        self.assertNotIn("或兩外線 220 V 相間故障", note)
+
     def test_equal_area_manual_review_traces_official_frequency_gap(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")
         self.assertIn("official_source_url: https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q", note)

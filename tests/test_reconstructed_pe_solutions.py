@@ -13,6 +13,28 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
+    def test_electronics_conditional_branches_keep_unresolved_status(self):
+        """Explicit textbook assumptions must not silently become official facts."""
+        flyback = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-109-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: needs_manual_review", flyback)
+        self.assertIn("DCM／臨界導通模式（CrCM）邊界", flyback)
+        self.assertIn("題圖未明示 CCM/DCM", flyback)
+        self.assertIn("I_{p,\\,avg\\mid on}=", flyback)
+        self.assertIn("30\\,\\mathrm A", flyback)
+        self.assertIn("I_{p,\\,avg}=D\\,I_{p,\\,avg\\mid on}", flyback)
+
+        cb = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-113-02-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: needs_manual_review", cb)
+        self.assertIn("以下先採教材常用 $V_T=25\\,\\mathrm{mV}$", cb)
+        self.assertIn("題目未明示 $V_T$", cb)
+        self.assertIn("25.85", cb)
+
+        high_frequency = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-1.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: needs_manual_review", high_frequency)
+        self.assertIn("題圖沒有明示熱電壓", high_frequency)
+        self.assertIn("R_B=100\\,\\mathrm{k}\\Omega", high_frequency)
+        self.assertIn("V_T=25\\,\\mathrm{mV}", high_frequency)
+
     def test_114_circuit_q1_supernode_excludes_internal_resistor(self):
         """The 6-ohm link is internal to the three-node supernode."""
         note = (CANONICAL / "01_電路學" / "canonical" / "EE-114-01-1.md").read_text(encoding="utf-8")
@@ -245,8 +267,21 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: needs_manual_review", note)
         self.assertIn("第 152 條", note)
         self.assertIn("https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617", note)
+        self.assertIn(r"I=258\,\mathrm{A}", note)
+        self.assertIn("5.4407", note)
+        self.assertIn("110.28", note)
         self.assertIn("238 A", note)
         self.assertIn("250 A", note)
+        annual = (CANONICAL / "06_工業配電" / "107年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        self.assertIn("歷史表 258 A、現行表 238 A、常用 250 A", annual)
+
+    def test_harmonic_review_distinguishes_ac_and_dc_power_definitions(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-104-06-5.md").read_text(encoding="utf-8")
+        self.assertIn("500 kW 是整流器 DC 輸出或 AC 側有功輸入", note)
+        self.assertIn(r"I_{1,\mathrm{AC}}", note)
+        self.assertIn(r"I_{1,\mathrm{DC}}", note)
+        self.assertIn(r"1/(\eta\,\mathrm{pf}_1)", note)
+        self.assertIn("500 kW 為 AC 側有功", note)
 
     def test_ct_curve_review_traces_official_question_and_reading_limit(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-1.md").read_text(encoding="utf-8")

@@ -150,6 +150,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("19.0520", note)
         self.assertIn("6.070853", note)
 
+    def test_flyback_manual_review_records_critical_conduction_boundary(self):
+        note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-109-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("DCM／臨界導通模式", note)
+        self.assertIn("166.67", note)
+        self.assertIn("t_{demag}", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

@@ -5144,7 +5144,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-105-05-2.md",
     "依考科分類/05_電力系統/105年_電機工程技師_電力系統.pdf",
     4,
-    "needs_manual_review",
+    "verified",
     [
       "M d^2δ/dt^2 = Pm - Pe"
     ],

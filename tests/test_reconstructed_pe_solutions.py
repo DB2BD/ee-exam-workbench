@@ -162,6 +162,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("4.444444", note)
         self.assertIn("4.755", note)
 
+    def test_probability_manual_review_records_third_event_interpretation(self):
+        note = (CANONICAL / "03_工程數學" / "canonical" / "EE-112-03-3.md").read_text(encoding="utf-8")
+        self.assertIn("乙至少有一發命中", note)
+        self.assertIn("5.0\\times10^{-30}", note)
+
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")

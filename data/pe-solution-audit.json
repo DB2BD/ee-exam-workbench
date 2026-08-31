@@ -3362,10 +3362,10 @@
       "question_number": 3,
       "chapter": "圖三整流器電路，三相電源為\nrms\nV\n380\n線對線，負載為$30\\ \\Omega$電阻，試求：\n\n* **(一)** 負載之平均電壓值\no\nV ？（4 分）\n\n* **(二)** 負載之平均電流值oI ？（4 分）\n\n* **(三)** 二極體之平均電流值？（3 分）\n\n* **(四)** 二極體之均方根電流值？（3 分）\n\n* **(五)** 電源之均方根電流值？（3 分）\n\n* **(六)** 電源之視功率？（3 分）",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-104-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "question-level extraction only; independent recalculation pending",
-      "solution_hash": "1f0d9ffd112a5a764be47d45c429efbb27a6becbf0e20ff0ba18b7f1496f093e",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_six_pulse_resistive_load_exact_rms_recalculation",
+      "solution_hash": "d8126c0d341afbd57d9639eebc970ae27258c3046569335b2ee2932011c53c23",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_104年_電子學（包括電力電子學）_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 194,
+    "verified": 195,
     "suspected_error": 0,
-    "needs_manual_review": 62,
+    "needs_manual_review": 61,
     "not_attempted": 0
   }
 }

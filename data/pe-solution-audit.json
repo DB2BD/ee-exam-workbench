@@ -3138,10 +3138,10 @@
       "question_number": 2,
       "chapter": "針對下圖的三個匯流排電力系統，圖中的數值皆為標么值（per unit），試執行二次\n高斯-賽德（Gauss-Seidel）疊代，求解匯流排(2)及匯流排(3)的電壓大小與相角。假設\n匯流排(1)為搖擺匯流排（Swing Bus），並假設負載匯流排的初始電壓為\n1.0∠\n標么。\n（20 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-105-05-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "ea9ea23cc567bb6f60165fb131e1cb3ead6576ee11aeae91b344840c24f028a7",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_gauss_seidel_two_iteration_recalculation",
+      "solution_hash": "689030655dc7ddecf96675794cb56bdc8ee61c60769b976f01dcc4d5ef5c5dbe",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_105年_電力系統_Q02.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 205,
+    "verified": 206,
     "suspected_error": 0,
-    "needs_manual_review": 51,
+    "needs_manual_review": 50,
     "not_attempted": 0
   }
 }

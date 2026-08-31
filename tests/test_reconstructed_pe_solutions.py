@@ -189,6 +189,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("規章中性答案", note)
         self.assertNotIn("review_disposition:", note)
 
+    def test_motor_voltage_drop_review_traces_historical_current_rule(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-2.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn("第 152 條", note)
+        self.assertIn("https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617", note)
+        self.assertIn("238 A", note)
+        self.assertIn("250 A", note)
+
     def test_single_phase_fault_review_uses_diagram_fault_location(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
         self.assertIn("F 標在 T2 左側 110 V 導體端", note)

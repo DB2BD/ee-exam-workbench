@@ -303,6 +303,9 @@ select:focus {
 .solution-audit.s-audit-suspected_error { color: #a04a3f; background: #fff0ed; border-color: #e6a49a; }
 .solution-audit.s-audit-needs_manual_review { color: #8a6410; background: #fff8df; border-color: #e4c56b; }
 .solution-audit.s-audit-not_attempted { color: #6d7480; background: #f1f3f5; border-color: #c8ced6; }
+.solution-review-card { margin: 14px 0; padding: 12px 14px; border: 1px solid #e4c56b; border-left: 4px solid #c28b2c; border-radius: var(--radius-sm); background: #fffaf0; color: var(--ink); }
+.solution-review-card .review-title { font-weight: 700; color: #8a6410; margin-bottom: 6px; }
+.solution-review-card .review-meta { display: grid; gap: 4px; font-size: .86rem; line-height: 1.45; }
 
 /* Difficulty Stars Badge */
 .diff-badge {

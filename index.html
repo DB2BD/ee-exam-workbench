@@ -1922,6 +1922,7 @@ const TAXONOMY_ALIASES = {
   'per[- ]?unit|p\\.u\\.': '標么',
   'power factor': '功率因數',
   'induction motor': '感應電動機',
+  '外激式直流電動機|直流電動機': '直流電機',
   'transformer': '變壓器',
   'fortescue|sequence components': '對稱分量',
   'op[- ]?amp|operational amplifier': '運算放大器',
@@ -3612,9 +3613,9 @@ function startReviewSession() {
 
 /**
  * Normalize a small set of legacy, unbraced LaTeX unit macros before KaTeX
- * sees them.  Imported notes historically contain forms such as
- * ``\mathrm A``; braces are the standard LaTeX spelling and avoid parser
- * differences between KaTeX versions while preserving the visible result.
+ * sees them. Imported notes historically contain forms such as ``\mathrm A``;
+ * braces are the standard LaTeX spelling and avoid parser differences between
+ * KaTeX versions while preserving the visible result.
  */
 function normalizeLatexSyntax(latex) {
   return String(latex || '')

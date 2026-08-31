@@ -120,6 +120,16 @@ process.stdout.write(JSON.stringify(context.__missing));
         )
         self.assertEqual(result, "S 域拉氏轉換電路求解")
 
+    def test_dc_motor_alias_does_not_fall_into_induction_torque(self):
+        question = [
+            "EE-105-04-5", "04", 105, 5,
+            "外激式直流電動機減磁與降壓調速，求轉速", [], "", "", 3, "needs_manual_review", [], True,
+        ]
+        result = self._run_node(
+            "context.getReviewTypeLabel(" + json.dumps(question, ensure_ascii=False) + ")"
+        )
+        self.assertEqual(result, "直流電機 (分激/串激特性與調速)")
+
 
 class TestBuildReproducibility(unittest.TestCase):
     """A fixed input tree must produce byte-identical HTML across timezones."""

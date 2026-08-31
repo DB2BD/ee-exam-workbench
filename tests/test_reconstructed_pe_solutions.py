@@ -86,6 +86,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("0.4827765", fault)
         self.assertIn("\\boxed{0.48}", fault)
 
+        interleaved = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-108-02-5.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", interleaved)
+        self.assertIn("\\mathbf{0.75\\text{ A}}", interleaved)
+        self.assertIn("3.375\\text{ A}", interleaved)
+        self.assertIn("2.625\\text{ A}", interleaved)
+        self.assertNotIn("0.3\\text{ A}", interleaved)
+
 
 if __name__ == "__main__":
     unittest.main()

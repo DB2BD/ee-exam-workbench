@@ -467,7 +467,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "transformer_reluctance_model",
-      "solution_hash": "7fe1d9354ddbf237f08424ef5858986d31742b74081a1cc49174f70093dc0bc3",
+      "solution_hash": "f0e3b091e5d68f74649467c7e3216630e36faa6ad240c69b717b0d90041e0fad",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_113年_電機機械_Q01.png"
     },
@@ -579,7 +579,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "speed_regulation_per_unit_calculation",
-      "solution_hash": "f98aa11f7ed5bbbf534e32db765ff87e0868bf25726aac2e370894a74191377f",
+      "solution_hash": "d1c51d2628e627a679f2795e43dc15bea63c1023f8647b1e89102313eaf7b1a1",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_113年_電力系統_Q04.png"
     },

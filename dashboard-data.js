@@ -366,7 +366,7 @@ const DB_DATA = {
     "04",
     114,
     5,
-    "如圖4 所示轉子為四極之磁阻電動機，磁路之磁阻\\mathcal{R}為θ函數，可表示為\n$$\n\\mathcal{R}(\\theta) = \\mathcal{R}_0 - \\mathcal{R}_1\\cos(4\\theta)，\\quad \\text{其中 } \\theta = \\omega_m t + \\delta, \\quad \\mathcal{R}_0 = 2 \\times 10^5, \\quad \\mathcal{R}_1 = 1 \\times 10^5\n$$ 105，ωm 為轉\n子角速度，δ為時間t = 0 時之轉子位置。定子繞組線圈匝數N 為50 匝\n且繞組電阻忽略不計，當此電機接一v(t)= 110$\\sqrt{2}$ sinωt 之單相$60\\text{ Hz}$ 電\n源時，請回答以下問題：（每小題10 分，共20 分）\n* **(一)** 推導此電機之瞬時轉矩T。\n（提示：$v(t) = N\\frac{d\\Phi}{dt}, T = \\frac{\\partial W_{fld}}{\\partial\\theta} = -\\frac{1}{2}\\Phi^2\\frac{d\\mathcal{R}}{d\\theta}$）\n* **(二)** 當\nm\nω=±\n時，求此電機的最大轉矩與最大機械功率各約為何？",
+    "如圖4 所示轉子為四極之磁阻電動機，磁路之磁阻 $\\mathcal{R}$ 為 $\\theta$ 函數，可表示為\n$$\n\\mathcal{R}(\\theta) = \\mathcal{R}_0 - \\mathcal{R}_1\\cos(4\\theta)，\\quad \\text{其中 } \\theta = \\omega_m t + \\delta, \\quad \\mathcal{R}_0 = 2 \\times 10^5, \\quad \\mathcal{R}_1 = 1 \\times 10^5\n$$，$\\omega_m$ 為轉\n子角速度，δ為時間t = 0 時之轉子位置。定子繞組線圈匝數N 為50 匝\n且繞組電阻忽略不計，當此電機接一 $v(t)=110\\sqrt{2}\\sin\\omega t$ 之單相 $60\\text{ Hz}$ 電\n源時，請回答以下問題：（每小題10 分，共20 分）\n* **(一)** 推導此電機之瞬時轉矩T。\n（提示：$v(t) = N\\frac{d\\Phi}{dt}, T = \\frac{\\partial W_{fld}}{\\partial\\theta} = -\\frac{1}{2}\\Phi^2\\frac{d\\mathcal{R}}{d\\theta}$）\n* **(二)** 當\nm\nω=±\n時，求此電機的最大轉矩與最大機械功率各約為何？",
     [
       "交流相量",
       "電機機械"
@@ -4338,7 +4338,7 @@ const DB_DATA = {
     "03",
     106,
     2,
-    "請求線性系統 $\\mathbf{A}\\mathbf{x} = \\mathbf{b}$ 的最小平方解（Least Squares Solution）$\\mathbf{x}$，其中：\n$$\\mathbf{A} = \\begin{bmatrix} 2 & 1 \\\\ 1 & 1 \\\\ 2 & 0 \\\\ 1 & 1 \\end{bmatrix}$$\n$$, \\quad \\mathbf{b} =$$\n$$\n\\begin{bmatrix} 1 \\\\ 0 \\\\ 2 \\\\ -1 \\end{bmatrix}\n（15 分）",
+    "請求線性系統 $\\mathbf{A}\\mathbf{x} = \\mathbf{b}$ 的最小平方解（Least Squares Solution）$\\mathbf{x}$，其中：\n$$\n\\mathbf{A} = \\begin{bmatrix} 2 & 1 \\\\ 1 & 1 \\\\ 2 & 0 \\\\ 1 & 1 \\end{bmatrix},\\qquad\n\\mathbf{b} = \\begin{bmatrix} 1 \\\\ 0 \\\\ 2 \\\\ -1 \\end{bmatrix}\n$$\n（15 分）",
     [
       "工程數學"
     ],
@@ -5000,7 +5000,7 @@ const DB_DATA = {
     "03",
     105,
     7,
-    "$T: \\mathbb{R}^2 \\to \\mathbb{R}^2$ 為一線性轉換，已知 $T\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}$\n$$\n$$=$$\n$\\begin{bmatrix} 2 \\\\ -3 \\end{bmatrix}$ 與 $T\\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}$\n= \\begin{bmatrix} -1 \\\\ 3 \\end{bmatrix}$，求 $T\\begin{bmatrix} 7 \\\\ 6 \\end{bmatrix}。（10 分）",
+    "$T: \\mathbb{R}^2 \\to \\mathbb{R}^2$ 為一線性轉換，已知\n$$\nT\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ -3 \\end{bmatrix},\\qquad\nT\\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} -1 \\\\ 3 \\end{bmatrix}\n$$\n求 $T\\begin{bmatrix} 7 \\\\ 6 \\end{bmatrix}$。（10 分）",
     [
       "工程數學"
     ],

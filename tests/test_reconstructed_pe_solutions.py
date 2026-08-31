@@ -134,6 +134,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("101.914\\text{ A}", dc_machine)
         self.assertIn("8202.27", dc_machine)
 
+        induction = (CANONICAL / "04_電機機械" / "canonical" / "EE-109-04-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", induction)
+        self.assertIn("72.67\\text{ N}\\cdot\\text{m}", induction)
+        self.assertIn("18.66\\text{ N}\\cdot\\text{m}", induction)
+
 
 if __name__ == "__main__":
     unittest.main()

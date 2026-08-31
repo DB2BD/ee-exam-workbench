@@ -2312,9 +2312,9 @@
       "question_number": 4,
       "chapter": "圖4 中，變壓器為一理想變壓器，原線圈比副線圈匝數比為4：1，負載\nRL 為一可變電阻，調整RL 電阻至最大平均輸送功率。\n\n* **(一)** 試求RL 電阻。（10 分）\n\n* **(二)** 試求最大平均功率值。（10 分）\n圖4",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-incomplete; transformer numeric evidence pending",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_ideal_transformer_thevenin_maximum_power_recalculation",
       "solution_hash": "7ccceb2ef0e54c193959ad4c7b86ba6164a7d0c7e3305693dfe5d040009d1260",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_107年_電路學_Q04.png"
@@ -2326,9 +2326,9 @@
       "question_number": 5,
       "chapter": "一平衡三相Y 連接發電機為正相序，內電壓為120 V，內阻抗為\n0.2+j0.5(Ω)，發電機饋送一平衡的Δ 連接負載，每相負載阻抗為\n118.5+j85.8(Ω)，發電機至負載之每相線阻抗為0.3+j0.9(Ω)。\n\n* **(一)** 試求出單相等效Y-接電路圖及其負載阻抗。（10 分）\n\n* **(二)** 試求出三個線電流。（10 分）",
       "solution_link": "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-5.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": "2026-08-30",
-      "method": "independent-recalculation-with-equation-residual",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_balanced_three_phase_delta_to_wye_recalculation",
       "solution_hash": "e2cff624f83b74ce7d77bacd0d4c12d1eb03da9f739d51ff9d6cb5bf551c43ec",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_107年_電路學_Q05.png"
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 158,
+    "verified": 160,
     "suspected_error": 0,
-    "needs_manual_review": 98,
+    "needs_manual_review": 96,
     "not_attempted": 0
   }
 }

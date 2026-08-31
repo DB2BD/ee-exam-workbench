@@ -146,6 +146,32 @@ REVIEW_EVIDENCE = {
     ),
 }
 
+# Stable official question endpoints discovered during the public cross-check.
+# These are question PDFs/text pages (not claims that a public worked answer
+# exists); unresolved notes keep their manual status until every quantity can
+# be independently reproduced from the stated data.
+OFFICIAL_SOURCES = {
+    "EE-104-05-3": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0611&t=Q",
+    "EE-105-04-5": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=105170&q=1&s=0610&t=Q",
+    "EE-106-02-2": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0601&t=Q",
+    "EE-106-06-2": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0612&t=Q",
+    "EE-107-06-2": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=107180&q=1&s=0612&t=Q",
+    "EE-108-06-2": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=108180&q=1&s=0612&t=Q",
+    "EE-109-02-3": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=109180&q=1&s=0601&t=Q",
+    "EE-110-06-5": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=110180&q=1&s=0612&t=Q",
+    "EE-111-02-3": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q",
+    "EE-111-02-4": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q",
+    "EE-111-04-4": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0610&t=Q",
+    "EE-111-06-1": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q",
+    "EE-111-06-2": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q",
+    "EE-111-06-3": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q",
+    "EE-111-06-4": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q",
+    "EE-112-02-1": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0701&t=Q",
+    "EE-113-02-2": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0701&t=Q",
+    "EE-113-04-4": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q",
+    "EE-104-06-5": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0612&t=Q",
+}
+
 
 def find_note(qid: str) -> Path:
     matches = list(CANONICAL.glob(f"*/canonical/{qid}.md"))
@@ -165,7 +191,6 @@ def update_frontmatter(path: Path, qid: str) -> bool:
     # Replace existing generated fields so the script is idempotent.
     for key in ("review_disposition", "review_blocker", "review_action", "review_evidence"):
         fm = re.sub(rf"^{re.escape(key)}:.*$\n?", "", fm, flags=re.M)
-
     # A question that has since been promoted must not retain stale manual-
     # review metadata.  Keep the explicit REVIEWS entry as an audit breadcrumb,
     # but make the generated note and dashboard reflect the verified state.
@@ -174,12 +199,21 @@ def update_frontmatter(path: Path, qid: str) -> bool:
         path.write_text("---\n" + fm.rstrip() + "\n---\n" + text[end + len("\n---\n"):], encoding="utf-8")
         return False
 
+    # Official endpoints are generated from the explicit table above so that
+    # every unresolved note has a reproducible primary source.  Replace rather
+    # than append to keep reruns idempotent.  Do this only for manual notes;
+    # verified notes retain their existing provenance unchanged.
+    fm = re.sub(r"^official_source_url:.*$\n?", "", fm, flags=re.M)
+
     disposition, blocker, action = REVIEWS[qid]
     fm = fm.rstrip() + (
         f"\nreview_disposition: {disposition}"
         f"\nreview_blocker: {blocker}"
         f"\nreview_action: {action}"
     )
+    official_url = OFFICIAL_SOURCES.get(qid)
+    if official_url:
+        fm += f"\nofficial_source_url: {official_url}"
     evidence = REVIEW_EVIDENCE.get(qid)
     if evidence:
         fm += f"\nreview_evidence: {evidence}"

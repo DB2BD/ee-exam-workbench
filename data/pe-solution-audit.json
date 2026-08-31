@@ -3236,10 +3236,10 @@
       "question_number": 4,
       "chapter": "一電子工廠長30 公尺、寬20 公尺，天花板高度6 公尺；假設天花板反射率為75\\%，\n牆壁反射率為50%。現擬利用每組3-40 W 直接型照明燈具，其吊裝距離工作面為\n4 公尺，假設工作面照度要求為1500 Lux，經計算房間比率為3 亦即房間指標為C，\n再經查表其照明率Cu 為0.7，假設維護係數為0.65，每支40 W 日光燈之流明數為\n3000 Lm，試求：\n\n* **(一)** 初始總流明數Lm 及所需燈具數。（5 分）\n\n* **(二)** 以較低成本且符合照度要求之燈具配置圖及實際配置燈具數。（10 分）\n\n* **(三)** 實際照度Lux。（5 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-105-06-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "0523de49292b2705417bf9e9c2a623532204e80254b424bc725e725c18411898",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_lumen_method_layout_recalculation",
+      "solution_hash": "2718c440e08145d6e284829fede1bb5d1bbdc74646250f3d9efbda0da99f5339",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_105年_工業配電_Q04.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 183,
+    "verified": 184,
     "suspected_error": 0,
-    "needs_manual_review": 73,
+    "needs_manual_review": 72,
     "not_attempted": 0
   }
 }

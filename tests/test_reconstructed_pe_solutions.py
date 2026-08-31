@@ -238,6 +238,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("24.0672", note)
         self.assertIn("22.9411", note)
 
+    def test_111_motor_fault_records_three_branches_without_inventing_rating(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-3.md").read_text(encoding="utf-8")
+        self.assertIn("三個 M 支路", note)
+        self.assertIn("支路數量 N_M=3 已確認", note)
+        self.assertIn("額定功因／效率", note)
+        self.assertNotIn("馬達數量未明", note)
+
     def test_dc_motor_manual_review_uses_flux_ratio_in_current_and_speed(self):
         note = (CANONICAL / "04_電機機械" / "canonical" / "EE-105-04-5.md").read_text(encoding="utf-8")
         self.assertIn("\\frac{300}{r}\\ \\mathrm{A}", note)

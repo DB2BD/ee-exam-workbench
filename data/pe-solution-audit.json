@@ -1236,8 +1236,8 @@
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-3.md",
       "audit_status": "needs_manual_review",
       "verified_at": null,
-      "method": "independent_symmetrical_three_phase_fault_recalculation_with_motor_count_and_rating_ambiguity",
-      "solution_hash": "5501d0e0a16583ae91f1b1182525f175f243b3a4ae54d06a770114791c7eca25",
+      "method": "independent_symmetrical_three_phase_fault_recalculation_with_three_motor_branches_and_rating_sensitivity",
+      "solution_hash": "e21e2ecbecc276b51e16f55cfa7392b6a1f75aebea0097c378abb8ea054cfa73",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q03.png"
     },

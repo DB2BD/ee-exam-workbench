@@ -898,10 +898,10 @@
       "question_number": 1,
       "chapter": "試述系統接地與設備接地之方法與目的。（10 分），並請繪出這兩種接地作法。（10 分）",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-1.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official text crop independently checked; written grounding principles verified, required grounding drawings not independently auditable from text-only crop",
-      "solution_hash": "1c9ec312ba118272c7e64952f87e7d075a32e32a25da691a4e6cd0575fc6627e",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_grounding_methods_purposes_and_schematic_verification",
+      "solution_hash": "43c80cbf4ebeb3d4c77eebb80b8be2737ae3e9ad6814cbb21a7e69349c4f1199",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_112年_工業配電_Q01.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 219,
+    "verified": 220,
     "suspected_error": 0,
-    "needs_manual_review": 37,
+    "needs_manual_review": 36,
     "not_attempted": 0
   }
 }

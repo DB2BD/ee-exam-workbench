@@ -1111,7 +1111,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official crop/table independently transcribed; no-load and full-load equations recomputed, with explicit ambiguity retained for field-control setting and table interpolation",
-      "solution_hash": "c5eb2603c7577815a60f3909d30d91a773221a1489a725334dd259eab4c3ace4",
+      "solution_hash": "12621623517fb1e11c8c355db8407d637a7d4f4889217f4b05a654bff02822cd",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q03.png"
     },

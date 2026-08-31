@@ -4080,7 +4080,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-1.md",
     "依考科分類/06_工業配電/107年_電機工程技師_工業配電.pdf",
     2,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],
@@ -4159,7 +4159,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-5.md",
     "依考科分類/06_工業配電/107年_電機工程技師_工業配電.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [
       "S = VI*"
     ],

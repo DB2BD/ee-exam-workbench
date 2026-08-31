@@ -2088,10 +2088,10 @@
       "question_number": 3,
       "chapter": "某部三相、Y 接、線電壓220 V、$60\\text{ Hz}$、6 極的感應電動機，其每相等\n效電路換算至定子側的參數如下：\n定子電阻R1 = 0.$29\\ \\Omega$，轉子電阻R2 = 0.$144\\ \\Omega$，\n定子漏電抗X1 = 0.$5\\ \\Omega$，轉子漏電抗X2 = 0.$21\\ \\Omega$，激磁電抗\nΩ\n25\n.\n13\nX\n。\n假設所有的摩擦損、風損及鐵損的總和為403 W，且與負載大小無關。\n當滑差為0.02 時，試問：（每小題5 分，共20 分）\n* **(一)** 轉子機械轉速為若干轉/分？\n* **(二)** 氣隙功率為若干kW？\n* **(三)** 輸出機械轉矩為若干\nm\nN ⋅\n？\n* **(四)** 電動機的效率為多少？",
       "solution_link": "📝 個人題解與錯題本/04_電機機械/canonical/EE-108-04-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "annual_solution_extraction_pending_independent_check",
-      "solution_hash": "7c7354410d8a0366a825a362918d9b95a277de496c3a49936b656c11e1bac726",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_induction_motor_exact_equivalent_circuit_recalculation",
+      "solution_hash": "56e57fe5f4c33fe4360786e8927070a352724e1f51784814a0a68f05643b7152",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_108年_電機機械_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 144,
+    "verified": 145,
     "suspected_error": 0,
-    "needs_manual_review": 112,
+    "needs_manual_review": 111,
     "not_attempted": 0
   }
 }

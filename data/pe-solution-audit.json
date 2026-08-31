@@ -744,10 +744,10 @@
       "question_number": 3,
       "chapter": "如圖三的降升壓轉換器，其中Vs= 24 V、Vo= 36 V、R = $10\\ \\Omega$。若電晶體\n閘極的切換頻率為100 kHz，假設元件皆為理想，試求可使最小的電感電\n流iL,min 為電感電流平均值IL 的40\\%之電感值L，與若限制輸出電壓漣波\nΔVo 及輸出電壓Vo 的比值（ΔVo/Vo 等於0.5\\%）所需的電容值C。（25 分）\n圖三",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-112-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "pending_independent_recalculation",
-      "solution_hash": "a9d956d4145e4971729086b3aa4752eb68b7e218df140bbc303ccc305ad5bfd0",
+      "audit_status": "verified",
+      "verified_at": "2026-08-31",
+      "method": "official_crop_inverting_buck_boost_ccm_ripple_recalculation",
+      "solution_hash": "cea21674a0a4d09c4cd7b07bf0e9406a4950fe6d77b42bed45347cba0dadd5f5",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_112年_電子學（包括電力電子學）_Q03.png"
     },
@@ -3596,9 +3596,9 @@
   ],
   "summary": {
     "questions": 256,
-    "verified": 201,
+    "verified": 202,
     "suspected_error": 0,
-    "needs_manual_review": 55,
+    "needs_manual_review": 54,
     "not_attempted": 0
   }
 }

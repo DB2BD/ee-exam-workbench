@@ -275,6 +275,22 @@ function getReviewChapterKey(q, options = {}) {
   }
   const override = typeof TAXONOMY_OVERRIDES !== 'undefined' ? TAXONOMY_OVERRIDES[record.id] : null;
   if (override && override.primaryChapter && typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG[override.primaryChapter]) return override.primaryChapter;
+  // Canonical solution notes carry a question-level textbook chapter map.
+  // Prefer it over stem/tag heuristics: OCR often includes neighbouring
+  // words such as「功率」or「電晶體」that are not the question's primary
+  // chapter.  Validate the subject boundary before accepting the map so a
+  // malformed import cannot leak a chapter into another exam subject.
+  const canonicalEvidence = typeof QUESTION_TAXONOMY_MAP !== 'undefined'
+    ? QUESTION_TAXONOMY_MAP[record.id]
+    : null;
+  const canonicalChapter = typeof canonicalEvidence === 'string'
+    ? canonicalEvidence
+    : canonicalEvidence && canonicalEvidence.primaryChapter;
+  if (canonicalChapter && typeof KNOWLEDGE_DAG !== 'undefined'
+      && KNOWLEDGE_DAG[canonicalChapter]
+      && KNOWLEDGE_DAG[canonicalChapter].subject === sid) {
+    return canonicalChapter;
+  }
   const topic = normalize(record.stem);
   const tags = Array.isArray(record.tags) ? record.tags.map(normalize) : [];
   const formulaTags = Array.isArray(record.formulaTags) ? record.formulaTags.map(normalize) : [];

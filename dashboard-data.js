@@ -6531,6 +6531,1937 @@ const QUESTION_CROP_MAP = {
   "PE-114-電路學-Q05": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q05.png",
   "EE-114-01-5": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q05.png"
 };
+// qid -> canonical textbook chapter evidence.  Manual labels and explicit
+// TAXONOMY_OVERRIDES remain higher priority in the review UI; this map is the
+// stable source for every question that has a canonical solution note.
+const QUESTION_TAXONOMY_MAP = {
+  "EE-111-01-1": {
+    "primaryChapter": "ct-phasor-ac",
+    "source": "canonical-chapter",
+    "canonicalChapter": "交流穩態相量與阻抗分析",
+    "noteTitle": "111 年電路學第 1 題｜含運算放大器交流穩態"
+  },
+  "EE-109-01-4": {
+    "primaryChapter": "ct-second-order-rlc",
+    "source": "canonical-chapter",
+    "canonicalChapter": "二階 RLC 暫態與脈衝初始條件",
+    "noteTitle": "109 年電路學第 4 題：脈衝與步階激勵的二階暫態"
+  },
+  "EE-110-01-4": {
+    "primaryChapter": "ct-three-phase",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相四線制不平衡負載與複數功率",
+    "noteTitle": "110 年電路學第 4 題：Y–Y 不平衡三相四線制總功率"
+  },
+  "EE-108-01-1": {
+    "primaryChapter": "ct-phasor-ac",
+    "source": "canonical-title-override",
+    "canonicalChapter": "正弦穩態與交流功率",
+    "noteTitle": "108 年電路學第 1 題｜正弦穩態與交流功率"
+  },
+  "EE-114-01-2": {
+    "primaryChapter": "ct-thevenin-norton",
+    "source": "canonical-chapter",
+    "canonicalChapter": "諾頓與戴維寧等效",
+    "noteTitle": "114 年電路學第 2 題"
+  },
+  "EE-104-01-2": {
+    "primaryChapter": "ct-mutual-inductance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "互感耦合電路與純電阻輸入阻抗",
+    "noteTitle": "104 年電路學第 2 題｜互感耦合電路與純電阻輸入阻抗"
+  },
+  "EE-105-01-3": {
+    "primaryChapter": "ct-complex-power",
+    "source": "canonical-chapter",
+    "canonicalChapter": "交流穩態複數功率",
+    "noteTitle": "105 年電路學第 3 題｜交流穩態複數功率"
+  },
+  "EE-111-01-4": {
+    "primaryChapter": "ct-two-port",
+    "source": "canonical-chapter",
+    "canonicalChapter": "雙埠網路 h 參數",
+    "noteTitle": "111 年第 4 題｜受控電流源雙埠網路的 h 參數"
+  },
+  "EE-109-01-1": {
+    "primaryChapter": "ct-node-mesh",
+    "source": "canonical-title-override",
+    "canonicalChapter": "運算放大器與儀表放大器",
+    "noteTitle": "109 年電路學第 1 題"
+  },
+  "EE-114-01-3": {
+    "primaryChapter": "ct-second-order-rlc",
+    "source": "canonical-chapter",
+    "canonicalChapter": "二階 RLC 暫態",
+    "noteTitle": "114 年電路學第 3 題"
+  },
+  "EE-104-01-3": {
+    "primaryChapter": "ct-three-phase",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相 Y 接並聯負載複數功率",
+    "noteTitle": "104 年電路學第 3 題｜三相 Y 接並聯負載複數功率"
+  },
+  "EE-105-01-2": {
+    "primaryChapter": "ct-thevenin-norton",
+    "source": "canonical-chapter",
+    "canonicalChapter": "相依源戴維寧等效電阻",
+    "noteTitle": "105 年電路學第 2 題｜相依源戴維寧等效電阻"
+  },
+  "EE-110-01-1": {
+    "primaryChapter": "ct-mutual-inductance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "互感耦合電路與相量節點分析",
+    "noteTitle": "110 年第 1 題｜耦合電路弦波穩態"
+  },
+  "EE-108-01-4": {
+    "primaryChapter": "ct-mutual-inductance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "互感耦合與同名端分析",
+    "noteTitle": "108 年電路學第 4 題：互感耦合電路"
+  },
+  "EE-113-01-4": {
+    "primaryChapter": "ct-two-port",
+    "source": "canonical-chapter",
+    "canonicalChapter": "雙埠網路參數 (ABCD, Z, Y, H)",
+    "noteTitle": "113 年電路學第 4 題｜雙埠網路 \\(y\\) 參數"
+  },
+  "EE-106-01-3": {
+    "primaryChapter": "ct-node-mesh",
+    "source": "canonical-title-override",
+    "canonicalChapter": "運算放大器與主動阻抗轉換器（GIC）",
+    "noteTitle": "106 年電路學第 3 題"
+  },
+  "EE-107-01-2": {
+    "primaryChapter": "ct-first-order-rc-rl",
+    "source": "canonical-chapter",
+    "canonicalChapter": "並聯電感暫態與初始電流",
+    "noteTitle": "107 年電路學第 2 題｜雙電感並聯暫態"
+  },
+  "EE-112-01-1": {
+    "primaryChapter": "ct-divider-equiv",
+    "source": "canonical-chapter",
+    "canonicalChapter": "分壓分流與電阻等效化簡",
+    "noteTitle": "112 年電路學第 1 題｜電阻等效與電源功率"
+  },
+  "EE-113-01-1": {
+    "primaryChapter": "ct-ohm-kcl-kvl",
+    "source": "canonical-chapter",
+    "canonicalChapter": "歐姆定律與基本 KCL/KVL",
+    "noteTitle": "113 年電路學第 1 題｜相依電流源提供功率"
+  },
+  "EE-112-01-4": {
+    "primaryChapter": "ct-second-order-rlc",
+    "source": "canonical-chapter",
+    "canonicalChapter": "二階 RLC 暫態分析",
+    "noteTitle": "112 年電路學第 4 題｜並聯 RLC 步階響應"
+  },
+  "EE-106-01-2": {
+    "primaryChapter": "ct-first-order-rc-rl",
+    "source": "canonical-chapter",
+    "canonicalChapter": "狀態空間模型：電容電壓與電感電流",
+    "noteTitle": "106 年電路學第 2 題｜\\(dv_{C3}/dt\\) 完整狀態方程式"
+  },
+  "EE-107-01-3": {
+    "primaryChapter": "ct-phasor-ac",
+    "source": "canonical-chapter",
+    "canonicalChapter": "交流穩態分析與 Δ-Y 阻抗轉換",
+    "noteTitle": "107 年電路學第 3 題"
+  },
+  "EE-113-01-2": {
+    "primaryChapter": "ct-phasor-ac",
+    "source": "canonical-chapter",
+    "canonicalChapter": "交流穩態相量與阻抗分析",
+    "noteTitle": "113 年電路學第 2 題｜交流節點相量與時域電壓"
+  },
+  "EE-112-01-3": {
+    "primaryChapter": "ct-thevenin-norton",
+    "source": "canonical-chapter",
+    "canonicalChapter": "戴維寧與諾頓等效定理",
+    "noteTitle": "112 年電路學第 3 題｜含 CCVS 的諾頓等效"
+  },
+  "EE-107-01-4": {
+    "primaryChapter": "ct-max-power",
+    "source": "canonical-title-override",
+    "canonicalChapter": "待依教科書章節覆核",
+    "noteTitle": "107 年電路學第 4 題｜理想變壓器最大平均功率"
+  },
+  "EE-106-01-1": {
+    "primaryChapter": "ct-laplace-circuit",
+    "source": "canonical-chapter",
+    "canonicalChapter": "拉氏轉換與 s 域電路分析",
+    "noteTitle": "106 年電路學第 1 題"
+  },
+  "EE-107-01-1": {
+    "primaryChapter": "ct-node-mesh",
+    "source": "canonical-chapter",
+    "canonicalChapter": "節點分析與電流控制電壓源",
+    "noteTitle": "107 年電路學第 1 題｜4 Ω 電阻功率"
+  },
+  "EE-113-01-3": {
+    "primaryChapter": "ct-mutual-inductance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "互感耦合與同名端分析",
+    "noteTitle": "113 年電路學第 3 題｜三相 \\(\\Delta\\) 磁耦合線電流"
+  },
+  "EE-112-01-2": {
+    "primaryChapter": "ct-mutual-inductance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "互感耦合與同名端分析",
+    "noteTitle": "112 年電路學第 2 題｜互感電路與負載平均功率"
+  },
+  "EE-107-01-5": {
+    "primaryChapter": "ct-three-phase",
+    "source": "canonical-chapter",
+    "canonicalChapter": "待依教科書章節覆核",
+    "noteTitle": "107 年電路學第 5 題｜平衡三相 Δ 負載"
+  },
+  "EE-106-01-4": {
+    "primaryChapter": "ct-superposition",
+    "source": "canonical-title-override",
+    "canonicalChapter": "電路分析方法／對稱與反對稱分析",
+    "noteTitle": "106 年電路學第 4 題｜對稱與反對稱分析"
+  },
+  "EE-108-01-3": {
+    "primaryChapter": "ct-three-phase",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相平衡電路與複數功率",
+    "noteTitle": "108 年電路學第 3 題｜三相平衡 Y／Δ 負載功率"
+  },
+  "EE-109-01-2": {
+    "primaryChapter": "ct-laplace-circuit",
+    "source": "canonical-title-override",
+    "canonicalChapter": "LTI 轉移函數極點與連續時間穩定度",
+    "noteTitle": "109 年第 2 題｜轉移函數極點與系統穩定度"
+  },
+  "EE-105-01-1": {
+    "primaryChapter": "ct-node-mesh",
+    "source": "canonical-chapter",
+    "canonicalChapter": "多網目直流電路節點分析",
+    "noteTitle": "105 年電路學第 1 題｜多網目直流電路節點分析"
+  },
+  "EE-111-01-3": {
+    "primaryChapter": "ct-second-order-rlc",
+    "source": "canonical-chapter",
+    "canonicalChapter": "二階 RLC 頻率響應與帶拒濾波器",
+    "noteTitle": "111 年第 3 題｜RLC 轉移函數與截止頻率"
+  },
+  "EE-110-01-2": {
+    "primaryChapter": "ct-two-port",
+    "source": "canonical-chapter",
+    "canonicalChapter": "雙埠網路與傳輸參數",
+    "noteTitle": "110 年電路學第 2 題：雙埠網路傳輸參數矩陣"
+  },
+  "EE-105-01-5": {
+    "primaryChapter": "ct-second-order-rlc",
+    "source": "canonical-chapter",
+    "canonicalChapter": "串聯 RLC 帶通濾波器設計",
+    "noteTitle": "105 年電路學第 5 題｜串聯 RLC 帶通濾波器設計"
+  },
+  "EE-114-01-4": {
+    "primaryChapter": "ct-superposition",
+    "source": "canonical-chapter",
+    "canonicalChapter": "重疊定理與正弦穩態",
+    "noteTitle": "114 年電路學第 4 題"
+  },
+  "EE-104-01-4": {
+    "primaryChapter": "ct-second-order-rlc",
+    "source": "canonical-chapter",
+    "canonicalChapter": "相依源 RLC 二階暫態",
+    "noteTitle": "104 年電路學第 4 題｜相依源 RLC 二階暫態"
+  },
+  "EE-111-01-2": {
+    "primaryChapter": "ct-mutual-inductance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "互感耦合與同名端分析",
+    "noteTitle": "111 年第 2 題｜互感耦合電路"
+  },
+  "EE-110-01-3": {
+    "primaryChapter": "ct-second-order-rlc",
+    "source": "canonical-chapter",
+    "canonicalChapter": "串聯 RLC 諧振與選頻特性",
+    "noteTitle": "110 年電路學第 3 題：串聯 RLC 諧振與元件端電壓極值"
+  },
+  "EE-105-01-4": {
+    "primaryChapter": "ct-three-phase",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相功率因數改善與 Y 接電容",
+    "noteTitle": "105 年電路學第 4 題｜三相功率因數改善與 Y 接電容"
+  },
+  "EE-114-01-5": {
+    "primaryChapter": "ct-laplace-circuit",
+    "source": "canonical-chapter",
+    "canonicalChapter": "拉氏轉換與含相依源電路",
+    "noteTitle": "114 年電路學第 5 題"
+  },
+  "EE-104-01-5": {
+    "primaryChapter": "ct-two-port",
+    "source": "canonical-chapter",
+    "canonicalChapter": "雙埠網路逆混合 g 參數",
+    "noteTitle": "104 年電路學第 5 題｜雙埠網路逆混合 g 參數"
+  },
+  "EE-108-01-2": {
+    "primaryChapter": "ct-node-mesh",
+    "source": "canonical-chapter",
+    "canonicalChapter": "節點分析與相依源",
+    "noteTitle": "108 年電路學第 2 題｜含相依源直流電路"
+  },
+  "EE-109-01-3": {
+    "primaryChapter": "ct-superposition",
+    "source": "canonical-chapter",
+    "canonicalChapter": "節點分析與對偶網路",
+    "noteTitle": "109 年電路學第 3 題：節點電壓方程式與對偶網路"
+  },
+  "EE-114-01-1": {
+    "primaryChapter": "ct-node-mesh",
+    "source": "canonical-chapter",
+    "canonicalChapter": "節點分析與相依源",
+    "noteTitle": "114 年電路學第 1 題"
+  },
+  "EE-104-01-1": {
+    "primaryChapter": "ct-thevenin-norton",
+    "source": "canonical-chapter",
+    "canonicalChapter": "橋接電路戴維寧等效",
+    "noteTitle": "104 年電路學第 1 題｜橋接電路戴維寧等效"
+  },
+  "EE-108-02-2": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相二極體整流與換相",
+    "noteTitle": "108 年電子學第 2 題：三相對稱三角波全波整流"
+  },
+  "EE-109-02-3": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "返馳式轉換器 CCM/DCM 電流與效率",
+    "noteTitle": "109 年電子學（含電力電子）第 3 題｜返馳式轉換器"
+  },
+  "EE-104-02-1": {
+    "primaryChapter": "el-mosfet-bias-small-signal",
+    "source": "canonical-title-override",
+    "canonicalChapter": "PMOS 共源極偏壓與源極退化頻率響應",
+    "noteTitle": "104 年電子學（含電力電子）第 1 題｜PMOS 共源極偏壓與源極退化頻率響應"
+  },
+  "EE-114-02-1": {
+    "primaryChapter": "el-diff-amp",
+    "source": "canonical-chapter",
+    "canonicalChapter": "BJT 差動放大器",
+    "noteTitle": "114 年電子學第 1 題"
+  },
+  "EE-111-02-2": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "SEPIC 轉換器 CCM 電感與電容漣波設計",
+    "noteTitle": "111 年電子學第 2 題｜SEPIC 轉換器元件設計"
+  },
+  "EE-110-02-3": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "半波整流器與非正弦電流功率因數",
+    "noteTitle": "110 年電子學_含電力電子第 3 題｜半波整流器"
+  },
+  "EE-105-02-4": {
+    "primaryChapter": "el-active-filter",
+    "source": "canonical-title-override",
+    "canonicalChapter": "非線性負載諧波功率與功率因數",
+    "noteTitle": "105 年電子學（含電力電子）第 4 題｜非線性負載諧波功率與功率因數"
+  },
+  "EE-104-02-5": {
+    "primaryChapter": "el-active-filter",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三階 RC 移相振盪器",
+    "noteTitle": "104 年電子學（含電力電子）第 5 題｜三階 RC 移相振盪器"
+  },
+  "EE-111-02-3": {
+    "primaryChapter": "el-mosfet-bias-small-signal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "MOSFET 共源極源極退化與偏壓設計",
+    "noteTitle": "111 年電子學第 3 題：MOSFET 源極退化放大器"
+  },
+  "EE-110-02-2": {
+    "primaryChapter": "el-diff-amp",
+    "source": "canonical-chapter",
+    "canonicalChapter": "差動放大器與共模抑制比",
+    "noteTitle": "110 年電子學_含電力電子第 2 題"
+  },
+  "EE-105-02-5": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "整流器拓撲：半波、全波、半橋與全橋",
+    "noteTitle": "105 年電子學第 5 題｜整流器拓撲與波形比較"
+  },
+  "EE-104-02-4": {
+    "primaryChapter": "el-pe-inverter-spwm",
+    "source": "canonical-chapter",
+    "canonicalChapter": "單相全橋逆變器 RL 負載暫態",
+    "noteTitle": "104 年電子學（含電力電子）第 4 題｜單相全橋逆變器 RL 負載暫態"
+  },
+  "EE-114-02-4": {
+    "primaryChapter": "el-pe-thyristor-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "閘流體保護",
+    "noteTitle": "114 年電子學第 4 題"
+  },
+  "EE-108-02-3": {
+    "primaryChapter": "el-feedback-stability",
+    "source": "canonical-title-override",
+    "canonicalChapter": "MOSFET 串聯串聯負回授放大器",
+    "noteTitle": "108 年電子學第 3 題：MOSFET 串聯–串聯負回授"
+  },
+  "EE-109-02-2": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "Boost 轉換器漣波與臨界值",
+    "noteTitle": "109 年電子學_含電力電子第 2 題"
+  },
+  "EE-105-02-1": {
+    "primaryChapter": "el-active-filter",
+    "source": "canonical-chapter",
+    "canonicalChapter": "放大器頻率響應與時間常數",
+    "noteTitle": "105 年電子學（含電力電子）第 1 題｜放大器頻率響應與時間常數"
+  },
+  "EE-113-02-3": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "升壓型轉換器的邊界導通模式",
+    "noteTitle": "113 年電子學含電力電子第 3 題｜升壓型轉換器 BCM"
+  },
+  "EE-112-02-2": {
+    "primaryChapter": "el-opamp-ideal",
+    "source": "canonical-title-override",
+    "canonicalChapter": "Schmitt 觸發器與鬆弛振盪器",
+    "noteTitle": "112 年電子學第 2 題：Schmitt 觸發鬆弛振盪器"
+  },
+  "EE-106-02-4": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "單相半波整流器與續流二極體",
+    "noteTitle": "106 年電子學（含電力電子）第 4 題｜單相半波整流器與續流二極體"
+  },
+  "EE-107-02-1": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "PN 接面空乏區與內建電位",
+    "noteTitle": "107 年電子學（含電力電子）第 1 題｜PN 接面"
+  },
+  "EE-106-02-1": {
+    "primaryChapter": "el-active-filter",
+    "source": "canonical-chapter",
+    "canonicalChapter": "雙積分器狀態變數濾波器",
+    "noteTitle": "106 年電子學（含電力電子）第 1 題｜雙積分器狀態變數濾波器"
+  },
+  "EE-113-02-2": {
+    "primaryChapter": "el-bjt-bias-small-signal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "BJT 共基極放大器與 T 模型",
+    "noteTitle": "113 年電子學第 2 題：共基極 BJT T 模型與電壓增益"
+  },
+  "EE-112-02-3": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "反相降升壓轉換器 CCM 漣波設計",
+    "noteTitle": "112 年電子學（含電力電子）第 3 題｜反相降升壓轉換器 CCM 漣波設計"
+  },
+  "EE-107-02-4": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "Ćuk 轉換器電容漣波與開關峰值電流",
+    "noteTitle": "107 年電子學（含電力電子）第 4 題｜Ćuk 轉換器"
+  },
+  "EE-106-02-5": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "非反相升壓型轉換器（同步開關）",
+    "noteTitle": "106 年電子學（含電力電子）第 5 題｜非反相升壓型轉換器（同步開關）"
+  },
+  "EE-112-02-4": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "半波整流器傅立葉級數與平滑電感",
+    "noteTitle": "112 年電子學（含電力電子）第 4 題｜半波整流器傅立葉級數與平滑電感"
+  },
+  "EE-106-02-2": {
+    "primaryChapter": "el-mosfet-bias-small-signal",
+    "source": "canonical-title-override",
+    "canonicalChapter": "MOSFET 差動放大器與負回授",
+    "noteTitle": "106 年電子學_含電力電子第 2 題"
+  },
+  "EE-107-02-3": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "降升壓型轉換器 DCM 臨界與責任週期",
+    "noteTitle": "107 年電子學（含電力電子）第 3 題｜降升壓型轉換器"
+  },
+  "EE-113-02-1": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "理想二極體電路與限幅分析",
+    "noteTitle": "113 年電子學第 1 題：理想二極體操作狀態"
+  },
+  "EE-112-02-1": {
+    "primaryChapter": "el-bjt-bias-small-signal",
+    "source": "canonical-title-override",
+    "canonicalChapter": "BJT 共基極放大器與高頻響應",
+    "noteTitle": "112 年電子學第 1 題：共基極放大器高頻響應"
+  },
+  "EE-113-02-4": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "全橋隔離型轉換器與邊界導通模式",
+    "noteTitle": "113 年電子學第 4 題：全橋隔離型轉換器"
+  },
+  "EE-106-02-3": {
+    "primaryChapter": "el-bjt-bias-small-signal",
+    "source": "canonical-title-override",
+    "canonicalChapter": "BJT 高頻小訊號與 Miller 效應",
+    "noteTitle": "106 年電子學_含電力電子第 3 題"
+  },
+  "EE-107-02-2": {
+    "primaryChapter": "el-mosfet-bias-small-signal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "NMOS 飽和區轉導與通道長度調變",
+    "noteTitle": "107 年電子學（含電力電子）第 2 題｜NMOS 小訊號參數"
+  },
+  "EE-110-02-1": {
+    "primaryChapter": "el-bjt-bias-small-signal",
+    "source": "canonical-title-override",
+    "canonicalChapter": "BJT 集極回授偏壓與熱穩定性",
+    "noteTitle": "110 年電子學_含電力電子第 1 題"
+  },
+  "EE-108-02-4": {
+    "primaryChapter": "el-active-filter",
+    "source": "canonical-chapter",
+    "canonicalChapter": "GIC 等效電感與二階帶通濾波器",
+    "noteTitle": "108 年電子學_含電力電子第 4 題"
+  },
+  "EE-111-02-4": {
+    "primaryChapter": "el-feedback-stability",
+    "source": "canonical-title-override",
+    "canonicalChapter": "回授放大器與雙極性電晶體小訊號模型",
+    "noteTitle": "111 年第 4 題｜電流回授放大器之增益與阻抗"
+  },
+  "EE-109-02-1": {
+    "primaryChapter": "el-bjt-bias-small-signal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "BJT 飽和開關與過載係數",
+    "noteTitle": "109 年電子學_含電力電子第 1 題"
+  },
+  "EE-104-02-3": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相六脈波二極體整流器",
+    "noteTitle": "104 年電子學（含電力電子）第 3 題｜三相六脈波二極體整流器"
+  },
+  "EE-114-02-3": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "開關電源與電感暫態",
+    "noteTitle": "114 年電子學第 3 題"
+  },
+  "EE-105-02-2": {
+    "primaryChapter": "el-opamp-ideal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "有限開路增益反相運算放大器",
+    "noteTitle": "105 年電子學（含電力電子）第 2 題｜有限開路增益反相運算放大器"
+  },
+  "EE-110-02-4": {
+    "primaryChapter": "el-pe-inverter-spwm",
+    "source": "canonical-chapter",
+    "canonicalChapter": "方波逆變器與 RL 負載諧波分析",
+    "noteTitle": "110 年電子學_含電力電子第 4 題"
+  },
+  "EE-108-02-1": {
+    "primaryChapter": "el-active-filter",
+    "source": "canonical-chapter",
+    "canonicalChapter": "運算放大器頻率響應與波德圖",
+    "noteTitle": "108 年電子學第 1 題：單極點運算放大器波德圖"
+  },
+  "EE-104-02-2": {
+    "primaryChapter": "el-bjt-bias-small-signal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "BJT 共基極偏壓與中頻增益",
+    "noteTitle": "104 年電子學（含電力電子）第 2 題｜BJT 共基極偏壓與中頻增益"
+  },
+  "EE-114-02-2": {
+    "primaryChapter": "el-mosfet-bias-small-signal",
+    "source": "canonical-title-override",
+    "canonicalChapter": "MOS 小訊號與頻率響應",
+    "noteTitle": "114 年電子學第 2 題"
+  },
+  "EE-105-02-3": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "二極體限幅器與箝位電路",
+    "noteTitle": "105 年電子學（含電力電子）第 3 題｜可調式雙向二極體限幅器"
+  },
+  "EE-111-02-1": {
+    "primaryChapter": "el-diode-rectifier",
+    "source": "canonical-chapter",
+    "canonicalChapter": "二極體全波整流與傅立葉諧波功率分析",
+    "noteTitle": "111 年第 1 題｜全波橋式整流器傅立葉分析"
+  },
+  "EE-109-02-4": {
+    "primaryChapter": "el-mosfet-bias-small-signal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "增強型 NMOS 飽和區與製程參數",
+    "noteTitle": "109 年電子學_含電力電子第 4 題"
+  },
+  "EE-108-02-5": {
+    "primaryChapter": "el-pe-buck-boost",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相交錯式降壓轉換器與輸出漣波",
+    "noteTitle": "108 年電子學_含電力電子第 5 題"
+  },
+  "EE-105-03-1": {
+    "primaryChapter": "em-second-order-ode-homogeneous",
+    "source": "canonical-title-override",
+    "canonicalChapter": "常微分方程／反推特徵方程",
+    "noteTitle": "105 年第 1 題｜由通解反推 ODE"
+  },
+  "EE-109-03-2": {
+    "primaryChapter": "em-first-order-ode",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／可分離變數",
+    "noteTitle": "109 年第 2 題｜可分離變數"
+  },
+  "EE-108-03-3": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／留數定理",
+    "noteTitle": "108 年第 3 題｜兩條圓周的留數積分"
+  },
+  "EE-110-03-6": {
+    "primaryChapter": "em-eigen-diagonal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／特徵值與相似對角化",
+    "noteTitle": "110 年第 6 題｜對稱矩陣對角化"
+  },
+  "EE-104-03-4": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率統計／二維聯合密度與期望值",
+    "noteTitle": "104 年第 4 題｜二維聯合機率密度的期望值"
+  },
+  "EE-114-03-4": {
+    "primaryChapter": "em-fourier-series",
+    "source": "canonical-chapter",
+    "canonicalChapter": "傅立葉級數",
+    "noteTitle": "114 年第 4 題｜分段週期函數傅立葉級數"
+  },
+  "EE-105-03-5": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率統計／累積分布函數",
+    "noteTitle": "105 年第 5 題｜由 CDF 求區間機率"
+  },
+  "EE-110-03-2": {
+    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／重根與降階",
+    "noteTitle": "110 年第 2 題｜重根非齊次 ODE"
+  },
+  "EE-111-03-3": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／留數定理",
+    "noteTitle": "111 年第 3 題｜兩個圓周留數積分"
+  },
+  "EE-104-03-5": {
+    "primaryChapter": "em-vector-analysis",
+    "source": "canonical-chapter",
+    "canonicalChapter": "向量分析／線積分",
+    "noteTitle": "104 年第 5 題｜直線段線積分"
+  },
+  "EE-114-03-5": {
+    "primaryChapter": "em-svd-linear-systems",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／完整解與零空間",
+    "noteTitle": "114 年第 5 題｜完整解與零空間"
+  },
+  "EE-105-03-4": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／留數定理",
+    "noteTitle": "105 年第 4 題｜圓周留數積分"
+  },
+  "EE-110-03-3": {
+    "primaryChapter": "em-fourier-series",
+    "source": "canonical-chapter",
+    "canonicalChapter": "傅立葉級數",
+    "noteTitle": "110 年第 3 題｜\\(f(x)=x-x^2\\) 的傅立葉展開"
+  },
+  "EE-111-03-2": {
+    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／共振特解",
+    "noteTitle": "111 年第 2 題｜共振強迫振動"
+  },
+  "EE-104-03-1": {
+    "primaryChapter": "em-laplace-transform",
+    "source": "canonical-chapter",
+    "canonicalChapter": "拉普拉斯轉換／常係數 ODE",
+    "noteTitle": "104 年第 1 題｜初值問題"
+  },
+  "EE-114-03-1": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率統計／全機率公式",
+    "noteTitle": "114 年第 1 題｜垃圾郵件的機率"
+  },
+  "EE-109-03-3": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "聯合機率密度",
+    "noteTitle": "109 年第 3 題｜均勻聯合密度下的機率"
+  },
+  "EE-108-03-2": {
+    "primaryChapter": "em-eigen-diagonal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／特徵值與特徵向量",
+    "noteTitle": "108 年第 2 題｜特徵值、特徵向量與對角化"
+  },
+  "EE-111-03-6": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率統計／連續型隨機變數動差",
+    "noteTitle": "111 年第 6 題｜三角形機率密度的動差"
+  },
+  "EE-106-03-5": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複數／極式與 De Moivre 定理",
+    "noteTitle": "106 年第 5 題｜複數高次方"
+  },
+  "EE-107-03-4": {
+    "primaryChapter": "em-fourier-series",
+    "source": "canonical-chapter",
+    "canonicalChapter": "傅立葉級數",
+    "noteTitle": "107 年第 4 題｜分段函數傅立葉級數"
+  },
+  "EE-112-03-3": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率／獨立事件",
+    "noteTitle": "112 年第 3 題｜三人射擊命中率"
+  },
+  "EE-113-03-2": {
+    "primaryChapter": "em-laplace-transform",
+    "source": "canonical-chapter",
+    "canonicalChapter": "拉普拉斯轉換",
+    "noteTitle": "113 年第 2 題｜拉普拉斯轉換"
+  },
+  "EE-106-03-1": {
+    "primaryChapter": "em-matrix-det-inv",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／矩陣反矩陣",
+    "noteTitle": "106 年第 1 題｜求矩陣反矩陣"
+  },
+  "EE-113-03-6": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率統計／聯合機率密度與動差",
+    "noteTitle": "113 年第 6 題｜聯合機率密度"
+  },
+  "EE-107-03-1": {
+    "primaryChapter": "em-first-order-ode",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／Bernoulli 方程",
+    "noteTitle": "107 年第 1 題｜Bernoulli ODE"
+  },
+  "EE-112-03-6": {
+    "primaryChapter": "em-eigen-diagonal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／線性方程組與特徵值",
+    "noteTitle": "112 年第 6 題｜線性方程組與特徵值"
+  },
+  "EE-106-03-4": {
+    "primaryChapter": "em-laplace-transform",
+    "source": "canonical-chapter",
+    "canonicalChapter": "拉普拉斯轉換／Volterra 積分方程",
+    "noteTitle": "106 年第 4 題｜積分方程"
+  },
+  "EE-107-03-5": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率／二項與超幾何分布",
+    "noteTitle": "107 年第 5 題｜抽取損壞保險絲"
+  },
+  "EE-112-03-2": {
+    "primaryChapter": "em-fourier-series",
+    "source": "canonical-chapter",
+    "canonicalChapter": "傅立葉級數／週期四",
+    "noteTitle": "112 年第 2 題｜傅立葉級數"
+  },
+  "EE-113-03-3": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／留數定理",
+    "noteTitle": "113 年第 3 題｜四次式實積分的留數驗算"
+  },
+  "EE-107-03-2": {
+    "primaryChapter": "em-eigen-diagonal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／特徵值與對角化",
+    "noteTitle": "107 年第 2 題｜特徵值、特徵向量與對角化"
+  },
+  "EE-106-03-3": {
+    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／重根與變參數法",
+    "noteTitle": "106 年第 3 題｜重根非齊次 ODE"
+  },
+  "EE-113-03-4": {
+    "primaryChapter": "em-matrix-det-inv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "線性代數／Lyapunov 矩陣方程",
+    "noteTitle": "113 年第 4 題｜Lyapunov 矩陣方程"
+  },
+  "EE-112-03-5": {
+    "primaryChapter": "em-vector-analysis",
+    "source": "canonical-chapter",
+    "canonicalChapter": "向量微積分／曲線幾何",
+    "noteTitle": "112 年第 5 題｜單位切線與曲率"
+  },
+  "EE-106-03-7": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率統計／離散型隨機變數",
+    "noteTitle": "106 年第 7 題｜公平六面骰子的變異數"
+  },
+  "EE-112-03-1": {
+    "primaryChapter": "em-laplace-transform",
+    "source": "canonical-chapter",
+    "canonicalChapter": "拉普拉斯轉換／矩形脈衝",
+    "noteTitle": "112 年第 1 題｜矩形脈衝"
+  },
+  "EE-105-03-8": {
+    "primaryChapter": "em-eigen-diagonal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／實對稱矩陣正交對角化",
+    "noteTitle": "105 年第 8 題｜正交對角化"
+  },
+  "EE-106-03-6": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率統計／連續型隨機變數",
+    "noteTitle": "106 年第 6 題｜密度常數與 CDF"
+  },
+  "EE-113-03-1": {
+    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／降階與變係數法",
+    "noteTitle": "113 年第 1 題｜變係數法"
+  },
+  "EE-107-03-3": {
+    "primaryChapter": "em-vector-analysis",
+    "source": "canonical-chapter",
+    "canonicalChapter": "向量分析／散度定理",
+    "noteTitle": "107 年第 3 題｜圓錐閉曲面通量"
+  },
+  "EE-106-03-2": {
+    "primaryChapter": "em-matrix-det-inv",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／最小平方法",
+    "noteTitle": "106 年第 2 題｜線性系統的最小平方解"
+  },
+  "EE-113-03-5": {
+    "primaryChapter": "em-vector-analysis",
+    "source": "canonical-chapter",
+    "canonicalChapter": "向量微積分／切線與散度定理",
+    "noteTitle": "113 年第 5 題｜切線向量與球面通量"
+  },
+  "EE-112-03-4": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／解析函數",
+    "noteTitle": "112 年第 4 題｜解析函數"
+  },
+  "EE-105-03-7": {
+    "primaryChapter": "em-matrix-det-inv",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／線性轉換",
+    "noteTitle": "105 年第 7 題｜線性轉換的計算"
+  },
+  "EE-108-03-5": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／留數定理與路徑奇點",
+    "noteTitle": "108 年第 5 題｜路徑通過極點的複變積分"
+  },
+  "EE-109-03-4": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率論／連續型隨機變數",
+    "noteTitle": "109 年第 4 題｜期望值與變異數"
+  },
+  "EE-111-03-1": {
+    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／降階法",
+    "noteTitle": "111 年第 1 題｜已知一解的二階 ODE"
+  },
+  "EE-105-03-3": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／複變線積分",
+    "noteTitle": "105 年第 3 題｜複變線積分"
+  },
+  "EE-104-03-2": {
+    "primaryChapter": "em-eigen-diagonal",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／特徵值與對角化",
+    "noteTitle": "104 年第 2 題｜特徵值、特徵向量與對角化"
+  },
+  "EE-114-03-2": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／本性奇點與留數",
+    "noteTitle": "114 年第 2 題｜本性奇點的閉路積分"
+  },
+  "EE-108-03-1": {
+    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "source": "canonical-title-override",
+    "canonicalChapter": "常微分方程／變係數 Euler 型",
+    "noteTitle": "108 年第 1 題｜Euler 型方程"
+  },
+  "EE-111-03-5": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／留數定理",
+    "noteTitle": "111 年第 5 題｜圓周線積分"
+  },
+  "EE-110-03-4": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／留數定理",
+    "noteTitle": "110 年第 4 題｜實軸留數積分"
+  },
+  "EE-105-03-2": {
+    "primaryChapter": "em-laplace-transform",
+    "source": "canonical-chapter",
+    "canonicalChapter": "拉普拉斯轉換／基本轉換對",
+    "noteTitle": "105 年第 2 題｜正弦函數的拉普拉斯轉換"
+  },
+  "EE-104-03-3": {
+    "primaryChapter": "em-complex-cauchy-residue",
+    "source": "canonical-chapter",
+    "canonicalChapter": "複變函數／主值積分",
+    "noteTitle": "104 年第 3 題｜主值積分"
+  },
+  "EE-114-03-3": {
+    "primaryChapter": "em-second-order-ode-homogeneous",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／重根二階線性 ODE",
+    "noteTitle": "114 年第 3 題｜重根二階線性 ODE"
+  },
+  "EE-109-03-1": {
+    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／常係數非齊次方程",
+    "noteTitle": "109 年第 1 題｜常係數非齊次 ODE"
+  },
+  "EE-111-03-4": {
+    "primaryChapter": "em-svd-linear-systems",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／奇異值與 Rayleigh 商",
+    "noteTitle": "111 年第 4 題｜奇異值與二次型極值"
+  },
+  "EE-110-03-5": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率論／常態分佈",
+    "noteTitle": "110 年第 5 題｜常態分佈參數"
+  },
+  "EE-106-03-8": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率／離散期望值",
+    "noteTitle": "106 年第 8 題｜硬幣面積期望值"
+  },
+  "EE-105-03-6": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率統計／抽樣與條件機率",
+    "noteTitle": "105 年第 6 題｜球的抽樣（放回與不放回）"
+  },
+  "EE-108-03-4": {
+    "primaryChapter": "em-vector-analysis",
+    "source": "canonical-chapter",
+    "canonicalChapter": "向量分析／散度定理",
+    "noteTitle": "108 年第 4 題｜球面通量"
+  },
+  "EE-109-03-5": {
+    "primaryChapter": "em-matrix-det-inv",
+    "source": "canonical-chapter",
+    "canonicalChapter": "線性代數／矩陣反矩陣",
+    "noteTitle": "109 年第 5 題｜矩陣反矩陣"
+  },
+  "EE-110-03-1": {
+    "primaryChapter": "em-first-order-ode",
+    "source": "canonical-chapter",
+    "canonicalChapter": "常微分方程／一階線性方程",
+    "noteTitle": "110 年第 1 題｜一階線性 ODE"
+  },
+  "EE-107-04-1": {
+    "primaryChapter": "emach-three-phase-transformer",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相變壓器 Y–Y 接線、供電電流與利用率",
+    "noteTitle": "107 年電機機械第 1 題｜三相變壓器供電與利用率"
+  },
+  "EE-113-04-3": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-chapter",
+    "canonicalChapter": "串激直流電動機與分流調速",
+    "noteTitle": "113 年第 3 題｜串激直流馬達分流調速與效率"
+  },
+  "EE-112-04-2": {
+    "primaryChapter": "emach-single-phase-transformer",
+    "source": "canonical-title-override",
+    "canonicalChapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 2 (Transformers)",
+    "noteTitle": "112 年第 2 題｜獨立驗證"
+  },
+  "EE-107-04-5": {
+    "primaryChapter": "emach-induction-motor-torque",
+    "source": "canonical-chapter",
+    "canonicalChapter": "感應電動機變頻 V/f 控制與轉矩",
+    "noteTitle": "107 年電機機械第 5 題｜感應電動機 V/f 控制"
+  },
+  "EE-106-04-4": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "106 年電機機械第 4 題"
+  },
+  "EE-113-04-2": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步發電機與標么系統",
+    "noteTitle": "113 年第 2 題｜同步發電機標么阻抗、銅損與轉矩"
+  },
+  "EE-112-04-3": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-title-override",
+    "canonicalChapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 5 (Synchronous motors)",
+    "noteTitle": "112 年第 3 題｜獨立驗證"
+  },
+  "EE-107-04-4": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步發電機電壓調整率與效率",
+    "noteTitle": "107 年電機機械第 4 題｜同步發電機無載電壓與滿載效率"
+  },
+  "EE-106-04-5": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "106 年電機機械第 5 題"
+  },
+  "EE-106-04-1": {
+    "primaryChapter": "emach-magnetic-circuits",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "106 年電機機械第 1 題"
+  },
+  "EE-111-04-2": {
+    "primaryChapter": "emach-induction-motor-torque",
+    "source": "canonical-chapter",
+    "canonicalChapter": "感應電動機轉矩—轉差率與轉子電阻調速",
+    "noteTitle": "111 年電機機械第 2 題｜繞線式感應馬達轉矩與轉差率"
+  },
+  "EE-110-04-3": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步電動機相量、轉矩角與電壓變動",
+    "noteTitle": "110 年電機機械第 3 題｜同步電動機相量與轉矩角"
+  },
+  "EE-105-04-4": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "105 年電機機械第 4 題"
+  },
+  "EE-114-04-5": {
+    "primaryChapter": "emach-synchronous-salient-pole",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電機機械第 5 題：磁阻電動機轉矩"
+  },
+  "EE-104-04-5": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "104 年電機機械第 5 題"
+  },
+  "EE-108-04-2": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-title-override",
+    "canonicalChapter": "他激直流電動機反電勢、功率與電磁轉矩",
+    "noteTitle": "108 年電機機械第 2 題｜他激直流電動機功率平衡"
+  },
+  "EE-109-04-3": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "感應馬達等效電路、滑差與轉矩",
+    "noteTitle": "109 年電機機械第 3 題｜滑差與感應轉矩"
+  },
+  "EE-114-04-1": {
+    "primaryChapter": "emach-magnetic-circuits",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電機機械第 1 題：氣隙磁路與電感"
+  },
+  "EE-104-04-1": {
+    "primaryChapter": "emach-magnetic-circuits",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "104 年電機機械第 1 題"
+  },
+  "EE-108-04-3": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-chapter",
+    "canonicalChapter": "感應電動機等效電路、滑差與功率平衡",
+    "noteTitle": "108 年電機機械第 3 題｜感應電動機工作點"
+  },
+  "EE-109-04-2": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-chapter",
+    "canonicalChapter": "他激直流機發電／電動雙模式與工作點",
+    "noteTitle": "109 年電機機械第 2 題｜他激直流機雙模式"
+  },
+  "EE-105-04-1": {
+    "primaryChapter": "emach-magnetic-circuits",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "105 年電機機械第 1 題"
+  },
+  "EE-111-04-3": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-chapter",
+    "canonicalChapter": "直流機與複激發電機",
+    "noteTitle": "111 年電機機械第 3 題｜複激直流發電機磁化曲線"
+  },
+  "EE-110-04-2": {
+    "primaryChapter": "emach-autotransformer",
+    "source": "canonical-chapter",
+    "canonicalChapter": "自耦變壓器與 V–V 開放三角接線容量",
+    "noteTitle": "110 年電機機械第 2 題｜自耦變壓器與 V–V 容量"
+  },
+  "EE-105-04-5": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-chapter",
+    "canonicalChapter": "直流電機 (分激/串激特性與調速)",
+    "noteTitle": "105 年電機機械第 5 題（條件式校驗）"
+  },
+  "EE-114-04-4": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電機機械第 4 題：同步發電機"
+  },
+  "EE-104-04-4": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "104 年電機機械第 4 題｜三相感應電動機起動電流"
+  },
+  "EE-110-04-5": {
+    "primaryChapter": "emach-induction-motor-torque",
+    "source": "canonical-chapter",
+    "canonicalChapter": "感應電動機啟動電抗器與啟動轉矩",
+    "noteTitle": "110 年電機機械第 5 題｜感應電動機啟動電抗器"
+  },
+  "EE-111-04-4": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步發電機等效電路與短路比",
+    "noteTitle": "111 年電機機械第 4 題｜同步發電機電壓調整率與短路比"
+  },
+  "EE-109-04-1": {
+    "primaryChapter": "emach-single-phase-transformer",
+    "source": "canonical-chapter",
+    "canonicalChapter": "變壓器磁化電流與漏磁電抗",
+    "noteTitle": "109 年電機機械第 1 題｜磁化電流與漏磁電抗"
+  },
+  "EE-114-04-3": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電機機械第 3 題：單相感應電動機二相旋轉磁場"
+  },
+  "EE-104-04-3": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "104 年電機機械第 3 題"
+  },
+  "EE-105-04-2": {
+    "primaryChapter": "emach-single-phase-transformer",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "105 年電機機械第 2 題"
+  },
+  "EE-110-04-1": {
+    "primaryChapter": "emach-magnetic-circuits",
+    "source": "canonical-chapter",
+    "canonicalChapter": "",
+    "noteTitle": "110 年電機機械第 1 題｜差動串聯磁路"
+  },
+  "EE-109-04-5": {
+    "primaryChapter": "emach-synchronous-salient-pole",
+    "source": "canonical-title-override",
+    "canonicalChapter": "可變磁阻電磁系統電感與共能轉矩",
+    "noteTitle": "109 年電機機械第 5 題｜可變磁阻電感與電磁扭力"
+  },
+  "EE-108-04-4": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步電動機功角、最大功率與相量圖",
+    "noteTitle": "108 年電機機械第 4 題｜同步電動機功角與最大轉矩"
+  },
+  "EE-111-04-1": {
+    "primaryChapter": "emach-magnetic-circuits",
+    "source": "canonical-chapter",
+    "canonicalChapter": "磁路與電感",
+    "noteTitle": "111 年電機機械第 1 題｜環形鐵心電感與提高電感值的方法"
+  },
+  "EE-109-04-4": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "三相繞組旋轉磁動勢與空間向量",
+    "noteTitle": "109 年電機機械第 4 題｜旋轉磁動勢空間向量"
+  },
+  "EE-108-04-5": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-title-override",
+    "canonicalChapter": "特殊電機結構與電樞反應",
+    "noteTitle": "108 年電機機械第 5 題｜特殊電機與電樞反應"
+  },
+  "EE-110-04-4": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-title-override",
+    "canonicalChapter": "永磁式直流電動機反電勢、轉速與轉矩",
+    "noteTitle": "110 年電機機械第 4 題｜永磁式直流電動機額定工作點"
+  },
+  "EE-111-04-5": {
+    "primaryChapter": "emach-synchronous-generator-round",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步電容器功率因數改善與同步阻抗",
+    "noteTitle": "111 年電機機械第 5 題｜同步電容器功率因數改善"
+  },
+  "EE-108-04-1": {
+    "primaryChapter": "emach-autotransformer",
+    "source": "canonical-chapter",
+    "canonicalChapter": "自耦變壓器容量、接線與優缺點",
+    "noteTitle": "108 年電機機械第 1 題｜480/120 V 降壓自耦變壓器"
+  },
+  "EE-114-04-2": {
+    "primaryChapter": "emach-single-phase-transformer",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電機機械第 2 題：變壓器分接頭最大功率"
+  },
+  "EE-104-04-2": {
+    "primaryChapter": "emach-single-phase-transformer",
+    "source": "canonical-chapter",
+    "canonicalChapter": "變壓器頻率降低、伏赫比與磁飽和",
+    "noteTitle": "104 年電機機械第 2 題｜60 Hz 變壓器接 50 Hz 電源"
+  },
+  "EE-105-04-3": {
+    "primaryChapter": "emach-induction-motor-torque",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "105 年電機機械第 3 題"
+  },
+  "EE-113-04-1": {
+    "primaryChapter": "emach-single-phase-transformer",
+    "source": "canonical-chapter",
+    "canonicalChapter": "變壓器磁路與等效電路",
+    "noteTitle": "113 年第 1 題｜獨立驗證"
+  },
+  "EE-112-04-4": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 6 (Induction motors)",
+    "noteTitle": "112 年第 4 題｜獨立驗證"
+  },
+  "EE-113-04-5": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-chapter",
+    "canonicalChapter": "單相感應馬達與電容啟動",
+    "noteTitle": "113 年第 5 題｜電容啟動單相感應馬達"
+  },
+  "EE-106-04-2": {
+    "primaryChapter": "emach-autotransformer",
+    "source": "canonical-chapter",
+    "canonicalChapter": "",
+    "noteTitle": "106 年電機機械第 2 題｜雙繞組變壓器改接自耦變壓器容量與效率"
+  },
+  "EE-107-04-3": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "107 年電機機械第 3 題｜感應電動機戴維寧等效與轉矩"
+  },
+  "EE-112-04-5": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-title-override",
+    "canonicalChapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 8 (DC motors and generators)",
+    "noteTitle": "112 年第 5 題｜獨立驗證"
+  },
+  "EE-113-04-4": {
+    "primaryChapter": "emach-induction-motor-equiv",
+    "source": "canonical-title-override",
+    "canonicalChapter": "三相感應馬達等效電路與轉矩",
+    "noteTitle": "113 年電機機械第 4 題｜三相感應馬達等效電路與轉矩（來源矛盾，人工覆核）"
+  },
+  "EE-106-04-3": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "106 年電機機械第 3 題"
+  },
+  "EE-107-04-2": {
+    "primaryChapter": "emach-dc-motor-generator",
+    "source": "canonical-title-override",
+    "canonicalChapter": "直流串激電動機磁化曲線、轉速與電磁轉矩",
+    "noteTitle": "107 年電機機械第 2 題｜直流串激電動機工作點"
+  },
+  "EE-112-04-1": {
+    "primaryChapter": "emach-magnetic-circuits",
+    "source": "canonical-title-override",
+    "canonicalChapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 1 (Magnetic circuits and inductance)",
+    "noteTitle": "112 年第 1 題｜獨立驗證"
+  },
+  "EE-106-05-1": {
+    "primaryChapter": "ps-transmission-line-models",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "106 年電力系統第 1 題"
+  },
+  "EE-107-05-4": {
+    "primaryChapter": "ps-unsymmetrical-faults",
+    "source": "canonical-chapter",
+    "canonicalChapter": "不平衡三相系統對稱成分與中性點偏移",
+    "noteTitle": "107 年電力系統第 4 題｜三相四線／三線不平衡負載"
+  },
+  "EE-112-05-3": {
+    "primaryChapter": "ps-load-flow-admittance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "變壓器分接頭與節點導納矩陣",
+    "noteTitle": "112 年電力系統第 3 題｜含分接頭變壓器之四匯流排 Ybus"
+  },
+  "EE-113-05-2": {
+    "primaryChapter": "ps-three-phase-fault",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步機次暫態與三相短路故障",
+    "noteTitle": "113 年第 2 題｜同步機與輸電線三相短路暫態電流"
+  },
+  "EE-106-05-4": {
+    "primaryChapter": "ps-system-protection-relay",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "106 年電力系統第 4 題"
+  },
+  "EE-112-05-2": {
+    "primaryChapter": "ps-economic-dispatch",
+    "source": "canonical-chapter",
+    "canonicalChapter": "Wood, Wollenberg & Sheblé, Power Generation, Operation, and Control, 3rd ed., Ch. 3 — The Economic Dispatch of Thermal Units",
+    "noteTitle": "112 年電力系統第 2 題｜經濟調度係數與容量約束 KKT 校驗"
+  },
+  "EE-113-05-3": {
+    "primaryChapter": "ps-economic-dispatch",
+    "source": "canonical-chapter",
+    "canonicalChapter": "經濟調度與增量成本函數",
+    "noteTitle": "113 年電力系統第 3 題｜經濟調度增量成本係數"
+  },
+  "EE-107-05-1": {
+    "primaryChapter": "ps-transmission-line-models",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "107 年電力系統第 1 題｜輸電線並聯電容補償"
+  },
+  "EE-114-05-4": {
+    "primaryChapter": "ps-three-phase-fault",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電力系統第 4 題：三相短路"
+  },
+  "EE-104-05-4": {
+    "primaryChapter": "ps-load-flow-admittance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "匯流排導納／阻抗矩陣與並聯電容電壓",
+    "noteTitle": "104 年電力系統第 4 題｜三匯流排 $Y_{bus}$、$Z_{bus}$ 與電容補償"
+  },
+  "EE-105-05-5": {
+    "primaryChapter": "ps-economic-dispatch",
+    "source": "canonical-chapter",
+    "canonicalChapter": "經濟調度罰點因數與增量損失",
+    "noteTitle": "105 年電力系統第 5 題｜經濟調度罰點因數與增量損失"
+  },
+  "EE-109-05-6": {
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "canonical-title-override",
+    "canonicalChapter": "負載頻率控制與一次調速器響應",
+    "noteTitle": "109 年電力系統第 6 題｜負載頻率控制與穩態頻率偏差"
+  },
+  "EE-110-05-2": {
+    "primaryChapter": "ps-load-flow-admittance",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "110 年電力系統第 2 題｜三匯流排快速解耦電力潮流"
+  },
+  "EE-111-05-3": {
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "canonical-chapter",
+    "canonicalChapter": "暫態穩定度與等面積準則",
+    "noteTitle": "111 年第 3 題｜三相短路之臨界清除角與清除時間"
+  },
+  "EE-105-05-1": {
+    "primaryChapter": "ps-transmission-line-models",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "105 年電力系統第 1 題"
+  },
+  "EE-109-05-2": {
+    "primaryChapter": "ps-transmission-line-models",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "109 年電力系統第 2 題｜345 kV 雙分裂導線中程 π 模型與傳輸功率"
+  },
+  "EE-108-05-3": {
+    "primaryChapter": "ps-unsymmetrical-faults",
+    "source": "canonical-chapter",
+    "canonicalChapter": "對稱分量與非對稱故障分析",
+    "noteTitle": "108 年電力系統第 3 題｜多機系統三相與線間短路"
+  },
+  "EE-114-05-1": {
+    "primaryChapter": "ps-power-analysis",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電力系統第 1 題：負載相量與複功率"
+  },
+  "EE-104-05-1": {
+    "primaryChapter": "ps-unsymmetrical-faults",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "104 年電力系統第 1 題｜序網與接地開關故障分析"
+  },
+  "EE-109-05-3": {
+    "primaryChapter": "ps-load-flow-admittance",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "109 年電力系統第 3 題｜二匯流排牛頓－拉弗森法二次疊代"
+  },
+  "EE-108-05-2": {
+    "primaryChapter": "ps-load-flow-admittance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "快速解耦潮流法與牛頓拉弗森潮流分析",
+    "noteTitle": "108 年電力系統第 2 題｜快速解耦電力潮流法二次疊代"
+  },
+  "EE-114-05-5": {
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電力系統第 5 題：搖擺方程式"
+  },
+  "EE-105-05-4": {
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "canonical-chapter",
+    "canonicalChapter": "再生能源併網與暫態穩定度",
+    "noteTitle": "105 年電力系統第 4 題｜再生能源併網與暫態穩定度"
+  },
+  "EE-110-05-3": {
+    "primaryChapter": "ps-symmetrical-components",
+    "source": "canonical-title-override",
+    "canonicalChapter": "對稱成分與同時故障分析",
+    "noteTitle": "110 年電力系統第 3 題｜同時故障對稱成分分析"
+  },
+  "EE-111-05-2": {
+    "primaryChapter": "ps-three-phase-fault",
+    "source": "canonical-title-override",
+    "canonicalChapter": "三相短路與 Zbus 故障分析",
+    "noteTitle": "111 年第 2 題｜五匯流排三相短路之故障電壓與線路電流"
+  },
+  "EE-105-05-3": {
+    "primaryChapter": "ps-unsymmetrical-faults",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "105 年電力系統第 3 題"
+  },
+  "EE-114-05-2": {
+    "primaryChapter": "ps-load-flow-admittance",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電力系統第 2 題：二匯流排潮流"
+  },
+  "EE-104-05-2": {
+    "primaryChapter": "ps-power-analysis",
+    "source": "canonical-title-override",
+    "canonicalChapter": "並聯變壓器功率分擔與損失最佳化",
+    "noteTitle": "104 年電力系統第 2 題｜並聯變壓器功率分擔與損失最佳化"
+  },
+  "EE-108-05-1": {
+    "primaryChapter": "ps-power-analysis",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步發電機相量圖與激磁控制",
+    "noteTitle": "108 年電力系統第 1 題｜同步發電機相量圖與激磁控制"
+  },
+  "EE-110-05-4": {
+    "primaryChapter": "ps-economic-dispatch",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "110 年電力系統第 4 題｜含線路損耗的經濟調度與微增損失"
+  },
+  "EE-108-05-5": {
+    "primaryChapter": "ps-three-phase-fault",
+    "source": "canonical-chapter",
+    "canonicalChapter": "雙迴線輸電系統故障與功率角方程式",
+    "noteTitle": "108 年電力系統第 5 題｜雙迴線三相故障之功率角方程式"
+  },
+  "EE-109-05-4": {
+    "primaryChapter": "ps-symmetrical-components",
+    "source": "canonical-title-override",
+    "canonicalChapter": "對稱成分與故障分析",
+    "noteTitle": "109 年電力系統第 4 題｜三相與線間故障電流"
+  },
+  "EE-111-05-1": {
+    "primaryChapter": "ps-transmission-line-models",
+    "source": "canonical-title-override",
+    "canonicalChapter": "輸電線路串聯補償與功角特性",
+    "noteTitle": "111 年第 1 題｜輸電線路串聯補償與最大傳送功率"
+  },
+  "EE-108-05-4": {
+    "primaryChapter": "ps-system-protection-relay",
+    "source": "canonical-chapter",
+    "canonicalChapter": "發電機縱向差動保護與百分比差動電驛",
+    "noteTitle": "108 年電力系統第 4 題｜發電機繞組差動電驛保護"
+  },
+  "EE-109-05-5": {
+    "primaryChapter": "ps-economic-dispatch",
+    "source": "canonical-chapter",
+    "canonicalChapter": "含輸電損失的經濟調度與協調方程",
+    "noteTitle": "109 年電力系統第 5 題｜含輸電損失的經濟調度"
+  },
+  "EE-110-05-1": {
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "110 年電力系統第 1 題｜同步發電機功角與雙反應理論"
+  },
+  "EE-105-05-2": {
+    "primaryChapter": "ps-load-flow-admittance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三匯流排高斯–賽德潮流迭代",
+    "noteTitle": "105 年電力系統第 2 題｜三匯流排高斯–賽德潮流迭代"
+  },
+  "EE-114-05-3": {
+    "primaryChapter": "ps-economic-dispatch",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年電力系統第 3 題：經濟調度"
+  },
+  "EE-104-05-3": {
+    "primaryChapter": "ps-three-phase-fault",
+    "source": "canonical-chapter",
+    "canonicalChapter": "對稱三相短路計算",
+    "noteTitle": "104 年電力系統第 3 題｜兩發電機並聯三相故障（條件解）"
+  },
+  "EE-109-05-1": {
+    "primaryChapter": "ps-power-analysis",
+    "source": "canonical-title-override",
+    "canonicalChapter": "交流功率與瞬時功率",
+    "noteTitle": "109 年電力系統第 1 題｜瞬時功率與實功／虛功"
+  },
+  "EE-111-05-4": {
+    "primaryChapter": "ps-transmission-line-models",
+    "source": "canonical-chapter",
+    "canonicalChapter": "輸電線路 ABCD 參數與電壓調整率",
+    "noteTitle": "111 年第 4 題｜長程輸電線 ABCD 參數與送受電端量"
+  },
+  "EE-110-05-5": {
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步發電機電壓調整率與等面積暫態穩定",
+    "noteTitle": "110 年電力系統第 5 題｜發電機電壓調整率與暫態穩定"
+  },
+  "EE-112-05-1": {
+    "primaryChapter": "ps-transmission-line-params",
+    "source": "canonical-chapter",
+    "canonicalChapter": "輸電線路參數與束線效應",
+    "noteTitle": "112 年第 1 題｜四分裂換位輸電線的每公里電感與電容"
+  },
+  "EE-107-05-2": {
+    "primaryChapter": "ps-three-phase-fault",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "107 年電力系統第 2 題｜變壓器電壓調整率與短路電流"
+  },
+  "EE-106-05-3": {
+    "primaryChapter": "ps-load-flow-admittance",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三匯流排潮流：Ybus、PV/PQ 匯流排與無效功率流向",
+    "noteTitle": "106 年電力系統第 3 題｜三匯流排潮流與無效功率流向"
+  },
+  "EE-113-05-4": {
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "canonical-title-override",
+    "canonicalChapter": "發電機調速與負載頻率控制",
+    "noteTitle": "113 年第 4 題｜獨立驗證"
+  },
+  "EE-107-05-3": {
+    "primaryChapter": "ps-power-analysis",
+    "source": "canonical-title-override",
+    "canonicalChapter": "同步發電機併網無效功率與變壓器容量",
+    "noteTitle": "107 年電力系統第 3 題｜同步發電機併網"
+  },
+  "EE-106-05-2": {
+    "primaryChapter": "ps-three-phase-fault",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "106 年電力系統第 2 題"
+  },
+  "EE-112-05-4": {
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電力系統暫態穩定度與等面積準則",
+    "noteTitle": "112 年電力系統第 4 題｜三相故障之臨界清除角"
+  },
+  "EE-113-05-1": {
+    "primaryChapter": "ps-power-analysis",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相平衡電路與複數功率",
+    "noteTitle": "113 年第 1 題｜三相並聯負載與複數功率"
+  },
+  "EE-113-06-1": {
+    "primaryChapter": "dist-load-characteristics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "日負載曲線與變壓器容量",
+    "noteTitle": "113 年第 1 題｜日負載曲線與主變壓器容量"
+  },
+  "EE-107-06-3": {
+    "primaryChapter": "dist-protection-coordination",
+    "source": "canonical-chapter",
+    "canonicalChapter": "變壓器差動保護 CT 補償",
+    "noteTitle": "107 年工業配電第 3 題｜Δ–Y 變壓器差動保護"
+  },
+  "EE-106-06-2": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-chapter",
+    "canonicalChapter": "短路故障電流、對稱成分與斷路器額定",
+    "noteTitle": "106 年第 2 題｜單相三線變壓器 F 點短路（條件式校驗）"
+  },
+  "EE-113-06-5": {
+    "primaryChapter": "dist-protection-coordination",
+    "source": "canonical-chapter",
+    "canonicalChapter": "CO-7 過電流電驛與比流器選定",
+    "noteTitle": "113 年第 5 題｜CO-7 過電流電驛與 CT 比流器"
+  },
+  "EE-112-06-4": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-title-override",
+    "canonicalChapter": "三相短路故障與標么值法",
+    "noteTitle": "112 年工業配電第 4 題｜低壓側三相短路與反時性電驛"
+  },
+  "EE-107-06-2": {
+    "primaryChapter": "dist-motor-installation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電動機饋線電壓降與導線長度",
+    "noteTitle": "107 年工業配電第 2 題｜100 HP 馬達饋線壓降"
+  },
+  "EE-106-06-3": {
+    "primaryChapter": "dist-distribution-equipment",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相變壓器組接線與分接頭選擇",
+    "noteTitle": "106 年工業配電第 3 題｜三相變壓器組接線與分接頭選擇"
+  },
+  "EE-113-06-4": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-chapter",
+    "canonicalChapter": "標么法與三相短路啟斷容量",
+    "noteTitle": "113 年第 4 題｜480 V 匯流排三相短路啟斷容量"
+  },
+  "EE-112-06-5": {
+    "primaryChapter": "dist-protection-coordination",
+    "source": "canonical-title-override",
+    "canonicalChapter": "高壓受電保護與計量二次接線",
+    "noteTitle": "112 年工業配電第 5 題｜高壓受電保護與計量接線"
+  },
+  "EE-112-06-1": {
+    "primaryChapter": "dist-grounding-system",
+    "source": "canonical-chapter",
+    "canonicalChapter": "系統接地與設備接地",
+    "noteTitle": "112 年工業配電第 1 題｜系統接地與設備接地"
+  },
+  "EE-105-06-2": {
+    "primaryChapter": "dist-motor-installation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "感應電動機啟動電壓降與標么值",
+    "noteTitle": "105 年工業配電第 2 題｜感應電動機啟動電壓降與標么值"
+  },
+  "EE-104-06-3": {
+    "primaryChapter": "dist-harmonics-mitigation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電弧爐電壓變動與戴維寧等效",
+    "noteTitle": "104 年工業配電第 3 題｜電弧爐熔化期電壓變動"
+  },
+  "EE-114-06-3": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年工業配電第 3 題：汽電共生短路"
+  },
+  "EE-109-06-1": {
+    "primaryChapter": "dist-load-characteristics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "工廠變壓器裝置容量與兩段式時間電價契約需量",
+    "noteTitle": "109 年工業配電第 1 題：變壓器與契約容量規劃"
+  },
+  "EE-111-06-4": {
+    "primaryChapter": "dist-motor-installation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電動機配線、導線安培容量與過電流保護",
+    "noteTitle": "111 年工業配電第 4 題｜多台連續運轉馬達配線與保護（人工複核）"
+  },
+  "EE-110-06-5": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-title-override",
+    "canonicalChapter": "工廠自備變電所短路容量與馬達次暫態貢獻",
+    "noteTitle": "110 年工業配電第 5 題｜F1 短路與馬達貢獻"
+  },
+  "EE-108-06-4": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-chapter",
+    "canonicalChapter": "工廠配電系統短路容量與標么法",
+    "noteTitle": "108 年工業配電第 4 題：F 點三相短路"
+  },
+  "EE-109-06-5": {
+    "primaryChapter": "dist-power-factor-correction",
+    "source": "canonical-chapter",
+    "canonicalChapter": "功率因數改善與並聯電容器",
+    "noteTitle": "109 年工業配電第 5 題｜負載中心功率因數改善"
+  },
+  "EE-110-06-1": {
+    "primaryChapter": "dist-power-factor-correction",
+    "source": "canonical-title-override",
+    "canonicalChapter": "功率因數改善與短路 RL 暫態",
+    "noteTitle": "110 年第 1 題｜功率因數改善與短路暫態"
+  },
+  "EE-108-06-5": {
+    "primaryChapter": "dist-power-factor-correction",
+    "source": "canonical-chapter",
+    "canonicalChapter": "配電線路功率因數改善與電壓降",
+    "noteTitle": "108 年工業配電第 5 題：並聯電容器的效益"
+  },
+  "EE-109-06-4": {
+    "primaryChapter": "dist-lighting-design",
+    "source": "canonical-chapter",
+    "canonicalChapter": "工業照明流明法設計",
+    "noteTitle": "109 年工業配電第 4 題｜化學品工廠照明設計"
+  },
+  "EE-111-06-1": {
+    "primaryChapter": "dist-protection-coordination",
+    "source": "canonical-chapter",
+    "canonicalChapter": "儀表變壓器與 CT 負擔誤差",
+    "noteTitle": "111 年工業配電第 1 題｜CT 激磁特性與負擔誤差"
+  },
+  "EE-105-06-3": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-chapter",
+    "canonicalChapter": "低壓匯流排三相短路與電源並聯",
+    "noteTitle": "105 年工業配電第 3 題｜低壓匯流排三相短路與電源並聯"
+  },
+  "EE-104-06-2": {
+    "primaryChapter": "dist-load-characteristics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "參差因數與線路損失容量設計",
+    "noteTitle": "104 年工業配電第 2 題｜參差因數與線路損失容量設計"
+  },
+  "EE-114-06-2": {
+    "primaryChapter": "dist-harmonics-mitigation",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年工業配電第 2 題：電弧爐壓降與閃爍"
+  },
+  "EE-108-06-1": {
+    "primaryChapter": "dist-distribution-equipment",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電容式比壓器 CVT 比壓與補償電抗",
+    "noteTitle": "108 年第 1 題｜電容式比壓器比壓式"
+  },
+  "EE-111-06-5": {
+    "primaryChapter": "dist-grounding-system",
+    "source": "canonical-chapter",
+    "canonicalChapter": "中性點接地與低電阻接地系統",
+    "noteTitle": "111 年第 5 題｜低電阻接地電阻器額定與短路電流比例"
+  },
+  "EE-110-06-4": {
+    "primaryChapter": "dist-harmonics-mitigation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電弧爐電壓閃爍與串聯電抗器",
+    "noteTitle": "110 年工業配電第 4 題：電弧爐電壓閃爍"
+  },
+  "EE-104-06-5": {
+    "primaryChapter": "dist-harmonics-mitigation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "諧波等效電路與調諧電容器",
+    "noteTitle": "104 年工業配電第 5 題｜六脈波整流器第 5 次諧波"
+  },
+  "EE-114-06-5": {
+    "primaryChapter": "dist-power-factor-correction",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年工業配電第 5 題：APFR 電容器投切"
+  },
+  "EE-105-06-4": {
+    "primaryChapter": "dist-lighting-design",
+    "source": "canonical-chapter",
+    "canonicalChapter": "流明法照明設計與燈具配置",
+    "noteTitle": "105 年工業配電第 4 題｜流明法照明設計與燈具配置"
+  },
+  "EE-110-06-3": {
+    "primaryChapter": "dist-power-factor-correction",
+    "source": "canonical-chapter",
+    "canonicalChapter": "功率因數改善與設備容量約束",
+    "noteTitle": "110 年工業配電第 3 題：功率因數改善與容量約束（含不可行條件證明）"
+  },
+  "EE-111-06-2": {
+    "primaryChapter": "dist-motor-installation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "同步馬達全壓啟動與電壓變動率",
+    "noteTitle": "111 年第 2 題｜同步馬達全壓啟動電壓變動率"
+  },
+  "EE-104-06-1": {
+    "primaryChapter": "dist-distribution-equipment",
+    "source": "canonical-chapter",
+    "canonicalChapter": "配電變壓器與供電接線",
+    "noteTitle": "104 年第 1 題｜供電方式與責任分界（規章版校驗）"
+  },
+  "EE-114-06-1": {
+    "primaryChapter": "dist-distribution-equipment",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年工業配電第 1 題：開三角形接線"
+  },
+  "EE-109-06-3": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-chapter",
+    "canonicalChapter": "配電系統標么阻抗與三相短路",
+    "noteTitle": "109 年工業配電第 3 題｜主幹線三相短路"
+  },
+  "EE-108-06-2": {
+    "primaryChapter": "dist-harmonics-mitigation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "工業配電系統電壓降與串聯電抗器",
+    "noteTitle": "108 年工業配電第 2 題：電弧爐電壓突降與串聯電抗器"
+  },
+  "EE-105-06-1": {
+    "primaryChapter": "dist-grounding-system",
+    "source": "canonical-chapter",
+    "canonicalChapter": "單相三線中性線開路與接地電阻",
+    "noteTitle": "105 年工業配電第 1 題｜單相三線中性線開路與接地電阻"
+  },
+  "EE-109-06-2": {
+    "primaryChapter": "dist-voltage-drop",
+    "source": "canonical-chapter",
+    "canonicalChapter": "三相配電線路電壓降與電壓等級比較",
+    "noteTitle": "109 年工業配電第 2 題：三相配電線路電壓降"
+  },
+  "EE-108-06-3": {
+    "primaryChapter": "dist-distribution-equipment",
+    "source": "canonical-chapter",
+    "canonicalChapter": "V-V 開放三角接線與三相四線制燈力併供",
+    "noteTitle": "108 年第 3 題｜V-V 連接三相四線式燈力併供"
+  },
+  "EE-104-06-4": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-chapter",
+    "canonicalChapter": "短路容量與對稱成分等效阻抗",
+    "noteTitle": "104 年工業配電第 4 題｜短路容量與對稱成分等效阻抗"
+  },
+  "EE-114-06-4": {
+    "primaryChapter": "dist-motor-installation",
+    "source": "canonical-title-override",
+    "canonicalChapter": "",
+    "noteTitle": "114 年工業配電第 4 題：Y-Δ 起動與配線"
+  },
+  "EE-105-06-5": {
+    "primaryChapter": "dist-harmonics-mitigation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "諧波等效電路與並聯共振",
+    "noteTitle": "105 年工業配電第 5 題｜諧波等效電路與並聯共振"
+  },
+  "EE-110-06-2": {
+    "primaryChapter": "dist-load-characteristics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "變壓器容量設計與需量／參差因數",
+    "noteTitle": "110 年工業配電第 2 題：變壓器容量與日用電量"
+  },
+  "EE-111-06-3": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-chapter",
+    "canonicalChapter": "汽電共生系統與三相短路之次暫態分析",
+    "noteTitle": "111 年第 3 題｜汽電共生系統三相短路與斷路器電流"
+  },
+  "EE-107-06-1": {
+    "primaryChapter": "dist-load-characteristics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "負載參差因數與綜合負載率",
+    "noteTitle": "107 年工業配電第 1 題｜四用戶負載統計"
+  },
+  "EE-106-06-4": {
+    "primaryChapter": "dist-protection-coordination",
+    "source": "canonical-chapter",
+    "canonicalChapter": "變壓器差動保護與 CT 相位補償",
+    "noteTitle": "106 年工業配電第 4 題｜Y–Δ 變壓器差動保護與 CT 比選定"
+  },
+  "EE-107-06-5": {
+    "primaryChapter": "dist-power-factor-correction",
+    "source": "canonical-chapter",
+    "canonicalChapter": "功率因數改善與三角形電容器",
+    "noteTitle": "107 年工業配電第 5 題｜高壓用戶功率因數改善"
+  },
+  "EE-112-06-2": {
+    "primaryChapter": "dist-load-characteristics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "負載特性、需量因數與變壓器容量",
+    "noteTitle": "112 年工業配電第 2 題｜負載特性與需量計算"
+  },
+  "EE-113-06-3": {
+    "primaryChapter": "dist-harmonics-mitigation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電弧爐電壓閃爍與串聯電抗",
+    "noteTitle": "113 年第 3 題｜電弧爐電壓閃爍與串聯電抗器"
+  },
+  "EE-106-06-5": {
+    "primaryChapter": "dist-harmonics-mitigation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電容器與系統諧波共振",
+    "noteTitle": "106 年工業配電第 5 題｜電容器與系統諧波共振"
+  },
+  "EE-107-06-4": {
+    "primaryChapter": "dist-motor-installation",
+    "source": "canonical-chapter",
+    "canonicalChapter": "電動機配線設計：分路、幹線與過電流保護",
+    "noteTitle": "107 年工業配電第 4 題｜多台電動機分路與幹線設計"
+  },
+  "EE-112-06-3": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-chapter",
+    "canonicalChapter": "放射狀配電系統 MVA 法短路電流",
+    "noteTitle": "112 年工業配電第 3 題：放射狀系統三相短路"
+  },
+  "EE-113-06-2": {
+    "primaryChapter": "dist-voltage-drop",
+    "source": "canonical-title-override",
+    "canonicalChapter": "線路壓降與功率因數校正",
+    "noteTitle": "113 年第 2 題｜單相線路壓降與功率因數校正"
+  },
+  "EE-106-06-1": {
+    "primaryChapter": "dist-short-circuit-capacity",
+    "source": "canonical-title-override",
+    "canonicalChapter": "短路電流計算與設備接地",
+    "noteTitle": "106 年工業配電第 1 題｜短路電流計算與設備接地"
+  }
+};
 const SOLUTION_REVIEW_METADATA = {
   "EE-109-02-3": {
     "disposition": "conduction_mode_branches",
@@ -6587,29 +8518,29 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-105-04-5": {
     "disposition": "flux_curve_parameterized",
     "blocker": "missing_parameter",
-    "action": "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。",
-    "evidence": "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V、E_a2=180 V，並明示 n_2=1200 rpm 僅在線性未飽和 Φ_2/Φ_1=0.5 假設下成立。",
+    "action": "補齊磁化曲線或明示未飽和且 Φ∝If 條件，才能由 If=6 A 唯一決定磁通比；在資料未補齊前保留 r=Φ₂/Φ₁ 條件分支。",
+    "evidence": "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V，並以 r=Φ₂/Φ₁ 得 I_a2=300/r、n₂=800/r−100/r²。n₂=1200 rpm 僅在線性未飽和 Φ₂/Φ₁=0.5（I_a2=600 A、E_a2=180 V）假設下成立；例如 r=0.45、0.55 時分別為 1283.951、1123.967 rpm，故不能宣稱單一數值。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=105170&q=1&s=0610&t=Q"
   },
   "EE-111-04-4": {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
-    "action": "補齊實際 OCC/SCC 曲線或官方線性插值規則；目前第（一）小題已由相量方程驗證，第（二）、（三）僅保留線性比例條件值。",
-    "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。",
+    "action": "補齊實際 OCC/SCC 曲線或官方線性插值規則；第（一）小題可升級為方程驗證，但第（二）、（三）仍僅保留線性比例條件值，不得視為曲線讀值。",
+    "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。回歸錨點為 Vφ=6350.853 V、Ibase=1312.160 A、SCR=1.075556；若缺曲線，任何飽和修正均不得悄然套入。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0610&t=Q"
   },
   "EE-113-04-4": {
     "disposition": "source_conflict_branches",
     "blocker": "source_conflict",
-    "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。",
-    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致；canonical 已以每相電壓及滑差獨立回代兩模型，故保留來源矛盾而不混用。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q",
+    "action": "確認官方圖示與機械負載提示的基準；圖示 R₂/s=0.2/s 與提示機械負載 0.1(1−s)/s 不可同時成立，維持 R₂=0.2 與 R₂=0.1 兩個完整重算分支。",
+    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致。canonical 已以每相電壓及滑差獨立回代兩模型：圖示 R₂=0.2 得 I_start=189.346 A、I_full=40.227 A、η=90.323%、I_start,m=192.301 A；提示 R₂=0.1 得 I_start=200.832 A、I_full=74.331 A、η=87.500%、I_start,m=203.692 A。不得只替換機械功率項而混用兩模型。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
   },
   "EE-104-05-3": {
     "disposition": "given_current_vs_recalculation",
     "blocker": "source_conflict",
-    "action": "確認 2.5/3.0 kA 是直接給定的同相標量貢獻或需以相量合成，並補正常功因／勵磁與 440 MW 的分配。",
-    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 的同相標量分支；若兩電流需作相量合成，題圖未給相角，只能寫成 |2.5∠θ₁+3.0∠θ₂|。正常功因／勵磁與 440 MW 分配亦未由題面補足，兩組資料不能無聲混合。",
+    "action": "確認 2.5/3.0 kA 是直接給定的同相標量貢獻或需以相量合成；並確認 440 MW 是兩機總輸出或每機輸出及各機功率分配／勵磁。",
+    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 的同相標量分支；若兩電流需作相量合成，題圖未給相角，只能寫成 |2.5∠θ₁+3.0∠θ₂|。正常端電壓／無效功率還取決於 440 MW 的總量或每機解讀、機間分配及勵磁：e=1 pu 且總 440 MW 等分時為 19.7583 kV、−51.001 Mvar/機；若 440 MW 是每機，則為 18.7226 kV、−262.513 Mvar/機。兩組資料不能無聲混合。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {

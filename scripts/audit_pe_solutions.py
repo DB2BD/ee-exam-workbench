@@ -20,11 +20,16 @@ def load_questions():
     return json.loads(m.group(1))
 
 def section(raw: str, qnum: int) -> str:
-    parts = re.split(r"(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|[一二三四五六七八九十\d]+\s*[、.：:]))", raw)
+    # Only annual question headings use an ordinal followed by ``、`` (or a
+    # full ``第 … 題`` heading).  Canonical notes legitimately use numbered
+    # section headings such as ``## 1.``; treating those as question
+    # boundaries would fingerprint only one subsection and leave the rest of
+    # the answer unprotected by the audit manifest.
+    parts = re.split(r"(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|[一二三四五六七八九十\d]+\s*[、：:]))", raw)
     if len(parts) <= 1: return raw
     cmap = {c:i for i,c in enumerate("一二三四五六七八九十", 1)}
     for part in parts[1:]:
-        m = re.search(r"##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十\d]+)\s*[、.：:])", part)
+        m = re.search(r"##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十\d]+)\s*[、：:])", part)
         if not m: continue
         token = m.group(1) or m.group(2)
         n = int(token) if token.isdigit() else cmap.get(token)

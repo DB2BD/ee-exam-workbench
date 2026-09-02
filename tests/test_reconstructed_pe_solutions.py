@@ -45,6 +45,19 @@ class TestReconstructedPESolutions(unittest.TestCase):
             digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
             self.assertEqual(entry["solution_hash"], digest, entry["qid"])
 
+    def test_pe_solution_bundle_matches_canonical_notes(self):
+        """The offline dashboard bundle must serve the exact canonical Markdown."""
+        manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
+        bundled = (ROOT / "solutions-bundle.js").read_text(encoding="utf-8")
+        match = re.search(r"const BUNDLED_MD = (\{.*?\});\s*const IMAGE_MAP", bundled, re.S)
+        self.assertIsNotNone(match, "solutions-bundle.js is missing its Markdown payload")
+        payload = json.loads(match.group(1))
+        for entry in manifest["entries"]:
+            link = entry["solution_link"]
+            self.assertIn(link, payload, entry["qid"])
+            source = (ROOT / link).read_text(encoding="utf-8")
+            self.assertEqual(payload[link], source, entry["qid"])
+
     def test_electronics_conditional_branches_keep_unresolved_status(self):
         """Explicit textbook assumptions must not silently become official facts."""
         flyback = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-109-02-3.md").read_text(encoding="utf-8")

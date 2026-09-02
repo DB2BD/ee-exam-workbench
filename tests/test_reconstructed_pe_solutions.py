@@ -14,6 +14,37 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
+    def test_pe_solution_manifest_hashes_match_canonical_notes(self):
+        """The PE audit manifest must fingerprint the exact canonical answer body."""
+        manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
+        ordinal = {char: index for index, char in enumerate("一二三四五六七八九十", 1)}
+
+        def question_section(raw, question_number):
+            parts = re.split(
+                r"(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|[一二三四五六七八九十\d]+\s*[、.：:]))",
+                raw,
+            )
+            if len(parts) <= 1:
+                return raw
+            for part in parts[1:]:
+                heading = re.search(
+                    r"##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十\d]+)\s*[、.：:])",
+                    part,
+                )
+                if not heading:
+                    continue
+                token = heading.group(1) or heading.group(2)
+                number = int(token) if token.isdigit() else ordinal.get(token)
+                if number == question_number:
+                    return part
+            return raw
+
+        for entry in manifest["entries"]:
+            raw = (ROOT / entry["solution_link"]).read_text(encoding="utf-8")
+            body = re.sub(r"\s+", " ", question_section(raw, entry["question_number"])).strip()
+            digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+            self.assertEqual(entry["solution_hash"], digest, entry["qid"])
+
     def test_electronics_conditional_branches_keep_unresolved_status(self):
         """Explicit textbook assumptions must not silently become official facts."""
         flyback = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-109-02-3.md").read_text(encoding="utf-8")

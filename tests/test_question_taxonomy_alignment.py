@@ -39,6 +39,20 @@ def load_dag_nodes():
     return dict(pattern.findall(text))
 
 
+def load_manual_topic_labels():
+    text = (ROOT / "src/data/manualTopicLabels.js").read_text(encoding="utf-8")
+    pattern = re.compile(
+        r"'(?P<qid>EE-\d{3}-\d{2}-\d+)'\s*:\s*\{\s*"
+        r"chapterId:\s*'(?P<chapter>[a-z0-9-]+)'"
+    )
+    return {m.group("qid"): m.group("chapter") for m in pattern.finditer(text)}
+
+
+def load_audit_statuses():
+    payload = json.loads((ROOT / "data/pe-solution-audit.json").read_text(encoding="utf-8"))
+    return {entry["qid"]: entry["audit_status"] for entry in payload.get("entries", [])}
+
+
 class TestQuestionTaxonomyAlignment(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -46,6 +60,8 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
         cls.question_by_id = {row[0]: row for row in cls.questions}
         cls.taxonomy = load_taxonomy_map()
         cls.dag = load_dag_nodes()
+        cls.manual_labels = load_manual_topic_labels()
+        cls.audit_statuses = load_audit_statuses()
 
     def test_every_active_question_has_one_subject_valid_canonical_mapping(self):
         qids = set(self.question_by_id)
@@ -56,8 +72,22 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             chapter = evidence.get("primaryChapter")
             self.assertIn(chapter, self.dag, qid)
             self.assertEqual(self.dag[chapter], row[1], qid)
-            self.assertIn(evidence.get("source"), {"canonical-chapter", "canonical-title-override"}, qid)
+            self.assertIn(
+                evidence.get("source"),
+                {"canonical-chapter", "canonical-title-override", "manual-topic-confirmed"},
+                qid,
+            )
             self.assertIn("noteTitle", evidence, qid)
+
+    def test_manual_topic_labels_are_materialized_in_database(self):
+        """Website-confirmed chapter choices must survive a fresh compile."""
+        for qid, chapter in self.manual_labels.items():
+            self.assertIn(qid, self.taxonomy, qid)
+            self.assertIn(self.audit_statuses.get(qid), {"needs_manual_review", "in_progress", "ambiguous"}, qid)
+            evidence = self.taxonomy[qid]
+            self.assertEqual(evidence["primaryChapter"], chapter, qid)
+            self.assertEqual(evidence.get("source"), "manual-topic-confirmed", qid)
+            self.assertEqual(self.dag[chapter], self.question_by_id[qid][1], qid)
 
     def test_known_classifier_confusions_use_canonical_chapter(self):
         expected = {

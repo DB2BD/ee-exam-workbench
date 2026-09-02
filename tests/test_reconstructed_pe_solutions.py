@@ -21,14 +21,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         def question_section(raw, question_number):
             parts = re.split(
-                r"(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|[一二三四五六七八九十\d]+\s*[、.：:]))",
+                r"(?=\n##\s+(?:第\s*[一二三四五六七八九十\d]+\s*[大題題]|[一二三四五六七八九十\d]+\s*[、：:]))",
                 raw,
             )
             if len(parts) <= 1:
                 return raw
             for part in parts[1:]:
                 heading = re.search(
-                    r"##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十\d]+)\s*[、.：:])",
+                    r"##\s+(?:第\s*([一二三四五六七八九十\d]+)\s*[大題題]|([一二三四五六七八九十\d]+)\s*[、：:])",
                     part,
                 )
                 if not heading:
@@ -237,6 +237,18 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("118.595", note)
         self.assertIn("110.264", note)
         self.assertIn("audit_status: needs_manual_review", note)
+
+    def test_112_common_base_divider_ratio_is_numerically_consistent(self):
+        """The common-base source divider must agree with its displayed resistance values."""
+        note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-1.md").read_text(encoding="utf-8")
+        r_pi = 100 / 0.020
+        r_e = r_pi / (100 + 1)
+        r_in = 1 / (1 / 500 + 1 / r_e)
+        divider = r_in / (50 + r_in)
+        collector_load = 1000 * 100_000 / (1000 + 100_000)
+        gain = 0.020 * collector_load * divider
+        self.assertIn(f"{divider:.8f}", note)
+        self.assertIn(f"{gain:.6f}", note)
 
     def test_annual_notes_identify_every_manual_question(self):
         """年度彙整頁需明示每個條件式題號，避免讀者誤用舊模板答案。"""

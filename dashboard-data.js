@@ -6531,9 +6531,9 @@ const QUESTION_CROP_MAP = {
   "PE-114-電路學-Q05": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q05.png",
   "EE-114-01-5": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q05.png"
 };
-// qid -> canonical textbook chapter evidence.  Manual labels and explicit
-// TAXONOMY_OVERRIDES remain higher priority in the review UI; this map is the
-// stable source for every question that has a canonical solution note.
+// qid -> canonical textbook chapter evidence. Website-confirmed manual labels
+// are materialized as the primary chapter (with canonicalChapter retained as
+// provenance); the review UI still accepts later localStorage edits.
 const QUESTION_TAXONOMY_MAP = {
   "EE-111-01-1": {
     "primaryChapter": "ct-phasor-ac",
@@ -6831,9 +6831,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-109-02-3": {
     "primaryChapter": "el-pe-buck-boost",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "返馳式轉換器 CCM/DCM 電流與效率",
-    "noteTitle": "109 年電子學（含電力電子）第 3 題｜返馳式轉換器"
+    "noteTitle": "109 年電子學（含電力電子）第 3 題｜返馳式轉換器",
+    "manualChapter": "el-pe-buck-boost"
   },
   "EE-104-02-1": {
     "primaryChapter": "el-mosfet-bias-small-signal",
@@ -6873,9 +6874,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-111-02-3": {
     "primaryChapter": "el-mosfet-bias-small-signal",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "MOSFET 共源極源極退化與偏壓設計",
-    "noteTitle": "111 年電子學第 3 題：MOSFET 源極退化放大器"
+    "noteTitle": "111 年電子學第 3 題：MOSFET 源極退化放大器",
+    "manualChapter": "el-mosfet-bias-small-signal"
   },
   "EE-110-02-2": {
     "primaryChapter": "el-diff-amp",
@@ -6951,9 +6953,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-113-02-2": {
     "primaryChapter": "el-bjt-bias-small-signal",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "BJT 共基極放大器與 T 模型",
-    "noteTitle": "113 年電子學第 2 題：共基極 BJT T 模型與電壓增益"
+    "noteTitle": "113 年電子學第 2 題：共基極 BJT T 模型與電壓增益",
+    "manualChapter": "el-bjt-bias-small-signal"
   },
   "EE-112-02-3": {
     "primaryChapter": "el-pe-buck-boost",
@@ -6980,10 +6983,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "112 年電子學（含電力電子）第 4 題｜半波整流器傅立葉級數與平滑電感"
   },
   "EE-106-02-2": {
-    "primaryChapter": "el-mosfet-bias-small-signal",
-    "source": "canonical-title-override",
+    "primaryChapter": "el-feedback-stability",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "MOSFET 差動放大器與負回授",
-    "noteTitle": "106 年電子學_含電力電子第 2 題"
+    "noteTitle": "106 年電子學_含電力電子第 2 題",
+    "manualChapter": "el-feedback-stability"
   },
   "EE-107-02-3": {
     "primaryChapter": "el-pe-buck-boost",
@@ -6999,9 +7003,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-112-02-1": {
     "primaryChapter": "el-bjt-bias-small-signal",
-    "source": "canonical-title-override",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "BJT 共基極放大器與高頻響應",
-    "noteTitle": "112 年電子學第 1 題：共基極放大器高頻響應"
+    "noteTitle": "112 年電子學第 1 題：共基極放大器高頻響應",
+    "manualChapter": "el-bjt-bias-small-signal"
   },
   "EE-113-02-4": {
     "primaryChapter": "el-pe-buck-boost",
@@ -7035,9 +7040,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-111-02-4": {
     "primaryChapter": "el-feedback-stability",
-    "source": "canonical-title-override",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "回授放大器與雙極性電晶體小訊號模型",
-    "noteTitle": "111 年第 4 題｜電流回授放大器之增益與阻抗"
+    "noteTitle": "111 年第 4 題｜電流回授放大器之增益與阻抗",
+    "manualChapter": "el-feedback-stability"
   },
   "EE-109-02-1": {
     "primaryChapter": "el-bjt-bias-small-signal",
@@ -7647,9 +7653,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-105-04-5": {
     "primaryChapter": "emach-dc-motor-generator",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "直流電機 (分激/串激特性與調速)",
-    "noteTitle": "105 年電機機械第 5 題（條件式校驗）"
+    "noteTitle": "105 年電機機械第 5 題（條件式校驗）",
+    "manualChapter": "emach-dc-motor-generator"
   },
   "EE-114-04-4": {
     "primaryChapter": "emach-synchronous-generator-round",
@@ -7671,9 +7678,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-111-04-4": {
     "primaryChapter": "emach-synchronous-generator-round",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "同步發電機等效電路與短路比",
-    "noteTitle": "111 年電機機械第 4 題｜同步發電機電壓調整率與短路比"
+    "noteTitle": "111 年電機機械第 4 題｜同步發電機電壓調整率與短路比",
+    "manualChapter": "emach-synchronous-generator-round"
   },
   "EE-109-04-1": {
     "primaryChapter": "emach-single-phase-transformer",
@@ -7809,9 +7817,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-113-04-4": {
     "primaryChapter": "emach-induction-motor-equiv",
-    "source": "canonical-title-override",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "三相感應馬達等效電路與轉矩",
-    "noteTitle": "113 年電機機械第 4 題｜三相感應馬達等效電路與轉矩（來源矛盾，人工覆核）"
+    "noteTitle": "113 年電機機械第 4 題｜三相感應馬達等效電路與轉矩（來源矛盾，人工覆核）",
+    "manualChapter": "emach-induction-motor-equiv"
   },
   "EE-106-04-3": {
     "primaryChapter": "emach-dc-motor-generator",
@@ -8061,9 +8070,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-104-05-3": {
     "primaryChapter": "ps-three-phase-fault",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "對稱三相短路計算",
-    "noteTitle": "104 年電力系統第 3 題｜兩發電機並聯三相故障（條件解）"
+    "noteTitle": "104 年電力系統第 3 題｜兩發電機並聯三相故障（條件解）",
+    "manualChapter": "ps-three-phase-fault"
   },
   "EE-109-05-1": {
     "primaryChapter": "ps-power-analysis",
@@ -8145,9 +8155,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-106-06-2": {
     "primaryChapter": "dist-short-circuit-capacity",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "短路故障電流、對稱成分與斷路器額定",
-    "noteTitle": "106 年第 2 題｜單相三線變壓器 F 點短路（條件式校驗）"
+    "noteTitle": "106 年第 2 題｜單相三線變壓器 F 點短路（條件式校驗）",
+    "manualChapter": "dist-short-circuit-capacity"
   },
   "EE-113-06-5": {
     "primaryChapter": "dist-protection-coordination",
@@ -8162,10 +8173,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "112 年工業配電第 4 題｜低壓側三相短路與反時性電驛"
   },
   "EE-107-06-2": {
-    "primaryChapter": "dist-motor-installation",
-    "source": "canonical-chapter",
+    "primaryChapter": "dist-voltage-drop",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "電動機饋線電壓降與導線長度",
-    "noteTitle": "107 年工業配電第 2 題｜100 HP 馬達饋線壓降"
+    "noteTitle": "107 年工業配電第 2 題｜100 HP 馬達饋線壓降",
+    "manualChapter": "dist-voltage-drop"
   },
   "EE-106-06-3": {
     "primaryChapter": "dist-distribution-equipment",
@@ -8217,15 +8229,17 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-111-06-4": {
     "primaryChapter": "dist-motor-installation",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "電動機配線、導線安培容量與過電流保護",
-    "noteTitle": "111 年工業配電第 4 題｜多台連續運轉馬達配線與保護（人工複核）"
+    "noteTitle": "111 年工業配電第 4 題｜多台連續運轉馬達配線與保護（人工複核）",
+    "manualChapter": "dist-motor-installation"
   },
   "EE-110-06-5": {
     "primaryChapter": "dist-short-circuit-capacity",
-    "source": "canonical-title-override",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "工廠自備變電所短路容量與馬達次暫態貢獻",
-    "noteTitle": "110 年工業配電第 5 題｜F1 短路與馬達貢獻"
+    "noteTitle": "110 年工業配電第 5 題｜F1 短路與馬達貢獻",
+    "manualChapter": "dist-short-circuit-capacity"
   },
   "EE-108-06-4": {
     "primaryChapter": "dist-short-circuit-capacity",
@@ -8259,9 +8273,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-111-06-1": {
     "primaryChapter": "dist-protection-coordination",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "儀表變壓器與 CT 負擔誤差",
-    "noteTitle": "111 年工業配電第 1 題｜CT 激磁特性與負擔誤差"
+    "noteTitle": "111 年工業配電第 1 題｜CT 激磁特性與負擔誤差",
+    "manualChapter": "dist-protection-coordination"
   },
   "EE-105-06-3": {
     "primaryChapter": "dist-short-circuit-capacity",
@@ -8301,9 +8316,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-104-06-5": {
     "primaryChapter": "dist-harmonics-mitigation",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "諧波等效電路與調諧電容器",
-    "noteTitle": "104 年工業配電第 5 題｜六脈波整流器第 5 次諧波"
+    "noteTitle": "104 年工業配電第 5 題｜六脈波整流器第 5 次諧波",
+    "manualChapter": "dist-harmonics-mitigation"
   },
   "EE-114-06-5": {
     "primaryChapter": "dist-power-factor-correction",
@@ -8325,9 +8341,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-111-06-2": {
     "primaryChapter": "dist-motor-installation",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "同步馬達全壓啟動與電壓變動率",
-    "noteTitle": "111 年第 2 題｜同步馬達全壓啟動電壓變動率"
+    "noteTitle": "111 年第 2 題｜同步馬達全壓啟動電壓變動率",
+    "manualChapter": "dist-motor-installation"
   },
   "EE-104-06-1": {
     "primaryChapter": "dist-distribution-equipment",
@@ -8348,10 +8365,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "109 年工業配電第 3 題｜主幹線三相短路"
   },
   "EE-108-06-2": {
-    "primaryChapter": "dist-harmonics-mitigation",
-    "source": "canonical-chapter",
+    "primaryChapter": "dist-voltage-drop",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "工業配電系統電壓降與串聯電抗器",
-    "noteTitle": "108 年工業配電第 2 題：電弧爐電壓突降與串聯電抗器"
+    "noteTitle": "108 年工業配電第 2 題：電弧爐電壓突降與串聯電抗器",
+    "manualChapter": "dist-voltage-drop"
   },
   "EE-105-06-1": {
     "primaryChapter": "dist-grounding-system",
@@ -8397,9 +8415,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-111-06-3": {
     "primaryChapter": "dist-short-circuit-capacity",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "汽電共生系統與三相短路之次暫態分析",
-    "noteTitle": "111 年第 3 題｜汽電共生系統三相短路與斷路器電流"
+    "noteTitle": "111 年第 3 題｜汽電共生系統三相短路與斷路器電流",
+    "manualChapter": "dist-short-circuit-capacity"
   },
   "EE-107-06-1": {
     "primaryChapter": "dist-load-characteristics",
@@ -8518,29 +8537,29 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-105-04-5": {
     "disposition": "flux_curve_parameterized",
     "blocker": "missing_parameter",
-    "action": "補齊磁化曲線或明示未飽和且 Φ∝If 條件，才能由 If=6 A 唯一決定磁通比；在資料未補齊前保留 r=Φ₂/Φ₁ 條件分支。",
-    "evidence": "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V，並以 r=Φ₂/Φ₁ 得 I_a2=300/r、n₂=800/r−100/r²。n₂=1200 rpm 僅在線性未飽和 Φ₂/Φ₁=0.5（I_a2=600 A、E_a2=180 V）假設下成立；例如 r=0.45、0.55 時分別為 1283.951、1123.967 rpm，故不能宣稱單一數值。",
+    "action": "補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。",
+    "evidence": "官方裁切圖給額定電壓、電樞電阻、額定電流及 If=12→6 A，但沒有磁化曲線；canonical 已推得 E_a1=240 V、E_a2=180 V，並明示 n_2=1200 rpm 僅在線性未飽和 Φ_2/Φ_1=0.5 假設下成立。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=105170&q=1&s=0610&t=Q"
   },
   "EE-111-04-4": {
     "disposition": "curve_interpolation_branches",
     "blocker": "graph_estimate",
-    "action": "補齊實際 OCC/SCC 曲線或官方線性插值規則；第（一）小題可升級為方程驗證，但第（二）、（三）仍僅保留線性比例條件值，不得視為曲線讀值。",
-    "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。回歸錨點為 Vφ=6350.853 V、Ibase=1312.160 A、SCR=1.075556；若缺曲線，任何飽和修正均不得悄然套入。",
+    "action": "補齊實際 OCC/SCC 曲線或官方線性插值規則；目前第（一）小題已由相量方程驗證，第（二）、（三）僅保留線性比例條件值。",
+    "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0610&t=Q"
   },
   "EE-113-04-4": {
     "disposition": "source_conflict_branches",
     "blocker": "source_conflict",
-    "action": "確認官方圖示與機械負載提示的基準；圖示 R₂/s=0.2/s 與提示機械負載 0.1(1−s)/s 不可同時成立，維持 R₂=0.2 與 R₂=0.1 兩個完整重算分支。",
-    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致。canonical 已以每相電壓及滑差獨立回代兩模型：圖示 R₂=0.2 得 I_start=189.346 A、I_full=40.227 A、η=90.323%、I_start,m=192.301 A；提示 R₂=0.1 得 I_start=200.832 A、I_full=74.331 A、η=87.500%、I_start,m=203.692 A。不得只替換機械功率項而混用兩模型。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q",
+    "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。",
+    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致；canonical 已以每相電壓及滑差獨立回代兩模型，故保留來源矛盾而不混用。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
   },
   "EE-104-05-3": {
     "disposition": "given_current_vs_recalculation",
     "blocker": "source_conflict",
-    "action": "確認 2.5/3.0 kA 是直接給定的同相標量貢獻或需以相量合成；並確認 440 MW 是兩機總輸出或每機輸出及各機功率分配／勵磁。",
-    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 的同相標量分支；若兩電流需作相量合成，題圖未給相角，只能寫成 |2.5∠θ₁+3.0∠θ₂|。正常端電壓／無效功率還取決於 440 MW 的總量或每機解讀、機間分配及勵磁：e=1 pu 且總 440 MW 等分時為 19.7583 kV、−51.001 Mvar/機；若 440 MW 是每機，則為 18.7226 kV、−262.513 Mvar/機。兩組資料不能無聲混合。",
+    "action": "確認 2.5/3.0 kA 是直接給定的同相標量貢獻或需以相量合成，並補正常功因／勵磁與 440 MW 的分配。",
+    "evidence": "官方裁切圖同時給 X_d''=25%、X_T=15% 及兩部機組 2.5/3.0 kA 直接標示值；canonical 以共同基準檢查後得到 X'' 反算 2.3 kA/機，並保留直接給定總電流 5.5 kA 的同相標量分支；若兩電流需作相量合成，題圖未給相角，只能寫成 |2.5∠θ₁+3.0∠θ₂|。正常功因／勵磁與 440 MW 分配亦未由題面補足，兩組資料不能無聲混合。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {

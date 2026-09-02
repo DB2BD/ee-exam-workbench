@@ -3,6 +3,7 @@
 
 import json
 import hashlib
+import math
 import re
 import unittest
 from pathlib import Path
@@ -179,6 +180,32 @@ class TestReconstructedPESolutions(unittest.TestCase):
             self.assertIsNotNone(official, f"{entry['qid']} lacks an official source URL")
             self.assertTrue(official.group(1).startswith("https://wwwq.moex.gov.tw/"), f"{entry['qid']} has non-primary source URL")
             self.assertNotIn("尚未完成獨立逐步重算", text, f"{entry['qid']} was left as an unworked placeholder")
+
+    def test_111_motor_wiring_condition_branch_is_numerically_consistent(self):
+        """The eta=1 branch must agree with the stated 746 W/HP conversion."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-4.md").read_text(encoding="utf-8")
+        unit = 746 / (math.sqrt(3) * 220 * 0.85)
+        currents = {hp: hp * unit for hp in (20, 10, 8)}
+        main = 1.25 * currents[20] + currents[20] + currents[10] + currents[8]
+        self.assertIn(f"{currents[20]:.4f}", note)
+        self.assertIn(f"{currents[10]:.4f}", note)
+        self.assertIn(f"{currents[8]:.4f}", note)
+        self.assertIn(f"{main:.4f}", note)
+        self.assertIn("audit_status: needs_manual_review", note)
+
+    def test_111_synchronous_generator_phasor_branch_is_reproducible(self):
+        """The verified first subproblem keeps an independently reproducible anchor."""
+        note = (CANONICAL / "04_電機機械" / "canonical" / "EE-111-04-4.md").read_text(encoding="utf-8")
+        v_phase = 11000 / math.sqrt(3)
+        i_line = 25e6 / (math.sqrt(3) * 11000)
+        theta = math.acos(0.85)
+        current = i_line * complex(math.cos(-theta), math.sin(-theta))
+        emf = abs(v_phase + 1j * 4.5 * current)
+        regulation = (emf - v_phase) / v_phase * 100
+        self.assertIn(f"{regulation:.4f}", note)
+        self.assertIn("118.595", note)
+        self.assertIn("110.264", note)
+        self.assertIn("audit_status: needs_manual_review", note)
 
     def test_annual_notes_identify_every_manual_question(self):
         """年度彙整頁需明示每個條件式題號，避免讀者誤用舊模板答案。"""

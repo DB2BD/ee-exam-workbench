@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "PE 非工程數學 104-114",
-  "generated_at": "2026-09-01",
+  "generated_at": "2026-09-02",
   "status_policy": [
     "verified",
     "suspected_error",
@@ -1251,7 +1251,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-motor-wiring-conditional-recalculation",
-      "solution_hash": "4b03d39f451fe441de5a16d78b2c8012b6b00a1da4bd4b5b5f15c57e5ba28b5a",
+      "solution_hash": "34ce89c03ed5a9798bcfa2fb14a15363067df00edf942b7041b97b925e6e2267",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q04.png"
     },

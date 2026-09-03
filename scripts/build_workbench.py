@@ -210,7 +210,7 @@ def build_workbench():
         </div>
         <div class="review-header-actions">
           <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
-          <button class="btn-sol" id="manual-label-open" type="button" onclick="openManualLabelModal()">🧭 逐題標注題型</button>
+          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()"></button>
         </div>
       </div>
       <div class="review-stats" id="review-stats"></div>

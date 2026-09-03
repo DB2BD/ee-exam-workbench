@@ -76,7 +76,26 @@ function extractQuestionMarkdown(rawMd, targetQNum) {
   };
 }
 
-function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRecall = false) {
+var currentReviewSessionQueue = currentReviewSessionQueue || null;
+var currentReviewSessionIndex = currentReviewSessionIndex || 0;
+
+function advanceReviewSessionItem() {
+  if (currentReviewSessionQueue && currentReviewSessionIndex + 1 < currentReviewSessionQueue.length) {
+    currentReviewSessionIndex++;
+    const nextQ = currentReviewSessionQueue[currentReviewSessionIndex];
+    const rec = (typeof getReviewRecord === 'function') ? getReviewRecord(nextQ) : { id: nextQ[0], number: nextQ[3], solutionLink: nextQ[6] };
+    openSolutionModal(null, rec.solutionLink, rec.id, rec.number, false, true, {
+      sessionQueue: currentReviewSessionQueue,
+      sessionIndex: currentReviewSessionIndex
+    });
+  } else {
+    if (typeof showToast === 'function') showToast('🎉 今日到期試題已全數檢閱完畢！');
+    if (typeof closeSolutionModal === 'function') closeSolutionModal();
+    if (typeof renderReviewPage === 'function') renderReviewPage();
+  }
+}
+
+function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRecall = false, options = {}) {
   if (event) event.preventDefault();
 
   currentModalQid = qid;
@@ -90,8 +109,46 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
     isActiveRecallMode = true;
   }
 
+  if (options && options.sessionQueue) {
+    currentReviewSessionQueue = options.sessionQueue;
+    currentReviewSessionIndex = typeof options.sessionIndex === 'number' ? options.sessionIndex : 0;
+  } else if (!options || !options.keepSession) {
+    currentReviewSessionQueue = null;
+    currentReviewSessionIndex = 0;
+  }
+
   const modal = document.getElementById('solution-modal');
   if (!modal) return;
+
+  // 0. Update Review Session Header (if inside an active review queue)
+  let sessionBar = document.getElementById('modal-session-progress-bar');
+  if (!sessionBar) {
+    sessionBar = document.createElement('div');
+    sessionBar.id = 'modal-session-progress-bar';
+    sessionBar.className = 'session-progress-header';
+    const modalContent = modal.querySelector('.modal-content') || modal;
+    const modalBody = modal.querySelector('.modal-body');
+    if (modalBody && modalContent) {
+      modalContent.insertBefore(sessionBar, modalBody);
+    }
+  }
+  if (currentReviewSessionQueue && currentReviewSessionQueue.length > 1) {
+    const curStep = currentReviewSessionIndex + 1;
+    const totalStep = currentReviewSessionQueue.length;
+    const pct = Math.round((curStep / totalStep) * 100);
+    sessionBar.style.display = 'flex';
+    sessionBar.innerHTML = `
+      <span>🎴 沉浸複習中 · 第 ${curStep} / ${totalStep} 題</span>
+      <div class="session-progress-track">
+        <div class="session-progress-fill" style="width: ${pct}%;"></div>
+      </div>
+      ${curStep < totalStep
+        ? `<button class="btn-session-next" type="button" onclick="advanceReviewSessionItem()">⏩ 下一題</button>`
+        : `<span style="color: var(--success); font-weight: 700;">🌟 本輪最後一題</span>`}
+    `;
+  } else if (sessionBar) {
+    sessionBar.style.display = 'none';
+  }
 
   const qRecord = findQuestionRecord(qid);
   const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
@@ -491,7 +548,11 @@ function submitSM2Rating(rating) {
   // Auto transition to next question if rating 5
   if (rating === 5) {
     setTimeout(() => {
-      navModalQuestion(1);
+      if (currentReviewSessionQueue && currentReviewSessionQueue.length > 1) {
+        advanceReviewSessionItem();
+      } else {
+        navModalQuestion(1);
+      }
     }, 600);
   }
 }

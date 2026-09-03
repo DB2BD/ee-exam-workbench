@@ -516,15 +516,76 @@ function saveManualLabelAndNext() {
 
 function populateReviewSubjects() {
   const select = document.getElementById('review-subject');
-  if (!select) return;
-  const current = select.value || 'all';
   const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
   const ids = getReviewSubjectFilterValues(questions);
-  select.innerHTML = '<option value="all">所有考科</option>' + ids.map(sid => {
-    const meta = getSubjectMeta(sid);
-    return `<option value="${reviewHtmlEscape(sid)}">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</option>`;
-  }).join('');
-  select.value = ids.includes(current) ? current : 'all';
+  if (select) {
+    const current = select.value || 'all';
+    select.innerHTML = '<option value="all">所有考科</option>' + ids.map(sid => {
+      const meta = getSubjectMeta(sid);
+      return `<option value="${reviewHtmlEscape(sid)}">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</option>`;
+    }).join('');
+    select.value = ids.includes(current) ? current : 'all';
+  }
+  const segmented = document.getElementById('review-subject-segmented');
+  if (segmented) {
+    const current = select ? select.value : 'all';
+    const tabs = [['all', '🌟 全部考科']].concat(ids.map(sid => {
+      const meta = getSubjectMeta(sid);
+      return [sid, `${meta.icon || ''} ${meta.name}`];
+    }));
+    segmented.innerHTML = tabs.map(([sid, label]) => `
+      <button type="button" class="subject-seg-btn ${current === sid ? 'active' : ''}" data-review-sub-tab="${reviewHtmlEscape(sid)}">
+        ${reviewHtmlEscape(label)}
+      </button>
+    `).join('');
+    segmented.querySelectorAll('[data-review-sub-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setReviewSubjectFilter(btn.dataset.reviewSubTab);
+      });
+    });
+  }
+}
+
+var currentReviewSessionQueue = currentReviewSessionQueue || [];
+var currentReviewSessionIndex = currentReviewSessionIndex || 0;
+
+function startReviewSession() {
+  setReviewFilter('due');
+  const questions = getReviewQuestions();
+  if (!questions.length) {
+    if (typeof showToast === 'function') showToast('🌿 今日沒有待提取的到期題目');
+    return;
+  }
+  currentReviewSessionQueue = questions;
+  currentReviewSessionIndex = 0;
+  openReviewSessionItem(0);
+}
+
+function openReviewSessionItem(index) {
+  if (!currentReviewSessionQueue || index < 0 || index >= currentReviewSessionQueue.length) {
+    if (typeof showToast === 'function') showToast('🎉 今日到期複習任務已全數完成！');
+    renderReviewPage();
+    return;
+  }
+  currentReviewSessionIndex = index;
+  const q = currentReviewSessionQueue[index];
+  const record = getReviewRecord(q);
+  if (typeof openSolutionModal === 'function') {
+    openSolutionModal(null, record.solutionLink, record.id, record.number, false, true, {
+      sessionQueue: currentReviewSessionQueue,
+      sessionIndex: currentReviewSessionIndex
+    });
+  }
+}
+
+function advanceReviewSessionItem() {
+  if (currentReviewSessionQueue && currentReviewSessionIndex + 1 < currentReviewSessionQueue.length) {
+    openReviewSessionItem(currentReviewSessionIndex + 1);
+  } else {
+    if (typeof showToast === 'function') showToast('🎉 今日複習任務全數完成！');
+    if (typeof closeSolutionModal === 'function') closeSolutionModal();
+    renderReviewPage();
+  }
 }
 
 function renderReviewPage() {
@@ -540,15 +601,68 @@ function renderReviewPage() {
   const starred = subjectQuestions.filter(q => typeof starredState !== 'undefined' && starredState[getReviewRecord(q).id]).length;
   const manual = subjectQuestions.filter(isManualReviewQuestion).length;
   const manualLabeled = subjectQuestions.filter(q => isManualReviewQuestion(q) && getManualTopicLabel(getReviewRecord(q).id)).length;
+
+  const totalSubject = subjectQuestions.length;
+  const masteredCount = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[getReviewRecord(q).id] || 0) === 1).length;
+  const retentionRate = totalSubject > 0 ? Math.round((masteredCount / totalSubject) * 100) : 0;
+  const dueCount = subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length;
+
+  // 1. Progress Ring Dashboard
+  const progressCard = document.getElementById('review-progress-card');
+  if (progressCard) {
+    const circumference = 289;
+    const dashOffset = Math.round(circumference - (retentionRate / 100) * circumference);
+    progressCard.innerHTML = `
+      <div class="progress-ring-wrap">
+        <svg class="progress-ring-svg" viewBox="0 0 108 108" aria-hidden="true">
+          <circle class="progress-ring-bg" stroke-width="8" cx="54" cy="54" r="46"/>
+          <circle class="progress-ring-circle" stroke-width="8" stroke-dasharray="289" stroke-dashoffset="${dashOffset}" cx="54" cy="54" r="46"/>
+        </svg>
+        <div class="progress-ring-text">
+          <span class="progress-ring-num">${retentionRate}%</span>
+          <span class="progress-ring-sub">熟練掌握率</span>
+        </div>
+      </div>
+      <div class="progress-health-label">
+        ${dueCount > 0 ? `<span>⚡ 今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">🌿 今日到期已全通關</span>'}
+      </div>
+    `;
+  }
+
+  // 2. Interactive Stat Cards
   const stats = document.getElementById('review-stats');
-  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length], ['需二刷錯題', wrong], ['重點收藏', starred], ['收錄試題總數', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
+  if (stats) {
+    const statDefs = [
+      { id: 'due', label: '⚡ 今日到期', value: dueCount },
+      { id: 'wrong', label: '🔥 需二刷錯題', value: wrong },
+      { id: 'starred', label: '⭐ 重點收藏', value: starred },
+      { id: 'all', label: '📚 全部收錄', value: totalSubject }
+    ];
+    stats.innerHTML = statDefs.map(item => `
+      <div class="interactive-stat-card ${reviewFilter === item.id ? 'active' : ''}" data-review-filter-trigger="${item.id}" role="button" tabindex="0">
+        <span class="label">${item.label}</span>
+        <span class="value">${item.value}</span>
+      </div>
+    `).join('');
+    stats.querySelectorAll('[data-review-filter-trigger]').forEach(card => {
+      card.addEventListener('click', () => {
+        setReviewFilter(card.dataset.reviewFilterTrigger);
+      });
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setReviewFilter(card.dataset.reviewFilterTrigger);
+        }
+      });
+    });
+  }
+
   const manualButton = document.getElementById('manual-label-open');
   if (manualButton) {
     manualButton.style.display = 'none';
   }
 
-  // Only chapters that actually occur in the selected subject are offered.
-  // This also removes empty/unmatched textbook chapters from the dropdown.
+  // 3. Chapter Chip Filter (Hide 0 count chapters)
   const allTypes = getReviewChapterFilterValues(subjectQuestions, 'all');
   if (reviewTypeFilter !== 'all' && !allTypes.includes(reviewTypeFilter)) reviewTypeFilter = 'all';
   const typeFilter = document.getElementById('review-type-filter');
@@ -556,11 +670,12 @@ function renderReviewPage() {
     const scopeQuestions = subjectQuestions.filter(q => {
       const qid = getReviewRecord(q).id;
       const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
-      const starred = typeof starredState !== 'undefined' && !!starredState[qid];
-      return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : reviewFilter === 'manual' ? isManualReviewQuestion(q) : true;
+      const isStarred = typeof starredState !== 'undefined' && !!starredState[qid];
+      return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? isStarred : reviewFilter === 'manual' ? isManualReviewQuestion(q) : true;
     });
     const counts = scopeQuestions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
-    const buttons = [['all', '全部章節', scopeQuestions.length]].concat(allTypes.map(type => [type, type, counts[type] || 0]));
+    const activeTypes = allTypes.filter(type => (counts[type] || 0) > 0 || reviewTypeFilter === type);
+    const buttons = [['all', '全部章節', scopeQuestions.length]].concat(activeTypes.map(type => [type, type, counts[type] || 0]));
     typeFilter.innerHTML = buttons.map(([value, label, count]) => `<button type="button" class="pill ${reviewTypeFilter === value ? 'active' : ''}" data-review-type-filter="${reviewHtmlEscape(value)}">${reviewHtmlEscape(label)} (${count})</button>`).join('');
     typeFilter.querySelectorAll('[data-review-type-filter]').forEach(button => button.addEventListener('click', () => setReviewTypeFilter(button.dataset.reviewTypeFilter)));
   }
@@ -568,12 +683,31 @@ function renderReviewPage() {
   const filtered = getReviewQuestions();
   const count = document.getElementById('review-filter-count');
   if (count) count.innerText = `目前 ${filtered.length} 題`;
+
+  // 4. Empty State
   if (!filtered.length) {
-    const title = reviewFilter === 'due' ? '今天沒有到期複習題' : reviewFilter === 'manual' ? '目前沒有待人工覆核題' : '目前沒有符合條件的題目';
-    container.innerHTML = `<div class="review-empty"><strong>${title}</strong><span>可切換複習範圍或教科書章節，完成題目後再回來集中複習。</span></div>`;
+    if (reviewFilter === 'due') {
+      container.innerHTML = `
+        <div class="review-empty-calm">
+          <span class="calm-icon">🌿</span>
+          <h3>今日複習目標已達成</h3>
+          <p>艾賓浩斯間隔重複節奏運作中，今日記憶已穩固固化。可點擊上方「🔥 需二刷錯題」或「📚 全部收錄」專題突破，亦可稍作休息放鬆大腦。</p>
+        </div>
+      `;
+    } else {
+      const title = reviewFilter === 'manual' ? '目前沒有待人工覆核題' : reviewFilter === 'wrong' ? '太棒了！目前錯題本已全數攻克' : reviewFilter === 'starred' ? '目前尚無收藏試題' : '目前篩選條件下沒有題目';
+      container.innerHTML = `
+        <div class="review-empty-calm">
+          <span class="calm-icon">📋</span>
+          <h3>${title}</h3>
+          <p>可切換考科或複習範圍，進行更進一步的專題演練。</p>
+        </div>
+      `;
+    }
     return;
   }
 
+  // 5. Minimalist Focus Cards Grid
   const groups = {};
   filtered.forEach(q => { const type = getReviewTypeLabel(q); (groups[type] ||= []).push(q); });
   container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div><div class="review-card-grid">${list.map(q => {
@@ -582,13 +716,35 @@ function renderReviewPage() {
     const meta = getSubjectMeta(sid);
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
     const recall = typeof getRecallState === 'function' ? getRecallState(qid) : { level: 1 };
-    const statusText = status === 2 ? '錯題' : status === 1 ? '已掌握' : '未開始';
-    const dueText = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
+    const statusText = status === 2 ? '需二刷' : status === 1 ? '已掌握' : '未開始';
+    const isStarred = typeof starredState !== 'undefined' && !!starredState[qid];
+    const starIcon = isStarred ? '★' : '☆';
+    const dueBadge = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
     const auditText = isManualReviewQuestion(q) ? '<span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工</span>' : '';
     const manualLabel = getManualTopicLabel(qid);
     const manualLabelText = manualLabel ? `<span class="qtag manual-label-chip">✅ ${reviewHtmlEscape(getManualLabelDisplayName(manualLabel))}</span>` : '';
-    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span><span class="qtag">提取 L${recall.level}</span>${auditText}${manualLabelText}${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取訓練</button><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
+    return `
+      <article class="review-card focus-card" data-review-type="${reviewHtmlEscape(type)}">
+        <div class="focus-card-meta">
+          <div class="focus-card-meta-left">
+            <span class="qid">${reviewHtmlEscape(qid)}</span>
+            <span class="qtag">${year} 年 · 第 ${qnum} 題</span>
+            <span class="qtag" style="background: var(--bg-secondary); color: var(--accent-dark); font-weight: 700;">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span>
+            <span class="qtag">L${recall.level}</span>
+            ${auditText}${manualLabelText}${dueBadge}
+          </div>
+          <button class="btn-star ${isStarred ? 'active' : ''}" type="button" data-review-star="${reviewHtmlEscape(qid)}" title="收藏本題">${starIcon}</button>
+        </div>
+        <div class="focus-card-topic">${renderQuestionTopic(topic)}</div>
+        <div class="focus-card-actions">
+          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取</button>
+          <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 標準詳解</button>
+          <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
+        </div>
+      </article>
+    `;
   }).join('')}</div></section>`).join('')}</div>`;
+
   container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewOpen);
     if (q && typeof openSolutionModal === 'function') {
@@ -604,18 +760,18 @@ function renderReviewPage() {
     }
   }));
   container.querySelectorAll('[data-review-status]').forEach(button => button.addEventListener('click', () => {
-    if (typeof toggleStatus === 'function') toggleStatus(button.dataset.reviewStatus);
+    if (typeof toggleStatus === 'function') {
+      toggleStatus(button.dataset.reviewStatus);
+      renderReviewPage();
+    }
+  }));
+  container.querySelectorAll('[data-review-star]').forEach(button => button.addEventListener('click', () => {
+    if (typeof toggleStar === 'function') {
+      toggleStar(button.dataset.reviewStar);
+      renderReviewPage();
+    }
   }));
   container.querySelectorAll('[data-review-label]').forEach(button => button.addEventListener('click', () => {
     openManualLabelModal(button.dataset.reviewLabel);
   }));
-}
-
-function startReviewSession() {
-  setReviewFilter('due');
-  const first = getReviewQuestions()[0];
-  if (first && typeof openSolutionModal === 'function') {
-    const record = getReviewRecord(first);
-    openSolutionModal(null, record.solutionLink, record.id, record.number, false, true);
-  }
 }

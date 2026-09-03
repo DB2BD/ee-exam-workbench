@@ -232,6 +232,55 @@ function renderSolutionReviewCard(qid) {
   `;
 }
 
+function renderScenarioMatrix(qid) {
+  if (typeof SCENARIO_MATRIX_DATA === 'undefined' || !qid) return '';
+  const matrix = SCENARIO_MATRIX_DATA[qid];
+  if (!matrix) return '';
+  const esc = typeof reviewHtmlEscape === 'function' ? reviewHtmlEscape : (v) => String(v || '');
+
+  const renderScenarioSide = (sc, badgeClass) => {
+    const keyValsHtml = sc.keyValues.map(kv => `
+      <tr>
+        <td class="matrix-param-name">${kv.param}</td>
+        <td class="matrix-param-val">${kv.val}</td>
+      </tr>
+    `).join('');
+
+    return `
+      <div class="matrix-column ${badgeClass}">
+        <div class="matrix-col-header">
+          <span class="matrix-badge">${esc(sc.name)}</span>
+        </div>
+        <div class="matrix-condition">📌 <strong>假設條件：</strong>${esc(sc.condition)}</div>
+        <table class="matrix-table">
+          <thead>
+            <tr><th>關鍵參數 / 物理量</th><th>推導數值</th></tr>
+          </thead>
+          <tbody>${keyValsHtml}</tbody>
+        </table>
+        <div class="matrix-advice">💡 <strong>考場應對防坑對策：</strong>${esc(sc.examAdvice)}</div>
+      </div>
+    `;
+  };
+
+  return `
+    <div class="scenario-matrix-card" id="scenario-matrix-${esc(qid)}">
+      <div class="scenario-matrix-header">
+        <span class="scenario-icon">⚖️</span>
+        <div>
+          <h4 class="scenario-title">參數敏感度情境分支矩陣 (Scenario Matrix)</h4>
+          <p class="scenario-conflict">${esc(matrix.coreConflict)}</p>
+        </div>
+      </div>
+      <div class="scenario-matrix-grid">
+        ${renderScenarioSide(matrix.scenarioA, 'scenario-a')}
+        ${renderScenarioSide(matrix.scenarioB, 'scenario-b')}
+      </div>
+    </div>
+  `;
+}
+
+
 function updateSameExamDropdown(sid, yr, currentQid) {
   const select = document.getElementById('modal-same-exam-select');
   if (!select) return;
@@ -464,6 +513,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     // when a note has no conventional solution heading).
     const fullSolutionHtml = resolveRenderedImageSources(processMarkdownWithMath(markdownChunk), isGK, currentModalQid);
     const reviewCardHtml = renderSolutionReviewCard(currentModalQid);
+    const scenarioMatrixHtml = renderScenarioMatrix(currentModalQid);
 
     let dagHtml = '';
     if (qRecord) {
@@ -501,6 +551,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         </div>
 
         ${reviewCardHtml}
+        ${scenarioMatrixHtml}
 
         <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
           <div class="sm2-rating-title">🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：</div>
@@ -533,7 +584,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     let html = processMarkdownWithMath(markdownChunk);
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     html = resolveRenderedImageSources(html, isGK, currentModalQid);
-    html = renderSolutionReviewCard(currentModalQid) + html;
+    html = renderSolutionReviewCard(currentModalQid) + renderScenarioMatrix(currentModalQid) + html;
 
     if (qRecord) {
       const [qid, sid, yr, qnum, topic] = qRecord;

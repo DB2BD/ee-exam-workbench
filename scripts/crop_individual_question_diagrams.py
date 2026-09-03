@@ -2,8 +2,13 @@
 import sys
 import os
 
-sys.path.insert(0, '/Users/a/Library/Python/3.9/lib/python/site-packages')
-from PIL import Image, ImageOps, ImageChops
+try:
+    from PIL import Image, ImageOps, ImageChops
+except ImportError:
+    # Fallback to local vendored scripts/lib if present
+    workspace = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.insert(0, os.path.join(workspace, 'scripts', 'lib'))
+    from PIL import Image, ImageOps, ImageChops
 
 out_dir = '依考科分類/05_電力系統/images'
 os.makedirs(out_dir, exist_ok=True)

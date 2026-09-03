@@ -1,6 +1,6 @@
 // Versioned aliases shared by the textbook classifier and future import tools.
 // Longer aliases are applied first to avoid partial replacements.
-const TAXONOMY_VERSION = '2026.08.30';
+const TAXONOMY_VERSION = '2026.09.03';
 const TAXONOMY_ALIASES = {
   'th[eéè]venin': '戴維寧',
   'thevenin': '戴維寧',

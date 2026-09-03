@@ -18,6 +18,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.log
-scripts/au_job_crawler.log
 .verification_assets/
 fig*.png
+
+# Personal tools and temporary scripts
+bookmark-installer.html
+ibon.html
+temp_script_*.js
+personal-tools-backup/
+_site/
+

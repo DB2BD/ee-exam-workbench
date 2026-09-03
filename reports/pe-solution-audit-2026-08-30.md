@@ -1,6 +1,6 @@
 # 其他考科詳解稽核（2026-08-30；2026-08-31 更新）
 
-> **目前狀態快照（2026-08-31）**：非工程數學 256 題中 `verified=237`、`needs_manual_review=19`、`suspected_error=0`、`not_attempted=0`；工程數學 65 題全數 `verified`。全庫共 321 題，人工覆核清單以 [`reports/manual-review-index.md`](manual-review-index.md) 與 `data/pe-solution-audit.json` 為準。
+> **目前狀態快照（2026-09-02）**：非工程數學 256 題中 `verified=239`、`needs_manual_review=17`、`suspected_error=0`、`not_attempted=0`；工程數學 65 題全數 `verified`。全庫共 321 題，人工覆核清單以 [`reports/manual-review-index.md`](manual-review-index.md) 與 `data/pe-solution-audit.json` 為準。
 >
 > 本報告下方保留各批次的歷史紀錄；早期段落中的 23、24、25 題統計是當時快照，不代表目前狀態。
 
@@ -9,7 +9,7 @@
 - 官方逐題裁切圖仍是題目來源；年度 Markdown 只作為待稽核詳解來源。
 - 新增 `scripts/audit_pe_solutions.py` 與 `data/pe-solution-audit.json`。
 - 編譯器會依 manifest 顯示 `verified`、`suspected_error`、`needs_manual_review`、`not_attempted`，避免年度模板被誤標為 verified。
-- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。早期批次統計為 `verified=233`、`needs_manual_review=23`；目前請以本頁頂端狀態快照及 manifest 為準。全部 321 題均已具備官方逐題裁切與題號級記錄；現存 19 題均已完成條件式獨立重算與證據登錄，僅待人工裁定缺參數、曲線估讀或題意分支，未宣稱已校驗成唯一答案。
+- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。早期批次統計為 `verified=233`、`needs_manual_review=23`；目前請以本頁頂端狀態快照及 manifest 為準。全部 321 題均已具備官方逐題裁切與題號級記錄；現存 17 題均已完成條件式獨立重算與證據登錄，僅待人工裁定缺參數、曲線估讀或題意分支，未宣稱已校驗成唯一答案。
 
 2026-08-31 追加顯示層防護：詳解中歷史匯入的 `\mathrm A`／`\mathrm V` 等無括號單位巨集，現在於 KaTeX 渲染前統一正規化為標準 `\mathrm{A}`／`\mathrm{V}` 語法；原始推導文字不被改寫，並以公式格式回歸測試保護。國考參考題庫亦重新編譯並確認跨題型關聯輸出可重現。
 

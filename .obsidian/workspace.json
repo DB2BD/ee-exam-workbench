@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "📝 個人題解與錯題本/01_電路學/107年_電路學_全卷完整詳細題解.md",
+                "file": "💼 個人職涯發展與國際戰略/資產配置與動態再平衡戰略_00662_00685L.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "107年_電路學_全卷完整詳細題解"
+              "title": "資產配置與動態再平衡戰略_00662_00685L"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "📝 個人題解與錯題本/01_電路學/107年_電路學_全卷完整詳細題解.md",
+                "file": "💼 個人職涯發展與國際戰略/資產配置與動態再平衡戰略_00662_00685L.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "📝 個人題解與錯題本/01_電路學/107年_電路學_全卷完整詳細題解.md",
+                "file": "💼 個人職涯發展與國際戰略/資產配置與動態再平衡戰略_00662_00685L.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "📝 個人題解與錯題本/01_電路學/107年_電路學_全卷完整詳細題解.md",
+                "file": "💼 個人職涯發展與國際戰略/資產配置與動態再平衡戰略_00662_00685L.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -191,42 +191,41 @@
   },
   "active": "1a0fd386ae54dd0b",
   "lastOpenFiles": [
+    "💼 個人職涯發展與國際戰略/2027五月技師信貸大補丸_30歲前資產三百萬終極藍圖.md",
+    "tests/test_question_taxonomy_alignment.py",
+    "tests/test_manual_review_power_and_machines.py",
+    "src/data/manualTopicLabels.js",
+    "reports/public-solution-sources.md",
+    "💼 個人職涯發展與國際戰略/信貸時機決策_先借100萬vs等技師到手轉貸降息套利.md",
+    "📝 個人題解與錯題本/03_工程數學/108年_工程數學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/03_工程數學/112年_工程數學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/03_工程數學/114年_工程數學_第三題_二階線性ODE.md",
+    "📝 個人題解與錯題本/03_工程數學/107年_工程數學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/03_工程數學/105年_工程數學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/01_電路學/113年_電路學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/01_電路學/105年_電路學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/01_電路學/104年_電路學_全卷完整詳細題解.md",
+    "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-3.md",
+    "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-2.md",
+    "📝 個人題解與錯題本/01_電路學/canonical/EE-114-01-3.md",
+    "📝 個人題解與錯題本/01_電路學/canonical/EE-111-01-4.md",
+    "📝 個人題解與錯題本/01_電路學/canonical/EE-104-01-4.md",
+    "reports/pe-solution-audit-2026-08-30.md",
     "reports/manual-review-index.md",
+    "reports/engineering-math-audit-2026-08-30.md",
+    "docs/adr/0006-questionrecord-schema-and-quality-gates.md",
+    "docs/adr/0005-official-source-and-solution-validation.md",
+    "docs/adr/0004-textbook-grade-golden-standard-solutions.md",
+    "docs/adr/0003-five-dimensional-scientific-difficulty-model.md",
+    "docs/adr/0002-dual-database-isolation-for-national-exams.md",
+    "docs/adr/0001-static-offline-first-architecture.md",
     "scripts/generate_manual_review_index.py",
     "scripts/annotate_manual_reviews.py",
     "scripts/sync_math_annual_from_canonical.py",
-    "📝 個人題解與錯題本/05_電力系統/canonical/EE-106-05-3.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-4.md",
-    "📝 個人題解與錯題本/01_電路學/canonical/EE-106-01-2.md",
-    "📝 個人題解與錯題本/05_電力系統/canonical/EE-104-05-4.md",
-    "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-5.md",
-    "📝 個人題解與錯題本/04_電機機械/canonical/EE-104-04-2.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-1.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-4.md",
-    "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-105-02-5.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-112-06-5.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-2.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-5.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-3.md",
-    "📝 個人題解與錯題本/01_電路學/canonical/EE-106-01-4.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-3.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-1.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-5.md",
-    "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-4.md",
-    "📝 個人題解與錯題本/05_電力系統/canonical/EE-107-05-3.md",
-    "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-2.md",
-    "📝 個人題解與錯題本/01_電路學/canonical/EE-107-01-1.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-109-06-5.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-109-06-4.md",
-    "📝 個人題解與錯題本/06_工業配電/canonical/EE-109-06-3.md",
-    "📝 個人題解與錯題本/04_電機機械/canonical/EE-108-04-5.md",
     "tests/test_reconstructed_pe_solutions.py",
     "scripts/record_verified_circuit_batch.py",
     "scripts/build_canonical_early_batch.py",
     "📝 個人題解與錯題本/06_工業配電/canonical",
-    "📝 個人題解與錯題本/02_電子學_含電力電子/canonical",
-    "📝 個人題解與錯題本/05_電力系統/canonical",
-    "📝 個人題解與錯題本/04_電機機械/canonical",
     "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q05.png",
     "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q04.png",
     "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q03.png",

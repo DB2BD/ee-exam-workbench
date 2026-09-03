@@ -15,6 +15,70 @@ function getSubjectMeta(sid) {
   return DB_DATA.meta.subjects.find(s => s.id === sid) || { name: '未知', icon: '📝', color: '#798694' };
 }
 
+let activeFacetTag = null;
+
+function setFacetTag(tag) {
+  if (activeFacetTag === tag) {
+    activeFacetTag = null;
+  } else {
+    activeFacetTag = tag;
+  }
+  renderQuestions();
+}
+
+function renderFacetTagsBar(currentSubFilter, activeQuestions) {
+  const bar = document.getElementById('facet-filter-bar');
+  if (!bar) return;
+
+  const SUBJECT_FACET_MAP = {
+    '01': ['戴維寧', '諾頓', '暫態', '相量', '三相', '雙埠', '諧振', '運算放大器', '最大功率'],
+    '02': ['小訊號', '差動放大器', '負回授', '返馳式', 'Buck', 'Boost', '頻率響應', 'BJT偏壓', 'MOSFET', '主動濾波'],
+    '03': ['一階ODE', '二階線性', '拉氏轉換', '傅立葉', '矩陣特徵值', '複變積分', '機率', '狀態空間'],
+    '04': ['變壓器等效', '感應馬達', '同步發電機', '直流電機', '短路比', '轉矩計算', '開路短路試驗', '漏磁通'],
+    '05': ['對稱成分', '牛頓-拉夫森', '三相短路', '單相接地', '傳輸線模型', '功角穩定度', '等面積準則', '經濟調度'],
+    '06': ['短路容量', '電壓降', '馬達配線', '功率因數改善', '諧波濾除', '過電流保護', '接地設計', '變壓器容量']
+  };
+
+  const candidateKeywords = currentSubFilter !== 'all' && SUBJECT_FACET_MAP[currentSubFilter]
+    ? SUBJECT_FACET_MAP[currentSubFilter]
+    : ['戴維寧', '暫態', '三相', '小訊號', '負回授', '返馳式', '拉氏轉換', '感應馬達', '變壓器', '對稱成分', '短路容量', '電壓降'];
+
+  const tagCounts = [];
+  candidateKeywords.forEach(kw => {
+    const count = activeQuestions.filter(q => {
+      const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, status, ftags] = q;
+      if (currentSubFilter !== 'all' && sid !== currentSubFilter) return false;
+      const tStr = (topic || '') + ' ' + (tags || []).join(' ') + ' ' + (ftags || []).join(' ');
+      return tStr.includes(kw);
+    }).length;
+    if (count > 0) {
+      tagCounts.push({ kw, count });
+    }
+  });
+
+  if (tagCounts.length === 0) {
+    bar.style.display = 'none';
+    return;
+  }
+
+  bar.style.display = 'flex';
+  let pills = `<span class="facet-filter-label">🎯 考點快篩：</span>`;
+  tagCounts.forEach(tc => {
+    const isActive = activeFacetTag === tc.kw;
+    pills += `
+      <button class="facet-tag-pill ${isActive ? 'active' : ''}" onclick="setFacetTag('${tc.kw}')">
+        ${tc.kw} <span class="facet-tag-count">(${tc.count})</span>
+      </button>
+    `;
+  });
+
+  if (activeFacetTag) {
+    pills += `<button class="facet-tag-pill" style="color:var(--review);border-color:var(--review);" onclick="setFacetTag(null)">✕ 清除標籤快篩</button>`;
+  }
+
+  bar.innerHTML = pills;
+}
+
 function renderQuestions() {
   const container = document.getElementById('questions-container');
   if (!container) return;
@@ -33,12 +97,21 @@ function renderQuestions() {
 
   const activeQuestions = getActiveQuestionsList();
 
+  // Render Facet Filter Bar
+  renderFacetTagsBar(subFilter, activeQuestions);
+
   const filtered = activeQuestions.filter(q => {
     const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, status, ftags, hasDed, cat, rel] = q;
 
     if (subFilter !== 'all' && sid !== subFilter) return false;
     if (yrFilter !== 'all' && String(yr) !== yrFilter) return false;
     if (diffFilter !== 'all' && String(diff) !== diffFilter) return false;
+
+    // Facet Tag Filter
+    if (activeFacetTag) {
+      const tStr = (topic || '') + ' ' + (tags || []).join(' ') + ' ' + (ftags || []).join(' ');
+      if (!tStr.includes(activeFacetTag)) return false;
+    }
 
     const curStatus = progressState[qid] || 0;
     const isStarred = !!starredState[qid];
@@ -73,6 +146,7 @@ function renderQuestions() {
 
     return true;
   });
+
 
   const countBadge = document.getElementById('filtered-count');
   if (countBadge) countBadge.innerText = `顯示 ${filtered.length} 題`;

@@ -19,7 +19,11 @@ function switchTab(tabId) {
   if (tabId === 'review' && typeof renderReviewPage === 'function') {
     renderReviewPage();
   }
+  if (tabId === 'quicksheet' && typeof renderQuickReviewSheet === 'function') {
+    renderQuickReviewSheet();
+  }
 }
+
 
 function handleUrlHashRouting() {
   const hash = window.location.hash;

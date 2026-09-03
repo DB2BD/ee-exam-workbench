@@ -57,7 +57,9 @@ def build_workbench():
         'src/state/sm2Store.js',
         'src/state/recallStore.js',
         'src/data/manualTopicLabels.js',
+        'src/data/scenarioMatrixData.js',
         'src/components/reviewPage.js',
+        'src/components/quickReviewSheet.js',
         'src/renderers/katexRenderer.js',
         'src/renderers/markdownRenderer.js',
         'src/components/dagTracer.js',
@@ -109,9 +111,9 @@ def build_workbench():
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
         <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
-        <a href="./australia-job-radar.html" target="_blank" class="pill" style="background: var(--accent-light); color: var(--accent-dark); text-decoration: none; font-weight: 700;">
-          🇦🇺 澳洲求職戰情室 ➔
-        </a>
+        <button onclick="switchTab('quicksheet')" class="pill" style="background: var(--accent-light); color: var(--accent-dark); font-weight: 700;">
+          ⚡ 考前 30 分鐘急救包
+        </button>
       </div>
     </div>
 
@@ -153,6 +155,10 @@ def build_workbench():
         <span class="label">📑 考卷總卷數</span>
         <span class="val" id="stat-exams">66</span>
       </div>
+      <div class="stat-card stat-due-card" id="stat-due-card" onclick="onDueFlashcardsClick()" style="cursor: pointer;" title="艾賓浩斯遺忘曲線到期題（點擊前往提取訓練）">
+        <span class="label">⚡ 今日待提取 (SM-2)</span>
+        <span class="val" id="stat-due-flashcards" style="color: var(--accent-dark);">0</span>
+      </div>
     </div>
 
     <!-- Progress Bar -->
@@ -188,6 +194,9 @@ def build_workbench():
     </button>
     <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')">
       <span>🔥 高頻必考命題分析</span>
+    </button>
+    <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')">
+      <span>⚡ 考前 30 分鐘急救速覽表</span>
     </button>
   </div>
 
@@ -287,6 +296,9 @@ def build_workbench():
       <span id="filtered-count" style="margin-left: auto; font-size: 0.82rem; color: var(--muted); font-weight: 600;"></span>
     </div>
 
+    <!-- Facet Filter Bar -->
+    <div id="facet-filter-bar" class="facet-filter-bar" style="display: none;"></div>
+
     <!-- Questions Container -->
     <div id="questions-container" class="qlist"></div>
   </div>
@@ -371,6 +383,10 @@ def build_workbench():
     </div>
   </div>
 
+  <!-- TAB 6: Last 30-Minute High-Yield Cheat Sheet -->
+  <div class="tab-pane" id="tab-pane-quicksheet" style="display: none;">
+    <div id="quicksheet-container"></div>
+  </div>
 </div>
 
 <!-- Split Solution Viewer Modal -->

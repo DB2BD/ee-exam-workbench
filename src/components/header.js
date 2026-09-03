@@ -59,6 +59,19 @@ function updateStatsAndBar() {
   if (statStarred) statStarred.innerText = starred;
   if (statExams) statExams.innerText = currentExamCategory === 'PE' ? 66 : 25;
 
+  // SM-2 Due Flashcards count
+  const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
+  const statDue = document.getElementById('stat-due-flashcards');
+  const statDueCard = document.getElementById('stat-due-card');
+  if (statDue) statDue.innerText = dueList.length;
+  if (statDueCard) {
+    if (dueList.length > 0) {
+      statDueCard.classList.add('has-due');
+    } else {
+      statDueCard.classList.remove('has-due');
+    }
+  }
+
   const barMastered = document.getElementById('bar-mastered');
   const barReview = document.getElementById('bar-review');
   const barUnstarted = document.getElementById('bar-unstarted');
@@ -69,6 +82,18 @@ function updateStatsAndBar() {
   if (barUnstarted && total > 0) barUnstarted.style.width = `${(unstarted / total) * 100}%`;
   if (barPct) barPct.innerText = `${pct}%`;
 }
+
+function onDueFlashcardsClick() {
+  if (typeof switchTab === 'function') {
+    switchTab('review');
+    const reviewScope = document.getElementById('review-scope');
+    if (reviewScope) {
+      reviewScope.value = 'due';
+      if (typeof setReviewFilter === 'function') setReviewFilter('due');
+    }
+  }
+}
+
 
 function exportProgressJSON() {
   const jsonStr = typeof exportAllUserDataJSON === 'function' ? exportAllUserDataJSON() : JSON.stringify({

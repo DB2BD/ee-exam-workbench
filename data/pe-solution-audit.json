@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "PE 非工程數學 104-114",
-  "generated_at": "2026-09-02",
+  "generated_at": "2026-09-03",
   "status_policy": [
     "verified",
     "suspected_error",
@@ -719,7 +719,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_hybrid_pi_pole_and_midband_gain_recalculation_with_VT_assumption",
-      "solution_hash": "eec319e82c3fcd8c6e74db7ff1ded2c63eee0bf9d42951e9f0da486e47076a14",
+      "solution_hash": "0425cb7389d7ce0909cd26a0abb49f760d56e16c73a04722ceaf3e1256650761",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_112年_電子學（包括電力電子學）_Q01.png"
     },
@@ -1055,7 +1055,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "mosfet-gain-square-law-consistency-check",
-      "solution_hash": "fe7a8d04c23543cc24b02cad2bd9dfbad01effa3bd3dc0fd817b26c955aff589",
+      "solution_hash": "53efa6e3cbf553a8452a80fba86a9bbc73ec5c8f5dfac2d2fc8f8fc977e9f72a",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png"
     },
@@ -1069,7 +1069,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_parameter_insufficient_for_unique_h_parameter_solution",
-      "solution_hash": "1f98afebe19a3025a3b0fb62f3ff781e99c3e4c2352f1f74f784441cdbf3a424",
+      "solution_hash": "8d561b67b63abbf76202b36711513a9669489e7d2a85b6f3e4f9371d5980543d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q04.png"
     },
@@ -1125,7 +1125,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official crop independently transcribed; phasor and per-unit calculations recomputed, while OCC/SCC interpolation limitation is retained",
-      "solution_hash": "9381a210371f5212554a9249aa4264c0469d1f46ea1485492fa79078f514cfed",
+      "solution_hash": "f0ed4d995a38f0422c8957af371b61dcb3fe490e64d937c9f29e2e5dc86b812c",
       "duplicate_qids": [],
       "source_crop": "依考科分類/04_電機機械/images/questions/PE_111年_電機機械_Q04.png"
     },
@@ -1209,7 +1209,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official CT equivalent-circuit and excitation-curve crop independently read; burden equations and relay threshold checked, graph readings retained as approximate",
-      "solution_hash": "913d1ae7de5a22565acda50c59b766c649082c4ae88731706183d3045195a6d4",
+      "solution_hash": "0baf72382a3ef2efb8b978af25c3ea9b9ce963914f85a5cd2506acb2a06075bd",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q01.png"
     },
@@ -1223,7 +1223,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "per-unit-voltage-drop-with-motor-starting-impedance",
-      "solution_hash": "cea31ee2292f1792545e20554cad3a4cb6367f1e5789278cfc4aa59a4f745067",
+      "solution_hash": "76a88e954a96ac41f767b4b2b69494ff337b53395c84fe62fbf85d846795c9fa",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q02.png"
     },
@@ -1237,7 +1237,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_symmetrical_three_phase_fault_recalculation_with_three_motor_branches_and_rating_sensitivity",
-      "solution_hash": "2c57a85e1303cee3a7a03cbfcb8dc9dad6e79764d948332ae66a204997c5f74c",
+      "solution_hash": "3cfdff02e78055b6d2906aac4dad4050ff159aae26ce71d96dd9a6485d30510b",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q03.png"
     },
@@ -1251,7 +1251,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official-crop-motor-wiring-conditional-recalculation",
-      "solution_hash": "34ce89c03ed5a9798bcfa2fb14a15363067df00edf942b7041b97b925e6e2267",
+      "solution_hash": "e87616b979a8723bcd524d970ef1a585b10905fbf82c44cbce13cf138a8c46ba",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_111年_工業配電_Q04.png"
     },
@@ -1587,7 +1587,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_common_base_short_circuit_recalculation_with_motor_rating_assumption",
-      "solution_hash": "f6fd1d3c389d5459004e3f29f7d9996f6dcc7dd07430a96b163efdbe73f53141",
+      "solution_hash": "0f6e2098f6582a297ba5f12ec36a1a911a2cec2d251a13fa3839ef8ce0f7facb",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_110年_工業配電_Q05.png"
     },
@@ -2214,10 +2214,10 @@
       "question_number": 2,
       "chapter": "一電弧爐之配電系統單線圖如圖二所示。以主變壓器額定值為基準，試求：\n\n* **(一)** 系統阻抗圖。（6 分）\n\n* **(二)** 電弧爐運轉時引起的電壓突降百分率。（6 分）\n\n* **(三)** 若電壓突降百分率超過標準1.5\\%，應在$11.4\\text{ kV}$ 側加裝串聯電抗器，\n其電抗值為多少Ω/相？（8 分）\n圖二\nΩ",
       "solution_link": "📝 個人題解與錯題本/06_工業配電/canonical/EE-108-06-2.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official-crop-per-unit-recalculation-and-consistency-audit",
-      "solution_hash": "a7f7c989ba6233cdd9d6457e23095e5c1485333633d3d0c4a5ee950ff842027e",
+      "audit_status": "verified",
+      "verified_at": "2026-09-02",
+      "method": "official_crop_pcc_voltage_flicker_recalculation",
+      "solution_hash": "f3c9a91d3a778269e7b1745a19afff22230a371fb3d7404f2fb0a35c8fc679ed",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_108年_工業配電_Q02.png"
     },
@@ -2539,7 +2539,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "motor_feeder_voltage_drop_recalculation_with_flc_branch",
-      "solution_hash": "d70722b09da75ad10322a24d69107f134e97e70491a82ea6c7be69ee57d9130e",
+      "solution_hash": "bbfda8d4983fdf45597185ed9f1660f585ce7ba67eb600acfef9a6dc601aa5e1",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_107年_工業配電_Q02.png"
     },
@@ -2665,7 +2665,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "parameterized_closed_loop_feedback_recalculation_with_missing_device_parameters",
-      "solution_hash": "14afb8860738df942ac2416207e2d9e9da9a6316e2a0189b19c79271f54012ae",
+      "solution_hash": "2fb1d9ebbb154d2205df7c93428cc63cd99832ebcff8d333882bb073b62ef9b2",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_106年_電子學（包括電力電子學）_Q02.png"
     },
@@ -2861,7 +2861,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "independent_recalculation_line_to_neutral_fault_with_impedance_and_asymmetry_sensitivity",
-      "solution_hash": "52338e7501122537e68a3144c8c17c75f2f30f90691cc551ff7d5cde2d1ac90f",
+      "solution_hash": "f283e22b2d51c1726ed1504a5d6202c04d1d004925ff2acfe1c0698be66c6feb",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_106年_工業配電_Q02.png"
     },
@@ -3502,10 +3502,10 @@
       "question_number": 3,
       "chapter": "兩部相同發電機各自經由其升壓變壓器接至系統匯流排並聯供電給系統，發電機額\n定容量為$550\\text{ MVA}$，額定電壓為$20\\text{ kV}$，直軸次暫態電抗 Xd\n\"  = 25\\%，直軸同步\n（穩態）電抗為 Xd = 95\\%，兩台升壓變壓器亦相同，其額定容量為 $550\\text{ MVA}$，額\n定電壓為$20\\text{ kV}$/ $345\\text{ kV}$，電抗X = 15\\%，忽略發電機及變壓器繞組之電阻，並忽略\n系統阻抗之電阻。正常時無論發電機有無供電，系統匯流排電壓大小均為$345\\text{ kV}$。\n當兩部機供電至系統，系統匯流排之有效功率均為$440\\text{ MW}$ 時，若系統匯流排發生\n三相短路故障，兩部發電機提供至系統匯流排之次暫態故障電流大小分別為2.5 kA\n及3 kA。試繪出單線圖及系統匯流排發生故障時之次暫態電路模型，模型中電壓、\n電流、功率及阻抗等之單位均以標么值（pu）表示（以升壓變壓器額定值為基準\n值）。計算正常供電時各部發電機之端電壓大小（kV），及各部發電機供電給系統\n匯流排之無效功率（MVAR）。並計算系統匯流排發生三相短路故障時，系統提供\n至匯流排之次暫態故障電流大小（kA）。（25 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-104-05-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official_crop_fault_current_consistency_audit",
-      "solution_hash": "1954424627616f996c84725c60201349e618e7224b2c8a9ee2c60e7539e92fb3",
+      "audit_status": "verified",
+      "verified_at": "2026-09-02",
+      "method": "official_crop_subtransient_emf_reverse_solution_with_phasor_power_balance",
+      "solution_hash": "2ef44b83da7b60f8258e1823c7fd16602794b1c3304761159c22217935e6586e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_104年_電力系統_Q03.png"
     },
@@ -3589,16 +3589,16 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "fifth_harmonic_network_recalculation_with_rectifier_pf_assumption",
-      "solution_hash": "3c6c231d8881410aa540cd20f49dd61f8aed9cee97cc314f1244f2894e6c31da",
+      "solution_hash": "4ddf86cad8b23fd96618886ac689e4a65777cb64e54e4e73de8867f3fa62e8ec",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_104年_工業配電_Q05.png"
     }
   ],
   "summary": {
     "questions": 256,
-    "verified": 237,
+    "verified": 239,
     "suspected_error": 0,
-    "needs_manual_review": 19,
+    "needs_manual_review": 17,
     "not_attempted": 0
   }
 }

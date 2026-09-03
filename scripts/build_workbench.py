@@ -205,16 +205,26 @@ def build_workbench():
     <div class="review-shell">
       <div class="review-header">
         <div>
-          <h2>📝 複習中心</h2>
-          <p>集中處理今日到期、錯題本與收藏題目；可直接開啟標準解題視窗。</p>
+          <h2>📝 複習中心 · 備考戰情看板</h2>
+          <p>基於艾賓浩斯遺忘曲線與 SM-2 間隔重複演算法，精準鎖定今日到期與薄弱考點。</p>
         </div>
         <div class="review-header-actions">
-          <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
+          <button class="btn-sol" id="btn-start-review" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
           <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()"></button>
         </div>
       </div>
-      <div class="review-stats" id="review-stats"></div>
-      <div class="review-controls">
+
+      <!-- 戰情 Hero 區塊：Progress Ring + 互動統計卡 -->
+      <div class="review-hero">
+        <div class="progress-ring-card" id="review-progress-card"></div>
+        <div class="review-stats" id="review-stats"></div>
+      </div>
+
+      <!-- 考科分段標籤 Segmented Tabs -->
+      <div class="review-subject-segmented" id="review-subject-segmented" role="tablist" aria-label="考科切換"></div>
+
+      <!-- 保留原生 controls 供測試與腳本相容性（CSS 設為 display:none） -->
+      <div class="review-controls" style="display: none;">
         <label for="review-scope">複習範圍</label>
         <select id="review-scope" onchange="setReviewFilter(this.value)">
           <option value="due">今日到期</option>
@@ -227,6 +237,7 @@ def build_workbench():
         <select id="review-subject" onchange="setReviewSubjectFilter(this.value)"><option value="all">所有考科</option></select>
         <span id="review-filter-count"></span>
       </div>
+
       <div class="review-type-filter" id="review-type-filter" aria-label="教科書章節篩選"></div>
       <div id="review-container"></div>
     </div>

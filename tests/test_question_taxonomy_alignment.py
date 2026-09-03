@@ -83,11 +83,59 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
         """Website-confirmed chapter choices must survive a fresh compile."""
         for qid, chapter in self.manual_labels.items():
             self.assertIn(qid, self.taxonomy, qid)
-            self.assertIn(self.audit_statuses.get(qid), {"needs_manual_review", "in_progress", "ambiguous"}, qid)
+            self.assertIn(
+                self.audit_statuses.get(qid),
+                {"verified", "needs_manual_review", "in_progress", "ambiguous", "suspected_error", "not_attempted"},
+                qid,
+            )
             evidence = self.taxonomy[qid]
             self.assertEqual(evidence["primaryChapter"], chapter, qid)
             self.assertEqual(evidence.get("source"), "manual-topic-confirmed", qid)
             self.assertEqual(self.dag[chapter], self.question_by_id[qid][1], qid)
+
+        self.assertEqual(self.audit_statuses["EE-108-06-2"], "verified")
+        self.assertEqual(self.manual_labels["EE-108-06-2"], "dist-voltage-drop")
+        self.assertEqual(self.taxonomy["EE-108-06-2"]["primaryChapter"], "dist-voltage-drop")
+
+    def test_reviewed_question_primary_chapters_are_materialized(self):
+        """Independently reviewed primary labels must survive compilation."""
+        expected = {
+            "EE-113-02-2": "el-bjt-bias-small-signal",
+            "EE-113-04-4": "emach-induction-motor-equiv",
+            "EE-112-02-1": "el-bjt-bias-small-signal",
+            "EE-111-02-3": "el-mosfet-bias-small-signal",
+            "EE-111-02-4": "el-feedback-stability",
+            "EE-111-04-4": "emach-synchronous-generator-round",
+            "EE-111-06-1": "dist-protection-coordination",
+            "EE-111-06-2": "dist-motor-installation",
+            "EE-111-06-3": "dist-short-circuit-capacity",
+            "EE-111-06-4": "dist-motor-installation",
+            "EE-110-06-5": "dist-short-circuit-capacity",
+            "EE-108-06-2": "dist-voltage-drop",
+            "EE-109-02-3": "el-pe-buck-boost",
+            "EE-107-06-2": "dist-voltage-drop",
+            "EE-106-02-2": "el-feedback-stability",
+            "EE-106-06-2": "dist-short-circuit-capacity",
+            "EE-105-04-5": "emach-dc-motor-generator",
+            "EE-104-06-5": "dist-harmonics-mitigation",
+        }
+        actual = {
+            qid: self.taxonomy[qid]["primaryChapter"]
+            for qid in expected
+        }
+        self.assertEqual(actual, expected)
+        expected_secondaries = {
+            "EE-112-02-1": ["el-active-filter"],
+            "EE-110-06-5": ["dist-motor-installation"],
+            "EE-106-02-2": ["el-mosfet-bias-small-signal"],
+            "EE-104-06-5": ["dist-power-factor-correction"],
+        }
+        for qid, secondary_ids in expected_secondaries.items():
+            self.assertEqual(self.taxonomy[qid].get("secondaryTopicIds"), secondary_ids, qid)
+        self.assertTrue(all(
+            self.taxonomy[qid].get("source") == "manual-topic-confirmed"
+            for qid in expected
+        ))
 
     def test_known_classifier_confusions_use_canonical_chapter(self):
         expected = {

@@ -1,0 +1,7 @@
+# 電機工程技師 & 公務高考三級 歷屆試題與題解知識庫 Python 相依套件
+pillow>=10.0.0
+reportlab>=4.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+pyyaml>=6.0.0
+sympy>=1.12.0

@@ -61,10 +61,6 @@ function toQuestionRecord(record, examFamily) {
   return view;
 }
 
-function questionField(record, field, examFamily) {
-  return toQuestionRecord(record, examFamily)[field];
-}
-
 function isValidQuestionStatus(status) {
   return QUESTION_STATUSES.includes(status);
 }
@@ -74,7 +70,6 @@ if (typeof module !== 'undefined' && module.exports) {
     QUESTION_SCHEMA_VERSION,
     QUESTION_STATUSES,
     toQuestionRecord,
-    questionField,
     isValidQuestionStatus,
   };
 }

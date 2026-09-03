@@ -2,9 +2,12 @@
 import sys
 import os
 
-# Ensure Pillow is in path
-sys.path.insert(0, '/Users/a/Library/Python/3.9/lib/python/site-packages')
-from PIL import Image, ImageOps, ImageChops
+try:
+    from PIL import Image, ImageOps, ImageChops
+except ImportError:
+    workspace = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.insert(0, os.path.join(workspace, 'scripts', 'lib'))
+    from PIL import Image, ImageOps, ImageChops
 
 count_cropped = 0
 total_saved_pixels = 0

@@ -311,6 +311,136 @@ select:focus {
 .solution-review-card .review-meta { display: grid; gap: 4px; font-size: .86rem; line-height: 1.45; }
 .solution-review-card .review-public-note { margin-top: 2px; color: var(--muted); font-size: .8rem; }
 
+/* Scenario Matrix Card (參數敏感度情境分支卡) */
+.scenario-matrix-card {
+  margin: 18px 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.scenario-matrix-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--line);
+}
+.scenario-matrix-header .scenario-icon {
+  font-size: 1.5rem;
+}
+.scenario-matrix-header .scenario-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 4px;
+}
+.scenario-matrix-header .scenario-conflict {
+  font-size: 0.84rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+  margin: 0;
+}
+.scenario-matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+}
+@media (max-width: 820px) {
+  .scenario-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.matrix-column {
+  background: var(--surface);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.matrix-column.scenario-a {
+  border-top: 3px solid var(--accent);
+}
+.matrix-column.scenario-b {
+  border-top: 3px solid var(--warn);
+}
+.matrix-badge {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  display: inline-block;
+}
+.scenario-a .matrix-badge {
+  color: var(--accent-dark);
+  background: var(--accent-light);
+}
+.scenario-b .matrix-badge {
+  color: var(--warn);
+  background: var(--warn-light);
+}
+.matrix-condition {
+  font-size: 0.84rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+  background: var(--bg);
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+}
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.matrix-table th {
+  background: var(--bg-secondary);
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+}
+.matrix-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.matrix-param-name {
+  font-weight: 600;
+  width: 55%;
+}
+.matrix-param-val {
+  font-family: var(--font-mono);
+  color: var(--accent-dark);
+}
+.matrix-advice {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #fdfaf3;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid #d4a343;
+}
+[data-theme="dark"] .matrix-advice {
+  background: #2b271d;
+  color: #eeddbb;
+}
+[data-theme="dark"] .solution-review-card {
+  background: #2d281a;
+  border-color: #5c4e28;
+  color: #eeddbb;
+}
+[data-theme="dark"] .solution-review-card .review-title {
+  color: #e4c56b;
+}
+
 /* Difficulty Stars Badge */
 .diff-badge {
   font-size: 0.78rem;
@@ -440,3 +570,264 @@ select:focus {
   outline: none;
   resize: vertical;
 }
+
+/* Stat Due Card Highlight */
+.stat-card.stat-due-card {
+  transition: all 0.25s ease;
+  border-left: 3px solid var(--accent);
+}
+.stat-card.stat-due-card.has-due {
+  border-left-color: #e11d48;
+  background: #fff5f5;
+}
+[data-theme="dark"] .stat-card.stat-due-card.has-due {
+  background: #351a1e;
+  border-left-color: #f43f5e;
+}
+.stat-card.stat-due-card.has-due .val {
+  color: #e11d48 !important;
+  font-weight: 800;
+}
+
+/* Facet Tag Filter Pills */
+.facet-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+.facet-filter-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  white-space: nowrap;
+}
+.facet-tag-pill {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.facet-tag-pill:hover {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  border-color: var(--accent);
+}
+.facet-tag-pill.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent-dark);
+  font-weight: 700;
+}
+.facet-tag-count {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+/* Quick Review Sheet (考前 30 分鐘急救速覽表) */
+.quicksheet-shell {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+}
+.quicksheet-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+}
+.quicksheet-header-text h2 {
+  font-size: 1.4rem;
+  color: var(--accent-dark);
+  margin-bottom: 4px;
+}
+.quicksheet-header-text p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 0;
+}
+.quicksheet-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn-print-sheet {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+.quicksheet-sub-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.quicksheet-subject-section {
+  margin-bottom: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  overflow: hidden;
+}
+.qsheet-sec-header {
+  padding: 14px 18px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  font-weight: 700;
+}
+.qsheet-sec-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qsheet-sec-icon {
+  font-size: 1.25rem;
+}
+.qsheet-count-tag {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+.qsheet-arrow {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.qsheet-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 14px;
+  padding: 18px;
+}
+@media (max-width: 680px) {
+  .qsheet-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.qsheet-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.qsheet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.qsheet-card-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.qsheet-node-id {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.qsheet-lvl-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.qsheet-lvl-badge.lvl-1 { background: var(--success-light); color: var(--success); }
+.qsheet-lvl-badge.lvl-2 { background: var(--accent-light); color: var(--accent-dark); }
+.qsheet-lvl-badge.lvl-3 { background: var(--warn-light); color: var(--warn); }
+.qsheet-formula-wrap {
+  background: var(--bg);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+}
+.qsheet-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
+}
+.qsheet-formula {
+  overflow-x: auto;
+  padding: 4px 0;
+  font-size: 0.95rem;
+}
+.qsheet-no-formula {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.qsheet-trap {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #fff9ed;
+  border-left: 3px solid #d4a343;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+}
+[data-theme="dark"] .qsheet-trap {
+  background: #2f2818;
+  color: #eed7aa;
+}
+
+/* Print CSS for physical A4 review sheets */
+@media print {
+  header, .main-tabs, .category-switcher, .quicksheet-top-bar .quicksheet-actions, .quicksheet-sub-filters {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .quicksheet-shell {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .qsheet-cards-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  .qsheet-card {
+    page-break-inside: avoid !important;
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+  }
+}
+

@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0.0",
-  "taxonomyVersion": "2026.08.30",
+  "taxonomyVersion": "2026.09.03",
   "labeling": {
     "status": "human-reviewed",
-    "reviewedAt": "2026-08-30",
+    "reviewedAt": "2026-09-03",
     "reviewer": "taxonomy-maintainers",
     "positiveTargetPerChapter": 5,
     "positiveTargetPolicy": "five-or-explicit-sparse-exception",
@@ -26,13 +26,13 @@
     {"subjectId":"01","chapterId":"ct-laplace-circuit","questionIds":["EE-114-01-5","EE-106-01-1"],"rationale":"題幹明確指定以拉氏轉換求解電路。"},
 
     {"subjectId":"02","chapterId":"el-diode-rectifier","questionIds":["EE-113-02-1","EE-112-02-4","EE-108-02-2","EE-107-02-1","EE-104-02-3"],"rationale":"題幹明確涉及二極體狀態、整流或 PIV。"},
-    {"subjectId":"02","chapterId":"el-bjt-bias-small-signal","questionIds":["EE-113-02-2","EE-110-02-1","EE-109-02-1","EE-108-02-3","EE-107-02-4"],"rationale":"題幹明確涉及 BJT 偏壓或小訊號模型。"},
-    {"subjectId":"02","chapterId":"el-mosfet-bias-small-signal","questionIds":["EE-111-02-3","EE-107-02-2","EE-106-02-2"],"rationale":"題幹明確涉及 MOSFET、VTH 或 IDS。"},
+    {"subjectId":"02","chapterId":"el-bjt-bias-small-signal","questionIds":["EE-113-02-2","EE-112-02-1","EE-110-02-1","EE-109-02-1","EE-108-02-3","EE-107-02-4"],"rationale":"題幹明確涉及 BJT 偏壓或小訊號模型；EE-112-02-1 雖同時要求高頻極點，primary 仍是共基極 BJT 模型。"},
+    {"subjectId":"02","chapterId":"el-mosfet-bias-small-signal","questionIds":["EE-111-02-3","EE-107-02-2"],"rationale":"題幹明確涉及 MOSFET、VTH 或 IDS，且主要任務不是閉迴路回授分析。"},
     {"subjectId":"02","chapterId":"el-opamp-ideal","questionIds":["EE-108-02-4","EE-106-02-1"],"rationale":"題幹明確指定理想運算放大器。"},
     {"subjectId":"02","chapterId":"el-diff-amp","questionIds":["EE-114-02-1","EE-110-02-2"],"rationale":"題幹明確指定差動放大器或 CMRR。"},
-    {"subjectId":"02","chapterId":"el-active-filter","questionIds":["EE-114-02-2","EE-112-02-1","EE-108-02-1","EE-106-02-3","EE-105-02-1"],"rationale":"題幹明確涉及頻率響應、濾波器或高頻極點。"},
-    {"subjectId":"02","chapterId":"el-feedback-stability","questionIds":["EE-111-02-4"],"rationale":"題幹明確要求回授因素、閉迴路增益與阻抗。"},
-    {"subjectId":"02","chapterId":"el-pe-buck-boost","questionIds":["EE-114-02-3","EE-114-02-4","EE-113-02-3","EE-112-02-3","EE-108-02-5"],"rationale":"題幹明確涉及 DC-DC、降升壓或責任週期。"},
+    {"subjectId":"02","chapterId":"el-active-filter","questionIds":["EE-114-02-2","EE-108-02-1","EE-106-02-3","EE-105-02-1"],"rationale":"題幹以頻率響應、濾波器或高頻極點為主要分類核心。"},
+    {"subjectId":"02","chapterId":"el-feedback-stability","questionIds":["EE-111-02-4","EE-106-02-2"],"rationale":"題幹明確要求回授因素、閉迴路增益或閉迴路阻抗；EE-106-02-2 的 MOSFET 拓撲為 secondary。"},
+    {"subjectId":"02","chapterId":"el-pe-buck-boost","questionIds":["EE-114-02-3","EE-114-02-4","EE-113-02-3","EE-112-02-3","EE-109-02-3","EE-108-02-5"],"rationale":"題幹明確涉及 DC-DC、降升壓、返馳式或責任週期。"},
     {"subjectId":"02","chapterId":"el-pe-inverter-spwm","questionIds":["EE-113-02-4","EE-110-02-4","EE-104-02-4"],"rationale":"題幹明確涉及全橋逆變器或 SPWM。"},
     {"subjectId":"02","chapterId":"el-pe-thyristor-rectifier","questionIds":["EE-110-02-3","EE-105-02-5"],"rationale":"題幹明確涉及閘流體相控整流。"},
 
@@ -69,18 +69,18 @@
     {"subjectId":"06","chapterId":"dist-grounding-system","questionIds":["EE-112-06-1","EE-106-06-1","EE-105-06-1"],"rationale":"題幹明確指定系統接地或設備接地。"},
     {"subjectId":"06","chapterId":"dist-lighting-design","questionIds":["EE-109-06-4","EE-105-06-4"],"rationale":"題幹明確涉及照度、照明率或燈具配置。"},
     {"subjectId":"06","chapterId":"dist-distribution-equipment","questionIds":["EE-114-06-1","EE-112-06-5","EE-108-06-3","EE-107-06-5","EE-105-06-3"],"rationale":"題幹明確涉及配電變壓器、V-V 或供電接線。"},
-    {"subjectId":"06","chapterId":"dist-motor-installation","questionIds":["EE-114-06-4","EE-111-06-2","EE-111-06-4","EE-110-06-5","EE-107-06-4"],"rationale":"題幹明確涉及電動機配線或啟動。"},
+    {"subjectId":"06","chapterId":"dist-motor-installation","questionIds":["EE-114-06-4","EE-111-06-2","EE-111-06-4","EE-107-06-4"],"rationale":"題幹以電動機配線或啟動設計為主要任務；故障時馬達貢獻不歸入此 primary。"},
     {"subjectId":"06","chapterId":"dist-voltage-drop","questionIds":["EE-109-06-2","EE-108-06-2","EE-107-06-2"],"rationale":"題幹明確涉及電壓降、電壓突降或導線選用。"},
     {"subjectId":"06","chapterId":"dist-power-factor-correction","questionIds":["EE-114-06-5","EE-113-06-2","EE-110-06-3","EE-109-06-5","EE-108-06-5"],"rationale":"題幹明確涉及功率因數改善或並聯電容。"},
-    {"subjectId":"06","chapterId":"dist-short-circuit-capacity","questionIds":["EE-114-06-3","EE-113-06-4","EE-112-06-3","EE-111-06-3","EE-111-06-5"],"rationale":"題幹明確指定短路容量、MVA 法或故障電流。"},
+    {"subjectId":"06","chapterId":"dist-short-circuit-capacity","questionIds":["EE-114-06-3","EE-113-06-4","EE-112-06-3","EE-111-06-3","EE-111-06-5","EE-110-06-5"],"rationale":"題幹明確指定短路容量、MVA 法、故障電流或斷路器瞬時容量；EE-110-06-5 的馬達僅是故障電流貢獻來源。"},
     {"subjectId":"06","chapterId":"dist-protection-coordination","questionIds":["EE-113-06-5","EE-112-06-4","EE-111-06-1","EE-107-06-3","EE-106-06-4"],"rationale":"題幹明確涉及過電流電驛、TCC 或保護協調。"},
     {"subjectId":"06","chapterId":"dist-harmonics-mitigation","questionIds":["EE-114-06-2","EE-113-06-3","EE-110-06-4","EE-106-06-5","EE-105-06-5"],"rationale":"題幹明確涉及諧波、諧波共振或電力品質。"}
   ],
   "hardNegatives": [
     {"questionId":"EE-105-01-5","subjectId":"01","actualChapterId":"ct-second-order-rlc","confusableWith":"ct-complex-power","rationale":"題幹關鍵字含功率，但主要要求帶通濾波器共振頻率與頻寬。"},
     {"questionId":"EE-112-02-2","subjectId":"02","actualChapterId":"el-opamp-ideal","confusableWith":"el-pe-buck-boost","rationale":"題幹含振盪器與週期，但電路核心是理想運算放大器 Schmitt 觸發器。"},
-    {"questionId":"EE-109-02-2","subjectId":"02","actualChapterId":"el-pe-buck-boost","confusableWith":"el-mosfet-bias-small-signal","rationale":"題幹含 MOSFET，但主要是返馳式電源轉換器的能量轉移。"},
-    {"questionId":"EE-104-06-5","subjectId":"06","actualChapterId":"dist-power-factor-correction","confusableWith":"dist-short-circuit-capacity","rationale":"題幹含線路阻抗，但問題核心是並聯電容改善功率因數。"}
+    {"questionId":"EE-109-02-2","subjectId":"02","actualChapterId":"el-pe-buck-boost","confusableWith":"el-mosfet-bias-small-signal","rationale":"題圖含開關元件，但主要任務是理想 Boost 轉換器的導通率、漣波與臨界元件值。"},
+    {"questionId":"EE-104-06-5","subjectId":"06","actualChapterId":"dist-harmonics-mitigation","confusableWith":"dist-power-factor-correction","rationale":"開場提及改善功率因數與電容器，但四個作答項目皆為第 5 次諧波電壓及支路諧波電流。"}
   ],
   "coverageExceptions": {
     "ct-ohm-kcl-kvl": "PE 題庫目前僅一題可明確人工確認。",
@@ -97,9 +97,10 @@
     "ct-laplace-circuit": "PE 題庫目前兩題可明確人工確認。",
     "el-zener-regulator": "PE 題庫目前無可明確人工確認正例。",
     "el-diff-amp": "PE 題庫目前兩題可明確人工確認。",
-    "el-mosfet-bias-small-signal": "PE 題庫目前四題可明確人工確認。",
+    "el-mosfet-bias-small-signal": "PE 題庫目前兩題可明確人工確認。",
     "el-opamp-ideal": "PE 題庫目前兩題可明確人工確認。",
-    "el-feedback-stability": "PE 題庫目前僅一題可明確人工確認。",
+    "el-active-filter": "PE 題庫目前四題可明確人工確認。",
+    "el-feedback-stability": "PE 題庫目前兩題可明確人工確認。",
     "el-pe-inverter-spwm": "PE 題庫目前三題可明確人工確認。",
     "el-pe-thyristor-rectifier": "PE 題庫目前兩題可明確人工確認。",
     "em-second-order-ode-homogeneous": "PE 題庫目前四題可明確人工確認。",
@@ -110,7 +111,6 @@
     "em-vector-analysis": "PE 題庫目前四題可明確人工確認。",
     "emach-single-phase-transformer": "PE 題庫目前三題可明確人工確認。",
     "emach-autotransformer": "PE 題庫目前三題可明確人工確認。",
-    "emach-three-phase-transformer": "PE 題庫目前無可明確人工確認正例。",
     "emach-three-phase-transformer": "PE 題庫目前無可明確人工確認正例。",
     "emach-dc-motor-generator": "PE 題庫目前兩題可明確人工確認。",
     "emach-induction-motor-torque": "PE 題庫目前四題可明確人工確認。",
@@ -126,6 +126,7 @@
     "ps-state-estimation-wls": "PE 題庫目前無可明確人工確認正例。",
     "dist-grounding-system": "PE 題庫目前三題可明確人工確認。",
     "dist-lighting-design": "PE 題庫目前兩題可明確人工確認。",
+    "dist-motor-installation": "PE 題庫目前四題可明確人工確認。",
     "dist-voltage-drop": "PE 題庫目前三題可明確人工確認。",
     "dist-arc-flash-ieee80": "PE 題庫目前無可明確人工確認正例。"
   }

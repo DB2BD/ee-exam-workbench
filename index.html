@@ -596,6 +596,136 @@ select:focus {
 .solution-review-card .review-meta { display: grid; gap: 4px; font-size: .86rem; line-height: 1.45; }
 .solution-review-card .review-public-note { margin-top: 2px; color: var(--muted); font-size: .8rem; }
 
+/* Scenario Matrix Card (參數敏感度情境分支卡) */
+.scenario-matrix-card {
+  margin: 18px 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.scenario-matrix-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--line);
+}
+.scenario-matrix-header .scenario-icon {
+  font-size: 1.5rem;
+}
+.scenario-matrix-header .scenario-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 4px;
+}
+.scenario-matrix-header .scenario-conflict {
+  font-size: 0.84rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+  margin: 0;
+}
+.scenario-matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+}
+@media (max-width: 820px) {
+  .scenario-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.matrix-column {
+  background: var(--surface);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.matrix-column.scenario-a {
+  border-top: 3px solid var(--accent);
+}
+.matrix-column.scenario-b {
+  border-top: 3px solid var(--warn);
+}
+.matrix-badge {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  display: inline-block;
+}
+.scenario-a .matrix-badge {
+  color: var(--accent-dark);
+  background: var(--accent-light);
+}
+.scenario-b .matrix-badge {
+  color: var(--warn);
+  background: var(--warn-light);
+}
+.matrix-condition {
+  font-size: 0.84rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+  background: var(--bg);
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+}
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.matrix-table th {
+  background: var(--bg-secondary);
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+}
+.matrix-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+.matrix-param-name {
+  font-weight: 600;
+  width: 55%;
+}
+.matrix-param-val {
+  font-family: var(--font-mono);
+  color: var(--accent-dark);
+}
+.matrix-advice {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #fdfaf3;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid #d4a343;
+}
+[data-theme="dark"] .matrix-advice {
+  background: #2b271d;
+  color: #eeddbb;
+}
+[data-theme="dark"] .solution-review-card {
+  background: #2d281a;
+  border-color: #5c4e28;
+  color: #eeddbb;
+}
+[data-theme="dark"] .solution-review-card .review-title {
+  color: #e4c56b;
+}
+
 /* Difficulty Stars Badge */
 .diff-badge {
   font-size: 0.78rem;
@@ -725,6 +855,267 @@ select:focus {
   outline: none;
   resize: vertical;
 }
+
+/* Stat Due Card Highlight */
+.stat-card.stat-due-card {
+  transition: all 0.25s ease;
+  border-left: 3px solid var(--accent);
+}
+.stat-card.stat-due-card.has-due {
+  border-left-color: #e11d48;
+  background: #fff5f5;
+}
+[data-theme="dark"] .stat-card.stat-due-card.has-due {
+  background: #351a1e;
+  border-left-color: #f43f5e;
+}
+.stat-card.stat-due-card.has-due .val {
+  color: #e11d48 !important;
+  font-weight: 800;
+}
+
+/* Facet Tag Filter Pills */
+.facet-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+.facet-filter-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  white-space: nowrap;
+}
+.facet-tag-pill {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.facet-tag-pill:hover {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  border-color: var(--accent);
+}
+.facet-tag-pill.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent-dark);
+  font-weight: 700;
+}
+.facet-tag-count {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+/* Quick Review Sheet (考前 30 分鐘急救速覽表) */
+.quicksheet-shell {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+}
+.quicksheet-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+}
+.quicksheet-header-text h2 {
+  font-size: 1.4rem;
+  color: var(--accent-dark);
+  margin-bottom: 4px;
+}
+.quicksheet-header-text p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 0;
+}
+.quicksheet-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn-print-sheet {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+.quicksheet-sub-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.quicksheet-subject-section {
+  margin-bottom: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  overflow: hidden;
+}
+.qsheet-sec-header {
+  padding: 14px 18px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  font-weight: 700;
+}
+.qsheet-sec-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qsheet-sec-icon {
+  font-size: 1.25rem;
+}
+.qsheet-count-tag {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+.qsheet-arrow {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.qsheet-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 14px;
+  padding: 18px;
+}
+@media (max-width: 680px) {
+  .qsheet-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.qsheet-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.qsheet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.qsheet-card-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.qsheet-node-id {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.qsheet-lvl-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.qsheet-lvl-badge.lvl-1 { background: var(--success-light); color: var(--success); }
+.qsheet-lvl-badge.lvl-2 { background: var(--accent-light); color: var(--accent-dark); }
+.qsheet-lvl-badge.lvl-3 { background: var(--warn-light); color: var(--warn); }
+.qsheet-formula-wrap {
+  background: var(--bg);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+}
+.qsheet-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
+}
+.qsheet-formula {
+  overflow-x: auto;
+  padding: 4px 0;
+  font-size: 0.95rem;
+}
+.qsheet-no-formula {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.qsheet-trap {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #fff9ed;
+  border-left: 3px solid #d4a343;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+}
+[data-theme="dark"] .qsheet-trap {
+  background: #2f2818;
+  color: #eed7aa;
+}
+
+/* Print CSS for physical A4 review sheets */
+@media print {
+  header, .main-tabs, .category-switcher, .quicksheet-top-bar .quicksheet-actions, .quicksheet-sub-filters {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .quicksheet-shell {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .qsheet-cards-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  .qsheet-card {
+    page-break-inside: avoid !important;
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+  }
+}
+
 
 
 /* === src/styles/modal.css === */
@@ -1549,9 +1940,9 @@ select:focus {
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
         <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
-        <a href="./australia-job-radar.html" target="_blank" class="pill" style="background: var(--accent-light); color: var(--accent-dark); text-decoration: none; font-weight: 700;">
-          🇦🇺 澳洲求職戰情室 ➔
-        </a>
+        <button onclick="switchTab('quicksheet')" class="pill" style="background: var(--accent-light); color: var(--accent-dark); font-weight: 700;">
+          ⚡ 考前 30 分鐘急救包
+        </button>
       </div>
     </div>
 
@@ -1593,6 +1984,10 @@ select:focus {
         <span class="label">📑 考卷總卷數</span>
         <span class="val" id="stat-exams">66</span>
       </div>
+      <div class="stat-card stat-due-card" id="stat-due-card" onclick="onDueFlashcardsClick()" style="cursor: pointer;" title="艾賓浩斯遺忘曲線到期題（點擊前往提取訓練）">
+        <span class="label">⚡ 今日待提取 (SM-2)</span>
+        <span class="val" id="stat-due-flashcards" style="color: var(--accent-dark);">0</span>
+      </div>
     </div>
 
     <!-- Progress Bar -->
@@ -1628,6 +2023,9 @@ select:focus {
     </button>
     <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')">
       <span>🔥 高頻必考命題分析</span>
+    </button>
+    <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')">
+      <span>⚡ 考前 30 分鐘急救速覽表</span>
     </button>
   </div>
 
@@ -1727,6 +2125,9 @@ select:focus {
       <span id="filtered-count" style="margin-left: auto; font-size: 0.82rem; color: var(--muted); font-weight: 600;"></span>
     </div>
 
+    <!-- Facet Filter Bar -->
+    <div id="facet-filter-bar" class="facet-filter-bar" style="display: none;"></div>
+
     <!-- Questions Container -->
     <div id="questions-container" class="qlist"></div>
   </div>
@@ -1811,6 +2212,10 @@ select:focus {
     </div>
   </div>
 
+  <!-- TAB 6: Last 30-Minute High-Yield Cheat Sheet -->
+  <div class="tab-pane" id="tab-pane-quicksheet" style="display: none;">
+    <div id="quicksheet-container"></div>
+  </div>
 </div>
 
 <!-- Split Solution Viewer Modal -->
@@ -1992,10 +2397,6 @@ function toQuestionRecord(record, examFamily) {
   return view;
 }
 
-function questionField(record, field, examFamily) {
-  return toQuestionRecord(record, examFamily)[field];
-}
-
 function isValidQuestionStatus(status) {
   return QUESTION_STATUSES.includes(status);
 }
@@ -2005,7 +2406,6 @@ if (typeof module !== 'undefined' && module.exports) {
     QUESTION_SCHEMA_VERSION,
     QUESTION_STATUSES,
     toQuestionRecord,
-    questionField,
     isValidQuestionStatus,
   };
 }
@@ -2014,7 +2414,7 @@ if (typeof module !== 'undefined' && module.exports) {
 // === src/data/taxonomyAliases.js ===
 // Versioned aliases shared by the textbook classifier and future import tools.
 // Longer aliases are applied first to avoid partial replacements.
-const TAXONOMY_VERSION = '2026.08.30';
+const TAXONOMY_VERSION = '2026.09.03';
 const TAXONOMY_ALIASES = {
   'th[eéè]venin': '戴維寧',
   'thevenin': '戴維寧',
@@ -3393,15 +3793,15 @@ initRecallStore();
 // === src/data/manualTopicLabels.js ===
 // src/data/manualTopicLabels.js
 //
-// User-confirmed chapter labels for the questions that were deliberately
-// kept in the manual-review queue.  These are topic decisions only: the
-// solution audit status remains ``needs_manual_review`` until the numerical
-// derivation is independently verified.
+// User-confirmed chapter labels recorded from the website review workflow.
+// These are topic decisions only and are independent of the solution audit
+// status: a question may retain its confirmed chapter after its derivation is
+// promoted to ``verified``.
 
 const MANUAL_TOPIC_LABEL_SEED = {
   'EE-113-02-2': { chapterId: 'el-bjt-bias-small-signal', source: 'user-confirmed' },
   'EE-113-04-4': { chapterId: 'emach-induction-motor-equiv', source: 'user-confirmed' },
-  'EE-112-02-1': { chapterId: 'el-bjt-bias-small-signal', source: 'user-confirmed' },
+  'EE-112-02-1': { chapterId: 'el-bjt-bias-small-signal', source: 'user-confirmed', secondaryTopicIds: ['el-active-filter'] },
   'EE-111-02-3': { chapterId: 'el-mosfet-bias-small-signal', source: 'user-confirmed' },
   'EE-111-02-4': { chapterId: 'el-feedback-stability', source: 'user-confirmed' },
   'EE-111-04-4': { chapterId: 'emach-synchronous-generator-round', source: 'user-confirmed' },
@@ -3409,16 +3809,206 @@ const MANUAL_TOPIC_LABEL_SEED = {
   'EE-111-06-2': { chapterId: 'dist-motor-installation', source: 'user-confirmed' },
   'EE-111-06-3': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed' },
   'EE-111-06-4': { chapterId: 'dist-motor-installation', source: 'user-confirmed' },
-  'EE-110-06-5': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed' },
-  'EE-109-02-3': { chapterId: 'el-pe-buck-boost', source: 'user-confirmed' },
+  'EE-110-06-5': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed', secondaryTopicIds: ['dist-motor-installation'] },
   'EE-108-06-2': { chapterId: 'dist-voltage-drop', source: 'user-confirmed' },
+  'EE-109-02-3': { chapterId: 'el-pe-buck-boost', source: 'user-confirmed' },
   'EE-107-06-2': { chapterId: 'dist-voltage-drop', source: 'user-confirmed' },
-  'EE-106-02-2': { chapterId: 'el-feedback-stability', source: 'user-confirmed' },
+  'EE-106-02-2': { chapterId: 'el-feedback-stability', source: 'user-confirmed', secondaryTopicIds: ['el-mosfet-bias-small-signal'] },
   'EE-106-06-2': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed' },
   'EE-105-04-5': { chapterId: 'emach-dc-motor-generator', source: 'user-confirmed' },
-  'EE-104-05-3': { chapterId: 'ps-three-phase-fault', source: 'user-confirmed' },
-  'EE-104-06-5': { chapterId: 'dist-harmonics-mitigation', source: 'user-confirmed' },
+  'EE-104-06-5': { chapterId: 'dist-harmonics-mitigation', source: 'user-confirmed', secondaryTopicIds: ['dist-power-factor-correction'] },
 };
+
+
+// === src/data/scenarioMatrixData.js ===
+// src/data/scenarioMatrixData.js
+// -*- coding: utf-8 -*-
+/**
+ * scenarioMatrixData.js
+ * =====================
+ * Structured Scenario Matrix (參數敏感度情境分支卡) for questions requiring
+ * manual review, parameter clarification, or multi-branch derivation.
+ */
+
+const SCENARIO_MATRIX_DATA = {
+  'EE-109-02-3': {
+    qid: 'EE-109-02-3',
+    subject: '電子學（含電力電子）',
+    year: 109,
+    qnum: 3,
+    title: '返馳式轉換器 CCM / DCM 導通模式與平均電流分支',
+    coreConflict: '題目未明定導通模式；官方電感數值與佔空比剛好落在 DCM／臨界導通模式（CrCM）邊界。',
+    scenarioA: {
+      name: '情境 A：DCM／臨界導通邊界 (首選標準解)',
+      condition: '依給定參數回算消磁時間 $t_{\\text{demag}} = t_{\\text{off}} = 166.7\\,\\mu\\text{s}$，電感電流於週期末降至 0',
+      keyValues: [
+        { param: '一次側峰值電流 $I_{p,\\max}$', val: '$60.00\\text{ A}$' },
+        { param: '一次側導通平均電流 $I_{p,\\text{avg}|\\text{on}}$', val: '$30.00\\text{ A}$ (三角形面積)' },
+        { param: '全週期平均輸入電流 $I_{p,\\text{avg}}$', val: '$22.50\\text{ A}$ ($D \\times 30\\text{ A}$)' },
+        { param: '輸入功率 $P_{\\text{in}}$', val: '$1.08\\text{ kW}$' }
+      ],
+      examAdvice: '優先書寫此分支：先檢驗消磁時間確認其位於 DCM 邊界，推導過程嚴密無破綻。'
+    },
+    scenarioB: {
+      name: '情境 B：CCM 連續導通假設 (傳統近似解)',
+      condition: '若題意隱含電感極大值或採連續波形，假設電流漣波未降至 0',
+      keyValues: [
+        { param: '一次側電流漣波 $\\Delta I_L$', val: '$60.00\\text{ A}$' },
+        { param: '若給定額定負載電流', val: '平均電流依輸出功率 $P_o$ 反推 $I_{p,\\text{avg}} = P_o / (\\eta V_{\\text{in}})$' },
+        { param: '開關耐壓 $V_{\\text{switch}}$', val: '$V_{\\text{in}} + \\frac{N_p}{N_s} V_o = 144\\text{ V}$' }
+      ],
+      examAdvice: '在考卷補充備註：「若閱卷委員採連續導通模式假設，則平均電流由負載功率決定，開關耐壓仍為 144 V」。'
+    }
+  },
+
+  'EE-111-02-3': {
+    qid: 'EE-111-02-3',
+    subject: '電子學（含電力電子）',
+    year: 111,
+    qnum: 3,
+    title: 'MOSFET 共源極源極退化增益與平方律偏壓矛盾',
+    coreConflict: '題目同時給定 $|A_v|=5$、偏壓電流 $I_D=3.17\\text{ mA}$ 與 $R_S=30\\,\\Omega$；但由平方律推導之 $g_m$ 與增益公式產生數值衝突。',
+    scenarioA: {
+      name: '情境 A：保留指定增益 $|A_v|=5$ (設計導向解)',
+      condition: '以 $|A_v| = \\frac{g_m R_D}{1 + g_m R_S} = 5$ 為準，修正 $R_S$ 為自洽值',
+      keyValues: [
+        { param: '修正後源極電阻 $R_S$', val: '$26.67\\,\\Omega$' },
+        { param: '小訊號轉導 $g_m$', val: '$0.075\\text{ S}$ ($75.0\\text{ mS}$)' },
+        { param: '過驅電壓 $V_{OV}$', val: '$0.0845\\text{ V}$' },
+        { param: '寬長比 $W/L$', val: '$4436.12$' }
+      ],
+      examAdvice: '第一步先寫出標準增益公式，計算若增益嚴格為 5 時所需的 $R_S$ 與 $W/L$。'
+    },
+    scenarioB: {
+      name: '情境 B：嚴格保留題面 $R_S=30\\,\\Omega$ (參數回算解)',
+      condition: '嚴格代入題面 $R_S=30\\,\\Omega$ 與 $I_D=3.17\\text{ mA}$，由平方律決定 $g_m$',
+      keyValues: [
+        { param: '轉導 $g_m = 2/R_S$', val: '$0.0667\\text{ S}$ ($66.7\\text{ mS}$)' },
+        { param: '實際閉迴路增益 $|A_v|$', val: '$4.4444\\text{ V/V}$ (誤差約 11.1%)' },
+        { param: '寬長比 $W/L$', val: '$3522.22$' }
+      ],
+      examAdvice: '緊接著註明：「若直接採用題設 $R_S=30\\,\\Omega$，由偏壓條件回算實際增益為 4.44 V/V」，展現通透的分析能力。'
+    }
+  },
+
+  'EE-113-02-2': {
+    qid: 'EE-113-02-2',
+    subject: '電子學（含電力電子）',
+    year: 113,
+    qnum: 2,
+    title: 'BJT 共基極放大器熱電壓 $V_T$ 參數分支',
+    coreConflict: '原題圖未明示操作溫度或熱電壓 $V_T$ 取值（25 mV、25.85 mV 亦或 26 mV）。',
+    scenarioA: {
+      name: '情境 A：常溫標準 $V_T = 25\\text{ mV}$ ($300\\text{ K}$ 實用值)',
+      condition: '國考電子學最常用近似 $V_T = 25\\text{ mV}$',
+      keyValues: [
+        { param: '動態射極電阻 $r_e$', val: '$50.00\\,\\Omega$ ($V_T / I_E$)' },
+        { param: '交流輸入阻抗 $R_{\\text{in}}$', val: '$50.00\\,\\Omega$' },
+        { param: '電壓增益 $A_v = v_o / v_{\\text{sig}}$', val: '$47.52\\text{ V/V}$' },
+        { param: '輸出電阻 $R_o$', val: '$12.0\\text{ k}\\Omega$' }
+      ],
+      examAdvice: '在作答第一行明確標示：「假設熱電壓 $V_T = 25\\text{ mV}$」，計算數值乾淨整齊。'
+    },
+    scenarioB: {
+      name: '情境 B：物理標準 $V_T = 25.85\\text{ mV} \\approx 26\\text{ mV}$',
+      condition: '教科書 Sedra/Smith 標準常溫 $T=300\\text{ K}$ 理論值',
+      keyValues: [
+        { param: '動態射極電阻 $r_e$', val: '$51.70\\,\\Omega \\sim 52.00\\,\\Omega$' },
+        { param: '交流輸入阻抗 $R_{\\text{in}}$', val: '$51.70\\,\\Omega$' },
+        { param: '電壓增益 $A_v = v_o / v_{\\text{sig}}$', val: '$46.88\\text{ V/V} \\sim 46.68\\text{ V/V}$' },
+        { param: '相對誤差', val: '與 25 mV 分支僅差 $1.3\\%$' }
+      ],
+      examAdvice: '末尾備註：「若採 $V_T=26\\text{ mV}$，則 $A_v=46.68\\text{ V/V}$」，兩種分支皆可完全得分。'
+    }
+  },
+
+  'EE-110-06-5': {
+    qid: 'EE-110-06-5',
+    subject: '工業配電',
+    year: 110,
+    qnum: 5,
+    title: '自備變電所短路容量與非對稱倍率 $K=1.6$ 定義',
+    coreConflict: '題目未提供三台電動機個別功因與效率，且 $K=1.6$ 存在「RMS 非對稱係數」與「ANSI 峰值倍率」兩種工程規範解釋。',
+    scenarioA: {
+      name: '情境 A：$K=1.6$ 為對稱成分轉 RMS 非對稱係數',
+      condition: '依 CNS / 經濟部屋內線路裝置規則，瞬時斷路電流包含直流分量有效值',
+      keyValues: [
+        { param: '系統對稱短路容量 $S_{\\text{sym}}$', val: '以母線等效阻抗求出三相對稱容量' },
+        { param: '非對稱短路容量 $S_{\\text{asym}}$', val: '$1.6 \\times S_{\\text{sym}}$ (RMS 視在容量)' },
+        { param: '馬達次暫態貢獻', val: '以參數化 $k_i = \\eta_i \\cdot \\text{pf}_i$ 統一表達' }
+      ],
+      examAdvice: '主推此分支，公式寫為 $I_{\\text{asym, rms}} = 1.6 \\times I_{\\text{sym}}$。'
+    },
+    scenarioB: {
+      name: '情境 B：$K=1.6$ 採 ANSI/IEEE 瞬時峰值倍率',
+      condition: '用於檢驗斷路器投入容量（Making capacity）或母線動態應力',
+      keyValues: [
+        { param: '首週期非對稱峰值 $I_{\\text{peak}}$', val: '$1.6 \\times \\sqrt{2} \\times I_{\\text{sym}}$ 或直接以 $1.6$ 乘峰值' },
+        { param: '斷路器投入容量額定', val: '需大於瞬時衝擊電流峰值' }
+      ],
+      examAdvice: '補充說明：「若 $K=1.6$ 代表峰值動態倍率，則斷路器閉合投入額定需相應提高」。'
+    }
+  },
+
+  'EE-107-06-2': {
+    qid: 'EE-107-06-2',
+    subject: '工業配電',
+    year: 107,
+    qnum: 2,
+    title: '100 HP 馬達滿載電流查表值 vs 經驗反算值',
+    coreConflict: '107 年度試題未附查表附件，現行屋內線路裝置規則表 258-3 與歷史傳統試題常用值存在差異。',
+    scenarioA: {
+      name: '情境 A：現行法規表 258-3 標準查表值 ($I_{FLC} = 238\\text{ A}$)',
+      condition: '依經濟部《用戶用電設備裝置規則》表 258-3（三相 220V 感應電動機滿載電流表）',
+      keyValues: [
+        { param: '滿載電流 $I_{\\text{FLC}}$', val: '$238.0\\text{ A}$' },
+        { param: '分路導線安培容量 (125%)', val: '$297.5\\text{ A}$' },
+        { param: '線路電壓降 $V_{\\text{drop}}$', val: '以 $238\\text{ A}$ 與功率因數計算' }
+      ],
+      examAdvice: '首選此標準解，並明確引註法條名稱：「依用戶用電設備裝置規則表 258-3 查得 100HP/220V 為 238A」。'
+    },
+    scenarioB: {
+      name: '情境 B：銘牌經驗反算值 ($I_{FLC} \\approx 250\\text{ A}$)',
+      condition: '若未背法規表，以標準馬達效率 $\\eta=0.9$、$\\text{pf}=0.85$ 經驗反算',
+      keyValues: [
+        { param: '反算額定電流 $I_{\\text{calc}}$', val: '$\\frac{100 \\times 746}{\\sqrt{3} \\times 220 \\times 0.85 \\times 0.9} \\approx 256.4\\text{ A} \\sim 250\\text{ A}$' },
+        { param: '導線安培容量 (125%)', val: '約 $312.5\\text{ A} \\sim 320.5\\text{ A}$' }
+      ],
+      examAdvice: '若忘記 238A 數字，可用「設效率 90%、功因 85% 反算約 250A」續解，步驟分數仍可穩拿 80% 以上。'
+    }
+  },
+
+  'EE-106-06-2': {
+    qid: 'EE-106-06-2',
+    subject: '工業配電',
+    year: 106,
+    qnum: 2,
+    title: '單相短路故障導體阻抗往返迴路定義',
+    coreConflict: '題面給定每導體阻抗，未明確說明是否已包含線間往返迴路。',
+    scenarioA: {
+      name: '情境 A：往返雙導線完整迴路 (工程物理標準解)',
+      condition: '短路電流由相線流出、經中性線或另一相線返回，故障迴路阻抗為 $2 \\times Z_{\\text{conductor}}$',
+      keyValues: [
+        { param: '總故障阻抗 $Z_{\\text{fault}}$', val: '$2 \\times (R + jX)$' },
+        { param: '短路電流 $I_{\\text{sc}}$', val: '$V_{\\text{line}} / (2 \\times |Z|)$' }
+      ],
+      examAdvice: '列為首選：「故障電流必形成封閉迴路，故障阻抗取往返兩導體之和 $2Z$」。'
+    },
+    scenarioB: {
+      name: '情境 B：給定阻抗已為單向等效',
+      condition: '若命題者將標示阻抗視為全迴路等效阻抗',
+      keyValues: [
+        { param: '總故障阻抗 $Z_{\\text{fault}}$', val: '$1 \\times (R + jX)$' },
+        { param: '短路電流 $I_{\\text{sc}}$', val: '$V_{\\text{line}} / |Z|$ (數值為情境 A 之 2 倍)' }
+      ],
+      examAdvice: '在解答末尾以一行提示補充：「若給定阻抗已含往返迴路，則故障電流為上述計算值之 2 倍」。'
+    }
+  }
+};
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { SCENARIO_MATRIX_DATA };
+}
 
 
 // === src/components/reviewPage.js ===
@@ -4036,6 +4626,150 @@ function startReviewSession() {
   if (first && typeof openSolutionModal === 'function') {
     const record = getReviewRecord(first);
     openSolutionModal(null, record.solutionLink, record.id, record.number, false, true);
+  }
+}
+
+
+// === src/components/quickReviewSheet.js ===
+// src/components/quickReviewSheet.js
+// -*- coding: utf-8 -*-
+/**
+ * quickReviewSheet.js
+ * ====================
+ * 考前 30 分鐘考點陷阱急救速覽表 (Last 30-Minute High-Yield Cheat Sheet)
+ * Extracts core formulas and key traps from KNOWLEDGE_DAG across all 6 core subjects.
+ * Provides:
+ * 1. Categorized collapsible subject accordions.
+ * 2. High-definition KaTeX formula display.
+ * 3. Highlighted key exam pitfalls (keyTrap).
+ * 4. Print & PDF-friendly export styling for physical paper review.
+ */
+
+let quickReviewSelectedSubject = 'all';
+
+function setQuickReviewSubject(sid) {
+  quickReviewSelectedSubject = sid;
+  renderQuickReviewSheet();
+}
+
+function toggleAllQuickCards(expand) {
+  const details = document.querySelectorAll('.quicksheet-subject-section details');
+  details.forEach(d => {
+    d.open = expand;
+  });
+}
+
+function renderQuickReviewSheet() {
+  const container = document.getElementById('quicksheet-container');
+  if (!container) return;
+
+  if (typeof KNOWLEDGE_DAG === 'undefined') {
+    container.innerHTML = `<div class="quicksheet-empty">知識圖譜資料載入中...</div>`;
+    return;
+  }
+
+  const subjects = [
+    { id: '01', name: '電路學', icon: '⚡', color: '#4a7c8f' },
+    { id: '02', name: '電子學（含電力電子）', icon: '🔬', color: '#686b8f' },
+    { id: '03', name: '工程數學', icon: '📐', color: '#54826b' },
+    { id: '04', name: '電機機械', icon: '⚙️', color: '#a17846' },
+    { id: '05', name: '電力系統', icon: '🗼', color: '#a85858' },
+    { id: '06', name: '工業配電', icon: '🏭', color: '#7d6382' }
+  ];
+
+  // 1. Controls Header
+  const subjectPillsHtml = [
+    `<button class="pill ${quickReviewSelectedSubject === 'all' ? 'active' : ''}" onclick="setQuickReviewSubject('all')">全科合輯 (60+ 考點)</button>`
+  ].concat(subjects.map(s => {
+    const activeClass = quickReviewSelectedSubject === s.id ? 'active' : '';
+    return `<button class="pill ${activeClass}" onclick="setQuickReviewSubject('${s.id}')">${s.icon} ${s.name}</button>`;
+  })).join('');
+
+  // 2. Build Sections
+  let sectionsHtml = '';
+
+  subjects.forEach(s => {
+    if (quickReviewSelectedSubject !== 'all' && quickReviewSelectedSubject !== s.id) return;
+
+    // Filter nodes for this subject
+    const nodes = Object.values(KNOWLEDGE_DAG).filter(n => n.subject === s.id);
+    if (nodes.length === 0) return;
+
+    const cardsHtml = nodes.map(n => {
+      const levelBadge = `<span class="qsheet-lvl-badge lvl-${n.level || 1}">L${n.level || 1} 核心</span>`;
+      const formulaMath = n.coreFormula ? `<div class="qsheet-formula">$$${n.coreFormula}$$</div>` : '<div class="qsheet-no-formula">定性分析 / 概念題型</div>';
+      const trapText = n.keyTrap ? `<div class="qsheet-trap">⚠️ <strong>常考陷阱與防坑突破：</strong>${n.keyTrap}</div>` : '';
+
+      return `
+        <div class="qsheet-card" id="qsheet-node-${n.id}">
+          <div class="qsheet-card-header">
+            <div class="qsheet-card-title">
+              <span class="qsheet-node-id">${n.id}</span>
+              <strong>${n.name}</strong>
+            </div>
+            ${levelBadge}
+          </div>
+          <div class="qsheet-formula-wrap">
+            <div class="qsheet-label">📐 核心必背推導公式：</div>
+            ${formulaMath}
+          </div>
+          ${trapText}
+        </div>
+      `;
+    }).join('');
+
+    sectionsHtml += `
+      <div class="quicksheet-subject-section" id="qsheet-sec-${s.id}">
+        <details open>
+          <summary class="qsheet-sec-header">
+            <div class="qsheet-sec-title">
+              <span class="qsheet-sec-icon">${s.icon}</span>
+              <h3 style="display:inline;font-size:1.15rem;margin:0;color:var(--ink);">${s.name}</h3>
+              <span class="qsheet-count-tag">${nodes.length} 個高頻核心考點</span>
+            </div>
+            <span class="qsheet-arrow">▾</span>
+          </summary>
+          <div class="qsheet-cards-grid">
+            ${cardsHtml}
+          </div>
+        </details>
+      </div>
+    `;
+  });
+
+  container.innerHTML = `
+    <div class="quicksheet-shell">
+      <div class="quicksheet-top-bar">
+        <div class="quicksheet-header-text">
+          <h2>⚡ 考前 30 分鐘考點陷阱急救速覽手冊</h2>
+          <p>全科 60+ 核心考點定理、必背公式、考選部歷屆易錯陷阱提煉；支援 A4 列印排版帶入考場速讀。</p>
+        </div>
+        <div class="quicksheet-actions">
+          <button class="pill" onclick="toggleAllQuickCards(true)">展開全部</button>
+          <button class="pill" onclick="toggleAllQuickCards(false)">收合全部</button>
+          <button class="pill btn-print-sheet" onclick="window.print()">🖨️ 列印/匯出 PDF</button>
+        </div>
+      </div>
+
+      <div class="quicksheet-sub-filters">
+        ${subjectPillsHtml}
+      </div>
+
+      <div class="quicksheet-content">
+        ${sectionsHtml}
+      </div>
+    </div>
+  `;
+
+  // Render KaTeX in the container
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(container, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false }
+      ],
+      throwOnError: false
+    });
   }
 }
 
@@ -4719,6 +5453,19 @@ function updateStatsAndBar() {
   if (statStarred) statStarred.innerText = starred;
   if (statExams) statExams.innerText = currentExamCategory === 'PE' ? 66 : 25;
 
+  // SM-2 Due Flashcards count
+  const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
+  const statDue = document.getElementById('stat-due-flashcards');
+  const statDueCard = document.getElementById('stat-due-card');
+  if (statDue) statDue.innerText = dueList.length;
+  if (statDueCard) {
+    if (dueList.length > 0) {
+      statDueCard.classList.add('has-due');
+    } else {
+      statDueCard.classList.remove('has-due');
+    }
+  }
+
   const barMastered = document.getElementById('bar-mastered');
   const barReview = document.getElementById('bar-review');
   const barUnstarted = document.getElementById('bar-unstarted');
@@ -4729,6 +5476,18 @@ function updateStatsAndBar() {
   if (barUnstarted && total > 0) barUnstarted.style.width = `${(unstarted / total) * 100}%`;
   if (barPct) barPct.innerText = `${pct}%`;
 }
+
+function onDueFlashcardsClick() {
+  if (typeof switchTab === 'function') {
+    switchTab('review');
+    const reviewScope = document.getElementById('review-scope');
+    if (reviewScope) {
+      reviewScope.value = 'due';
+      if (typeof setReviewFilter === 'function') setReviewFilter('due');
+    }
+  }
+}
+
 
 function exportProgressJSON() {
   const jsonStr = typeof exportAllUserDataJSON === 'function' ? exportAllUserDataJSON() : JSON.stringify({
@@ -4843,6 +5602,70 @@ function getSubjectMeta(sid) {
   return DB_DATA.meta.subjects.find(s => s.id === sid) || { name: '未知', icon: '📝', color: '#798694' };
 }
 
+let activeFacetTag = null;
+
+function setFacetTag(tag) {
+  if (activeFacetTag === tag) {
+    activeFacetTag = null;
+  } else {
+    activeFacetTag = tag;
+  }
+  renderQuestions();
+}
+
+function renderFacetTagsBar(currentSubFilter, activeQuestions) {
+  const bar = document.getElementById('facet-filter-bar');
+  if (!bar) return;
+
+  const SUBJECT_FACET_MAP = {
+    '01': ['戴維寧', '諾頓', '暫態', '相量', '三相', '雙埠', '諧振', '運算放大器', '最大功率'],
+    '02': ['小訊號', '差動放大器', '負回授', '返馳式', 'Buck', 'Boost', '頻率響應', 'BJT偏壓', 'MOSFET', '主動濾波'],
+    '03': ['一階ODE', '二階線性', '拉氏轉換', '傅立葉', '矩陣特徵值', '複變積分', '機率', '狀態空間'],
+    '04': ['變壓器等效', '感應馬達', '同步發電機', '直流電機', '短路比', '轉矩計算', '開路短路試驗', '漏磁通'],
+    '05': ['對稱成分', '牛頓-拉夫森', '三相短路', '單相接地', '傳輸線模型', '功角穩定度', '等面積準則', '經濟調度'],
+    '06': ['短路容量', '電壓降', '馬達配線', '功率因數改善', '諧波濾除', '過電流保護', '接地設計', '變壓器容量']
+  };
+
+  const candidateKeywords = currentSubFilter !== 'all' && SUBJECT_FACET_MAP[currentSubFilter]
+    ? SUBJECT_FACET_MAP[currentSubFilter]
+    : ['戴維寧', '暫態', '三相', '小訊號', '負回授', '返馳式', '拉氏轉換', '感應馬達', '變壓器', '對稱成分', '短路容量', '電壓降'];
+
+  const tagCounts = [];
+  candidateKeywords.forEach(kw => {
+    const count = activeQuestions.filter(q => {
+      const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, status, ftags] = q;
+      if (currentSubFilter !== 'all' && sid !== currentSubFilter) return false;
+      const tStr = (topic || '') + ' ' + (tags || []).join(' ') + ' ' + (ftags || []).join(' ');
+      return tStr.includes(kw);
+    }).length;
+    if (count > 0) {
+      tagCounts.push({ kw, count });
+    }
+  });
+
+  if (tagCounts.length === 0) {
+    bar.style.display = 'none';
+    return;
+  }
+
+  bar.style.display = 'flex';
+  let pills = `<span class="facet-filter-label">🎯 考點快篩：</span>`;
+  tagCounts.forEach(tc => {
+    const isActive = activeFacetTag === tc.kw;
+    pills += `
+      <button class="facet-tag-pill ${isActive ? 'active' : ''}" onclick="setFacetTag('${tc.kw}')">
+        ${tc.kw} <span class="facet-tag-count">(${tc.count})</span>
+      </button>
+    `;
+  });
+
+  if (activeFacetTag) {
+    pills += `<button class="facet-tag-pill" style="color:var(--review);border-color:var(--review);" onclick="setFacetTag(null)">✕ 清除標籤快篩</button>`;
+  }
+
+  bar.innerHTML = pills;
+}
+
 function renderQuestions() {
   const container = document.getElementById('questions-container');
   if (!container) return;
@@ -4861,12 +5684,21 @@ function renderQuestions() {
 
   const activeQuestions = getActiveQuestionsList();
 
+  // Render Facet Filter Bar
+  renderFacetTagsBar(subFilter, activeQuestions);
+
   const filtered = activeQuestions.filter(q => {
     const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, status, ftags, hasDed, cat, rel] = q;
 
     if (subFilter !== 'all' && sid !== subFilter) return false;
     if (yrFilter !== 'all' && String(yr) !== yrFilter) return false;
     if (diffFilter !== 'all' && String(diff) !== diffFilter) return false;
+
+    // Facet Tag Filter
+    if (activeFacetTag) {
+      const tStr = (topic || '') + ' ' + (tags || []).join(' ') + ' ' + (ftags || []).join(' ');
+      if (!tStr.includes(activeFacetTag)) return false;
+    }
 
     const curStatus = progressState[qid] || 0;
     const isStarred = !!starredState[qid];
@@ -4901,6 +5733,7 @@ function renderQuestions() {
 
     return true;
   });
+
 
   const countBadge = document.getElementById('filtered-count');
   if (countBadge) countBadge.innerText = `顯示 ${filtered.length} 題`;
@@ -5213,6 +6046,55 @@ function renderSolutionReviewCard(qid) {
   `;
 }
 
+function renderScenarioMatrix(qid) {
+  if (typeof SCENARIO_MATRIX_DATA === 'undefined' || !qid) return '';
+  const matrix = SCENARIO_MATRIX_DATA[qid];
+  if (!matrix) return '';
+  const esc = typeof reviewHtmlEscape === 'function' ? reviewHtmlEscape : (v) => String(v || '');
+
+  const renderScenarioSide = (sc, badgeClass) => {
+    const keyValsHtml = sc.keyValues.map(kv => `
+      <tr>
+        <td class="matrix-param-name">${kv.param}</td>
+        <td class="matrix-param-val">${kv.val}</td>
+      </tr>
+    `).join('');
+
+    return `
+      <div class="matrix-column ${badgeClass}">
+        <div class="matrix-col-header">
+          <span class="matrix-badge">${esc(sc.name)}</span>
+        </div>
+        <div class="matrix-condition">📌 <strong>假設條件：</strong>${esc(sc.condition)}</div>
+        <table class="matrix-table">
+          <thead>
+            <tr><th>關鍵參數 / 物理量</th><th>推導數值</th></tr>
+          </thead>
+          <tbody>${keyValsHtml}</tbody>
+        </table>
+        <div class="matrix-advice">💡 <strong>考場應對防坑對策：</strong>${esc(sc.examAdvice)}</div>
+      </div>
+    `;
+  };
+
+  return `
+    <div class="scenario-matrix-card" id="scenario-matrix-${esc(qid)}">
+      <div class="scenario-matrix-header">
+        <span class="scenario-icon">⚖️</span>
+        <div>
+          <h4 class="scenario-title">參數敏感度情境分支矩陣 (Scenario Matrix)</h4>
+          <p class="scenario-conflict">${esc(matrix.coreConflict)}</p>
+        </div>
+      </div>
+      <div class="scenario-matrix-grid">
+        ${renderScenarioSide(matrix.scenarioA, 'scenario-a')}
+        ${renderScenarioSide(matrix.scenarioB, 'scenario-b')}
+      </div>
+    </div>
+  `;
+}
+
+
 function updateSameExamDropdown(sid, yr, currentQid) {
   const select = document.getElementById('modal-same-exam-select');
   if (!select) return;
@@ -5445,6 +6327,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     // when a note has no conventional solution heading).
     const fullSolutionHtml = resolveRenderedImageSources(processMarkdownWithMath(markdownChunk), isGK, currentModalQid);
     const reviewCardHtml = renderSolutionReviewCard(currentModalQid);
+    const scenarioMatrixHtml = renderScenarioMatrix(currentModalQid);
 
     let dagHtml = '';
     if (qRecord) {
@@ -5482,6 +6365,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         </div>
 
         ${reviewCardHtml}
+        ${scenarioMatrixHtml}
 
         <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
           <div class="sm2-rating-title">🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：</div>
@@ -5514,7 +6398,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     let html = processMarkdownWithMath(markdownChunk);
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     html = resolveRenderedImageSources(html, isGK, currentModalQid);
-    html = renderSolutionReviewCard(currentModalQid) + html;
+    html = renderSolutionReviewCard(currentModalQid) + renderScenarioMatrix(currentModalQid) + html;
 
     if (qRecord) {
       const [qid, sid, yr, qnum, topic] = qRecord;
@@ -5904,7 +6788,11 @@ function switchTab(tabId) {
   if (tabId === 'review' && typeof renderReviewPage === 'function') {
     renderReviewPage();
   }
+  if (tabId === 'quicksheet' && typeof renderQuickReviewSheet === 'function') {
+    renderQuickReviewSheet();
+  }
 }
+
 
 function handleUrlHashRouting() {
   const hash = window.location.hash;

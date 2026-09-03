@@ -431,37 +431,44 @@ for qid, evidence in CANONICAL_TOPIC_METADATA.items():
             'noteTitle': evidence.get('title', ''),
         }
 
-# Overlay the explicit labels recorded by the manual-review workflow.  Keep
+# Overlay the explicit labels recorded by the website review workflow.  Keep
 # the canonical chapter as evidence while making the user-confirmed choice
-# the database's primary chapter.  The build-time subject check below rejects
-# malformed or cross-subject labels instead of silently leaking them.
+# the database's primary chapter.  Topic confirmation is orthogonal to the
+# solution audit: a verified question must retain its confirmed chapter.
 MANUAL_TOPIC_LABEL_SOURCE = os.path.join('src', 'data', 'manualTopicLabels.js')
 if os.path.exists(MANUAL_TOPIC_LABEL_SOURCE):
     try:
         with open(MANUAL_TOPIC_LABEL_SOURCE, 'r', encoding='utf-8') as f:
             manual_raw = f.read()
-        manual_pattern = re.compile(
-            r"['\"](EE-\d{3}-\d{2}-\d+)['\"]\s*:\s*\{\s*"
-            r"chapterId:\s*['\"]([a-z0-9-]+)['\"]"
+        manual_entry_pattern = re.compile(
+            r"['\"](EE-\d{3}-\d{2}-\d+)['\"]\s*:\s*\{([^}]*)\}"
         )
-        MANUAL_TOPIC_LABELS = {
-            qid: chapter for qid, chapter in manual_pattern.findall(manual_raw)
-        }
+        for qid, body in manual_entry_pattern.findall(manual_raw):
+            chapter_match = re.search(r"chapterId:\s*['\"]([a-z0-9-]+)['\"]", body)
+            if not chapter_match:
+                continue
+            secondary_match = re.search(r"secondaryTopicIds:\s*\[([^]]*)\]", body)
+            secondary_ids = (
+                re.findall(r"['\"]([a-z0-9-]+)['\"]", secondary_match.group(1))
+                if secondary_match else []
+            )
+            MANUAL_TOPIC_LABELS[qid] = {
+                'primaryChapter': chapter_match.group(1),
+                'secondaryTopicIds': secondary_ids,
+            }
     except OSError as exc:
         raise RuntimeError(f'Cannot load manual topic labels: {exc}') from exc
 
-for qid, manual_chapter in MANUAL_TOPIC_LABELS.items():
+for qid, manual_label in MANUAL_TOPIC_LABELS.items():
     if qid not in QUESTION_TAXONOMY_MAP:
         raise RuntimeError(f'Manual topic label references unmapped question: {qid}')
-    audit_status = PE_SOLUTION_AUDIT_STATUS.get(qid)
-    if audit_status not in {'needs_manual_review', 'in_progress', 'ambiguous'}:
-        raise RuntimeError(
-            f'Manual topic label must target an unresolved solution: {qid} -> {audit_status}'
-        )
+    manual_chapter = manual_label['primaryChapter']
     evidence = QUESTION_TAXONOMY_MAP[qid]
     evidence['manualChapter'] = manual_chapter
     evidence['primaryChapter'] = manual_chapter
     evidence['source'] = 'manual-topic-confirmed'
+    if manual_label['secondaryTopicIds']:
+        evidence['secondaryTopicIds'] = manual_label['secondaryTopicIds']
 
 # Read the explicit review register written by annotate_manual_reviews.py.
 # Only expose the three stable fields; the full Markdown remains the source of
@@ -723,19 +730,38 @@ with open('dashboard-data.js', 'w', encoding='utf-8') as f:
 
 print(f'✅ dashboard-data.js generated with {len(all_questions)} questions.')
 
-# Now compile solutions-bundle.js with all clean Markdown files and Image Mapping
+# Now compile solutions-bundle.js with clean PE Markdown files and Image Mapping
 bundle = {}
 img_map = {}
 
+# Exclude GK (which has its own national-solutions-bundle.js), career notes, specs, and docs
+EXCLUDE_DIRS = {
+    '.git', '.agents', 'node_modules', '.system_generated', 'tests', 'scripts', 'docs', 'workflows',
+    '💼 個人職涯發展與國際戰略', 'personal-tools-backup', '_site'
+}
+
 for root, dirs, files in os.walk('.'):
-    if '.git' in root or '.agents' in root or 'node_modules' in root or '.system_generated' in root:
+    # Prune top-level excluded directories
+    rel_root = os.path.relpath(root, '.').replace(os.sep, '/')
+    top_dir = rel_root.split('/')[0]
+    if top_dir in EXCLUDE_DIRS or top_dir.startswith('.'):
+        continue
+    # Exclude GK directories that belong strictly to national-solutions-bundle.js
+    if '🏛️_國考同級題解' in rel_root or '🏛️_國考同級參考題庫' in rel_root:
         continue
     for f in files:
         rel_path = os.path.relpath(os.path.join(root, f), '.').replace(os.sep, '/')
         if f.endswith('.md'):
+            # Filter non-PE markdown
+            if rel_path.startswith('SPEC_') or rel_path.startswith('💼'):
+                continue
+            if rel_path.startswith('reports/') and rel_path != 'reports/manual-review-index.md':
+                continue
             with open(os.path.join(root, f), 'r', encoding='utf-8', errors='ignore') as fp:
                 bundle[rel_path] = fp.read()
         elif f.lower().endswith(('.png', '.jpg', '.jpeg', '.svg', '.webp')):
+            if '🏛️_國考同級' in rel_path:
+                continue
             import urllib.parse
             img_map[f] = rel_path
             img_map[rel_path] = rel_path

@@ -13,8 +13,20 @@ WORKSPACE = Path(__file__).resolve().parents[1]
 TAXONOMY = WORKSPACE / "data" / "taxonomy"
 
 
+def reject_duplicate_keys(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
 def load_json(name):
-    return json.loads((TAXONOMY / name).read_text(encoding="utf-8"))
+    return json.loads(
+        (TAXONOMY / name).read_text(encoding="utf-8"),
+        object_pairs_hook=reject_duplicate_keys,
+    )
 
 
 def parse_dag_nodes():
@@ -31,7 +43,7 @@ def parse_dag_nodes():
 def parse_manual_topic_seed():
     text = (WORKSPACE / "src/data/manualTopicLabels.js").read_text(encoding="utf-8")
     pattern = re.compile(
-        r"'([^']+)':\s*\{\s*chapterId:\s*'([^']+)'\s*,\s*source:\s*'user-confirmed'\s*\}"
+        r"'([^']+)':\s*\{\s*chapterId:\s*'([^']+)'\s*,\s*source:\s*'user-confirmed'"
     )
     return dict(pattern.findall(text))
 
@@ -77,9 +89,12 @@ class TestTaxonomyData(unittest.TestCase):
         self.assertIn("primaryChapterId", definition["required"])
         self.assertIn("reason", definition["required"])
 
-    def test_manual_topic_seed_covers_only_current_manual_review_questions(self):
+    def test_manual_topic_seed_covers_current_manual_review_questions(self):
+        """Unresolved questions remain labeled, while verified labels are retained."""
         manual_ids = {qid for qid, row in self.questions.items() if row[9] == "needs_manual_review"}
-        self.assertEqual(set(self.manual_topic_seed), manual_ids)
+        self.assertTrue(manual_ids.issubset(set(self.manual_topic_seed)))
+        self.assertIn("EE-108-06-2", self.manual_topic_seed)
+        self.assertEqual(self.questions["EE-108-06-2"][9], "verified")
         for qid, chapter_id in self.manual_topic_seed.items():
             self.assertIn(chapter_id, self.dag)
             self.assertEqual(self.questions[qid][1], self.dag[chapter_id]["subjectId"])

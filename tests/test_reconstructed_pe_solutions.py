@@ -45,6 +45,45 @@ class TestReconstructedPESolutions(unittest.TestCase):
             digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
             self.assertEqual(entry["solution_hash"], digest, entry["qid"])
 
+    def test_pe_audit_report_current_snapshot_matches_manifest(self):
+        """The human audit report must not expose a stale status snapshot."""
+        manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
+        report = (ROOT / "reports" / "pe-solution-audit-2026-08-30.md").read_text(encoding="utf-8")
+        match = re.search(
+            r"\*\*目前狀態快照（[^）]+）\*\*：非工程數學 (\d+) 題中 "
+            r"`verified=(\d+)`、`needs_manual_review=(\d+)`、"
+            r"`suspected_error=(\d+)`、`not_attempted=(\d+)`",
+            report,
+        )
+        self.assertIsNotNone(match, "audit report is missing its current status snapshot")
+        questions, verified, manual, suspected, not_attempted = map(int, match.groups())
+        self.assertEqual(questions, manifest["summary"]["questions"])
+        self.assertEqual(verified, manifest["summary"]["verified"])
+        self.assertEqual(manual, manifest["summary"]["needs_manual_review"])
+        self.assertEqual(suspected, manifest["summary"]["suspected_error"])
+        self.assertEqual(not_attempted, manifest["summary"]["not_attempted"])
+        self.assertNotIn("現存 19 題", report)
+
+    def test_108_arc_furnace_pcc_model_is_reproducible_and_verified(self):
+        """The diagram-defined PCC model must remain the verified primary answer."""
+        qid = "EE-108-06-2"
+        note = (CANONICAL / "06_工業配電" / "canonical" / f"{qid}.md").read_text(encoding="utf-8")
+        annual = (CANONICAL / "06_工業配電" / "108年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
+        entry = next(item for item in manifest["entries"] if item["qid"] == qid)
+
+        self.assertEqual(entry["audit_status"], "verified")
+        self.assertIn("audit_status: verified", note)
+        self.assertIn("verified_at: 2026-09-02", note)
+        self.assertNotIn("review_disposition:", note)
+        for expected in ("3.0261", "0.403448", "1.748"):
+            self.assertIn(expected, note)
+
+        section = annual.split("## 二、電弧爐電壓突降與串聯電抗器容量設計", 1)[1].split("## 三、", 1)[0]
+        self.assertIn("3.0261", section)
+        self.assertIn("1.748", section)
+        self.assertNotIn("資料不足以唯一決定", section)
+
     def test_pe_solution_bundle_matches_canonical_notes(self):
         """The offline dashboard bundle must serve the exact canonical Markdown."""
         manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
@@ -57,6 +96,18 @@ class TestReconstructedPESolutions(unittest.TestCase):
             self.assertIn(link, payload, entry["qid"])
             source = (ROOT / link).read_text(encoding="utf-8")
             self.assertEqual(payload[link], source, entry["qid"])
+
+    def test_pe_solution_bundle_embeds_current_manual_review_index(self):
+        """The bundled review queue must be byte-for-byte current with its source."""
+        bundled = (ROOT / "solutions-bundle.js").read_text(encoding="utf-8")
+        match = re.search(r"const BUNDLED_MD = (\{.*?\});\s*const IMAGE_MAP", bundled, re.S)
+        self.assertIsNotNone(match, "solutions-bundle.js is missing its Markdown payload")
+        payload = json.loads(match.group(1))
+        source_path = "reports/manual-review-index.md"
+        source = (ROOT / source_path).read_text(encoding="utf-8")
+        self.assertEqual(payload.get(source_path), source)
+        self.assertIn("目前共 **17 題**待人工覆核。", payload[source_path])
+        self.assertNotIn("EE-108-06-2", payload[source_path])
 
     def test_electronics_conditional_branches_keep_unresolved_status(self):
         """Explicit textbook assumptions must not silently become official facts."""
@@ -205,7 +256,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 19, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 17, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -251,17 +302,22 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("110.264", note)
         self.assertIn("audit_status: needs_manual_review", note)
 
-    def test_112_common_base_divider_ratio_is_numerically_consistent(self):
-        """The common-base source divider must agree with its displayed resistance values."""
+    def test_synchronous_generator_review_does_not_promote_partial_subquestion_to_verified(self):
+        note = (CANONICAL / "04_電機機械" / "canonical" / "EE-111-04-4.md").read_text(encoding="utf-8")
+        self.assertIn("僅第（一）小題可唯一驗證", note)
+        self.assertIn("第（二）、（三）小題仍為條件分支", note)
+        self.assertIn("不得將整題標記為 verified", note)
+
+    def test_112_common_base_uses_source_current_and_finite_beta_consistently(self):
+        """The 0.5 mA source supplies emitter current when finite beta is retained."""
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-1.md").read_text(encoding="utf-8")
-        r_pi = 100 / 0.020
-        r_e = r_pi / (100 + 1)
-        r_in = 1 / (1 / 500 + 1 / r_e)
-        divider = r_in / (50 + r_in)
-        collector_load = 1000 * 100_000 / (1000 + 100_000)
-        gain = 0.020 * collector_load * divider
-        self.assertIn(f"{divider:.8f}", note)
-        self.assertIn(f"{gain:.6f}", note)
+        self.assertIn("I_E=I_Q=0.5", note)
+        self.assertIn("I_C=0.4950495", note)
+        for expected in ("19.80198", "50.000", "668.451", "160.746", "9.336153"):
+            self.assertIn(expected, note)
+        self.assertIn("三個標示", note)
+        self.assertIn("C_\\pi,C_\\mu$ 視為開路", note)
+        self.assertNotIn("中頻時 $C_\\pi,C_\\mu$ 視為短路", note)
 
     def test_annual_notes_identify_every_manual_question(self):
         """年度彙整頁需明示每個條件式題號，避免讀者誤用舊模板答案。"""
@@ -292,7 +348,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertEqual(report.count("| EE-"), len(manual_qids))
         for qid in manual_qids:
             self.assertIn(qid, report)
-        self.assertIn("工業配電系統電壓降與串聯電抗器", report)
+        self.assertNotIn("工業配電系統電壓降與串聯電抗器", report)
+        self.assertIn("電動機饋線電壓降與導線長度", report)
         self.assertIn("MOSFET 差動放大器與負回授", report)
         self.assertNotIn("待依教科書章節覆核", report)
         self.assertIn("電子學（含電力電子）", report)
@@ -358,11 +415,65 @@ class TestReconstructedPESolutions(unittest.TestCase):
         annual = (CANONICAL / "06_工業配電" / "107年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn("歷史表 258 A、現行表 238 A、常用 250 A", annual)
 
+    def test_motor_voltage_drop_review_separates_limit_from_current_source(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-2.md").read_text(encoding="utf-8")
+        self.assertIn("壓降 5%」是題目給定的壓降門檻", note)
+        self.assertIn("第 152 條只決定馬達負載電流的取值依據", note)
+        self.assertIn("不能由 100 HP 與功率因數單獨反推出唯一滿載電流", note)
+
     def test_harmonic_review_distinguishes_ac_and_dc_power_definitions(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-104-06-5.md").read_text(encoding="utf-8")
         self.assertIn("500 kW 是整流器 DC 輸出或 AC 側有功輸入", note)
         self.assertIn(r"I_{1,\mathrm{AC}}", note)
-        self.assertIn(r"I_{1,\mathrm{DC}}", note)
+        self.assertIn(r"I_{L,\mathrm{AC,in}}^{(P_{DC})}", note)
+
+    def test_harmonic_network_scales_all_four_outputs_from_pf_and_efficiency(self):
+        """Rebuild the harmonic network from official constants before checking scaling."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-104-06-5.md").read_text(encoding="utf-8")
+        s_base_mva = 2.0
+        v_ll = 380.0
+        s_sc_mva = 250.0
+        transformer_x = 0.061
+        harmonic = 5.0
+        qa_mvar, qb_mvar = 0.4, 0.2
+        reactor_fraction = 0.06
+        rectifier_kw = 500.0
+        harmonic_fraction = 0.20
+
+        i_base = s_base_mva * 1e6 / (math.sqrt(3) * v_ll)
+        z_source_1 = s_base_mva / s_sc_mva
+        z_up_5 = harmonic * (z_source_1 + transformer_x)
+        z_cap_a_1 = s_base_mva / qa_mvar
+        z_cap_b_1 = s_base_mva / qb_mvar
+        z_a_5 = harmonic * reactor_fraction * z_cap_a_1 - z_cap_a_1 / harmonic
+        z_b_5 = harmonic * reactor_fraction * z_cap_b_1 - z_cap_b_1 / harmonic
+        z_bus_5 = 1 / (1 / z_up_5 + 1 / z_a_5 + 1 / z_b_5)
+        i1_ac = rectifier_kw * 1e3 / (math.sqrt(3) * v_ll)
+        i5_pu = harmonic_fraction * i1_ac / i_base
+        v5_pu = i5_pu * z_bus_5
+        v5 = v5_pu * v_ll
+        base = [v5, v5_pu / z_up_5 * i_base, v5_pu / z_a_5 * i_base, v5_pu / z_b_5 * i_base]
+
+        self.assertAlmostEqual(i_base, 3038.6856, places=3)
+        self.assertAlmostEqual(z_bus_5, 0.16953317, places=7)
+        self.assertAlmostEqual(i5_pu, 0.05, places=7)
+        for actual, expected in zip(base, [3.2211, 74.6606, 51.5158, 25.7579]):
+            self.assertAlmostEqual(actual, expected, places=3)
+        expected_sensitivity = [
+            [3.3907, 78.5901, 54.2272, 27.1136],
+            [3.7674, 87.3223, 60.2524, 30.1262],
+        ]
+        for scale, expected_values in zip((1 / 0.95, 1 / (0.90 * 0.95)), expected_sensitivity):
+            scaled = [value * scale for value in base]
+            for actual, expected in zip(scaled, expected_values):
+                self.assertAlmostEqual(actual, expected, places=3)
+        self.assertIn("3.3907", note)
+        self.assertIn("78.5901", note)
+        self.assertIn("3.7674", note)
+        self.assertIn("87.3223", note)
+        self.assertIn("所有四個輸出依同一比例縮放", note)
+        self.assertIn(r"\frac{\mathbf y_0}{\eta\,\mathrm{pf}_1}", note)
+        self.assertNotIn(r"I_{1,\mathrm{DC}}", note)
         self.assertIn(r"1/(\eta\,\mathrm{pf}_1)", note)
         self.assertIn("500 kW 為 AC 側有功", note)
 
@@ -375,6 +486,26 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("I_e\\approx2.5", note)
         self.assertIn("圖解有效位數而非方程或裁切缺漏", note)
 
+    def test_ct_curve_review_records_reading_intervals_and_threshold_margin(self):
+        """Graph readings must expose enough margin to support the relay decision."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-1.md").read_text(encoding="utf-8")
+        self.assertIn("0.15\\sim0.25", note)
+        self.assertIn("2.2\\sim2.8", note)
+        self.assertIn("2.0\\,\\mathrm{A}", note)
+        self.assertIn("9.75\\sim9.85", note)
+        self.assertIn("7.2\\sim7.8", note)
+        self.assertIn("不受圖解誤差影響", note)
+
+    def test_ct_curve_review_queue_names_page_crop_and_manual_decision(self):
+        """A reviewer must be able to locate the exact official page and decision bounds."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-1.md").read_text(encoding="utf-8")
+        self.assertIn("官方原卷第 3-1 頁（檔案頁 1）", note)
+        self.assertIn("PE_111年_工業配電_Q01.png", note)
+        self.assertIn("人工只需確認兩個交點的有效位數", note)
+        self.assertIn("0.15~0.25 A", note)
+        self.assertIn("2.2~2.8 A", note)
+        self.assertIn("I'≥8 A", note)
+
     def test_single_phase_fault_review_uses_diagram_fault_location(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
         self.assertIn("F 標在 T2 左側 110 V 導體端", note)
@@ -386,27 +517,83 @@ class TestReconstructedPESolutions(unittest.TestCase):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
         self.assertIn("review_disposition: source_per_conductor_line_line_main_model", note)
         self.assertIn("I_{sym,LL}=9.927", note)
-        self.assertIn("I_{peak,max,LL}", note)
+        self.assertIn("I_{peak,exact,LL}", note)
         self.assertIn("19.36", note)
-        self.assertIn("11.318 kA／22.47 kA", note)
+        self.assertIn("11.318 kA", note)
+        self.assertIn("19.1841", note)
+        self.assertIn("22.49", note)
+
+    def test_single_phase_fault_exact_peak_branch_is_reproducible(self):
+        """The exact first peak must be separated from the quarter-cycle approximation."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
+        z = complex(0.005821541274238227, 0.009427922253000922)
+        current = 110 / abs(z)
+        k = z.imag / z.real
+
+        def peak_equation(u):
+            return math.cos(u) - math.exp(-u / k) + k * math.sin(u)
+
+        lo, hi = 2.0, 3.0
+        for _ in range(80):
+            mid = (lo + hi) / 2
+            if peak_equation(lo) * peak_equation(mid) <= 0:
+                hi = mid
+            else:
+                lo = mid
+        u = (lo + hi) / 2
+        decay = math.exp(-u / k)
+        exact_peak = math.sqrt(2) * current * math.sqrt(1 + decay**2 - 2 * decay * math.cos(u)) / 1000
+        self.assertIn(f"{exact_peak:.4f}", note)
+        self.assertIn("四分之一週期近似", note)
+        self.assertIn("16.5404", note)
+
+    def test_single_phase_fault_main_model_doubles_each_primary_conductor(self):
+        """The preferred branch must preserve the line-to-line return path independently."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
+        z_source = complex(0.0, 0.00004840)
+        z_t1 = complex(0.00014520, 0.00059290)
+        z_line = complex(0.000829571, 0.000361994)
+        z_t2_half = complex(0.003872, 0.00742133)
+        z_main = z_t2_half + 2 * (z_source + z_t1 + z_line)
+        i_sym_ka = 110 / abs(z_main) / 1000
+        xr = z_main.imag / z_main.real
+        self.assertIn(f"{i_sym_ka:.3f}", note)
+        self.assertIn(f"{xr:.4f}", note)
+        self.assertIn("2(Z_{sys,110}+Z_{T1,110}+Z_{L,110})", note)
+        self.assertIn("故障相角、觀察時刻與系統頻率", note)
 
     def test_furnace_flicker_review_prefers_source_pcc_model(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-108-06-2.md").read_text(encoding="utf-8")
-        self.assertIn("review_disposition: source_end_PCC_impedance_model", note)
+        self.assertIn("audit_status: verified", note)
+        self.assertIn("method: official_crop_pcc_voltage_flicker_recalculation", note)
         self.assertIn("source/PCC", note)
         self.assertIn("3.0261", note)
         self.assertIn("1.748", note)
-        self.assertIn("3.6696", note)
+        self.assertNotIn("review_disposition:", note)
+        self.assertIn("測定點位於 69 kV 電源側", note)
+        self.assertNotIn("題面未指定測定點", note)
 
     def test_electronics_manual_review_provenance_matches_official_crop(self):
         mosfet = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-106-02-2.md").read_text(encoding="utf-8")
         self.assertIn("未提供 V_A", mosfet)
         self.assertNotIn("官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞", mosfet)
+        self.assertIn("輸出端負載為 $R_1+R_2$", mosfet)
+        self.assertNotIn("$R_1\\parallel R_2$ 負載", mosfet)
 
         feedback = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-4.md").read_text(encoding="utf-8")
         self.assertIn(r"未標示 \(4I_1\) 受控源", feedback)
         self.assertNotIn(r"受控源標示 \(4I_1\)", feedback)
         self.assertIn("subject: 電子學_含電力電子", feedback)
+
+    def test_current_feedback_note_uses_shunt_series_topology(self):
+        """The current-in/current-out circuit must not be labelled voltage-series."""
+        note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-4.md").read_text(encoding="utf-8")
+        self.assertIn("並聯-串聯", note)
+        self.assertIn("Shunt-Series", note)
+        self.assertIn("Current-Current Feedback", note)
+        self.assertIn("輸入端是電流並聯混合", note)
+        self.assertIn("輸出端是電流串聯取樣", note)
+        self.assertNotIn("串聯-並聯負電壓回授", note)
 
     def test_induction_motor_source_conflict_keeps_both_impedance_branches(self):
         note = (CANONICAL / "04_電機機械" / "canonical" / "EE-113-04-4.md").read_text(encoding="utf-8")
@@ -441,6 +628,30 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("EE-104-05-3.md", note)
         self.assertIn("舊版年度模板曾把未出現在官方題面的 4.5 kA", note)
         self.assertNotIn("I_{sc} = 2.5 + 3.0 + 4.5", note)
+
+    def test_104_parallel_generators_use_given_fault_currents_to_recover_prefault_state(self):
+        """The stated fault currents determine each machine's subtransient EMF."""
+        note = (CANONICAL / "05_電力系統" / "canonical" / "EE-104-05-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: verified", note)
+        self.assertNotIn("review_blocker:", note)
+        self.assertIn("兩部機組各自供電至系統匯流排之有效功率均為 440 MW", note)
+        self.assertIn("P_i=0.8", note)
+        for expected in (
+            "1.086468",
+            "1.303762",
+            "17.1295",
+            "14.2081",
+            "20.4285",
+            "22.1098",
+            "52.6270",
+            "362.8363",
+            "5.4982",
+            "5.5\\text{ kA}",
+        ):
+            self.assertIn(expected, note)
+        self.assertIn("故障電流反算", note)
+        self.assertIn("功率平衡", note)
+        self.assertIn("小訊號穩定", note)
 
     def test_annual_107_power_note_uses_corrected_generator_q3_branch(self):
         """年度彙整頁不得重新暴露已校正的基準與無效功率方向錯誤。"""
@@ -477,7 +688,30 @@ class TestReconstructedPESolutions(unittest.TestCase):
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-3.md").read_text(encoding="utf-8")
         self.assertIn("最小更正候選", note)
         self.assertIn("4.444444", note)
-        self.assertIn("4.755", note)
+        self.assertIn("26.666667", note)
+        self.assertIn("0.075", note)
+        self.assertIn("4436.120", note)
+        self.assertNotIn("I_D=4.755", note)
+
+    def test_mosfet_source_degradation_rebuilds_both_conflicting_branches(self):
+        """Independent algebra must expose the gain-versus-square-law conflict."""
+        note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-3.md").read_text(encoding="utf-8")
+        id_a, rs, rd, vth = 3.17e-3, 30.0, 200.0, 0.4
+        mu_cox, gain_target = 200e-6, 5.0
+        vov = id_a * rs
+        gm_square = 2 * id_a / vov
+        gain_square = gm_square * rd / (1 + gm_square * rs)
+        gm_gain = gain_target / (rd - gain_target * rs)
+        wl_square = gm_square / (mu_cox * vov)
+        wl_gain = gm_gain / (mu_cox * vov)
+        self.assertAlmostEqual(vov, 0.0951, places=4)
+        self.assertAlmostEqual(gain_square, 4.444444, places=3)
+        self.assertAlmostEqual(gm_gain, 0.1, places=7)
+        self.assertIn(f"{gm_square:.7f}", note)
+        self.assertIn(f"{wl_square:.3f}", note)
+        self.assertIn(f"{wl_gain:.3f}", note)
+        self.assertIn("R_1", note)
+        self.assertIn("R_2", note)
 
     def test_probability_solution_uses_weighted_shot_model(self):
         note = (CANONICAL / "03_工程數學" / "canonical" / "EE-112-03-3.md").read_text(encoding="utf-8")
@@ -489,8 +723,45 @@ class TestReconstructedPESolutions(unittest.TestCase):
     def test_synchronous_motor_manual_review_records_parameter_sensitivity(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-2.md").read_text(encoding="utf-8")
         self.assertIn("參數化敏感度", note)
-        self.assertIn("20.0000%", note)
-        self.assertIn("3.3333%", note)
+        for k in (0.80, 0.90, 1.00):
+            drop_secondary = 0.06 / (0.06 + k / 3) * 100
+            drop_primary = 0.01 / (0.06 + k / 3) * 100
+            self.assertIn(f"{k:.2f}", note)
+            self.assertIn(f"{drop_secondary:.4f}%", note)
+            self.assertIn(f"{drop_primary:.4f}%", note)
+
+    def test_synchronous_motor_voltage_drop_rebuilds_from_official_constants(self):
+        """Rebuild the two-side voltage drops from the diagram constants."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-2.md").read_text(encoding="utf-8")
+        source_sc_mva = 500.0
+        transformer_mva = 5.0
+        transformer_x = 0.05
+        motor_kw = 3000.0
+        base_mva = transformer_mva
+        x_source = base_mva / source_sc_mva
+        x_upstream = x_source + transformer_x
+        k = 0.85
+        motor_mva = motor_kw / 1000 / k
+        motor_start_mva = 5 * motor_mva
+        x_motor = base_mva / motor_start_mva
+        drop_secondary = x_upstream / (x_upstream + x_motor) * 100
+        drop_primary = x_source / (x_upstream + x_motor) * 100
+        self.assertAlmostEqual(x_source, 0.01, places=7)
+        self.assertAlmostEqual(x_upstream, 0.06, places=7)
+        self.assertIn(f"{drop_secondary:.4f}%", note)
+        self.assertIn(f"{drop_primary:.4f}%", note)
+        self.assertIn("啟動功因為 0", note)
+
+    def test_synchronous_motor_review_separates_starting_and_rated_power_factor(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-2.md").read_text(encoding="utf-8")
+        self.assertIn("啟動功因為 0 ≠ 額定運轉功因", note)
+        self.assertIn("不能直接視為 3000 kVA", note)
+
+    def test_dashboard_exposes_synchronous_motor_power_factor_boundary(self):
+        dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")
+        self.assertIn('"EE-111-06-2"', dashboard)
+        self.assertIn("啟動功因為 0 ≠ 額定運轉功因", dashboard)
+        self.assertIn("不能直接視為 3000 kVA", dashboard)
 
     def test_common_base_manual_review_records_thermal_voltage_sensitivity(self):
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-113-02-2.md").read_text(encoding="utf-8")
@@ -502,6 +773,57 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("效率／功因參數化", note)
         self.assertIn("24.0672", note)
         self.assertIn("22.9411", note)
+        self.assertIn("RMS 非對稱倍率或峰值倍率", note)
+
+    def test_motor_fault_review_separates_rms_and_peak_interpretations_of_k(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-110-06-5.md").read_text(encoding="utf-8")
+        self.assertIn(r"若 \(K\) 是 RMS 非對稱倍率", note)
+        self.assertIn(r"若 \(K\) 是峰值倍率", note)
+        self.assertIn(r"不得把同一個 \(K\) 再乘一次", note)
+
+    def test_motor_fault_rebuilds_common_base_and_480v_branch_independently(self):
+        """Recalculate the source, 3.45 kV motors, and 480 V motor from diagram data."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-110-06-5.md").read_text(encoding="utf-8")
+        base_mva, voltage_kv, short_circuit_mva = 100.0, 3.45, 1500.0
+        transformer_1_mva, transformer_1_x = 5.0, 0.07
+        transformer_2_mva, transformer_2_x = 1.5, 0.0575
+        source_pu = base_mva / short_circuit_mva + transformer_1_x * base_mva / transformer_1_mva
+        ib_ka = base_mva / (math.sqrt(3) * voltage_kv)
+        motor_sm = 0.15 * base_mva / (0.746 * 2000 / 1000)
+        motor_im1 = 0.20 * base_mva / (0.746 * 1000 / 1000)
+        motor_im2 = 0.25 * base_mva / (0.746 * 1500 / 1000)
+        transformer_2 = transformer_2_x * base_mva / transformer_2_mva
+        k = 0.85
+        fault_pu = 1 / source_pu + 1 / (motor_sm * k) + 1 / (motor_im1 * k) + 1 / (transformer_2 + motor_im2 * k)
+        self.assertAlmostEqual(source_pu, 1.4666667, places=5)
+        self.assertAlmostEqual(ib_ka, 16.73479, places=4)
+        fault_ka = fault_pu * ib_ka
+        momentary_ka = 1.6 * fault_ka
+        self.assertGreater(fault_ka, 0)
+        self.assertGreater(momentary_ka, fault_ka)
+        self.assertIn("0.000746", note)
+        self.assertIn("0.85", note)
+        self.assertIn(f"{fault_ka:.4f}", note)
+        self.assertIn(f"{momentary_ka:.4f}", note)
+
+    def test_annual_motor_fault_uses_three_motor_conditional_model(self):
+        annual = (CANONICAL / "06_工業配電" / "110年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        base_mva, voltage_kv = 100.0, 3.45
+        source_impedance = base_mva / 1500.0 + 0.07 * base_mva / 5.0
+        ib_ka = base_mva / (math.sqrt(3) * voltage_kv)
+        sm_x = 0.15 * base_mva / (0.746 * 2000 / 1000)
+        im1_x = 0.20 * base_mva / (0.746 * 1000 / 1000)
+        im2_x = 0.25 * base_mva / (0.746 * 1500 / 1000)
+        k = 0.85
+        fault_pu = 1 / source_impedance + 1 / (sm_x * k) + 1 / (im1_x * k) + 1 / (0.0575 * base_mva / 1.5 + im2_x * k)
+        self.assertIn("自行選定 100 MVA 共同基準", annual)
+        self.assertIn("1500 HP", annual)
+        self.assertIn("480 V", annual)
+        self.assertIn("I/M2", annual)
+        self.assertIn("0.000746", annual)
+        self.assertIn(f"{1.6 * (fault_pu * ib_ka):.4f}", annual)
+        self.assertNotIn("14.48", annual)
+        self.assertNotIn("23.17", annual)
 
     def test_111_motor_fault_records_three_branches_without_inventing_rating(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-3.md").read_text(encoding="utf-8")
@@ -509,6 +831,58 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("支路數量 N_M=3 已確認", note)
         self.assertIn("額定功因／效率", note)
         self.assertNotIn("馬達數量未明", note)
+
+    def test_111_motor_fault_keeps_generator_and_motor_contributions_at_their_observation_points(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-3.md").read_text(encoding="utf-8")
+        self.assertIn("A 點量測的是發電機支路電流", note)
+        self.assertIn("不得把馬達反饋分量加到 A 點", note)
+
+    def test_111_motor_fault_does_not_turn_official_mw_into_unique_mva(self):
+        """The official generator rating is MW; MVA/PF must remain an assumption."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-3.md").read_text(encoding="utf-8")
+        annual = (CANONICAL / "06_工業配電" / "111年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        self.assertIn("25\\,\\mathrm{MW}", note)
+        self.assertIn("25\\,\\mathrm{MVA}", note)
+        self.assertIn("基準", note)
+        self.assertIn("PF_G=1", note)
+        self.assertIn("21.8693", note)
+        self.assertIn("條件分支", note)
+        self.assertIn("25\\text{ MW}", annual)
+        self.assertIn("PF_G=1", annual)
+        self.assertIn("21.869", annual)
+        self.assertNotIn("發電機額定 MVA 已知為 25", note)
+
+        # Independent base-change check: do not merely compare a copied
+        # answer string.  These constants come from the official/canonical
+        # data, while the expected currents are recomputed here.
+        sb_mva = 25.0
+        vb_kv = 3.3
+        xd_pp = 0.12
+        xt = 0.08
+        ib_ka = sb_mva / (math.sqrt(3) * vb_kv)
+        for pf_g, expected_ka in ((1.0, 21.8693), (0.9, 23.2652), (0.8, 24.8515)):
+            calculated_ka = ib_ka / (xd_pp * pf_g + xt)
+            self.assertAlmostEqual(calculated_ka, expected_ka, places=4)
+            self.assertIn(f"{expected_ka:.4f}", note)
+
+    def test_111_motor_wiring_does_not_promote_a_75_hp_table_value_to_8_hp(self):
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-4.md").read_text(encoding="utf-8")
+        self.assertIn("8 HP 的 22 A 僅是年度解讀 B", note)
+        self.assertIn("不得把 7.5 HP 表列值直接套成 8 HP", note)
+
+    def test_111_motor_wiring_exposes_efficiency_parameterized_limits(self):
+        """The missing motor efficiency must remain explicit in every limit."""
+        note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-4.md").read_text(encoding="utf-8")
+        self.assertIn("I_{20}=46.0645/\\eta", note)
+        self.assertIn("I_{8}=18.4258/\\eta", note)
+        self.assertIn("I_{w,\\mathrm{main}}\\ge145.1033/\\eta", note)
+        self.assertIn("I_{\\mathrm{OCP,max,main}}\\le170.4387/\\eta", note)
+        self.assertIn("=201.2\\,\\mathrm{A}", note)
+        self.assertNotIn("201.2/\\eta", note)
+        self.assertIn("source_crop 的 PE_111年_工業配電_Q04.png", note)
+        annual = (CANONICAL / "06_工業配電" / "111年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        self.assertIn("效率參數化分支不能把上述 $201.2\\text{ A}$ 除以 $\\eta$", annual)
+        self.assertIn("= \\frac{170.4387}{\\eta}\\text{ A}", annual)
 
     def test_dc_motor_manual_review_uses_flux_ratio_in_current_and_speed(self):
         note = (CANONICAL / "04_電機機械" / "canonical" / "EE-105-04-5.md").read_text(encoding="utf-8")
@@ -977,6 +1351,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         """年度彙整頁不得讓已稽核否定的舊模板答案看似仍可直接採用。"""
         industrial = CANONICAL / "06_工業配電"
         annual_104 = (industrial / "104年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        annual_106 = (industrial / "106年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
         annual_108 = (industrial / "108年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
         annual_110 = (industrial / "110年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn("EE-104-06-5", annual_104)
@@ -984,10 +1359,16 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("3.2211", annual_104)
         self.assertNotIn("V_5 = \\mathbf{12.8", annual_104)
         self.assertNotIn("I_{5,sys} = \\mathbf{42.5", annual_104)
-        self.assertIn("canonical 優先", annual_108)
-        self.assertIn("EE-108-06-2 條件式校驗", annual_108)
-        self.assertIn("條件式；完整回代見 canonical", annual_108)
-        self.assertIn("非唯一官方答案", annual_108)
+        self.assertIn("EE-106-06-2", annual_106)
+        self.assertIn("9.927", annual_106)
+        self.assertIn("19.36", annual_106)
+        self.assertNotIn("12.50\\text{ kA}", annual_106)
+        self.assertNotIn("15.63\\text{ kA}", annual_106)
+        self.assertIn("EE-108-06-2", annual_108)
+        self.assertIn("3.0261", annual_108)
+        self.assertIn("1.748", annual_108)
+        self.assertNotIn("條件式；完整回代見 canonical", annual_108)
+        self.assertNotIn("非唯一官方答案", annual_108)
         self.assertIn("canonical 優先", annual_110)
         self.assertIn("EE-110-06-4 已驗證校驗", annual_110)
         self.assertIn("僅保留作歷史來源，不作 A 點答案", annual_110)

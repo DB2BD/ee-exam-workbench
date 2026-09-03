@@ -52,6 +52,21 @@ class TestQuestionSchema(unittest.TestCase):
         self.assertEqual(view["subjectId"], "01")
         self.assertEqual(view["solutionStatus"], "verified")
 
+    def test_question_record_public_api_has_no_retired_pass_through_helper(self):
+        """The named-record boundary must not regrow a field-by-field adapter."""
+        probe = (
+            "const m=require('./src/domain/questionRecord.js');"
+            "process.stdout.write(JSON.stringify(Object.keys(m).sort()));"
+        )
+        completed = subprocess.run(
+            ["node", "-e", probe], cwd=WORKSPACE, capture_output=True, text=True, check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(
+            json.loads(completed.stdout),
+            ["QUESTION_SCHEMA_VERSION", "QUESTION_STATUSES", "isValidQuestionStatus", "toQuestionRecord"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

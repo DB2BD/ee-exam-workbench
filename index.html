@@ -2039,7 +2039,7 @@ select:focus {
         </div>
         <div class="review-header-actions">
           <button class="btn-sol" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
-          <button class="btn-sol" id="manual-label-open" type="button" onclick="openManualLabelModal()">🧭 逐題標注題型</button>
+          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()"></button>
         </div>
       </div>
       <div class="review-stats" id="review-stats"></div>
@@ -4126,7 +4126,7 @@ function getReviewRecord(q) {
   if (typeof toQuestionRecord === 'function') return toQuestionRecord(q);
   return {
     id: q[0], subjectId: q[1], year: q[2], number: q[3], stem: q[4],
-    tags: q[5], solutionLink: q[6], formulaTags: q[10],
+    tags: q[5], solutionLink: q[6], formulaTags: q[10], relatedPEId: q[13],
   };
 }
 
@@ -4205,18 +4205,18 @@ const REVIEW_CHAPTER_RULES = {
     ['el-diode-rectifier', ['二極體', '二極管', '整流', 'piv']]
   ],
   '03': [
-    ['em-complex-cauchy-residue', ['留數', '複變', '複數平面', '柯西', 'residue', '解析函數', '複數積分']],
+    ['em-complex-cauchy-residue', ['留數', '複變', '複數平面', '柯西', 'residue', '解析函數', '複數積分', '複數', 'iπ', 'x+iy']],
     ['em-pde-separation', ['偏微分方程', '分離變數', '熱傳導', '波動方程']],
     ['em-svd-linear-systems', ['奇異值', 'svd', '零空間', '偽逆']],
     ['em-probability-statistics', ['機率', '統計', '隨機變數', '常態分布', '期望值']],
-    ['em-vector-analysis', ['向量分析', '向量微積分', '梯度', '散度', '旋度', '曲率', '切線向量', '位置向量', '線積分']],
-    ['em-eigen-diagonal', ['特徵值', '特徵向量', '對角化']],
-    ['em-matrix-det-inv', ['矩陣', '行列式', '反矩陣', '克拉瑪', '線性轉換', '最小平方', 'least squares']],
+    ['em-vector-analysis', ['向量分析', '向量微積分', '梯度', '散度', '旋度', '曲率', '切線向量', '位置向量', '線積分', '平面', '夾角']],
+    ['em-eigen-diagonal', ['特徵值', '特徵向量', '對角化', 'diagonalizable']],
+    ['em-matrix-det-inv', ['矩陣', '行列式', '反矩陣', '克拉瑪', '線性轉換', '最小平方', 'least squares', '映射']],
     ['em-fourier-series', ['傅立葉', '傅氏', '級數', '週期函數']],
-    ['em-laplace-transform', ['拉氏轉換', '拉普拉斯轉換', '反轉換', '部分分式']],
+    ['em-laplace-transform', ['拉氏轉換', '拉普拉斯轉換', '反轉換', '部分分式', '反拉式', '反拉氏', 'laplace']],
     ['em-second-order-ode-nonhomogeneous', ['非齊次', '參數變更法', '未定係數', '降階法', '特解']],
     ['em-second-order-ode-homogeneous', ['二階常係數', '齊次微分方程', '重根', "y''", '初始值問題']],
-    ['em-first-order-ode', ['一階微分方程', '常微分方程', '可分離', '積分因子', '伯努利', 'bernoulli', '通解']]
+    ['em-first-order-ode', ['一階微分方程', '常微分方程', '微分方程式', '可分離', '積分因子', '伯努利', 'bernoulli', '通解']]
   ],
   '04': [
     ['emach-synchronous-salient-pole', ['凸極', '雙反應', 'xq', 'xd']],
@@ -4304,6 +4304,16 @@ function getReviewChapterKey(q, options = {}) {
       && KNOWLEDGE_DAG[canonicalChapter]
       && KNOWLEDGE_DAG[canonicalChapter].subject === sid) {
     return canonicalChapter;
+  }
+  const relatedPEId = record.relatedPEId || (q && q[13]);
+  if (relatedPEId && typeof QUESTION_TAXONOMY_MAP !== 'undefined') {
+    const peEvidence = QUESTION_TAXONOMY_MAP[relatedPEId];
+    const peChapter = typeof peEvidence === 'string' ? peEvidence : peEvidence && peEvidence.primaryChapter;
+    if (peChapter && typeof KNOWLEDGE_DAG !== 'undefined'
+        && KNOWLEDGE_DAG[peChapter]
+        && KNOWLEDGE_DAG[peChapter].subject === sid) {
+      return peChapter;
+    }
   }
   const topic = normalize(record.stem);
   const tags = Array.isArray(record.tags) ? record.tags.map(normalize) : [];
@@ -4545,14 +4555,10 @@ function renderReviewPage() {
   const manual = subjectQuestions.filter(isManualReviewQuestion).length;
   const manualLabeled = subjectQuestions.filter(q => isManualReviewQuestion(q) && getManualTopicLabel(getReviewRecord(q).id)).length;
   const stats = document.getElementById('review-stats');
-  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length], ['錯題本', wrong], ['收藏', starred], ['待人工', manual], ['目前題庫', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
+  if (stats) stats.innerHTML = [['今日到期', subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length], ['需二刷錯題', wrong], ['重點收藏', starred], ['收錄試題總數', subjectQuestions.length]].map(item => `<div class="review-stat"><span class="label">${item[0]}</span><span class="value">${item[1]}</span></div>`).join('');
   const manualButton = document.getElementById('manual-label-open');
   if (manualButton) {
-    manualButton.disabled = manual === 0;
-    manualButton.innerText = manual === 0
-      ? '🧭 暫無人工標注題'
-      : `🧭 逐題標注題型 (${manualLabeled}/${manual})`;
-    manualButton.title = manual === 0 ? '目前考科沒有待人工覆核題' : '逐題檢視裁切圖並標注教科書章節';
+    manualButton.style.display = 'none';
   }
 
   // Only chapters that actually occur in the selected subject are offered.
@@ -4595,8 +4601,7 @@ function renderReviewPage() {
     const auditText = isManualReviewQuestion(q) ? '<span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工</span>' : '';
     const manualLabel = getManualTopicLabel(qid);
     const manualLabelText = manualLabel ? `<span class="qtag manual-label-chip">✅ ${reviewHtmlEscape(getManualLabelDisplayName(manualLabel))}</span>` : '';
-    const manualLabelButton = isManualReviewQuestion(q) ? `<button class="btn-sol" type="button" data-review-label="${reviewHtmlEscape(qid)}">🧭 標注題型</button>` : '';
-    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span><span class="qtag">提取 L${recall.level}</span>${auditText}${manualLabelText}${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取訓練</button><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button>${manualLabelButton}<button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
+    return `<article class="review-card" data-review-type="${reviewHtmlEscape(type)}"><div class="review-card-meta"><span class="qid">${reviewHtmlEscape(qid)}</span><span class="qtag">${year} 年 · 第 ${qnum} 題</span><span class="qtag">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span><span class="qtag">${statusText}</span><span class="qtag">提取 L${recall.level}</span>${auditText}${manualLabelText}${dueText}</div><div class="review-card-topic">${renderQuestionTopic(topic)}</div><div class="review-card-actions"><button class="btn-sol" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取訓練</button><button class="btn-sol" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 開啟標準解題</button><button class="btn-sol" type="button" data-review-status="${reviewHtmlEscape(qid)}">循環狀態</button></div></article>`;
   }).join('')}</div></section>`).join('')}</div>`;
   container.querySelectorAll('[data-review-open]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewOpen);

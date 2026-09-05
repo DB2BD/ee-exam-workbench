@@ -61,6 +61,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
             "EE-106-02-2": ("A_f", "R_out,f"),
             "EE-111-04-4": ("68.87%", "186 A"),
             "EE-113-04-4": ("189.35 A", "57.67"),
+            "EE-111-02-3": ("1 mS", "4.4444"),
+            "EE-111-02-4": ("beta_f", "R_{of}"),
         }
         entries = {entry["qid"]: entry for entry in manifest["entries"]}
         self.assertEqual(
@@ -138,7 +140,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         source_path = "reports/manual-review-index.md"
         source = (ROOT / source_path).read_text(encoding="utf-8")
         self.assertEqual(payload.get(source_path), source)
-        self.assertIn("目前共 **4 題**待人工覆核。", payload[source_path])
+        self.assertIn("目前共 **2 題**待人工覆核。", payload[source_path])
         self.assertNotIn("EE-108-06-2", payload[source_path])
 
     def test_electronics_conditional_branches_keep_unresolved_status(self):
@@ -288,7 +290,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 4, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 2, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -382,9 +384,10 @@ class TestReconstructedPESolutions(unittest.TestCase):
             self.assertIn(qid, report)
         self.assertNotIn("工業配電系統電壓降與串聯電抗器", report)
         self.assertNotIn("電動機饋線電壓降與導線長度", report)
-        self.assertIn("MOSFET 共源極源極退化與偏壓設計", report)
+        self.assertNotIn("EE-111-02-3", report)
+        self.assertIn("EE-104-06-5", report)
         self.assertNotIn("待依教科書章節覆核", report)
-        self.assertIn("電子學（含電力電子）", report)
+        self.assertIn("工業配電", report)
         self.assertNotIn("兩部相同發電機各自經由其升壓變壓器", report)
 
     def test_dashboard_exposes_manual_review_metadata_to_solution_modal(self):
@@ -394,7 +397,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("const SOLUTION_REVIEW_METADATA", dashboard)
         self.assertIn('"EE-112-05-4"', dashboard)
         self.assertIn('"EE-111-02-3"', dashboard)
-        self.assertIn('"inconsistent_data_branches"', dashboard)
+        self.assertIn("0.1942", dashboard)
         self.assertIn('"evidence"', dashboard)
         self.assertIn("referenceBookEvidence", dashboard)
         self.assertIn("reference_book_verified", dashboard)
@@ -618,9 +621,21 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertNotIn("$R_1\\parallel R_2$ 負載", mosfet)
 
         feedback = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-4.md").read_text(encoding="utf-8")
-        self.assertIn(r"未標示 \(4I_1\) 受控源", feedback)
-        self.assertNotIn(r"受控源標示 \(4I_1\)", feedback)
+        self.assertIn("audit_status: reference_book_verified", feedback)
+        self.assertIn("reference_book evidence", feedback)
+        self.assertIn(r"(R_F\parallel r_{\pi1})", feedback)
+        self.assertNotIn(r"未標示 \(4I_1\) 受控源", feedback)
         self.assertIn("subject: 電子學_含電力電子", feedback)
+
+    def test_111_current_feedback_reference_book_gain_is_dimensionally_corrected(self):
+        """The textbook topology is retained while its omitted input factor is fixed."""
+        note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-4.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: reference_book_verified", note)
+        self.assertIn("參考書開路增益式漏掉", note)
+        self.assertIn(r"A=-(R_F\parallel r_{\pi1})g_{m1}", note)
+        self.assertIn(r"\beta_f=\frac{I_f}{I_o}=1", note)
+        self.assertIn(r"R_{if}=\frac{R_F\parallel r_{\pi1}}{1+A\beta_f}", note)
+        self.assertIn(r"R_{of}=R_{oA}(1+A\beta_f)", note)
 
     def test_current_feedback_note_uses_shunt_series_topology(self):
         """The current-in/current-out circuit must not be labelled voltage-series."""
@@ -722,8 +737,10 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("整個週期平均", annual)
         self.assertIn("導通平均值 30 A", annual)
 
-    def test_mosfet_manual_review_records_minimal_correction_candidates(self):
+    def test_mosfet_reference_book_solution_records_both_branches(self):
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-3.md").read_text(encoding="utf-8")
+        self.assertIn("audit_status: reference_book_verified", note)
+        self.assertIn("雙分支", note)
         self.assertIn("最小更正候選", note)
         self.assertIn("4.444444", note)
         self.assertIn("26.666667", note)

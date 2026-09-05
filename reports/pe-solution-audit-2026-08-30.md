@@ -1,6 +1,6 @@
 # 其他考科詳解稽核（2026-08-30；2026-08-31 更新）
 
-> **目前狀態快照（2026-09-05）**：非工程數學 256 題中 `verified=239`、`reference_book_verified=13`、`needs_manual_review=4`、`suspected_error=0`、`not_attempted=0`；工程數學 65 題全數 `verified`。全庫共 321 題，人工覆核清單以 [`reports/manual-review-index.md`](manual-review-index.md) 與 `data/pe-solution-audit.json` 為準。
+> **目前狀態快照（2026-09-06）**：非工程數學 256 題中 `verified=239`、`reference_book_verified=15`、`needs_manual_review=2`、`suspected_error=0`、`not_attempted=0`；工程數學 65 題全數 `verified`。全庫共 321 題，人工覆核清單以 [`reports/manual-review-index.md`](manual-review-index.md) 與 `data/pe-solution-audit.json` 為準。
 >
 > 本報告下方保留各批次的歷史紀錄；早期段落中的 23、24、25 題統計是當時快照，不代表目前狀態。
 
@@ -9,7 +9,7 @@
 - 官方逐題裁切圖仍是題目來源；年度 Markdown 只作為待稽核詳解來源。
 - 新增 `scripts/audit_pe_solutions.py` 與 `data/pe-solution-audit.json`。
 - 編譯器會依 manifest 顯示 `verified`、`suspected_error`、`needs_manual_review`、`not_attempted`，避免年度模板被誤標為 verified。
-- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。早期批次統計為 `verified=233`、`needs_manual_review=23`；目前請以本頁頂端狀態快照及 manifest 為準。全部 321 題均已具備官方逐題裁切與題號級記錄；現存 10 題 official-only manual queue 均已完成條件式獨立重算與證據登錄，另有 7 題依使用者提供參考書完成 `reference_book_verified`，但未宣稱為官方唯一答案。
+- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。早期批次統計為 `verified=233`、`needs_manual_review=23`；目前請以本頁頂端狀態快照及 manifest 為準。全部 321 題均已具備官方逐題裁切與題號級記錄；後續依使用者提供的參考書逐題補入 evidence，只有能獨立重現且無未解衝突者才升級為 `reference_book_verified`，其餘仍保留人工覆核。
 
 2026-08-31 追加顯示層防護：詳解中歷史匯入的 `\mathrm A`／`\mathrm V` 等無括號單位巨集，現在於 KaTeX 渲染前統一正規化為標準 `\mathrm{A}`／`\mathrm{V}` 語法；原始推導文字不被改寫，並以公式格式回歸測試保護。國考參考題庫亦重新編譯並確認跨題型關聯輸出可重現。
 
@@ -208,6 +208,8 @@
 本輪追加 110 年電子學 Q3：依「未指定導通壓降採理想二極體」的科目標準，重算半波整流平均電流 $4.952$ A、負載功率 $605$ W 與失真功率因數 $0.7071$；另列 $V_d=0.7$ V 敏感度，修正年度詳解誤標 Lagging，升級為 verified。
 
 本輪補正 111 年電子學 Q3 年度摘要：保留由指定交流增益反推的 $g_m=0.100000$ S、$W/L=5257.624$，以及由 $I_{DS}$、$V_{OV}$ 與長通道平方律反推的 $g_m=0.0666667$ S、$W/L=3505.082$ 雙分支；後者增益僅為 $4.4444$ 而非題目指定的 5，故明示資料矛盾並維持 `needs_manual_review`，避免單一分支被誤標成唯一答案。
+
+2026-09-06 依使用者裁決更新 111 年電子學 Q3：保留參考書列出的 $g_m=1$ mS、$W/L=3522.2$、$R_1/R_2$ 主解，同時保留指定增益與平方律兩個可回代分支，並明示參考書的 $g_m$ 與 $V_{GS}$ 排印／計算錯誤；狀態改為 `reference_book_verified`，但仍明確標示不代表官方唯一答案。
 
 本輪修正 112 年電力系統 Q2 年度詳解：原年度檔誤置其他題型的 400/600 MW 經濟調度模板，與官方裁切的 550/1300 MW、每廠 800 MW 額定條件不符；已改回官方題目，完整列出忽略容量限制的 $(\beta,\gamma)=(6.3,0.004)$ 與採硬上限的條件解 $(6.4667,0.003)$，並保留容量語意需人工裁決的狀態。
 

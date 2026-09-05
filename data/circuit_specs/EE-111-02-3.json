@@ -1,0 +1,32 @@
+{
+  "title": "111 年電子學第 3 題：MOSFET 源極退化小訊號模型",
+  "width": 900,
+  "height": 620,
+  "source": {
+    "page": 2,
+    "bbox_norm": [0.0, 0.0716, 1.0, 0.3788],
+    "question_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png"
+  },
+  "components": [
+    {"ref": "RD", "type": "resistor", "value": "200 Ω", "label": "R_D = 200 Ω", "x": 520, "y": 150, "rotation": 90, "pins": {"1": "0", "2": "nd"}},
+    {"ref": "M1_gm", "type": "dependent-current-source", "value": "g_m v_gs", "label": "M₁：g_m v_gs", "x": 520, "y": 300, "rotation": 90, "arrow": "1->2", "control": "v_gs = v_g − v_s", "pins": {"1": "nd", "2": "ns"}},
+    {"ref": "RS", "type": "resistor", "value": "30 Ω", "label": "R_S = 30 Ω", "x": 300, "y": 420, "rotation": 90, "pins": {"1": "ns", "2": "0"}},
+    {"ref": "Vin", "type": "port", "label": "v_in / v_g", "x": 100, "y": 300, "pins": {"1": "ng"}},
+    {"ref": "Vo", "type": "port", "label": "v_o", "x": 720, "y": 190, "pins": {"1": "nd"}},
+    {"ref": "GND_DD", "type": "ground", "label": "", "x": 520, "y": 70, "pins": {"1": "0"}},
+    {"ref": "GND_S", "type": "ground", "label": "", "x": 300, "y": 520, "pins": {"1": "0"}}
+  ],
+  "nets": [
+    {"id": "0", "paths": [[[520, 70], [520, 110]], [[300, 460], [300, 520]]], "junctions": []},
+    {"id": "ng", "paths": [[[100, 300], [240, 300]]], "junctions": []},
+    {"id": "nd", "paths": [[[520, 190], [520, 260]], [[520, 190], [720, 190]]], "junctions": [[520, 190]]},
+    {"id": "ns", "paths": [[[520, 340], [520, 380], [300, 380]]], "junctions": []}
+  ],
+  "labels": [
+    {"text": "V_DD = 1.8 V（交流地）", "x": 520, "y": 42},
+    {"text": "λ = 0 ⇒ r_o = ∞", "x": 700, "y": 100},
+    {"text": "I_D = 3.17 mA；V_OV = I_D R_S = 0.0951 V", "x": 450, "y": 560},
+    {"text": "|A_v| = 5 與平方律資料存在衝突，見 canonical 分支", "x": 450, "y": 590}
+  ],
+  "checks": ["component-count", "values", "node-map", "controlled-source"]
+}

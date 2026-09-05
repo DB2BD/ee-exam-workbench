@@ -108,19 +108,17 @@ At the time of this baseline, `data/pe-solution-audit.json` reported `questions=
 
 ### EE-111-02-3 — Electronics, 111 Q3
 
-- **Current status:** `needs_manual_review`; disposition `inconsistent_data_branches`; chapter: MOSFET common-source source degeneration and bias design (`dashboard-data.js:L1692`, `dashboard-data.js:L6342`, `dashboard-data.js:L8503-L8509`; `data/pe-solution-audit.json:L1048-L1061`; `CAN:L2-L16`).
-- **Available source evidence:** official PDF `依年度分類/111年/111年_電機工程技師_電子學（包括電力電子學）.pdf`, SHA-256 `456244f96e6ff70b2e477177ee582234ae115e047624bd7927a326f42d5be858`; crop `PE_111年_電子學（包括電力電子學）_Q03.png`, file page 2, rectangle `[0,60.3,595.22,319.18]`, `pdf_text_sequence` / `text_sequence` (`CROP:L4856-L4904`). The crop simultaneously gives `|A_v|=5`, `I_DS=3.17 mA`, `R_S=30 Ω`, `R_D=200 Ω`, `μ_nC_ox`, and `V_S=V_OV`. Independent rechecking obtains `g_m=0.100 S` from the gain but `0.0666667 S` from square law; the canonical preserves both branches and the minimal `R_S=26.666667 Ω` repair if gain 5 is retained (`CAN:L12-L15`).
-- **Uniquely verifiable:** **No.** The conflict is in the supplied numerical data, not merely an unstated modeling convention.
-- **Blocker / precise next step:** `source_conflict`. Confirm whether the official value `|A_v|=5` or `R_S=30 Ω` is erroneous/corrected. Keep the official `3.17 mA` and the square-law branch separate until that conflict is resolved.
-- **Recommended classification:** retain `needs_manual_review`; `inconsistent_data_branches`.
+- **Current status:** `reference_book_verified`; disposition `user_adjudicated_dual_branch`; chapter: MOSFET common-source source degeneration and bias design. The user confirmed that the reference-book main answer and the independently reproducible question-data branch should both be retained, with the question/printing errors explained rather than hidden.
+- **Available source evidence:** official PDF `依年度分類/111年/111年_電機工程技師_電子學（包括電力電子學）.pdf`, SHA-256 `456244f96e6ff70b2e477177ee582234ae115e047624bd7927a326f42d5be858`; crop `PE_111年_電子學（包括電力電子學）_Q03.png`, file page 2, rectangle `[0,60.3,595.22,319.18]`, `pdf_text_sequence` / `text_sequence` (`CROP:L4856-L4904`). The crop gives `|A_v|=5`, `I_DS=3.17 mA`, `R_S=30 Ω`, `R_D=200 Ω`, `μ_nC_ox`, and `V_S=V_OV`; the reference-book photos IMG_3801/IMG_3802 add the printed `g_m=1 mS`, `W/L=3522.2`, and divider values.
+- **Independent cross-check:** `g_m=0.100 S`, `W/L=5257.624` follows from the specified gain; `g_m=0.0666667 S`, `W/L=3505.082`, and gain `4.4444` follow from the specified current, source resistor, overdrive condition, and square law. The textbook `g_m=1 mS` gives gain `0.1942`, and its `V_{GS}=0.4591 V` is a printing error for `0.4951 V`.
+- **Recommended classification:** `reference_book_verified` within the reference-book scope only; the canonical note preserves both branches and does not claim an official unique answer.
 
 ### EE-111-02-4 — Electronics, 111 Q4
 
-- **Current status:** `needs_manual_review`; disposition `parameterized_only`; chapter: shunt-series current-feedback amplifier and BJT small-signal model (`dashboard-data.js:L1708`, `dashboard-data.js:L6344`, `dashboard-data.js:L8541-L8547`; `data/pe-solution-audit.json:L1062-L1075`; `CAN:L2-L15`).
-- **Available source evidence:** official PDF `依年度分類/111年/111年_電機工程技師_電子學（包括電力電子學）.pdf`, SHA-256 `456244f96e6ff70b2e477177ee582234ae115e047624bd7927a326f42d5be858`; crop `PE_111年_電子學（包括電力電子學）_Q04.png`, file page 2, rectangle `[0,327.18,595.22,824]`, `pdf_text_sequence` / `text_sequence` (`CROP:L4856-L4923`). The crop fixes the Q1/Q2, `R_F`, and `R_L` topology and `V_A=∞`, but does not label the numerical `R_C`, `R_F`, `R_L`, `g_m`, `r_π`, or `β`. The canonical records the current-current feedback topology, KCL definitions, and test-source formulas (`CAN:L12-L14`).
-- **Uniquely verifiable:** **No.** The feedback topology and symbolic setup are available; none of the five requested numerical quantities is uniquely determined from the supplied values.
-- **Blocker / precise next step:** `missing_parameter`. Obtain `R_C`, `R_F`, `R_L`, `g_m`, `r_π`/`β`, and an unambiguous open-circuit output-port definition, then numerically evaluate the five quantities.
-- **Recommended classification:** retain `needs_manual_review`; `parameterized_only`.
+- **Current status:** `reference_book_verified`; disposition `reference_book_symbolic_current_feedback`; chapter: shunt-series current-feedback amplifier and BJT small-signal model. The user-supplied textbook evidence was independently checked; the canonical note also corrects the omitted `R_F\parallel r_{π1}` factor in the open-loop gain.
+- **Available source evidence:** official PDF `依年度分類/111年/111年_電機工程技師_電子學（包括電力電子學）.pdf`, SHA-256 `456244f96e6ff70b2e477177ee582234ae115e047624bd7927a326f42d5be858`; crop `PE_111年_電子學（包括電力電子學）_Q04.png`, file page 2, rectangle `[0,327.18,595.22,824]`, `pdf_text_sequence` / `text_sequence` (`CROP:L4856-L4923`). The reference-book crop confirms the current-current feedback topology, `β_f=I_f/I_o=1`, and the symbolic closed-loop relations. This evidence is scoped to the reference book and does not claim an official published numerical answer.
+- **Uniquely verifiable:** **Yes, within `reference_book` scope.** The symbolic equations and the dimensional correction to the open-loop gain were independently cross-checked against the topology.
+- **Recommended classification:** `reference_book_verified` within the reference-book scope only; this does not claim an official published answer.
 
 ### EE-112-02-1 — Electronics, 112 Q1
 
@@ -164,4 +162,4 @@ At the time of this baseline, `data/pe-solution-audit.json` reported `questions=
 
 ## Final disposition
 
-No question is recommended for upgrade. The local evidence supports dedicated canonical records and reproducible conditional work for all 17, but the blockers remain material: 12 `missing_parameter` cases, 1 `official_wording_ambiguity` case, 2 `graph_estimate` cases, and 2 `source_conflict` cases. The appropriate next action is human acquisition or adjudication of the exact missing source condition identified above, followed by an independent recheck; until that happens, the audit status should remain `needs_manual_review`.
+The historical 17-question baseline remains useful for provenance, but the current audit has upgraded only questions with an independently reproducible reference-book solution. `EE-111-02-4` is now `reference_book_verified`; `EE-111-02-3` remains blocked by a source conflict. The remaining manual queue is generated from `reports/manual-review-index.md` and must stay gated until each unresolved source condition is adjudicated.

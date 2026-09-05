@@ -1700,7 +1700,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-3.md",
     "依考科分類/02_電子學_含電力電子/111年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "needs_manual_review",
+    "reference_book_verified",
     [],
     true
   ],
@@ -1717,7 +1717,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-4.md",
     "依考科分類/02_電子學_含電力電子/111年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "needs_manual_review",
+    "reference_book_verified",
     [],
     true
   ],
@@ -7048,7 +7048,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "el-feedback-stability",
     "source": "manual-topic-confirmed",
     "canonicalChapter": "並聯-串聯電流回授放大器與雙極性電晶體小訊號模型",
-    "noteTitle": "111 年第 4 題｜並聯-串聯電流回授放大器之增益與阻抗",
+    "noteTitle": "111 年電子學第 4 題：並聯—串聯電流回授放大器",
     "manualChapter": "el-feedback-stability"
   },
   "EE-109-02-1": {
@@ -8504,13 +8504,13 @@ const SOLUTION_REVIEW_METADATA = {
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=109180&q=1&s=0601&t=Q"
   },
   "EE-111-02-3": {
-    "disposition": "inconsistent_data_branches",
-    "blocker": "source_conflict",
-    "action": "確認指定增益或 R_S 是否誤植；保留題面 3.17 mA、R_S=30 Ω 與平方律時增益應為 4.4444，若保留增益 5 則 R_S 應為 26.6667 Ω。",
-    "evidence": "官方裁切圖同時給 |A_v|=5、I_DS=3.17 mA、μ_nC_ox=200 μA/V²、R_S=30 Ω、R_D=200 Ω，並指定 V_S=V_OV；由增益反推 g_m=0.100000 S，由平方律與 I_DS 反推 g_m=0.0666667 S，兩者回代結果分別為 5 與 4.444444。因 V_OV=I_D R_S 時 g_m=2I_D/V_OV=2/R_S，改變 I_D 不能消除矛盾；若保留增益 5，最小修正是 R_S=26.666667 Ω，此時 g_m=0.075 S、W/L=4436.120。",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
+    "disposition": "",
+    "blocker": "",
+    "action": "",
+    "evidence": "",
+    "referenceBookEvidence": "使用者提供的參考書照片（IMG_3801、IMG_3802）列出 g_m=1 mS、W/L=3522.2、R_2=3.3185 kΩ 與 R_1=7.459 kΩ；獨立代回顯示 g_m=1 mS 時增益僅為 0.1942，且由題面平方律應得 g_m=0.0666667 S、W/L=3505.082。參考書另將 V_GS=0.4951 V 排印為 0.4591 V。依使用者裁決，本 canonical 同時保留參考書主解與題面可回代解，並明確說明出題／排印錯誤；此為 reference_book evidence，not official，不是官方題面新增資料。",
+    "verificationScope": "reference_book",
+    "referenceBookConvention": "參考書以源極退化增益式與長通道平方律分別處理；本 canonical 依使用者裁決採雙分支呈現，保留參考書讀值、題面增益分支、平方律分支與最小更正候選，不把矛盾壓成單一官方數值。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
   },
   "EE-113-02-2": {
@@ -8544,13 +8544,13 @@ const SOLUTION_REVIEW_METADATA = {
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0701&t=Q"
   },
   "EE-111-02-4": {
-    "disposition": "parameterized_only",
-    "blocker": "missing_parameter",
-    "action": "補齊 RC、RF、RL、gm、rpi 與輸出端口開路定義後，再數值化並聯-串聯回授五量。",
-    "evidence": "官方裁切圖只提供 Q1 共射、Q2 共集、R_F 跨接回授及 R_L 負載的拓撲，未標示 R_C、R_F、R_L、g_m、r_π 或 β 數值；輸入端是電流並聯混合、輸出端是電流串聯取樣，拓撲為並聯-串聯（Shunt-Series／Current-Current Feedback）；canonical 已列出節點 KCL、電流輸入／電流輸出定義及測試源阻抗公式，任何數值答案都必須先補齊這些參數與輸出端口開路定義。",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
+    "disposition": "",
+    "blocker": "",
+    "action": "",
+    "evidence": "",
+    "referenceBookEvidence": "使用者提供的參考書照片（IMG_3802、IMG_3803）確認本題為並聯—串聯（Shunt-Series）電流—電流負回授，並給出 \\beta_f=I_f/I_o=1、A_f=A/(1+A\\beta_f)、R_{if}=R_{iA}/(1+A\\beta_f) 與 R_{of}=R_{oA}(1+A\\beta_f)。參考書開路增益原式漏掉 R_F\\parallel r_{\\pi1}，本題已補回並以量綱與節點關係獨立核對。此為 reference_book evidence，not official，不是官方題面新增資料。",
+    "verificationScope": "reference_book",
+    "referenceBookConvention": "以 hybrid-\\pi 模型、r_{o1}=r_{o2}=\\infty、理想偏壓電流源交流開路，\\beta_T 表示電晶體共集級的電流增益；\\beta_f 僅表示回授因素，避免符號混淆。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
   },
   "EE-105-04-5": {

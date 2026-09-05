@@ -252,7 +252,7 @@ def build_workbench():
         <input type="text" id="search-input" placeholder="搜尋考題關鍵字、公式標籤、觀念、題號..." oninput="renderQuestions()">
       </div>
 
-      <select id="filter-subject" onchange="renderQuestions()">
+      <select id="filter-subject" onchange="handleQuestionSubjectFilterChange(this.value)">
         <option value="all">所有考科 (6 大考科)</option>
         <option value="01">⚡ 01. 電路學</option>
         <option value="02">🔌 02. 電子學（含電力電子）</option>
@@ -389,7 +389,7 @@ def build_workbench():
   <div class="tab-pane" id="tab-pane-stats" style="display: none;">
     <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
       <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">🔥 歷屆高頻命題考點命中分析</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">統計 104~114 年 <span id="stats-total-count">479</span> 道大題中出現頻率最高的核心命題題型：</p>
+      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">目前題庫：<span id="stats-category-label">電機工程技師題庫</span>；年度範圍：<span id="stats-year-range">尚未計算</span>；統計分母：<span id="stats-denominator">0</span> 題（<span id="stats-total-count">0</span>）。題數占比與有出題年度占比是描述性統計，不代表命中率。</p>
       <div id="top-topics-container"></div>
     </div>
   </div>
@@ -499,17 +499,21 @@ def build_workbench():
       <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;">✕</button>
     </div>
     <p style="font-size: 0.86rem; color: var(--muted);">
-      此代碼包含全庫 479 題做題狀態、重點收藏與 SM-2 智能遺忘曲線週期。複製此 JSON 或在換裝置時貼上即可無縫銜接：
+      備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。載入或貼上後請先驗證，再選擇合併或取代還原：
     </p>
     <textarea id="backup-json-textarea" class="backup-textarea" placeholder="在此貼上備份 JSON 代碼..."></textarea>
+    <div id="backup-preview" class="backup-preview" role="status">尚未驗證備份內容。</div>
+    <div id="backup-history" class="backup-history"></div>
     <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
       <div style="display: flex; gap: 8px;">
         <button onclick="copyBackupToClipboard()" class="btn-sol">📋 複製代碼</button>
         <button onclick="exportProgressJSON()" class="btn-pdf">📥 下載 .json</button>
       </div>
-      <button onclick="applyImportedBackupJSON()" class="btn-sol" style="background: var(--success); border-color: var(--success);">
-        ✅ 貼上並套用還原
-      </button>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button onclick="previewImportedBackupJSON()" class="btn-pdf">🔍 先驗證／預覽</button>
+        <button onclick="applyImportedBackupJSON('merge')" class="btn-sol">↔️ 合併還原</button>
+        <button onclick="applyImportedBackupJSON('replace')" class="btn-sol" style="background: var(--success); border-color: var(--success);">✅ 取代還原</button>
+      </div>
     </div>
   </div>
 </div>

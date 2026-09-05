@@ -69,7 +69,14 @@ def main():
         previous_verified_at = prev.get("verified_at")
         if isinstance(previous_verified_at, str) and previous_verified_at.lower() in {"", "null", "none", "~"}:
             previous_verified_at = None
-        entries.append({"qid":qid,"subject_id":sid,"year":year,"question_number":num,"chapter":topic,"solution_link":link,"audit_status":status,"verified_at":meta.get("verified_at") or previous_verified_at or (date.today().isoformat() if status=="verified" else None),"method":meta.get("method",prev.get("method","template_hash_screening")),"solution_hash":digest,"duplicate_qids":groups[digest] if len(groups[digest])>1 else [],"source_crop":meta.get("source_crop") or prev.get("source_crop","")})
+        entry = {"qid":qid,"subject_id":sid,"year":year,"question_number":num,"chapter":topic,"solution_link":link,"audit_status":status,"verified_at":meta.get("verified_at") or previous_verified_at or (date.today().isoformat() if status=="verified" else None),"method":meta.get("method",prev.get("method","template_hash_screening")),"solution_hash":digest,"duplicate_qids":groups[digest] if len(groups[digest])>1 else [],"source_crop":meta.get("source_crop") or prev.get("source_crop","")}
+        # Keep the machine-readable manifest aligned with the canonical note's
+        # explicit disposition.  These fields explain why a manual item is
+        # still unresolved without changing its conservative audit status.
+        for key in ("review_disposition", "review_blocker", "review_action", "review_evidence", "official_source_url", "public_reference_urls", "public_reference_note"):
+            if meta.get(key):
+                entry[key] = meta[key]
+        entries.append(entry)
     result={"schema_version":1,"scope":"PE 非工程數學 104-114","generated_at":date.today().isoformat(),"status_policy":["verified","suspected_error","needs_manual_review","not_attempted"],"entries":entries,"summary":{k:sum(e["audit_status"]==k for e in entries) for k in ("questions","verified","suspected_error","needs_manual_review","not_attempted")}}
     result["summary"]["questions"]=len(entries)
     if args.write: output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

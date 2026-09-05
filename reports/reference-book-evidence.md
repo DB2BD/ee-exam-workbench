@@ -15,6 +15,12 @@ source_crop 與 official_source_url 為來源。
 | EE-110-06-5 | 1 HP≈1 kVA；共同基準 5000 kVA；E''=1 pu；K=1.6 | F1 對稱 15.30 kA；瞬時容量 24.48 kA |
 | EE-107-06-2 | 1 HP≈1 kVA | I=262.43 A；120 m 壓降 12.175 V／5.53%；5% 上限長度 108.42 m |
 | EE-106-06-2 | F 點按 220 V 線間短路；三相 380 V 側 Zf=0.057 pu；K=1.25 | 對稱 5.98 kA；非對稱 7.475 kA |
+| EE-113-02-2 | BJT 共基極 T 模型，V_T=25 mV | R_in=50 Ω；A_v=47.52 V/V |
+| EE-112-02-1 | 共基極高頻近似，V_T=25 mV、r_e=50 Ω | f_Hπ=6.69×10^8 Hz；f_Hμ=1.6×10^8 Hz；A_v 約 9.47 V/V |
+| EE-109-02-3 | 返馳式 DCM／臨界導通三角波；I_p(avg) 取週期平均 | I_p(max)=60 A；I_p(avg)=22.5 A；L_p=274.4 μH；η=93.75% |
+| EE-106-02-2 | 對稱 MOSFET 非反相負回授；A=1/2 g_mN r_o、β=R_1/(R_1+R_2) | A_f=A/(1+Aβ)；R_out,f=((R_1+R_2)∥(r_o/2))/(1+Aβ) |
+| EE-111-04-4 | 同步發電機 OCC/SCC 參考書曲線慣例；X_s,pu=0.93 | VR=68.87%；OCC 場電流 200 A；SCC 場電流 186 A |
+| EE-113-04-4 | 感應馬達採圖示 0.2/s 電流支路，機械功率依參考書 0.1(1-s)/s 項 | I_st=189.35 A；I_fl=40.23 A；T=57.67 N·m；η 約 45% |
 
 各題的完整 provenance 與限制，請見對應 canonical note 的
 verification_scope: reference_book、reference_book_evidence 與

@@ -45,7 +45,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
             digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
             self.assertEqual(entry["solution_hash"], digest, entry["qid"])
 
-    def test_reference_book_evidence_moves_exactly_seven_pe_questions_out_of_manual_queue(self):
+    def test_reference_book_evidence_moves_all_supplied_clear_questions_out_of_manual_queue(self):
         manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
         expected = {
             "EE-111-06-1": ("168 A", "760 A"),
@@ -55,6 +55,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
             "EE-110-06-5": ("15.30 kA", "24.48 kA"),
             "EE-107-06-2": ("262.43 A", "108.42 m"),
             "EE-106-06-2": ("5.98 kA", "7.475 kA"),
+            "EE-113-02-2": ("50 Ω", "47.52 V/V"),
+            "EE-112-02-1": ("6.69", "1.6"),
+            "EE-109-02-3": ("60 A", "274.4 μH"),
+            "EE-106-02-2": ("A_f", "R_out,f"),
+            "EE-111-04-4": ("68.87%", "186 A"),
+            "EE-113-04-4": ("189.35 A", "57.67"),
         }
         entries = {entry["qid"]: entry for entry in manifest["entries"]}
         self.assertEqual(
@@ -132,13 +138,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         source_path = "reports/manual-review-index.md"
         source = (ROOT / source_path).read_text(encoding="utf-8")
         self.assertEqual(payload.get(source_path), source)
-        self.assertIn("目前共 **10 題**待人工覆核。", payload[source_path])
+        self.assertIn("目前共 **4 題**待人工覆核。", payload[source_path])
         self.assertNotIn("EE-108-06-2", payload[source_path])
 
     def test_electronics_conditional_branches_keep_unresolved_status(self):
         """Explicit textbook assumptions must not silently become official facts."""
         flyback = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-109-02-3.md").read_text(encoding="utf-8")
-        self.assertIn("audit_status: needs_manual_review", flyback)
+        self.assertIn("audit_status: reference_book_verified", flyback)
         self.assertIn("DCM／臨界導通模式（CrCM）邊界", flyback)
         self.assertIn("題圖未明示 CCM/DCM", flyback)
         self.assertIn("I_{p,\\,avg\\mid on}=", flyback)
@@ -146,13 +152,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("I_{p,\\,avg}=D\\,I_{p,\\,avg\\mid on}", flyback)
 
         cb = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-113-02-2.md").read_text(encoding="utf-8")
-        self.assertIn("audit_status: needs_manual_review", cb)
-        self.assertIn("以下先採教材常用 $V_T=25\\,\\mathrm{mV}$", cb)
-        self.assertIn("題目未明示 $V_T$", cb)
+        self.assertIn("audit_status: reference_book_verified", cb)
+        self.assertIn("參考書主解", cb)
+        self.assertIn("官方題面未明示接面溫度或 $V_T$", cb)
         self.assertIn("25.85", cb)
 
         high_frequency = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-1.md").read_text(encoding="utf-8")
-        self.assertIn("audit_status: needs_manual_review", high_frequency)
+        self.assertIn("audit_status: reference_book_verified", high_frequency)
         self.assertIn("題圖沒有明示熱電壓", high_frequency)
         self.assertIn("R_B=100\\,\\mathrm{k}\\Omega", high_frequency)
         self.assertIn("V_T=25\\,\\mathrm{mV}", high_frequency)
@@ -282,7 +288,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 10, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 4, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -326,19 +332,19 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn(f"{regulation:.4f}", note)
         self.assertIn("118.595", note)
         self.assertIn("110.264", note)
-        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn("audit_status: reference_book_verified", note)
 
-    def test_synchronous_generator_review_does_not_promote_partial_subquestion_to_verified(self):
+    def test_synchronous_generator_reference_book_keeps_curve_boundary_explicit(self):
         note = (CANONICAL / "04_電機機械" / "canonical" / "EE-111-04-4.md").read_text(encoding="utf-8")
-        self.assertIn("僅第（一）小題可唯一驗證", note)
-        self.assertIn("第（二）、（三）小題仍為條件分支", note)
-        self.assertIn("不得將整題標記為 verified", note)
+        self.assertIn("audit_status: reference_book_verified", note)
+        self.assertIn("參考書主解", note)
+        self.assertIn("官方裁切圖未附完整曲線資料", note)
 
-    def test_112_common_base_uses_source_current_and_finite_beta_consistently(self):
+    def test_112_common_base_keeps_source_current_and_reference_book_primary(self):
         """The 0.5 mA source supplies emitter current when finite beta is retained."""
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-1.md").read_text(encoding="utf-8")
         self.assertIn("I_E=I_Q=0.5", note)
-        self.assertIn("I_C=0.4950495", note)
+        self.assertIn("I_C=\\frac{\\beta}{\\beta+1}I_E=0.4950495", note)
         for expected in ("19.80198", "50.000", "668.451", "160.746", "9.336153"):
             self.assertIn(expected, note)
         self.assertIn("三個標示", note)
@@ -376,7 +382,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
             self.assertIn(qid, report)
         self.assertNotIn("工業配電系統電壓降與串聯電抗器", report)
         self.assertNotIn("電動機饋線電壓降與導線長度", report)
-        self.assertIn("MOSFET 差動放大器與負回授", report)
+        self.assertIn("MOSFET 共源極源極退化與偏壓設計", report)
         self.assertNotIn("待依教科書章節覆核", report)
         self.assertIn("電子學（含電力電子）", report)
         self.assertNotIn("兩部相同發電機各自經由其升壓變壓器", report)
@@ -387,8 +393,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("const SOLUTION_REVIEW_METADATA", dashboard)
         self.assertIn('"EE-112-05-4"', dashboard)
-        self.assertIn('"EE-109-02-3"', dashboard)
-        self.assertIn('"conduction_mode_branches"', dashboard)
+        self.assertIn('"EE-111-02-3"', dashboard)
+        self.assertIn('"inconsistent_data_branches"', dashboard)
         self.assertIn('"evidence"', dashboard)
         self.assertIn("referenceBookEvidence", dashboard)
         self.assertIn("reference_book_verified", dashboard)
@@ -398,8 +404,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
         self.assertIn("meta.evidence", index)
         self.assertIn("officialSourceUrl", dashboard)
-        self.assertIn("publicReferenceUrls", dashboard)
-        self.assertIn("publicReferenceNote", dashboard)
+        self.assertIn("referenceBookConvention", dashboard)
         self.assertIn("公開參考", index)
         self.assertIn("manual-label-modal", index)
         self.assertIn("openManualLabelModal", index)
@@ -607,8 +612,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
     def test_electronics_manual_review_provenance_matches_official_crop(self):
         mosfet = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-106-02-2.md").read_text(encoding="utf-8")
-        self.assertIn("未提供 V_A", mosfet)
-        self.assertNotIn("官方裁切圖只提供 MOSFET 差動／回授拓撲與 V_A=∞", mosfet)
+        self.assertIn("reference_book evidence", mosfet)
+        self.assertIn("r_{ON}=r_{OP}=r_o", mosfet)
         self.assertIn("輸出端負載為 $R_1+R_2$", mosfet)
         self.assertNotIn("$R_1\\parallel R_2$ 負載", mosfet)
 
@@ -632,7 +637,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("圖示 0.2/s", note)
         self.assertIn("0.1(1-s)/s", note)
         self.assertIn("完整重算的第二組結果", note)
-        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn("audit_status: reference_book_verified", note)
+        self.assertIn("參考書主解", note)
 
     def test_equal_area_verified_solution_traces_official_frequency(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")
@@ -1096,7 +1102,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("855\\,\\mathrm{rpm}", vf_107)
 
         flyback_109 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-109-02-3.md").read_text(encoding="utf-8")
-        self.assertIn("audit_status: needs_manual_review", flyback_109)
+        self.assertIn("audit_status: reference_book_verified", flyback_109)
         self.assertIn("DCM 三角波", flyback_109)
         self.assertIn("60\\text{ A}", flyback_109)
         self.assertIn("274.4\\ \\mu\\text{H}", flyback_109)

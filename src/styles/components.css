@@ -616,6 +616,14 @@ select:focus {
 .solution-review-card .review-title { font-weight: 700; color: #8a6410; margin-bottom: 6px; }
 .solution-review-card .review-meta { display: grid; gap: 4px; font-size: .86rem; line-height: 1.45; }
 .solution-review-card .review-public-note { margin-top: 2px; color: var(--muted); font-size: .8rem; }
+.solution-audit-summary .review-description { margin-bottom: 8px; font-size: .86rem; line-height: 1.5; }
+.solution-audit-summary .solution-learning-status { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); font-size: .84rem; }
+.solution-audit-summary .solution-report-box { display: grid; gap: 6px; margin-top: 12px; }
+.solution-audit-summary .solution-report-textarea { width: 100%; min-height: 132px; padding: 8px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font: .78rem/1.45 var(--font-mono); resize: vertical; box-sizing: border-box; }
+.solution-audit-summary .solution-report-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.solution-audit-card-verified { border-left-color: var(--success); }
+.solution-audit-card-suspected_error { border-color: #e6a49a; border-left-color: #a04a3f; background: #fff5f2; }
+.solution-audit-card-not_attempted, .solution-audit-card-unknown { border-color: #c8ced6; border-left-color: #6d7480; background: #f7f8f9; }
 
 /* Scenario Matrix Card (參數敏感度情境分支卡) */
 .scenario-matrix-card {
@@ -875,6 +883,31 @@ select:focus {
   padding: 10px;
   outline: none;
   resize: vertical;
+}
+.backup-preview,
+.backup-history {
+  white-space: pre-line;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  border-radius: var(--radius-sm);
+  padding: 9px 11px;
+}
+.backup-preview {
+  background: var(--bg-secondary);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.backup-preview.is-valid {
+  color: var(--success);
+  border-color: var(--success);
+}
+.backup-preview.is-invalid {
+  color: var(--danger, #b85d58);
+  border-color: var(--danger, #b85d58);
+}
+.backup-history {
+  color: var(--muted);
+  padding: 0;
 }
 
 /* Stat Due Card Highlight */
@@ -1136,4 +1169,3 @@ select:focus {
     box-shadow: none !important;
   }
 }
-

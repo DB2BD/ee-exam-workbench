@@ -122,6 +122,7 @@ function openBackupModal() {
   const jsonStr = typeof exportAllUserDataJSON === 'function' ? exportAllUserDataJSON() : JSON.stringify({ progressState, starredState }, null, 2);
   if (textarea) textarea.value = jsonStr;
   modal.classList.add('show');
+  previewImportedBackupJSON();
 }
 
 function closeBackupModal() {
@@ -133,24 +134,96 @@ function copyBackupToClipboard() {
   const textarea = document.getElementById('backup-json-textarea');
   if (!textarea) return;
   textarea.select();
-  navigator.clipboard.writeText(textarea.value).then(() => {
+  const copyPromise = navigator.clipboard && navigator.clipboard.writeText
+    ? navigator.clipboard.writeText(textarea.value)
+    : Promise.reject(new Error('clipboard unavailable'));
+  copyPromise.then(() => {
     showToast("📋 已複製 JSON 備份代碼至剪貼簿！");
+  }).catch(() => {
+    try {
+      document.execCommand('copy');
+      showToast("📋 已複製 JSON 備份代碼至剪貼簿！");
+    } catch (_) {
+      alert('請手動選取並複製備份內容。');
+    }
   });
 }
 
-function applyImportedBackupJSON() {
-  const textarea = document.getElementById('backup-json-textarea');
-  if (!textarea || !textarea.value.trim()) return;
+function formatBackupSummary(summary) {
+  if (!summary) return '';
+  const byCategory = summary.progressByCategory || {};
+  const starredByCategory = summary.starredByCategory || {};
+  return [
+    `格式 ${summary.version || '未知'} · PE 做題 ${byCategory.PE || 0} · GK 做題 ${byCategory.GK || 0}`,
+    `收藏 ${summary.starred || 0}（PE ${starredByCategory.PE || 0}／GK ${starredByCategory.GK || 0}）`,
+    `SM-2 ${summary.sm2 || 0} · 主動回想 ${summary.recall || 0} · 人工章節 ${summary.manualLabels || 0}`,
+  ].join('\n');
+}
 
-  const res = typeof importUserDataJSON === 'function' ? importUserDataJSON(textarea.value.trim()) : { success: false, error: 'import handler unavailable' };
+function renderBackupHistory() {
+  const history = document.getElementById('backup-history');
+  if (!history || typeof getBackupMetadata !== 'function') return;
+  const metadata = getBackupMetadata() || {};
+  const format = value => value ? new Date(value).toLocaleString('zh-TW') : '尚無紀錄';
+  history.innerText = `最近備份：${format(metadata.lastBackupAt)}　最近匯入：${format(metadata.lastImportAt)}`;
+}
+
+function renderBackupPreview(result) {
+  const preview = document.getElementById('backup-preview');
+  if (!preview) return;
+  preview.classList.remove('is-valid', 'is-invalid');
+  if (!result || !result.success) {
+    preview.classList.add('is-invalid');
+    preview.innerText = (result && result.errors ? result.errors.join('\n') : (result && result.error)) || '尚未驗證備份內容。';
+    renderBackupHistory();
+    return;
+  }
+  preview.classList.add('is-valid');
+  preview.innerText = `✅ 備份可還原\n${formatBackupSummary(result.summary)}`;
+  renderBackupHistory();
+}
+
+function previewImportedBackupJSON() {
+  const textarea = document.getElementById('backup-json-textarea');
+  if (!textarea || !textarea.value.trim()) {
+    renderBackupPreview({ success: false, error: '請先貼上或載入備份 JSON。' });
+    return { success: false, error: '請先貼上或載入備份 JSON。' };
+  }
+  let result;
+  try {
+    const payload = JSON.parse(textarea.value.trim());
+    result = typeof validateUserDataBackup === 'function'
+      ? validateUserDataBackup(payload)
+      : { success: false, error: '備份驗證功能尚未載入。' };
+  } catch (_) {
+    result = { success: false, error: '匯入失敗：JSON 格式無效，未修改任何資料。' };
+  }
+  renderBackupPreview(result);
+  return result;
+}
+
+function applyImportedBackupJSON(mode) {
+  const textarea = document.getElementById('backup-json-textarea');
+  if (!textarea || !textarea.value.trim()) {
+    renderBackupPreview({ success: false, error: '請先貼上或載入備份 JSON。' });
+    return;
+  }
+  const selectedMode = mode === 'merge' || mode === 'replace' ? mode : 'replace';
+  const res = typeof applyUserDataBackup === 'function'
+    ? applyUserDataBackup(textarea.value.trim(), selectedMode)
+    : { success: false, error: '備份還原功能尚未載入。' };
   if (res.success) {
     updateStatsAndBar();
     renderQuestions();
+    if (typeof renderReviewPage === 'function') renderReviewPage();
+    renderBackupHistory();
     closeBackupModal();
-    showToast(`📥 成功還原 ${res.count} 筆進度與 SM-2 複習週期！`);
+    showToast(`📥 已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
   } else {
-    alert(`❌ 匯入失敗：${res.error || '無效的 JSON 格式'}`);
+    renderBackupPreview(res);
+    alert(`❌ ${res.error || '匯入失敗：無效的 JSON 格式'}`);
   }
+  return res;
 }
 
 function importProgressJSON() {
@@ -162,18 +235,11 @@ function importProgressJSON() {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (event) => {
-      try {
-        const res = typeof importUserDataJSON === 'function' ? importUserDataJSON(event.target.result) : null;
-        if (!res || res.success) {
-          updateStatsAndBar();
-          renderQuestions();
-          showToast("📥 備考進度與 SM-2 排程已成功匯入還原！");
-        } else {
-          alert(`❌ 匯入失敗：${res.error}`);
-        }
-      } catch (err) {
-        alert("❌ 匯入失敗：檔案格式不正確！");
-      }
+      const modal = document.getElementById('backup-modal');
+      const textarea = document.getElementById('backup-json-textarea');
+      if (textarea) textarea.value = event.target.result;
+      if (modal) modal.classList.add('show');
+      previewImportedBackupJSON();
     };
     reader.readAsText(file);
   };

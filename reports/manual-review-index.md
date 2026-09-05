@@ -1,6 +1,6 @@
 # 人工覆核索引
 
-> 產生日期：2026-09-03；此清單只收錄 audit manifest 中 `needs_manual_review` 題目。
+> 產生日期：2026-09-05；此清單只收錄 audit manifest 中 `needs_manual_review` 題目。
 > 任何題目在缺參數、圖形估讀或來源衝突未解除前，不得升級為 `verified`。
 
 目前共 **17 題**待人工覆核。

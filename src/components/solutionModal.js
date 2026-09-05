@@ -259,31 +259,178 @@ function getSolutionReviewMetadata(qid) {
   return SOLUTION_REVIEW_METADATA[qid] || null;
 }
 
-function renderSolutionReviewCard(qid) {
-  const meta = getSolutionReviewMetadata(qid);
-  if (!meta) return '';
-  const esc = typeof reviewHtmlEscape === 'function' ? reviewHtmlEscape : (value) => String(value || '');
-  const sourceUrl = typeof meta.officialSourceUrl === 'string' && /^https:\/\//i.test(meta.officialSourceUrl)
-    ? meta.officialSourceUrl
-    : '';
-  const publicUrls = Array.isArray(meta.publicReferenceUrls)
-    ? meta.publicReferenceUrls.filter(url => typeof url === 'string' && /^https:\/\//i.test(url))
+function getSolutionAuditPresentation(status, metadata, qRecord) {
+  const knownStatuses = ['verified', 'needs_manual_review', 'suspected_error', 'not_attempted'];
+  const normalizedStatus = knownStatuses.includes(status)
+    ? status
+    : ['pending', 'in_progress', 'ambiguous', 'unavailable'].includes(status) ? 'not_attempted' : 'unknown';
+  const statusCopy = {
+    verified: {
+      label: '✅ 題解已校驗',
+      description: '題解目前標記為已校驗；這是工作庫的校驗狀態，不等同官方公布解答。',
+    },
+    needs_manual_review: {
+      label: '🟡 題解保留人工覆核',
+      description: '本題保留可讀的條件式推導，但尚未完成足以定稿的人工覆核。',
+    },
+    suspected_error: {
+      label: '🔴 題解疑似有誤',
+      description: '本題不可直接視為定稿答案，請依來源題面重新核對。',
+    },
+    not_attempted: {
+      label: '⚪ 題解尚未校驗',
+      description: '目前沒有足夠校驗紀錄，頁面不宣稱此題解已被確認。',
+    },
+    unknown: {
+      label: '⚪ 題解校驗狀態未知',
+      description: '缺少可辨識的題解校驗狀態，頁面不宣稱校驗範圍或官方背書。',
+    },
+  }[normalizedStatus];
+  const meta = metadata || {};
+  const qid = qRecord && qRecord[0];
+  const isGK = Boolean(qid && String(qid).startsWith('GK-'));
+  const questionCrop = isGK
+    ? (qRecord && qRecord[14]) || ''
+    : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] : '') || '';
+  const isHttps = value => typeof value === 'string' && /^https:\/\//i.test(value);
+  const publicReferenceUrls = Array.isArray(meta.publicReferenceUrls)
+    ? meta.publicReferenceUrls.filter(isHttps)
     : [];
-  const publicLinks = publicUrls.length
-    ? `<div><strong>公開參考：</strong>${publicUrls.map((url, index) =>
+  const hasReviewDetails = Boolean(meta.blocker || meta.action || meta.evidence || meta.disposition);
+  return {
+    status: normalizedStatus,
+    statusLabel: statusCopy.label,
+    description: statusCopy.description,
+    disposition: String(meta.disposition || ''),
+    blocker: String(meta.blocker || (normalizedStatus === 'needs_manual_review'
+      ? '未提供人工覆核備註；目前無法宣稱已校驗。' : '')),
+    action: String(meta.action || (normalizedStatus === 'needs_manual_review'
+      ? '請補充可重現的校驗步驟與可核對來源。' : '')),
+    evidence: String(meta.evidence || ''),
+    issueType: String(meta.blocker || normalizedStatus),
+    conservative: normalizedStatus !== 'verified' && !hasReviewDetails,
+    sources: {
+      officialQuestionUrl: qRecord && qRecord[7] ? String(qRecord[7]) : '',
+      solutionLink: qRecord && qRecord[6] ? String(qRecord[6]) : '',
+      questionCrop: String(questionCrop || ''),
+      officialSourceUrl: isHttps(meta.officialSourceUrl) ? meta.officialSourceUrl : '',
+      publicReferenceUrls,
+      publicReferenceNote: String(meta.publicReferenceNote || ''),
+    },
+  };
+}
+
+function getLearningStatusPresentation(status) {
+  const labels = {
+    0: { status: 0, label: '⚪ 我的學習狀態：未開始' },
+    1: { status: 1, label: '🟢 我的學習狀態：已掌握' },
+    2: { status: 2, label: '🔴 我的學習狀態：需二刷' },
+  };
+  return labels[Number(status)] || labels[0];
+}
+
+function buildSolutionIssueReport(qRecord, issueType, options) {
+  const record = Array.isArray(qRecord) ? qRecord : [];
+  const opts = options || {};
+  const auditStatus = opts.auditStatus || record[9] || 'unknown';
+  const version = opts.version || (typeof QUESTION_SCHEMA_VERSION !== 'undefined' ? QUESTION_SCHEMA_VERSION : '目前工作庫版本');
+  const examFamily = opts.examFamily || (String(record[0] || '').startsWith('GK-') ? 'GK' : 'PE');
+  const subjectMeta = typeof getSubjectMeta === 'function' ? getSubjectMeta(record[1]) : null;
+  const subject = opts.subjectName || (subjectMeta && subjectMeta.name ? `${record[1]}. ${subjectMeta.name}` : record[1]) || '未提供';
+  const problemType = issueType || '未指定';
+  const presentation = opts.presentation || getSolutionAuditPresentation(auditStatus, opts.metadata || null, record);
+  return [
+    '回報題解問題（僅產生文字，不會自動送出）',
+    `QID：${record[0] || '未提供'}`,
+    `工作庫版本：${version}`,
+    `考別：${examFamily}`,
+    `年度：${record[2] || '未提供'}`,
+    `考科：${subject}`,
+    `題解校驗狀態：${auditStatus}｜${presentation.statusLabel}`,
+    `問題類型：${problemType}`,
+    `官方原題連結：${record[7] || '未提供'}`,
+    `題解連結：${record[6] || '未提供'}`,
+  ].join('\n');
+}
+
+function prepareSolutionIssueReport(qid) {
+  const record = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
+  if (!record) return '';
+  const metadata = getSolutionReviewMetadata(qid);
+  const presentation = getSolutionAuditPresentation(record[9], metadata, record);
+  const textarea = document.getElementById('solution-report-textarea');
+  const report = buildSolutionIssueReport(record, presentation.issueType, {
+    auditStatus: record[9],
+    metadata,
+    presentation,
+    examFamily: String(qid).startsWith('GK-') ? 'GK' : 'PE',
+    version: typeof QUESTION_SCHEMA_VERSION !== 'undefined' ? QUESTION_SCHEMA_VERSION : '目前工作庫版本',
+  });
+  if (textarea) textarea.value = report;
+  return report;
+}
+
+function copySolutionIssueReport() {
+  const textarea = document.getElementById('solution-report-textarea');
+  if (!textarea) return;
+  const text = textarea.value || '';
+  if (!text) return;
+  if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      if (typeof showToast === 'function') showToast('📋 回報文字已複製，尚未傳送');
+    }).catch(() => {
+      textarea.focus();
+      textarea.select();
+      if (typeof showToast === 'function') showToast('📋 已選取回報文字，請手動複製');
+    });
+    return;
+  }
+  textarea.focus();
+  textarea.select();
+  if (typeof showToast === 'function') showToast('📋 已選取回報文字，請手動複製');
+}
+
+function renderSolutionReviewCard(qid, qRecord) {
+  const record = qRecord || (typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null);
+  const meta = getSolutionReviewMetadata(qid);
+  const presentation = getSolutionAuditPresentation(record && record[9] || 'unknown', meta, record);
+  const learning = getLearningStatusPresentation(typeof progressState !== 'undefined' ? progressState[qid] || 0 : 0);
+  const esc = typeof reviewHtmlEscape === 'function' ? reviewHtmlEscape : (value) => String(value || '');
+  const publicLinks = presentation.sources.publicReferenceUrls.length
+    ? `<div><strong>公開參考：</strong>${presentation.sources.publicReferenceUrls.map((url, index) =>
         `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">來源 ${index + 1}</a>`
-      ).join('、')}${meta.publicReferenceNote ? `<div class="review-public-note">${esc(meta.publicReferenceNote)}</div>` : ''}</div>`
+      ).join('、')}${presentation.sources.publicReferenceNote ? `<div class="review-public-note">${esc(presentation.sources.publicReferenceNote)}</div>` : ''}</div>`
     : '';
+  const report = buildSolutionIssueReport(record || [qid], presentation.issueType, {
+    auditStatus: presentation.status,
+    metadata: meta,
+    presentation,
+    examFamily: String(qid || '').startsWith('GK-') ? 'GK' : 'PE',
+    version: typeof QUESTION_SCHEMA_VERSION !== 'undefined' ? QUESTION_SCHEMA_VERSION : '目前工作庫版本',
+  });
   return `
-    <aside class="solution-review-card" aria-label="人工覆核說明">
-      <div class="review-title">🟡 本題保留人工覆核（不代表答案已定稿）</div>
+    <aside class="solution-review-card solution-audit-summary solution-audit-card-${presentation.status}" aria-label="題解可信度與來源">
+      <div class="review-title">${esc(presentation.statusLabel)}</div>
+      <div class="review-description">${esc(presentation.description)}</div>
       <div class="review-meta">
-        <div><strong>目前可用分支：</strong>${esc(meta.disposition)}</div>
-        <div><strong>阻擋原因：</strong>${esc(meta.blocker)}</div>
-        <div><strong>收斂所需動作：</strong>${esc(meta.action)}</div>
-        ${meta.evidence ? `<div><strong>交叉證據：</strong>${esc(meta.evidence)}</div>` : ''}
-        ${sourceUrl ? `<div><strong>官方來源：</strong><a href="${esc(sourceUrl)}" target="_blank" rel="noopener noreferrer">開啟考選部原始試題</a></div>` : ''}
+        ${presentation.disposition ? `<div><strong>目前可用分支：</strong>${esc(presentation.disposition)}</div>` : ''}
+        ${presentation.blocker ? `<div><strong>阻擋原因：</strong>${esc(presentation.blocker)}</div>` : ''}
+        ${presentation.action ? `<div><strong>收斂所需動作：</strong>${esc(presentation.action)}</div>` : ''}
+        ${presentation.evidence ? `<div><strong>交叉證據：</strong>${esc(presentation.evidence)}</div>` : ''}
+        ${presentation.sources.officialQuestionUrl ? `<div><strong>官方原題：</strong><a href="${esc(presentation.sources.officialQuestionUrl)}" target="_blank" rel="noopener noreferrer">開啟原始試題</a></div>` : '<div><strong>官方原題：</strong>未提供可開啟連結</div>'}
+        ${presentation.sources.solutionLink ? `<div><strong>題解來源：</strong><a href="${esc(presentation.sources.solutionLink)}" target="_blank" rel="noopener noreferrer">開啟題解檔</a></div>` : '<div><strong>題解來源：</strong>未提供</div>'}
+        ${presentation.sources.questionCrop ? `<div><strong>原題裁切：</strong><code>${esc(presentation.sources.questionCrop)}</code></div>` : ''}
+        ${presentation.sources.officialSourceUrl ? `<div><strong>官方外部索引：</strong><a href="${esc(presentation.sources.officialSourceUrl)}" target="_blank" rel="noopener noreferrer">開啟官方來源</a></div>` : ''}
         ${publicLinks}
+      </div>
+      <div class="solution-learning-status"><strong>${esc(learning.label)}</strong>（與題解校驗狀態分開）</div>
+      <div class="solution-report-box">
+        <label for="solution-report-textarea"><strong>回報文字（可複製，不會自動送出）</strong></label>
+        <textarea id="solution-report-textarea" class="solution-report-textarea" rows="7">${esc(report)}</textarea>
+        <div class="solution-report-actions">
+          <button type="button" class="btn-sol" onclick="prepareSolutionIssueReport('${esc(qid)}')">重新產生回報文字</button>
+          <button type="button" class="btn-sol" onclick="copySolutionIssueReport()">📋 複製回報文字</button>
+        </div>
       </div>
     </aside>
   `;

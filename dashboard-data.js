@@ -675,7 +675,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-2.md",
     "依考科分類/02_電子學_含電力電子/113年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "reference_book_verified",
     [],
     true
   ],
@@ -877,7 +877,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-113-04-4.md",
     "依考科分類/04_電機機械/113年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "reference_book_verified",
     [
       "S = VI*",
       "s = (Ns - N)/Ns"
@@ -1170,7 +1170,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-112-02-1.md",
     "依考科分類/02_電子學_含電力電子/112年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "needs_manual_review",
+    "reference_book_verified",
     [],
     true
   ],
@@ -1889,7 +1889,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-111-04-4.md",
     "依考科分類/04_電機機械/111年_電機工程技師_電機機械.pdf",
     3,
-    "needs_manual_review",
+    "reference_book_verified",
     [
       "S = VI*"
     ],
@@ -2733,7 +2733,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-109-02-3.md",
     "依考科分類/02_電子學_含電力電子/109年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "needs_manual_review",
+    "reference_book_verified",
     [
       "ΔV = √3 I (R cosθ + X sinθ)"
     ],
@@ -4259,7 +4259,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-2.md",
     "依考科分類/02_電子學_含電力電子/106年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "needs_manual_review",
+    "reference_book_verified",
     [],
     true
   ],
@@ -7008,7 +7008,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "el-bjt-bias-small-signal",
     "source": "manual-topic-confirmed",
     "canonicalChapter": "BJT 共基極放大器與高頻響應",
-    "noteTitle": "112 年電子學第 1 題：共基極放大器高頻響應",
+    "noteTitle": "",
     "manualChapter": "el-bjt-bias-small-signal",
     "secondaryTopicIds": [
       "el-active-filter"
@@ -7825,7 +7825,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "emach-induction-motor-equiv",
     "source": "manual-topic-confirmed",
     "canonicalChapter": "三相感應馬達等效電路與轉矩",
-    "noteTitle": "113 年電機機械第 4 題｜三相感應馬達等效電路與轉矩（來源矛盾，人工覆核）",
+    "noteTitle": "113 年電機機械第 4 題｜三相感應馬達等效電路與轉矩（參考書主解）",
     "manualChapter": "emach-induction-motor-equiv"
   },
   "EE-106-04-3": {
@@ -8494,13 +8494,13 @@ const QUESTION_TAXONOMY_MAP = {
 };
 const SOLUTION_REVIEW_METADATA = {
   "EE-109-02-3": {
-    "disposition": "conduction_mode_branches",
-    "blocker": "missing_parameter",
-    "action": "確認返馳式轉換器導通模式與電流定義；目前的三角波條件其實落在 DCM／臨界導通邊界，另保留 CCM 分支。",
-    "evidence": "官方裁切圖已確認 N_p/N_s=4、V_o=24 V、D=0.75、f=1.5 kHz 與 L_p=274.4 μH；canonical 回算 I_p,max=60 A 且 t_demag=t_off=166.67 μs，故位於 DCM／臨界導通邊界。若題意採 CCM，平均與峰值定義需改寫。",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
+    "disposition": "",
+    "blocker": "",
+    "action": "",
+    "evidence": "",
+    "referenceBookEvidence": "使用者提供參考書照片採磁化電流由零開始的 DCM／臨界導通邊界，得到 I_p(max)=60 A、I_p(avg)=22.5 A（導通區間平均為 30 A）、L_p=274.4 μH、η=93.75%。此為 reference_book evidence，not official，不是官方題面新增資料。",
+    "verificationScope": "reference_book",
+    "referenceBookConvention": "參考書將 I_p(avg) 定義為整個切換週期平均開關電流，並以 DCM 三角波回算；若採 CCM，需另給谷值電流。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=109180&q=1&s=0601&t=Q"
   },
   "EE-111-02-3": {
@@ -8514,43 +8514,33 @@ const SOLUTION_REVIEW_METADATA = {
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
   },
   "EE-113-02-2": {
-    "disposition": "conditional_numeric",
-    "blocker": "missing_parameter",
-    "action": "確認命題採用的熱電壓 V_T 或溫度；目前列出 25、25.85、26 mV 三個可回代分支。",
-    "evidence": "官方裁切圖已確認 α=0.99、I_E=0.5 mA、R_sig=75 Ω、R_C=R_L=12 kΩ 與基極交流接地；canonical 推導以 T 模型及 R_C∥R_L 回代，V_T=25 mV 得 A_v=47.52 V/V，V_T=25.85 mV 得 46.882399 V/V。題圖未提供 V_T，故分支差異是可重現的輸入條件缺口。公開影音與圖像解答均將本題辨識為共基極 T 模型題，僅作方法交叉，未用來補填官方缺漏。來源：https://kentchen1980.pixnet.net/blog/posts/10357159118；https://www.youtube.com/watch?v=oe_n90CtJcI",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
-    "publicReferenceUrls": [
-      "https://kentchen1980.pixnet.net/blog/posts/10357159118",
-      "https://www.youtube.com/watch?v=oe_n90CtJcI"
-    ],
-    "publicReferenceNote": "Kentchen 圖像解答與 KENT CHEN 影音解析可交叉確認題型；頁面未提供可引用的完整數值文本。",
+    "disposition": "",
+    "blocker": "",
+    "action": "",
+    "evidence": "",
+    "referenceBookEvidence": "使用者提供參考書照片以 BJT T 模型、V_T=25 mV、r_e=50 Ω 為解題慣例，得到 R_in=50 Ω、A_v=47.52 V/V。此為 reference_book evidence，not official，不是官方題面新增資料。",
+    "verificationScope": "reference_book",
+    "referenceBookConvention": "參考書採 V_T=25 mV；官方題圖未標示 V_T，故 25.85／26 mV 僅列為參數敏感度對照。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0701&t=Q"
   },
   "EE-106-02-2": {
-    "disposition": "parameterized_only",
-    "blocker": "missing_parameter",
-    "action": "補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。",
-    "evidence": "官方裁切圖只提供 MOSFET 差動／回授拓撲，並以文字要求考慮所有 MOSFET 的 r_o；圖中未提供 V_A、R_1、R_2、各管 g_m、r_o、尾電流源阻抗或輸出端口數值；canonical 已保留參數化 A_f=A/(1+Aβ) 及測試源阻抗定義。M_2 閘極不取電流，故輸出端所見分壓器負載為 R_1+R_2，而非 R_1∥R_2。",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
+    "disposition": "",
+    "blocker": "",
+    "action": "",
+    "evidence": "",
+    "referenceBookEvidence": "使用者提供參考書照片將原電路化為非反相負回授放大器，採 A=1/2 g_mN r_o、β=R_1/(R_1+R_2)，得到 A_f=A/(1+Aβ) 與 R_out,f=((R_1+R_2)∥(r_o/2))/(1+Aβ)。此為 reference_book evidence，not official，不是官方題面新增資料。",
+    "verificationScope": "reference_book",
+    "referenceBookConvention": "參考書採對稱 MOSFET 小訊號模型 r_ON=r_OP=r_o，並以符號式回答；題圖未提供數值元件參數，故不虛構數值結果。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0601&t=Q"
   },
   "EE-112-02-1": {
-    "disposition": "conditional_numeric",
-    "blocker": "missing_parameter",
-    "action": "確認 V_T 或接面溫度；依官方拓撲，0.5 mA 理想電流源供應 I_C+I_B=I_E，有限 beta 分支不得把 I_C 直接設為 0.5 mA。",
-    "evidence": "官方裁切圖已確認 β=100、I_Q=0.5 mA、C_π=10 pF、C_μ=1 pF、R_s=50 Ω、R_E=0.5 kΩ、R_B=100 kΩ、R_L=1 kΩ；電流源接在集極節點且基極直流電流經 R_B 返回該節點，故 KCL 給 I_Q=I_C+I_B=I_E。V_T=25 mV 時 I_C=0.4950495 mA、g_m=19.80198 mS、f_Hπ=668.451 MHz、f_Hμ=160.746 MHz、A_v=9.336153。題圖未給 V_T，故仍保留 25/25.85/26 mV 分支。來源：https://yamol.tw/exam-112%E5%B9%B4%2B%2B112%E5%B9%B4%2B%E5%B0%88%E6%8A%80%E9%AB%98%E8%80%83_%E9%9B%BB%E6%A9%9F%E5%B7%A5%E7%A8%8B%E6%8A%80%E5%B8%AB%EF%BC%9A%E9%9B%BB%E5%AD%B8%EF%BC%88%E5%8C%85%E6%8B%AC%E9%9B%BB%E5%8A%9B%E9%9B%BB%E5%AD%B8%EF%BC%89117584-117584.htm；https://www.scribd.com/document/1031258563/112%E5%B9%B4%E9%9B%BB%E6%A9%9F%E6%8A%80%E5%B8%AB%E9%9B%BB%E5%AD%B8%E8%A7%A3%E7%AD%94",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
-    "publicReferenceUrls": [
-      "https://www.scribd.com/document/1031258563/112%E5%B9%B4%E9%9B%BB%E6%A9%9F%E6%8A%80%E5%B8%AB%E9%9B%BB%E5%AD%B8%E8%A7%A3%E7%AD%94",
-      "https://yamol.tw/exam-112%E5%B9%B4%2B%2B112%E5%B9%B4%2B%E5%B0%88%E6%8A%80%E9%AB%98%E8%80%83_%E9%9B%BB%E6%A9%9F%E5%B7%A5%E7%A8%8B%E6%8A%80%E5%B8%AB%EF%BC%9A%E9%9B%BB%E5%AD%B8%EF%BC%88%E5%8C%85%E6%8B%AC%E9%9B%BB%E5%8A%9B%E9%9B%BB%E5%AD%B8%EF%BC%89117584-117584.htm"
-    ],
-    "publicReferenceNote": "Scribd 為公開逐步解答（採 V_T=25 mV）；阿摩頁面為題目索引。兩者僅支持該假設分支。",
+    "disposition": "",
+    "blocker": "",
+    "action": "",
+    "evidence": "",
+    "referenceBookEvidence": "使用者提供參考書照片採有限 β 共基極高頻模型與 V_T=25 mV，得到 f_Hπ=6.69×10^8 Hz、f_Hμ=1.6×10^8 Hz；書中中頻增益採近似模型，主要值約 9.47 V/V。此為 reference_book evidence，not official，不是官方題面新增資料。",
+    "verificationScope": "reference_book",
+    "referenceBookConvention": "參考書以 V_T=25 mV、r_e=50 Ω 並採教材近似計算；canonical 另保留納入 R_B 與有限 β 的精確回代作對照。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0701&t=Q"
   },
   "EE-111-02-4": {
@@ -8574,23 +8564,23 @@ const SOLUTION_REVIEW_METADATA = {
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=105170&q=1&s=0610&t=Q"
   },
   "EE-111-04-4": {
-    "disposition": "curve_interpolation_branches",
-    "blocker": "graph_estimate",
-    "action": "補齊實際 OCC/SCC 曲線或官方線性插值規則；目前第（一）小題已由相量方程驗證，第（二）、（三）僅保留線性比例條件值。",
-    "evidence": "官方原卷第 3-3 頁及裁切圖提供額定電壓、電流、功因與 X_s，故電壓調整率 68.6414% 已可由相量方程唯一回代；該頁只有「由 OCC／SCC 曲線來看」的文字，未附任何曲線或插值點，118.595 A 與 110.264 A 只能是明示線性比例假設下的條件值。",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
+    "disposition": "",
+    "blocker": "",
+    "action": "",
+    "evidence": "",
+    "referenceBookEvidence": "使用者提供參考書照片給出額定電流 1312.16∠−31.8° A、內生電壓 10710.78∠27.94° V/相、電壓調整率 68.87%，並由 OCC/SCC 慣例取 I_f=200 A 與 186 A。此為 reference_book evidence，not official，不是官方題面新增資料。",
+    "verificationScope": "reference_book",
+    "referenceBookConvention": "參考書採題目所示 OCC 額定電壓場電流 200 A，並以 X_s,pu=4.5/4.84=0.93 推得 SCC 場電流 186 A；曲線讀值慣例保留界線說明。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0610&t=Q"
   },
   "EE-113-04-4": {
-    "disposition": "source_conflict_branches",
-    "blocker": "source_conflict",
-    "action": "確認官方圖示與機械負載提示的基準；目前以圖示每相參數列出兩種啟動電流。",
-    "evidence": "官方裁切圖逐項讀得 220 V、60 Hz、1120 rpm、Z_1=0.1+j0.25 Ω、Z_2=0.2/s+j0.35 Ω、R_c=60 Ω、X_m=15 Ω；考選部官方文字另在提示明載機械負載電阻 0.1(1−s)/s，與圖示 0.2/s 不一致；canonical 已以每相電壓及滑差獨立回代兩模型，故保留來源矛盾而不混用。來源：https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
+    "disposition": "",
+    "blocker": "",
+    "action": "",
+    "evidence": "",
+    "referenceBookEvidence": "使用者提供參考書照片採圖示 0.2/s 支路的解題慣例，得到啟動電流 189.35 A、滿載電流 40.23 A、功率因數 0.98 滯後、機械功率 6761.3 W、轉矩 57.67 N·m、效率約 45%。此為 reference_book evidence，not official，不是官方題面新增資料。",
+    "verificationScope": "reference_book",
+    "referenceBookConvention": "以參考書的 s=0.067、0.1(1-s)/s 機械輸出功率項及圖示 0.2/s 電流支路計算；官方圖示與提示文字矛盾，canonical 保留另一完整分支作來源對照。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
   },
   "EE-106-06-2": {

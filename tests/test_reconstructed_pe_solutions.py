@@ -45,20 +45,46 @@ class TestReconstructedPESolutions(unittest.TestCase):
             digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
             self.assertEqual(entry["solution_hash"], digest, entry["qid"])
 
+    def test_reference_book_evidence_moves_exactly_seven_pe_questions_out_of_manual_queue(self):
+        manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
+        expected = {
+            "EE-111-06-1": ("168 A", "760 A"),
+            "EE-111-06-2": ("17.5%", "2.92%"),
+            "EE-111-06-3": ("42.83 kA", "21.85 kA"),
+            "EE-111-06-4": ("22 mm²", "125 mm²"),
+            "EE-110-06-5": ("15.30 kA", "24.48 kA"),
+            "EE-107-06-2": ("262.43 A", "108.42 m"),
+            "EE-106-06-2": ("5.98 kA", "7.475 kA"),
+        }
+        entries = {entry["qid"]: entry for entry in manifest["entries"]}
+        self.assertEqual(
+            {qid for qid, entry in entries.items() if entry["audit_status"] == "reference_book_verified"},
+            set(expected),
+        )
+        for qid, snippets in expected.items():
+            entry = entries[qid]
+            self.assertEqual(entry["verification_scope"], "reference_book")
+            self.assertIn("reference_book evidence", entry["reference_book_evidence"])
+            self.assertIn("not official", entry["reference_book_evidence"])
+            note = (ROOT / entry["solution_link"]).read_text(encoding="utf-8")
+            for snippet in snippets:
+                self.assertIn(snippet, note, qid)
+
     def test_pe_audit_report_current_snapshot_matches_manifest(self):
         """The human audit report must not expose a stale status snapshot."""
         manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
         report = (ROOT / "reports" / "pe-solution-audit-2026-08-30.md").read_text(encoding="utf-8")
         match = re.search(
             r"\*\*目前狀態快照（[^）]+）\*\*：非工程數學 (\d+) 題中 "
-            r"`verified=(\d+)`、`needs_manual_review=(\d+)`、"
+            r"`verified=(\d+)`、`reference_book_verified=(\d+)`、`needs_manual_review=(\d+)`、"
             r"`suspected_error=(\d+)`、`not_attempted=(\d+)`",
             report,
         )
         self.assertIsNotNone(match, "audit report is missing its current status snapshot")
-        questions, verified, manual, suspected, not_attempted = map(int, match.groups())
+        questions, verified, reference_book_verified, manual, suspected, not_attempted = map(int, match.groups())
         self.assertEqual(questions, manifest["summary"]["questions"])
         self.assertEqual(verified, manifest["summary"]["verified"])
+        self.assertEqual(reference_book_verified, manifest["summary"]["reference_book_verified"])
         self.assertEqual(manual, manifest["summary"]["needs_manual_review"])
         self.assertEqual(suspected, manifest["summary"]["suspected_error"])
         self.assertEqual(not_attempted, manifest["summary"]["not_attempted"])
@@ -106,7 +132,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         source_path = "reports/manual-review-index.md"
         source = (ROOT / source_path).read_text(encoding="utf-8")
         self.assertEqual(payload.get(source_path), source)
-        self.assertIn("目前共 **17 題**待人工覆核。", payload[source_path])
+        self.assertIn("目前共 **10 題**待人工覆核。", payload[source_path])
         self.assertNotIn("EE-108-06-2", payload[source_path])
 
     def test_electronics_conditional_branches_keep_unresolved_status(self):
@@ -256,7 +282,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 17, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 10, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -286,7 +312,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn(f"{currents[10]:.4f}", note)
         self.assertIn(f"{currents[8]:.4f}", note)
         self.assertIn(f"{main:.4f}", note)
-        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn("audit_status: reference_book_verified", note)
 
     def test_111_synchronous_generator_phasor_branch_is_reproducible(self):
         """The verified first subproblem keeps an independently reproducible anchor."""
@@ -349,7 +375,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for qid in manual_qids:
             self.assertIn(qid, report)
         self.assertNotIn("工業配電系統電壓降與串聯電抗器", report)
-        self.assertIn("電動機饋線電壓降與導線長度", report)
+        self.assertNotIn("電動機饋線電壓降與導線長度", report)
         self.assertIn("MOSFET 差動放大器與負回授", report)
         self.assertNotIn("待依教科書章節覆核", report)
         self.assertIn("電子學（含電力電子）", report)
@@ -364,8 +390,10 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn('"EE-109-02-3"', dashboard)
         self.assertIn('"conduction_mode_branches"', dashboard)
         self.assertIn('"evidence"', dashboard)
-        self.assertIn("238 A", dashboard)
-        self.assertIn("20 HP=55 A", dashboard)
+        self.assertIn("referenceBookEvidence", dashboard)
+        self.assertIn("reference_book_verified", dashboard)
+        self.assertIn("168 A", dashboard)
+        self.assertIn("52.49 A", dashboard)
         self.assertIn("function renderSolutionReviewCard", index)
         self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
         self.assertIn("meta.evidence", index)
@@ -404,7 +432,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
     def test_motor_voltage_drop_review_traces_historical_current_rule(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-2.md").read_text(encoding="utf-8")
-        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn("audit_status: reference_book_verified", note)
+        self.assertIn("reference_book_verified", note)
         self.assertIn("第 152 條", note)
         self.assertIn("https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617", note)
         self.assertIn(r"I=258\,\mathrm{A}", note)
@@ -479,12 +508,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
     def test_ct_curve_review_traces_official_question_and_reading_limit(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-1.md").read_text(encoding="utf-8")
-        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn("audit_status: reference_book_verified", note)
+        self.assertIn("verification_scope: reference_book", note)
         self.assertIn("official_source_url: https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q", note)
         self.assertIn("含完整曲線的官方裁切圖", note)
-        self.assertIn("I_e\\approx0.20", note)
-        self.assertIn("I_e\\approx2.5", note)
-        self.assertIn("圖解有效位數而非方程或裁切缺漏", note)
+        self.assertIn("I_e=0.4 A", note)
+        self.assertIn("I_e=30 A", note)
+        self.assertIn("reference_book evidence", note)
 
     def test_ct_curve_review_records_reading_intervals_and_threshold_margin(self):
         """Graph readings must expose enough margin to support the relay decision."""
@@ -497,29 +527,31 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("不受圖解誤差影響", note)
 
     def test_ct_curve_review_queue_names_page_crop_and_manual_decision(self):
-        """A reviewer must be able to locate the exact official page and decision bounds."""
+        """The reference-book result must retain the official crop locator."""
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-111-06-1.md").read_text(encoding="utf-8")
         self.assertIn("官方原卷第 3-1 頁（檔案頁 1）", note)
         self.assertIn("PE_111年_工業配電_Q01.png", note)
-        self.assertIn("人工只需確認兩個交點的有效位數", note)
-        self.assertIn("0.15~0.25 A", note)
-        self.assertIn("2.2~2.8 A", note)
-        self.assertIn("I'≥8 A", note)
+        self.assertIn("參考書數值作主解", note)
+        self.assertIn("168 A", note)
+        self.assertIn("760 A", note)
+        self.assertIn("I'=8 A", note)
 
     def test_single_phase_fault_review_uses_diagram_fault_location(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
         self.assertIn("F 標在 T2 左側 110 V 導體端", note)
         self.assertIn("左 110 V 導體對中性點故障", note)
         self.assertIn("阻抗是否為每導體或往返值", note)
-        self.assertNotIn("或兩外線 220 V 相間故障", note)
+        self.assertIn("verification_scope: reference_book", note)
 
     def test_single_phase_fault_prefers_complete_line_line_return_model(self):
         note = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-2.md").read_text(encoding="utf-8")
-        self.assertIn("review_disposition: source_per_conductor_line_line_main_model", note)
+        self.assertNotIn("review_disposition: source_per_conductor_line_line_main_model", note)
+        self.assertIn("reference_book evidence", note)
+        self.assertIn("5.98 kA", note)
         self.assertIn("I_{sym,LL}=9.927", note)
         self.assertIn("I_{peak,exact,LL}", note)
         self.assertIn("19.36", note)
-        self.assertIn("11.318 kA", note)
+        self.assertIn(r"11.318\,\mathrm{kA}", note)
         self.assertIn("19.1841", note)
         self.assertIn("22.49", note)
 

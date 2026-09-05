@@ -73,11 +73,11 @@ def main():
         # Keep the machine-readable manifest aligned with the canonical note's
         # explicit disposition.  These fields explain why a manual item is
         # still unresolved without changing its conservative audit status.
-        for key in ("review_disposition", "review_blocker", "review_action", "review_evidence", "official_source_url", "public_reference_urls", "public_reference_note"):
+        for key in ("review_disposition", "review_blocker", "review_action", "review_evidence", "verification_scope", "reference_book_evidence", "reference_book_convention", "official_source_url", "public_reference_urls", "public_reference_note"):
             if meta.get(key):
                 entry[key] = meta[key]
         entries.append(entry)
-    result={"schema_version":1,"scope":"PE 非工程數學 104-114","generated_at":date.today().isoformat(),"status_policy":["verified","suspected_error","needs_manual_review","not_attempted"],"entries":entries,"summary":{k:sum(e["audit_status"]==k for e in entries) for k in ("questions","verified","suspected_error","needs_manual_review","not_attempted")}}
+    result={"schema_version":1,"scope":"PE 非工程數學 104-114","generated_at":date.today().isoformat(),"status_policy":["verified","reference_book_verified","suspected_error","needs_manual_review","not_attempted"],"entries":entries,"summary":{k:sum(e["audit_status"]==k for e in entries) for k in ("questions","verified","reference_book_verified","suspected_error","needs_manual_review","not_attempted")}}
     result["summary"]["questions"]=len(entries)
     if args.write: output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(result["summary"],ensure_ascii=False))

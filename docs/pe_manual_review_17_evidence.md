@@ -2,9 +2,11 @@
 
 Investigation date: 2026-09-05 (Asia/Taipei)
 
+> 基線報告：本頁記錄參考書 evidence 加入前的 17 題狀態。其後 7 題已依使用者提供的參考書轉為 `reference_book_verified`；目前 official-only manual queue 請見 `reports/manual-review-index.md`，參考書索引請見 `reports/reference-book-evidence.md`。
+
 ## Scope and decision rule
 
-This report covers the 17 PE records whose current audit status is `needs_manual_review` in `data/pe-solution-audit.json`. The result is deliberately conservative: a question is **uniquely verifiable** only when the local authoritative evidence fixes the topology, parameters, interpretation, and any graph reading needed for the requested answer. A conditional calculation, a stable partial result, or a plausible textbook assumption is not a unique verification and is not an upgrade.
+This report covers the 17 PE records in the pre-reference-book baseline. The result is deliberately conservative: a question is **uniquely verifiable** only when the local authoritative evidence fixes the topology, parameters, interpretation, and any graph reading needed for the requested answer. A conditional calculation, a stable partial result, or a plausible textbook assumption is not a unique verification and is not an upgrade.
 
 Evidence used was restricted to the local dashboard/provenance data, canonical solution Markdown, PE audit manifest, crop manifest, and the local manual-review index. `reports/public-solution-sources.md` was checked only to confirm that its public links are explicitly secondary and cannot resolve an official-data gap; those links were not used as authority.
 
@@ -20,7 +22,7 @@ The crop paths and PDF paths below were also checked for existence. All 17 canon
 
 ## Status snapshot
 
-`data/pe-solution-audit.json` reports `questions=256`, `verified=239`, `needs_manual_review=17`, `suspected_error=0`, and `not_attempted=0`. The manual-review index independently states the same total and says that missing parameters, graph estimation, or source conflicts must not be upgraded to `verified` until resolved (`reports/manual-review-index.md:L1-L7`).
+At the time of this baseline, `data/pe-solution-audit.json` reported `questions=256`, `verified=239`, and `needs_manual_review=17`. Seven of those records were later reclassified as `reference_book_verified` after the user supplied reference-book evidence; this historical report intentionally preserves the pre-evidence findings.
 
 ## Findings by question
 

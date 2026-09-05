@@ -109,11 +109,25 @@ process.stdout.write(JSON.stringify(result));
     def test_pe_manifest_materializes_manual_disposition_evidence(self):
         manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
         manual = [entry for entry in manifest["entries"] if entry.get("audit_status") == "needs_manual_review"]
-        self.assertEqual(len(manual), 17)
+        self.assertEqual(len(manual), 10)
         for entry in manual:
             for key in ("review_disposition", "review_blocker", "review_action", "review_evidence", "official_source_url"):
                 self.assertTrue(entry.get(key), f"{entry['qid']} lacks manifest {key}")
             self.assertTrue(entry["official_source_url"].startswith("https://wwwq.moex.gov.tw/"))
+
+    def test_reference_book_verified_presentation_preserves_scope_and_evidence(self):
+        result = self.run_js(
+            "(() => { const q = DB_DATA.questions.find(q => q[0] === 'EE-111-06-2'); "
+            "const p = getSolutionAuditPresentation(q[9], getSolutionReviewMetadata(q[0]), q); "
+            "return {status:p.status, label:p.statusLabel, description:p.statusDescription, "
+            "evidence:p.referenceBookEvidence, card:renderSolutionReviewCard(q[0], q)}; })()"
+        )
+        self.assertEqual(result["status"], "reference_book_verified")
+        self.assertIn("參考書", result["label"])
+        self.assertIn("不等同官方", result["description"])
+        self.assertIn("X''=17%", result["evidence"])
+        self.assertIn("參考書 evidence", result["card"])
+        self.assertIn("17.5%", result["card"])
 
 
 if __name__ == "__main__":

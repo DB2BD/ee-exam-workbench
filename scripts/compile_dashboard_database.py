@@ -499,12 +499,15 @@ for subject_dir in (
                 continue
             key, value = line.split(':', 1)
             fields[key.strip()] = value.strip().strip("'\"")
-        if fields.get('review_disposition'):
+        if fields.get('review_disposition') or fields.get('reference_book_evidence'):
             review_meta = {
                 'disposition': fields.get('review_disposition', ''),
                 'blocker': fields.get('review_blocker', ''),
                 'action': fields.get('review_action', ''),
                 'evidence': fields.get('review_evidence', ''),
+                'referenceBookEvidence': fields.get('reference_book_evidence', ''),
+                'verificationScope': fields.get('verification_scope', ''),
+                'referenceBookConvention': fields.get('reference_book_convention', ''),
             }
             public_urls = fields.get('public_reference_urls', '')
             if public_urls:

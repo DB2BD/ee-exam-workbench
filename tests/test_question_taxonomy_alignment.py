@@ -85,7 +85,7 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             self.assertIn(qid, self.taxonomy, qid)
             self.assertIn(
                 self.audit_statuses.get(qid),
-                {"verified", "needs_manual_review", "in_progress", "ambiguous", "suspected_error", "not_attempted"},
+                {"verified", "reference_book_verified", "needs_manual_review", "in_progress", "ambiguous", "suspected_error", "not_attempted"},
                 qid,
             )
             evidence = self.taxonomy[qid]

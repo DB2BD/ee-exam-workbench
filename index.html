@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=local"></script>
-<script src="./solutions-bundle.js?v=local"></script>
-<script src="./national-exams-data.js?v=local"></script>
-<script src="./national-solutions-bundle.js?v=local"></script>
+<script src="./dashboard-data.js?v=v1.0.1"></script>
+<script src="./solutions-bundle.js?v=v1.0.1"></script>
+<script src="./national-exams-data.js?v=v1.0.1"></script>
+<script src="./national-solutions-bundle.js?v=v1.0.1"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -7117,7 +7117,7 @@ function getSolutionReviewMetadata(qid) {
 }
 
 function getSolutionAuditPresentation(status, metadata, qRecord) {
-  const knownStatuses = ['verified', 'needs_manual_review', 'suspected_error', 'not_attempted'];
+  const knownStatuses = ['verified', 'reference_book_verified', 'needs_manual_review', 'suspected_error', 'not_attempted'];
   const normalizedStatus = knownStatuses.includes(status)
     ? status
     : ['pending', 'in_progress', 'ambiguous', 'unavailable'].includes(status) ? 'not_attempted' : 'unknown';
@@ -7125,6 +7125,10 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
     verified: {
       label: '✅ 題解已校驗',
       description: '題解目前標記為已校驗；這是工作庫的校驗狀態，不等同官方公布解答。',
+    },
+    reference_book_verified: {
+      label: '📘 參考書解已校驗',
+      description: '本題依使用者提供的參考書慣例完成可重現校驗；不等同官方題面已補齊或官方公布解答。',
     },
     needs_manual_review: {
       label: '🟡 題解保留人工覆核',
@@ -7154,16 +7158,19 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
     ? meta.publicReferenceUrls.filter(isHttps)
     : [];
   const hasReviewDetails = Boolean(meta.blocker || meta.action || meta.evidence || meta.disposition);
+  const referenceBookEvidence = String(meta.referenceBookEvidence || '');
   return {
     status: normalizedStatus,
     statusLabel: statusCopy.label,
     description: statusCopy.description,
+    statusDescription: statusCopy.description,
     disposition: String(meta.disposition || ''),
     blocker: String(meta.blocker || (normalizedStatus === 'needs_manual_review'
       ? '未提供人工覆核備註；目前無法宣稱已校驗。' : '')),
     action: String(meta.action || (normalizedStatus === 'needs_manual_review'
       ? '請補充可重現的校驗步驟與可核對來源。' : '')),
     evidence: String(meta.evidence || ''),
+    referenceBookEvidence,
     issueType: String(meta.blocker || normalizedStatus),
     conservative: normalizedStatus !== 'verified' && !hasReviewDetails,
     sources: {
@@ -7274,6 +7281,7 @@ function renderSolutionReviewCard(qid, qRecord) {
         ${presentation.blocker ? `<div><strong>阻擋原因：</strong>${esc(presentation.blocker)}</div>` : ''}
         ${presentation.action ? `<div><strong>收斂所需動作：</strong>${esc(presentation.action)}</div>` : ''}
         ${presentation.evidence ? `<div><strong>交叉證據：</strong>${esc(presentation.evidence)}</div>` : ''}
+        ${presentation.referenceBookEvidence ? `<div><strong>參考書 evidence：</strong>${esc(presentation.referenceBookEvidence)}</div>` : ''}
         ${presentation.sources.officialQuestionUrl ? `<div><strong>官方原題：</strong><a href="${esc(presentation.sources.officialQuestionUrl)}" target="_blank" rel="noopener noreferrer">開啟原始試題</a></div>` : '<div><strong>官方原題：</strong>未提供可開啟連結</div>'}
         ${presentation.sources.solutionLink ? `<div><strong>題解來源：</strong><a href="${esc(presentation.sources.solutionLink)}" target="_blank" rel="noopener noreferrer">開啟題解檔</a></div>` : '<div><strong>題解來源：</strong>未提供</div>'}
         ${presentation.sources.questionCrop ? `<div><strong>原題裁切：</strong><code>${esc(presentation.sources.questionCrop)}</code></div>` : ''}

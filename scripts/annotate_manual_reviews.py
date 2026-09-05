@@ -228,7 +228,7 @@ def update_frontmatter(path: Path, qid: str) -> bool:
     # review metadata.  Keep the explicit REVIEWS entry as an audit breadcrumb,
     # but make the generated note and dashboard reflect the verified state.
     status = re.search(r"^audit_status:\s*(\S+)\s*$", fm, flags=re.M)
-    if status and status.group(1) == "verified":
+    if status and status.group(1) in {"verified", "reference_book_verified"}:
         path.write_text("---\n" + fm.rstrip() + "\n---\n" + text[end + len("\n---\n"):], encoding="utf-8")
         return False
 

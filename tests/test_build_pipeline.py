@@ -112,6 +112,19 @@ class TestBuildPipeline(unittest.TestCase):
         self.assertIn('function renderDagGraphVisualizer', html)
         self.assertIn('function tracePrerequisiteChain', html)
 
+    def test_store_bundle_has_no_retired_national_exam_load_state(self):
+        """The published store seam keeps dual-DB lookup without dead state."""
+        with open(self.index_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        store_start = html.index('// === src/state/store.js ===')
+        store_end = html.index('// === src/state/filterStore.js ===')
+        store_bundle = html[store_start:store_end]
+        self.assertNotIn('nationalExamsLoaded', store_bundle)
+        self.assertIn('function getActiveQuestionsList()', store_bundle)
+        self.assertIn('DB_DATA', store_bundle)
+        self.assertIn('NATIONAL_EXAMS_DATA', store_bundle)
+
     def test_pages_workflow_runs_quality_gates_before_upload(self):
         workflow_path = os.path.join(WORKSPACE, '.github', 'workflows', 'deploy-pages.yml')
         with open(workflow_path, 'r', encoding='utf-8') as f:

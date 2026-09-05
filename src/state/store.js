@@ -10,7 +10,6 @@ const STARRED_KEY = 'EE_EXAM_STARRED_V1';
 let currentExamCategory = localStorage.getItem('exam_category_tab') || 'PE';
 let progressState = {};
 let starredState = {};
-let nationalExamsLoaded = false;
 
 function reloadProgressState() {
   const sKey = currentExamCategory === 'PE' ? STORAGE_KEY : `${currentExamCategory}_EXAM_PROGRESS_V1`;

@@ -3,19 +3,12 @@
 > 產生日期：2026-09-05；此清單只收錄 audit manifest 中 `needs_manual_review` 題目。
 > 任何題目在缺參數、圖形估讀或來源衝突未解除前，不得升級為 `verified`。
 
-目前共 **17 題**待人工覆核。
+目前共 **10 題**待人工覆核。
 > 公開參考欄僅供方法／題幹交叉比對；若與官方原卷不一致，以官方原卷為準，且不得以二手資料解除缺參數阻擋。
 
 | 題號 | 科目／年度 | 教科書章節 | 阻擋原因 | 收斂所需動作 | 詳解 | 官方來源 | 公開參考 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | EE-104-06-5 | 工業配電／104 年第 5 題 | 諧波等效電路與調諧電容器 | missing_parameter | 釐清 500 kW 是整流器 DC 輸出或 AC 側有功輸入，補齊基波功因 pf_1 與效率 η，並明定「額定電流」是 AC 基波、AC 總 RMS 或 DC 額定電流。 | [EE-104-06-5](📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-5.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0612&t=Q) | — |
-| EE-106-06-2 | 工業配電／106 年第 2 題 | 短路故障電流、對稱成分與斷路器額定 | official_wording_ambiguity | 依圖面固定 F 為左 110 V 導體對中性點；以每導體阻抗組成完整 380 V 線間往返為首選，並確認題面是否已含往返，以及非對稱電流的觀察時刻／故障相角。 | [EE-106-06-2](📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-2.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0612&t=Q) | — |
-| EE-107-06-2 | 工業配電／107 年第 2 題 | 電動機饋線電壓降與導線長度 | missing_parameter | 確認考試年度採用的 100 HP 馬達滿載電流表、107 年歷史附件或銘牌效率；現行表 258-3 的 220 V 列值為 238 A，另保留 250 A 與反算分支。 | [EE-107-06-2](📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-2.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=107180&q=1&s=0612&t=Q) | [來源1](https://www.scribd.com/document/941350020/107%E5%B9%B4%E5%B7%A5%E6%A5%AD%E9%85%8D%E9%9B%BB) |
-| EE-110-06-5 | 工業配電／110 年第 5 題 | 工廠自備變電所短路容量與馬達次暫態貢獻 | missing_parameter | 補齊三台馬達效率與功因／額定 MVA，並確認 K=1.6 是 RMS 非對稱倍率或峰值倍率；目前以各機 k_i=η_i·pf_i 參數化次暫態貢獻與瞬時容量。 | [EE-110-06-5](📝 個人題解與錯題本/06_工業配電/canonical/EE-110-06-5.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=110180&q=1&s=0612&t=Q) | — |
-| EE-111-06-1 | 工業配電／111 年第 1 題 | 儀表變壓器與 CT 負擔誤差 | graph_estimate | 開啟官方原卷第 3-1 頁（檔案頁 1）與 source_crop 的 PE_111年_工業配電_Q01.png；人工只需確認兩個交點的有效位數：保留 I_e=0.15~0.25 A、2.2~2.8 A 區間，並確認 I'≥8 A／I'＜8 A 的門檻結論；不得把估讀中心值當精確解析值。 | [EE-111-06-1](📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-1.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q) | — |
-| EE-111-06-2 | 工業配電／111 年第 2 題 | 同步馬達全壓啟動與電壓變動率 | missing_parameter | 補齊馬達額定 kVA、效率與額定功因；目前以 k=η·pf_n 參數化啟動電抗與兩側電壓變動率。 | [EE-111-06-2](📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-2.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q) | — |
-| EE-111-06-3 | 工業配電／111 年第 3 題 | 汽電共生系統與三相短路之次暫態分析 | missing_parameter | 保留官方發電機 25 MW；確認發電機額定 MVA／PF_G 或題目慣例，並以 25 MVA 基準、E''=1 pu 的條件分支回代 A 點電流；另補齊每台馬達額定視在容量（或額定功因／效率）及故障前內電勢後，再鎖定 F 點三相故障貢獻。 | [EE-111-06-3](📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-3.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q) | — |
-| EE-111-06-4 | 工業配電／111 年第 4 題 | 電動機配線、導線安培容量與過電流保護 | missing_parameter | 開啟官方原卷第 3-2 頁（檔案頁 2）與 source_crop 的 PE_111年_工業配電_Q04.png；確認 111 年適用的歷史安培容量表與導線敷設條件，並補齊 8 HP 滿載電流、導線材質／載流導線數／修正係數後，才可選定線徑與保護規格。 | [EE-111-06-4](📝 個人題解與錯題本/06_工業配電/canonical/EE-111-06-4.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q) | — |
 | EE-106-02-2 | 電子學（含電力電子）／106 年第 2 題 | MOSFET 差動放大器與負回授 | missing_parameter | 補齊 R1、R2、各管 gm/ro 與尾電流源小訊號阻抗後再求唯一閉迴路量。 | [EE-106-02-2](📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-2.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0601&t=Q) | — |
 | EE-109-02-3 | 電子學（含電力電子）／109 年第 3 題 | 返馳式轉換器 CCM/DCM 電流與效率 | missing_parameter | 確認返馳式轉換器導通模式與電流定義；目前的三角波條件其實落在 DCM／臨界導通邊界，另保留 CCM 分支。 | [EE-109-02-3](📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-109-02-3.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=109180&q=1&s=0601&t=Q) | — |
 | EE-111-02-3 | 電子學（含電力電子）／111 年第 3 題 | MOSFET 共源極源極退化與偏壓設計 | source_conflict | 確認指定增益或 R_S 是否誤植；保留題面 3.17 mA、R_S=30 Ω 與平方律時增益應為 4.4444，若保留增益 5 則 R_S 應為 26.6667 Ω。 | [EE-111-02-3](📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-3.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q) | — |

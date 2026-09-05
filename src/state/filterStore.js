@@ -128,6 +128,7 @@ function updateFilterDropdownsForCategory() {
 
 function switchExamCategory(catId) {
   currentExamCategory = catId;
+  if (typeof resetQuestionFacetState === 'function') resetQuestionFacetState();
   localStorage.setItem('exam_category_tab', catId);
   document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('on'));
   const targetTab = document.getElementById('cat-tab-' + catId);

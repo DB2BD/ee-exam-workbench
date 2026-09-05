@@ -7,7 +7,7 @@ import re
 from datetime import date
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "reports" / "manual-review-index.md"
 MANIFESTS = (ROOT / "data" / "pe-solution-audit.json", ROOT / "data" / "engineering-math-audit.json")
 SUBJECT_NAMES = {

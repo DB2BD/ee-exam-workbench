@@ -16,58 +16,187 @@ function getSubjectMeta(sid) {
 }
 
 let activeFacetTag = null;
+let includeSecondaryFacets = false;
+let facetContextKey = null;
+
+function getQuestionExamFamily(record, explicitFamily) {
+  if (explicitFamily) return explicitFamily;
+  return String(record && record[0] || '').startsWith('GK-') ? 'GK' : 'PE';
+}
+
+function getQuestionFacetIds(record, includeSecondary, examFamily) {
+  const detectedFamily = getQuestionExamFamily(record);
+  if ((examFamily || detectedFamily) !== detectedFamily || detectedFamily !== 'PE') return [];
+  const qid = record && record[0];
+  const evidence = typeof QUESTION_TAXONOMY_MAP !== 'undefined'
+    ? QUESTION_TAXONOMY_MAP[qid]
+    : null;
+  if (!evidence || !evidence.primaryChapter) return [];
+
+  const ids = [evidence.primaryChapter];
+  if (includeSecondary && Array.isArray(evidence.secondaryTopicIds)) {
+    ids.push(...evidence.secondaryTopicIds);
+  }
+  return [...new Set(ids)].filter(id => {
+    const node = typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[id] : null;
+    return node && String(node.subject) === String(record[1]);
+  });
+}
+
+function getQuestionFacetLabel(facetId) {
+  const node = typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[facetId] : null;
+  return node && node.name ? node.name : facetId;
+}
+
+function uniqueQuestionRecords(records) {
+  const seen = new Set();
+  return (records || []).filter(record => {
+    const qid = record && record[0];
+    if (!qid || seen.has(qid)) return false;
+    seen.add(qid);
+    return true;
+  });
+}
+
+function matchesQuestionListFilters(record, options) {
+  const [qid, sid, year, qnum, topic, tags, solLink, pdfLink, difficulty, status, ftags, hasDedicated] = record;
+  const opts = options || {};
+  const family = getQuestionExamFamily(record);
+  if (opts.examFamily && family !== opts.examFamily) return false;
+  if (opts.subject && opts.subject !== 'all' && sid !== opts.subject) return false;
+  if (opts.year && opts.year !== 'all' && String(year) !== String(opts.year)) return false;
+  if (opts.difficulty && opts.difficulty !== 'all' && String(difficulty) !== String(opts.difficulty)) return false;
+
+  const progress = opts.progressState || {};
+  const starred = opts.starredState || {};
+  const currentStatus = progress[qid] || 0;
+  const isStarred = !!starred[qid];
+  if (opts.status && opts.status === 'starred' && !isStarred) return false;
+  if (opts.status && opts.status !== 'all' && opts.status !== 'starred' && String(currentStatus) !== String(opts.status)) return false;
+
+  const quick = opts.quickFilter || 'all';
+  if (quick === 'review' && currentStatus !== 2) return false;
+  if (quick === 'starred' && !isStarred) return false;
+  if (quick === 'formula') {
+    const formulaTags = Array.isArray(ftags) ? ftags : [];
+    if (formulaTags.length === 0 && (!tags || tags.length < 2)) return false;
+  }
+  if (quick === 'dedicated' && !hasDedicated) return false;
+  if (quick === 'due') {
+    const dueIds = opts.dueQuestionIds || (typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
+    if (!dueIds.includes(qid) && currentStatus !== 2) return false;
+  }
+  if (quick === 'top10') {
+    if (Number(difficulty) < 4 && (!tags || tags.length < 4)) return false;
+  }
+
+  const search = String(opts.searchText || '').trim().toLowerCase();
+  if (search) {
+    const searchable = [qid, topic, ...(tags || []), ...(ftags || [])]
+      .map(value => String(value || '').toLowerCase());
+    if (!searchable.some(value => value.includes(search))) return false;
+  }
+
+  if (opts.facetTag && !getQuestionFacetIds(record, !!opts.includeSecondary, opts.examFamily).includes(opts.facetTag)) {
+    return false;
+  }
+  return true;
+}
+
+function getFilteredQuestionRecords(records, options) {
+  return uniqueQuestionRecords(records).filter(record => matchesQuestionListFilters(record, options));
+}
+
+function getQuestionFacetOptions(records, options) {
+  const opts = Object.assign({}, options || {}, { facetTag: null });
+  const baseRecords = getFilteredQuestionRecords(records, opts);
+  const counts = new Map();
+  baseRecords.forEach(record => {
+    new Set(getQuestionFacetIds(record, !!opts.includeSecondary, opts.examFamily)).forEach(id => {
+      counts.set(id, (counts.get(id) || 0) + 1);
+    });
+  });
+  return [...counts.entries()]
+    .map(([id, count]) => ({ id, name: getQuestionFacetLabel(id), count }))
+    .sort((left, right) => left.name.localeCompare(right.name, 'zh-Hant'));
+}
+
+function buildQuestionFacetModel(records, options) {
+  const opts = options || {};
+  const questions = getFilteredQuestionRecords(records, opts);
+  return {
+    examFamily: opts.examFamily || null,
+    questions,
+    facets: getQuestionFacetOptions(records, opts),
+    unclassifiedCount: questions.filter(record => getQuestionFacetIds(record, !!opts.includeSecondary, opts.examFamily).length === 0).length,
+  };
+}
+
+function refreshAnalysisViews() {
+  if (typeof renderTopTopics === 'function') renderTopTopics();
+  if (typeof renderLayers === 'function') renderLayers();
+}
+
+function setQuestionFacetState(tag, includeSecondary) {
+  activeFacetTag = tag || null;
+  includeSecondaryFacets = !!includeSecondary;
+}
+
+function getQuestionFacetState() {
+  return { activeFacetTag, includeSecondary: includeSecondaryFacets };
+}
+
+function updateQuestionFacetContext(examFamily, subjectId) {
+  const nextKey = `${examFamily}:${subjectId || 'all'}`;
+  if (facetContextKey !== null && facetContextKey !== nextKey) {
+    setQuestionFacetState(null, false);
+  }
+  facetContextKey = nextKey;
+}
+
+function resetQuestionFacetState() {
+  setQuestionFacetState(null, false);
+  facetContextKey = null;
+}
 
 function setFacetTag(tag) {
-  if (activeFacetTag === tag) {
-    activeFacetTag = null;
-  } else {
-    activeFacetTag = tag;
-  }
+  setQuestionFacetState(activeFacetTag === tag ? null : tag, includeSecondaryFacets);
+  if (typeof renderQuestions === 'function') renderQuestions();
+}
+
+function setSecondaryFacetIncluded(enabled) {
+  setQuestionFacetState(activeFacetTag, enabled);
+  if (typeof renderQuestions === 'function') renderQuestions();
+}
+
+function handleQuestionSubjectFilterChange(subjectId) {
+  updateQuestionFacetContext(currentExamCategory, subjectId);
   renderQuestions();
 }
 
-function renderFacetTagsBar(currentSubFilter, activeQuestions) {
+function renderFacetTagsBar(currentSubFilter, model) {
   const bar = document.getElementById('facet-filter-bar');
   if (!bar) return;
 
-  const SUBJECT_FACET_MAP = {
-    '01': ['戴維寧', '諾頓', '暫態', '相量', '三相', '雙埠', '諧振', '運算放大器', '最大功率'],
-    '02': ['小訊號', '差動放大器', '負回授', '返馳式', 'Buck', 'Boost', '頻率響應', 'BJT偏壓', 'MOSFET', '主動濾波'],
-    '03': ['一階ODE', '二階線性', '拉氏轉換', '傅立葉', '矩陣特徵值', '複變積分', '機率', '狀態空間'],
-    '04': ['變壓器等效', '感應馬達', '同步發電機', '直流電機', '短路比', '轉矩計算', '開路短路試驗', '漏磁通'],
-    '05': ['對稱成分', '牛頓-拉夫森', '三相短路', '單相接地', '傳輸線模型', '功角穩定度', '等面積準則', '經濟調度'],
-    '06': ['短路容量', '電壓降', '馬達配線', '功率因數改善', '諧波濾除', '過電流保護', '接地設計', '變壓器容量']
-  };
-
-  const candidateKeywords = currentSubFilter !== 'all' && SUBJECT_FACET_MAP[currentSubFilter]
-    ? SUBJECT_FACET_MAP[currentSubFilter]
-    : ['戴維寧', '暫態', '三相', '小訊號', '負回授', '返馳式', '拉氏轉換', '感應馬達', '變壓器', '對稱成分', '短路容量', '電壓降'];
-
-  const tagCounts = [];
-  candidateKeywords.forEach(kw => {
-    const count = activeQuestions.filter(q => {
-      const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, status, ftags] = q;
-      if (currentSubFilter !== 'all' && sid !== currentSubFilter) return false;
-      const tStr = (topic || '') + ' ' + (tags || []).join(' ') + ' ' + (ftags || []).join(' ');
-      return tStr.includes(kw);
-    }).length;
-    if (count > 0) {
-      tagCounts.push({ kw, count });
+  const facets = model.facets || [];
+  if (facets.length === 0) {
+    if (model.examFamily === 'GK' && model.unclassifiedCount > 0) {
+      bar.style.display = 'flex';
+      bar.innerHTML = '<span class="facet-filter-label">📌 本考別尚無正式章節分類，題目列為未分類</span>';
+    } else {
+      bar.style.display = 'none';
     }
-  });
-
-  if (tagCounts.length === 0) {
-    bar.style.display = 'none';
     return;
   }
 
   bar.style.display = 'flex';
   let pills = `<span class="facet-filter-label">🎯 考點快篩：</span>`;
-  tagCounts.forEach(tc => {
-    const isActive = activeFacetTag === tc.kw;
+  pills += `<label class="facet-secondary-toggle"><input type="checkbox" ${includeSecondaryFacets ? 'checked' : ''} onchange="setSecondaryFacetIncluded(this.checked)"> 包含相關考點</label>`;
+  facets.forEach(facet => {
+    const isActive = activeFacetTag === facet.id;
     pills += `
-      <button class="facet-tag-pill ${isActive ? 'active' : ''}" onclick="setFacetTag('${tc.kw}')">
-        ${tc.kw} <span class="facet-tag-count">(${tc.count})</span>
+      <button class="facet-tag-pill ${isActive ? 'active' : ''}" onclick="setFacetTag('${facet.id}')">
+        ${facet.name} <span class="facet-tag-count">(${facet.count})</span>
       </button>
     `;
   });
@@ -97,55 +226,25 @@ function renderQuestions() {
 
   const activeQuestions = getActiveQuestionsList();
 
-  // Render Facet Filter Bar
-  renderFacetTagsBar(subFilter, activeQuestions);
-
-  const filtered = activeQuestions.filter(q => {
-    const [qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, status, ftags, hasDed, cat, rel] = q;
-
-    if (subFilter !== 'all' && sid !== subFilter) return false;
-    if (yrFilter !== 'all' && String(yr) !== yrFilter) return false;
-    if (diffFilter !== 'all' && String(diff) !== diffFilter) return false;
-
-    // Facet Tag Filter
-    if (activeFacetTag) {
-      const tStr = (topic || '') + ' ' + (tags || []).join(' ') + ' ' + (ftags || []).join(' ');
-      if (!tStr.includes(activeFacetTag)) return false;
-    }
-
-    const curStatus = progressState[qid] || 0;
-    const isStarred = !!starredState[qid];
-
-    if (statusFilter === 'starred' && !isStarred) return false;
-    if (statusFilter !== 'all' && statusFilter !== 'starred' && String(curStatus) !== statusFilter) return false;
-
-    // Quick filter pills
-    if (activeQuickFilter === 'review' && curStatus !== 2) return false;
-    if (activeQuickFilter === 'starred' && !isStarred) return false;
-    if (activeQuickFilter === 'dedicated' && !hasDed) return false;
-    if (activeQuickFilter === 'due') {
-      const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
-      if (!dueList.includes(qid)) return false;
-    }
-    if (activeQuickFilter === 'top10') {
-      const topKeywords = ['戴維寧', '暫態', '三相', '差動', '微積分', '變壓器', '感應', '短路', '功角', '保護'];
-      const matched = topKeywords.some(k => topic.includes(k) || (tags || []).some(t => t.includes(k)));
-      if (!matched) return false;
-    }
-
-    if (searchText) {
-      const tagStr = (tags || []).join(' ').toLowerCase();
-      const ftagStr = (ftags || []).join(' ').toLowerCase();
-      if (!qid.toLowerCase().includes(searchText) &&
-          !topic.toLowerCase().includes(searchText) &&
-          !tagStr.includes(searchText) &&
-          !ftagStr.includes(searchText)) {
-        return false;
-      }
-    }
-
-    return true;
+  updateQuestionFacetContext(currentExamCategory, subFilter);
+  const model = buildQuestionFacetModel(activeQuestions, {
+    examFamily: currentExamCategory,
+    subject: subFilter,
+    year: yrFilter,
+    difficulty: diffFilter,
+    status: statusFilter,
+    searchText,
+    quickFilter: activeQuickFilter,
+    progressState,
+    starredState,
+    facetTag: activeFacetTag,
+    includeSecondary: includeSecondaryFacets,
   });
+
+  // Render the same formal-taxonomy model used by the list.
+  renderFacetTagsBar(subFilter, model);
+
+  const filtered = model.questions;
 
 
   const countBadge = document.getElementById('filtered-count');
@@ -159,6 +258,7 @@ function renderQuestions() {
         <p style="font-size: 0.88rem;">請嘗試調整或重設篩選條件與搜尋關鍵字</p>
       </div>
     `;
+    refreshAnalysisViews();
     return;
   }
 
@@ -221,4 +321,6 @@ function renderQuestions() {
       </div>
     `;
   }).join('');
+
+  refreshAnalysisViews();
 }

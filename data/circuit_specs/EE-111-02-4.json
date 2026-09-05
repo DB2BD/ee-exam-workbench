@@ -1,0 +1,40 @@
+{
+  "title": "111 年電子學第 4 題：並聯－串聯電流回授放大器小訊號模型",
+  "width": 1000,
+  "height": 680,
+  "source": {
+    "page": 2,
+    "bbox_norm": [0.0, 0.3881, 1.0, 0.9763],
+    "question_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q04.png"
+  },
+  "components": [
+    {"ref": "RC", "type": "resistor", "value": "R_C", "label": "R_C", "x": 350, "y": 150, "rotation": 90, "pins": {"1": "0", "2": "nc"}},
+    {"ref": "rpi1", "type": "resistor", "value": "r_π1", "label": "Q₁：r_π1", "x": 220, "y": 330, "rotation": 90, "pins": {"1": "nb", "2": "0"}},
+    {"ref": "gm1", "type": "dependent-current-source", "value": "g_m1 v_π1", "label": "Q₁：g_m1 v_π1", "x": 350, "y": 330, "rotation": 90, "arrow": "1->2", "control": "v_π1 = v_b − 0", "pins": {"1": "nc", "2": "0"}},
+    {"ref": "rpi2", "type": "resistor", "value": "r_π2", "label": "Q₂：r_π2", "x": 500, "y": 250, "rotation": 0, "pins": {"1": "nc", "2": "ne"}},
+    {"ref": "gm2", "type": "dependent-current-source", "value": "g_m2 v_π2", "label": "Q₂：g_m2 v_π2", "x": 650, "y": 250, "rotation": 90, "arrow": "1->2", "control": "v_π2 = v_b2 − v_e2", "pins": {"1": "0", "2": "ne"}},
+    {"ref": "RL", "type": "resistor", "value": "R_L", "label": "R_L（負載）", "x": 650, "y": 350, "rotation": 90, "pins": {"1": "ne", "2": "nf"}},
+    {"ref": "RF", "type": "resistor", "value": "R_F", "label": "R_F（回授）", "x": 420, "y": 500, "rotation": 0, "pins": {"1": "nb", "2": "nf"}},
+    {"ref": "Iin", "type": "current-source", "value": "I_in", "label": "I_in", "x": 100, "y": 330, "rotation": 90, "arrow": "2->1", "pins": {"1": "nb", "2": "0"}},
+    {"ref": "Ibias", "type": "current-source", "value": "I_bias（交流開路）", "label": "偏壓電流源（交流開路）", "x": 650, "y": 470, "rotation": 90, "arrow": "1->2", "pins": {"1": "nf", "2": "0"}},
+    {"ref": "Vin", "type": "port", "label": "輸入端", "x": 60, "y": 290, "pins": {"1": "nb"}},
+    {"ref": "Vo", "type": "port", "label": "v_o", "x": 760, "y": 290, "pins": {"1": "ne"}},
+    {"ref": "GND_VCC", "type": "ground", "label": "", "x": 500, "y": 70, "pins": {"1": "0"}},
+    {"ref": "GND_BOTTOM", "type": "ground", "label": "", "x": 650, "y": 590, "pins": {"1": "0"}}
+  ],
+  "nets": [
+    {"id": "0", "paths": [[[500, 70], [500, 110], [350, 110]], [[500, 70], [650, 70], [650, 210]], [[220, 370], [220, 590], [650, 590]], [[350, 370], [350, 590]], [[650, 510], [650, 590]]], "junctions": []},
+    {"id": "nb", "paths": [[[60, 290], [100, 290]], [[100, 290], [220, 290]], [[100, 290], [160, 290], [160, 500], [380, 500]]], "junctions": [[100, 290]]},
+    {"id": "nc", "paths": [[[350, 190], [350, 290]], [[350, 190], [420, 190], [420, 250], [460, 250]]], "junctions": [[350, 190]]},
+    {"id": "ne", "paths": [[[540, 250], [600, 250], [600, 290], [650, 290]], [[650, 290], [650, 310]], [[650, 290], [760, 290]]], "junctions": [[650, 290]]},
+    {"id": "nf", "paths": [[[650, 390], [650, 430]], [[650, 390], [720, 390], [720, 500], [460, 500]]], "junctions": [[650, 390]]}
+  ],
+  "labels": [
+    {"text": "V_CC（交流地）", "x": 500, "y": 42},
+    {"text": "V_A = ∞ ⇒ r_o1 = r_o2 = ∞", "x": 500, "y": 620},
+    {"text": "I_o ↓（流過 R_L）", "x": 720, "y": 330},
+    {"text": "I_f ←（流過 R_F）", "x": 420, "y": 540},
+    {"text": "參考書主解：β_f = I_f / I_o = 1", "x": 500, "y": 650}
+  ],
+  "checks": ["component-count", "values", "node-map", "controlled-source"]
+}

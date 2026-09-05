@@ -1,6 +1,6 @@
 # 參考書 evidence 索引
 
-產生／更新日期：2026-09-05
+產生／更新日期：2026-09-06
 
 本索引記錄使用者本次提供的參考書照片與逐題答案。它們用來校驗可重現的解題慣例，
 不是官方題面、官方公布答案或新的官方數據；官方題目仍以各 canonical note 的
@@ -21,6 +21,8 @@ source_crop 與 official_source_url 為來源。
 | EE-106-02-2 | 對稱 MOSFET 非反相負回授；A=1/2 g_mN r_o、β=R_1/(R_1+R_2) | A_f=A/(1+Aβ)；R_out,f=((R_1+R_2)∥(r_o/2))/(1+Aβ) |
 | EE-111-04-4 | 同步發電機 OCC/SCC 參考書曲線慣例；X_s,pu=0.93 | VR=68.87%；OCC 場電流 200 A；SCC 場電流 186 A |
 | EE-113-04-4 | 感應馬達採圖示 0.2/s 電流支路，機械功率依參考書 0.1(1-s)/s 項 | I_st=189.35 A；I_fl=40.23 A；T=57.67 N·m；η 約 45% |
+| EE-111-02-3 | MOSFET 源極退化；依使用者裁決保留參考書主解、指定增益分支與平方律分支 | 參考書列 g_m=1 mS、W/L=3522.2；獨立回代指出增益 0.1942 與 V_GS 排印錯誤，並保留可回代的 5／4.4444 雙分支；`reference_book_verified` |
+| EE-111-02-4 | 並聯—串聯電流—電流負回授；β_f=I_f/I_o=1 | 依參考書完成 A、A_f、R_if、R_of 符號式；補回開路增益遺漏的 R_F∥r_{π1} 因子；`reference_book_verified` |
 
 各題的完整 provenance 與限制，請見對應 canonical note 的
 verification_scope: reference_book、reference_book_evidence 與

@@ -45,21 +45,21 @@ process.stdout.write(JSON.stringify(result));
 
     def test_known_manual_review_presentation_keeps_auditable_sources(self):
         result = self.run_js(
-            "(() => { const q = DB_DATA.questions.find(q => q[0] === 'EE-111-02-3'); "
+            "(() => { const q = DB_DATA.questions.find(q => q[0] === 'EE-104-06-5'); "
             "const p = getSolutionAuditPresentation(q[9], getSolutionReviewMetadata(q[0]), q); "
             "return {status:p.status, label:p.statusLabel, blocker:p.blocker, action:p.action, evidence:p.evidence, "
             "officialQuestionUrl:p.sources.officialQuestionUrl, solutionLink:p.sources.solutionLink, crop:p.sources.questionCrop, card:renderSolutionReviewCard(q[0], q)}; })()"
         )
         self.assertEqual(result["status"], "needs_manual_review")
         self.assertIn("人工覆核", result["label"])
-        self.assertIn("source_conflict", result["blocker"])
+        self.assertIn("missing_parameter", result["blocker"])
         self.assertTrue(result["action"])
         self.assertTrue(result["evidence"])
         self.assertTrue(result["officialQuestionUrl"])
         self.assertTrue(result["solutionLink"])
         self.assertTrue(result["crop"])
         self.assertNotIn("已校驗", result["label"])
-        self.assertIn("source_conflict", result["card"])
+        self.assertIn("missing_parameter", result["card"])
         self.assertIn("收斂所需動作", result["card"])
         self.assertIn("交叉證據", result["card"])
         self.assertIn("官方原題", result["card"])
@@ -109,7 +109,7 @@ process.stdout.write(JSON.stringify(result));
     def test_pe_manifest_materializes_manual_disposition_evidence(self):
         manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
         manual = [entry for entry in manifest["entries"] if entry.get("audit_status") == "needs_manual_review"]
-        self.assertEqual(len(manual), 4)
+        self.assertEqual(len(manual), 2)
         for entry in manual:
             for key in ("review_disposition", "review_blocker", "review_action", "review_evidence", "official_source_url"):
                 self.assertTrue(entry.get(key), f"{entry['qid']} lacks manifest {key}")

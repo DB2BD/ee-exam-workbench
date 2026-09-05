@@ -19,13 +19,11 @@
 ## 驗證命令
 
 ```text
-python3 scripts/verify_moex_national_exams.py
-python3 -m unittest discover -s tests -p 'test*.py' -v
+python3 scripts/audit_pe_solutions.py --write
+python3 scripts/run_all_tests.py
+python3 scripts/check_html_js_syntax.py
+python3 scripts/verify_slicing_and_links.py
 python3 scripts/health_check_codebase.py
 ```
 
-完整發布前另須通過：
-
-```text
-python3 scripts/verify_moex_national_exams.py --require-solutions
-```
+完整發布前，PE 與 GK 都要完成對應編譯、測試、bundle 語法與題目裁切／連結檢查；不存在的舊腳本不得再列為發布依賴。

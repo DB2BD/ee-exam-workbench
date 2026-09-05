@@ -2,7 +2,7 @@
 
 **檔案識別**：`SPEC-UI-001`
 **建立時間**：2026-08-21
-**遵循規範**：[`CLAUDE.md`](file:///Users/a/技師考試/歷屆試題_104-114年/CLAUDE.md) · [`CLAUDE-SPEC.md`](file:///Users/a/技師考試/歷屆試題_104-114年/CLAUDE-SPEC.md) · [`to-spec`](file:///Users/a/技師考試/歷屆試題_104-114年/.agents/skills/to-spec/SKILL.md)
+**遵循規範**：[`AGENTS.md`](./AGENTS.md) · [`AGENT-GUIDE.md`](./AGENT-GUIDE.md) · [`AGENT-SPEC.md`](./AGENT-SPEC.md) · [`to-spec`](./.agents/skills/to-spec/SKILL.md)
 
 ---
 

@@ -1,66 +1,61 @@
-# 📖 電機工程技師歷屆試題與詳解工作台 — 專案架構與領域語境 (CONTEXT.md)
+# 電機工程技師歷屆試題與詳解工作台 — 專案架構與領域語境
 
-> **版本**：`2.1.0`
-> **最後更新**：2026-08-30
-> **核心定位**：極致純前端、零後端依賴、100% 離線可用之「電機工程技師（104~114年 321題）與公務高考三級（110~114年 161筆題目記錄，其中 101 道申論題與 60 道工程數學測驗題；23 份已下載官方試卷、2 份未提供試卷）全真雙欄刷題與知識庫儀表板」＋「🇦🇺 澳洲重電工程師求職戰情室」。
+> **版本**：`2.2.0`
+> **最後更新**：2026-09-06
+> **定位**：以官方原題／裁切圖為來源、以參考書與獨立驗算為核對材料的 PE／GK 靜態雙資料庫工作台。
 
----
+## 1. 領域語言
 
-## 🏛️ 1. 領域通用語言字典 (Ubiquitous Domain Language)
+| 名稱 | 定義 |
+| --- | --- |
+| PE／EE | 台灣電機工程技師 104–114 年、6 科、321 題。 |
+| GK | 110–114 年國考同級參考題庫，共 161 筆：101 道申論題、60 道工程數學測驗題。 |
+| QuestionRecord | 題庫單筆記錄；PE bundle 為 12 欄 tuple，GK bundle 為 18 欄 tuple，程式應透過命名轉換或編譯器契約理解欄位。 |
+| Provenance | 題解、官方 PDF、裁切圖、頁碼、SHA-256 與參考書頁碼等來源鏈。 |
+| Verification | 題解驗證狀態與專屬題解旗標；目前使用 `verified`、`reference_book_verified`、`needs_manual_review`、`suspected_error`、`not_attempted`。 |
+| Workbench | `index.html` 的雙欄介面：左側原題／PDF，右側題解與驗算。 |
 
-為確保人類工程師與 AI 在協同開發時具備 100% 精準的共同語言，嚴格定義以下核心專有名詞：
+`reference_book_verified` 只表示已依參考書核對，並不表示參考書就是官方標準答案。PE 最新稽核快照為 256 題：`verified` 239、`reference_book_verified` 15、`needs_manual_review` 2。
 
-| 專有名詞 | 縮寫/標識 | 定義與約束 |
-| :--- | :---: | :--- |
-| **電機工程技師** | `PE` / `EE` | 台灣專門職業及技術人員高等考試電機工程技師，共 6 大考科（電路、電子、工數、機械、電力、配電），104~114 年共 321 題。 |
-| **公務高考三級** | `GK` | 考選部公務人員高等考試三級（電力/電子工程），110~114 年共 161 筆題目記錄（101 道申論題、60 道工程數學測驗題），對應 23 份已下載官方試卷與 2 份未提供試卷；缺少資料會明確標記，不以合成檔補足。 |
-| **QuestionRecord** | `Record` | 題庫的單題標準記錄；目前以陣列序列化以維持前端相容性，欄位依「識別、分類、來源、驗證、關聯」分層。GK 記錄為 18 欄，PE 舊記錄維持 12 欄；命名欄位檢視統一使用 `id`、`subjectId`、`stem` 等語意名稱。 |
-| **Taxonomy 分類層** | `taxonomy` | 由 `stem/topic`、`tags`、`formulaTags` 與 `difficulty` 描述考科、考點、公式標籤及難度，供搜尋、複習中心與跨題推薦使用。 |
-| **Provenance 來源層** | `provenance` | 由 `solutionLink/sourceLink`（序列化欄位為 `solLink/pdfLink`）、`questionCrop`、`figureCrops`、`sourcePages`、`sourcePdfSha256` 保留題解、官方 PDF、裁切圖、頁碼與雜湊來源鏈。 |
-| **Verification 驗證層** | `verification` | 由 `solutionStatus`（序列化欄位為 `vstatus`）與 `hasDedicatedSolution`（序列化欄位為 `hasDedicated`）表示題解驗證狀態及是否有逐題專屬詳解；來源完整性另以 provenance 欄位核對。 |
-| **旗艦雙欄工作台** | `Workbench` | `index.html` 之核心 UI 模式，左欄對照「官方原題圖表 / PDF」，右欄同步渲染「KaTeX 教科書級步驟推導」。 |
-| **黃金標準題解** | `Golden Standard` | 題解必須且僅能包含四大區塊：`📌 題目與已知條件`、`💡 核心考點與破題關鍵`、`✏️ 步驟式詳細數學推導`、`🎯 滿分結論與作答要點`。 |
-| **5 大維度客觀難度** | `5D Difficulty` | 依據數學複雜度 (25%)、概念抽象度 (25%)、推導步驟相依 (20%)、邊界陷阱 (15%)、分值權重 (15%) 科學量化之 1★~5★ 難度。 |
-| **零覆蓋雙軌資料庫** | `Dual-DB` | 技師題庫使用 `dashboard-data.js` + `solutions-bundle.js`；國考題庫使用獨立的 `national-exams-data.js` + `national-solutions-bundle.js`，互不污染。 |
+## 2. 來源、編譯與執行期
 
----
+```text
+PE 題目／題解／裁切與稽核資料
+  └─ scripts/compile_dashboard_database.py
+       └─ dashboard-data.js + solutions-bundle.js
 
-## 🏗️ 2. 系統架構與資料流向 (System Architecture & Data Flow)
+GK 題目／題解／來源與裁切資料
+  └─ scripts/compile_national_exams.py
+       └─ national-exams-data.js + national-solutions-bundle.js
 
-```
-[原始 Markdown / 圖檔 / PDF / 求解器]
-   ├── 依考科分類/*.md
-   ├── 依年度分類/*.md
-   ├── 📝 個人題解與錯題本/*.md
-   └── scripts/solvers/gk_*.py
-               │
-               ▼ (編譯腳本)
-   ├── scripts/compile_dashboard_database.py ───► dashboard-data.js + solutions-bundle.js (PE 技師)
-   └── scripts/compile_national_exams.py     ───► national-exams-data.js + national-solutions-bundle.js (GK 161 筆)
-               │
-               ▼ (純前端單檔預載入)
-   ┌─────────────────────────────────────────────────────────────┐
-   │ index.html (雙欄工作台 / 搜尋過濾 / KaTeX 即時渲染 / 離線快取) │
-   └─────────────────────────────────────────────────────────────┘
-               │
-               ▼ (GitHub Actions CI/CD)
-   [GitHub Pages: https://db2bd.github.io/ee-exam-workbench/]
+四個 bundle + src/ + 本地 KaTeX／Marked
+  └─ scripts/build_workbench.py
+       └─ index.html → file:// 或 GitHub Pages
 ```
 
----
+PE 來源主要在 `依考科分類/`、`依年度分類/`、`📝 個人題解與錯題本/`、`🧠 核心考點知識庫/` 與 `data/pe-*`；GK 來源主要在 `依考科分類/🏛️_國考同級參考題庫/`、`📝 個人題解與錯題本/🏛️_國考同級題解/` 與 `data/moex-*`。目前工作台沒有執行期後端，GitHub Pages workflow 會重建並測試靜態頁面。
 
-## ⚖️ 3. 不可逾越之架構鐵律 (Invariants & Rules)
+## 3. 不可逾越的架構規則
 
-1. **零後端純靜態原則**：
-   - 嚴禁引入任何伺服器端 Node/Python 後端服務執行期依賴。
-   - 所有資料必須編譯為靜態 JSON/JS 封裝，開頁即用、0ms 載入、100% 支援本機 `file://` 與 GitHub Pages。
-2. **零佔位符原則（No Placeholders）**：
-   - 題解中絕對禁止出現「待補」、「待解」、「本題尚未提供詳解」等虛假佔位文字。
-   - 每一題必須針對真實題幹進行第一原理步驟推導並計算出具體數值。
-3. **資料庫獨立隔離原則**：
-   - 編譯國考資料庫（`national-*`）時，嚴禁覆蓋或破壞 PE 技師原始資料庫（`dashboard-data.js`）。
-4. **前端優先權原則**：
-   - 瀏覽器開啟 `GK-` 題號時，強制優先自 `NATIONAL_BUNDLED_MD` 提取最新題解，避免快取衝突。
-5. **解題與驗證分離原則 (Solver-Verifier Separation)**：
-   - 任何題解產出必須歷經「Solver Agent（獨立推導）」與「Verifier Agent（對抗驗證）」兩階段。
-   - Verifier 必須使用獨立方法（如逆向代入、能量守恆、極限分析、KCL/KVL 網目核對）進行雙盲交叉審核，嚴禁同一流程自行宣告正確。
+1. 官方 PDF／題目裁切圖優先於既有題解；不以答案反推題幹。
+2. PE 與 GK 的來源、編譯器、bundle 與前端載入路徑保持隔離。
+3. 生成檔不手改；任何資料或欄位變更回到來源、schema、編譯器與測試。
+4. 缺參數、圖像模糊、出題疑義與參考書衝突要在題解中明示，不用無證據的唯一答案覆蓋。
+5. `src/domain/questionRecord.js`、`scripts/question_schema.py` 與測試的狀態契約必須同步；特別是 `reference_book_verified`。
+6. 題解採 Solver／Verifier 分離；Verifier 必須使用獨立驗算方法。
+7. localStorage 的刷題狀態與兩個資料庫的題解優先順序不得因重編譯而互相污染。
+
+## 4. 變更後的最小驗收
+
+```bash
+python3 scripts/compile_dashboard_database.py
+python3 scripts/compile_national_exams.py
+python3 scripts/build_workbench.py
+python3 scripts/run_all_tests.py
+python3 scripts/check_html_js_syntax.py
+python3 scripts/verify_slicing_and_links.py
+python3 scripts/health_check_codebase.py
+git diff --check
+```
+
+驗收報告必須分開列出自動通過項目、人工複核佇列與尚未驗證項目；健康分數不是刪除人工判定的理由。

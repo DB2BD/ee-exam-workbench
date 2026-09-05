@@ -3,7 +3,7 @@
 **檔案識別**：`SPEC-EXAM-EXT-002`
 **建立時間**：2026-08-24
 **本次同步**：2026-08-30（依現有 161 筆 GK 編譯資料與 18 欄 QuestionRecord 校正）
-**遵循規範**：[`CLAUDE.md`](./CLAUDE.md) · [`CLAUDE-SPEC.md`](./CLAUDE-SPEC.md) · [`to-spec`](./.agents/skills/to-spec/SKILL.md) · [`to-tickets`](./.agents/skills/to-tickets/SKILL.md)
+**遵循規範**：[`AGENTS.md`](./AGENTS.md) · [`AGENT-GUIDE.md`](./AGENT-GUIDE.md) · [`AGENT-SPEC.md`](./AGENT-SPEC.md) · [`to-spec`](./.agents/skills/to-spec/SKILL.md) · [`to-tickets`](./.agents/skills/to-tickets/SKILL.md)
 
 ---
 
@@ -255,7 +255,7 @@ graph LR
 
 ## 七、已建置基礎設施 (Pre-Built Infrastructure)
 
-以下架構已由 Claude Opus 4.6 完成建置，Gemini 3.7 可直接使用：
+以下架構已完成建置；任何 Agent 均可依目前編譯器、測試與資料契約接續維護：
 
 ### 已建立的目錄
 

@@ -14,6 +14,17 @@ WORKSPACE = Path(__file__).resolve().parents[1]
 
 
 class TestQuestionSchema(unittest.TestCase):
+    def test_js_status_contract_accepts_reference_book_verified(self):
+        probe = (
+            "const m=require('./src/domain/questionRecord.js');"
+            "process.stdout.write(JSON.stringify(m.isValidQuestionStatus('reference_book_verified')));"
+        )
+        completed = subprocess.run(
+            ["node", "-e", probe], cwd=WORKSPACE, capture_output=True, text=True, check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(json.loads(completed.stdout), True)
+
     def test_pe_bundle_has_named_record_contract(self):
         questions = load_questions_from_bundle(WORKSPACE / "dashboard-data.js", "sevenLayers")
         result = validate_question_records(questions, exam_family="PE")

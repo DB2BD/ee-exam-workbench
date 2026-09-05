@@ -13,11 +13,11 @@
 | 依年度做整份模擬試卷 | [年度模擬試卷索引](#各年度全真模擬試卷快速索引含計時規範與成績自評卡) |
 | 了解操作方式 | [知識庫使用說明書](./知識庫使用說明書.md) |
 | 查驗證狀態與人工覆核 | [稽核報告](./reports/pe-solution-audit-2026-08-30.md) · [人工覆核索引](./reports/manual-review-index.md) |
-| 查看本次版本變更 | [v1.0.4 發版紀錄](./docs/發版紀錄_v1.0.4.md) |
+| 查看本次版本變更 | [v1.0.5 發版紀錄](./docs/發版紀錄_v1.0.5.md) |
 
 ## 目前版本與資料範圍
 
-目前版本：**v1.0.4**（2026-09-06）
+目前版本：**v1.0.5**（2026-09-06）
 
 | 資料集 | 規模 | 用途 |
 | :--- | :---: | :--- |
@@ -48,10 +48,10 @@
 
 | 檔案名稱 | 核心功能與說明 | 快速入口 |
 | :--- | :--- | :--- |
-| **[`CLAUDE.md`](./CLAUDE.md)** | **冷啟動導覽與協作指引**：AI 助手角色定義、資料流架構與品質標準 | [開啟 CLAUDE.md](./CLAUDE.md) |
-| **[`CLAUDE-SOLVE.md`](./CLAUDE-SOLVE.md)** | **7 步標準題解推導 SOP**：考點定位、公式列式、步驟推導、防坑提醒與驗算 | [開啟 CLAUDE-SOLVE.md](./CLAUDE-SOLVE.md) |
-| **[`CLAUDE-SPEC.md`](./CLAUDE-SPEC.md)** | **資料庫規格與 Metadata 規範**：QID 命名、KaTeX 語法、標籤與驗證狀態 | [開啟 CLAUDE-SPEC.md](./CLAUDE-SPEC.md) |
-| **[`CLAUDE-CODE.md`](./CLAUDE-CODE.md)** | **指令集與維護 Runbook**：資料庫編譯、語法審計與自動化命令手冊 | [開啟 CLAUDE-CODE.md](./CLAUDE-CODE.md) |
+| **[`AGENT-GUIDE.md`](./AGENT-GUIDE.md)** | **冷啟動導覽與協作指引**：模型中立的資料流架構、品質標準與交接方式 | [開啟 AGENT-GUIDE.md](./AGENT-GUIDE.md) |
+| **[`AGENT-SOLVE.md`](./AGENT-SOLVE.md)** | **7 步標準題解推導 SOP**：考點定位、公式列式、步驟推導、防坑提醒與驗算 | [開啟 AGENT-SOLVE.md](./AGENT-SOLVE.md) |
+| **[`AGENT-SPEC.md`](./AGENT-SPEC.md)** | **資料庫規格與 Metadata 規範**：QID 命名、KaTeX 語法、標籤與驗證狀態 | [開啟 AGENT-SPEC.md](./AGENT-SPEC.md) |
+| **[`AGENT-CODE.md`](./AGENT-CODE.md)** | **指令集與維護 Runbook**：資料庫編譯、語法審計與自動化命令手冊 | [開啟 AGENT-CODE.md](./AGENT-CODE.md) |
 | **[`知識庫使用說明書.md`](./知識庫使用說明書.md)** | **考生完整操作手冊**：離線 Web 儀表板、120 分鐘模考、AI 批改指令引導 | [開啟 知識庫使用說明書.md](./知識庫使用說明書.md) |
 | **[`檔案架構索引表.md`](./檔案架構索引表.md)** | **全景雙向目錄索引地圖**：PE 66 份試卷／321 道題，及 GK 25 筆來源紀錄／161 筆題目快速跳轉 | [開啟 檔案架構索引表.md](./檔案架構索引表.md) |
 

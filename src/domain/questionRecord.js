@@ -9,6 +9,9 @@
 const QUESTION_SCHEMA_VERSION = '1.0.0';
 const QUESTION_STATUSES = [
   'verified', 'in_progress', 'pending', 'ambiguous', 'unavailable',
+  // Reference-book evidence is a distinct, explicitly scoped audit result;
+  // it must not be collapsed into the official-source verified state.
+  'reference_book_verified',
   // Engineering-math audit states. These are intentionally explicit so the
   // UI cannot present a template or unattempted derivation as verified.
   'suspected_error', 'needs_manual_review', 'not_attempted',

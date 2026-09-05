@@ -1,14 +1,12 @@
 # 人工覆核索引
 
-> 產生日期：2026-09-05；此清單只收錄 audit manifest 中 `needs_manual_review` 題目。
+> 產生日期：2026-09-06；此清單只收錄 audit manifest 中 `needs_manual_review` 題目。
 > 任何題目在缺參數、圖形估讀或來源衝突未解除前，不得升級為 `verified`。
 
-目前共 **4 題**待人工覆核。
+目前共 **2 題**待人工覆核。
 > 公開參考欄僅供方法／題幹交叉比對；若與官方原卷不一致，以官方原卷為準，且不得以二手資料解除缺參數阻擋。
 
 | 題號 | 科目／年度 | 教科書章節 | 阻擋原因 | 收斂所需動作 | 詳解 | 官方來源 | 公開參考 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | EE-104-06-5 | 工業配電／104 年第 5 題 | 諧波等效電路與調諧電容器 | missing_parameter | 釐清 500 kW 是整流器 DC 輸出或 AC 側有功輸入，補齊基波功因 pf_1 與效率 η，並明定「額定電流」是 AC 基波、AC 總 RMS 或 DC 額定電流。 | [EE-104-06-5](📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-5.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0612&t=Q) | — |
-| EE-111-02-3 | 電子學（含電力電子）／111 年第 3 題 | MOSFET 共源極源極退化與偏壓設計 | source_conflict | 確認指定增益或 R_S 是否誤植；保留題面 3.17 mA、R_S=30 Ω 與平方律時增益應為 4.4444，若保留增益 5 則 R_S 應為 26.6667 Ω。 | [EE-111-02-3](📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-3.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q) | — |
-| EE-111-02-4 | 電子學（含電力電子）／111 年第 4 題 | 並聯-串聯電流回授放大器與雙極性電晶體小訊號模型 | missing_parameter | 補齊 RC、RF、RL、gm、rpi 與輸出端口開路定義後，再數值化並聯-串聯回授五量。 | [EE-111-02-4](📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-4.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q) | — |
 | EE-105-04-5 | 電機機械／105 年第 5 題 | 直流電機 (分激/串激特性與調速) | missing_parameter | 補齊磁化曲線或明示未飽和條件，才能由 If=6 A 唯一決定磁通比。 | [EE-105-04-5](📝 個人題解與錯題本/04_電機機械/canonical/EE-105-04-5.md) | [官方試題](https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=105170&q=1&s=0610&t=Q) | — |

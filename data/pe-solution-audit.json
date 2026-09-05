@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "PE 非工程數學 104-114",
-  "generated_at": "2026-09-05",
+  "generated_at": "2026-09-06",
   "status_policy": [
     "verified",
     "reference_book_verified",
@@ -1066,16 +1066,15 @@
       "question_number": 3,
       "chapter": "如圖三所示之電路，其μnCox=200 μA/V2，λ=0，VTH=0.4 V，電壓增益大\n小為5 V/V，IDS=$3.17\\text{ mA}$，IR1=$0.167\\text{ mA}$，RS = $30\\ \\Omega$，RD = $200\\ \\Omega$，假\n設跨在RS 上之電壓等於電晶體之過驅電壓（overdrive voltage），求(一)gm\n值(二)M1 之W/L 值(三)R1 與R2 值。（25 分）\nV\nVDD\n8.1\nout\nv\nin\nv\nR\nR\nD\nR\nS\nR\nM\n圖三",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-3.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "mosfet-gain-square-law-consistency-check",
-      "solution_hash": "53efa6e3cbf553a8452a80fba86a9bbc73ec5c8f5dfac2d2fc8f8fc977e9f72a",
+      "audit_status": "reference_book_verified",
+      "verified_at": "2026-09-06",
+      "method": "user-adjudicated-dual-branch-reference-book-cross-check",
+      "solution_hash": "370d189379e292671f992f88e4ae208147b3bfb99121682a3f249948f9062ec8",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png",
-      "review_disposition": "inconsistent_data_branches",
-      "review_blocker": "source_conflict",
-      "review_action": "確認指定增益或 R_S 是否誤植；保留題面 3.17 mA、R_S=30 Ω 與平方律時增益應為 4.4444，若保留增益 5 則 R_S 應為 26.6667 Ω。",
-      "review_evidence": "官方裁切圖同時給 |A_v|=5、I_DS=3.17 mA、μ_nC_ox=200 μA/V²、R_S=30 Ω、R_D=200 Ω，並指定 V_S=V_OV；由增益反推 g_m=0.100000 S，由平方律與 I_DS 反推 g_m=0.0666667 S，兩者回代結果分別為 5 與 4.444444。因 V_OV=I_D R_S 時 g_m=2I_D/V_OV=2/R_S，改變 I_D 不能消除矛盾；若保留增益 5，最小修正是 R_S=26.666667 Ω，此時 g_m=0.075 S、W/L=4436.120。",
+      "verification_scope": "reference_book",
+      "reference_book_evidence": "使用者提供的參考書照片（IMG_3801、IMG_3802）列出 g_m=1 mS、W/L=3522.2、R_2=3.3185 kΩ 與 R_1=7.459 kΩ；獨立代回顯示 g_m=1 mS 時增益僅為 0.1942，且由題面平方律應得 g_m=0.0666667 S、W/L=3505.082。參考書另將 V_GS=0.4951 V 排印為 0.4591 V。依使用者裁決，本 canonical 同時保留參考書主解與題面可回代解，並明確說明出題／排印錯誤；此為 reference_book evidence，not official，不是官方題面新增資料。",
+      "reference_book_convention": "參考書以源極退化增益式與長通道平方律分別處理；本 canonical 依使用者裁決採雙分支呈現，保留參考書讀值、題面增益分支、平方律分支與最小更正候選，不把矛盾壓成單一官方數值。",
       "official_source_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
     },
     {
@@ -1085,16 +1084,15 @@
       "question_number": 4,
       "chapter": "如圖四所示之電路，假設電晶體之VA皆為∞，求(一)回授因素（feedback\nfactor）(二)開路增益(三)閉路增益(四)閉迴路輸入阻抗(五)閉迴路輸出阻抗。\n（25 分）\nCC\nV\nC\nR\nL\nR\nF\nR\nin\nout\nQ\nQ\ndevice\n圖四\nV",
       "solution_link": "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-111-02-4.md",
-      "audit_status": "needs_manual_review",
-      "verified_at": null,
-      "method": "official_crop_parameter_insufficient_for_unique_h_parameter_solution",
-      "solution_hash": "8d561b67b63abbf76202b36711513a9669489e7d2a85b6f3e4f9371d5980543d",
+      "audit_status": "reference_book_verified",
+      "verified_at": "2026-09-06",
+      "method": "reference-book_current-current_feedback_symbolic_cross-check",
+      "solution_hash": "72efc8c5305c51f180959829ac7dc8d4f1a4795747d03c53ddf6056130c06b4d",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q04.png",
-      "review_disposition": "parameterized_only",
-      "review_blocker": "missing_parameter",
-      "review_action": "補齊 RC、RF、RL、gm、rpi 與輸出端口開路定義後，再數值化並聯-串聯回授五量。",
-      "review_evidence": "官方裁切圖只提供 Q1 共射、Q2 共集、R_F 跨接回授及 R_L 負載的拓撲，未標示 R_C、R_F、R_L、g_m、r_π 或 β 數值；輸入端是電流並聯混合、輸出端是電流串聯取樣，拓撲為並聯-串聯（Shunt-Series／Current-Current Feedback）；canonical 已列出節點 KCL、電流輸入／電流輸出定義及測試源阻抗公式，任何數值答案都必須先補齊這些參數與輸出端口開路定義。",
+      "verification_scope": "reference_book",
+      "reference_book_evidence": "使用者提供的參考書照片（IMG_3802、IMG_3803）確認本題為並聯—串聯（Shunt-Series）電流—電流負回授，並給出 \\beta_f=I_f/I_o=1、A_f=A/(1+A\\beta_f)、R_{if}=R_{iA}/(1+A\\beta_f) 與 R_{of}=R_{oA}(1+A\\beta_f)。參考書開路增益原式漏掉 R_F\\parallel r_{\\pi1}，本題已補回並以量綱與節點關係獨立核對。此為 reference_book evidence，not official，不是官方題面新增資料。",
+      "reference_book_convention": "以 hybrid-\\pi 模型、r_{o1}=r_{o2}=\\infty、理想偏壓電流源交流開路，\\beta_T 表示電晶體共集級的電流增益；\\beta_f 僅表示回授因素，避免符號混淆。",
       "official_source_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
     },
     {
@@ -3677,9 +3675,9 @@
   "summary": {
     "questions": 256,
     "verified": 239,
-    "reference_book_verified": 13,
+    "reference_book_verified": 15,
     "suspected_error": 0,
-    "needs_manual_review": 4,
+    "needs_manual_review": 2,
     "not_attempted": 0
   }
 }

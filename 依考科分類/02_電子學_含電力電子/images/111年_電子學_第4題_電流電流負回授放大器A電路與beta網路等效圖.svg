@@ -1,112 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
-
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#1e293b"/>
-    </linearGradient>
-    <linearGradient id="box-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
-    </linearGradient>
-    <linearGradient id="accent-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0369a1" stop-opacity="0.25"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.6"/>
-    </linearGradient>
-    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
-    </marker>
-    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
-    </marker>
-    <marker id="arr-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
-    </marker>
-    <marker id="arr-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
-    </marker>
-  </defs>
-  <style>
-    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; fill: #f8fafc; }
-    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
-    .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #cbd5e1; }
-    .val-cyan { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #38bdf8; }
-    .val-amber { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f59e0b; }
-    .val-rose { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #f43f5e; }
-    .val-emerald { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #10b981; }
-    .val-purple { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; fill: #c084fc; }
-    .wire { stroke: #94a3b8; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
-    .wire-active { stroke: #38bdf8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
-    .wire-dash { stroke: #64748b; stroke-width: 1.8; stroke-dasharray: 4,4; fill: none; }
-    .box { stroke: #334155; stroke-width: 1.5; rx: 12; fill: url(#box-bg); }
-    .ground { stroke: #94a3b8; stroke-width: 2; stroke-linecap: round; }
-  </style>
-
-  <rect width="950" height="560" rx="16" fill="url(#bg)"/>
-  <text x="475" y="38" text-anchor="middle" class="title" font-size="20">111 年 電子學 第四題：電流-電流 (並聯-串聯) 負回授放大器 A 電路與 β 網路等效拆解圖</text>
-  <text x="475" y="60" text-anchor="middle" class="subtitle">拓撲判定：輸入並聯取樣電流 (Shunt)，輸出串聯取樣電流 (Series) ⇒ β = RF2 / (RF1 + RF2)</text>
-
-  <!-- 左框：基本放大器 A (含負載效應) -->
-  <rect x="25" y="80" width="580" height="340" class="box"/>
-  <text x="45" y="110" class="title" font-size="15" fill="#38bdf8">【載入回授負載效應之基本放大器 A 電路】</text>
-
-  <!-- 輸入電流源 isig, Rsig -->
-  <circle cx="65" cy="220" r="16" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
-  <text x="65" y="225" text-anchor="middle" class="val-cyan">isig</text>
-  <path d="M 65 204 L 65 170 L 110 170" class="wire"/>
-  <path d="M 65 236 L 65 290 L 110 290" class="wire"/>
-  <line x1="110" y1="290" x2="130" y2="290" class="ground"/>
-
-  <!-- 輸入端回授載入電阻 R11 (RF1 + RF2) -->
-  <rect x="110" y="200" width="24" height="45" fill="#334155" stroke="#38bdf8" rx="3"/>
-  <text x="145" y="225" class="val-cyan" font-size="11">R11 = RF</text>
-
-  <!-- 放大器核心方塊 -->
-  <rect x="200" y="150" width="160" height="120" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="8"/>
-  <text x="280" y="195" text-anchor="middle" class="title" font-size="15">A 核心核心</text>
-  <text x="280" y="220" text-anchor="middle" class="val-cyan" font-size="12">Ai = io' / ii'</text>
-
-  <path d="M 134 170 L 200 170" class="wire" marker-end="url(#arr-cyan)"/>
-  <path d="M 134 290 L 200 290" class="wire"/>
-
-  <!-- 輸出端回授載入電阻 R22 (RF1 || RF2) -->
-  <path d="M 360 170 L 440 170" class="wire"/>
-  <rect x="440" y="200" width="24" height="45" fill="#334155" stroke="#f59e0b" rx="3"/>
-  <text x="475" y="225" class="val-amber" font-size="11">R22 = RF1||RF2</text>
-
-  <!-- 負載電阻 RL 與 輸出電流 io -->
-  <path d="M 440 170 L 520 170 L 520 200" class="wire"/>
-  <rect x="508" y="200" width="24" height="45" fill="#334155" stroke="#f59e0b" rx="3"/>
-  <text x="545" y="225" class="val-amber">RL</text>
-  <path d="M 520 245 L 520 290 L 360 290" class="wire"/>
-
-  <!-- 輸出電流標記 io -->
-  <line x1="470" y1="155" x2="510" y2="155" stroke="#10b981" stroke-width="2" marker-end="url(#arr-emerald)"/>
-  <text x="490" y="145" text-anchor="middle" class="val-emerald">io (輸出電流)</text>
-
-  <!-- 右框：β 回授網路 -->
-  <rect x="625" y="80" width="300" height="340" class="box"/>
-  <text x="645" y="110" class="title" font-size="15" fill="#f59e0b">【β 回授取樣傳輸網路】</text>
-
-  <!-- β 方塊 -->
-  <rect x="670" y="160" width="210" height="100" fill="#1e293b" stroke="#f59e0b" stroke-width="2" rx="8"/>
-  <text x="775" y="205" text-anchor="middle" class="val-amber" font-size="16">β 回授網路</text>
-  <text x="775" y="230" text-anchor="middle" class="val-emerald" font-size="13">if = β · io</text>
-
-  <!-- 回授信號流向 -->
-  <path d="M 880 210 L 910 210 L 910 320 L 640 320 L 640 210 L 670 210" class="wire" stroke="#f59e0b" stroke-width="2"/>
-  <text x="775" y="340" text-anchor="middle" class="val-amber" font-size="12">取樣輸出電流 io ➔ 回授電流 if 至輸入端</text>
-
-  <!-- 下方結論卡片 -->
-  <rect x="25" y="435" width="285" height="105" class="box"/>
-  <text x="40" y="460" class="val-cyan" font-size="13">1. 閉迴路電流增益 Af</text>
-  <text x="40" y="485" class="val-cyan">Af = io / isig = A / (1 + A·β)</text>
-  <text x="40" y="515" class="val-emerald" font-size="14">穩定度提升 (1 + A·β) 倍</text>
-
-  <rect x="330" y="435" width="285" height="105" class="box"/>
-  <text x="345" y="460" class="val-amber" font-size="13">2. 閉迴路輸入阻抗 Rif</text>
-  <text x="345" y="485" class="label">並聯回授 (Shunt Input)：</text>
-  <text x="345" y="515" class="val-amber" font-size="14">Rif = Ri / (1 + A·β) (阻抗降低)</text>
-
-  <rect x="635" y="435" width="290" height="105" class="box"/>
-  <text x="650" y="460" class="val-rose" font-size="13">3. 閉迴路輸出阻抗 Rof</text>
-  <text x="650" y="485" class="label">串聯取樣 (Series Output)：</text>
-  <text x="650" y="515" class="val-rose" font-size="14">Rof = Ro · (1 + A·β) (阻抗提高)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-labelledby="title desc">
+<title id="title">111 年電子學第 4 題：並聯－串聯電流回授放大器小訊號模型</title>
+<desc id="desc">Deterministic circuit diagram generated from a topology-aware specification.</desc>
+<style>svg{background:#fff;color:#111}g,polyline,path,line,circle,polygon{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.fill{fill:currentColor}.junction{fill:currentColor}.label,.annotation,.symbol{fill:currentColor;stroke:none;font:16px system-ui,-apple-system,"Noto Sans TC",sans-serif;text-anchor:middle;dominant-baseline:middle}.symbol{font-weight:700}</style>
+<g data-net="0">
+<polyline points="500,70 500,110 350,110"/>
+<polyline points="500,70 650,70 650,210"/>
+<polyline points="220,370 220,590 650,590"/>
+<polyline points="350,370 350,590"/>
+<polyline points="650,510 650,590"/>
+</g>
+<g data-net="nb">
+<polyline points="60,290 100,290"/>
+<polyline points="100,290 220,290"/>
+<polyline points="100,290 160,290 160,500 380,500"/>
+<circle class="junction" cx="100" cy="290" r="4"/>
+</g>
+<g data-net="nc">
+<polyline points="350,190 350,290"/>
+<polyline points="350,190 420,190 420,250 460,250"/>
+<circle class="junction" cx="350" cy="190" r="4"/>
+</g>
+<g data-net="ne">
+<polyline points="540,250 600,250 600,290 650,290"/>
+<polyline points="650,290 650,310"/>
+<polyline points="650,290 760,290"/>
+<circle class="junction" cx="650" cy="290" r="4"/>
+</g>
+<g data-net="nf">
+<polyline points="650,390 650,430"/>
+<polyline points="650,390 720,390 720,500 460,500"/>
+<circle class="junction" cx="650" cy="390" r="4"/>
+</g>
+<g data-ref="RC" data-type="resistor" transform="translate(350 150) rotate(90)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><polyline points="-24,0 -18,-10 -10,10 -2,-10 6,10 14,-10 22,10 24,0"/><text x="-38.00" y="-0.00" transform="rotate(-90)" class="label">R_C</text></g>
+<g data-ref="rpi1" data-type="resistor" transform="translate(220 330) rotate(90)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><polyline points="-24,0 -18,-10 -10,10 -2,-10 6,10 14,-10 22,10 24,0"/><text x="-38.00" y="-0.00" transform="rotate(-90)" class="label">Q₁：r_π1</text></g>
+<g data-ref="gm1" data-type="dependent-current-source" transform="translate(350 330) rotate(90)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><polygon points="0,-26 24,0 0,26 -24,0"/><line x1="-0.00" y1="-12.00" x2="0.00" y2="12.00"/><polyline points="0.00,7.00 -5.00,12.00 5.00,12.00"/><text x="-38.00" y="-0.00" transform="rotate(-90)" class="label">Q₁：g_m1 v_π1</text></g>
+<g data-ref="rpi2" data-type="resistor" transform="translate(500 250) rotate(0)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><polyline points="-24,0 -18,-10 -10,10 -2,-10 6,10 14,-10 22,10 24,0"/><text x="0.00" y="-38.00" transform="rotate(0)" class="label">Q₂：r_π2</text></g>
+<g data-ref="gm2" data-type="dependent-current-source" transform="translate(650 250) rotate(90)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><polygon points="0,-26 24,0 0,26 -24,0"/><line x1="-0.00" y1="-12.00" x2="0.00" y2="12.00"/><polyline points="0.00,7.00 -5.00,12.00 5.00,12.00"/><text x="-38.00" y="-0.00" transform="rotate(-90)" class="label">Q₂：g_m2 v_π2</text></g>
+<g data-ref="RL" data-type="resistor" transform="translate(650 350) rotate(90)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><polyline points="-24,0 -18,-10 -10,10 -2,-10 6,10 14,-10 22,10 24,0"/><text x="-38.00" y="-0.00" transform="rotate(-90)" class="label">R_L（負載）</text></g>
+<g data-ref="RF" data-type="resistor" transform="translate(420 500) rotate(0)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><polyline points="-24,0 -18,-10 -10,10 -2,-10 6,10 14,-10 22,10 24,0"/><text x="0.00" y="-38.00" transform="rotate(0)" class="label">R_F（回授）</text></g>
+<g data-ref="Iin" data-type="current-source" transform="translate(100 330) rotate(90)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><circle cx="0" cy="0" r="24"/><line x1="0.00" y1="12.00" x2="-0.00" y2="-12.00"/><polyline points="-0.00,-7.00 -5.00,-12.00 5.00,-12.00"/><text x="-38.00" y="-0.00" transform="rotate(-90)" class="label">I_in</text></g>
+<g data-ref="Ibias" data-type="current-source" transform="translate(650 470) rotate(90)"><line x1="-40" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="40" y2="0"/><circle cx="0" cy="0" r="24"/><line x1="-0.00" y1="-12.00" x2="0.00" y2="12.00"/><polyline points="0.00,7.00 -5.00,12.00 5.00,12.00"/><text x="-38.00" y="-0.00" transform="rotate(-90)" class="label">偏壓電流源（交流開路）</text></g>
+<g data-ref="Vin" data-type="port" transform="translate(60 290) rotate(0)"><circle cx="0" cy="0" r="4" class="fill"/><text x="0.00" y="-38.00" transform="rotate(0)" class="label">輸入端</text></g>
+<g data-ref="Vo" data-type="port" transform="translate(760 290) rotate(0)"><circle cx="0" cy="0" r="4" class="fill"/><text x="0.00" y="-38.00" transform="rotate(0)" class="label">v_o</text></g>
+<g data-ref="GND_VCC" data-type="ground" transform="translate(500 70) rotate(0)"><line x1="0" y1="0" x2="0" y2="10"/><line x1="-14" y1="10" x2="14" y2="10"/><line x1="-9" y1="16" x2="9" y2="16"/><line x1="-4" y1="22" x2="4" y2="22"/></g>
+<g data-ref="GND_BOTTOM" data-type="ground" transform="translate(650 590) rotate(0)"><line x1="0" y1="0" x2="0" y2="10"/><line x1="-14" y1="10" x2="14" y2="10"/><line x1="-9" y1="16" x2="9" y2="16"/><line x1="-4" y1="22" x2="4" y2="22"/></g>
+<text class="annotation" x="500" y="42">V_CC（交流地）</text>
+<text class="annotation" x="500" y="620">V_A = ∞ ⇒ r_o1 = r_o2 = ∞</text>
+<text class="annotation" x="720" y="330">I_o ↓（流過 R_L）</text>
+<text class="annotation" x="420" y="540">I_f ←（流過 R_F）</text>
+<text class="annotation" x="500" y="650">參考書主解：β_f = I_f / I_o = 1</text>
 </svg>

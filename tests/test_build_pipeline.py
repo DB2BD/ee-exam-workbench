@@ -49,6 +49,10 @@ class TestBuildPipeline(unittest.TestCase):
             'tab-btn-review',
             'recall-step-box',
             'recall-full-section'
+            ,'home-action-start'
+            ,'home-action-continue'
+            ,'home-action-find'
+            ,'more-tools-menu'
         ]
 
         for elem_id in required_ids:
@@ -84,6 +88,17 @@ class TestBuildPipeline(unittest.TestCase):
         self.assertIn('四步驟蓋牌', html)
         self.assertIn('const fullSolutionHtml =', html)
         self.assertIn('class="solution-content active-recall-active"', html)
+        self.assertIn('class="review-recall-cover"', html)
+
+    def test_secondary_tools_are_reachable_from_more_tools(self):
+        with open(self.index_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        menu_start = html.index('id="more-tools-menu"')
+        menu_end = html.index('</details>', menu_start)
+        menu = html[menu_start:menu_end]
+        for tab_id in ('dag', 'layers', 'stats', 'quicksheet'):
+            self.assertIn(f'id="tab-btn-{tab_id}"', menu)
 
     def test_review_taxonomy_uses_textbook_chapter_names(self):
         with open(self.index_path, 'r', encoding='utf-8') as f:

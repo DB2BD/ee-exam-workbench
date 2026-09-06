@@ -266,11 +266,12 @@ function commitPracticeProgress(session, completedQid, completedAt, options = {}
   }
   const id = completedQid === undefined || completedQid === null ? '' : String(completedQid).trim();
   const timestamp = id ? practiceTimestamp(completedAt) : null;
-  if (id && (!session.questionIds.includes(id) || timestamp === null)) {
-    return { ok: false, error: '完成紀錄必須屬於目前練習，並包含有效時間。' };
-  }
   const loaded = loadDailyPracticeStore(options);
   if (loaded.error) return { ok: false, state: loaded.state, error: loaded.error };
+  const sourceSession = session || loaded.state.activeSession;
+  if (id && (!sourceSession || !sourceSession.questionIds.includes(id) || timestamp === null)) {
+    return { ok: false, error: '完成紀錄必須屬於目前練習，並包含有效時間。' };
+  }
   const next = loaded.state;
   next.activeSession = practiceClone(session);
   if (id) next.completionByQuestion[id] = timestamp;

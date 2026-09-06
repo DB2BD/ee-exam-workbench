@@ -113,10 +113,6 @@ def build_workbench():
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
         <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
-        <button onclick="switchTab('practice')" class="pill" title="開始或繼續每日練習">🎯 今日練習</button>
-        <button onclick="switchTab('quicksheet')" class="pill" style="background: var(--accent-light); color: var(--accent-dark); font-weight: 700;">
-          ⚡ 考前 30 分鐘急救包
-        </button>
       </div>
     </div>
 
@@ -189,21 +185,18 @@ def build_workbench():
     <button class="main-tab-btn" id="tab-btn-review" onclick="switchTab('review')">
       <span>📝 複習中心</span>
     </button>
-    <button class="main-tab-btn" id="tab-btn-dag" onclick="switchTab('dag')">
-      <span>🕸️ 全科知識相依圖譜 (DAG)</span>
-    </button>
     <button class="main-tab-btn" id="tab-btn-mock" onclick="switchTab('mock')">
       <span>⏱️ 120 分鐘計時全真模考</span>
     </button>
-    <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')">
-      <span>7 層得分路徑</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')">
-      <span>🔥 高頻必考命題分析</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')">
-      <span>⚡ 考前 30 分鐘急救速覽表</span>
-    </button>
+    <details class="more-tools-menu" id="more-tools-menu">
+      <summary>🧰 更多工具</summary>
+      <div class="more-tools-panel">
+        <button class="main-tab-btn" id="tab-btn-dag" onclick="switchTab('dag')"><span>🕸️ 知識圖譜</span></button>
+        <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')"><span>🪜 七層訓練</span></button>
+        <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')"><span>📊 統計</span></button>
+        <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')"><span>⚡ 速查</span></button>
+      </div>
+    </details>
   </div>
 
   <!-- TAB 1.5: Review Center -->
@@ -251,6 +244,11 @@ def build_workbench():
 
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
+    <section class="practice-home-actions" aria-label="練習首頁主要入口">
+      <button id="home-action-start" type="button" onclick="dailyPracticePrepareNewRound()"><span>▶</span><strong>開始練習</strong><small>選擇考科，建立新的 3 題練習</small></button>
+      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled><span>↩</span><strong>繼續上次</strong><small>接回原題、揭露進度與閱讀位置</small></button>
+      <button id="home-action-find" type="button" onclick="dailyPracticeFindQuestions()"><span>⌕</span><strong>找題</strong><small>依考科、年度、章節或關鍵字搜尋</small></button>
+    </section>
     <div id="daily-practice-container"></div>
   </div>
 

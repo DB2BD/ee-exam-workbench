@@ -775,9 +775,13 @@ function renderReviewPage() {
           <button class="btn-star ${isStarred ? 'active' : ''}" type="button" data-review-star="${reviewHtmlEscape(qid)}" title="收藏本題">${starIcon}</button>
         </div>
         <div class="focus-card-topic">${renderQuestionTopic(topic)}</div>
+        <div class="review-recall-cover" data-review-cover="${reviewHtmlEscape(qid)}" aria-label="詳解已蓋牌">
+          <span aria-hidden="true">🎴</span>
+          <div><strong>詳解已蓋牌</strong><small>先自行作答，再依序揭露章節、起手式、公式與完整推導。</small></div>
+        </div>
         <div class="focus-card-actions">
-          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取</button>
-          <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 標準詳解</button>
+          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始逐步揭露</button>
+          <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>
           <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
         </div>
       </article>

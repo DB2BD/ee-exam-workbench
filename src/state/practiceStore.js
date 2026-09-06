@@ -180,23 +180,72 @@ function createPracticeStoreState() {
   };
 }
 
+function practiceNormalizeScrollPositions(value) {
+  if (value === undefined) return { question: 0, solution: 0 };
+  if (typeof value === 'number' && Number.isFinite(value) && value >= 0) {
+    return { question: value, solution: 0 };
+  }
+  if (!practiceIsPlainObject(value)) return null;
+  if (value.question !== undefined && (!Number.isFinite(value.question) || value.question < 0)) return null;
+  if (value.solution !== undefined && (!Number.isFinite(value.solution) || value.solution < 0)) return null;
+  const question = value.question === undefined ? 0 : value.question;
+  const solution = value.solution === undefined ? 0 : value.solution;
+  return { question, solution };
+}
+
+function practiceNormalizeSession(session) {
+  if (session === null) return null;
+  if (!practiceIsPlainObject(session)
+      || typeof session.category !== 'string'
+      || typeof session.subjectId !== 'string'
+      || !Array.isArray(session.questionIds)
+      || session.questionIds.length === 0
+      || session.questionIds.some(qid => typeof qid !== 'string' || !qid)
+      || new Set(session.questionIds).size !== session.questionIds.length
+      || !Number.isInteger(session.currentIndex)
+      || session.currentIndex < 0
+      || session.currentIndex >= session.questionIds.length
+      || !practiceIsPlainObject(session.revealedByQuestion)
+      || !practiceIsPlainObject(session.scrollByQuestion)
+      || practiceTimestamp(session.createdAt) === null) return null;
+
+  const next = practiceClone(session);
+  const queue = new Set(next.questionIds);
+  next.viewByQuestion = practiceIsPlainObject(next.viewByQuestion) ? next.viewByQuestion : {};
+  next.revealLevelByQuestion = practiceIsPlainObject(next.revealLevelByQuestion)
+    ? next.revealLevelByQuestion : {};
+
+  if (Object.entries(next.revealedByQuestion).some(([qid, revealed]) => !queue.has(qid) || typeof revealed !== 'boolean')) return null;
+  if (Object.entries(next.viewByQuestion).some(([qid, view]) => !queue.has(qid) || !['question', 'solution'].includes(view))) return null;
+  if (Object.entries(next.revealLevelByQuestion).some(([qid, level]) => !queue.has(qid) || !Number.isInteger(level) || level < 0 || level > 4)) return null;
+  if (Object.keys(next.scrollByQuestion).some(qid => !queue.has(qid))) return null;
+
+  for (const qid of next.questionIds) {
+    if (!next.viewByQuestion[qid]) next.viewByQuestion[qid] = 'question';
+    if (next.revealLevelByQuestion[qid] === undefined) {
+      // Legacy boolean only means that the solution pane was visited; it is
+      // not evidence that all four recall layers were completed.
+      next.revealLevelByQuestion[qid] = 0;
+    }
+    next.scrollByQuestion[qid] = practiceNormalizeScrollPositions(next.scrollByQuestion[qid]);
+    if (!next.scrollByQuestion[qid]) return null;
+  }
+  return next;
+}
+
+function practiceNormalizeState(state) {
+  if (!practiceIsPlainObject(state) || state.version !== DAILY_PRACTICE_STORE_VERSION
+      || !practiceIsPlainObject(state.completionByQuestion)) return null;
+  const next = practiceClone(state);
+  next.activeSession = practiceNormalizeSession(next.activeSession === undefined ? null : next.activeSession);
+  if (state.activeSession !== undefined && state.activeSession !== null && next.activeSession === null) return null;
+  if (Object.keys(next.completionByQuestion).some(qid => !qid || practiceTimestamp(next.completionByQuestion[qid]) === null)) return null;
+  return next;
+}
+
 function practiceValidSession(session) {
   if (session === null) return true;
-  if (!practiceIsPlainObject(session)) return false;
-  if (typeof session.category !== 'string' || typeof session.subjectId !== 'string') return false;
-  if (!Array.isArray(session.questionIds) || session.questionIds.some(qid => typeof qid !== 'string' || !qid)) return false;
-  if (new Set(session.questionIds).size !== session.questionIds.length) return false;
-  if (!Number.isInteger(session.currentIndex) || session.currentIndex < 0) return false;
-  if (session.questionIds.length && session.currentIndex >= session.questionIds.length) return false;
-  if (!practiceIsPlainObject(session.revealedByQuestion) || !practiceIsPlainObject(session.scrollByQuestion)) return false;
-  const queue = new Set(session.questionIds);
-  if (Object.entries(session.revealedByQuestion).some(([qid, revealed]) => !queue.has(qid) || typeof revealed !== 'boolean')) return false;
-  if (Object.entries(session.scrollByQuestion).some(([qid, positions]) => {
-    if (!queue.has(qid) || !practiceIsPlainObject(positions)) return true;
-    return ['question', 'solution'].some(name => positions[name] !== undefined
-      && (typeof positions[name] !== 'number' || !Number.isFinite(positions[name]) || positions[name] < 0));
-  })) return false;
-  return practiceTimestamp(session.createdAt) !== null;
+  return practiceNormalizeSession(session) !== null;
 }
 
 function practiceValidState(state) {
@@ -218,9 +267,9 @@ function loadDailyPracticeStore(options = {}) {
   }
   if (raw === null || raw === '') return { state: fallback, error: null };
   try {
-    const parsed = JSON.parse(raw);
-    if (!practiceValidState(parsed)) throw new Error('資料格式或版本不符合目前契約');
-    return { state: practiceClone(parsed), error: null };
+    const parsed = practiceNormalizeState(JSON.parse(raw));
+    if (!parsed || !practiceValidState(parsed)) throw new Error('資料格式或版本不符合目前契約');
+    return { state: parsed, error: null };
   } catch (error) {
     // Reading bad data never writes the fallback back to the original key.
     return { state: fallback, error: `每日練習資料損壞，已使用空白狀態：${error.message || error}` };
@@ -230,10 +279,11 @@ function loadDailyPracticeStore(options = {}) {
 function saveDailyPracticeStore(state, options = {}) {
   const storage = practiceStorageFrom(options);
   if (!storage || typeof storage.setItem !== 'function') return { ok: false, error: '找不到每日練習的本機儲存空間。' };
-  if (!practiceValidState(state)) return { ok: false, error: '每日練習資料不符合目前契約，未寫入。' };
+  const normalized = practiceNormalizeState(state);
+  if (!normalized || !practiceValidState(normalized)) return { ok: false, error: '每日練習資料不符合目前契約，未寫入。' };
   try {
-    storage.setItem(DAILY_PRACTICE_STORAGE_KEY, JSON.stringify(state));
-    return { ok: true, state: practiceClone(state), error: null };
+    storage.setItem(DAILY_PRACTICE_STORAGE_KEY, JSON.stringify(normalized));
+    return { ok: true, state: practiceClone(normalized), error: null };
   } catch (error) {
     return { ok: false, error: `寫入每日練習資料失敗：${error.message || error}` };
   }
@@ -247,6 +297,8 @@ function createPracticeSession(category, subjectId, questionIds, options = {}) {
     questionIds: [...new Set(ids)],
     currentIndex: 0,
     revealedByQuestion: {},
+    viewByQuestion: {},
+    revealLevelByQuestion: {},
     scrollByQuestion: {},
     createdAt: practiceCreatedAt(options.now),
   };

@@ -140,6 +140,18 @@ process.stdout.write(JSON.stringify(result));
         self.assertTrue(result["timer"]["running"])
         self.assertEqual(result["timer"]["seconds"], 6500)
 
+    def test_legacy_revealed_flag_does_not_claim_four_recall_layers(self):
+        payload = self.payload_v21()
+        options = self.options()
+        expression = (
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "
+            "const result=applyUserDataBackup(payload,'replace',options); const practice=JSON.parse(localStorage.getItem(DAILY_PRACTICE_STORAGE_KEY)); "
+            "return {success:result.success, level:practice.activeSession.revealLevelByQuestion['EE-pe']}; })()"
+        )
+        result = self.run_js(expression)
+        self.assertTrue(result["success"])
+        self.assertEqual(result["level"], 0)
+
     def test_v20_replace_preserves_newer_local_session_data(self):
         payload = self.payload()
         options = self.options()

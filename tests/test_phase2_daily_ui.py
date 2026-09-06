@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class TestDailyPracticeUI(unittest.TestCase):
     def run_node(self, expression):
         practice_store = (ROOT / "src/state/practiceStore.js").read_text(encoding="utf-8")
+        question_record = (ROOT / "src/domain/questionRecord.js").read_text(encoding="utf-8")
         daily_ui = (ROOT / "src/components/dailyPractice.js").read_text(encoding="utf-8")
         script = f"""
 const vm = require('vm');
@@ -28,6 +29,9 @@ globalThis.localStorage = {{
   setItem(key, value) {{ this.data[key] = String(value); }}
 }};
 globalThis.showToast = () => {{}};
+globalThis.openSolutionModal = (...args) => {{ globalThis.openSolutionArgs = args; }};
+globalThis.QUESTION_CROP_MAP = {{'EE-a':'crop-a.png'}};
+globalThis.resolveImageMapUrl = crop => '/assets/' + crop;
 globalThis.currentExamCategory = 'PE';
 globalThis.DB_DATA = {{
   subjects: [{{id:'01', name:'電路學', icon:'⚡'}}],
@@ -39,6 +43,7 @@ globalThis.DB_DATA = {{
 }};
 globalThis.NATIONAL_EXAMS_DATA = {{subjects:[], questions:[]}};
 vm.runInThisContext({json.dumps(practice_store, ensure_ascii=False)});
+vm.runInThisContext({json.dumps(question_record, ensure_ascii=False)});
 vm.runInThisContext({json.dumps(daily_ui, ensure_ascii=False)});
 globalThis.initDailyPracticeHome();
 {expression}
@@ -68,12 +73,28 @@ globalThis.initDailyPracticeHome();
         self.assertIn("1 / 3", result["first"])
         self.assertIn("1 / 3", result["second"])
 
+    def test_reload_restores_solution_view_and_dual_scroll_positions(self):
+        result = self.run_node(
+            "dailyPracticeStart(); dailyPracticeSetView('solution'); "
+            "dailyPracticeScroll({currentTarget:{scrollTop:88}}); "
+            "const saved=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "dailyPracticeState=null; initDailyPracticeHome(); "
+            "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML, saved}));"
+        )
+        self.assertIn('daily-practice-tab active', result["html"])
+        self.assertEqual(result["saved"]["activeSession"]["viewByQuestion"][result["saved"]["activeSession"]["questionIds"][0]], "solution")
+        qid = result["saved"]["activeSession"]["questionIds"][0]
+        self.assertEqual(result["saved"]["activeSession"]["scrollByQuestion"][qid]["solution"], 88)
+
     def test_production_bundle_contains_daily_practice_entry(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("// === src/state/practiceStore.js ===", html)
         self.assertIn("// === src/components/dailyPractice.js ===", html)
         self.assertIn('id="tab-btn-practice"', html)
         self.assertIn('id="daily-practice-container"', html)
+        source = (ROOT / "src/components/dailyPractice.js").read_text(encoding="utf-8")
+        self.assertIn("原題截圖載入失敗", source)
+        self.assertIn("開啟官方原題 PDF", source)
 
     def test_question_topic_uses_the_production_math_renderer(self):
         """The real daily-practice call chain must not expose raw LaTeX."""
@@ -102,6 +123,7 @@ globalThis.katex = require('./libs/katex.min.js');
 globalThis.marked = require('./libs/marked.min.js');
 vm.runInThisContext(fs.readFileSync('src/renderers/katexRenderer.js','utf8'));
 vm.runInThisContext(fs.readFileSync('src/renderers/markdownRenderer.js','utf8'));
+vm.runInThisContext(fs.readFileSync('src/domain/questionRecord.js','utf8'));
 vm.runInThisContext(fs.readFileSync('src/state/practiceStore.js','utf8'));
 vm.runInThisContext(fs.readFileSync('src/components/dailyPractice.js','utf8'));
 dailyPracticeStart();
@@ -120,11 +142,38 @@ process.stdout.write(JSON.stringify({html,visible}));
 
     def test_completed_round_shows_summary_and_practice_again(self):
         result = self.run_node(
-            "dailyPracticeStart(); dailyPracticeAdvance(true); dailyPracticeAdvance(true); dailyPracticeAdvance(true); "
-            "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
+            "dailyPracticeStart(); dailyPracticeAdvance(true); const before=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "dailyPracticeCompleteFromModal(5,4,before.activeSession.questionIds[0]); "
+            "let step=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); dailyPracticeCompleteFromModal(5,4,step.activeSession.questionIds[step.activeSession.currentIndex]); "
+            "step=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); dailyPracticeCompleteFromModal(5,4,step.activeSession.questionIds[step.activeSession.currentIndex]); "
+            "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML, before}));"
         )
         self.assertIn("本輪完成摘要", result["html"])
         self.assertIn("再練 3 題", result["html"])
+
+    def test_daily_practice_shows_original_crop_and_shared_recall_entry(self):
+        result = self.run_node(
+            "savePracticeSession(createPracticeSession('PE', 'all', ['EE-a'], {now: Date.now()})); "
+            "initDailyPracticeHome(); const original=node('daily-practice-container').innerHTML; "
+            "dailyPracticeSetView('solution'); "
+            "process.stdout.write(JSON.stringify({original, solution:node('daily-practice-container').innerHTML}));"
+        )
+        self.assertIn('/assets/crop-a.png', result["original"])
+        self.assertIn("原題截圖", result["original"])
+        self.assertIn("開始四段蓋牌揭露", result["solution"])
+        self.assertIn("直接看完整詳解", result["solution"])
+        self.assertIn('data-daily-open-solution="recall"', result["solution"])
+        self.assertIn('data-daily-open-solution="browse"', result["solution"])
+        self.assertNotIn("完成本題並下一題", result["solution"])
+
+    def test_defer_does_not_move_or_complete_current_question(self):
+        result = self.run_node(
+            "dailyPracticeStart(); const before=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "dailyPracticeAdvance(true); const after=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "process.stdout.write(JSON.stringify({before,after}));"
+        )
+        self.assertEqual(result["before"]["activeSession"]["currentIndex"], result["after"]["activeSession"]["currentIndex"])
+        self.assertEqual(result["after"]["completionByQuestion"], {})
 
 
 if __name__ == "__main__":

@@ -75,6 +75,57 @@ globalThis.initDailyPracticeHome();
         self.assertIn('id="tab-btn-practice"', html)
         self.assertIn('id="daily-practice-container"', html)
 
+    def test_question_topic_uses_the_production_math_renderer(self):
+        """The real daily-practice call chain must not expose raw LaTeX."""
+        script = r'''
+const fs = require('fs'), vm = require('vm');
+const nodes = new Map();
+function node(id) {
+  if (!nodes.has(id)) nodes.set(id, {id, value:'', innerHTML:'', scrollTop:0, focus(){}, querySelector:()=>null});
+  return nodes.get(id);
+}
+node('daily-practice-category').value = 'PE';
+node('daily-practice-subject').value = 'all';
+globalThis.window = {addEventListener(){}};
+globalThis.document = {getElementById: node, querySelector:()=>null};
+globalThis.localStorage = {
+  data:{}, getItem(key){return this.data[key] ?? null;},
+  setItem(key,value){this.data[key]=String(value);}
+};
+globalThis.showToast = () => {};
+globalThis.currentExamCategory = 'PE';
+globalThis.DB_DATA = {subjects:[{id:'02',name:'電子學',icon:'🔌'}], questions:[
+  ['EE-111-02-3','02',111,3,'汲極電流 $3.17\\text{ mA}$，且 $R_S=30\\Omega$。',[], '', '',3,'verified',[],true]
+]};
+globalThis.NATIONAL_EXAMS_DATA = {subjects:[],questions:[]};
+globalThis.katex = require('./libs/katex.min.js');
+globalThis.marked = require('./libs/marked.min.js');
+vm.runInThisContext(fs.readFileSync('src/renderers/katexRenderer.js','utf8'));
+vm.runInThisContext(fs.readFileSync('src/renderers/markdownRenderer.js','utf8'));
+vm.runInThisContext(fs.readFileSync('src/state/practiceStore.js','utf8'));
+vm.runInThisContext(fs.readFileSync('src/components/dailyPractice.js','utf8'));
+dailyPracticeStart();
+const html = node('daily-practice-container').innerHTML;
+const visible = html.replace(/<annotation[\s\S]*?<\/annotation>/g,'').replace(/<[^>]+>/g,'');
+process.stdout.write(JSON.stringify({html,visible}));
+'''
+        completed = subprocess.run(
+            ["node", "-e", script], cwd=ROOT, capture_output=True, text=True,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        result = json.loads(completed.stdout)
+        self.assertIn('class="katex"', result["html"])
+        self.assertNotIn(r"\text", result["visible"])
+        self.assertNotIn(r"\Omega", result["visible"])
+
+    def test_completed_round_shows_summary_and_practice_again(self):
+        result = self.run_node(
+            "dailyPracticeStart(); dailyPracticeAdvance(true); dailyPracticeAdvance(true); dailyPracticeAdvance(true); "
+            "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
+        )
+        self.assertIn("本輪完成摘要", result["html"])
+        self.assertIn("再練 3 題", result["html"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=phase2-local"></script>
-<script src="./solutions-bundle.js?v=phase2-local"></script>
-<script src="./national-exams-data.js?v=phase2-local"></script>
-<script src="./national-solutions-bundle.js?v=phase2-local"></script>
+<script src="./dashboard-data.js?v=phase3-local"></script>
+<script src="./solutions-bundle.js?v=phase3-local"></script>
+<script src="./national-exams-data.js?v=phase3-local"></script>
+<script src="./national-solutions-bundle.js?v=phase3-local"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -249,10 +249,11 @@ header {
 /* Main Tab Navigation */
 .main-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   border-bottom: 2px solid var(--line);
   margin-bottom: 24px;
-  overflow-x: auto;
+  overflow: visible;
   padding-bottom: 2px;
 }
 
@@ -690,6 +691,20 @@ select:focus {
   overflow: hidden;
   font-weight: 500;
 }
+.review-recall-cover {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--accent-light);
+  color: var(--accent-dark);
+}
+.review-recall-cover > span { font-size: 1.35rem; }
+.review-recall-cover strong, .review-recall-cover small { display: block; }
+.review-recall-cover small { margin-top: 2px; color: var(--muted); line-height: 1.4; }
 .focus-card-actions {
   display: flex;
   gap: 8px;
@@ -1435,6 +1450,33 @@ select:focus {
   box-shadow: var(--shadow);
   padding: 24px;
 }
+.practice-home-actions {
+  max-width: 900px;
+  margin: 0 auto 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.practice-home-actions button {
+  min-height: 92px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 10px;
+  align-items: center;
+  text-align: left;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.practice-home-actions button > span { grid-row: 1 / 3; font-size: 1.3rem; color: var(--accent-dark); }
+.practice-home-actions button strong { color: var(--accent-dark); }
+.practice-home-actions button small { color: var(--muted); line-height: 1.35; }
+.practice-home-actions button:hover, .practice-home-actions button:focus-visible { border-color: var(--accent); }
+.practice-home-actions button:disabled { opacity: .5; cursor: not-allowed; }
 .daily-practice-heading {
   display: flex;
   justify-content: space-between;
@@ -1498,7 +1540,9 @@ select:focus {
   padding: 22px;
   scroll-behavior: smooth;
 }
-.daily-practice-question h3 { margin: 12px 0; color: var(--ink); line-height: 1.55; }
+.daily-practice-topic { margin: 12px 0; color: var(--ink); line-height: 1.55; font-size: 1.05rem; font-weight: 700; }
+.daily-practice-topic p { margin: 0 0 10px; }
+.daily-practice-topic .katex-display { font-size: .95em; }
 .daily-practice-question p { color: var(--muted); line-height: 1.65; }
 .daily-practice-solution-note {
   padding: 16px;
@@ -1515,13 +1559,50 @@ select:focus {
   margin-top: 16px;
 }
 .daily-practice-empty { padding: 48px 20px; text-align: center; color: var(--muted); }
+.daily-practice-summary { text-align: center; }
+.daily-practice-summary h2 { margin: 8px 0; color: var(--success); }
+.daily-practice-summary .daily-practice-actions { justify-content: center; }
 @media (max-width: 680px) {
+  .practice-home-actions { grid-template-columns: 1fr; }
   .daily-practice-shell { padding: 16px; }
   .daily-practice-heading { align-items: stretch; flex-direction: column; }
   .daily-practice-start-card { align-items: stretch; flex-direction: column; }
   .daily-practice-start-card select, .daily-practice-start-card button { width: 100%; }
   .daily-practice-scroll { max-height: 58vh; padding: 16px; }
   .daily-practice-actions > * { flex: 1 1 100%; min-height: 44px; }
+}
+
+.more-tools-menu { position: relative; margin-left: auto; align-self: center; }
+.more-tools-menu > summary {
+  min-height: 44px;
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.more-tools-menu > summary::-webkit-details-marker { display: none; }
+.more-tools-panel {
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  top: calc(100% + 6px);
+  min-width: 210px;
+  padding: 8px;
+  display: grid;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+}
+.more-tools-panel .main-tab-btn { width: 100%; min-height: 44px; padding: 9px 12px; justify-content: flex-start; border-radius: 6px; border-bottom: 0; margin: 0; }
+.more-tools-panel .main-tab-btn.active { background: var(--accent-light); color: var(--accent-dark); }
+@media (max-width: 680px) {
+  .more-tools-menu { margin-left: 0; }
+  .more-tools-panel { position: fixed; left: 12px; right: 12px; top: auto; min-width: 0; }
 }
 
 /* Print CSS for physical A4 review sheets */
@@ -2376,10 +2457,6 @@ select:focus {
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
         <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
-        <button onclick="switchTab('practice')" class="pill" title="開始或繼續每日練習">🎯 今日練習</button>
-        <button onclick="switchTab('quicksheet')" class="pill" style="background: var(--accent-light); color: var(--accent-dark); font-weight: 700;">
-          ⚡ 考前 30 分鐘急救包
-        </button>
       </div>
     </div>
 
@@ -2452,21 +2529,18 @@ select:focus {
     <button class="main-tab-btn" id="tab-btn-review" onclick="switchTab('review')">
       <span>📝 複習中心</span>
     </button>
-    <button class="main-tab-btn" id="tab-btn-dag" onclick="switchTab('dag')">
-      <span>🕸️ 全科知識相依圖譜 (DAG)</span>
-    </button>
     <button class="main-tab-btn" id="tab-btn-mock" onclick="switchTab('mock')">
       <span>⏱️ 120 分鐘計時全真模考</span>
     </button>
-    <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')">
-      <span>7 層得分路徑</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')">
-      <span>🔥 高頻必考命題分析</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')">
-      <span>⚡ 考前 30 分鐘急救速覽表</span>
-    </button>
+    <details class="more-tools-menu" id="more-tools-menu">
+      <summary>🧰 更多工具</summary>
+      <div class="more-tools-panel">
+        <button class="main-tab-btn" id="tab-btn-dag" onclick="switchTab('dag')"><span>🕸️ 知識圖譜</span></button>
+        <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')"><span>🪜 七層訓練</span></button>
+        <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')"><span>📊 統計</span></button>
+        <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')"><span>⚡ 速查</span></button>
+      </div>
+    </details>
   </div>
 
   <!-- TAB 1.5: Review Center -->
@@ -2514,6 +2588,11 @@ select:focus {
 
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
+    <section class="practice-home-actions" aria-label="練習首頁主要入口">
+      <button id="home-action-start" type="button" onclick="dailyPracticePrepareNewRound()"><span>▶</span><strong>開始練習</strong><small>選擇考科，建立新的 3 題練習</small></button>
+      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled><span>↩</span><strong>繼續上次</strong><small>接回原題、揭露進度與閱讀位置</small></button>
+      <button id="home-action-find" type="button" onclick="dailyPracticeFindQuestions()"><span>⌕</span><strong>找題</strong><small>依考科、年度、章節或關鍵字搜尋</small></button>
+    </section>
     <div id="daily-practice-container"></div>
   </div>
 
@@ -4923,11 +5002,12 @@ function commitPracticeProgress(session, completedQid, completedAt, options = {}
   }
   const id = completedQid === undefined || completedQid === null ? '' : String(completedQid).trim();
   const timestamp = id ? practiceTimestamp(completedAt) : null;
-  if (id && (!session.questionIds.includes(id) || timestamp === null)) {
-    return { ok: false, error: '完成紀錄必須屬於目前練習，並包含有效時間。' };
-  }
   const loaded = loadDailyPracticeStore(options);
   if (loaded.error) return { ok: false, state: loaded.state, error: loaded.error };
+  const sourceSession = session || loaded.state.activeSession;
+  if (id && (!sourceSession || !sourceSession.questionIds.includes(id) || timestamp === null)) {
+    return { ok: false, error: '完成紀錄必須屬於目前練習，並包含有效時間。' };
+  }
   const next = loaded.state;
   next.activeSession = practiceClone(session);
   if (id) next.completionByQuestion[id] = timestamp;
@@ -6068,9 +6148,13 @@ function renderReviewPage() {
           <button class="btn-star ${isStarred ? 'active' : ''}" type="button" data-review-star="${reviewHtmlEscape(qid)}" title="收藏本題">${starIcon}</button>
         </div>
         <div class="focus-card-topic">${renderQuestionTopic(topic)}</div>
+        <div class="review-recall-cover" data-review-cover="${reviewHtmlEscape(qid)}" aria-label="詳解已蓋牌">
+          <span aria-hidden="true">🎴</span>
+          <div><strong>詳解已蓋牌</strong><small>先自行作答，再依序揭露章節、起手式、公式與完整推導。</small></div>
+        </div>
         <div class="focus-card-actions">
-          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始提取</button>
-          <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">📝 標準詳解</button>
+          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始逐步揭露</button>
+          <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>
           <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
         </div>
       </article>
@@ -8648,6 +8732,14 @@ let dailyPracticeView = 'question';
 let dailyPracticeCategory = null;
 let dailyPracticeSubject = 'all';
 let dailyPracticeState = null;
+let dailyPracticeHomeMode = 'continue';
+let dailyPracticeLastSummary = null;
+
+function dailyPracticeEscape(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
 
 function dailyPracticeQuestions(category) {
   if (category === 'GK') {
@@ -8742,12 +8834,30 @@ function dailyPracticeStart() {
   dailyPracticeCategory = category;
   dailyPracticeSubject = subjectId;
   dailyPracticeView = 'question';
+  dailyPracticeHomeMode = 'continue';
+  dailyPracticeLastSummary = null;
   initDailyPracticeHome();
 }
 
 function dailyPracticeContinue() {
+  dailyPracticeHomeMode = 'continue';
   dailyPracticeView = 'question';
   initDailyPracticeHome();
+}
+
+function dailyPracticePrepareNewRound() {
+  dailyPracticeHomeMode = 'start';
+  dailyPracticeLastSummary = null;
+  if (typeof switchTab === 'function') switchTab('practice');
+  else initDailyPracticeHome();
+  const category = document.getElementById('daily-practice-category');
+  if (category && typeof category.focus === 'function') category.focus();
+}
+
+function dailyPracticeFindQuestions() {
+  if (typeof switchTab === 'function') switchTab('questions');
+  const search = document.getElementById('search-input');
+  if (search && typeof search.focus === 'function') search.focus();
 }
 
 function dailyPracticeStartOver() {
@@ -8755,6 +8865,8 @@ function dailyPracticeStartOver() {
   loaded.state.activeSession = null;
   const result = dailyPracticeSave(loaded.state);
   if (!result.ok) showToast(result.error || '無法清除目前練習。');
+  dailyPracticeHomeMode = 'start';
+  dailyPracticeLastSummary = null;
   initDailyPracticeHome();
 }
 
@@ -8783,22 +8895,34 @@ function dailyPracticeAdvance(completed) {
   if (!session) return;
   const qid = session.questionIds[session.currentIndex];
   if (!qid) return;
-  if (completed && typeof markPracticeQuestionCompleted === 'function') {
-    const result = markPracticeQuestionCompleted(qid, Date.now());
-    if (!result.ok) {
-      showToast(result.error || '本題完成狀態無法儲存。');
-      return;
-    }
-    dailyPracticeState = result.state;
+  const completedAt = Date.now();
+  const nextIndex = session.currentIndex + 1;
+  const isFinished = nextIndex >= session.questionIds.length;
+  const nextSession = isFinished ? null : JSON.parse(JSON.stringify(session));
+  if (nextSession) nextSession.currentIndex = nextIndex;
+  const result = typeof commitPracticeProgress === 'function'
+    ? commitPracticeProgress(nextSession, completed ? qid : null, completedAt)
+    : { ok: false, error: '每日練習進度模組尚未載入。' };
+  if (!result.ok) {
+    showToast(result.error || '本題完成狀態無法儲存。');
+    return;
   }
-  session.currentIndex += 1;
+  dailyPracticeState = result.state;
   dailyPracticeView = 'question';
-  if (session.currentIndex >= session.questionIds.length) {
-    dailyPracticeState.activeSession = null;
-    dailyPracticeSave(dailyPracticeState);
+  if (isFinished) {
+    const startedAt = Date.parse(session.createdAt);
+    const completedCount = session.questionIds.filter(id => {
+      const timestamp = dailyPracticeState.completionByQuestion[id];
+      return Number.isFinite(timestamp) && timestamp >= startedAt;
+    }).length;
+    dailyPracticeLastSummary = {
+      category: session.category,
+      subjectId: session.subjectId,
+      total: session.questionIds.length,
+      completed: completedCount,
+    };
+    dailyPracticeHomeMode = 'summary';
     showToast('🎉 本輪每日練習已完成！');
-  } else {
-    dailyPracticeSave(dailyPracticeState);
   }
   if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
   initDailyPracticeHome();
@@ -8821,12 +8945,24 @@ function renderDailyPractice(container, error) {
     container.innerHTML = '<div class="daily-practice-empty"><h3>每日練習資料暫時無法讀取</h3><p>' + error + '</p><button class="btn-sol" type="button" onclick="dailyPracticeStartOver()">重新開始</button></div>';
     return;
   }
-  if (!session || !question) {
+  if (dailyPracticeLastSummary && dailyPracticeHomeMode === 'summary') {
+    const summary = dailyPracticeLastSummary;
+    container.innerHTML = '<section class="daily-practice-shell daily-practice-summary" aria-live="polite">' +
+      '<span class="eyebrow">本輪完成摘要</span><h2>🎉 完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
+      '<p>' + dailyPracticeEscape(summary.category) + ' · ' + (summary.subjectId === 'all' ? '跨科混合' : dailyPracticeEscape(dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
+      '<div class="daily-practice-actions"><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
+      '<button class="btn-pdf" type="button" onclick="dailyPracticeFindQuestions()">找其他題目</button></div></section>';
+    return;
+  }
+  if (!session || !question || dailyPracticeHomeMode === 'start') {
+    const activeNote = session
+      ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
+      : '';
     container.innerHTML = '<section class="daily-practice-shell">' +
       '<div class="daily-practice-heading"><div><span class="eyebrow">第二階段練習入口</span><h2>🎯 今日練習</h2><p>每輪 3 題，優先分散章節與題型，避開 7 天內已完成的題目。</p></div></div>' +
       '<div class="daily-practice-start-card"><label>考別<select id="daily-practice-category" onchange="dailyPracticeSetCategory(this.value)"><option value="PE">電機工程技師（PE）</option><option value="GK">國考同級題庫（GK）</option></select></label>' +
       '<label>範圍<select id="daily-practice-subject"></select></label><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeStart()">▶ 開始 3 題練習</button></div>' +
-      '<p class="daily-practice-note">開啟題目或查看詳解不會算完成；按下「完成本題」才會進入 7 天避重紀錄。</p></section>';
+      activeNote + '<p class="daily-practice-note">開啟題目或查看詳解不會算完成；按下「完成本題」才會進入 7 天避重紀錄。</p></section>';
     const categorySelect = document.getElementById('daily-practice-category');
     if (categorySelect) categorySelect.value = dailyPracticeCategory;
     dailyPracticeSetCategory(dailyPracticeCategory);
@@ -8842,7 +8978,7 @@ function renderDailyPractice(container, error) {
     '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">📄 原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">📝 詳解</button></div>' +
     '<div class="daily-practice-scroll" onscroll="dailyPracticeScroll(event)" tabindex="0">' +
       (dailyPracticeView === 'question'
-        ? '<div class="daily-practice-question"><span class="qid">' + qid + '</span><h3>' + topic + '</h3><p>先自行列式，再切換到「詳解」核對。</p>' + (sourceLink ? '<a class="btn-pdf" href="' + sourceLink + '" target="_blank" rel="noopener">📄 開啟官方原題</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
+        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span><div class="daily-practice-topic">' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式，再切換到「詳解」核對。</p>' + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton(question)) +
     '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeAdvance(false)">稍後再做</button><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeAdvance(true)">✓ 完成本題並下一題</button></div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
@@ -8852,6 +8988,12 @@ function renderDailyPractice(container, error) {
 function initDailyPracticeHome() {
   const loaded = dailyPracticeLoad();
   dailyPracticeState = loaded.state;
+  const continueButton = document.getElementById('home-action-continue');
+  if (continueButton) {
+    const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
+    continueButton.disabled = !hasSession;
+    continueButton.setAttribute && continueButton.setAttribute('aria-disabled', hasSession ? 'false' : 'true');
+  }
   const container = document.getElementById('daily-practice-container');
   if (container) renderDailyPractice(container, loaded.error);
 }
@@ -9088,6 +9230,11 @@ function focusStudyLayer(action) {
 function switchTab(tabId) {
   document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
+
+  // A tool selected from the compact secondary menu should leave the menu
+  // closed, so the selected pane—not the menu overlay—gets the user's focus.
+  const moreToolsMenu = document.getElementById('more-tools-menu');
+  if (moreToolsMenu) moreToolsMenu.open = false;
 
   const activeBtn = document.getElementById('tab-btn-' + tabId);
   const activePane = document.getElementById('tab-pane-' + tabId);

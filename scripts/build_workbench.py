@@ -55,6 +55,7 @@ def build_workbench():
         'src/state/store.js',
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
+        'src/state/practiceStore.js',
         'src/state/recallStore.js',
         'src/data/manualTopicLabels.js',
         'src/data/scenarioMatrixData.js',
@@ -68,6 +69,7 @@ def build_workbench():
         'src/components/questionList.js',
         'src/components/solutionModal.js',
         'src/components/mockExamTimer.js',
+        'src/components/dailyPractice.js',
         'src/components/topTopics.js',
         'src/main.js'
     ]
@@ -106,11 +108,12 @@ def build_workbench():
     <div class="header-top">
       <div class="title-area">
         <h1>⚡ 電機工程技師 & 公務高考三級 歷屆試題工作台</h1>
-        <p>104 ~ 114 年 6 大考科 · <span id="hero-total-count">479 道試題</span> · 100% 步驟推導 · 5 大維度難度評級 · 離線極速載入</p>
+        <p>104 ~ 114 年 6 大考科 · <span id="hero-total-count">482 道題目記錄</span> · 逐題來源可追溯 · 5 大維度難度評級 · 離線使用</p>
       </div>
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
         <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
+        <button onclick="switchTab('practice')" class="pill" title="開始或繼續每日練習">🎯 今日練習</button>
         <button onclick="switchTab('quicksheet')" class="pill" style="background: var(--accent-light); color: var(--accent-dark); font-weight: 700;">
           ⚡ 考前 30 分鐘急救包
         </button>
@@ -177,7 +180,10 @@ def build_workbench():
 
   <!-- Main Navigation Tabs -->
   <div class="main-tabs">
-    <button class="main-tab-btn active" id="tab-btn-questions" onclick="switchTab('questions')">
+    <button class="main-tab-btn active" id="tab-btn-practice" onclick="switchTab('practice')">
+      <span>🎯 今日練習</span>
+    </button>
+    <button class="main-tab-btn" id="tab-btn-questions" onclick="switchTab('questions')">
       <span>📚 歷屆真題雙欄刷題庫</span>
     </button>
     <button class="main-tab-btn" id="tab-btn-review" onclick="switchTab('review')">
@@ -243,8 +249,13 @@ def build_workbench():
     </div>
   </div>
 
+  <!-- TAB 0: Daily Practice -->
+  <div class="tab-pane" id="tab-pane-practice" style="display: block;">
+    <div id="daily-practice-container"></div>
+  </div>
+
   <!-- TAB 1: Questions Explorer -->
-  <div class="tab-pane" id="tab-pane-questions" style="display: block;">
+  <div class="tab-pane" id="tab-pane-questions" style="display: none;">
     <!-- Filter Bar -->
     <div class="filter-bar">
       <div class="search-box">

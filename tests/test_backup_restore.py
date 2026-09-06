@@ -30,6 +30,7 @@ for (const file of [
   'dashboard-data.js',
   'national-exams-data.js',
   'src/data/knowledge-dag.js',
+  'src/state/practiceStore.js',
   'src/state/sm2Store.js',
 ]) {
   vm.runInContext(fs.readFileSync(file, 'utf8'), ctx, { filename: file });
@@ -71,6 +72,33 @@ process.stdout.write(JSON.stringify(result));
             "manualTopicLabels": {"EE-pe": {"chapterId": "ct-ohm-kcl-kvl", "source": "user", "updatedAt": "2026-09-01T00:00:00.000Z"}},
         }
 
+    def payload_v21(self):
+        payload = self.payload()
+        payload["version"] = "2.1.0"
+        payload["dailyPractice"] = {
+            "version": 1,
+            "completionByQuestion": {"EE-pe": 1788278400000},
+            "activeSession": {
+                "category": "PE",
+                "subjectId": "01",
+                "questionIds": ["EE-pe"],
+                "currentIndex": 0,
+                "revealedByQuestion": {"EE-pe": True},
+                "scrollByQuestion": {"EE-pe": {"question": 120, "solution": 45}},
+                "createdAt": "2026-09-01T00:00:00.000Z",
+            },
+        }
+        payload["mockExamTimer"] = {
+            "seconds": 6500,
+            "deadline": 1788284900000,
+            "running": True,
+            "completed": False,
+            "warningShown": False,
+            "examKey": "PE:01:114",
+            "savedAt": 1788278400000,
+        }
+        return payload
+
     def test_export_contains_both_categories_and_shared_learning_state(self):
         result = self.run_js(
             "(() => { progressState={ 'EE-pe':1 }; starredState={ 'EE-pe':true }; "
@@ -81,9 +109,11 @@ process.stdout.write(JSON.stringify(result));
             "sm2Schedule={'EE-pe':{repetitions:1,interval:4,easeFactor:2.7,lastReviewed:'2026-09-01',nextReviewDate:'2026-09-05'}}; "
             "recallState={'EE-pe':{level:2,streak:1,attempts:2,lastAchieved:2,lastErrorType:'公式忘記',lastReviewed:'2026-09-01'}}; "
             "getManualTopicLabels=()=>({'EE-pe':{chapterId:'ct-ohm-kcl-kvl',source:'user'}}); "
-            "const data=JSON.parse(exportAllUserDataJSON()); return {version:data.version, pe:data.progressByCategory.PE, gk:data.progressByCategory.GK, starred:data.starredByCategory, schedule:Object.keys(data.sm2Schedule), recall:Object.keys(data.recallState), labels:Object.keys(data.manualTopicLabels), legacy:data.progressState}; })()"
+            "localStorage.setItem(DAILY_PRACTICE_STORAGE_KEY, JSON.stringify({version:1,completionByQuestion:{'EE-pe':1788278400000},activeSession:null})); "
+            "localStorage.setItem('EE_MOCK_EXAM_TIMER_V1', JSON.stringify({seconds:6500,deadline:1788284900000,running:true,completed:false,warningShown:false,examKey:'PE:01:114',savedAt:1788278400000})); "
+            "const data=JSON.parse(exportAllUserDataJSON()); return {version:data.version, pe:data.progressByCategory.PE, gk:data.progressByCategory.GK, starred:data.starredByCategory, schedule:Object.keys(data.sm2Schedule), recall:Object.keys(data.recallState), labels:Object.keys(data.manualTopicLabels), legacy:data.progressState, practice:data.dailyPractice, timer:data.mockExamTimer}; })()"
         )
-        self.assertEqual(result["version"], "2.0.0")
+        self.assertEqual(result["version"], "2.1.0")
         self.assertEqual(result["pe"], {"EE-pe": 1})
         self.assertEqual(result["gk"], {"GK-gk": 2})
         self.assertEqual(result["starred"]["PE"], {"EE-pe": True})
@@ -92,6 +122,49 @@ process.stdout.write(JSON.stringify(result));
         self.assertEqual(result["recall"], ["EE-pe"])
         self.assertEqual(result["labels"], ["EE-pe"])
         self.assertEqual(result["legacy"], {"EE-pe": 1})
+        self.assertEqual(result["practice"]["completionByQuestion"], {"EE-pe": 1788278400000})
+        self.assertEqual(result["timer"]["examKey"], "PE:01:114")
+
+    def test_v21_restore_includes_practice_and_timer_atomically(self):
+        payload = self.payload_v21()
+        options = self.options()
+        expression = (
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "
+            "const result=applyUserDataBackup(payload,'replace',options); "
+            "return {result,practice:JSON.parse(localStorage.getItem(DAILY_PRACTICE_STORAGE_KEY)),timer:JSON.parse(localStorage.getItem('EE_MOCK_EXAM_TIMER_V1'))}; })()"
+        )
+        result = self.run_js(expression)
+        self.assertTrue(result["result"]["success"])
+        self.assertEqual(result["practice"]["activeSession"]["questionIds"], ["EE-pe"])
+        self.assertEqual(result["practice"]["activeSession"]["scrollByQuestion"]["EE-pe"]["question"], 120)
+        self.assertTrue(result["timer"]["running"])
+        self.assertEqual(result["timer"]["seconds"], 6500)
+
+    def test_v20_replace_preserves_newer_local_session_data(self):
+        payload = self.payload()
+        options = self.options()
+        expression = (
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "
+            "const practice={version:1,completionByQuestion:{'EE-pe-2':1788278400000},activeSession:null}; "
+            "const timer={seconds:7000,deadline:null,running:false,completed:false,warningShown:false,examKey:'PE:02:113',savedAt:1788278400000}; "
+            "localStorage.setItem(DAILY_PRACTICE_STORAGE_KEY,JSON.stringify(practice)); localStorage.setItem('EE_MOCK_EXAM_TIMER_V1',JSON.stringify(timer)); "
+            "const result=applyUserDataBackup(payload,'replace',options); return {result,practice:JSON.parse(localStorage.getItem(DAILY_PRACTICE_STORAGE_KEY)),timer:JSON.parse(localStorage.getItem('EE_MOCK_EXAM_TIMER_V1'))}; })()"
+        )
+        result = self.run_js(expression)
+        self.assertTrue(result["result"]["success"])
+        self.assertEqual(result["practice"]["completionByQuestion"], {"EE-pe-2": 1788278400000})
+        self.assertEqual(result["timer"]["examKey"], "PE:02:113")
+
+    def test_invalid_v21_session_or_timer_is_rejected_before_writes(self):
+        options = self.options()
+        base = self.payload_v21()
+        expression = (
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const base=" + json.dumps(base, ensure_ascii=False) + "; "
+            "localStorage.setItem(DAILY_PRACTICE_STORAGE_KEY,'sentinel'); const cases=[]; "
+            "for (const mutate of [d=>d.dailyPractice.activeSession.questionIds=['EE-unknown'],d=>d.mockExamTimer.seconds=-1,d=>{d.mockExamTimer.running=true;d.mockExamTimer.deadline=null;}]) { const bad=JSON.parse(JSON.stringify(base)); mutate(bad); const res=applyUserDataBackup(bad,'replace',options); cases.push({success:res.success,stored:localStorage.getItem(DAILY_PRACTICE_STORAGE_KEY)}); } return cases; })()"
+        )
+        result = self.run_js(expression)
+        self.assertTrue(all(not item["success"] and item["stored"] == "sentinel" for item in result))
 
     def test_invalid_backup_is_rejected_before_any_storage_or_memory_change(self):
         payload = self.payload()
@@ -142,6 +215,21 @@ process.stdout.write(JSON.stringify(result));
         self.assertFalse(result["success"])
         self.assertEqual(result["before"], result["after"])
         self.assertEqual(result["memory"], 1)
+
+    def test_v21_timer_write_failure_rolls_back_practice_and_existing_data(self):
+        payload = self.payload_v21()
+        options = self.options()
+        expression = (
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "
+            "const keys=['EE_EXAM_PROGRESS_V1','EE_EXAM_DAILY_PRACTICE_V1','EE_MOCK_EXAM_TIMER_V1']; "
+            "localStorage.setItem(keys[0],JSON.stringify({'EE-pe':2})); localStorage.setItem(keys[1],JSON.stringify({version:1,completionByQuestion:{},activeSession:null})); localStorage.setItem(keys[2],JSON.stringify({seconds:7200,deadline:null,running:false,completed:false,warningShown:false,examKey:null,savedAt:1})); "
+            "const before=Object.fromEntries(keys.map(key=>[key,localStorage.getItem(key)])); const original=localStorage.setItem; "
+            "localStorage.setItem=(key,value)=>{if(key==='EE_MOCK_EXAM_TIMER_V1') throw new Error('timer failure'); original(key,value);}; "
+            "const result=applyUserDataBackup(payload,'replace',options); const after=Object.fromEntries(keys.map(key=>[key,localStorage.getItem(key)])); return {result,before,after}; })()"
+        )
+        result = self.run_js(expression)
+        self.assertFalse(result["result"]["success"])
+        self.assertEqual(result["before"], result["after"])
 
     def test_metadata_write_failure_rolls_back_learning_writes(self):
         payload = self.payload()

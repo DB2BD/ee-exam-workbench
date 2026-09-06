@@ -23,7 +23,7 @@ function updateQuestionCountLabels() {
   const statsTotalLabel = document.getElementById('stats-total-count');
   if (peLabel) peLabel.innerText = `${peCount} 題 · 66 卷`;
   if (gkLabel) gkLabel.innerText = `${gkCount} 題 · 25 卷`;
-  if (totalLabel) totalLabel.innerText = `${total} 道試題`;
+  if (totalLabel) totalLabel.innerText = `${total} 道題目記錄`;
   if (statsTotalLabel) statsTotalLabel.innerText = total;
   return total;
 }

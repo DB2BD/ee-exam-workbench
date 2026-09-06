@@ -341,17 +341,37 @@ function getReviewTypeLabel(q) {
   return '待人工複核';
 }
 
+function getReviewQuestionsForScope(questions, options = {}) {
+  const due = new Set(options.dueIds || []);
+  const selectedSubject = options.subjectId || 'all';
+  const selectedType = options.typeFilter || 'all';
+  const scope = options.reviewFilter || reviewFilter;
+  return (questions || []).filter(q => {
+    const record = getReviewRecord(q);
+    const qid = record.id;
+    const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
+    const starred = typeof starredState !== 'undefined' && !!starredState[qid];
+    const inScope = scope === 'due' ? due.has(qid)
+      : scope === 'wrong' ? status === 2
+      : scope === 'starred' ? starred
+      : scope === 'manual' ? isManualReviewQuestion(q)
+      : true;
+    return inScope
+      && (selectedSubject === 'all' || record.subjectId === selectedSubject)
+      && (selectedType === 'all' || getReviewTypeLabel(q) === selectedType);
+  });
+}
+
 function getReviewQuestions() {
   const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
   const due = new Set(typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
   const subject = document.getElementById('review-subject');
   const subjectFilter = subject ? subject.value : 'all';
-  return questions.filter(q => {
-    const qid = getReviewRecord(q).id;
-    const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
-    const starred = typeof starredState !== 'undefined' && !!starredState[qid];
-    const inScope = reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? starred : reviewFilter === 'manual' ? isManualReviewQuestion(q) : true;
-    return inScope && (subjectFilter === 'all' || getReviewRecord(q).subjectId === subjectFilter) && (reviewTypeFilter === 'all' || getReviewTypeLabel(q) === reviewTypeFilter);
+  return getReviewQuestionsForScope(questions, {
+    dueIds: [...due],
+    subjectId: subjectFilter,
+    typeFilter: reviewTypeFilter,
+    reviewFilter,
   });
 }
 
@@ -550,6 +570,9 @@ var currentReviewSessionQueue = currentReviewSessionQueue || [];
 var currentReviewSessionIndex = currentReviewSessionIndex || 0;
 
 function startReviewSession() {
+  // A full due-review round always uses the same subject scope shown on the
+  // entry card; a stale chapter chip must not silently shrink the queue.
+  reviewTypeFilter = 'all';
   setReviewFilter('due');
   const questions = getReviewQuestions();
   if (!questions.length) {
@@ -561,9 +584,14 @@ function startReviewSession() {
   openReviewSessionItem(0);
 }
 
+function getReviewSessionCompletionMessage(queue) {
+  const count = Array.isArray(queue) ? queue.length : 0;
+  return `🎉 今日到期複習 ${count} 題已全數完成！`;
+}
+
 function openReviewSessionItem(index) {
   if (!currentReviewSessionQueue || index < 0 || index >= currentReviewSessionQueue.length) {
-    if (typeof showToast === 'function') showToast('🎉 今日到期複習任務已全數完成！');
+    if (typeof showToast === 'function') showToast(getReviewSessionCompletionMessage(currentReviewSessionQueue));
     renderReviewPage();
     return;
   }
@@ -582,7 +610,7 @@ function advanceReviewSessionItem() {
   if (currentReviewSessionQueue && currentReviewSessionIndex + 1 < currentReviewSessionQueue.length) {
     openReviewSessionItem(currentReviewSessionIndex + 1);
   } else {
-    if (typeof showToast === 'function') showToast('🎉 今日複習任務全數完成！');
+    if (typeof showToast === 'function') showToast(getReviewSessionCompletionMessage(currentReviewSessionQueue));
     if (typeof closeSolutionModal === 'function') closeSolutionModal();
     renderReviewPage();
   }
@@ -605,7 +633,14 @@ function renderReviewPage() {
   const totalSubject = subjectQuestions.length;
   const masteredCount = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[getReviewRecord(q).id] || 0) === 1).length;
   const retentionRate = totalSubject > 0 ? Math.round((masteredCount / totalSubject) * 100) : 0;
-  const dueCount = subjectQuestions.filter(q => due.has(getReviewRecord(q).id)).length;
+  const dueCount = getReviewQuestionsForScope(questions, {
+    reviewFilter: 'due',
+    dueIds: [...due],
+    subjectId: subjectFilter,
+    typeFilter: 'all',
+  }).length;
+  const scheduledCount = subjectQuestions.filter(q => typeof sm2Schedule !== 'undefined'
+    && !!sm2Schedule[getReviewRecord(q).id]).length;
 
   // 1. Progress Ring Dashboard
   const progressCard = document.getElementById('review-progress-card');
@@ -624,7 +659,7 @@ function renderReviewPage() {
         </div>
       </div>
       <div class="progress-health-label">
-        ${dueCount > 0 ? `<span>⚡ 今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">🌿 今日到期已全通關</span>'}
+        ${dueCount > 0 ? `<span>⚡ 今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">🌿 今日沒有到期題</span>'}
       </div>
     `;
   }
@@ -687,11 +722,15 @@ function renderReviewPage() {
   // 4. Empty State
   if (!filtered.length) {
     if (reviewFilter === 'due') {
+      const emptyTitle = scheduledCount === 0 ? '尚未建立複習排程' : '今日沒有到期題';
+      const emptyDescription = scheduledCount === 0
+        ? '完成一次主動回想並評分後，系統才會建立下一次複習日期。也可先從錯題本或全部題目開始。'
+        : '目前排程今天無需複習；你仍可從錯題本、收藏或全部題目自主練習。';
       container.innerHTML = `
         <div class="review-empty-calm">
           <span class="calm-icon">🌿</span>
-          <h3>今日複習目標已達成</h3>
-          <p>艾賓浩斯間隔重複節奏運作中，今日記憶已穩固固化。可點擊上方「🔥 需二刷錯題」或「📚 全部收錄」專題突破，亦可稍作休息放鬆大腦。</p>
+          <h3>${emptyTitle}</h3>
+          <p>${emptyDescription}</p>
         </div>
       `;
     } else {

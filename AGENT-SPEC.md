@@ -16,13 +16,21 @@
 每筆是 12 欄陣列，由 `src/domain/questionRecord.js` 轉為命名檢視。欄位順序為：
 
 ```text
-[id, subjectId, year, questionNum, stem, tags, difficulty,
- solutionLink, pdfLink, vstatus, hasDedicated, topic]
+[id, subjectId, year, questionNum, stem, tags,
+ solutionLink, sourceLink, difficulty, solutionStatus,
+ formulaTags, hasDedicatedSolution]
 ```
 
 ### GK `national-exams-data.js`
 
-每筆是 18 欄陣列，額外攜帶 GK 的年份／考試分類、來源頁、裁切圖、解答關聯與 provenance。不要直接在 UI 中以數字索引讀取；優先使用 `src/domain/questionRecord.js` 的 PE 命名轉換、GK 編譯器的欄位註解與測試契約。
+每筆是 18 欄陣列；前 12 欄與 PE 相同，後 6 欄依序為：
+
+```text
+[categoryId, relatedPEId, questionCrop, figureCrops,
+ sourcePages, sourcePdfSha256]
+```
+
+不要直接在 UI 中以數字索引讀取；優先使用 `src/domain/questionRecord.js` 的命名轉換、編譯器欄位註解與測試契約。
 
 生成 bundle 的來源與編譯器：
 

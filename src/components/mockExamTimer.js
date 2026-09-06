@@ -3,13 +3,21 @@
  * 120-Minute Full Mock Exam System & Countdown Timer.
  */
 
-let examTimerSeconds = 120 * 60;
+const MOCK_EXAM_TIMER_DURATION_SECONDS = 120 * 60;
+const MOCK_EXAM_TIMER_STORAGE_KEY = 'EE_MOCK_EXAM_TIMER_V1';
+
+let examTimerSeconds = MOCK_EXAM_TIMER_DURATION_SECONDS;
 let examTimerInterval = null;
 let examTimerRunning = false;
+let examTimerDeadlineMs = null;
+let examTimerCompleted = false;
+let examTimerWarningShown = false;
+let examTimerExamKey = null;
 
 function formatTime(secs) {
-  const m = Math.floor(secs / 60);
-  const s = secs % 60;
+  const safeSecs = Math.max(0, Math.floor(Number(secs) || 0));
+  const m = Math.floor(safeSecs / 60);
+  const s = safeSecs % 60;
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
@@ -18,51 +26,170 @@ function updateTimerDisplay() {
   if (el) el.innerText = formatTime(examTimerSeconds);
 }
 
-function startExamTimer() {
-  if (examTimerRunning) return;
-  examTimerRunning = true;
+function getMockExamTimerStorage() {
+  return typeof localStorage === 'undefined' ? null : localStorage;
+}
+
+function persistMockExamTimerState() {
+  const storage = getMockExamTimerStorage();
+  if (!storage) return;
+  try {
+    storage.setItem(MOCK_EXAM_TIMER_STORAGE_KEY, JSON.stringify({
+      seconds: examTimerSeconds,
+      deadline: examTimerDeadlineMs,
+      running: examTimerRunning,
+      completed: examTimerCompleted,
+      warningShown: examTimerWarningShown,
+      examKey: examTimerExamKey,
+      savedAt: Date.now(),
+    }));
+  } catch (_) {
+    // 私密瀏覽或儲存空間不足時，計時仍可在目前頁面繼續。
+  }
+}
+
+function setExamTimerToggleButton() {
   const toggleBtn = document.getElementById('btn-timer-toggle');
   if (toggleBtn) {
-    toggleBtn.innerText = '⏸️ 暫停計時';
-    toggleBtn.className = 'btn-timer pause';
-    toggleBtn.onclick = pauseExamTimer;
-  }
-  examTimerInterval = setInterval(() => {
-    if (examTimerSeconds > 0) {
-      examTimerSeconds--;
-      updateTimerDisplay();
-      if (examTimerSeconds === 300) {
-        showToast('⚠️ 提醒：距離考試結束僅剩 5 分鐘！請準備收卷核算。');
-      }
+    if (examTimerCompleted) {
+      toggleBtn.innerText = '⏰ 時間已到';
+      toggleBtn.className = 'btn-timer reset';
+      toggleBtn.onclick = null;
+    } else if (examTimerRunning) {
+      toggleBtn.innerText = '⏸️ 暫停計時';
+      toggleBtn.className = 'btn-timer pause';
+      toggleBtn.onclick = pauseExamTimer;
     } else {
-      clearInterval(examTimerInterval);
-      examTimerRunning = false;
-      showToast('⏰ 考試時間結束！請停止作答。');
+      toggleBtn.innerText = examTimerSeconds === MOCK_EXAM_TIMER_DURATION_SECONDS ? '▶️ 開始計時' : '▶️ 繼續計時';
+      toggleBtn.className = 'btn-timer start';
+      toggleBtn.onclick = startExamTimer;
     }
-  }, 1000);
-}
-
-function pauseExamTimer() {
-  if (!examTimerRunning) return;
-  clearInterval(examTimerInterval);
-  examTimerRunning = false;
-  const toggleBtn = document.getElementById('btn-timer-toggle');
-  if (toggleBtn) {
-    toggleBtn.innerText = '▶️ 繼續計時';
-    toggleBtn.className = 'btn-timer start';
-    toggleBtn.onclick = startExamTimer;
   }
 }
 
-function resetExamTimer() {
-  pauseExamTimer();
-  examTimerSeconds = 120 * 60;
+function scheduleExamTimerInterval() {
+  if (examTimerInterval !== null) clearInterval(examTimerInterval);
+  examTimerInterval = setInterval(() => updateExamTimerFromClock(), 1000);
+}
+
+function completeExamTimer() {
+  if (examTimerCompleted) return;
+  examTimerSeconds = 0;
+  examTimerDeadlineMs = null;
+  examTimerRunning = false;
+  examTimerCompleted = true;
+  clearInterval(examTimerInterval);
+  examTimerInterval = null;
   updateTimerDisplay();
-  const toggleBtn = document.getElementById('btn-timer-toggle');
-  if (toggleBtn) {
-    toggleBtn.innerText = '▶️ 開始計時';
-    toggleBtn.className = 'btn-timer start';
-    toggleBtn.onclick = startExamTimer;
+  persistMockExamTimerState();
+  setExamTimerToggleButton();
+  showToast('⏰ 考試時間結束！請停止作答。');
+}
+
+function updateExamTimerFromClock(now = Date.now()) {
+  if (!examTimerRunning || examTimerDeadlineMs === null) return examTimerSeconds;
+  examTimerSeconds = Math.max(0, Math.ceil((examTimerDeadlineMs - now) / 1000));
+  updateTimerDisplay();
+  if (examTimerSeconds <= 0) {
+    completeExamTimer();
+    return examTimerSeconds;
+  }
+  if (examTimerSeconds <= 300 && !examTimerWarningShown) {
+    examTimerWarningShown = true;
+    showToast('⚠️ 提醒：距離考試結束僅剩 5 分鐘！請準備收卷核算。');
+  }
+  persistMockExamTimerState();
+  return examTimerSeconds;
+}
+
+function startExamTimer(now = Date.now()) {
+  if (examTimerCompleted || examTimerSeconds <= 0) return;
+  if (!examTimerRunning || examTimerInterval === null) {
+    if (examTimerDeadlineMs === null || examTimerDeadlineMs <= now) {
+      examTimerDeadlineMs = now + examTimerSeconds * 1000;
+    }
+    examTimerRunning = true;
+    persistMockExamTimerState();
+    setExamTimerToggleButton();
+    scheduleExamTimerInterval();
+  }
+}
+
+function pauseExamTimer(now = Date.now()) {
+  if (!examTimerRunning) return;
+  updateExamTimerFromClock(now);
+  if (examTimerCompleted) return;
+  clearInterval(examTimerInterval);
+  examTimerInterval = null;
+  examTimerRunning = false;
+  examTimerDeadlineMs = null;
+  persistMockExamTimerState();
+  setExamTimerToggleButton();
+}
+
+function resetExamTimer(examKey = null) {
+  if (examTimerInterval !== null) clearInterval(examTimerInterval);
+  examTimerInterval = null;
+  examTimerSeconds = MOCK_EXAM_TIMER_DURATION_SECONDS;
+  examTimerDeadlineMs = null;
+  examTimerRunning = false;
+  examTimerCompleted = false;
+  examTimerWarningShown = false;
+  examTimerExamKey = examKey;
+  updateTimerDisplay();
+  persistMockExamTimerState();
+  setExamTimerToggleButton();
+}
+
+function getMockExamTimerState() {
+  return {
+    seconds: examTimerSeconds,
+    deadline: examTimerDeadlineMs,
+    running: examTimerRunning,
+    completed: examTimerCompleted,
+    examKey: examTimerExamKey,
+  };
+}
+
+function loadMockExamTimerState(now = Date.now()) {
+  const storage = getMockExamTimerStorage();
+  if (!storage) {
+    updateTimerDisplay();
+    setExamTimerToggleButton();
+    return false;
+  }
+  let saved;
+  try {
+    const raw = storage.getItem(MOCK_EXAM_TIMER_STORAGE_KEY);
+    saved = raw ? JSON.parse(raw) : null;
+  } catch (_) {
+    saved = null;
+  }
+  if (!saved || !Number.isFinite(Number(saved.seconds))) {
+    updateTimerDisplay();
+    setExamTimerToggleButton();
+    return false;
+  }
+
+  examTimerSeconds = Math.max(0, Math.min(MOCK_EXAM_TIMER_DURATION_SECONDS, Math.floor(Number(saved.seconds))));
+  examTimerDeadlineMs = Number.isFinite(Number(saved.deadline)) ? Number(saved.deadline) : null;
+  examTimerCompleted = Boolean(saved.completed) || examTimerSeconds === 0;
+  examTimerWarningShown = Boolean(saved.warningShown);
+  examTimerExamKey = saved.examKey || null;
+  examTimerRunning = !examTimerCompleted && Boolean(saved.running) && examTimerDeadlineMs !== null;
+  if (examTimerRunning) updateExamTimerFromClock(now);
+  updateTimerDisplay();
+  setExamTimerToggleButton();
+  if (examTimerRunning && !examTimerCompleted) scheduleExamTimerInterval();
+  return true;
+}
+
+function prepareExamTimerForExam(examKey) {
+  if (examTimerExamKey !== examKey) {
+    resetExamTimer(examKey);
+  } else {
+    updateTimerDisplay();
+    setExamTimerToggleButton();
   }
 }
 
@@ -114,6 +241,9 @@ function loadMockExam() {
       }).join('')}
     </div>
   `;
-  resetExamTimer();
+  const category = typeof currentExamCategory === 'undefined' ? 'PE' : currentExamCategory;
+  prepareExamTimerForExam(`${category}:${sid}:${yr}`);
   showToast('📑 模考試卷已載入，準備好後點擊開始計時！');
 }
+
+loadMockExamTimerState();

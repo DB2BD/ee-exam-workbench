@@ -105,9 +105,9 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   currentSubQuestionIdx = 0;
   currentRecallAchievedLevel = 0;
   currentRecallErrorType = null;
-  if (activeRecall) {
-    isActiveRecallMode = true;
-  }
+  // Each entry point owns the mode for the question it opens.  Do not let a
+  // previous recall session leak into ordinary or mock-exam solution views.
+  isActiveRecallMode = Boolean(activeRecall);
 
   if (options && options.sessionQueue) {
     currentReviewSessionQueue = options.sessionQueue;
@@ -607,6 +607,15 @@ function switchSubQuestion(idx) {
 
 let isActiveRecallMode = false;
 
+function getSolutionModalTransientState() {
+  return {
+    qid: currentModalQid,
+    activeRecall: isActiveRecallMode,
+    sessionLength: currentReviewSessionQueue ? currentReviewSessionQueue.length : 0,
+    sessionIndex: currentReviewSessionIndex,
+  };
+}
+
 function syncActiveRecallButtonState() {
   const btns = [document.getElementById('btn-active-recall'), document.getElementById('btn-modal-active-recall')];
   btns.forEach(btn => {
@@ -852,6 +861,20 @@ function closeModal() {
   if (modal) modal.classList.remove('show');
   document.body.style.overflow = '';
   currentModalQid = null;
+  currentModalSolLink = null;
+  currentModalQNum = null;
+  currentModalFullView = false;
+  currentSubQuestionIdx = 0;
+  currentRecallAchievedLevel = 0;
+  currentRecallErrorType = null;
+  isActiveRecallMode = false;
+  currentReviewSessionQueue = null;
+  currentReviewSessionIndex = 0;
+  modalHistoryStack = [];
+}
+
+function closeSolutionModal() {
+  closeModal();
 }
 
 function updateModalStatusButtons(qid) {

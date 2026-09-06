@@ -7,6 +7,11 @@ function switchTab(tabId) {
   document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
 
+  // A tool selected from the compact secondary menu should leave the menu
+  // closed, so the selected pane—not the menu overlay—gets the user's focus.
+  const moreToolsMenu = document.getElementById('more-tools-menu');
+  if (moreToolsMenu) moreToolsMenu.open = false;
+
   const activeBtn = document.getElementById('tab-btn-' + tabId);
   const activePane = document.getElementById('tab-pane-' + tabId);
 

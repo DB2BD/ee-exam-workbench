@@ -5,6 +5,14 @@ let dailyPracticeView = 'question';
 let dailyPracticeCategory = null;
 let dailyPracticeSubject = 'all';
 let dailyPracticeState = null;
+let dailyPracticeHomeMode = 'continue';
+let dailyPracticeLastSummary = null;
+
+function dailyPracticeEscape(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
 
 function dailyPracticeQuestions(category) {
   if (category === 'GK') {
@@ -99,12 +107,30 @@ function dailyPracticeStart() {
   dailyPracticeCategory = category;
   dailyPracticeSubject = subjectId;
   dailyPracticeView = 'question';
+  dailyPracticeHomeMode = 'continue';
+  dailyPracticeLastSummary = null;
   initDailyPracticeHome();
 }
 
 function dailyPracticeContinue() {
+  dailyPracticeHomeMode = 'continue';
   dailyPracticeView = 'question';
   initDailyPracticeHome();
+}
+
+function dailyPracticePrepareNewRound() {
+  dailyPracticeHomeMode = 'start';
+  dailyPracticeLastSummary = null;
+  if (typeof switchTab === 'function') switchTab('practice');
+  else initDailyPracticeHome();
+  const category = document.getElementById('daily-practice-category');
+  if (category && typeof category.focus === 'function') category.focus();
+}
+
+function dailyPracticeFindQuestions() {
+  if (typeof switchTab === 'function') switchTab('questions');
+  const search = document.getElementById('search-input');
+  if (search && typeof search.focus === 'function') search.focus();
 }
 
 function dailyPracticeStartOver() {
@@ -112,6 +138,8 @@ function dailyPracticeStartOver() {
   loaded.state.activeSession = null;
   const result = dailyPracticeSave(loaded.state);
   if (!result.ok) showToast(result.error || '無法清除目前練習。');
+  dailyPracticeHomeMode = 'start';
+  dailyPracticeLastSummary = null;
   initDailyPracticeHome();
 }
 
@@ -140,22 +168,34 @@ function dailyPracticeAdvance(completed) {
   if (!session) return;
   const qid = session.questionIds[session.currentIndex];
   if (!qid) return;
-  if (completed && typeof markPracticeQuestionCompleted === 'function') {
-    const result = markPracticeQuestionCompleted(qid, Date.now());
-    if (!result.ok) {
-      showToast(result.error || '本題完成狀態無法儲存。');
-      return;
-    }
-    dailyPracticeState = result.state;
+  const completedAt = Date.now();
+  const nextIndex = session.currentIndex + 1;
+  const isFinished = nextIndex >= session.questionIds.length;
+  const nextSession = isFinished ? null : JSON.parse(JSON.stringify(session));
+  if (nextSession) nextSession.currentIndex = nextIndex;
+  const result = typeof commitPracticeProgress === 'function'
+    ? commitPracticeProgress(nextSession, completed ? qid : null, completedAt)
+    : { ok: false, error: '每日練習進度模組尚未載入。' };
+  if (!result.ok) {
+    showToast(result.error || '本題完成狀態無法儲存。');
+    return;
   }
-  session.currentIndex += 1;
+  dailyPracticeState = result.state;
   dailyPracticeView = 'question';
-  if (session.currentIndex >= session.questionIds.length) {
-    dailyPracticeState.activeSession = null;
-    dailyPracticeSave(dailyPracticeState);
+  if (isFinished) {
+    const startedAt = Date.parse(session.createdAt);
+    const completedCount = session.questionIds.filter(id => {
+      const timestamp = dailyPracticeState.completionByQuestion[id];
+      return Number.isFinite(timestamp) && timestamp >= startedAt;
+    }).length;
+    dailyPracticeLastSummary = {
+      category: session.category,
+      subjectId: session.subjectId,
+      total: session.questionIds.length,
+      completed: completedCount,
+    };
+    dailyPracticeHomeMode = 'summary';
     showToast('🎉 本輪每日練習已完成！');
-  } else {
-    dailyPracticeSave(dailyPracticeState);
   }
   if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
   initDailyPracticeHome();
@@ -178,12 +218,24 @@ function renderDailyPractice(container, error) {
     container.innerHTML = '<div class="daily-practice-empty"><h3>每日練習資料暫時無法讀取</h3><p>' + error + '</p><button class="btn-sol" type="button" onclick="dailyPracticeStartOver()">重新開始</button></div>';
     return;
   }
-  if (!session || !question) {
+  if (dailyPracticeLastSummary && dailyPracticeHomeMode === 'summary') {
+    const summary = dailyPracticeLastSummary;
+    container.innerHTML = '<section class="daily-practice-shell daily-practice-summary" aria-live="polite">' +
+      '<span class="eyebrow">本輪完成摘要</span><h2>🎉 完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
+      '<p>' + dailyPracticeEscape(summary.category) + ' · ' + (summary.subjectId === 'all' ? '跨科混合' : dailyPracticeEscape(dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
+      '<div class="daily-practice-actions"><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
+      '<button class="btn-pdf" type="button" onclick="dailyPracticeFindQuestions()">找其他題目</button></div></section>';
+    return;
+  }
+  if (!session || !question || dailyPracticeHomeMode === 'start') {
+    const activeNote = session
+      ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
+      : '';
     container.innerHTML = '<section class="daily-practice-shell">' +
       '<div class="daily-practice-heading"><div><span class="eyebrow">第二階段練習入口</span><h2>🎯 今日練習</h2><p>每輪 3 題，優先分散章節與題型，避開 7 天內已完成的題目。</p></div></div>' +
       '<div class="daily-practice-start-card"><label>考別<select id="daily-practice-category" onchange="dailyPracticeSetCategory(this.value)"><option value="PE">電機工程技師（PE）</option><option value="GK">國考同級題庫（GK）</option></select></label>' +
       '<label>範圍<select id="daily-practice-subject"></select></label><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeStart()">▶ 開始 3 題練習</button></div>' +
-      '<p class="daily-practice-note">開啟題目或查看詳解不會算完成；按下「完成本題」才會進入 7 天避重紀錄。</p></section>';
+      activeNote + '<p class="daily-practice-note">開啟題目或查看詳解不會算完成；按下「完成本題」才會進入 7 天避重紀錄。</p></section>';
     const categorySelect = document.getElementById('daily-practice-category');
     if (categorySelect) categorySelect.value = dailyPracticeCategory;
     dailyPracticeSetCategory(dailyPracticeCategory);
@@ -199,7 +251,7 @@ function renderDailyPractice(container, error) {
     '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">📄 原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">📝 詳解</button></div>' +
     '<div class="daily-practice-scroll" onscroll="dailyPracticeScroll(event)" tabindex="0">' +
       (dailyPracticeView === 'question'
-        ? '<div class="daily-practice-question"><span class="qid">' + qid + '</span><h3>' + topic + '</h3><p>先自行列式，再切換到「詳解」核對。</p>' + (sourceLink ? '<a class="btn-pdf" href="' + sourceLink + '" target="_blank" rel="noopener">📄 開啟官方原題</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
+        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span><div class="daily-practice-topic">' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式，再切換到「詳解」核對。</p>' + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton(question)) +
     '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeAdvance(false)">稍後再做</button><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeAdvance(true)">✓ 完成本題並下一題</button></div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
@@ -209,6 +261,12 @@ function renderDailyPractice(container, error) {
 function initDailyPracticeHome() {
   const loaded = dailyPracticeLoad();
   dailyPracticeState = loaded.state;
+  const continueButton = document.getElementById('home-action-continue');
+  if (continueButton) {
+    const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
+    continueButton.disabled = !hasSession;
+    continueButton.setAttribute && continueButton.setAttribute('aria-disabled', hasSession ? 'false' : 'true');
+  }
   const container = document.getElementById('daily-practice-container');
   if (container) renderDailyPractice(container, loaded.error);
 }

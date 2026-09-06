@@ -405,6 +405,20 @@ select:focus {
   overflow: hidden;
   font-weight: 500;
 }
+.review-recall-cover {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--accent-light);
+  color: var(--accent-dark);
+}
+.review-recall-cover > span { font-size: 1.35rem; }
+.review-recall-cover strong, .review-recall-cover small { display: block; }
+.review-recall-cover small { margin-top: 2px; color: var(--muted); line-height: 1.4; }
 .focus-card-actions {
   display: flex;
   gap: 8px;
@@ -1150,6 +1164,33 @@ select:focus {
   box-shadow: var(--shadow);
   padding: 24px;
 }
+.practice-home-actions {
+  max-width: 900px;
+  margin: 0 auto 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.practice-home-actions button {
+  min-height: 92px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 10px;
+  align-items: center;
+  text-align: left;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.practice-home-actions button > span { grid-row: 1 / 3; font-size: 1.3rem; color: var(--accent-dark); }
+.practice-home-actions button strong { color: var(--accent-dark); }
+.practice-home-actions button small { color: var(--muted); line-height: 1.35; }
+.practice-home-actions button:hover, .practice-home-actions button:focus-visible { border-color: var(--accent); }
+.practice-home-actions button:disabled { opacity: .5; cursor: not-allowed; }
 .daily-practice-heading {
   display: flex;
   justify-content: space-between;
@@ -1213,7 +1254,9 @@ select:focus {
   padding: 22px;
   scroll-behavior: smooth;
 }
-.daily-practice-question h3 { margin: 12px 0; color: var(--ink); line-height: 1.55; }
+.daily-practice-topic { margin: 12px 0; color: var(--ink); line-height: 1.55; font-size: 1.05rem; font-weight: 700; }
+.daily-practice-topic p { margin: 0 0 10px; }
+.daily-practice-topic .katex-display { font-size: .95em; }
 .daily-practice-question p { color: var(--muted); line-height: 1.65; }
 .daily-practice-solution-note {
   padding: 16px;
@@ -1230,13 +1273,50 @@ select:focus {
   margin-top: 16px;
 }
 .daily-practice-empty { padding: 48px 20px; text-align: center; color: var(--muted); }
+.daily-practice-summary { text-align: center; }
+.daily-practice-summary h2 { margin: 8px 0; color: var(--success); }
+.daily-practice-summary .daily-practice-actions { justify-content: center; }
 @media (max-width: 680px) {
+  .practice-home-actions { grid-template-columns: 1fr; }
   .daily-practice-shell { padding: 16px; }
   .daily-practice-heading { align-items: stretch; flex-direction: column; }
   .daily-practice-start-card { align-items: stretch; flex-direction: column; }
   .daily-practice-start-card select, .daily-practice-start-card button { width: 100%; }
   .daily-practice-scroll { max-height: 58vh; padding: 16px; }
   .daily-practice-actions > * { flex: 1 1 100%; min-height: 44px; }
+}
+
+.more-tools-menu { position: relative; margin-left: auto; align-self: center; }
+.more-tools-menu > summary {
+  min-height: 44px;
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.more-tools-menu > summary::-webkit-details-marker { display: none; }
+.more-tools-panel {
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  top: calc(100% + 6px);
+  min-width: 210px;
+  padding: 8px;
+  display: grid;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+}
+.more-tools-panel .main-tab-btn { width: 100%; min-height: 44px; padding: 9px 12px; justify-content: flex-start; border-radius: 6px; border-bottom: 0; margin: 0; }
+.more-tools-panel .main-tab-btn.active { background: var(--accent-light); color: var(--accent-dark); }
+@media (max-width: 680px) {
+  .more-tools-menu { margin-left: 0; }
+  .more-tools-panel { position: fixed; left: 12px; right: 12px; top: auto; min-width: 0; }
 }
 
 /* Print CSS for physical A4 review sheets */

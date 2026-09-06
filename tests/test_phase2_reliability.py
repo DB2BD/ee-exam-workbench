@@ -63,6 +63,47 @@ globalThis.openSolutionModal = () => {};
         self.assertEqual(result["scoped"], ["q1", "q2"])
         self.assertIn("2 題", result["message"])
 
+    def test_review_card_shows_cover_and_opens_progressive_recall(self):
+        setup = r'''
+const nodes = new Map();
+const recallButton = {dataset:{reviewRecall:'q1'}, addEventListener(type, fn){this.click=fn;}};
+function element(id) {
+  if (!nodes.has(id)) nodes.set(id, {
+    id, value:id === 'review-subject' ? 'all' : '', innerHTML:'', innerText:'', style:{},
+    querySelectorAll(selector){
+      if (id === 'review-container' && selector === '[data-review-recall]') return [recallButton];
+      return [];
+    }
+  });
+  return nodes.get(id);
+}
+globalThis.document = {getElementById:element, querySelectorAll:()=>[]};
+globalThis.localStorage = {getItem:()=>null,setItem:()=>{}};
+globalThis.KNOWLEDGE_DAG = {};
+globalThis.progressState = {};
+globalThis.starredState = {};
+globalThis.sm2Schedule = {q1:{nextReviewDate:'2026-09-06'}};
+globalThis.getActiveQuestionsList = () => [['q1','01',114,1,'題目',[], 'solution.md','source.pdf',3,'verified',[],true]];
+globalThis.getDueQuestionsList = () => ['q1'];
+globalThis.getSubjectMeta = () => ({name:'電路學',icon:'⚡'});
+globalThis.getRecallState = () => ({level:1});
+globalThis.renderQuestionTopic = text => text;
+globalThis.openSolutionModal = (...args) => { globalThis.__openArgs = args; };
+'''
+        expression = r'''
+(() => {
+  getReviewTypeLabel = () => '章節 A';
+  renderReviewPage();
+  recallButton.click();
+  const html = document.getElementById('review-container').innerHTML;
+  return {html, activeRecall:globalThis.__openArgs[5]};
+})()
+'''
+        result = run_node(["src/components/reviewPage.js"], expression, setup)
+        self.assertIn('aria-label="詳解已蓋牌"', result["html"])
+        self.assertIn("先自行作答，再依序揭露", result["html"])
+        self.assertTrue(result["activeRecall"])
+
 
 class TestSolutionModalReliability(unittest.TestCase):
     def test_open_sets_recall_explicitly_and_close_clears_transient_state(self):
@@ -94,6 +135,51 @@ globalThis.window = {addEventListener() {}};
             "sessionLength": 0,
             "sessionIndex": 0,
         })
+
+    def test_active_recall_hides_solution_and_reveals_layers_in_order(self):
+        setup = r'''
+const elements = new Map();
+const make = id => ({id, innerHTML:'', style:{display:'none'}, scrollIntoView(){}});
+['modal-right-content','recall-layer-1','recall-layer-2','recall-layer-3','recall-full-section','recall-rating-bar','recall-step-box']
+  .forEach(id => elements.set(id, make(id)));
+globalThis.document = {
+  body:{style:{}},
+  getElementById:id => elements.get(id) || null,
+  querySelectorAll:() => []
+};
+globalThis.window = {addEventListener(){}};
+globalThis.getRecallHintBundle = () => ({chapter:'章節',activation:'起手式',formula:'x=1',trap:'陷阱'});
+globalThis.processMarkdownWithMath = text => `<p class="rendered-solution">${text}</p>`;
+globalThis.resolveRenderedImageSources = html => html;
+globalThis.renderSolutionReviewCard = () => '';
+globalThis.renderScenarioMatrix = () => '';
+globalThis.renderDagTracerCard = () => '';
+globalThis.reviewHtmlEscape = value => String(value);
+'''
+        expression = r'''
+(() => {
+  isActiveRecallMode = true;
+  currentModalQid = 'q1';
+  renderSubQuestionContent('答案內容', ['q1','01',114,1,'題目']);
+  const initialHtml = document.getElementById('modal-right-content').innerHTML;
+  revealRecallLayer(1);
+  const layer1 = document.getElementById('recall-layer-1').style.display;
+  const fullBefore = document.getElementById('recall-full-section').style.display;
+  revealRecallFull();
+  return {
+    initialHtml, layer1, fullBefore,
+    fullAfter: document.getElementById('recall-full-section').style.display,
+    ratingAfter: document.getElementById('recall-rating-bar').style.display
+  };
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertIn('id="recall-full-section" style="display: none;"', result["initialHtml"])
+        self.assertIn('class="rendered-solution"', result["initialHtml"])
+        self.assertEqual(result["layer1"], "block")
+        self.assertEqual(result["fullBefore"], "none")
+        self.assertEqual(result["fullAfter"], "block")
+        self.assertEqual(result["ratingAfter"], "flex")
 
 
 class TestMockExamTimerReliability(unittest.TestCase):

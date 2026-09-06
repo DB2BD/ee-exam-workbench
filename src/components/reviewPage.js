@@ -498,7 +498,7 @@ function renderManualLabelModal() {
   `;
   const solutionButton = body.querySelector('[data-manual-open-solution]');
   if (solutionButton) solutionButton.addEventListener('click', () => {
-    if (typeof openSolutionModal === 'function') openSolutionModal(null, solutionLink, qid, record.number, false, false);
+    if (typeof openSolutionModal === 'function') openSolutionModal(null, solutionLink, qid, record.number, { mode: 'browse' });
   });
 }
 
@@ -599,7 +599,8 @@ function openReviewSessionItem(index) {
   const q = currentReviewSessionQueue[index];
   const record = getReviewRecord(q);
   if (typeof openSolutionModal === 'function') {
-    openSolutionModal(null, record.solutionLink, record.id, record.number, false, true, {
+    openSolutionModal(null, record.solutionLink, record.id, record.number, {
+      mode: 'due-review', recall: true,
       sessionQueue: currentReviewSessionQueue,
       sessionIndex: currentReviewSessionIndex
     });
@@ -792,14 +793,14 @@ function renderReviewPage() {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewOpen);
     if (q && typeof openSolutionModal === 'function') {
       const record = getReviewRecord(q);
-      openSolutionModal(null, record.solutionLink, record.id, record.number, false, false);
+      openSolutionModal(null, record.solutionLink, record.id, record.number, { mode: 'due-review' });
     }
   }));
   container.querySelectorAll('[data-review-recall]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewRecall);
     if (q && typeof openSolutionModal === 'function') {
       const record = getReviewRecord(q);
-      openSolutionModal(null, record.solutionLink, record.id, record.number, false, true);
+      openSolutionModal(null, record.solutionLink, record.id, record.number, { mode: 'due-review', recall: true });
     }
   }));
   container.querySelectorAll('[data-review-status]').forEach(button => button.addEventListener('click', () => {

@@ -17,6 +17,102 @@ let currentSubQuestionIdx = 0;
 let modalHistoryStack = [];
 let currentRecallAchievedLevel = 0;
 let currentRecallErrorType = null;
+let currentSolutionSourceMode = 'browse';
+let currentSolutionRecallEntry = false;
+
+const SOLUTION_SOURCE_MODES = ['daily-practice', 'due-review', 'browse'];
+
+function normalizeSolutionModalOptions(options) {
+  const value = options && typeof options === 'object' ? options : {};
+  const mode = SOLUTION_SOURCE_MODES.includes(value.mode) ? value.mode : 'browse';
+  const recallEntry = Object.prototype.hasOwnProperty.call(value, 'recallEntry')
+    ? Boolean(value.recallEntry)
+    : Boolean(value.recall);
+  return Object.assign({ mode, recall: false, recallEntry, fullView: false }, value, {
+    mode,
+    recall: Boolean(value.recall),
+    recallEntry
+  });
+}
+
+let imageLightboxScale = 1;
+let imageLightboxReturnFocus = null;
+
+function solutionModalEscape(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+
+function closeImageLightbox() {
+  const lightbox = document.getElementById('question-image-lightbox');
+  if (lightbox) lightbox.remove();
+  const trigger = imageLightboxReturnFocus;
+  const canRestoreFocus = trigger && typeof trigger.focus === 'function'
+    && (typeof document === 'undefined' || typeof document.contains !== 'function'
+      ? trigger.isConnected !== false
+      : document.contains(trigger));
+  if (canRestoreFocus) trigger.focus();
+  imageLightboxReturnFocus = null;
+}
+
+function setImageLightboxScale(nextScale) {
+  imageLightboxScale = Math.min(3, Math.max(1, Number(nextScale) || 1));
+  const image = document.querySelector('#question-image-lightbox img');
+  const label = document.querySelector('#question-image-lightbox [data-image-scale]');
+  if (image) image.style.transform = `scale(${imageLightboxScale})`;
+  if (label) label.textContent = `${Math.round(imageLightboxScale * 100)}%`;
+}
+
+function openImageLightbox(src, alt, trigger) {
+  if (!src || typeof document === 'undefined' || !document.body) return;
+  closeImageLightbox();
+  imageLightboxReturnFocus = trigger || null;
+  imageLightboxScale = 1;
+  const lightbox = document.createElement('div');
+  lightbox.id = 'question-image-lightbox';
+  lightbox.className = 'question-image-lightbox';
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.innerHTML = `<div class="question-image-lightbox-toolbar">
+    <button type="button" data-image-zoom-out aria-label="縮小">−</button>
+    <span data-image-scale>100%</span>
+    <button type="button" data-image-zoom-in aria-label="放大">＋</button>
+    <button type="button" data-image-close aria-label="關閉題圖">✕</button>
+  </div><div class="question-image-lightbox-stage" tabindex="0"><img src="${solutionModalEscape(src)}" alt="${solutionModalEscape(alt || '')}"></div>`;
+  document.body.appendChild(lightbox);
+  lightbox.querySelector('[data-image-close]').addEventListener('click', closeImageLightbox);
+  lightbox.querySelector('[data-image-zoom-in]').addEventListener('click', () => setImageLightboxScale(imageLightboxScale + 0.25));
+  lightbox.querySelector('[data-image-zoom-out]').addEventListener('click', () => setImageLightboxScale(imageLightboxScale - 0.25));
+  lightbox.addEventListener('click', event => { if (event.target === lightbox) closeImageLightbox(); });
+  lightbox.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      closeImageLightbox();
+      return;
+    }
+    if (event.key === '+' || event.key === '=') setImageLightboxScale(imageLightboxScale + 0.25);
+    if (event.key === '-' || event.key === '_') setImageLightboxScale(imageLightboxScale - 0.25);
+  });
+  const stage = lightbox.querySelector('.question-image-lightbox-stage');
+  if (stage) stage.focus();
+}
+
+function bindQuestionCropPreview(qid, pdfLink) {
+  const image = document.querySelector('[data-question-crop-image]');
+  if (!image) return;
+  image.addEventListener('click', () => openImageLightbox(image.src, image.alt, image));
+  image.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openImageLightbox(image.src, image.alt, image); }
+  });
+  image.addEventListener('error', () => {
+    const wrapper = image.closest('.question-crop-wrap');
+    if (!wrapper) return;
+    const safePdfLink = solutionModalEscape(pdfLink);
+    wrapper.outerHTML = `<div class="question-crop-fallback" role="status">原題截圖載入失敗，已切換為官方 PDF。${pdfLink ? `<a class="btn-pdf" href="${safePdfLink}" target="_blank" rel="noopener">開啟官方原題 PDF</a>` : '目前沒有可用的官方 PDF 連結。'}</div>`;
+  }, { once: true });
+}
 
 const CN_NUM_MAP = {
   '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8,
@@ -84,7 +180,8 @@ function advanceReviewSessionItem() {
     currentReviewSessionIndex++;
     const nextQ = currentReviewSessionQueue[currentReviewSessionIndex];
     const rec = (typeof getReviewRecord === 'function') ? getReviewRecord(nextQ) : { id: nextQ[0], number: nextQ[3], solutionLink: nextQ[6] };
-    openSolutionModal(null, rec.solutionLink, rec.id, rec.number, false, true, {
+    openSolutionModal(null, rec.solutionLink, rec.id, rec.number, {
+      mode: 'due-review', recall: true,
       sessionQueue: currentReviewSessionQueue,
       sessionIndex: currentReviewSessionIndex
     });
@@ -95,24 +192,37 @@ function advanceReviewSessionItem() {
   }
 }
 
-function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRecall = false, options = {}) {
+function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   if (event) event.preventDefault();
+
+  const modalOptions = normalizeSolutionModalOptions(options);
+
+  if (modalOptions.mode === 'daily-practice' && typeof dailyPracticeGetCurrentQuestionId === 'function'
+      && dailyPracticeGetCurrentQuestionId() !== String(qid)) {
+    if (typeof showToast === 'function') showToast('每日練習題號已變更，請從目前題目重新開啟詳解。');
+    return;
+  }
 
   currentModalQid = qid;
   currentModalSolLink = solLink;
   currentModalQNum = qnum;
-  currentModalFullView = fullView;
+  currentModalFullView = Boolean(modalOptions.fullView);
   currentSubQuestionIdx = 0;
   currentRecallAchievedLevel = 0;
   currentRecallErrorType = null;
   // Each entry point owns the mode for the question it opens.  Do not let a
   // previous recall session leak into ordinary or mock-exam solution views.
-  isActiveRecallMode = Boolean(activeRecall);
+  currentSolutionSourceMode = modalOptions.mode;
+  currentSolutionRecallEntry = Boolean(modalOptions.recallEntry);
+  isActiveRecallMode = currentSolutionRecallEntry;
+  if (currentSolutionSourceMode === 'daily-practice' && typeof dailyPracticeGetRecallProgress === 'function') {
+    currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, dailyPracticeGetRecallProgress(qid));
+  }
 
-  if (options && options.sessionQueue) {
-    currentReviewSessionQueue = options.sessionQueue;
-    currentReviewSessionIndex = typeof options.sessionIndex === 'number' ? options.sessionIndex : 0;
-  } else if (!options || !options.keepSession) {
+  if (modalOptions && modalOptions.sessionQueue) {
+    currentReviewSessionQueue = modalOptions.sessionQueue;
+    currentReviewSessionIndex = typeof modalOptions.sessionIndex === 'number' ? modalOptions.sessionIndex : 0;
+  } else if (!modalOptions.keepSession) {
     currentReviewSessionQueue = null;
     currentReviewSessionIndex = 0;
   }
@@ -151,23 +261,35 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   }
 
   const qRecord = findQuestionRecord(qid);
-  const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
+  const namedRecord = qRecord && typeof toQuestionRecord === 'function'
+    ? toQuestionRecord(qRecord, qid && qid.startsWith('GK-') ? 'GK' : 'PE') : null;
+  const curQid = namedRecord ? namedRecord.id : qid;
+  const sid = namedRecord ? namedRecord.subjectId : '01';
+  const yr = namedRecord ? namedRecord.year : 114;
+  const curQnum = namedRecord ? namedRecord.number : qnum;
+  const topic = namedRecord ? namedRecord.stem : '';
+  const curSolLink = namedRecord ? namedRecord.solutionLink : solLink;
+  const pdfLink = namedRecord ? namedRecord.sourceLink : '';
   const meta = getSubjectMeta(sid);
   // Prefer an attested question-level crop for the stem preview.  GK crops
   // are stored on the question record; PE crops are compiled into the map
   // alongside the legacy page-image map.  Keep the official PDF link below
   // as the source-of-truth fallback/access path.
-  const isGK = Boolean(qid && qid.startsWith('GK-'));
+  const isGK = Boolean(namedRecord ? namedRecord.examFamily === 'GK' : qid && qid.startsWith('GK-'));
   const questionCrop = isGK
-    ? (qRecord && qRecord[14])
+    ? (namedRecord && namedRecord.provenance ? namedRecord.provenance.questionCrop : '')
     : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] : '');
   const questionCropSrc = questionCrop ? resolveImageMapUrl(questionCrop, isGK, qid) : '';
+  const safeQid = solutionModalEscape(qid);
+  const safePdfLink = solutionModalEscape(pdfLink);
+  const safeQuestionCropSrc = solutionModalEscape(questionCropSrc);
+  const safeSolLink = solutionModalEscape(curSolLink);
 
   // 1. Update Title
   const titleEl = document.getElementById('modal-title');
   if (titleEl) {
     titleEl.innerHTML = `
-      <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${qid}</span>
+      <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${safeQid}</span>
       <span style="font-size: 0.9rem; color: var(--muted); font-weight: 500;">
         · ${meta.icon} ${meta.name}（${yr} 年第 ${curQnum} 大題）
       </span>
@@ -185,10 +307,11 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   if (leftContent) {
     const sourcePreview = questionCropSrc
       ? `<div class="question-crop-wrap">
-          <img class="question-crop-preview" src="${questionCropSrc}" alt="${qid} 本題裁切圖" loading="eager" />
+          <img class="question-crop-preview" data-question-crop-image src="${safeQuestionCropSrc}" alt="${safeQid} 本題裁切圖；按 Enter 或點擊放大" loading="eager" tabindex="0" role="button" />
+          <p class="question-crop-hint">點擊、觸控或按 Enter 放大；放大後可用 +／−、鍵盤或按鈕調整。</p>
         </div>`
       : `<div class="question-crop-fallback">尚未建立本題裁切圖，以下保留官方 PDF 預覽。</div>
-         <div class="question-pdf-frame"><iframe src="${pdfLink}#toolbar=0" title="官方原始考卷 PDF" loading="lazy"></iframe></div>`;
+         <div class="question-pdf-frame"><iframe src="${safePdfLink}#toolbar=0" title="官方原始考卷 PDF" loading="lazy"></iframe></div>`;
     leftContent.innerHTML = `
       <div style="padding: 8px 14px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -197,7 +320,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
             🔍 展開題幹文字
           </button>
         </div>
-        <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
+        <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
           新分頁開啟 ⬈
         </a>
       </div>
@@ -209,13 +332,14 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
 
       ${sourcePreview}
     `;
+    bindQuestionCropPreview(qid, pdfLink);
   }
 
   // 4. Load Right Pane (Extracted Question Solution + KaTeX + Sub-part Navigation + DAG)
   const rightPane = document.getElementById('modal-right-content');
   const subQPillsBar = document.getElementById('modal-sub-q-pills');
 
-  const rawMd = resolveSolutionMarkdown(solLink, qid);
+  const rawMd = resolveSolutionMarkdown(curSolLink, qid);
 
   if (rawMd) {
     const { fullContent, subParts } = extractQuestionMarkdown(rawMd, curQnum);
@@ -243,7 +367,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
         <div style="text-align: center; padding: 60px 20px;">
           <h3 style="color: var(--warn); margin-bottom: 10px;">📑 詳解收錄於題解知識庫中</h3>
           <p style="color: var(--muted); margin-bottom: 20px;">點擊下方按鈕前往知識庫檢視本題完整解答：</p>
-          <a href="${solLink}" target="_blank" class="btn-sol">🔗 前往考科詳解庫</a>
+          <a href="${safeSolLink}" target="_blank" class="btn-sol">🔗 前往考科詳解庫</a>
         </div>
       `;
     }
@@ -291,10 +415,12 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
     },
   }[normalizedStatus];
   const meta = metadata || {};
-  const qid = qRecord && qRecord[0];
-  const isGK = Boolean(qid && String(qid).startsWith('GK-'));
+  const namedRecord = qRecord && typeof toQuestionRecord === 'function'
+    ? toQuestionRecord(qRecord) : null;
+  const qid = namedRecord ? namedRecord.id : '';
+  const isGK = Boolean(namedRecord && namedRecord.examFamily === 'GK');
   const questionCrop = isGK
-    ? (qRecord && qRecord[14]) || ''
+    ? (namedRecord && namedRecord.provenance ? namedRecord.provenance.questionCrop : '')
     : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] : '') || '';
   const isHttps = value => typeof value === 'string' && /^https:\/\//i.test(value);
   const publicReferenceUrls = Array.isArray(meta.publicReferenceUrls)
@@ -317,8 +443,8 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
     issueType: String(meta.blocker || normalizedStatus),
     conservative: normalizedStatus !== 'verified' && !hasReviewDetails,
     sources: {
-      officialQuestionUrl: qRecord && qRecord[7] ? String(qRecord[7]) : '',
-      solutionLink: qRecord && qRecord[6] ? String(qRecord[6]) : '',
+      officialQuestionUrl: namedRecord && namedRecord.sourceLink ? String(namedRecord.sourceLink) : '',
+      solutionLink: namedRecord && namedRecord.solutionLink ? String(namedRecord.solutionLink) : '',
       questionCrop: String(questionCrop || ''),
       officialSourceUrl: isHttps(meta.officialSourceUrl) ? meta.officialSourceUrl : '',
       publicReferenceUrls,
@@ -497,6 +623,12 @@ function updateSameExamDropdown(sid, yr, currentQid) {
   const select = document.getElementById('modal-same-exam-select');
   if (!select) return;
 
+  if (currentSolutionSourceMode === 'daily-practice') {
+    select.style.display = 'none';
+    select.innerHTML = '';
+    return;
+  }
+
   const activeList = getActiveQuestionsList();
   const sameExamQs = activeList.filter(q => q[1] === sid && q[2] === yr);
 
@@ -507,22 +639,25 @@ function updateSameExamDropdown(sid, yr, currentQid) {
 
   select.style.display = 'inline-block';
   select.innerHTML = sameExamQs.map(q => {
-    const qid = q[0];
-    const qnum = q[3];
+    const record = typeof toQuestionRecord === 'function' ? toQuestionRecord(q) : null;
+    if (!record) return '';
+    const qid = record.id;
+    const qnum = record.number;
     const s = progressState[qid] || 0;
     const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
     const isCur = qid === currentQid;
-    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${qid})</option>`;
+    return `<option value="${solutionModalEscape(qid)}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${solutionModalEscape(qid)})</option>`;
   }).join('');
 }
 
 function onSameExamSelectChange(selectElem) {
+  if (currentSolutionSourceMode === 'daily-practice') return;
   const targetQid = selectElem.value;
   if (!targetQid || targetQid === currentModalQid) return;
   const qRecord = findQuestionRecord(targetQid);
   if (qRecord) {
     const [qid, sid, yr, qnum, topic, tags, solLink] = qRecord;
-    openSolutionModal(null, solLink, qid, qnum);
+    openSolutionModal(null, solLink, qid, qnum, { mode: currentSolutionSourceMode, recall: isActiveRecallMode });
   }
 }
 
@@ -530,6 +665,17 @@ function updateModalNavButtons(qid) {
   const btnPrev = document.getElementById('btn-modal-prev');
   const btnNext = document.getElementById('btn-modal-next');
   if (!btnPrev || !btnNext) return;
+
+  if (currentSolutionSourceMode === 'daily-practice') {
+    btnPrev.style.display = 'none';
+    btnNext.style.display = 'none';
+    btnPrev.disabled = true;
+    btnNext.disabled = true;
+    return;
+  }
+
+  btnPrev.style.display = '';
+  btnNext.style.display = '';
 
   const activeList = getActiveQuestionsList();
   const curIdx = activeList.findIndex(q => q[0] === qid);
@@ -539,6 +685,7 @@ function updateModalNavButtons(qid) {
 }
 
 function navModalQuestion(direction) {
+  if (currentSolutionSourceMode === 'daily-practice') return;
   const activeList = getActiveQuestionsList();
   if (activeList.length === 0 || !currentModalQid) return;
 
@@ -549,7 +696,7 @@ function navModalQuestion(direction) {
   if (targetIdx >= 0 && targetIdx < activeList.length) {
     const targetQ = activeList[targetIdx];
     const [qid, sid, yr, qnum, topic, tags, solLink] = targetQ;
-    openSolutionModal(null, solLink, qid, qnum);
+    openSolutionModal(null, solLink, qid, qnum, { mode: currentSolutionSourceMode, recall: isActiveRecallMode });
   }
 }
 
@@ -611,6 +758,9 @@ function getSolutionModalTransientState() {
   return {
     qid: currentModalQid,
     activeRecall: isActiveRecallMode,
+    sourceMode: currentSolutionSourceMode,
+    recallEntry: currentSolutionRecallEntry,
+    recallLevel: currentRecallAchievedLevel,
     sessionLength: currentReviewSessionQueue ? currentReviewSessionQueue.length : 0,
     sessionIndex: currentReviewSessionIndex,
   };
@@ -629,6 +779,16 @@ function syncActiveRecallButtonState() {
 }
 
 function toggleActiveRecallMode() {
+  if (currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry) {
+    isActiveRecallMode = true;
+    syncActiveRecallButtonState();
+    showToast('每日練習四段蓋牌模式請依序完成揭露，不能從頂部直接全開。');
+    return;
+  }
+  if (currentSolutionSourceMode === 'daily-practice' && !currentSolutionRecallEntry) {
+    showToast('直接查看模式僅供核對，不會轉換為每日練習蓋牌。');
+    return;
+  }
   isActiveRecallMode = !isActiveRecallMode;
   syncActiveRecallButtonState();
   showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式（四步驟蓋牌）' : '📖 已切換為全開放詳解模式');
@@ -651,6 +811,10 @@ function revealRecallHint() {
 }
 
 function revealRecallFull() {
+  if (currentRecallAchievedLevel < 3) {
+    if (typeof showToast === 'function') showToast('請依序完成前 3 段提示後，再揭曉完整推導。');
+    return;
+  }
   const fullEl = document.getElementById('recall-full-section');
   const ratingEl = document.getElementById('recall-rating-bar');
   const boxEl = document.getElementById('recall-step-box');
@@ -658,6 +822,7 @@ function revealRecallFull() {
   if (ratingEl) ratingEl.style.display = 'flex';
   if (boxEl) boxEl.style.display = 'none';
   currentRecallAchievedLevel = 4;
+  if (typeof dailyPracticeRecordRecallProgress === 'function' && currentSolutionSourceMode === 'daily-practice') dailyPracticeRecordRecallProgress(4);
 
   // Render any hidden math in full section
   const rightPane = document.getElementById('modal-right-content');
@@ -673,12 +838,18 @@ function revealRecallFull() {
 }
 
 function revealRecallLayer(layer) {
+  const requested = Number(layer) || 0;
+  if (requested < 1 || requested > 3 || requested > currentRecallAchievedLevel + 1) {
+    if (typeof showToast === 'function') showToast('請依序揭露上一段提示。');
+    return;
+  }
   const target = document.getElementById(`recall-layer-${layer}`);
   if (target) {
     target.style.display = 'block';
     target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
-  currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, Number(layer) || 0);
+  currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, requested);
+  if (typeof dailyPracticeRecordRecallProgress === 'function' && currentSolutionSourceMode === 'daily-practice') dailyPracticeRecordRecallProgress(currentRecallAchievedLevel);
   const full = document.getElementById('recall-full-section');
   const rating = document.getElementById('recall-rating-bar');
   if (layer >= 4) {
@@ -696,10 +867,22 @@ function chooseRecallError(errorType) {
 
 function submitSM2Rating(rating) {
   if (!currentModalQid) return;
+  if (![1, 3, 5].includes(Number(rating))) return;
   const achieved = rating === 5 ? 4 : rating === 3 ? Math.max(2, currentRecallAchievedLevel) : 0;
-  if (typeof recordRecallAttempt === 'function') {
-    recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
+  if (currentSolutionSourceMode === 'daily-practice') {
+    if (!currentSolutionRecallEntry) {
+      if (typeof showToast === 'function') showToast('直接查看模式僅供核對，不會完成每日練習。');
+      return;
+    }
+    if (currentRecallAchievedLevel < 4) {
+      if (typeof showToast === 'function') showToast('請先完成第 ④ 段完整推導，再進行自評。');
+      return;
+    }
+    if (typeof recordRecallAttempt === 'function') recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
+    if (typeof dailyPracticeCompleteFromModal === 'function') dailyPracticeCompleteFromModal(rating, currentRecallAchievedLevel, currentModalQid);
+    return;
   }
+  if (typeof recordRecallAttempt === 'function') recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
   const result = recordSM2Review(currentModalQid, rating);
   const ratingTexts = { 1: '🔴 遺忘 (明日二刷)', 3: '🟡 勉強 (3天後複習)', 5: '🟢 完美秒殺 (已延長間隔)' };
   showToast(`🎯 已排程：${ratingTexts[rating]} (下次：${result.nextReviewDate})`);
@@ -724,6 +907,9 @@ function submitSM2Rating(rating) {
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
+  const ratingTitle = currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry
+    ? '🎯 今日練習自評（只記錄回想結果，不建立 SM-2 排程）'
+    : '🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：';
 
   if (isActiveRecallMode) {
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
@@ -742,8 +928,8 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
 
     let dagHtml = '';
     if (qRecord) {
-      const [qid, sid, yr, qnum, topic] = qRecord;
-      dagHtml = renderDagTracerCard(qid, sid, topic);
+      const record = typeof toQuestionRecord === 'function' ? toQuestionRecord(qRecord) : null;
+      if (record) dagHtml = renderDagTracerCard(record.id, record.subjectId, record.stem);
     }
 
     rightPane.innerHTML = `
@@ -779,7 +965,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         ${scenarioMatrixHtml}
 
         <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
-          <div class="sm2-rating-title">🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：</div>
+          <div class="sm2-rating-title">${ratingTitle}</div>
           <div class="recall-error-buttons" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0;">
             <button type="button" class="pill" data-recall-error="題型辨識錯" onclick="chooseRecallError('題型辨識錯')">題型辨識錯</button>
             <button type="button" class="pill" data-recall-error="起手式不會" onclick="chooseRecallError('起手式不會')">起手式不會</button>
@@ -804,6 +990,18 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         </div>
       </div>
     `;
+    for (let layer = 1; layer <= Math.min(3, currentRecallAchievedLevel); layer++) {
+      const layerEl = document.getElementById(`recall-layer-${layer}`);
+      if (layerEl) layerEl.style.display = 'block';
+    }
+    if (currentRecallAchievedLevel >= 4) {
+      const fullEl = document.getElementById('recall-full-section');
+      const ratingEl = document.getElementById('recall-rating-bar');
+      const boxEl = document.getElementById('recall-step-box');
+      if (fullEl) fullEl.style.display = 'block';
+      if (ratingEl) ratingEl.style.display = 'flex';
+      if (boxEl) boxEl.style.display = 'none';
+    }
   } else {
     // Normal Full Open Mode
     let html = processMarkdownWithMath(markdownChunk);
@@ -812,14 +1010,16 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     html = renderSolutionReviewCard(currentModalQid) + renderScenarioMatrix(currentModalQid) + html;
 
     if (qRecord) {
-      const [qid, sid, yr, qnum, topic] = qRecord;
-      html += renderDagTracerCard(qid, sid, topic);
+      const record = typeof toQuestionRecord === 'function' ? toQuestionRecord(qRecord) : null;
+      if (record) html += renderDagTracerCard(record.id, record.subjectId, record.stem);
     }
 
-    // Add SM-2 quick rating footer in normal mode as well!
-    html += `
+    // Browse bypass is pure viewing: it must not expose daily-practice
+    // completion controls.  Ordinary browse still keeps its original SM-2
+    // footer; only the daily-practice recall entry is completion-eligible.
+    if (!(currentSolutionSourceMode === 'daily-practice' && !currentSolutionRecallEntry)) html += `
       <div class="sm2-rating-bar">
-        <div class="sm2-rating-title">🎯 複習自評反饋（SM-2 智能間隔排程）：</div>
+        <div class="sm2-rating-title">${ratingTitle}</div>
         <div class="sm2-rating-buttons">
           <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
             <span>🔴 遺忘卡關</span>
@@ -868,6 +1068,8 @@ function closeModal() {
   currentRecallAchievedLevel = 0;
   currentRecallErrorType = null;
   isActiveRecallMode = false;
+  currentSolutionSourceMode = 'browse';
+  currentSolutionRecallEntry = false;
   currentReviewSessionQueue = null;
   currentReviewSessionIndex = 0;
   modalHistoryStack = [];

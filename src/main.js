@@ -45,7 +45,7 @@ function handleUrlHashRouting() {
       if (subSelect) subSelect.value = sid;
       if (yrSelect) yrSelect.value = String(yr);
       if (typeof renderQuestions === 'function') renderQuestions();
-      if (typeof openSolutionModal === 'function') openSolutionModal(null, solLink, qid, qnum);
+      if (typeof openSolutionModal === 'function') openSolutionModal(null, solLink, qid, qnum, { mode: 'browse' });
     }
   }
 }

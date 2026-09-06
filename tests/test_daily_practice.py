@@ -209,6 +209,21 @@ process.stdout.write(JSON.stringify({{result: context.__result, storage: data}})
         self.assertFalse(result["reveal"]["ok"])
         self.assertFalse(result["scroll"]["ok"])
 
+    def test_legacy_session_is_migrated_to_named_view_reveal_and_dual_scroll_state(self):
+        key = "EE_EXAM_DAILY_PRACTICE_V1"
+        legacy = {
+            "version": 1, "completionByQuestion": {}, "activeSession": {
+                "category": "PE", "subjectId": "01", "questionIds": ["q1"],
+                "currentIndex": 0, "revealedByQuestion": {"q1": True},
+                "scrollByQuestion": {"q1": 120}, "createdAt": "2026-09-06T00:00:00.000Z",
+            }
+        }
+        result = self._run("loadDailyPracticeStore()", {key: json.dumps(legacy)})["result"]
+        session = result["state"]["activeSession"]
+        self.assertEqual(session["viewByQuestion"]["q1"], "question")
+        self.assertEqual(session["revealLevelByQuestion"]["q1"], 0)
+        self.assertEqual(session["scrollByQuestion"]["q1"], {"question": 120, "solution": 0})
+
 
 if __name__ == "__main__":
     unittest.main()

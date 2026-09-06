@@ -271,7 +271,7 @@ function backupIsPracticeTimestamp(value) {
 function backupValidateDailyPractice(value, ids, errors) {
   if (!backupIsPlainObject(value) || value.version !== 1
       || !backupIsPlainObject(value.completionByQuestion)
-      || !(value.activeSession === null || backupIsPlainObject(value.activeSession))) {
+      || (value.activeSession !== undefined && !(value.activeSession === null || backupIsPlainObject(value.activeSession)))) {
     backupError(errors, 'dailyPractice 資料格式無效。');
     return null;
   }
@@ -281,7 +281,7 @@ function backupValidateDailyPractice(value, ids, errors) {
       backupError(errors, `dailyPractice 的完成紀錄「${qid}」無效。`);
     }
   });
-  const session = value.activeSession;
+  const session = value.activeSession === undefined ? null : value.activeSession;
   if (session === null) return backupClone(value);
   const categoryIds = ids[session.category];
   const questionIds = Array.isArray(session.questionIds) ? session.questionIds : [];
@@ -291,28 +291,69 @@ function backupValidateDailyPractice(value, ids, errors) {
     && questionIds.every(qid => typeof qid === 'string' && categoryIds && categoryIds.has(qid))
     && new Set(questionIds).size === questionIds.length
     && Number.isInteger(session.currentIndex) && session.currentIndex >= 0 && session.currentIndex < questionIds.length
-    && backupIsPlainObject(session.revealedByQuestion)
-    && backupIsPlainObject(session.scrollByQuestion)
+    && (session.revealedByQuestion === undefined || backupIsPlainObject(session.revealedByQuestion))
+    && (session.scrollByQuestion === undefined || backupIsPlainObject(session.scrollByQuestion))
     && backupIsTimestamp(session.createdAt);
   if (!sessionShapeValid) {
     backupError(errors, 'dailyPractice.activeSession 資料格式、考別或題號無效。');
     return null;
   }
   const queueIds = new Set(questionIds);
-  Object.entries(session.revealedByQuestion).forEach(([qid, revealed]) => {
+  const revealedByQuestion = session.revealedByQuestion || {};
+  const scrollByQuestion = session.scrollByQuestion || {};
+  let invalidSessionState = false;
+  Object.entries(revealedByQuestion).forEach(([qid, revealed]) => {
     if (!queueIds.has(qid) || typeof revealed !== 'boolean') {
       backupError(errors, `dailyPractice.activeSession 的詳解揭示狀態「${qid}」無效。`);
+      invalidSessionState = true;
     }
   });
-  Object.entries(session.scrollByQuestion).forEach(([qid, positions]) => {
-    const validPositions = backupIsPlainObject(positions)
-      && ['question', 'solution'].every(name => positions[name] === undefined
-        || (typeof positions[name] === 'number' && Number.isFinite(positions[name]) && positions[name] >= 0));
+  Object.entries(scrollByQuestion).forEach(([qid, positions]) => {
+    const validPositions = (typeof positions === 'number' && Number.isFinite(positions) && positions >= 0)
+      || (backupIsPlainObject(positions)
+        && ['question', 'solution'].every(name => positions[name] === undefined
+          || (typeof positions[name] === 'number' && Number.isFinite(positions[name]) && positions[name] >= 0)));
     if (!queueIds.has(qid) || !validPositions) {
       backupError(errors, `dailyPractice.activeSession 的閱讀位置「${qid}」無效。`);
+      invalidSessionState = true;
     }
   });
-  return backupClone(value);
+  const viewByQuestion = session.viewByQuestion || {};
+  const revealLevelByQuestion = session.revealLevelByQuestion || {};
+  Object.entries(viewByQuestion).forEach(([qid, view]) => {
+    if (!queueIds.has(qid) || !['question', 'solution'].includes(view)) {
+      backupError(errors, `dailyPractice.activeSession 的目前視圖「${qid}」無效。`);
+      invalidSessionState = true;
+    }
+  });
+  Object.entries(revealLevelByQuestion).forEach(([qid, level]) => {
+    if (!queueIds.has(qid) || !Number.isInteger(level) || level < 0 || level > 4) {
+      backupError(errors, `dailyPractice.activeSession 的揭露層級「${qid}」無效。`);
+      invalidSessionState = true;
+    }
+  });
+  if (invalidSessionState) return null;
+
+  const normalized = backupClone(value);
+  const normalizedSession = normalized.activeSession;
+  normalizedSession.revealedByQuestion = revealedByQuestion;
+  normalizedSession.viewByQuestion = viewByQuestion;
+  normalizedSession.revealLevelByQuestion = revealLevelByQuestion;
+  normalizedSession.scrollByQuestion = scrollByQuestion;
+  questionIds.forEach(qid => {
+    if (!normalizedSession.viewByQuestion[qid]) normalizedSession.viewByQuestion[qid] = 'question';
+    if (normalizedSession.revealLevelByQuestion[qid] === undefined) {
+      // Legacy revealedByQuestion is only a view-history flag, not proof of
+      // completing the four-step recall workflow.
+      normalizedSession.revealLevelByQuestion[qid] = 0;
+    }
+    const position = normalizedSession.scrollByQuestion[qid];
+    normalizedSession.scrollByQuestion[qid] = typeof position === 'number'
+      ? { question: position, solution: 0 }
+      : { question: Number.isFinite(position && position.question) ? position.question : 0,
+          solution: Number.isFinite(position && position.solution) ? position.solution : 0 };
+  });
+  return normalized;
 }
 
 function backupValidateMockExamTimer(value, errors) {

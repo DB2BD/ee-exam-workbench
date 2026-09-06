@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=phase3-local"></script>
-<script src="./solutions-bundle.js?v=phase3-local"></script>
-<script src="./national-exams-data.js?v=phase3-local"></script>
-<script src="./national-solutions-bundle.js?v=phase3-local"></script>
+<script src="./dashboard-data.js?v=phase4-local"></script>
+<script src="./solutions-bundle.js?v=phase4-local"></script>
+<script src="./national-exams-data.js?v=phase4-local"></script>
+<script src="./national-solutions-bundle.js?v=phase4-local"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -1540,6 +1540,38 @@ select:focus {
   padding: 22px;
   scroll-behavior: smooth;
 }
+.daily-practice-source-figure {
+  margin: 0 0 18px;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.daily-practice-source-image {
+  display: block;
+  width: 100%;
+  max-height: min(52vh, 620px);
+  object-fit: contain;
+  cursor: zoom-in;
+  background: #fff;
+}
+.daily-practice-source-figure figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: .78rem;
+  text-align: center;
+}
+.daily-practice-source-missing {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--warn);
+  background: var(--bg);
+  color: var(--muted);
+  font-size: .84rem;
+}
+.daily-practice-source-missing strong { color: var(--ink); }
 .daily-practice-topic { margin: 12px 0; color: var(--ink); line-height: 1.55; font-size: 1.05rem; font-weight: 700; }
 .daily-practice-topic p { margin: 0 0 10px; }
 .daily-practice-topic .katex-display { font-size: .95em; }
@@ -1551,6 +1583,8 @@ select:focus {
   border-radius: var(--radius-sm);
 }
 .daily-practice-solution-note p { color: var(--muted); line-height: 1.65; }
+.daily-practice-solution-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.daily-practice-solution-actions > * { min-height: 44px; }
 .daily-practice-actions {
   display: flex;
   justify-content: space-between;
@@ -1569,6 +1603,8 @@ select:focus {
   .daily-practice-start-card { align-items: stretch; flex-direction: column; }
   .daily-practice-start-card select, .daily-practice-start-card button { width: 100%; }
   .daily-practice-scroll { max-height: 58vh; padding: 16px; }
+  .daily-practice-source-image { max-height: 54vh; }
+  .daily-practice-solution-actions > * { flex: 1 1 100%; }
   .daily-practice-actions > * { flex: 1 1 100%; min-height: 44px; }
 }
 
@@ -1996,7 +2032,27 @@ select:focus {
   border: 1px solid rgba(255,255,255,0.35);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
+  cursor: zoom-in;
 }
+
+.question-crop-preview:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.question-crop-hint { margin: 8px 0 0; color: rgba(255,255,255,.86); font-size: .78rem; text-align: center; }
+.question-crop-fallback .btn-pdf { display: inline-flex; margin: 8px 0 0 8px; }
+
+.question-image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 18, 22, .94);
+  color: #fff;
+}
+.question-image-lightbox-toolbar { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; }
+.question-image-lightbox-toolbar button { min-width: 44px; min-height: 44px; border: 1px solid rgba(255,255,255,.55); border-radius: 8px; background: rgba(255,255,255,.12); color: #fff; font-size: 1.25rem; cursor: pointer; }
+.question-image-lightbox-toolbar button:focus-visible { outline: 3px solid var(--accent-light); outline-offset: 2px; }
+.question-image-lightbox-stage { flex: 1; overflow: auto; display: flex; align-items: flex-start; justify-content: center; padding: 16px; }
+.question-image-lightbox-stage img { max-width: 100%; height: auto; transform-origin: top center; transition: transform .15s ease; }
 
 .question-crop-fallback {
   padding: 12px 16px;
@@ -4320,7 +4376,7 @@ function backupIsPracticeTimestamp(value) {
 function backupValidateDailyPractice(value, ids, errors) {
   if (!backupIsPlainObject(value) || value.version !== 1
       || !backupIsPlainObject(value.completionByQuestion)
-      || !(value.activeSession === null || backupIsPlainObject(value.activeSession))) {
+      || (value.activeSession !== undefined && !(value.activeSession === null || backupIsPlainObject(value.activeSession)))) {
     backupError(errors, 'dailyPractice 資料格式無效。');
     return null;
   }
@@ -4330,7 +4386,7 @@ function backupValidateDailyPractice(value, ids, errors) {
       backupError(errors, `dailyPractice 的完成紀錄「${qid}」無效。`);
     }
   });
-  const session = value.activeSession;
+  const session = value.activeSession === undefined ? null : value.activeSession;
   if (session === null) return backupClone(value);
   const categoryIds = ids[session.category];
   const questionIds = Array.isArray(session.questionIds) ? session.questionIds : [];
@@ -4340,28 +4396,69 @@ function backupValidateDailyPractice(value, ids, errors) {
     && questionIds.every(qid => typeof qid === 'string' && categoryIds && categoryIds.has(qid))
     && new Set(questionIds).size === questionIds.length
     && Number.isInteger(session.currentIndex) && session.currentIndex >= 0 && session.currentIndex < questionIds.length
-    && backupIsPlainObject(session.revealedByQuestion)
-    && backupIsPlainObject(session.scrollByQuestion)
+    && (session.revealedByQuestion === undefined || backupIsPlainObject(session.revealedByQuestion))
+    && (session.scrollByQuestion === undefined || backupIsPlainObject(session.scrollByQuestion))
     && backupIsTimestamp(session.createdAt);
   if (!sessionShapeValid) {
     backupError(errors, 'dailyPractice.activeSession 資料格式、考別或題號無效。');
     return null;
   }
   const queueIds = new Set(questionIds);
-  Object.entries(session.revealedByQuestion).forEach(([qid, revealed]) => {
+  const revealedByQuestion = session.revealedByQuestion || {};
+  const scrollByQuestion = session.scrollByQuestion || {};
+  let invalidSessionState = false;
+  Object.entries(revealedByQuestion).forEach(([qid, revealed]) => {
     if (!queueIds.has(qid) || typeof revealed !== 'boolean') {
       backupError(errors, `dailyPractice.activeSession 的詳解揭示狀態「${qid}」無效。`);
+      invalidSessionState = true;
     }
   });
-  Object.entries(session.scrollByQuestion).forEach(([qid, positions]) => {
-    const validPositions = backupIsPlainObject(positions)
-      && ['question', 'solution'].every(name => positions[name] === undefined
-        || (typeof positions[name] === 'number' && Number.isFinite(positions[name]) && positions[name] >= 0));
+  Object.entries(scrollByQuestion).forEach(([qid, positions]) => {
+    const validPositions = (typeof positions === 'number' && Number.isFinite(positions) && positions >= 0)
+      || (backupIsPlainObject(positions)
+        && ['question', 'solution'].every(name => positions[name] === undefined
+          || (typeof positions[name] === 'number' && Number.isFinite(positions[name]) && positions[name] >= 0)));
     if (!queueIds.has(qid) || !validPositions) {
       backupError(errors, `dailyPractice.activeSession 的閱讀位置「${qid}」無效。`);
+      invalidSessionState = true;
     }
   });
-  return backupClone(value);
+  const viewByQuestion = session.viewByQuestion || {};
+  const revealLevelByQuestion = session.revealLevelByQuestion || {};
+  Object.entries(viewByQuestion).forEach(([qid, view]) => {
+    if (!queueIds.has(qid) || !['question', 'solution'].includes(view)) {
+      backupError(errors, `dailyPractice.activeSession 的目前視圖「${qid}」無效。`);
+      invalidSessionState = true;
+    }
+  });
+  Object.entries(revealLevelByQuestion).forEach(([qid, level]) => {
+    if (!queueIds.has(qid) || !Number.isInteger(level) || level < 0 || level > 4) {
+      backupError(errors, `dailyPractice.activeSession 的揭露層級「${qid}」無效。`);
+      invalidSessionState = true;
+    }
+  });
+  if (invalidSessionState) return null;
+
+  const normalized = backupClone(value);
+  const normalizedSession = normalized.activeSession;
+  normalizedSession.revealedByQuestion = revealedByQuestion;
+  normalizedSession.viewByQuestion = viewByQuestion;
+  normalizedSession.revealLevelByQuestion = revealLevelByQuestion;
+  normalizedSession.scrollByQuestion = scrollByQuestion;
+  questionIds.forEach(qid => {
+    if (!normalizedSession.viewByQuestion[qid]) normalizedSession.viewByQuestion[qid] = 'question';
+    if (normalizedSession.revealLevelByQuestion[qid] === undefined) {
+      // Legacy revealedByQuestion is only a view-history flag, not proof of
+      // completing the four-step recall workflow.
+      normalizedSession.revealLevelByQuestion[qid] = 0;
+    }
+    const position = normalizedSession.scrollByQuestion[qid];
+    normalizedSession.scrollByQuestion[qid] = typeof position === 'number'
+      ? { question: position, solution: 0 }
+      : { question: Number.isFinite(position && position.question) ? position.question : 0,
+          solution: Number.isFinite(position && position.solution) ? position.solution : 0 };
+  });
+  return normalized;
 }
 
 function backupValidateMockExamTimer(value, errors) {
@@ -4916,23 +5013,72 @@ function createPracticeStoreState() {
   };
 }
 
+function practiceNormalizeScrollPositions(value) {
+  if (value === undefined) return { question: 0, solution: 0 };
+  if (typeof value === 'number' && Number.isFinite(value) && value >= 0) {
+    return { question: value, solution: 0 };
+  }
+  if (!practiceIsPlainObject(value)) return null;
+  if (value.question !== undefined && (!Number.isFinite(value.question) || value.question < 0)) return null;
+  if (value.solution !== undefined && (!Number.isFinite(value.solution) || value.solution < 0)) return null;
+  const question = value.question === undefined ? 0 : value.question;
+  const solution = value.solution === undefined ? 0 : value.solution;
+  return { question, solution };
+}
+
+function practiceNormalizeSession(session) {
+  if (session === null) return null;
+  if (!practiceIsPlainObject(session)
+      || typeof session.category !== 'string'
+      || typeof session.subjectId !== 'string'
+      || !Array.isArray(session.questionIds)
+      || session.questionIds.length === 0
+      || session.questionIds.some(qid => typeof qid !== 'string' || !qid)
+      || new Set(session.questionIds).size !== session.questionIds.length
+      || !Number.isInteger(session.currentIndex)
+      || session.currentIndex < 0
+      || session.currentIndex >= session.questionIds.length
+      || !practiceIsPlainObject(session.revealedByQuestion)
+      || !practiceIsPlainObject(session.scrollByQuestion)
+      || practiceTimestamp(session.createdAt) === null) return null;
+
+  const next = practiceClone(session);
+  const queue = new Set(next.questionIds);
+  next.viewByQuestion = practiceIsPlainObject(next.viewByQuestion) ? next.viewByQuestion : {};
+  next.revealLevelByQuestion = practiceIsPlainObject(next.revealLevelByQuestion)
+    ? next.revealLevelByQuestion : {};
+
+  if (Object.entries(next.revealedByQuestion).some(([qid, revealed]) => !queue.has(qid) || typeof revealed !== 'boolean')) return null;
+  if (Object.entries(next.viewByQuestion).some(([qid, view]) => !queue.has(qid) || !['question', 'solution'].includes(view))) return null;
+  if (Object.entries(next.revealLevelByQuestion).some(([qid, level]) => !queue.has(qid) || !Number.isInteger(level) || level < 0 || level > 4)) return null;
+  if (Object.keys(next.scrollByQuestion).some(qid => !queue.has(qid))) return null;
+
+  for (const qid of next.questionIds) {
+    if (!next.viewByQuestion[qid]) next.viewByQuestion[qid] = 'question';
+    if (next.revealLevelByQuestion[qid] === undefined) {
+      // Legacy boolean only means that the solution pane was visited; it is
+      // not evidence that all four recall layers were completed.
+      next.revealLevelByQuestion[qid] = 0;
+    }
+    next.scrollByQuestion[qid] = practiceNormalizeScrollPositions(next.scrollByQuestion[qid]);
+    if (!next.scrollByQuestion[qid]) return null;
+  }
+  return next;
+}
+
+function practiceNormalizeState(state) {
+  if (!practiceIsPlainObject(state) || state.version !== DAILY_PRACTICE_STORE_VERSION
+      || !practiceIsPlainObject(state.completionByQuestion)) return null;
+  const next = practiceClone(state);
+  next.activeSession = practiceNormalizeSession(next.activeSession === undefined ? null : next.activeSession);
+  if (state.activeSession !== undefined && state.activeSession !== null && next.activeSession === null) return null;
+  if (Object.keys(next.completionByQuestion).some(qid => !qid || practiceTimestamp(next.completionByQuestion[qid]) === null)) return null;
+  return next;
+}
+
 function practiceValidSession(session) {
   if (session === null) return true;
-  if (!practiceIsPlainObject(session)) return false;
-  if (typeof session.category !== 'string' || typeof session.subjectId !== 'string') return false;
-  if (!Array.isArray(session.questionIds) || session.questionIds.some(qid => typeof qid !== 'string' || !qid)) return false;
-  if (new Set(session.questionIds).size !== session.questionIds.length) return false;
-  if (!Number.isInteger(session.currentIndex) || session.currentIndex < 0) return false;
-  if (session.questionIds.length && session.currentIndex >= session.questionIds.length) return false;
-  if (!practiceIsPlainObject(session.revealedByQuestion) || !practiceIsPlainObject(session.scrollByQuestion)) return false;
-  const queue = new Set(session.questionIds);
-  if (Object.entries(session.revealedByQuestion).some(([qid, revealed]) => !queue.has(qid) || typeof revealed !== 'boolean')) return false;
-  if (Object.entries(session.scrollByQuestion).some(([qid, positions]) => {
-    if (!queue.has(qid) || !practiceIsPlainObject(positions)) return true;
-    return ['question', 'solution'].some(name => positions[name] !== undefined
-      && (typeof positions[name] !== 'number' || !Number.isFinite(positions[name]) || positions[name] < 0));
-  })) return false;
-  return practiceTimestamp(session.createdAt) !== null;
+  return practiceNormalizeSession(session) !== null;
 }
 
 function practiceValidState(state) {
@@ -4954,9 +5100,9 @@ function loadDailyPracticeStore(options = {}) {
   }
   if (raw === null || raw === '') return { state: fallback, error: null };
   try {
-    const parsed = JSON.parse(raw);
-    if (!practiceValidState(parsed)) throw new Error('資料格式或版本不符合目前契約');
-    return { state: practiceClone(parsed), error: null };
+    const parsed = practiceNormalizeState(JSON.parse(raw));
+    if (!parsed || !practiceValidState(parsed)) throw new Error('資料格式或版本不符合目前契約');
+    return { state: parsed, error: null };
   } catch (error) {
     // Reading bad data never writes the fallback back to the original key.
     return { state: fallback, error: `每日練習資料損壞，已使用空白狀態：${error.message || error}` };
@@ -4966,10 +5112,11 @@ function loadDailyPracticeStore(options = {}) {
 function saveDailyPracticeStore(state, options = {}) {
   const storage = practiceStorageFrom(options);
   if (!storage || typeof storage.setItem !== 'function') return { ok: false, error: '找不到每日練習的本機儲存空間。' };
-  if (!practiceValidState(state)) return { ok: false, error: '每日練習資料不符合目前契約，未寫入。' };
+  const normalized = practiceNormalizeState(state);
+  if (!normalized || !practiceValidState(normalized)) return { ok: false, error: '每日練習資料不符合目前契約，未寫入。' };
   try {
-    storage.setItem(DAILY_PRACTICE_STORAGE_KEY, JSON.stringify(state));
-    return { ok: true, state: practiceClone(state), error: null };
+    storage.setItem(DAILY_PRACTICE_STORAGE_KEY, JSON.stringify(normalized));
+    return { ok: true, state: practiceClone(normalized), error: null };
   } catch (error) {
     return { ok: false, error: `寫入每日練習資料失敗：${error.message || error}` };
   }
@@ -4983,6 +5130,8 @@ function createPracticeSession(category, subjectId, questionIds, options = {}) {
     questionIds: [...new Set(ids)],
     currentIndex: 0,
     revealedByQuestion: {},
+    viewByQuestion: {},
+    revealLevelByQuestion: {},
     scrollByQuestion: {},
     createdAt: practiceCreatedAt(options.now),
   };
@@ -5871,7 +6020,7 @@ function renderManualLabelModal() {
   `;
   const solutionButton = body.querySelector('[data-manual-open-solution]');
   if (solutionButton) solutionButton.addEventListener('click', () => {
-    if (typeof openSolutionModal === 'function') openSolutionModal(null, solutionLink, qid, record.number, false, false);
+    if (typeof openSolutionModal === 'function') openSolutionModal(null, solutionLink, qid, record.number, { mode: 'browse' });
   });
 }
 
@@ -5972,7 +6121,8 @@ function openReviewSessionItem(index) {
   const q = currentReviewSessionQueue[index];
   const record = getReviewRecord(q);
   if (typeof openSolutionModal === 'function') {
-    openSolutionModal(null, record.solutionLink, record.id, record.number, false, true, {
+    openSolutionModal(null, record.solutionLink, record.id, record.number, {
+      mode: 'due-review', recall: true,
       sessionQueue: currentReviewSessionQueue,
       sessionIndex: currentReviewSessionIndex
     });
@@ -6165,14 +6315,14 @@ function renderReviewPage() {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewOpen);
     if (q && typeof openSolutionModal === 'function') {
       const record = getReviewRecord(q);
-      openSolutionModal(null, record.solutionLink, record.id, record.number, false, false);
+      openSolutionModal(null, record.solutionLink, record.id, record.number, { mode: 'due-review' });
     }
   }));
   container.querySelectorAll('[data-review-recall]').forEach(button => button.addEventListener('click', () => {
     const q = filtered.find(item => getReviewRecord(item).id === button.dataset.reviewRecall);
     if (q && typeof openSolutionModal === 'function') {
       const record = getReviewRecord(q);
-      openSolutionModal(null, record.solutionLink, record.id, record.number, false, true);
+      openSolutionModal(null, record.solutionLink, record.id, record.number, { mode: 'due-review', recall: true });
     }
   }));
   container.querySelectorAll('[data-review-status]').forEach(button => button.addEventListener('click', () => {
@@ -7526,10 +7676,10 @@ function renderQuestions() {
             ${dueInfo.text ? `<span class="due-badge ${dueInfo.cssClass}" title="SM-2 智能間隔重複排程">${dueInfo.text}</span>` : ''}
           </div>
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, false, true)" class="btn-sol" style="background: var(--warn); border-color: var(--warn); box-shadow: 0 2px 6px rgba(196, 124, 93, 0.25);" title="開啟白紙蓋牌主動回想抽測">
+            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse', recall: true})" class="btn-sol" style="background: var(--warn); border-color: var(--warn); box-shadow: 0 2px 6px rgba(196, 124, 93, 0.25);" title="開啟白紙蓋牌主動回想抽測">
               🎴 蓋牌抽測
             </button>
-            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, false, false)" class="btn-sol" title="直接檢視完整 KaTeX 推導詳解">
+            <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse'})" class="btn-sol" title="直接檢視完整 KaTeX 推導詳解">
               📝 完整詳解
             </button>
             <a href="${pdfLink}" target="_blank" class="btn-pdf" title="在瀏覽器開啟考選部原題 PDF">
@@ -7565,6 +7715,102 @@ let currentSubQuestionIdx = 0;
 let modalHistoryStack = [];
 let currentRecallAchievedLevel = 0;
 let currentRecallErrorType = null;
+let currentSolutionSourceMode = 'browse';
+let currentSolutionRecallEntry = false;
+
+const SOLUTION_SOURCE_MODES = ['daily-practice', 'due-review', 'browse'];
+
+function normalizeSolutionModalOptions(options) {
+  const value = options && typeof options === 'object' ? options : {};
+  const mode = SOLUTION_SOURCE_MODES.includes(value.mode) ? value.mode : 'browse';
+  const recallEntry = Object.prototype.hasOwnProperty.call(value, 'recallEntry')
+    ? Boolean(value.recallEntry)
+    : Boolean(value.recall);
+  return Object.assign({ mode, recall: false, recallEntry, fullView: false }, value, {
+    mode,
+    recall: Boolean(value.recall),
+    recallEntry
+  });
+}
+
+let imageLightboxScale = 1;
+let imageLightboxReturnFocus = null;
+
+function solutionModalEscape(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+
+function closeImageLightbox() {
+  const lightbox = document.getElementById('question-image-lightbox');
+  if (lightbox) lightbox.remove();
+  const trigger = imageLightboxReturnFocus;
+  const canRestoreFocus = trigger && typeof trigger.focus === 'function'
+    && (typeof document === 'undefined' || typeof document.contains !== 'function'
+      ? trigger.isConnected !== false
+      : document.contains(trigger));
+  if (canRestoreFocus) trigger.focus();
+  imageLightboxReturnFocus = null;
+}
+
+function setImageLightboxScale(nextScale) {
+  imageLightboxScale = Math.min(3, Math.max(1, Number(nextScale) || 1));
+  const image = document.querySelector('#question-image-lightbox img');
+  const label = document.querySelector('#question-image-lightbox [data-image-scale]');
+  if (image) image.style.transform = `scale(${imageLightboxScale})`;
+  if (label) label.textContent = `${Math.round(imageLightboxScale * 100)}%`;
+}
+
+function openImageLightbox(src, alt, trigger) {
+  if (!src || typeof document === 'undefined' || !document.body) return;
+  closeImageLightbox();
+  imageLightboxReturnFocus = trigger || null;
+  imageLightboxScale = 1;
+  const lightbox = document.createElement('div');
+  lightbox.id = 'question-image-lightbox';
+  lightbox.className = 'question-image-lightbox';
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.innerHTML = `<div class="question-image-lightbox-toolbar">
+    <button type="button" data-image-zoom-out aria-label="縮小">−</button>
+    <span data-image-scale>100%</span>
+    <button type="button" data-image-zoom-in aria-label="放大">＋</button>
+    <button type="button" data-image-close aria-label="關閉題圖">✕</button>
+  </div><div class="question-image-lightbox-stage" tabindex="0"><img src="${solutionModalEscape(src)}" alt="${solutionModalEscape(alt || '')}"></div>`;
+  document.body.appendChild(lightbox);
+  lightbox.querySelector('[data-image-close]').addEventListener('click', closeImageLightbox);
+  lightbox.querySelector('[data-image-zoom-in]').addEventListener('click', () => setImageLightboxScale(imageLightboxScale + 0.25));
+  lightbox.querySelector('[data-image-zoom-out]').addEventListener('click', () => setImageLightboxScale(imageLightboxScale - 0.25));
+  lightbox.addEventListener('click', event => { if (event.target === lightbox) closeImageLightbox(); });
+  lightbox.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      closeImageLightbox();
+      return;
+    }
+    if (event.key === '+' || event.key === '=') setImageLightboxScale(imageLightboxScale + 0.25);
+    if (event.key === '-' || event.key === '_') setImageLightboxScale(imageLightboxScale - 0.25);
+  });
+  const stage = lightbox.querySelector('.question-image-lightbox-stage');
+  if (stage) stage.focus();
+}
+
+function bindQuestionCropPreview(qid, pdfLink) {
+  const image = document.querySelector('[data-question-crop-image]');
+  if (!image) return;
+  image.addEventListener('click', () => openImageLightbox(image.src, image.alt, image));
+  image.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openImageLightbox(image.src, image.alt, image); }
+  });
+  image.addEventListener('error', () => {
+    const wrapper = image.closest('.question-crop-wrap');
+    if (!wrapper) return;
+    const safePdfLink = solutionModalEscape(pdfLink);
+    wrapper.outerHTML = `<div class="question-crop-fallback" role="status">原題截圖載入失敗，已切換為官方 PDF。${pdfLink ? `<a class="btn-pdf" href="${safePdfLink}" target="_blank" rel="noopener">開啟官方原題 PDF</a>` : '目前沒有可用的官方 PDF 連結。'}</div>`;
+  }, { once: true });
+}
 
 const CN_NUM_MAP = {
   '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8,
@@ -7632,7 +7878,8 @@ function advanceReviewSessionItem() {
     currentReviewSessionIndex++;
     const nextQ = currentReviewSessionQueue[currentReviewSessionIndex];
     const rec = (typeof getReviewRecord === 'function') ? getReviewRecord(nextQ) : { id: nextQ[0], number: nextQ[3], solutionLink: nextQ[6] };
-    openSolutionModal(null, rec.solutionLink, rec.id, rec.number, false, true, {
+    openSolutionModal(null, rec.solutionLink, rec.id, rec.number, {
+      mode: 'due-review', recall: true,
       sessionQueue: currentReviewSessionQueue,
       sessionIndex: currentReviewSessionIndex
     });
@@ -7643,24 +7890,37 @@ function advanceReviewSessionItem() {
   }
 }
 
-function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRecall = false, options = {}) {
+function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   if (event) event.preventDefault();
+
+  const modalOptions = normalizeSolutionModalOptions(options);
+
+  if (modalOptions.mode === 'daily-practice' && typeof dailyPracticeGetCurrentQuestionId === 'function'
+      && dailyPracticeGetCurrentQuestionId() !== String(qid)) {
+    if (typeof showToast === 'function') showToast('每日練習題號已變更，請從目前題目重新開啟詳解。');
+    return;
+  }
 
   currentModalQid = qid;
   currentModalSolLink = solLink;
   currentModalQNum = qnum;
-  currentModalFullView = fullView;
+  currentModalFullView = Boolean(modalOptions.fullView);
   currentSubQuestionIdx = 0;
   currentRecallAchievedLevel = 0;
   currentRecallErrorType = null;
   // Each entry point owns the mode for the question it opens.  Do not let a
   // previous recall session leak into ordinary or mock-exam solution views.
-  isActiveRecallMode = Boolean(activeRecall);
+  currentSolutionSourceMode = modalOptions.mode;
+  currentSolutionRecallEntry = Boolean(modalOptions.recallEntry);
+  isActiveRecallMode = currentSolutionRecallEntry;
+  if (currentSolutionSourceMode === 'daily-practice' && typeof dailyPracticeGetRecallProgress === 'function') {
+    currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, dailyPracticeGetRecallProgress(qid));
+  }
 
-  if (options && options.sessionQueue) {
-    currentReviewSessionQueue = options.sessionQueue;
-    currentReviewSessionIndex = typeof options.sessionIndex === 'number' ? options.sessionIndex : 0;
-  } else if (!options || !options.keepSession) {
+  if (modalOptions && modalOptions.sessionQueue) {
+    currentReviewSessionQueue = modalOptions.sessionQueue;
+    currentReviewSessionIndex = typeof modalOptions.sessionIndex === 'number' ? modalOptions.sessionIndex : 0;
+  } else if (!modalOptions.keepSession) {
     currentReviewSessionQueue = null;
     currentReviewSessionIndex = 0;
   }
@@ -7699,23 +7959,35 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   }
 
   const qRecord = findQuestionRecord(qid);
-  const [curQid, sid, yr, curQnum, topic, tags, curSolLink, pdfLink, diff] = qRecord || [qid, '01', 114, qnum, '', [], solLink, '', 3];
+  const namedRecord = qRecord && typeof toQuestionRecord === 'function'
+    ? toQuestionRecord(qRecord, qid && qid.startsWith('GK-') ? 'GK' : 'PE') : null;
+  const curQid = namedRecord ? namedRecord.id : qid;
+  const sid = namedRecord ? namedRecord.subjectId : '01';
+  const yr = namedRecord ? namedRecord.year : 114;
+  const curQnum = namedRecord ? namedRecord.number : qnum;
+  const topic = namedRecord ? namedRecord.stem : '';
+  const curSolLink = namedRecord ? namedRecord.solutionLink : solLink;
+  const pdfLink = namedRecord ? namedRecord.sourceLink : '';
   const meta = getSubjectMeta(sid);
   // Prefer an attested question-level crop for the stem preview.  GK crops
   // are stored on the question record; PE crops are compiled into the map
   // alongside the legacy page-image map.  Keep the official PDF link below
   // as the source-of-truth fallback/access path.
-  const isGK = Boolean(qid && qid.startsWith('GK-'));
+  const isGK = Boolean(namedRecord ? namedRecord.examFamily === 'GK' : qid && qid.startsWith('GK-'));
   const questionCrop = isGK
-    ? (qRecord && qRecord[14])
+    ? (namedRecord && namedRecord.provenance ? namedRecord.provenance.questionCrop : '')
     : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] : '');
   const questionCropSrc = questionCrop ? resolveImageMapUrl(questionCrop, isGK, qid) : '';
+  const safeQid = solutionModalEscape(qid);
+  const safePdfLink = solutionModalEscape(pdfLink);
+  const safeQuestionCropSrc = solutionModalEscape(questionCropSrc);
+  const safeSolLink = solutionModalEscape(curSolLink);
 
   // 1. Update Title
   const titleEl = document.getElementById('modal-title');
   if (titleEl) {
     titleEl.innerHTML = `
-      <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${qid}</span>
+      <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${safeQid}</span>
       <span style="font-size: 0.9rem; color: var(--muted); font-weight: 500;">
         · ${meta.icon} ${meta.name}（${yr} 年第 ${curQnum} 大題）
       </span>
@@ -7733,10 +8005,11 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
   if (leftContent) {
     const sourcePreview = questionCropSrc
       ? `<div class="question-crop-wrap">
-          <img class="question-crop-preview" src="${questionCropSrc}" alt="${qid} 本題裁切圖" loading="eager" />
+          <img class="question-crop-preview" data-question-crop-image src="${safeQuestionCropSrc}" alt="${safeQid} 本題裁切圖；按 Enter 或點擊放大" loading="eager" tabindex="0" role="button" />
+          <p class="question-crop-hint">點擊、觸控或按 Enter 放大；放大後可用 +／−、鍵盤或按鈕調整。</p>
         </div>`
       : `<div class="question-crop-fallback">尚未建立本題裁切圖，以下保留官方 PDF 預覽。</div>
-         <div class="question-pdf-frame"><iframe src="${pdfLink}#toolbar=0" title="官方原始考卷 PDF" loading="lazy"></iframe></div>`;
+         <div class="question-pdf-frame"><iframe src="${safePdfLink}#toolbar=0" title="官方原始考卷 PDF" loading="lazy"></iframe></div>`;
     leftContent.innerHTML = `
       <div style="padding: 8px 14px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -7745,7 +8018,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
             🔍 展開題幹文字
           </button>
         </div>
-        <a href="${pdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
+        <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
           新分頁開啟 ⬈
         </a>
       </div>
@@ -7757,13 +8030,14 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
 
       ${sourcePreview}
     `;
+    bindQuestionCropPreview(qid, pdfLink);
   }
 
   // 4. Load Right Pane (Extracted Question Solution + KaTeX + Sub-part Navigation + DAG)
   const rightPane = document.getElementById('modal-right-content');
   const subQPillsBar = document.getElementById('modal-sub-q-pills');
 
-  const rawMd = resolveSolutionMarkdown(solLink, qid);
+  const rawMd = resolveSolutionMarkdown(curSolLink, qid);
 
   if (rawMd) {
     const { fullContent, subParts } = extractQuestionMarkdown(rawMd, curQnum);
@@ -7791,7 +8065,7 @@ function openSolutionModal(event, solLink, qid, qnum, fullView = false, activeRe
         <div style="text-align: center; padding: 60px 20px;">
           <h3 style="color: var(--warn); margin-bottom: 10px;">📑 詳解收錄於題解知識庫中</h3>
           <p style="color: var(--muted); margin-bottom: 20px;">點擊下方按鈕前往知識庫檢視本題完整解答：</p>
-          <a href="${solLink}" target="_blank" class="btn-sol">🔗 前往考科詳解庫</a>
+          <a href="${safeSolLink}" target="_blank" class="btn-sol">🔗 前往考科詳解庫</a>
         </div>
       `;
     }
@@ -7839,10 +8113,12 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
     },
   }[normalizedStatus];
   const meta = metadata || {};
-  const qid = qRecord && qRecord[0];
-  const isGK = Boolean(qid && String(qid).startsWith('GK-'));
+  const namedRecord = qRecord && typeof toQuestionRecord === 'function'
+    ? toQuestionRecord(qRecord) : null;
+  const qid = namedRecord ? namedRecord.id : '';
+  const isGK = Boolean(namedRecord && namedRecord.examFamily === 'GK');
   const questionCrop = isGK
-    ? (qRecord && qRecord[14]) || ''
+    ? (namedRecord && namedRecord.provenance ? namedRecord.provenance.questionCrop : '')
     : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] : '') || '';
   const isHttps = value => typeof value === 'string' && /^https:\/\//i.test(value);
   const publicReferenceUrls = Array.isArray(meta.publicReferenceUrls)
@@ -7865,8 +8141,8 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
     issueType: String(meta.blocker || normalizedStatus),
     conservative: normalizedStatus !== 'verified' && !hasReviewDetails,
     sources: {
-      officialQuestionUrl: qRecord && qRecord[7] ? String(qRecord[7]) : '',
-      solutionLink: qRecord && qRecord[6] ? String(qRecord[6]) : '',
+      officialQuestionUrl: namedRecord && namedRecord.sourceLink ? String(namedRecord.sourceLink) : '',
+      solutionLink: namedRecord && namedRecord.solutionLink ? String(namedRecord.solutionLink) : '',
       questionCrop: String(questionCrop || ''),
       officialSourceUrl: isHttps(meta.officialSourceUrl) ? meta.officialSourceUrl : '',
       publicReferenceUrls,
@@ -8045,6 +8321,12 @@ function updateSameExamDropdown(sid, yr, currentQid) {
   const select = document.getElementById('modal-same-exam-select');
   if (!select) return;
 
+  if (currentSolutionSourceMode === 'daily-practice') {
+    select.style.display = 'none';
+    select.innerHTML = '';
+    return;
+  }
+
   const activeList = getActiveQuestionsList();
   const sameExamQs = activeList.filter(q => q[1] === sid && q[2] === yr);
 
@@ -8055,22 +8337,25 @@ function updateSameExamDropdown(sid, yr, currentQid) {
 
   select.style.display = 'inline-block';
   select.innerHTML = sameExamQs.map(q => {
-    const qid = q[0];
-    const qnum = q[3];
+    const record = typeof toQuestionRecord === 'function' ? toQuestionRecord(q) : null;
+    if (!record) return '';
+    const qid = record.id;
+    const qnum = record.number;
     const s = progressState[qid] || 0;
     const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
     const isCur = qid === currentQid;
-    return `<option value="${qid}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${qid})</option>`;
+    return `<option value="${solutionModalEscape(qid)}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${solutionModalEscape(qid)})</option>`;
   }).join('');
 }
 
 function onSameExamSelectChange(selectElem) {
+  if (currentSolutionSourceMode === 'daily-practice') return;
   const targetQid = selectElem.value;
   if (!targetQid || targetQid === currentModalQid) return;
   const qRecord = findQuestionRecord(targetQid);
   if (qRecord) {
     const [qid, sid, yr, qnum, topic, tags, solLink] = qRecord;
-    openSolutionModal(null, solLink, qid, qnum);
+    openSolutionModal(null, solLink, qid, qnum, { mode: currentSolutionSourceMode, recall: isActiveRecallMode });
   }
 }
 
@@ -8078,6 +8363,17 @@ function updateModalNavButtons(qid) {
   const btnPrev = document.getElementById('btn-modal-prev');
   const btnNext = document.getElementById('btn-modal-next');
   if (!btnPrev || !btnNext) return;
+
+  if (currentSolutionSourceMode === 'daily-practice') {
+    btnPrev.style.display = 'none';
+    btnNext.style.display = 'none';
+    btnPrev.disabled = true;
+    btnNext.disabled = true;
+    return;
+  }
+
+  btnPrev.style.display = '';
+  btnNext.style.display = '';
 
   const activeList = getActiveQuestionsList();
   const curIdx = activeList.findIndex(q => q[0] === qid);
@@ -8087,6 +8383,7 @@ function updateModalNavButtons(qid) {
 }
 
 function navModalQuestion(direction) {
+  if (currentSolutionSourceMode === 'daily-practice') return;
   const activeList = getActiveQuestionsList();
   if (activeList.length === 0 || !currentModalQid) return;
 
@@ -8097,7 +8394,7 @@ function navModalQuestion(direction) {
   if (targetIdx >= 0 && targetIdx < activeList.length) {
     const targetQ = activeList[targetIdx];
     const [qid, sid, yr, qnum, topic, tags, solLink] = targetQ;
-    openSolutionModal(null, solLink, qid, qnum);
+    openSolutionModal(null, solLink, qid, qnum, { mode: currentSolutionSourceMode, recall: isActiveRecallMode });
   }
 }
 
@@ -8159,6 +8456,9 @@ function getSolutionModalTransientState() {
   return {
     qid: currentModalQid,
     activeRecall: isActiveRecallMode,
+    sourceMode: currentSolutionSourceMode,
+    recallEntry: currentSolutionRecallEntry,
+    recallLevel: currentRecallAchievedLevel,
     sessionLength: currentReviewSessionQueue ? currentReviewSessionQueue.length : 0,
     sessionIndex: currentReviewSessionIndex,
   };
@@ -8177,6 +8477,16 @@ function syncActiveRecallButtonState() {
 }
 
 function toggleActiveRecallMode() {
+  if (currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry) {
+    isActiveRecallMode = true;
+    syncActiveRecallButtonState();
+    showToast('每日練習四段蓋牌模式請依序完成揭露，不能從頂部直接全開。');
+    return;
+  }
+  if (currentSolutionSourceMode === 'daily-practice' && !currentSolutionRecallEntry) {
+    showToast('直接查看模式僅供核對，不會轉換為每日練習蓋牌。');
+    return;
+  }
   isActiveRecallMode = !isActiveRecallMode;
   syncActiveRecallButtonState();
   showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式（四步驟蓋牌）' : '📖 已切換為全開放詳解模式');
@@ -8199,6 +8509,10 @@ function revealRecallHint() {
 }
 
 function revealRecallFull() {
+  if (currentRecallAchievedLevel < 3) {
+    if (typeof showToast === 'function') showToast('請依序完成前 3 段提示後，再揭曉完整推導。');
+    return;
+  }
   const fullEl = document.getElementById('recall-full-section');
   const ratingEl = document.getElementById('recall-rating-bar');
   const boxEl = document.getElementById('recall-step-box');
@@ -8206,6 +8520,7 @@ function revealRecallFull() {
   if (ratingEl) ratingEl.style.display = 'flex';
   if (boxEl) boxEl.style.display = 'none';
   currentRecallAchievedLevel = 4;
+  if (typeof dailyPracticeRecordRecallProgress === 'function' && currentSolutionSourceMode === 'daily-practice') dailyPracticeRecordRecallProgress(4);
 
   // Render any hidden math in full section
   const rightPane = document.getElementById('modal-right-content');
@@ -8221,12 +8536,18 @@ function revealRecallFull() {
 }
 
 function revealRecallLayer(layer) {
+  const requested = Number(layer) || 0;
+  if (requested < 1 || requested > 3 || requested > currentRecallAchievedLevel + 1) {
+    if (typeof showToast === 'function') showToast('請依序揭露上一段提示。');
+    return;
+  }
   const target = document.getElementById(`recall-layer-${layer}`);
   if (target) {
     target.style.display = 'block';
     target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
-  currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, Number(layer) || 0);
+  currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, requested);
+  if (typeof dailyPracticeRecordRecallProgress === 'function' && currentSolutionSourceMode === 'daily-practice') dailyPracticeRecordRecallProgress(currentRecallAchievedLevel);
   const full = document.getElementById('recall-full-section');
   const rating = document.getElementById('recall-rating-bar');
   if (layer >= 4) {
@@ -8244,10 +8565,22 @@ function chooseRecallError(errorType) {
 
 function submitSM2Rating(rating) {
   if (!currentModalQid) return;
+  if (![1, 3, 5].includes(Number(rating))) return;
   const achieved = rating === 5 ? 4 : rating === 3 ? Math.max(2, currentRecallAchievedLevel) : 0;
-  if (typeof recordRecallAttempt === 'function') {
-    recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
+  if (currentSolutionSourceMode === 'daily-practice') {
+    if (!currentSolutionRecallEntry) {
+      if (typeof showToast === 'function') showToast('直接查看模式僅供核對，不會完成每日練習。');
+      return;
+    }
+    if (currentRecallAchievedLevel < 4) {
+      if (typeof showToast === 'function') showToast('請先完成第 ④ 段完整推導，再進行自評。');
+      return;
+    }
+    if (typeof recordRecallAttempt === 'function') recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
+    if (typeof dailyPracticeCompleteFromModal === 'function') dailyPracticeCompleteFromModal(rating, currentRecallAchievedLevel, currentModalQid);
+    return;
   }
+  if (typeof recordRecallAttempt === 'function') recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
   const result = recordSM2Review(currentModalQid, rating);
   const ratingTexts = { 1: '🔴 遺忘 (明日二刷)', 3: '🟡 勉強 (3天後複習)', 5: '🟢 完美秒殺 (已延長間隔)' };
   showToast(`🎯 已排程：${ratingTexts[rating]} (下次：${result.nextReviewDate})`);
@@ -8272,6 +8605,9 @@ function submitSM2Rating(rating) {
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
+  const ratingTitle = currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry
+    ? '🎯 今日練習自評（只記錄回想結果，不建立 SM-2 排程）'
+    : '🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：';
 
   if (isActiveRecallMode) {
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
@@ -8290,8 +8626,8 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
 
     let dagHtml = '';
     if (qRecord) {
-      const [qid, sid, yr, qnum, topic] = qRecord;
-      dagHtml = renderDagTracerCard(qid, sid, topic);
+      const record = typeof toQuestionRecord === 'function' ? toQuestionRecord(qRecord) : null;
+      if (record) dagHtml = renderDagTracerCard(record.id, record.subjectId, record.stem);
     }
 
     rightPane.innerHTML = `
@@ -8327,7 +8663,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         ${scenarioMatrixHtml}
 
         <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
-          <div class="sm2-rating-title">🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：</div>
+          <div class="sm2-rating-title">${ratingTitle}</div>
           <div class="recall-error-buttons" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0;">
             <button type="button" class="pill" data-recall-error="題型辨識錯" onclick="chooseRecallError('題型辨識錯')">題型辨識錯</button>
             <button type="button" class="pill" data-recall-error="起手式不會" onclick="chooseRecallError('起手式不會')">起手式不會</button>
@@ -8352,6 +8688,18 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         </div>
       </div>
     `;
+    for (let layer = 1; layer <= Math.min(3, currentRecallAchievedLevel); layer++) {
+      const layerEl = document.getElementById(`recall-layer-${layer}`);
+      if (layerEl) layerEl.style.display = 'block';
+    }
+    if (currentRecallAchievedLevel >= 4) {
+      const fullEl = document.getElementById('recall-full-section');
+      const ratingEl = document.getElementById('recall-rating-bar');
+      const boxEl = document.getElementById('recall-step-box');
+      if (fullEl) fullEl.style.display = 'block';
+      if (ratingEl) ratingEl.style.display = 'flex';
+      if (boxEl) boxEl.style.display = 'none';
+    }
   } else {
     // Normal Full Open Mode
     let html = processMarkdownWithMath(markdownChunk);
@@ -8360,14 +8708,16 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     html = renderSolutionReviewCard(currentModalQid) + renderScenarioMatrix(currentModalQid) + html;
 
     if (qRecord) {
-      const [qid, sid, yr, qnum, topic] = qRecord;
-      html += renderDagTracerCard(qid, sid, topic);
+      const record = typeof toQuestionRecord === 'function' ? toQuestionRecord(qRecord) : null;
+      if (record) html += renderDagTracerCard(record.id, record.subjectId, record.stem);
     }
 
-    // Add SM-2 quick rating footer in normal mode as well!
-    html += `
+    // Browse bypass is pure viewing: it must not expose daily-practice
+    // completion controls.  Ordinary browse still keeps its original SM-2
+    // footer; only the daily-practice recall entry is completion-eligible.
+    if (!(currentSolutionSourceMode === 'daily-practice' && !currentSolutionRecallEntry)) html += `
       <div class="sm2-rating-bar">
-        <div class="sm2-rating-title">🎯 複習自評反饋（SM-2 智能間隔排程）：</div>
+        <div class="sm2-rating-title">${ratingTitle}</div>
         <div class="sm2-rating-buttons">
           <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
             <span>🔴 遺忘卡關</span>
@@ -8416,6 +8766,8 @@ function closeModal() {
   currentRecallAchievedLevel = 0;
   currentRecallErrorType = null;
   isActiveRecallMode = false;
+  currentSolutionSourceMode = 'browse';
+  currentSolutionRecallEntry = false;
   currentReviewSessionQueue = null;
   currentReviewSessionIndex = 0;
   modalHistoryStack = [];
@@ -8708,7 +9060,7 @@ function loadMockExam() {
             </div>
             <div class="qtopic">${renderQuestionTopic(topic)}</div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
-              <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">📝 檢視標準推導解答</button>
+              <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse'})" class="btn-sol">📝 檢視標準推導解答</button>
               <a href="${pdfLink}" target="_blank" class="btn-pdf">📄 查看官方 PDF</a>
             </div>
           </div>
@@ -8741,6 +9093,22 @@ function dailyPracticeEscape(value) {
   }[ch]));
 }
 
+// Convert legacy PE/GK tuples at one boundary.  Rendering and interaction
+// code below consumes the named QuestionRecord fields only.
+function dailyPracticeRecord(question, categoryHint) {
+  if (!question) return null;
+  if (typeof toQuestionRecord === 'function') {
+    const record = toQuestionRecord(question, categoryHint);
+    const isGK = record.examFamily === 'GK';
+    const crop = isGK
+      ? (record.provenance && record.provenance.questionCrop) || ''
+      : (typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[record.id] || '' : '');
+    record.provenance = Object.assign({}, record.provenance, { questionCrop: crop });
+    return record;
+  }
+  return null;
+}
+
 function dailyPracticeQuestions(category) {
   if (category === 'GK') {
     return typeof NATIONAL_EXAMS_DATA !== 'undefined' && Array.isArray(NATIONAL_EXAMS_DATA.questions)
@@ -8762,11 +9130,12 @@ function dailyPracticeSubjectLabel(category, subjectId) {
 }
 
 function dailyPracticeFacet(question, kind) {
-  if (typeof getQuestionFacetIds === 'function' && String(question[0] || '').startsWith('EE-')) {
+  const record = dailyPracticeRecord(question);
+  if (typeof getQuestionFacetIds === 'function' && record && String(record.id || '').startsWith('EE-')) {
     const ids = getQuestionFacetIds(question, false, 'PE');
     if (ids.length && typeof getQuestionFacetLabel === 'function') return getQuestionFacetLabel(ids[0]);
   }
-  const values = kind === 'type' ? question[10] || question[5] : question[5] || [];
+  const values = kind === 'type' ? record.formulaTags || record.tags : record.tags || [];
   return Array.isArray(values) && values.length ? String(values[0]) : 'unknown';
 }
 
@@ -8781,11 +9150,26 @@ function dailyPracticeAllQuestions() {
   return dailyPracticeQuestions('PE').concat(dailyPracticeQuestions('GK'));
 }
 
+function dailyPracticeQuestionCrop(record) {
+  return record && record.provenance ? record.provenance.questionCrop || '' : '';
+}
+
+function dailyPracticeQuestionImage(record) {
+  const crop = dailyPracticeQuestionCrop(record);
+  if (!crop) return '';
+  const qid = record.id;
+  const isGK = record.examFamily === 'GK';
+  return typeof resolveImageMapUrl === 'function'
+    ? resolveImageMapUrl(crop, isGK, qid)
+    : crop;
+}
+
 function dailyPracticeCurrentQuestion() {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   if (!session || !Array.isArray(session.questionIds)) return null;
   const qid = session.questionIds[session.currentIndex];
-  return dailyPracticeAllQuestions().find(question => question && question[0] === qid) || null;
+  const raw = dailyPracticeAllQuestions().find(question => dailyPracticeRecord(question).id === qid);
+  return raw ? dailyPracticeRecord(raw, session.category) : null;
 }
 
 function dailyPracticeSave(state) {
@@ -8803,7 +9187,8 @@ function dailyPracticeSetCategory(category) {
     dailyPracticeSubjects(dailyPracticeCategory).map(subject =>
       '<option value="' + subject.id + '">' + dailyPracticeSubjectLabel(dailyPracticeCategory, subject.id) + '</option>'
     ).join('');
-  select.value = dailyPracticeSubject;
+  select.value = dailyPracticeSubjects(dailyPracticeCategory).some(item => String(item.id) === String(dailyPracticeSubject))
+    ? dailyPracticeSubject : 'all';
 }
 
 function dailyPracticeStart() {
@@ -8841,7 +9226,9 @@ function dailyPracticeStart() {
 
 function dailyPracticeContinue() {
   dailyPracticeHomeMode = 'continue';
-  dailyPracticeView = 'question';
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  const qid = session && session.questionIds[session.currentIndex];
+  dailyPracticeView = session && session.viewByQuestion && session.viewByQuestion[qid] === 'solution' ? 'solution' : 'question';
   initDailyPracticeHome();
 }
 
@@ -8875,8 +9262,11 @@ function dailyPracticeSetView(view) {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   if (session) {
     const qid = session.questionIds[session.currentIndex];
-    if (qid) session.revealedByQuestion[qid] = dailyPracticeView === 'solution';
-    dailyPracticeSave(session && dailyPracticeState);
+    if (qid) {
+      session.viewByQuestion[qid] = dailyPracticeView;
+      session.revealedByQuestion[qid] = dailyPracticeView === 'solution';
+      dailyPracticeSave(dailyPracticeState);
+    }
   }
   initDailyPracticeHome();
 }
@@ -8886,54 +9276,87 @@ function dailyPracticeScroll(event) {
   if (!session) return;
   const qid = session.questionIds[session.currentIndex];
   if (!qid) return;
-  session.scrollByQuestion[qid] = event.currentTarget.scrollTop;
+  const position = session.scrollByQuestion[qid] || { question: 0, solution: 0 };
+  position[dailyPracticeView] = Math.max(0, Number(event.currentTarget.scrollTop) || 0);
+  session.scrollByQuestion[qid] = position;
   if (typeof saveDailyPracticeStore === 'function') saveDailyPracticeStore(dailyPracticeState);
 }
 
-function dailyPracticeAdvance(completed) {
+function dailyPracticeDefer() {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  if (!session) return;
+  const result = dailyPracticeSave(dailyPracticeState);
+  if (!result.ok) {
+    showToast(result.error || '本題進度無法儲存。');
+    return;
+  }
+  showToast('已保留本題進度；完成詳解自評後才會進入下一題。');
+}
+
+// Compatibility guard for old bookmarks: this never advances or completes.
+function dailyPracticeAdvance() { dailyPracticeDefer(); return false; }
+
+function dailyPracticeRecordRecallProgress(level) {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   if (!session) return;
   const qid = session.questionIds[session.currentIndex];
   if (!qid) return;
-  const completedAt = Date.now();
-  const nextIndex = session.currentIndex + 1;
-  const isFinished = nextIndex >= session.questionIds.length;
-  const nextSession = isFinished ? null : JSON.parse(JSON.stringify(session));
-  if (nextSession) nextSession.currentIndex = nextIndex;
-  const result = typeof commitPracticeProgress === 'function'
-    ? commitPracticeProgress(nextSession, completed ? qid : null, completedAt)
-    : { ok: false, error: '每日練習進度模組尚未載入。' };
-  if (!result.ok) {
-    showToast(result.error || '本題完成狀態無法儲存。');
-    return;
-  }
-  dailyPracticeState = result.state;
-  dailyPracticeView = 'question';
-  if (isFinished) {
-    const startedAt = Date.parse(session.createdAt);
-    const completedCount = session.questionIds.filter(id => {
-      const timestamp = dailyPracticeState.completionByQuestion[id];
-      return Number.isFinite(timestamp) && timestamp >= startedAt;
-    }).length;
-    dailyPracticeLastSummary = {
-      category: session.category,
-      subjectId: session.subjectId,
-      total: session.questionIds.length,
-      completed: completedCount,
-    };
-    dailyPracticeHomeMode = 'summary';
-    showToast('🎉 本輪每日練習已完成！');
-  }
-  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
-  initDailyPracticeHome();
+  session.revealLevelByQuestion[qid] = Math.max(session.revealLevelByQuestion[qid] || 0, Math.min(4, Number(level) || 0));
+  session.revealedByQuestion[qid] = session.revealLevelByQuestion[qid] > 0;
+  dailyPracticeSave(dailyPracticeState);
 }
 
-function dailyPracticeSolutionButton(question) {
-  const qid = String(question[0] || '').replace(/'/g, '&#39;');
-  const solLink = String(question[6] || '').replace(/'/g, '&#39;');
-  const qnum = Number(question[3]) || 1;
-  return '<div class="daily-practice-solution-note"><p>點開完整詳解可查看雙欄原題、公式推導、來源與驗算。</p>' +
-    '<button class="btn-sol" type="button" onclick="openSolutionModal(event, \'' + solLink + '\', \'' + qid + '\', ' + qnum + ', false, false)">📝 開啟完整詳解</button></div>';
+function dailyPracticeGetRecallProgress(qid) {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  return session && session.revealLevelByQuestion && session.revealLevelByQuestion[qid]
+    ? session.revealLevelByQuestion[qid] : 0;
+}
+
+function dailyPracticeGetCurrentQuestionId() {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  return session && session.questionIds ? session.questionIds[session.currentIndex] || null : null;
+}
+
+function dailyPracticeCompleteFromModal(rating, achievedLevel, modalQid) {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  if (!session) return false;
+  const qid = session.questionIds[session.currentIndex];
+  if (!qid || String(modalQid || '') !== String(qid)) {
+    showToast('目前詳解題號與每日練習題號不一致，未完成本題。');
+    return false;
+  }
+  if ((Number(achievedLevel) || 0) < 4) {
+    showToast('請先完成第 ④ 段完整推導，再進行自評。');
+    return false;
+  }
+  const nextIndex = session.currentIndex + 1;
+  const nextSession = nextIndex >= session.questionIds.length ? null : JSON.parse(JSON.stringify(session));
+  if (nextSession) nextSession.currentIndex = nextIndex;
+  const result = typeof commitPracticeProgress === 'function'
+    ? commitPracticeProgress(nextSession, qid, Date.now())
+    : { ok: false, error: '每日練習進度模組尚未載入。' };
+  if (!result.ok) { showToast(result.error || '每日練習進度無法儲存。'); return false; }
+  dailyPracticeState = result.state;
+  if (!nextSession) {
+    dailyPracticeLastSummary = { category: session.category, subjectId: session.subjectId, total: session.questionIds.length, completed: session.questionIds.length };
+    dailyPracticeHomeMode = 'summary';
+    showToast('🎉 本輪每日練習已完成！');
+  } else {
+    dailyPracticeView = 'question';
+    dailyPracticeHomeMode = 'continue';
+  }
+  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+  if (typeof closeSolutionModal === 'function') closeSolutionModal();
+  initDailyPracticeHome();
+  return true;
+}
+
+function dailyPracticeSolutionButton() {
+  return '<div class="daily-practice-solution-note"><p>先用蓋牌模式回想，再依序揭露章節、起手式、公式與完整推導。</p>' +
+    '<div class="daily-practice-solution-actions">' +
+    '<button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">🎴 開始四段蓋牌揭露</button>' +
+    '<button class="btn-pdf" type="button" data-daily-open-solution="browse">📝 直接看完整詳解</button>' +
+    '</div></div>';
 }
 
 function renderDailyPractice(container, error) {
@@ -8962,32 +9385,68 @@ function renderDailyPractice(container, error) {
       '<div class="daily-practice-heading"><div><span class="eyebrow">第二階段練習入口</span><h2>🎯 今日練習</h2><p>每輪 3 題，優先分散章節與題型，避開 7 天內已完成的題目。</p></div></div>' +
       '<div class="daily-practice-start-card"><label>考別<select id="daily-practice-category" onchange="dailyPracticeSetCategory(this.value)"><option value="PE">電機工程技師（PE）</option><option value="GK">國考同級題庫（GK）</option></select></label>' +
       '<label>範圍<select id="daily-practice-subject"></select></label><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeStart()">▶ 開始 3 題練習</button></div>' +
-      activeNote + '<p class="daily-practice-note">開啟題目或查看詳解不會算完成；按下「完成本題」才會進入 7 天避重紀錄。</p></section>';
+      activeNote + '<p class="daily-practice-note">查看題目或詳解不會算完成；必須完成第 ④ 段並自評後，才會進入 7 天避重紀錄。</p></section>';
     const categorySelect = document.getElementById('daily-practice-category');
     if (categorySelect) categorySelect.value = dailyPracticeCategory;
     dailyPracticeSetCategory(dailyPracticeCategory);
     return;
   }
-  const qid = question[0];
-  const topic = question[4] || '本題';
-  const sourceLink = question[7] || '';
+  const qid = question.id;
+  const topic = question.stem || '本題';
+  const sourceLink = question.sourceLink || '';
+  const imageSrc = dailyPracticeQuestionImage(question);
+  const imageHtml = imageSrc
+    ? '<figure class="daily-practice-source-figure"><img class="daily-practice-source-image" data-daily-zoom-image src="' + dailyPracticeEscape(imageSrc) + '" alt="' + dailyPracticeEscape(qid) + ' 原題截圖；按 Enter 或空白鍵放大" loading="eager" tabindex="0" role="button"><figcaption>原題截圖；點擊、觸控或按 Enter／空白鍵可放大查看。</figcaption></figure>'
+    : '<div class="daily-practice-source-missing"><strong>原題截圖尚未建立</strong><span>先以文字題幹練習，並可開啟官方 PDF 查看原圖。</span></div>';
   const progress = (session.currentIndex + 1) + ' / ' + session.questionIds.length;
-  const scrollTop = Number(session.scrollByQuestion[qid] || 0);
+  const scrollPosition = session.scrollByQuestion[qid] || { question: 0, solution: 0 };
+  const scrollTop = Number(scrollPosition[dailyPracticeView] || 0);
   container.innerHTML = '<section class="daily-practice-shell">' +
     '<div class="daily-practice-heading"><div><span class="eyebrow">' + session.category + ' · ' + (session.subjectId === 'all' ? '跨科混合' : dailyPracticeSubjectLabel(session.category, session.subjectId)) + '</span><h2>🎯 今日練習 <span class="daily-practice-progress">' + progress + '</span></h2></div><button class="btn-pdf" type="button" onclick="dailyPracticeStartOver()">結束本輪</button></div>' +
     '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">📄 原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">📝 詳解</button></div>' +
     '<div class="daily-practice-scroll" onscroll="dailyPracticeScroll(event)" tabindex="0">' +
       (dailyPracticeView === 'question'
-        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span><div class="daily-practice-topic">' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式，再切換到「詳解」核對。</p>' + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
-        : dailyPracticeSolutionButton(question)) +
-    '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeAdvance(false)">稍後再做</button><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeAdvance(true)">✓ 完成本題並下一題</button></div></section>';
+        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式，再切換到「詳解」核對。</p>' + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
+        : dailyPracticeSolutionButton()) +
+    '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button><span class="daily-practice-note">完成按鈕會在第 ④ 段自評後出現</span></div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
   if (scroll) scroll.scrollTop = scrollTop;
+  if (typeof container.querySelectorAll === 'function') container.querySelectorAll('[data-daily-open-solution]').forEach(button => button.addEventListener('click', event => {
+    if (typeof openSolutionModal !== 'function') return;
+    openSolutionModal(event, question.solutionLink, question.id, question.number, {
+      mode: 'daily-practice', recall: button.dataset.dailyOpenSolution === 'recall'
+    });
+  }));
+  if (typeof container.querySelector === 'function') {
+    const deferButton = container.querySelector('[data-daily-defer]');
+    if (deferButton) deferButton.addEventListener('click', dailyPracticeDefer);
+  }
+  const image = typeof container.querySelector === 'function' ? container.querySelector('[data-daily-zoom-image]') : null;
+  if (image) {
+    if (typeof openImageLightbox === 'function') image.addEventListener('click', () => openImageLightbox(image.src, image.alt, image));
+    if (typeof openImageLightbox === 'function') image.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openImageLightbox(image.src, image.alt, image);
+      }
+    });
+    image.addEventListener('error', () => {
+      const figure = image.closest('.daily-practice-source-figure');
+      if (!figure) return;
+      figure.outerHTML = '<div class="daily-practice-source-missing" role="status"><strong>原題截圖載入失敗</strong><span>已切換為官方 PDF，請用原卷核對電路圖與題目配置。</span>' +
+        (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<span>本題尚未提供獨立原題連結。</span>') + '</div>';
+    }, { once: true });
+  }
 }
 
 function initDailyPracticeHome() {
   const loaded = dailyPracticeLoad();
   dailyPracticeState = loaded.state;
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  if (session) {
+    const qid = session.questionIds[session.currentIndex];
+    dailyPracticeView = session.viewByQuestion && session.viewByQuestion[qid] === 'solution' ? 'solution' : 'question';
+  }
   const continueButton = document.getElementById('home-action-continue');
   if (continueButton) {
     const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
@@ -9269,7 +9728,7 @@ function handleUrlHashRouting() {
       if (subSelect) subSelect.value = sid;
       if (yrSelect) yrSelect.value = String(yr);
       if (typeof renderQuestions === 'function') renderQuestions();
-      if (typeof openSolutionModal === 'function') openSolutionModal(null, solLink, qid, qnum);
+      if (typeof openSolutionModal === 'function') openSolutionModal(null, solLink, qid, qnum, { mode: 'browse' });
     }
   }
 }

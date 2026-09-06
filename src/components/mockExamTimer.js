@@ -233,7 +233,7 @@ function loadMockExam() {
             </div>
             <div class="qtopic">${renderQuestionTopic(topic)}</div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
-              <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum})" class="btn-sol">📝 檢視標準推導解答</button>
+              <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse'})" class="btn-sol">📝 檢視標準推導解答</button>
               <a href="${pdfLink}" target="_blank" class="btn-pdf">📄 查看官方 PDF</a>
             </div>
           </div>

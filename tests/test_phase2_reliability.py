@@ -96,16 +96,186 @@ globalThis.openSolutionModal = (...args) => { globalThis.__openArgs = args; };
   renderReviewPage();
   recallButton.click();
   const html = document.getElementById('review-container').innerHTML;
-  return {html, activeRecall:globalThis.__openArgs[5]};
+  return {html, activeRecall:globalThis.__openArgs[4].recall, sourceMode:globalThis.__openArgs[4].mode};
 })()
 '''
         result = run_node(["src/components/reviewPage.js"], expression, setup)
         self.assertIn('aria-label="詳解已蓋牌"', result["html"])
         self.assertIn("先自行作答，再依序揭露", result["html"])
         self.assertTrue(result["activeRecall"])
+        self.assertEqual(result["sourceMode"], "due-review")
 
 
 class TestSolutionModalReliability(unittest.TestCase):
+    def test_daily_practice_rating_does_not_write_sm2_and_requires_full_reveal(self):
+        setup = r'''
+globalThis.document = {body:{style:{}}, getElementById:() => null};
+globalThis.window = {addEventListener(){}};
+globalThis.__sm2 = 0;
+globalThis.__recall = 0;
+globalThis.recordSM2Review = () => { globalThis.__sm2 += 1; };
+globalThis.recordRecallAttempt = () => { globalThis.__recall += 1; };
+globalThis.dailyPracticeCompleteFromModal = () => { globalThis.__complete = (globalThis.__complete || 0) + 1; };
+globalThis.showToast = () => {};
+'''
+        expression = r'''
+(() => {
+  openSolutionModal(null, '', 'q1', 1, {mode:'daily-practice', recall:true});
+  submitSM2Rating(5);
+  const blocked = {sm2:globalThis.__sm2, recall:globalThis.__recall, complete:globalThis.__complete || 0};
+  currentRecallAchievedLevel = 3;
+  revealRecallFull();
+  submitSM2Rating(5);
+  return {blocked, after:{sm2:globalThis.__sm2, recall:globalThis.__recall, complete:globalThis.__complete || 0}};
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertEqual(result["blocked"], {"sm2": 0, "recall": 0, "complete": 0})
+        self.assertEqual(result["after"], {"sm2": 0, "recall": 1, "complete": 1})
+
+    def test_daily_browse_bypass_has_no_daily_rating_or_completion(self):
+        setup = r'''
+globalThis.document = {body:{style:{}}, getElementById:() => null};
+globalThis.window = {addEventListener(){}};
+globalThis.recordSM2Review = () => { globalThis.__sm2 = (globalThis.__sm2 || 0) + 1; };
+globalThis.recordRecallAttempt = () => { globalThis.__recall = (globalThis.__recall || 0) + 1; };
+globalThis.dailyPracticeCompleteFromModal = () => { globalThis.__complete = (globalThis.__complete || 0) + 1; };
+globalThis.showToast = () => {};
+'''
+        expression = r'''
+(() => {
+  openSolutionModal(null, '', 'q1', 1, {mode:'daily-practice', recall:false});
+  const state = getSolutionModalTransientState();
+  submitSM2Rating(5);
+  return {state, sm2:globalThis.__sm2 || 0, recall:globalThis.__recall || 0, complete:globalThis.__complete || 0};
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertFalse(result["state"]["recallEntry"])
+        self.assertEqual(result["sm2"], 0)
+        self.assertEqual(result["recall"], 0)
+        self.assertEqual(result["complete"], 0)
+
+    def test_daily_browse_bypass_with_saved_full_reveal_still_cannot_complete(self):
+        setup = r'''
+globalThis.document = {body:{style:{}}, getElementById: () => null};
+globalThis.window = {addEventListener(){}};
+globalThis.dailyPracticeGetRecallProgress = () => 4;
+globalThis.recordSM2Review = () => { globalThis.__sm2 = (globalThis.__sm2 || 0) + 1; };
+globalThis.recordRecallAttempt = () => { globalThis.__recall = (globalThis.__recall || 0) + 1; };
+globalThis.dailyPracticeCompleteFromModal = () => { globalThis.__complete = (globalThis.__complete || 0) + 1; };
+globalThis.showToast = () => {};
+'''
+        expression = r'''
+(() => {
+  openSolutionModal(null, '', 'q1', 1, {mode:'daily-practice', recall:false});
+  const state = getSolutionModalTransientState();
+  submitSM2Rating(5);
+  return {state, sm2:globalThis.__sm2 || 0, recall:globalThis.__recall || 0, complete:globalThis.__complete || 0};
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertFalse(result["state"]["recallEntry"])
+        self.assertEqual(result["state"]["recallLevel"], 4)
+        self.assertEqual(result["sm2"], 0)
+        self.assertEqual(result["recall"], 0)
+        self.assertEqual(result["complete"], 0)
+
+    def test_daily_browse_render_has_no_daily_self_assessment_controls(self):
+        setup = r'''
+const rightPane = {innerHTML:''};
+globalThis.window = {addEventListener(){}};
+globalThis.document = {getElementById:id => id === 'modal-right-content' ? rightPane : null, querySelectorAll:() => []};
+globalThis.processMarkdownWithMath = text => '<p>' + text + '</p>';
+globalThis.resolveRenderedImageSources = html => html;
+globalThis.renderSolutionReviewCard = () => '';
+globalThis.renderScenarioMatrix = () => '';
+globalThis.renderDagTracerCard = () => '';
+globalThis.reviewHtmlEscape = value => String(value);
+'''
+        expression = r'''
+(() => {
+  currentModalQid='q1'; currentSolutionSourceMode='daily-practice'; currentSolutionRecallEntry=false; isActiveRecallMode=false;
+  renderSubQuestionContent('完整解答', null);
+  return document.getElementById('modal-right-content').innerHTML;
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertNotIn('sm2-rating-bar', result)
+        self.assertNotIn('自評', result)
+
+    def test_daily_recall_entry_toggle_at_level_zero_stays_masked(self):
+        setup = r'''
+const elements = new Map([
+  ['recall-full-section', {style:{display:'none'}}],
+  ['recall-rating-bar', {style:{display:'none'}}]
+]);
+globalThis.document = {
+  body:{style:{}},
+  getElementById:id => elements.get(id) || null,
+  querySelectorAll:() => []
+};
+globalThis.window = {addEventListener(){}};
+globalThis.resolveSolutionMarkdown = () => '';
+globalThis.findQuestionRecord = () => null;
+globalThis.showToast = message => { globalThis.__toast = message; };
+'''
+        expression = r'''
+(() => {
+  currentModalQid = 'q1';
+  currentSolutionSourceMode = 'daily-practice';
+  currentSolutionRecallEntry = true;
+  currentRecallAchievedLevel = 0;
+  isActiveRecallMode = true;
+  toggleActiveRecallMode();
+  return {
+    activeRecall: isActiveRecallMode,
+    fullDisplay: document.getElementById('recall-full-section').style.display,
+    ratingDisplay: document.getElementById('recall-rating-bar').style.display,
+    toast: globalThis.__toast
+  };
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertTrue(result["activeRecall"])
+        self.assertEqual(result["fullDisplay"], "none")
+        self.assertEqual(result["ratingDisplay"], "none")
+        self.assertIn("四段蓋牌", result["toast"])
+
+    def test_daily_completion_rejects_modal_qid_mismatch(self):
+        setup = r'''
+globalThis.document = {getElementById: id => id === 'daily-practice-container' ? {innerHTML:'', querySelector:()=>null, querySelectorAll:()=>[]} : null};
+globalThis.localStorage = {data:{}, getItem(k){return this.data[k] || null;}, setItem(k,v){this.data[k]=String(v);}};
+globalThis.showToast = () => {};
+'''
+        expression = r'''
+(() => {
+  const session = createPracticeSession('PE','01',['q1','q2'],{now:1234});
+  savePracticeSession(session);
+  dailyPracticeState = loadDailyPracticeStore().state;
+  const result = dailyPracticeCompleteFromModal(5, 4, 'q2');
+  return {result, state:loadDailyPracticeStore().state};
+})()
+'''
+        result = run_node(["src/state/practiceStore.js", "src/components/dailyPractice.js"], expression, setup)
+        self.assertFalse(result["result"])
+        self.assertEqual(result["state"]["completionByQuestion"], {})
+        self.assertEqual(result["state"]["activeSession"]["currentIndex"], 0)
+
+    def test_due_review_rating_writes_sm2(self):
+        setup = r'''
+globalThis.document = {body:{style:{}}, getElementById:() => null};
+globalThis.window = {addEventListener(){}};
+globalThis.recordRecallAttempt = () => {};
+globalThis.recordSM2Review = () => { globalThis.__sm2 = (globalThis.__sm2 || 0) + 1; return {nextReviewDate:'2026-09-07'}; };
+globalThis.showToast = () => {};
+'''
+        expression = r'''
+(() => { openSolutionModal(null, '', 'q1', 1, {mode:'due-review', recall:false}); submitSM2Rating(3); return globalThis.__sm2 || 0; })()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertEqual(result, 1)
+
     def test_open_sets_recall_explicitly_and_close_clears_transient_state(self):
         setup = r'''
 const elements = new Map();
@@ -117,9 +287,9 @@ globalThis.window = {addEventListener() {}};
 '''
         expression = r'''
 (() => {
-  globalThis.openSolutionModal(null, '', 'q1', 1, false, true, {sessionQueue: ['q1']});
+  globalThis.openSolutionModal(null, '', 'q1', 1, {mode:'due-review', recall:true, sessionQueue: ['q1']});
   const recallOpen = globalThis.getSolutionModalTransientState();
-  globalThis.openSolutionModal(null, '', 'q2', 2, false, false);
+  globalThis.openSolutionModal(null, '', 'q2', 2, {mode:'browse'});
   const ordinaryOpen = globalThis.getSolutionModalTransientState();
   globalThis.closeModal();
   const closed = globalThis.getSolutionModalTransientState();
@@ -128,13 +298,180 @@ globalThis.window = {addEventListener() {}};
 '''
         result = run_node(["src/components/solutionModal.js"], expression, setup)
         self.assertTrue(result["recallOpen"]["activeRecall"])
+        self.assertEqual(result["recallOpen"]["sourceMode"], "due-review")
         self.assertFalse(result["ordinaryOpen"]["activeRecall"])
+        self.assertEqual(result["ordinaryOpen"]["sourceMode"], "browse")
         self.assertEqual(result["closed"], {
             "qid": None,
             "activeRecall": False,
+            "recallEntry": False,
+            "sourceMode": "browse",
+            "recallLevel": 0,
             "sessionLength": 0,
             "sessionIndex": 0,
         })
+
+    def test_crop_fallback_escapes_pdf_and_supports_keyboard_entry(self):
+        setup = r'''
+const image = {src:'crop.png', alt:'題圖', handlers:{}, addEventListener(type, fn){this.handlers[type]=fn;}, closest(){return {set outerHTML(value){globalThis.__fallback=value;}};}};
+globalThis.window = {addEventListener(){}};
+globalThis.document = {querySelector:() => image};
+'''
+        expression = r'''
+(() => {
+  bindQuestionCropPreview('q1', 'https://example.test/a?x="bad"&y=1');
+  image.handlers.keydown({key:'Enter', preventDefault(){}});
+  image.handlers.keydown({key:' ', preventDefault(){}});
+  image.handlers.error();
+  return {fallback:globalThis.__fallback, hasKeys:Object.keys(image.handlers).sort()};
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertIn('x=&quot;bad&quot;&amp;y=1', result["fallback"])
+        self.assertEqual(result["hasKeys"], ["click", "error", "keydown"])
+
+    def test_image_lightbox_escape_only_closes_lightbox_and_restores_trigger_focus(self):
+        setup = r'''
+const trigger = {focus(){globalThis.__focus = 'trigger';}};
+const nodes = {};
+const makeChild = () => ({addEventListener(type, fn){this.handlers = this.handlers || {}; this.handlers[type] = fn;}, focus(){globalThis.__focus = 'stage';}});
+globalThis.window = {addEventListener(type, fn){if (type === 'keydown') globalThis.__windowKeydown = fn;}};
+globalThis.document = {
+  activeElement: trigger,
+  body: {appendChild(node){nodes.lightbox = node;}},
+  createElement(){
+    const children = {
+      '[data-image-close]': makeChild(),
+      '[data-image-zoom-in]': makeChild(),
+      '[data-image-zoom-out]': makeChild(),
+      '.question-image-lightbox-stage': makeChild()
+    };
+    return {
+      handlers:{},
+      setAttribute(){},
+      querySelector(selector){return children[selector];},
+      addEventListener(type, fn){this.handlers[type] = fn;},
+      remove(){nodes.lightbox = null;},
+      set innerHTML(value){this.__html = value;}
+    };
+  },
+  getElementById(id){return id === 'question-image-lightbox' ? nodes.lightbox : {classList:{contains:()=>true}};},
+  querySelector(){return null;}
+};
+globalThis.closeModal = () => { globalThis.__modalClosed = (globalThis.__modalClosed || 0) + 1; };
+'''
+        expression = r'''
+(() => {
+  openImageLightbox('crop.png', '題圖', trigger);
+  const event = {key:'Escape', preventDefault(){this.prevented = true;}, stopPropagation(){this.stopped = true;}};
+  nodes.lightbox.handlers.keydown(event);
+  if (!event.stopped && globalThis.__windowKeydown) globalThis.__windowKeydown(event);
+  return {stopped:event.stopped || false, prevented:event.prevented || false, lightboxOpen:Boolean(nodes.lightbox), modalClosed:globalThis.__modalClosed || 0, focus:globalThis.__focus};
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertTrue(result["stopped"])
+        self.assertTrue(result["prevented"])
+        self.assertFalse(result["lightboxOpen"])
+        self.assertEqual(result["modalClosed"], 0)
+        self.assertEqual(result["focus"], "trigger")
+
+    def test_solution_image_click_and_enter_restore_actual_image_when_other_element_is_active(self):
+        setup = r'''
+const other = {focus(){globalThis.__focus = 'other';}};
+const image = {
+  src:'crop.png', alt:'題圖', handlers:{}, isConnected:true,
+  addEventListener(type, fn){this.handlers[type]=fn;},
+  focus(){globalThis.__focus = 'image';},
+  closest(){return {set outerHTML(value){globalThis.__fallback=value;}};}
+};
+const nodes = {};
+const makeChild = () => ({addEventListener(type, fn){this.handlers = this.handlers || {}; this.handlers[type] = fn;}, focus(){}});
+globalThis.window = {addEventListener(){}};
+globalThis.document = {
+  activeElement: other,
+  body: {appendChild(node){nodes.lightbox = node;}},
+  contains(node){return node === image || node === other;},
+  createElement(){
+    const children = {
+      '[data-image-close]': makeChild(),
+      '[data-image-zoom-in]': makeChild(),
+      '[data-image-zoom-out]': makeChild(),
+      '.question-image-lightbox-stage': makeChild()
+    };
+    return {
+      handlers:{}, setAttribute(){}, querySelector(selector){return children[selector];},
+      addEventListener(type, fn){this.handlers[type]=fn;},
+      remove(){nodes.lightbox=null;},
+      set innerHTML(value){this.__html=value;}
+    };
+  },
+  getElementById(id){return id === 'question-image-lightbox' ? nodes.lightbox : null;},
+  querySelector(){return image;}
+};
+'''
+        expression = r'''
+(() => {
+  bindQuestionCropPreview('q1', 'source.pdf');
+  image.handlers.click({type:'click'});
+  const clickLightbox = nodes.lightbox;
+  clickLightbox.handlers.keydown({key:'Escape', preventDefault(){}, stopPropagation(){}});
+  image.handlers.keydown({key:'Enter', preventDefault(){}});
+  const enterLightbox = nodes.lightbox;
+  enterLightbox.handlers.keydown({key:'Escape', preventDefault(){}, stopPropagation(){}});
+  return {clickRestored: globalThis.__focus, openedByClick:Boolean(clickLightbox), openedByEnter:Boolean(enterLightbox)};
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertTrue(result["openedByClick"])
+        self.assertTrue(result["openedByEnter"])
+        self.assertEqual(result["clickRestored"], "image")
+
+    def test_daily_image_click_and_enter_pass_the_actual_image_trigger(self):
+        setup = r'''
+const image = {
+  src:'daily-crop.png', alt:'每日題圖', handlers:{},
+  addEventListener(type, fn){this.handlers[type]=fn;},
+  closest(){return {set outerHTML(value){}};}
+};
+const deferButton = {addEventListener(){}};
+const scroll = {scrollTop:0};
+const container = {
+  _html:'',
+  set innerHTML(value){this._html=value;},
+  get innerHTML(){return this._html;},
+  querySelector(selector){
+    if (selector === '.daily-practice-scroll') return scroll;
+    if (selector === '[data-daily-defer]') return deferButton;
+    if (selector === '[data-daily-zoom-image]') return image;
+    return null;
+  },
+  querySelectorAll(){return [];}
+};
+globalThis.document = {getElementById:() => null};
+globalThis.DB_DATA = {subjects:[], questions:[['q1','01',114,1,'題目',[], 'solution.md','source.pdf',3,'verified',[],true]]};
+globalThis.NATIONAL_EXAMS_DATA = {subjects:[], questions:[]};
+globalThis.QUESTION_CROP_MAP = {q1:'daily-crop.png'};
+globalThis.resolveImageMapUrl = crop => crop;
+globalThis.openImageLightbox = (...args) => { globalThis.__openArgs = args; };
+globalThis.showToast = () => {};
+'''
+        expression = r'''
+(() => {
+  dailyPracticeCategory = 'PE';
+  dailyPracticeHomeMode = 'continue';
+  dailyPracticeState = {activeSession:createPracticeSession('PE','01',['q1'],{now:1234})};
+  renderDailyPractice(container);
+  image.handlers.click({type:'click'});
+  const clickTrigger = globalThis.__openArgs[2] === image;
+  image.handlers.keydown({key:'Enter', preventDefault(){}});
+  const enterTrigger = globalThis.__openArgs[2] === image;
+  return {clickTrigger, enterTrigger};
+})()
+'''
+        result = run_node(["src/state/practiceStore.js", "src/domain/questionRecord.js", "src/components/dailyPractice.js"], expression, setup)
+        self.assertTrue(result["clickTrigger"])
+        self.assertTrue(result["enterTrigger"])
 
     def test_active_recall_hides_solution_and_reveals_layers_in_order(self):
         setup = r'''
@@ -163,6 +500,8 @@ globalThis.reviewHtmlEscape = value => String(value);
   renderSubQuestionContent('答案內容', ['q1','01',114,1,'題目']);
   const initialHtml = document.getElementById('modal-right-content').innerHTML;
   revealRecallLayer(1);
+  revealRecallLayer(2);
+  revealRecallLayer(3);
   const layer1 = document.getElementById('recall-layer-1').style.display;
   const fullBefore = document.getElementById('recall-full-section').style.display;
   revealRecallFull();

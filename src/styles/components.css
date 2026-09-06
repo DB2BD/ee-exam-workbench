@@ -1254,6 +1254,38 @@ select:focus {
   padding: 22px;
   scroll-behavior: smooth;
 }
+.daily-practice-source-figure {
+  margin: 0 0 18px;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.daily-practice-source-image {
+  display: block;
+  width: 100%;
+  max-height: min(52vh, 620px);
+  object-fit: contain;
+  cursor: zoom-in;
+  background: #fff;
+}
+.daily-practice-source-figure figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: .78rem;
+  text-align: center;
+}
+.daily-practice-source-missing {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--warn);
+  background: var(--bg);
+  color: var(--muted);
+  font-size: .84rem;
+}
+.daily-practice-source-missing strong { color: var(--ink); }
 .daily-practice-topic { margin: 12px 0; color: var(--ink); line-height: 1.55; font-size: 1.05rem; font-weight: 700; }
 .daily-practice-topic p { margin: 0 0 10px; }
 .daily-practice-topic .katex-display { font-size: .95em; }
@@ -1265,6 +1297,8 @@ select:focus {
   border-radius: var(--radius-sm);
 }
 .daily-practice-solution-note p { color: var(--muted); line-height: 1.65; }
+.daily-practice-solution-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.daily-practice-solution-actions > * { min-height: 44px; }
 .daily-practice-actions {
   display: flex;
   justify-content: space-between;
@@ -1283,6 +1317,8 @@ select:focus {
   .daily-practice-start-card { align-items: stretch; flex-direction: column; }
   .daily-practice-start-card select, .daily-practice-start-card button { width: 100%; }
   .daily-practice-scroll { max-height: 58vh; padding: 16px; }
+  .daily-practice-source-image { max-height: 54vh; }
+  .daily-practice-solution-actions > * { flex: 1 1 100%; }
   .daily-practice-actions > * { flex: 1 1 100%; min-height: 44px; }
 }
 

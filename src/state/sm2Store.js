@@ -16,8 +16,11 @@
 
 const SM2_STORAGE_KEY = 'EE_EXAM_SM2_SCHEDULE_V1';
 const USER_BACKUP_SCHEMA = 'ee-exam-user-backup';
-const USER_BACKUP_VERSION = '2.0.0';
+const USER_BACKUP_VERSION = '2.1.0';
+const USER_BACKUP_SUPPORTED_V2 = ['2.0.0', USER_BACKUP_VERSION];
 const BACKUP_META_STORAGE_KEY = 'EE_EXAM_BACKUP_META_V1';
+const BACKUP_DAILY_PRACTICE_KEY = 'EE_EXAM_DAILY_PRACTICE_V1';
+const BACKUP_MOCK_EXAM_TIMER_KEY = 'EE_MOCK_EXAM_TIMER_V1';
 const BACKUP_PROGRESS_KEYS = { PE: 'EE_EXAM_PROGRESS_V1', GK: 'GK_EXAM_PROGRESS_V1' };
 const BACKUP_STARRED_KEYS = { PE: 'EE_EXAM_STARRED_V1', GK: 'GK_EXAM_STARRED_V1' };
 const BACKUP_CATEGORIES = ['PE', 'GK'];
@@ -260,6 +263,74 @@ function backupValidateRecall(value) {
     && (value.lastReviewed === null || backupIsTimestamp(value.lastReviewed) || backupIsDate(value.lastReviewed));
 }
 
+function backupIsPracticeTimestamp(value) {
+  return (typeof value === 'number' && Number.isFinite(value) && value >= 0)
+    || backupIsTimestamp(value);
+}
+
+function backupValidateDailyPractice(value, ids, errors) {
+  if (!backupIsPlainObject(value) || value.version !== 1
+      || !backupIsPlainObject(value.completionByQuestion)
+      || !(value.activeSession === null || backupIsPlainObject(value.activeSession))) {
+    backupError(errors, 'dailyPractice 資料格式無效。');
+    return null;
+  }
+  const unionIds = new Set([...ids.PE, ...ids.GK]);
+  Object.entries(value.completionByQuestion).forEach(([qid, timestamp]) => {
+    if (!unionIds.has(qid) || !backupIsPracticeTimestamp(timestamp)) {
+      backupError(errors, `dailyPractice 的完成紀錄「${qid}」無效。`);
+    }
+  });
+  const session = value.activeSession;
+  if (session === null) return backupClone(value);
+  const categoryIds = ids[session.category];
+  const questionIds = Array.isArray(session.questionIds) ? session.questionIds : [];
+  const sessionShapeValid = BACKUP_CATEGORIES.includes(session.category)
+    && typeof session.subjectId === 'string'
+    && questionIds.length > 0
+    && questionIds.every(qid => typeof qid === 'string' && categoryIds && categoryIds.has(qid))
+    && new Set(questionIds).size === questionIds.length
+    && Number.isInteger(session.currentIndex) && session.currentIndex >= 0 && session.currentIndex < questionIds.length
+    && backupIsPlainObject(session.revealedByQuestion)
+    && backupIsPlainObject(session.scrollByQuestion)
+    && backupIsTimestamp(session.createdAt);
+  if (!sessionShapeValid) {
+    backupError(errors, 'dailyPractice.activeSession 資料格式、考別或題號無效。');
+    return null;
+  }
+  const queueIds = new Set(questionIds);
+  Object.entries(session.revealedByQuestion).forEach(([qid, revealed]) => {
+    if (!queueIds.has(qid) || typeof revealed !== 'boolean') {
+      backupError(errors, `dailyPractice.activeSession 的詳解揭示狀態「${qid}」無效。`);
+    }
+  });
+  Object.entries(session.scrollByQuestion).forEach(([qid, positions]) => {
+    const validPositions = backupIsPlainObject(positions)
+      && ['question', 'solution'].every(name => positions[name] === undefined
+        || (typeof positions[name] === 'number' && Number.isFinite(positions[name]) && positions[name] >= 0));
+    if (!queueIds.has(qid) || !validPositions) {
+      backupError(errors, `dailyPractice.activeSession 的閱讀位置「${qid}」無效。`);
+    }
+  });
+  return backupClone(value);
+}
+
+function backupValidateMockExamTimer(value, errors) {
+  if (value === null) return null;
+  const valid = backupIsPlainObject(value)
+    && Number.isInteger(value.seconds) && value.seconds >= 0 && value.seconds <= 7200
+    && (value.deadline === null || (typeof value.deadline === 'number' && Number.isFinite(value.deadline) && value.deadline >= 0))
+    && typeof value.running === 'boolean'
+    && typeof value.completed === 'boolean'
+    && typeof value.warningShown === 'boolean'
+    && (value.examKey === null || typeof value.examKey === 'string')
+    && typeof value.savedAt === 'number' && Number.isFinite(value.savedAt) && value.savedAt >= 0
+    && (!value.running || (value.deadline !== null && !value.completed && value.seconds > 0))
+    && (!value.completed || value.seconds === 0);
+  if (!valid) backupError(errors, 'mockExamTimer 資料格式或計時狀態無效。');
+  return valid ? backupClone(value) : null;
+}
+
 function backupManualLabelIsValid(qid, value, category, records) {
   if (!backupIsPlainObject(value) || typeof value.chapterId !== 'string' || !value.chapterId) return false;
   if (category !== 'PE' || typeof KNOWLEDGE_DAG === 'undefined' || !KNOWLEDGE_DAG[value.chapterId]) return false;
@@ -283,8 +354,9 @@ function validateUserDataBackup(payload, options) {
     return { success: false, valid: false, error: '匯入失敗：備份內容必須是 JSON 物件。', errors: ['匯入失敗：備份內容必須是 JSON 物件。'] };
   }
   const isLegacy = payload.version === '1.0.0' && payload.schema === undefined;
-  if (!isLegacy && (payload.schema !== USER_BACKUP_SCHEMA || payload.version !== USER_BACKUP_VERSION)) {
-    backupError(errors, `不支援的備份格式或版本（需要 ${USER_BACKUP_VERSION}）。`);
+  const isSupportedV2 = payload.schema === USER_BACKUP_SCHEMA && USER_BACKUP_SUPPORTED_V2.includes(payload.version);
+  if (!isLegacy && !isSupportedV2) {
+    backupError(errors, `不支援的備份格式或版本（支援 ${USER_BACKUP_SUPPORTED_V2.join('、')}）。`);
   }
   if (!isLegacy && payload.progressByCategory === undefined) backupError(errors, '缺少 progressByCategory 分類進度資料。');
   if (!isLegacy && payload.starredByCategory === undefined) backupError(errors, '缺少 starredByCategory 分類收藏資料。');
@@ -371,6 +443,16 @@ function validateUserDataBackup(payload, options) {
     }
   });
 
+  const phase2Required = payload.version === USER_BACKUP_VERSION;
+  const dailyPracticeProvided = Object.prototype.hasOwnProperty.call(payload, 'dailyPractice');
+  const mockExamTimerProvided = Object.prototype.hasOwnProperty.call(payload, 'mockExamTimer');
+  if (phase2Required && !dailyPracticeProvided) backupError(errors, '缺少 dailyPractice 每日練習資料。');
+  if (phase2Required && !mockExamTimerProvided) backupError(errors, '缺少 mockExamTimer 模考計時資料。');
+  const dailyPractice = dailyPracticeProvided
+    ? backupValidateDailyPractice(payload.dailyPractice, ids, errors) : null;
+  const mockExamTimer = mockExamTimerProvided
+    ? backupValidateMockExamTimer(payload.mockExamTimer, errors) : null;
+
   if (errors.length) {
     return { success: false, valid: false, error: errors[0], errors };
   }
@@ -382,6 +464,10 @@ function validateUserDataBackup(payload, options) {
     sm2Schedule,
     recallState,
     manualTopicLabels,
+    dailyPractice,
+    mockExamTimer,
+    dailyPracticeProvided,
+    mockExamTimerProvided,
     providedCategories,
     legacy: isLegacy,
   };
@@ -395,6 +481,9 @@ function validateUserDataBackup(payload, options) {
     sm2: Object.keys(sm2Schedule).length,
     recall: Object.keys(recallState).length,
     manualLabels: Object.keys(manualTopicLabels).length,
+    practiceCompleted: dailyPractice ? Object.keys(dailyPractice.completionByQuestion).length : 0,
+    practiceSession: !!(dailyPractice && dailyPractice.activeSession),
+    mockTimer: !!mockExamTimer,
   };
   return { success: true, valid: true, normalized, summary };
 }
@@ -426,6 +515,13 @@ function buildUserBackupSnapshot() {
   }
   const metadata = getBackupMetadata();
   const exportedAt = new Date().toISOString();
+  const loadedPractice = typeof loadDailyPracticeStore === 'function'
+    ? loadDailyPracticeStore({ storage })
+    : { state: backupReadJSON(storage, BACKUP_DAILY_PRACTICE_KEY, { version: 1, completionByQuestion: {}, activeSession: null }) };
+  const timerCandidate = backupReadJSON(storage, BACKUP_MOCK_EXAM_TIMER_KEY, {});
+  const timerErrors = [];
+  const mockExamTimer = Object.keys(timerCandidate).length
+    ? backupValidateMockExamTimer(timerCandidate, timerErrors) : null;
   const snapshot = {
     schema: USER_BACKUP_SCHEMA,
     version: USER_BACKUP_VERSION,
@@ -439,6 +535,8 @@ function buildUserBackupSnapshot() {
     sm2Schedule: backupClone(sm2Schedule || {}),
     recallState: typeof recallState !== 'undefined' ? backupClone(recallState || {}) : {},
     manualTopicLabels: typeof getManualTopicLabels === 'function' ? backupClone(getManualTopicLabels()) : {},
+    dailyPractice: backupClone(loadedPractice.state),
+    mockExamTimer,
   };
   try {
     backupWriteMetadata(Object.assign({}, metadata, { lastBackupAt: exportedAt, lastBackupVersion: USER_BACKUP_VERSION }));
@@ -481,6 +579,8 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   const oldSM2 = backupReadJSON(storage, SM2_STORAGE_KEY, typeof sm2Schedule !== 'undefined' ? sm2Schedule : {});
   const oldRecall = backupReadJSON(storage, 'EE_EXAM_RECALL_V1', typeof recallState !== 'undefined' ? recallState : {});
   const oldLabels = backupReadJSON(storage, 'EE_MANUAL_TOPIC_LABELS_V1', typeof getManualTopicLabels === 'function' ? getManualTopicLabels() : {});
+  const oldPractice = backupReadJSON(storage, BACKUP_DAILY_PRACTICE_KEY, { version: 1, completionByQuestion: {}, activeSession: null });
+  const oldTimer = backupReadJSON(storage, BACKUP_MOCK_EXAM_TIMER_KEY, {});
   const nextProgress = backupClone(oldProgress);
   const nextStarred = backupClone(oldStarred);
   BACKUP_CATEGORIES.forEach(category => {
@@ -495,9 +595,28 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   const nextSM2 = selectedMode === 'merge' ? Object.assign({}, oldSM2, validation.normalized.sm2Schedule) : backupClone(validation.normalized.sm2Schedule);
   const nextRecall = selectedMode === 'merge' ? Object.assign({}, oldRecall, validation.normalized.recallState) : backupClone(validation.normalized.recallState);
   const nextLabels = selectedMode === 'merge' ? Object.assign({}, oldLabels, validation.normalized.manualTopicLabels) : backupClone(validation.normalized.manualTopicLabels);
+  let nextPractice = oldPractice;
+  if (validation.normalized.dailyPracticeProvided) {
+    const importedPractice = validation.normalized.dailyPractice;
+    if (selectedMode === 'replace') {
+      nextPractice = backupClone(importedPractice);
+    } else {
+      const localSession = oldPractice.activeSession;
+      const importedSession = importedPractice.activeSession;
+      const localCreatedAt = localSession ? Date.parse(localSession.createdAt) : -1;
+      const importedCreatedAt = importedSession ? Date.parse(importedSession.createdAt) : -1;
+      nextPractice = {
+        version: 1,
+        completionByQuestion: Object.assign({}, oldPractice.completionByQuestion || {}, importedPractice.completionByQuestion || {}),
+        activeSession: importedCreatedAt > localCreatedAt ? backupClone(importedSession) : backupClone(localSession),
+      };
+    }
+  }
+  const nextTimer = validation.normalized.mockExamTimerProvided
+    ? backupClone(validation.normalized.mockExamTimer) : oldTimer;
   const metadataKey = BACKUP_META_STORAGE_KEY;
   const oldRaw = {};
-  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', metadataKey].forEach(key => {
+  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, metadataKey].forEach(key => {
     oldRaw[key] = storage.getItem(key);
   });
   const importedAt = new Date().toISOString();
@@ -510,6 +629,8 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
       [SM2_STORAGE_KEY, JSON.stringify(nextSM2)], ['EE_EXAM_RECALL_V1', JSON.stringify(nextRecall)],
       ['EE_MANUAL_TOPIC_LABELS_V1', JSON.stringify(nextLabels)], [metadataKey, JSON.stringify(nextMeta)],
     ];
+    if (validation.normalized.dailyPracticeProvided) writes.splice(writes.length - 1, 0, [BACKUP_DAILY_PRACTICE_KEY, JSON.stringify(nextPractice)]);
+    if (validation.normalized.mockExamTimerProvided) writes.splice(writes.length - 1, 0, [BACKUP_MOCK_EXAM_TIMER_KEY, JSON.stringify(nextTimer)]);
   } catch (_) {
     return { success: false, error: '匯入失敗：備份資料無法序列化，未修改任何資料。' };
   }
@@ -538,6 +659,9 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     sm2: Object.keys(nextSM2).length,
     recall: Object.keys(nextRecall).length,
     manualLabels: Object.keys(nextLabels).length,
+    practiceCompleted: Object.keys(nextPractice.completionByQuestion || {}).length,
+    practiceSession: !!nextPractice.activeSession,
+    mockTimer: validation.normalized.mockExamTimerProvided ? !!nextTimer : Object.keys(oldTimer).length > 0,
   });
   return { success: true, mode: selectedMode, summary: appliedSummary };
 }

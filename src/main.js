@@ -22,6 +22,9 @@ function switchTab(tabId) {
   if (tabId === 'quicksheet' && typeof renderQuickReviewSheet === 'function') {
     renderQuickReviewSheet();
   }
+  if (tabId === 'practice' && typeof initDailyPracticeHome === 'function') {
+    initDailyPracticeHome();
+  }
 }
 
 
@@ -116,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateStatsAndBar();
   renderQuestions();
   renderReviewPage();
+  if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
   renderLayers();
   renderTopTopics();
   initPaneResizer();

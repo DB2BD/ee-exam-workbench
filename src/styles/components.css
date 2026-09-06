@@ -1141,6 +1141,104 @@ select:focus {
   color: #eed7aa;
 }
 
+.daily-practice-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+.daily-practice-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.daily-practice-heading h2 { color: var(--accent-dark); margin: 4px 0 6px; }
+.daily-practice-heading p, .daily-practice-note, .daily-practice-muted { color: var(--muted); font-size: .88rem; }
+.daily-practice-progress {
+  font-size: .82rem;
+  color: var(--muted);
+  font-weight: 600;
+  margin-left: 8px;
+}
+.daily-practice-start-card {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  flex-wrap: wrap;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+}
+.daily-practice-start-card label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: .8rem;
+  font-weight: 700;
+}
+.daily-practice-start-card select { min-width: 180px; }
+.daily-practice-primary { background: var(--accent-dark) !important; color: #fff !important; }
+.daily-practice-tabs {
+  display: flex;
+  gap: 6px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--surface);
+  padding: 4px 0 10px;
+}
+.daily-practice-tab {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 700;
+}
+.daily-practice-tab.active { background: var(--accent-light); color: var(--accent-dark); border-color: var(--accent); }
+.daily-practice-scroll {
+  min-height: 230px;
+  max-height: min(52vh, 560px);
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 22px;
+  scroll-behavior: smooth;
+}
+.daily-practice-question h3 { margin: 12px 0; color: var(--ink); line-height: 1.55; }
+.daily-practice-question p { color: var(--muted); line-height: 1.65; }
+.daily-practice-solution-note {
+  padding: 16px;
+  border-left: 4px solid var(--accent);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+}
+.daily-practice-solution-note p { color: var(--muted); line-height: 1.65; }
+.daily-practice-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.daily-practice-empty { padding: 48px 20px; text-align: center; color: var(--muted); }
+@media (max-width: 680px) {
+  .daily-practice-shell { padding: 16px; }
+  .daily-practice-heading { align-items: stretch; flex-direction: column; }
+  .daily-practice-start-card { align-items: stretch; flex-direction: column; }
+  .daily-practice-start-card select, .daily-practice-start-card button { width: 100%; }
+  .daily-practice-scroll { max-height: 58vh; padding: 16px; }
+  .daily-practice-actions > * { flex: 1 1 100%; min-height: 44px; }
+}
+
 /* Print CSS for physical A4 review sheets */
 @media print {
   header, .main-tabs, .category-switcher, .quicksheet-top-bar .quicksheet-actions, .quicksheet-sub-filters {

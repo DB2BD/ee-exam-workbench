@@ -418,8 +418,9 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   const firstFocus = modal.querySelector('button, [href], select, input, textarea, [tabindex]:not([tabindex="-1"])');
   if (firstFocus && typeof firstFocus.focus === 'function') firstFocus.focus();
   document.body.style.overflow = 'hidden';
+  const shouldOpenRecallPane = currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry;
   if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 760px)').matches) {
-    setModalLayout(savedReading && savedReading.pane === 'solution' ? 'solution-only' : 'exam-only');
+    setModalLayout(shouldOpenRecallPane || (savedReading && savedReading.pane === 'solution') ? 'solution-only' : 'exam-only');
   } else {
     setModalLayout('split');
   }
@@ -774,6 +775,7 @@ function setModalLayout(mode) {
   if (mode === 'solution-only') {
     leftPane.style.display = 'none';
     if (resizer) resizer.style.display = 'none';
+    rightPane.style.display = 'flex';
     rightPane.style.flex = '1 1 100%';
     const btn = document.getElementById('btn-layout-solution');
     if (btn) btn.classList.add('active');

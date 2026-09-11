@@ -1177,6 +1177,13 @@ select:focus {
   gap: 16px;
   margin-bottom: 18px;
 }
+.daily-practice-heading-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 .daily-practice-heading h2 { color: var(--accent-dark); margin: 4px 0 6px; }
 .daily-practice-heading p, .daily-practice-note, .daily-practice-muted { color: var(--muted); font-size: .88rem; }
 .daily-practice-progress {
@@ -1298,6 +1305,8 @@ select:focus {
   .practice-home-actions { grid-template-columns: 1fr; }
   .daily-practice-shell { padding: 16px; }
   .daily-practice-heading { align-items: stretch; flex-direction: column; }
+  .daily-practice-heading-actions { justify-content: stretch; }
+  .daily-practice-heading-actions > * { flex: 1 1 180px; min-height: 44px; }
   .daily-practice-start-card { align-items: stretch; flex-direction: column; }
   .daily-practice-start-card select, .daily-practice-start-card button { width: 100%; }
   .daily-practice-scroll { max-height: 58vh; padding: 16px; }

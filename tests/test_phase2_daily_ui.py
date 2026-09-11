@@ -167,9 +167,18 @@ process.stdout.write(JSON.stringify({html,visible}));
         self.assertIn("原題截圖", result["original"])
         self.assertIn("開始四段蓋牌", result["original"])
         self.assertIn('data-daily-open-solution="recall"', result["original"])
-        self.assertIn("開始四段蓋牌揭露", result["solution"])
+        self.assertEqual(result["original"].count('data-daily-open-solution="recall"'), 1)
+        self.assertLess(
+            result["original"].index('daily-practice-heading-actions'),
+            result["original"].index('data-daily-open-solution="recall"'),
+        )
+        self.assertIn("上方蓋牌模式回想", result["solution"])
         self.assertIn("直接看完整詳解", result["solution"])
-        self.assertIn('data-daily-open-solution="recall"', result["solution"])
+        self.assertEqual(result["solution"].count('data-daily-open-solution="recall"'), 1)
+        self.assertLess(
+            result["solution"].index('daily-practice-heading-actions'),
+            result["solution"].index('data-daily-open-solution="recall"'),
+        )
         self.assertIn('data-daily-open-solution="browse"', result["solution"])
 
     def test_daily_practice_does_not_expose_a_misleading_completion_action(self):
@@ -193,7 +202,7 @@ process.stdout.write(JSON.stringify({html,visible}));
             "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
         )
         self.assertNotIn('data-daily-completion-action', result["html"])
-        self.assertIn("開始四段蓋牌揭露", result["html"])
+        self.assertIn("上方蓋牌模式回想", result["html"])
         self.assertIn("直接看完整詳解", result["html"])
 
     def test_daily_practice_completion_prompt_matches_round_position(self):

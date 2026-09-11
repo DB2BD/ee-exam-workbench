@@ -1019,6 +1019,14 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     ? '🎯 回顧揭露前的作答狀況（本輪不加入到期排程）'
     : '🎯 回顧揭露前的作答狀況（儲存後顯示實際下次日期）';
   const isDailyAssessment = currentSolutionSourceMode === 'daily-practice';
+  const dailyCompletionPrompt = isDailyAssessment && currentSolutionRecallEntry
+    ? (typeof dailyPracticeGetCompletionPrompt === 'function'
+      ? dailyPracticeGetCompletionPrompt()
+      : '選擇自評後完成本題')
+    : '';
+  const dailyCompletionPromptHtml = dailyCompletionPrompt
+    ? `<div class="sm2-rating-next-hint">✅ ${dailyCompletionPrompt}</div>`
+    : '';
   const ratingSubtexts = isDailyAssessment
     ? { 1: '只記錄本輪：無法完成', 3: '只記錄本輪：需要提示', 5: '只記錄本輪：獨立完成' }
     : { 1: '儲存後顯示下次日期', 3: '儲存後顯示下次日期', 5: '儲存後顯示下次日期' };
@@ -1076,6 +1084,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
 
         <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
           <div class="sm2-rating-title">${ratingTitle}</div>
+          ${dailyCompletionPromptHtml}
           <div class="recall-error-buttons" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0;">
             <button type="button" class="pill" data-recall-error="題型辨識錯" onclick="chooseRecallError('題型辨識錯')">題型辨識錯</button>
             <button type="button" class="pill" data-recall-error="起手式不會" onclick="chooseRecallError('起手式不會')">起手式不會</button>
@@ -1119,6 +1128,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     if (currentSolutionRecallEntry && currentRecallAchievedLevel >= 4) html += `
       <div class="sm2-rating-bar">
         <div class="sm2-rating-title">${ratingTitle}</div>
+        ${dailyCompletionPromptHtml}
         <div class="sm2-rating-buttons">
           <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
             <span>🔴 無法完成</span>

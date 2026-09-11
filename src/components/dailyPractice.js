@@ -367,10 +367,14 @@ function dailyPracticeSolutionButton() {
     '</div></div>';
 }
 
-function dailyPracticeCompletionAction(session) {
+function dailyPracticeGetCompletionPrompt() {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
   const isLast = session && session.currentIndex >= session.questionIds.length - 1;
-  const label = isLast ? '完成本題並查看本輪摘要' : '完成本題並進入下一題';
-  return '<button class="btn-sol daily-practice-primary" type="button" data-daily-completion-action="true" data-daily-open-solution="recall">' + label + '</button>';
+  return isLast ? '選擇自評後查看本輪摘要' : '選擇自評後進入下一題';
+}
+
+function dailyPracticeCompletionAction(session) {
+  return '<button class="btn-sol daily-practice-primary" type="button" data-daily-completion-action="true" data-daily-open-solution="recall">繼續四段蓋牌並完成自評</button>';
 }
 
 function renderDailyPractice(container, error) {

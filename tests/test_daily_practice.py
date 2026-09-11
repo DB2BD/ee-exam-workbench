@@ -223,6 +223,22 @@ process.stdout.write(JSON.stringify({{result: context.__result, storage: data}})
         self.assertEqual(session["viewByQuestion"]["q1"], "question")
         self.assertEqual(session["revealLevelByQuestion"]["q1"], 0)
         self.assertEqual(session["scrollByQuestion"]["q1"], {"question": 120, "solution": 0})
+        self.assertEqual(session["modalByQuestion"]["q1"], {
+            "leftScroll": 0, "rightScroll": 0, "subQuestion": 0, "revealStep": 0, "pane": "question", "open": False,
+        })
+
+    def test_modal_reader_state_is_per_question_and_round_trips(self):
+        expression = """(() => {
+          const session=createPracticeSession('PE','01',['q1','q2'],{now:1234});
+          session.modalByQuestion.q1={leftScroll:120,rightScroll:640,subQuestion:2,revealStep:3,pane:'solution',open:true};
+          const saved=savePracticeSession(session);
+          return {saved,session:loadPracticeSession().session};
+        })()"""
+        result = self._run(expression)["result"]
+        self.assertTrue(result["saved"]["ok"])
+        self.assertEqual(result["session"]["modalByQuestion"]["q1"]["rightScroll"], 640)
+        self.assertEqual(result["session"]["modalByQuestion"]["q1"]["revealStep"], 3)
+        self.assertEqual(result["session"]["modalByQuestion"]["q2"]["rightScroll"], 0)
 
 
 if __name__ == "__main__":

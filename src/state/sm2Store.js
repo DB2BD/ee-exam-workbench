@@ -27,23 +27,67 @@ const BACKUP_CATEGORIES = ['PE', 'GK'];
 const BACKUP_RECALL_ERROR_TYPES = ['題型辨識錯', '起手式不會', '公式忘記', '計算錯', '觀念混淆'];
 
 let sm2Schedule = {};
+let sm2StoreLoadError = null;
+
+function formatLocalCalendarDate(dateValue) {
+  const date = dateValue instanceof Date ? dateValue : new Date(dateValue || Date.now());
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function parseLocalCalendarDate(value) {
+  const parts = String(value || '').split('-').map(Number);
+  return parts.length === 3 ? new Date(parts[0], parts[1] - 1, parts[2]) : new Date(NaN);
+}
 
 function initSM2Store() {
   try {
     const raw = localStorage.getItem(SM2_STORAGE_KEY);
-    sm2Schedule = raw ? JSON.parse(raw) : {};
+    const parsed = raw ? JSON.parse(raw) : {};
+    if (!backupIsPlainObject(parsed) || !Object.values(parsed).every(backupValidateSM2)) throw new Error('SM-2 排程格式無效');
+    sm2Schedule = parsed;
+    sm2StoreLoadError = null;
   } catch (e) {
     console.error('Failed to load SM-2 schedule from localStorage:', e);
     sm2Schedule = {};
+    sm2StoreLoadError = e;
   }
 }
 
-function saveSM2Store() {
+function saveSM2Store(nextSchedule) {
+  const value = nextSchedule || sm2Schedule;
   try {
-    localStorage.setItem(SM2_STORAGE_KEY, JSON.stringify(sm2Schedule));
+    localStorage.setItem(SM2_STORAGE_KEY, JSON.stringify(value));
+    return { ok: true, error: null };
   } catch (e) {
     console.error('Failed to save SM-2 schedule to localStorage:', e);
+    return { ok: false, error: e.message || String(e) };
   }
+}
+
+function calculateSM2ReviewItem(currentItem, rating, nowValue) {
+  const now = nowValue instanceof Date ? new Date(nowValue.getTime()) : new Date(nowValue || Date.now());
+  const todayStr = formatLocalCalendarDate(now);
+  const item = currentItem || { repetitions: 0, interval: 0, easeFactor: 2.5, lastReviewed: null, nextReviewDate: todayStr };
+  let { repetitions, interval, easeFactor } = item;
+  if (rating < 3) {
+    repetitions = 0; interval = 1; easeFactor = Math.max(1.3, easeFactor - 0.2);
+  } else if (rating === 3) {
+    if (repetitions === 0) interval = 1;
+    else if (repetitions === 1) interval = 3;
+    else interval = Math.max(1, Math.round(interval * 1.2));
+    repetitions += 1; easeFactor = Math.max(1.3, easeFactor - 0.05);
+  } else {
+    if (repetitions === 0) interval = 1;
+    else if (repetitions === 1) interval = 4;
+    else interval = Math.round(interval * easeFactor);
+    repetitions += 1; easeFactor = Math.min(3.0, easeFactor + 0.1);
+  }
+  const nextDate = new Date(now.getTime());
+  nextDate.setDate(nextDate.getDate() + interval);
+  return { repetitions, interval, easeFactor: parseFloat(easeFactor.toFixed(2)), lastReviewed: todayStr, nextReviewDate: formatLocalCalendarDate(nextDate) };
 }
 
 /**
@@ -53,61 +97,12 @@ function saveSM2Store() {
  */
 function recordSM2Review(qid, rating) {
   const now = new Date();
-  const todayStr = now.toISOString().split('T')[0];
-
-  let item = sm2Schedule[qid] || {
-    repetitions: 0,
-    interval: 0,
-    easeFactor: 2.5,
-    lastReviewed: null,
-    nextReviewDate: todayStr
-  };
-
-  let { repetitions, interval, easeFactor } = item;
-
-  if (rating < 3) {
-    // 🔴 Failed to recall: Reset repetition count and schedule for tomorrow
-    repetitions = 0;
-    interval = 1;
-    easeFactor = Math.max(1.3, easeFactor - 0.2);
-  } else if (rating === 3) {
-    // 🟡 Hard recall: Slightly increase interval, small EF penalty
-    if (repetitions === 0) {
-      interval = 1;
-    } else if (repetitions === 1) {
-      interval = 3;
-    } else {
-      interval = Math.max(1, Math.round(interval * 1.2));
-    }
-    repetitions += 1;
-    easeFactor = Math.max(1.3, easeFactor - 0.05);
-  } else {
-    // 🟢 Perfect recall: Standard SM-2 progression
-    if (repetitions === 0) {
-      interval = 1;
-    } else if (repetitions === 1) {
-      interval = 4;
-    } else {
-      interval = Math.round(interval * easeFactor);
-    }
-    repetitions += 1;
-    easeFactor = Math.min(3.0, easeFactor + 0.1);
-  }
-
-  // Calculate next review date
-  const nextDate = new Date();
-  nextDate.setDate(nextDate.getDate() + interval);
-  const nextReviewDateStr = nextDate.toISOString().split('T')[0];
-
-  sm2Schedule[qid] = {
-    repetitions,
-    interval,
-    easeFactor: parseFloat(easeFactor.toFixed(2)),
-    lastReviewed: todayStr,
-    nextReviewDate: nextReviewDateStr
-  };
-
-  saveSM2Store();
+  const nextItem = calculateSM2ReviewItem(sm2Schedule[qid], rating, now);
+  const nextSchedule = Object.assign({}, sm2Schedule, { [qid]: nextItem });
+  const saved = saveSM2Store(nextSchedule);
+  if (!saved.ok) return Object.assign({}, sm2Schedule[qid] || {}, { ok: false, error: saved.error });
+  sm2Schedule = nextSchedule;
+  sm2StoreLoadError = null;
 
   // Also sync with progressState (1: Mastered if rating 5, 2: Review if rating 1)
   if (typeof progressState !== 'undefined') {
@@ -116,14 +111,14 @@ function recordSM2Review(qid, rating) {
     if (typeof saveProgress === 'function') saveProgress();
   }
 
-  return sm2Schedule[qid];
+  return Object.assign({}, sm2Schedule[qid], { ok: true, error: null });
 }
 
 /**
  * Returns list of question IDs due today or overdue
  */
-function getDueQuestionsList() {
-  const todayStr = new Date().toISOString().split('T')[0];
+function getDueQuestionsList(nowValue) {
+  const todayStr = formatLocalCalendarDate(nowValue instanceof Date ? nowValue : new Date(nowValue || Date.now()));
   const dueQids = [];
 
   for (const [qid, data] of Object.entries(sm2Schedule)) {
@@ -137,18 +132,18 @@ function getDueQuestionsList() {
 /**
  * Returns badge info for a question card
  */
-function getReviewBadgeInfo(qid) {
+function getReviewBadgeInfo(qid, nowValue) {
   const item = sm2Schedule[qid];
   if (!item || !item.nextReviewDate) {
     return { text: '⚪ 尚未排程', cssClass: 'due-none', isDue: false };
   }
 
-  const todayStr = new Date().toISOString().split('T')[0];
+  const todayStr = formatLocalCalendarDate(nowValue instanceof Date ? nowValue : new Date(nowValue || Date.now()));
   if (item.nextReviewDate <= todayStr) {
     return { text: '🔔 今日待複習', cssClass: 'due-today', isDue: true };
   }
 
-  const diffMs = new Date(item.nextReviewDate) - new Date(todayStr);
+  const diffMs = parseLocalCalendarDate(item.nextReviewDate) - parseLocalCalendarDate(todayStr);
   const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
   if (diffDays >= 14) {
@@ -259,13 +254,16 @@ function backupValidateRecall(value) {
     && Number.isInteger(value.streak) && value.streak >= 0
     && Number.isInteger(value.attempts) && value.attempts >= 0
     && Number.isInteger(value.lastAchieved) && value.lastAchieved >= 0 && value.lastAchieved <= 4
+    && (value.streakVersion === undefined || value.streakVersion === 1)
     && (value.lastErrorType === null || BACKUP_RECALL_ERROR_TYPES.includes(value.lastErrorType))
     && (value.lastReviewed === null || backupIsTimestamp(value.lastReviewed) || backupIsDate(value.lastReviewed));
 }
 
 function backupIsPracticeTimestamp(value) {
-  return (typeof value === 'number' && Number.isFinite(value) && value >= 0)
-    || backupIsTimestamp(value);
+  if ((typeof value === 'number' && Number.isFinite(value) && value >= 0) || backupIsTimestamp(value)) return true;
+  return backupIsPlainObject(value) && backupIsPracticeTimestamp(value.completedAt)
+    && [1, 3, 5].includes(value.rating)
+    && (value.errorType === null || BACKUP_RECALL_ERROR_TYPES.includes(value.errorType));
 }
 
 function backupValidateDailyPractice(value, ids, errors) {
@@ -293,6 +291,7 @@ function backupValidateDailyPractice(value, ids, errors) {
     && Number.isInteger(session.currentIndex) && session.currentIndex >= 0 && session.currentIndex < questionIds.length
     && (session.revealedByQuestion === undefined || backupIsPlainObject(session.revealedByQuestion))
     && (session.scrollByQuestion === undefined || backupIsPlainObject(session.scrollByQuestion))
+    && (session.modalByQuestion === undefined || backupIsPlainObject(session.modalByQuestion))
     && backupIsTimestamp(session.createdAt);
   if (!sessionShapeValid) {
     backupError(errors, 'dailyPractice.activeSession 資料格式、考別或題號無效。');
@@ -320,6 +319,7 @@ function backupValidateDailyPractice(value, ids, errors) {
   });
   const viewByQuestion = session.viewByQuestion || {};
   const revealLevelByQuestion = session.revealLevelByQuestion || {};
+  const modalByQuestion = session.modalByQuestion || {};
   Object.entries(viewByQuestion).forEach(([qid, view]) => {
     if (!queueIds.has(qid) || !['question', 'solution'].includes(view)) {
       backupError(errors, `dailyPractice.activeSession 的目前視圖「${qid}」無效。`);
@@ -332,6 +332,18 @@ function backupValidateDailyPractice(value, ids, errors) {
       invalidSessionState = true;
     }
   });
+  Object.entries(modalByQuestion).forEach(([qid, state]) => {
+    const valid = backupIsPlainObject(state)
+      && ['leftScroll', 'rightScroll'].every(name => Number.isFinite(state[name]) && state[name] >= 0)
+      && Number.isInteger(state.subQuestion) && state.subQuestion >= 0
+      && Number.isInteger(state.revealStep) && state.revealStep >= 0 && state.revealStep <= 4
+      && ['question', 'solution'].includes(state.pane)
+      && typeof state.open === 'boolean';
+    if (!queueIds.has(qid) || !valid) {
+      backupError(errors, `dailyPractice.activeSession 的詳解閱讀狀態「${qid}」無效。`);
+      invalidSessionState = true;
+    }
+  });
   if (invalidSessionState) return null;
 
   const normalized = backupClone(value);
@@ -340,8 +352,10 @@ function backupValidateDailyPractice(value, ids, errors) {
   normalizedSession.viewByQuestion = viewByQuestion;
   normalizedSession.revealLevelByQuestion = revealLevelByQuestion;
   normalizedSession.scrollByQuestion = scrollByQuestion;
+  normalizedSession.modalByQuestion = modalByQuestion;
   questionIds.forEach(qid => {
     if (!normalizedSession.viewByQuestion[qid]) normalizedSession.viewByQuestion[qid] = 'question';
+    if (!normalizedSession.modalByQuestion[qid]) normalizedSession.modalByQuestion[qid] = { leftScroll: 0, rightScroll: 0, subQuestion: 0, revealStep: 0, pane: 'question', open: false };
     if (normalizedSession.revealLevelByQuestion[qid] === undefined) {
       // Legacy revealedByQuestion is only a view-history flag, not proof of
       // completing the four-step recall workflow.
@@ -469,6 +483,9 @@ function validateUserDataBackup(payload, options) {
     'recallState',
     errors
   );
+  Object.entries(recallState).forEach(([qid, value]) => {
+    recallState[qid] = Object.assign({}, value, value.streakVersion === 1 ? {} : { streak: 0 }, { streakVersion: 1 });
+  });
   const manualTopicLabels = backupValidateMap(
     payload.manualTopicLabels === undefined ? {} : payload.manualTopicLabels,
     unionIds,
@@ -586,6 +603,14 @@ function buildUserBackupSnapshot() {
 }
 
 function applyUserDataBackup(payloadOrJson, mode, options) {
+  const recoveryStorage = options && options.storage ? options.storage : (typeof localStorage !== 'undefined' ? localStorage : null);
+  try {
+    if (recoveryStorage && recoveryStorage.getItem('EE_EXAM_ATTEMPT_RECOVERY_V1')) {
+      return { success: false, error: '尚有未完成的學習紀錄回復，請先完成回復再匯入備份。' };
+    }
+  } catch (_) {
+    return { success: false, error: '無法確認學習紀錄回復狀態，未匯入備份。' };
+  }
   const selectedMode = mode || 'replace';
   if (selectedMode !== 'merge' && selectedMode !== 'replace') {
     return { success: false, error: '匯入失敗：還原模式必須是「合併」或「取代」，未修改任何資料。' };
@@ -690,7 +715,9 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   if (typeof progressState !== 'undefined') progressState = backupClone(nextProgress[currentCategory]);
   if (typeof starredState !== 'undefined') starredState = backupClone(nextStarred[currentCategory]);
   sm2Schedule = backupClone(nextSM2);
+  sm2StoreLoadError = null;
   if (typeof recallState !== 'undefined') recallState = backupClone(nextRecall);
+  if (typeof recallStoreLoadError !== 'undefined') recallStoreLoadError = null;
   if (typeof manualTopicLabels !== 'undefined') manualTopicLabels = backupClone(nextLabels);
   const appliedSummary = Object.assign({}, validation.summary, {
     progress: Object.values(nextProgress).reduce((n, map) => n + Object.keys(map).length, 0),

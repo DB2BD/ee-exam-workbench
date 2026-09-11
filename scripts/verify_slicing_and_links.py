@@ -11,6 +11,8 @@ Verifies that:
 import os
 import re
 import json
+import sys
+from urllib.parse import urlparse
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(WORKSPACE)
@@ -154,7 +156,7 @@ canonical_extra = sorted(set(canonical_qids) - dashboard_qids)
 print(
     "PE canonical notes: "
     f"{len(canonical_qids)}/{len(dashboard_qids)} qids | "
-    f"missing={len(canonical_missing)} duplicate={len(canonical_duplicates)} "
+    f"missing={len(canonical_missing)} duplicate={len(canonical_duplicates)} extra={len(canonical_extra)} "
     f"invalid_crop={len(canonical_missing_crop)} full_page_embed={len(canonical_full_page)}"
 )
 if canonical_missing[:5]:
@@ -181,6 +183,14 @@ for q in nat_questions:
     if not md_text:
         nat_slicing_failures.append((qid, 'Markdown file missing from national bundle', clean_sol))
         continue
+    if not pdfLink:
+        nat_pdf_issues.append((qid, 'PDF link is empty'))
+    elif pdfLink.startswith('http'):
+        parsed_url = urlparse(pdfLink)
+        if parsed_url.scheme not in ('http', 'https') or not parsed_url.netloc:
+            nat_pdf_issues.append((qid, f'External PDF URL format is invalid: {pdfLink}'))
+    elif not os.path.exists(pdfLink):
+        nat_pdf_issues.append((qid, f'Local PDF path does not exist: {pdfLink}'))
     # The national engineering-math papers use one composite Markdown page
     # for the 20 multiple-choice items (MC01..MC20).  Their application IDs
     # are 101..120, while the page is intentionally grouped into four
@@ -196,11 +206,6 @@ for q in nat_questions:
     if not matched:
         nat_slicing_failures.append((qid, f'Question {qnum} not matched in {len(sections)} sections', [s['num'] for s in sections]))
         
-    if not pdfLink:
-        nat_pdf_issues.append((qid, 'PDF link is empty'))
-    elif not pdfLink.startswith('http') and not os.path.exists(pdfLink):
-        nat_pdf_issues.append((qid, f'Local PDF path does not exist: {pdfLink}'))
-
 print(f"National Exams Total: {len(nat_questions)} | Slicing Failures: {len(nat_slicing_failures)} | Composite MC items accepted: {nat_mc_composite}")
 print(f"National Exams PDF Link Issues: {len(nat_pdf_issues)}")
 if nat_slicing_failures:
@@ -208,5 +213,19 @@ if nat_slicing_failures:
 if nat_pdf_issues:
     print("PDF issues:", nat_pdf_issues)
 
-if len(pe_slicing_failures) == 0 and len(nat_slicing_failures) == 0 and len(nat_pdf_issues) == 0:
-    print(f"\n🎉 ALL {len(pe_questions) + len(nat_questions)} QUESTIONS ({len(pe_questions)} PE + {len(nat_questions)} GK) HAVE 100% ACCURATE SLICING & VALID PDF LINKS!")
+all_issues = (
+    len(pe_slicing_failures)
+    + len(canonical_missing)
+    + len(canonical_duplicates)
+    + len(canonical_extra)
+    + len(canonical_missing_crop)
+    + len(canonical_full_page)
+    + len(nat_slicing_failures)
+    + len(nat_pdf_issues)
+)
+if all_issues == 0:
+    print(f"\n🎉 ALL {len(pe_questions) + len(nat_questions)} QUESTIONS ({len(pe_questions)} PE + {len(nat_questions)} GK) HAVE ACCURATE SLICING, EXISTING LOCAL PDF PATHS, AND WELL-FORMED EXTERNAL URL REFERENCES!")
+    print("External URL reachability is not checked by this offline gate.")
+else:
+    print(f"\n❌ Verification failed with {all_issues} issue(s).")
+    sys.exit(1)

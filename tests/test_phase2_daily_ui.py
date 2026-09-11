@@ -19,7 +19,12 @@ class TestDailyPracticeUI(unittest.TestCase):
 const vm = require('vm');
 const nodes = new Map();
 function node(id) {{
-  if (!nodes.has(id)) nodes.set(id, {{id, value:'', innerHTML:'', querySelector:()=>null}});
+  if (!nodes.has(id)) nodes.set(id, {{id, value:'', innerHTML:'', querySelector:()=>null,
+    querySelectorAll(selector) {{
+      return typeof globalThis.__dailyQuerySelectorAll === 'function'
+        ? globalThis.__dailyQuerySelectorAll(this, selector) : [];
+    }}
+  }});
   return nodes.get(id);
 }}
 globalThis.document = {{ getElementById: node, querySelector:()=>null }};
@@ -160,11 +165,58 @@ process.stdout.write(JSON.stringify({html,visible}));
         )
         self.assertIn('/assets/crop-a.png', result["original"])
         self.assertIn("原題截圖", result["original"])
+        self.assertIn("開始四段蓋牌", result["original"])
+        self.assertIn('data-daily-open-solution="recall"', result["original"])
         self.assertIn("開始四段蓋牌揭露", result["solution"])
         self.assertIn("直接看完整詳解", result["solution"])
         self.assertIn('data-daily-open-solution="recall"', result["solution"])
         self.assertIn('data-daily-open-solution="browse"', result["solution"])
-        self.assertNotIn("完成本題並下一題", result["solution"])
+
+    def test_daily_practice_exposes_explicit_completion_action_without_bypassing_recall(self):
+        result = self.run_node(
+            "dailyPracticeStart(); const before=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML, before}));"
+        )
+        self.assertIn("完成本題並進入下一題", result["html"])
+        self.assertIn("暫存本題進度", result["html"])
+        self.assertIn('data-daily-open-solution="recall"', result["html"])
+        self.assertEqual(result["before"]["activeSession"]["currentIndex"], 0)
+        self.assertEqual(result["before"]["completionByQuestion"], {})
+
+    def test_daily_practice_last_question_uses_round_summary_action_label(self):
+        result = self.run_node(
+            "savePracticeSession(createPracticeSession('PE', 'all', ['EE-a','EE-b','EE-c'], {now: Date.now()})); "
+            "const loaded=loadDailyPracticeStore(); loaded.state.activeSession.currentIndex=2; "
+            "savePracticeSession(loaded.state.activeSession); initDailyPracticeHome(); "
+            "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
+        )
+        self.assertIn("完成本題並查看本輪摘要", result["html"])
+
+    def test_completion_action_only_opens_recall_and_does_not_commit(self):
+        result = self.run_node(
+            "globalThis.__buttons=[]; globalThis.__dailyQuerySelectorAll=(element, selector) => { "
+            "if (element.id !== 'daily-practice-container' || selector !== '[data-daily-open-solution]' "
+            "|| !element.innerHTML.includes('data-daily-completion-action=\\\"true\\\"')) return []; "
+            "const button={dataset:{dailyOpenSolution:'recall', dailyCompletionAction:'true'}, addEventListener(type, handler){this.handler=handler; __buttons.push(this);}}; "
+            "return [button]; }; "
+            "dailyPracticeStart(); const before=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "__buttons[0].handler({}); const after=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML, args:openSolutionArgs, before, after}));"
+        )
+        self.assertIn('data-daily-completion-action="true"', result["html"])
+        self.assertIn(
+            'data-daily-completion-action="true" data-daily-open-solution="recall"',
+            result["html"],
+        )
+        self.assertEqual(result["args"][4], {"mode": "daily-practice", "recall": True})
+        self.assertEqual(result["before"]["activeSession"]["currentIndex"], result["after"]["activeSession"]["currentIndex"])
+        self.assertEqual(result["after"]["completionByQuestion"], {})
+
+    def test_summary_exposes_assessment_and_explicit_follow_up_action(self):
+        source = (ROOT / "src/components/dailyPractice.js").read_text(encoding="utf-8")
+        self.assertIn("dailyPracticeSummaryRows", source)
+        self.assertIn("加入到期複習", source)
+        self.assertIn("scheduleDailyPracticeFollowUp", source)
 
     def test_defer_does_not_move_or_complete_current_question(self):
         result = self.run_node(
@@ -174,6 +226,35 @@ process.stdout.write(JSON.stringify({html,visible}));
         )
         self.assertEqual(result["before"]["activeSession"]["currentIndex"], result["after"]["activeSession"]["currentIndex"])
         self.assertEqual(result["after"]["completionByQuestion"], {})
+
+    def test_production_facet_wiring_keeps_chapter_and_type_independent(self):
+        result = self.run_node(
+            "globalThis.getQuestionFacetIds=()=>['el-bjt']; "
+            "globalThis.getQuestionFacetLabel=()=> 'BJT 章節'; "
+            "const q=DB_DATA.questions[0].slice(); q[10]=['S = VI*']; "
+            "process.stdout.write(JSON.stringify({chapter:dailyPracticeFacet(q,'chapter'),type:dailyPracticeFacet(q,'type')}));"
+        )
+        self.assertEqual(result["chapter"], "el-bjt")
+        self.assertEqual(result["type"], "complex-power")
+        self.assertNotEqual(result["chapter"], result["type"])
+
+    def test_unmapped_formula_string_does_not_create_fake_type_diversity(self):
+        result = self.run_node(
+            "const q=DB_DATA.questions[0].slice(); q[10]=['任意未驗證公式']; "
+            "process.stdout.write(JSON.stringify(dailyPracticeFacet(q,'type')));"
+        )
+        self.assertEqual(result, "unknown")
+
+    def test_production_path_interleaves_two_known_types_in_one_chapter(self):
+        result = self.run_node(
+            "globalThis.getQuestionFacetIds=()=>['em-machines']; "
+            "const base=DB_DATA.questions[0]; "
+            "const qs=['a','b','c','d'].map((id,i)=>{const q=base.slice();q[0]='EE-'+id;q[10]=i<2?['S = VI*']:['s = (Ns - N)/Ns'];return q;}); "
+            "const ids=createDailyPracticeQueue(qs,{count:3,random:()=>0,chapterOf:q=>dailyPracticeFacet(q,'chapter'),typeOf:q=>dailyPracticeFacet(q,'type')}); "
+            "process.stdout.write(JSON.stringify(ids.map(id=>dailyPracticeFacet(qs.find(q=>q[0]===id),'type'))));"
+        )
+        self.assertIn("complex-power", result)
+        self.assertIn("induction-slip", result)
 
 
 if __name__ == "__main__":

@@ -11,6 +11,17 @@ let currentExamCategory = localStorage.getItem('exam_category_tab') || 'PE';
 let progressState = {};
 let starredState = {};
 
+function progressStorageKeyForExamFamily(examFamily) {
+  return String(examFamily) === 'GK' ? 'GK_EXAM_PROGRESS_V1' : STORAGE_KEY;
+}
+
+function progressStateIsValid(value, examFamily) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const prefix = String(examFamily) === 'GK' ? 'GK-' : 'EE-';
+  return Object.entries(value).every(([qid, state]) => qid.startsWith(prefix)
+    && Number.isInteger(Number(state)) && Number(state) >= 0 && Number(state) <= 2);
+}
+
 function reloadProgressState() {
   const sKey = currentExamCategory === 'PE' ? STORAGE_KEY : `${currentExamCategory}_EXAM_PROGRESS_V1`;
   const stKey = currentExamCategory === 'PE' ? STARRED_KEY : `${currentExamCategory}_EXAM_STARRED_V1`;

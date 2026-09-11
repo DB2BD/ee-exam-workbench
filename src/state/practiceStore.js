@@ -88,6 +88,13 @@ function practiceCompletionTimestamp(completionByQuestion, qid) {
   return practiceTimestamp(value);
 }
 
+function practiceValidCompletion(value) {
+  if (practiceTimestamp(value) !== null && !practiceIsPlainObject(value)) return true;
+  return practiceIsPlainObject(value) && practiceTimestamp(value.completedAt) !== null
+    && [1, 3, 5].includes(Number(value.rating))
+    && (value.errorType === null || value.errorType === undefined || typeof value.errorType === 'string');
+}
+
 function practiceCandidate(question, options) {
   const qid = practiceQuestionId(question);
   if (!qid) return null;
@@ -214,14 +221,24 @@ function practiceNormalizeSession(session) {
   next.viewByQuestion = practiceIsPlainObject(next.viewByQuestion) ? next.viewByQuestion : {};
   next.revealLevelByQuestion = practiceIsPlainObject(next.revealLevelByQuestion)
     ? next.revealLevelByQuestion : {};
+  next.modalByQuestion = practiceIsPlainObject(next.modalByQuestion) ? next.modalByQuestion : {};
 
   if (Object.entries(next.revealedByQuestion).some(([qid, revealed]) => !queue.has(qid) || typeof revealed !== 'boolean')) return null;
   if (Object.entries(next.viewByQuestion).some(([qid, view]) => !queue.has(qid) || !['question', 'solution'].includes(view))) return null;
   if (Object.entries(next.revealLevelByQuestion).some(([qid, level]) => !queue.has(qid) || !Number.isInteger(level) || level < 0 || level > 4)) return null;
   if (Object.keys(next.scrollByQuestion).some(qid => !queue.has(qid))) return null;
+  if (Object.entries(next.modalByQuestion).some(([qid, value]) => !queue.has(qid)
+      || !practiceIsPlainObject(value)
+      || !Number.isFinite(value.leftScroll) || value.leftScroll < 0
+      || !Number.isFinite(value.rightScroll) || value.rightScroll < 0
+      || !Number.isInteger(value.subQuestion) || value.subQuestion < 0
+      || !Number.isInteger(value.revealStep) || value.revealStep < 0 || value.revealStep > 4
+      || !['question', 'solution'].includes(value.pane)
+      || typeof value.open !== 'boolean')) return null;
 
   for (const qid of next.questionIds) {
     if (!next.viewByQuestion[qid]) next.viewByQuestion[qid] = 'question';
+    if (!next.modalByQuestion[qid]) next.modalByQuestion[qid] = { leftScroll: 0, rightScroll: 0, subQuestion: 0, revealStep: 0, pane: 'question', open: false };
     if (next.revealLevelByQuestion[qid] === undefined) {
       // Legacy boolean only means that the solution pane was visited; it is
       // not evidence that all four recall layers were completed.
@@ -239,7 +256,7 @@ function practiceNormalizeState(state) {
   const next = practiceClone(state);
   next.activeSession = practiceNormalizeSession(next.activeSession === undefined ? null : next.activeSession);
   if (state.activeSession !== undefined && state.activeSession !== null && next.activeSession === null) return null;
-  if (Object.keys(next.completionByQuestion).some(qid => !qid || practiceTimestamp(next.completionByQuestion[qid]) === null)) return null;
+  if (Object.keys(next.completionByQuestion).some(qid => !qid || !practiceValidCompletion(next.completionByQuestion[qid]))) return null;
   return next;
 }
 
@@ -251,7 +268,7 @@ function practiceValidSession(session) {
 function practiceValidState(state) {
   if (!practiceIsPlainObject(state) || state.version !== DAILY_PRACTICE_STORE_VERSION) return false;
   if (!practiceIsPlainObject(state.completionByQuestion)) return false;
-  if (Object.keys(state.completionByQuestion).some(qid => !qid || practiceTimestamp(state.completionByQuestion[qid]) === null)) return false;
+  if (Object.keys(state.completionByQuestion).some(qid => !qid || !practiceValidCompletion(state.completionByQuestion[qid]))) return false;
   return practiceValidSession(state.activeSession);
 }
 
@@ -300,6 +317,7 @@ function createPracticeSession(category, subjectId, questionIds, options = {}) {
     viewByQuestion: {},
     revealLevelByQuestion: {},
     scrollByQuestion: {},
+    modalByQuestion: {},
     createdAt: practiceCreatedAt(options.now),
   };
 }
@@ -328,6 +346,25 @@ function commitPracticeProgress(session, completedQid, completedAt, options = {}
   next.activeSession = practiceClone(session);
   if (id) next.completionByQuestion[id] = timestamp;
   return saveDailyPracticeStore(next, options);
+}
+
+function calculateCompletedPracticeState(state, completedQid, completedAt, assessment) {
+  const normalized = practiceNormalizeState(state);
+  const qid = String(completedQid || '').trim();
+  const timestamp = practiceTimestamp(completedAt);
+  const session = normalized && normalized.activeSession;
+  if (!normalized || !session || !qid || timestamp === null
+      || session.questionIds[session.currentIndex] !== qid) return null;
+  const next = practiceClone(normalized);
+  const detail = assessment && practiceIsPlainObject(assessment) ? assessment : null;
+  next.completionByQuestion[qid] = detail ? {
+    completedAt: timestamp,
+    rating: [1, 3, 5].includes(Number(detail.rating)) ? Number(detail.rating) : 1,
+    errorType: typeof detail.errorType === 'string' && detail.errorType ? detail.errorType : null,
+  } : timestamp;
+  if (session.currentIndex + 1 >= session.questionIds.length) next.activeSession = null;
+  else next.activeSession.currentIndex += 1;
+  return next;
 }
 
 function clearPracticeSession(options = {}) {

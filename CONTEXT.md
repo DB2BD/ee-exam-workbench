@@ -1,7 +1,7 @@
 # 電機工程技師歷屆試題與詳解工作台 — 專案架構與領域語境
 
 > **版本**：`2.2.0`
-> **最後更新**：2026-09-06
+> **最後更新**：2026-09-08
 > **定位**：以官方原題／裁切圖為來源、以參考書與獨立驗算為核對材料的 PE／GK 靜態雙資料庫工作台。
 
 ## 1. 領域語言
@@ -14,6 +14,9 @@
 | Provenance | 題解、官方 PDF、裁切圖、頁碼、SHA-256 與參考書頁碼等來源鏈。 |
 | Verification | 題解驗證狀態與專屬題解旗標；目前使用 `verified`、`reference_book_verified`、`needs_manual_review`、`suspected_error`、`not_attempted`。 |
 | Workbench | `index.html` 的雙欄介面：左側原題／PDF，右側題解與驗算。 |
+| Reveal step | 四段蓋牌介面實際揭露到哪一段；它是流程門檻，不直接判定能力。 |
+| Recall level | 由揭露後 1／3／5 自評映射出的回想成果累積；每級連續兩次達標才升級，升級後重新累積。 |
+| SM-2 rating | 1／3／5 的主觀回想品質，同時更新 recall 成果與下次複習日期，但不得由 reveal step 自動推算。 |
 
 `reference_book_verified` 只表示已依參考書核對，並不表示參考書就是官方標準答案。PE 最新稽核快照為 256 題：`verified` 239、`reference_book_verified` 15、`needs_manual_review` 2。
 
@@ -44,6 +47,7 @@ PE 來源主要在 `依考科分類/`、`依年度分類/`、`📝 個人題解�
 5. `src/domain/questionRecord.js`、`scripts/question_schema.py` 與測試的狀態契約必須同步；特別是 `reference_book_verified`。
 6. 題解採 Solver／Verifier 分離；Verifier 必須使用獨立驗算方法。
 7. localStorage 的刷題狀態與兩個資料庫的題解優先順序不得因重編譯而互相污染。
+8. 一次作答必須由單一 attempt transaction 寫入；揭露層級與間隔自評分開保存，排程日期使用瀏覽器所在地的日曆日。
 
 ## 4. 變更後的最小驗收
 

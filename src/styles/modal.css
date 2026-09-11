@@ -635,3 +635,16 @@
   background: var(--success);
   color: #ffffff;
 }
+
+@media (max-width: 760px) {
+  #solution-modal { padding: 0; }
+  .modal-container { width: 100vw; height: 100dvh; border-radius: 0; }
+  .modal-header, .modal-nav-bar, .modal-actions, .modal-nav-group { flex-wrap: wrap; }
+  .modal-header { padding: 8px 10px; gap: 8px; }
+  .modal-nav-bar { padding: 6px 8px; }
+  .modal-pane-right { padding: 16px; }
+  .modal-resizer, #btn-layout-split { display: none !important; }
+  .view-layout-toggle button, .btn-layout, .btn-session-next,
+  .btn-reveal-hint, .btn-reveal-full, .btn-sm2 { min-height: 44px; }
+  .solution-content .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+}

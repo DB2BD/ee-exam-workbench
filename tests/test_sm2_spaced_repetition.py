@@ -8,8 +8,37 @@ Unit tests for the SuperMemo SM-2 Spaced Repetition Algorithm & Active Recall En
 import unittest
 import json
 import datetime
+import os
+import subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 class TestSM2SpacedRepetition(unittest.TestCase):
+
+    def run_store(self, expression, timezone="Asia/Taipei"):
+        source = (ROOT / "src/state/sm2Store.js").read_text(encoding="utf-8")
+        script = f"""
+const vm=require('vm');
+const localStorage={{getItem:()=>null,setItem:()=>{{}},removeItem:()=>{{}}}};
+const context={{console,localStorage}}; vm.createContext(context);
+vm.runInContext({json.dumps(source, ensure_ascii=False)},context);
+const result=vm.runInContext({json.dumps(expression, ensure_ascii=False)},context);
+process.stdout.write(JSON.stringify(result));
+"""
+        env = os.environ.copy()
+        env["TZ"] = timezone
+        completed = subprocess.run(["node", "-e", script], cwd=ROOT, env=env, capture_output=True, text=True)
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        return json.loads(completed.stdout)
+
+    def test_calendar_dates_follow_browser_timezone_across_midnight(self):
+        result = self.run_store("(() => { const now=new Date('2026-09-06T16:30:00.000Z'); const next=calculateSM2ReviewItem(null,3,now); return {today:formatLocalCalendarDate(now),last:next.lastReviewed,next:next.nextReviewDate}; })()")
+        self.assertEqual(result, {"today": "2026-09-07", "last": "2026-09-07", "next": "2026-09-08"})
+
+    def test_due_list_uses_the_same_local_calendar_day(self):
+        result = self.run_store("(() => { sm2Schedule={due:{nextReviewDate:'2026-09-07'},future:{nextReviewDate:'2026-09-08'}}; return getDueQuestionsList(new Date('2026-09-06T16:30:00.000Z')); })()")
+        self.assertEqual(result, ["due"])
     
     def simulate_sm2(self, item, rating):
         """Python mirror of sm2Store.js algorithm for deterministic verification."""

@@ -1309,6 +1309,11 @@ select:focus {
 .daily-practice-empty { padding: 48px 20px; text-align: center; color: var(--muted); }
 .daily-practice-summary { text-align: center; }
 .daily-practice-summary h2 { margin: 8px 0; color: var(--success); }
+.daily-practice-result-list { display: grid; gap: 10px; margin: 18px 0; text-align: left; }
+.daily-practice-result-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+.daily-practice-result-item > div { display: grid; gap: 3px; flex: 1; }
+.daily-practice-result-item code { color: var(--muted); font-size: .75rem; }
+.daily-practice-result-item button { min-height: 44px; }
 .daily-practice-summary .daily-practice-actions { justify-content: center; }
 @media (max-width: 680px) {
   .practice-home-actions { grid-template-columns: 1fr; }

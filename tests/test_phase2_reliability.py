@@ -33,6 +33,11 @@ process.stdout.write(JSON.stringify(result));
 
 
 class TestReviewReliability(unittest.TestCase):
+    def test_practice_stat_counts_current_round_not_historical_unique_questions(self):
+        setup = "globalThis.window={}; globalThis.document={getElementById:()=>null};"
+        expression = "(() => ({active:getPracticeRoundCompleted(null,{state:{activeSession:{currentIndex:2}}}),finished:getPracticeRoundCompleted({completed:3},{state:{activeSession:null}}),idle:getPracticeRoundCompleted(null,{state:{activeSession:null}})}))()"
+        result = run_node(["src/components/reviewPage.js"], expression, setup)
+        self.assertEqual(result, {"active": 2, "finished": 3, "idle": 0})
     def test_due_scope_and_completion_message_share_subject_range(self):
         setup = r'''
 globalThis.document = { getElementById: id => id === 'review-subject' ? {value: '01'} : null };
@@ -62,6 +67,39 @@ globalThis.openSolutionModal = () => {};
         self.assertEqual(result["queue"], ["q1", "q2"])
         self.assertEqual(result["scoped"], ["q1", "q2"])
         self.assertIn("2 題", result["message"])
+
+    def test_review_summary_counts_rated_and_skipped_separately(self):
+        setup = r'''
+globalThis.document = {getElementById:id => id === 'review-subject' ? {value:'01'} : null};
+globalThis.getActiveQuestionsList = () => [
+  ['q1','01',114,1,'A',[],'','',3,'verified',[],true],
+  ['q2','01',114,2,'B',[],'','',3,'verified',[],true]
+];
+globalThis.getDueQuestionsList = () => ['q1','q2'];
+globalThis.getReviewTypeLabel = () => '章節';
+globalThis.openSolutionModal = () => {};
+globalThis.closeSolutionModal = () => {};
+globalThis.renderReviewPage = () => {};
+globalThis.showToast = () => {};
+'''
+        expression = r'''
+(() => {
+  startReviewSession();
+  skipCurrentReviewSessionItem();
+  recordReviewSessionRating('q2');
+  advanceReviewSessionItem();
+  return {summary:getReviewSessionSummary(),message:getReviewSessionCompletionMessage(currentReviewSessionQueue)};
+})()
+'''
+        result = run_node(["src/components/reviewPage.js"], expression, setup)
+        self.assertEqual(result["summary"], {"rated": 1, "skipped": 1, "remaining": 0, "total": 2})
+        self.assertIn("完成 1 題", result["message"])
+        self.assertIn("略過 1 題", result["message"])
+
+    def test_last_due_question_has_explicit_skip_or_finish_action(self):
+        source = (ROOT / "src/components/solutionModal.js").read_text(encoding="utf-8")
+        self.assertIn("skipCurrentReviewSessionItem()", source)
+        self.assertEqual(source.count("function advanceReviewSessionItem()"), 0)
 
     def test_review_card_shows_cover_and_opens_progressive_recall(self):
         setup = r'''
@@ -113,9 +151,10 @@ globalThis.document = {body:{style:{}}, getElementById:() => null};
 globalThis.window = {addEventListener(){}};
 globalThis.__sm2 = 0;
 globalThis.__recall = 0;
-globalThis.recordSM2Review = () => { globalThis.__sm2 += 1; };
-globalThis.recordRecallAttempt = () => { globalThis.__recall += 1; };
-globalThis.dailyPracticeCompleteFromModal = () => { globalThis.__complete = (globalThis.__complete || 0) + 1; };
+globalThis.findQuestionRecord = qid => [qid,'01',114,1,'題目',[],'','',3,'verified',[],true];
+globalThis.toQuestionRecord = q => ({id:q[0],examFamily:'PE'});
+globalThis.submitLearningAttempt = () => { globalThis.__recall += 1; return {ok:true,duplicate:false,nextAction:{type:'advance-daily'}}; };
+globalThis.dailyPracticeApplyCompletedAttempt = () => { globalThis.__complete = (globalThis.__complete || 0) + 1; };
 globalThis.showToast = () => {};
 '''
         expression = r'''
@@ -242,6 +281,26 @@ globalThis.showToast = message => { globalThis.__toast = message; };
         self.assertEqual(result["ratingDisplay"], "none")
         self.assertIn("四段蓋牌", result["toast"])
 
+    def test_browse_can_start_a_new_recall_attempt_from_the_toggle(self):
+        setup = r'''
+globalThis.window = {addEventListener(){}};
+globalThis.document = {getElementById:()=>null, querySelectorAll:()=>[]};
+globalThis.resolveSolutionMarkdown = () => '';
+globalThis.findQuestionRecord = () => null;
+globalThis.showToast = () => {};
+'''
+        expression = r'''
+(() => {
+  currentModalQid='EE-Q'; currentSolutionSourceMode='browse'; currentSolutionRecallEntry=false;
+  currentLearningAttemptId='old-view'; isActiveRecallMode=false;
+  toggleActiveRecallMode();
+  return getSolutionModalTransientState();
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertTrue(result["activeRecall"])
+        self.assertTrue(result["recallEntry"])
+
     def test_daily_completion_rejects_modal_qid_mismatch(self):
         setup = r'''
 globalThis.document = {getElementById: id => id === 'daily-practice-container' ? {innerHTML:'', querySelector:()=>null, querySelectorAll:()=>[]} : null};
@@ -266,15 +325,50 @@ globalThis.showToast = () => {};
         setup = r'''
 globalThis.document = {body:{style:{}}, getElementById:() => null};
 globalThis.window = {addEventListener(){}};
-globalThis.recordRecallAttempt = () => {};
-globalThis.recordSM2Review = () => { globalThis.__sm2 = (globalThis.__sm2 || 0) + 1; return {nextReviewDate:'2026-09-07'}; };
+globalThis.findQuestionRecord = qid => [qid,'01',114,1,'題目',[],'','',3,'verified',[],true];
+globalThis.toQuestionRecord = q => ({id:q[0],examFamily:'PE'});
+globalThis.submitLearningAttempt = () => { globalThis.__sm2 = (globalThis.__sm2 || 0) + 1; return {ok:true,duplicate:false,nextReviewDate:'2026-09-07',nextAction:{type:'refresh-review'}}; };
+globalThis.recordReviewSessionRating = qid => { globalThis.__rated = (globalThis.__rated || []).concat(qid); };
 globalThis.showToast = () => {};
+globalThis.setTimeout = fn => { globalThis.__scheduledAdvance = fn; return 1; };
+globalThis.clearTimeout = () => {};
 '''
         expression = r'''
-(() => { openSolutionModal(null, '', 'q1', 1, {mode:'due-review', recall:false}); submitSM2Rating(3); return globalThis.__sm2 || 0; })()
+(() => { openSolutionModal(null, '', 'q1', 1, {mode:'due-review', recall:false}); const before=(globalThis.__rated||[]).length; submitSM2Rating(3); return {writes:globalThis.__sm2||0,before,rated:globalThis.__rated||[]}; })()
 '''
         result = run_node(["src/components/solutionModal.js"], expression, setup)
-        self.assertEqual(result, 1)
+        self.assertEqual(result["writes"], 1)
+        self.assertEqual(result["before"], 0)
+        self.assertEqual(result["rated"], ["q1"])
+
+    def test_conflict_after_success_keeps_rating_buttons_locked(self):
+        setup = r'''
+const buttons=[{disabled:false},{disabled:false},{disabled:false}];
+globalThis.document = {body:{style:{}},getElementById:()=>null,querySelectorAll:selector => selector.includes('.btn-sm2') ? buttons : []};
+globalThis.window = {addEventListener(){}};
+globalThis.findQuestionRecord = qid => [qid,'01',114,1,'題目',[],'','',3,'verified',[],true];
+globalThis.toQuestionRecord = q => ({id:q[0],examFamily:'PE'});
+let calls=0;
+globalThis.submitLearningAttempt = () => ++calls === 1
+  ? {ok:true,duplicate:false,nextReviewDate:'2026-09-09',nextAction:{type:'refresh-review'}}
+  : {ok:false,duplicate:false,code:'attempt_conflict',message:'衝突'};
+globalThis.showToast = () => {};
+globalThis.setTimeout = fn => { globalThis.__scheduledAdvance = fn; return 1; };
+globalThis.clearTimeout = () => {};
+'''
+        expression = r'''
+(() => {
+  currentModalQid='EE-Q'; currentSolutionSourceMode='due-review'; currentSolutionRecallEntry=true;
+  currentRecallAchievedLevel=4; currentLearningAttemptId='attempt';
+  submitSM2Rating(3); const afterSuccess=buttons.map(b=>b.disabled);
+  submitSM2Rating(5); const afterConflict=buttons.map(b=>b.disabled);
+  return {afterSuccess,afterConflict,submitted:currentLearningAttemptSubmitted};
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertEqual(result["afterSuccess"], [True, True, True])
+        self.assertEqual(result["afterConflict"], [True, True, True])
+        self.assertTrue(result["submitted"])
 
     def test_open_sets_recall_explicitly_and_close_clears_transient_state(self):
         setup = r'''
@@ -282,18 +376,20 @@ const elements = new Map();
 globalThis.document = {
   body: {style: {}},
   getElementById: id => elements.get(id) || null,
+  activeElement: {focus(){}},
 };
 globalThis.window = {addEventListener() {}};
+globalThis.__trigger = {isConnected:true, focus(){globalThis.__restored=(globalThis.__restored||0)+1;}};
 '''
         expression = r'''
 (() => {
-  globalThis.openSolutionModal(null, '', 'q1', 1, {mode:'due-review', recall:true, sessionQueue: ['q1']});
+  globalThis.openSolutionModal({preventDefault(){},currentTarget:globalThis.__trigger}, '', 'q1', 1, {mode:'due-review', recall:true, sessionQueue: ['q1']});
   const recallOpen = globalThis.getSolutionModalTransientState();
   globalThis.openSolutionModal(null, '', 'q2', 2, {mode:'browse'});
   const ordinaryOpen = globalThis.getSolutionModalTransientState();
   globalThis.closeModal();
   const closed = globalThis.getSolutionModalTransientState();
-  return {recallOpen, ordinaryOpen, closed};
+  return {recallOpen, ordinaryOpen, closed, restored:globalThis.__restored||0};
 })()
 '''
         result = run_node(["src/components/solutionModal.js"], expression, setup)
@@ -310,6 +406,22 @@ globalThis.window = {addEventListener() {}};
             "sessionLength": 0,
             "sessionIndex": 0,
         })
+        self.assertEqual(result["restored"], 1)
+
+    def test_tab_from_outside_modal_is_forced_back_inside(self):
+        setup = r'''
+const first={offsetParent:{},focus(){globalThis.__focused='first';}};
+const last={offsetParent:{},focus(){globalThis.__focused='last';}};
+const modal={classList:{contains:()=>true},querySelectorAll:()=>[first,last],contains:()=>false};
+globalThis.document={activeElement:{},getElementById:id=>id==='solution-modal'?modal:null};
+globalThis.window={addEventListener(type,fn){if(type==='keydown')globalThis.__keydown=fn;}};
+'''
+        expression = r'''
+(() => { let prevented=false; __keydown({key:'Tab',shiftKey:false,target:{matches:()=>false},preventDefault(){prevented=true;}}); return {prevented,focused:globalThis.__focused}; })()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertTrue(result["prevented"])
+        self.assertEqual(result["focused"], "first")
 
     def test_crop_fallback_escapes_pdf_and_supports_keyboard_entry(self):
         setup = r'''
@@ -476,7 +588,8 @@ globalThis.showToast = () => {};
     def test_active_recall_hides_solution_and_reveals_layers_in_order(self):
         setup = r'''
 const elements = new Map();
-const make = id => ({id, innerHTML:'', style:{display:'none'}, scrollIntoView(){}});
+const stepButtons = [0,1,2,3].map(() => ({disabled:false,title:''}));
+const make = id => ({id, innerHTML:'', style:{display:'none'}, scrollIntoView(){}, querySelectorAll:() => id === 'recall-step-box' ? stepButtons : []});
 ['modal-right-content','recall-layer-1','recall-layer-2','recall-layer-3','recall-full-section','recall-rating-bar','recall-step-box']
   .forEach(id => elements.set(id, make(id)));
 globalThis.document = {
@@ -505,10 +618,15 @@ globalThis.reviewHtmlEscape = value => String(value);
   const layer1 = document.getElementById('recall-layer-1').style.display;
   const fullBefore = document.getElementById('recall-full-section').style.display;
   revealRecallFull();
+  currentRecallAchievedLevel = 4;
+  renderSubQuestionContent('答案內容', ['q1','01',114,1,'題目']);
   return {
     initialHtml, layer1, fullBefore,
     fullAfter: document.getElementById('recall-full-section').style.display,
-    ratingAfter: document.getElementById('recall-rating-bar').style.display
+    ratingAfter: document.getElementById('recall-rating-bar').style.display,
+    restoredLayer3: document.getElementById('recall-layer-3').style.display,
+    restoredFull: document.getElementById('recall-full-section').style.display,
+    restoredBox: document.getElementById('recall-step-box').style.display
   };
 })()
 '''
@@ -519,6 +637,72 @@ globalThis.reviewHtmlEscape = value => String(value);
         self.assertEqual(result["fullBefore"], "none")
         self.assertEqual(result["fullAfter"], "block")
         self.assertEqual(result["ratingAfter"], "flex")
+        self.assertEqual(result["restoredLayer3"], "block")
+        self.assertEqual(result["restoredFull"], "block")
+        self.assertEqual(result["restoredBox"], "none")
+
+    def test_active_recall_keeps_answer_bearing_matrix_inside_fourth_reveal(self):
+        setup = r'''
+const rightPane = {innerHTML:''};
+globalThis.document = {
+  getElementById:id => id === 'modal-right-content' ? rightPane : null,
+  querySelectorAll:() => []
+};
+globalThis.window = {addEventListener(){}};
+globalThis.getRecallHintBundle = () => ({chapter:'章節',activation:'起手式',formula:'x=1',trap:'陷阱'});
+globalThis.processMarkdownWithMath = text => `<p class="rendered-solution">${text}</p>`;
+globalThis.resolveRenderedImageSources = html => html;
+globalThis.renderSolutionReviewCard = () => '<aside class="solution-review-card">來源摘要</aside>';
+globalThis.renderDagTracerCard = () => '';
+globalThis.reviewHtmlEscape = value => String(value);
+globalThis.SCENARIO_MATRIX_DATA = {
+  'EE-111-02-3': {
+    coreConflict:'條件不同',
+    scenarioA:{name:'A',condition:'條件A',keyValues:[{param:'P',val:'42'}],examAdvice:'作法A'},
+    scenarioB:{name:'B',condition:'條件B',keyValues:[{param:'P',val:'24'}],examAdvice:'作法B'}
+  }
+};
+'''
+        expression = r'''
+(() => {
+  isActiveRecallMode = true;
+  currentModalQid = 'EE-111-02-3';
+  renderSubQuestionContent('完整答案', ['EE-111-02-3','02',111,3,'題目']);
+  const html = document.getElementById('modal-right-content').innerHTML;
+  const fullStart = html.indexOf('id="recall-full-section"');
+  const fullEnd = html.indexOf('recall-full-section-end');
+  return {
+    matrixIndex: html.indexOf('scenario-matrix-card'),
+    reviewIndex: html.indexOf('solution-review-card'),
+    fullStart, fullEnd
+  };
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertGreater(result["matrixIndex"], result["fullStart"])
+        self.assertLess(result["matrixIndex"], result["reviewIndex"])
+        self.assertLess(result["reviewIndex"], result["fullEnd"])
+
+    def test_direct_browse_does_not_offer_self_assessment_that_cannot_succeed(self):
+        setup = r'''
+const rightPane = {innerHTML:''};
+globalThis.window = {addEventListener(){}};
+globalThis.document = {getElementById:id => id === 'modal-right-content' ? rightPane : null, querySelectorAll:() => []};
+globalThis.processMarkdownWithMath = text => '<p>' + text + '</p>';
+globalThis.resolveRenderedImageSources = html => html;
+globalThis.renderSolutionReviewCard = () => '';
+globalThis.renderScenarioMatrix = () => '';
+globalThis.renderDagTracerCard = () => '';
+'''
+        expression = r'''
+(() => {
+  currentModalQid='EE-Q'; currentSolutionSourceMode='browse'; currentSolutionRecallEntry=false; isActiveRecallMode=false;
+  renderSubQuestionContent('完整詳解', null);
+  return document.getElementById('modal-right-content').innerHTML;
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertNotIn('sm2-rating-bar', result)
 
 
 class TestMockExamTimerReliability(unittest.TestCase):

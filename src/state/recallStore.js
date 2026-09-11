@@ -11,19 +11,49 @@ const RECALL_ERROR_TYPES = {
 };
 
 let recallState = {};
+let recallStoreLoadError = null;
+
+function recallStoreIsPlainObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function recallStoreIsValidState(value) {
+  if (!recallStoreIsPlainObject(value)) return false;
+  return Object.values(value).every(item => recallStoreIsPlainObject(item)
+    && Number.isInteger(Number(item.level)) && Number(item.level) >= 1 && Number(item.level) <= 4
+    && Number.isInteger(Number(item.streak)) && Number(item.streak) >= 0
+    && Number.isInteger(Number(item.attempts)) && Number(item.attempts) >= 0
+    && Number.isFinite(Number(item.lastAchieved)) && Number(item.lastAchieved) >= 0 && Number(item.lastAchieved) <= 4
+    && (item.streakVersion === undefined || item.streakVersion === 1)
+    && (item.lastErrorType === null || item.lastErrorType === undefined || typeof item.lastErrorType === 'string')
+    && (item.lastReviewed === null || item.lastReviewed === undefined || Number.isFinite(Date.parse(item.lastReviewed))));
+}
 
 function initRecallStore() {
   if (typeof localStorage === 'undefined') return;
   try {
-    recallState = JSON.parse(localStorage.getItem(RECALL_STORAGE_KEY)) || {};
+    const raw = localStorage.getItem(RECALL_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    if (!recallStoreIsValidState(parsed)) throw new Error('回想紀錄格式無效');
+    recallState = Object.fromEntries(Object.entries(parsed).map(([qid, item]) => [qid,
+      Object.assign({}, item, item.streakVersion === 1 ? {} : { streak: 0 }, { streakVersion: 1 })
+    ]));
+    recallStoreLoadError = null;
   } catch (e) {
     recallState = {};
+    recallStoreLoadError = e;
   }
 }
 
-function saveRecallStore() {
-  if (typeof localStorage === 'undefined') return;
-  try { localStorage.setItem(RECALL_STORAGE_KEY, JSON.stringify(recallState)); } catch (e) { /* private mode */ }
+function saveRecallStore(nextState) {
+  if (typeof localStorage === 'undefined') return { ok: false, error: '找不到本機儲存空間。' };
+  const value = nextState || recallState;
+  try {
+    localStorage.setItem(RECALL_STORAGE_KEY, JSON.stringify(value));
+    return { ok: true, error: null };
+  } catch (error) {
+    return { ok: false, error: error.message || String(error) };
+  }
 }
 
 function getRecallState(qid) {
@@ -35,29 +65,43 @@ function getRecallState(qid) {
     lastAchieved: Math.max(0, Number(item.lastAchieved) || 0),
     lastErrorType: item.lastErrorType || null,
     lastReviewed: item.lastReviewed || null,
+    streakVersion: 1,
   };
 }
 
-function recordRecallAttempt(qid, achievedLevel, errorType) {
-  if (!qid) return getRecallState(qid);
-  const current = getRecallState(qid);
+function calculateRecallAttemptState(currentValue, achievedLevel, errorType, reviewedAt) {
+  const current = currentValue || { level: 1, streak: 0, attempts: 0, lastAchieved: 0, lastErrorType: null, lastReviewed: null };
   const achieved = Math.min(4, Math.max(0, Number(achievedLevel) || 0));
   const next = Object.assign({}, current, {
     attempts: current.attempts + 1,
     lastAchieved: achieved,
     lastErrorType: errorType || null,
-    lastReviewed: new Date().toISOString(),
+    lastReviewed: reviewedAt || new Date().toISOString(),
+    streakVersion: 1,
   });
   if (achieved >= current.level) {
     next.streak = current.streak + 1;
-    if (next.streak >= 2 && current.level < 4) next.level = current.level + 1;
+    if (next.streak >= 2 && current.level < 4) {
+      next.level = current.level + 1;
+      next.streak = 0;
+    }
   } else {
     next.level = Math.max(1, current.level - 1);
     next.streak = 0;
   }
-  recallState[qid] = next;
-  saveRecallStore();
-  return getRecallState(qid);
+  return next;
+}
+
+function recordRecallAttempt(qid, achievedLevel, errorType) {
+  if (!qid) return getRecallState(qid);
+  const current = getRecallState(qid);
+  const next = calculateRecallAttemptState(current, achievedLevel, errorType);
+  const nextAll = Object.assign({}, recallState, { [qid]: next });
+  const saved = saveRecallStore(nextAll);
+  if (!saved.ok) return Object.assign({}, current, { ok: false, error: saved.error });
+  recallState = nextAll;
+  recallStoreLoadError = null;
+  return Object.assign(getRecallState(qid), { ok: true, error: null });
 }
 
 function resetRecallState(qid) {

@@ -52,12 +52,27 @@ function dailyPracticeSubjectLabel(category, subjectId) {
 
 function dailyPracticeFacet(question, kind) {
   const record = dailyPracticeRecord(question);
-  if (typeof getQuestionFacetIds === 'function' && record && String(record.id || '').startsWith('EE-')) {
+  if (kind === 'chapter' && typeof getQuestionFacetIds === 'function' && record && String(record.id || '').startsWith('EE-')) {
     const ids = getQuestionFacetIds(question, false, 'PE');
-    if (ids.length && typeof getQuestionFacetLabel === 'function') return getQuestionFacetLabel(ids[0]);
+    if (ids.length) return String(ids[0]);
   }
-  const values = kind === 'type' ? record.formulaTags || record.tags : record.tags || [];
+  if (!record) return 'unknown';
+  if (kind === 'type') return dailyPracticeTypeFromFormulaTags(record.formulaTags);
+  const values = record.tags;
   return Array.isArray(values) && values.length ? String(values[0]) : 'unknown';
+}
+
+function dailyPracticeTypeFromFormulaTags(tags) {
+  const rules = [
+    ['thevenin-equivalent', /戴維寧|Thevenin/i],
+    ['complex-power', /S\s*=\s*VI\*|複功率/i],
+    ['induction-slip', /s\s*=\s*\(N[sS]\s*-\s*N\)\s*\/\s*N[sS]|轉差率/i],
+    ['svd', /A\s*=\s*U\s*[Σ\\Sigma]+\s*V/i],
+    ['three-phase-power', /sqrt\(3\)|\\sqrt\{3\}.*VI/i],
+  ];
+  const values = Array.isArray(tags) ? tags.map(String) : [];
+  for (const [id, pattern] of rules) if (values.some(value => pattern.test(value))) return id;
+  return 'unknown';
 }
 
 function dailyPracticeLoad() {
@@ -238,6 +253,31 @@ function dailyPracticeGetCurrentQuestionId() {
   return session && session.questionIds ? session.questionIds[session.currentIndex] || null : null;
 }
 
+function dailyPracticeGetModalState(qid) {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  const value = session && session.modalByQuestion && session.modalByQuestion[qid];
+  return value || { leftScroll: 0, rightScroll: 0, subQuestion: 0, revealStep: 0, pane: 'question', open: false };
+}
+
+function dailyPracticeRecordModalState(qid, patch) {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  if (!session || !session.questionIds.includes(qid)) return false;
+  if (!session.modalByQuestion) session.modalByQuestion = {};
+  session.modalByQuestion[qid] = Object.assign({}, dailyPracticeGetModalState(qid), patch || {});
+  const result = dailyPracticeSave(dailyPracticeState);
+  if (!result.ok && typeof showToast === 'function') showToast(result.error || '閱讀位置無法儲存。');
+  return result.ok;
+}
+
+function dailyPracticeRestoreOpenModal(question) {
+  if (!question || typeof openSolutionModal !== 'function') return;
+  const saved = dailyPracticeGetModalState(question.id);
+  const modal = typeof document !== 'undefined' ? document.getElementById('solution-modal') : null;
+  if (saved.open && modal && !modal.classList.contains('show')) {
+    openSolutionModal(null, question.solutionLink, question.id, question.number, { mode: 'daily-practice', recall: true });
+  }
+}
+
 function dailyPracticeCompleteFromModal(rating, achievedLevel, modalQid) {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   if (!session) return false;
@@ -272,12 +312,65 @@ function dailyPracticeCompleteFromModal(rating, achievedLevel, modalQid) {
   return true;
 }
 
+function dailyPracticeApplyCompletedAttempt(qid, nextAction) {
+  const action = nextAction && typeof nextAction === 'object' ? nextAction : {};
+  const state = typeof loadDailyPracticeStore === 'function' ? loadDailyPracticeStore() : { state: dailyPracticeState, error: null };
+  if (state.error) { showToast(state.error); return false; }
+  dailyPracticeState = state.state;
+  if (action.finished) {
+    dailyPracticeLastSummary = { category: action.category || 'PE', subjectId: action.subjectId || 'all', total: action.total || 1, completed: action.total || 1, results: action.results || [] };
+    dailyPracticeHomeMode = 'summary';
+    showToast('🎉 本輪每日練習已完成！');
+  } else {
+    dailyPracticeView = 'question';
+    dailyPracticeHomeMode = 'continue';
+  }
+  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+  if (typeof closeSolutionModal === 'function') closeSolutionModal();
+  initDailyPracticeHome();
+  return true;
+}
+
+function dailyPracticeQuestionLabel(qid) {
+  const raw = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
+  const record = raw && typeof toQuestionRecord === 'function' ? toQuestionRecord(raw, String(qid).startsWith('GK-') ? 'GK' : 'PE') : null;
+  if (!record) return qid;
+  const meta = typeof getSubjectMeta === 'function' ? getSubjectMeta(record.subjectId) : null;
+  return `${meta ? meta.name : record.subjectId}・民國${record.year}年・第${record.number}題`;
+}
+
+function dailyPracticeScheduleFollowUp(qid, button) {
+  if (typeof scheduleDailyPracticeFollowUp !== 'function') return;
+  if (button) button.disabled = true;
+  const result = scheduleDailyPracticeFollowUp(qid);
+  if (!result.ok && button) button.disabled = false;
+  if (result.ok && button) button.textContent = `已排入 ${result.nextReviewDate}`;
+  if (typeof showToast === 'function') showToast(result.ok ? `${result.message} 下次：${result.nextReviewDate}` : result.message);
+}
+
+function dailyPracticeSummaryRows(results) {
+  if (!Array.isArray(results) || !results.length) return '<p class="daily-practice-muted">本輪沒有可顯示的逐題自評。</p>';
+  const labels = { 1: '🔴 無法完成', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
+  return '<div class="daily-practice-result-list">' + results.map(item => '<article class="daily-practice-result-item"><div><strong>' + dailyPracticeEscape(dailyPracticeQuestionLabel(item.qid)) + '</strong><code>' + dailyPracticeEscape(item.qid) + '</code></div><span>' + labels[item.rating] + (item.errorType ? '・' + dailyPracticeEscape(item.errorType) : '') + '</span>' + (item.rating === 1 ? '<button class="btn-pdf" type="button" onclick="dailyPracticeScheduleFollowUp(\'' + dailyPracticeEscape(item.qid) + '\', this)">加入到期複習</button>' : '') + '</article>').join('') + '</div>';
+}
+
+function dailyPracticeOpenErrorList() {
+  if (typeof switchTab === 'function') switchTab('review');
+  if (typeof setReviewFilter === 'function') setReviewFilter('errors');
+}
+
 function dailyPracticeSolutionButton() {
   return '<div class="daily-practice-solution-note"><p>先用蓋牌模式回想，再依序揭露章節、起手式、公式與完整推導。</p>' +
     '<div class="daily-practice-solution-actions">' +
     '<button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">🎴 開始四段蓋牌揭露</button>' +
     '<button class="btn-pdf" type="button" data-daily-open-solution="browse">📝 直接看完整詳解</button>' +
     '</div></div>';
+}
+
+function dailyPracticeCompletionAction(session) {
+  const isLast = session && session.currentIndex >= session.questionIds.length - 1;
+  const label = isLast ? '完成本題並查看本輪摘要' : '完成本題並進入下一題';
+  return '<button class="btn-sol daily-practice-primary" type="button" data-daily-completion-action="true" data-daily-open-solution="recall">' + label + '</button>';
 }
 
 function renderDailyPractice(container, error) {
@@ -294,7 +387,9 @@ function renderDailyPractice(container, error) {
     container.innerHTML = '<section class="daily-practice-shell daily-practice-summary" aria-live="polite">' +
       '<span class="eyebrow">本輪完成摘要</span><h2>🎉 完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
       '<p>' + dailyPracticeEscape(summary.category) + ' · ' + (summary.subjectId === 'all' ? '跨科混合' : dailyPracticeEscape(dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
+      dailyPracticeSummaryRows(summary.results) +
       '<div class="daily-practice-actions"><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
+      ((summary.results || []).some(item => item.rating < 5) ? '<button class="btn-pdf" type="button" onclick="dailyPracticeOpenErrorList()">查看需二刷題目</button>' : '') +
       '<button class="btn-pdf" type="button" onclick="dailyPracticeFindQuestions()">找其他題目</button></div></section>';
     return;
   }
@@ -327,9 +422,9 @@ function renderDailyPractice(container, error) {
     '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">📄 原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">📝 詳解</button></div>' +
     '<div class="daily-practice-scroll" onscroll="dailyPracticeScroll(event)" tabindex="0">' +
       (dailyPracticeView === 'question'
-        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式，再切換到「詳解」核對。</p>' + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
+        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可直接開始四段蓋牌。</p><div class="daily-practice-solution-actions"><button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">🎴 開始四段蓋牌</button><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">📝 其他詳解選項</button></div>' + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton()) +
-    '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button><span class="daily-practice-note">完成按鈕會在第 ④ 段自評後出現</span></div></section>';
+    '</div><div class="daily-practice-actions">' + dailyPracticeCompletionAction(session) + '<button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
   if (scroll) scroll.scrollTop = scrollTop;
   if (typeof container.querySelectorAll === 'function') container.querySelectorAll('[data-daily-open-solution]').forEach(button => button.addEventListener('click', event => {
@@ -358,6 +453,7 @@ function renderDailyPractice(container, error) {
         (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<span>本題尚未提供獨立原題連結。</span>') + '</div>';
     }, { once: true });
   }
+  dailyPracticeRestoreOpenModal(question);
 }
 
 function initDailyPracticeHome() {

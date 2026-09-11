@@ -134,7 +134,7 @@ function getReviewChapterFilterValues(questions, subjectId) {
 }
 
 function setReviewFilter(filter) {
-  reviewFilter = ['due', 'wrong', 'starred', 'manual', 'all'].includes(filter) ? filter : 'due';
+  reviewFilter = ['due', 'errors', 'wrong', 'starred', 'manual', 'all'].includes(filter) ? filter : 'due';
   const scope = document.getElementById('review-scope');
   if (scope) scope.value = reviewFilter;
   renderReviewPage();
@@ -351,7 +351,9 @@ function getReviewQuestionsForScope(questions, options = {}) {
     const qid = record.id;
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
     const starred = typeof starredState !== 'undefined' && !!starredState[qid];
+    const recall = typeof getRecallState === 'function' ? getRecallState(qid) : null;
     const inScope = scope === 'due' ? due.has(qid)
+      : scope === 'errors' ? !!(recall && recall.attempts > 0 && recall.lastAchieved < 4)
       : scope === 'wrong' ? status === 2
       : scope === 'starred' ? starred
       : scope === 'manual' ? isManualReviewQuestion(q)
@@ -373,6 +375,13 @@ function getReviewQuestions() {
     typeFilter: reviewTypeFilter,
     reviewFilter,
   });
+}
+
+function getPracticeRoundCompleted(summary, practiceSnapshot) {
+  if (summary) return Math.max(0, Number(summary.completed) || 0);
+  const session = practiceSnapshot && !practiceSnapshot.error && practiceSnapshot.state
+    ? practiceSnapshot.state.activeSession : null;
+  return session ? Math.max(0, Number(session.currentIndex) || 0) : 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -568,6 +577,19 @@ function populateReviewSubjects() {
 
 var currentReviewSessionQueue = currentReviewSessionQueue || [];
 var currentReviewSessionIndex = currentReviewSessionIndex || 0;
+var currentReviewSessionResults = currentReviewSessionResults || { rated: [], skipped: [] };
+
+function reviewSessionQuestionId(question) {
+  return question && (question.id || question[0]) || '';
+}
+
+function getReviewSessionSummary() {
+  const total = Array.isArray(currentReviewSessionQueue) ? currentReviewSessionQueue.length : 0;
+  const rated = new Set(currentReviewSessionResults.rated || []);
+  const skipped = new Set(currentReviewSessionResults.skipped || []);
+  rated.forEach(qid => skipped.delete(qid));
+  return { rated: rated.size, skipped: skipped.size, remaining: Math.max(0, total - rated.size - skipped.size), total };
+}
 
 function startReviewSession() {
   // A full due-review round always uses the same subject scope shown on the
@@ -581,12 +603,30 @@ function startReviewSession() {
   }
   currentReviewSessionQueue = questions;
   currentReviewSessionIndex = 0;
+  currentReviewSessionResults = { rated: [], skipped: [] };
   openReviewSessionItem(0);
 }
 
 function getReviewSessionCompletionMessage(queue) {
-  const count = Array.isArray(queue) ? queue.length : 0;
-  return `🎉 今日到期複習 ${count} 題已全數完成！`;
+  const summary = getReviewSessionSummary();
+  if (summary.remaining > 0) return `本輪完成 ${summary.rated} 題、略過 ${summary.skipped} 題，尚有 ${summary.remaining} 題未處理。`;
+  return `本輪完成 ${summary.rated} 題、略過 ${summary.skipped} 題。略過題仍保留在到期清單。`;
+}
+
+function recordReviewSessionRating(qid) {
+  const id = String(qid || '');
+  if (!id) return;
+  currentReviewSessionResults.rated = [...new Set([...(currentReviewSessionResults.rated || []), id])];
+  currentReviewSessionResults.skipped = (currentReviewSessionResults.skipped || []).filter(item => item !== id);
+}
+
+function skipCurrentReviewSessionItem() {
+  const current = currentReviewSessionQueue && currentReviewSessionQueue[currentReviewSessionIndex];
+  const qid = reviewSessionQuestionId(current);
+  if (qid && !(currentReviewSessionResults.rated || []).includes(qid)) {
+    currentReviewSessionResults.skipped = [...new Set([...(currentReviewSessionResults.skipped || []), qid])];
+  }
+  advanceReviewSessionItem();
 }
 
 function openReviewSessionItem(index) {
@@ -627,6 +667,10 @@ function renderReviewPage() {
   const subjectQuestions = questions.filter(q => subjectFilter === 'all' || getReviewRecord(q).subjectId === subjectFilter);
   const due = new Set(typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : []);
   const wrong = subjectQuestions.filter(q => typeof progressState !== 'undefined' && (progressState[getReviewRecord(q).id] || 0) === 2).length;
+  const recallErrors = subjectQuestions.filter(q => {
+    const value = typeof getRecallState === 'function' ? getRecallState(getReviewRecord(q).id) : null;
+    return value && value.attempts > 0 && value.lastAchieved < 4;
+  }).length;
   const starred = subjectQuestions.filter(q => typeof starredState !== 'undefined' && starredState[getReviewRecord(q).id]).length;
   const manual = subjectQuestions.filter(isManualReviewQuestion).length;
   const manualLabeled = subjectQuestions.filter(q => isManualReviewQuestion(q) && getManualTopicLabel(getReviewRecord(q).id)).length;
@@ -642,6 +686,13 @@ function renderReviewPage() {
   }).length;
   const scheduledCount = subjectQuestions.filter(q => typeof sm2Schedule !== 'undefined'
     && !!sm2Schedule[getReviewRecord(q).id]).length;
+  const recallLevels = [1, 2, 3, 4].map(level => subjectQuestions.filter(q =>
+    typeof getRecallState === 'function' && getRecallState(getReviewRecord(q).id).level === level).length);
+  const practiceSnapshot = typeof loadDailyPracticeStore === 'function' ? loadDailyPracticeStore() : null;
+  const practiceRoundCompleted = getPracticeRoundCompleted(
+    typeof dailyPracticeLastSummary !== 'undefined' ? dailyPracticeLastSummary : null,
+    practiceSnapshot
+  );
 
   // 1. Progress Ring Dashboard
   const progressCard = document.getElementById('review-progress-card');
@@ -656,11 +707,12 @@ function renderReviewPage() {
         </svg>
         <div class="progress-ring-text">
           <span class="progress-ring-num">${retentionRate}%</span>
-          <span class="progress-ring-sub">熟練掌握率</span>
+          <span class="progress-ring-sub">自訂已掌握比例</span>
         </div>
       </div>
       <div class="progress-health-label">
         ${dueCount > 0 ? `<span>⚡ 今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">🌿 今日沒有到期題</span>'}
+        <small>本輪自評完成 ${practiceRoundCompleted} 題・提取能力 L1／L2／L3／L4：${recallLevels.join('／')}</small>
       </div>
     `;
   }
@@ -670,6 +722,7 @@ function renderReviewPage() {
   if (stats) {
     const statDefs = [
       { id: 'due', label: '⚡ 今日到期', value: dueCount },
+      { id: 'errors', label: '🧠 回想未完成', value: recallErrors },
       { id: 'wrong', label: '🔥 需二刷錯題', value: wrong },
       { id: 'starred', label: '⭐ 重點收藏', value: starred },
       { id: 'all', label: '📚 全部收錄', value: totalSubject }
@@ -707,7 +760,8 @@ function renderReviewPage() {
       const qid = getReviewRecord(q).id;
       const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
       const isStarred = typeof starredState !== 'undefined' && !!starredState[qid];
-      return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? isStarred : reviewFilter === 'manual' ? isManualReviewQuestion(q) : true;
+      const recall = typeof getRecallState === 'function' ? getRecallState(qid) : null;
+      return reviewFilter === 'due' ? due.has(qid) : reviewFilter === 'errors' ? !!(recall && recall.attempts > 0 && recall.lastAchieved < 4) : reviewFilter === 'wrong' ? status === 2 : reviewFilter === 'starred' ? isStarred : reviewFilter === 'manual' ? isManualReviewQuestion(q) : true;
     });
     const counts = scopeQuestions.reduce((map, q) => { const type = getReviewTypeLabel(q); map[type] = (map[type] || 0) + 1; return map; }, {});
     const activeTypes = allTypes.filter(type => (counts[type] || 0) > 0 || reviewTypeFilter === type);
@@ -735,7 +789,7 @@ function renderReviewPage() {
         </div>
       `;
     } else {
-      const title = reviewFilter === 'manual' ? '目前沒有待人工覆核題' : reviewFilter === 'wrong' ? '太棒了！目前錯題本已全數攻克' : reviewFilter === 'starred' ? '目前尚無收藏試題' : '目前篩選條件下沒有題目';
+      const title = reviewFilter === 'manual' ? '目前沒有待人工覆核題' : reviewFilter === 'errors' ? '目前沒有回想未完成題' : reviewFilter === 'wrong' ? '太棒了！目前錯題本已全數攻克' : reviewFilter === 'starred' ? '目前尚無收藏試題' : '目前篩選條件下沒有題目';
       container.innerHTML = `
         <div class="review-empty-calm">
           <span class="calm-icon">📋</span>
@@ -767,9 +821,8 @@ function renderReviewPage() {
       <article class="review-card focus-card" data-review-type="${reviewHtmlEscape(type)}">
         <div class="focus-card-meta">
           <div class="focus-card-meta-left">
-            <span class="qid">${reviewHtmlEscape(qid)}</span>
-            <span class="qtag">${year} 年 · 第 ${qnum} 題</span>
-            <span class="qtag" style="background: var(--bg-secondary); color: var(--accent-dark); font-weight: 700;">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</span>
+            <strong>${meta.icon || ''} ${reviewHtmlEscape(meta.name)}・民國${year}年・第${qnum}題</strong>
+            <span class="qid" title="可複製識別碼">${reviewHtmlEscape(qid)}</span>
             <span class="qtag">L${recall.level}</span>
             ${auditText}${manualLabelText}${dueBadge}
           </div>

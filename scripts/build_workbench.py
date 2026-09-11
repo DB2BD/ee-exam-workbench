@@ -57,6 +57,7 @@ def build_workbench():
         'src/state/sm2Store.js',
         'src/state/practiceStore.js',
         'src/state/recallStore.js',
+        'src/state/attemptStore.js',
         'src/data/manualTopicLabels.js',
         'src/data/scenarioMatrixData.js',
         'src/components/reviewPage.js',
@@ -227,6 +228,7 @@ def build_workbench():
         <label for="review-scope">複習範圍</label>
         <select id="review-scope" onchange="setReviewFilter(this.value)">
           <option value="due">今日到期</option>
+          <option value="errors">回想未完成</option>
           <option value="wrong">錯題本</option>
           <option value="starred">收藏題目</option>
           <option value="manual">待人工覆核</option>
@@ -388,8 +390,8 @@ def build_workbench():
   <!-- TAB 4: Seven Layers -->
   <div class="tab-pane" id="tab-pane-layers" style="display: none;">
     <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
-      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">7 層階梯式得分路徑</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">以剩餘時間為優先，依序處理辨識、公式、SOP、錯題、整合、複習與限時輸出：</p>
+      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">7 種訓練路徑</h2>
+      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">依目前弱點選擇辨識、公式、SOP、錯題、整合、複習或限時輸出；這些是不同訓練方式，不是 L1～L4 的升級階梯：</p>
       <div id="layers-container"></div>
     </div>
   </div>

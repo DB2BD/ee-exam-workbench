@@ -19,8 +19,48 @@ let currentRecallAchievedLevel = 0;
 let currentRecallErrorType = null;
 let currentSolutionSourceMode = 'browse';
 let currentSolutionRecallEntry = false;
+let currentLearningAttemptId = null;
+let currentLearningAttemptSubmitting = false;
+let currentLearningAttemptSubmitted = false;
+let learningAttemptSequence = 0;
+let learningAttemptAdvanceTimer = null;
+let solutionModalReturnFocus = null;
+let solutionModalReadingTimer = null;
+let currentModalPaneMode = 'question';
+
+function persistSolutionModalReadingState(open) {
+  if (currentSolutionSourceMode !== 'daily-practice' || !currentModalQid || typeof dailyPracticeRecordModalState !== 'function') return;
+  const left = document.getElementById('modal-pane-left');
+  const right = document.getElementById('modal-right-content');
+  dailyPracticeRecordModalState(currentModalQid, {
+    leftScroll: left ? left.scrollTop : 0, rightScroll: right ? right.scrollTop : 0,
+    subQuestion: currentSubQuestionIdx, revealStep: currentRecallAchievedLevel, pane: currentModalPaneMode, open: Boolean(open)
+  });
+}
+
+function scheduleSolutionModalReadingSave() {
+  if (typeof setTimeout !== 'function') { persistSolutionModalReadingState(true); return; }
+  if (solutionModalReadingTimer !== null && typeof clearTimeout === 'function') clearTimeout(solutionModalReadingTimer);
+  solutionModalReadingTimer = setTimeout(() => { solutionModalReadingTimer = null; persistSolutionModalReadingState(true); }, 250);
+}
 
 const SOLUTION_SOURCE_MODES = ['daily-practice', 'due-review', 'browse'];
+
+function createLearningAttemptId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  learningAttemptSequence += 1;
+  return `attempt-${Date.now()}-${learningAttemptSequence}`;
+}
+
+function cancelLearningAttemptAdvance() {
+  if (learningAttemptAdvanceTimer !== null) clearTimeout(learningAttemptAdvanceTimer);
+  learningAttemptAdvanceTimer = null;
+}
+
+function setLearningAttemptButtonsDisabled(disabled) {
+  if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
+  document.querySelectorAll('#recall-rating-bar .btn-sm2').forEach(button => { button.disabled = Boolean(disabled); });
+}
 
 function normalizeSolutionModalOptions(options) {
   const value = options && typeof options === 'object' ? options : {};
@@ -175,25 +215,9 @@ function extractQuestionMarkdown(rawMd, targetQNum) {
 var currentReviewSessionQueue = currentReviewSessionQueue || null;
 var currentReviewSessionIndex = currentReviewSessionIndex || 0;
 
-function advanceReviewSessionItem() {
-  if (currentReviewSessionQueue && currentReviewSessionIndex + 1 < currentReviewSessionQueue.length) {
-    currentReviewSessionIndex++;
-    const nextQ = currentReviewSessionQueue[currentReviewSessionIndex];
-    const rec = (typeof getReviewRecord === 'function') ? getReviewRecord(nextQ) : { id: nextQ[0], number: nextQ[3], solutionLink: nextQ[6] };
-    openSolutionModal(null, rec.solutionLink, rec.id, rec.number, {
-      mode: 'due-review', recall: true,
-      sessionQueue: currentReviewSessionQueue,
-      sessionIndex: currentReviewSessionIndex
-    });
-  } else {
-    if (typeof showToast === 'function') showToast('🎉 今日到期試題已全數檢閱完畢！');
-    if (typeof closeSolutionModal === 'function') closeSolutionModal();
-    if (typeof renderReviewPage === 'function') renderReviewPage();
-  }
-}
-
 function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   if (event) event.preventDefault();
+  if (!currentModalQid) solutionModalReturnFocus = event && event.currentTarget ? event.currentTarget : document.activeElement;
 
   const modalOptions = normalizeSolutionModalOptions(options);
 
@@ -203,6 +227,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     return;
   }
 
+  cancelLearningAttemptAdvance();
   currentModalQid = qid;
   currentModalSolLink = solLink;
   currentModalQNum = qnum;
@@ -214,9 +239,19 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   // previous recall session leak into ordinary or mock-exam solution views.
   currentSolutionSourceMode = modalOptions.mode;
   currentSolutionRecallEntry = Boolean(modalOptions.recallEntry);
+  currentLearningAttemptId = createLearningAttemptId();
+  currentLearningAttemptSubmitting = false;
+  currentLearningAttemptSubmitted = false;
   isActiveRecallMode = currentSolutionRecallEntry;
   if (currentSolutionSourceMode === 'daily-practice' && typeof dailyPracticeGetRecallProgress === 'function') {
     currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, dailyPracticeGetRecallProgress(qid));
+  }
+  const savedReading = currentSolutionSourceMode === 'daily-practice' && typeof dailyPracticeGetModalState === 'function'
+    ? dailyPracticeGetModalState(qid) : null;
+  currentModalPaneMode = savedReading && savedReading.pane === 'solution' ? 'solution' : 'question';
+  if (savedReading) {
+    currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, Number(savedReading.revealStep) || 0);
+    currentSubQuestionIdx = Number(savedReading.subQuestion) || 0;
   }
 
   if (modalOptions && modalOptions.sessionQueue) {
@@ -253,8 +288,8 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
         <div class="session-progress-fill" style="width: ${pct}%;"></div>
       </div>
       ${curStep < totalStep
-        ? `<button class="btn-session-next" type="button" onclick="advanceReviewSessionItem()">⏩ 下一題</button>`
-        : `<span style="color: var(--success); font-weight: 700;">🌟 本輪最後一題</span>`}
+        ? `<button class="btn-session-next" type="button" onclick="skipCurrentReviewSessionItem()">略過並看下一題</button>`
+        : `<button class="btn-session-next" type="button" onclick="skipCurrentReviewSessionItem()">略過並結束本輪</button>`}
     `;
   } else if (sessionBar) {
     sessionBar.style.display = 'none';
@@ -360,6 +395,9 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
 
     // Default to rendering full content of this question
     renderSubQuestionContent(fullContent, qRecord);
+    if (savedReading && currentSubQuestionIdx > 0 && subParts[currentSubQuestionIdx - 1]) {
+      switchSubQuestion(currentSubQuestionIdx);
+    }
   } else {
     if (subQPillsBar) subQPillsBar.style.display = 'none';
     if (rightPane) {
@@ -375,7 +413,31 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
 
   updateModalStatusButtons(qid);
   modal.classList.add('show');
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  const firstFocus = modal.querySelector('button, [href], select, input, textarea, [tabindex]:not([tabindex="-1"])');
+  if (firstFocus && typeof firstFocus.focus === 'function') firstFocus.focus();
   document.body.style.overflow = 'hidden';
+  if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 760px)').matches) {
+    setModalLayout(savedReading && savedReading.pane === 'solution' ? 'solution-only' : 'exam-only');
+  } else {
+    setModalLayout('split');
+  }
+  const restoreReading = () => {
+    const left = document.getElementById('modal-pane-left');
+    const right = document.getElementById('modal-right-content');
+    if (savedReading && left) left.scrollTop = savedReading.leftScroll || 0;
+    if (savedReading && right) right.scrollTop = savedReading.rightScroll || 0;
+    if (left) left.addEventListener('scroll', scheduleSolutionModalReadingSave, { passive: true });
+    if (right) right.addEventListener('scroll', scheduleSolutionModalReadingSave, { passive: true });
+    const crop = document.querySelector('[data-question-crop-image]');
+    if (crop && !crop.complete) crop.addEventListener('load', () => {
+      if (savedReading && left) left.scrollTop = savedReading.leftScroll || 0;
+    }, { once: true });
+    persistSolutionModalReadingState(true);
+  };
+  if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => requestAnimationFrame(restoreReading));
+  else restoreReading();
 }
 
 function getSolutionReviewMetadata(qid) {
@@ -628,7 +690,6 @@ function updateSameExamDropdown(sid, yr, currentQid) {
     select.innerHTML = '';
     return;
   }
-
   const activeList = getActiveQuestionsList();
   const sameExamQs = activeList.filter(q => q[1] === sid && q[2] === yr);
 
@@ -707,6 +768,8 @@ function setModalLayout(mode) {
   if (!leftPane || !rightPane) return;
 
   document.querySelectorAll('.view-layout-toggle .btn-layout').forEach(b => b.classList.remove('active'));
+  if (mode === 'solution-only') currentModalPaneMode = 'solution';
+  else if (mode === 'exam-only') currentModalPaneMode = 'question';
 
   if (mode === 'solution-only') {
     leftPane.style.display = 'none';
@@ -731,6 +794,7 @@ function setModalLayout(mode) {
     const btn = document.getElementById('btn-layout-split');
     if (btn) btn.classList.add('active');
   }
+  scheduleSolutionModalReadingSave();
 }
 
 function switchSubQuestion(idx) {
@@ -750,6 +814,7 @@ function switchSubQuestion(idx) {
   } else if (subParts[idx - 1]) {
     renderSubQuestionContent(subParts[idx - 1], qRecord);
   }
+  scheduleSolutionModalReadingSave();
 }
 
 let isActiveRecallMode = false;
@@ -774,7 +839,7 @@ function syncActiveRecallButtonState() {
     btn.style.background = isActiveRecallMode ? 'var(--warn)' : 'var(--surface)';
     btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
     btn.style.borderColor = isActiveRecallMode ? 'var(--warn)' : 'var(--line)';
-    btn.innerHTML = isActiveRecallMode ? '🎴 蓋牌思考中 (點此全開)' : '🎴 主動回想蓋牌';
+    btn.innerHTML = isActiveRecallMode ? '🎴 四段蓋牌進行中' : '🎴 主動回想蓋牌';
   });
 }
 
@@ -790,6 +855,14 @@ function toggleActiveRecallMode() {
     return;
   }
   isActiveRecallMode = !isActiveRecallMode;
+  if (isActiveRecallMode && !currentSolutionRecallEntry) {
+    currentSolutionRecallEntry = true;
+    currentLearningAttemptId = createLearningAttemptId();
+    currentLearningAttemptSubmitting = false;
+    currentLearningAttemptSubmitted = false;
+    currentRecallAchievedLevel = 0;
+    currentRecallErrorType = null;
+  }
   syncActiveRecallButtonState();
   showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式（四步驟蓋牌）' : '📖 已切換為全開放詳解模式');
 
@@ -823,6 +896,8 @@ function revealRecallFull() {
   if (boxEl) boxEl.style.display = 'none';
   currentRecallAchievedLevel = 4;
   if (typeof dailyPracticeRecordRecallProgress === 'function' && currentSolutionSourceMode === 'daily-practice') dailyPracticeRecordRecallProgress(4);
+  scheduleSolutionModalReadingSave();
+  syncRecallRevealPresentation();
 
   // Render any hidden math in full section
   const rightPane = document.getElementById('modal-right-content');
@@ -850,6 +925,8 @@ function revealRecallLayer(layer) {
   }
   currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, requested);
   if (typeof dailyPracticeRecordRecallProgress === 'function' && currentSolutionSourceMode === 'daily-practice') dailyPracticeRecordRecallProgress(currentRecallAchievedLevel);
+  scheduleSolutionModalReadingSave();
+  syncRecallRevealPresentation();
   const full = document.getElementById('recall-full-section');
   const rating = document.getElementById('recall-rating-bar');
   if (layer >= 4) {
@@ -868,7 +945,7 @@ function chooseRecallError(errorType) {
 function submitSM2Rating(rating) {
   if (!currentModalQid) return;
   if (![1, 3, 5].includes(Number(rating))) return;
-  const achieved = rating === 5 ? 4 : rating === 3 ? Math.max(2, currentRecallAchievedLevel) : 0;
+  if (currentLearningAttemptSubmitting) return;
   if (currentSolutionSourceMode === 'daily-practice') {
     if (!currentSolutionRecallEntry) {
       if (typeof showToast === 'function') showToast('直接查看模式僅供核對，不會完成每日練習。');
@@ -878,23 +955,52 @@ function submitSM2Rating(rating) {
       if (typeof showToast === 'function') showToast('請先完成第 ④ 段完整推導，再進行自評。');
       return;
     }
-    if (typeof recordRecallAttempt === 'function') recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
-    if (typeof dailyPracticeCompleteFromModal === 'function') dailyPracticeCompleteFromModal(rating, currentRecallAchievedLevel, currentModalQid);
+  }
+  const rawQuestion = typeof findQuestionRecord === 'function' ? findQuestionRecord(currentModalQid) : null;
+  const question = rawQuestion && typeof toQuestionRecord === 'function'
+    ? toQuestionRecord(rawQuestion, String(currentModalQid).startsWith('GK-') ? 'GK' : 'PE') : null;
+  if (!question || typeof submitLearningAttempt !== 'function') {
+    if (typeof showToast === 'function') showToast('無法確認目前題目，未寫入自評。');
     return;
   }
-  if (typeof recordRecallAttempt === 'function') recordRecallAttempt(currentModalQid, achieved, currentRecallErrorType);
-  const result = recordSM2Review(currentModalQid, rating);
-  const ratingTexts = { 1: '🔴 遺忘 (明日二刷)', 3: '🟡 勉強 (3天後複習)', 5: '🟢 完美秒殺 (已延長間隔)' };
-  showToast(`🎯 已排程：${ratingTexts[rating]} (下次：${result.nextReviewDate})`);
+  currentLearningAttemptSubmitting = true;
+  setLearningAttemptButtonsDisabled(true);
+  const attemptId = currentLearningAttemptId;
+  const qid = currentModalQid;
+  const result = submitLearningAttempt({
+    attemptId, question, sourceMode: currentSolutionSourceMode, rating: Number(rating),
+    revealStep: currentRecallAchievedLevel, recallEntry: currentSolutionRecallEntry,
+    errorType: currentRecallErrorType,
+  });
+  currentLearningAttemptSubmitting = false;
+  if (!result.ok) {
+    if (!currentLearningAttemptSubmitted) setLearningAttemptButtonsDisabled(false);
+    if (typeof showToast === 'function') showToast(result.message || '自評未儲存，請重試。');
+    return;
+  }
+  currentLearningAttemptSubmitted = true;
+  setLearningAttemptButtonsDisabled(true);
+  if (result.duplicate) return;
+  if (currentSolutionSourceMode === 'daily-practice') {
+    if (typeof dailyPracticeApplyCompletedAttempt === 'function') dailyPracticeApplyCompletedAttempt(qid, result.nextAction);
+    return;
+  }
+  if (currentSolutionSourceMode === 'due-review' && typeof recordReviewSessionRating === 'function') {
+    recordReviewSessionRating(qid);
+  }
+  const ratingTexts = { 1: '🔴 遺忘', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
+  showToast(`🎯 已排程：${ratingTexts[rating]}（下次：${result.nextReviewDate}）`);
 
   // Refresh badges in question list
   if (typeof renderQuestions === 'function') renderQuestions();
   if (typeof renderReviewPage === 'function') renderReviewPage();
   updateModalStatusButtons(currentModalQid);
 
-  // Auto transition to next question if rating 5
-  if (rating === 5) {
-    setTimeout(() => {
+  // Every successful rating follows the same next-question behavior.
+  {
+    learningAttemptAdvanceTimer = setTimeout(() => {
+      learningAttemptAdvanceTimer = null;
+      if (currentLearningAttemptId !== attemptId || currentModalQid !== qid || !currentLearningAttemptSubmitted) return;
       if (currentReviewSessionQueue && currentReviewSessionQueue.length > 1) {
         advanceReviewSessionItem();
       } else {
@@ -908,8 +1014,12 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
   const ratingTitle = currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry
-    ? '🎯 今日練習自評（只記錄回想結果，不建立 SM-2 排程）'
-    : '🎯 本題作答自評（自動寫入 SM-2 智能遺忘曲線排程）：';
+    ? '🎯 回顧揭露前的作答狀況（本輪不加入到期排程）'
+    : '🎯 回顧揭露前的作答狀況（儲存後顯示實際下次日期）';
+  const isDailyAssessment = currentSolutionSourceMode === 'daily-practice';
+  const ratingSubtexts = isDailyAssessment
+    ? { 1: '只記錄本輪：無法完成', 3: '只記錄本輪：需要提示', 5: '只記錄本輪：獨立完成' }
+    : { 1: '儲存後顯示下次日期', 3: '儲存後顯示下次日期', 5: '儲存後顯示下次日期' };
 
   if (isActiveRecallMode) {
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
@@ -959,10 +1069,10 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         <div id="recall-full-section" style="display: none;">
           ${fullSolutionHtml}
           ${dagHtml}
+          ${scenarioMatrixHtml}
+          ${reviewCardHtml}
         </div>
-
-        ${reviewCardHtml}
-        ${scenarioMatrixHtml}
+        <!-- recall-full-section-end -->
 
         <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
           <div class="sm2-rating-title">${ratingTitle}</div>
@@ -975,33 +1085,22 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
           </div>
           <div class="sm2-rating-buttons">
             <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
-              <span>🔴 遺忘卡關</span>
-              <span class="subtext">明日立即二刷 (EF-0.2)</span>
+              <span>🔴 無法完成</span>
+              <span class="subtext">${ratingSubtexts[1]}</span>
             </button>
             <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
-              <span>🟡 勉強推導</span>
-              <span class="subtext">3 天後再次複習</span>
+              <span>🟡 需要提示</span>
+              <span class="subtext">${ratingSubtexts[3]}</span>
             </button>
             <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
-              <span>🟢 完美秒殺</span>
-              <span class="subtext">延長複習間隔 (EF+0.1)</span>
+              <span>🟢 揭露前能獨立完成</span>
+              <span class="subtext">${ratingSubtexts[5]}</span>
             </button>
           </div>
         </div>
       </div>
     `;
-    for (let layer = 1; layer <= Math.min(3, currentRecallAchievedLevel); layer++) {
-      const layerEl = document.getElementById(`recall-layer-${layer}`);
-      if (layerEl) layerEl.style.display = 'block';
-    }
-    if (currentRecallAchievedLevel >= 4) {
-      const fullEl = document.getElementById('recall-full-section');
-      const ratingEl = document.getElementById('recall-rating-bar');
-      const boxEl = document.getElementById('recall-step-box');
-      if (fullEl) fullEl.style.display = 'block';
-      if (ratingEl) ratingEl.style.display = 'flex';
-      if (boxEl) boxEl.style.display = 'none';
-    }
+    syncRecallRevealPresentation();
   } else {
     // Normal Full Open Mode
     let html = processMarkdownWithMath(markdownChunk);
@@ -1017,21 +1116,21 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     // Browse bypass is pure viewing: it must not expose daily-practice
     // completion controls.  Ordinary browse still keeps its original SM-2
     // footer; only the daily-practice recall entry is completion-eligible.
-    if (!(currentSolutionSourceMode === 'daily-practice' && !currentSolutionRecallEntry)) html += `
+    if (currentSolutionRecallEntry && currentRecallAchievedLevel >= 4) html += `
       <div class="sm2-rating-bar">
         <div class="sm2-rating-title">${ratingTitle}</div>
         <div class="sm2-rating-buttons">
           <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
-            <span>🔴 遺忘卡關</span>
-            <span class="subtext">明日二刷</span>
+            <span>🔴 無法完成</span>
+            <span class="subtext">${ratingSubtexts[1]}</span>
           </button>
           <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
-            <span>🟡 勉強推導</span>
-            <span class="subtext">3天後複習</span>
+            <span>🟡 需要提示</span>
+            <span class="subtext">${ratingSubtexts[3]}</span>
           </button>
           <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
-            <span>🟢 完美秒殺</span>
-            <span class="subtext">間隔延長</span>
+            <span>🟢 揭露前能獨立完成</span>
+            <span class="subtext">${ratingSubtexts[5]}</span>
           </button>
         </div>
       </div>
@@ -1056,7 +1155,31 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
   }
 }
 
+function syncRecallRevealPresentation() {
+  if (!isActiveRecallMode) return;
+  for (let layer = 1; layer <= 3; layer++) {
+    const section = document.getElementById(`recall-layer-${layer}`);
+    if (section) section.style.display = currentRecallAchievedLevel >= layer ? 'block' : 'none';
+  }
+  const full = document.getElementById('recall-full-section');
+  const rating = document.getElementById('recall-rating-bar');
+  const box = document.getElementById('recall-step-box');
+  if (full) full.style.display = currentRecallAchievedLevel >= 4 ? 'block' : 'none';
+  if (rating) rating.style.display = currentRecallAchievedLevel >= 4 ? 'flex' : 'none';
+  if (box) box.style.display = currentRecallAchievedLevel >= 4 ? 'none' : 'flex';
+  const buttons = box && typeof box.querySelectorAll === 'function' ? [...box.querySelectorAll('button')] : [];
+  buttons.forEach((button, index) => {
+    const step = index + 1;
+    button.disabled = step !== currentRecallAchievedLevel + 1;
+    button.title = button.disabled && step > currentRecallAchievedLevel + 1 ? '請先完成上一段揭露' : '';
+  });
+}
+
 function closeModal() {
+  cancelLearningAttemptAdvance();
+  if (solutionModalReadingTimer !== null && typeof clearTimeout === 'function') clearTimeout(solutionModalReadingTimer);
+  solutionModalReadingTimer = null;
+  persistSolutionModalReadingState(false);
   const modal = document.getElementById('solution-modal');
   if (modal) modal.classList.remove('show');
   document.body.style.overflow = '';
@@ -1070,9 +1193,15 @@ function closeModal() {
   isActiveRecallMode = false;
   currentSolutionSourceMode = 'browse';
   currentSolutionRecallEntry = false;
+  currentLearningAttemptId = null;
+  currentLearningAttemptSubmitting = false;
+  currentLearningAttemptSubmitted = false;
   currentReviewSessionQueue = null;
   currentReviewSessionIndex = 0;
   modalHistoryStack = [];
+  const returnFocus = solutionModalReturnFocus;
+  solutionModalReturnFocus = null;
+  if (returnFocus && typeof returnFocus.focus === 'function' && returnFocus.isConnected !== false) returnFocus.focus();
 }
 
 function closeSolutionModal() {
@@ -1116,11 +1245,24 @@ window.addEventListener('keydown', (e) => {
   const modal = document.getElementById('solution-modal');
   if (!modal || !modal.classList.contains('show')) return;
 
-  if (e.key === 'Escape') {
+  const editable = e.target && (e.target.matches && e.target.matches('input, textarea, select, [contenteditable="true"]'));
+  if (e.key === 'Tab') {
+    const focusable = [...modal.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+      .filter(node => node.offsetParent !== null);
+    if (focusable.length) {
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+      const inside = typeof modal.contains === 'function' ? modal.contains(active) : focusable.includes(active);
+      if (!inside) { e.preventDefault(); (e.shiftKey ? last : first).focus(); }
+      else if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+    }
+  } else if (e.key === 'Escape') {
     closeModal();
-  } else if (e.key === 'ArrowLeft') {
+  } else if (!editable && e.key === 'ArrowLeft') {
     navModalQuestion(-1);
-  } else if (e.key === 'ArrowRight') {
+  } else if (!editable && e.key === 'ArrowRight') {
     navModalQuestion(1);
   }
 });
+window.addEventListener('pagehide', () => persistSolutionModalReadingState(Boolean(currentModalQid)));

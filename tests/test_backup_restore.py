@@ -85,6 +85,9 @@ process.stdout.write(JSON.stringify(result));
                 "currentIndex": 0,
                 "revealedByQuestion": {"EE-pe": True},
                 "scrollByQuestion": {"EE-pe": {"question": 120, "solution": 45}},
+                "viewByQuestion": {"EE-pe": "solution"},
+                "revealLevelByQuestion": {"EE-pe": 3},
+                "modalByQuestion": {"EE-pe": {"leftScroll": 120, "rightScroll": 640, "subQuestion": 2, "revealStep": 3, "pane": "solution", "open": True}},
                 "createdAt": "2026-09-01T00:00:00.000Z",
             },
         }
@@ -125,6 +128,18 @@ process.stdout.write(JSON.stringify(result));
         self.assertEqual(result["practice"]["completionByQuestion"], {"EE-pe": 1788278400000})
         self.assertEqual(result["timer"]["examKey"], "PE:01:114")
 
+    def test_unresolved_attempt_journal_blocks_backup_import(self):
+        payload = json.dumps(self.payload(), ensure_ascii=False)
+        options = json.dumps(self.options(), ensure_ascii=False)
+        result = self.run_js(
+            "(() => { localStorage.setItem('EE_EXAM_ATTEMPT_RECOVERY_V1', JSON.stringify({phase:'recovery_required'})); "
+            "const before=localStorage.getItem('EE_EXAM_PROGRESS_V1'); "
+            f"const applied=applyUserDataBackup({payload},'replace',{options}); "
+            "return {applied,before,after:localStorage.getItem('EE_EXAM_PROGRESS_V1')}; })()"
+        )
+        self.assertFalse(result["applied"]["success"])
+        self.assertEqual(result["before"], result["after"])
+
     def test_v21_restore_includes_practice_and_timer_atomically(self):
         payload = self.payload_v21()
         options = self.options()
@@ -137,11 +152,15 @@ process.stdout.write(JSON.stringify(result));
         self.assertTrue(result["result"]["success"])
         self.assertEqual(result["practice"]["activeSession"]["questionIds"], ["EE-pe"])
         self.assertEqual(result["practice"]["activeSession"]["scrollByQuestion"]["EE-pe"]["question"], 120)
+        self.assertEqual(result["practice"]["activeSession"]["modalByQuestion"]["EE-pe"]["rightScroll"], 640)
+        self.assertEqual(result["practice"]["activeSession"]["modalByQuestion"]["EE-pe"]["revealStep"], 3)
         self.assertTrue(result["timer"]["running"])
         self.assertEqual(result["timer"]["seconds"], 6500)
 
     def test_legacy_revealed_flag_does_not_claim_four_recall_layers(self):
         payload = self.payload_v21()
+        payload["dailyPractice"]["activeSession"].pop("revealLevelByQuestion")
+        payload["dailyPractice"]["activeSession"].pop("modalByQuestion")
         options = self.options()
         expression = (
             "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "

@@ -702,6 +702,33 @@ globalThis.reviewHtmlEscape = value => String(value);
         self.assertEqual(result["restoredFull"], "block")
         self.assertEqual(result["restoredBox"], "none")
 
+    def test_daily_recall_rating_explains_that_self_assessment_advances(self):
+        setup = r'''
+const rightPane = {innerHTML:''};
+globalThis.document = {getElementById:id => id === 'modal-right-content' ? rightPane : null, querySelectorAll:() => []};
+globalThis.window = {addEventListener(){}};
+globalThis.getRecallHintBundle = () => ({chapter:'章節',activation:'起手式',formula:'x=1',trap:'陷阱'});
+globalThis.processMarkdownWithMath = text => '<p>' + text + '</p>';
+globalThis.resolveRenderedImageSources = html => html;
+globalThis.renderScenarioMatrix = () => '';
+globalThis.renderDagTracerCard = () => '';
+globalThis.reviewHtmlEscape = value => String(value);
+globalThis.dailyPracticeGetCompletionPrompt = () => '選擇自評後進入下一題';
+'''
+        expression = r'''
+(() => {
+  isActiveRecallMode = true;
+  currentSolutionSourceMode = 'daily-practice';
+  currentSolutionRecallEntry = true;
+  currentModalQid = 'q1';
+  currentRecallAchievedLevel = 4;
+  renderSubQuestionContent('答案內容', ['q1','01',114,1,'題目']);
+  return document.getElementById('modal-right-content').innerHTML;
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertIn("選擇自評後進入下一題", result)
+
     def test_active_recall_keeps_answer_bearing_matrix_inside_fourth_reveal(self):
         setup = r'''
 const rightPane = {innerHTML:''};

@@ -1022,7 +1022,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
   const dailyCompletionPrompt = isDailyAssessment && currentSolutionRecallEntry
     ? (typeof dailyPracticeGetCompletionPrompt === 'function'
       ? dailyPracticeGetCompletionPrompt()
-      : '選擇自評後完成本題')
+      : '自評即完成本題，並進入下一題')
     : '';
   const dailyCompletionPromptHtml = dailyCompletionPrompt
     ? `<div class="sm2-rating-next-hint">✅ ${dailyCompletionPrompt}</div>`
@@ -1154,6 +1154,13 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
   }
 
   // Auto-render any remaining math formulas
+  if (typeof bindImageLoadFallbacks === 'function') {
+    bindImageLoadFallbacks(rightPane, {
+      selector: '.solution-content img',
+      className: 'solution-image-fallback',
+      message: '詳解圖片載入失敗；請切換左側原題截圖或開啟官方 PDF 核對。',
+    });
+  }
   if (typeof renderMathInElement !== 'undefined') {
     renderMathInElement(rightPane, {
       delimiters: [

@@ -91,6 +91,39 @@ function resolveRenderedImageSources(html, isGK, qid) {
   });
 }
 
+/** Replace runtime image failures with an actionable, layout-safe status box. */
+function bindImageLoadFallbacks(root, options = {}) {
+  if (!root || typeof root.querySelectorAll !== 'function'
+      || typeof document === 'undefined' || typeof document.createElement !== 'function') return;
+  const selector = options.selector || 'img';
+  const message = options.message || '圖片載入失敗，請改用官方原卷核對。';
+  const className = options.className || 'image-load-fallback';
+  root.querySelectorAll(selector).forEach(image => {
+    if (!image || typeof image.addEventListener !== 'function') return;
+    if (image.dataset && image.dataset.imageFallbackBound === 'true') return;
+    if (image.dataset) image.dataset.imageFallbackBound = 'true';
+    image.addEventListener('error', () => {
+      const fallback = document.createElement('div');
+      fallback.className = className;
+      fallback.setAttribute('role', 'status');
+      const text = document.createElement('span');
+      text.textContent = message;
+      fallback.appendChild(text);
+      const linkHref = typeof options.linkHref === 'function' ? options.linkHref(image) : options.linkHref;
+      if (linkHref) {
+        const link = document.createElement('a');
+        link.className = 'btn-pdf';
+        link.href = linkHref;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = options.linkLabel || '開啟官方原卷';
+        fallback.appendChild(link);
+      }
+      if (typeof image.replaceWith === 'function') image.replaceWith(fallback);
+    }, { once: true });
+  });
+}
+
 /** Render question stems so Markdown emphasis and inline/display math are not shown literally. */
 function renderQuestionTopic(rawText) {
   if (!rawText) return '';

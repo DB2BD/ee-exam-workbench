@@ -300,24 +300,43 @@
   border-color: var(--accent-dark);
 }
 
-/* Golden Standard Solution Styling */
-.solution-content h1, .solution-content h2, .solution-content h3 {
-  color: var(--accent-dark);
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-weight: 700;
-}
-
-.solution-content h4 {
+/* Golden Standard Solution Styling: one readable scale for prose, headings,
+   emphasis, and KaTeX.  Explicit sizes avoid browser-default heading jumps. */
+.solution-content {
   color: var(--ink);
-  margin-top: 14px;
-  margin-bottom: 6px;
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
-.solution-content p {
-  margin-bottom: 12px;
-  line-height: 1.7;
+.solution-content > :first-child { margin-top: 0; }
+.solution-content h1,
+.solution-content h2,
+.solution-content h3,
+.solution-content h4 {
+  color: var(--accent-dark);
+  font-weight: 700;
+  line-height: 1.45;
 }
+
+.solution-content h1 { font-size: 1.45rem; margin: 0 0 1rem; }
+.solution-content h2 { font-size: 1.25rem; margin: 1.5rem 0 .65rem; }
+.solution-content h3 { font-size: 1.1rem; margin: 1.25rem 0 .5rem; }
+.solution-content h4 { color: var(--ink); font-size: 1rem; margin: 1rem 0 .4rem; }
+
+.solution-content p,
+.solution-content li,
+.solution-content td,
+.solution-content th {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.solution-content p { margin: 0 0 .75rem; }
+.solution-content strong { font-weight: 700; }
+.solution-content em { font-style: italic; }
+.solution-content .katex,
+.solution-content .math-inline .katex { font-size: 1rem; }
+.solution-content .katex-display { font-size: 1rem; margin: 1.15rem 0; }
 
 /* Keep source-page crops and generated circuit diagrams inside the solution
    pane.  Markdown/Obsidian embeds may carry an explicit width (750/850 px),
@@ -335,6 +354,27 @@
   border-radius: var(--radius-sm);
   background: var(--bg);
 }
+
+.image-load-fallback,
+.solution-image-fallback,
+.question-topic-image-fallback,
+.manual-label-crop-fallback {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  color: var(--muted);
+  background: var(--bg-secondary);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+.solution-image-fallback { margin: 14px 0; }
+.question-topic-image-fallback { margin: 8px 0; }
+.manual-label-crop-fallback { min-height: 72px; justify-content: center; text-align: center; }
 
 /* Question-level source preview.  Crops are deliberately bounded to the
    left pane so a tall scan cannot cover the solution pane or modal controls. */

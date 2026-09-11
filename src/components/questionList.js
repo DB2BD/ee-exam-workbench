@@ -322,5 +322,13 @@ function renderQuestions() {
     `;
   }).join('');
 
+  if (typeof bindImageLoadFallbacks === 'function') {
+    bindImageLoadFallbacks(container, {
+      selector: '.qtopic img',
+      className: 'question-topic-image-fallback',
+      message: '題目圖片載入失敗，請開啟原題 PDF 核對。',
+    });
+  }
+
   refreshAnalysisViews();
 }

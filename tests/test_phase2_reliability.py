@@ -680,8 +680,8 @@ globalThis.SCENARIO_MATRIX_DATA = {
 '''
         result = run_node(["src/components/solutionModal.js"], expression, setup)
         self.assertGreater(result["matrixIndex"], result["fullStart"])
-        self.assertLess(result["matrixIndex"], result["reviewIndex"])
-        self.assertLess(result["reviewIndex"], result["fullEnd"])
+        self.assertEqual(result["reviewIndex"], -1)
+        self.assertLess(result["matrixIndex"], result["fullEnd"])
 
     def test_direct_browse_does_not_offer_self_assessment_that_cannot_succeed(self):
         setup = r'''
@@ -690,7 +690,7 @@ globalThis.window = {addEventListener(){}};
 globalThis.document = {getElementById:id => id === 'modal-right-content' ? rightPane : null, querySelectorAll:() => []};
 globalThis.processMarkdownWithMath = text => '<p>' + text + '</p>';
 globalThis.resolveRenderedImageSources = html => html;
-globalThis.renderSolutionReviewCard = () => '';
+globalThis.renderSolutionReviewCard = () => '<aside class="solution-review-card">維護資訊</aside>';
 globalThis.renderScenarioMatrix = () => '';
 globalThis.renderDagTracerCard = () => '';
 '''
@@ -703,6 +703,7 @@ globalThis.renderDagTracerCard = () => '';
 '''
         result = run_node(["src/components/solutionModal.js"], expression, setup)
         self.assertNotIn('sm2-rating-bar', result)
+        self.assertNotIn('solution-review-card', result)
 
 
 class TestMockExamTimerReliability(unittest.TestCase):

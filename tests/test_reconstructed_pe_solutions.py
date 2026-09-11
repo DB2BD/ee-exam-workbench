@@ -391,7 +391,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertNotIn("兩部相同發電機各自經由其升壓變壓器", report)
 
     def test_dashboard_exposes_manual_review_metadata_to_solution_modal(self):
-        """The UI must be able to show why a conditional answer is unresolved."""
+        """Internal audit metadata remains available without exposing maintenance UI."""
         dashboard = (ROOT / "dashboard-data.js").read_text(encoding="utf-8")
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("const SOLUTION_REVIEW_METADATA", dashboard)
@@ -404,7 +404,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("168 A", dashboard)
         self.assertIn("52.49 A", dashboard)
         self.assertIn("function renderSolutionReviewCard", index)
-        self.assertIn("renderSolutionReviewCard(currentModalQid)", index)
+        self.assertNotIn("renderSolutionReviewCard(currentModalQid)", index)
         self.assertIn("meta.evidence", index)
         self.assertIn("officialSourceUrl", dashboard)
         self.assertIn("referenceBookConvention", dashboard)

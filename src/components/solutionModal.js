@@ -1033,7 +1033,6 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     // heuristically exposing a "stem" prefix (which could contain equations
     // when a note has no conventional solution heading).
     const fullSolutionHtml = resolveRenderedImageSources(processMarkdownWithMath(markdownChunk), isGK, currentModalQid);
-    const reviewCardHtml = renderSolutionReviewCard(currentModalQid);
     const scenarioMatrixHtml = renderScenarioMatrix(currentModalQid);
 
     let dagHtml = '';
@@ -1070,7 +1069,6 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
           ${fullSolutionHtml}
           ${dagHtml}
           ${scenarioMatrixHtml}
-          ${reviewCardHtml}
         </div>
         <!-- recall-full-section-end -->
 
@@ -1106,7 +1104,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     let html = processMarkdownWithMath(markdownChunk);
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     html = resolveRenderedImageSources(html, isGK, currentModalQid);
-    html = renderSolutionReviewCard(currentModalQid) + renderScenarioMatrix(currentModalQid) + html;
+    html = renderScenarioMatrix(currentModalQid) + html;
 
     if (qRecord) {
       const record = typeof toQuestionRecord === 'function' ? toQuestionRecord(qRecord) : null;

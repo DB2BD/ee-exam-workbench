@@ -408,6 +408,67 @@ globalThis.__trigger = {isConnected:true, focus(){globalThis.__restored=(globalT
         })
         self.assertEqual(result["restored"], 1)
 
+    def test_daily_recall_entry_opens_solution_pane_on_narrow_viewport(self):
+        setup = r'''
+const makeElement = id => ({
+  id, innerHTML:'', style:{}, scrollTop:0,
+  classList:{add(){}, remove(){}, contains(){return false;}},
+  querySelector(){return null;},
+  addEventListener(){},
+  setAttribute(){},
+});
+const elements = new Map([
+  ['solution-modal', Object.assign(makeElement('solution-modal'), {querySelector(){return null;}})],
+  ['modal-title', makeElement('modal-title')],
+  ['modal-pane-left', makeElement('modal-pane-left')],
+  ['modal-left-content', makeElement('modal-left-content')],
+  ['modal-pane-right', makeElement('modal-pane-right')],
+  ['modal-right-content', makeElement('modal-right-content')],
+  ['modal-sub-q-pills', makeElement('modal-sub-q-pills')],
+  ['modal-resizer', makeElement('modal-resizer')],
+]);
+globalThis.document = {
+  body:{style:{}}, activeElement:{},
+  getElementById:id => elements.get(id) || null,
+  querySelectorAll:() => [],
+  querySelector:() => null,
+  createElement:id => makeElement(id),
+};
+globalThis.window = {addEventListener(){}, matchMedia:()=>({matches:true})};
+globalThis.setTimeout = fn => { globalThis.__scheduled = fn; return 1; };
+globalThis.clearTimeout = () => {};
+'''
+        expression = r'''
+(() => {
+  updateSameExamDropdown = () => {};
+  updateModalNavButtons = () => {};
+  syncActiveRecallButtonState = () => {};
+  updateModalStatusButtons = () => {};
+  bindQuestionCropPreview = () => {};
+  resolveSolutionMarkdown = () => '# 解答';
+  findQuestionRecord = () => ['q1','01',114,1,'題目',[],'sol','pdf',3,'verified',[],true];
+  toQuestionRecord = () => ({id:'q1', examFamily:'PE', subjectId:'01', year:114, number:1, stem:'題目', solutionLink:'sol', sourceLink:'pdf', provenance:{}});
+  getSubjectMeta = () => ({icon:'⚡', name:'電路學'});
+  renderQuestionTopic = text => text;
+  reviewHtmlEscape = text => text;
+  renderDagTracerCard = () => '';
+  processMarkdownWithMath = text => '<p>' + text + '</p>';
+  resolveRenderedImageSources = html => html;
+  openSolutionModal(null, 'sol', 'q1', 1, {mode:'daily-practice', recall:true});
+  return {
+    leftDisplay:document.getElementById('modal-pane-left').style.display,
+    rightDisplay:document.getElementById('modal-pane-right').style.display,
+    rightFlex:document.getElementById('modal-pane-right').style.flex,
+    recall:getSolutionModalTransientState().recallEntry,
+  };
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertTrue(result["recall"])
+        self.assertEqual(result["leftDisplay"], "none")
+        self.assertEqual(result["rightDisplay"], "flex")
+        self.assertEqual(result["rightFlex"], "1 1 100%")
+
     def test_tab_from_outside_modal_is_forced_back_inside(self):
         setup = r'''
 const first={offsetParent:{},focus(){globalThis.__focused='first';}};

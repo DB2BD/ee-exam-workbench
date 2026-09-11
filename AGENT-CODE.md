@@ -52,6 +52,21 @@ git diff --check
 4. 對使用者清楚列出 commit、tag、remote、分支與未解的人工複核項目。
 5. `git push` 或其他外部發布動作須得到使用者對明確目的地與 payload 的確認。
 
+### 版本與發版 Tag
+
+本專案的「建置識別」與「公開版次」分開管理：GitHub Actions 以部署 commit SHA 作為實際建置識別；Git Tag 則代表使用者可辨識的公開發版里程碑。每次 `main` 推送不會自動產生 Tag。
+
+使用者明確要求進版或發布時，依下列順序執行：
+
+1. 以 `git tag --sort=-version:refname` 找出最新正式 Tag，並整理該 Tag 之後的所有提交與變更。
+2. 延續目前歷史慣例，公開里程碑使用下一個 `v1.0.x` 版次；除非使用者另行指定版本策略，不因單一功能名稱自行改用 `v1.1.0` 或 `v2.0.0`。
+3. 新增 `docs/發版紀錄_vX.Y.Z.md`，記錄本版內容、已知限制、驗證結果與版次判定依據；同步更新 `README.md` 的目前公開版次與發版紀錄連結。
+4. 通過完整測試、HTML／JavaScript 語法、題目切片／連結與 `git diff --check` 後，先提交來源、生成檔、README 與發版紀錄。
+5. 在該發布提交建立 annotated Tag：`git tag -a vX.Y.Z -m "release: publish workbench vX.Y.Z"`，再推送 `main` 與該 Tag。發版後若只補維護規則或文件，另行提交，不移動已發布 Tag。
+6. 推送後以 `git ls-remote origin refs/heads/main refs/tags/vX.Y.Z` 核對遠端狀態；若發版後已有追加提交，清楚回報發版 Tag 提交與 `main` 最新提交的差異，以及測試證據與仍待人工判定項目。
+
+同一個修正若只有本機提交或一般 `main` 推送，保持既有 Tag 不變；只有在使用者明確要求公開進版時，才建立下一個正式 Tag。
+
 ## 五、不要使用的過時入口
 
 舊文件中可能出現不存在或不屬於現行工作台的爬蟲、模考產生器、Australia Job Radar 或 `audit_all_solutions_vs_exams.py` 等名稱。以本 Runbook 的實際腳本清單、`AGENTS.md` 與 `CONTEXT.md` 為準；若要恢復舊功能，先另立需求與架構決策。

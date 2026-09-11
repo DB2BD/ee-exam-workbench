@@ -196,6 +196,52 @@ process.stdout.write(JSON.stringify(errors));
         self.assertIn("html.replace(/(\\bsrc\\s*=", source)
         self.assertIn("resolveImageMapUrl(src, isGK, qid)", source)
 
+    def test_runtime_image_failure_is_replaced_by_actionable_fallback(self):
+        script = r'''
+const fs = require('fs'), vm = require('vm');
+const image = {dataset:{}, handlers:{}, addEventListener(type, fn){this.handlers[type] = fn;}, replaceWith(node){this.replacement = node;}};
+const root = {querySelectorAll: () => [image]};
+const made = [];
+globalThis.document = {createElement(tag){
+  const node = {tag, children:[], attrs:{}, appendChild(child){this.children.push(child);}, setAttribute(key, value){this.attrs[key] = value;}, textContent:''};
+  made.push(node); return node;
+}};
+const ctx = {console, document: globalThis.document};
+vm.createContext(ctx);
+vm.runInContext(fs.readFileSync('src/renderers/markdownRenderer.js', 'utf8'), ctx);
+ctx.bindImageLoadFallbacks(root, {className:'solution-image-fallback', message:'圖片失敗', linkHref:'https://example.test/original.pdf'});
+image.handlers.error();
+process.stdout.write(JSON.stringify({className:image.replacement.className, role:image.replacement.attrs.role, text:image.replacement.children[0].textContent, childCount:image.replacement.children.length}));
+'''
+        result = subprocess.run(
+            ['node', '-e', script], cwd=ROOT, check=True, capture_output=True, text=True
+        )
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload, {
+            'className': 'solution-image-fallback',
+            'role': 'status',
+            'text': '圖片失敗',
+            'childCount': 2,
+        })
+
+    def test_solution_typography_contract_is_explicit(self):
+        css = (ROOT / "src/styles/modal.css").read_text(encoding="utf-8")
+        self.assertRegex(css, r"\.solution-content\s*\{[^}]*font-size:\s*1rem")
+        self.assertIn('.solution-content h1 { font-size: 1.45rem;', css)
+        self.assertIn('.solution-content h2 { font-size: 1.25rem;', css)
+        self.assertIn('.solution-content h3 { font-size: 1.1rem;', css)
+        self.assertIn('.solution-content h4 { color: var(--ink); font-size: 1rem;', css)
+        self.assertIn('.solution-content strong { font-weight: 700; }', css)
+        self.assertIn('.solution-content .katex,', css)
+        self.assertIn('.solution-content .katex-display { font-size: 1rem;', css)
+
+    def test_image_audit_script_covers_both_bundles(self):
+        result = subprocess.run(
+            ['python3', 'scripts/test_all_pe_and_gk_images.py'],
+            cwd=ROOT, check=True, capture_output=True, text=True
+        )
+        self.assertIn('PE／GK 圖片映射、題解引用與實體檔案全部通過', result.stdout)
+
     def test_national_image_map_has_images_subpath_aliases(self):
         source = (ROOT / "scripts/compile_national_exams.py").read_text(encoding="utf-8")
         self.assertIn("sub_img = rel_path.split('images/', 1)[-1]", source)

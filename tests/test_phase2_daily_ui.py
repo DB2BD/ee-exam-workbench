@@ -172,27 +172,29 @@ process.stdout.write(JSON.stringify({html,visible}));
         self.assertIn('data-daily-open-solution="recall"', result["solution"])
         self.assertIn('data-daily-open-solution="browse"', result["solution"])
 
-    def test_daily_practice_exposes_explicit_completion_action_without_bypassing_recall(self):
+    def test_daily_practice_does_not_expose_a_misleading_completion_action(self):
         result = self.run_node(
             "dailyPracticeStart(); const before=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
             "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML, before}));"
         )
-        self.assertIn("繼續四段蓋牌並完成自評", result["html"])
-        self.assertNotIn("完成本題並進入下一題", result["html"])
+        self.assertNotIn('data-daily-completion-action', result["html"])
+        self.assertNotIn("完成本題", result["html"])
+        self.assertIn("開始四段蓋牌", result["html"])
         self.assertIn("暫存本題進度", result["html"])
         self.assertIn('data-daily-open-solution="recall"', result["html"])
         self.assertEqual(result["before"]["activeSession"]["currentIndex"], 0)
         self.assertEqual(result["before"]["completionByQuestion"], {})
 
-    def test_daily_practice_last_question_uses_round_summary_action_label(self):
+    def test_daily_practice_solution_view_keeps_one_clear_recall_entry(self):
         result = self.run_node(
             "savePracticeSession(createPracticeSession('PE', 'all', ['EE-a','EE-b','EE-c'], {now: Date.now()})); "
             "const loaded=loadDailyPracticeStore(); loaded.state.activeSession.currentIndex=2; "
-            "savePracticeSession(loaded.state.activeSession); initDailyPracticeHome(); "
+            "savePracticeSession(loaded.state.activeSession); initDailyPracticeHome(); dailyPracticeSetView('solution'); "
             "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
         )
-        self.assertIn("繼續四段蓋牌並完成自評", result["html"])
-        self.assertNotIn("完成本題並查看本輪摘要", result["html"])
+        self.assertNotIn('data-daily-completion-action', result["html"])
+        self.assertIn("開始四段蓋牌揭露", result["html"])
+        self.assertIn("直接看完整詳解", result["html"])
 
     def test_daily_practice_completion_prompt_matches_round_position(self):
         result = self.run_node(
@@ -202,27 +204,7 @@ process.stdout.write(JSON.stringify({html,visible}));
             "const last=dailyPracticeGetCompletionPrompt(); "
             "process.stdout.write(JSON.stringify({first,last}));"
         )
-        self.assertEqual(result, {"first": "選擇自評後進入下一題", "last": "選擇自評後查看本輪摘要"})
-
-    def test_completion_action_only_opens_recall_and_does_not_commit(self):
-        result = self.run_node(
-            "globalThis.__buttons=[]; globalThis.__dailyQuerySelectorAll=(element, selector) => { "
-            "if (element.id !== 'daily-practice-container' || selector !== '[data-daily-open-solution]' "
-            "|| !element.innerHTML.includes('data-daily-completion-action=\\\"true\\\"')) return []; "
-            "const button={dataset:{dailyOpenSolution:'recall', dailyCompletionAction:'true'}, addEventListener(type, handler){this.handler=handler; __buttons.push(this);}}; "
-            "return [button]; }; "
-            "dailyPracticeStart(); const before=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
-            "__buttons[0].handler({}); const after=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
-            "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML, args:openSolutionArgs, before, after}));"
-        )
-        self.assertIn('data-daily-completion-action="true"', result["html"])
-        self.assertIn(
-            'data-daily-completion-action="true" data-daily-open-solution="recall"',
-            result["html"],
-        )
-        self.assertEqual(result["args"][4], {"mode": "daily-practice", "recall": True})
-        self.assertEqual(result["before"]["activeSession"]["currentIndex"], result["after"]["activeSession"]["currentIndex"])
-        self.assertEqual(result["after"]["completionByQuestion"], {})
+        self.assertEqual(result, {"first": "自評即完成本題，並進入下一題", "last": "自評即完成本題，並查看本輪摘要"})
 
     def test_summary_exposes_assessment_and_explicit_follow_up_action(self):
         source = (ROOT / "src/components/dailyPractice.js").read_text(encoding="utf-8")

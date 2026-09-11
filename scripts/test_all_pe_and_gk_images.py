@@ -1,71 +1,93 @@
 # -*- coding: utf-8 -*-
-"""
-test_all_pe_and_gk_images.py
-============================
-Checks image resolution for every question in dashboard-data.js and national-exams-data.js.
-"""
+"""Audit PE／GK solution image maps and every bundled Markdown image ref."""
 
+import json
 import os
 import re
-import json
+from urllib.parse import unquote
+
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(WORKSPACE)
 
-# Load solutions-bundle.js IMAGE_MAP
-with open('solutions-bundle.js', 'r', encoding='utf-8') as fp:
-    content = fp.read()
-m = re.search(r'const IMAGE_MAP = ({[\s\S]*?});', content)
-pe_image_map = json.loads(m.group(1)) if m else {}
 
-# Load national-solutions-bundle.js NATIONAL_IMAGE_MAP
-with open('national-solutions-bundle.js', 'r', encoding='utf-8') as fp:
-    content = fp.read()
-m = re.search(r'const NATIONAL_IMAGE_MAP = ({[\s\S]*?});', content)
-nat_image_map = json.loads(m.group(1)) if m else {}
+def parse_json_assignment(source, marker):
+    """Parse one JSON object without regex-truncating strings containing ``});``."""
+    start = source.find(marker)
+    if start < 0:
+        return {}
+    value, _ = json.JSONDecoder().raw_decode(source[start + len(marker):].lstrip())
+    return value
 
-# Load bundled MDs
-m_md = re.search(r'const BUNDLED_MD = ({[\s\S]*?});\nconst IMAGE_MAP', content)
-# Load from solutions-bundle.js
-with open('solutions-bundle.js', 'r', encoding='utf-8') as fp:
-    c = fp.read()
-m_pe_md = re.search(r'const BUNDLED_MD = ({[\s\S]*?});', c)
-pe_bundle = json.loads(m_pe_md.group(1)) if m_pe_md else {}
 
-print(f"PE Image Map Keys: {len(pe_image_map)}")
-print(f"National Image Map Keys: {len(nat_image_map)}")
-print(f"PE Bundled MD files: {len(pe_bundle)}")
+def load_bundle(path, md_marker, image_marker):
+    with open(path, 'r', encoding='utf-8') as fp:
+        source = fp.read()
+    return (
+        parse_json_assignment(source, md_marker),
+        parse_json_assignment(source, image_marker),
+    )
 
-# Let's inspect PE Markdown files for image references and check their status
-pe_images_in_bundle = []
-broken_pe_images = []
 
-for md_path, md_text in pe_bundle.items():
-    obs = re.findall(r'!\[\[([^\|\]]+)(?:\|[^\]]+)?\]\]', md_text)
-    for img in obs:
-        clean = img.strip()
-        base = os.path.basename(clean)
-        resolved = pe_image_map.get(clean) or pe_image_map.get(base) or nat_image_map.get(clean) or nat_image_map.get(base)
-        if resolved and os.path.exists(resolved):
-            pe_images_in_bundle.append((md_path, clean, resolved))
-        else:
-            broken_pe_images.append((md_path, clean, resolved))
+pe_bundle, pe_image_map = load_bundle(
+    'solutions-bundle.js', 'const BUNDLED_MD = ', 'const IMAGE_MAP = '
+)
+gk_bundle, gk_image_map = load_bundle(
+    'national-solutions-bundle.js',
+    'const NATIONAL_BUNDLED_MD = ',
+    'const NATIONAL_IMAGE_MAP = ',
+)
 
-    std = re.findall(r'!\[([^\]]*)\]\(([^\)]+)\)', md_text)
-    for alt, src in std:
-        if src.startswith('http'):
-            continue
-        clean = src.strip()
-        base = os.path.basename(clean)
-        resolved = pe_image_map.get(clean) or pe_image_map.get(base) or nat_image_map.get(clean) or nat_image_map.get(base)
-        if resolved and os.path.exists(resolved):
-            pe_images_in_bundle.append((md_path, clean, resolved))
-        else:
-            broken_pe_images.append((md_path, clean, resolved))
 
-print(f"\n📊 PE Bundle Images Validated:")
-print(f"  ✅ Working Images on Disk: {len(pe_images_in_bundle)}")
-print(f"  ❌ Broken Images: {len(broken_pe_images)}")
-if broken_pe_images:
-    for md, clean, res in broken_pe_images:
-        print(f"     Broken: In {md} -> {clean} (resolved: {res})")
+def image_refs(markdown):
+    refs = re.findall(r'!\[\[([^|\]]+)(?:\|[^\]]+)?\]\]', markdown)
+    refs += re.findall(r'!\[[^\]]*\]\(([^)\n]+)\)', markdown)
+    return [ref.strip() for ref in refs if ref.strip()]
+
+
+def lookup_image(image_ref, preferred_map, fallback_map):
+    clean = unquote(image_ref.strip()).replace('\\', '/')
+    clean = clean.split('?', 1)[0].split('#', 1)[0]
+    clean = clean.removeprefix('./')
+    candidates = [clean, os.path.basename(clean)]
+    for image_map in (preferred_map, fallback_map):
+        for candidate in candidates:
+            resolved = image_map.get(candidate)
+            if resolved:
+                return resolved
+    return ''
+
+
+def audit_bundle(label, bundle, preferred_map, fallback_map):
+    broken = []
+    checked = 0
+    for md_path, md_text in bundle.items():
+        for image_ref in image_refs(md_text):
+            if re.match(r'^(?:data:|blob:|https?:|//)', image_ref, re.I):
+                continue
+            checked += 1
+            resolved = lookup_image(image_ref, preferred_map, fallback_map)
+            if not resolved or not os.path.exists(resolved):
+                broken.append((md_path, image_ref, resolved))
+
+    missing_targets = [
+        (key, value) for key, value in preferred_map.items()
+        if not value or not os.path.exists(value)
+    ]
+    print(f'{label} Image Map Keys: {len(preferred_map)}')
+    print(f'{label} Bundled MD files: {len(bundle)}')
+    print(f'{label} Markdown image refs checked: {checked}')
+    print(f'{label} mapped targets missing on disk: {len(missing_targets)}')
+    print(f'{label} broken Markdown refs: {len(broken)}')
+    for md_path, image_ref, resolved in broken:
+        print(f'  Broken: {md_path} -> {image_ref} (resolved: {resolved or "none"})')
+    return broken, missing_targets
+
+
+pe_broken, pe_missing = audit_bundle('PE', pe_bundle, pe_image_map, gk_image_map)
+gk_broken, gk_missing = audit_bundle('GK', gk_bundle, gk_image_map, pe_image_map)
+
+if pe_broken or gk_broken or pe_missing or gk_missing:
+    raise SystemExit(1)
+
+print('✅ PE／GK 圖片映射、題解引用與實體檔案全部通過。')

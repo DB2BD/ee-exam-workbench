@@ -509,6 +509,15 @@ function renderManualLabelModal() {
   if (solutionButton) solutionButton.addEventListener('click', () => {
     if (typeof openSolutionModal === 'function') openSolutionModal(null, solutionLink, qid, record.number, { mode: 'browse' });
   });
+  if (typeof bindImageLoadFallbacks === 'function') {
+    bindImageLoadFallbacks(body, {
+      selector: '.manual-label-crop',
+      className: 'manual-label-crop-fallback',
+      message: '題目裁切圖載入失敗，請改用官方原卷核對。',
+      linkHref: sourceUrl,
+      linkLabel: '開啟官方原卷',
+    });
+  }
 }
 
 function saveCurrentManualLabel(showMessage = true) {

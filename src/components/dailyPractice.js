@@ -370,11 +370,7 @@ function dailyPracticeSolutionButton() {
 function dailyPracticeGetCompletionPrompt() {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   const isLast = session && session.currentIndex >= session.questionIds.length - 1;
-  return isLast ? '選擇自評後查看本輪摘要' : '選擇自評後進入下一題';
-}
-
-function dailyPracticeCompletionAction(session) {
-  return '<button class="btn-sol daily-practice-primary" type="button" data-daily-completion-action="true" data-daily-open-solution="recall">繼續四段蓋牌並完成自評</button>';
+  return isLast ? '自評即完成本題，並查看本輪摘要' : '自評即完成本題，並進入下一題';
 }
 
 function renderDailyPractice(container, error) {
@@ -428,7 +424,7 @@ function renderDailyPractice(container, error) {
       (dailyPracticeView === 'question'
         ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可直接開始四段蓋牌。</p><div class="daily-practice-solution-actions"><button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">🎴 開始四段蓋牌</button><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">📝 其他詳解選項</button></div>' + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton()) +
-    '</div><div class="daily-practice-actions">' + dailyPracticeCompletionAction(session) + '<button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
+    '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
   if (scroll) scroll.scrollTop = scrollTop;
   if (typeof container.querySelectorAll === 'function') container.querySelectorAll('[data-daily-open-solution]').forEach(button => button.addEventListener('click', event => {

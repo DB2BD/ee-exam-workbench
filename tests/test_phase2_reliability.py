@@ -145,6 +145,60 @@ globalThis.openSolutionModal = (...args) => { globalThis.__openArgs = args; };
 
 
 class TestSolutionModalReliability(unittest.TestCase):
+    def test_daily_attempt_end_to_end_advances_and_closes_modal(self):
+        setup = r'''
+globalThis.localStorage = {
+  data: {},
+  getItem(key) { return Object.prototype.hasOwnProperty.call(this.data, key) ? this.data[key] : null; },
+  setItem(key, value) { this.data[key] = String(value); },
+  removeItem(key) { delete this.data[key]; },
+};
+globalThis.document = {getElementById:() => null};
+globalThis.showToast = () => {};
+globalThis.updateStatsAndBar = () => {};
+globalThis.__closed = 0;
+globalThis.closeSolutionModal = () => { globalThis.__closed += 1; };
+'''
+        expression = r'''
+(() => {
+  const question = toQuestionRecord(['q1','01',114,1,'題目',[],'','',3,'verified',[],true], 'PE');
+  savePracticeSession(createPracticeSession('PE', 'all', ['q1', 'q2'], {now: 1000}));
+  const result = submitLearningAttempt({
+    attemptId: 'integration-attempt-q1', question, sourceMode: 'daily-practice',
+    rating: 5, revealStep: 4, recallEntry: true, errorType: null,
+  });
+  dailyPracticeApplyCompletedAttempt('q1', result.nextAction);
+  const stored = loadDailyPracticeStore().state;
+  return {
+    ok: result.ok,
+    action: result.nextAction.type,
+    currentIndex: stored.activeSession.currentIndex,
+    nextQid: stored.activeSession.questionIds[stored.activeSession.currentIndex],
+    completed: stored.completionByQuestion.q1.rating,
+    closed: globalThis.__closed,
+  };
+})()
+'''
+        result = run_node(
+            [
+                "src/state/practiceStore.js",
+                "src/state/recallStore.js",
+                "src/state/attemptStore.js",
+                "src/domain/questionRecord.js",
+                "src/components/dailyPractice.js",
+            ],
+            expression,
+            setup,
+        )
+        self.assertEqual(result, {
+            "ok": True,
+            "action": "advance-daily",
+            "currentIndex": 1,
+            "nextQid": "q2",
+            "completed": 5,
+            "closed": 1,
+        })
+
     def test_daily_practice_rating_does_not_write_sm2_and_requires_full_reveal(self):
         setup = r'''
 globalThis.document = {body:{style:{}}, getElementById:() => null};
@@ -713,7 +767,7 @@ globalThis.resolveRenderedImageSources = html => html;
 globalThis.renderScenarioMatrix = () => '';
 globalThis.renderDagTracerCard = () => '';
 globalThis.reviewHtmlEscape = value => String(value);
-globalThis.dailyPracticeGetCompletionPrompt = () => '選擇自評後進入下一題';
+globalThis.dailyPracticeGetCompletionPrompt = () => '自評即完成本題，並進入下一題';
 '''
         expression = r'''
 (() => {
@@ -727,7 +781,7 @@ globalThis.dailyPracticeGetCompletionPrompt = () => '選擇自評後進入下一
 })()
 '''
         result = run_node(["src/components/solutionModal.js"], expression, setup)
-        self.assertIn("選擇自評後進入下一題", result)
+        self.assertIn("自評即完成本題，並進入下一題", result)
 
     def test_active_recall_keeps_answer_bearing_matrix_inside_fourth_reveal(self):
         setup = r'''

@@ -177,7 +177,8 @@ process.stdout.write(JSON.stringify({html,visible}));
             "dailyPracticeStart(); const before=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
             "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML, before}));"
         )
-        self.assertIn("完成本題並進入下一題", result["html"])
+        self.assertIn("繼續四段蓋牌並完成自評", result["html"])
+        self.assertNotIn("完成本題並進入下一題", result["html"])
         self.assertIn("暫存本題進度", result["html"])
         self.assertIn('data-daily-open-solution="recall"', result["html"])
         self.assertEqual(result["before"]["activeSession"]["currentIndex"], 0)
@@ -190,7 +191,18 @@ process.stdout.write(JSON.stringify({html,visible}));
             "savePracticeSession(loaded.state.activeSession); initDailyPracticeHome(); "
             "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
         )
-        self.assertIn("完成本題並查看本輪摘要", result["html"])
+        self.assertIn("繼續四段蓋牌並完成自評", result["html"])
+        self.assertNotIn("完成本題並查看本輪摘要", result["html"])
+
+    def test_daily_practice_completion_prompt_matches_round_position(self):
+        result = self.run_node(
+            "dailyPracticeState={activeSession:createPracticeSession('PE','all',['EE-a','EE-b','EE-c'],{now:Date.now()})}; "
+            "const first=dailyPracticeGetCompletionPrompt(); "
+            "dailyPracticeState.activeSession.currentIndex=2; "
+            "const last=dailyPracticeGetCompletionPrompt(); "
+            "process.stdout.write(JSON.stringify({first,last}));"
+        )
+        self.assertEqual(result, {"first": "選擇自評後進入下一題", "last": "選擇自評後查看本輪摘要"})
 
     def test_completion_action_only_opens_recall_and_does_not_commit(self):
         result = self.run_node(

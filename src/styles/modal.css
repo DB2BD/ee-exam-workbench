@@ -577,6 +577,13 @@
   text-align: center;
 }
 
+.sm2-rating-next-hint {
+  color: var(--success);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-align: center;
+}
+
 .sm2-rating-buttons {
   display: flex;
   gap: 10px;

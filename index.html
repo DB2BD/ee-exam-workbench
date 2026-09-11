@@ -12,10 +12,10 @@
 <script src="./libs/marked.min.js"></script>
 
 <!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
-<script src="./dashboard-data.js?v=review-candidate"></script>
-<script src="./solutions-bundle.js?v=review-candidate"></script>
-<script src="./national-exams-data.js?v=review-candidate"></script>
-<script src="./national-solutions-bundle.js?v=review-candidate"></script>
+<script src="./dashboard-data.js?v=dev"></script>
+<script src="./solutions-bundle.js?v=dev"></script>
+<script src="./national-exams-data.js?v=dev"></script>
+<script src="./national-solutions-bundle.js?v=dev"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -912,18 +912,6 @@ select:focus {
 .solution-audit.s-audit-suspected_error { color: #a04a3f; background: #fff0ed; border-color: #e6a49a; }
 .solution-audit.s-audit-needs_manual_review { color: #8a6410; background: #fff8df; border-color: #e4c56b; }
 .solution-audit.s-audit-not_attempted { color: #6d7480; background: #f1f3f5; border-color: #c8ced6; }
-.solution-review-card { margin: 14px 0; padding: 12px 14px; border: 1px solid #e4c56b; border-left: 4px solid #c28b2c; border-radius: var(--radius-sm); background: #fffaf0; color: var(--ink); }
-.solution-review-card .review-title { font-weight: 700; color: #8a6410; margin-bottom: 6px; }
-.solution-review-card .review-meta { display: grid; gap: 4px; font-size: .86rem; line-height: 1.45; }
-.solution-review-card .review-public-note { margin-top: 2px; color: var(--muted); font-size: .8rem; }
-.solution-audit-summary .review-description { margin-bottom: 8px; font-size: .86rem; line-height: 1.5; }
-.solution-audit-summary .solution-learning-status { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); font-size: .84rem; }
-.solution-audit-summary .solution-report-box { display: grid; gap: 6px; margin-top: 12px; }
-.solution-audit-summary .solution-report-textarea { width: 100%; min-height: 132px; padding: 8px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font: .78rem/1.45 var(--font-mono); resize: vertical; box-sizing: border-box; }
-.solution-audit-summary .solution-report-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.solution-audit-card-verified { border-left-color: var(--success); }
-.solution-audit-card-suspected_error { border-color: #e6a49a; border-left-color: #a04a3f; background: #fff5f2; }
-.solution-audit-card-not_attempted, .solution-audit-card-unknown { border-color: #c8ced6; border-left-color: #6d7480; background: #f7f8f9; }
 
 /* Scenario Matrix Card (參數敏感度情境分支卡) */
 .scenario-matrix-card {
@@ -1046,15 +1034,6 @@ select:focus {
   background: #2b271d;
   color: #eeddbb;
 }
-[data-theme="dark"] .solution-review-card {
-  background: #2d281a;
-  border-color: #5c4e28;
-  color: #eeddbb;
-}
-[data-theme="dark"] .solution-review-card .review-title {
-  color: #e4c56b;
-}
-
 /* Difficulty Stars Badge */
 .diff-badge {
   font-size: 0.78rem;
@@ -9134,7 +9113,6 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     // heuristically exposing a "stem" prefix (which could contain equations
     // when a note has no conventional solution heading).
     const fullSolutionHtml = resolveRenderedImageSources(processMarkdownWithMath(markdownChunk), isGK, currentModalQid);
-    const reviewCardHtml = renderSolutionReviewCard(currentModalQid);
     const scenarioMatrixHtml = renderScenarioMatrix(currentModalQid);
 
     let dagHtml = '';
@@ -9171,7 +9149,6 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
           ${fullSolutionHtml}
           ${dagHtml}
           ${scenarioMatrixHtml}
-          ${reviewCardHtml}
         </div>
         <!-- recall-full-section-end -->
 
@@ -9207,7 +9184,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     let html = processMarkdownWithMath(markdownChunk);
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     html = resolveRenderedImageSources(html, isGK, currentModalQid);
-    html = renderSolutionReviewCard(currentModalQid) + renderScenarioMatrix(currentModalQid) + html;
+    html = renderScenarioMatrix(currentModalQid) + html;
 
     if (qRecord) {
       const record = typeof toQuestionRecord === 'function' ? toQuestionRecord(qRecord) : null;

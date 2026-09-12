@@ -1,0 +1,13 @@
+{
+  "name": "ee-exam-workbench-qa",
+  "private": true,
+  "scripts": {
+    "check": "python3 scripts/build_workbench.py && python3 scripts/run_all_tests.py && python3 scripts/check_html_js_syntax.py && python3 scripts/verify_slicing_and_links.py && python3 scripts/test_all_pe_and_gk_images.py && python3 scripts/stage_pages_artifact.py",
+    "qa:browser": "node scripts/qa_browser.cjs",
+    "qa": "npm run check && npm run qa:browser",
+    "benchmark:lookup": "node scripts/benchmark_daily_lookup.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

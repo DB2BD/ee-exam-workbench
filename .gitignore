@@ -27,4 +27,6 @@ ibon.html
 temp_script_*.js
 personal-tools-backup/
 _site/
-
+node_modules/
+.qa-artifacts/
+.venv/

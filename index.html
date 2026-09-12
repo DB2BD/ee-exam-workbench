@@ -9808,16 +9808,8 @@ function dailyPracticeLoad() {
   return loadDailyPracticeStore();
 }
 
-function dailyPracticeAllQuestions() {
-  return dailyPracticeQuestions('PE').concat(dailyPracticeQuestions('GK'));
-}
-
-function dailyPracticeQuestionCrop(record) {
-  return record && record.provenance ? record.provenance.questionCrop || '' : '';
-}
-
 function dailyPracticeQuestionImage(record) {
-  const crop = dailyPracticeQuestionCrop(record);
+  const crop = record && record.provenance ? record.provenance.questionCrop || '' : '';
   if (!crop) return '';
   const qid = record.id;
   const isGK = record.examFamily === 'GK';
@@ -9830,7 +9822,8 @@ function dailyPracticeCurrentQuestion() {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   if (!session || !Array.isArray(session.questionIds)) return null;
   const qid = session.questionIds[session.currentIndex];
-  const raw = dailyPracticeAllQuestions().find(question => dailyPracticeRecord(question).id === qid);
+  const raw = dailyPracticeQuestions(session.category).find(question =>
+    (Array.isArray(question) ? question[0] : question.id) === qid);
   return raw ? dailyPracticeRecord(raw, session.category) : null;
 }
 

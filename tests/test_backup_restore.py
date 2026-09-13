@@ -128,6 +128,49 @@ process.stdout.write(JSON.stringify(result));
         self.assertEqual(result["practice"]["completionByQuestion"], {"EE-pe": 1788278400000})
         self.assertEqual(result["timer"]["examKey"], "PE:01:114")
 
+    def test_export_includes_versioned_learning_data_with_family_isolation(self):
+        result = self.run_js(
+            "(() => { "
+            "localStorage.setItem('EE_EXAM_ATTEMPT_ENVELOPES_V1', JSON.stringify({schemaVersion:'learning-attempts.v1',attempts:{a1:{sessionId:'a1',status:'committed',qid:'EE-pe',examFamily:'PE'}}})); "
+            "localStorage.setItem('EE_KNOWLEDGE_ISSUES_PE_V1', JSON.stringify({schemaVersion:'knowledge-issue-events.v1',examFamily:'PE',graphRevisions:['kg-v1'],events:[{eventId:'e1',attemptId:'a1',qid:'EE-pe',examFamily:'PE',eventType:'skip'}]})); "
+            "localStorage.setItem('GK_KNOWLEDGE_ISSUES_GK_V1', JSON.stringify({schemaVersion:'knowledge-issue-events.v1',examFamily:'GK',graphRevisions:[],events:[]})); "
+            "localStorage.setItem('EE_KNOWLEDGE_REVIEWS_PE_V1', JSON.stringify({schemaVersion:'knowledge-reviews.v1',examFamily:'PE',graphRevisions:[],reviews:{}})); "
+            "localStorage.setItem('GK_KNOWLEDGE_REVIEWS_GK_V1', JSON.stringify({schemaVersion:'knowledge-reviews.v1',examFamily:'GK',graphRevisions:[],reviews:{}})); "
+            "const data=JSON.parse(exportAllUserDataJSON()); return {learning:data.learningData,capacity:data.learningDataCapacity,bytes:JSON.stringify(data).length}; })()"
+        )
+        self.assertEqual(result["learning"]["attempts"]["attempts"]["a1"]["examFamily"], "PE")
+        self.assertEqual(result["learning"]["issues"]["PE"]["events"][0]["eventId"], "e1")
+        self.assertEqual(result["learning"]["issues"]["GK"]["examFamily"], "GK")
+        self.assertIn("knowledgeReviews", result["learning"])
+        self.assertEqual(result["capacity"]["schemaVersion"], "learning-data-capacity.v1")
+        self.assertLess(result["bytes"], 8 * 1024 * 1024)
+
+    def test_learning_data_restore_is_atomic_and_rejects_mixed_family_or_capacity(self):
+        payload = self.payload()
+        payload["learningData"] = {
+            "attempts": {"schemaVersion": "learning-attempts.v1", "attempts": {"a1": {"sessionId": "a1", "status": "committed", "qid": "EE-pe", "examFamily": "PE"}}},
+            "issues": {
+                "PE": {"schemaVersion": "knowledge-issue-events.v1", "examFamily": "PE", "graphRevisions": [], "events": [{"eventId": "e1", "attemptId": "a1", "qid": "EE-pe", "examFamily": "PE", "eventType": "skip"}]},
+                "GK": {"schemaVersion": "knowledge-issue-events.v1", "examFamily": "GK", "graphRevisions": [], "events": []},
+            },
+            "knowledgeReviews": {
+                "PE": {"schemaVersion": "knowledge-reviews.v1", "examFamily": "PE", "graphRevisions": [], "reviews": {}},
+                "GK": {"schemaVersion": "knowledge-reviews.v1", "examFamily": "GK", "graphRevisions": [], "reviews": {}},
+            },
+            "recoveryJournal": None,
+        }
+        options = self.options()
+        expression = "(() => { const payload=" + json.dumps(payload, ensure_ascii=False) + "; const options=" + json.dumps(options, ensure_ascii=False) + "; "
+        expression += "localStorage.setItem('EE_KNOWLEDGE_ISSUES_PE_V1','before'); const applied=applyUserDataBackup(payload,'replace',options); const pe=localStorage.getItem('EE_KNOWLEDGE_ISSUES_PE_V1'); "
+        expression += "const mixed=JSON.parse(JSON.stringify(payload)); mixed.learningData.issues.GK.examFamily='PE'; const rejected=applyUserDataBackup(mixed,'replace',options); const after=localStorage.getItem('EE_KNOWLEDGE_ISSUES_PE_V1'); "
+        expression += "const tooLarge=applyUserDataBackup(payload,'replace',Object.assign({},options,{maxBackupBytes:10})); return {applied,pe,rejected,after,tooLarge}; })()"
+        result = self.run_js(expression)
+        self.assertTrue(result["applied"]["success"])
+        self.assertIn('e1', result["pe"])
+        self.assertFalse(result["rejected"]["success"])
+        self.assertEqual(result["after"], result["pe"])
+        self.assertFalse(result["tooLarge"]["success"])
+
     def test_unresolved_attempt_journal_blocks_backup_import(self):
         payload = json.dumps(self.payload(), ensure_ascii=False)
         options = json.dumps(self.options(), ensure_ascii=False)

@@ -24,6 +24,9 @@ let currentLearningAttemptSubmitting = false;
 let currentLearningAttemptSubmitted = false;
 let learningAttemptSequence = 0;
 let learningAttemptAdvanceTimer = null;
+let currentKnowledgeDiagnosis = null;
+let currentLearningAttemptResult = null;
+let currentLearningAttemptRating = null;
 let solutionModalReturnFocus = null;
 let solutionModalReadingTimer = null;
 let currentModalPaneMode = 'question';
@@ -50,6 +53,283 @@ function createLearningAttemptId() {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
   learningAttemptSequence += 1;
   return `attempt-${Date.now()}-${learningAttemptSequence}`;
+}
+
+function prepareLearningAttemptSession() {
+  if (!currentSolutionRecallEntry || typeof beginOrResume !== 'function') return true;
+  const family = String(currentModalQid || '').startsWith('GK-') ? 'GK' : 'PE';
+  const active = typeof findActiveAttempt === 'function'
+    ? findActiveAttempt(currentModalQid, family, currentSolutionSourceMode) : null;
+  if (active && active.sessionId) currentLearningAttemptId = active.sessionId;
+  const result = beginOrResume({
+    sessionId: currentLearningAttemptId,
+    qid: currentModalQid,
+    examFamily: family,
+    sourceMode: currentSolutionSourceMode,
+  });
+  return Boolean(result && result.ok);
+}
+
+function shouldRequireKnowledgeDiagnosis(diagnosis) {
+  return Boolean(diagnosis && (diagnosis.needsConfirmation || (diagnosis.likelyQuestions || []).length > 0));
+}
+
+function diagnosisSelectedCandidate() {
+  const select = typeof document !== 'undefined' && typeof document.getElementById === 'function'
+    ? document.getElementById('diagnosis-primary-select') : null;
+  const candidates = currentKnowledgeDiagnosis && Array.isArray(currentKnowledgeDiagnosis.likelyQuestions)
+    ? currentKnowledgeDiagnosis.likelyQuestions : [];
+  const selected = select && select.value ? candidates.find(item => item.nodeId === select.value) : candidates[0];
+  return selected || null;
+}
+
+function diagnosisTaxonomyContext(qid) {
+  const map = typeof QUESTION_TAXONOMY_MAP !== 'undefined' ? QUESTION_TAXONOMY_MAP : null;
+  const evidence = map && qid ? map[qid] : null;
+  if (!evidence) return null;
+  const chapterId = typeof evidence === 'string' ? evidence : evidence.primaryChapter;
+  const legacyNode = chapterId && typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[chapterId] : null;
+  const title = typeof evidence === 'object' && evidence.canonicalChapter
+    ? evidence.canonicalChapter
+    : legacyNode && legacyNode.name ? legacyNode.name : chapterId;
+  return title ? { chapterId, title } : null;
+}
+
+function diagnosisLearningPlan(diagnosis) {
+  const errorType = currentRecallErrorType || '未指定錯因';
+  const taxonomy = diagnosisTaxonomyContext(currentModalQid);
+  const nextSteps = {
+    '題型辨識錯': '先寫下題目要求、使用的模型，以及該模型的適用條件。',
+    '起手式不會': '先列出已知量、未知量、要求量，再寫第一個方程式或等效模型。',
+    '公式忘記': '先寫出公式、每個符號的意義與單位，再對照解答找缺口。',
+    '計算錯': '重新計算並逐步檢查代入、單位、正負號與邊界條件；先不要把它當成觀念弱點。',
+    '觀念混淆': '寫出你混淆的兩個概念，再各自寫一個適用條件或反例。',
+  };
+  const step = nextSteps[errorType] || '在補充說明寫下「我卡在……」以及你做到的最後一步。';
+  if (diagnosis && diagnosis.status === 'unknown') {
+    return {
+      title: '這題尚未完成圖譜對應',
+      body: '系統目前不能可靠判定你卡住的知識點，所以不會替你貼上錯誤標籤。',
+      steps: [
+        `這次選的錯因：${errorType}。${step}`,
+        taxonomy ? `題庫分類可作為複習入口：${taxonomy.title}；它目前尚未算作已確認弱點。` : '先從題目的已知量、要求量與解題第一步開始整理。',
+        '把卡住的步驟寫在下方，按「保存『都不是』並繼續」；這筆資料會保留在「我的弱點」的待分類事件中。',
+      ],
+      taxonomy,
+    };
+  }
+  return {
+    title: '診斷說明',
+    body: diagnosis && diagnosis.reason ? diagnosis.reason : '請選擇最符合的結果。',
+    steps: [],
+    taxonomy,
+  };
+}
+
+function renderKnowledgeDiagnosisCard(diagnosis) {
+  const rightPane = typeof document !== 'undefined' && typeof document.getElementById === 'function'
+    ? document.getElementById('modal-right-content') : null;
+  if (!rightPane || !diagnosis) return false;
+  const candidates = Array.isArray(diagnosis.likelyQuestions) ? diagnosis.likelyQuestions : [];
+  const gap = diagnosis.firstPrerequisiteGap;
+  const learningPlan = diagnosisLearningPlan(diagnosis);
+  const diagnosisReason = diagnosis.status === 'unknown'
+    ? learningPlan.body
+    : (diagnosis.reason || '請選擇最符合的結果。');
+  const diagnosisConfidence = candidates.length > 0
+    ? `診斷信心：${Math.round((Number(diagnosis.confidence) || 0) * 100)}%`
+    : '診斷狀態：待分類（尚未建立可靠對應）';
+  const candidateOptions = candidates.map(item =>
+    `<option value="${solutionModalEscape(item.nodeId)}">${solutionModalEscape(item.title)}（信心 ${Math.round((Number(item.confidence) || 0) * 100)}%）</option>`
+  ).join('');
+  const primary = candidates.length > 0 ? `
+    <label>主要問題點
+      <select id="diagnosis-primary-select">${candidateOptions}</select>
+    </label>
+    <button type="button" class="pill" onclick="resolveKnowledgeDiagnosis('confirm')">確認主要問題並保存</button>` :
+    `<div class="diagnosis-unknown-summary" data-diagnosis-status="unknown">
+      <strong>${solutionModalEscape(learningPlan.title)}</strong>
+      <p>${solutionModalEscape(learningPlan.body)}</p>
+      ${learningPlan.taxonomy ? `<small>題庫分類參考：${solutionModalEscape(learningPlan.taxonomy.title)}</small>` : ''}
+      <small>請先留下你的卡住步驟，保存後會進入待分類事件。</small>
+    </div>`;
+  const secondary = gap ? `
+    <label><input id="diagnosis-secondary" type="checkbox" value="${solutionModalEscape(gap.nodeId)}"> 同時標記前置缺口：${solutionModalEscape(gap.title)}</label>` : '';
+  const html = `
+    <section class="knowledge-diagnosis-card" data-diagnosis-card id="knowledge-diagnosis-card">
+      <h3>🧭 作答後診斷</h3>
+      <p class="diagnosis-reason">${solutionModalEscape(diagnosisReason)}</p>
+      <p class="diagnosis-confidence">${solutionModalEscape(diagnosisConfidence)}</p>
+      <div class="diagnosis-candidates">${primary}</div>
+      ${secondary}
+      <label class="diagnosis-custom-label" for="diagnosis-custom-text">補充說明（可選）</label>
+      <textarea id="diagnosis-custom-text" maxlength="500" rows="2" placeholder="哪一步讓你卡住？"></textarea>
+      <p class="diagnosis-save-hint">輸入原因後，請按下方含「保存」的按鈕。</p>
+      <div id="diagnosis-guidance" class="diagnosis-guidance" role="status" aria-live="polite" hidden></div>
+      <div class="diagnosis-actions" aria-label="診斷輔助">
+        <button type="button" class="pill" onclick="openDiagnosisWhyStuck()">查看診斷說明</button>
+        <button type="button" class="pill" ${gap ? '' : 'disabled'} onclick="openDiagnosisPrerequisite()">先補哪個前提</button>
+        <button type="button" class="pill" onclick="openDiagnosisMainline()">回到主線</button>
+      </div>
+      <div class="diagnosis-outcomes">
+        ${candidates.length > 0 ? '<button type="button" class="pill" onclick="resolveKnowledgeDiagnosis(\'correct\')">改選問題點並保存</button>' : ''}
+        <button type="button" class="pill" onclick="resolveKnowledgeDiagnosis('none-of-above')">保存『都不是』並繼續</button>
+        <button type="button" class="pill" onclick="resolveKnowledgeDiagnosis('skip')">保存診斷並到下一題</button>
+      </div>
+    </section>`;
+  if (typeof rightPane.insertAdjacentHTML === 'function') rightPane.insertAdjacentHTML('beforeend', html);
+  else rightPane.innerHTML = `${rightPane.innerHTML || ''}${html}`;
+  const customInput = typeof document.getElementById === 'function'
+    ? document.getElementById('diagnosis-custom-text') : null;
+  if (customInput && typeof customInput.focus === 'function') customInput.focus();
+  return true;
+}
+
+function openDiagnosisWhyStuck() {
+  const diagnosis = currentKnowledgeDiagnosis || {};
+  const learningPlan = diagnosisLearningPlan(diagnosis);
+  const evidence = Array.isArray(diagnosis.likelyQuestions)
+    ? diagnosis.likelyQuestions.flatMap(item => Array.isArray(item.evidence) ? item.evidence : []).slice(0, 3) : [];
+  renderDiagnosisGuidance(learningPlan.title, learningPlan.body, evidence, learningPlan.steps);
+  if (typeof showToast === 'function') showToast(learningPlan.body);
+  return true;
+}
+
+function renderDiagnosisGuidance(title, body, evidence = [], steps = []) {
+  const target = typeof document !== 'undefined' && typeof document.getElementById === 'function'
+    ? document.getElementById('diagnosis-guidance') : null;
+  if (!target) return false;
+  const evidenceItems = Array.isArray(evidence) ? evidence.filter(Boolean).slice(0, 3) : [];
+  const stepItems = Array.isArray(steps) ? steps.filter(Boolean).slice(0, 3) : [];
+  target.innerHTML = `<strong>${solutionModalEscape(title)}</strong><p>${solutionModalEscape(body)}</p>${stepItems.length ? `<ul>${stepItems.map(step => `<li>${solutionModalEscape(step)}</li>`).join('')}</ul>` : ''}${evidenceItems.length ? `<small>依據：${solutionModalEscape(evidenceItems.join('；'))}</small>` : ''}`;
+  target.hidden = false;
+  return true;
+}
+
+function openDiagnosisPrerequisite() {
+  const gap = currentKnowledgeDiagnosis && currentKnowledgeDiagnosis.firstPrerequisiteGap;
+  if (!gap) {
+    renderDiagnosisGuidance('前置缺口', '這題目前沒有可用的前置缺口建議。');
+    if (typeof showToast === 'function') showToast('這題目前沒有可用的前置缺口建議。');
+    return false;
+  }
+  renderDiagnosisGuidance('建議先補的前提', `${gap.title}${gap.why ? `：${gap.why}` : ''}`, gap.evidence);
+  if (typeof switchTab === 'function') switchTab('dag');
+  if (typeof showToast === 'function') showToast(`先補：${gap.title}`);
+  return true;
+}
+
+function openDiagnosisMainline() {
+  const primary = currentKnowledgeDiagnosis && Array.isArray(currentKnowledgeDiagnosis.likelyQuestions)
+    ? currentKnowledgeDiagnosis.likelyQuestions[0] : null;
+  renderDiagnosisGuidance('回到主線', primary && primary.title
+    ? `目前診斷主線：${primary.title}。可沿知識圖譜回看它的前置關係。`
+    : '請從目前考科的知識圖譜主線回看前置關係。');
+  if (typeof switchTab === 'function') switchTab('dag');
+  if (typeof showToast === 'function') showToast('已保留目前考科主線，請從主線回看前置關係。');
+  return true;
+}
+
+function removeKnowledgeDiagnosisCard() {
+  const card = typeof document !== 'undefined' && typeof document.querySelector === 'function'
+    ? document.querySelector('[data-diagnosis-card]') : null;
+  if (card && typeof card.remove === 'function') card.remove();
+}
+
+function finishCommittedLearningAttempt(result, qid, rating, attemptId, saveMessage = '') {
+  if (currentSolutionSourceMode === 'daily-practice') {
+    if (saveMessage && typeof showToast === 'function') showToast(saveMessage);
+    if (typeof dailyPracticeApplyCompletedAttempt === 'function') dailyPracticeApplyCompletedAttempt(qid, result.nextAction);
+    return;
+  }
+  if (currentSolutionSourceMode === 'due-review' && typeof recordReviewSessionRating === 'function') {
+    recordReviewSessionRating(qid);
+  }
+  const ratingTexts = { 1: '🔴 遺忘', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
+  if (typeof showToast === 'function') showToast(`🎯 已排程：${ratingTexts[rating]}（下次：${result.nextReviewDate}）${saveMessage ? `；${saveMessage}` : ''}`);
+  if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof renderReviewPage === 'function') renderReviewPage();
+  if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
+  learningAttemptAdvanceTimer = setTimeout(() => {
+    learningAttemptAdvanceTimer = null;
+    if (currentLearningAttemptId !== attemptId || currentModalQid !== qid || !currentLearningAttemptSubmitted) return;
+    if (currentReviewSessionQueue && currentReviewSessionQueue.length > 1) advanceReviewSessionItem();
+    else navModalQuestion(1);
+  }, 600);
+}
+
+function resolveKnowledgeDiagnosis(eventType) {
+  const allowed = ['confirm', 'correct', 'none-of-above', 'skip'];
+  if (!currentKnowledgeDiagnosis || !allowed.includes(eventType)) return false;
+  const selected = eventType === 'confirm' || eventType === 'correct' ? diagnosisSelectedCandidate() : null;
+  if ((eventType === 'confirm' || eventType === 'correct') && !selected) {
+    if (typeof showToast === 'function') showToast('目前沒有可確認的問題點候選，請選擇都不是或跳過。');
+    return false;
+  }
+  const secondary = typeof document !== 'undefined' && typeof document.getElementById === 'function'
+    ? document.getElementById('diagnosis-secondary') : null;
+  const custom = typeof document !== 'undefined' && typeof document.getElementById === 'function'
+    ? document.getElementById('diagnosis-custom-text') : null;
+  const qid = currentModalQid;
+  const qRecord = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
+  const question = qRecord && typeof toQuestionRecord === 'function'
+    ? toQuestionRecord(qRecord, String(qid).startsWith('GK-') ? 'GK' : 'PE')
+    : { id: qid, examFamily: String(qid).startsWith('GK-') ? 'GK' : 'PE' };
+  const event = {
+    attemptId: currentKnowledgeDiagnosis.attemptId || currentLearningAttemptId,
+    qid,
+    examFamily: question.examFamily,
+    rating: currentLearningAttemptRating,
+    errorType: currentRecallErrorType,
+    eventType,
+    primaryKnowledgeNodeId: selected ? selected.nodeId : null,
+    secondaryKnowledgeNodeIds: secondary && secondary.checked && currentKnowledgeDiagnosis.firstPrerequisiteGap
+      ? [currentKnowledgeDiagnosis.firstPrerequisiteGap.nodeId] : [],
+    customText: custom ? String(custom.value || '').trim() : '',
+    systemTopNodeId: currentKnowledgeDiagnosis.likelyQuestions && currentKnowledgeDiagnosis.likelyQuestions[0]
+      ? currentKnowledgeDiagnosis.likelyQuestions[0].nodeId : null,
+    candidateCount: Array.isArray(currentKnowledgeDiagnosis.likelyQuestions) ? currentKnowledgeDiagnosis.likelyQuestions.length : 0,
+    selectedCandidateRank: selected ? selected.rank || null : null,
+    diagnosisConfidence: Number(currentKnowledgeDiagnosis.confidence) || 0,
+    evidence: selected && Array.isArray(selected.evidence)
+      ? selected.evidence.slice(0, 10)
+      : (currentKnowledgeDiagnosis.likelyQuestions || []).flatMap(item => Array.isArray(item.evidence) ? item.evidence : []).slice(0, 10),
+    recordedAt: new Date().toISOString(),
+    diagnosisVersion: currentKnowledgeDiagnosis.diagnosisVersion || 'knowledge-diagnosis.v1',
+    graphRevisionRef: currentKnowledgeDiagnosis.graphRevision || null,
+    sourceMode: currentSolutionSourceMode,
+  };
+  if (typeof appendKnowledgeIssueEvent !== 'function') {
+    if (typeof showToast === 'function') showToast('診斷保存功能尚未載入，請重新整理後重試。');
+    return false;
+  }
+  const saved = appendKnowledgeIssueEvent(event);
+  if (saved && saved.ok === false) {
+    if (typeof showToast === 'function') showToast(saved.message || '診斷結果未保存，請重試。');
+    return false;
+  }
+  if (typeof ack === 'function') {
+    const acknowledged = ack({ sessionId: event.attemptId, qid: event.qid, examFamily: event.examFamily });
+    if (acknowledged && acknowledged.ok === false) {
+      const message = saved && saved.ok
+        ? '診斷已保存，但作答進度確認未完成，請重試。'
+        : (acknowledged.message || '作答確認未完成，請重試。');
+      if (typeof showToast === 'function') showToast(message);
+      return false;
+    }
+  }
+  const result = currentLearningAttemptResult;
+  const rating = currentLearningAttemptRating;
+  const attemptId = currentLearningAttemptId;
+  const saveMessage = event.customText ? '診斷與補充說明已保存。' : '診斷已保存。';
+  currentKnowledgeDiagnosis = null;
+  currentLearningAttemptResult = null;
+  currentLearningAttemptRating = null;
+  prepareLearningAttemptSession();
+  removeKnowledgeDiagnosisCard();
+  if (result) finishCommittedLearningAttempt(result, qid, rating, attemptId, saveMessage);
+  else if (typeof showToast === 'function') showToast(saveMessage);
+  return true;
 }
 
 function cancelLearningAttemptAdvance() {
@@ -242,6 +522,9 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   currentLearningAttemptId = createLearningAttemptId();
   currentLearningAttemptSubmitting = false;
   currentLearningAttemptSubmitted = false;
+  currentKnowledgeDiagnosis = null;
+  currentLearningAttemptResult = null;
+  currentLearningAttemptRating = null;
   isActiveRecallMode = currentSolutionRecallEntry;
   if (currentSolutionSourceMode === 'daily-practice' && typeof dailyPracticeGetRecallProgress === 'function') {
     currentRecallAchievedLevel = Math.max(currentRecallAchievedLevel, dailyPracticeGetRecallProgress(qid));
@@ -862,6 +1145,10 @@ function toggleActiveRecallMode() {
     currentLearningAttemptId = createLearningAttemptId();
     currentLearningAttemptSubmitting = false;
     currentLearningAttemptSubmitted = false;
+    currentKnowledgeDiagnosis = null;
+    currentLearningAttemptResult = null;
+    currentLearningAttemptRating = null;
+    prepareLearningAttemptSession();
     currentRecallAchievedLevel = 0;
     currentRecallErrorType = null;
   }
@@ -983,33 +1270,28 @@ function submitSM2Rating(rating) {
   currentLearningAttemptSubmitted = true;
   setLearningAttemptButtonsDisabled(true);
   if (result.duplicate) return;
-  if (currentSolutionSourceMode === 'daily-practice') {
-    if (typeof dailyPracticeApplyCompletedAttempt === 'function') dailyPracticeApplyCompletedAttempt(qid, result.nextAction);
-    return;
+  currentLearningAttemptResult = result;
+  currentLearningAttemptRating = Number(rating);
+  let diagnosis = null;
+  if (typeof diagnose === 'function') {
+    const graph = typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined' ? CANONICAL_KNOWLEDGE_GRAPH : null;
+    const graphRevision = graph && graph.graphRevision ? graph.graphRevision : null;
+    const recall = typeof getRecallState === 'function' ? getRecallState(qid) : null;
+    diagnosis = diagnose(question, {
+      attemptId,
+      attemptStatus: result.status || 'committed',
+      rating: Number(rating),
+      errorType: currentRecallErrorType,
+      graphRevision,
+    }, graph, recall);
   }
-  if (currentSolutionSourceMode === 'due-review' && typeof recordReviewSessionRating === 'function') {
-    recordReviewSessionRating(qid);
+  if (shouldRequireKnowledgeDiagnosis(diagnosis)) {
+    currentKnowledgeDiagnosis = diagnosis;
+    if (renderKnowledgeDiagnosisCard(diagnosis)) return;
   }
-  const ratingTexts = { 1: '🔴 遺忘', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
-  showToast(`🎯 已排程：${ratingTexts[rating]}（下次：${result.nextReviewDate}）`);
-
-  // Refresh badges in question list
-  if (typeof renderQuestions === 'function') renderQuestions();
-  if (typeof renderReviewPage === 'function') renderReviewPage();
-  updateModalStatusButtons(currentModalQid);
-
-  // Every successful rating follows the same next-question behavior.
-  {
-    learningAttemptAdvanceTimer = setTimeout(() => {
-      learningAttemptAdvanceTimer = null;
-      if (currentLearningAttemptId !== attemptId || currentModalQid !== qid || !currentLearningAttemptSubmitted) return;
-      if (currentReviewSessionQueue && currentReviewSessionQueue.length > 1) {
-        advanceReviewSessionItem();
-      } else {
-        navModalQuestion(1);
-      }
-    }, 600);
-  }
+  currentLearningAttemptResult = null;
+  currentLearningAttemptRating = null;
+  finishCommittedLearningAttempt(result, qid, Number(rating), attemptId);
 }
 
 function renderSubQuestionContent(markdownChunk, qRecord) {
@@ -1213,6 +1495,9 @@ function closeModal() {
   currentLearningAttemptId = null;
   currentLearningAttemptSubmitting = false;
   currentLearningAttemptSubmitted = false;
+  currentKnowledgeDiagnosis = null;
+  currentLearningAttemptResult = null;
+  currentLearningAttemptRating = null;
   currentReviewSessionQueue = null;
   currentReviewSessionIndex = 0;
   modalHistoryStack = [];

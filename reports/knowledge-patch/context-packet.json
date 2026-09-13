@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "knowledge-context-packet.v1",
+  "graphRevision": "kg-v1-e30faed9d5b5e0f0",
+  "selectedNodeIds": [
+    "ct-procedure-thevenin-controlled-source",
+    "ct-thevenin-norton",
+    "ps-per-unit"
+  ],
+  "nodes": [
+    {
+      "nodeId": "ct-procedure-thevenin-controlled-source",
+      "nodeType": "procedure",
+      "title": "含受控源的戴維寧等效求解流程",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "golden-fixture",
+        "sourcePath": "docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md"
+      },
+      "nodeRevisionHash": "golden-ct-procedure-thevenin-v1"
+    },
+    {
+      "nodeId": "ct-thevenin-norton",
+      "nodeType": "mechanism",
+      "title": "戴維寧與諾頓等效定理",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-thevenin-norton"
+      },
+      "nodeRevisionHash": "legacy-ct-thevenin-norton-v1"
+    },
+    {
+      "nodeId": "ps-per-unit",
+      "nodeType": "mechanism",
+      "title": "標么值 Per Unit 系統換算",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-per-unit"
+      },
+      "nodeRevisionHash": "legacy-ps-per-unit-v1"
+    }
+  ],
+  "edges": [
+    {
+      "from": "ct-divider-equiv",
+      "relation": "prerequisite",
+      "to": "ct-thevenin-norton",
+      "why": "Thevenin/Norton reduction uses equivalent resistance and divider relations.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-node-mesh",
+      "relation": "prerequisite",
+      "to": "ct-thevenin-norton",
+      "why": "The open-circuit and test-source calculations require node or mesh analysis.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-thevenin-norton",
+      "relation": "prerequisite",
+      "to": "ct-first-order-rc-rl",
+      "why": "The first-order time constant uses the equivalent network seen by the storage element.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-first-order-rc-rl"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-thevenin-norton",
+      "relation": "enables",
+      "to": "ct-procedure-thevenin-controlled-source",
+      "why": "The controlled-source procedure applies the equivalent theorem with a test source.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-power",
+      "relation": "mainline_precedes",
+      "to": "ps-per-unit",
+      "why": "The power-system mainline starts by normalizing values on a common base.",
+      "confidence": 0.98,
+      "evidence": [
+        "golden:domain-power-system"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-power-analysis",
+      "why": "Power and phasor quantities are compared consistently after per-unit conversion.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-power-analysis"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-three-phase-fault",
+      "why": "Symmetrical fault calculations use a common per-unit impedance base.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved"
+    }
+  ],
+  "questionLinks": {
+    "PE:EE-114-01-2": {
+      "qid": "EE-114-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-thevenin-norton",
+        "ct-procedure-thevenin-controlled-source"
+      ],
+      "confidence": 0.98,
+      "evidence": [
+        "dashboard-data.js:EE-114-01-2",
+        "src/data/knowledge-dag.js:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-114-05-1": {
+      "qid": "EE-114-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-per-unit"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-114-05-1",
+        "src/data/knowledge-dag.js:ps-per-unit"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    }
+  },
+  "issueHistory": [],
+  "bounds": {
+    "maxNodes": 20,
+    "maxHistory": 20,
+    "maxBytes": 120000
+  },
+  "payloadBytes": 3659
+}

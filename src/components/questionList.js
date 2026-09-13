@@ -26,8 +26,18 @@ function getQuestionExamFamily(record, explicitFamily) {
 
 function getQuestionFacetIds(record, includeSecondary, examFamily) {
   const detectedFamily = getQuestionExamFamily(record);
-  if ((examFamily || detectedFamily) !== detectedFamily || detectedFamily !== 'PE') return [];
+  if ((examFamily || detectedFamily) !== detectedFamily) return [];
   const qid = record && record[0];
+  if (detectedFamily === 'GK') {
+    const graph = typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined' ? CANONICAL_KNOWLEDGE_GRAPH : null;
+    const link = graph && graph.questionLinks ? graph.questionLinks[`GK:${qid}`] : null;
+    if (!link || !Array.isArray(link.nodeIds)) return [];
+    const nodeIds = includeSecondary ? link.nodeIds : link.nodeIds.slice(0, 1);
+    return [...new Set(nodeIds)].filter(id => {
+      const node = graph.nodes && graph.nodes[id];
+      return node && node.examFamily === 'GK' && String(node.subject) === String(record[1]);
+    });
+  }
   const evidence = typeof QUESTION_TAXONOMY_MAP !== 'undefined'
     ? QUESTION_TAXONOMY_MAP[qid]
     : null;
@@ -45,7 +55,10 @@ function getQuestionFacetIds(record, includeSecondary, examFamily) {
 
 function getQuestionFacetLabel(facetId) {
   const node = typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[facetId] : null;
-  return node && node.name ? node.name : facetId;
+  if (node && node.name) return node.name;
+  const graph = typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined' ? CANONICAL_KNOWLEDGE_GRAPH : null;
+  const canonical = graph && graph.nodes ? graph.nodes[facetId] : null;
+  return canonical && canonical.title ? canonical.title : facetId;
 }
 
 function uniqueQuestionRecords(records) {
@@ -182,7 +195,7 @@ function renderFacetTagsBar(currentSubFilter, model) {
   if (facets.length === 0) {
     if (model.examFamily === 'GK' && model.unclassifiedCount > 0) {
       bar.style.display = 'flex';
-      bar.innerHTML = '<span class="facet-filter-label">📌 本考別尚無正式章節分類，題目列為未分類</span>';
+      bar.innerHTML = '<span class="facet-filter-label">📌 尚有題目沒有可用的正式考點連結</span>';
     } else {
       bar.style.display = 'none';
     }

@@ -1,0 +1,2922 @@
+{
+  "schemaVersion": "canonical-knowledge-graph.v1",
+  "nodes": [
+    {
+      "nodeId": "ct-complex-power",
+      "nodeType": "mechanism",
+      "title": "複數功率與功率因數改善",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "ct-phasor-ac"
+      ],
+      "coreFormula": "S = P + j Q = \\mathbf{V}_{\\text{rms}} \\mathbf{I}_{\\text{rms}}^*, Q_C = P(\\tan\\theta_1 - \\tan\\theta_2)",
+      "keyTrap": "複數功率公式電流相量必須取「共軛複數 (Conjugate)」。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-complex-power"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-complex-power-v1"
+    },
+    {
+      "nodeId": "ct-divider-equiv",
+      "nodeType": "mechanism",
+      "title": "分壓分流與電阻等效化簡",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 1,
+      "prereqs": [
+        "ct-ohm-kcl-kvl"
+      ],
+      "coreFormula": "V_x = V_s \\frac{R_x}{R_1 + R_2}, I_x = I_s \\frac{R_{\\text{other}}}{R_1 + R_2}",
+      "keyTrap": "並聯分流公式分子為「對方電阻」。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-divider-equiv"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-divider-equiv-v1"
+    },
+    {
+      "nodeId": "ct-first-order-rc-rl",
+      "nodeType": "mechanism",
+      "title": "一階 RC/RL 暫態與三要素法",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "ct-thevenin-norton"
+      ],
+      "coreFormula": "x(t) = x(\\infty) + [x(0^+) - x(\\infty)] e^{-t/\\tau}, \\tau_{RC} = R_{th}C, \\tau_{RL} = \\frac{L}{R_{th}}",
+      "keyTrap": "電感電流與電容電壓在換位瞬間連續：i_L(0^+) = i_L(0^-), v_C(0^+) = v_C(0^-)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-first-order-rc-rl"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-first-order-rc-rl-v1"
+    },
+    {
+      "nodeId": "ct-laplace-circuit",
+      "nodeType": "procedure",
+      "title": "S 域拉氏轉換電路求解",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "ct-second-order-rlc",
+        "ct-first-order-rc-rl"
+      ],
+      "coreFormula": "L \\to sL - L i(0^-), C \\to \\frac{1}{sC} + \\frac{v(0^-)}{s}",
+      "keyTrap": "包含初始儲能時，電感初始電流源為 i(0^-)/s（並聯），電容初始電壓源為 v(0^-)/s（串聯）。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-laplace-circuit"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-laplace-circuit-v1"
+    },
+    {
+      "nodeId": "ct-max-power",
+      "nodeType": "procedure",
+      "title": "最大功率轉移定理",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "ct-thevenin-norton"
+      ],
+      "coreFormula": "R_L = R_{th} \\implies P_{\\max} = \\frac{V_{th}^2}{4 R_{th}}, Z_L = Z_{th}^*",
+      "keyTrap": "交流最大功率傳輸負載阻抗為戴維寧阻抗的「共軛複數」。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-max-power"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-max-power-v1"
+    },
+    {
+      "nodeId": "ct-mutual-inductance",
+      "nodeType": "mechanism",
+      "title": "互感耦合與同名端分析",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "ct-phasor-ac"
+      ],
+      "coreFormula": "v_1 = L_1 \\frac{di_1}{dt} \\pm M \\frac{di_2}{dt}",
+      "keyTrap": "電流同時流入（或流出）同名端時互感項取正號，否則取負號。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-mutual-inductance"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-mutual-inductance-v1"
+    },
+    {
+      "nodeId": "ct-node-mesh",
+      "nodeType": "procedure",
+      "title": "節點電壓法與網目電流法",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "ct-ohm-kcl-kvl"
+      ],
+      "coreFormula": "\\frac{V_1 - V_2}{R} + I_s = 0",
+      "keyTrap": "含相依電源與超節點 (Supernode) 時需額外建立輔助約束方程式。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-node-mesh"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-node-mesh-v1"
+    },
+    {
+      "nodeId": "ct-ohm-kcl-kvl",
+      "nodeType": "mechanism",
+      "title": "歐姆定律與基本 KCL/KVL",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "V = I R, \\sum I_{\\text{in}} = \\sum I_{\\text{out}}, \\sum V = 0",
+      "keyTrap": "注意參考方向與極性正負號設定。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-ohm-kcl-kvl"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-ohm-kcl-kvl-v1"
+    },
+    {
+      "nodeId": "ct-phasor-ac",
+      "nodeType": "mechanism",
+      "title": "交流穩態相量與阻抗分析",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "ct-node-mesh"
+      ],
+      "coreFormula": "Z_L = j\\omega L, Z_C = \\frac{1}{j\\omega C} = -j \\frac{1}{\\omega C}, \\mathbf{V} = \\mathbf{I} \\mathbf{Z}",
+      "keyTrap": "相量運算需注意角頻率 \\omega (rad/s) 與頻率 f (Hz) 轉換 (\\omega = 2\\pi f)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-phasor-ac"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-phasor-ac-v1"
+    },
+    {
+      "nodeId": "ct-procedure-thevenin-controlled-source",
+      "nodeType": "procedure",
+      "title": "含受控源的戴維寧等效求解流程",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "golden-fixture",
+        "sourcePath": "docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md"
+      },
+      "nodeRevisionHash": "golden-ct-procedure-thevenin-v1"
+    },
+    {
+      "nodeId": "ct-second-order-rlc",
+      "nodeType": "mechanism",
+      "title": "二階 RLC 暫態分析",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "ct-first-order-rc-rl"
+      ],
+      "coreFormula": "s^2 + 2\\alpha s + \\omega_0^2 = 0 \\implies \\alpha > \\omega_0 \\text{ (過阻尼)}, \\alpha = \\omega_0 \\text{ (臨界)}, \\alpha < \\omega_0 \\text{ (欠阻尼)}",
+      "keyTrap": "串聯 \\alpha = R/(2L)，並聯 \\alpha = 1/(2RC)，兩者公式完全相反！",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-second-order-rlc"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-second-order-rlc-v1"
+    },
+    {
+      "nodeId": "ct-superposition",
+      "nodeType": "procedure",
+      "title": "重疊定理",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "ct-node-mesh"
+      ],
+      "coreFormula": "x(t) = \\sum x_k(t) \\text{ (獨立電源單獨作用響應之和)}",
+      "keyTrap": "受控源不可關閉；功率計算不適用重疊定理（需算完總電壓/電流後再算功率）。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-superposition"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-superposition-v1"
+    },
+    {
+      "nodeId": "ct-thevenin-norton",
+      "nodeType": "mechanism",
+      "title": "戴維寧與諾頓等效定理",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "ct-node-mesh",
+        "ct-divider-equiv"
+      ],
+      "coreFormula": "V_{th} = V_{oc}, R_{th} = \\frac{V_{oc}}{I_{sc}} = \\frac{v_{\\text{test}}}{i_{\\text{test}}}",
+      "keyTrap": "含受控源時嚴禁用「獨立源關閉直接求電阻」，必須加測試電壓源法。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-thevenin-norton"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-thevenin-norton-v1"
+    },
+    {
+      "nodeId": "ct-three-phase",
+      "nodeType": "mechanism",
+      "title": "三相平衡電路 (Y-Δ 轉換)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "ct-complex-power"
+      ],
+      "coreFormula": "V_{L-L} = \\sqrt{3} V_{\\phi} \\angle +30^\\circ (Y), I_L = \\sqrt{3} I_{\\phi} \\angle -30^\\circ (\\Delta), P_{3\\phi} = \\sqrt{3} V_L I_L \\cos\\theta",
+      "keyTrap": "線電壓超前相電壓 30 度；單相化等效時必須全部換成 Y-Y 連接。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-three-phase"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-three-phase-v1"
+    },
+    {
+      "nodeId": "ct-two-port",
+      "nodeType": "procedure",
+      "title": "雙埠網路參數 (ABCD, Z, Y, H)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "ct-thevenin-norton",
+        "ct-phasor-ac"
+      ],
+      "coreFormula": "\\begin{bmatrix} V_1 \\\\ I_1 \\end{bmatrix} = \\begin{bmatrix} A & B \\\\ C & D \\end{bmatrix} \\begin{bmatrix} V_2 \\\\ -I_2 \\end{bmatrix}, AD - BC = 1",
+      "keyTrap": "ABCD 傳輸矩陣二次側電流方向定義為「流出」端口。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-two-port"
+      },
+      "nodeRevisionHash": "pe-legacy-ct-two-port-v1"
+    },
+    {
+      "nodeId": "dist-arc-flash-ieee80",
+      "nodeType": "procedure",
+      "title": "IEEE Std 80 變電所接地網跨步/接觸安全電壓",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 5,
+      "prereqs": [
+        "dist-short-circuit-capacity"
+      ],
+      "coreFormula": "E_{\\text{touch}} = (1000 + 1.5 C_s \\rho_s) \\frac{0.116}{\\sqrt{t_s}}, E_{\\text{step}} = (1000 + 6.0 C_s \\rho_s) \\frac{0.116}{\\sqrt{t_s}}",
+      "keyTrap": "地表鋪設高電阻率碎石層 (\\rho_s ~ 3000 \\Omega\\cdot\\text{m}) 可大幅提升人體安全耐受電壓。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-arc-flash-ieee80"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-arc-flash-ieee80-v1"
+    },
+    {
+      "nodeId": "dist-distribution-equipment",
+      "nodeType": "mechanism",
+      "title": "配電變壓器與供電接線",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 2,
+      "prereqs": [
+        "dist-load-characteristics"
+      ],
+      "coreFormula": "S_{V-V} = \\sqrt{3} S_{1\\phi}, \\quad V_{LL} = \\sqrt{3} V_\\phi",
+      "keyTrap": "V-V（開三角）容量約為完整 Δ-Δ 組的 57.7%，且須核對相序與接線極性。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-distribution-equipment"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-distribution-equipment-v1"
+    },
+    {
+      "nodeId": "dist-grounding-system",
+      "nodeType": "mechanism",
+      "title": "系統接地與設備接地",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "R_g = V_g/I_g, \\quad E_{touch}, E_{step} \\le E_{allow}",
+      "keyTrap": "系統接地穩定電位，設備接地則提供故障電流回路，兩者目的不可混淆。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-grounding-system"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-grounding-system-v1"
+    },
+    {
+      "nodeId": "dist-harmonics-mitigation",
+      "nodeType": "procedure",
+      "title": "非線性負載諧波分析與抑制 (IEEE 519)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 4,
+      "prereqs": [
+        "dist-power-factor-correction"
+      ],
+      "coreFormula": "\\text{THD}_V = \\frac{\\sqrt{\\sum_{h=2}^\\infty V_h^2}}{V_1} \\times 100\\%, X_L = \\frac{1}{h^2} X_C \\text{ (串聯電抗器防止諧振)}",
+      "keyTrap": "改善功因電容器串聯 6% 抗流圈可消除 5 次以上諧波，串聯 13% 抗流圈可消除 3 次諧波。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-harmonics-mitigation"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-harmonics-mitigation-v1"
+    },
+    {
+      "nodeId": "dist-lighting-design",
+      "nodeType": "procedure",
+      "title": "照明設計與照度計算",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 2,
+      "prereqs": [
+        "dist-load-characteristics"
+      ],
+      "coreFormula": "E = \\frac{N F CU MF}{A}",
+      "keyTrap": "照度計算須同時考慮照明率 CU、維護係數 MF 與工作面面積。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-lighting-design"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-lighting-design-v1"
+    },
+    {
+      "nodeId": "dist-load-characteristics",
+      "nodeType": "mechanism",
+      "title": "負載特性與需量因數/參差因數",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "f_D = \\frac{P_{\\max}}{\\text{Connected Load}}, \\text{DF} = \\frac{\\sum P_{\\max, i}}{P_{\\max, \\text{sys}}} \\ge 1.0, f_L = \\frac{P_{\\text{avg}}}{P_{\\max}}",
+      "keyTrap": "參差因數 (Diversity Factor) 恆大於或等於 1.0；需量因數與負載因數恆小於等於 1.0。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-load-characteristics"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-load-characteristics-v1"
+    },
+    {
+      "nodeId": "dist-motor-installation",
+      "nodeType": "procedure",
+      "title": "電動機配線與啟動",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 2,
+      "prereqs": [
+        "dist-load-characteristics"
+      ],
+      "coreFormula": "I_{start} = k I_{FL}, \\quad S_{motor} = \\frac{P_{out}}{\\eta \\cos\\phi}",
+      "keyTrap": "導線安培容量與啟動壓降需按連續運轉及啟動電流分別校核。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-motor-installation"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-motor-installation-v1"
+    },
+    {
+      "nodeId": "dist-power-factor-correction",
+      "nodeType": "procedure",
+      "title": "功率因數改善與電容器組容量",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "Q_C = P (\\tan\\theta_1 - \\tan\\theta_2), I_{\\text{line, new}} = I_{\\text{line, old}} \\frac{\\cos\\theta_1}{\\cos\\theta_2}",
+      "keyTrap": "改善功因可釋放變壓器容量與減少線路損失：\\Delta P_{\\text{loss}} \\propto (1/\\cos\\theta)^2。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-power-factor-correction"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-power-factor-correction-v1"
+    },
+    {
+      "nodeId": "dist-protection-coordination",
+      "nodeType": "procedure",
+      "title": "過電流電驛與保護協調 (TCC 曲線)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 4,
+      "prereqs": [
+        "dist-short-circuit-capacity"
+      ],
+      "coreFormula": "t = \\text{TMS} \\times \\left( \\frac{A}{(I/I_s)^p - 1} + B \\right) \\text{ (IEC 60255 標準反時限)}",
+      "keyTrap": "上下游保護電驛之協調時間間隔 (Coordination Time Interval, CTI) 通常需維持 0.3 ~ 0.4 秒。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-protection-coordination"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-protection-coordination-v1"
+    },
+    {
+      "nodeId": "dist-short-circuit-capacity",
+      "nodeType": "procedure",
+      "title": "短路容量計算 (MVA 法)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 3,
+      "prereqs": [],
+      "coreFormula": "\\frac{1}{\\text{MVA}_{sc, \\text{total}}} = \\frac{1}{\\text{MVA}_1} + \\frac{1}{\\text{MVA}_2} \\text{ (串聯)}, \\text{MVA}_{\\text{parallel}} = \\sum \\text{MVA}_k",
+      "keyTrap": "MVA 法中元件「串聯」計算方式類似電阻並聯；「並聯」直接相加！",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-short-circuit-capacity"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-short-circuit-capacity-v1"
+    },
+    {
+      "nodeId": "dist-voltage-drop",
+      "nodeType": "procedure",
+      "title": "配電線路電壓降與導線選用",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 2,
+      "prereqs": [
+        "dist-load-characteristics"
+      ],
+      "coreFormula": "\\Delta V_{3\\phi} = \\sqrt{3} I (R \\cos\\theta + X \\sin\\theta), \\%\\Delta V = \\frac{\\Delta V}{V_n} \\times 100\\%",
+      "keyTrap": "超前功因時 \\sin\\theta 為負值，線路電壓降可能為負（即受電端電壓升高）。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "dist-voltage-drop"
+      },
+      "nodeRevisionHash": "pe-legacy-dist-voltage-drop-v1"
+    },
+    {
+      "nodeId": "el-active-filter",
+      "nodeType": "mechanism",
+      "title": "主動濾波器與頻率響應",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 3,
+      "prereqs": [
+        "el-opamp-ideal"
+      ],
+      "coreFormula": "H(s) = \\frac{\\omega_0^2}{s^2 + \\frac{\\omega_0}{Q} s + \\omega_0^2}, \\omega_c = \\frac{1}{R C}",
+      "keyTrap": "高頻極點透過米勒效應 (Miller Effect) 將 C_gd 放大為 C_in = C_gd(1 + |Av|)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-active-filter"
+      },
+      "nodeRevisionHash": "pe-legacy-el-active-filter-v1"
+    },
+    {
+      "nodeId": "el-bjt-bias-small-signal",
+      "nodeType": "mechanism",
+      "title": "BJT 偏壓分析與小訊號模型",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "I_C = \\beta I_B = I_S e^{V_{BE}/V_T}, g_m = \\frac{I_C}{V_T}, r_\\pi = \\frac{\\beta}{g_m}, r_o = \\frac{V_A}{I_C}",
+      "keyTrap": "工作在主動區必須滿足：V_BE = 0.7V 且 V_CE > V_CE(sat) ~ 0.2V。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-bjt-bias-small-signal"
+      },
+      "nodeRevisionHash": "pe-legacy-el-bjt-bias-small-signal-v1"
+    },
+    {
+      "nodeId": "el-diff-amp",
+      "nodeType": "mechanism",
+      "title": "差動放大器 (Ad, Acm, CMRR)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 3,
+      "prereqs": [
+        "el-bjt-bias-small-signal",
+        "el-mosfet-bias-small-signal"
+      ],
+      "coreFormula": "A_d = g_m R_D, A_{cm} = -\\frac{g_m R_D}{1 + 2 g_m R_{SS}}, \\text{CMRR} = \\left|\\frac{A_d}{A_{cm}}\\right|",
+      "keyTrap": "CMRR 取 dB 值時需取 20 log10(CMRR)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-diff-amp"
+      },
+      "nodeRevisionHash": "pe-legacy-el-diff-amp-v1"
+    },
+    {
+      "nodeId": "el-diode-rectifier",
+      "nodeType": "mechanism",
+      "title": "二極體整流與濾波電路",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "V_{dc} = \\frac{2 V_m}{\\pi}, V_{r(p-p)} = \\frac{V_m}{2 f R_L C}",
+      "keyTrap": "全波橋式整流二極體 PIV = V_m，中點抽頭 PIV = 2V_m。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-diode-rectifier"
+      },
+      "nodeRevisionHash": "pe-legacy-el-diode-rectifier-v1"
+    },
+    {
+      "nodeId": "el-feedback-stability",
+      "nodeType": "mechanism",
+      "title": "負回授放大器與相位邊限",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 4,
+      "prereqs": [
+        "el-diff-amp",
+        "el-active-filter"
+      ],
+      "coreFormula": "A_f = \\frac{A}{1 + A\\beta}, \\text{PM} = 180^\\circ + \\angle A\\beta(\\omega_{0\\text{dB}})",
+      "keyTrap": "閉迴路穩定條件為環路增益 |A\\beta| = 1 時，相位延遲不得達到 180 度 (PM > 0)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-feedback-stability"
+      },
+      "nodeRevisionHash": "pe-legacy-el-feedback-stability-v1"
+    },
+    {
+      "nodeId": "el-mosfet-bias-small-signal",
+      "nodeType": "mechanism",
+      "title": "MOSFET 飽和偏壓與小訊號模型",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "I_D = \\frac{1}{2} k_n' \\frac{W}{L} (V_{GS} - V_{th})^2 (1 + \\lambda V_{DS}), g_m = \\sqrt{2 k_n I_D}",
+      "keyTrap": "飽和區夾止條件：V_DS >= V_GS - V_th 且 V_GS > V_th。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-mosfet-bias-small-signal"
+      },
+      "nodeRevisionHash": "pe-legacy-el-mosfet-bias-small-signal-v1"
+    },
+    {
+      "nodeId": "el-opamp-ideal",
+      "nodeType": "mechanism",
+      "title": "理想 OPA 與基本運算放大電路",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "v_+ = v_- \\text{ (虛短路)}, i_+ = i_- = 0 \\text{ (虛斷路)}, A_v = -\\frac{R_f}{R_1} \\text{ (反相)}",
+      "keyTrap": "虛短路僅在「負回授 (Negative Feedback)」且未飽和時成立。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-opamp-ideal"
+      },
+      "nodeRevisionHash": "pe-legacy-el-opamp-ideal-v1"
+    },
+    {
+      "nodeId": "el-pe-buck-boost",
+      "nodeType": "procedure",
+      "title": "DC-DC Buck/Boost 轉換器 (CCM/DCM)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電力電子",
+      "level": 3,
+      "prereqs": [
+        "el-diode-rectifier"
+      ],
+      "coreFormula": "V_o = D V_d \\text{ (Buck)}, V_o = \\frac{D}{1-D} V_d \\text{ (Buck-Boost)}, \\Delta I_L = \\frac{V_d - V_o}{L} D T_s",
+      "keyTrap": "穩態分析立論基礎為「電感伏秒平衡 (Volt-Second Balance)」與「電容電荷平衡」。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-pe-buck-boost"
+      },
+      "nodeRevisionHash": "pe-legacy-el-pe-buck-boost-v1"
+    },
+    {
+      "nodeId": "el-pe-inverter-spwm",
+      "nodeType": "procedure",
+      "title": "全橋變流器與 SPWM 調變",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電力電子",
+      "level": 4,
+      "prereqs": [
+        "el-pe-buck-boost"
+      ],
+      "coreFormula": "m_a = \\frac{V_{\\text{control}}}{V_{\\text{tri}}}, V_{o1} = m_a V_d",
+      "keyTrap": "SPWM 調變指標 m_a <= 1.0 為線性區；上下臂切換需設置死區時間 (Dead-time)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-pe-inverter-spwm"
+      },
+      "nodeRevisionHash": "pe-legacy-el-pe-inverter-spwm-v1"
+    },
+    {
+      "nodeId": "el-pe-thyristor-rectifier",
+      "nodeType": "procedure",
+      "title": "閘流體 (Thyristor) 相控整流",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電力電子",
+      "level": 4,
+      "prereqs": [
+        "el-diode-rectifier"
+      ],
+      "coreFormula": "V_{dc} = \\frac{2 V_m}{\\pi} \\cos\\alpha \\text{ (全控橋)}, V_{dc} = \\frac{V_m}{\\pi}(1 + \\cos\\alpha) \\text{ (半控橋)}",
+      "keyTrap": "感性負載下若無續流二極體，輸出電壓會在電感放電期間出現負電壓區。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-pe-thyristor-rectifier"
+      },
+      "nodeRevisionHash": "pe-legacy-el-pe-thyristor-rectifier-v1"
+    },
+    {
+      "nodeId": "el-zener-regulator",
+      "nodeType": "mechanism",
+      "title": "齊納二極體穩壓電路",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 2,
+      "prereqs": [
+        "el-diode-rectifier"
+      ],
+      "coreFormula": "V_L = V_Z, I_Z = I_S - I_L \\ge I_{ZK}",
+      "keyTrap": "檢驗最小輸入電壓或最大負載電流時，齊納電流不得小於膝點電流 I_ZK。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-zener-regulator"
+      },
+      "nodeRevisionHash": "pe-legacy-el-zener-regulator-v1"
+    },
+    {
+      "nodeId": "em-complex-cauchy-residue",
+      "nodeType": "mechanism",
+      "title": "複變分析、柯西定理與留數定理",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 4,
+      "prereqs": [],
+      "coreFormula": "\\oint_C f(z) dz = 2\\pi j \\sum \\text{Res}(f, z_k), \\text{Res}(f, z_0) = \\lim_{z\\to z_0} (z-z_0) f(z)",
+      "keyTrap": "留數計算僅納入圍道 C 內部（Inside the contour）的奇異點！",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-complex-cauchy-residue"
+      },
+      "nodeRevisionHash": "pe-legacy-em-complex-cauchy-residue-v1"
+    },
+    {
+      "nodeId": "em-eigen-diagonal",
+      "nodeType": "mechanism",
+      "title": "特徵值、特徵向量與矩陣對角化",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 3,
+      "prereqs": [
+        "em-matrix-det-inv"
+      ],
+      "coreFormula": "\\det(A - \\lambda I) = 0, A v = \\lambda v, A = P D P^{-1}",
+      "keyTrap": "矩陣可對角化的充要條件為具有 n 個線性獨立的特徵向量（幾何重數等於代數重數）。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-eigen-diagonal"
+      },
+      "nodeRevisionHash": "pe-legacy-em-eigen-diagonal-v1"
+    },
+    {
+      "nodeId": "em-first-order-ode",
+      "nodeType": "mechanism",
+      "title": "一階可分離與線性 ODE",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "y' + P(x)y = Q(x) \\implies y(x) = \\frac{1}{I(x)} \\int I(x) Q(x) dx + \\frac{C}{I(x)}, I(x) = e^{\\int P(x) dx}",
+      "keyTrap": "積分因子法展開時別忘了積分常數 C 也必須除以 I(x)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-first-order-ode"
+      },
+      "nodeRevisionHash": "pe-legacy-em-first-order-ode-v1"
+    },
+    {
+      "nodeId": "em-fourier-series",
+      "nodeType": "mechanism",
+      "title": "傅立葉級數與週期函數展開",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 3,
+      "prereqs": [],
+      "coreFormula": "f(x) = a_0 + \\sum (a_n \\cos\\frac{n\\pi x}{L} + b_n \\sin\\frac{n\\pi x}{L}), a_n = \\frac{1}{L}\\int_{-L}^L f(x)\\cos\\frac{n\\pi x}{L} dx",
+      "keyTrap": "偶函數 b_n = 0，奇函數 a_0 = a_n = 0；利用對稱性可節省一半積分時間。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-fourier-series"
+      },
+      "nodeRevisionHash": "pe-legacy-em-fourier-series-v1"
+    },
+    {
+      "nodeId": "em-laplace-transform",
+      "nodeType": "procedure",
+      "title": "拉氏轉換與反轉換 (部分分式法)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 3,
+      "prereqs": [
+        "em-first-order-ode"
+      ],
+      "coreFormula": "\\mathcal{L}\\{f(t)\\} = \\int_0^\\infty e^{-st} f(t) dt, \\mathcal{L}\\{y''\\} = s^2 Y(s) - s y(0) - y'(0)",
+      "keyTrap": "位移定理 \\mathcal{L}\\{e^{at} f(t)\\} = F(s-a)；t-位移需乘階梯函數 u(t-a)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-laplace-transform"
+      },
+      "nodeRevisionHash": "pe-legacy-em-laplace-transform-v1"
+    },
+    {
+      "nodeId": "em-matrix-det-inv",
+      "nodeType": "mechanism",
+      "title": "矩陣代數、行列式與反矩陣",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "A^{-1} = \\frac{1}{\\det(A)} \\text{adj}(A)",
+      "keyTrap": "克拉瑪法則 (Cramer's Rule) 僅適用於 det(A) != 0 之非奇異方陣。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-matrix-det-inv"
+      },
+      "nodeRevisionHash": "pe-legacy-em-matrix-det-inv-v1"
+    },
+    {
+      "nodeId": "em-pde-separation",
+      "nodeType": "procedure",
+      "title": "偏微分方程 (分離變數法)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 4,
+      "prereqs": [
+        "em-second-order-ode-nonhomogeneous",
+        "em-fourier-series"
+      ],
+      "coreFormula": "u(x,t) = X(x) T(t) \\implies \\frac{X''}{X} = \\frac{\\dot{T}}{c^2 T} = -\\lambda^2",
+      "keyTrap": "邊界條件決定特徵值 \\lambda_n 與特徵函數 X_n(x)；初始條件決定傅立葉級數係數。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-pde-separation"
+      },
+      "nodeRevisionHash": "pe-legacy-em-pde-separation-v1"
+    },
+    {
+      "nodeId": "em-probability-statistics",
+      "nodeType": "mechanism",
+      "title": "機率與統計",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "E[X] = \\sum_x x p(x), \\operatorname{Var}(X) = E[(X-E[X])^2]",
+      "keyTrap": "期望值、變異數與標準差的定義不可混用。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-probability-statistics"
+      },
+      "nodeRevisionHash": "pe-legacy-em-probability-statistics-v1"
+    },
+    {
+      "nodeId": "em-procedure-linear-systems",
+      "nodeType": "procedure",
+      "title": "線性代數系統的特徵分解與 SVD 流程",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "golden-fixture",
+        "sourcePath": "docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md"
+      },
+      "nodeRevisionHash": "golden-em-procedure-linear-systems-v1"
+    },
+    {
+      "nodeId": "em-second-order-ode-homogeneous",
+      "nodeType": "mechanism",
+      "title": "二階常係數齊次 ODE",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 2,
+      "prereqs": [
+        "em-first-order-ode"
+      ],
+      "coreFormula": "a r^2 + b r + c = 0 \\implies y_h = c_1 e^{r_1 x} + c_2 e^{r_2 x} \\text{ 或 } e^{\\alpha x}(c_1 \\cos\\beta x + c_2 \\sin\\beta x)",
+      "keyTrap": "重根 r 時，第二特解必須乘以 x：c_2 x e^{r x}。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-second-order-ode-homogeneous"
+      },
+      "nodeRevisionHash": "pe-legacy-em-second-order-ode-homogeneous-v1"
+    },
+    {
+      "nodeId": "em-second-order-ode-nonhomogeneous",
+      "nodeType": "procedure",
+      "title": "二階非齊次 ODE (未定係數/參數變更法)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 3,
+      "prereqs": [
+        "em-second-order-ode-homogeneous"
+      ],
+      "coreFormula": "y_p = -y_1 \\int \\frac{y_2 r(x)}{W(y_1, y_2)} dx + y_2 \\int \\frac{y_1 r(x)}{W(y_1, y_2)} dx",
+      "keyTrap": "未定係數法若假設之形式與齊次解重複時，必須乘以 x（修正法則）。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-second-order-ode-nonhomogeneous"
+      },
+      "nodeRevisionHash": "pe-legacy-em-second-order-ode-nonhomogeneous-v1"
+    },
+    {
+      "nodeId": "em-svd-linear-systems",
+      "nodeType": "procedure",
+      "title": "奇異值分解 (SVD) 與零空間分析",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 5,
+      "prereqs": [
+        "em-eigen-diagonal"
+      ],
+      "coreFormula": "A = U \\Sigma V^T, \\sigma_i = \\sqrt{\\lambda_i(A^T A)}, A^+ = V \\Sigma^+ U^T",
+      "keyTrap": "奇異值依大小降序排列 \\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge 0；右奇異向量 V 為 A^T A 之特徵向量。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-svd-linear-systems"
+      },
+      "nodeRevisionHash": "pe-legacy-em-svd-linear-systems-v1"
+    },
+    {
+      "nodeId": "em-vector-analysis",
+      "nodeType": "mechanism",
+      "title": "向量分析與向量微積分",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "\\nabla f, \\nabla\\cdot\\mathbf{F}, \\nabla\\times\\mathbf{F}",
+      "keyTrap": "梯度、散度與旋度的運算對象及結果型態不同。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-vector-analysis"
+      },
+      "nodeRevisionHash": "pe-legacy-em-vector-analysis-v1"
+    },
+    {
+      "nodeId": "emach-autotransformer",
+      "nodeType": "procedure",
+      "title": "自耦變壓器容量提升比",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "emach-single-phase-transformer"
+      ],
+      "coreFormula": "S_{\\text{auto}} = \\frac{V_H}{V_H - V_X} S_{\\text{2-wnd}} = (1 + a) S_{\\text{2-wnd}}",
+      "keyTrap": "共用繞組電流為高壓側與低壓側電流之差值 (I_X - I_H)；注意共用端接線極性。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-autotransformer"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-autotransformer-v1"
+    },
+    {
+      "nodeId": "emach-dc-motor-generator",
+      "nodeType": "procedure",
+      "title": "直流電機 (分激/串激特性與調速)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 2,
+      "prereqs": [
+        "emach-magnetic-circuits"
+      ],
+      "coreFormula": "E_a = K_a \\phi \\omega_m, T_e = K_a \\phi I_a, V_t = E_a + I_a R_a",
+      "keyTrap": "分激電機降磁通調速時，轉速上升但轉矩容量下降；串激電機嚴禁空載運轉（會飛車！）。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-dc-motor-generator"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-dc-motor-generator-v1"
+    },
+    {
+      "nodeId": "emach-induction-motor-equiv",
+      "nodeType": "mechanism",
+      "title": "感應電動機等效電路與戴維寧化簡",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "emach-single-phase-transformer"
+      ],
+      "coreFormula": "s = \\frac{n_s - n_r}{n_s}, R_2'/s = R_2' + R_2'\\frac{1-s}{s}, V_{th} = V_1 \\frac{X_m}{\\sqrt{R_1^2 + (X_1 + X_m)^2}}",
+      "keyTrap": "轉子電阻 R2/s 包含銅損電阻 R2 與等效機械負載電阻 R2(1-s)/s。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-induction-motor-equiv"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-induction-motor-equiv-v1"
+    },
+    {
+      "nodeId": "emach-induction-motor-torque",
+      "nodeType": "procedure",
+      "title": "感應電動機轉矩-轉差率曲線與最大轉矩",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "emach-induction-motor-equiv"
+      ],
+      "coreFormula": "s_{\\max} = \\frac{R_2'}{\\sqrt{R_{th}^2 + (X_{th} + X_2')^2}}, T_{\\max} = \\frac{3 V_{th}^2}{2 \\omega_s [R_{th} + \\sqrt{R_{th}^2 + (X_{th} + X_2')^2}]}",
+      "keyTrap": "最大轉矩 T_max 與轉子電阻 R2 無關！增大轉子電阻只會讓產生最大轉矩的轉差率 s_max 變大。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-induction-motor-torque"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-induction-motor-torque-v1"
+    },
+    {
+      "nodeId": "emach-magnetic-circuits",
+      "nodeType": "mechanism",
+      "title": "磁路定律與磁滯飽和",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "\\mathcal{F} = N i = \\phi \\mathcal{R}, \\mathcal{R} = \\frac{l}{\\mu A}",
+      "keyTrap": "氣隙磁阻遠大於鐵心磁阻；磁通連續性在氣隙需考慮邊緣效應。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-magnetic-circuits"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-magnetic-circuits-v1"
+    },
+    {
+      "nodeId": "emach-single-phase-transformer",
+      "nodeType": "procedure",
+      "title": "單相變壓器等效電路與開短路試驗",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 2,
+      "prereqs": [
+        "emach-magnetic-circuits"
+      ],
+      "coreFormula": "a = \\frac{N_1}{N_2} = \\frac{V_1}{V_2}, R_{eq1} = R_1 + a^2 R_2, X_{eq1} = X_1 + a^2 X_2, \\text{VR} = \\frac{V_{NL} - V_{FL}}{V_{FL}}",
+      "keyTrap": "開路試驗（低壓側加額定電壓）測激磁支路 R_c, X_m；短路試驗（高壓側加額定電流）測等效阻抗 R_eq, X_eq。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-single-phase-transformer"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-single-phase-transformer-v1"
+    },
+    {
+      "nodeId": "emach-synchronous-generator-round",
+      "nodeType": "procedure",
+      "title": "隱極同步發電機功角與相量圖",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "emach-single-phase-transformer"
+      ],
+      "coreFormula": "\\mathbf{E}_f = \\mathbf{V}_t + j I_a X_s, P = \\frac{E_f V_t}{X_s} \\sin\\delta",
+      "keyTrap": "滯後功因時 E_f > V_t (過激發提供虛功)；超前功因時 E_f < V_t (欠激發吸收虛功)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-synchronous-generator-round"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-synchronous-generator-round-v1"
+    },
+    {
+      "nodeId": "emach-synchronous-salient-pole",
+      "nodeType": "procedure",
+      "title": "凸極同步電機雙反應理論 (Xd, Xq)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 4,
+      "prereqs": [
+        "emach-synchronous-generator-round"
+      ],
+      "coreFormula": "P = \\frac{E_f V_t}{X_d} \\sin\\delta + \\frac{V_t^2}{2} \\left(\\frac{1}{X_q} - \\frac{1}{X_d}\\right) \\sin 2\\delta",
+      "keyTrap": "第二項為磁阻轉矩 (Reluctance Torque)，即使激磁失去 (Ef=0) 仍可輸出磁阻功率。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-synchronous-salient-pole"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-synchronous-salient-pole-v1"
+    },
+    {
+      "nodeId": "emach-three-phase-transformer",
+      "nodeType": "procedure",
+      "title": "三相變壓器組接線 (Y-Y, Y-Δ, Δ-Δ, V-V)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "emach-single-phase-transformer"
+      ],
+      "coreFormula": "S_{V-V} = \\sqrt{3} V_L I_L = \\sqrt{3} S_{\\text{1\\phi}} = \\frac{\\sqrt{3}}{3} S_{\\Delta-\\Delta} \\approx 57.7\\% S_{\\Delta-\\Delta}",
+      "keyTrap": "Y-Δ 接法高壓側線電壓超前低壓側線電壓 30 度 (ANSI 標準)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-three-phase-transformer"
+      },
+      "nodeRevisionHash": "pe-legacy-emach-three-phase-transformer-v1"
+    },
+    {
+      "nodeId": "gk-ct-complex-power",
+      "nodeType": "mechanism",
+      "title": "複數功率與功率因數改善",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "gk-ct-phasor-ac"
+      ],
+      "coreFormula": "S = P + j Q = \\mathbf{V}_{\\text{rms}} \\mathbf{I}_{\\text{rms}}^*, Q_C = P(\\tan\\theta_1 - \\tan\\theta_2)",
+      "keyTrap": "複數功率公式電流相量必須取「共軛複數 (Conjugate)」。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-complex-power",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-complex-power-v1"
+    },
+    {
+      "nodeId": "gk-ct-divider-equiv",
+      "nodeType": "mechanism",
+      "title": "分壓分流與電阻等效化簡",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 1,
+      "prereqs": [
+        "gk-ct-ohm-kcl-kvl"
+      ],
+      "coreFormula": "V_x = V_s \\frac{R_x}{R_1 + R_2}, I_x = I_s \\frac{R_{\\text{other}}}{R_1 + R_2}",
+      "keyTrap": "並聯分流公式分子為「對方電阻」。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-divider-equiv",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-divider-equiv-v1"
+    },
+    {
+      "nodeId": "gk-ct-first-order-rc-rl",
+      "nodeType": "mechanism",
+      "title": "一階 RC/RL 暫態與三要素法",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "gk-ct-thevenin-norton"
+      ],
+      "coreFormula": "x(t) = x(\\infty) + [x(0^+) - x(\\infty)] e^{-t/\\tau}, \\tau_{RC} = R_{th}C, \\tau_{RL} = \\frac{L}{R_{th}}",
+      "keyTrap": "電感電流與電容電壓在換位瞬間連續：i_L(0^+) = i_L(0^-), v_C(0^+) = v_C(0^-)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-first-order-rc-rl",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-first-order-rc-rl-v1"
+    },
+    {
+      "nodeId": "gk-ct-laplace-circuit",
+      "nodeType": "procedure",
+      "title": "S 域拉氏轉換電路求解",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "gk-ct-second-order-rlc",
+        "gk-ct-first-order-rc-rl"
+      ],
+      "coreFormula": "L \\to sL - L i(0^-), C \\to \\frac{1}{sC} + \\frac{v(0^-)}{s}",
+      "keyTrap": "包含初始儲能時，電感初始電流源為 i(0^-)/s（並聯），電容初始電壓源為 v(0^-)/s（串聯）。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-laplace-circuit",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-laplace-circuit-v1"
+    },
+    {
+      "nodeId": "gk-ct-max-power",
+      "nodeType": "procedure",
+      "title": "最大功率轉移定理",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "gk-ct-thevenin-norton"
+      ],
+      "coreFormula": "R_L = R_{th} \\implies P_{\\max} = \\frac{V_{th}^2}{4 R_{th}}, Z_L = Z_{th}^*",
+      "keyTrap": "交流最大功率傳輸負載阻抗為戴維寧阻抗的「共軛複數」。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-max-power",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-max-power-v1"
+    },
+    {
+      "nodeId": "gk-ct-mutual-inductance",
+      "nodeType": "mechanism",
+      "title": "互感耦合與同名端分析",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "gk-ct-phasor-ac"
+      ],
+      "coreFormula": "v_1 = L_1 \\frac{di_1}{dt} \\pm M \\frac{di_2}{dt}",
+      "keyTrap": "電流同時流入（或流出）同名端時互感項取正號，否則取負號。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-mutual-inductance",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-mutual-inductance-v1"
+    },
+    {
+      "nodeId": "gk-ct-node-mesh",
+      "nodeType": "procedure",
+      "title": "節點電壓法與網目電流法",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "gk-ct-ohm-kcl-kvl"
+      ],
+      "coreFormula": "\\frac{V_1 - V_2}{R} + I_s = 0",
+      "keyTrap": "含相依電源與超節點 (Supernode) 時需額外建立輔助約束方程式。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-node-mesh",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-node-mesh-v1"
+    },
+    {
+      "nodeId": "gk-ct-ohm-kcl-kvl",
+      "nodeType": "mechanism",
+      "title": "歐姆定律與基本 KCL/KVL",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "V = I R, \\sum I_{\\text{in}} = \\sum I_{\\text{out}}, \\sum V = 0",
+      "keyTrap": "注意參考方向與極性正負號設定。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-ohm-kcl-kvl",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-ohm-kcl-kvl-v1"
+    },
+    {
+      "nodeId": "gk-ct-phasor-ac",
+      "nodeType": "mechanism",
+      "title": "交流穩態相量與阻抗分析",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "gk-ct-node-mesh"
+      ],
+      "coreFormula": "Z_L = j\\omega L, Z_C = \\frac{1}{j\\omega C} = -j \\frac{1}{\\omega C}, \\mathbf{V} = \\mathbf{I} \\mathbf{Z}",
+      "keyTrap": "相量運算需注意角頻率 \\omega (rad/s) 與頻率 f (Hz) 轉換 (\\omega = 2\\pi f)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-phasor-ac",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-phasor-ac-v1"
+    },
+    {
+      "nodeId": "gk-ct-second-order-rlc",
+      "nodeType": "mechanism",
+      "title": "二階 RLC 暫態分析",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "gk-ct-first-order-rc-rl"
+      ],
+      "coreFormula": "s^2 + 2\\alpha s + \\omega_0^2 = 0 \\implies \\alpha > \\omega_0 \\text{ (過阻尼)}, \\alpha = \\omega_0 \\text{ (臨界)}, \\alpha < \\omega_0 \\text{ (欠阻尼)}",
+      "keyTrap": "串聯 \\alpha = R/(2L)，並聯 \\alpha = 1/(2RC)，兩者公式完全相反！",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-second-order-rlc",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-second-order-rlc-v1"
+    },
+    {
+      "nodeId": "gk-ct-superposition",
+      "nodeType": "procedure",
+      "title": "重疊定理",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "gk-ct-node-mesh"
+      ],
+      "coreFormula": "x(t) = \\sum x_k(t) \\text{ (獨立電源單獨作用響應之和)}",
+      "keyTrap": "受控源不可關閉；功率計算不適用重疊定理（需算完總電壓/電流後再算功率）。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-superposition",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-superposition-v1"
+    },
+    {
+      "nodeId": "gk-ct-thevenin-norton",
+      "nodeType": "mechanism",
+      "title": "戴維寧與諾頓等效定理",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "gk-ct-node-mesh",
+        "gk-ct-divider-equiv"
+      ],
+      "coreFormula": "V_{th} = V_{oc}, R_{th} = \\frac{V_{oc}}{I_{sc}} = \\frac{v_{\\text{test}}}{i_{\\text{test}}}",
+      "keyTrap": "含受控源時嚴禁用「獨立源關閉直接求電阻」，必須加測試電壓源法。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-thevenin-norton",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-thevenin-norton-v1"
+    },
+    {
+      "nodeId": "gk-ct-three-phase",
+      "nodeType": "mechanism",
+      "title": "三相平衡電路 (Y-Δ 轉換)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "gk-ct-complex-power"
+      ],
+      "coreFormula": "V_{L-L} = \\sqrt{3} V_{\\phi} \\angle +30^\\circ (Y), I_L = \\sqrt{3} I_{\\phi} \\angle -30^\\circ (\\Delta), P_{3\\phi} = \\sqrt{3} V_L I_L \\cos\\theta",
+      "keyTrap": "線電壓超前相電壓 30 度；單相化等效時必須全部換成 Y-Y 連接。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-three-phase",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-three-phase-v1"
+    },
+    {
+      "nodeId": "gk-ct-two-port",
+      "nodeType": "procedure",
+      "title": "雙埠網路參數 (ABCD, Z, Y, H)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 3,
+      "prereqs": [
+        "gk-ct-thevenin-norton",
+        "gk-ct-phasor-ac"
+      ],
+      "coreFormula": "\\begin{bmatrix} V_1 \\\\ I_1 \\end{bmatrix} = \\begin{bmatrix} A & B \\\\ C & D \\end{bmatrix} \\begin{bmatrix} V_2 \\\\ -I_2 \\end{bmatrix}, AD - BC = 1",
+      "keyTrap": "ABCD 傳輸矩陣二次側電流方向定義為「流出」端口。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ct-two-port",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ct-two-port-v1"
+    },
+    {
+      "nodeId": "gk-el-active-filter",
+      "nodeType": "mechanism",
+      "title": "主動濾波器與頻率響應",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 3,
+      "prereqs": [
+        "gk-el-opamp-ideal"
+      ],
+      "coreFormula": "H(s) = \\frac{\\omega_0^2}{s^2 + \\frac{\\omega_0}{Q} s + \\omega_0^2}, \\omega_c = \\frac{1}{R C}",
+      "keyTrap": "高頻極點透過米勒效應 (Miller Effect) 將 C_gd 放大為 C_in = C_gd(1 + |Av|)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-active-filter",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-active-filter-v1"
+    },
+    {
+      "nodeId": "gk-el-bjt-bias-small-signal",
+      "nodeType": "mechanism",
+      "title": "BJT 偏壓分析與小訊號模型",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "I_C = \\beta I_B = I_S e^{V_{BE}/V_T}, g_m = \\frac{I_C}{V_T}, r_\\pi = \\frac{\\beta}{g_m}, r_o = \\frac{V_A}{I_C}",
+      "keyTrap": "工作在主動區必須滿足：V_BE = 0.7V 且 V_CE > V_CE(sat) ~ 0.2V。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-bjt-bias-small-signal",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-bjt-bias-small-signal-v1"
+    },
+    {
+      "nodeId": "gk-el-diff-amp",
+      "nodeType": "mechanism",
+      "title": "差動放大器 (Ad, Acm, CMRR)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 3,
+      "prereqs": [
+        "gk-el-bjt-bias-small-signal",
+        "gk-el-mosfet-bias-small-signal"
+      ],
+      "coreFormula": "A_d = g_m R_D, A_{cm} = -\\frac{g_m R_D}{1 + 2 g_m R_{SS}}, \\text{CMRR} = \\left|\\frac{A_d}{A_{cm}}\\right|",
+      "keyTrap": "CMRR 取 dB 值時需取 20 log10(CMRR)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-diff-amp",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-diff-amp-v1"
+    },
+    {
+      "nodeId": "gk-el-diode-rectifier",
+      "nodeType": "mechanism",
+      "title": "二極體整流與濾波電路",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "V_{dc} = \\frac{2 V_m}{\\pi}, V_{r(p-p)} = \\frac{V_m}{2 f R_L C}",
+      "keyTrap": "全波橋式整流二極體 PIV = V_m，中點抽頭 PIV = 2V_m。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-diode-rectifier",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-diode-rectifier-v1"
+    },
+    {
+      "nodeId": "gk-el-feedback-stability",
+      "nodeType": "mechanism",
+      "title": "負回授放大器與相位邊限",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 4,
+      "prereqs": [
+        "gk-el-diff-amp",
+        "gk-el-active-filter"
+      ],
+      "coreFormula": "A_f = \\frac{A}{1 + A\\beta}, \\text{PM} = 180^\\circ + \\angle A\\beta(\\omega_{0\\text{dB}})",
+      "keyTrap": "閉迴路穩定條件為環路增益 |A\\beta| = 1 時，相位延遲不得達到 180 度 (PM > 0)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-feedback-stability",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-feedback-stability-v1"
+    },
+    {
+      "nodeId": "gk-el-mosfet-bias-small-signal",
+      "nodeType": "mechanism",
+      "title": "MOSFET 飽和偏壓與小訊號模型",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "I_D = \\frac{1}{2} k_n' \\frac{W}{L} (V_{GS} - V_{th})^2 (1 + \\lambda V_{DS}), g_m = \\sqrt{2 k_n I_D}",
+      "keyTrap": "飽和區夾止條件：V_DS >= V_GS - V_th 且 V_GS > V_th。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-mosfet-bias-small-signal",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-mosfet-bias-small-signal-v1"
+    },
+    {
+      "nodeId": "gk-el-opamp-ideal",
+      "nodeType": "mechanism",
+      "title": "理想 OPA 與基本運算放大電路",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "v_+ = v_- \\text{ (虛短路)}, i_+ = i_- = 0 \\text{ (虛斷路)}, A_v = -\\frac{R_f}{R_1} \\text{ (反相)}",
+      "keyTrap": "虛短路僅在「負回授 (Negative Feedback)」且未飽和時成立。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-opamp-ideal",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-opamp-ideal-v1"
+    },
+    {
+      "nodeId": "gk-el-pe-buck-boost",
+      "nodeType": "procedure",
+      "title": "DC-DC Buck/Boost 轉換器 (CCM/DCM)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電力電子",
+      "level": 3,
+      "prereqs": [
+        "gk-el-diode-rectifier"
+      ],
+      "coreFormula": "V_o = D V_d \\text{ (Buck)}, V_o = \\frac{D}{1-D} V_d \\text{ (Buck-Boost)}, \\Delta I_L = \\frac{V_d - V_o}{L} D T_s",
+      "keyTrap": "穩態分析立論基礎為「電感伏秒平衡 (Volt-Second Balance)」與「電容電荷平衡」。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-pe-buck-boost",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-pe-buck-boost-v1"
+    },
+    {
+      "nodeId": "gk-el-pe-inverter-spwm",
+      "nodeType": "procedure",
+      "title": "全橋變流器與 SPWM 調變",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電力電子",
+      "level": 4,
+      "prereqs": [
+        "gk-el-pe-buck-boost"
+      ],
+      "coreFormula": "m_a = \\frac{V_{\\text{control}}}{V_{\\text{tri}}}, V_{o1} = m_a V_d",
+      "keyTrap": "SPWM 調變指標 m_a <= 1.0 為線性區；上下臂切換需設置死區時間 (Dead-time)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-pe-inverter-spwm",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-pe-inverter-spwm-v1"
+    },
+    {
+      "nodeId": "gk-el-pe-thyristor-rectifier",
+      "nodeType": "procedure",
+      "title": "閘流體 (Thyristor) 相控整流",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電力電子",
+      "level": 4,
+      "prereqs": [
+        "gk-el-diode-rectifier"
+      ],
+      "coreFormula": "V_{dc} = \\frac{2 V_m}{\\pi} \\cos\\alpha \\text{ (全控橋)}, V_{dc} = \\frac{V_m}{\\pi}(1 + \\cos\\alpha) \\text{ (半控橋)}",
+      "keyTrap": "感性負載下若無續流二極體，輸出電壓會在電感放電期間出現負電壓區。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-pe-thyristor-rectifier",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-pe-thyristor-rectifier-v1"
+    },
+    {
+      "nodeId": "gk-el-zener-regulator",
+      "nodeType": "mechanism",
+      "title": "齊納二極體穩壓電路",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 2,
+      "prereqs": [
+        "gk-el-diode-rectifier"
+      ],
+      "coreFormula": "V_L = V_Z, I_Z = I_S - I_L \\ge I_{ZK}",
+      "keyTrap": "檢驗最小輸入電壓或最大負載電流時，齊納電流不得小於膝點電流 I_ZK。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "el-zener-regulator",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-el-zener-regulator-v1"
+    },
+    {
+      "nodeId": "gk-em-complex-cauchy-residue",
+      "nodeType": "mechanism",
+      "title": "複變分析、柯西定理與留數定理",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 4,
+      "prereqs": [],
+      "coreFormula": "\\oint_C f(z) dz = 2\\pi j \\sum \\text{Res}(f, z_k), \\text{Res}(f, z_0) = \\lim_{z\\to z_0} (z-z_0) f(z)",
+      "keyTrap": "留數計算僅納入圍道 C 內部（Inside the contour）的奇異點！",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-complex-cauchy-residue",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-complex-cauchy-residue-v1"
+    },
+    {
+      "nodeId": "gk-em-eigen-diagonal",
+      "nodeType": "mechanism",
+      "title": "特徵值、特徵向量與矩陣對角化",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 3,
+      "prereqs": [
+        "gk-em-matrix-det-inv"
+      ],
+      "coreFormula": "\\det(A - \\lambda I) = 0, A v = \\lambda v, A = P D P^{-1}",
+      "keyTrap": "矩陣可對角化的充要條件為具有 n 個線性獨立的特徵向量（幾何重數等於代數重數）。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-eigen-diagonal",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-eigen-diagonal-v1"
+    },
+    {
+      "nodeId": "gk-em-first-order-ode",
+      "nodeType": "mechanism",
+      "title": "一階可分離與線性 ODE",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "y' + P(x)y = Q(x) \\implies y(x) = \\frac{1}{I(x)} \\int I(x) Q(x) dx + \\frac{C}{I(x)}, I(x) = e^{\\int P(x) dx}",
+      "keyTrap": "積分因子法展開時別忘了積分常數 C 也必須除以 I(x)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-first-order-ode",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-first-order-ode-v1"
+    },
+    {
+      "nodeId": "gk-em-fourier-series",
+      "nodeType": "mechanism",
+      "title": "傅立葉級數與週期函數展開",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 3,
+      "prereqs": [],
+      "coreFormula": "f(x) = a_0 + \\sum (a_n \\cos\\frac{n\\pi x}{L} + b_n \\sin\\frac{n\\pi x}{L}), a_n = \\frac{1}{L}\\int_{-L}^L f(x)\\cos\\frac{n\\pi x}{L} dx",
+      "keyTrap": "偶函數 b_n = 0，奇函數 a_0 = a_n = 0；利用對稱性可節省一半積分時間。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-fourier-series",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-fourier-series-v1"
+    },
+    {
+      "nodeId": "gk-em-laplace-transform",
+      "nodeType": "procedure",
+      "title": "拉氏轉換與反轉換 (部分分式法)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 3,
+      "prereqs": [
+        "gk-em-first-order-ode"
+      ],
+      "coreFormula": "\\mathcal{L}\\{f(t)\\} = \\int_0^\\infty e^{-st} f(t) dt, \\mathcal{L}\\{y''\\} = s^2 Y(s) - s y(0) - y'(0)",
+      "keyTrap": "位移定理 \\mathcal{L}\\{e^{at} f(t)\\} = F(s-a)；t-位移需乘階梯函數 u(t-a)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-laplace-transform",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-laplace-transform-v1"
+    },
+    {
+      "nodeId": "gk-em-matrix-det-inv",
+      "nodeType": "mechanism",
+      "title": "矩陣代數、行列式與反矩陣",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "A^{-1} = \\frac{1}{\\det(A)} \\text{adj}(A)",
+      "keyTrap": "克拉瑪法則 (Cramer's Rule) 僅適用於 det(A) != 0 之非奇異方陣。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-matrix-det-inv",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-matrix-det-inv-v1"
+    },
+    {
+      "nodeId": "gk-em-pde-separation",
+      "nodeType": "procedure",
+      "title": "偏微分方程 (分離變數法)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 4,
+      "prereqs": [
+        "gk-em-second-order-ode-nonhomogeneous",
+        "gk-em-fourier-series"
+      ],
+      "coreFormula": "u(x,t) = X(x) T(t) \\implies \\frac{X''}{X} = \\frac{\\dot{T}}{c^2 T} = -\\lambda^2",
+      "keyTrap": "邊界條件決定特徵值 \\lambda_n 與特徵函數 X_n(x)；初始條件決定傅立葉級數係數。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-pde-separation",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-pde-separation-v1"
+    },
+    {
+      "nodeId": "gk-em-probability-statistics",
+      "nodeType": "mechanism",
+      "title": "機率與統計",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "E[X] = \\sum_x x p(x), \\operatorname{Var}(X) = E[(X-E[X])^2]",
+      "keyTrap": "期望值、變異數與標準差的定義不可混用。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-probability-statistics",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-probability-statistics-v1"
+    },
+    {
+      "nodeId": "gk-em-second-order-ode-homogeneous",
+      "nodeType": "mechanism",
+      "title": "二階常係數齊次 ODE",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 2,
+      "prereqs": [
+        "gk-em-first-order-ode"
+      ],
+      "coreFormula": "a r^2 + b r + c = 0 \\implies y_h = c_1 e^{r_1 x} + c_2 e^{r_2 x} \\text{ 或 } e^{\\alpha x}(c_1 \\cos\\beta x + c_2 \\sin\\beta x)",
+      "keyTrap": "重根 r 時，第二特解必須乘以 x：c_2 x e^{r x}。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-second-order-ode-homogeneous",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-second-order-ode-homogeneous-v1"
+    },
+    {
+      "nodeId": "gk-em-second-order-ode-nonhomogeneous",
+      "nodeType": "procedure",
+      "title": "二階非齊次 ODE (未定係數/參數變更法)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 3,
+      "prereqs": [
+        "gk-em-second-order-ode-homogeneous"
+      ],
+      "coreFormula": "y_p = -y_1 \\int \\frac{y_2 r(x)}{W(y_1, y_2)} dx + y_2 \\int \\frac{y_1 r(x)}{W(y_1, y_2)} dx",
+      "keyTrap": "未定係數法若假設之形式與齊次解重複時，必須乘以 x（修正法則）。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-second-order-ode-nonhomogeneous",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-second-order-ode-nonhomogeneous-v1"
+    },
+    {
+      "nodeId": "gk-em-svd-linear-systems",
+      "nodeType": "procedure",
+      "title": "奇異值分解 (SVD) 與零空間分析",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 5,
+      "prereqs": [
+        "gk-em-eigen-diagonal"
+      ],
+      "coreFormula": "A = U \\Sigma V^T, \\sigma_i = \\sqrt{\\lambda_i(A^T A)}, A^+ = V \\Sigma^+ U^T",
+      "keyTrap": "奇異值依大小降序排列 \\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge 0；右奇異向量 V 為 A^T A 之特徵向量。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-svd-linear-systems",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-svd-linear-systems-v1"
+    },
+    {
+      "nodeId": "gk-em-vector-analysis",
+      "nodeType": "mechanism",
+      "title": "向量分析與向量微積分",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "\\nabla f, \\nabla\\cdot\\mathbf{F}, \\nabla\\times\\mathbf{F}",
+      "keyTrap": "梯度、散度與旋度的運算對象及結果型態不同。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "em-vector-analysis",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-em-vector-analysis-v1"
+    },
+    {
+      "nodeId": "gk-emach-autotransformer",
+      "nodeType": "procedure",
+      "title": "自耦變壓器容量提升比",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "gk-emach-single-phase-transformer"
+      ],
+      "coreFormula": "S_{\\text{auto}} = \\frac{V_H}{V_H - V_X} S_{\\text{2-wnd}} = (1 + a) S_{\\text{2-wnd}}",
+      "keyTrap": "共用繞組電流為高壓側與低壓側電流之差值 (I_X - I_H)；注意共用端接線極性。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-autotransformer",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-autotransformer-v1"
+    },
+    {
+      "nodeId": "gk-emach-dc-motor-generator",
+      "nodeType": "procedure",
+      "title": "直流電機 (分激/串激特性與調速)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 2,
+      "prereqs": [
+        "gk-emach-magnetic-circuits"
+      ],
+      "coreFormula": "E_a = K_a \\phi \\omega_m, T_e = K_a \\phi I_a, V_t = E_a + I_a R_a",
+      "keyTrap": "分激電機降磁通調速時，轉速上升但轉矩容量下降；串激電機嚴禁空載運轉（會飛車！）。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-dc-motor-generator",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-dc-motor-generator-v1"
+    },
+    {
+      "nodeId": "gk-emach-induction-motor-equiv",
+      "nodeType": "mechanism",
+      "title": "感應電動機等效電路與戴維寧化簡",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "gk-emach-single-phase-transformer"
+      ],
+      "coreFormula": "s = \\frac{n_s - n_r}{n_s}, R_2'/s = R_2' + R_2'\\frac{1-s}{s}, V_{th} = V_1 \\frac{X_m}{\\sqrt{R_1^2 + (X_1 + X_m)^2}}",
+      "keyTrap": "轉子電阻 R2/s 包含銅損電阻 R2 與等效機械負載電阻 R2(1-s)/s。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-induction-motor-equiv",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-induction-motor-equiv-v1"
+    },
+    {
+      "nodeId": "gk-emach-induction-motor-torque",
+      "nodeType": "procedure",
+      "title": "感應電動機轉矩-轉差率曲線與最大轉矩",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "gk-emach-induction-motor-equiv"
+      ],
+      "coreFormula": "s_{\\max} = \\frac{R_2'}{\\sqrt{R_{th}^2 + (X_{th} + X_2')^2}}, T_{\\max} = \\frac{3 V_{th}^2}{2 \\omega_s [R_{th} + \\sqrt{R_{th}^2 + (X_{th} + X_2')^2}]}",
+      "keyTrap": "最大轉矩 T_max 與轉子電阻 R2 無關！增大轉子電阻只會讓產生最大轉矩的轉差率 s_max 變大。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-induction-motor-torque",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-induction-motor-torque-v1"
+    },
+    {
+      "nodeId": "gk-emach-magnetic-circuits",
+      "nodeType": "mechanism",
+      "title": "磁路定律與磁滯飽和",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "\\mathcal{F} = N i = \\phi \\mathcal{R}, \\mathcal{R} = \\frac{l}{\\mu A}",
+      "keyTrap": "氣隙磁阻遠大於鐵心磁阻；磁通連續性在氣隙需考慮邊緣效應。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-magnetic-circuits",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-magnetic-circuits-v1"
+    },
+    {
+      "nodeId": "gk-emach-single-phase-transformer",
+      "nodeType": "procedure",
+      "title": "單相變壓器等效電路與開短路試驗",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 2,
+      "prereqs": [
+        "gk-emach-magnetic-circuits"
+      ],
+      "coreFormula": "a = \\frac{N_1}{N_2} = \\frac{V_1}{V_2}, R_{eq1} = R_1 + a^2 R_2, X_{eq1} = X_1 + a^2 X_2, \\text{VR} = \\frac{V_{NL} - V_{FL}}{V_{FL}}",
+      "keyTrap": "開路試驗（低壓側加額定電壓）測激磁支路 R_c, X_m；短路試驗（高壓側加額定電流）測等效阻抗 R_eq, X_eq。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-single-phase-transformer",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-single-phase-transformer-v1"
+    },
+    {
+      "nodeId": "gk-emach-synchronous-generator-round",
+      "nodeType": "procedure",
+      "title": "隱極同步發電機功角與相量圖",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "gk-emach-single-phase-transformer"
+      ],
+      "coreFormula": "\\mathbf{E}_f = \\mathbf{V}_t + j I_a X_s, P = \\frac{E_f V_t}{X_s} \\sin\\delta",
+      "keyTrap": "滯後功因時 E_f > V_t (過激發提供虛功)；超前功因時 E_f < V_t (欠激發吸收虛功)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-synchronous-generator-round",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-synchronous-generator-round-v1"
+    },
+    {
+      "nodeId": "gk-emach-synchronous-salient-pole",
+      "nodeType": "procedure",
+      "title": "凸極同步電機雙反應理論 (Xd, Xq)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 4,
+      "prereqs": [
+        "gk-emach-synchronous-generator-round"
+      ],
+      "coreFormula": "P = \\frac{E_f V_t}{X_d} \\sin\\delta + \\frac{V_t^2}{2} \\left(\\frac{1}{X_q} - \\frac{1}{X_d}\\right) \\sin 2\\delta",
+      "keyTrap": "第二項為磁阻轉矩 (Reluctance Torque)，即使激磁失去 (Ef=0) 仍可輸出磁阻功率。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-synchronous-salient-pole",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-synchronous-salient-pole-v1"
+    },
+    {
+      "nodeId": "gk-emach-three-phase-transformer",
+      "nodeType": "procedure",
+      "title": "三相變壓器組接線 (Y-Y, Y-Δ, Δ-Δ, V-V)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 3,
+      "prereqs": [
+        "gk-emach-single-phase-transformer"
+      ],
+      "coreFormula": "S_{V-V} = \\sqrt{3} V_L I_L = \\sqrt{3} S_{\\text{1\\phi}} = \\frac{\\sqrt{3}}{3} S_{\\Delta-\\Delta} \\approx 57.7\\% S_{\\Delta-\\Delta}",
+      "keyTrap": "Y-Δ 接法高壓側線電壓超前低壓側線電壓 30 度 (ANSI 標準)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "emach-three-phase-transformer",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-emach-three-phase-transformer-v1"
+    },
+    {
+      "nodeId": "gk-mainline-circuit",
+      "nodeType": "mainline",
+      "title": "電路學主線",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 0,
+      "provenance": {
+        "sourceType": "migration-subject-mainline",
+        "sourcePath": "src/data/knowledge-dag.js"
+      },
+      "nodeRevisionHash": "gk-mainline-01-v1"
+    },
+    {
+      "nodeId": "gk-mainline-electronics",
+      "nodeType": "mainline",
+      "title": "電子學主線",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 0,
+      "provenance": {
+        "sourceType": "migration-subject-mainline",
+        "sourcePath": "src/data/knowledge-dag.js"
+      },
+      "nodeRevisionHash": "gk-mainline-02-v1"
+    },
+    {
+      "nodeId": "gk-mainline-machines",
+      "nodeType": "mainline",
+      "title": "電機機械主線",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 0,
+      "provenance": {
+        "sourceType": "migration-subject-mainline",
+        "sourcePath": "src/data/knowledge-dag.js"
+      },
+      "nodeRevisionHash": "gk-mainline-04-v1"
+    },
+    {
+      "nodeId": "gk-mainline-math",
+      "nodeType": "mainline",
+      "title": "工程數學主線",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "03",
+      "subjectName": "工程數學",
+      "level": 0,
+      "provenance": {
+        "sourceType": "migration-subject-mainline",
+        "sourcePath": "src/data/knowledge-dag.js"
+      },
+      "nodeRevisionHash": "gk-mainline-03-v1"
+    },
+    {
+      "nodeId": "gk-mainline-power",
+      "nodeType": "mainline",
+      "title": "電力系統主線",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 0,
+      "provenance": {
+        "sourceType": "migration-subject-mainline",
+        "sourcePath": "src/data/knowledge-dag.js"
+      },
+      "nodeRevisionHash": "gk-mainline-05-v1"
+    },
+    {
+      "nodeId": "gk-ps-economic-dispatch",
+      "nodeType": "procedure",
+      "title": "經濟調度與發電協調方程式",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 2,
+      "prereqs": [
+        "gk-ps-per-unit"
+      ],
+      "coreFormula": "\\frac{dC_1}{dP_1} = \\frac{dC_2}{dP_2} = \\lambda, \\quad \\sum_i P_i = P_D",
+      "keyTrap": "忽略損耗時以增量成本相等求解；有上下限時需檢查邊界機組。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-economic-dispatch",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-economic-dispatch-v1"
+    },
+    {
+      "nodeId": "gk-ps-load-flow-admittance",
+      "nodeType": "procedure",
+      "title": "電力潮流與導納矩陣",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 2,
+      "prereqs": [
+        "gk-ps-per-unit"
+      ],
+      "coreFormula": "P_i = \\sum_j |V_i||V_j||Y_{ij}|\\cos(\\theta_i-\\theta_j-\\angle Y_{ij})",
+      "keyTrap": "PV、PQ 與 swing 匯流排的已知量不同，反覆計算時不可混用。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-load-flow-admittance",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-load-flow-admittance-v1"
+    },
+    {
+      "nodeId": "gk-ps-per-unit",
+      "nodeType": "mechanism",
+      "title": "標么值 (Per-Unit) 系統換算",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "Z_{\\text{base}} = \\frac{V_{\\text{base, L-L}}^2}{S_{\\text{base, 3\\phi}}}, Z_{\\text{pu, new}} = Z_{\\text{pu, old}} \\left(\\frac{V_{\\text{old}}}{V_{\\text{new}}}\\right)^2 \\left(\\frac{S_{\\text{new}}}{S_{\\text{old}}}\\right)",
+      "keyTrap": "三相標么公式中，基準阻抗為線電壓平方除以三相總容量！",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-per-unit",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-per-unit-v1"
+    },
+    {
+      "nodeId": "gk-ps-power-analysis",
+      "nodeType": "procedure",
+      "title": "電力系統功率與相量分析",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 1,
+      "prereqs": [
+        "gk-ps-per-unit"
+      ],
+      "coreFormula": "S = P + jQ = \\sqrt{3}V_L I_L^*, \\quad \\cos\\phi = P/|S|",
+      "keyTrap": "三相功率使用線電壓與線電流時才乘以 \\sqrt{3}，相量角度需保持一致。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-power-analysis",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-power-analysis-v1"
+    },
+    {
+      "nodeId": "gk-ps-state-estimation-wls",
+      "nodeType": "procedure",
+      "title": "電力系統狀態估計 (WLS 與壞資料檢測)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 5,
+      "prereqs": [
+        "gk-ps-three-phase-fault"
+      ],
+      "coreFormula": "z = h(x) + e, \\hat{x} = (H^T R^{-1} H)^{-1} H^T R^{-1} z, J(\\hat{x}) = r^T R^{-1} r \\sim \\chi^2(m-n)",
+      "keyTrap": "殘差 J(x) 大於卡方分布臨界值時判定存在壞資料 (Bad Data)，透過標準化殘差法剔除。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-state-estimation-wls",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-state-estimation-wls-v1"
+    },
+    {
+      "nodeId": "gk-ps-symmetrical-components",
+      "nodeType": "mechanism",
+      "title": "對稱分量法 (正序、負序、零序網)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 3,
+      "prereqs": [
+        "gk-ps-per-unit"
+      ],
+      "coreFormula": "\\begin{bmatrix} I_{a0} \\\\ I_{a1} \\\\ I_{a2} \\end{bmatrix} = \\frac{1}{3} \\begin{bmatrix} 1 & 1 & 1 \\\\ 1 & a & a^2 \\\\ 1 & a^2 & a \\end{bmatrix} \\begin{bmatrix} I_a \\\\ I_b \\\\ I_c \\end{bmatrix}, a = e^{j 120^\\circ}",
+      "keyTrap": "整個系統中只有「正序網絡」含有發電機內部感應電動勢 E_a！",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-symmetrical-components",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-symmetrical-components-v1"
+    },
+    {
+      "nodeId": "gk-ps-system-protection-relay",
+      "nodeType": "procedure",
+      "title": "距離保護電驛三段式規劃",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 4,
+      "prereqs": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "coreFormula": "Z_{R1} = 0.8 \\sim 0.85 Z_L (0\\text{s}), Z_{R2} = Z_L + 0.5 Z_{\\text{next}} (0.3\\text{s}), Z_{R3} = Z_L + 1.2 Z_{\\text{next}} (0.8\\text{s})",
+      "keyTrap": "Zone 1 嚴禁設置 100% 線路以避免超越 (Overreach)；Zone 2/3 需配合延時保護相鄰線路。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-system-protection-relay",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-system-protection-relay-v1"
+    },
+    {
+      "nodeId": "gk-ps-three-phase-fault",
+      "nodeType": "procedure",
+      "title": "對稱三相短路計算",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 2,
+      "prereqs": [
+        "gk-ps-per-unit"
+      ],
+      "coreFormula": "I_f = \\frac{V_f}{Z_1} \\text{ (pu)}, S_{sc} = \\frac{S_{\\text{base}}}{Z_1} = \\sqrt{3} V_L I_f",
+      "keyTrap": "計算斷路器容量時，需明確區分次暫態電抗 X\"d（瞬間）與暫態電抗 X'd（啟斷）。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-three-phase-fault",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-three-phase-fault-v1"
+    },
+    {
+      "nodeId": "gk-ps-transient-stability-equal-area",
+      "nodeType": "procedure",
+      "title": "暫態穩定度與等面積準則 (Equal-Area)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 3,
+      "prereqs": [
+        "gk-ps-transmission-line-models"
+      ],
+      "coreFormula": "M \\frac{d^2\\delta}{dt^2} = P_m - P_e, \\int_{\\delta_0}^{\\delta_{cr}} (P_m - P_{e\\text{, fault}}) d\\delta = \\int_{\\delta_{cr}}^{\\delta_{\\max}} (P_{e\\text{, post}} - P_m) d\\delta",
+      "keyTrap": "臨界清除角 \\delta_cr 滿足加速面積 A1 等於最大可減速面積 A2。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-transient-stability-equal-area",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-transient-stability-equal-area-v1"
+    },
+    {
+      "nodeId": "gk-ps-transmission-line-models",
+      "nodeType": "procedure",
+      "title": "輸電線路中長程模型 (ABCD 參數)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 3,
+      "prereqs": [
+        "gk-ps-transmission-line-params"
+      ],
+      "coreFormula": "A = D = 1 + \\frac{Y Z}{2}, B = Z, C = Y \\left(1 + \\frac{Y Z}{4}\\right) \\text{ (中程 } \\pi \\text{ 模型)}",
+      "keyTrap": "輕載或空載時受電端電壓高於送電端電壓之現象稱為費蘭梯效應 (Ferranti Effect)。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-transmission-line-models",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-transmission-line-models-v1"
+    },
+    {
+      "nodeId": "gk-ps-transmission-line-params",
+      "nodeType": "mechanism",
+      "title": "輸電線參數計算 (GMD/GMR)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "L = 2 \\times 10^{-7} \\ln\\frac{\\text{GMD}}{\\text{GMR}_L} \\text{ (H/m)}, C = \\frac{2\\pi\\epsilon}{\\ln(\\text{GMD}/\\text{GMR}_C)} \\text{ (F/m)}",
+      "keyTrap": "電感 GMR 包含導體內部磁鏈因子 r' = r e^{-1/4} = 0.7788r；電容 GMR 直接使用外半徑 r。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-transmission-line-params",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-transmission-line-params-v1"
+    },
+    {
+      "nodeId": "gk-ps-unsymmetrical-faults",
+      "nodeType": "procedure",
+      "title": "不對稱故障分析 (SLG, L-L, 2LG)",
+      "examFamily": "GK",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 4,
+      "prereqs": [
+        "gk-ps-symmetrical-components"
+      ],
+      "coreFormula": "I_f = \\frac{3 V_f}{Z_1 + Z_2 + Z_0 + 3 Z_n} \\text{ (SLG: 三序串聯)}, I_f = \\frac{\\sqrt{3} V_f}{Z_1 + Z_2} \\text{ (L-L: 正負反向並聯)}",
+      "keyTrap": "單相接地故障中性點接地阻抗需乘以 3 (即 3Z_n) 加入零序網。",
+      "provenance": {
+        "sourceType": "family-isolated-legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-unsymmetrical-faults",
+        "familyIsolation": "GK"
+      },
+      "nodeRevisionHash": "gk-legacy-ps-unsymmetrical-faults-v1"
+    },
+    {
+      "nodeId": "pe-mainline-circuit",
+      "nodeType": "mainline",
+      "title": "電路學主線",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "golden-fixture",
+        "sourcePath": "docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md"
+      },
+      "nodeRevisionHash": "golden-pe-mainline-circuit-v1"
+    },
+    {
+      "nodeId": "pe-mainline-distribution",
+      "nodeType": "mainline",
+      "title": "工業配電主線",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "06",
+      "subjectName": "工業配電",
+      "level": 0,
+      "provenance": {
+        "sourceType": "migration-subject-mainline",
+        "sourcePath": "src/data/knowledge-dag.js"
+      },
+      "nodeRevisionHash": "pe-mainline-06-v1"
+    },
+    {
+      "nodeId": "pe-mainline-electronics",
+      "nodeType": "mainline",
+      "title": "電子學主線",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "02",
+      "subjectName": "電子學",
+      "level": 0,
+      "provenance": {
+        "sourceType": "migration-subject-mainline",
+        "sourcePath": "src/data/knowledge-dag.js"
+      },
+      "nodeRevisionHash": "pe-mainline-02-v1"
+    },
+    {
+      "nodeId": "pe-mainline-machines",
+      "nodeType": "mainline",
+      "title": "電機機械主線",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "04",
+      "subjectName": "電機機械",
+      "level": 0,
+      "provenance": {
+        "sourceType": "migration-subject-mainline",
+        "sourcePath": "src/data/knowledge-dag.js"
+      },
+      "nodeRevisionHash": "pe-mainline-04-v1"
+    },
+    {
+      "nodeId": "pe-mainline-math",
+      "nodeType": "mainline",
+      "title": "工程數學主線",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "golden-fixture",
+        "sourcePath": "docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md"
+      },
+      "nodeRevisionHash": "golden-pe-mainline-math-v1"
+    },
+    {
+      "nodeId": "pe-mainline-power",
+      "nodeType": "mainline",
+      "title": "電力系統主線",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "golden-fixture",
+        "sourcePath": "docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md"
+      },
+      "nodeRevisionHash": "golden-pe-mainline-power-v1"
+    },
+    {
+      "nodeId": "ps-economic-dispatch",
+      "nodeType": "procedure",
+      "title": "經濟調度與發電協調方程式",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 2,
+      "prereqs": [
+        "ps-per-unit"
+      ],
+      "coreFormula": "\\frac{dC_1}{dP_1} = \\frac{dC_2}{dP_2} = \\lambda, \\quad \\sum_i P_i = P_D",
+      "keyTrap": "忽略損耗時以增量成本相等求解；有上下限時需檢查邊界機組。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-economic-dispatch"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-economic-dispatch-v1"
+    },
+    {
+      "nodeId": "ps-load-flow-admittance",
+      "nodeType": "procedure",
+      "title": "電力潮流與導納矩陣",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 2,
+      "prereqs": [
+        "ps-per-unit"
+      ],
+      "coreFormula": "P_i = \\sum_j |V_i||V_j||Y_{ij}|\\cos(\\theta_i-\\theta_j-\\angle Y_{ij})",
+      "keyTrap": "PV、PQ 與 swing 匯流排的已知量不同，反覆計算時不可混用。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-load-flow-admittance"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-load-flow-admittance-v1"
+    },
+    {
+      "nodeId": "ps-per-unit",
+      "nodeType": "mechanism",
+      "title": "標么值 (Per-Unit) 系統換算",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "Z_{\\text{base}} = \\frac{V_{\\text{base, L-L}}^2}{S_{\\text{base, 3\\phi}}}, Z_{\\text{pu, new}} = Z_{\\text{pu, old}} \\left(\\frac{V_{\\text{old}}}{V_{\\text{new}}}\\right)^2 \\left(\\frac{S_{\\text{new}}}{S_{\\text{old}}}\\right)",
+      "keyTrap": "三相標么公式中，基準阻抗為線電壓平方除以三相總容量！",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-per-unit"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-per-unit-v1"
+    },
+    {
+      "nodeId": "ps-power-analysis",
+      "nodeType": "procedure",
+      "title": "電力系統功率與相量分析",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 1,
+      "prereqs": [
+        "ps-per-unit"
+      ],
+      "coreFormula": "S = P + jQ = \\sqrt{3}V_L I_L^*, \\quad \\cos\\phi = P/|S|",
+      "keyTrap": "三相功率使用線電壓與線電流時才乘以 \\sqrt{3}，相量角度需保持一致。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-power-analysis"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-power-analysis-v1"
+    },
+    {
+      "nodeId": "ps-procedure-slg-sequence-networks",
+      "nodeType": "procedure",
+      "title": "SLG 故障序網組合與驗算流程",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "golden-fixture",
+        "sourcePath": "docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md"
+      },
+      "nodeRevisionHash": "golden-ps-procedure-slg-v1"
+    },
+    {
+      "nodeId": "ps-state-estimation-wls",
+      "nodeType": "procedure",
+      "title": "電力系統狀態估計 (WLS 與壞資料檢測)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 5,
+      "prereqs": [
+        "ps-three-phase-fault"
+      ],
+      "coreFormula": "z = h(x) + e, \\hat{x} = (H^T R^{-1} H)^{-1} H^T R^{-1} z, J(\\hat{x}) = r^T R^{-1} r \\sim \\chi^2(m-n)",
+      "keyTrap": "殘差 J(x) 大於卡方分布臨界值時判定存在壞資料 (Bad Data)，透過標準化殘差法剔除。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-state-estimation-wls"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-state-estimation-wls-v1"
+    },
+    {
+      "nodeId": "ps-symmetrical-components",
+      "nodeType": "mechanism",
+      "title": "對稱分量法 (正序、負序、零序網)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 3,
+      "prereqs": [
+        "ps-per-unit"
+      ],
+      "coreFormula": "\\begin{bmatrix} I_{a0} \\\\ I_{a1} \\\\ I_{a2} \\end{bmatrix} = \\frac{1}{3} \\begin{bmatrix} 1 & 1 & 1 \\\\ 1 & a & a^2 \\\\ 1 & a^2 & a \\end{bmatrix} \\begin{bmatrix} I_a \\\\ I_b \\\\ I_c \\end{bmatrix}, a = e^{j 120^\\circ}",
+      "keyTrap": "整個系統中只有「正序網絡」含有發電機內部感應電動勢 E_a！",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-symmetrical-components"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-symmetrical-components-v1"
+    },
+    {
+      "nodeId": "ps-system-protection-relay",
+      "nodeType": "procedure",
+      "title": "距離保護電驛三段式規劃",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 4,
+      "prereqs": [
+        "ps-unsymmetrical-faults"
+      ],
+      "coreFormula": "Z_{R1} = 0.8 \\sim 0.85 Z_L (0\\text{s}), Z_{R2} = Z_L + 0.5 Z_{\\text{next}} (0.3\\text{s}), Z_{R3} = Z_L + 1.2 Z_{\\text{next}} (0.8\\text{s})",
+      "keyTrap": "Zone 1 嚴禁設置 100% 線路以避免超越 (Overreach)；Zone 2/3 需配合延時保護相鄰線路。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-system-protection-relay"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-system-protection-relay-v1"
+    },
+    {
+      "nodeId": "ps-three-phase-fault",
+      "nodeType": "procedure",
+      "title": "對稱三相短路計算",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 2,
+      "prereqs": [
+        "ps-per-unit"
+      ],
+      "coreFormula": "I_f = \\frac{V_f}{Z_1} \\text{ (pu)}, S_{sc} = \\frac{S_{\\text{base}}}{Z_1} = \\sqrt{3} V_L I_f",
+      "keyTrap": "計算斷路器容量時，需明確區分次暫態電抗 X\"d（瞬間）與暫態電抗 X'd（啟斷）。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-three-phase-fault"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-three-phase-fault-v1"
+    },
+    {
+      "nodeId": "ps-transient-stability-equal-area",
+      "nodeType": "procedure",
+      "title": "暫態穩定度與等面積準則 (Equal-Area)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 3,
+      "prereqs": [
+        "ps-transmission-line-models"
+      ],
+      "coreFormula": "M \\frac{d^2\\delta}{dt^2} = P_m - P_e, \\int_{\\delta_0}^{\\delta_{cr}} (P_m - P_{e\\text{, fault}}) d\\delta = \\int_{\\delta_{cr}}^{\\delta_{\\max}} (P_{e\\text{, post}} - P_m) d\\delta",
+      "keyTrap": "臨界清除角 \\delta_cr 滿足加速面積 A1 等於最大可減速面積 A2。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-transient-stability-equal-area"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-transient-stability-equal-area-v1"
+    },
+    {
+      "nodeId": "ps-transmission-line-models",
+      "nodeType": "procedure",
+      "title": "輸電線路中長程模型 (ABCD 參數)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 3,
+      "prereqs": [
+        "ps-transmission-line-params"
+      ],
+      "coreFormula": "A = D = 1 + \\frac{Y Z}{2}, B = Z, C = Y \\left(1 + \\frac{Y Z}{4}\\right) \\text{ (中程 } \\pi \\text{ 模型)}",
+      "keyTrap": "輕載或空載時受電端電壓高於送電端電壓之現象稱為費蘭梯效應 (Ferranti Effect)。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-transmission-line-models"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-transmission-line-models-v1"
+    },
+    {
+      "nodeId": "ps-transmission-line-params",
+      "nodeType": "mechanism",
+      "title": "輸電線參數計算 (GMD/GMR)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 2,
+      "prereqs": [],
+      "coreFormula": "L = 2 \\times 10^{-7} \\ln\\frac{\\text{GMD}}{\\text{GMR}_L} \\text{ (H/m)}, C = \\frac{2\\pi\\epsilon}{\\ln(\\text{GMD}/\\text{GMR}_C)} \\text{ (F/m)}",
+      "keyTrap": "電感 GMR 包含導體內部磁鏈因子 r' = r e^{-1/4} = 0.7788r；電容 GMR 直接使用外半徑 r。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-transmission-line-params"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-transmission-line-params-v1"
+    },
+    {
+      "nodeId": "ps-unsymmetrical-faults",
+      "nodeType": "procedure",
+      "title": "不對稱故障分析 (SLG, L-L, 2LG)",
+      "examFamily": "PE",
+      "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 4,
+      "prereqs": [
+        "ps-symmetrical-components"
+      ],
+      "coreFormula": "I_f = \\frac{3 V_f}{Z_1 + Z_2 + Z_0 + 3 Z_n} \\text{ (SLG: 三序串聯)}, I_f = \\frac{\\sqrt{3} V_f}{Z_1 + Z_2} \\text{ (L-L: 正負反向並聯)}",
+      "keyTrap": "單相接地故障中性點接地阻抗需乘以 3 (即 3Z_n) 加入零序網。",
+      "provenance": {
+        "sourceType": "legacy-dag",
+        "sourcePath": "src/data/knowledge-dag.js",
+        "legacyNodeId": "ps-unsymmetrical-faults"
+      },
+      "nodeRevisionHash": "pe-legacy-ps-unsymmetrical-faults-v1"
+    },
+    {
+      "nodeId": "q-ee-114-01-2",
+      "nodeType": "question",
+      "title": "EE-114-01-2 諾頓等效電路題",
+      "examFamily": "PE",
+      "qid": "EE-114-01-2",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "dashboard-data",
+        "sourcePath": "dashboard-data.js"
+      },
+      "nodeRevisionHash": "qid-EE-114-01-2-v1"
+    },
+    {
+      "nodeId": "q-ee-114-01-3",
+      "nodeType": "question",
+      "title": "EE-114-01-3 一階暫態題",
+      "examFamily": "PE",
+      "qid": "EE-114-01-3",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "dashboard-data",
+        "sourcePath": "dashboard-data.js"
+      },
+      "nodeRevisionHash": "qid-EE-114-01-3-v1"
+    },
+    {
+      "nodeId": "q-ee-114-03-1",
+      "nodeType": "question",
+      "title": "EE-114-03-1 工程數學題",
+      "examFamily": "PE",
+      "qid": "EE-114-03-1",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "dashboard-data",
+        "sourcePath": "dashboard-data.js"
+      },
+      "nodeRevisionHash": "qid-EE-114-03-1-v1"
+    },
+    {
+      "nodeId": "q-ee-114-05-4",
+      "nodeType": "question",
+      "title": "EE-114-05-4 故障與暫態題",
+      "examFamily": "PE",
+      "qid": "EE-114-05-4",
+      "lifecycle": "active",
+      "provenance": {
+        "sourceType": "dashboard-data",
+        "sourcePath": "dashboard-data.js"
+      },
+      "nodeRevisionHash": "qid-EE-114-05-4-v1"
+    }
+  ]
+}

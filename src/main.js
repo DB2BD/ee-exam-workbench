@@ -24,6 +24,9 @@ function switchTab(tabId) {
   if (tabId === 'review' && typeof renderReviewPage === 'function') {
     renderReviewPage();
   }
+  if (tabId === 'weakness' && typeof renderWeaknessView === 'function') {
+    renderWeaknessView();
+  }
   if (tabId === 'quicksheet' && typeof renderQuickReviewSheet === 'function') {
     renderQuickReviewSheet();
   }

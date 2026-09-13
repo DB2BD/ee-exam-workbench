@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schemaVersion": "canonical-knowledge-graph.v1",
+  "nodeTypes": [
+    "question",
+    "mechanism",
+    "procedure",
+    "mainline"
+  ],
+  "lifecycleStates": [
+    "active",
+    "retired",
+    "merged"
+  ],
+  "acyclicRelations": [
+    "prerequisite",
+    "mainline_precedes"
+  ],
+  "sourcePriorities": [
+    "manual",
+    "approved_ai",
+    "deterministic",
+    "unknown"
+  ],
+  "examFamilies": [
+    "PE",
+    "GK"
+  ],
+  "requiredNodeFields": [
+    "nodeId",
+    "nodeType",
+    "title",
+    "examFamily",
+    "lifecycle",
+    "provenance",
+    "nodeRevisionHash"
+  ],
+  "requiredEdgeFields": [
+    "from",
+    "relation",
+    "to",
+    "why",
+    "confidence",
+    "evidence",
+    "reviewStatus"
+  ],
+  "requiredQuestionLinkFields": [
+    "qid",
+    "examFamily",
+    "nodeIds",
+    "confidence",
+    "evidence",
+    "reviewStatus",
+    "sourcePriority"
+  ]
+}

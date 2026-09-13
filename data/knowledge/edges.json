@@ -1,0 +1,1473 @@
+{
+  "schemaVersion": "canonical-knowledge-graph.v1",
+  "edges": [
+    {
+      "from": "ct-complex-power",
+      "relation": "prerequisite",
+      "to": "ct-three-phase",
+      "why": "掌握「三相平衡電路 (Y-Δ 轉換)」前，先建立「複數功率與功率因數改善」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-three-phase",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-divider-equiv",
+      "relation": "prerequisite",
+      "to": "ct-thevenin-norton",
+      "why": "Thevenin/Norton reduction uses equivalent resistance and divider relations.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-first-order-rc-rl",
+      "relation": "prerequisite",
+      "to": "ct-laplace-circuit",
+      "why": "掌握「S 域拉氏轉換電路求解」前，先建立「一階 RC/RL 暫態與三要素法」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-laplace-circuit",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-first-order-rc-rl",
+      "relation": "prerequisite",
+      "to": "ct-second-order-rlc",
+      "why": "Second-order transient classification builds on first-order storage and initial-condition reasoning.",
+      "confidence": 0.96,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-second-order-rlc"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-node-mesh",
+      "relation": "prerequisite",
+      "to": "ct-phasor-ac",
+      "why": "掌握「交流穩態相量與阻抗分析」前，先建立「節點電壓法與網目電流法」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-phasor-ac",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-node-mesh",
+      "relation": "prerequisite",
+      "to": "ct-superposition",
+      "why": "掌握「重疊定理」前，先建立「節點電壓法與網目電流法」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-superposition",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-node-mesh",
+      "relation": "prerequisite",
+      "to": "ct-thevenin-norton",
+      "why": "The open-circuit and test-source calculations require node or mesh analysis.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-ohm-kcl-kvl",
+      "relation": "prerequisite",
+      "to": "ct-divider-equiv",
+      "why": "Equivalent reduction depends on voltage, current and conservation laws.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-divider-equiv"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-ohm-kcl-kvl",
+      "relation": "prerequisite",
+      "to": "ct-node-mesh",
+      "why": "Node and mesh equations use the basic circuit laws.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-node-mesh"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-phasor-ac",
+      "relation": "prerequisite",
+      "to": "ct-complex-power",
+      "why": "掌握「複數功率與功率因數改善」前，先建立「交流穩態相量與阻抗分析」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-complex-power",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-phasor-ac",
+      "relation": "prerequisite",
+      "to": "ct-mutual-inductance",
+      "why": "掌握「互感耦合與同名端分析」前，先建立「交流穩態相量與阻抗分析」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-mutual-inductance",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-phasor-ac",
+      "relation": "prerequisite",
+      "to": "ct-two-port",
+      "why": "掌握「雙埠網路參數 (ABCD, Z, Y, H)」前，先建立「交流穩態相量與阻抗分析」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-two-port",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-second-order-rlc",
+      "relation": "prerequisite",
+      "to": "ct-laplace-circuit",
+      "why": "S-domain circuit analysis uses the second-order transient model and initial storage states.",
+      "confidence": 0.96,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-laplace-circuit"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-thevenin-norton",
+      "relation": "enables",
+      "to": "ct-procedure-thevenin-controlled-source",
+      "why": "The controlled-source procedure applies the equivalent theorem with a test source.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-thevenin-norton",
+      "relation": "prerequisite",
+      "to": "ct-first-order-rc-rl",
+      "why": "The first-order time constant uses the equivalent network seen by the storage element.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-first-order-rc-rl"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-thevenin-norton",
+      "relation": "prerequisite",
+      "to": "ct-max-power",
+      "why": "掌握「最大功率轉移定理」前，先建立「戴維寧與諾頓等效定理」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-max-power",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-thevenin-norton",
+      "relation": "prerequisite",
+      "to": "ct-two-port",
+      "why": "掌握「雙埠網路參數 (ABCD, Z, Y, H)」前，先建立「戴維寧與諾頓等效定理」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-two-port",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-load-characteristics",
+      "relation": "prerequisite",
+      "to": "dist-distribution-equipment",
+      "why": "掌握「配電變壓器與供電接線」前，先建立「負載特性與需量因數/參差因數」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:dist-distribution-equipment",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-load-characteristics",
+      "relation": "prerequisite",
+      "to": "dist-lighting-design",
+      "why": "掌握「照明設計與照度計算」前，先建立「負載特性與需量因數/參差因數」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:dist-lighting-design",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-load-characteristics",
+      "relation": "prerequisite",
+      "to": "dist-motor-installation",
+      "why": "掌握「電動機配線與啟動」前，先建立「負載特性與需量因數/參差因數」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:dist-motor-installation",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-load-characteristics",
+      "relation": "prerequisite",
+      "to": "dist-voltage-drop",
+      "why": "掌握「配電線路電壓降與導線選用」前，先建立「負載特性與需量因數/參差因數」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:dist-voltage-drop",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-power-factor-correction",
+      "relation": "prerequisite",
+      "to": "dist-harmonics-mitigation",
+      "why": "掌握「非線性負載諧波分析與抑制 (IEEE 519)」前，先建立「功率因數改善與電容器組容量」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:dist-harmonics-mitigation",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-short-circuit-capacity",
+      "relation": "prerequisite",
+      "to": "dist-arc-flash-ieee80",
+      "why": "掌握「IEEE Std 80 變電所接地網跨步/接觸安全電壓」前，先建立「短路容量計算 (MVA 法)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:dist-arc-flash-ieee80",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-short-circuit-capacity",
+      "relation": "prerequisite",
+      "to": "dist-protection-coordination",
+      "why": "掌握「過電流電驛與保護協調 (TCC 曲線)」前，先建立「短路容量計算 (MVA 法)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:dist-protection-coordination",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-active-filter",
+      "relation": "prerequisite",
+      "to": "el-feedback-stability",
+      "why": "掌握「負回授放大器與相位邊限」前，先建立「主動濾波器與頻率響應」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-feedback-stability",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-bjt-bias-small-signal",
+      "relation": "prerequisite",
+      "to": "el-diff-amp",
+      "why": "掌握「差動放大器 (Ad, Acm, CMRR)」前，先建立「BJT 偏壓分析與小訊號模型」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-diff-amp",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-diff-amp",
+      "relation": "prerequisite",
+      "to": "el-feedback-stability",
+      "why": "掌握「負回授放大器與相位邊限」前，先建立「差動放大器 (Ad, Acm, CMRR)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-feedback-stability",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-diode-rectifier",
+      "relation": "prerequisite",
+      "to": "el-pe-buck-boost",
+      "why": "掌握「DC-DC Buck/Boost 轉換器 (CCM/DCM)」前，先建立「二極體整流與濾波電路」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-pe-buck-boost",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-diode-rectifier",
+      "relation": "prerequisite",
+      "to": "el-pe-thyristor-rectifier",
+      "why": "掌握「閘流體 (Thyristor) 相控整流」前，先建立「二極體整流與濾波電路」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-pe-thyristor-rectifier",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-diode-rectifier",
+      "relation": "prerequisite",
+      "to": "el-zener-regulator",
+      "why": "掌握「齊納二極體穩壓電路」前，先建立「二極體整流與濾波電路」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-zener-regulator",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-mosfet-bias-small-signal",
+      "relation": "prerequisite",
+      "to": "el-diff-amp",
+      "why": "掌握「差動放大器 (Ad, Acm, CMRR)」前，先建立「MOSFET 飽和偏壓與小訊號模型」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-diff-amp",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-opamp-ideal",
+      "relation": "prerequisite",
+      "to": "el-active-filter",
+      "why": "掌握「主動濾波器與頻率響應」前，先建立「理想 OPA 與基本運算放大電路」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-active-filter",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "el-pe-buck-boost",
+      "relation": "prerequisite",
+      "to": "el-pe-inverter-spwm",
+      "why": "掌握「全橋變流器與 SPWM 調變」前，先建立「DC-DC Buck/Boost 轉換器 (CCM/DCM)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-pe-inverter-spwm",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "em-eigen-diagonal",
+      "relation": "enables",
+      "to": "em-procedure-linear-systems",
+      "why": "The linear-system procedure selects eigen or singular-value tools from the matrix structure.",
+      "confidence": 0.96,
+      "evidence": [
+        "golden:linear-algebra-procedure"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "em-eigen-diagonal",
+      "relation": "prerequisite",
+      "to": "em-svd-linear-systems",
+      "why": "SVD relies on eigenstructure of the associated symmetric matrix.",
+      "confidence": 0.96,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-svd-linear-systems"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "em-first-order-ode",
+      "relation": "prerequisite",
+      "to": "em-laplace-transform",
+      "why": "掌握「拉氏轉換與反轉換 (部分分式法)」前，先建立「一階可分離與線性 ODE」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-laplace-transform",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "em-first-order-ode",
+      "relation": "prerequisite",
+      "to": "em-second-order-ode-homogeneous",
+      "why": "The homogeneous second-order solution extends first-order differential-equation methods.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-second-order-ode-homogeneous"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "em-fourier-series",
+      "relation": "prerequisite",
+      "to": "em-pde-separation",
+      "why": "掌握「偏微分方程 (分離變數法)」前，先建立「傅立葉級數與週期函數展開」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-pde-separation",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "em-matrix-det-inv",
+      "relation": "prerequisite",
+      "to": "em-eigen-diagonal",
+      "why": "Eigenvalue and diagonalization work requires matrix algebra and nonsingularity checks.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-eigen-diagonal"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "em-second-order-ode-homogeneous",
+      "relation": "prerequisite",
+      "to": "em-second-order-ode-nonhomogeneous",
+      "why": "The nonhomogeneous solution requires the homogeneous basis first.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-second-order-ode-nonhomogeneous"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "em-second-order-ode-nonhomogeneous",
+      "relation": "prerequisite",
+      "to": "em-pde-separation",
+      "why": "掌握「偏微分方程 (分離變數法)」前，先建立「二階非齊次 ODE (未定係數/參數變更法)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-pde-separation",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-induction-motor-equiv",
+      "relation": "prerequisite",
+      "to": "emach-induction-motor-torque",
+      "why": "掌握「感應電動機轉矩-轉差率曲線與最大轉矩」前，先建立「感應電動機等效電路與戴維寧化簡」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-induction-motor-torque",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-magnetic-circuits",
+      "relation": "prerequisite",
+      "to": "emach-dc-motor-generator",
+      "why": "掌握「直流電機 (分激/串激特性與調速)」前，先建立「磁路定律與磁滯飽和」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-dc-motor-generator",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-magnetic-circuits",
+      "relation": "prerequisite",
+      "to": "emach-single-phase-transformer",
+      "why": "掌握「單相變壓器等效電路與開短路試驗」前，先建立「磁路定律與磁滯飽和」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-single-phase-transformer",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-single-phase-transformer",
+      "relation": "prerequisite",
+      "to": "emach-autotransformer",
+      "why": "掌握「自耦變壓器容量提升比」前，先建立「單相變壓器等效電路與開短路試驗」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-autotransformer",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-single-phase-transformer",
+      "relation": "prerequisite",
+      "to": "emach-induction-motor-equiv",
+      "why": "掌握「感應電動機等效電路與戴維寧化簡」前，先建立「單相變壓器等效電路與開短路試驗」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-induction-motor-equiv",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-single-phase-transformer",
+      "relation": "prerequisite",
+      "to": "emach-synchronous-generator-round",
+      "why": "掌握「隱極同步發電機功角與相量圖」前，先建立「單相變壓器等效電路與開短路試驗」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-synchronous-generator-round",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-single-phase-transformer",
+      "relation": "prerequisite",
+      "to": "emach-three-phase-transformer",
+      "why": "掌握「三相變壓器組接線 (Y-Y, Y-Δ, Δ-Δ, V-V)」前，先建立「單相變壓器等效電路與開短路試驗」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-three-phase-transformer",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-synchronous-generator-round",
+      "relation": "prerequisite",
+      "to": "emach-synchronous-salient-pole",
+      "why": "掌握「凸極同步電機雙反應理論 (Xd, Xq)」前，先建立「隱極同步發電機功角與相量圖」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-synchronous-salient-pole",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-complex-power",
+      "relation": "prerequisite",
+      "to": "gk-ct-three-phase",
+      "why": "掌握「三相平衡電路 (Y-Δ 轉換)」前，先建立「複數功率與功率因數改善」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-three-phase",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-divider-equiv",
+      "relation": "prerequisite",
+      "to": "gk-ct-thevenin-norton",
+      "why": "掌握「戴維寧與諾頓等效定理」前，先建立「分壓分流與電阻等效化簡」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-first-order-rc-rl",
+      "relation": "prerequisite",
+      "to": "gk-ct-laplace-circuit",
+      "why": "掌握「S 域拉氏轉換電路求解」前，先建立「一階 RC/RL 暫態與三要素法」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-laplace-circuit",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-first-order-rc-rl",
+      "relation": "prerequisite",
+      "to": "gk-ct-second-order-rlc",
+      "why": "掌握「二階 RLC 暫態分析」前，先建立「一階 RC/RL 暫態與三要素法」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-second-order-rlc",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-node-mesh",
+      "relation": "prerequisite",
+      "to": "gk-ct-phasor-ac",
+      "why": "掌握「交流穩態相量與阻抗分析」前，先建立「節點電壓法與網目電流法」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-phasor-ac",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-node-mesh",
+      "relation": "prerequisite",
+      "to": "gk-ct-superposition",
+      "why": "掌握「重疊定理」前，先建立「節點電壓法與網目電流法」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-superposition",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-node-mesh",
+      "relation": "prerequisite",
+      "to": "gk-ct-thevenin-norton",
+      "why": "掌握「戴維寧與諾頓等效定理」前，先建立「節點電壓法與網目電流法」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-ohm-kcl-kvl",
+      "relation": "prerequisite",
+      "to": "gk-ct-divider-equiv",
+      "why": "掌握「分壓分流與電阻等效化簡」前，先建立「歐姆定律與基本 KCL/KVL」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-divider-equiv",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-ohm-kcl-kvl",
+      "relation": "prerequisite",
+      "to": "gk-ct-node-mesh",
+      "why": "掌握「節點電壓法與網目電流法」前，先建立「歐姆定律與基本 KCL/KVL」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-node-mesh",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-phasor-ac",
+      "relation": "prerequisite",
+      "to": "gk-ct-complex-power",
+      "why": "掌握「複數功率與功率因數改善」前，先建立「交流穩態相量與阻抗分析」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-complex-power",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-phasor-ac",
+      "relation": "prerequisite",
+      "to": "gk-ct-mutual-inductance",
+      "why": "掌握「互感耦合與同名端分析」前，先建立「交流穩態相量與阻抗分析」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-mutual-inductance",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-phasor-ac",
+      "relation": "prerequisite",
+      "to": "gk-ct-two-port",
+      "why": "掌握「雙埠網路參數 (ABCD, Z, Y, H)」前，先建立「交流穩態相量與阻抗分析」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-two-port",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-second-order-rlc",
+      "relation": "prerequisite",
+      "to": "gk-ct-laplace-circuit",
+      "why": "掌握「S 域拉氏轉換電路求解」前，先建立「二階 RLC 暫態分析」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-laplace-circuit",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-thevenin-norton",
+      "relation": "prerequisite",
+      "to": "gk-ct-first-order-rc-rl",
+      "why": "掌握「一階 RC/RL 暫態與三要素法」前，先建立「戴維寧與諾頓等效定理」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-first-order-rc-rl",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-thevenin-norton",
+      "relation": "prerequisite",
+      "to": "gk-ct-max-power",
+      "why": "掌握「最大功率轉移定理」前，先建立「戴維寧與諾頓等效定理」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-max-power",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ct-thevenin-norton",
+      "relation": "prerequisite",
+      "to": "gk-ct-two-port",
+      "why": "掌握「雙埠網路參數 (ABCD, Z, Y, H)」前，先建立「戴維寧與諾頓等效定理」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-two-port",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-active-filter",
+      "relation": "prerequisite",
+      "to": "gk-el-feedback-stability",
+      "why": "掌握「負回授放大器與相位邊限」前，先建立「主動濾波器與頻率響應」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-feedback-stability",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-bjt-bias-small-signal",
+      "relation": "prerequisite",
+      "to": "gk-el-diff-amp",
+      "why": "掌握「差動放大器 (Ad, Acm, CMRR)」前，先建立「BJT 偏壓分析與小訊號模型」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-diff-amp",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-diff-amp",
+      "relation": "prerequisite",
+      "to": "gk-el-feedback-stability",
+      "why": "掌握「負回授放大器與相位邊限」前，先建立「差動放大器 (Ad, Acm, CMRR)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-feedback-stability",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-diode-rectifier",
+      "relation": "prerequisite",
+      "to": "gk-el-pe-buck-boost",
+      "why": "掌握「DC-DC Buck/Boost 轉換器 (CCM/DCM)」前，先建立「二極體整流與濾波電路」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-pe-buck-boost",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-diode-rectifier",
+      "relation": "prerequisite",
+      "to": "gk-el-pe-thyristor-rectifier",
+      "why": "掌握「閘流體 (Thyristor) 相控整流」前，先建立「二極體整流與濾波電路」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-pe-thyristor-rectifier",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-diode-rectifier",
+      "relation": "prerequisite",
+      "to": "gk-el-zener-regulator",
+      "why": "掌握「齊納二極體穩壓電路」前，先建立「二極體整流與濾波電路」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-zener-regulator",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-mosfet-bias-small-signal",
+      "relation": "prerequisite",
+      "to": "gk-el-diff-amp",
+      "why": "掌握「差動放大器 (Ad, Acm, CMRR)」前，先建立「MOSFET 飽和偏壓與小訊號模型」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-diff-amp",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-opamp-ideal",
+      "relation": "prerequisite",
+      "to": "gk-el-active-filter",
+      "why": "掌握「主動濾波器與頻率響應」前，先建立「理想 OPA 與基本運算放大電路」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-active-filter",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-el-pe-buck-boost",
+      "relation": "prerequisite",
+      "to": "gk-el-pe-inverter-spwm",
+      "why": "掌握「全橋變流器與 SPWM 調變」前，先建立「DC-DC Buck/Boost 轉換器 (CCM/DCM)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:el-pe-inverter-spwm",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-em-eigen-diagonal",
+      "relation": "prerequisite",
+      "to": "gk-em-svd-linear-systems",
+      "why": "掌握「奇異值分解 (SVD) 與零空間分析」前，先建立「特徵值、特徵向量與矩陣對角化」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-svd-linear-systems",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-em-first-order-ode",
+      "relation": "prerequisite",
+      "to": "gk-em-laplace-transform",
+      "why": "掌握「拉氏轉換與反轉換 (部分分式法)」前，先建立「一階可分離與線性 ODE」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-laplace-transform",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-em-first-order-ode",
+      "relation": "prerequisite",
+      "to": "gk-em-second-order-ode-homogeneous",
+      "why": "掌握「二階常係數齊次 ODE」前，先建立「一階可分離與線性 ODE」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-second-order-ode-homogeneous",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-em-fourier-series",
+      "relation": "prerequisite",
+      "to": "gk-em-pde-separation",
+      "why": "掌握「偏微分方程 (分離變數法)」前，先建立「傅立葉級數與週期函數展開」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-pde-separation",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-em-matrix-det-inv",
+      "relation": "prerequisite",
+      "to": "gk-em-eigen-diagonal",
+      "why": "掌握「特徵值、特徵向量與矩陣對角化」前，先建立「矩陣代數、行列式與反矩陣」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-eigen-diagonal",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-em-second-order-ode-homogeneous",
+      "relation": "prerequisite",
+      "to": "gk-em-second-order-ode-nonhomogeneous",
+      "why": "掌握「二階非齊次 ODE (未定係數/參數變更法)」前，先建立「二階常係數齊次 ODE」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-second-order-ode-nonhomogeneous",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-em-second-order-ode-nonhomogeneous",
+      "relation": "prerequisite",
+      "to": "gk-em-pde-separation",
+      "why": "掌握「偏微分方程 (分離變數法)」前，先建立「二階非齊次 ODE (未定係數/參數變更法)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:em-pde-separation",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-induction-motor-equiv",
+      "relation": "prerequisite",
+      "to": "gk-emach-induction-motor-torque",
+      "why": "掌握「感應電動機轉矩-轉差率曲線與最大轉矩」前，先建立「感應電動機等效電路與戴維寧化簡」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-induction-motor-torque",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-magnetic-circuits",
+      "relation": "prerequisite",
+      "to": "gk-emach-dc-motor-generator",
+      "why": "掌握「直流電機 (分激/串激特性與調速)」前，先建立「磁路定律與磁滯飽和」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-dc-motor-generator",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-magnetic-circuits",
+      "relation": "prerequisite",
+      "to": "gk-emach-single-phase-transformer",
+      "why": "掌握「單相變壓器等效電路與開短路試驗」前，先建立「磁路定律與磁滯飽和」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-single-phase-transformer",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-single-phase-transformer",
+      "relation": "prerequisite",
+      "to": "gk-emach-autotransformer",
+      "why": "掌握「自耦變壓器容量提升比」前，先建立「單相變壓器等效電路與開短路試驗」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-autotransformer",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-single-phase-transformer",
+      "relation": "prerequisite",
+      "to": "gk-emach-induction-motor-equiv",
+      "why": "掌握「感應電動機等效電路與戴維寧化簡」前，先建立「單相變壓器等效電路與開短路試驗」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-induction-motor-equiv",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-single-phase-transformer",
+      "relation": "prerequisite",
+      "to": "gk-emach-synchronous-generator-round",
+      "why": "掌握「隱極同步發電機功角與相量圖」前，先建立「單相變壓器等效電路與開短路試驗」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-synchronous-generator-round",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-single-phase-transformer",
+      "relation": "prerequisite",
+      "to": "gk-emach-three-phase-transformer",
+      "why": "掌握「三相變壓器組接線 (Y-Y, Y-Δ, Δ-Δ, V-V)」前，先建立「單相變壓器等效電路與開短路試驗」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-three-phase-transformer",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-synchronous-generator-round",
+      "relation": "prerequisite",
+      "to": "gk-emach-synchronous-salient-pole",
+      "why": "掌握「凸極同步電機雙反應理論 (Xd, Xq)」前，先建立「隱極同步發電機功角與相量圖」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-synchronous-salient-pole",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-mainline-circuit",
+      "relation": "mainline_precedes",
+      "to": "gk-ct-ohm-kcl-kvl",
+      "why": "電路學主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-mainline-electronics",
+      "relation": "mainline_precedes",
+      "to": "gk-el-diode-rectifier",
+      "why": "電子學主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-mainline-machines",
+      "relation": "mainline_precedes",
+      "to": "gk-emach-magnetic-circuits",
+      "why": "電機機械主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-mainline-math",
+      "relation": "mainline_precedes",
+      "to": "gk-em-first-order-ode",
+      "why": "工程數學主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-mainline-math",
+      "relation": "mainline_precedes",
+      "to": "gk-em-matrix-det-inv",
+      "why": "工程數學主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-mainline-power",
+      "relation": "mainline_precedes",
+      "to": "gk-ps-per-unit",
+      "why": "電力系統主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-per-unit",
+      "relation": "prerequisite",
+      "to": "gk-ps-economic-dispatch",
+      "why": "掌握「經濟調度與發電協調方程式」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-economic-dispatch",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-per-unit",
+      "relation": "prerequisite",
+      "to": "gk-ps-load-flow-admittance",
+      "why": "掌握「電力潮流與導納矩陣」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-load-flow-admittance",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-per-unit",
+      "relation": "prerequisite",
+      "to": "gk-ps-power-analysis",
+      "why": "掌握「電力系統功率與相量分析」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-power-analysis",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-per-unit",
+      "relation": "prerequisite",
+      "to": "gk-ps-symmetrical-components",
+      "why": "掌握「對稱分量法 (正序、負序、零序網)」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-symmetrical-components",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-per-unit",
+      "relation": "prerequisite",
+      "to": "gk-ps-three-phase-fault",
+      "why": "掌握「對稱三相短路計算」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-three-phase-fault",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-symmetrical-components",
+      "relation": "prerequisite",
+      "to": "gk-ps-unsymmetrical-faults",
+      "why": "掌握「不對稱故障分析 (SLG, L-L, 2LG)」前，先建立「對稱分量法 (正序、負序、零序網)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-unsymmetrical-faults",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-three-phase-fault",
+      "relation": "prerequisite",
+      "to": "gk-ps-state-estimation-wls",
+      "why": "掌握「電力系統狀態估計 (WLS 與壞資料檢測)」前，先建立「對稱三相短路計算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-state-estimation-wls",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-transmission-line-models",
+      "relation": "prerequisite",
+      "to": "gk-ps-transient-stability-equal-area",
+      "why": "掌握「暫態穩定度與等面積準則 (Equal-Area)」前，先建立「輸電線路中長程模型 (ABCD 參數)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-transient-stability-equal-area",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-transmission-line-params",
+      "relation": "prerequisite",
+      "to": "gk-ps-transmission-line-models",
+      "why": "掌握「輸電線路中長程模型 (ABCD 參數)」前，先建立「輸電線參數計算 (GMD/GMR)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-transmission-line-models",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-ps-unsymmetrical-faults",
+      "relation": "prerequisite",
+      "to": "gk-ps-system-protection-relay",
+      "why": "掌握「距離保護電驛三段式規劃」前，先建立「不對稱故障分析 (SLG, L-L, 2LG)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-system-protection-relay",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-circuit",
+      "relation": "mainline_precedes",
+      "to": "ct-ohm-kcl-kvl",
+      "why": "The circuit mainline starts with conservation laws and element relations.",
+      "confidence": 0.98,
+      "evidence": [
+        "golden:domain-circuit"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-distribution",
+      "relation": "mainline_precedes",
+      "to": "dist-grounding-system",
+      "why": "工業配電主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-distribution",
+      "relation": "mainline_precedes",
+      "to": "dist-load-characteristics",
+      "why": "工業配電主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-electronics",
+      "relation": "mainline_precedes",
+      "to": "el-diode-rectifier",
+      "why": "電子學主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-machines",
+      "relation": "mainline_precedes",
+      "to": "emach-magnetic-circuits",
+      "why": "電機機械主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-math",
+      "relation": "mainline_precedes",
+      "to": "em-first-order-ode",
+      "why": "The engineering-mathematics mainline begins with first-order differential equations.",
+      "confidence": 0.98,
+      "evidence": [
+        "golden:domain-engineering-mathematics"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-math",
+      "relation": "mainline_precedes",
+      "to": "em-matrix-det-inv",
+      "why": "工程數學主線從此主題開始建立可追蹤的考點路徑。",
+      "confidence": 0.93,
+      "evidence": [
+        "migration:legacy-dag-subject-root"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "pe-mainline-power",
+      "relation": "mainline_precedes",
+      "to": "ps-per-unit",
+      "why": "The power-system mainline starts by normalizing values on a common base.",
+      "confidence": 0.98,
+      "evidence": [
+        "golden:domain-power-system"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-economic-dispatch",
+      "why": "掌握「經濟調度與發電協調方程式」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-economic-dispatch",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-load-flow-admittance",
+      "why": "掌握「電力潮流與導納矩陣」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-load-flow-admittance",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-power-analysis",
+      "why": "Power and phasor quantities are compared consistently after per-unit conversion.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-power-analysis"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-symmetrical-components",
+      "why": "掌握「對稱分量法 (正序、負序、零序網)」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-symmetrical-components",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-three-phase-fault",
+      "why": "Symmetrical fault calculations use a common per-unit impedance base.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-symmetrical-components",
+      "relation": "prerequisite",
+      "to": "ps-unsymmetrical-faults",
+      "why": "SLG, L-L and 2LG faults are assembled from sequence components.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-unsymmetrical-faults"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-three-phase-fault",
+      "relation": "prerequisite",
+      "to": "ps-state-estimation-wls",
+      "why": "掌握「電力系統狀態估計 (WLS 與壞資料檢測)」前，先建立「對稱三相短路計算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-state-estimation-wls",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-three-phase-fault",
+      "relation": "prerequisite",
+      "to": "ps-symmetrical-components",
+      "why": "Sequence-network fault analysis uses the balanced system and base fault model.",
+      "confidence": 0.96,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-symmetrical-components"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-transmission-line-models",
+      "relation": "prerequisite",
+      "to": "ps-transient-stability-equal-area",
+      "why": "掌握「暫態穩定度與等面積準則 (Equal-Area)」前，先建立「輸電線路中長程模型 (ABCD 參數)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-transient-stability-equal-area",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-transmission-line-params",
+      "relation": "prerequisite",
+      "to": "ps-transmission-line-models",
+      "why": "掌握「輸電線路中長程模型 (ABCD 參數)」前，先建立「輸電線參數計算 (GMD/GMR)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-transmission-line-models",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-unsymmetrical-faults",
+      "relation": "enables",
+      "to": "ps-procedure-slg-sequence-networks",
+      "why": "The SLG procedure applies sequence-network connections and checks the neutral impedance factor.",
+      "confidence": 0.98,
+      "evidence": [
+        "golden:slg-procedure"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-unsymmetrical-faults",
+      "relation": "prerequisite",
+      "to": "ps-system-protection-relay",
+      "why": "掌握「距離保護電驛三段式規劃」前，先建立「不對稱故障分析 (SLG, L-L, 2LG)」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-system-protection-relay",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    }
+  ]
+}

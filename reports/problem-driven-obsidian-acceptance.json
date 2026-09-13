@@ -1,0 +1,179 @@
+{
+  "schemaVersion": "problem-driven-obsidian-acceptance.v1",
+  "change": "problem-driven-obsidian-warning-remediation",
+  "offline": true,
+  "generatedAt": "2026-09-13T09:45:08.044Z",
+  "graphRevision": "kg-v1-97a9a9a3fcd6334b",
+  "sourceIdentity": {
+    "canonicalGraphRevision": "kg-v1-97a9a9a3fcd6334b"
+  },
+  "outputIdentity": {
+    "kind": "acceptance-report",
+    "path": "/Users/a/技師考試/歷屆試題_104-114年/reports/problem-driven-obsidian-acceptance.json"
+  },
+  "checks": [
+    {
+      "name": "targeted learning tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_knowledge_graph_schema",
+        "tests.test_knowledge_graph_validator_cli",
+        "tests.test_knowledge_issue_store",
+        "tests.test_weakness_projection",
+        "tests.test_weakness_view",
+        "tests.test_knowledge_review_store",
+        "tests.test_backup_restore",
+        "tests.test_knowledge_patch_workflow"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "............................................\n----------------------------------------------------------------------\nRan 44 tests in 1.291s\n\nOK"
+    },
+    {
+      "name": "full unittest suite",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "...................................................../Users/a/技師考試/歷屆試題_104-114年/tests/test_database_integrity.py:39: ResourceWarning: unclosed file <_io.TextIOWrapper name='/Users/a/技師考試/歷屆試題_104-114年/dashboard-data.js' mode='r' encoding='utf-8'>\n  text = open(self.pe_db_path, encoding='utf-8').read()\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n../Users/a/技師考試/歷屆試題_104-114年/tests/test_database_integrity.py:50: ResourceWarning: unclosed file <_io.TextIOWrapper name='/Users/a/技師考試/歷屆試題_104-114年/dashboard-data.js' mode='r' encoding='utf-8'>\n  text = open(self.pe_db_path, encoding='utf-8').read()\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n.........................................................................................................................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 382 tests in 14.795s\n\nOK\nsys:1: DeprecationWarning: builtin type swigvarlink has no __module__ attribute"
+    },
+    {
+      "name": "canonical graph validator",
+      "command": [
+        "python3",
+        "scripts/validate_knowledge_graph.py",
+        "--graph-dir",
+        "data/knowledge",
+        "--report",
+        "reports/knowledge-graph-validation.json",
+        "--json"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "{\n  \"valid\": true,\n  \"graphRevision\": \"kg-v1-97a9a9a3fcd6334b\",\n  \"schemaVersion\": \"canonical-knowledge-graph.v1\",\n  \"nodeCount\": 145,\n  \"edgeCount\": 125,\n  \"questionLinkCount\": 482,\n  \"goldenFixture\": {\n    \"fixtureId\": \"problem-driven-initial-slice\",\n    \"fixtureVersion\": \"1\",\n    \"reviewStatus\": \"human-reviewed\",\n    \"nodeCount\": 24,\n    \"questionCount\": 20\n  },\n  \"errors\": [],\n  \"generatedAt\": \"2026-09-13T09:45:07.649Z\",\n  \"sourceIdentity\": {\n    \"canonicalGraphRevision\": \"kg-v1-97a9a9a3fcd6334b\",\n    \"schemaVersion\": \"canonical-knowledge-graph.v1\"\n  },\n  \"outputIdentity\": {\n    \"kind\": \"canonical-validation\",\n    \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/reports/knowledge-graph-validation.json\"\n  },\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
+    },
+    {
+      "name": "canonical graph build",
+      "command": [
+        "python3",
+        "scripts/build_knowledge_graph.py",
+        "--graph-dir",
+        "data/knowledge",
+        "--output",
+        "src/data/knowledge-dag.generated.js",
+        "--report",
+        "reports/knowledge-graph-build.json",
+        "--json"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "{\n  \"schemaVersion\": \"knowledge-graph-build.v1\",\n  \"valid\": true,\n  \"graphRevision\": \"kg-v1-97a9a9a3fcd6334b\",\n  \"sourceCounts\": {\n    \"legacyDagNodeCount\": 69,\n    \"coreNoteCount\": 14,\n    \"questionRecordCount\": 482,\n    \"canonicalNodeCount\": 145,\n    \"canonicalEdgeCount\": 125,\n    \"canonicalQuestionLinkCount\": 482\n  },\n  \"mappedQuestionCount\": 482,\n  \"unknownQuestionCount\": 0,\n  \"coverage\": {\n    \"actual\": 482,\n    \"required\": 482,\n    \"status\": \"passed\"\n  },\n  \"errors\": [],\n  \"generatedAt\": \"2026-09-13T09:45:07.696Z\",\n  \"sourceIdentity\": {\n    \"canonicalGraphRevision\": \"kg-v1-97a9a9a3fcd6334b\",\n    \"schemaVersion\": \"canonical-knowledge-graph.v1\"\n  },\n  \"outputIdentity\": {\n    \"kind\": \"website-bundle\",\n    \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/src/data/knowledge-dag.generated.js\"\n  },\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"question-link coverage\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
+    },
+    {
+      "name": "Obsidian knowledge generation",
+      "command": [
+        "python3",
+        "scripts/generate_obsidian_knowledge.py",
+        "--graph-dir",
+        "data/knowledge",
+        "--output-root",
+        "🧠 問題驅動知識庫",
+        "--personal-root",
+        "📝 個人知識補充",
+        "--report",
+        "reports/obsidian-knowledge-build.json",
+        "--json"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "驅動知識庫/05_電力系統/ps-symmetrical-components.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-system-protection-relay.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-three-phase-fault.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-transient-stability-equal-area.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-models.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-params.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-unsymmetrical-faults.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/q-ee-114-05-4.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-arc-flash-ieee80.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-distribution-equipment.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-grounding-system.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-harmonics-mitigation.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-lighting-design.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-load-characteristics.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-motor-installation.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-power-factor-correction.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-protection-coordination.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-short-circuit-capacity.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-voltage-drop.md\"\n  ],\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"generated note preflight\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
+    },
+    {
+      "name": "workbench build",
+      "command": [
+        "python3",
+        "scripts/build_workbench.py"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "🔨 Building Workbench from modular src/ components...\n✅ Successfully compiled production index.html (874667 bytes, build version: dev)"
+    },
+    {
+      "name": "HTML and JavaScript syntax",
+      "command": [
+        "python3",
+        "scripts/check_html_js_syntax.py"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "Found 1 inline script blocks in index.html.\n✅ Script block 0 passed syntax check."
+    },
+    {
+      "name": "learning capacity measurement",
+      "command": [
+        "python3",
+        "scripts/measure_learning_data_capacity.py"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "{\"schemaVersion\": \"learning-data-capacity.v1\", \"generatedAt\": \"2026-09-13T09:45:07.971Z\", \"graphRevision\": \"kg-v1-97a9a9a3fcd6334b\", \"sourceIdentity\": {\"canonicalGraphRevision\": \"kg-v1-97a9a9a3fcd6334b\", \"schemaVersion\": \"canonical-knowledge-graph.v1\"}, \"outputIdentity\": {\"kind\": \"learning-data-capacity\", \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/reports/learning-data-capacity.json\"}, \"fixture\": \"5000 PE issue events with bounded evidence and 200-byte custom text\", \"recoveryFixture\": \"pending import journal rollback\", \"recoveryTimeMs\": 0.004, \"recoveryTimeThresholdMs\": 250, \"recoveryTimePass\": true, \"maxIssueEvents\": 5000, \"maxIssueBytes\": 3145728, \"maxBackupBytes\": 8388608, \"measuredIssueEventCount\": 5000, \"measuredIssueBytes\": 2757890, \"measuredLearningDataBytes\": 2758313, \"issueCapacityPass\": true, \"backupCapacityPass\": true, \"checks\": [{\"name\": \"recovery time\", \"passed\": true}, {\"name\": \"issue capacity\", \"passed\": true}, {\"name\": \"backup capacity\", \"passed\": true}], \"blockingFailures\": []}"
+    },
+    {
+      "name": "acceptance report freshness",
+      "command": [
+        "python3",
+        "scripts/acceptance_freshness.py",
+        "--graph-dir",
+        "data/knowledge",
+        "--report",
+        "canonical=reports/knowledge-graph-validation.json",
+        "--report",
+        "website=reports/knowledge-graph-build.json",
+        "--report",
+        "obsidian=reports/obsidian-knowledge-build.json",
+        "--report",
+        "capacity=reports/learning-data-capacity.json"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "{\n  \"valid\": true,\n  \"freshnessPass\": true,\n  \"currentGraphRevision\": \"kg-v1-97a9a9a3fcd6334b\",\n  \"checkedReports\": [\n    \"canonical\",\n    \"capacity\",\n    \"obsidian\",\n    \"website\"\n  ],\n  \"errors\": [],\n  \"graphValid\": true\n}"
+    },
+    {
+      "name": "unresolved and manual-review report",
+      "command": [
+        "python3",
+        "scripts/write_unresolved_report.py"
+      ],
+      "ok": true,
+      "returncode": 0,
+      "outputTail": "Wrote unresolved report: /Users/a/技師考試/歷屆試題_104-114年/reports/problem-driven-unresolved.md"
+    }
+  ],
+  "freshnessPass": true,
+  "blockingFailures": [],
+  "passed": true,
+  "capacity": {
+    "maxIssueEvents": 5000,
+    "maxIssueBytes": 3145728,
+    "maxBackupBytes": 8388608,
+    "measuredIssueEventCount": 5000,
+    "measuredIssueBytes": 2757890,
+    "measuredLearningDataBytes": 2758313,
+    "issueCapacityPass": true,
+    "backupCapacityPass": true
+  },
+  "recovery": {
+    "recoveryFixture": "pending import journal rollback",
+    "recoveryTimeMs": 0.004,
+    "recoveryTimeThresholdMs": 250,
+    "recoveryTimePass": true
+  }
+}

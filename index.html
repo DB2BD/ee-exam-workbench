@@ -22357,6 +22357,15 @@ function extractQuestionMarkdown(rawMd, targetQNum) {
     ''
   ).replace(/\n{3,}/g, '\n\n');
 
+  // The independent-validation block is maintenance/audit metadata rather
+  // than learning content. Keep it in the bundled Markdown for provenance,
+  // but do not expose its file paths, status, or internal calculation notes
+  // in the learner-facing solution pane.
+  targetSection = targetSection.replace(
+    /(?:^|\r?\n)#{2,6}[ \t]+獨立校驗紀錄[^\r\n]*(?:\r?\n|$)[\s\S]*?(?=\r?\n#{2,6}[ \t]+|$)/gi,
+    ''
+  ).replace(/\n{3,}/g, '\n\n');
+
   // Check for sub-parts within the question: e.g. "### (一)", "### (二)", "#### (1)"
   const subPartRegex = /(?=\n###\s+(?:\([一二三四五六七八九十\d]+\)|(?:[一二三四五六七八九十]|\d+)\s*[\.、\)]))/gi;
   const subParts = targetSection.split(subPartRegex);

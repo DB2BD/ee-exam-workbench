@@ -310,6 +310,49 @@ process.stdout.write(JSON.stringify(result));
         self.assertIn('題目原文仍要保留。', payload['fullContent'])
         self.assertIn('## 解題', payload['fullContent'])
 
+    def test_solution_modal_hides_internal_validation_sections(self):
+        """Internal validation notes must remain source data, not learner content."""
+        script = r'''
+const fs = require('fs'), vm = require('vm');
+const ctx = { console, window: { addEventListener() {} } };
+vm.createContext(ctx);
+vm.runInContext(fs.readFileSync('src/components/solutionModal.js', 'utf8'), ctx);
+const raw = [
+  '# 題解',
+  '',
+  '## 解題',
+  '',
+  '答案 $x=1$',
+  '',
+  '## 獨立校驗紀錄',
+  '',
+  '- 官方題目裁切：images/questions/Q01.png',
+  '- 年度詳解來源：canonical/Q01.md',
+  '- 狀態：verified',
+  '- 獨立核算：\\(1+1=2\\)',
+  '',
+  '## 重點摘要',
+  '',
+  '請記住最後答案。',
+].join('\n');
+const result = ctx.extractQuestionMarkdown(raw, 1);
+process.stdout.write(JSON.stringify(result));
+'''
+        result = subprocess.run(
+            ['node', '-e', script],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        payload = json.loads(result.stdout)
+        self.assertIn('答案 $x=1$', payload['fullContent'])
+        self.assertIn('## 重點摘要', payload['fullContent'])
+        self.assertNotIn('獨立校驗紀錄', payload['fullContent'])
+        self.assertNotIn('官方題目裁切', payload['fullContent'])
+        self.assertNotIn('年度詳解來源', payload['fullContent'])
+        self.assertNotIn('獨立核算', payload['fullContent'])
+
     def test_known_malformed_formula_delimiters_are_fixed(self):
         files = [
             ROOT / "🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",

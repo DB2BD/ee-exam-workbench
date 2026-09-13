@@ -54,7 +54,10 @@ CN_VALUES = {char: index for index, char in enumerate(CN_NUMERALS, 1)}
 MANUAL_STARTS: dict[tuple[int, str], list[tuple[int, float]]] = {
     (109, "工業配電"): [(1, 240), (1, 335), (1, 468), (2, 32), (2, 155)],
     (109, "工程數學"): [(1, 240), (1, 292), (1, 354), (1, 430), (1, 482)],
-    (109, "電力系統"): [(1, 240), (1, 360), (1, 496), (2, 210), (2, 290), (2, 390)],
+    # On page 2, Q4 begins with the heading/table/diagram at y=41.5pt and
+    # ends at y=286.8pt.  The former y=210pt start kept only the body, while
+    # the old Q5/Q6 boundaries clipped the final lines by a few points.
+    (109, "電力系統"): [(1, 240), (1, 360), (1, 496), (2, 32), (2, 296), (2, 397)],
     (109, "電子學（包括電力電子學）"): [(1, 240), (1, 530), (2, 75), (2, 445)],
     (109, "電機機械"): [(1, 240), (2, 65), (2, 240), (2, 375), (3, 60)],
     # Q02 is genuinely a one-line question, but the next heading begins at

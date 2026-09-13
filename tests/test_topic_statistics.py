@@ -41,6 +41,7 @@ for (const file of [
   'dashboard-data.js',
   'national-exams-data.js',
   'src/data/knowledge-dag.js',
+  'src/data/knowledge-dag.generated.js',
   'src/components/questionList.js',
   'src/components/topTopics.js',
 ]) {
@@ -105,15 +106,15 @@ process.stdout.write(JSON.stringify(result));
         self.assertIn("EE-112-02-1", result["stat"])
         self.assertEqual(result["stat"], result["clicked"])
 
-    def test_gk_with_similar_text_is_explicitly_empty_statistics(self):
+    def test_gk_uses_canonical_links_for_topic_statistics(self):
         result = self.run_js(
-            "(() => { const q = ['GK-114-02-1', '02', 114, 1, 'MOSFET 放大器', ['MOSFET'], '', '', 3, 'pending', [], false]; "
+            "(() => { const q = NATIONAL_EXAMS_DATA.questions.find(q => q[0] === 'GK-112-02-4'); "
             "return buildTopicStatistics([q], {examFamily:'GK', subject:'02', year:'all', difficulty:'all', "
             "status:'all', searchText:'', quickFilter:'all', progressState:{}, starredState:{}, dueQuestionIds:[]}); })()"
         )
-        self.assertEqual(result["items"], [])
-        self.assertTrue(result["empty"])
-        self.assertEqual(result["message"], "no-formal-taxonomy")
+        self.assertFalse(result["empty"])
+        self.assertEqual(result["items"][0]["id"], "gk-el-bjt-bias-small-signal")
+        self.assertEqual(result["items"][0]["count"], 1)
 
     def test_empty_range_has_zero_denominator_and_no_items(self):
         result = self.run_js(

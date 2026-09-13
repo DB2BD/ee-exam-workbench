@@ -1,0 +1,6920 @@
+{
+  "schemaVersion": "canonical-knowledge-graph.v1",
+  "links": {
+    "GK:GK-110-01-1": {
+      "qid": "GK-110-01-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-thevenin-norton"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-01-1",
+        "national-exams-data.js:GK-110-01-1:relatedPEId=EE-112-01-3",
+        "dashboard-data.js:EE-112-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-01-2": {
+      "qid": "GK-110-01-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-01-2",
+        "national-exams-data.js:GK-110-01-2:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-01-3": {
+      "qid": "GK-110-01-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-three-phase"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-01-3",
+        "national-exams-data.js:GK-110-01-3:relatedPEId=EE-108-01-3",
+        "dashboard-data.js:EE-108-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-01-4": {
+      "qid": "GK-110-01-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-01-4",
+        "national-exams-data.js:GK-110-01-4:relatedPEId=EE-111-01-3",
+        "dashboard-data.js:EE-111-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-02-1": {
+      "qid": "GK-110-02-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-02-1",
+        "national-exams-data.js:GK-110-02-1:relatedPEId=EE-111-02-3",
+        "dashboard-data.js:EE-111-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-02-2": {
+      "qid": "GK-110-02-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-02-2",
+        "national-exams-data.js:GK-110-02-2:relatedPEId=EE-111-02-3",
+        "dashboard-data.js:EE-111-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-02-3": {
+      "qid": "GK-110-02-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-110-02-3",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-110-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-110-02-4": {
+      "qid": "GK-110-02-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-opamp-ideal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-02-4",
+        "national-exams-data.js:GK-110-02-4:relatedPEId=EE-105-02-2",
+        "dashboard-data.js:EE-105-02-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-02-5": {
+      "qid": "GK-110-02-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-02-5",
+        "national-exams-data.js:GK-110-02-5:relatedPEId=EE-113-02-3",
+        "dashboard-data.js:EE-113-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-1": {
+      "qid": "GK-110-03-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-1",
+        "national-exams-data.js:GK-110-03-1:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-2": {
+      "qid": "GK-110-03-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-2",
+        "national-exams-data.js:GK-110-03-2:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-3": {
+      "qid": "GK-110-03-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-3",
+        "national-exams-data.js:GK-110-03-3:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-4": {
+      "qid": "GK-110-03-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-svd-linear-systems"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-4",
+        "national-exams-data.js:GK-110-03-4:relatedPEId=EE-111-03-4",
+        "dashboard-data.js:EE-111-03-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC01": {
+      "qid": "GK-110-03-MC01",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC01",
+        "national-exams-data.js:GK-110-03-MC01:relatedPEId=EE-110-03-6",
+        "dashboard-data.js:EE-110-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC02": {
+      "qid": "GK-110-03-MC02",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-svd-linear-systems"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC02",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-110-03-MC02"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-110-03-MC03": {
+      "qid": "GK-110-03-MC03",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-matrix-det-inv"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC03",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-110-03-MC03"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-110-03-MC04": {
+      "qid": "GK-110-03-MC04",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC04",
+        "national-exams-data.js:GK-110-03-MC04:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC05": {
+      "qid": "GK-110-03-MC05",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC05",
+        "national-exams-data.js:GK-110-03-MC05:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC06": {
+      "qid": "GK-110-03-MC06",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC06",
+        "national-exams-data.js:GK-110-03-MC06:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC07": {
+      "qid": "GK-110-03-MC07",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC07",
+        "national-exams-data.js:GK-110-03-MC07:relatedPEId=EE-104-03-2",
+        "dashboard-data.js:EE-104-03-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC08": {
+      "qid": "GK-110-03-MC08",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC08",
+        "national-exams-data.js:GK-110-03-MC08:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC09": {
+      "qid": "GK-110-03-MC09",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-complex-cauchy-residue"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC09",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-110-03-MC09"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-110-03-MC10": {
+      "qid": "GK-110-03-MC10",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC10",
+        "national-exams-data.js:GK-110-03-MC10:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC11": {
+      "qid": "GK-110-03-MC11",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC11",
+        "national-exams-data.js:GK-110-03-MC11:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC12": {
+      "qid": "GK-110-03-MC12",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC12",
+        "national-exams-data.js:GK-110-03-MC12:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC13": {
+      "qid": "GK-110-03-MC13",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC13",
+        "national-exams-data.js:GK-110-03-MC13:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC14": {
+      "qid": "GK-110-03-MC14",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-laplace-transform"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC14",
+        "national-exams-data.js:GK-110-03-MC14:relatedPEId=EE-104-03-1",
+        "dashboard-data.js:EE-104-03-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC15": {
+      "qid": "GK-110-03-MC15",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-second-order-ode-nonhomogeneous"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC15",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-110-03-MC15"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-110-03-MC16": {
+      "qid": "GK-110-03-MC16",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-laplace-transform"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC16",
+        "national-exams-data.js:GK-110-03-MC16:relatedPEId=EE-104-03-1",
+        "dashboard-data.js:EE-104-03-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC17": {
+      "qid": "GK-110-03-MC17",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC17",
+        "national-exams-data.js:GK-110-03-MC17:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC18": {
+      "qid": "GK-110-03-MC18",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC18",
+        "national-exams-data.js:GK-110-03-MC18:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC19": {
+      "qid": "GK-110-03-MC19",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC19",
+        "national-exams-data.js:GK-110-03-MC19:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-03-MC20": {
+      "qid": "GK-110-03-MC20",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-03-MC20",
+        "national-exams-data.js:GK-110-03-MC20:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-04-1": {
+      "qid": "GK-110-04-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-04-1",
+        "national-exams-data.js:GK-110-04-1:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-04-2": {
+      "qid": "GK-110-04-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-04-2",
+        "national-exams-data.js:GK-110-04-2:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-04-3": {
+      "qid": "GK-110-04-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-04-3",
+        "national-exams-data.js:GK-110-04-3:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-04-4": {
+      "qid": "GK-110-04-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-induction-motor-equiv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-04-4",
+        "national-exams-data.js:GK-110-04-4:relatedPEId=EE-108-04-3",
+        "dashboard-data.js:EE-108-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-04-5": {
+      "qid": "GK-110-04-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-04-5",
+        "national-exams-data.js:GK-110-04-5:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-05-1": {
+      "qid": "GK-110-05-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-05-1",
+        "national-exams-data.js:GK-110-05-1:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-05-2": {
+      "qid": "GK-110-05-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-load-flow-admittance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-05-2",
+        "national-exams-data.js:GK-110-05-2:relatedPEId=EE-105-05-2",
+        "dashboard-data.js:EE-105-05-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-05-3": {
+      "qid": "GK-110-05-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-05-3",
+        "national-exams-data.js:GK-110-05-3:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-05-4": {
+      "qid": "GK-110-05-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-three-phase-fault"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-05-4",
+        "national-exams-data.js:GK-110-05-4:relatedPEId=EE-108-05-5",
+        "dashboard-data.js:EE-108-05-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-110-05-5": {
+      "qid": "GK-110-05-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-110-05-5",
+        "national-exams-data.js:GK-110-05-5:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-01-1": {
+      "qid": "GK-111-01-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-01-1",
+        "national-exams-data.js:GK-111-01-1:relatedPEId=EE-111-01-3",
+        "dashboard-data.js:EE-111-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-01-2": {
+      "qid": "GK-111-01-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-01-2",
+        "national-exams-data.js:GK-111-01-2:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-01-3": {
+      "qid": "GK-111-01-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-phasor-ac",
+        "gk-ct-node-mesh"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-111-01-3",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_111年_電路學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-111-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-111-01-4": {
+      "qid": "GK-111-01-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-01-4",
+        "national-exams-data.js:GK-111-01-4:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-02-1": {
+      "qid": "GK-111-02-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-opamp-ideal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-02-1",
+        "national-exams-data.js:GK-111-02-1:relatedPEId=EE-105-02-2",
+        "dashboard-data.js:EE-105-02-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-02-2": {
+      "qid": "GK-111-02-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-mosfet-bias-small-signal",
+        "gk-el-bjt-bias-small-signal"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-111-02-2",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_111年_電子學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-111-02-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-111-02-3": {
+      "qid": "GK-111-02-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-active-filter"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-02-3",
+        "national-exams-data.js:GK-111-02-3:relatedPEId=EE-105-02-1",
+        "dashboard-data.js:EE-105-02-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-02-4": {
+      "qid": "GK-111-02-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-opamp-ideal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-02-4",
+        "national-exams-data.js:GK-111-02-4:relatedPEId=EE-112-02-2",
+        "dashboard-data.js:EE-112-02-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-02-5": {
+      "qid": "GK-111-02-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-02-5",
+        "national-exams-data.js:GK-111-02-5:relatedPEId=EE-113-02-3",
+        "dashboard-data.js:EE-113-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-1": {
+      "qid": "GK-111-03-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-1",
+        "national-exams-data.js:GK-111-03-1:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-2": {
+      "qid": "GK-111-03-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-2",
+        "national-exams-data.js:GK-111-03-2:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-3": {
+      "qid": "GK-111-03-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-3",
+        "national-exams-data.js:GK-111-03-3:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-4": {
+      "qid": "GK-111-03-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-4",
+        "national-exams-data.js:GK-111-03-4:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC01": {
+      "qid": "GK-111-03-MC01",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-matrix-det-inv"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC01",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-111-03-MC01"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-111-03-MC02": {
+      "qid": "GK-111-03-MC02",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-matrix-det-inv"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC02",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-111-03-MC02"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-111-03-MC03": {
+      "qid": "GK-111-03-MC03",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC03",
+        "national-exams-data.js:GK-111-03-MC03:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC04": {
+      "qid": "GK-111-03-MC04",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-eigen-diagonal"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC04",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-111-03-MC04"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-111-03-MC05": {
+      "qid": "GK-111-03-MC05",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC05",
+        "national-exams-data.js:GK-111-03-MC05:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC06": {
+      "qid": "GK-111-03-MC06",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC06",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-111-03-MC06"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-111-03-MC07": {
+      "qid": "GK-111-03-MC07",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-matrix-det-inv"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC07",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-111-03-MC07"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-111-03-MC08": {
+      "qid": "GK-111-03-MC08",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC08",
+        "national-exams-data.js:GK-111-03-MC08:relatedPEId=EE-110-03-6",
+        "dashboard-data.js:EE-110-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC09": {
+      "qid": "GK-111-03-MC09",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC09",
+        "national-exams-data.js:GK-111-03-MC09:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC10": {
+      "qid": "GK-111-03-MC10",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC10",
+        "national-exams-data.js:GK-111-03-MC10:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC11": {
+      "qid": "GK-111-03-MC11",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC11",
+        "national-exams-data.js:GK-111-03-MC11:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC12": {
+      "qid": "GK-111-03-MC12",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC12",
+        "national-exams-data.js:GK-111-03-MC12:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC13": {
+      "qid": "GK-111-03-MC13",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-first-order-ode"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC13",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-111-03-MC13"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-111-03-MC14": {
+      "qid": "GK-111-03-MC14",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC14",
+        "national-exams-data.js:GK-111-03-MC14:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC15": {
+      "qid": "GK-111-03-MC15",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC15",
+        "national-exams-data.js:GK-111-03-MC15:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC16": {
+      "qid": "GK-111-03-MC16",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC16",
+        "national-exams-data.js:GK-111-03-MC16:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC17": {
+      "qid": "GK-111-03-MC17",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC17",
+        "national-exams-data.js:GK-111-03-MC17:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC18": {
+      "qid": "GK-111-03-MC18",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC18",
+        "national-exams-data.js:GK-111-03-MC18:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC19": {
+      "qid": "GK-111-03-MC19",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC19",
+        "national-exams-data.js:GK-111-03-MC19:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-03-MC20": {
+      "qid": "GK-111-03-MC20",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-03-MC20",
+        "national-exams-data.js:GK-111-03-MC20:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-04-1": {
+      "qid": "GK-111-04-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-04-1",
+        "national-exams-data.js:GK-111-04-1:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-04-2": {
+      "qid": "GK-111-04-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-04-2",
+        "national-exams-data.js:GK-111-04-2:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-04-3": {
+      "qid": "GK-111-04-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-04-3",
+        "national-exams-data.js:GK-111-04-3:relatedPEId=EE-110-04-3",
+        "dashboard-data.js:EE-110-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-04-4": {
+      "qid": "GK-111-04-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-04-4",
+        "national-exams-data.js:GK-111-04-4:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-05-1": {
+      "qid": "GK-111-05-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-05-1",
+        "national-exams-data.js:GK-111-05-1:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-05-2": {
+      "qid": "GK-111-05-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-05-2",
+        "national-exams-data.js:GK-111-05-2:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-05-3": {
+      "qid": "GK-111-05-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-05-3",
+        "national-exams-data.js:GK-111-05-3:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-05-4": {
+      "qid": "GK-111-05-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-05-4",
+        "national-exams-data.js:GK-111-05-4:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-111-05-5": {
+      "qid": "GK-111-05-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-111-05-5",
+        "national-exams-data.js:GK-111-05-5:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-01-1": {
+      "qid": "GK-112-01-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-01-1",
+        "national-exams-data.js:GK-112-01-1:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-01-2": {
+      "qid": "GK-112-01-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-01-2",
+        "national-exams-data.js:GK-112-01-2:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-01-3": {
+      "qid": "GK-112-01-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-divider-equiv"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-112-01-3",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_112年_電路學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-112-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-112-01-4": {
+      "qid": "GK-112-01-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-01-4",
+        "national-exams-data.js:GK-112-01-4:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-02-1": {
+      "qid": "GK-112-02-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-02-1",
+        "national-exams-data.js:GK-112-02-1:relatedPEId=EE-113-02-3",
+        "dashboard-data.js:EE-113-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-02-2": {
+      "qid": "GK-112-02-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-02-2",
+        "national-exams-data.js:GK-112-02-2:relatedPEId=EE-113-02-3",
+        "dashboard-data.js:EE-113-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-02-3": {
+      "qid": "GK-112-02-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-02-3",
+        "national-exams-data.js:GK-112-02-3:relatedPEId=EE-113-02-3",
+        "dashboard-data.js:EE-113-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-02-4": {
+      "qid": "GK-112-02-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-bjt-bias-small-signal"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-112-02-4",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_112年_電子學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-112-02-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-112-02-5": {
+      "qid": "GK-112-02-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-02-5",
+        "national-exams-data.js:GK-112-02-5:relatedPEId=EE-113-02-3",
+        "dashboard-data.js:EE-113-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-1": {
+      "qid": "GK-112-03-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-1",
+        "national-exams-data.js:GK-112-03-1:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-2": {
+      "qid": "GK-112-03-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-2",
+        "national-exams-data.js:GK-112-03-2:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-3": {
+      "qid": "GK-112-03-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-3",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-112-03-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-112-03-4": {
+      "qid": "GK-112-03-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-svd-linear-systems"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-4",
+        "national-exams-data.js:GK-112-03-4:relatedPEId=EE-111-03-4",
+        "dashboard-data.js:EE-111-03-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC01": {
+      "qid": "GK-112-03-MC01",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-laplace-transform"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC01",
+        "national-exams-data.js:GK-112-03-MC01:relatedPEId=EE-104-03-1",
+        "dashboard-data.js:EE-104-03-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC02": {
+      "qid": "GK-112-03-MC02",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC02",
+        "national-exams-data.js:GK-112-03-MC02:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC03": {
+      "qid": "GK-112-03-MC03",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC03",
+        "national-exams-data.js:GK-112-03-MC03:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC04": {
+      "qid": "GK-112-03-MC04",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-matrix-det-inv"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC04",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-112-03-MC04"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-112-03-MC05": {
+      "qid": "GK-112-03-MC05",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-fourier-series"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC05",
+        "national-exams-data.js:GK-112-03-MC05:relatedPEId=EE-107-03-4",
+        "dashboard-data.js:EE-107-03-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC06": {
+      "qid": "GK-112-03-MC06",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC06",
+        "national-exams-data.js:GK-112-03-MC06:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC07": {
+      "qid": "GK-112-03-MC07",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC07",
+        "national-exams-data.js:GK-112-03-MC07:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC08": {
+      "qid": "GK-112-03-MC08",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC08",
+        "national-exams-data.js:GK-112-03-MC08:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC09": {
+      "qid": "GK-112-03-MC09",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC09",
+        "national-exams-data.js:GK-112-03-MC09:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC10": {
+      "qid": "GK-112-03-MC10",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC10",
+        "national-exams-data.js:GK-112-03-MC10:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC11": {
+      "qid": "GK-112-03-MC11",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-complex-cauchy-residue"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC11",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-112-03-MC11"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-112-03-MC12": {
+      "qid": "GK-112-03-MC12",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-matrix-det-inv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC12",
+        "national-exams-data.js:GK-112-03-MC12:relatedPEId=EE-113-03-4",
+        "dashboard-data.js:EE-113-03-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC13": {
+      "qid": "GK-112-03-MC13",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC13",
+        "national-exams-data.js:GK-112-03-MC13:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC14": {
+      "qid": "GK-112-03-MC14",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC14",
+        "national-exams-data.js:GK-112-03-MC14:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC15": {
+      "qid": "GK-112-03-MC15",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC15",
+        "national-exams-data.js:GK-112-03-MC15:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC16": {
+      "qid": "GK-112-03-MC16",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC16",
+        "national-exams-data.js:GK-112-03-MC16:relatedPEId=EE-104-03-2",
+        "dashboard-data.js:EE-104-03-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC17": {
+      "qid": "GK-112-03-MC17",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC17",
+        "national-exams-data.js:GK-112-03-MC17:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC18": {
+      "qid": "GK-112-03-MC18",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-laplace-transform"
+      ],
+      "confidence": 0.93,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC18",
+        "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_112年_工程數學_全卷完整詳細題解.md",
+        "official-solution-reviewed:GK-112-03-MC18"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "approved_ai"
+    },
+    "GK:GK-112-03-MC19": {
+      "qid": "GK-112-03-MC19",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC19",
+        "national-exams-data.js:GK-112-03-MC19:relatedPEId=EE-113-03-5",
+        "dashboard-data.js:EE-113-03-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-03-MC20": {
+      "qid": "GK-112-03-MC20",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-03-MC20",
+        "national-exams-data.js:GK-112-03-MC20:relatedPEId=EE-113-03-6",
+        "dashboard-data.js:EE-113-03-6"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-04-1": {
+      "qid": "GK-112-04-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-04-1",
+        "national-exams-data.js:GK-112-04-1:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-04-2": {
+      "qid": "GK-112-04-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-04-2",
+        "national-exams-data.js:GK-112-04-2:relatedPEId=EE-108-04-4",
+        "dashboard-data.js:EE-108-04-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-04-3": {
+      "qid": "GK-112-04-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-induction-motor-torque"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-04-3",
+        "national-exams-data.js:GK-112-04-3:relatedPEId=EE-110-04-5",
+        "dashboard-data.js:EE-110-04-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-04-4": {
+      "qid": "GK-112-04-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-04-4",
+        "national-exams-data.js:GK-112-04-4:relatedPEId=EE-110-04-3",
+        "dashboard-data.js:EE-110-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-04-5": {
+      "qid": "GK-112-04-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-04-5",
+        "national-exams-data.js:GK-112-04-5:relatedPEId=EE-108-04-4",
+        "dashboard-data.js:EE-108-04-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-05-1": {
+      "qid": "GK-112-05-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-05-1",
+        "national-exams-data.js:GK-112-05-1:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-05-2": {
+      "qid": "GK-112-05-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-05-2",
+        "national-exams-data.js:GK-112-05-2:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-05-3": {
+      "qid": "GK-112-05-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-05-3",
+        "national-exams-data.js:GK-112-05-3:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-112-05-4": {
+      "qid": "GK-112-05-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-112-05-4",
+        "national-exams-data.js:GK-112-05-4:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-01-1": {
+      "qid": "GK-113-01-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-01-1",
+        "national-exams-data.js:GK-113-01-1:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-01-2": {
+      "qid": "GK-113-01-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-01-2",
+        "national-exams-data.js:GK-113-01-2:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-01-3": {
+      "qid": "GK-113-01-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-01-3",
+        "national-exams-data.js:GK-113-01-3:relatedPEId=EE-111-01-3",
+        "dashboard-data.js:EE-111-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-01-4": {
+      "qid": "GK-113-01-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-01-4",
+        "national-exams-data.js:GK-113-01-4:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-02-1": {
+      "qid": "GK-113-02-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-02-1",
+        "national-exams-data.js:GK-113-02-1:relatedPEId=EE-113-02-4",
+        "dashboard-data.js:EE-113-02-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-02-2": {
+      "qid": "GK-113-02-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-bjt-bias-small-signal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-02-2",
+        "national-exams-data.js:GK-113-02-2:relatedPEId=EE-104-02-2",
+        "dashboard-data.js:EE-104-02-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-02-3": {
+      "qid": "GK-113-02-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-02-3",
+        "national-exams-data.js:GK-113-02-3:relatedPEId=EE-111-02-3",
+        "dashboard-data.js:EE-111-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-02-4": {
+      "qid": "GK-113-02-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-02-4",
+        "national-exams-data.js:GK-113-02-4:relatedPEId=EE-112-02-4",
+        "dashboard-data.js:EE-112-02-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-04-1": {
+      "qid": "GK-113-04-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-04-1",
+        "national-exams-data.js:GK-113-04-1:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-04-2": {
+      "qid": "GK-113-04-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-04-2",
+        "national-exams-data.js:GK-113-04-2:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-04-3": {
+      "qid": "GK-113-04-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-04-3",
+        "national-exams-data.js:GK-113-04-3:relatedPEId=EE-110-04-3",
+        "dashboard-data.js:EE-110-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-04-4": {
+      "qid": "GK-113-04-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-04-4",
+        "national-exams-data.js:GK-113-04-4:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-04-5": {
+      "qid": "GK-113-04-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-04-5",
+        "national-exams-data.js:GK-113-04-5:relatedPEId=EE-108-04-4",
+        "dashboard-data.js:EE-108-04-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-05-1": {
+      "qid": "GK-113-05-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-05-1",
+        "national-exams-data.js:GK-113-05-1:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-05-2": {
+      "qid": "GK-113-05-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-05-2",
+        "national-exams-data.js:GK-113-05-2:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-05-3": {
+      "qid": "GK-113-05-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-05-3",
+        "national-exams-data.js:GK-113-05-3:relatedPEId=EE-110-05-5",
+        "dashboard-data.js:EE-110-05-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-113-05-4": {
+      "qid": "GK-113-05-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-load-flow-admittance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-113-05-4",
+        "national-exams-data.js:GK-113-05-4:relatedPEId=EE-109-05-3",
+        "dashboard-data.js:EE-109-05-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-01-1": {
+      "qid": "GK-114-01-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-three-phase"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-01-1",
+        "national-exams-data.js:GK-114-01-1:relatedPEId=EE-108-01-3",
+        "dashboard-data.js:EE-108-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-01-2": {
+      "qid": "GK-114-01-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-01-2",
+        "national-exams-data.js:GK-114-01-2:relatedPEId=EE-111-01-3",
+        "dashboard-data.js:EE-111-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-01-3": {
+      "qid": "GK-114-01-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-01-3",
+        "national-exams-data.js:GK-114-01-3:relatedPEId=EE-105-01-5",
+        "dashboard-data.js:EE-105-01-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-01-4": {
+      "qid": "GK-114-01-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ct-mutual-inductance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-01-4",
+        "national-exams-data.js:GK-114-01-4:relatedPEId=EE-113-01-3",
+        "dashboard-data.js:EE-113-01-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-02-1": {
+      "qid": "GK-114-02-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-opamp-ideal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-02-1",
+        "national-exams-data.js:GK-114-02-1:relatedPEId=EE-105-02-2",
+        "dashboard-data.js:EE-105-02-2"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-02-2": {
+      "qid": "GK-114-02-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-02-2",
+        "national-exams-data.js:GK-114-02-2:relatedPEId=EE-113-02-3",
+        "dashboard-data.js:EE-113-02-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-02-3": {
+      "qid": "GK-114-02-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-02-3",
+        "national-exams-data.js:GK-114-02-3:relatedPEId=EE-113-02-4",
+        "dashboard-data.js:EE-113-02-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-02-4": {
+      "qid": "GK-114-02-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-02-4",
+        "national-exams-data.js:GK-114-02-4:relatedPEId=EE-113-02-4",
+        "dashboard-data.js:EE-113-02-4"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-04-1": {
+      "qid": "GK-114-04-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-04-1",
+        "national-exams-data.js:GK-114-04-1:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-04-2": {
+      "qid": "GK-114-04-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-04-2",
+        "national-exams-data.js:GK-114-04-2:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-04-3": {
+      "qid": "GK-114-04-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-04-3",
+        "national-exams-data.js:GK-114-04-3:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-04-4": {
+      "qid": "GK-114-04-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-synchronous-salient-pole"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-04-4",
+        "national-exams-data.js:GK-114-04-4:relatedPEId=EE-114-04-5",
+        "dashboard-data.js:EE-114-04-5"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-04-5": {
+      "qid": "GK-114-04-5",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-04-5",
+        "national-exams-data.js:GK-114-04-5:relatedPEId=EE-111-04-3",
+        "dashboard-data.js:EE-111-04-3"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-05-1": {
+      "qid": "GK-114-05-1",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-05-1",
+        "national-exams-data.js:GK-114-05-1:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-05-2": {
+      "qid": "GK-114-05-2",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-05-2",
+        "national-exams-data.js:GK-114-05-2:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-05-3": {
+      "qid": "GK-114-05-3",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-05-3",
+        "national-exams-data.js:GK-114-05-3:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "GK:GK-114-05-4": {
+      "qid": "GK-114-05-4",
+      "examFamily": "GK",
+      "nodeIds": [
+        "gk-ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "national-exams-data.js:GK-114-05-4",
+        "national-exams-data.js:GK-114-05-4:relatedPEId=EE-104-05-1",
+        "dashboard-data.js:EE-104-05-1"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-01-1": {
+      "qid": "EE-104-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-thevenin-norton"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-01-1",
+        "data/taxonomy/alias-map.json:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-01-2": {
+      "qid": "EE-104-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-mutual-inductance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-01-2",
+        "data/taxonomy/alias-map.json:ct-mutual-inductance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-01-3": {
+      "qid": "EE-104-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-three-phase"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-01-3",
+        "data/taxonomy/alias-map.json:ct-three-phase"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-01-4": {
+      "qid": "EE-104-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-01-4",
+        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-01-5": {
+      "qid": "EE-104-01-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-two-port"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-01-5",
+        "data/taxonomy/alias-map.json:ct-two-port"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-02-1": {
+      "qid": "EE-104-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-104-02-1",
+        "data/taxonomy/alias-map.json:el-mosfet-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-02-2": {
+      "qid": "EE-104-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-bjt-bias-small-signal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-02-2",
+        "data/taxonomy/alias-map.json:el-bjt-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-02-3": {
+      "qid": "EE-104-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-02-3",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-02-4": {
+      "qid": "EE-104-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-inverter-spwm"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-02-4",
+        "data/taxonomy/alias-map.json:el-pe-inverter-spwm"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-02-5": {
+      "qid": "EE-104-02-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-active-filter"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-02-5",
+        "data/taxonomy/alias-map.json:el-active-filter"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-03-1": {
+      "qid": "EE-104-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-laplace-transform"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-03-1",
+        "data/taxonomy/alias-map.json:em-laplace-transform"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-03-2": {
+      "qid": "EE-104-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-03-2",
+        "data/taxonomy/alias-map.json:em-eigen-diagonal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-03-3": {
+      "qid": "EE-104-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-03-3",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-03-4": {
+      "qid": "EE-104-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-03-4",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-03-5": {
+      "qid": "EE-104-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-03-5",
+        "data/taxonomy/alias-map.json:em-vector-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-04-1": {
+      "qid": "EE-104-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-magnetic-circuits"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-104-04-1",
+        "data/taxonomy/alias-map.json:emach-magnetic-circuits"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-04-2": {
+      "qid": "EE-104-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-single-phase-transformer"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-04-2",
+        "data/taxonomy/alias-map.json:emach-single-phase-transformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-04-3": {
+      "qid": "EE-104-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-104-04-3",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-04-4": {
+      "qid": "EE-104-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-104-04-4",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-04-5": {
+      "qid": "EE-104-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-104-04-5",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-05-1": {
+      "qid": "EE-104-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-104-05-1",
+        "data/taxonomy/alias-map.json:ps-unsymmetrical-faults"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-05-2": {
+      "qid": "EE-104-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-power-analysis"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-104-05-2",
+        "data/taxonomy/alias-map.json:ps-power-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-05-3": {
+      "qid": "EE-104-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-three-phase-fault"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-05-3",
+        "data/taxonomy/alias-map.json:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-05-4": {
+      "qid": "EE-104-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-load-flow-admittance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-05-4",
+        "data/taxonomy/alias-map.json:ps-load-flow-admittance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-06-1": {
+      "qid": "EE-104-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-distribution-equipment"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-06-1",
+        "data/taxonomy/alias-map.json:dist-distribution-equipment"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-06-2": {
+      "qid": "EE-104-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-load-characteristics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-06-2",
+        "data/taxonomy/alias-map.json:dist-load-characteristics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-06-3": {
+      "qid": "EE-104-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-harmonics-mitigation"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-06-3",
+        "data/taxonomy/alias-map.json:dist-harmonics-mitigation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-06-4": {
+      "qid": "EE-104-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-06-4",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-104-06-5": {
+      "qid": "EE-104-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-harmonics-mitigation",
+        "dist-power-factor-correction"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-104-06-5",
+        "data/taxonomy/alias-map.json:dist-harmonics-mitigation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-105-01-1": {
+      "qid": "EE-105-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-node-mesh"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-01-1",
+        "data/taxonomy/alias-map.json:ct-node-mesh"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-01-2": {
+      "qid": "EE-105-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-thevenin-norton"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-01-2",
+        "data/taxonomy/alias-map.json:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-01-3": {
+      "qid": "EE-105-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-complex-power"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-01-3",
+        "data/taxonomy/alias-map.json:ct-complex-power"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-01-4": {
+      "qid": "EE-105-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-three-phase"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-01-4",
+        "data/taxonomy/alias-map.json:ct-three-phase"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-01-5": {
+      "qid": "EE-105-01-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-01-5",
+        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-02-1": {
+      "qid": "EE-105-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-active-filter"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-02-1",
+        "data/taxonomy/alias-map.json:el-active-filter"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-02-2": {
+      "qid": "EE-105-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-opamp-ideal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-02-2",
+        "data/taxonomy/alias-map.json:el-opamp-ideal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-02-3": {
+      "qid": "EE-105-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-02-3",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-02-4": {
+      "qid": "EE-105-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-active-filter"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-105-02-4",
+        "data/taxonomy/alias-map.json:el-active-filter"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-02-5": {
+      "qid": "EE-105-02-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-02-5",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-03-1": {
+      "qid": "EE-105-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-homogeneous"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-105-03-1",
+        "data/taxonomy/alias-map.json:em-second-order-ode-homogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-03-2": {
+      "qid": "EE-105-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-laplace-transform"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-03-2",
+        "data/taxonomy/alias-map.json:em-laplace-transform"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-03-3": {
+      "qid": "EE-105-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-03-3",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-03-4": {
+      "qid": "EE-105-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-03-4",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-03-5": {
+      "qid": "EE-105-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-03-5",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-03-6": {
+      "qid": "EE-105-03-6",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-03-6",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-03-7": {
+      "qid": "EE-105-03-7",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-matrix-det-inv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-03-7",
+        "data/taxonomy/alias-map.json:em-matrix-det-inv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-03-8": {
+      "qid": "EE-105-03-8",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-03-8",
+        "data/taxonomy/alias-map.json:em-eigen-diagonal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-04-1": {
+      "qid": "EE-105-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-magnetic-circuits"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-105-04-1",
+        "data/taxonomy/alias-map.json:emach-magnetic-circuits"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-04-2": {
+      "qid": "EE-105-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-single-phase-transformer"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-105-04-2",
+        "data/taxonomy/alias-map.json:emach-single-phase-transformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-04-3": {
+      "qid": "EE-105-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-torque"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-105-04-3",
+        "data/taxonomy/alias-map.json:emach-induction-motor-torque"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-04-4": {
+      "qid": "EE-105-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-105-04-4",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-04-5": {
+      "qid": "EE-105-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-105-04-5",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-105-05-1": {
+      "qid": "EE-105-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transmission-line-models"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-105-05-1",
+        "data/taxonomy/alias-map.json:ps-transmission-line-models"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-05-2": {
+      "qid": "EE-105-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-load-flow-admittance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-05-2",
+        "data/taxonomy/alias-map.json:ps-load-flow-admittance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-05-3": {
+      "qid": "EE-105-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-105-05-3",
+        "data/taxonomy/alias-map.json:ps-unsymmetrical-faults"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-05-4": {
+      "qid": "EE-105-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-05-4",
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-05-5": {
+      "qid": "EE-105-05-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-economic-dispatch"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-05-5",
+        "data/taxonomy/alias-map.json:ps-economic-dispatch"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-06-1": {
+      "qid": "EE-105-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-grounding-system"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-06-1",
+        "data/taxonomy/alias-map.json:dist-grounding-system"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-06-2": {
+      "qid": "EE-105-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-motor-installation"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-06-2",
+        "data/taxonomy/alias-map.json:dist-motor-installation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-06-3": {
+      "qid": "EE-105-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-06-3",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-06-4": {
+      "qid": "EE-105-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-lighting-design"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-06-4",
+        "data/taxonomy/alias-map.json:dist-lighting-design"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-06-5": {
+      "qid": "EE-105-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-harmonics-mitigation"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-06-5",
+        "data/taxonomy/alias-map.json:dist-harmonics-mitigation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-01-1": {
+      "qid": "EE-106-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-laplace-circuit"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-01-1",
+        "data/taxonomy/alias-map.json:ct-laplace-circuit"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-01-2": {
+      "qid": "EE-106-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-first-order-rc-rl"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-01-2",
+        "data/taxonomy/alias-map.json:ct-first-order-rc-rl"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-01-3": {
+      "qid": "EE-106-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-node-mesh"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-01-3",
+        "data/taxonomy/alias-map.json:ct-node-mesh"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-01-4": {
+      "qid": "EE-106-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-superposition"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-01-4",
+        "data/taxonomy/alias-map.json:ct-superposition"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-02-1": {
+      "qid": "EE-106-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-active-filter"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-02-1",
+        "data/taxonomy/alias-map.json:el-active-filter"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-02-2": {
+      "qid": "EE-106-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-feedback-stability",
+        "el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-106-02-2",
+        "data/taxonomy/alias-map.json:el-feedback-stability"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-106-02-3": {
+      "qid": "EE-106-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-bjt-bias-small-signal"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-02-3",
+        "data/taxonomy/alias-map.json:el-bjt-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-02-4": {
+      "qid": "EE-106-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-02-4",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-02-5": {
+      "qid": "EE-106-02-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-02-5",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-03-1": {
+      "qid": "EE-106-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-matrix-det-inv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-03-1",
+        "data/taxonomy/alias-map.json:em-matrix-det-inv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-03-2": {
+      "qid": "EE-106-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-matrix-det-inv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-03-2",
+        "data/taxonomy/alias-map.json:em-matrix-det-inv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-03-3": {
+      "qid": "EE-106-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-nonhomogeneous"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-03-3",
+        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-03-4": {
+      "qid": "EE-106-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-laplace-transform"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-03-4",
+        "data/taxonomy/alias-map.json:em-laplace-transform"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-03-5": {
+      "qid": "EE-106-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-03-5",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-03-6": {
+      "qid": "EE-106-03-6",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-03-6",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-03-7": {
+      "qid": "EE-106-03-7",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-03-7",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-03-8": {
+      "qid": "EE-106-03-8",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-03-8",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-04-1": {
+      "qid": "EE-106-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-magnetic-circuits"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-04-1",
+        "data/taxonomy/alias-map.json:emach-magnetic-circuits"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-04-2": {
+      "qid": "EE-106-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-autotransformer"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-04-2",
+        "data/taxonomy/alias-map.json:emach-autotransformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-04-3": {
+      "qid": "EE-106-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-04-3",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-04-4": {
+      "qid": "EE-106-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-04-4",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-04-5": {
+      "qid": "EE-106-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-04-5",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-05-1": {
+      "qid": "EE-106-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transmission-line-models"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-05-1",
+        "data/taxonomy/alias-map.json:ps-transmission-line-models"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-05-2": {
+      "qid": "EE-106-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-three-phase-fault"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-05-2",
+        "data/taxonomy/alias-map.json:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-05-3": {
+      "qid": "EE-106-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-load-flow-admittance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-05-3",
+        "data/taxonomy/alias-map.json:ps-load-flow-admittance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-05-4": {
+      "qid": "EE-106-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-system-protection-relay"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-05-4",
+        "data/taxonomy/alias-map.json:ps-system-protection-relay"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-06-1": {
+      "qid": "EE-106-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-106-06-1",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-06-2": {
+      "qid": "EE-106-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-106-06-2",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-106-06-3": {
+      "qid": "EE-106-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-distribution-equipment"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-06-3",
+        "data/taxonomy/alias-map.json:dist-distribution-equipment"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-06-4": {
+      "qid": "EE-106-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-protection-coordination"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-06-4",
+        "data/taxonomy/alias-map.json:dist-protection-coordination"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-106-06-5": {
+      "qid": "EE-106-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-harmonics-mitigation"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-106-06-5",
+        "data/taxonomy/alias-map.json:dist-harmonics-mitigation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-01-1": {
+      "qid": "EE-107-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-node-mesh"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-01-1",
+        "data/taxonomy/alias-map.json:ct-node-mesh"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-01-2": {
+      "qid": "EE-107-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-first-order-rc-rl"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-01-2",
+        "data/taxonomy/alias-map.json:ct-first-order-rc-rl"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-01-3": {
+      "qid": "EE-107-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-phasor-ac"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-01-3",
+        "data/taxonomy/alias-map.json:ct-phasor-ac"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-01-4": {
+      "qid": "EE-107-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-max-power"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-107-01-4",
+        "data/taxonomy/alias-map.json:ct-max-power"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-01-5": {
+      "qid": "EE-107-01-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-three-phase"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-01-5",
+        "data/taxonomy/alias-map.json:ct-three-phase"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-02-1": {
+      "qid": "EE-107-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-02-1",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-02-2": {
+      "qid": "EE-107-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-02-2",
+        "data/taxonomy/alias-map.json:el-mosfet-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-02-3": {
+      "qid": "EE-107-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-02-3",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-02-4": {
+      "qid": "EE-107-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-02-4",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-03-1": {
+      "qid": "EE-107-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-first-order-ode"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-03-1",
+        "data/taxonomy/alias-map.json:em-first-order-ode"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-03-2": {
+      "qid": "EE-107-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-03-2",
+        "data/taxonomy/alias-map.json:em-eigen-diagonal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-03-3": {
+      "qid": "EE-107-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-03-3",
+        "data/taxonomy/alias-map.json:em-vector-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-03-4": {
+      "qid": "EE-107-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-fourier-series"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-03-4",
+        "data/taxonomy/alias-map.json:em-fourier-series"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-03-5": {
+      "qid": "EE-107-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-03-5",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-04-1": {
+      "qid": "EE-107-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-three-phase-transformer"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-04-1",
+        "data/taxonomy/alias-map.json:emach-three-phase-transformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-04-2": {
+      "qid": "EE-107-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-107-04-2",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-04-3": {
+      "qid": "EE-107-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-107-04-3",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-04-4": {
+      "qid": "EE-107-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-04-4",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-04-5": {
+      "qid": "EE-107-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-torque"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-04-5",
+        "data/taxonomy/alias-map.json:emach-induction-motor-torque"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-05-1": {
+      "qid": "EE-107-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transmission-line-models"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-107-05-1",
+        "data/taxonomy/alias-map.json:ps-transmission-line-models"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-05-2": {
+      "qid": "EE-107-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-three-phase-fault"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-107-05-2",
+        "data/taxonomy/alias-map.json:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-05-3": {
+      "qid": "EE-107-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-power-analysis"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-107-05-3",
+        "data/taxonomy/alias-map.json:ps-power-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-05-4": {
+      "qid": "EE-107-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-05-4",
+        "data/taxonomy/alias-map.json:ps-unsymmetrical-faults"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-06-1": {
+      "qid": "EE-107-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-load-characteristics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-06-1",
+        "data/taxonomy/alias-map.json:dist-load-characteristics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-06-2": {
+      "qid": "EE-107-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-voltage-drop"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-107-06-2",
+        "data/taxonomy/alias-map.json:dist-voltage-drop"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-107-06-3": {
+      "qid": "EE-107-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-protection-coordination"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-06-3",
+        "data/taxonomy/alias-map.json:dist-protection-coordination"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-06-4": {
+      "qid": "EE-107-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-motor-installation"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-06-4",
+        "data/taxonomy/alias-map.json:dist-motor-installation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-107-06-5": {
+      "qid": "EE-107-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-power-factor-correction"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-107-06-5",
+        "data/taxonomy/alias-map.json:dist-power-factor-correction"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-01-1": {
+      "qid": "EE-108-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-phasor-ac"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-108-01-1",
+        "data/taxonomy/alias-map.json:ct-phasor-ac"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-01-2": {
+      "qid": "EE-108-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-node-mesh"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-01-2",
+        "data/taxonomy/alias-map.json:ct-node-mesh"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-01-3": {
+      "qid": "EE-108-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-three-phase"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-01-3",
+        "data/taxonomy/alias-map.json:ct-three-phase"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-01-4": {
+      "qid": "EE-108-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-mutual-inductance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-01-4",
+        "data/taxonomy/alias-map.json:ct-mutual-inductance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-02-1": {
+      "qid": "EE-108-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-active-filter"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-02-1",
+        "data/taxonomy/alias-map.json:el-active-filter"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-02-2": {
+      "qid": "EE-108-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-02-2",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-02-3": {
+      "qid": "EE-108-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-feedback-stability"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-108-02-3",
+        "data/taxonomy/alias-map.json:el-feedback-stability"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-02-4": {
+      "qid": "EE-108-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-active-filter"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-02-4",
+        "data/taxonomy/alias-map.json:el-active-filter"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-02-5": {
+      "qid": "EE-108-02-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-02-5",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-03-1": {
+      "qid": "EE-108-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-nonhomogeneous"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-108-03-1",
+        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-03-2": {
+      "qid": "EE-108-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-03-2",
+        "data/taxonomy/alias-map.json:em-eigen-diagonal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-03-3": {
+      "qid": "EE-108-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-03-3",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-03-4": {
+      "qid": "EE-108-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-03-4",
+        "data/taxonomy/alias-map.json:em-vector-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-03-5": {
+      "qid": "EE-108-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-03-5",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-04-1": {
+      "qid": "EE-108-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-autotransformer"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-04-1",
+        "data/taxonomy/alias-map.json:emach-autotransformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-04-2": {
+      "qid": "EE-108-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-108-04-2",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-04-3": {
+      "qid": "EE-108-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-04-3",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-04-4": {
+      "qid": "EE-108-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-04-4",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-04-5": {
+      "qid": "EE-108-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-108-04-5",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-05-1": {
+      "qid": "EE-108-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-power-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-05-1",
+        "data/taxonomy/alias-map.json:ps-power-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-05-2": {
+      "qid": "EE-108-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-load-flow-admittance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-05-2",
+        "data/taxonomy/alias-map.json:ps-load-flow-admittance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-05-3": {
+      "qid": "EE-108-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-unsymmetrical-faults"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-05-3",
+        "data/taxonomy/alias-map.json:ps-unsymmetrical-faults"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-05-4": {
+      "qid": "EE-108-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-system-protection-relay"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-05-4",
+        "data/taxonomy/alias-map.json:ps-system-protection-relay"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-05-5": {
+      "qid": "EE-108-05-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-three-phase-fault"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-05-5",
+        "data/taxonomy/alias-map.json:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-06-1": {
+      "qid": "EE-108-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-distribution-equipment"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-06-1",
+        "data/taxonomy/alias-map.json:dist-distribution-equipment"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-06-2": {
+      "qid": "EE-108-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-voltage-drop"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-108-06-2",
+        "data/taxonomy/alias-map.json:dist-voltage-drop"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-108-06-3": {
+      "qid": "EE-108-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-distribution-equipment"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-06-3",
+        "data/taxonomy/alias-map.json:dist-distribution-equipment"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-06-4": {
+      "qid": "EE-108-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-06-4",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-108-06-5": {
+      "qid": "EE-108-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-power-factor-correction"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-108-06-5",
+        "data/taxonomy/alias-map.json:dist-power-factor-correction"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-01-1": {
+      "qid": "EE-109-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-node-mesh"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-01-1",
+        "data/taxonomy/alias-map.json:ct-node-mesh"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-01-2": {
+      "qid": "EE-109-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-laplace-circuit"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-01-2",
+        "data/taxonomy/alias-map.json:ct-laplace-circuit"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-01-3": {
+      "qid": "EE-109-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-superposition"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-01-3",
+        "data/taxonomy/alias-map.json:ct-superposition"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-01-4": {
+      "qid": "EE-109-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-01-4",
+        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-02-1": {
+      "qid": "EE-109-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-bjt-bias-small-signal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-02-1",
+        "data/taxonomy/alias-map.json:el-bjt-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-02-2": {
+      "qid": "EE-109-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-02-2",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-02-3": {
+      "qid": "EE-109-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-109-02-3",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-109-02-4": {
+      "qid": "EE-109-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-02-4",
+        "data/taxonomy/alias-map.json:el-mosfet-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-03-1": {
+      "qid": "EE-109-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-nonhomogeneous"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-03-1",
+        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-03-2": {
+      "qid": "EE-109-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-first-order-ode"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-03-2",
+        "data/taxonomy/alias-map.json:em-first-order-ode"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-03-3": {
+      "qid": "EE-109-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-03-3",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-03-4": {
+      "qid": "EE-109-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-03-4",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-03-5": {
+      "qid": "EE-109-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-matrix-det-inv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-03-5",
+        "data/taxonomy/alias-map.json:em-matrix-det-inv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-04-1": {
+      "qid": "EE-109-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-single-phase-transformer"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-04-1",
+        "data/taxonomy/alias-map.json:emach-single-phase-transformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-04-2": {
+      "qid": "EE-109-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-04-2",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-04-3": {
+      "qid": "EE-109-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-04-3",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-04-4": {
+      "qid": "EE-109-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-04-4",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-04-5": {
+      "qid": "EE-109-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-salient-pole"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-04-5",
+        "data/taxonomy/alias-map.json:emach-synchronous-salient-pole"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-05-1": {
+      "qid": "EE-109-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-power-analysis"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-05-1",
+        "data/taxonomy/alias-map.json:ps-power-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-05-2": {
+      "qid": "EE-109-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transmission-line-models"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-05-2",
+        "data/taxonomy/alias-map.json:ps-transmission-line-models"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-05-3": {
+      "qid": "EE-109-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-load-flow-admittance"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-05-3",
+        "data/taxonomy/alias-map.json:ps-load-flow-admittance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-05-4": {
+      "qid": "EE-109-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-symmetrical-components"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-05-4",
+        "data/taxonomy/alias-map.json:ps-symmetrical-components"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-05-5": {
+      "qid": "EE-109-05-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-economic-dispatch"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-05-5",
+        "data/taxonomy/alias-map.json:ps-economic-dispatch"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-05-6": {
+      "qid": "EE-109-05-6",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-109-05-6",
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-06-1": {
+      "qid": "EE-109-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-load-characteristics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-06-1",
+        "data/taxonomy/alias-map.json:dist-load-characteristics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-06-2": {
+      "qid": "EE-109-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-voltage-drop"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-06-2",
+        "data/taxonomy/alias-map.json:dist-voltage-drop"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-06-3": {
+      "qid": "EE-109-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-06-3",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-06-4": {
+      "qid": "EE-109-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-lighting-design"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-06-4",
+        "data/taxonomy/alias-map.json:dist-lighting-design"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-109-06-5": {
+      "qid": "EE-109-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-power-factor-correction"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-109-06-5",
+        "data/taxonomy/alias-map.json:dist-power-factor-correction"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-01-1": {
+      "qid": "EE-110-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-mutual-inductance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-01-1",
+        "data/taxonomy/alias-map.json:ct-mutual-inductance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-01-2": {
+      "qid": "EE-110-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-two-port"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-01-2",
+        "data/taxonomy/alias-map.json:ct-two-port"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-01-3": {
+      "qid": "EE-110-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-01-3",
+        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-01-4": {
+      "qid": "EE-110-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-three-phase"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-01-4",
+        "data/taxonomy/alias-map.json:ct-three-phase"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-02-1": {
+      "qid": "EE-110-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-bjt-bias-small-signal"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-110-02-1",
+        "data/taxonomy/alias-map.json:el-bjt-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-02-2": {
+      "qid": "EE-110-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diff-amp"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-02-2",
+        "data/taxonomy/alias-map.json:el-diff-amp"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-02-3": {
+      "qid": "EE-110-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-02-3",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-02-4": {
+      "qid": "EE-110-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-inverter-spwm"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-02-4",
+        "data/taxonomy/alias-map.json:el-pe-inverter-spwm"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-03-1": {
+      "qid": "EE-110-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-first-order-ode"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-03-1",
+        "data/taxonomy/alias-map.json:em-first-order-ode"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-03-2": {
+      "qid": "EE-110-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-nonhomogeneous"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-03-2",
+        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-03-3": {
+      "qid": "EE-110-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-fourier-series"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-03-3",
+        "data/taxonomy/alias-map.json:em-fourier-series"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-03-4": {
+      "qid": "EE-110-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-03-4",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-03-5": {
+      "qid": "EE-110-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-03-5",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-03-6": {
+      "qid": "EE-110-03-6",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-03-6",
+        "data/taxonomy/alias-map.json:em-eigen-diagonal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-04-1": {
+      "qid": "EE-110-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-magnetic-circuits"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-04-1",
+        "data/taxonomy/alias-map.json:emach-magnetic-circuits"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-04-2": {
+      "qid": "EE-110-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-autotransformer"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-04-2",
+        "data/taxonomy/alias-map.json:emach-autotransformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-04-3": {
+      "qid": "EE-110-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-04-3",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-04-4": {
+      "qid": "EE-110-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-110-04-4",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-04-5": {
+      "qid": "EE-110-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-torque"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-04-5",
+        "data/taxonomy/alias-map.json:emach-induction-motor-torque"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-05-1": {
+      "qid": "EE-110-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-110-05-1",
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-05-2": {
+      "qid": "EE-110-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-load-flow-admittance"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-110-05-2",
+        "data/taxonomy/alias-map.json:ps-load-flow-admittance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-05-3": {
+      "qid": "EE-110-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-symmetrical-components"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-110-05-3",
+        "data/taxonomy/alias-map.json:ps-symmetrical-components"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-05-4": {
+      "qid": "EE-110-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-economic-dispatch"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-110-05-4",
+        "data/taxonomy/alias-map.json:ps-economic-dispatch"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-05-5": {
+      "qid": "EE-110-05-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-05-5",
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-06-1": {
+      "qid": "EE-110-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-power-factor-correction"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-110-06-1",
+        "data/taxonomy/alias-map.json:dist-power-factor-correction"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-06-2": {
+      "qid": "EE-110-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-load-characteristics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-06-2",
+        "data/taxonomy/alias-map.json:dist-load-characteristics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-06-3": {
+      "qid": "EE-110-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-power-factor-correction"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-06-3",
+        "data/taxonomy/alias-map.json:dist-power-factor-correction"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-06-4": {
+      "qid": "EE-110-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-harmonics-mitigation"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-110-06-4",
+        "data/taxonomy/alias-map.json:dist-harmonics-mitigation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-110-06-5": {
+      "qid": "EE-110-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity",
+        "dist-motor-installation"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-110-06-5",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-111-01-1": {
+      "qid": "EE-111-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-phasor-ac"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-01-1",
+        "data/taxonomy/alias-map.json:ct-phasor-ac"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-01-2": {
+      "qid": "EE-111-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-mutual-inductance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-01-2",
+        "data/taxonomy/alias-map.json:ct-mutual-inductance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-01-3": {
+      "qid": "EE-111-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-01-3",
+        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-01-4": {
+      "qid": "EE-111-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-two-port"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-01-4",
+        "data/taxonomy/alias-map.json:ct-two-port"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-02-1": {
+      "qid": "EE-111-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-02-1",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-02-2": {
+      "qid": "EE-111-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-02-2",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-02-3": {
+      "qid": "EE-111-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-111-02-3",
+        "data/taxonomy/alias-map.json:el-mosfet-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-111-02-4": {
+      "qid": "EE-111-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-feedback-stability"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-111-02-4",
+        "data/taxonomy/alias-map.json:el-feedback-stability"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-111-03-1": {
+      "qid": "EE-111-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-nonhomogeneous"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-03-1",
+        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-03-2": {
+      "qid": "EE-111-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-nonhomogeneous"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-03-2",
+        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-03-3": {
+      "qid": "EE-111-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-03-3",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-03-4": {
+      "qid": "EE-111-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-svd-linear-systems"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-03-4",
+        "data/taxonomy/alias-map.json:em-svd-linear-systems"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-03-5": {
+      "qid": "EE-111-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-03-5",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-03-6": {
+      "qid": "EE-111-03-6",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-03-6",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-04-1": {
+      "qid": "EE-111-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-magnetic-circuits"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-04-1",
+        "data/taxonomy/alias-map.json:emach-magnetic-circuits"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-04-2": {
+      "qid": "EE-111-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-torque"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-04-2",
+        "data/taxonomy/alias-map.json:emach-induction-motor-torque"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-04-3": {
+      "qid": "EE-111-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-04-3",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-04-4": {
+      "qid": "EE-111-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-111-04-4",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-111-04-5": {
+      "qid": "EE-111-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-04-5",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-05-1": {
+      "qid": "EE-111-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transmission-line-models"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-111-05-1",
+        "data/taxonomy/alias-map.json:ps-transmission-line-models"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-05-2": {
+      "qid": "EE-111-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-three-phase-fault"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-111-05-2",
+        "data/taxonomy/alias-map.json:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-05-3": {
+      "qid": "EE-111-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-05-3",
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-05-4": {
+      "qid": "EE-111-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transmission-line-models"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-05-4",
+        "data/taxonomy/alias-map.json:ps-transmission-line-models"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-111-06-1": {
+      "qid": "EE-111-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-protection-coordination"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-111-06-1",
+        "data/taxonomy/alias-map.json:dist-protection-coordination"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-111-06-2": {
+      "qid": "EE-111-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-motor-installation"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-111-06-2",
+        "data/taxonomy/alias-map.json:dist-motor-installation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-111-06-3": {
+      "qid": "EE-111-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-111-06-3",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-111-06-4": {
+      "qid": "EE-111-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-motor-installation"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-111-06-4",
+        "data/taxonomy/alias-map.json:dist-motor-installation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-111-06-5": {
+      "qid": "EE-111-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-grounding-system"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-111-06-5",
+        "data/taxonomy/alias-map.json:dist-grounding-system"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-01-1": {
+      "qid": "EE-112-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-divider-equiv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-01-1",
+        "data/taxonomy/alias-map.json:ct-divider-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-01-2": {
+      "qid": "EE-112-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-mutual-inductance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-01-2",
+        "data/taxonomy/alias-map.json:ct-mutual-inductance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-01-3": {
+      "qid": "EE-112-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-thevenin-norton"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-01-3",
+        "data/taxonomy/alias-map.json:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-01-4": {
+      "qid": "EE-112-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-01-4",
+        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-02-1": {
+      "qid": "EE-112-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-bjt-bias-small-signal",
+        "el-active-filter"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-112-02-1",
+        "data/taxonomy/alias-map.json:el-bjt-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-112-02-2": {
+      "qid": "EE-112-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-opamp-ideal"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-112-02-2",
+        "data/taxonomy/alias-map.json:el-opamp-ideal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-02-3": {
+      "qid": "EE-112-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-02-3",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-02-4": {
+      "qid": "EE-112-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-02-4",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-03-1": {
+      "qid": "EE-112-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-laplace-transform"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-03-1",
+        "data/taxonomy/alias-map.json:em-laplace-transform"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-03-2": {
+      "qid": "EE-112-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-fourier-series"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-03-2",
+        "data/taxonomy/alias-map.json:em-fourier-series"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-03-3": {
+      "qid": "EE-112-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-03-3",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-03-4": {
+      "qid": "EE-112-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-03-4",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-03-5": {
+      "qid": "EE-112-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-03-5",
+        "data/taxonomy/alias-map.json:em-vector-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-03-6": {
+      "qid": "EE-112-03-6",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-eigen-diagonal"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-03-6",
+        "data/taxonomy/alias-map.json:em-eigen-diagonal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-04-1": {
+      "qid": "EE-112-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-magnetic-circuits"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-112-04-1",
+        "data/taxonomy/alias-map.json:emach-magnetic-circuits"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-04-2": {
+      "qid": "EE-112-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-single-phase-transformer"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-112-04-2",
+        "data/taxonomy/alias-map.json:emach-single-phase-transformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-04-3": {
+      "qid": "EE-112-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-112-04-3",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-04-4": {
+      "qid": "EE-112-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-112-04-4",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-04-5": {
+      "qid": "EE-112-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-112-04-5",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-05-1": {
+      "qid": "EE-112-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transmission-line-params"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-05-1",
+        "data/taxonomy/alias-map.json:ps-transmission-line-params"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-05-2": {
+      "qid": "EE-112-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-economic-dispatch"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-05-2",
+        "data/taxonomy/alias-map.json:ps-economic-dispatch"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-05-3": {
+      "qid": "EE-112-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-load-flow-admittance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-05-3",
+        "data/taxonomy/alias-map.json:ps-load-flow-admittance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-05-4": {
+      "qid": "EE-112-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-05-4",
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-06-1": {
+      "qid": "EE-112-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-grounding-system"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-06-1",
+        "data/taxonomy/alias-map.json:dist-grounding-system"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-06-2": {
+      "qid": "EE-112-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-load-characteristics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-06-2",
+        "data/taxonomy/alias-map.json:dist-load-characteristics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-06-3": {
+      "qid": "EE-112-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-06-3",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-06-4": {
+      "qid": "EE-112-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-112-06-4",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-06-5": {
+      "qid": "EE-112-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-protection-coordination"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-112-06-5",
+        "data/taxonomy/alias-map.json:dist-protection-coordination"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-01-1": {
+      "qid": "EE-113-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-ohm-kcl-kvl"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-01-1",
+        "data/taxonomy/alias-map.json:ct-ohm-kcl-kvl"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-01-2": {
+      "qid": "EE-113-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-phasor-ac"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-01-2",
+        "data/taxonomy/alias-map.json:ct-phasor-ac"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-01-3": {
+      "qid": "EE-113-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-mutual-inductance"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-01-3",
+        "data/taxonomy/alias-map.json:ct-mutual-inductance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-01-4": {
+      "qid": "EE-113-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-two-port"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-01-4",
+        "data/taxonomy/alias-map.json:ct-two-port"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-02-1": {
+      "qid": "EE-113-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diode-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-02-1",
+        "data/taxonomy/alias-map.json:el-diode-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-02-2": {
+      "qid": "EE-113-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-bjt-bias-small-signal"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-113-02-2",
+        "data/taxonomy/alias-map.json:el-bjt-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-113-02-3": {
+      "qid": "EE-113-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-02-3",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-02-4": {
+      "qid": "EE-113-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-02-4",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-03-1": {
+      "qid": "EE-113-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-nonhomogeneous"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-03-1",
+        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-03-2": {
+      "qid": "EE-113-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-laplace-transform"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-03-2",
+        "data/taxonomy/alias-map.json:em-laplace-transform"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-03-3": {
+      "qid": "EE-113-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-03-3",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-03-4": {
+      "qid": "EE-113-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-matrix-det-inv"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-113-03-4",
+        "data/taxonomy/alias-map.json:em-matrix-det-inv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-03-5": {
+      "qid": "EE-113-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-vector-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-03-5",
+        "data/taxonomy/alias-map.json:em-vector-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-03-6": {
+      "qid": "EE-113-03-6",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-03-6",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-04-1": {
+      "qid": "EE-113-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-single-phase-transformer"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-04-1",
+        "data/taxonomy/alias-map.json:emach-single-phase-transformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-04-2": {
+      "qid": "EE-113-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-04-2",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-04-3": {
+      "qid": "EE-113-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-dc-motor-generator"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-04-3",
+        "data/taxonomy/alias-map.json:emach-dc-motor-generator"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-04-4": {
+      "qid": "EE-113-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.96,
+      "evidence": [
+        "dashboard-data.js:EE-113-04-4",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "manual"
+    },
+    "PE:EE-113-04-5": {
+      "qid": "EE-113-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-04-5",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-05-1": {
+      "qid": "EE-113-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-power-analysis"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-05-1",
+        "data/taxonomy/alias-map.json:ps-power-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-05-2": {
+      "qid": "EE-113-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-three-phase-fault"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-05-2",
+        "data/taxonomy/alias-map.json:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-05-3": {
+      "qid": "EE-113-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-economic-dispatch"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-05-3",
+        "data/taxonomy/alias-map.json:ps-economic-dispatch"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-05-4": {
+      "qid": "EE-113-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-113-05-4",
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-06-1": {
+      "qid": "EE-113-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-load-characteristics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-06-1",
+        "data/taxonomy/alias-map.json:dist-load-characteristics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-06-2": {
+      "qid": "EE-113-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-voltage-drop"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-113-06-2",
+        "data/taxonomy/alias-map.json:dist-voltage-drop"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-06-3": {
+      "qid": "EE-113-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-harmonics-mitigation"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-06-3",
+        "data/taxonomy/alias-map.json:dist-harmonics-mitigation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-06-4": {
+      "qid": "EE-113-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-06-4",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-113-06-5": {
+      "qid": "EE-113-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-protection-coordination"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-113-06-5",
+        "data/taxonomy/alias-map.json:dist-protection-coordination"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-01-1": {
+      "qid": "EE-114-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-node-mesh"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-01-1",
+        "data/taxonomy/alias-map.json:ct-node-mesh"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-01-2": {
+      "qid": "EE-114-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-thevenin-norton"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-01-2",
+        "data/taxonomy/alias-map.json:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-01-3": {
+      "qid": "EE-114-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-second-order-rlc"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-01-3",
+        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-01-4": {
+      "qid": "EE-114-01-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-superposition"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-01-4",
+        "data/taxonomy/alias-map.json:ct-superposition"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-01-5": {
+      "qid": "EE-114-01-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-laplace-circuit"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-01-5",
+        "data/taxonomy/alias-map.json:ct-laplace-circuit"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-02-1": {
+      "qid": "EE-114-02-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-diff-amp"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-02-1",
+        "data/taxonomy/alias-map.json:el-diff-amp"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-02-2": {
+      "qid": "EE-114-02-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-mosfet-bias-small-signal"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-02-2",
+        "data/taxonomy/alias-map.json:el-mosfet-bias-small-signal"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-02-3": {
+      "qid": "EE-114-02-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-buck-boost"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-02-3",
+        "data/taxonomy/alias-map.json:el-pe-buck-boost"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-02-4": {
+      "qid": "EE-114-02-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "el-pe-thyristor-rectifier"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-02-4",
+        "data/taxonomy/alias-map.json:el-pe-thyristor-rectifier"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-03-1": {
+      "qid": "EE-114-03-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-probability-statistics"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-03-1",
+        "data/taxonomy/alias-map.json:em-probability-statistics"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-03-2": {
+      "qid": "EE-114-03-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-complex-cauchy-residue"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-03-2",
+        "data/taxonomy/alias-map.json:em-complex-cauchy-residue"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-03-3": {
+      "qid": "EE-114-03-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-second-order-ode-homogeneous"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-03-3",
+        "data/taxonomy/alias-map.json:em-second-order-ode-homogeneous"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-03-4": {
+      "qid": "EE-114-03-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-fourier-series"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-03-4",
+        "data/taxonomy/alias-map.json:em-fourier-series"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-03-5": {
+      "qid": "EE-114-03-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "em-svd-linear-systems"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-114-03-5",
+        "data/taxonomy/alias-map.json:em-svd-linear-systems"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-04-1": {
+      "qid": "EE-114-04-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-magnetic-circuits"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-04-1",
+        "data/taxonomy/alias-map.json:emach-magnetic-circuits"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-04-2": {
+      "qid": "EE-114-04-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-single-phase-transformer"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-04-2",
+        "data/taxonomy/alias-map.json:emach-single-phase-transformer"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-04-3": {
+      "qid": "EE-114-04-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-induction-motor-equiv"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-04-3",
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-04-4": {
+      "qid": "EE-114-04-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-generator-round"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-04-4",
+        "data/taxonomy/alias-map.json:emach-synchronous-generator-round"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-04-5": {
+      "qid": "EE-114-04-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "emach-synchronous-salient-pole"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-04-5",
+        "data/taxonomy/alias-map.json:emach-synchronous-salient-pole"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-05-1": {
+      "qid": "EE-114-05-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-power-analysis"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-05-1",
+        "data/taxonomy/alias-map.json:ps-power-analysis"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-05-2": {
+      "qid": "EE-114-05-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-load-flow-admittance"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-05-2",
+        "data/taxonomy/alias-map.json:ps-load-flow-admittance"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-05-3": {
+      "qid": "EE-114-05-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-economic-dispatch"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-05-3",
+        "data/taxonomy/alias-map.json:ps-economic-dispatch"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-05-4": {
+      "qid": "EE-114-05-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-three-phase-fault"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-05-4",
+        "data/taxonomy/alias-map.json:ps-three-phase-fault"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-05-5": {
+      "qid": "EE-114-05-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ps-transient-stability-equal-area"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-05-5",
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-06-1": {
+      "qid": "EE-114-06-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-distribution-equipment"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-06-1",
+        "data/taxonomy/alias-map.json:dist-distribution-equipment"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-06-2": {
+      "qid": "EE-114-06-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-harmonics-mitigation"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-06-2",
+        "data/taxonomy/alias-map.json:dist-harmonics-mitigation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-06-3": {
+      "qid": "EE-114-06-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-short-circuit-capacity"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-06-3",
+        "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-06-4": {
+      "qid": "EE-114-06-4",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-motor-installation"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-06-4",
+        "data/taxonomy/alias-map.json:dist-motor-installation"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-114-06-5": {
+      "qid": "EE-114-06-5",
+      "examFamily": "PE",
+      "nodeIds": [
+        "dist-power-factor-correction"
+      ],
+      "confidence": 0.92,
+      "evidence": [
+        "dashboard-data.js:EE-114-06-5",
+        "data/taxonomy/alias-map.json:dist-power-factor-correction"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    }
+  }
+}

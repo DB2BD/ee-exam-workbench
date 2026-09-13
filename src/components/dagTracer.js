@@ -9,14 +9,34 @@ function renderDagTracerCard(qid, sid, topic) {
     return '';
   }
 
-  const matchedNodeIds = mapQuestionToDagNodes(sid, topic, '');
+  const matchedNodeIds = mapQuestionToDagNodes(sid, topic, '', qid);
   if (!matchedNodeIds || matchedNodeIds.length === 0) return '';
 
   const targetNodeId = matchedNodeIds[0];
-  const targetNode = KNOWLEDGE_DAG[targetNodeId];
+  const graph = typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined' ? CANONICAL_KNOWLEDGE_GRAPH : null;
+  const canonicalTarget = graph && graph.nodes ? graph.nodes[targetNodeId] : null;
+  const targetNode = KNOWLEDGE_DAG[targetNodeId] || canonicalTarget;
   if (!targetNode) return '';
 
-  const prereqChain = tracePrerequisiteChain(targetNodeId);
+  const canonicalChain = canonicalTarget && graph && Array.isArray(graph.edges)
+    ? (() => {
+      const nodes = graph.nodes || {};
+      const visited = new Set();
+      const chain = [];
+      const visit = nodeId => {
+        if (visited.has(nodeId) || !nodes[nodeId]) return;
+        visited.add(nodeId);
+        graph.edges
+          .filter(edge => edge.reviewStatus === 'approved' && edge.relation === 'prerequisite' && edge.to === nodeId)
+          .sort((left, right) => String(left.from).localeCompare(String(right.from)))
+          .forEach(edge => visit(edge.from));
+        chain.push(nodes[nodeId]);
+      };
+      visit(targetNodeId);
+      return chain;
+    })()
+    : null;
+  const prereqChain = canonicalChain || tracePrerequisiteChain(targetNodeId);
   if (!prereqChain || prereqChain.length === 0) return '';
 
   return `
@@ -31,12 +51,14 @@ function renderDagTracerCard(qid, sid, topic) {
 
       <div class="dag-chain-flow">
         ${prereqChain.map((node, idx) => {
-          const isTarget = node.id === targetNodeId;
+          const nodeId = node.nodeId || node.id;
+          const nodeName = node.title || node.name || nodeId;
+          const isTarget = nodeId === targetNodeId;
           const arrow = idx < prereqChain.length - 1 ? '<span class="dag-arrow">➔</span>' : '';
           return `
-            <div class="dag-node-chip ${isTarget ? 'target' : 'prereq'}" title="核心公式：${node.coreFormula}">
-              <span>${isTarget ? '🎯' : '📚'} ${node.name}</span>
-              <span style="font-size: 0.72rem; opacity: 0.8;">L${node.level}</span>
+            <div class="dag-node-chip ${isTarget ? 'target' : 'prereq'}" title="核心公式：${node.coreFormula || '請先回想定義與適用條件'}">
+              <span>${isTarget ? '🎯' : '📚'} ${nodeName}</span>
+              <span style="font-size: 0.72rem; opacity: 0.8;">L${node.level || 0}</span>
             </div>
             ${arrow}
           `;

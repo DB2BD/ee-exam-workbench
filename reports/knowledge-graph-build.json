@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "knowledge-graph-build.v1",
+  "valid": true,
+  "graphRevision": "kg-v1-97a9a9a3fcd6334b",
+  "sourceCounts": {
+    "legacyDagNodeCount": 69,
+    "coreNoteCount": 14,
+    "questionRecordCount": 482,
+    "canonicalNodeCount": 145,
+    "canonicalEdgeCount": 125,
+    "canonicalQuestionLinkCount": 482
+  },
+  "mappedQuestionCount": 482,
+  "unknownQuestionCount": 0,
+  "coverage": {
+    "actual": 482,
+    "required": 482,
+    "status": "passed"
+  },
+  "errors": [],
+  "generatedAt": "2026-09-13T09:45:07.696Z",
+  "sourceIdentity": {
+    "canonicalGraphRevision": "kg-v1-97a9a9a3fcd6334b",
+    "schemaVersion": "canonical-knowledge-graph.v1"
+  },
+  "outputIdentity": {
+    "kind": "website-bundle",
+    "path": "/Users/a/技師考試/歷屆試題_104-114年/src/data/knowledge-dag.generated.js"
+  },
+  "checks": [
+    {
+      "name": "canonical graph validation",
+      "passed": true
+    },
+    {
+      "name": "question-link coverage",
+      "passed": true
+    }
+  ],
+  "blockingFailures": []
+}

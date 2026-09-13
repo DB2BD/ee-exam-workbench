@@ -25,6 +25,14 @@ const BACKUP_PROGRESS_KEYS = { PE: 'EE_EXAM_PROGRESS_V1', GK: 'GK_EXAM_PROGRESS_
 const BACKUP_STARRED_KEYS = { PE: 'EE_EXAM_STARRED_V1', GK: 'GK_EXAM_STARRED_V1' };
 const BACKUP_CATEGORIES = ['PE', 'GK'];
 const BACKUP_RECALL_ERROR_TYPES = ['題型辨識錯', '起手式不會', '公式忘記', '計算錯', '觀念混淆'];
+const BACKUP_LEARNING_KEYS = {
+  attempts: 'EE_EXAM_ATTEMPT_ENVELOPES_V1',
+  attemptRecovery: 'EE_EXAM_ATTEMPT_RECOVERY_V1',
+  issues: { PE: 'EE_KNOWLEDGE_ISSUES_PE_V1', GK: 'GK_KNOWLEDGE_ISSUES_GK_V1' },
+  knowledgeReviews: { PE: 'EE_KNOWLEDGE_REVIEWS_PE_V1', GK: 'GK_KNOWLEDGE_REVIEWS_GK_V1' },
+};
+const BACKUP_MAX_BYTES = 8 * 1024 * 1024;
+const BACKUP_MAX_ISSUE_EVENTS = 5000;
 
 let sm2Schedule = {};
 let sm2StoreLoadError = null;
@@ -402,12 +410,172 @@ function backupManualLabelIsValid(qid, value, category, records) {
   return true;
 }
 
+function backupByteLength(value) {
+  const text = String(value);
+  try { return encodeURIComponent(text).replace(/%[0-9A-F]{2}|./g, 'x').length; }
+  catch (_) { return text.length * 4; }
+}
+
+function backupEmptyIssueLog(family) {
+  return { schemaVersion: 'knowledge-issue-events.v1', examFamily: family, graphRevisions: [], events: [] };
+}
+
+function backupEmptyReviewLog(family) {
+  return { schemaVersion: 'knowledge-reviews.v1', examFamily: family, graphRevisions: [], reviews: {} };
+}
+
+function backupEmptyLearningData() {
+  return {
+    attempts: { schemaVersion: 'learning-attempts.v1', attempts: {} },
+    issues: { PE: backupEmptyIssueLog('PE'), GK: backupEmptyIssueLog('GK') },
+    knowledgeReviews: { PE: backupEmptyReviewLog('PE'), GK: backupEmptyReviewLog('GK') },
+    recoveryJournal: null,
+  };
+}
+
+function backupValidateAttemptLearning(value, errors) {
+  if (!backupIsPlainObject(value) || value.schemaVersion !== 'learning-attempts.v1' || !backupIsPlainObject(value.attempts)) {
+    backupError(errors, 'learningData.attempts 格式無效。');
+    return { schemaVersion: 'learning-attempts.v1', attempts: {} };
+  }
+  const normalized = { schemaVersion: 'learning-attempts.v1', attempts: {} };
+  Object.entries(value.attempts).forEach(([sessionId, envelope]) => {
+    const family = envelope && typeof envelope.qid === 'string' && envelope.qid.startsWith('GK-') ? 'GK' : 'PE';
+    const valid = backupIsPlainObject(envelope)
+      && envelope.sessionId === sessionId
+      && ['active', 'committed', 'acknowledged'].includes(envelope.status)
+      && typeof envelope.qid === 'string'
+      && ((family === 'GK' && envelope.qid.startsWith('GK-')) || (family === 'PE' && envelope.qid.startsWith('EE-')))
+      && envelope.examFamily === family;
+    if (!valid) backupError(errors, `learningData.attempts 的 session「${sessionId}」無效。`);
+    else normalized.attempts[sessionId] = backupClone(envelope);
+  });
+  return normalized;
+}
+
+function backupValidateIssueLearning(value, family, errors) {
+  if (!backupIsPlainObject(value) || value.schemaVersion !== 'knowledge-issue-events.v1'
+      || value.examFamily !== family || !Array.isArray(value.graphRevisions) || !Array.isArray(value.events)) {
+    backupError(errors, `learningData.issues.${family} 格式無效。`);
+    return backupEmptyIssueLog(family);
+  }
+  if (value.events.length > BACKUP_MAX_ISSUE_EVENTS || backupByteLength(JSON.stringify(value)) > 3 * 1024 * 1024) {
+    backupError(errors, `learningData.issues.${family} 超過容量上限。`);
+  }
+  const normalized = { schemaVersion: 'knowledge-issue-events.v1', examFamily: family, graphRevisions: [], events: [] };
+  value.graphRevisions.forEach(revision => {
+    if (typeof revision !== 'string' || revision.length === 0 || revision.length > 200) backupError(errors, `learningData.issues.${family} 的 graph revision 無效。`);
+    else if (!normalized.graphRevisions.includes(revision)) normalized.graphRevisions.push(revision);
+  });
+  value.events.forEach(event => {
+    const qidFamily = event && typeof event.qid === 'string' && event.qid.startsWith('GK-') ? 'GK' : 'PE';
+    const valid = backupIsPlainObject(event) && typeof event.eventId === 'string' && event.eventId.length > 0
+      && event.examFamily === family && ((family === 'GK' && qidFamily === 'GK') || (family === 'PE' && qidFamily === 'PE'));
+    if (!valid) backupError(errors, `learningData.issues.${family} 含跨考別或無效事件。`);
+    else normalized.events.push(backupClone(event));
+  });
+  return normalized;
+}
+
+function backupValidateKnowledgeReviewLearning(value, family, errors) {
+  if (!backupIsPlainObject(value) || value.schemaVersion !== 'knowledge-reviews.v1'
+      || value.examFamily !== family || !Array.isArray(value.graphRevisions) || !backupIsPlainObject(value.reviews)) {
+    backupError(errors, `learningData.knowledgeReviews.${family} 格式無效。`);
+    return backupEmptyReviewLog(family);
+  }
+  const normalized = { schemaVersion: 'knowledge-reviews.v1', examFamily: family, graphRevisions: [...new Set(value.graphRevisions.filter(item => typeof item === 'string'))], reviews: {} };
+  Object.entries(value.reviews).forEach(([reviewId, state]) => {
+    const valid = backupIsPlainObject(state) && state.reviewId === reviewId && state.examFamily === family
+      && typeof state.nodeId === 'string' && Array.isArray(state.history);
+    if (!valid) backupError(errors, `learningData.knowledgeReviews.${family} 的 review「${reviewId}」無效。`);
+    else normalized.reviews[reviewId] = backupClone(state);
+  });
+  return normalized;
+}
+
+function backupValidateLearningData(value, errors) {
+  if (value === undefined) return backupEmptyLearningData();
+  if (!backupIsPlainObject(value)) {
+    backupError(errors, 'learningData 必須是物件。');
+    return backupEmptyLearningData();
+  }
+  const empty = backupEmptyLearningData();
+  const attempts = value.attempts === undefined ? empty.attempts : backupValidateAttemptLearning(value.attempts, errors);
+  const issues = { PE: value.issues && value.issues.PE !== undefined ? backupValidateIssueLearning(value.issues.PE, 'PE', errors) : empty.issues.PE,
+    GK: value.issues && value.issues.GK !== undefined ? backupValidateIssueLearning(value.issues.GK, 'GK', errors) : empty.issues.GK };
+  if (value.issues !== undefined && (!backupIsPlainObject(value.issues) || Object.keys(value.issues).some(key => !BACKUP_CATEGORIES.includes(key)))) backupError(errors, 'learningData.issues 含不支援的考試類別。');
+  const knowledgeReviews = { PE: value.knowledgeReviews && value.knowledgeReviews.PE !== undefined ? backupValidateKnowledgeReviewLearning(value.knowledgeReviews.PE, 'PE', errors) : empty.knowledgeReviews.PE,
+    GK: value.knowledgeReviews && value.knowledgeReviews.GK !== undefined ? backupValidateKnowledgeReviewLearning(value.knowledgeReviews.GK, 'GK', errors) : empty.knowledgeReviews.GK };
+  if (value.knowledgeReviews !== undefined && (!backupIsPlainObject(value.knowledgeReviews) || Object.keys(value.knowledgeReviews).some(key => !BACKUP_CATEGORIES.includes(key)))) backupError(errors, 'learningData.knowledgeReviews 含不支援的考試類別。');
+  const recoveryJournal = value.recoveryJournal === undefined || value.recoveryJournal === null ? null : value.recoveryJournal;
+  if (recoveryJournal !== null) backupError(errors, 'learningData.recoveryJournal 尚未完成，不能匯入。');
+  return { attempts, issues, knowledgeReviews, recoveryJournal };
+}
+
+function backupReadLearningData(storage) {
+  const empty = backupEmptyLearningData();
+  if (!storage) return empty;
+  const read = key => backupReadJSON(storage, key, null);
+  return {
+    attempts: read(BACKUP_LEARNING_KEYS.attempts) || empty.attempts,
+    issues: { PE: read(BACKUP_LEARNING_KEYS.issues.PE) || empty.issues.PE, GK: read(BACKUP_LEARNING_KEYS.issues.GK) || empty.issues.GK },
+    knowledgeReviews: { PE: read(BACKUP_LEARNING_KEYS.knowledgeReviews.PE) || empty.knowledgeReviews.PE, GK: read(BACKUP_LEARNING_KEYS.knowledgeReviews.GK) || empty.knowledgeReviews.GK },
+    recoveryJournal: read(BACKUP_LEARNING_KEYS.attemptRecovery),
+  };
+}
+
+function buildLearningDataCapacityReport(learningData, maxBackupBytes = BACKUP_MAX_BYTES) {
+  const data = learningData || backupEmptyLearningData();
+  const issueBytes = {};
+  const issueEvents = {};
+  BACKUP_CATEGORIES.forEach(family => {
+    issueBytes[family] = backupByteLength(JSON.stringify(data.issues && data.issues[family] || backupEmptyIssueLog(family)));
+    issueEvents[family] = data.issues && data.issues[family] && Array.isArray(data.issues[family].events)
+      ? data.issues[family].events.length : 0;
+  });
+  const backupBytes = backupByteLength(JSON.stringify(data));
+  return {
+    schemaVersion: 'learning-data-capacity.v1',
+    backupBytes,
+    maxBackupBytes,
+    issueBytes,
+    issueEvents,
+    maxIssueEvents: BACKUP_MAX_ISSUE_EVENTS,
+    maxIssueBytes: 3 * 1024 * 1024,
+  };
+}
+
+function backupMergeLearningData(oldData, incoming) {
+  const old = oldData || backupEmptyLearningData();
+  const next = backupClone(incoming || backupEmptyLearningData());
+  next.attempts.attempts = Object.assign({}, old.attempts && old.attempts.attempts || {}, next.attempts.attempts || {});
+  BACKUP_CATEGORIES.forEach(family => {
+    const oldLog = old.issues && old.issues[family] || backupEmptyIssueLog(family);
+    const nextLog = next.issues[family];
+    nextLog.graphRevisions = [...new Set([...(oldLog.graphRevisions || []), ...(nextLog.graphRevisions || [])])];
+    const events = new Map((oldLog.events || []).map(event => [event.eventId, event]));
+    (nextLog.events || []).forEach(event => events.set(event.eventId, event));
+    nextLog.events = [...events.values()];
+    const oldReviews = old.knowledgeReviews && old.knowledgeReviews[family] || backupEmptyReviewLog(family);
+    const nextReviews = next.knowledgeReviews[family];
+    nextReviews.graphRevisions = [...new Set([...(oldReviews.graphRevisions || []), ...(nextReviews.graphRevisions || [])])];
+    nextReviews.reviews = Object.assign({}, oldReviews.reviews || {}, nextReviews.reviews || {});
+  });
+  next.recoveryJournal = null;
+  return next;
+}
+
 function validateUserDataBackup(payload, options) {
   const errors = [];
   const opts = options || {};
   if (!backupIsPlainObject(payload)) {
     return { success: false, valid: false, error: '匯入失敗：備份內容必須是 JSON 物件。', errors: ['匯入失敗：備份內容必須是 JSON 物件。'] };
   }
+  let payloadBytes = 0;
+  try { payloadBytes = backupByteLength(JSON.stringify(payload)); }
+  catch (_) { backupError(errors, '備份內容無法量測容量。'); }
+  const maxBackupBytes = Number.isInteger(opts.maxBackupBytes) ? opts.maxBackupBytes : BACKUP_MAX_BYTES;
+  if (payloadBytes > maxBackupBytes) backupError(errors, `備份內容超過 ${maxBackupBytes} bytes 容量上限。`);
   const isLegacy = payload.version === '1.0.0' && payload.schema === undefined;
   const isSupportedV2 = payload.schema === USER_BACKUP_SCHEMA && USER_BACKUP_SUPPORTED_V2.includes(payload.version);
   if (!isLegacy && !isSupportedV2) {
@@ -510,6 +678,7 @@ function validateUserDataBackup(payload, options) {
     ? backupValidateDailyPractice(payload.dailyPractice, ids, errors) : null;
   const mockExamTimer = mockExamTimerProvided
     ? backupValidateMockExamTimer(payload.mockExamTimer, errors) : null;
+  const learningData = backupValidateLearningData(payload.learningData, errors);
 
   if (errors.length) {
     return { success: false, valid: false, error: errors[0], errors };
@@ -524,6 +693,7 @@ function validateUserDataBackup(payload, options) {
     manualTopicLabels,
     dailyPractice,
     mockExamTimer,
+    learningData,
     dailyPracticeProvided,
     mockExamTimerProvided,
     providedCategories,
@@ -542,6 +712,10 @@ function validateUserDataBackup(payload, options) {
     practiceCompleted: dailyPractice ? Object.keys(dailyPractice.completionByQuestion).length : 0,
     practiceSession: !!(dailyPractice && dailyPractice.activeSession),
     mockTimer: !!mockExamTimer,
+    learningAttempts: Object.keys(learningData.attempts.attempts || {}).length,
+    knowledgeIssueEvents: Object.values(learningData.issues).reduce((count, log) => count + (log.events || []).length, 0),
+    knowledgeReviews: Object.values(learningData.knowledgeReviews).reduce((count, log) => count + Object.keys(log.reviews || {}).length, 0),
+    payloadBytes,
   };
   return { success: true, valid: true, normalized, summary };
 }
@@ -573,6 +747,7 @@ function buildUserBackupSnapshot() {
   }
   const metadata = getBackupMetadata();
   const exportedAt = new Date().toISOString();
+  const learningData = backupReadLearningData(storage);
   const loadedPractice = typeof loadDailyPracticeStore === 'function'
     ? loadDailyPracticeStore({ storage })
     : { state: backupReadJSON(storage, BACKUP_DAILY_PRACTICE_KEY, { version: 1, completionByQuestion: {}, activeSession: null }) };
@@ -595,6 +770,8 @@ function buildUserBackupSnapshot() {
     manualTopicLabels: typeof getManualTopicLabels === 'function' ? backupClone(getManualTopicLabels()) : {},
     dailyPractice: backupClone(loadedPractice.state),
     mockExamTimer,
+    learningData: backupClone(learningData),
+    learningDataCapacity: buildLearningDataCapacityReport(learningData),
   };
   try {
     backupWriteMetadata(Object.assign({}, metadata, { lastBackupAt: exportedAt, lastBackupVersion: USER_BACKUP_VERSION }));
@@ -647,6 +824,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   const oldLabels = backupReadJSON(storage, 'EE_MANUAL_TOPIC_LABELS_V1', typeof getManualTopicLabels === 'function' ? getManualTopicLabels() : {});
   const oldPractice = backupReadJSON(storage, BACKUP_DAILY_PRACTICE_KEY, { version: 1, completionByQuestion: {}, activeSession: null });
   const oldTimer = backupReadJSON(storage, BACKUP_MOCK_EXAM_TIMER_KEY, {});
+  const oldLearning = backupReadLearningData(storage);
   const nextProgress = backupClone(oldProgress);
   const nextStarred = backupClone(oldStarred);
   BACKUP_CATEGORIES.forEach(category => {
@@ -680,9 +858,12 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   }
   const nextTimer = validation.normalized.mockExamTimerProvided
     ? backupClone(validation.normalized.mockExamTimer) : oldTimer;
+  const nextLearning = selectedMode === 'merge'
+    ? backupMergeLearningData(oldLearning, validation.normalized.learningData)
+    : backupClone(validation.normalized.learningData);
   const metadataKey = BACKUP_META_STORAGE_KEY;
   const oldRaw = {};
-  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, metadataKey].forEach(key => {
+  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].forEach(key => {
     oldRaw[key] = storage.getItem(key);
   });
   const importedAt = new Date().toISOString();
@@ -694,6 +875,11 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
       [BACKUP_STARRED_KEYS.PE, JSON.stringify(nextStarred.PE)], [BACKUP_STARRED_KEYS.GK, JSON.stringify(nextStarred.GK)],
       [SM2_STORAGE_KEY, JSON.stringify(nextSM2)], ['EE_EXAM_RECALL_V1', JSON.stringify(nextRecall)],
       ['EE_MANUAL_TOPIC_LABELS_V1', JSON.stringify(nextLabels)], [metadataKey, JSON.stringify(nextMeta)],
+      [BACKUP_LEARNING_KEYS.attempts, JSON.stringify(nextLearning.attempts)],
+      [BACKUP_LEARNING_KEYS.issues.PE, JSON.stringify(nextLearning.issues.PE)],
+      [BACKUP_LEARNING_KEYS.issues.GK, JSON.stringify(nextLearning.issues.GK)],
+      [BACKUP_LEARNING_KEYS.knowledgeReviews.PE, JSON.stringify(nextLearning.knowledgeReviews.PE)],
+      [BACKUP_LEARNING_KEYS.knowledgeReviews.GK, JSON.stringify(nextLearning.knowledgeReviews.GK)],
     ];
     if (validation.normalized.dailyPracticeProvided) writes.splice(writes.length - 1, 0, [BACKUP_DAILY_PRACTICE_KEY, JSON.stringify(nextPractice)]);
     if (validation.normalized.mockExamTimerProvided) writes.splice(writes.length - 1, 0, [BACKUP_MOCK_EXAM_TIMER_KEY, JSON.stringify(nextTimer)]);
@@ -730,6 +916,9 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     practiceCompleted: Object.keys(nextPractice.completionByQuestion || {}).length,
     practiceSession: !!nextPractice.activeSession,
     mockTimer: validation.normalized.mockExamTimerProvided ? !!nextTimer : Object.keys(oldTimer).length > 0,
+    learningAttempts: Object.keys(nextLearning.attempts.attempts || {}).length,
+    knowledgeIssueEvents: Object.values(nextLearning.issues).reduce((count, log) => count + (log.events || []).length, 0),
+    knowledgeReviews: Object.values(nextLearning.knowledgeReviews).reduce((count, log) => count + Object.keys(log.reviews || {}).length, 0),
   });
   return { success: true, mode: selectedMode, summary: appliedSummary };
 }

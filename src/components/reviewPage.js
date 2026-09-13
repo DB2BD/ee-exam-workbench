@@ -253,6 +253,7 @@ function getReviewChapterRuleIds(subjectId) {
 function getReviewChapterKey(q, options = {}) {
   const record = getReviewRecord(q);
   const sid = record.subjectId;
+  const family = record.examFamily || (String(record.id || '').startsWith('GK-') ? 'GK' : 'PE');
   const normalize = value => {
     let normalized = String(value || '').toLowerCase();
     if (typeof TAXONOMY_ALIASES !== 'undefined') {
@@ -272,6 +273,18 @@ function getReviewChapterKey(q, options = {}) {
   if (manualLabel && typeof KNOWLEDGE_DAG !== 'undefined'
       && KNOWLEDGE_DAG[manualLabel] && KNOWLEDGE_DAG[manualLabel].subject === sid) {
     return manualLabel;
+  }
+  // GK has no PE taxonomy map.  Its approved canonical link is the source
+  // for review grouping, while the family and subject checks prevent a
+  // related PE question from leaking into the GK review queue.
+  if (family === 'GK' && typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined') {
+    const link = CANONICAL_KNOWLEDGE_GRAPH.questionLinks
+      && CANONICAL_KNOWLEDGE_GRAPH.questionLinks[`GK:${record.id}`];
+    const chapter = link && link.reviewStatus === 'approved'
+      && Array.isArray(link.nodeIds) ? link.nodeIds[0] : '';
+    const node = chapter && CANONICAL_KNOWLEDGE_GRAPH.nodes
+      ? CANONICAL_KNOWLEDGE_GRAPH.nodes[chapter] : null;
+    if (node && node.examFamily === 'GK' && String(node.subject) === String(sid)) return chapter;
   }
   const override = typeof TAXONOMY_OVERRIDES !== 'undefined' ? TAXONOMY_OVERRIDES[record.id] : null;
   if (override && override.primaryChapter && typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG[override.primaryChapter]) return override.primaryChapter;
@@ -337,7 +350,11 @@ function getReviewChapterKey(q, options = {}) {
 
 function getReviewTypeLabel(q) {
   const key = getReviewChapterKey(q);
-  if (key && typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG[key]) return KNOWLEDGE_DAG[key].name;
+  const legacyNode = key && typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[key] : null;
+  const canonicalNode = key && typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined'
+    && CANONICAL_KNOWLEDGE_GRAPH.nodes ? CANONICAL_KNOWLEDGE_GRAPH.nodes[key] : null;
+  if (legacyNode && legacyNode.name) return legacyNode.name;
+  if (canonicalNode && canonicalNode.title) return canonicalNode.title;
   return '待人工複核';
 }
 

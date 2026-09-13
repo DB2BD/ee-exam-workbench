@@ -31,14 +31,14 @@ function buildTopicStatistics(records, options) {
   const selectedYears = normalizeSelectedYears(allRecords, opts, baseRecords);
   const denominator = baseRecords.length;
 
-  if (denominator === 0 || opts.examFamily === 'GK') {
+  if (denominator === 0) {
     return {
       examFamily: opts.examFamily || null,
       denominator,
       selectedYears,
       items: [],
       empty: true,
-      message: opts.examFamily === 'GK' ? 'no-formal-taxonomy' : 'no-data',
+      message: 'no-data',
     };
   }
 
@@ -69,7 +69,7 @@ function buildTopicStatistics(records, options) {
     selectedYears,
     items,
     empty: items.length === 0,
-    message: items.length === 0 ? 'no-formal-taxonomy' : null,
+    message: items.length === 0 ? 'no-data' : null,
   };
 }
 
@@ -138,9 +138,7 @@ function renderTopTopics() {
   if (totalLabel) totalLabel.innerText = model.denominator;
 
   if (model.empty) {
-    const message = model.message === 'no-formal-taxonomy'
-      ? '此題庫目前沒有可用的正式章節分類，暫不產生章節排行。'
-      : '目前年度與篩選條件沒有可計算的正式章節統計。';
+    const message = '目前年度與篩選條件沒有可計算的正式章節統計。';
     container.innerHTML = `<div style="padding:18px; color:var(--muted); background:var(--bg); border:1px dashed var(--line); border-radius:var(--radius-sm);">${message}</div>`;
     return;
   }
@@ -162,7 +160,9 @@ function renderTopTopics() {
 }
 
 function focusStatsTopic(chapterId) {
-  const node = typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[chapterId] : null;
+  const legacyNode = typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[chapterId] : null;
+  const graph = typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined' ? CANONICAL_KNOWLEDGE_GRAPH : null;
+  const node = legacyNode || (graph && graph.nodes ? graph.nodes[chapterId] : null);
   if (!node || typeof setFacetTag !== 'function') return;
   if (typeof switchTab === 'function') switchTab('questions');
 

@@ -482,6 +482,16 @@ function extractQuestionMarkdown(rawMd, targetQNum) {
     }
   }
 
+  // Source notes use headings such as "官方題目（逐題裁切）" and
+  // "官方題目與條件" to document provenance. That audit context remains
+  // in the bundled Markdown, but the learner already has the official crop
+  // in the left pane, so do not repeat internal source labels in the
+  // learner-facing solution content.
+  targetSection = targetSection.replace(
+    /^[ \t]*#{2,6}[ \t]+官方題目[^\r\n]*(?:\r?\n|$)/gmi,
+    ''
+  ).replace(/\n{3,}/g, '\n\n');
+
   // Check for sub-parts within the question: e.g. "### (一)", "### (二)", "#### (1)"
   const subPartRegex = /(?=\n###\s+(?:\([一二三四五六七八九十\d]+\)|(?:[一二三四五六七八九十]|\d+)\s*[\.、\)]))/gi;
   const subParts = targetSection.split(subPartRegex);

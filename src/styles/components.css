@@ -1301,6 +1301,68 @@ select:focus {
 .daily-practice-result-item code { color: var(--muted); font-size: .75rem; }
 .daily-practice-result-item button { min-height: 44px; }
 .daily-practice-summary .daily-practice-actions { justify-content: center; }
+
+.knowledge-diagnosis-card {
+  margin: 18px 0 4px;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--accent);
+  border-left: 5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.knowledge-diagnosis-card h3 { margin: 0; color: var(--accent-dark); }
+.knowledge-diagnosis-card p { margin: 0; }
+.knowledge-diagnosis-card label { display: grid; gap: 5px; font-weight: 700; }
+.knowledge-diagnosis-card select,
+.knowledge-diagnosis-card textarea { width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); }
+.diagnosis-actions, .diagnosis-outcomes { display: flex; flex-wrap: wrap; gap: 8px; }
+.diagnosis-save-hint { color: var(--muted); font-size: .8rem; }
+.diagnosis-guidance { padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-secondary); color: var(--ink); font-size: .84rem; line-height: 1.5; }
+.diagnosis-guidance[hidden] { display: none; }
+.diagnosis-guidance strong, .diagnosis-guidance p { display: block; margin: 0; }
+.diagnosis-guidance strong { color: var(--accent-dark); }
+.diagnosis-guidance small { display: block; margin-top: 4px; color: var(--muted); }
+.diagnosis-guidance ul { margin: 7px 0 0 18px; padding: 0; }
+.diagnosis-guidance li { margin: 3px 0; }
+.diagnosis-unknown-summary { padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-secondary); line-height: 1.5; }
+.diagnosis-unknown-summary strong, .diagnosis-unknown-summary p { display: block; margin: 0; }
+.diagnosis-unknown-summary strong { color: var(--accent-dark); }
+.diagnosis-unknown-summary small { display: block; margin-top: 4px; color: var(--muted); }
+.diagnosis-confidence { color: var(--muted); font-size: .86rem; }
+.diagnosis-custom-label { font-size: .86rem; }
+.weakness-shell {
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.weakness-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.weakness-header h2 { margin: 0 0 6px; }
+.weakness-header p, .weakness-summary { color: var(--muted); margin: 0; }
+.weakness-toolbar { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.weakness-toolbar .pill.active { background: var(--accent); color: #fff; }
+.weakness-node-list { display: grid; gap: 10px; margin-top: 18px; }
+.weakness-node-card, .weakness-pending-card { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; background: var(--bg); }
+.weakness-node-card summary, .weakness-pending-card summary { cursor: pointer; }
+.weakness-node-card p, .weakness-pending-card p { color: var(--muted); font-size: .86rem; }
+.weakness-node-card ul, .weakness-pending-card ul { display: grid; gap: 8px; padding-left: 20px; }
+.weakness-event-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; font-size: .84rem; }
+.weakness-event-row small { grid-column: 1 / -1; color: var(--muted); }
+.weakness-event-row button { grid-column: 2; grid-row: 1 / span 2; }
+.weakness-pending-card { margin-top: 14px; }
+.weakness-empty { color: var(--muted); padding: 14px 0; }
+.knowledge-recall-card, .knowledge-recall-catalog { margin: 16px 0; padding: 16px; border: 1px solid var(--accent); border-radius: var(--radius-sm); background: var(--surface); }
+.knowledge-recall-card h3, .knowledge-recall-catalog h3 { margin: 0 0 6px; color: var(--accent-dark); }
+.knowledge-recall-card p, .knowledge-recall-catalog p { margin: 0 0 12px; color: var(--muted); }
+.knowledge-recall-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.knowledge-recall-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; max-height: 520px; overflow: auto; }
+.knowledge-recall-tile { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); }
+.knowledge-recall-tile small { color: var(--muted); }
+.knowledge-recall-tile button { justify-self: start; }
 @media (max-width: 680px) {
   .practice-home-actions { grid-template-columns: 1fr; }
   .daily-practice-shell { padding: 16px; }
@@ -1313,6 +1375,10 @@ select:focus {
   .daily-practice-source-image { max-height: 54vh; }
   .daily-practice-solution-actions > * { flex: 1 1 100%; }
   .daily-practice-actions > * { flex: 1 1 100%; min-height: 44px; }
+  .weakness-shell { padding: 16px; }
+  .weakness-toolbar { justify-content: flex-start; }
+  .weakness-event-row { grid-template-columns: 1fr; }
+  .weakness-event-row button { grid-column: 1; grid-row: auto; justify-self: start; }
 }
 
 .more-tools-menu { position: relative; margin-left: auto; align-self: center; }

@@ -1,0 +1,1626 @@
+# knowledge-graph-generation Specification
+
+## Purpose
+
+Define deterministic projections from a validated canonical graph to the existing website DAG and to generated Obsidian notes while preserving personal notes and making drift observable.
+
+## Requirements
+
+### Requirement: The website DAG generator SHALL be deterministic
+
+The generator SHALL read only a validated canonical graph revision and SHALL produce a stable `src/data/knowledge-dag.generated.js` or equivalent bundle with node IDs, supported node types, semantic relations, mainline ordering, and question references required by the existing viewer and tracer.
+
+#### Scenario: A validated graph is bundled
+
+- **WHEN** the website generator receives a validated graph revision
+- **THEN** it SHALL produce a bundle whose serialized output and ordering are reproducible for the same inputs.
+##### Example:
+
+- Fixture: `scenario-a-validated-graph-is-bundled` with input `{"scenario":"a-validated-graph-is-bundled","graphRevision":"kg-v1-test"}`.
+- Operation: the website generator receives a validated graph revision.
+- Expected output: it SHALL produce a bundle whose serialized output and ordering are reproducible for the same inputs..
+#### Scenario: A bundle references an unknown node
+
+- **WHEN** a graph record or projection references a node absent from the validated revision
+- **THEN** generation SHALL fail with the missing ID and SHALL not replace the prior generated bundle.
+
+
+<!-- @trace
+source: problem-driven-obsidian-knowledge-graph
+updated: 2026-09-13
+code:
+  - 🧠 問題驅動知識庫/04_電機機械/emach-three-phase-transformer.md
+  - .agents/skills/spectra-discuss/SKILL.md
+  - scripts/acceptance_freshness.py
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q04.png
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-3.md
+  - .agents/skills/spectra-review/SKILL.md
+  - src/state/attemptStore.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-two-port.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-machines.md
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-2.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diff-amp.md
+  - scripts/run_change_acceptance.py
+  - 🧠 問題驅動知識庫/06_工業配電/dist-load-characteristics.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-power.md
+  - src/components/dagGraphViewer.js
+  - src/components/topTopics.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-nonhomogeneous.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-single-phase-transformer.md
+  - scripts/write_unresolved_report.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-divider-equiv.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-state-estimation-wls.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-superposition.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-salient-pole.md
+  - .agents/skills/spectra-debug/SKILL.md
+  - src/main.js
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q06.png
+  - scripts/measure_learning_data_capacity.py
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-nonhomogeneous.md
+  - data/knowledge/edges.json
+  - 🧠 問題驅動知識庫/01_電路學/ct-procedure-thevenin-controlled-source.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-state-estimation-wls.md
+  - docs/PROPOSAL_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-power-analysis.md
+  - .spectra.yaml
+  - scripts/knowledge_patch_workflow.py
+  - 🧠 問題驅動知識庫/04_電機機械/emach-magnetic-circuits.md
+  - src/components/weaknessView.js
+  - docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-node-mesh.md
+  - reports/obsidian-knowledge-build.json
+  - docs/WORKPLAN_Sol_Luna_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-procedure-slg-sequence-networks.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-phasor-ac.md
+  - src/data/knowledge-dag.generated.js
+  - src/domain/knowledgeDiagnosis.js
+  - 🧠 問題驅動知識庫/01_電路學/ct-phasor-ac.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-equiv.md
+  - .agents/skills/spectra-archive/SKILL.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-zener-regulator.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q03.png
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-magnetic-circuits.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-motor-installation.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-power-factor-correction.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-salient-pole.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-electronics.md
+  - data/knowledge/migration-inventory.json
+  - src/components/reviewPage.js
+  - 🧠 問題驅動知識庫/03_工程數學/em-first-order-ode.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-harmonics-mitigation.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-grounding-system.md
+  - reports/knowledge-graph-build.json
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-homogeneous.md
+  - src/components/solutionModal.js
+  - scripts/knowledge_graph.py
+  - .agents/skills/spectra-analyze/SKILL.md
+  - src/state/sm2Store.js
+  - src/styles/components.css
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-torque.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-protection-coordination.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-equiv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-three-phase.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-generator-round.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-thyristor-rectifier.md
+  - scripts/generate_full_knowledge_graph.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-first-order-rc-rl.md
+  - 🧠 問題驅動知識庫/03_工程數學/q-ee-114-03-1.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-circuit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-distribution.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-svd-linear-systems.md
+  - solutions-bundle.js
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-single-phase-transformer.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-voltage-drop.md
+  - data/knowledge/golden-fixture.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transient-stability-equal-area.md
+  - scripts/knowledge_graph_inventory.py
+  - .agents/skills/spectra-apply/SKILL.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-three-phase-transformer.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-zener-regulator.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/q-ee-114-05-4.md
+  - .agents/skills/spectra-commit/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-feedback-stability.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q05.png
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-fourier-series.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-autotransformer.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-power-analysis.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-divider-equiv.md
+  - .agents/skills/spectra-propose/SKILL.md
+  - reports/problem-driven-obsidian-acceptance.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-models.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-params.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-per-unit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-math.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-fourier-series.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-eigen-diagonal.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transient-stability-equal-area.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-first-order-ode.md
+  - data/knowledge/nodes.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-inverter-spwm.md
+  - scripts/validate_knowledge_graph.py
+  - src/state/knowledgeIssueStore.js
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-autotransformer.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-eigen-diagonal.md
+  - scripts/crop_pe_questions.py
+  - scripts/build_knowledge_graph.py
+  - src/domain/weaknessProjection.js
+  - src/components/questionList.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-probability-statistics.md
+  - scripts/build_workbench.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-three-phase.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diff-amp.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-svd-linear-systems.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-vector-analysis.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-lighting-design.md
+  - .agents/skills/spectra-ingest/SKILL.md
+  - .obsidian/graph.json
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-math.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-max-power.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-machines.md
+  - .agents/skills/spectra-drift/SKILL.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-circuit.md
+  - data/knowledge/question-links.json
+  - 🧠 問題驅動知識庫/05_電力系統/ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-arc-flash-ieee80.md
+  - data/knowledge/schema.json
+  - index.html
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-max-power.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-procedure-linear-systems.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-feedback-stability.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-short-circuit-capacity.md
+  - reports/knowledge-patch/context-packet.json
+  - src/state/knowledgeReviewStore.js
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-thyristor-rectifier.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-two-port.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-power.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-models.md
+  - .obsidian/workspace.json
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-per-unit.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-probability-statistics.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-generator-round.md
+  - .agents/skills/spectra-audit/SKILL.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-homogeneous.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-node-mesh.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-superposition.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-pde-separation.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-vector-analysis.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-active-filter.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-distribution-equipment.md
+  - src/data/knowledge-dag.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-first-order-rc-rl.md
+  - scripts/generate_obsidian_knowledge.py
+  - reports/learning-data-capacity.json
+  - docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-torque.md
+  - reports/knowledge-graph-validation.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-inverter-spwm.md
+  - .agents/skills/spectra-verify/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-thevenin-norton.md
+  - src/components/dagTracer.js
+  - data/pe-question-crops.json
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-thevenin-norton.md
+  - AGENTS.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-active-filter.md
+  - reports/knowledge-patch/context-packet.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-electronics.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-pde-separation.md
+  - reports/problem-driven-unresolved.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-params.md
+  - reports/knowledge-graph-inventory.md
+tests:
+  - tests/test_diagnosis_ui.py
+  - tests/test_knowledge_review_store.py
+  - tests/test_topic_statistics.py
+  - tests/test_knowledge_graph_inventory.py
+  - tests/test_knowledge_issue_store.py
+  - tests/test_knowledge_diagnosis.py
+  - tests/test_learning_data_capacity.py
+  - tests/test_knowledge_graph_adapter.py
+  - tests/test_weakness_projection.py
+  - tests/test_weakness_view.py
+  - tests/test_pe_question_crops.py
+  - tests/test_backup_restore.py
+  - tests/test_spectra_scenario_examples.py
+  - tests/test_acceptance_freshness.py
+  - tests/test_knowledge_patch_workflow.py
+  - tests/test_knowledge_graph_validator_cli.py
+  - tests/test_knowledge_graph_schema.py
+  - tests/test_obsidian_knowledge_generation.py
+  - tests/test_durable_attempt_store.py
+  - tests/test_question_facets.py
+  - tests/test_full_knowledge_graph.py
+  - tests/test_knowledge_graph_generation.py
+-->
+
+---
+### Requirement: The compatibility projection SHALL preserve existing viewer entry points
+
+The generated website data SHALL preserve the existing viewer, tracer, question detail and PE/GK isolation contracts needed by the current workbench. New canonical IDs and provenance SHALL remain available to diagnosis and drill-down consumers.
+##### Example:
+
+- Fixture: `scenario-a-bundle-references-an-unknown-node` with input `{"scenario":"a-bundle-references-an-unknown-node","graphRevision":"kg-v1-test"}`.
+- Operation: a graph record or projection references a node absent from the validated revision.
+- Expected output: generation SHALL fail with the missing ID and SHALL not replace the prior generated bundle..
+#### Scenario: An existing question detail view opens
+
+- **WHEN** a question detail view requests its mapped graph nodes
+- **THEN** the compatibility projection SHALL return the canonical mapping or an explicit unknown result without breaking the existing view contract.
+##### Example:
+
+- Fixture: `scenario-an-existing-question-detail-view-opens` with input `{"scenario":"an-existing-question-detail-view-opens","graphRevision":"kg-v1-test"}`.
+- Operation: a question detail view requests its mapped graph nodes.
+- Expected output: the compatibility projection SHALL return the canonical mapping or an explicit unknown result without breaking the existing view contract..
+#### Scenario: A GK question is loaded
+
+- **WHEN** a GK question requests graph data
+- **THEN** the projection SHALL expose only GK-compatible graph records and SHALL not leak PE nodes or links.
+
+
+<!-- @trace
+source: problem-driven-obsidian-knowledge-graph
+updated: 2026-09-13
+code:
+  - 🧠 問題驅動知識庫/04_電機機械/emach-three-phase-transformer.md
+  - .agents/skills/spectra-discuss/SKILL.md
+  - scripts/acceptance_freshness.py
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q04.png
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-3.md
+  - .agents/skills/spectra-review/SKILL.md
+  - src/state/attemptStore.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-two-port.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-machines.md
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-2.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diff-amp.md
+  - scripts/run_change_acceptance.py
+  - 🧠 問題驅動知識庫/06_工業配電/dist-load-characteristics.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-power.md
+  - src/components/dagGraphViewer.js
+  - src/components/topTopics.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-nonhomogeneous.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-single-phase-transformer.md
+  - scripts/write_unresolved_report.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-divider-equiv.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-state-estimation-wls.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-superposition.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-salient-pole.md
+  - .agents/skills/spectra-debug/SKILL.md
+  - src/main.js
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q06.png
+  - scripts/measure_learning_data_capacity.py
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-nonhomogeneous.md
+  - data/knowledge/edges.json
+  - 🧠 問題驅動知識庫/01_電路學/ct-procedure-thevenin-controlled-source.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-state-estimation-wls.md
+  - docs/PROPOSAL_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-power-analysis.md
+  - .spectra.yaml
+  - scripts/knowledge_patch_workflow.py
+  - 🧠 問題驅動知識庫/04_電機機械/emach-magnetic-circuits.md
+  - src/components/weaknessView.js
+  - docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-node-mesh.md
+  - reports/obsidian-knowledge-build.json
+  - docs/WORKPLAN_Sol_Luna_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-procedure-slg-sequence-networks.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-phasor-ac.md
+  - src/data/knowledge-dag.generated.js
+  - src/domain/knowledgeDiagnosis.js
+  - 🧠 問題驅動知識庫/01_電路學/ct-phasor-ac.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-equiv.md
+  - .agents/skills/spectra-archive/SKILL.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-zener-regulator.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q03.png
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-magnetic-circuits.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-motor-installation.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-power-factor-correction.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-salient-pole.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-electronics.md
+  - data/knowledge/migration-inventory.json
+  - src/components/reviewPage.js
+  - 🧠 問題驅動知識庫/03_工程數學/em-first-order-ode.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-harmonics-mitigation.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-grounding-system.md
+  - reports/knowledge-graph-build.json
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-homogeneous.md
+  - src/components/solutionModal.js
+  - scripts/knowledge_graph.py
+  - .agents/skills/spectra-analyze/SKILL.md
+  - src/state/sm2Store.js
+  - src/styles/components.css
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-torque.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-protection-coordination.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-equiv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-three-phase.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-generator-round.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-thyristor-rectifier.md
+  - scripts/generate_full_knowledge_graph.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-first-order-rc-rl.md
+  - 🧠 問題驅動知識庫/03_工程數學/q-ee-114-03-1.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-circuit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-distribution.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-svd-linear-systems.md
+  - solutions-bundle.js
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-single-phase-transformer.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-voltage-drop.md
+  - data/knowledge/golden-fixture.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transient-stability-equal-area.md
+  - scripts/knowledge_graph_inventory.py
+  - .agents/skills/spectra-apply/SKILL.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-three-phase-transformer.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-zener-regulator.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/q-ee-114-05-4.md
+  - .agents/skills/spectra-commit/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-feedback-stability.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q05.png
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-fourier-series.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-autotransformer.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-power-analysis.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-divider-equiv.md
+  - .agents/skills/spectra-propose/SKILL.md
+  - reports/problem-driven-obsidian-acceptance.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-models.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-params.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-per-unit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-math.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-fourier-series.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-eigen-diagonal.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transient-stability-equal-area.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-first-order-ode.md
+  - data/knowledge/nodes.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-inverter-spwm.md
+  - scripts/validate_knowledge_graph.py
+  - src/state/knowledgeIssueStore.js
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-autotransformer.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-eigen-diagonal.md
+  - scripts/crop_pe_questions.py
+  - scripts/build_knowledge_graph.py
+  - src/domain/weaknessProjection.js
+  - src/components/questionList.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-probability-statistics.md
+  - scripts/build_workbench.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-three-phase.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diff-amp.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-svd-linear-systems.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-vector-analysis.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-lighting-design.md
+  - .agents/skills/spectra-ingest/SKILL.md
+  - .obsidian/graph.json
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-math.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-max-power.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-machines.md
+  - .agents/skills/spectra-drift/SKILL.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-circuit.md
+  - data/knowledge/question-links.json
+  - 🧠 問題驅動知識庫/05_電力系統/ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-arc-flash-ieee80.md
+  - data/knowledge/schema.json
+  - index.html
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-max-power.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-procedure-linear-systems.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-feedback-stability.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-short-circuit-capacity.md
+  - reports/knowledge-patch/context-packet.json
+  - src/state/knowledgeReviewStore.js
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-thyristor-rectifier.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-two-port.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-power.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-models.md
+  - .obsidian/workspace.json
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-per-unit.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-probability-statistics.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-generator-round.md
+  - .agents/skills/spectra-audit/SKILL.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-homogeneous.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-node-mesh.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-superposition.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-pde-separation.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-vector-analysis.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-active-filter.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-distribution-equipment.md
+  - src/data/knowledge-dag.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-first-order-rc-rl.md
+  - scripts/generate_obsidian_knowledge.py
+  - reports/learning-data-capacity.json
+  - docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-torque.md
+  - reports/knowledge-graph-validation.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-inverter-spwm.md
+  - .agents/skills/spectra-verify/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-thevenin-norton.md
+  - src/components/dagTracer.js
+  - data/pe-question-crops.json
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-thevenin-norton.md
+  - AGENTS.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-active-filter.md
+  - reports/knowledge-patch/context-packet.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-electronics.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-pde-separation.md
+  - reports/problem-driven-unresolved.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-params.md
+  - reports/knowledge-graph-inventory.md
+tests:
+  - tests/test_diagnosis_ui.py
+  - tests/test_knowledge_review_store.py
+  - tests/test_topic_statistics.py
+  - tests/test_knowledge_graph_inventory.py
+  - tests/test_knowledge_issue_store.py
+  - tests/test_knowledge_diagnosis.py
+  - tests/test_learning_data_capacity.py
+  - tests/test_knowledge_graph_adapter.py
+  - tests/test_weakness_projection.py
+  - tests/test_weakness_view.py
+  - tests/test_pe_question_crops.py
+  - tests/test_backup_restore.py
+  - tests/test_spectra_scenario_examples.py
+  - tests/test_acceptance_freshness.py
+  - tests/test_knowledge_patch_workflow.py
+  - tests/test_knowledge_graph_validator_cli.py
+  - tests/test_knowledge_graph_schema.py
+  - tests/test_obsidian_knowledge_generation.py
+  - tests/test_durable_attempt_store.py
+  - tests/test_question_facets.py
+  - tests/test_full_knowledge_graph.py
+  - tests/test_knowledge_graph_generation.py
+-->
+
+---
+### Requirement: Generated Obsidian notes SHALL use stable identity and semantic links
+
+The Obsidian generator SHALL write canonical generated notes under `🧠 問題驅動知識庫/`. Each generated note SHALL contain stable-ID frontmatter, node type, exam family, graph revision, source hash, and semantic wikilinks for approved relations and linked questions.
+##### Example:
+
+- Fixture: `scenario-a-gk-question-is-loaded` with input `{"scenario":"a-gk-question-is-loaded","graphRevision":"kg-v1-test"}`.
+- Operation: a GK question requests graph data.
+- Expected output: the projection SHALL expose only GK-compatible graph records and SHALL not leak PE nodes or links..
+#### Scenario: A golden mainline node is generated
+
+- **WHEN** the generator processes an active mainline node
+- **THEN** it SHALL create a stable-ID note with the required frontmatter and links to its approved prerequisite and related nodes.
+##### Example:
+
+- Fixture: `scenario-a-golden-mainline-node-is-generated` with input `{"scenario":"a-golden-mainline-node-is-generated","graphRevision":"kg-v1-test"}`.
+- Operation: the generator processes an active mainline node.
+- Expected output: it SHALL create a stable-ID note with the required frontmatter and links to its approved prerequisite and related nodes..
+#### Scenario: A note has a retired target
+
+- **WHEN** an approved edge points through a lifecycle migration to a retired target
+- **THEN** the generated note SHALL resolve the successor according to the migration metadata and retain enough provenance to explain the historical target.
+
+
+<!-- @trace
+source: problem-driven-obsidian-knowledge-graph
+updated: 2026-09-13
+code:
+  - 🧠 問題驅動知識庫/04_電機機械/emach-three-phase-transformer.md
+  - .agents/skills/spectra-discuss/SKILL.md
+  - scripts/acceptance_freshness.py
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q04.png
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-3.md
+  - .agents/skills/spectra-review/SKILL.md
+  - src/state/attemptStore.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-two-port.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-machines.md
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-2.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diff-amp.md
+  - scripts/run_change_acceptance.py
+  - 🧠 問題驅動知識庫/06_工業配電/dist-load-characteristics.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-power.md
+  - src/components/dagGraphViewer.js
+  - src/components/topTopics.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-nonhomogeneous.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-single-phase-transformer.md
+  - scripts/write_unresolved_report.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-divider-equiv.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-state-estimation-wls.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-superposition.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-salient-pole.md
+  - .agents/skills/spectra-debug/SKILL.md
+  - src/main.js
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q06.png
+  - scripts/measure_learning_data_capacity.py
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-nonhomogeneous.md
+  - data/knowledge/edges.json
+  - 🧠 問題驅動知識庫/01_電路學/ct-procedure-thevenin-controlled-source.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-state-estimation-wls.md
+  - docs/PROPOSAL_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-power-analysis.md
+  - .spectra.yaml
+  - scripts/knowledge_patch_workflow.py
+  - 🧠 問題驅動知識庫/04_電機機械/emach-magnetic-circuits.md
+  - src/components/weaknessView.js
+  - docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-node-mesh.md
+  - reports/obsidian-knowledge-build.json
+  - docs/WORKPLAN_Sol_Luna_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-procedure-slg-sequence-networks.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-phasor-ac.md
+  - src/data/knowledge-dag.generated.js
+  - src/domain/knowledgeDiagnosis.js
+  - 🧠 問題驅動知識庫/01_電路學/ct-phasor-ac.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-equiv.md
+  - .agents/skills/spectra-archive/SKILL.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-zener-regulator.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q03.png
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-magnetic-circuits.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-motor-installation.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-power-factor-correction.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-salient-pole.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-electronics.md
+  - data/knowledge/migration-inventory.json
+  - src/components/reviewPage.js
+  - 🧠 問題驅動知識庫/03_工程數學/em-first-order-ode.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-harmonics-mitigation.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-grounding-system.md
+  - reports/knowledge-graph-build.json
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-homogeneous.md
+  - src/components/solutionModal.js
+  - scripts/knowledge_graph.py
+  - .agents/skills/spectra-analyze/SKILL.md
+  - src/state/sm2Store.js
+  - src/styles/components.css
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-torque.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-protection-coordination.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-equiv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-three-phase.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-generator-round.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-thyristor-rectifier.md
+  - scripts/generate_full_knowledge_graph.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-first-order-rc-rl.md
+  - 🧠 問題驅動知識庫/03_工程數學/q-ee-114-03-1.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-circuit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-distribution.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-svd-linear-systems.md
+  - solutions-bundle.js
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-single-phase-transformer.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-voltage-drop.md
+  - data/knowledge/golden-fixture.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transient-stability-equal-area.md
+  - scripts/knowledge_graph_inventory.py
+  - .agents/skills/spectra-apply/SKILL.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-three-phase-transformer.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-zener-regulator.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/q-ee-114-05-4.md
+  - .agents/skills/spectra-commit/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-feedback-stability.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q05.png
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-fourier-series.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-autotransformer.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-power-analysis.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-divider-equiv.md
+  - .agents/skills/spectra-propose/SKILL.md
+  - reports/problem-driven-obsidian-acceptance.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-models.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-params.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-per-unit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-math.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-fourier-series.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-eigen-diagonal.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transient-stability-equal-area.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-first-order-ode.md
+  - data/knowledge/nodes.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-inverter-spwm.md
+  - scripts/validate_knowledge_graph.py
+  - src/state/knowledgeIssueStore.js
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-autotransformer.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-eigen-diagonal.md
+  - scripts/crop_pe_questions.py
+  - scripts/build_knowledge_graph.py
+  - src/domain/weaknessProjection.js
+  - src/components/questionList.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-probability-statistics.md
+  - scripts/build_workbench.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-three-phase.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diff-amp.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-svd-linear-systems.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-vector-analysis.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-lighting-design.md
+  - .agents/skills/spectra-ingest/SKILL.md
+  - .obsidian/graph.json
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-math.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-max-power.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-machines.md
+  - .agents/skills/spectra-drift/SKILL.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-circuit.md
+  - data/knowledge/question-links.json
+  - 🧠 問題驅動知識庫/05_電力系統/ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-arc-flash-ieee80.md
+  - data/knowledge/schema.json
+  - index.html
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-max-power.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-procedure-linear-systems.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-feedback-stability.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-short-circuit-capacity.md
+  - reports/knowledge-patch/context-packet.json
+  - src/state/knowledgeReviewStore.js
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-thyristor-rectifier.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-two-port.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-power.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-models.md
+  - .obsidian/workspace.json
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-per-unit.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-probability-statistics.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-generator-round.md
+  - .agents/skills/spectra-audit/SKILL.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-homogeneous.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-node-mesh.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-superposition.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-pde-separation.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-vector-analysis.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-active-filter.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-distribution-equipment.md
+  - src/data/knowledge-dag.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-first-order-rc-rl.md
+  - scripts/generate_obsidian_knowledge.py
+  - reports/learning-data-capacity.json
+  - docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-torque.md
+  - reports/knowledge-graph-validation.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-inverter-spwm.md
+  - .agents/skills/spectra-verify/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-thevenin-norton.md
+  - src/components/dagTracer.js
+  - data/pe-question-crops.json
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-thevenin-norton.md
+  - AGENTS.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-active-filter.md
+  - reports/knowledge-patch/context-packet.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-electronics.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-pde-separation.md
+  - reports/problem-driven-unresolved.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-params.md
+  - reports/knowledge-graph-inventory.md
+tests:
+  - tests/test_diagnosis_ui.py
+  - tests/test_knowledge_review_store.py
+  - tests/test_topic_statistics.py
+  - tests/test_knowledge_graph_inventory.py
+  - tests/test_knowledge_issue_store.py
+  - tests/test_knowledge_diagnosis.py
+  - tests/test_learning_data_capacity.py
+  - tests/test_knowledge_graph_adapter.py
+  - tests/test_weakness_projection.py
+  - tests/test_weakness_view.py
+  - tests/test_pe_question_crops.py
+  - tests/test_backup_restore.py
+  - tests/test_spectra_scenario_examples.py
+  - tests/test_acceptance_freshness.py
+  - tests/test_knowledge_patch_workflow.py
+  - tests/test_knowledge_graph_validator_cli.py
+  - tests/test_knowledge_graph_schema.py
+  - tests/test_obsidian_knowledge_generation.py
+  - tests/test_durable_attempt_store.py
+  - tests/test_question_facets.py
+  - tests/test_full_knowledge_graph.py
+  - tests/test_knowledge_graph_generation.py
+-->
+
+---
+### Requirement: Personal notes SHALL be protected from generation
+
+The generator SHALL treat `📝 個人知識補充/` as user-owned content. It SHALL not overwrite, rename, or delete personal files and SHALL reference personal notes only through explicit, user-defined links or metadata.
+##### Example:
+
+- Fixture: `scenario-a-note-has-a-retired-target` with input `{"scenario":"a-note-has-a-retired-target","graphRevision":"kg-v1-test"}`.
+- Operation: an approved edge points through a lifecycle migration to a retired target.
+- Expected output: the generated note SHALL resolve the successor according to the migration metadata and retain enough provenance to explain the historical target..
+#### Scenario: A personal note shares a concept title
+
+- **WHEN** a personal note has the same display title as a generated node
+- **THEN** generation SHALL keep the personal file unchanged and SHALL use stable generated identity for canonical links.
+##### Example:
+
+- Fixture: `scenario-a-personal-note-shares-a-concept-title` with input `{"scenario":"a-personal-note-shares-a-concept-title","graphRevision":"kg-v1-test"}`.
+- Operation: a personal note has the same display title as a generated node.
+- Expected output: generation SHALL keep the personal file unchanged and SHALL use stable generated identity for canonical links..
+#### Scenario: A personal note contains unsupported content
+
+- **WHEN** a personal note is not valid canonical graph input
+- **THEN** generation SHALL ignore it as graph source data and SHALL still report the generated graph result.
+
+
+<!-- @trace
+source: problem-driven-obsidian-knowledge-graph
+updated: 2026-09-13
+code:
+  - 🧠 問題驅動知識庫/04_電機機械/emach-three-phase-transformer.md
+  - .agents/skills/spectra-discuss/SKILL.md
+  - scripts/acceptance_freshness.py
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q04.png
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-3.md
+  - .agents/skills/spectra-review/SKILL.md
+  - src/state/attemptStore.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-two-port.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-machines.md
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-2.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diff-amp.md
+  - scripts/run_change_acceptance.py
+  - 🧠 問題驅動知識庫/06_工業配電/dist-load-characteristics.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-power.md
+  - src/components/dagGraphViewer.js
+  - src/components/topTopics.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-nonhomogeneous.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-single-phase-transformer.md
+  - scripts/write_unresolved_report.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-divider-equiv.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-state-estimation-wls.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-superposition.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-salient-pole.md
+  - .agents/skills/spectra-debug/SKILL.md
+  - src/main.js
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q06.png
+  - scripts/measure_learning_data_capacity.py
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-nonhomogeneous.md
+  - data/knowledge/edges.json
+  - 🧠 問題驅動知識庫/01_電路學/ct-procedure-thevenin-controlled-source.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-state-estimation-wls.md
+  - docs/PROPOSAL_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-power-analysis.md
+  - .spectra.yaml
+  - scripts/knowledge_patch_workflow.py
+  - 🧠 問題驅動知識庫/04_電機機械/emach-magnetic-circuits.md
+  - src/components/weaknessView.js
+  - docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-node-mesh.md
+  - reports/obsidian-knowledge-build.json
+  - docs/WORKPLAN_Sol_Luna_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-procedure-slg-sequence-networks.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-phasor-ac.md
+  - src/data/knowledge-dag.generated.js
+  - src/domain/knowledgeDiagnosis.js
+  - 🧠 問題驅動知識庫/01_電路學/ct-phasor-ac.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-equiv.md
+  - .agents/skills/spectra-archive/SKILL.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-zener-regulator.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q03.png
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-magnetic-circuits.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-motor-installation.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-power-factor-correction.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-salient-pole.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-electronics.md
+  - data/knowledge/migration-inventory.json
+  - src/components/reviewPage.js
+  - 🧠 問題驅動知識庫/03_工程數學/em-first-order-ode.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-harmonics-mitigation.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-grounding-system.md
+  - reports/knowledge-graph-build.json
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-homogeneous.md
+  - src/components/solutionModal.js
+  - scripts/knowledge_graph.py
+  - .agents/skills/spectra-analyze/SKILL.md
+  - src/state/sm2Store.js
+  - src/styles/components.css
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-torque.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-protection-coordination.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-equiv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-three-phase.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-generator-round.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-thyristor-rectifier.md
+  - scripts/generate_full_knowledge_graph.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-first-order-rc-rl.md
+  - 🧠 問題驅動知識庫/03_工程數學/q-ee-114-03-1.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-circuit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-distribution.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-svd-linear-systems.md
+  - solutions-bundle.js
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-single-phase-transformer.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-voltage-drop.md
+  - data/knowledge/golden-fixture.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transient-stability-equal-area.md
+  - scripts/knowledge_graph_inventory.py
+  - .agents/skills/spectra-apply/SKILL.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-three-phase-transformer.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-zener-regulator.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/q-ee-114-05-4.md
+  - .agents/skills/spectra-commit/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-feedback-stability.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q05.png
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-fourier-series.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-autotransformer.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-power-analysis.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-divider-equiv.md
+  - .agents/skills/spectra-propose/SKILL.md
+  - reports/problem-driven-obsidian-acceptance.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-models.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-params.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-per-unit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-math.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-fourier-series.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-eigen-diagonal.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transient-stability-equal-area.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-first-order-ode.md
+  - data/knowledge/nodes.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-inverter-spwm.md
+  - scripts/validate_knowledge_graph.py
+  - src/state/knowledgeIssueStore.js
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-autotransformer.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-eigen-diagonal.md
+  - scripts/crop_pe_questions.py
+  - scripts/build_knowledge_graph.py
+  - src/domain/weaknessProjection.js
+  - src/components/questionList.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-probability-statistics.md
+  - scripts/build_workbench.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-three-phase.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diff-amp.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-svd-linear-systems.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-vector-analysis.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-lighting-design.md
+  - .agents/skills/spectra-ingest/SKILL.md
+  - .obsidian/graph.json
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-math.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-max-power.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-machines.md
+  - .agents/skills/spectra-drift/SKILL.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-circuit.md
+  - data/knowledge/question-links.json
+  - 🧠 問題驅動知識庫/05_電力系統/ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-arc-flash-ieee80.md
+  - data/knowledge/schema.json
+  - index.html
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-max-power.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-procedure-linear-systems.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-feedback-stability.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-short-circuit-capacity.md
+  - reports/knowledge-patch/context-packet.json
+  - src/state/knowledgeReviewStore.js
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-thyristor-rectifier.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-two-port.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-power.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-models.md
+  - .obsidian/workspace.json
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-per-unit.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-probability-statistics.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-generator-round.md
+  - .agents/skills/spectra-audit/SKILL.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-homogeneous.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-node-mesh.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-superposition.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-pde-separation.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-vector-analysis.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-active-filter.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-distribution-equipment.md
+  - src/data/knowledge-dag.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-first-order-rc-rl.md
+  - scripts/generate_obsidian_knowledge.py
+  - reports/learning-data-capacity.json
+  - docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-torque.md
+  - reports/knowledge-graph-validation.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-inverter-spwm.md
+  - .agents/skills/spectra-verify/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-thevenin-norton.md
+  - src/components/dagTracer.js
+  - data/pe-question-crops.json
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-thevenin-norton.md
+  - AGENTS.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-active-filter.md
+  - reports/knowledge-patch/context-packet.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-electronics.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-pde-separation.md
+  - reports/problem-driven-unresolved.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-params.md
+  - reports/knowledge-graph-inventory.md
+tests:
+  - tests/test_diagnosis_ui.py
+  - tests/test_knowledge_review_store.py
+  - tests/test_topic_statistics.py
+  - tests/test_knowledge_graph_inventory.py
+  - tests/test_knowledge_issue_store.py
+  - tests/test_knowledge_diagnosis.py
+  - tests/test_learning_data_capacity.py
+  - tests/test_knowledge_graph_adapter.py
+  - tests/test_weakness_projection.py
+  - tests/test_weakness_view.py
+  - tests/test_pe_question_crops.py
+  - tests/test_backup_restore.py
+  - tests/test_spectra_scenario_examples.py
+  - tests/test_acceptance_freshness.py
+  - tests/test_knowledge_patch_workflow.py
+  - tests/test_knowledge_graph_validator_cli.py
+  - tests/test_knowledge_graph_schema.py
+  - tests/test_obsidian_knowledge_generation.py
+  - tests/test_durable_attempt_store.py
+  - tests/test_question_facets.py
+  - tests/test_full_knowledge_graph.py
+  - tests/test_knowledge_graph_generation.py
+-->
+
+---
+### Requirement: Generated drift SHALL fail closed with an actionable report
+
+The generator SHALL compare the recorded source hash or generation marker for existing generated notes before overwriting them. Unexpected body drift SHALL stop that note's rewrite, identify the path and node ID, and explain the required recovery action.
+##### Example:
+
+- Fixture: `scenario-a-personal-note-contains-unsupported-content` with input `{"scenario":"a-personal-note-contains-unsupported-content","graphRevision":"kg-v1-test"}`.
+- Operation: a personal note is not valid canonical graph input.
+- Expected output: generation SHALL ignore it as graph source data and SHALL still report the generated graph result..
+#### Scenario: A generated note is unchanged
+
+- **WHEN** its source hash matches the validated graph inputs
+- **THEN** the generator SHALL update it deterministically if the graph revision changed and SHALL preserve its generated marker.
+##### Example:
+
+- Fixture: `scenario-a-generated-note-is-unchanged` with input `{"scenario":"a-generated-note-is-unchanged","graphRevision":"kg-v1-test"}`.
+- Operation: its source hash matches the validated graph inputs.
+- Expected output: the generator SHALL update it deterministically if the graph revision changed and SHALL preserve its generated marker..
+#### Scenario: A generated note was manually edited
+
+- **WHEN** its recorded source hash does not match the generated body
+- **THEN** generation SHALL fail for that note, leave the edited file intact, and report the drift before any destructive write.
+
+
+<!-- @trace
+source: problem-driven-obsidian-knowledge-graph
+updated: 2026-09-13
+code:
+  - 🧠 問題驅動知識庫/04_電機機械/emach-three-phase-transformer.md
+  - .agents/skills/spectra-discuss/SKILL.md
+  - scripts/acceptance_freshness.py
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q04.png
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-3.md
+  - .agents/skills/spectra-review/SKILL.md
+  - src/state/attemptStore.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-two-port.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-machines.md
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-2.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diff-amp.md
+  - scripts/run_change_acceptance.py
+  - 🧠 問題驅動知識庫/06_工業配電/dist-load-characteristics.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-power.md
+  - src/components/dagGraphViewer.js
+  - src/components/topTopics.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-nonhomogeneous.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-single-phase-transformer.md
+  - scripts/write_unresolved_report.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-divider-equiv.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-state-estimation-wls.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-superposition.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-salient-pole.md
+  - .agents/skills/spectra-debug/SKILL.md
+  - src/main.js
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q06.png
+  - scripts/measure_learning_data_capacity.py
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-nonhomogeneous.md
+  - data/knowledge/edges.json
+  - 🧠 問題驅動知識庫/01_電路學/ct-procedure-thevenin-controlled-source.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-state-estimation-wls.md
+  - docs/PROPOSAL_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-power-analysis.md
+  - .spectra.yaml
+  - scripts/knowledge_patch_workflow.py
+  - 🧠 問題驅動知識庫/04_電機機械/emach-magnetic-circuits.md
+  - src/components/weaknessView.js
+  - docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-node-mesh.md
+  - reports/obsidian-knowledge-build.json
+  - docs/WORKPLAN_Sol_Luna_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-procedure-slg-sequence-networks.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-phasor-ac.md
+  - src/data/knowledge-dag.generated.js
+  - src/domain/knowledgeDiagnosis.js
+  - 🧠 問題驅動知識庫/01_電路學/ct-phasor-ac.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-equiv.md
+  - .agents/skills/spectra-archive/SKILL.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-zener-regulator.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q03.png
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-magnetic-circuits.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-motor-installation.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-power-factor-correction.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-salient-pole.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-electronics.md
+  - data/knowledge/migration-inventory.json
+  - src/components/reviewPage.js
+  - 🧠 問題驅動知識庫/03_工程數學/em-first-order-ode.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-harmonics-mitigation.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-grounding-system.md
+  - reports/knowledge-graph-build.json
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-homogeneous.md
+  - src/components/solutionModal.js
+  - scripts/knowledge_graph.py
+  - .agents/skills/spectra-analyze/SKILL.md
+  - src/state/sm2Store.js
+  - src/styles/components.css
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-torque.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-protection-coordination.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-equiv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-three-phase.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-generator-round.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-thyristor-rectifier.md
+  - scripts/generate_full_knowledge_graph.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-first-order-rc-rl.md
+  - 🧠 問題驅動知識庫/03_工程數學/q-ee-114-03-1.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-circuit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-distribution.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-svd-linear-systems.md
+  - solutions-bundle.js
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-single-phase-transformer.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-voltage-drop.md
+  - data/knowledge/golden-fixture.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transient-stability-equal-area.md
+  - scripts/knowledge_graph_inventory.py
+  - .agents/skills/spectra-apply/SKILL.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-three-phase-transformer.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-zener-regulator.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/q-ee-114-05-4.md
+  - .agents/skills/spectra-commit/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-feedback-stability.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q05.png
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-fourier-series.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-autotransformer.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-power-analysis.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-divider-equiv.md
+  - .agents/skills/spectra-propose/SKILL.md
+  - reports/problem-driven-obsidian-acceptance.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-models.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-params.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-per-unit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-math.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-fourier-series.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-eigen-diagonal.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transient-stability-equal-area.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-first-order-ode.md
+  - data/knowledge/nodes.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-inverter-spwm.md
+  - scripts/validate_knowledge_graph.py
+  - src/state/knowledgeIssueStore.js
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-autotransformer.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-eigen-diagonal.md
+  - scripts/crop_pe_questions.py
+  - scripts/build_knowledge_graph.py
+  - src/domain/weaknessProjection.js
+  - src/components/questionList.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-probability-statistics.md
+  - scripts/build_workbench.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-three-phase.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diff-amp.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-svd-linear-systems.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-vector-analysis.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-lighting-design.md
+  - .agents/skills/spectra-ingest/SKILL.md
+  - .obsidian/graph.json
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-math.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-max-power.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-machines.md
+  - .agents/skills/spectra-drift/SKILL.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-circuit.md
+  - data/knowledge/question-links.json
+  - 🧠 問題驅動知識庫/05_電力系統/ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-arc-flash-ieee80.md
+  - data/knowledge/schema.json
+  - index.html
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-max-power.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-procedure-linear-systems.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-feedback-stability.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-short-circuit-capacity.md
+  - reports/knowledge-patch/context-packet.json
+  - src/state/knowledgeReviewStore.js
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-thyristor-rectifier.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-two-port.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-power.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-models.md
+  - .obsidian/workspace.json
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-per-unit.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-probability-statistics.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-generator-round.md
+  - .agents/skills/spectra-audit/SKILL.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-homogeneous.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-node-mesh.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-superposition.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-pde-separation.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-vector-analysis.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-active-filter.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-distribution-equipment.md
+  - src/data/knowledge-dag.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-first-order-rc-rl.md
+  - scripts/generate_obsidian_knowledge.py
+  - reports/learning-data-capacity.json
+  - docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-torque.md
+  - reports/knowledge-graph-validation.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-inverter-spwm.md
+  - .agents/skills/spectra-verify/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-thevenin-norton.md
+  - src/components/dagTracer.js
+  - data/pe-question-crops.json
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-thevenin-norton.md
+  - AGENTS.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-active-filter.md
+  - reports/knowledge-patch/context-packet.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-electronics.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-pde-separation.md
+  - reports/problem-driven-unresolved.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-params.md
+  - reports/knowledge-graph-inventory.md
+tests:
+  - tests/test_diagnosis_ui.py
+  - tests/test_knowledge_review_store.py
+  - tests/test_topic_statistics.py
+  - tests/test_knowledge_graph_inventory.py
+  - tests/test_knowledge_issue_store.py
+  - tests/test_knowledge_diagnosis.py
+  - tests/test_learning_data_capacity.py
+  - tests/test_knowledge_graph_adapter.py
+  - tests/test_weakness_projection.py
+  - tests/test_weakness_view.py
+  - tests/test_pe_question_crops.py
+  - tests/test_backup_restore.py
+  - tests/test_spectra_scenario_examples.py
+  - tests/test_acceptance_freshness.py
+  - tests/test_knowledge_patch_workflow.py
+  - tests/test_knowledge_graph_validator_cli.py
+  - tests/test_knowledge_graph_schema.py
+  - tests/test_obsidian_knowledge_generation.py
+  - tests/test_durable_attempt_store.py
+  - tests/test_question_facets.py
+  - tests/test_full_knowledge_graph.py
+  - tests/test_knowledge_graph_generation.py
+-->
+
+---
+### Requirement: Build integration SHALL verify reproducibility and coverage
+
+The project build SHALL expose commands for inventory, validation, website generation, Obsidian generation, and drift checking. The integration SHALL record source counts, mapped question counts, unknown counts, and graph revision in a report.
+##### Example:
+
+- Fixture: `scenario-a-generated-note-was-manually-edited` with input `{"scenario":"a-generated-note-was-manually-edited","graphRevision":"kg-v1-test"}`.
+- Operation: its recorded source hash does not match the generated body.
+- Expected output: generation SHALL fail for that note, leave the edited file intact, and report the drift before any destructive write..
+#### Scenario: A clean checkout runs the knowledge build
+
+- **WHEN** inventory, validation, generation and the existing workbench build run from the same canonical inputs
+- **THEN** the commands SHALL succeed in a documented order and produce reproducible generated artifacts.
+##### Example:
+
+- Fixture: `scenario-a-clean-checkout-runs-the-knowledge-build` with input `{"scenario":"a-clean-checkout-runs-the-knowledge-build","graphRevision":"kg-v1-test"}`.
+- Operation: inventory, validation, generation and the existing workbench build run from the same canonical inputs.
+- Expected output: the commands SHALL succeed in a documented order and produce reproducible generated artifacts..
+#### Scenario: Coverage regresses below the reviewed slice
+
+- **WHEN** a generated revision maps fewer reviewed golden questions than the acceptance threshold
+- **THEN** the build SHALL fail with coverage details and SHALL retain the last accepted generated artifacts.
+##### Example:
+
+- Fixture: `scenario-coverage-regresses-below-the-reviewed-slice` with input `{"scenario":"coverage-regresses-below-the-reviewed-slice","graphRevision":"kg-v1-test"}`.
+- Operation: a generated revision maps fewer reviewed golden questions than the acceptance threshold.
+- Expected output: the build SHALL fail with coverage details and SHALL retain the last accepted generated artifacts..
+
+<!-- @trace
+source: problem-driven-obsidian-knowledge-graph
+updated: 2026-09-13
+code:
+  - 🧠 問題驅動知識庫/04_電機機械/emach-three-phase-transformer.md
+  - .agents/skills/spectra-discuss/SKILL.md
+  - scripts/acceptance_freshness.py
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q04.png
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-3.md
+  - .agents/skills/spectra-review/SKILL.md
+  - src/state/attemptStore.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-two-port.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-machines.md
+  - 🧠 問題驅動知識庫/01_電路學/q-ee-114-01-2.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diff-amp.md
+  - scripts/run_change_acceptance.py
+  - 🧠 問題驅動知識庫/06_工業配電/dist-load-characteristics.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-power.md
+  - src/components/dagGraphViewer.js
+  - src/components/topTopics.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-nonhomogeneous.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-single-phase-transformer.md
+  - scripts/write_unresolved_report.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-divider-equiv.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-state-estimation-wls.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-superposition.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-salient-pole.md
+  - .agents/skills/spectra-debug/SKILL.md
+  - src/main.js
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q06.png
+  - scripts/measure_learning_data_capacity.py
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-nonhomogeneous.md
+  - data/knowledge/edges.json
+  - 🧠 問題驅動知識庫/01_電路學/ct-procedure-thevenin-controlled-source.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-state-estimation-wls.md
+  - docs/PROPOSAL_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-ohm-kcl-kvl.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-power-analysis.md
+  - .spectra.yaml
+  - scripts/knowledge_patch_workflow.py
+  - 🧠 問題驅動知識庫/04_電機機械/emach-magnetic-circuits.md
+  - src/components/weaknessView.js
+  - docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-node-mesh.md
+  - reports/obsidian-knowledge-build.json
+  - docs/WORKPLAN_Sol_Luna_Obsidian多使用者個人化複習整合_2026-09-13.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-procedure-slg-sequence-networks.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-phasor-ac.md
+  - src/data/knowledge-dag.generated.js
+  - src/domain/knowledgeDiagnosis.js
+  - 🧠 問題驅動知識庫/01_電路學/ct-phasor-ac.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-equiv.md
+  - .agents/skills/spectra-archive/SKILL.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-zener-regulator.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q03.png
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-magnetic-circuits.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-motor-installation.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-power-factor-correction.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-salient-pole.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-electronics.md
+  - data/knowledge/migration-inventory.json
+  - src/components/reviewPage.js
+  - 🧠 問題驅動知識庫/03_工程數學/em-first-order-ode.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-harmonics-mitigation.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-grounding-system.md
+  - reports/knowledge-graph-build.json
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-second-order-ode-homogeneous.md
+  - src/components/solutionModal.js
+  - scripts/knowledge_graph.py
+  - .agents/skills/spectra-analyze/SKILL.md
+  - src/state/sm2Store.js
+  - src/styles/components.css
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-induction-motor-torque.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-protection-coordination.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-equiv.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-three-phase.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-synchronous-generator-round.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-thyristor-rectifier.md
+  - scripts/generate_full_knowledge_graph.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-first-order-rc-rl.md
+  - 🧠 問題驅動知識庫/03_工程數學/q-ee-114-03-1.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-circuit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-distribution.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-svd-linear-systems.md
+  - solutions-bundle.js
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-single-phase-transformer.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-voltage-drop.md
+  - data/knowledge/golden-fixture.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transient-stability-equal-area.md
+  - scripts/knowledge_graph_inventory.py
+  - .agents/skills/spectra-apply/SKILL.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-three-phase-transformer.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-zener-regulator.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/q-ee-114-05-4.md
+  - .agents/skills/spectra-commit/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-second-order-rlc.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-feedback-stability.md
+  - 依考科分類/05_電力系統/images/questions/PE_109年_電力系統_Q05.png
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-fourier-series.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-autotransformer.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-power-analysis.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-divider-equiv.md
+  - .agents/skills/spectra-propose/SKILL.md
+  - reports/problem-driven-obsidian-acceptance.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-models.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-transmission-line-params.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-per-unit.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-math.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-fourier-series.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-eigen-diagonal.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-load-flow-admittance.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-economic-dispatch.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transient-stability-equal-area.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-three-phase-fault.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-first-order-ode.md
+  - data/knowledge/nodes.json
+  - 🧠 問題驅動知識庫/03_工程數學/em-matrix-det-inv.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-inverter-spwm.md
+  - scripts/validate_knowledge_graph.py
+  - src/state/knowledgeIssueStore.js
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-autotransformer.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-eigen-diagonal.md
+  - scripts/crop_pe_questions.py
+  - scripts/build_knowledge_graph.py
+  - src/domain/weaknessProjection.js
+  - src/components/questionList.js
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-probability-statistics.md
+  - scripts/build_workbench.py
+  - 🧠 問題驅動知識庫/01_電路學/ct-three-phase.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diff-amp.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-svd-linear-systems.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-vector-analysis.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-lighting-design.md
+  - .agents/skills/spectra-ingest/SKILL.md
+  - .obsidian/graph.json
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-math.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-max-power.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-machines.md
+  - .agents/skills/spectra-drift/SKILL.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-circuit.md
+  - data/knowledge/question-links.json
+  - 🧠 問題驅動知識庫/05_電力系統/ps-symmetrical-components.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-arc-flash-ieee80.md
+  - data/knowledge/schema.json
+  - index.html
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-max-power.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-laplace-transform.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-mosfet-bias-small-signal.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-procedure-linear-systems.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-feedback-stability.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-short-circuit-capacity.md
+  - reports/knowledge-patch/context-packet.json
+  - src/state/knowledgeReviewStore.js
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-thyristor-rectifier.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-complex-power.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-two-port.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-opamp-ideal.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-diode-rectifier.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-complex-cauchy-residue.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/00_主線/gk-mainline-power.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-models.md
+  - .obsidian/workspace.json
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-per-unit.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-probability-statistics.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-pe-buck-boost.md
+  - 🧠 問題驅動知識庫/04_電機機械/gk-emach-synchronous-generator-round.md
+  - .agents/skills/spectra-audit/SKILL.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-second-order-ode-homogeneous.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-node-mesh.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-superposition.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-dc-motor-generator.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-pde-separation.md
+  - 🧠 問題驅動知識庫/03_工程數學/em-vector-analysis.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-unsymmetrical-faults.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/el-active-filter.md
+  - 🧠 問題驅動知識庫/05_電力系統/gk-ps-system-protection-relay.md
+  - 🧠 問題驅動知識庫/06_工業配電/dist-distribution-equipment.md
+  - src/data/knowledge-dag.js
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-first-order-rc-rl.md
+  - scripts/generate_obsidian_knowledge.py
+  - reports/learning-data-capacity.json
+  - docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-bjt-bias-small-signal.md
+  - 🧠 問題驅動知識庫/04_電機機械/emach-induction-motor-torque.md
+  - reports/knowledge-graph-validation.json
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-pe-inverter-spwm.md
+  - .agents/skills/spectra-verify/SKILL.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-thevenin-norton.md
+  - src/components/dagTracer.js
+  - data/pe-question-crops.json
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-thevenin-norton.md
+  - AGENTS.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-mutual-inductance.md
+  - 🧠 問題驅動知識庫/01_電路學/gk-ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/02_電子學_含電力電子/gk-el-active-filter.md
+  - reports/knowledge-patch/context-packet.md
+  - 🧠 問題驅動知識庫/00_主線/pe-mainline-electronics.md
+  - 🧠 問題驅動知識庫/03_工程數學/gk-em-pde-separation.md
+  - reports/problem-driven-unresolved.md
+  - 🧠 問題驅動知識庫/01_電路學/ct-laplace-circuit.md
+  - 🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-params.md
+  - reports/knowledge-graph-inventory.md
+tests:
+  - tests/test_diagnosis_ui.py
+  - tests/test_knowledge_review_store.py
+  - tests/test_topic_statistics.py
+  - tests/test_knowledge_graph_inventory.py
+  - tests/test_knowledge_issue_store.py
+  - tests/test_knowledge_diagnosis.py
+  - tests/test_learning_data_capacity.py
+  - tests/test_knowledge_graph_adapter.py
+  - tests/test_weakness_projection.py
+  - tests/test_weakness_view.py
+  - tests/test_pe_question_crops.py
+  - tests/test_backup_restore.py
+  - tests/test_spectra_scenario_examples.py
+  - tests/test_acceptance_freshness.py
+  - tests/test_knowledge_patch_workflow.py
+  - tests/test_knowledge_graph_validator_cli.py
+  - tests/test_knowledge_graph_schema.py
+  - tests/test_obsidian_knowledge_generation.py
+  - tests/test_durable_attempt_store.py
+  - tests/test_question_facets.py
+  - tests/test_full_knowledge_graph.py
+  - tests/test_knowledge_graph_generation.py
+-->

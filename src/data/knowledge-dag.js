@@ -727,10 +727,54 @@ const KNOWLEDGE_DAG = {
   }
 };
 
+function canonicalGraphIsEnabled() {
+  return typeof globalThis !== 'undefined' && globalThis.CANONICAL_GRAPH_ENABLED === true;
+}
+
+function getCanonicalKnowledgeGraph() {
+  if (typeof globalThis === 'undefined') return null;
+  const graph = globalThis.CANONICAL_KNOWLEDGE_GRAPH;
+  return graph && graph.questionLinks && graph.nodes ? graph : null;
+}
+
+function legacyNodeForCanonicalId(nodeId) {
+  if (KNOWLEDGE_DAG[nodeId]) return KNOWLEDGE_DAG[nodeId];
+  if (typeof nodeId === 'string' && nodeId.startsWith('gk-')) return KNOWLEDGE_DAG[nodeId.slice(3)] || null;
+  return null;
+}
+
+function resolveCanonicalQuestionMapping(sid, qid) {
+  const graph = getCanonicalKnowledgeGraph();
+  if (!graph) return { status: 'unavailable', nodeIds: [], reason: 'canonical-graph-unavailable' };
+  if (!qid) return { status: 'unknown', nodeIds: [], reason: 'missing-qid' };
+  const family = String(qid).startsWith('GK-') ? 'GK' : 'PE';
+  const key = `${family}:${qid}`;
+  const link = graph.questionLinks[key];
+  if (!link || link.reviewStatus !== 'approved' || !Array.isArray(link.nodeIds)) {
+    return { status: 'unknown', nodeIds: [], reason: 'no-approved-question-link' };
+  }
+  const nodeIds = [...new Set(link.nodeIds)].filter(nodeId => {
+    const canonicalNode = graph.nodes[nodeId];
+    const legacyNode = legacyNodeForCanonicalId(nodeId);
+    return canonicalNode && canonicalNode.examFamily === family && legacyNode && legacyNode.subject === String(sid);
+  });
+  if (nodeIds.length === 0) return { status: 'unknown', nodeIds: [], reason: 'no-supported-dag-node' };
+  return { status: 'mapped', nodeIds, reason: null, source: 'canonical', link };
+}
+
 /**
  * Maps question content / keywords to matching DAG Node IDs.
+ *
+ * The fourth argument is the stable QID.  When canonical graph mode is
+ * enabled, an unknown QID is intentionally returned as an empty mapping.
+ * Without the generated graph, the legacy keyword path remains available for
+ * backward-compatible development and older bundles.
  */
-function mapQuestionToDagNodes(sid, topic, qBody) {
+function mapQuestionToDagNodes(sid, topic, qBody, qid) {
+  const canonical = resolveCanonicalQuestionMapping(sid, qid);
+  if (canonical.status === 'mapped') return canonical.nodeIds;
+  if (canonicalGraphIsEnabled()) return [];
+
   const fullText = `${topic} ${qBody}`.toLowerCase();
   const matchedNodes = [];
 
@@ -760,7 +804,7 @@ function mapQuestionToDagNodes(sid, topic, qBody) {
     }
   }
 
-  // Fallback to first level-1/2 node of subject if empty
+  // Fallback is retained only for the legacy compatibility mode.
   if (matchedNodes.length === 0) {
     const defaultNode = Object.keys(KNOWLEDGE_DAG).find(k => KNOWLEDGE_DAG[k].subject === sid);
     if (defaultNode) matchedNodes.push(defaultNode);
@@ -796,6 +840,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     KNOWLEDGE_DAG,
     mapQuestionToDagNodes,
+    resolveCanonicalQuestionMapping,
     tracePrerequisiteChain
   };
 }

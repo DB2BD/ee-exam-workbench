@@ -5,6 +5,8 @@ import re
 import unittest
 from pathlib import Path
 
+import fitz
+
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 MANIFEST = WORKSPACE / "data" / "pe-question-crops.json"
@@ -78,6 +80,41 @@ class PEQuestionCropTests(unittest.TestCase):
             for question in entry["questions"]:
                 if question.get("app_question_id") in app_ids:
                     self.assertTrue((WORKSPACE / question["question_crop"]).is_file())
+
+    def test_ee_109_05_4_crop_contains_the_complete_question(self):
+        """The audited crop must include Q4's heading, body, and no Q5 text."""
+        entry = next(
+            item for item in self.entries
+            if item["year"] == 109 and item["subject"] == "電力系統"
+        )
+        question = entry["questions"][3]
+        page_info = question["source_pages"][0]
+        x0, crop_top, x1, crop_bottom = page_info["crop_rect"]
+
+        pdf = WORKSPACE / entry["pdf_path"]
+        page = fitz.open(pdf)[1]
+        blocks = [
+            (block[1], block[3], " ".join(block[4].split()))
+            for block in page.get_text("blocks")
+        ]
+        q4_blocks = [
+            (top, bottom)
+            for top, bottom, text in blocks
+            if "圖二所示電力系統" in text or "試針對發生在匯流排1" in text
+        ]
+        q5_blocks = [
+            top for top, _bottom, text in blocks
+            if text.startswith("二座發電廠")
+        ]
+        self.assertTrue(q4_blocks)
+        self.assertTrue(q5_blocks)
+        q4_top = min(top for top, _bottom in q4_blocks)
+        q4_bottom = max(bottom for _top, bottom in q4_blocks)
+        q5_top = min(q5_blocks)
+
+        self.assertLessEqual(crop_top, q4_top, "Q4 heading is clipped")
+        self.assertGreaterEqual(crop_bottom, q4_bottom, "Q4 body is clipped")
+        self.assertLess(crop_bottom, q5_top, "Q5 heading leaked into Q4 crop")
 
 
 if __name__ == "__main__":

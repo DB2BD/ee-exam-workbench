@@ -1,0 +1,35 @@
+<!--
+每項任務都包含可觀察的行為契約與驗證方式；檔案路徑只作為定位資訊。
+清單共有 16 個 checkbox task，依序完成即可覆蓋全部 specs 與 design contract。
+-->
+
+## 1. 現況與 canonical graph 基礎
+
+- [x] 1.1 盤點目前實測的 69 個 DAG 節點、14 個核心筆記、題目 QID、PE/GK 映射與備份欄位，產生 `data/knowledge/migration-inventory.json` 與 `reports/knowledge-graph-inventory.md`；驗證：逐項核對 `src/data/knowledge-dag.js`、Obsidian 來源與題庫資料，審查來源數、未知數與待人工審查清單。
+- [x] 1.2 依 `Canonical graph owns knowledge meaning` 與 `Canonical data contract` 建立 `data/knowledge/{nodes.json,edges.json,question-links.json,schema.json}`，使 `The canonical graph SHALL use stable typed records`、`Semantic edges SHALL be evidence-bearing and bounded`、`Question links SHALL be isolated by exam family`；驗證：執行 `pytest tests/test_knowledge_graph_schema.py tests/test_question_links.py`，並以 invalid fixtures 檢查缺欄位、跨 family、dangling 與 cycle 均 fail closed。
+- [x] 1.3 依 `Stable IDs and deterministic graph revisions preserve history` 實作 `Node lifecycle changes SHALL preserve historical references` 與 `Graph revisions SHALL be deterministic and promotable only after validation`，並以 `data/knowledge/golden-fixture.json` 固定 24 個人工複核節點與 20 個 PE/GK QID；驗證：執行 lifecycle migration、revision hash、golden fixture 測試，確認相同輸入相同 revision，清單 ID 與 successor mapping 可解析。
+
+## 2. Validator、相容層與網站生成
+
+- [x] 2.1 交付 `The validator SHALL produce actionable reports`，報告 duplicate ID/edge、dangling reference、cross-family violation、cycle、缺 evidence、非法 migration 的穩定 error code、record path/ID 與修正提示；驗證：執行 validator CLI 的成功/失敗 fixtures，審查 JSON/Markdown report 並確認 blocking error 不會 promotion。
+- [x] 2.2 依 `Legacy DAG remains behind a fail-closed compatibility adapter` 實作 adapter，使 unknown、低信心、跨 family 或 graph validation failure 回傳原因而不退回第一個 subject 節點，並交付 `The compatibility projection SHALL preserve existing viewer entry points`；驗證：執行 `pytest tests/test_knowledge_dag.py` 與 unknown/cross-family regression tests，手動檢查既有 viewer、tracer、題目詳情仍能讀 canonical/unknown 結果。
+- [x] 2.3 依 `Projection and generation contract` 實作 `The website DAG generator SHALL be deterministic` 與 `Build integration SHALL verify reproducibility and coverage`，由 validated revision 產生 stable generated bundle 並串接 `scripts/build_workbench.py`；驗證：連續執行 inventory、validator、generator、workbench build，比較 byte-stable output，確認 missing node 或 golden coverage 回退會保留上一版產物並失敗。
+- [x] 2.4 完成全量 PE/GK graph promotion：將 69 個 legacy 主題建立為 family-isolated canonical nodes，將 321 題 PE 與 161 題 GK 建立 approved question links，並把建置 coverage gate 提升為題庫總數；驗證：`482/482` 題 link、PE/GK 節點邊界、完整 prerequisite edges、website adapter 與 Obsidian generator 均通過。
+
+## 3. Obsidian、作答與診斷
+
+- [x] 3.1 依 `Generated Obsidian notes and personal notes use separate paths` 實作 `Generated Obsidian notes SHALL use stable identity and semantic links`、`Personal notes SHALL be protected from generation` 與 `Generated drift SHALL fail closed with an actionable report`，生成 `🧠 問題驅動知識庫/` notes 並保護 `📝 個人知識補充/`；驗證：執行 Obsidian golden/drift tests，檢查 stable-ID frontmatter、revision/source hash、semantic wikilinks、同名個人檔案未變更與 drift report 可定位。
+- [x] 3.2 依 `Durable attempt commit precedes diagnosis events` 與 `Learning and recovery contract` 實作 `Attempts SHALL use a durable envelope and stable session identity` 的 `beginOrResume`、`submit`、`ack`、`recover`，依循 `Diagnosis data SHALL be written after durable attempt commit` 區分 active/committed/acknowledged 並支援 reload/idempotence；驗證：執行 `pytest tests/test_attempt_store.py` 與 crash-before/after-ack 故障注入測試，確認同一 session 不產生第二筆合法作答。
+- [x] 3.3 依 `Diagnosis is deterministic and user-confirmed` 實作 `Diagnosis SHALL be deterministic and bounded` 與 `Diagnosis SHALL be gated on a committed attempt`，輸出最多 3 個 likely questions、最多 1 個 first prerequisite gap、reason、confidence、needsConfirmation；驗證：執行 diagnosis golden/negative-control tests，確認相同輸入相同輸出，未 commit、計算失誤、unknown 或證據不足不會硬判概念弱點。
+
+## 4. 使用者診斷、事件與知識複習
+
+- [x] 4.1 實作 `The post-submit UI SHALL require an explicit classification outcome`，在成功 commit 後於 `solutionModal`/daily practice 顯示 confirm、correct、none-of-above、skip 與三個導覽入口，並以 card state 控制 auto-advance；驗證：執行 UI regression tests 與手動檢查未 commit、confirm、correct、none-of-above、skip 五種流程。
+- [x] 4.2 依 `Append-only events feed pure weakness projections` 實作 `Issue history SHALL be append-only and idempotent`、`Issue events SHALL preserve unknown and secondary outcomes` 與 `Capacity and family isolation SHALL be enforced`，按 PE/GK key 保存完整事件欄位、primary/secondary role、unknown/none/skip、supersedesEventId 與 dedup identity；驗證：執行 issue event、retry、correction、secondary、unknown、5,000 events、約 3 MiB 與 cross-family rejection tests，確認失敗寫入不改既有 stream。
+- [x] 4.3 依 `Weakness projection SHALL be pure and explainable` 與 `The weakness view SHALL support time filters and drill-down` 交付 `buildWeaknessProjection` 與「我的弱點」7-day/30-day/all、pending classification、QID/event/evidence drill-down；投影使用 `weakness-priority.v1`，並輸出 priority、acceptanceMetrics、reviewState 與 supporting events；驗證：以相同 event stream 執行兩次 projection rebuild 比較結果，並手動檢查 PE/GK、時間範圍、unknown、優先級排序與下一步 action。
+
+## 5. Recovery、SRS、Codex workflow 與整體驗收
+
+- [x] 5.1 依 `Knowledge review remains separate from question review` 實作 `Knowledge retrieval SHALL use an independent review identity`、`Knowledge SRS SHALL schedule only after explicit recall and rating`、`Knowledge retrieval SHALL honor node lifecycle migrations`、`Knowledge review ratings SHALL be auditable` 與 `Question SRS behavior SHALL remain compatible`；驗證：執行 read-without-schedule、explicit rating、rating retry、rename/merge/split/retire、history audit 與既有 Recall/SM-2 regression tests。
+- [x] 5.2 依 `Learning and recovery contract` 實作 `Backup records SHALL be versioned and complete`、`Restore SHALL validate before replacing local state`、`Recovery journal replay SHALL be bounded and observable`、`Capacity gates SHALL protect local stability` 與 `PE and GK data SHALL remain isolated through all operations`；驗證：執行 `pytest tests/test_backup_restore.py`、舊版 migration、malformed backup、rollback、corrupt journal、5,000-event、約 3 MiB backup 與 mixed-family restore tests，確認 atomic replacement 與容量量測報告。
+- [x] 5.3 依 `Candidate patches are revision-aware and review-gated`、`AI candidate contract` 實作 `Context packets SHALL be bounded and reproducible`、`Patch candidates SHALL carry revision and provenance metadata`、`Candidate validation SHALL fail closed on stale or unsafe changes`、`Candidate review SHALL be explicit and auditable`、`Arbitrary pasted text SHALL never write canonical data` 與 `Candidate size and output paths SHALL be enforced`，輸出 offline markdown/JSON packet、完整 candidate envelope 與 inspect/reject/approve/rebase atomicity；同一任務完成 `Static offline-first remains the runtime boundary` 與 `Verification contract` 的整體 acceptance matrix，確認 clean checkout/無網路時 canonical validator、website/Obsidian reproducibility、attempt recovery、診斷 UI、issue projection、knowledge SRS、backup migration、candidate gate、PE/GK isolation 與容量測試都可重現；驗證：執行 packet snapshot/no-network、candidate schema、stale/hash/cycle/path/size/security、reject/approve、完整 `pytest`、workbench build、health commands、`spectra analyze`、`spectra validate`，並產生 unresolved legacy/unknown/manual-review 報告，所有 blocking issue 清零才算完成。

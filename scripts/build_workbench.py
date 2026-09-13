@@ -50,14 +50,20 @@ def build_workbench():
     # 2. Bundle Scripts
     js_files = [
         'src/domain/questionRecord.js',
+        'src/domain/knowledgeDiagnosis.js',
+        'src/domain/weaknessProjection.js',
         'src/data/taxonomyAliases.js',
         'src/data/knowledge-dag.js',
+        'src/data/knowledge-dag.generated.js',
         'src/state/store.js',
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
         'src/state/practiceStore.js',
         'src/state/recallStore.js',
         'src/state/attemptStore.js',
+        'src/state/knowledgeIssueStore.js',
+        'src/state/knowledgeReviewStore.js',
+        'src/components/weaknessView.js',
         'src/data/manualTopicLabels.js',
         'src/data/scenarioMatrixData.js',
         'src/components/reviewPage.js',
@@ -186,6 +192,9 @@ def build_workbench():
     <button class="main-tab-btn" id="tab-btn-review" onclick="switchTab('review')">
       <span>📝 複習中心</span>
     </button>
+    <button class="main-tab-btn" id="tab-btn-weakness" onclick="switchTab('weakness')">
+      <span>🧭 我的弱點</span>
+    </button>
     <button class="main-tab-btn" id="tab-btn-mock" onclick="switchTab('mock')">
       <span>⏱️ 120 分鐘計時全真模考</span>
     </button>
@@ -242,6 +251,11 @@ def build_workbench():
       <div class="review-type-filter" id="review-type-filter" aria-label="教科書章節篩選"></div>
       <div id="review-container"></div>
     </div>
+  </div>
+
+  <!-- TAB 1.6: Explainable weakness projection -->
+  <div class="tab-pane" id="tab-pane-weakness" style="display: none;">
+    <div id="weakness-view"></div>
   </div>
 
   <!-- TAB 0: Daily Practice -->

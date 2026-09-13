@@ -28,3 +28,5 @@ temp_script_*.js
 personal-tools-backup/
 _site/
 
+.spectra/
+docs/spectra/.vector-search.db*

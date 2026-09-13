@@ -23,6 +23,7 @@ for (const file of [
   'dashboard-data.js',
   'national-exams-data.js',
   'src/data/knowledge-dag.js',
+  'src/data/knowledge-dag.generated.js',
   'src/components/questionList.js',
 ]) {
   vm.runInContext(fs.readFileSync(file, 'utf8'), ctx, { filename: file });
@@ -84,13 +85,15 @@ process.stdout.write(JSON.stringify(result));
         )
         self.assertEqual(result, {"activeFacetTag": None, "includeSecondary": False})
 
-    def test_gk_text_does_not_create_pe_taxonomy_facet(self):
+    def test_gk_uses_its_own_canonical_facet_even_when_text_differs(self):
         result = self.run_js(
             "(() => { const q = ['GK-114-02-1', '02', 114, 1, 'MOSFET 放大器題目', ['MOSFET'], '', '', 3, 'pending', [], false]; "
             "const model = buildQuestionFacetModel([q], {examFamily:'GK', subject:'02', year:'all', difficulty:'all', status:'all', searchText:'', quickFilter:'all', progressState:{}, starredState:{}, facetTag:null, includeSecondary:true}); "
             "return {ids:getQuestionFacetIds(q, true, 'GK'), facets:model.facets, unclassified:model.unclassifiedCount}; })()"
         )
-        self.assertEqual(result, {"ids": [], "facets": [], "unclassified": 1})
+        self.assertEqual(result["ids"], ["gk-el-opamp-ideal"])
+        self.assertEqual(result["facets"][0]["id"], "gk-el-opamp-ideal")
+        self.assertEqual(result["unclassified"], 0)
 
 
 if __name__ == "__main__":

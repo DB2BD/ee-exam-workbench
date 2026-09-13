@@ -287,6 +287,29 @@ process.stdout.write(JSON.stringify(result));
         self.assertNotIn('qid: EE-TEST', payload['fullContent'])
         self.assertIn('## 一、測試題', payload['fullContent'])
 
+    def test_solution_modal_hides_source_only_question_crop_headings(self):
+        """Source provenance headings must not be repeated in the learner view."""
+        script = r'''
+const fs = require('fs'), vm = require('vm');
+const ctx = { console, window: { addEventListener() {} } };
+vm.createContext(ctx);
+vm.runInContext(fs.readFileSync('src/components/solutionModal.js', 'utf8'), ctx);
+const raw = `# 題解\n\n## 官方題目（逐題裁切）\n\n題目原文仍要保留。\n\n## 解題\n\n答案 $x=1$`;
+const result = ctx.extractQuestionMarkdown(raw, 1);
+process.stdout.write(JSON.stringify(result));
+'''
+        result = subprocess.run(
+            ['node', '-e', script],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        payload = json.loads(result.stdout)
+        self.assertNotIn('官方題目（逐題裁切）', payload['fullContent'])
+        self.assertIn('題目原文仍要保留。', payload['fullContent'])
+        self.assertIn('## 解題', payload['fullContent'])
+
     def test_known_malformed_formula_delimiters_are_fixed(self):
         files = [
             ROOT / "🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",

@@ -30,3 +30,6 @@ _site/
 
 .spectra/
 docs/spectra/.vector-search.db*
+node_modules/
+.qa-artifacts/
+.venv/

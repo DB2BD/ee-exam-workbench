@@ -256,9 +256,9 @@
       "chapter": "一簡單的電力系統的單線圖如下圖。各發電機以一暫態電抗後接一電動\n勢表示。全部阻抗均以共通MVA 基準的標么值表示。所有電阻與並聯\n電容均忽略。發電機均在無負載下運轉在其額定電壓，且電動勢均同\n相位。三相短路故障透過一故障阻抗Z f = j0.0125 pu 發生在匯流排1。\n* **(一)** 利用戴維寧定理求故障點的阻抗與故障電流，以pu 表示。（10 分）\n* **(二)** 請決定故障期間的匯流排電壓與線路電流。（10 分）",
       "solution_link": "📝 個人題解與錯題本/05_電力系統/canonical/EE-114-05-4.md",
       "audit_status": "verified",
-      "verified_at": "2026-08-30",
-      "method": "official_crop_reconstruction_and_thevenin_check",
-      "solution_hash": "c659e085df40a943a978f50422c3491b8d0686b223a58114830b226c05f203c2",
+      "verified_at": "2026-09-15",
+      "method": "official_crop_reconstruction_and_independent_thevenin_kcl_check",
+      "solution_hash": "6984965b048a667acaba5f0c39296ce436b4cafd3449db4ac681981f29915fff",
       "duplicate_qids": [],
       "source_crop": "依考科分類/05_電力系統/images/questions/PE_114年_電力系統_Q04.png"
     },

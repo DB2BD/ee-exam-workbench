@@ -5,7 +5,7 @@ nodeId: gk-el-bjt-bias-small-signal
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: f1d4f7fcb57ebe3b32ad3e206e3c6033993380647dd0d43ba969b886cd0f3fee
 generatedBodyHash: 6bc7957c62b3687fb2f580f10b6e46efc52fb66fe178ff3498b31085bd0f3f2f
 ---

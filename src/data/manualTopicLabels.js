@@ -1,9 +1,9 @@
 // src/data/manualTopicLabels.js
 //
-// User-confirmed chapter labels recorded from the website review workflow.
-// These are topic decisions only and are independent of the solution audit
-// status: a question may retain its confirmed chapter after its derivation is
-// promoted to ``verified``.
+// Explicit chapter labels recorded from the website review workflow or from
+// the solution-audit register. These are topic decisions only and are
+// independent of the solution audit status: a question may retain its
+// confirmed chapter after its derivation is promoted to ``verified``.
 
 const MANUAL_TOPIC_LABEL_SEED = {
   'EE-113-02-2': { chapterId: 'el-bjt-bias-small-signal', source: 'user-confirmed' },
@@ -24,4 +24,9 @@ const MANUAL_TOPIC_LABEL_SEED = {
   'EE-106-06-2': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed' },
   'EE-105-04-5': { chapterId: 'emach-dc-motor-generator', source: 'user-confirmed' },
   'EE-104-06-5': { chapterId: 'dist-harmonics-mitigation', source: 'user-confirmed', secondaryTopicIds: ['dist-power-factor-correction'] },
+  'EE-112-05-2': { chapterId: 'ps-economic-dispatch', source: 'audit-confirmed' },
+  'EE-106-05-3': { chapterId: 'ps-load-flow-admittance', source: 'audit-confirmed' },
+  'EE-111-05-3': { chapterId: 'ps-transient-stability-equal-area', source: 'audit-confirmed' },
+  'EE-113-04-3': { chapterId: 'emach-dc-motor-generator', source: 'audit-confirmed' },
+  'EE-104-03-3': { chapterId: 'em-complex-cauchy-residue', source: 'audit-confirmed' },
 };

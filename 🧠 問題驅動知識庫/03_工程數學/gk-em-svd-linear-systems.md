@@ -5,7 +5,7 @@ nodeId: gk-em-svd-linear-systems
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: df26858003994b482d8c528c4596aaaf8271797935ba3e33d115d0018c153d9d
 generatedBodyHash: 78c3d873b532e10dfcc09cf4c182ac594bf872e8d752e4aaac7791ab83b51a6e
 ---

@@ -5,7 +5,7 @@ nodeId: gk-em-second-order-ode-homogeneous
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 8474da1780d3b94431b807ae9ff13dd40ea6c1b2422f42d50f642325c93adabf
 generatedBodyHash: ec4127987fb8cfb132ce0ba1d2599a73d606e34bab6b9a922351a6f5821261ac
 ---

@@ -5,7 +5,7 @@ nodeId: gk-em-complex-cauchy-residue
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: e8cc9417b5dbf883ef6f2e87545d1326852399364113dfcfab1b9eadc4b0e3cd
 generatedBodyHash: 96ed6ee3162638e293f7ea0b71ee23470e5c894e23ca9348e5ff4686cd5e4424
 ---

@@ -5,7 +5,7 @@ nodeId: gk-el-pe-thyristor-rectifier
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 9abe46915a5f0e45c7edb213f498370dace90d83d4a177591b339956cdcc2f78
 generatedBodyHash: 6f127ab37e83290462438baf0afe412d1176d42556c5342296039b36f6f8b882
 ---

@@ -13,7 +13,7 @@ import re
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SUBJECT = ROOT / "📝 個人題解與錯題本" / "03_工程數學"
 CANONICAL = SUBJECT / "canonical"
 

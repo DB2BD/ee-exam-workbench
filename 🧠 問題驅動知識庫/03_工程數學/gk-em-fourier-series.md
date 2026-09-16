@@ -5,7 +5,7 @@ nodeId: gk-em-fourier-series
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: b973aaddb51c9bd40d2d92a0c135e97bc9ada686ba8db273670ed4f2a125d57a
 generatedBodyHash: 915d3fd92ce114a4e01f2d4d3f18859e98eacc87a0526d740af57c136ca7d011
 ---

@@ -5,9 +5,9 @@ nodeId: em-fourier-series
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
-sourceHash: 9baef37a6acb1ec3852c92c8a5ccc3f6035eb65cb814348315fe88c9c680651c
-generatedBodyHash: dc94b80114e1229dad81352056ae46d146110ba67ea98eb21cb9e0d9088c5a3e
+graphRevision: kg-v1-9b95af550b0b1b9e
+sourceHash: ccc809fef57528be61436e903aec09c30a2a84fab2804e05d287b7941eb8d7ac
+generatedBodyHash: b159d8f4536a937efeaf1d00d98a8bc9138813611b78f99dc6d91ec96a6ceb0b
 ---
 # 傅立葉級數與週期函數展開
 
@@ -24,6 +24,7 @@ generatedBodyHash: dc94b80114e1229dad81352056ae46d146110ba67ea98eb21cb9e0d9088c5
 
 ## Linked questions
 - [[EE-107-03-4]]（confidence: 0.9）
+- [[EE-109-03-4]]（confidence: 0.9）
 - [[EE-110-03-3]]（confidence: 0.9）
 - [[EE-112-03-2]]（confidence: 0.9）
 - [[EE-114-03-4]]（confidence: 0.9）

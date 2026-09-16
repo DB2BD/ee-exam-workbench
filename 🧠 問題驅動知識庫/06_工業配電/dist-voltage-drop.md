@@ -5,7 +5,7 @@ nodeId: dist-voltage-drop
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 015354d33e381c075700a8b207433a5f9a9874c70745f8f6e12c482d96a07625
 generatedBodyHash: 814c6ec4d452390e9bc14b742b34adc1a050583b0ad3b1b673791fd497cddafa
 ---

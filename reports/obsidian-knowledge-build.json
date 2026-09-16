@@ -1,10 +1,10 @@
 {
   "schemaVersion": "obsidian-knowledge-build.v1",
   "valid": true,
-  "graphRevision": "kg-v1-97a9a9a3fcd6334b",
-  "generatedAt": "2026-09-13T09:45:07.744Z",
+  "graphRevision": "kg-v1-9b95af550b0b1b9e",
+  "generatedAt": "2026-09-15T18:27:14.692Z",
   "sourceIdentity": {
-    "canonicalGraphRevision": "kg-v1-97a9a9a3fcd6334b"
+    "canonicalGraphRevision": "kg-v1-9b95af550b0b1b9e"
   },
   "outputIdentity": {
     "kind": "obsidian-generated-notes",
@@ -16,7 +16,7 @@
   "sourceCounts": {
     "canonicalNodeCount": 145,
     "canonicalEdgeCount": 125,
-    "canonicalQuestionLinkCount": 482
+    "canonicalQuestionLinkCount": 484
   },
   "sourceHashes": {
     "ct-complex-power": "1e58666c0854e71ca27e466a32f0492777df7d1d4972c0d7873ece3df618fddf",
@@ -56,21 +56,21 @@
     "el-pe-inverter-spwm": "5b46bdce58161c617a5e9e0f3d247ad71d109ed86246c229c11313597325bbe7",
     "el-pe-thyristor-rectifier": "50f4173af0adf0de2dcd60b49fb56d732c6e63a86a0c792e125a13d6ad7cb1b3",
     "el-zener-regulator": "57829c0c01bdec67c132591cb18010230b32008921896971bbc949404d675a9c",
-    "em-complex-cauchy-residue": "e31ab46ad4abc70da33e5838efff1898644647508bbbc17670c5d957ca24e8c2",
+    "em-complex-cauchy-residue": "6b41e1738fe0bd5ec010bf09591d76476d7894a5fbdf91a53637fb8b819ecec2",
     "em-eigen-diagonal": "23d95be0cf1bb3a95cde8d39b56e64112e1eefde209c7cb55baf0ec8d5a3a3ad",
-    "em-first-order-ode": "4024c1b2cc503b421226ed6e00ae198a10de3b8b7523b686b8bc990eb906a1a2",
-    "em-fourier-series": "9baef37a6acb1ec3852c92c8a5ccc3f6035eb65cb814348315fe88c9c680651c",
-    "em-laplace-transform": "5685d1bfbacebd2d8a65f83f2dee1185f99758f213b5aa5a2eb11d12d55b0f32",
+    "em-first-order-ode": "d50248c322df9e3cf4f1c6c86b7134070ccef1ba81bf4cabb59ad55c25d0e7b7",
+    "em-fourier-series": "ccc809fef57528be61436e903aec09c30a2a84fab2804e05d287b7941eb8d7ac",
+    "em-laplace-transform": "090b11323a0b8fde766b4e85fc5d3e4c1363d0f32f825108806a9368cf9ca8fa",
     "em-matrix-det-inv": "1e82b01835c709182ca934d6e8432ac661fdaeca100b80a903fc2c4f14e2a402",
     "em-pde-separation": "658c861d56d83b9f7eedf2f0b1ede377371662379d512e2cdc331708f5bf7262",
-    "em-probability-statistics": "a7bcdf38000dc8c77195b8ff8cada822bf730bd3429811981d1c989be6c80c9d",
+    "em-probability-statistics": "76e06adb3ab763652cd11e8bcec010b862c5104dfeefef8235afac35ad51e859",
     "em-procedure-linear-systems": "0db596bc1498528c5111871dc4fbded6be4bd904fd8123c4fc69a1fad2ca571d",
     "em-second-order-ode-homogeneous": "fe67e73170c8dd289be8a7b029b4a2461536ac47dd864611502c46bf6e36eaac",
-    "em-second-order-ode-nonhomogeneous": "8f049b7aec74e9a89549c73336e07cd48bd3749c64473388c637ccb069d6a353",
+    "em-second-order-ode-nonhomogeneous": "78eb8f98cb900fb5966e2feec1ea2cef46296ea8e63a071a693fa4e60b9dc0f9",
     "em-svd-linear-systems": "9a5e8937e9efc7ffac51b0af1cb1ac77198549c976568981199577079564fd2c",
-    "em-vector-analysis": "aa30173bf3a0a50704a6e28a9ff69cf478719fbc51fa5289aca40adaad81d2cc",
+    "em-vector-analysis": "ee5c4d17158eac51c8dcfb32765365beb4a046cc3b680a6312b627eb88ee1c67",
     "emach-autotransformer": "8265152f96abc4c1c8c681833630358ce352dd8e81e2c7cedebcbdf04c7c0863",
-    "emach-dc-motor-generator": "2870b878c8c8d796243252698a81d8ab4ae45c08306e7099a8f9ca6bb69fa5e0",
+    "emach-dc-motor-generator": "4e1a9fa6cfbec6eb9cc276dc517eca18014af7076f97bc92bae2292ca0e36d44",
     "emach-induction-motor-equiv": "ba4ce757c4707fb8e043627cf0d3c745df7ca3014dfa5f8e1d377b6603ff5b2f",
     "emach-induction-motor-torque": "36437d1749de50e619586ab237ccb32e72cc010f58549bda7a44e0af1c698087",
     "emach-magnetic-circuits": "7c646dded3e1d01bb921a2a97adbb3317e4aa050a34937e5945a3f6ac8cdd49e",
@@ -147,8 +147,8 @@
     "pe-mainline-machines": "4ab79ad8083f9742a7ef43cab8cbe2085205feaa68480b7c0f87353efb1bb6b9",
     "pe-mainline-math": "8f09c530a7c580e11f8f56eb35c4700b74b93252f74b3a7be894bf8eeee2e6a6",
     "pe-mainline-power": "6b19e6042f873b09cd1741fa49867160fb25646a072b8b6bab1bea6f29266611",
-    "ps-economic-dispatch": "a60203aeb33feea7044c48bfcdd47874ccb506ad88bb96de3837b4c9f480c495",
-    "ps-load-flow-admittance": "b91fac79c261a930543cec569f6747acbc82820d3f76ea101cbccfb2237a752f",
+    "ps-economic-dispatch": "0967e4e686f043f23a586f73e38e0e4d84b06ee0afda12c1a7a714ae6077599d",
+    "ps-load-flow-admittance": "c87edc51b0ec0409c43afe3f3fb689948397822bc37078d6b51daa236f6a38fd",
     "ps-per-unit": "095603bca10955cd0457a530404a70d01c4cb0ccb2a6e993d2a15f25eb9985a4",
     "ps-power-analysis": "c7c4584246dcbd2e9751b07699522cf7527787bf1deb8b19a09056c71b397047",
     "ps-procedure-slg-sequence-networks": "fda5a6b78470db11ea84389de00bd4411d024d55f06f3d7d18449e06dc03534c",
@@ -156,7 +156,7 @@
     "ps-symmetrical-components": "89fbd736df75e4a00adffdaecf6a1753d3942627fefa60238a5fb0cd0802e008",
     "ps-system-protection-relay": "6b8eb7305e602192e3030379e5c0be90ee98e93b030d8a5f211519c032a824bb",
     "ps-three-phase-fault": "4de1617e9140ca891116db90476ae0e049ebd3ffe406097e1c80a33ff490cca0",
-    "ps-transient-stability-equal-area": "fc0cfafd1f86be20d649ff9e085ed8dd7ea61e4200fa3dd44dae4382de6a242c",
+    "ps-transient-stability-equal-area": "a05a34ee77a979089c23757f9f7e1679344c99c4d298d91357d186ee33d5b612",
     "ps-transmission-line-models": "5ded1df6a07edc7e2f16920b72f12e5d1c9626d9375a1bd31a86e3c042bcb11c",
     "ps-transmission-line-params": "f0f0d8ec59da62cad55aaa877afcda1bf8be8c92dadaffd7c1f8409291e3ea6d",
     "ps-unsymmetrical-faults": "77cdab074e2b789148539a6209edface6c79ee3d9e7a445aac1bf86c13c47e63",

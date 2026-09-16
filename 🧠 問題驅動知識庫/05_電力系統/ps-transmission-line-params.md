@@ -5,7 +5,7 @@ nodeId: ps-transmission-line-params
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: f0f0d8ec59da62cad55aaa877afcda1bf8be8c92dadaffd7c1f8409291e3ea6d
 generatedBodyHash: 20552aadcfb305539d2db155ac48f98f06c80d50994e62b990b1170781a9d73d
 ---

@@ -5,7 +5,7 @@ nodeId: gk-el-opamp-ideal
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 551399cc93eca1c36e064e29aeb879c663a759f43e64e7c4de7d73186e9cef61
 generatedBodyHash: 4d0a953f21cd77c0bd13d2cca7e48da49ede2d0a442fbdbdbda0f02ad74212d5
 ---

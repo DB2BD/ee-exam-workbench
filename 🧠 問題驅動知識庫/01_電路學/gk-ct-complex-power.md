@@ -5,7 +5,7 @@ nodeId: gk-ct-complex-power
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: a9d8f5cdc7944bb26ff96c55e9f87a5d3c65a7b54bb247ea268b36c4897d63bb
 generatedBodyHash: 841236c4f40fd366a0308155897d4b4d17e92589e37ec3f66b7a3554e59c5edb
 ---

@@ -5,7 +5,7 @@ nodeId: gk-ct-mutual-inductance
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 87f3b816a2efce8a94cb2131cd721b21429ecd2cca56a1f3334d8b8f2bdce904
 generatedBodyHash: 32acb1776b8d128fd481e94b479277bc052e3be047503fa6f5060073fef47d3f
 ---

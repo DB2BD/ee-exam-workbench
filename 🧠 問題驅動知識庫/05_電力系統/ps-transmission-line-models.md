@@ -5,7 +5,7 @@ nodeId: ps-transmission-line-models
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 5ded1df6a07edc7e2f16920b72f12e5d1c9626d9375a1bd31a86e3c042bcb11c
 generatedBodyHash: 6469ae56570841f7a044c073c144f113ad6258cf44b200d121564ac47b34898b
 ---

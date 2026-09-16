@@ -5,7 +5,7 @@ nodeId: gk-ct-max-power
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 4f3842c9823e8bf76059f6c647dfc8a29fbef30872dc013f56c262fb7a8eb055
 generatedBodyHash: a9c6396ecc453e265ce26a930e98701c2f7e19034ed1c0f35de2086bcc95d9d5
 ---

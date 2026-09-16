@@ -5,7 +5,7 @@ nodeId: ct-three-phase
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 7f8d8eb960b5eb819fedd3f79ae3513a117682a228edff7d98585954682d79fd
 generatedBodyHash: e2d56f53d6b81dc0d58f1255401c6be8b8d24408cc9ac820ef4198d5d92f864f
 ---

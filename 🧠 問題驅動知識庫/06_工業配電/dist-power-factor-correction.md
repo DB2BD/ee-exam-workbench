@@ -5,7 +5,7 @@ nodeId: dist-power-factor-correction
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: f0d1dcca1772e2ea08e145dda9d899d21d8abc27d2838edf7e37cdc544c953e0
 generatedBodyHash: 2cf95461e4f68437b4a6cfc22db99cddf6f9118bf6bea157b796aad3a765a3a7
 ---

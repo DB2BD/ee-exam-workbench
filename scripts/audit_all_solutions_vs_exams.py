@@ -4,6 +4,8 @@ import re
 
 subjects = [
     ('01_電路學', '電路學'),
+    ('02_電子學_含電力電子', '電子學'),
+    ('03_工程數學', '工程數學'),
     ('04_電機機械', '電機機械'),
     ('05_電力系統', '電力系統'),
     ('06_工業配電', '工業配電')
@@ -62,19 +64,38 @@ for sdir, sname in subjects:
             # "independent cross-check" section for one question.  Count
             # each ordinal once so that such a second derivation is not
             # mistaken for an extra question.
-            sol_q_matches = list(dict.fromkeys(
-                re.findall(r'^##\s+([一二三四五六七八九十]+)[、\.]', live_sol_text, flags=re.M)
-            ))
+            solution_ordinals = re.findall(
+                r'^##\s+([一二三四五六七八九十]+)[、\.]',
+                live_sol_text,
+                flags=re.M,
+            )
+            solution_math_ordinals = re.findall(
+                r'^##\s+\d+\s*年\s*第\s*(\d+)\s*題',
+                live_sol_text,
+                flags=re.M,
+            )
+            sol_q_matches = list(dict.fromkeys(solution_ordinals + solution_math_ordinals))
             
             print(f"[{sdir}] {yr}年: Exam has {len(exam_q_matches)} Qs, Solution has {len(sol_q_matches)} Qs")
             
             # Check snippet of Q1
             q1_exam = exam_sec.split('#### 一、')[1].split('#### 二、')[0] if '#### 一、' in exam_sec and '#### 二、' in exam_sec else ""
-            q1_sol = live_sol_text.split('## 一、')[1].split('## 二、')[0] if '## 一、' in live_sol_text and '## 二、' in live_sol_text else ""
+            math_q1 = re.search(
+                r'^##\s+\d+\s*年\s*第\s*1\s*題\b([\s\S]*?)(?=^##\s+\d+\s*年\s*第\s*2\s*題\b|\Z)',
+                live_sol_text,
+                flags=re.M,
+            )
+            if math_q1:
+                q1_sol = math_q1.group(1)
+            else:
+                q1_sol = live_sol_text.split('## 一、', 1)[1].split('## 二、', 1)[0] if '## 一、' in live_sol_text and '## 二、' in live_sol_text else ""
             
             # Extract numbers of 3+ digits or distinct words
             exam_nums = set(re.findall(r'\b\d+(?:\.\d+)?\b', q1_exam[:300]))
-            sol_nums = set(re.findall(r'\b\d+(?:\.\d+)?\b', q1_sol[:400]))
+            # Generated qid/source metadata appears before the canonical
+            # answer.  Compare the complete Q1 section so the audit sees the
+            # actual derivation instead of only its heading.
+            sol_nums = set(re.findall(r'\b\d+(?:\.\d+)?\b', q1_sol))
             
             common_nums = exam_nums.intersection(sol_nums)
             if len(exam_nums) > 2 and len(common_nums) == 0:
@@ -84,3 +105,5 @@ for sdir, sname in subjects:
                 mismatches.append((sdir, yr, 'Q1 mismatch'))
 
 print(f"\nTotal potential mismatches flagged: {len(mismatches)}")
+if mismatches:
+    raise SystemExit(1)

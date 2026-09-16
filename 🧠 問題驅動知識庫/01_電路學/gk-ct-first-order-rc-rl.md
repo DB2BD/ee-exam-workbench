@@ -5,7 +5,7 @@ nodeId: gk-ct-first-order-rc-rl
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: fddeeb0b76f305ed8b43ce6ac489df44329ee1086482b8e34481ddaa576e6147
 generatedBodyHash: f90b2d27acfc6a199129b5e92c33f045f82de8fce033a6f3647d10e0ca92b180
 ---

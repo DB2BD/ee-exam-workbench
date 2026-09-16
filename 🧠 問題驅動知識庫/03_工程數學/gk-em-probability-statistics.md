@@ -5,7 +5,7 @@ nodeId: gk-em-probability-statistics
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 6013fc77863dee62dbf8d111ed6e395a1faefa70c82b60661bd617110374a0bc
 generatedBodyHash: e98407ed9ca0329b7a562ac8e9df938f5e0a067c5ece56d8cfe2cd1a007fa7a1
 ---

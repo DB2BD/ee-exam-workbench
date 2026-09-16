@@ -5,7 +5,7 @@ nodeId: ps-unsymmetrical-faults
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 77cdab074e2b789148539a6209edface6c79ee3d9e7a445aac1bf86c13c47e63
 generatedBodyHash: f191b0f63e9bbbdc9445fb643be699546cc22de7c713769f439a7b2f33f3d531
 ---

@@ -4,7 +4,7 @@ verify_slicing_and_links.py
 ===========================
 Verifies that:
 1. Every PE and National Exam question maps to a solution in the bundle.
-2. extractQuestionSections accurately isolates each sub-question for all 321 PE questions.
+2. extractQuestionSections accurately isolates each sub-question for all 323 PE questions.
 3. Every PDF link is valid (valid local path or valid URL).
 """
 
@@ -101,7 +101,7 @@ def simulate_extract_question_sections(raw_content):
                 s['num'] = idx + 1
     return final_sections
 
-print("🔍 === 1. Verifying All 321 PE Technician Questions ===")
+print(f"🔍 === 1. Verifying All {len(pe_questions)} PE Technician Questions ===")
 pe_slicing_failures = []
 for q in pe_questions:
     qid, sid, yr, qnum, topic, tags, solLink, pdfLink, diff, vstatus, ftags, hasDed = q

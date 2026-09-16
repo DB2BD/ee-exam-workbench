@@ -376,7 +376,7 @@ class TestSlicingAndLinkGate(unittest.TestCase):
         self._rewrite_questions(pe_root / "dashboard-data.js", "pe", lambda questions: questions[0].__setitem__(6, "missing-pe-solution.md"))
         pe = self._run_gate(pe_root)
         self.assertNotEqual(pe.returncode, 0, pe.stdout)
-        self.assertIn("PE Total: 321 | Slicing Failures: 1", pe.stdout)
+        self.assertIn("PE Total: 323 | Slicing Failures: 1", pe.stdout)
 
         gk_root = self._fixture()
         self._rewrite_questions(gk_root / "national-exams-data.js", "national", lambda questions: questions[0].__setitem__(6, "missing-gk-solution.md"))

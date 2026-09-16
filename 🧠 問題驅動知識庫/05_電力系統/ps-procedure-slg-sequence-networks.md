@@ -5,7 +5,7 @@ nodeId: ps-procedure-slg-sequence-networks
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: fda5a6b78470db11ea84389de00bd4411d024d55f06f3d7d18449e06dc03534c
 generatedBodyHash: cfe57e7ddaa4df0d3c6383598ee9793469dc84c0b85b569c6144873816eae81e
 ---

@@ -4,9 +4,9 @@
 
 ## 一、現況摘要
 
-- PE／EE：104–114 年、6 科、321 題。
+- PE／EE：104–114 年、6 科、323 題。
 - GK：161 筆，包含 101 道申論題與 60 道工程數學測驗題。
-- 合計：482 筆題目／題目記錄。
+- 合計：484 筆題目／題目記錄。
 - PE 最新稽核快照：256 題中 `verified` 239、`reference_book_verified` 15、`needs_manual_review` 2。
 - `reference_book_verified` 是參考書核對狀態，不宣稱等同官方標準答案。
 - 目前沒有執行期後端；資料先由 Python 編譯，再由瀏覽器載入靜態 bundle。

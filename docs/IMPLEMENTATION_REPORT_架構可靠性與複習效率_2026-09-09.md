@@ -11,7 +11,7 @@
 | C 回想升級語意 | Sol 已批准 | 每級兩次、升級 streak 歸零、舊資料保守遷移。 |
 | D 到期日期與佇列 | Sol 已批准 | 本地日曆日、月底／年底、評分與略過分流、單一 queue owner。 |
 | E 共用閱讀體驗 | Sol 已批准程式行為；視覺未驗 | 逐 QID 保存 modal、左右捲動、小題、揭露段數與手機窗格；備份往返、焦點圈限。Sol 複核保存層級還原及焦點拉回行為。 |
-| F 多樣性抽題 | Sol 已批准 | 正式路徑以穩定 chapter ID 與白名單 formulaTags 映射抽題；321 題中 60 題有可追溯題型、261 題保守維持 unknown。跨章節、同章節異型、7 天與不足候選皆有測試。 |
+| F 多樣性抽題 | Sol 已批准 | 正式路徑以穩定 chapter ID 與白名單 formulaTags 映射抽題；323 題中 60 題有可追溯題型、263 題保守維持 unknown。跨章節、同章節異型、7 天與不足候選皆有測試。 |
 | G 下一步與摘要 | Sol 已批准 | 原題一鍵蓋牌、逐題自評／錯因摘要、明確且冪等的到期加入、統計語意拆分、人類題名；本輪完成數不再混入歷史完成題數。 |
 | H 發布與效能 | Sol 已批准離線閘門；瀏覽器時間未驗 | CI 上傳 `_site`、映射資產缺漏即失敗、靜態體積基線。本機 HTTP 預覽發現並修正四個執行期函式庫漏打包；以暫存 fixture、逐檔缺失與不安全路徑回歸測試鎖定。 |
 
@@ -28,7 +28,7 @@
 - `scripts/run_all_tests.py`：309 項通過。
 - `scripts/test_all_pe_and_gk_images.py`：PE 437 份、GK 79 份題解；751 個圖片引用、8,310 個映射目標均通過檔案存在檢查。
 - `scripts/check_html_js_syntax.py`：inline JavaScript 通過。
-- `scripts/verify_slicing_and_links.py`：PE 321／321、GK 161／161；切片及本地 PDF 錯誤皆為 0，外部 URL 僅驗格式、不宣稱連通。
++ `scripts/verify_slicing_and_links.py`：PE 323／323、GK 161／161；切片及本地 PDF 錯誤皆為 0，外部 URL 僅驗格式、不宣稱連通。
 - `scripts/stage_pages_artifact.py`：1,085 個檔案、約 190.7 MiB，所有資料庫 PDF／crop／image-map 目標及 KaTeX／Marked 執行期檔案存在。
 - 本機 HTTP 資產探針：首頁、`katex.min.css`、`katex.min.js`、`auto-render.min.js`、`marked.min.js` 均回應 200。
 - `scripts/health_check_codebase.py`：80／100；唯一扣分為刻意保留的 2 題人工檢核，不是程式或發布閘門失敗。

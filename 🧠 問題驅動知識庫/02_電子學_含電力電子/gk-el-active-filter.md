@@ -5,7 +5,7 @@ nodeId: gk-el-active-filter
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: a0cfc39a6527ec8dc3d6ed9be8622c92a1593c0ad7fc78dc5d2cc310c3d91e7d
 generatedBodyHash: 181074f4f345f112dfccfbea540cb963daef3312524d06a299b0fcf6b11f2c60
 ---

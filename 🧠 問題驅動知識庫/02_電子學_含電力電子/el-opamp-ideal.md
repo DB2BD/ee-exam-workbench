@@ -5,7 +5,7 @@ nodeId: el-opamp-ideal
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: cc82db7a69bc18d7bf31da3c0d3f275170966f6940b4891ace8ba15472aa19e8
 generatedBodyHash: d2b09829cc3f6282f874fcb0232e91eaf3454e3f761ad07d09ca6078d11f93ed
 ---

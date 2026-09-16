@@ -5,7 +5,7 @@ nodeId: gk-ps-state-estimation-wls
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: e2201cff8eefbf91afbc208754c78b0eb22adcf34cb30cd1efd5bb3fdbd02e75
 generatedBodyHash: a46360cdab97c1b2dea28a614ac210034e8123680b1285b9d9e56c48d88bd024
 ---

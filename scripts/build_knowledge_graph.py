@@ -27,7 +27,7 @@ DEFAULT_GRAPH_DIR = WORKSPACE / "data" / "knowledge"
 DEFAULT_OUTPUT = WORKSPACE / "src" / "data" / "knowledge-dag.generated.js"
 DEFAULT_REPORT = WORKSPACE / "reports" / "knowledge-graph-build.json"
 DEFAULT_INVENTORY = WORKSPACE / "data" / "knowledge" / "migration-inventory.json"
-DEFAULT_REQUIRED_QUESTION_LINKS = 482
+DEFAULT_REQUIRED_QUESTION_LINKS = 484
 
 
 def _load_json(path: Path) -> Any:

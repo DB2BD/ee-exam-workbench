@@ -5,7 +5,7 @@ nodeId: ct-phasor-ac
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: e510d90d1f6c94539442f8866209ae1c5215617966dccc894f662188f2f867a3
 generatedBodyHash: 258a3a7a2236133a5129d4edfb5c200d016f112c76a717dc88ad053aa4c8a9f4
 ---

@@ -43,7 +43,7 @@ def parse_dag_nodes():
 def parse_manual_topic_seed():
     text = (WORKSPACE / "src/data/manualTopicLabels.js").read_text(encoding="utf-8")
     pattern = re.compile(
-        r"'([^']+)':\s*\{\s*chapterId:\s*'([^']+)'\s*,\s*source:\s*'user-confirmed'"
+        r"'([^']+)':\s*\{\s*chapterId:\s*'([^']+)'\s*,\s*source:\s*'[^']+'"
     )
     return dict(pattern.findall(text))
 
@@ -90,7 +90,7 @@ class TestTaxonomyData(unittest.TestCase):
         self.assertIn("reason", definition["required"])
 
     def test_manual_topic_seed_covers_current_manual_review_questions(self):
-        """Unresolved questions remain labeled, while verified labels are retained."""
+        """Unresolved questions remain explicitly labeled, while verified labels are retained."""
         manual_ids = {qid for qid, row in self.questions.items() if row[9] == "needs_manual_review"}
         self.assertTrue(manual_ids.issubset(set(self.manual_topic_seed)))
         self.assertIn("EE-108-06-2", self.manual_topic_seed)

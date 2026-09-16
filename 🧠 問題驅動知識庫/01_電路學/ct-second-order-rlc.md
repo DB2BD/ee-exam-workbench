@@ -5,7 +5,7 @@ nodeId: ct-second-order-rlc
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 5240f69ef017520f48033543e470e24a032cefd90bb48603eac07fb4c228270b
 generatedBodyHash: 27ca35d51a0e696cea8b9277db8c9a8e8f52353debd8311a6aa039ebe0acc4fc
 ---

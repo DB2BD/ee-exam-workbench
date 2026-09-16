@@ -47,7 +47,7 @@ class TestKnowledgeGraphSchema(unittest.TestCase):
 
         self.assertTrue(result["valid"], result)
         self.assertEqual(result["nodeCount"], 145)
-        self.assertEqual(result["questionLinkCount"], 482)
+        self.assertEqual(result["questionLinkCount"], 484)
         self.assertGreaterEqual(result["edgeCount"], 120)
 
         golden = json.loads((ROOT / "data" / "knowledge" / "golden-fixture.json").read_text(encoding="utf-8"))

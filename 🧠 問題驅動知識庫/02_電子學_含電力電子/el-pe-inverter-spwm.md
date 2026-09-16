@@ -5,7 +5,7 @@ nodeId: el-pe-inverter-spwm
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 5b46bdce58161c617a5e9e0f3d247ad71d109ed86246c229c11313597325bbe7
 generatedBodyHash: ba2c7c4cf864ad68d9d534947e18db0c56606ace69c606a4d69ac441a121c761
 ---

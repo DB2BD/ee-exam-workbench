@@ -1,26 +1,26 @@
 {
   "schemaVersion": "knowledge-graph-build.v1",
   "valid": true,
-  "graphRevision": "kg-v1-97a9a9a3fcd6334b",
+  "graphRevision": "kg-v1-9b95af550b0b1b9e",
   "sourceCounts": {
     "legacyDagNodeCount": 69,
     "coreNoteCount": 14,
-    "questionRecordCount": 482,
+    "questionRecordCount": 484,
     "canonicalNodeCount": 145,
     "canonicalEdgeCount": 125,
-    "canonicalQuestionLinkCount": 482
+    "canonicalQuestionLinkCount": 484
   },
-  "mappedQuestionCount": 482,
+  "mappedQuestionCount": 484,
   "unknownQuestionCount": 0,
   "coverage": {
-    "actual": 482,
-    "required": 482,
+    "actual": 484,
+    "required": 484,
     "status": "passed"
   },
   "errors": [],
-  "generatedAt": "2026-09-13T09:45:07.696Z",
+  "generatedAt": "2026-09-15T18:27:14.646Z",
   "sourceIdentity": {
-    "canonicalGraphRevision": "kg-v1-97a9a9a3fcd6334b",
+    "canonicalGraphRevision": "kg-v1-9b95af550b0b1b9e",
     "schemaVersion": "canonical-knowledge-graph.v1"
   },
   "outputIdentity": {

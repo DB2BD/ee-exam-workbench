@@ -5,9 +5,9 @@ nodeId: ps-economic-dispatch
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
-sourceHash: a60203aeb33feea7044c48bfcdd47874ccb506ad88bb96de3837b4c9f480c495
-generatedBodyHash: 40a8965e5072876a0880da097aed61db881a69431bf222c4ddde965259b1cb47
+graphRevision: kg-v1-9b95af550b0b1b9e
+sourceHash: 0967e4e686f043f23a586f73e38e0e4d84b06ee0afda12c1a7a714ae6077599d
+generatedBodyHash: 2a565eccbbe89d146fd99c3d194aa1adda0dac10e91045b4fcb55b6d825e8350
 ---
 # 經濟調度與發電協調方程式
 
@@ -26,7 +26,7 @@ generatedBodyHash: 40a8965e5072876a0880da097aed61db881a69431bf222c4ddde965259b1c
 - [[EE-105-05-5]]（confidence: 0.9）
 - [[EE-109-05-5]]（confidence: 0.9）
 - [[EE-110-05-4]]（confidence: 0.92）
-- [[EE-112-05-2]]（confidence: 0.9）
+- [[EE-112-05-2]]（confidence: 0.96）
 - [[EE-113-05-3]]（confidence: 0.9）
 - [[EE-114-05-3]]（confidence: 0.92）
 

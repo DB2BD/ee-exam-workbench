@@ -5,7 +5,7 @@ nodeId: dist-motor-installation
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 9ef9071cc24682eea633006f7f1447c874e2b3072a6e32540f0822d1fda05871
 generatedBodyHash: e164512bc69e557c82523c3fedfd5c1b8c11aff5fbd55b70c8487888cf37f5f3
 ---

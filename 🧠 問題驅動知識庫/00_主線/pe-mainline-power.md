@@ -5,7 +5,7 @@ nodeId: pe-mainline-power
 nodeType: mainline
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 6b19e6042f873b09cd1741fa49867160fb25646a072b8b6bab1bea6f29266611
 generatedBodyHash: 3ed9ca8ba91a8c1c5271624e411de7c8506832b2f318496d99ccb81545a139a4
 ---

@@ -56,7 +56,7 @@ Changes can be parked（暫存）— temporarily moved out of `docs/spectra/chan
 - 來源與稽核資料：`data/pe-question-crops.json`、`data/pe-solution-audit.json`、`data/taxonomy/`。
 - 編譯器：`scripts/compile_dashboard_database.py`。
 - 生成物：`dashboard-data.js`、`solutions-bundle.js`。
-- 現況：321 題；目前稽核快照 256 題，其中 `verified` 239、`reference_book_verified` 15、`needs_manual_review` 2。
+- 現況：323 題；非工程數學稽核快照 256 題，其中 `verified` 235、`reference_book_verified` 15、`needs_manual_review` 6；工程數學另有 67 題，其中 66 題 `verified`、1 題 `needs_manual_review`。
 
 ### B. 國考同級參考題庫（GK）
 

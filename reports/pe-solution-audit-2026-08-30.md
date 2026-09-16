@@ -1,15 +1,17 @@
 # 其他考科詳解稽核（2026-08-30；2026-08-31 更新）
 
-> **目前狀態快照（2026-09-06）**：非工程數學 256 題中 `verified=239`、`reference_book_verified=15`、`needs_manual_review=2`、`suspected_error=0`、`not_attempted=0`；工程數學 65 題全數 `verified`。全庫共 321 題，人工覆核清單以 [`reports/manual-review-index.md`](manual-review-index.md) 與 `data/pe-solution-audit.json` 為準。
+> **目前狀態快照（2026-09-16）**：非工程數學 256 題中 `verified=235`、`reference_book_verified=15`、`needs_manual_review=6`、`suspected_error=0`、`not_attempted=0`；工程數學 67 題中 `verified=66`、`needs_manual_review=1`。全庫共 323 題，人工覆核清單以 [`reports/manual-review-index.md`](manual-review-index.md)、`data/pe-solution-audit.json` 與 `data/engineering-math-audit.json` 為準。
 >
 > 本報告下方保留各批次的歷史紀錄；早期段落中的 23、24、25 題統計是當時快照，不代表目前狀態。
 
-本輪已將同一套稽核管線套用至電路學、電子學（含電力電子）、電機機械、電力系統與工業配電，共 256 題；工程數學另有 65 題獨立 manifest，合計 321 題。
+本輪已將同一套稽核管線套用至電路學、電子學（含電力電子）、電機機械、電力系統與工業配電，共 256 題；工程數學另有 67 題獨立 manifest，合計 323 題。
 
 - 官方逐題裁切圖仍是題目來源；年度 Markdown 只作為待稽核詳解來源。
 - 新增 `scripts/audit_pe_solutions.py` 與 `data/pe-solution-audit.json`。
 - 編譯器會依 manifest 顯示 `verified`、`suspected_error`、`needs_manual_review`、`not_attempted`，避免年度模板被誤標為 verified。
-- 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。早期批次統計為 `verified=233`、`needs_manual_review=23`；目前請以本頁頂端狀態快照及 manifest 為準。全部 321 題均已具備官方逐題裁切與題號級記錄；後續依使用者提供的參考書逐題補入 evidence，只有能獨立重現且無未解衝突者才升級為 `reference_book_verified`，其餘仍保留人工覆核。
++ 本輪先將年度題目拆成題號級 canonical 記錄，並以保守狀態阻擋誤導。早期批次統計為 `verified=233`、`needs_manual_review=23`；目前請以本頁頂端狀態快照及 manifest 為準。全部 323 題均已具備官方逐題裁切與題號級記錄；後續依使用者提供的參考書逐題補入 evidence，只有能獨立重現且無未解衝突者才升級為 `reference_book_verified`，其餘仍保留人工覆核。
+
+2026-09-16 追查「條件式推導被標成 verified」的狀態漏洞：111 年電力系統 Q3 因官方題面缺少系統頻率，113 年電機機械 Q3 因缺少磁化曲線／未飽和條件，106 年電力系統 Q3 因高低電壓潮流分支未指定，均降回 `needs_manual_review`。三題仍保留可重現的數值分支與回代證據，年度頁面同步加入題號級警告；稽核管線與回歸測試現在會阻擋這些題目再次以唯一答案通過。
 
 2026-08-31 追加顯示層防護：詳解中歷史匯入的 `\mathrm A`／`\mathrm V` 等無括號單位巨集，現在於 KaTeX 渲染前統一正規化為標準 `\mathrm{A}`／`\mathrm{V}` 語法；原始推導文字不被改寫，並以公式格式回歸測試保護。國考參考題庫亦重新編譯並確認跨題型關聯輸出可重現。
 
@@ -125,7 +127,7 @@
 
 本輪追加 107 年工業配電 Q3：依 69/11.4 kV Δ–Y 變壓器的 30° 相移，採 HV CT 星形、LV CT 三角形補償接線，重算兩側 CT 二次電流與電驛比值 $1.399$，升級為 verified。
 
-本輪追加 107 年電力系統 Q2：以官方所述 60 MVA 額定負載（一次側 161 kV）定義額定電流，重算二次電壓 $21.937$ kV、電源電壓 $162.81$ kV、二次側過載與短路電流 $8.70$ kA；恆功率潮流僅列為敏感度比較，避免與額定解混淆，升級為 verified。
+本輪追加 107 年電力系統 Q2：後續以官方「固定 60 MVA 受電端負載」條件重新核對，將原先額定電流近似移出主解，改採恆功率潮流精確解：二次電壓 $21.264$ kV、電源電壓 $163.371$ kV、二次側電流 $1629.10$ A、短路電流 $8.73$ kA；年度題解與 canonical 已同步。
 
 本輪追加 105 年電子學 Q2：依官方有限開路增益反相運算放大器模型（$R_F=800\,\mathrm{k\Omega}$、$R_1=10\,\mathrm{k\Omega}$、$A_o=2\times10^5$、$R_S=0$）由 KCL 重算閉迴路增益 $A_f=-79.9676$、輸出 $v_O=-7.9968$ V；相對理想值 $-80$ 的增益與輸出誤差皆為 $-0.0405\%$（輸出差 $+3.24$ mV），升級為 verified。
 
@@ -217,7 +219,7 @@
 
 本輪補正 110 年工業配電 Q3 年度摘要：原檔將 $950\,\mathrm{kW}$ 誤註為低於發電機上限；已明示官方 $800\,\mathrm{kW}$ 有功額定造成不可由電容器消除的實功超載，$420.04\,\mathrm{kvar}$ 僅保留為忽略有功額定的條件分支，(二) $164.11\,\mathrm{kvar}$ 維持可回代結果。
 
-本輪同步重建 104–114 年工程數學年度詳解：原年度檔的通用模板已全部替換為 65 份題級 canonical 內容，逐題帶入官方裁切圖、標準 LaTeX 與審查狀態；64 題 verified、112 年第 3 題因事件定義歧義保留 `needs_manual_review`。並新增回歸測試，阻擋通用模板再次覆蓋年度詳解。
+本輪同步重建 104–114 年工程數學年度詳解：原年度檔的通用模板已全部替換為 67 份題級 canonical 內容，逐題帶入官方裁切圖、標準 LaTeX 與審查狀態；66 題 verified、104 年第 3 題因普通積分發散且題目未明示是否取 Cauchy 主值，保留 `needs_manual_review`。並新增回歸測試，阻擋通用模板再次覆蓋年度詳解。
 
 本輪再將 25 個 `needs_manual_review` 題目建立結構化覆核登錄：每題均標示 `review_disposition`、`review_blocker` 與 `review_action`，區分缺參數、題圖／文字歧義、來源矛盾、曲線估讀及規章版本等阻擋類型，並以回歸測試確保人工項目不會退化成無說明的待辦模板。這些題目仍不升級為 `verified`，除非補齊指定資料或由人工裁決採用分支。
 
@@ -253,4 +255,4 @@
 
 ## 來源覆蓋阻擋項
 
-目前官方裁切 manifest 與 dashboard 題號已完全對齊（321/321）。先前發現的 `EE-109-02-3`、`EE-109-02-4`、`EE-112-03-6` 缺槽已補入正式索引；其中 109 電子學 Q3 仍因模型定義未能由題圖唯一決定而標記人工複核。所有無法由官方題圖、方程式、數值與單位回代證明的題目，均維持 `needs_manual_review`，不會以模板答案冒充已驗證。
+目前官方裁切 manifest 與 dashboard 題號已完全對齊（323/323）。先前發現的 `EE-109-02-3`、`EE-109-02-4`、`EE-112-03-6` 缺槽已補入正式索引；其中 109 電子學 Q3 仍因模型定義未能由題圖唯一決定而標記人工複核。所有無法由官方題圖、方程式、數值與單位回代證明的題目，均維持 `needs_manual_review`，不會以模板答案冒充已驗證。

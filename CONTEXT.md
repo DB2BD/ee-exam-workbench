@@ -8,7 +8,7 @@
 
 | 名稱 | 定義 |
 | --- | --- |
-| PE／EE | 台灣電機工程技師 104–114 年、6 科、321 題。 |
+| PE／EE | 台灣電機工程技師 104–114 年、6 科、323 題。 |
 | GK | 110–114 年國考同級參考題庫，共 161 筆：101 道申論題、60 道工程數學測驗題。 |
 | QuestionRecord | 題庫單筆記錄；PE bundle 為 12 欄 tuple，GK bundle 為 18 欄 tuple，程式應透過命名轉換或編譯器契約理解欄位。 |
 | Provenance | 題解、官方 PDF、裁切圖、頁碼、SHA-256 與參考書頁碼等來源鏈。 |
@@ -18,7 +18,7 @@
 | Recall level | 由揭露後 1／3／5 自評映射出的回想成果累積；每級連續兩次達標才升級，升級後重新累積。 |
 | SM-2 rating | 1／3／5 的主觀回想品質，同時更新 recall 成果與下次複習日期，但不得由 reveal step 自動推算。 |
 
-`reference_book_verified` 只表示已依參考書核對，並不表示參考書就是官方標準答案。PE 最新稽核快照為 256 題：`verified` 239、`reference_book_verified` 15、`needs_manual_review` 2。
+`reference_book_verified` 只表示已依參考書核對，並不表示參考書就是官方標準答案。非工程數學最新稽核快照為 256 題：`verified` 235、`reference_book_verified` 15、`needs_manual_review` 6；工程數學另有 67 題：`verified` 66、`needs_manual_review` 1。全庫共 323 題。
 
 ## 2. 來源、編譯與執行期
 

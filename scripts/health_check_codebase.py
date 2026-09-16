@@ -45,13 +45,15 @@ def run_health_check():
 
         crop_manifest = json.load(open('data/moex-question-crops.json', encoding='utf-8'))
         expected_gk = crop_manifest['summary']['questions']
-        if pe_len == 321 and gk_len == expected_gk:
+        pe_crop_manifest = json.load(open('data/pe-question-crops.json', encoding='utf-8'))
+        expected_pe = pe_crop_manifest['summary']['questions']
+        if pe_len == expected_pe and gk_len == expected_gk:
             print(f"  PASS: {pe_len + gk_len} active questions verified (PE: {pe_len}, GK: {gk_len}).")
         else:
-            diff = abs(pe_len - 321) + abs(gk_len - expected_gk)
+            diff = abs(pe_len - expected_pe) + abs(gk_len - expected_gk)
             penalty = min(30, diff * 5)
             score -= penalty
-            deductions.append(f"-{penalty} pts: Question count mismatch (PE: {pe_len}/321, GK: {gk_len}/{expected_gk})")
+            deductions.append(f"-{penalty} pts: Question count mismatch (PE: {pe_len}/{expected_pe}, GK: {gk_len}/{expected_gk})")
     except Exception as e:
         score -= 30
         deductions.append(f"-30 pts: Failed to parse databases ({e})")
@@ -81,15 +83,24 @@ def run_health_check():
     gk_pending = len(solution_audit['pending_question_ids'])
     gk_invalid = len(solution_audit['invalid_solution_entries'])
 
-    # PE solutions have a separate question-level audit manifest.  Do not let
-    # the complete GK coverage hide unresolved PE derivations in the headline.
-    with open('data/pe-solution-audit.json', encoding='utf-8') as fp:
-        pe_manifest = json.load(fp)
-    pe_summary = pe_manifest.get('summary', {})
-    pe_total = int(pe_summary.get('questions', len(pe_manifest.get('entries', []))))
-    pe_verified = int(pe_summary.get('verified', 0))
-    pe_manual = int(pe_summary.get('needs_manual_review', 0))
-    pe_suspected = int(pe_summary.get('suspected_error', 0))
+    # PE has separate non-math and engineering-math manifests.  Merge them
+    # before calculating the headline so a newly added math question cannot
+    # silently disappear from the quality score.
+    pe_manifests = []
+    for manifest_name in ('pe-solution-audit.json', 'engineering-math-audit.json'):
+        with open(f'data/{manifest_name}', encoding='utf-8') as fp:
+            pe_manifests.append(json.load(fp))
+    pe_total = sum(
+        int(manifest.get('summary', {}).get('questions', len(manifest.get('entries', []))))
+        for manifest in pe_manifests
+    )
+    pe_verified = sum(int(manifest.get('summary', {}).get('verified', 0)) for manifest in pe_manifests)
+    pe_reference = sum(
+        int(manifest.get('summary', {}).get('reference_book_verified', 0))
+        for manifest in pe_manifests
+    )
+    pe_manual = sum(int(manifest.get('summary', {}).get('needs_manual_review', 0)) for manifest in pe_manifests)
+    pe_suspected = sum(int(manifest.get('summary', {}).get('suspected_error', 0)) for manifest in pe_manifests)
     unresolved = gk_pending + gk_invalid + pe_manual + pe_suspected
 
     if unresolved == 0:
@@ -99,7 +110,7 @@ def run_health_check():
         score -= penalty
         print(
             f"  PARTIAL: GK {gk_verified}/{gk_total}; PE {pe_verified}/{pe_total} verified, "
-            f"{pe_manual} manual-review, {pe_suspected} suspected-error."
+            f"{pe_reference} reference-book, {pe_manual} manual-review, {pe_suspected} suspected-error."
         )
         deductions.append(
             f"-{penalty} pts: solution coverage incomplete; GK pending={gk_pending}, invalid={gk_invalid}; "

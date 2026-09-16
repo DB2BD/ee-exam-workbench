@@ -109,8 +109,11 @@ process.stdout.write(JSON.stringify(result));
     def test_pe_manifest_materializes_manual_disposition_evidence(self):
         manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
         manual = [entry for entry in manifest["entries"] if entry.get("audit_status") == "needs_manual_review"]
-        self.assertEqual(len(manual), 2)
+        self.assertEqual(len(manual), 6)
         for entry in manual:
+            self.assertIsNone(entry.get("verified_at"), f"{entry['qid']} retains a verification date after downgrade")
+            note = (ROOT / entry["solution_link"]).read_text(encoding="utf-8")
+            self.assertRegex(note, r"(?m)^verified_at:\s*null\s*$", f"{entry['qid']} note retains a verification date")
             for key in ("review_disposition", "review_blocker", "review_action", "review_evidence", "official_source_url"):
                 self.assertTrue(entry.get(key), f"{entry['qid']} lacks manifest {key}")
             self.assertTrue(entry["official_source_url"].startswith("https://wwwq.moex.gov.tw/"))

@@ -5,7 +5,7 @@ nodeId: gk-emach-three-phase-transformer
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: f62e238306f062965d30b09833d4bf7ec58eb02933a20625154052f9d3fb51f9
 generatedBodyHash: 451fd7e838dd4a46c233a4d92a586ccb91015cdb6c86182de7511d8b1ad50adf
 ---

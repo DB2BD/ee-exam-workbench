@@ -50,7 +50,7 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
             self.assertIn("nodeId: pe-mainline-circuit", content)
             self.assertIn("nodeType: mainline", content)
             self.assertIn("examFamily: PE", content)
-            self.assertIn("graphRevision: kg-v1-97a9a9a3fcd6334b", content)
+            self.assertIn("graphRevision: kg-v1-9b95af550b0b1b9e", content)
             self.assertRegex(content, r"sourceHash: [0-9a-f]{64}")
             self.assertIn("[[ct-ohm-kcl-kvl]]", content)
 

@@ -5,7 +5,7 @@ nodeId: dist-harmonics-mitigation
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 7c9366fff42a65752f08a49538327cbc85ff35e9fa8a113d0f52d5cec51c0291
 generatedBodyHash: 806cf901f8d3ae5c4e6593dbf2a1fac34d90824e734fc641d4e2d993f742b625
 ---

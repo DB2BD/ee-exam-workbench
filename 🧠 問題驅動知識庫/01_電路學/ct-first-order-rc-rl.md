@@ -5,7 +5,7 @@ nodeId: ct-first-order-rc-rl
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 2f3c18a3ae2aeb754c2db463eb8501985752f8f8925fd8ca4242962c37989daf
 generatedBodyHash: 37ba7d7e34552c97f875e53a972d532a132a3e3f7b79e04878f5cfbfd20065d1
 ---

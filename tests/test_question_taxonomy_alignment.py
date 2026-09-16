@@ -49,8 +49,16 @@ def load_manual_topic_labels():
 
 
 def load_audit_statuses():
-    payload = json.loads((ROOT / "data/pe-solution-audit.json").read_text(encoding="utf-8"))
-    return {entry["qid"]: entry["audit_status"] for entry in payload.get("entries", [])}
+    statuses = {}
+    for manifest_name in ("pe-solution-audit.json", "engineering-math-audit.json"):
+        payload = json.loads((ROOT / "data" / manifest_name).read_text(encoding="utf-8"))
+        statuses.update(
+            {
+                entry["qid"]: entry["audit_status"]
+                for entry in payload.get("entries", [])
+            }
+        )
+    return statuses
 
 
 class TestQuestionTaxonomyAlignment(unittest.TestCase):

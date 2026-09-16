@@ -5,7 +5,7 @@ nodeId: ct-mutual-inductance
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: afeb410786bb59fe683ce41d4f679bcca1be570f42e72bc9f77bc6ed695ac4a6
 generatedBodyHash: c050d6483e6cd389eff6eb7ac9bfe0b8e95364ca5b36c24043cb2bf8708b42c5
 ---

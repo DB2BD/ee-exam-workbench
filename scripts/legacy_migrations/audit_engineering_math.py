@@ -17,7 +17,7 @@ from datetime import date
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DASHBOARD = ROOT / "dashboard-data.js"
 CROP_MANIFEST = ROOT / "data" / "pe-question-crops.json"
 DEFAULT_OUTPUT = ROOT / "data" / "engineering-math-audit.json"
@@ -115,7 +115,12 @@ def make_entries(records: list[list], crop_map: dict[str, dict], existing: dict)
         qid, _sid, year, qnum, topic, _tags, solution_link = record[:7]
         old = existing.get(qid, {})
         status = metadata.get("audit_status") or old.get("audit_status") or ("suspected_error" if len(hashes[digest]) > 1 else "not_attempted")
-        entries.append({
+        verified_at = None
+        if status == "verified":
+            verified_at = metadata.get("verified_at") or (
+                old.get("verified_at") if old.get("verified_at") not in {"", "null", "none", "~"} else None
+            ) or date.today().isoformat()
+        entry = {
             "qid": qid,
             "year": year,
             "question_number": qnum,
@@ -128,9 +133,7 @@ def make_entries(records: list[list], crop_map: dict[str, dict], existing: dict)
                 else old.get("solution_version", "legacy")
             ),
             "audit_status": status,
-            "verified_at": metadata.get("verified_at") or (
-                old.get("verified_at") if old.get("verified_at") not in {"", "null", "none", "~"} else None
-            ) or (date.today().isoformat() if status == "verified" else None),
+            "verified_at": verified_at,
             "method": metadata.get("method", old.get("method", "template_hash_screening")),
             "evidence_hash": old.get("evidence_hash", digest),
             "solution_hash": digest,
@@ -138,7 +141,20 @@ def make_entries(records: list[list], crop_map: dict[str, dict], existing: dict)
             "solver_output": old.get("solver_output", ""),
             "review_note": old.get("review_note", ""),
             "supersedes": old.get("supersedes"),
-        })
+        }
+        for key in (
+            "review_disposition",
+            "review_blocker",
+            "review_action",
+            "review_evidence",
+            "official_source_url",
+            "verification_evidence",
+        ):
+            if metadata.get(key) is not None:
+                entry[key] = metadata[key]
+            elif old.get(key) is not None:
+                entry[key] = old[key]
+        entries.append(entry)
     return sorted(entries, key=lambda item: (item["year"], item["question_number"]))
 
 

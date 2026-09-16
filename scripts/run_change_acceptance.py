@@ -68,6 +68,8 @@ def main():
     checks = [
         ("targeted learning tests", ["python3", "-m", "unittest", "tests.test_knowledge_graph_schema", "tests.test_knowledge_graph_validator_cli", "tests.test_knowledge_issue_store", "tests.test_weakness_projection", "tests.test_weakness_view", "tests.test_knowledge_review_store", "tests.test_backup_restore", "tests.test_knowledge_patch_workflow"]),
         ("full unittest suite", ["python3", "-m", "unittest", "discover", "-s", "tests"]),
+        ("full solution coverage audit", ["python3", "scripts/audit_all_solutions_vs_exams.py"]),
+        ("annual canonical alignment", ["python3", "scripts/audit_annual_canonical_alignment.py"]),
         ("canonical graph validator", ["python3", "scripts/validate_knowledge_graph.py", "--graph-dir", "data/knowledge", "--report", "reports/knowledge-graph-validation.json", "--json"]),
         ("canonical graph build", ["python3", "scripts/build_knowledge_graph.py", "--graph-dir", "data/knowledge", "--output", "src/data/knowledge-dag.generated.js", "--report", "reports/knowledge-graph-build.json", "--json"]),
         ("Obsidian knowledge generation", ["python3", "scripts/generate_obsidian_knowledge.py", "--graph-dir", "data/knowledge", "--output-root", "🧠 問題驅動知識庫", "--personal-root", "📝 個人知識補充", "--report", "reports/obsidian-knowledge-build.json", "--json"]),

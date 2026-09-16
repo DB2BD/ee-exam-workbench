@@ -5,9 +5,9 @@ nodeId: em-first-order-ode
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
-sourceHash: 4024c1b2cc503b421226ed6e00ae198a10de3b8b7523b686b8bc990eb906a1a2
-generatedBodyHash: af1c982be4fe339f3b27c3d7f517c69fd06a9169e51ebe8f6cd4fb53c929870b
+graphRevision: kg-v1-9b95af550b0b1b9e
+sourceHash: d50248c322df9e3cf4f1c6c86b7134070ccef1ba81bf4cabb59ad55c25d0e7b7
+generatedBodyHash: c8d5446936ce35554a6be44b7d56e00fba3f92bbce07c6aa7063257025b2f6bb
 ---
 # 一階可分離與線性 ODE
 
@@ -26,7 +26,7 @@ generatedBodyHash: af1c982be4fe339f3b27c3d7f517c69fd06a9169e51ebe8f6cd4fb53c9298
 ## Linked questions
 - [[EE-107-03-1]]（confidence: 0.9）
 - [[EE-109-03-2]]（confidence: 0.9）
-- [[EE-110-03-1]]（confidence: 0.9）
+- [[EE-110-03-2]]（confidence: 0.9）
 
 ## Provenance
 - legacyNodeId: em-first-order-ode

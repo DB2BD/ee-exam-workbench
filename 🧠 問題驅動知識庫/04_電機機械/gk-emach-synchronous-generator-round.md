@@ -5,7 +5,7 @@ nodeId: gk-emach-synchronous-generator-round
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: cb974a383e180830719318a506fd24a98d61a15cff3b50a83235e66709910490
 generatedBodyHash: acf20779f633b17e8b4dd56b60d3f3ff0e33e59fca332060a32562216d566996
 ---

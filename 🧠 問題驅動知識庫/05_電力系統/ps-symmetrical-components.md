@@ -5,7 +5,7 @@ nodeId: ps-symmetrical-components
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 89fbd736df75e4a00adffdaecf6a1753d3942627fefa60238a5fb0cd0802e008
 generatedBodyHash: 7e5df624408a5650fcaadae694d5c1d14c1dd14eca710613b5224d918794bd3b
 ---

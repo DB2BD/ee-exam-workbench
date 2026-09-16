@@ -5,7 +5,7 @@ nodeId: ps-power-analysis
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: c7c4584246dcbd2e9751b07699522cf7527787bf1deb8b19a09056c71b397047
 generatedBodyHash: edd6e2e829d79fafc692af7f9669534c1f5490733202c48b6759c5d987f4f69f
 ---

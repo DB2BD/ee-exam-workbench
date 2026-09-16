@@ -28,7 +28,7 @@ class TestFullKnowledgeGraph(unittest.TestCase):
     def test_every_question_record_has_an_approved_family_isolated_link(self):
         expected = {f"PE:{qid}" for qid in self.pe_qids} | {f"GK:{qid}" for qid in self.gk_qids}
         self.assertEqual(set(self.links), expected)
-        self.assertEqual(len(self.links), 482)
+        self.assertEqual(len(self.links), 484)
         for key, link in self.links.items():
             family, qid = key.split(":", 1)
             self.assertEqual(link["qid"], qid)

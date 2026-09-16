@@ -5,7 +5,7 @@ nodeId: gk-ps-power-analysis
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: fccf4e3d765711b3c4116c9a2a334a8aa0dde963fdfffb90dd87d1860c3f6022
 generatedBodyHash: e999eb7437946a2051338754dcd68629cc6f446fcd3afe195039f973dff1dbd6
 ---

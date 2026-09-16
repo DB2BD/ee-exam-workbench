@@ -1,12 +1,12 @@
 // ⚡ 電機工程技師 歷屆試題與詳解知識庫 — 核心資料庫 (104 ~ 114 年)
-// 全自動編譯：收錄 6 大考科 × 11 個年度共 321 道題目
+// 全自動編譯：收錄 6 大考科 × 11 個年度共 323 道題目
 
 const DB_DATA = {
   meta: {
     title: "⚡ 電機工程技師 歷屆試題與知識庫儀表板 (104–114 年)",
     years: [114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104],
     totalExams: 66,
-    totalQuestions: 321,
+    totalQuestions: 323,
     subjects: [
       {
             "id": "01",
@@ -27,7 +27,7 @@ const DB_DATA = {
             "name": "工程數學",
             "icon": "",
             "color": "#54826b",
-            "count": 65
+            "count": 67
       },
       {
             "id": "04",
@@ -860,7 +860,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-113-04-3.md",
     "依考科分類/04_電機機械/113年_電機工程技師_電機機械.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -1446,7 +1446,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-2.md",
     "依考科分類/05_電力系統/112年_電機工程技師_電力系統.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -1968,7 +1968,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-111-05-3.md",
     "依考科分類/05_電力系統/111年_電機工程技師_電力系統.pdf",
     4,
-    "verified",
+    "needs_manual_review",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -2238,10 +2238,9 @@ const DB_DATA = {
     "03",
     110,
     1,
-    "試求微分方程式 $\\frac{dy}{dx} + 2xy = 2x^3$ 之通解。（15 分）",
+    "$f(t) = 2t^2 + \\int_0^t f(t-\\tau)e^{-\\tau}\\,d\\tau$，求解 $f(t)$。（10 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-1.md",
     "依考科分類/03_工程數學/110年_電機工程技師_工程數學.pdf",
@@ -2255,14 +2254,13 @@ const DB_DATA = {
     "03",
     110,
     2,
-    "試求常微分方程式 $y'' - 4y' + 4y = e^{2x}\\ln x$ 之通解。（15 分）",
+    "求 $y'=y^2e^{-2x}$ 之通解。（10 分）",
     [
-      "工程數學",
-      "暫態穩定"
+      "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-2.md",
     "依考科分類/03_工程數學/110年_電機工程技師_工程數學.pdf",
-    2,
+    1,
     "verified",
     [],
     true
@@ -2289,13 +2287,13 @@ const DB_DATA = {
     "03",
     110,
     4,
-    "試求留數積分 $\\int_{-\\infty}^\\infty \\frac{x^2}{(x^2+1)(x^2+4)} dx$ 之值。（20 分）",
+    "曲線 $C$ 的參數表示式為 $x=t^3,\\ y=-t,\\ z=t^2$，且 $1\\le t\\le2$，求 $\\int_C x\\,dx-yz\\,dy+e^z\\,dz$。（10 分）",
     [
       "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-4.md",
     "依考科分類/03_工程數學/110年_電機工程技師_工程數學.pdf",
-    3,
+    2,
     "verified",
     [],
     true
@@ -2305,7 +2303,7 @@ const DB_DATA = {
     "03",
     110,
     5,
-    "設隨機變數 $X$ 具有常態分佈 $N(\\mu, \\sigma^2)$，若 $P(X \\le 12) = 0.8413，P(X \\le 8) = 0.1587$，求平均值 $\\mu$ 與標準差 $\\sigma$。（15 分）",
+    "求 $f(x,y,z)=x^2y-xy^2+xz^2$ 在點 $(1,-1,1)$ 沿 $(1,-2,1)$ 方向的改變率。（10 分）",
     [
       "工程數學"
     ],
@@ -2321,7 +2319,7 @@ const DB_DATA = {
     "03",
     110,
     6,
-    "設矩陣 $\\mathbf{A} = \\begin{bmatrix} 3 & 0 & -2 \\\\ 0 & 2 & 0 \\\\ -2 & 0 & 0 \\end{bmatrix}$：\n試求 $\\mathbf{A}$ 的特徵值（Eigenvalues）與對應之特徵向量（Eigenvectors），並將 $\\mathbf{A}$ 進行相似對角化。（20 分）",
+    "設矩陣 $\\mathbf{A} = \\begin{bmatrix} 3 & 0 & -2 \\\\ 0 & 2 & 0 \\\\ -2 & 0 & 0 \\end{bmatrix}$，求其行列式值、特徵值與對應特徵向量，並求 $P$ 使 $P^{-1}AP$ 為對角矩陣。（20 分）",
     [
       "工程數學",
       "線性代數"
@@ -2333,6 +2331,22 @@ const DB_DATA = {
     [
       "det(A - λI) = 0"
     ],
+    true
+  ],
+  [
+    "EE-110-03-7",
+    "03",
+    110,
+    7,
+    "機率函數 $p(x)=a(x+1)$，其中 $0\\le x\\le2$，求該機率函數的期望值及變異數。（20 分）",
+    [
+      "工程數學"
+    ],
+    "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-7.md",
+    "依考科分類/03_工程數學/110年_電機工程技師_工程數學.pdf",
+    3,
+    "verified",
+    [],
     true
   ],
   [
@@ -2811,7 +2825,7 @@ const DB_DATA = {
     "03",
     109,
     4,
-    "設連續隨機變數 $X$ 的機率密度函數為 $f(x) = \\begin{cases} 2x, & 0 < x < 1 \\\\ 0, & \\text{其他} \\end{cases}$，試求期望值 $E[X]$ 與變異數 $\\text{Var}(X)$。（20 分）",
+    "設 $f(x)$ 以 $2\\pi$ 為週期，且 $f(x)=\\frac{x}{\\pi}$（$-\\pi<x<\\pi$），求其傅立葉級數。（20 分）",
     [
       "工程數學"
     ],
@@ -3282,7 +3296,7 @@ const DB_DATA = {
     "03",
     108,
     1,
-    "試求微分方程式 $\\frac{dy}{dx} + y\\tan x = \\sin 2x, \\quad y(0) = 1$ 之特解。（20 分）",
+    "試求微分方程 $(a+x)^2y''-2y=3(a+x)^2+1$ 之完全解。（20 分）",
     [
       "工程數學",
       "暫態穩定"
@@ -3318,14 +3332,13 @@ const DB_DATA = {
     "03",
     108,
     3,
-    "試以留數定理計算複變積分 $\\oint_C \\frac{z^2 + 1}{(z-1)(z-2)} dz$，其中路徑 $C$ 分別為：\n* **(一)** 圓周 $|z-1| = 1$。（10 分）\n* **(二)** 圓周 $|z+1| = 1$。（10 分）",
+    "空間中任何點的溫度函數為 $T=xy+yz+zx$。求點 $(1,1,1)$ 的梯度向量，及沿方向 $3\\mathbf i-4\\mathbf k$ 的方向導數。（20 分）",
     [
-      "工程數學",
-      "等效定理"
+      "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-3.md",
     "依考科分類/03_工程數學/108年_電機工程技師_工程數學.pdf",
-    4,
+    3,
     "verified",
     [],
     true
@@ -3335,13 +3348,13 @@ const DB_DATA = {
     "03",
     108,
     4,
-    "假設 $X$ 為隨機變數，其期望值 $E[X] = 2，E[X(X-4)] = 5$，試求：\n* **(一)** $E[X^2]$。（5 分）\n* **(二)** $E[-4X + 10]$。（5 分）\n* **(三)** 變異數 $\\text{Var}(-4X + 10)$。（10 分）",
+    "已知 $\\mathbf F=x\\mathbf i+y\\mathbf j+z\\mathbf k$ 及封閉曲面 $S:x^2+y^2+z^2=1$，求 $\\iint_S\\mathbf F\\cdot\\hat{\\mathbf n}\\,dA$，其中法線方向向外。（10 分）",
     [
       "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-4.md",
     "依考科分類/03_工程數學/108年_電機工程技師_工程數學.pdf",
-    3,
+    2,
     "verified",
     [],
     true
@@ -3356,6 +3369,22 @@ const DB_DATA = {
       "工程數學"
     ],
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-5.md",
+    "依考科分類/03_工程數學/108年_電機工程技師_工程數學.pdf",
+    3,
+    "verified",
+    [],
+    true
+  ],
+  [
+    "EE-108-03-6",
+    "03",
+    108,
+    6,
+    "假設 $E[X]=2$ 且 $E[X(X-4)]=5$，求 $E[X^2]$、$E[-4X+10]$ 及 $\\operatorname{Var}(-4X+10)$。（20 分）",
+    [
+      "工程數學"
+    ],
+    "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-6.md",
     "依考科分類/03_工程數學/108年_電機工程技師_工程數學.pdf",
     3,
     "verified",
@@ -4594,7 +4623,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-106-05-3.md",
     "依考科分類/05_電力系統/106年_電機工程技師_電力系統.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5520,7 +5549,7 @@ const DB_DATA = {
     "03",
     104,
     3,
-    "試以留數定理計算實數定積分：\n$$\\int_{-\\infty}^\\infty \\frac{x^3 + 2}{(x^2 - 4)(x^2 + 9)} dx$$\n之值。（20 分）",
+    "試以留數定理計算實數定積分 $\\int_{-\\infty}^{\\infty}\\frac{3x+2}{x(x-4)(x^2+9)}\\,dx$ 之值。（20 分）",
     [
       "工程數學",
       "等效定理"
@@ -5528,7 +5557,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-104-03-3.md",
     "依考科分類/03_工程數學/104年_電機工程技師_工程數學.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5537,7 +5566,7 @@ const DB_DATA = {
     "03",
     104,
     4,
-    "設隨機變數 $X$ 和 $Y$ 的聯合機率密度函數為：\n$$f_{X,Y}(x,y) = \\begin{cases} 1.5(x^2 + y^2), & 0 < x < 1, \\ 0 < y < 1 \\\\ 0, & \\text{其他} \\end{cases}$$\n試求：(一) $E[X]$；(二) $E[Y]$；(三) $E[X^2]$；(四) $E[XY]$。（各 5 分，共 20 分）",
+    "設隨機變數 $X,Y$ 的聯合機率密度函數為\n$$\nf_{X,Y}(x,y)=\n\\begin{cases}\nx\\left(y+\\frac32\\right),&0<x<1,\\ 0<y<1,\\\\\n0,&\\text{其他},\n\\end{cases}\n$$\n試求 $E[X]$、$E[Y]$、$E[X^2]$ 及 $E[XY]$。（各 5 分，共 20 分）",
     [
       "工程數學"
     ],
@@ -5553,7 +5582,7 @@ const DB_DATA = {
     "03",
     104,
     5,
-    "試求線積分 $\\int_C (x-y+z)dx + (y-z)dy + (x-\\cos z)dz$，其中路徑 $C$ 係由起點 $(1,1,1)$ 至終點 $(-2,1,3)$ 之直線線段。（20 分）",
+    "試求線積分 $\\int_C xyz\\,dx-\\cos(yz)\\,dy+xz\\,dz$，其中路徑 $C$ 係由起點 $(1,1,1)$ 至終點 $(-2,1,3)$ 之直線線段。（20 分）",
     [
       "工程數學"
     ],
@@ -6150,6 +6179,8 @@ const QUESTION_CROP_MAP = {
   "EE-108-03-4": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q04.png",
   "PE-108-工程數學-Q05": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q05.png",
   "EE-108-03-5": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q05.png",
+  "PE-108-工程數學-Q06": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q06.png",
+  "EE-108-03-6": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q06.png",
   "PE-108-電力系統-Q01": "依考科分類/05_電力系統/images/questions/PE_108年_電力系統_Q01.png",
   "EE-108-05-1": "依考科分類/05_電力系統/images/questions/PE_108年_電力系統_Q01.png",
   "PE-108-電力系統-Q02": "依考科分類/05_電力系統/images/questions/PE_108年_電力系統_Q02.png",
@@ -6268,6 +6299,8 @@ const QUESTION_CROP_MAP = {
   "EE-110-03-5": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q05.png",
   "PE-110-工程數學-Q06": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q06.png",
   "EE-110-03-6": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q06.png",
+  "PE-110-工程數學-Q07": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q07.png",
+  "EE-110-03-7": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q07.png",
   "PE-110-電力系統-Q01": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q01.png",
   "EE-110-05-1": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q01.png",
   "PE-110-電力系統-Q02": "依考科分類/05_電力系統/images/questions/PE_110年_電力系統_Q02.png",
@@ -6556,8 +6589,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-108-01-1": {
     "primaryChapter": "ct-phasor-ac",
     "source": "canonical-title-override",
-    "canonicalChapter": "正弦穩態與交流功率",
-    "noteTitle": "108 年電路學第 1 題｜正弦穩態與交流功率"
+    "canonicalChapter": "正弦穩態與直流疊加",
+    "noteTitle": "108 年電路學第 1 題｜正弦穩態電流與 1 Ω 電阻功率"
   },
   "EE-114-01-2": {
     "primaryChapter": "ct-thevenin-norton",
@@ -7136,10 +7169,10 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "109 年第 2 題｜可分離變數"
   },
   "EE-108-03-3": {
-    "primaryChapter": "em-complex-cauchy-residue",
+    "primaryChapter": "em-vector-analysis",
     "source": "canonical-chapter",
-    "canonicalChapter": "複變函數／留數定理",
-    "noteTitle": "108 年第 3 題｜兩條圓周的留數積分"
+    "canonicalChapter": "向量分析／梯度與方向導數",
+    "noteTitle": "108 年第 3 題｜梯度與方向導數"
   },
   "EE-110-03-6": {
     "primaryChapter": "em-eigen-diagonal",
@@ -7166,10 +7199,10 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "105 年第 5 題｜由 CDF 求區間機率"
   },
   "EE-110-03-2": {
-    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "primaryChapter": "em-first-order-ode",
     "source": "canonical-chapter",
-    "canonicalChapter": "常微分方程／重根與降階",
-    "noteTitle": "110 年第 2 題｜重根非齊次 ODE"
+    "canonicalChapter": "常微分方程／一階非線性方程",
+    "noteTitle": "110 年第 2 題｜可分離變數微分方程"
   },
   "EE-111-03-3": {
     "primaryChapter": "em-complex-cauchy-residue",
@@ -7194,6 +7227,12 @@ const QUESTION_TAXONOMY_MAP = {
     "source": "canonical-chapter",
     "canonicalChapter": "複變函數／留數定理",
     "noteTitle": "105 年第 4 題｜圓周留數積分"
+  },
+  "EE-108-03-6": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率論／期望值與變異數",
+    "noteTitle": "108 年第 6 題｜期望值與線性變換的變異數"
   },
   "EE-110-03-3": {
     "primaryChapter": "em-fourier-series",
@@ -7236,6 +7275,12 @@ const QUESTION_TAXONOMY_MAP = {
     "source": "canonical-chapter",
     "canonicalChapter": "機率統計／連續型隨機變數動差",
     "noteTitle": "111 年第 6 題｜三角形機率密度的動差"
+  },
+  "EE-110-03-7": {
+    "primaryChapter": "em-probability-statistics",
+    "source": "canonical-chapter",
+    "canonicalChapter": "機率論／連續型隨機變數",
+    "noteTitle": "110 年第 7 題｜線性機率密度的期望值與變異數"
   },
   "EE-106-03-5": {
     "primaryChapter": "em-complex-cauchy-residue",
@@ -7396,14 +7441,14 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-108-03-5": {
     "primaryChapter": "em-complex-cauchy-residue",
     "source": "canonical-chapter",
-    "canonicalChapter": "複變函數／留數定理與路徑奇點",
-    "noteTitle": "108 年第 5 題｜路徑通過極點的複變積分"
+    "canonicalChapter": "複變函數／留數定理",
+    "noteTitle": "108 年第 5 題｜兩個圓周的留數積分"
   },
   "EE-109-03-4": {
-    "primaryChapter": "em-probability-statistics",
+    "primaryChapter": "em-fourier-series",
     "source": "canonical-chapter",
-    "canonicalChapter": "機率論／連續型隨機變數",
-    "noteTitle": "109 年第 4 題｜期望值與變異數"
+    "canonicalChapter": "傅立葉級數",
+    "noteTitle": "109 年第 4 題｜週期函數的傅立葉級數"
   },
   "EE-111-03-1": {
     "primaryChapter": "em-second-order-ode-nonhomogeneous",
@@ -7442,10 +7487,10 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "111 年第 5 題｜圓周線積分"
   },
   "EE-110-03-4": {
-    "primaryChapter": "em-complex-cauchy-residue",
+    "primaryChapter": "em-vector-analysis",
     "source": "canonical-chapter",
-    "canonicalChapter": "複變函數／留數定理",
-    "noteTitle": "110 年第 4 題｜實軸留數積分"
+    "canonicalChapter": "向量分析／線積分",
+    "noteTitle": "110 年第 4 題｜參數曲線線積分"
   },
   "EE-105-03-2": {
     "primaryChapter": "em-laplace-transform",
@@ -7455,9 +7500,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-104-03-3": {
     "primaryChapter": "em-complex-cauchy-residue",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "複變函數／主值積分",
-    "noteTitle": "104 年第 3 題｜主值積分"
+    "noteTitle": "104 年第 3 題｜主值積分",
+    "manualChapter": "em-complex-cauchy-residue"
   },
   "EE-114-03-3": {
     "primaryChapter": "em-second-order-ode-homogeneous",
@@ -7478,10 +7524,10 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "111 年第 4 題｜奇異值與二次型極值"
   },
   "EE-110-03-5": {
-    "primaryChapter": "em-probability-statistics",
+    "primaryChapter": "em-vector-analysis",
     "source": "canonical-chapter",
-    "canonicalChapter": "機率論／常態分佈",
-    "noteTitle": "110 年第 5 題｜常態分佈參數"
+    "canonicalChapter": "向量分析／梯度與方向導數",
+    "noteTitle": "110 年第 5 題｜多變數函數的方向導數"
   },
   "EE-106-03-8": {
     "primaryChapter": "em-probability-statistics",
@@ -7508,10 +7554,10 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "109 年第 5 題｜矩陣反矩陣"
   },
   "EE-110-03-1": {
-    "primaryChapter": "em-first-order-ode",
+    "primaryChapter": "em-laplace-transform",
     "source": "canonical-chapter",
-    "canonicalChapter": "常微分方程／一階線性方程",
-    "noteTitle": "110 年第 1 題｜一階線性 ODE"
+    "canonicalChapter": "拉普拉斯轉換／卷積積分方程",
+    "noteTitle": "110 年第 1 題｜卷積型積分方程"
   },
   "EE-107-04-1": {
     "primaryChapter": "emach-three-phase-transformer",
@@ -7521,9 +7567,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-113-04-3": {
     "primaryChapter": "emach-dc-motor-generator",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "串激直流電動機與分流調速",
-    "noteTitle": "113 年第 3 題｜串激直流馬達分流調速與效率"
+    "noteTitle": "113 年第 3 題｜串激直流馬達分流調速與效率",
+    "manualChapter": "emach-dc-motor-generator"
   },
   "EE-112-04-2": {
     "primaryChapter": "emach-single-phase-transformer",
@@ -7878,9 +7925,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-112-05-2": {
     "primaryChapter": "ps-economic-dispatch",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "Wood, Wollenberg & Sheblé, Power Generation, Operation, and Control, 3rd ed., Ch. 3 — The Economic Dispatch of Thermal Units",
-    "noteTitle": "112 年電力系統第 2 題｜經濟調度係數與容量約束 KKT 校驗"
+    "noteTitle": "112 年電力系統第 2 題｜經濟調度係數與容量約束 KKT 校驗",
+    "manualChapter": "ps-economic-dispatch"
   },
   "EE-113-05-3": {
     "primaryChapter": "ps-economic-dispatch",
@@ -7926,9 +7974,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-111-05-3": {
     "primaryChapter": "ps-transient-stability-equal-area",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "暫態穩定度與等面積準則",
-    "noteTitle": "111 年第 3 題｜三相短路之臨界清除角與清除時間"
+    "noteTitle": "111 年第 3 題｜三相短路之臨界清除角與清除時間",
+    "manualChapter": "ps-transient-stability-equal-area"
   },
   "EE-105-05-1": {
     "primaryChapter": "ps-transmission-line-models",
@@ -8112,9 +8161,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-106-05-3": {
     "primaryChapter": "ps-load-flow-admittance",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "三匯流排潮流：Ybus、PV/PQ 匯流排與無效功率流向",
-    "noteTitle": "106 年電力系統第 3 題｜三匯流排潮流與無效功率流向"
+    "noteTitle": "106 年電力系統第 3 題｜三匯流排潮流與無效功率流向",
+    "manualChapter": "ps-load-flow-admittance"
   },
   "EE-113-05-4": {
     "primaryChapter": "ps-transient-stability-equal-area",
@@ -8553,6 +8603,26 @@ const SOLUTION_REVIEW_METADATA = {
     "referenceBookConvention": "以 hybrid-\\pi 模型、r_{o1}=r_{o2}=\\infty、理想偏壓電流源交流開路，\\beta_T 表示電晶體共集級的電流增益；\\beta_f 僅表示回授因素，避免符號混淆。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
   },
+  "EE-104-03-3": {
+    "disposition": "missing_principal_value_convention",
+    "blocker": "官方題目未標示 Cauchy 主值；普通廣義積分在 x=0 與 x=4 有實軸極點而發散。",
+    "action": "取得官方完整解答或閱卷口徑，確認是否將本題解讀為 Cauchy 主值；確認後才能把 -14π/225 標為唯一答案。",
+    "evidence": "官方裁切圖只給出積分式，未出現 PV 標記。對稱主值的條件答案為 -14π/225；若按普通廣義積分，答案是發散。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0708&t=Q"
+  },
+  "EE-113-04-3": {
+    "disposition": "missing_magnetization_curve",
+    "blocker": "題目未提供串激馬達磁化曲線或未飽和條件；扭矩加倍只能建立磁通與電流的關係，不能由題面唯一推出新電流、轉速與效率。",
+    "action": "取得官方完整參考解答或命題口徑確認採用線性未飽和模型；若確認，再把 120 A、1762.5 rpm、94.0% 標為該模型下的條件答案。",
+    "evidence": "canonical 主解明確使用 \\(\\Phi\\propto I_f\\) 才得到 I_{a2}=120 A 與 \\(\\Phi_2=\\Phi_1\\)。官方裁切圖只給電阻、電壓、電流、轉速及扭矩倍率，沒有磁化曲線或線性磁通條件；飽和時結果會改變，因此保留條件分支。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
+  },
   "EE-105-04-5": {
     "disposition": "flux_curve_parameterized",
     "blocker": "missing_parameter",
@@ -8582,6 +8652,36 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "reference_book",
     "referenceBookConvention": "以參考書的 s=0.067、0.1(1-s)/s 機械輸出功率項及圖示 0.2/s 電流支路計算；官方圖示與提示文字矛盾，canonical 保留另一完整分支作來源對照。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
+  },
+  "EE-112-05-2": {
+    "disposition": "unresolved_model_interpretation",
+    "blocker": "capacity_limit_branch_not_uniquely_specified",
+    "action": "明確指定 800 MW 額定容量是否作硬上限，並由命題／閱卷口徑指定第二運轉點是哪一台機組到達上限後，才能選定唯一的 beta、gamma。",
+    "evidence": "官方題圖同時給兩座 800 MW 機組與 550/1300 MW 兩個增量成本點；無約束解使 P2=925 MW 超限，而 P2=800 與 P1=800 兩個容量邊界都可建立自洽的 KKT 回代，但 P1=800 分支必須由自由機組 2 的增量成本等於 lambda 求得 beta=8，且第一個運轉點為 P2=0、P1=550；不能沿用把受限機組邊際成本直接設為 lambda 的錯誤分支。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0710&t=Q"
+  },
+  "EE-111-05-3": {
+    "disposition": "missing_frequency_parameter",
+    "blocker": "官方逐題裁切圖未提供系統頻率；臨界清除時間依 sqrt(1/f) 變動，不能把外部台灣 60 Hz 背景直接當成題目已給條件。",
+    "action": "取得官方完整題本或命題／閱卷口徑確認系統頻率；若確認採 60 Hz，再將 0.2704 s 標為條件答案，並保留 0.2704 sqrt(60/f) s 通式。",
+    "evidence": "官方裁切圖只可確認 H=6.0、P_m=1.0、P_max=2.5 與故障期間 P_e=0；δ_cr=89.3750° 可唯一重算，但 t_cr=0.2704 sqrt(60/f) s。60 Hz 來自外部電力系統背景資料，不在官方題面內，因此目前不能宣稱時間答案已由題目唯一決定。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q"
+  },
+  "EE-106-05-3": {
+    "disposition": "unresolved_operating_branch",
+    "blocker": "官方題面未指定 Newton 初值、正常運轉條件或電壓穩定分支；同一潮流方程存在高、低電壓兩個正值解。",
+    "action": "取得官方完整解答或命題口徑確認採用的運轉分支；在此之前保留兩組根及共同可驗證的 P_1 與無效功率方向。",
+    "evidence": "以官方線路電抗建立的 Y_bus 與三條潮流方程皆可回代出高電壓 |V_3|=0.686921 pu 及低電壓 |V_3|=0.396731 pu；題面未提供足以排除低電壓根的條件，因此不能把高電壓根冒充唯一答案。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {
     "disposition": "",

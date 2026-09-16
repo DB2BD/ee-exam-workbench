@@ -5,7 +5,7 @@ nodeId: gk-ct-phasor-ac
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 42181636964d098246316e414ea841b2841204353706ca5f5ad9d1fd98229d15
 generatedBodyHash: fc06d2fc1f77c02239f5aae3945a3722e08e6cea1c6369d4bb5533515ba20a37
 ---

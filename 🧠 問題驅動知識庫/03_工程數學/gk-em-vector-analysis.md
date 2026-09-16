@@ -5,7 +5,7 @@ nodeId: gk-em-vector-analysis
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: b43ed71b07c1336c9bd459ee68b9e5e7179fccee70d2b6827f78a66a57fe6ef1
 generatedBodyHash: 828f49800ebae3ac56e586cfd2230c16eabb446feebc55af383620adf7c911ab
 ---

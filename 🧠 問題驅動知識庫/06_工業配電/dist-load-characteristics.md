@@ -5,7 +5,7 @@ nodeId: dist-load-characteristics
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: a6a53339ba6d867f344f69be29d70e3c0a7bac281ac0dd6045ae19808dfb18f5
 generatedBodyHash: 428d744d0f81308e7ef884f31b0439f91b37b1e1b4040e8b5f73da3b55099787
 ---

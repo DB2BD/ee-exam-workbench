@@ -5,7 +5,7 @@ nodeId: ct-complex-power
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 1e58666c0854e71ca27e466a32f0492777df7d1d4972c0d7873ece3df618fddf
 generatedBodyHash: 1a8eb155eca8b8c4fd80eecd2a911c3b593135e740ff05c9fe1105cd8064f494
 ---

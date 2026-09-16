@@ -1,9 +1,9 @@
 {
   "schemaVersion": "learning-data-capacity.v1",
-  "generatedAt": "2026-09-13T09:45:07.971Z",
-  "graphRevision": "kg-v1-97a9a9a3fcd6334b",
+  "generatedAt": "2026-09-15T18:27:14.918Z",
+  "graphRevision": "kg-v1-9b95af550b0b1b9e",
   "sourceIdentity": {
-    "canonicalGraphRevision": "kg-v1-97a9a9a3fcd6334b",
+    "canonicalGraphRevision": "kg-v1-9b95af550b0b1b9e",
     "schemaVersion": "canonical-knowledge-graph.v1"
   },
   "outputIdentity": {

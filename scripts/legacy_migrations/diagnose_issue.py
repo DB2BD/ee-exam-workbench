@@ -37,10 +37,10 @@ def diagnose():
     m2 = re.search(r'questions:\s*(\[[\s\S]+?\])\s*\}\;', t2)
     gk_len = len(json.loads(m2.group(1))) if m2 else 0
     
-    if pe_len == 321 and gk_len == 161:
+    if pe_len == 323 and gk_len == 161:
         print(f"  ✅ Database counts 100% healthy (PE: {pe_len}, GK: {gk_len}, Total: {pe_len + gk_len})")
     else:
-        findings.append(f"Database count anomaly: PE={pe_len} (expected 321), GK={gk_len} (expected 161)")
+        findings.append(f"Database count anomaly: PE={pe_len} (expected 323), GK={gk_len} (expected 161)")
         print(f"  ❌ Anomaly detected: PE={pe_len}, GK={gk_len}")
 
     # 2. Bundle Shadowing Check

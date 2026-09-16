@@ -5,9 +5,9 @@ nodeId: em-complex-cauchy-residue
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
-sourceHash: e31ab46ad4abc70da33e5838efff1898644647508bbbc17670c5d957ca24e8c2
-generatedBodyHash: 75806a571f7882da8b9c253f350157bae949a7b4e85c588b26f500bc18d1ca3f
+graphRevision: kg-v1-9b95af550b0b1b9e
+sourceHash: 6b41e1738fe0bd5ec010bf09591d76476d7894a5fbdf91a53637fb8b819ecec2
+generatedBodyHash: 26248a2384961f17e52b0838719ba0fd19c0c9134efd9d2d36c895f6a9807531
 ---
 # 複變分析、柯西定理與留數定理
 
@@ -23,13 +23,11 @@ generatedBodyHash: 75806a571f7882da8b9c253f350157bae949a7b4e85c588b26f500bc18d1c
 - 尚無已核准的語意邊。
 
 ## Linked questions
-- [[EE-104-03-3]]（confidence: 0.9）
+- [[EE-104-03-3]]（confidence: 0.96）
 - [[EE-105-03-3]]（confidence: 0.9）
 - [[EE-105-03-4]]（confidence: 0.9）
 - [[EE-106-03-5]]（confidence: 0.9）
-- [[EE-108-03-3]]（confidence: 0.9）
 - [[EE-108-03-5]]（confidence: 0.9）
-- [[EE-110-03-4]]（confidence: 0.9）
 - [[EE-111-03-3]]（confidence: 0.9）
 - [[EE-111-03-5]]（confidence: 0.9）
 - [[EE-112-03-4]]（confidence: 0.9）

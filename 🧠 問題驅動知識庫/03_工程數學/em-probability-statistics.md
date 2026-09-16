@@ -5,9 +5,9 @@ nodeId: em-probability-statistics
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
-sourceHash: a7bcdf38000dc8c77195b8ff8cada822bf730bd3429811981d1c989be6c80c9d
-generatedBodyHash: 9cd37b54437129ab673354ca87477019089070efbac4a69c3d5e815ab7303a35
+graphRevision: kg-v1-9b95af550b0b1b9e
+sourceHash: 76e06adb3ab763652cd11e8bcec010b862c5104dfeefef8235afac35ad51e859
+generatedBodyHash: ca60ac67770f61fb81d84864d5b68ab1c8346a6598cebb48685de94af502cf7e
 ---
 # 機率與統計
 
@@ -30,9 +30,9 @@ generatedBodyHash: 9cd37b54437129ab673354ca87477019089070efbac4a69c3d5e815ab7303
 - [[EE-106-03-7]]（confidence: 0.9）
 - [[EE-106-03-8]]（confidence: 0.9）
 - [[EE-107-03-5]]（confidence: 0.9）
+- [[EE-108-03-6]]（confidence: 0.9）
 - [[EE-109-03-3]]（confidence: 0.9）
-- [[EE-109-03-4]]（confidence: 0.9）
-- [[EE-110-03-5]]（confidence: 0.9）
+- [[EE-110-03-7]]（confidence: 0.9）
 - [[EE-111-03-6]]（confidence: 0.9）
 - [[EE-112-03-3]]（confidence: 0.9）
 - [[EE-113-03-6]]（confidence: 0.9）

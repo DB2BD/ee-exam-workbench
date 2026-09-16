@@ -5,7 +5,7 @@ nodeId: gk-em-eigen-diagonal
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 55e89a8ce4aa77894f965c9344bfb4134eb406ad4ed1310ce5af41467e4f5124
 generatedBodyHash: c774925bf740305f40ccd5bf171eacda7299759fb22860e9052218a3b3cdb789
 ---

@@ -5,7 +5,7 @@ nodeId: gk-ps-three-phase-fault
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 02210c936f4401e5a2f569ad3e6e8efdb49d03de7c3d5b758bd23dc14313ca32
 generatedBodyHash: 2b9ac06589763320cd18ed753710482a3cb2575c9694f0dbc4af25a82f10dc8e
 ---

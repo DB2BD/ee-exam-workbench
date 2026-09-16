@@ -5,7 +5,7 @@ nodeId: dist-grounding-system
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 1f15c5ec4dee89bc025f8e89221503a9c3cf17c072ed506a1318caf01190f68a
 generatedBodyHash: eda6ee5f829a8ee8fceb1f9ae9ad6606891c2ec1b942a1319cacd92715803a2c
 ---

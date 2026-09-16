@@ -5,7 +5,7 @@ nodeId: ps-three-phase-fault
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 4de1617e9140ca891116db90476ae0e049ebd3ffe406097e1c80a33ff490cca0
 generatedBodyHash: d6052c911e6c96a518aa544000cabcb095e22b2e7b5e520121f0b9b4c74eb477
 ---

@@ -69,7 +69,13 @@ def main():
         previous_verified_at = prev.get("verified_at")
         if isinstance(previous_verified_at, str) and previous_verified_at.lower() in {"", "null", "none", "~"}:
             previous_verified_at = None
-        entry = {"qid":qid,"subject_id":sid,"year":year,"question_number":num,"chapter":topic,"solution_link":link,"audit_status":status,"verified_at":meta.get("verified_at") or previous_verified_at or (date.today().isoformat() if status=="verified" else None),"method":meta.get("method",prev.get("method","template_hash_screening")),"solution_hash":digest,"duplicate_qids":groups[digest] if len(groups[digest])>1 else [],"source_crop":meta.get("source_crop") or prev.get("source_crop","")}
+        # A date is evidence of a completed verification pass.  Never carry a
+        # historical verification date onto a manual or suspected record after
+        # its status is downgraded.
+        verified_at = None
+        if status in {"verified", "reference_book_verified"}:
+            verified_at = meta.get("verified_at") or previous_verified_at or date.today().isoformat()
+        entry = {"qid":qid,"subject_id":sid,"year":year,"question_number":num,"chapter":topic,"solution_link":link,"audit_status":status,"verified_at":verified_at,"method":meta.get("method",prev.get("method","template_hash_screening")),"solution_hash":digest,"duplicate_qids":groups[digest] if len(groups[digest])>1 else [],"source_crop":meta.get("source_crop") or prev.get("source_crop","")}
         # Keep the machine-readable manifest aligned with the canonical note's
         # explicit disposition.  These fields explain why a manual item is
         # still unresolved without changing its conservative audit status.

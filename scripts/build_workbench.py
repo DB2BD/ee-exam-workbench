@@ -115,7 +115,7 @@ def build_workbench():
     <div class="header-top">
       <div class="title-area">
         <h1>⚡ 電機工程技師 & 公務高考三級 歷屆試題工作台</h1>
-        <p>104 ~ 114 年 6 大考科 · <span id="hero-total-count">482 道題目記錄</span> · 逐題來源可追溯 · 5 大維度難度評級 · 離線使用</p>
+        <p>104 ~ 114 年 6 大考科 · <span id="hero-total-count">484 道題目記錄</span> · 逐題來源可追溯 · 5 大維度難度評級 · 離線使用</p>
       </div>
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
@@ -127,7 +127,7 @@ def build_workbench():
     <div class="category-switcher">
       <button class="cat-tab on" id="cat-tab-PE" onclick="switchExamCategory('PE')">
         <span>🏆 專技高考：電機工程技師</span>
-        <span class="cat-badge" id="cat-count-PE">321 題 · 66 卷</span>
+        <span class="cat-badge" id="cat-count-PE">323 題 · 66 卷</span>
       </button>
       <button class="cat-tab" id="cat-tab-GK" onclick="switchExamCategory('GK')">
         <span>🏛️ 公務高考：三級電力/電子</span>
@@ -139,7 +139,7 @@ def build_workbench():
     <div class="stats-grid">
       <div class="stat-card">
         <span class="label">📚 收錄試題總數</span>
-        <span class="val" id="stat-total">321</span>
+        <span class="val" id="stat-total">323</span>
       </div>
       <div class="stat-card">
         <span class="label">🟢 已掌握題數</span>

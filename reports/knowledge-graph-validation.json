@@ -1,10 +1,10 @@
 {
   "valid": true,
-  "graphRevision": "kg-v1-97a9a9a3fcd6334b",
+  "graphRevision": "kg-v1-9b95af550b0b1b9e",
   "schemaVersion": "canonical-knowledge-graph.v1",
   "nodeCount": 145,
   "edgeCount": 125,
-  "questionLinkCount": 482,
+  "questionLinkCount": 484,
   "goldenFixture": {
     "fixtureId": "problem-driven-initial-slice",
     "fixtureVersion": "1",
@@ -13,9 +13,9 @@
     "questionCount": 20
   },
   "errors": [],
-  "generatedAt": "2026-09-13T09:45:07.649Z",
+  "generatedAt": "2026-09-15T18:27:14.601Z",
   "sourceIdentity": {
-    "canonicalGraphRevision": "kg-v1-97a9a9a3fcd6334b",
+    "canonicalGraphRevision": "kg-v1-9b95af550b0b1b9e",
     "schemaVersion": "canonical-knowledge-graph.v1"
   },
   "outputIdentity": {

@@ -5,7 +5,7 @@ nodeId: em-svd-linear-systems
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 9a5e8937e9efc7ffac51b0af1cb1ac77198549c976568981199577079564fd2c
 generatedBodyHash: 0c71963bd3ef06eb2d4a60fce088d1e7bf132773db47667e998b36f37bd6514d
 ---

@@ -103,8 +103,8 @@
   },
   "questions": {
     "PE": {
-      "recordCount": 321,
-      "uniqueQidCount": 321,
+      "recordCount": 323,
+      "uniqueQidCount": 323,
       "sourcePath": "dashboard-data.js"
     },
     "GK": {
@@ -114,7 +114,7 @@
     }
   },
   "mapping": {
-    "ruleCount": 13,
+    "ruleCount": 14,
     "specificRuleNodeIds": [
       "ct-first-order-rc-rl",
       "ct-laplace-circuit",
@@ -128,9 +128,10 @@
       "em-svd-linear-systems",
       "emach-synchronous-salient-pole",
       "ps-transient-stability-equal-area",
-      "ps-unsymmetrical-faults"
+      "ps-unsymmetrical-faults",
+      "string"
     ],
-    "manualLabelCount": 18,
+    "manualLabelCount": 23,
     "hasSubjectFallback": false,
     "fallbackSource": "src/data/knowledge-dag.js"
   },

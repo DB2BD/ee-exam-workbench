@@ -5,7 +5,7 @@ nodeId: ct-procedure-thevenin-controlled-source
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 7414c5f553268f82503a3d629cbefa60db136b4a4ffa6645c7fbd6afba28c9f7
 generatedBodyHash: bae6f76f26f7406ae45abe956d4b55b3039f84be0e9956cfaf06932c660d734a
 ---

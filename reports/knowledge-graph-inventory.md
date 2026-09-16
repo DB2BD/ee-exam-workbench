@@ -6,10 +6,10 @@
 
 - Legacy `KNOWLEDGE_DAG` nodes: **69**
 - Core Obsidian notes: **14**
-- PE question records: **321** (321 unique QIDs)
+- PE question records: **323** (323 unique QIDs)
 - GK question records: **161** (161 unique QIDs)
-- Specific mapping rules: **13**
-- Manual topic labels: **18**
+- Specific mapping rules: **14**
+- Manual topic labels: **23**
 - Subject fallback present: **False**
 
 ## Mapping and backup observations

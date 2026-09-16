@@ -5,7 +5,7 @@ nodeId: gk-ps-transmission-line-models
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: aed10820e707ded56a9e3e8239dd2c2605eaecbe31df86312513f00470507cc0
 generatedBodyHash: 6db7a856ed96b1eda9c0ede93244049b27236f2c26e17cffc6d1efc323ab5008
 ---

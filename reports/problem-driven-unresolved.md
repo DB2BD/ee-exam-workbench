@@ -8,9 +8,9 @@
 - Canonical graph 節點：145
 - Legacy DAG 已鏡射為 PE canonical 主題節點：69/69
 - 尚未建立 approved canonical question link：0 題
-- Link 來源：deterministic 445、manual 18、approved_ai 19
-- 現有人工 topic labels：18 筆
-- Canonical graph revision：`kg-v1-97a9a9a3fcd6334b`
+- Link 來源：deterministic 442、manual 23、approved_ai 19
+- 現有人工 topic labels：23 筆
+- Canonical graph revision：`kg-v1-9b95af550b0b1b9e`
 
 ## 處理規則
 

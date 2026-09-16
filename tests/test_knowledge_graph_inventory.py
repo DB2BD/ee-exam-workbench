@@ -18,7 +18,7 @@ class TestKnowledgeGraphInventory(unittest.TestCase):
 
         self.assertEqual(inventory["legacyDag"]["nodeCount"], 69)
         self.assertEqual(inventory["obsidian"]["coreNoteCount"], 14)
-        self.assertEqual(inventory["questions"]["PE"]["recordCount"], 321)
+        self.assertEqual(inventory["questions"]["PE"]["recordCount"], 323)
         self.assertEqual(inventory["questions"]["GK"]["recordCount"], 161)
         self.assertGreater(inventory["mapping"]["ruleCount"], 0)
         self.assertIn("EE_EXAM_ATTEMPT_RECOVERY_V1", inventory["backup"]["storageKeys"])

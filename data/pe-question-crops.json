@@ -2762,7 +2762,7 @@
       "pdf_path": "依年度分類/108年/108年_電機工程技師_工程數學.pdf",
       "pdf_sha256": "4d0e3e76b3625aa4f8b7b5eed9c5189096e2981fac5df5b525434e79156ab1d7",
       "page_count": 1,
-      "question_count": 5,
+      "question_count": 6,
       "questions": [
         {
           "question_id": "PE-108-工程數學-Q01",
@@ -2851,6 +2851,25 @@
               "crop_rect": [
                 0.0,
                 614.23,
+                729.0,
+                695.26
+              ]
+            }
+          ],
+          "boundary_method": "pdf_text_sequence",
+          "boundary_confidence": "text_sequence"
+        },
+        {
+          "question_id": "PE-108-工程數學-Q06",
+          "app_question_id": "EE-108-03-6",
+          "question_number": 6,
+          "question_crop": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q06.png",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                703.26,
                 729.0,
                 1014.0
               ]
@@ -4029,7 +4048,7 @@
       "pdf_path": "依年度分類/110年/110年_電機工程技師_工程數學.pdf",
       "pdf_sha256": "693f186e39be89d32e961162aeb9c6158c7e4d20860f3138ebc38554a241f4d1",
       "page_count": 1,
-      "question_count": 6,
+      "question_count": 7,
       "questions": [
         {
           "question_id": "PE-110-工程數學-Q01",
@@ -4137,6 +4156,25 @@
               "crop_rect": [
                 0.0,
                 533.94,
+                595.22,
+                650.18
+              ]
+            }
+          ],
+          "boundary_method": "pdf_text_sequence",
+          "boundary_confidence": "text_sequence"
+        },
+        {
+          "question_id": "PE-110-工程數學-Q07",
+          "app_question_id": "EE-110-03-7",
+          "question_number": 7,
+          "question_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q07.png",
+          "source_pages": [
+            {
+              "page": 1,
+              "crop_rect": [
+                0.0,
+                658.18,
                 595.22,
                 824.0
               ]
@@ -6928,6 +6966,6 @@
   ],
   "summary": {
     "papers": 66,
-    "questions": 321
+    "questions": 323
   }
 }

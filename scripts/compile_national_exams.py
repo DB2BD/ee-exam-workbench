@@ -54,7 +54,7 @@ EXAM_CATEGORIES = [
         'name': '🏆 電機工程技師',
         'isPrimary': True,
         'prefix': 'EE',
-        'total': 321,  # Read-only reference; actual count comes from dashboard-data.js
+        'total': 323,  # Read-only reference; actual count comes from dashboard-data.js
     },
     {
         'id': 'GK',

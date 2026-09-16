@@ -5,7 +5,7 @@ nodeId: el-diode-rectifier
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: f6aed306e1b0e3c279dc721bb3222cd07d9f4e3534b2ce2ee5cc05cc8294dc46
 generatedBodyHash: 8ef00ff3286a4a51965d45806703bf55a6f59356ebba60961954f7911ad76ff6
 ---

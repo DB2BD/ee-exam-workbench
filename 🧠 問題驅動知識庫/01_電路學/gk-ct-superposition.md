@@ -5,7 +5,7 @@ nodeId: gk-ct-superposition
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 3e8221e677260bef26f7b97ab34abe82e7f44f94728f9b3ae38ee2a19814f7cf
 generatedBodyHash: 971da6b761f7b726c1d488e12bd22bce5415fc900c3ae60df9c7b03e3eb92a89
 ---

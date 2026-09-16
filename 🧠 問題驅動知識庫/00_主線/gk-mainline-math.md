@@ -5,7 +5,7 @@ nodeId: gk-mainline-math
 nodeType: mainline
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 93f5f2b412f8bb64c76be79f9a0ac05ac256897fa7194bef9a462ccb878c1177
 generatedBodyHash: 7c55b28b4f172a9ef067c9b23dd363592c18a4855ddff9ca9ec72ab8de15bbdb
 ---

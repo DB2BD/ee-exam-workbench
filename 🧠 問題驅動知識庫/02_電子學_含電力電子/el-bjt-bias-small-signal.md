@@ -5,7 +5,7 @@ nodeId: el-bjt-bias-small-signal
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: 6b60bf70b242873547b73d23e4b4b2beb3291639d9282cd13d858c19ee992065
 generatedBodyHash: 6353051cb19a14f30b72e1412fae84ce532d8f6dd6937cbc0b26ac1f7f24b7d9
 ---

@@ -5,7 +5,7 @@ nodeId: ct-max-power
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-97a9a9a3fcd6334b
+graphRevision: kg-v1-9b95af550b0b1b9e
 sourceHash: de01935ad199c1b60cca20d6380d4e338a85996dc8c94e663dfd61019f2bef8a
 generatedBodyHash: 7f265e4537a5cdaf88f200c31880db3e76e66979eeca1a83765d25809ff9c887
 ---

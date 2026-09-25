@@ -5,7 +5,7 @@ nodeId: ct-divider-equiv
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 67700b360f93e0b4d8f271db722fbd33768bf29e306078b2810c2808709b370e
 generatedBodyHash: 3415f258e0f3ae2060852caada4d6926ec33df0685bffa981efdf430742d5145
 ---

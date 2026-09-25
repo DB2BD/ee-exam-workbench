@@ -5,7 +5,7 @@ nodeId: em-complex-cauchy-residue
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 6b41e1738fe0bd5ec010bf09591d76476d7894a5fbdf91a53637fb8b819ecec2
 generatedBodyHash: 26248a2384961f17e52b0838719ba0fd19c0c9134efd9d2d36c895f6a9807531
 ---

@@ -29,8 +29,8 @@ process.stdout.write(JSON.stringify(result));
         return {
             "graphRevision": "kg-v1-test",
             "nodes": {
-                "pe-procedure": {"nodeId": "pe-procedure", "nodeType": "procedure", "title": "標準解法流程", "examFamily": "PE", "lifecycle": "active"},
-                "pe-mechanism": {"nodeId": "pe-mechanism", "nodeType": "mechanism", "title": "核心機制", "examFamily": "PE", "lifecycle": "active"},
+                "pe-procedure": {"nodeId": "pe-procedure", "nodeType": "procedure", "title": "標準解法流程", "examFamily": "PE", "lifecycle": "active", "coreFormula": "先列已知量與未知量", "keyTrap": "不要跳過適用條件"},
+                "pe-mechanism": {"nodeId": "pe-mechanism", "nodeType": "mechanism", "title": "核心機制", "examFamily": "PE", "lifecycle": "active", "coreFormula": "V=ZI", "keyTrap": "注意相量方向"},
                 "pe-prerequisite": {"nodeId": "pe-prerequisite", "nodeType": "mechanism", "title": "前置概念", "examFamily": "PE", "lifecycle": "active"},
                 "gk-mechanism": {"nodeId": "gk-mechanism", "nodeType": "mechanism", "title": "GK 概念", "examFamily": "GK", "lifecycle": "active"},
             },
@@ -62,6 +62,10 @@ const second=diagnose(input,assessment,graph,{{lastAchieved:1}});
         self.assertIsNotNone(result["first"]["firstPrerequisiteGap"])
         self.assertTrue(result["first"]["needsConfirmation"])
         self.assertTrue(all(item["why"] for item in result["first"]["likelyQuestions"]))
+        self.assertEqual(result["first"]["actionPlan"]["targetNodeId"], "pe-procedure")
+        self.assertTrue(result["first"]["actionPlan"]["steps"])
+        self.assertEqual(result["first"]["actionPlan"]["coreFormula"], "先列已知量與未知量")
+        self.assertIn("適用條件", result["first"]["actionPlan"]["keyTrap"])
 
     def test_calculation_only_error_does_not_assert_conceptual_weakness(self):
         graph = json.dumps(self._graph(), ensure_ascii=False)
@@ -71,6 +75,9 @@ const second=diagnose(input,assessment,graph,{{lastAchieved:1}});
         self.assertIsNone(result["firstPrerequisiteGap"])
         self.assertTrue(result["needsConfirmation"])
         self.assertEqual(result["reasonCode"], "calculation-only")
+        self.assertEqual(result["actionPlan"]["errorType"], "計算錯")
+        self.assertEqual(result["actionPlan"]["targetNodeId"], "pe-procedure")
+        self.assertGreaterEqual(len(result["actionPlan"]["steps"]), 3)
 
     def test_active_attempt_and_unknown_mapping_fail_closed(self):
         graph = json.dumps(self._graph(), ensure_ascii=False)

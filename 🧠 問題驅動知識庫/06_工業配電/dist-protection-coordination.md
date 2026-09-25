@@ -5,7 +5,7 @@ nodeId: dist-protection-coordination
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 1a7ca807595c412d55cddd9473c7e82168b4f8663c09e5d06a3e39cd232b62d2
 generatedBodyHash: 510ed19bdc02cc70468221e165e8641f282d987a03f2866ee093ccc95a8a1ea9
 ---

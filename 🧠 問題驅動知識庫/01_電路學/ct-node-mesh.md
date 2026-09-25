@@ -5,7 +5,7 @@ nodeId: ct-node-mesh
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: d924e355b3c58a28b20398c13c47f0b0080c7852165d647fc94eefb4bd97c59e
 generatedBodyHash: 1d8d1e6428b5f7561005b7727c18d59d487c8c3f08f57fb8a2d36fe0bdb63deb
 ---

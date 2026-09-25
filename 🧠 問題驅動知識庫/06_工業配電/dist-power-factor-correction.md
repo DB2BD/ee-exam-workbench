@@ -5,9 +5,9 @@ nodeId: dist-power-factor-correction
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
-sourceHash: f0d1dcca1772e2ea08e145dda9d899d21d8abc27d2838edf7e37cdc544c953e0
-generatedBodyHash: 2cf95461e4f68437b4a6cfc22db99cddf6f9118bf6bea157b796aad3a765a3a7
+graphRevision: kg-v1-6f7a29de450d7597
+sourceHash: 7446f6a45c5d867f665b8550f0326d4454d78fe3a4abe68ad6d7dbad19dacea5
+generatedBodyHash: 236354891d1a897d9eedce186b3f5e34e97fadbdbc1f95e6840cd5ae4087b832
 ---
 # 功率因數改善與電容器組容量
 
@@ -20,7 +20,7 @@ generatedBodyHash: 2cf95461e4f68437b4a6cfc22db99cddf6f9118bf6bea157b796aad3a765a
 - lifecycle: `active`
 
 ## Semantic links
-- `prerequisite` → [[dist-harmonics-mitigation]] — 掌握「非線性負載諧波分析與抑制 (IEEE 519)」前，先建立「功率因數改善與電容器組容量」這個前置概念。
+- `prerequisite` → [[dist-harmonics-mitigation]] — 掌握「電力品質：電壓閃爍與諧波分析」前，先建立「功率因數改善與電容器組容量」這個前置概念。
 
 ## Linked questions
 - [[EE-104-06-5]]（confidence: 0.96）

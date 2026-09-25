@@ -5,7 +5,7 @@ nodeId: gk-em-first-order-ode
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: f6d8eff8ff8da500effbec7acdafce435f4a2f954640c55f02bda1e2ddc6d3d6
 generatedBodyHash: 04822f838b836d9d450fcd5a047a2fd9f8413eb89b230a76e127784dc53dda5d
 ---

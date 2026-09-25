@@ -5,7 +5,7 @@ nodeId: gk-emach-dc-motor-generator
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 10b33688bb236b0402b42d2f495dc8f444d40d78ceda51b73b9a1549cf1f4ec9
 generatedBodyHash: f0fb5c0091c65daf30f23956be7edbf30b5ecfc7dbe8e79fa83f4eadc64a0ba1
 ---

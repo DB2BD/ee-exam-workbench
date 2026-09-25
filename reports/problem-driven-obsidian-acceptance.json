@@ -2,7 +2,7 @@
   "schemaVersion": "problem-driven-obsidian-acceptance.v1",
   "change": "problem-driven-obsidian-warning-remediation",
   "offline": true,
-  "generatedAt": "2026-09-15T18:27:14.988Z",
+  "generatedAt": "2026-09-17T16:05:46.807Z",
   "graphRevision": "kg-v1-9b95af550b0b1b9e",
   "sourceIdentity": {
     "canonicalGraphRevision": "kg-v1-9b95af550b0b1b9e"
@@ -29,7 +29,7 @@
       ],
       "ok": true,
       "returncode": 0,
-      "outputTail": "............................................\n----------------------------------------------------------------------\nRan 44 tests in 1.254s\n\nOK"
+      "outputTail": "............................................\n----------------------------------------------------------------------\nRan 44 tests in 1.279s\n\nOK"
     },
     {
       "name": "full unittest suite",
@@ -43,7 +43,7 @@
       ],
       "ok": true,
       "returncode": 0,
-      "outputTail": "............................./Users/a/技師考試/歷屆試題_104-114年/tests/test_database_integrity.py:39: ResourceWarning: unclosed file <_io.TextIOWrapper name='/Users/a/技師考試/歷屆試題_104-114年/dashboard-data.js' mode='r' encoding='utf-8'>\n  text = open(self.pe_db_path, encoding='utf-8').read()\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n../Users/a/技師考試/歷屆試題_104-114年/tests/test_database_integrity.py:50: ResourceWarning: unclosed file <_io.TextIOWrapper name='/Users/a/技師考試/歷屆試題_104-114年/dashboard-data.js' mode='r' encoding='utf-8'>\n  text = open(self.pe_db_path, encoding='utf-8').read()\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n.................................................................................................................................................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 406 tests in 14.420s\n\nOK\nsys:1: DeprecationWarning: builtin type swigvarlink has no __module__ attribute"
+      "outputTail": "............................/Users/a/技師考試/歷屆試題_104-114年/tests/test_database_integrity.py:39: ResourceWarning: unclosed file <_io.TextIOWrapper name='/Users/a/技師考試/歷屆試題_104-114年/dashboard-data.js' mode='r' encoding='utf-8'>\n  text = open(self.pe_db_path, encoding='utf-8').read()\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n../Users/a/技師考試/歷屆試題_104-114年/tests/test_database_integrity.py:50: ResourceWarning: unclosed file <_io.TextIOWrapper name='/Users/a/技師考試/歷屆試題_104-114年/dashboard-data.js' mode='r' encoding='utf-8'>\n  text = open(self.pe_db_path, encoding='utf-8').read()\nResourceWarning: Enable tracemalloc to get the object allocation traceback\n..................................................................................................................................................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 407 tests in 14.708s\n\nOK\nsys:1: DeprecationWarning: builtin type swigvarlink has no __module__ attribute"
     },
     {
       "name": "full solution coverage audit",
@@ -78,7 +78,7 @@
       ],
       "ok": true,
       "returncode": 0,
-      "outputTail": "{\n  \"valid\": true,\n  \"graphRevision\": \"kg-v1-9b95af550b0b1b9e\",\n  \"schemaVersion\": \"canonical-knowledge-graph.v1\",\n  \"nodeCount\": 145,\n  \"edgeCount\": 125,\n  \"questionLinkCount\": 484,\n  \"goldenFixture\": {\n    \"fixtureId\": \"problem-driven-initial-slice\",\n    \"fixtureVersion\": \"1\",\n    \"reviewStatus\": \"human-reviewed\",\n    \"nodeCount\": 24,\n    \"questionCount\": 20\n  },\n  \"errors\": [],\n  \"generatedAt\": \"2026-09-15T18:27:14.601Z\",\n  \"sourceIdentity\": {\n    \"canonicalGraphRevision\": \"kg-v1-9b95af550b0b1b9e\",\n    \"schemaVersion\": \"canonical-knowledge-graph.v1\"\n  },\n  \"outputIdentity\": {\n    \"kind\": \"canonical-validation\",\n    \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/reports/knowledge-graph-validation.json\"\n  },\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
+      "outputTail": "{\n  \"valid\": true,\n  \"graphRevision\": \"kg-v1-9b95af550b0b1b9e\",\n  \"schemaVersion\": \"canonical-knowledge-graph.v1\",\n  \"nodeCount\": 145,\n  \"edgeCount\": 125,\n  \"questionLinkCount\": 484,\n  \"goldenFixture\": {\n    \"fixtureId\": \"problem-driven-initial-slice\",\n    \"fixtureVersion\": \"1\",\n    \"reviewStatus\": \"human-reviewed\",\n    \"nodeCount\": 24,\n    \"questionCount\": 20\n  },\n  \"errors\": [],\n  \"generatedAt\": \"2026-09-17T16:05:46.419Z\",\n  \"sourceIdentity\": {\n    \"canonicalGraphRevision\": \"kg-v1-9b95af550b0b1b9e\",\n    \"schemaVersion\": \"canonical-knowledge-graph.v1\"\n  },\n  \"outputIdentity\": {\n    \"kind\": \"canonical-validation\",\n    \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/reports/knowledge-graph-validation.json\"\n  },\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
     },
     {
       "name": "canonical graph build",
@@ -95,7 +95,7 @@
       ],
       "ok": true,
       "returncode": 0,
-      "outputTail": "{\n  \"schemaVersion\": \"knowledge-graph-build.v1\",\n  \"valid\": true,\n  \"graphRevision\": \"kg-v1-9b95af550b0b1b9e\",\n  \"sourceCounts\": {\n    \"legacyDagNodeCount\": 69,\n    \"coreNoteCount\": 14,\n    \"questionRecordCount\": 484,\n    \"canonicalNodeCount\": 145,\n    \"canonicalEdgeCount\": 125,\n    \"canonicalQuestionLinkCount\": 484\n  },\n  \"mappedQuestionCount\": 484,\n  \"unknownQuestionCount\": 0,\n  \"coverage\": {\n    \"actual\": 484,\n    \"required\": 484,\n    \"status\": \"passed\"\n  },\n  \"errors\": [],\n  \"generatedAt\": \"2026-09-15T18:27:14.646Z\",\n  \"sourceIdentity\": {\n    \"canonicalGraphRevision\": \"kg-v1-9b95af550b0b1b9e\",\n    \"schemaVersion\": \"canonical-knowledge-graph.v1\"\n  },\n  \"outputIdentity\": {\n    \"kind\": \"website-bundle\",\n    \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/src/data/knowledge-dag.generated.js\"\n  },\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"question-link coverage\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
+      "outputTail": "{\n  \"schemaVersion\": \"knowledge-graph-build.v1\",\n  \"valid\": true,\n  \"graphRevision\": \"kg-v1-9b95af550b0b1b9e\",\n  \"sourceCounts\": {\n    \"legacyDagNodeCount\": 69,\n    \"coreNoteCount\": 14,\n    \"questionRecordCount\": 484,\n    \"canonicalNodeCount\": 145,\n    \"canonicalEdgeCount\": 125,\n    \"canonicalQuestionLinkCount\": 484\n  },\n  \"mappedQuestionCount\": 484,\n  \"unknownQuestionCount\": 0,\n  \"coverage\": {\n    \"actual\": 484,\n    \"required\": 484,\n    \"status\": \"passed\"\n  },\n  \"errors\": [],\n  \"generatedAt\": \"2026-09-17T16:05:46.465Z\",\n  \"sourceIdentity\": {\n    \"canonicalGraphRevision\": \"kg-v1-9b95af550b0b1b9e\",\n    \"schemaVersion\": \"canonical-knowledge-graph.v1\"\n  },\n  \"outputIdentity\": {\n    \"kind\": \"website-bundle\",\n    \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/src/data/knowledge-dag.generated.js\"\n  },\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"question-link coverage\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
     },
     {
       "name": "Obsidian knowledge generation",
@@ -124,7 +124,7 @@
       ],
       "ok": true,
       "returncode": 0,
-      "outputTail": "🔨 Building Workbench from modular src/ components...\n✅ Successfully compiled production index.html (876533 bytes, build version: dev)"
+      "outputTail": "🔨 Building Workbench from modular src/ components...\n✅ Successfully compiled production index.html (883560 bytes, build version: dev)"
     },
     {
       "name": "HTML and JavaScript syntax",
@@ -144,7 +144,7 @@
       ],
       "ok": true,
       "returncode": 0,
-      "outputTail": "{\"schemaVersion\": \"learning-data-capacity.v1\", \"generatedAt\": \"2026-09-15T18:27:14.918Z\", \"graphRevision\": \"kg-v1-9b95af550b0b1b9e\", \"sourceIdentity\": {\"canonicalGraphRevision\": \"kg-v1-9b95af550b0b1b9e\", \"schemaVersion\": \"canonical-knowledge-graph.v1\"}, \"outputIdentity\": {\"kind\": \"learning-data-capacity\", \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/reports/learning-data-capacity.json\"}, \"fixture\": \"5000 PE issue events with bounded evidence and 200-byte custom text\", \"recoveryFixture\": \"pending import journal rollback\", \"recoveryTimeMs\": 0.004, \"recoveryTimeThresholdMs\": 250, \"recoveryTimePass\": true, \"maxIssueEvents\": 5000, \"maxIssueBytes\": 3145728, \"maxBackupBytes\": 8388608, \"measuredIssueEventCount\": 5000, \"measuredIssueBytes\": 2757890, \"measuredLearningDataBytes\": 2758313, \"issueCapacityPass\": true, \"backupCapacityPass\": true, \"checks\": [{\"name\": \"recovery time\", \"passed\": true}, {\"name\": \"issue capacity\", \"passed\": true}, {\"name\": \"backup capacity\", \"passed\": true}], \"blockingFailures\": []}"
+      "outputTail": "{\"schemaVersion\": \"learning-data-capacity.v1\", \"generatedAt\": \"2026-09-17T16:05:46.736Z\", \"graphRevision\": \"kg-v1-9b95af550b0b1b9e\", \"sourceIdentity\": {\"canonicalGraphRevision\": \"kg-v1-9b95af550b0b1b9e\", \"schemaVersion\": \"canonical-knowledge-graph.v1\"}, \"outputIdentity\": {\"kind\": \"learning-data-capacity\", \"path\": \"/Users/a/技師考試/歷屆試題_104-114年/reports/learning-data-capacity.json\"}, \"fixture\": \"5000 PE issue events with bounded evidence and 200-byte custom text\", \"recoveryFixture\": \"pending import journal rollback\", \"recoveryTimeMs\": 0.002, \"recoveryTimeThresholdMs\": 250, \"recoveryTimePass\": true, \"maxIssueEvents\": 5000, \"maxIssueBytes\": 3145728, \"maxBackupBytes\": 8388608, \"measuredIssueEventCount\": 5000, \"measuredIssueBytes\": 2757890, \"measuredLearningDataBytes\": 2758313, \"issueCapacityPass\": true, \"backupCapacityPass\": true, \"checks\": [{\"name\": \"recovery time\", \"passed\": true}, {\"name\": \"issue capacity\", \"passed\": true}, {\"name\": \"backup capacity\", \"passed\": true}], \"blockingFailures\": []}"
     },
     {
       "name": "acceptance report freshness",
@@ -192,7 +192,7 @@
   },
   "recovery": {
     "recoveryFixture": "pending import journal rollback",
-    "recoveryTimeMs": 0.004,
+    "recoveryTimeMs": 0.002,
     "recoveryTimeThresholdMs": 250,
     "recoveryTimePass": true
   }

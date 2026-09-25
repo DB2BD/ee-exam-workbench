@@ -32,7 +32,7 @@ $$f(x) = \begin{cases} 0, & -\pi < x \le 0 \\ x, & 0 < x \le \pi \end{cases}$$
 
 #### 二、 試求一時間函數 $f(t) = \frac{1}{2\beta^3} (\sin\beta t - \beta t\cos\beta t), \quad t \ge 0, \quad \beta \ne 0$ 之拉普拉斯轉換（Laplace Transform）$F(s)$。（10 分）
 
-#### 三、 試以留數定理（Residue Theorem）求 $\int_{-\infty}^\infty \frac{1}{x^4 + 16} dx$ 之值。（20 分）
+#### 三、 試以留數定理（Residue Theorem）求 $\int_{-\infty}^\infty \frac{\sqrt{2}}{1+16x^4}\,dx$ 之值。（20 分）
 
 #### 四、 矩陣 $\mathbf{A} = \begin{bmatrix} 0 & 1 \\ -5 & -6 \end{bmatrix}$，其轉置矩陣 $\mathbf{A}^T = \begin{bmatrix} 0 & -5 \\ 1 & -6 \end{bmatrix}$。若對稱矩陣 $\mathbf{P} = \begin{bmatrix} p_1 & p_2 \\ p_2 & p_3 \end{bmatrix}$ 滿足下列矩陣方程式：
 $$\mathbf{P}\mathbf{A} + \mathbf{A}^T\mathbf{P} = -\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$

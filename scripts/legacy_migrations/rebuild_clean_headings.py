@@ -185,7 +185,7 @@ def parse_exam_file(pdf_path, subject_folder, year_str):
             body = re.sub(r'二、\s*試求一時間函數[\s\S]*?換（Laplace Transform）F\(s\)。',
                           r'二、 試求一時間函數 $f(t) = \\frac{1}{2\\beta^3} (\\sin \\beta t - \\beta t \\cos \\beta t),\\ t \\ge 0,\\ \\beta \\ne 0$ 之拉普拉斯轉換（Laplace Transform）$F(s)$。（10 分）', body)
             body = re.sub(r'三、\s*試以剩值定理[\s\S]*?之值。（20 分）',
-                          r'三、 試以留數定理（Residue Theorem）求 $\\int_{-\\infty}^\\infty \\frac{1}{x^4 + 16} dx$ 之值。（20 分）', body)
+                          r'三、 試以留數定理（Residue Theorem）求 $\\int_{-\\infty}^\\infty \\frac{\\sqrt{2}}{1+16x^4}\\,dx$ 之值。（20 分）', body)
             body = re.sub(r'四、\s*一矩陣[\s\S]*?A\s*，其轉置矩陣[\s\S]*?T\s*A\s*。',
                           r'四、 矩陣 $\\mathbf{A} = \\begin{bmatrix} 0 & 1 \\\\ -5 & -6 \\end{bmatrix}$，其轉置矩陣 $\\mathbf{A}^T = \\begin{bmatrix} 0 & -5 \\\\ 1 & -6 \\end{bmatrix}$。', body)
             body = re.sub(r'滿足下列矩陣方程式，[\s\S]*?PA\s*A P\s*。',

@@ -5,7 +5,7 @@ nodeId: em-laplace-transform
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 090b11323a0b8fde766b4e85fc5d3e4c1363d0f32f825108806a9368cf9ca8fa
 generatedBodyHash: 9825a1ed617aa63b3593f6d7474bfbbfb370f38a5d695a02476adf26949e3ad4
 ---

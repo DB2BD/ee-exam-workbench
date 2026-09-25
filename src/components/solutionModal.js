@@ -98,6 +98,8 @@ function diagnosisTaxonomyContext(qid) {
 function diagnosisLearningPlan(diagnosis) {
   const errorType = currentRecallErrorType || '未指定錯因';
   const taxonomy = diagnosisTaxonomyContext(currentModalQid);
+  const actionPlan = diagnosis && diagnosis.actionPlan && typeof diagnosis.actionPlan === 'object'
+    ? diagnosis.actionPlan : null;
   const nextSteps = {
     '題型辨識錯': '先寫下題目要求、使用的模型，以及該模型的適用條件。',
     '起手式不會': '先列出已知量、未知量、要求量，再寫第一個方程式或等效模型。',
@@ -106,6 +108,21 @@ function diagnosisLearningPlan(diagnosis) {
     '觀念混淆': '寫出你混淆的兩個概念，再各自寫一個適用條件或反例。',
   };
   const step = nextSteps[errorType] || '在補充說明寫下「我卡在……」以及你做到的最後一步。';
+  if (actionPlan && Array.isArray(actionPlan.steps)) {
+    return {
+      title: actionPlan.title || '下一步怎麼補強',
+      body: actionPlan.targetTitle
+        ? `建議先處理「${actionPlan.targetTitle}」，再回來重做本題。`
+        : (diagnosis && diagnosis.reason ? diagnosis.reason : '先把這次卡住的步驟變成下一個可執行動作。'),
+      steps: actionPlan.steps,
+      coreFormula: actionPlan.coreFormula || '',
+      keyTrap: actionPlan.keyTrap || '',
+      targetNodeId: actionPlan.targetNodeId || null,
+      targetTitle: actionPlan.targetTitle || '',
+      reviewPrompt: actionPlan.reviewPrompt || '',
+      taxonomy,
+    };
+  }
   if (diagnosis && diagnosis.status === 'unknown') {
     return {
       title: '這題尚未完成圖譜對應',
@@ -115,6 +132,11 @@ function diagnosisLearningPlan(diagnosis) {
         taxonomy ? `題庫分類可作為複習入口：${taxonomy.title}；它目前尚未算作已確認弱點。` : '先從題目的已知量、要求量與解題第一步開始整理。',
         '把卡住的步驟寫在下方，按「保存『都不是』並繼續」；這筆資料會保留在「我的弱點」的待分類事件中。',
       ],
+      coreFormula: '',
+      keyTrap: '',
+      targetNodeId: null,
+      targetTitle: '',
+      reviewPrompt: '',
       taxonomy,
     };
   }
@@ -122,6 +144,11 @@ function diagnosisLearningPlan(diagnosis) {
     title: '診斷說明',
     body: diagnosis && diagnosis.reason ? diagnosis.reason : '請選擇最符合的結果。',
     steps: [],
+    coreFormula: '',
+    keyTrap: '',
+    targetNodeId: null,
+    targetTitle: '',
+    reviewPrompt: '',
     taxonomy,
   };
 }
@@ -139,10 +166,28 @@ function renderKnowledgeDiagnosisCard(diagnosis) {
   const diagnosisConfidence = candidates.length > 0
     ? `診斷信心：${Math.round((Number(diagnosis.confidence) || 0) * 100)}%`
     : '診斷狀態：待分類（尚未建立可靠對應）';
+  const actionTarget = candidates[0] || (learningPlan.targetNodeId ? {
+    nodeId: learningPlan.targetNodeId,
+    title: learningPlan.targetTitle || '這題的知識主線',
+  } : null);
   const candidateOptions = candidates.map(item =>
     `<option value="${solutionModalEscape(item.nodeId)}">${solutionModalEscape(item.title)}（信心 ${Math.round((Number(item.confidence) || 0) * 100)}%）</option>`
   ).join('');
+  const actionSteps = Array.isArray(learningPlan.steps) && learningPlan.steps.length
+    ? `<ol class="diagnosis-steps">${learningPlan.steps.map(step => `<li>${solutionModalEscape(step)}</li>`).join('')}</ol>` : '';
+  const formula = learningPlan.coreFormula
+    ? `<div class="diagnosis-reference"><strong>這次要回想的核心：</strong><code>${solutionModalEscape(learningPlan.coreFormula)}</code></div>` : '';
+  const trap = learningPlan.keyTrap
+    ? `<div class="diagnosis-trap"><strong>本題最容易再錯：</strong>${solutionModalEscape(learningPlan.keyTrap)}</div>` : '';
+  const directAction = actionTarget
+    ? `<button type="button" class="pill diagnosis-primary-action" onclick="openDiagnosisPrimary()">開始補強「${solutionModalEscape(actionTarget.title)}」</button>` : '';
   const primary = candidates.length > 0 ? `
+    <div class="diagnosis-recommendation">
+      <strong>建議先處理：${solutionModalEscape(candidates[0].title)}</strong>
+      <p>${solutionModalEscape(learningPlan.title)}。${solutionModalEscape(learningPlan.reviewPrompt || '')}</p>
+      ${actionSteps}${formula}${trap}
+      ${directAction}
+    </div>
     <label>主要問題點
       <select id="diagnosis-primary-select">${candidateOptions}</select>
     </label>
@@ -150,14 +195,16 @@ function renderKnowledgeDiagnosisCard(diagnosis) {
     `<div class="diagnosis-unknown-summary" data-diagnosis-status="unknown">
       <strong>${solutionModalEscape(learningPlan.title)}</strong>
       <p>${solutionModalEscape(learningPlan.body)}</p>
+      ${actionSteps}${formula}${trap}
       ${learningPlan.taxonomy ? `<small>題庫分類參考：${solutionModalEscape(learningPlan.taxonomy.title)}</small>` : ''}
+      ${directAction}
       <small>請先留下你的卡住步驟，保存後會進入待分類事件。</small>
     </div>`;
   const secondary = gap ? `
     <label><input id="diagnosis-secondary" type="checkbox" value="${solutionModalEscape(gap.nodeId)}"> 同時標記前置缺口：${solutionModalEscape(gap.title)}</label>` : '';
   const html = `
     <section class="knowledge-diagnosis-card" data-diagnosis-card id="knowledge-diagnosis-card">
-      <h3>🧭 作答後診斷</h3>
+      <h3>🧭 作答後診斷：下一步怎麼補強</h3>
       <p class="diagnosis-reason">${solutionModalEscape(diagnosisReason)}</p>
       <p class="diagnosis-confidence">${solutionModalEscape(diagnosisConfidence)}</p>
       <div class="diagnosis-candidates">${primary}</div>
@@ -219,11 +266,35 @@ function openDiagnosisPrerequisite() {
   return true;
 }
 
+function openDiagnosisPrimary() {
+  const diagnosis = currentKnowledgeDiagnosis || {};
+  const candidate = Array.isArray(diagnosis.likelyQuestions) && diagnosis.likelyQuestions.length
+    ? diagnosis.likelyQuestions[0] : null;
+  const plan = diagnosis.actionPlan && typeof diagnosis.actionPlan === 'object' ? diagnosis.actionPlan : null;
+  const nodeId = candidate && candidate.nodeId ? candidate.nodeId : plan && plan.targetNodeId;
+  const title = candidate && candidate.title ? candidate.title : plan && plan.targetTitle;
+  if (!nodeId) {
+    openDiagnosisMainline();
+    return false;
+  }
+  if (typeof switchTab === 'function') switchTab('dag');
+  if (typeof startKnowledgeNodeRecall === 'function') {
+    const started = startKnowledgeNodeRecall(nodeId);
+    if (started && typeof showToast === 'function') showToast(`先回想：${title || nodeId}`);
+    return Boolean(started);
+  }
+  if (typeof showToast === 'function') showToast(`請到知識圖譜回想：${title || nodeId}`);
+  return true;
+}
+
 function openDiagnosisMainline() {
   const primary = currentKnowledgeDiagnosis && Array.isArray(currentKnowledgeDiagnosis.likelyQuestions)
     ? currentKnowledgeDiagnosis.likelyQuestions[0] : null;
-  renderDiagnosisGuidance('回到主線', primary && primary.title
-    ? `目前診斷主線：${primary.title}。可沿知識圖譜回看它的前置關係。`
+  const plan = currentKnowledgeDiagnosis && currentKnowledgeDiagnosis.actionPlan && typeof currentKnowledgeDiagnosis.actionPlan === 'object'
+    ? currentKnowledgeDiagnosis.actionPlan : null;
+  const title = primary && primary.title ? primary.title : plan && plan.targetTitle;
+  renderDiagnosisGuidance('回到主線', title
+    ? `目前診斷主線：${title}。可沿知識圖譜回看它的前置關係。`
     : '請從目前考科的知識圖譜主線回看前置關係。');
   if (typeof switchTab === 'function') switchTab('dag');
   if (typeof showToast === 'function') showToast('已保留目前考科主線，請從主線回看前置關係。');

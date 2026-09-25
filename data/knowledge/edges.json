@@ -249,7 +249,7 @@
       "from": "dist-power-factor-correction",
       "relation": "prerequisite",
       "to": "dist-harmonics-mitigation",
-      "why": "掌握「非線性負載諧波分析與抑制 (IEEE 519)」前，先建立「功率因數改善與電容器組容量」這個前置概念。",
+      "why": "掌握「電力品質：電壓閃爍與諧波分析」前，先建立「功率因數改善與電容器組容量」這個前置概念。",
       "confidence": 0.95,
       "evidence": [
         "src/data/knowledge-dag.js:dist-harmonics-mitigation",
@@ -500,6 +500,30 @@
       "confidence": 0.95,
       "evidence": [
         "src/data/knowledge-dag.js:emach-dc-motor-generator",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-magnetic-circuits",
+      "relation": "prerequisite",
+      "to": "emach-reluctance-motor",
+      "why": "掌握「磁阻電動機磁阻—位置轉矩」前，先建立「磁路定律與磁滯飽和」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-reluctance-motor",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-magnetic-circuits",
+      "relation": "prerequisite",
+      "to": "emach-single-phase-rotating-field",
+      "why": "掌握「單相感應電動機二相旋轉磁場」前，先建立「磁路定律與磁滯飽和」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-single-phase-rotating-field",
         "migration:explicit-legacy-prereq"
       ],
       "reviewStatus": "approved"
@@ -980,6 +1004,30 @@
       "confidence": 0.95,
       "evidence": [
         "src/data/knowledge-dag.js:emach-dc-motor-generator",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-magnetic-circuits",
+      "relation": "prerequisite",
+      "to": "gk-emach-reluctance-motor",
+      "why": "掌握「磁阻電動機磁阻—位置轉矩」前，先建立「磁路定律與磁滯飽和」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-reluctance-motor",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "gk-emach-magnetic-circuits",
+      "relation": "prerequisite",
+      "to": "gk-emach-single-phase-rotating-field",
+      "why": "掌握「單相感應電動機二相旋轉磁場」前，先建立「磁路定律與磁滯飽和」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:emach-single-phase-rotating-field",
         "migration:explicit-legacy-prereq"
       ],
       "reviewStatus": "approved"

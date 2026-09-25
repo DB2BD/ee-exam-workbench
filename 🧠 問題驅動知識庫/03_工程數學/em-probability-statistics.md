@@ -5,7 +5,7 @@ nodeId: em-probability-statistics
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 76e06adb3ab763652cd11e8bcec010b862c5104dfeefef8235afac35ad51e859
 generatedBodyHash: ca60ac67770f61fb81d84864d5b68ab1c8346a6598cebb48685de94af502cf7e
 ---

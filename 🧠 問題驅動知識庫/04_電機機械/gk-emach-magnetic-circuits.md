@@ -5,7 +5,7 @@ nodeId: gk-emach-magnetic-circuits
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 4748c9f6e2a0803998d07ab4086fda944d76cb4ce1ec3f2fb68b50e39c6ea98a
 generatedBodyHash: 70280c85ccce4c34bd7b479bb6a689ec6960e65b4b086207d178e4e142d22764
 ---

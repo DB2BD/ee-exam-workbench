@@ -122,7 +122,17 @@ def sync() -> list[str]:
         annual_text = annual.read_text(encoding="utf-8")
         start, end, _ = annual_section(annual_text, question_number)
         heading = annual_text[start : annual_text.find("\n", start)]
-        replacement = heading + "\n\n" + canonical_projection(canonical) + "\n\n"
+        canonical_text = canonical.read_text(encoding="utf-8")
+        qid = re.search(r"^qid:\s*(EE-\d+-\d+-\d+)\s*$", canonical_text, re.M).group(1)
+        status = re.search(r"^audit_status:\s*([^\n]+)", canonical_text, re.M)
+        prefix = (
+            f"> 題級識別：{qid}\n"
+            f"> canonical 來源：[[canonical/{canonical.name}]]\n"
+            f"> 題級校驗狀態：{status.group(1).strip() if status else 'unknown'}\n"
+        )
+        if status and status.group(1).strip() == "needs_manual_review":
+            prefix += "> [!WARNING] 本題仍有官方資料缺口或事件定義歧義；請以 canonical 條件式解答為準。\n"
+        replacement = heading + "\n\n" + prefix + "\n" + canonical_projection(canonical) + "\n\n---\n\n"
         new_text = (annual_text[:start] + replacement + annual_text[end:]).rstrip() + "\n"
         if new_text != annual_text:
             annual.write_text(new_text, encoding="utf-8")

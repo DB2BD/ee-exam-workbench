@@ -5,7 +5,7 @@ nodeId: gk-ct-second-order-rlc
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: e5834a1e2a3e2fa68c3359493aacfd2a763e269a60c343097d4e37a03ca7fe77
 generatedBodyHash: f7541daac201f57ed9f440af53a0720345238bd9b923e0a11fef5b5642ed8947
 ---

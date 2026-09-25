@@ -1,291 +1,240 @@
 # -*- coding: utf-8 -*-
-import os
-import re
-from collections import defaultdict
+"""Build the reproducible PE topic-coverage report from canonical data.
 
-# Detailed breakdown of all 6 subjects across 104-114 (11 years)
-analysis = {
-    "01_電路學": {
-        "title": "🔌 01. 電路學（Circuit Theory）",
-        "total_q": 55,
-        "topics": [
-            {
-                "name": "交流穩態、相量、功率與功因改善 (AC Steady-State, Phasor & S=P+jQ)",
-                "count": 14,
-                "pct": "25.5%",
-                "freq": "⭐⭐⭐⭐⭐ (每年必考 1~2 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "$S = V I^* = P + jQ$, $Q_c = P(\\tan\\theta_1 - \\tan\\theta_2)$, 最大功率轉移 $Z_L = Z_{th}^*$"
-            },
-            {
-                "name": "一階與二階暫態響應與拉氏轉換 (1st/2nd-Order Transient & Laplace)",
-                "count": 13,
-                "pct": "23.6%",
-                "freq": "⭐⭐⭐⭐⭐ (每年必考 1~2 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 105, 104",
-                "core_formulas": "$x(t) = x(\\infty) + [x(0^+) - x(\\infty)]e^{-t/\\tau}$, $s$ 域等效電路, 欠阻尼/過阻尼"
-            },
-            {
-                "name": "三相平衡與不平衡電路、二瓦特計法 (Three-Phase Circuits & Two-Wattmeter)",
-                "count": 11,
-                "pct": "20.0%",
-                "freq": "⭐⭐⭐⭐ (幾乎年年考)",
-                "years": "114, 113, 111, 110, 109, 108, 107, 106, 104",
-                "core_formulas": "$V_L = \\sqrt{3} V_\\phi \\angle 30^\\circ$, $P_{3\\phi} = W_1 + W_2$, $Q_{3\\phi} = \\sqrt{3}(W_1 - W_2)$"
-            },
-            {
-                "name": "直流電路分析、節點/迴路法與戴維寧/諾頓等效 (DC Analysis, Nodal/Mesh & Thevenin)",
-                "count": 9,
-                "pct": "16.4%",
-                "freq": "⭐⭐⭐⭐ (高頻基礎題)",
-                "years": "114, 112, 110, 109, 108, 107, 106, 105",
-                "core_formulas": "KCL/KVL, 節點電壓矩陣, 開路電壓 $V_{th}$ 與等效阻抗 $R_{th}$"
-            },
-            {
-                "name": "雙埠網路矩陣與頻率共振 (Two-Port Networks Z/Y/h/ABCD & Resonance)",
-                "count": 8,
-                "pct": "14.5%",
-                "freq": "⭐⭐⭐ (輪流出題)",
-                "years": "113, 111, 109, 108, 106, 105, 104",
-                "core_formulas": "雙埠參數轉換 ($Z, Y, h, ABCD$), 串並聯共振 $\\omega_0 = 1/\\sqrt{LC}$, $Q = \\omega_0 L / R$"
-            }
-        ]
-    },
-    
-    "02_電子學": {
-        "title": "📻 02. 電子學（包括電力電子學）（Electronics & Power Electronics）",
-        "total_q": 55,
-        "topics": [
-            {
-                "name": "電力電子 DC-DC 轉換器 (Buck, Boost, Buck-Boost Converter)",
-                "count": 18,
-                "pct": "32.7%",
-                "freq": "⭐⭐⭐⭐⭐ (近 5 年第一核心！每年必考 1~2 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 106, 105",
-                "core_formulas": "CCM 伏秒平衡, Buck: $V_o = D V_d$, Boost: $V_o = \\frac{V_d}{1-D}$, 漣波 $\\Delta I_L, \\Delta V_o$"
-            },
-            {
-                "name": "運算放大器應用電路 (Ideal Op-Amp Circuits & Active Filters)",
-                "count": 12,
-                "pct": "21.8%",
-                "freq": "⭐⭐⭐⭐⭐ (送分主力・幾乎年年考)",
-                "years": "114, 113, 112, 110, 109, 108, 107, 106, 104",
-                "core_formulas": "虛接地 $v_+ = v_-$, 差動放大器, 儀表放大器, 積分器, 主動濾波器"
-            },
-            {
-                "name": "電力電子整流器與換流器 (Rectifier & Inverter / SPWM)",
-                "count": 10,
-                "pct": "18.2%",
-                "freq": "⭐⭐⭐⭐ (電力組最愛)",
-                "years": "114, 113, 111, 109, 108, 107, 105, 104",
-                "core_formulas": "單相/三相全橋整流, 導通角 $\\alpha$, SPWM 調變比 $m_a$, 諧波失真 THD"
-            },
-            {
-                "name": "BJT 與 MOSFET 偏壓與小訊號放大 (BJT & MOSFET DC Bias & Small-Signal)",
-                "count": 9,
-                "pct": "16.4%",
-                "freq": "⭐⭐⭐ (傳統經典題)",
-                "years": "112, 110, 108, 107, 106, 105, 104",
-                "core_formulas": "$g_m = I_C/V_T$ 或 $2\\sqrt{k I_D}$, 小訊號電壓增益 $A_v = -g_m R_L'$, 輸入/輸出阻抗"
-            },
-            {
-                "name": "CMOS 數位邏輯閘與頻率響應/回授 (CMOS Logic, Frequency Response & Feedback)",
-                "count": 6,
-                "pct": "10.9%",
-                "freq": "⭐⭐ (防守型考點)",
-                "years": "111, 109, 106, 105",
-                "core_formulas": "CMOS 反相器靜態/動態功耗, 密勒效應 (Miller Theorem), 負回授安定度"
-            }
-        ]
-    },
+The report deliberately measures historical coverage instead of predicting
+future questions. Every question contributes to exactly one primary chapter,
+as recorded in ``QUESTION_TAXONOMY_MAP``.
+"""
 
-    "03_工程數學": {
-        "title": "📐 03. 工程數學（Engineering Mathematics）",
-        "total_q": 55,
-        "topics": [
-            {
-                "name": "線性代數：矩陣、線性系統、特徵值對角化與 SVD (Linear Algebra & Matrix)",
-                "count": 16,
-                "pct": "29.1%",
-                "freq": "⭐⭐⭐⭐⭐ (近幾年出題率第 1 名！每年必考 1~2 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "特徵方程 $\\det(A - \\lambda I) = 0$, 零空間 Null Space, 行列式, 奇異值分解 SVD"
-            },
-            {
-                "name": "常微分方程 ODE (1st & 2nd Order Linear ODE, Cauchy-Euler)",
-                "count": 14,
-                "pct": "25.5%",
-                "freq": "⭐⭐⭐⭐⭐ (基本盤・每年必考 1 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 105, 104",
-                "core_formulas": "特徵根齊次解 $y_h$, 待定係數法 $y_p$, 參數變更法, 尤拉-柯西方程"
-            },
-            {
-                "name": "拉氏轉換與微分方程應用 (Laplace Transform & Systems of ODEs)",
-                "count": 10,
-                "pct": "18.2%",
-                "freq": "⭐⭐⭐⭐ (解電路/系統必備)",
-                "years": "114, 112, 110, 109, 108, 106, 105, 104",
-                "core_formulas": "$\\mathcal{L}\\{f'(t)\\} = sF(s) - f(0)$, 步階函數與延遲定理, 部分分式展開"
-            },
-            {
-                "name": "複變函數、圍道積分與留數定理 (Complex Analysis & Residue Theorem)",
-                "count": 8,
-                "pct": "14.5%",
-                "freq": "⭐⭐⭐ (拉開差距考點)",
-                "years": "113, 111, 109, 107, 106, 104",
-                "core_formulas": "柯西-黎曼方程 (C-R), 留數定理 $\\oint f(z)dz = 2\\pi j \\sum \\text{Res}$"
-            },
-            {
-                "name": "傅立葉分析、向量分析與 PDE (Fourier, Vector Calculus & PDE)",
-                "count": 7,
-                "pct": "12.7%",
-                "freq": "⭐⭐⭐ (輪替出現)",
-                "years": "113, 111, 108, 107, 105",
-                "core_formulas": "傅立葉級數 $a_0, a_n, b_n$, 散度定理 (Divergence), 斯托克斯定理 (Stokes)"
-            }
-        ]
-    },
+from __future__ import annotations
 
-    "04_電機機械": {
-        "title": "⚙️ 04. 電機機械（Electric Machinery）",
-        "total_q": 55,
-        "topics": [
-            {
-                "name": "變壓器：實體等效電路、自耦變壓器、接線與全日效率 (Transformers & Autotransformers)",
-                "count": 15,
-                "pct": "27.3%",
-                "freq": "⭐⭐⭐⭐⭐ (每年必考 1~2 題・投報率之王)",
-                "years": "114, 113, 112, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "自耦容量 $S_{auto} = \\frac{V_H}{V_H - V_X} S_{2w}$, 開路/短路試驗, $\\text{VR} = R_{pu}\\cos\\theta + X_{pu}\\sin\\theta$"
-            },
-            {
-                "name": "三相感應電動機：轉矩-轉差率曲線、戴維寧等效、外接電阻 (Induction Motors)",
-                "count": 14,
-                "pct": "25.5%",
-                "freq": "⭐⭐⭐⭐⭐ (每年必考 1~2 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "$s_{max} = \\frac{R_2'}{\\sqrt{R_{TH}^2 + X_{eq}^2}}$, $T_{max} = \\frac{3 V_{TH}^2}{2\\omega_s [R_{TH} + \\sqrt{R_{TH}^2+X_{eq}^2}]}$, 功率流向"
-            },
-            {
-                "name": "同步電機：相量圖、短路比 SCR、功角特性與 V 形曲線 (Synchronous Machines)",
-                "count": 13,
-                "pct": "23.6%",
-                "freq": "⭐⭐⭐⭐⭐ (每年必考 1 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "$E_f = V_\\phi + I_a (R_a + jX_s)$, $\\text{SCR} = 1/X_s(pu)$, 凸極雙反應 ($X_d, X_q, I_d, I_q$)"
-            },
-            {
-                "name": "直流電機：反電動勢常數、轉矩平衡與調速控制 (DC Machines & Speed Control)",
-                "count": 9,
-                "pct": "16.4%",
-                "freq": "⭐⭐⭐⭐ (計算題標準考點)",
-                "years": "113, 112, 111, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "$E_a = K\\Phi\\omega_m = V_t - I_a R_a$, $T = K\\Phi I_a$, 降壓調速、弱磁調速、串電阻調速"
-            },
-            {
-                "name": "磁路基礎定律、電磁吸力與磁阻/特殊馬達 (Magnetic Circuits & Reluctance Motors)",
-                "count": 4,
-                "pct": "7.2%",
-                "freq": "⭐⭐⭐ (近年新趨勢題)",
-                "years": "114, 111, 110, 106, 104",
-                "core_formulas": "$\\mathcal{R} = \\frac{l}{\\mu A}$, $L = \\frac{N^2}{\\mathcal{R}}$, 吸力 $F = \\frac{B^2 A}{2\\mu_0}$, 磁阻轉矩 $T = -\\frac{1}{2}\\Phi^2 \\frac{d\\mathcal{R}}{d\\theta}$"
-            }
-        ]
-    },
+import argparse
+import json
+import subprocess
+import sys
+from collections import Counter, defaultdict
+from pathlib import Path
+from typing import Any
 
-    "05_電力系統": {
-        "title": "🏢 05. 電力系統（Power Systems）",
-        "total_q": 55,
-        "topics": [
-            {
-                "name": "故障分析與對稱成分法 (Symmetrical Faults & Sequence Networks)",
-                "count": 16,
-                "pct": "29.1%",
-                "freq": "⭐⭐⭐⭐⭐ (第一殺手級必考！每年必考 1~2 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "三相短路 $I_f = V_f/Z_{th}$, SLG $I_{a1} = \\frac{V_f}{Z_1+Z_2+Z_0+3Z_n}$, L-L $I_{a1} = \\frac{V_f}{Z_1+Z_2}$, $Z_{bus}$ 算法"
-            },
-            {
-                "name": "電力潮流與導納矩陣 (Power Flow, Ybus, N-R & FDLF)",
-                "count": 12,
-                "pct": "21.8%",
-                "freq": "⭐⭐⭐⭐⭐ (每年必考 1 題)",
-                "years": "114, 113, 112, 110, 109, 107, 106, 105, 104",
-                "core_formulas": "變壓器 $a:1$ 之 $Y_{bus}$, 牛頓法 Jacobian, 快速解耦 $\\Delta\\theta = -[B']^{-1}[\\Delta P/|V|]$"
-            },
-            {
-                "name": "發電機功角特性與暫態穩定度 (Transient Stability & Equal Area Criterion)",
-                "count": 11,
-                "pct": "20.0%",
-                "freq": "⭐⭐⭐⭐⭐ (每年必考 1 題)",
-                "years": "114, 113, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "搖擺方程 $M\\frac{d^2\\delta}{dt^2} = P_m - P_e$, 等面積準則求臨界清除角 $\\delta_{cr}$"
-            },
-            {
-                "name": "經濟調度與發電協調方程式 (Economic Dispatch & Optimal Power Flow)",
-                "count": 9,
-                "pct": "16.4%",
-                "freq": "⭐⭐⭐⭐ (標準送分題)",
-                "years": "114, 112, 110, 109, 107, 106, 104",
-                "core_formulas": "等微增準則 $\\text{IC}_i \\times L_i = \\lambda$, 懲罰因數 $L_i = \\frac{1}{1 - \\partial P_L / \\partial P_i}$"
-            },
-            {
-                "name": "輸電線參數、ABCD 矩陣與負載頻率控制 (Transmission Lines & AGC/LFC)",
-                "count": 7,
-                "pct": "12.7%",
-                "freq": "⭐⭐⭐ (輪替常客)",
-                "years": "113, 111, 108, 106, 105",
-                "core_formulas": "ABCD 矩陣, 突波阻抗負載 SIL $= V_L^2/Z_c$, 調速機調節率 $\\beta = \\frac{S}{R f_0}$"
-            }
-        ]
-    },
+try:
+    from scripts.question_schema import load_questions_from_bundle
+except ModuleNotFoundError:
+    from question_schema import load_questions_from_bundle
 
-    "06_工業配電": {
-        "title": "🏭 06. 工業配電（Industrial Power Distribution）",
-        "total_q": 55,
-        "topics": [
-            {
-                "name": "工廠短路電流計算與斷路器啟斷容量選定 (Short-Circuit Calculation & Breaker Sizing)",
-                "count": 16,
-                "pct": "29.1%",
-                "freq": "⭐⭐⭐⭐⭐ (絕對必考第 1 名！佔分高達 30%)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104",
-                "core_formulas": "標么值短路容量 $S_{sc} = S_{base}/X_{pu}$, 啟斷容量選定, 馬達反饋短路電流 $4\\sim 6 I_{FL}$"
-            },
-            {
-                "name": "功率因數改善、並聯電容計算與諧波共振 (Power Factor Improvement & Harmonics)",
-                "count": 13,
-                "pct": "23.6%",
-                "freq": "⭐⭐⭐⭐⭐ (每年必考 1 題)",
-                "years": "114, 113, 112, 111, 110, 109, 108, 107, 106, 105",
-                "core_formulas": "$Q_c = P(\\tan\\theta_1 - \\tan\\theta_2)$, 串聯電抗器 $6\\%$ 抑制 5 次諧波與防止並聯共振"
-            },
-            {
-                "name": "電壓降與導線線徑選定計算 (Voltage Drop Calculation & Feeder Sizing)",
-                "count": 10,
-                "pct": "18.2%",
-                "freq": "⭐⭐⭐⭐ (實務核心必考題)",
-                "years": "113, 111, 110, 109, 108, 107, 105, 104",
-                "core_formulas": "三相壓降 $\\Delta V = \\sqrt{3} I (R\\cos\\theta + X\\sin\\theta)$, 壓降率 $< 3\\%$, 總壓降 $< 5\\%$"
-            },
-            {
-                "name": "工廠負載特性、契約容量與需量管理 (Load Characteristics & Tariff Demand)",
-                "count": 9,
-                "pct": "16.4%",
-                "freq": "⭐⭐⭐⭐ (概念與計算)",
-                "years": "114, 112, 110, 108, 107, 106, 104",
-                "core_formulas": "負載因數 $\\text{LF} = P_{avg}/P_{max}$, 參差因數 $\\text{DF} = \\sum P_{max,i} / P_{max,sys} > 1$, 需量因數"
-            },
-            {
-                "name": "保護協調、過電流電驛 (CO/LVI) 標置與接地系統 (Protection Coordination & Grounding)",
-                "count": 7,
-                "pct": "12.7%",
-                "freq": "⭐⭐⭐ (實務進階考點)",
-                "years": "114, 113, 109, 108, 106, 105",
-                "core_formulas": "時間-電流特性曲線 (TCC), 時間槓桿 (TD/TS), 動作時間反時限方程, 接地電阻規範"
-            }
-        ]
-    }
+
+ROOT = Path(__file__).resolve().parents[1]
+BUNDLE = ROOT / "dashboard-data.js"
+DAG_PATH = ROOT / "src" / "data" / "knowledge-dag.js"
+OUTPUT = (
+    ROOT
+    / "🧠 核心考點知識庫"
+    / "📊_電機工程技師_6大考科11年高頻考點統計與命中率分析.md"
+)
+
+SUBJECT_NAMES = {
+    "01": "電路學",
+    "02": "電子學（含電力電子）",
+    "03": "工程數學",
+    "04": "電機機械",
+    "05": "電力系統",
+    "06": "工業配電",
 }
 
-print("Topic frequency analysis compiled successfully!")
+DIST_FLICKER_QIDS = {"EE-104-06-3", "EE-110-06-4", "EE-113-06-3", "EE-114-06-2"}
+DIST_HARMONIC_QIDS = {"EE-104-06-5", "EE-105-06-5", "EE-106-06-5"}
+DC_DC_CONVERTER_QIDS = {
+    "EE-106-02-5", "EE-107-02-3", "EE-107-02-4", "EE-108-02-5",
+    "EE-109-02-2", "EE-109-02-3", "EE-111-02-2", "EE-112-02-3",
+    "EE-113-02-3", "EE-113-02-4",
+}
+DC_DC_SWITCHING_RL_QIDS = {"EE-114-02-3"}
+
+
+def _load_js_binding(path: Path, binding: str) -> Any:
+    script = r"""
+const fs = require('fs');
+const vm = require('vm');
+const source = fs.readFileSync(process.argv[1], 'utf8');
+const sandbox = { console: { log() {} } };
+vm.runInNewContext(source + `\nglobalThis.__value = ${process.argv[2]};`, sandbox);
+process.stdout.write(JSON.stringify(sandbox.__value));
+"""
+    completed = subprocess.run(
+        ["node", "-e", script, str(path), binding],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return json.loads(completed.stdout)
+
+
+def _build_model() -> tuple[list[list], dict[str, Any], dict[str, Any]]:
+    questions = load_questions_from_bundle(BUNDLE)
+    taxonomy = _load_js_binding(BUNDLE, "QUESTION_TAXONOMY_MAP")
+    dag = _load_js_binding(DAG_PATH, "KNOWLEDGE_DAG")
+
+    qids = {row[0] for row in questions}
+    if set(taxonomy) != qids:
+        missing = sorted(qids - set(taxonomy))
+        extra = sorted(set(taxonomy) - qids)
+        raise ValueError(f"taxonomy mismatch: missing={missing}, extra={extra}")
+
+    for row in questions:
+        qid, subject = row[0], row[1]
+        chapter = taxonomy[qid].get("primaryChapter")
+        if chapter not in dag:
+            raise ValueError(f"{qid}: unknown primary chapter {chapter!r}")
+        if dag[chapter].get("subject") != subject:
+            raise ValueError(f"{qid}: chapter {chapter!r} belongs to another subject")
+
+    return questions, taxonomy, dag
+
+
+def build_report() -> str:
+    questions, taxonomy, dag = _build_model()
+    years = sorted({row[2] for row in questions}, reverse=True)
+    subject_totals = Counter(row[1] for row in questions)
+    chapter_questions: dict[str, list[list]] = defaultdict(list)
+    for row in questions:
+        chapter_questions[taxonomy[row[0]]["primaryChapter"]].append(row)
+
+    lines = [
+        "# 電機工程技師 104–114 年客觀章節覆蓋統計",
+        "",
+        "> 本頁由 `scripts/analyze_topic_frequency.py` 直接依題庫重建；它是歷史覆蓋證據，不是未來命中率預測。",
+        "> 若只想直接開始，依 [24 個核心時段](../docs/上榜預設24時段_核心題路徑.md) 順序練習即可，不需要回填進度。",
+        "",
+        "## 統計與考試規則",
+        "",
+        f"- 資料範圍：民國 {min(years)}–{max(years)} 年，共 {len(years)} 個年度、{len(questions)} 道大題。",
+        "- 分類口徑：每題只計入 `QUESTION_TAXONOMY_MAP.primaryChapter` 指定的一個主章節。",
+        "- 排序口徑：先比出題年度數，再比題數，最後依章節名稱排序；避免同一年多題過度放大單一章節。",
+        "- 百分比口徑：章節題數 ÷ 該科實際題數。不同年度的每科題數不一定相同。",
+        "- 用途限制：覆蓋率只決定複習先後，不代表下一年必考、保證得分或可以放棄未列章節。",
+        "- 現行及格規則（2026-09-22 查核）：一般全科為 6 科，總成績以各科平均計算，原則上滿 60 分為及格；任一科 0 分不予及格。若及格人數未達全程到考人數 16%，另依排名前 16%、總成績至少 50 分且無任一科 0 分等規定辦理；缺考科目視為 0 分。來源：[現行《專門職業及技術人員高等考試技師考試規則》第 10 條](https://law.exam.gov.tw/LawContent.aspx?id=FL016893)。",
+        "",
+        "## 六科總覽",
+        "",
+        "| 科目 | 實際題數 | 年度數 | 前 2 章題數占比 | 前 3 章題數占比 | 固定路徑 |",
+        "| --- | ---: | ---: | ---: | ---: | --- |",
+    ]
+
+    ranked_by_subject: dict[str, list[tuple[str, list[list]]]] = {}
+    for subject in SUBJECT_NAMES:
+        ranked = sorted(
+            (
+                (chapter_id, rows)
+                for chapter_id, rows in chapter_questions.items()
+                if dag[chapter_id]["subject"] == subject
+            ),
+            key=lambda item: (
+                -len({row[2] for row in item[1]}),
+                -len(item[1]),
+                dag[item[0]]["name"],
+            ),
+        )
+        ranked_by_subject[subject] = ranked
+        total = subject_totals[subject]
+        top2 = sum(len(rows) for _, rows in ranked[:2]) / total * 100
+        top3 = sum(len(rows) for _, rows in ranked[:3]) / total * 100
+        lines.append(
+            f"| {subject} {SUBJECT_NAMES[subject]} | {total} | {len(years)} | "
+            f"{top2:.1f}% | {top3:.1f}% | [24 時段](../docs/上榜預設24時段_核心題路徑.md) |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 各科優先章節",
+            "",
+            "下列每科列出前 5 個主章節，只用於安排先後順序。公式、列式與驗算一律以連結的已驗證題解為準。",
+        ]
+    )
+
+    for subject, subject_name in SUBJECT_NAMES.items():
+        total = subject_totals[subject]
+        lines.extend(
+            [
+                "",
+                f"### {subject} {subject_name}",
+                "",
+                f"本科實際收錄 {total} 題。",
+                "",
+                "| 排名 | 主章節 | 題數 | 覆蓋年度 | 本科題數占比 |",
+                "| ---: | --- | ---: | --- | ---: |",
+            ]
+        )
+        for rank, (chapter_id, rows) in enumerate(ranked_by_subject[subject][:5], start=1):
+            chapter = dag[chapter_id]
+            covered_years = sorted({row[2] for row in rows}, reverse=True)
+            year_text = "、".join(str(year) for year in covered_years)
+            pct = len(rows) / total * 100
+            lines.append(
+                f"| {rank} | {chapter['name']} | {len(rows)} | "
+                f"{len(covered_years)} 年（{year_text}） | {pct:.1f}% |"
+            )
+        if subject == "02":
+            dc_dc_rows = chapter_questions["el-pe-buck-boost"]
+            dc_dc_qids = {row[0] for row in dc_dc_rows}
+            if dc_dc_qids != DC_DC_CONVERTER_QIDS | DC_DC_SWITCHING_RL_QIDS:
+                raise ValueError("electronics DC-DC subtopic register is stale")
+            converter_years = {row[2] for row in dc_dc_rows if row[0] in DC_DC_CONVERTER_QIDS}
+            lines.append("")
+            lines.append(
+                f"註：第 2 名的廣義開關電力電子分類節點共 {len(dc_dc_qids)} 題／{len({row[2] for row in dc_dc_rows})} 年；"
+                f"其中真正 DC–DC 轉換器 {len(DC_DC_CONVERTER_QIDS)} 題／{len(converter_years)} 年，"
+                "另 1 題為 114 年開關 RL 暫態。不可把整個節點數字當作 buck-boost 題型命中率。"
+            )
+        if subject == "06":
+            quality_qids = {row[0] for row in chapter_questions["dist-harmonics-mitigation"]}
+            if quality_qids != DIST_FLICKER_QIDS | DIST_HARMONIC_QIDS:
+                raise ValueError("industrial power-quality subtopic register is stale")
+            lines.append("")
+            lines.append(
+                f"註：第 2 名是廣義電力品質統計，共 {len(quality_qids)} 題；其中電弧爐電壓閃爍／變動 {len(DIST_FLICKER_QIDS)} 題、諧波／共振 {len(DIST_HARMONIC_QIDS)} 題。這不表示單獨的諧波方法覆蓋 6 個年度。"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## 被動執行順序",
+            "",
+            "1. 先完成 [24 個核心時段](../docs/上榜預設24時段_核心題路徑.md)：每科前 2 個高年度覆蓋章節，走母題 → 同型題 → 變式題。",
+            "2. 用 [六科 12 題混合橋接](../docs/上榜混合橋接_六科12題.md) 拿掉章節提示重做變式題。",
+            "3. 接著完成 [114 年六科計時模考](../docs/上榜被動模考_114年六科執行包.md)。",
+            "4. 再完成 [108 年六科被動複測](../docs/上榜被動複測_108年六科執行包.md)。",
+            "5. 失分題直接用 [59 題錯因修復索引](../docs/上榜錯因修復索引_114-108.md) 重寫，不要求把結果輸入專案。",
+            "",
+            "更細的前 3 章與母題連結見 [核心母題候選表](../docs/上榜核心母題候選_104-114年.md)。",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="return non-zero when the committed report is stale",
+    )
+    args = parser.parse_args()
+    expected = build_report()
+
+    if args.check:
+        actual = OUTPUT.read_text(encoding="utf-8") if OUTPUT.exists() else ""
+        if actual != expected:
+            print(f"stale generated report: {OUTPUT.relative_to(ROOT)}", file=sys.stderr)
+            return 1
+        print(f"current: {OUTPUT.relative_to(ROOT)}")
+        return 0
+
+    OUTPUT.write_text(expected, encoding="utf-8")
+    print(f"generated: {OUTPUT.relative_to(ROOT)}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

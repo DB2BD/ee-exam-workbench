@@ -5,7 +5,7 @@ nodeId: gk-ct-three-phase
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 8ab3d8198d2e69094210df697f0f1235bb416655bf23715bf7d97d5ef232f3bc
 generatedBodyHash: 0b619b74b68782338298cacad6fe725afa9850c69a432f6f3e832a1426d850c8
 ---

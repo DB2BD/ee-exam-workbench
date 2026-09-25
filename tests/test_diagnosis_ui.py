@@ -94,6 +94,41 @@ globalThis.starredState = {{}};
         self.assertIn("請按下方含「保存」的按鈕", result["html"])
         self.assertFalse(result["scheduled"])
 
+    def test_diagnosis_card_exposes_a_concrete_repair_plan(self):
+        setup = r"""
+const elements = new Map();
+const reasonInput = {id:'diagnosis-custom-text', focus(){}};
+const rightPane = {
+  innerHTML:'',
+  insertAdjacentHTML(_position, html) {
+    this.innerHTML += html;
+    globalThis.__diagnosisHtml = this.innerHTML;
+    elements.set('diagnosis-custom-text', reasonInput);
+  }
+};
+globalThis.document = {
+  getElementById(id) { return id === 'modal-right-content' ? rightPane : elements.get(id) || null; },
+  querySelector() { return null; }
+};
+globalThis.window = {addEventListener(){}};
+"""
+        result = self._run(r"""
+(() => {
+  renderKnowledgeDiagnosisCard({
+    reason:'依據題目連結提出候選。', confidence:.95,
+    likelyQuestions:[{nodeId:'pe-node',title:'核心機制',confidence:.95,evidence:['官方題目連結'],coreFormula:'V=ZI',keyTrap:'注意相量方向'}],
+    firstPrerequisiteGap:null,
+    actionPlan:{title:'先補第一個解題動作',targetNodeId:'pe-node',targetTitle:'核心機制',steps:['列出已知量與未知量','寫第一個方程式','回代檢查'],coreFormula:'V=ZI',keyTrap:'注意相量方向',reviewPrompt:'完成後再用另一題確認。'}
+  });
+  return globalThis.__diagnosisHtml || '';
+})()
+""", setup)
+        self.assertIn("下一步怎麼補強", result)
+        self.assertIn("列出已知量與未知量", result)
+        self.assertIn("V=ZI", result)
+        self.assertIn("注意相量方向", result)
+        self.assertIn("開始補強", result)
+
     def test_skip_records_explicit_outcome_then_allows_advance(self):
         setup = self._setup("candidate") + "\nglobalThis.appendKnowledgeIssueEvent = event => { globalThis.__event = event; return {ok:true}; };\n"
         result = self._run(r"""

@@ -16,7 +16,7 @@ class TestKnowledgeGraphInventory(unittest.TestCase):
     def test_inventory_records_measured_legacy_sources(self):
         inventory = collect_inventory(ROOT)
 
-        self.assertEqual(inventory["legacyDag"]["nodeCount"], 69)
+        self.assertEqual(inventory["legacyDag"]["nodeCount"], 71)
         self.assertEqual(inventory["obsidian"]["coreNoteCount"], 14)
         self.assertEqual(inventory["questions"]["PE"]["recordCount"], 323)
         self.assertEqual(inventory["questions"]["GK"]["recordCount"], 161)
@@ -35,7 +35,7 @@ class TestKnowledgeGraphInventory(unittest.TestCase):
 
         self.assertEqual(saved["schemaVersion"], "knowledge-graph-inventory.v1")
         self.assertEqual(saved["workspace"], str(ROOT))
-        self.assertIn("69", report)
+        self.assertIn("**71**", report)
         self.assertIn("14", report)
         self.assertIn("EE_EXAM_ATTEMPT_RECOVERY_V1", report)
         self.assertIn("Source paths", report)

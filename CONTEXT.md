@@ -1,7 +1,7 @@
 # 電機工程技師歷屆試題與詳解工作台 — 專案架構與領域語境
 
 > **版本**：`2.2.0`
-> **最後更新**：2026-09-08
+> **最後更新**：2026-09-25
 > **定位**：以官方原題／裁切圖為來源、以參考書與獨立驗算為核對材料的 PE／GK 靜態雙資料庫工作台。
 
 ## 1. 領域語言
@@ -13,12 +13,15 @@
 | QuestionRecord | 題庫單筆記錄；PE bundle 為 12 欄 tuple，GK bundle 為 18 欄 tuple，程式應透過命名轉換或編譯器契約理解欄位。 |
 | Provenance | 題解、官方 PDF、裁切圖、頁碼、SHA-256 與參考書頁碼等來源鏈。 |
 | Verification | 題解驗證狀態與專屬題解旗標；目前使用 `verified`、`reference_book_verified`、`needs_manual_review`、`suspected_error`、`not_attempted`。 |
+| 電力品質（工業配電主章節） | 統計用的廣義章節，包含電弧爐電壓閃爍／變動與諧波／共振；兩者有不同的起手式，不視為同型題。 |
+| 單相感應電動機二相旋轉磁場 | 由空間正交、時間相差四分之一週期的主／輔繞組磁通合成之旋轉場；與感應電動機的戴維寧等效電路不是同一題型。 |
+| 磁阻電動機磁阻—位置轉矩 | 由磁阻隨轉角變化求轉矩的特殊電機題型；不等同於以 \(X_d,X_q\) 分析凸極同步機的雙反應題。 |
 | Workbench | `index.html` 的雙欄介面：左側原題／PDF，右側題解與驗算。 |
 | Reveal step | 四段蓋牌介面實際揭露到哪一段；它是流程門檻，不直接判定能力。 |
 | Recall level | 由揭露後 1／3／5 自評映射出的回想成果累積；每級連續兩次達標才升級，升級後重新累積。 |
 | SM-2 rating | 1／3／5 的主觀回想品質，同時更新 recall 成果與下次複習日期，但不得由 reveal step 自動推算。 |
 
-`reference_book_verified` 只表示已依參考書核對，並不表示參考書就是官方標準答案。非工程數學最新稽核快照為 256 題：`verified` 235、`reference_book_verified` 15、`needs_manual_review` 6；工程數學另有 67 題：`verified` 66、`needs_manual_review` 1。全庫共 323 題。
+`reference_book_verified` 只表示已依參考書核對，並不表示參考書就是官方標準答案。2026-09-25 非工程數學稽核快照為 256 題：`verified` 232、`reference_book_verified` 15、`needs_manual_review` 9；工程數學另有 67 題：`verified` 66、`needs_manual_review` 1。全庫共 323 題。
 
 ## 2. 來源、編譯與執行期
 

@@ -5,7 +5,7 @@ nodeId: em-vector-analysis
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: ee5c4d17158eac51c8dcfb32765365beb4a046cc3b680a6312b627eb88ee1c67
 generatedBodyHash: b98b1450ca1e26d343add6f85fe3463ed6d209aee7d45faa975c090988071f2a
 ---

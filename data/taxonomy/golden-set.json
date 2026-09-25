@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "taxonomyVersion": "2026.09.03",
+  "taxonomyVersion": "2026.09.25",
   "labeling": {
     "status": "human-reviewed",
     "reviewedAt": "2026-09-03",
@@ -51,8 +51,10 @@
     {"subjectId":"04","chapterId":"emach-single-phase-transformer","questionIds":["EE-114-04-2","EE-112-04-2","EE-104-04-2"],"rationale":"題幹明確指定單相變壓器試驗或電壓調整率。"},
     {"subjectId":"04","chapterId":"emach-autotransformer","questionIds":["EE-110-04-2","EE-108-04-1","EE-106-04-2"],"rationale":"題幹明確指定自耦變壓器。"},
     {"subjectId":"04","chapterId":"emach-dc-motor-generator","questionIds":["EE-113-04-3","EE-111-04-3","EE-105-04-5"],"rationale":"題幹明確涉及直流電機或直流發電機。"},
-    {"subjectId":"04","chapterId":"emach-induction-motor-equiv","questionIds":["EE-114-04-3","EE-113-04-4","EE-113-04-5","EE-112-04-4","EE-111-04-2"],"rationale":"題幹明確涉及感應電動機等效電路。"},
-    {"subjectId":"04","chapterId":"emach-induction-motor-torque","questionIds":["EE-114-04-5","EE-108-04-4","EE-104-04-3"],"rationale":"題幹明確涉及轉矩或轉差率。"},
+    {"subjectId":"04","chapterId":"emach-induction-motor-equiv","questionIds":["EE-113-04-4","EE-113-04-5","EE-112-04-4","EE-111-04-2"],"rationale":"題幹明確涉及感應電動機等效電路。"},
+    {"subjectId":"04","chapterId":"emach-single-phase-rotating-field","questionIds":["EE-114-04-3"],"rationale":"官方題圖要求由主、輔繞組電流波形合成等幅旋轉磁場，不涉及戴維寧等效電路。"},
+    {"subjectId":"04","chapterId":"emach-induction-motor-torque","questionIds":["EE-108-04-4","EE-104-04-3"],"rationale":"題幹明確涉及感應電動機轉矩或轉差率。"},
+    {"subjectId":"04","chapterId":"emach-reluctance-motor","questionIds":["EE-114-04-5"],"rationale":"官方題目以磁阻對轉角的導數求磁阻電動機轉矩，不是凸極同步機 Xd/Xq 功率式。"},
     {"subjectId":"04","chapterId":"emach-synchronous-generator-round","questionIds":["EE-114-04-4","EE-113-04-2","EE-112-04-3","EE-111-04-4","EE-111-04-5"],"rationale":"題幹明確涉及同步發電機、功角或激磁。"},
 
     {"subjectId":"05","chapterId":"ps-per-unit","questionIds":["EE-113-05-4","EE-109-05-6","EE-104-05-1"],"rationale":"題幹明確指定標么值或基準換算。"},
@@ -113,7 +115,10 @@
     "emach-autotransformer": "PE 題庫目前三題可明確人工確認。",
     "emach-three-phase-transformer": "PE 題庫目前無可明確人工確認正例。",
     "emach-dc-motor-generator": "PE 題庫目前兩題可明確人工確認。",
-    "emach-induction-motor-torque": "PE 題庫目前四題可明確人工確認。",
+    "emach-induction-motor-equiv": "本次移除誤列的 114 年二相旋轉磁場題後，目前四題可明確人工確認。",
+    "emach-induction-motor-torque": "本次移除誤列的 114 年磁阻電動機題後，目前兩題可明確人工確認。",
+    "emach-single-phase-rotating-field": "PE 題庫目前僅一題可明確人工確認。",
+    "emach-reluctance-motor": "PE 題庫目前僅一題可明確人工確認。",
     "emach-synchronous-salient-pole": "PE 題庫目前無可明確人工確認正例。",
     "ps-per-unit": "PE 題庫目前三題可明確人工確認。",
     "ps-economic-dispatch": "PE 題庫目前四題可明確人工確認。",

@@ -5,7 +5,7 @@ nodeId: gk-ps-load-flow-admittance
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 3661c8297183b544c3e88426619d1a392c4702ef60a0d78c54fdc2aaa892fc12
 generatedBodyHash: d9251441d2c8fea836df49a5da332da719ee9259e4139b3fadca9de2fbdeb567
 ---

@@ -5,7 +5,7 @@ nodeId: gk-el-mosfet-bias-small-signal
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: a71867dfb208c1a44ffc91377e2ad4f1f75ca27eea870db0d6b788401c7c1c81
 generatedBodyHash: cbd93f4c35f9418caf57406b05b4d7d28dacaeeae90d0a66b4b4768db9365e27
 ---

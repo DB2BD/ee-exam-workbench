@@ -5,7 +5,7 @@ nodeId: el-zener-regulator
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 57829c0c01bdec67c132591cb18010230b32008921896971bbc949404d675a9c
 generatedBodyHash: 09986ad23b1d1b794bb0851c345310220a6843403b42245e925237f7f9fcc67f
 ---

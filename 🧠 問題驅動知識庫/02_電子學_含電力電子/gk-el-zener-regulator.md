@@ -5,7 +5,7 @@ nodeId: gk-el-zener-regulator
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: e957fa2badda3a8855632eb60fceb23c16c0b5b95974b0afbc04a1da88f1d545
 generatedBodyHash: ef613d0d0a5cefb5c25dd9c2d505462a12c9e105d459f4be53311c24b820cc99
 ---

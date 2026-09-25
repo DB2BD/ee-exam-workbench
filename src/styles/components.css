@@ -1333,6 +1333,15 @@ select:focus {
 .diagnosis-unknown-summary small { display: block; margin-top: 4px; color: var(--muted); }
 .diagnosis-confidence { color: var(--muted); font-size: .86rem; }
 .diagnosis-custom-label { font-size: .86rem; }
+.diagnosis-recommendation { display: grid; gap: 7px; padding: 11px 12px; border: 1px solid var(--accent); border-radius: 8px; background: color-mix(in srgb, var(--accent) 8%, var(--surface)); line-height: 1.5; }
+.diagnosis-recommendation strong { color: var(--accent-dark); }
+.diagnosis-recommendation p { color: var(--ink); }
+.diagnosis-steps { margin: 2px 0 0 20px; padding: 0; }
+.diagnosis-steps li { margin: 3px 0; }
+.diagnosis-reference, .diagnosis-trap { padding: 7px 9px; border-radius: 6px; background: var(--surface); font-size: .82rem; }
+.diagnosis-reference code { display: block; margin-top: 3px; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); }
+.diagnosis-trap { border-left: 3px solid var(--warn); }
+.diagnosis-primary-action { justify-self: start; }
 .weakness-shell {
   padding: 22px;
   background: var(--surface);

@@ -5,7 +5,7 @@ nodeId: gk-ps-per-unit
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 55d3f3fcce4e49bd19f8e6dc4eefc342e03dd72774ef399b306302627a1adca2
 generatedBodyHash: aa74ac154e5f124031cac809a13ba3fe3568a91423018f8c96e63d78021778e0
 ---

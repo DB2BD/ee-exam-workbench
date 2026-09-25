@@ -1,6 +1,6 @@
 {
   "schemaVersion": "learning-data-capacity.v1",
-  "generatedAt": "2026-09-15T18:27:14.918Z",
+  "generatedAt": "2026-09-17T16:05:46.736Z",
   "graphRevision": "kg-v1-9b95af550b0b1b9e",
   "sourceIdentity": {
     "canonicalGraphRevision": "kg-v1-9b95af550b0b1b9e",
@@ -12,7 +12,7 @@
   },
   "fixture": "5000 PE issue events with bounded evidence and 200-byte custom text",
   "recoveryFixture": "pending import journal rollback",
-  "recoveryTimeMs": 0.004,
+  "recoveryTimeMs": 0.002,
   "recoveryTimeThresholdMs": 250,
   "recoveryTimePass": true,
   "maxIssueEvents": 5000,

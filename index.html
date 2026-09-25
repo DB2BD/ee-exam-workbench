@@ -1619,6 +1619,15 @@ select:focus {
 .diagnosis-unknown-summary small { display: block; margin-top: 4px; color: var(--muted); }
 .diagnosis-confidence { color: var(--muted); font-size: .86rem; }
 .diagnosis-custom-label { font-size: .86rem; }
+.diagnosis-recommendation { display: grid; gap: 7px; padding: 11px 12px; border: 1px solid var(--accent); border-radius: 8px; background: color-mix(in srgb, var(--accent) 8%, var(--surface)); line-height: 1.5; }
+.diagnosis-recommendation strong { color: var(--accent-dark); }
+.diagnosis-recommendation p { color: var(--ink); }
+.diagnosis-steps { margin: 2px 0 0 20px; padding: 0; }
+.diagnosis-steps li { margin: 3px 0; }
+.diagnosis-reference, .diagnosis-trap { padding: 7px 9px; border-radius: 6px; background: var(--surface); font-size: .82rem; }
+.diagnosis-reference code { display: block; margin-top: 3px; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); }
+.diagnosis-trap { border-left: 3px solid var(--warn); }
+.diagnosis-primary-action { justify-self: start; }
 .weakness-shell {
   padding: 22px;
   background: var(--surface);
@@ -3214,8 +3223,61 @@ function diagnosisCandidate(node, why, confidence, evidence, rank, historicalNod
     evidence: Array.isArray(evidence) ? [...evidence] : [],
     rank,
   };
+  // These fields turn a graph match into something the learner can act on.
+  // The diagnosis still only uses approved graph evidence; it never invents
+  // a new concept from the learner's self-report.
+  if (node.coreFormula) candidate.coreFormula = node.coreFormula;
+  if (node.keyTrap) candidate.keyTrap = node.keyTrap;
+  if (node.level !== undefined) candidate.level = Number(node.level) || 0;
+  if (node.subjectName) candidate.subjectName = node.subjectName;
   if (historicalNodeId && historicalNodeId !== node.nodeId) candidate.historicalNodeId = historicalNodeId;
   return candidate;
+}
+
+function diagnosisActionPlan(errorType, candidate, prerequisite, assessment) {
+  const type = errorType || '未指定錯因';
+  const title = candidate && candidate.title ? candidate.title : '本題的解題流程';
+  const targetNodeId = candidate && candidate.nodeId ? candidate.nodeId : null;
+  const plans = {
+    '題型辨識錯': {
+      title: '先學會辨識這類題目',
+      steps: ['遮住詳解，先寫「題目要我求什麼」與「已知哪些量」。', '再寫出你選用的模型，以及它的適用條件。', '用同一模型重做本題的第一行。'],
+    },
+    '起手式不會': {
+      title: '先補第一個解題動作',
+      steps: ['先列已知量、未知量、要求量。', '寫出第一個方程式、等效電路或邊界條件。', '只做前兩步後再回頭核對詳解。'],
+    },
+    '公式忘記': {
+      title: '先回想公式與使用條件',
+      steps: ['先不看詳解，寫出公式與每個符號的單位。', '說明公式何時可以用、何時不能用。', '用題目數值代入一次並檢查量綱。'],
+    },
+    '計算錯': {
+      title: '先排除計算誤差',
+      steps: ['重新抄一次代入式，不直接重看最後答案。', '逐項檢查單位、正負號、角度／弧度與有效位數。', '把中間結果代回原方程式確認。'],
+    },
+    '觀念混淆': {
+      title: '先分清楚兩個容易混淆的概念',
+      steps: ['寫出你混淆的兩個概念各自代表什麼。', '各寫一個適用條件或反例。', '用本題條件說明為什麼應選其中一個。'],
+    },
+  };
+  const selected = plans[type] || {
+    title: '把卡住的步驟留下來',
+    steps: ['寫下你做到的最後一步。', '標記下一步需要哪個公式、條件或模型。', '保存後在待分類事件中補回這筆紀錄。'],
+  };
+  return {
+    title: selected.title,
+    targetNodeId,
+    targetTitle: title,
+    errorType: type,
+    steps: selected.steps,
+    coreFormula: candidate && candidate.coreFormula ? candidate.coreFormula : null,
+    keyTrap: candidate && candidate.keyTrap ? candidate.keyTrap : null,
+    prerequisite: prerequisite && prerequisite.title ? prerequisite.title : null,
+    reviewPrompt: targetNodeId
+      ? `完成這三步後，回想「${title}」一次，再用另一題確認。`
+      : '保存你的最後一步，下一次才能把診斷變成可追蹤的複習任務。',
+    rating: Number(assessment && assessment.rating) || null,
+  };
 }
 
 function diagnosisRouteScore(node, errorType) {
@@ -3270,24 +3332,32 @@ function diagnose(question, assessmentInput, graphInput, recall) {
   }
   if (linked.length === 0) return diagnosisUnknown('no-supported-node', '題目連結沒有可供目前 viewer 使用的 node。', assessment, baseGraph);
 
+  const linkConfidence = typeof link.confidence === 'number' ? link.confidence : 0;
   const errorType = assessment.errorType;
   if (errorType === '計算錯') {
+    const calculationTarget = linked[0]
+      ? diagnosisCandidate(linked[0].node, '本題的 approved question link 提供計算核對入口。', linkConfidence, link.evidence, 1, linked[0].historicalNodeId)
+      : null;
     return diagnosisUnknown('calculation-only', '目前只有計算錯證據，先重算流程，不直接宣稱概念弱點。', assessment, baseGraph, {
       confidence: 0.2,
       reason: '目前只有計算錯證據，先重算流程，不直接宣稱概念弱點。',
+      actionPlan: diagnosisActionPlan('計算錯', calculationTarget, null, assessment),
     });
   }
   if (errorType && !DIAGNOSIS_ERROR_TYPES.includes(errorType)) {
     return diagnosisUnknown('unsupported-error-type', '錯因類型未在 deterministic diagnosis 規則內。', assessment, baseGraph);
   }
   if (assessment.rating === 5 && !errorType) {
+    const mastered = linked[0]
+      ? diagnosisCandidate(linked[0].node, '本題已完成獨立作答，保留作為日後回想入口。', linkConfidence, link.evidence, 1, linked[0].historicalNodeId)
+      : null;
     return diagnosisUnknown('no-error-signal', '作答已獨立完成且沒有額外錯因，暫不提出概念弱點。', assessment, baseGraph, {
       status: 'clear', confidence: 1, needsConfirmation: false,
+      actionPlan: diagnosisActionPlan(null, mastered, null, assessment),
     });
   }
 
   const rawEdges = Array.isArray(baseGraph.edges) ? baseGraph.edges : [];
-  const linkConfidence = typeof link.confidence === 'number' ? link.confidence : 0;
   const candidates = linked
     .sort((left, right) => (
       diagnosisRouteScore(left.node, errorType) - diagnosisRouteScore(right.node, errorType)
@@ -3323,6 +3393,8 @@ function diagnose(question, assessmentInput, graphInput, recall) {
     break;
   }
   const needsConfirmation = true;
+  const primaryCandidate = candidates[0] || null;
+  const actionPlan = diagnosisActionPlan(errorType, primaryCandidate, firstPrerequisiteGap, assessment);
   return {
     diagnosisVersion: KNOWLEDGE_DIAGNOSIS_VERSION,
     attemptId: assessment.attemptId,
@@ -3335,6 +3407,7 @@ function diagnose(question, assessmentInput, graphInput, recall) {
     confidence: Math.max(0, Math.min(1, linkConfidence)),
     needsConfirmation,
     lowConfidence: linkConfidence < DIAGNOSIS_CONFIDENCE_FLOOR,
+    actionPlan,
     recall: recall && typeof recall === 'object' ? { level: Number(recall.level) || 0, lastAchieved: Number(recall.lastAchieved) || 0 } : null,
   };
 }
@@ -4429,11 +4502,11 @@ const KNOWLEDGE_DAG = {
     id: 'dist-harmonics-mitigation',
     subject: '06',
     subjectName: '工業配電',
-    name: '非線性負載諧波分析與抑制 (IEEE 519)',
+    name: '電力品質：電壓閃爍與諧波分析',
     level: 4,
     prereqs: ['dist-power-factor-correction'],
-    coreFormula: '\\text{THD}_V = \\frac{\\sqrt{\\sum_{h=2}^\\infty V_h^2}}{V_1} \\times 100\\%, X_L = \\frac{1}{h^2} X_C \\text{ (串聯電抗器防止諧振)}',
-    keyTrap: '改善功因電容器串聯 6% 抗流圈可消除 5 次以上諧波，串聯 13% 抗流圈可消除 3 次諧波。'
+    coreFormula: '\\Delta V_f=\\frac{X_{\\mathrm{up}}}{X_{\\mathrm{up}}+X_{\\mathrm{down}}},\\quad \\mathrm{THD}_V=\\frac{\\sqrt{\\sum_{h=2}^{\\infty}V_h^2}}{V_1}\\times100\\%,\\quad h_r=\\frac{1}{\\sqrt{p}}\\ (p=X_{L,1}/X_{C,1})',
+    keyTrap: '先辨認題目是電弧爐閃爍或諧波共振：純電抗斷弧／導通模型才用分壓比例；含電阻時改用複數阻抗。諧波題須依頻率換算阻抗並檢查共振；串聯電抗器限制諧波放大，不代表消除全部諧波。'
   },
   'dist-arc-flash-ieee80': {
     id: 'dist-arc-flash-ieee80',
@@ -4568,7 +4641,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
 // === src/data/knowledge-dag.generated.js ===
 // Generated by scripts/build_knowledge_graph.py. Do not edit.
-// graphRevision: kg-v1-9b95af550b0b1b9e
+// graphRevision: kg-v1-6f7a29de450d7597
 globalThis.CANONICAL_GRAPH_ENABLED = true;
 globalThis.CANONICAL_KNOWLEDGE_GRAPH = {
   "coverage": {
@@ -4830,7 +4903,7 @@ globalThis.CANONICAL_KNOWLEDGE_GRAPH = {
       "relation": "prerequisite",
       "reviewStatus": "approved",
       "to": "dist-harmonics-mitigation",
-      "why": "掌握「非線性負載諧波分析與抑制 (IEEE 519)」前，先建立「功率因數改善與電容器組容量」這個前置概念。"
+      "why": "掌握「電力品質：電壓閃爍與諧波分析」前，先建立「功率因數改善與電容器組容量」這個前置概念。"
     },
     {
       "confidence": 0.95,
@@ -6045,7 +6118,7 @@ globalThis.CANONICAL_KNOWLEDGE_GRAPH = {
       "why": "掌握「距離保護電驛三段式規劃」前，先建立「不對稱故障分析 (SLG, L-L, 2LG)」這個前置概念。"
     }
   ],
-  "graphRevision": "kg-v1-9b95af550b0b1b9e",
+  "graphRevision": "kg-v1-6f7a29de450d7597",
   "mainlineOrder": [
     "gk-mainline-circuit",
     "gk-mainline-electronics",
@@ -6429,9 +6502,9 @@ globalThis.CANONICAL_KNOWLEDGE_GRAPH = {
       "title": "系統接地與設備接地"
     },
     "dist-harmonics-mitigation": {
-      "coreFormula": "\\text{THD}_V = \\frac{\\sqrt{\\sum_{h=2}^\\infty V_h^2}}{V_1} \\times 100\\%, X_L = \\frac{1}{h^2} X_C \\text{ (串聯電抗器防止諧振)}",
+      "coreFormula": "\\Delta V_f=\\frac{X_{\\mathrm{up}}}{X_{\\mathrm{up}}+X_{\\mathrm{down}}},\\quad \\mathrm{THD}_V=\\frac{\\sqrt{\\sum_{h=2}^{\\infty}V_h^2}}{V_1}\\times100\\%,\\quad h_r=\\frac{1}{\\sqrt{p}}\\ (p=X_{L,1}/X_{C,1})",
       "examFamily": "PE",
-      "keyTrap": "改善功因電容器串聯 6% 抗流圈可消除 5 次以上諧波，串聯 13% 抗流圈可消除 3 次諧波。",
+      "keyTrap": "先辨認題目是電弧爐閃爍或諧波共振：純電抗斷弧／導通模型才用分壓比例；含電阻時改用複數阻抗。諧波題須依頻率換算阻抗並檢查共振；串聯電抗器限制諧波放大，不代表消除全部諧波。",
       "level": 4,
       "lifecycle": "active",
       "nodeId": "dist-harmonics-mitigation",
@@ -6447,7 +6520,7 @@ globalThis.CANONICAL_KNOWLEDGE_GRAPH = {
       },
       "subject": "06",
       "subjectName": "工業配電",
-      "title": "非線性負載諧波分析與抑制 (IEEE 519)"
+      "title": "電力品質：電壓閃爍與諧波分析"
     },
     "dist-lighting-design": {
       "coreFormula": "E = \\frac{N F CU MF}{A}",
@@ -21998,6 +22071,8 @@ function diagnosisTaxonomyContext(qid) {
 function diagnosisLearningPlan(diagnosis) {
   const errorType = currentRecallErrorType || '未指定錯因';
   const taxonomy = diagnosisTaxonomyContext(currentModalQid);
+  const actionPlan = diagnosis && diagnosis.actionPlan && typeof diagnosis.actionPlan === 'object'
+    ? diagnosis.actionPlan : null;
   const nextSteps = {
     '題型辨識錯': '先寫下題目要求、使用的模型，以及該模型的適用條件。',
     '起手式不會': '先列出已知量、未知量、要求量，再寫第一個方程式或等效模型。',
@@ -22006,6 +22081,21 @@ function diagnosisLearningPlan(diagnosis) {
     '觀念混淆': '寫出你混淆的兩個概念，再各自寫一個適用條件或反例。',
   };
   const step = nextSteps[errorType] || '在補充說明寫下「我卡在……」以及你做到的最後一步。';
+  if (actionPlan && Array.isArray(actionPlan.steps)) {
+    return {
+      title: actionPlan.title || '下一步怎麼補強',
+      body: actionPlan.targetTitle
+        ? `建議先處理「${actionPlan.targetTitle}」，再回來重做本題。`
+        : (diagnosis && diagnosis.reason ? diagnosis.reason : '先把這次卡住的步驟變成下一個可執行動作。'),
+      steps: actionPlan.steps,
+      coreFormula: actionPlan.coreFormula || '',
+      keyTrap: actionPlan.keyTrap || '',
+      targetNodeId: actionPlan.targetNodeId || null,
+      targetTitle: actionPlan.targetTitle || '',
+      reviewPrompt: actionPlan.reviewPrompt || '',
+      taxonomy,
+    };
+  }
   if (diagnosis && diagnosis.status === 'unknown') {
     return {
       title: '這題尚未完成圖譜對應',
@@ -22015,6 +22105,11 @@ function diagnosisLearningPlan(diagnosis) {
         taxonomy ? `題庫分類可作為複習入口：${taxonomy.title}；它目前尚未算作已確認弱點。` : '先從題目的已知量、要求量與解題第一步開始整理。',
         '把卡住的步驟寫在下方，按「保存『都不是』並繼續」；這筆資料會保留在「我的弱點」的待分類事件中。',
       ],
+      coreFormula: '',
+      keyTrap: '',
+      targetNodeId: null,
+      targetTitle: '',
+      reviewPrompt: '',
       taxonomy,
     };
   }
@@ -22022,6 +22117,11 @@ function diagnosisLearningPlan(diagnosis) {
     title: '診斷說明',
     body: diagnosis && diagnosis.reason ? diagnosis.reason : '請選擇最符合的結果。',
     steps: [],
+    coreFormula: '',
+    keyTrap: '',
+    targetNodeId: null,
+    targetTitle: '',
+    reviewPrompt: '',
     taxonomy,
   };
 }
@@ -22039,10 +22139,28 @@ function renderKnowledgeDiagnosisCard(diagnosis) {
   const diagnosisConfidence = candidates.length > 0
     ? `診斷信心：${Math.round((Number(diagnosis.confidence) || 0) * 100)}%`
     : '診斷狀態：待分類（尚未建立可靠對應）';
+  const actionTarget = candidates[0] || (learningPlan.targetNodeId ? {
+    nodeId: learningPlan.targetNodeId,
+    title: learningPlan.targetTitle || '這題的知識主線',
+  } : null);
   const candidateOptions = candidates.map(item =>
     `<option value="${solutionModalEscape(item.nodeId)}">${solutionModalEscape(item.title)}（信心 ${Math.round((Number(item.confidence) || 0) * 100)}%）</option>`
   ).join('');
+  const actionSteps = Array.isArray(learningPlan.steps) && learningPlan.steps.length
+    ? `<ol class="diagnosis-steps">${learningPlan.steps.map(step => `<li>${solutionModalEscape(step)}</li>`).join('')}</ol>` : '';
+  const formula = learningPlan.coreFormula
+    ? `<div class="diagnosis-reference"><strong>這次要回想的核心：</strong><code>${solutionModalEscape(learningPlan.coreFormula)}</code></div>` : '';
+  const trap = learningPlan.keyTrap
+    ? `<div class="diagnosis-trap"><strong>本題最容易再錯：</strong>${solutionModalEscape(learningPlan.keyTrap)}</div>` : '';
+  const directAction = actionTarget
+    ? `<button type="button" class="pill diagnosis-primary-action" onclick="openDiagnosisPrimary()">開始補強「${solutionModalEscape(actionTarget.title)}」</button>` : '';
   const primary = candidates.length > 0 ? `
+    <div class="diagnosis-recommendation">
+      <strong>建議先處理：${solutionModalEscape(candidates[0].title)}</strong>
+      <p>${solutionModalEscape(learningPlan.title)}。${solutionModalEscape(learningPlan.reviewPrompt || '')}</p>
+      ${actionSteps}${formula}${trap}
+      ${directAction}
+    </div>
     <label>主要問題點
       <select id="diagnosis-primary-select">${candidateOptions}</select>
     </label>
@@ -22050,14 +22168,16 @@ function renderKnowledgeDiagnosisCard(diagnosis) {
     `<div class="diagnosis-unknown-summary" data-diagnosis-status="unknown">
       <strong>${solutionModalEscape(learningPlan.title)}</strong>
       <p>${solutionModalEscape(learningPlan.body)}</p>
+      ${actionSteps}${formula}${trap}
       ${learningPlan.taxonomy ? `<small>題庫分類參考：${solutionModalEscape(learningPlan.taxonomy.title)}</small>` : ''}
+      ${directAction}
       <small>請先留下你的卡住步驟，保存後會進入待分類事件。</small>
     </div>`;
   const secondary = gap ? `
     <label><input id="diagnosis-secondary" type="checkbox" value="${solutionModalEscape(gap.nodeId)}"> 同時標記前置缺口：${solutionModalEscape(gap.title)}</label>` : '';
   const html = `
     <section class="knowledge-diagnosis-card" data-diagnosis-card id="knowledge-diagnosis-card">
-      <h3>🧭 作答後診斷</h3>
+      <h3>🧭 作答後診斷：下一步怎麼補強</h3>
       <p class="diagnosis-reason">${solutionModalEscape(diagnosisReason)}</p>
       <p class="diagnosis-confidence">${solutionModalEscape(diagnosisConfidence)}</p>
       <div class="diagnosis-candidates">${primary}</div>
@@ -22119,11 +22239,35 @@ function openDiagnosisPrerequisite() {
   return true;
 }
 
+function openDiagnosisPrimary() {
+  const diagnosis = currentKnowledgeDiagnosis || {};
+  const candidate = Array.isArray(diagnosis.likelyQuestions) && diagnosis.likelyQuestions.length
+    ? diagnosis.likelyQuestions[0] : null;
+  const plan = diagnosis.actionPlan && typeof diagnosis.actionPlan === 'object' ? diagnosis.actionPlan : null;
+  const nodeId = candidate && candidate.nodeId ? candidate.nodeId : plan && plan.targetNodeId;
+  const title = candidate && candidate.title ? candidate.title : plan && plan.targetTitle;
+  if (!nodeId) {
+    openDiagnosisMainline();
+    return false;
+  }
+  if (typeof switchTab === 'function') switchTab('dag');
+  if (typeof startKnowledgeNodeRecall === 'function') {
+    const started = startKnowledgeNodeRecall(nodeId);
+    if (started && typeof showToast === 'function') showToast(`先回想：${title || nodeId}`);
+    return Boolean(started);
+  }
+  if (typeof showToast === 'function') showToast(`請到知識圖譜回想：${title || nodeId}`);
+  return true;
+}
+
 function openDiagnosisMainline() {
   const primary = currentKnowledgeDiagnosis && Array.isArray(currentKnowledgeDiagnosis.likelyQuestions)
     ? currentKnowledgeDiagnosis.likelyQuestions[0] : null;
-  renderDiagnosisGuidance('回到主線', primary && primary.title
-    ? `目前診斷主線：${primary.title}。可沿知識圖譜回看它的前置關係。`
+  const plan = currentKnowledgeDiagnosis && currentKnowledgeDiagnosis.actionPlan && typeof currentKnowledgeDiagnosis.actionPlan === 'object'
+    ? currentKnowledgeDiagnosis.actionPlan : null;
+  const title = primary && primary.title ? primary.title : plan && plan.targetTitle;
+  renderDiagnosisGuidance('回到主線', title
+    ? `目前診斷主線：${title}。可沿知識圖譜回看它的前置關係。`
     : '請從目前考科的知識圖譜主線回看前置關係。');
   if (typeof switchTab === 'function') switchTab('dag');
   if (typeof showToast === 'function') showToast('已保留目前考科主線，請從主線回看前置關係。');

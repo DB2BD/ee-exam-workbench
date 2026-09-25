@@ -5,7 +5,7 @@ nodeId: ct-superposition
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 043e68b511bb306e484bcb53ed060199b7cc0ec3c1be3f41175bde3e513dec1b
 generatedBodyHash: 5a0cec2200642e1753990508b42ab08abe0bb7fd7c30260fb51f376dc418690a
 ---

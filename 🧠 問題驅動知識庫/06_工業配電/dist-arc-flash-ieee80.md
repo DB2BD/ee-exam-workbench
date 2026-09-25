@@ -5,7 +5,7 @@ nodeId: dist-arc-flash-ieee80
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: e2270d5877a06620eb398adaba4d2645db68642b4522d60c9776b9932ab302cf
 generatedBodyHash: 78eae86ce000d35765d6eeb1666209b5113c2cd262897b65bc7456cb9cb81a45
 ---

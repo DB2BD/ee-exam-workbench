@@ -5,7 +5,7 @@ nodeId: gk-em-second-order-ode-nonhomogeneous
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 27bbc6b437c50ca54c8fdba888ca5110d6a679dbefb55c0d1eda3be61ab1c856
 generatedBodyHash: b53a29a84ee6008ec8bc6629a7701d183919b91eea48c021fe5fdd00924fbabd
 ---

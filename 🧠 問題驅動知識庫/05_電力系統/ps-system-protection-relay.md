@@ -5,7 +5,7 @@ nodeId: ps-system-protection-relay
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 6b8eb7305e602192e3030379e5c0be90ee98e93b030d8a5f211519c032a824bb
 generatedBodyHash: b97e6b96672d8057cd8b8f837429cae1096ad9c3a5786739f0dc5df4aa0f70ca
 ---

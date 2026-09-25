@@ -5,7 +5,7 @@ nodeId: em-second-order-ode-nonhomogeneous
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 78eb8f98cb900fb5966e2feec1ea2cef46296ea8e63a071a693fa4e60b9dc0f9
 generatedBodyHash: 357e420389ee568de3a9b44ee4ccff4cf8260268faddb6a91738f857676d9dfc
 ---

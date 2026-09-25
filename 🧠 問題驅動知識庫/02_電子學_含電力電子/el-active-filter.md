@@ -5,7 +5,7 @@ nodeId: el-active-filter
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 5538bd36f4089f00a3aba53d15a44dd15fafbdbd66fa78e92305c88261244ed7
 generatedBodyHash: 599dd37652cc322092e4c4e748cdce3a78cb16cb540baac22a65d9815c64d166
 ---

@@ -5,7 +5,7 @@ nodeId: gk-ps-transient-stability-equal-area
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 88fc961787d21302ee0512a648299c2c137a45d0f5c11358bd9e9eb51e9f9fb4
 generatedBodyHash: 5157e447a7b5ebd1cc7daeab054724883a7be1e69ec04a605e8d4e82410e2c12
 ---

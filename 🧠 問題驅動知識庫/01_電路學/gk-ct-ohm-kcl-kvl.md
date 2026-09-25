@@ -5,7 +5,7 @@ nodeId: gk-ct-ohm-kcl-kvl
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 8d753977d70cd9f213edeb54db65df4780174ee647cdf3474c5d063aed166c5e
 generatedBodyHash: 660c7439ecb1c4bcb8f7ba879a3065492f7469abf9843a2e858281ce04f3065e
 ---

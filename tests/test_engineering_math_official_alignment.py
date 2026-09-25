@@ -57,6 +57,8 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
             ["y+\\frac32"],
             ["\\frac23", "\\frac{13}{24}", "\\frac{13}{36}"],
         )
+        note_104_q4 = (CANONICAL / "EE-104-03-4.md").read_text(encoding="utf-8")
+        self.assertNotIn("\\boxed{\\frac38}", note_104_q4)
         self.assert_stem_and_note(
             "EE-104-03-5",
             ["\\cos(yz)", "xyz"],
@@ -116,6 +118,26 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
             ["p(x)=a(x+1)", "0\\le x\\le2"],
             ["\\frac{11}{36}"],
         )
+
+    def test_113_q6_keeps_the_official_exponent_and_three_subproblems(self):
+        self.assert_stem_and_note(
+            "EE-113-03-6",
+            ["e^{-x-y/2}", "邊際平均值", "E\\{X^3Y^2\\}"],
+            ["\\boxed{k=\\frac12}", "\\boxed{E[Y]=2}", "\\boxed{48}"],
+        )
+        stem = self.questions["EE-113-03-6"][4]
+        self.assertNotIn("e^{-x-2y}", stem)
+        self.assertNotIn("邊際機率密度函數", stem)
+        self.assertNotIn("P(0 \\le X \\le 1", stem)
+
+    def test_113_q3_keeps_the_official_scaled_quartic_integral(self):
+        self.assert_stem_and_note(
+            "EE-113-03-3",
+            ["\\frac{\\sqrt{2}}{1+16x^4}"],
+            ["\\boxed{I=\\frac{\\sqrt2}{2}\\cdot\\frac{\\pi}{\\sqrt2}=\\frac\\pi2}"],
+        )
+        stem = self.questions["EE-113-03-3"][4]
+        self.assertNotIn("\\frac{1}{x^4 + 16}", stem)
 
     def test_math_audit_tracks_the_manual_ambiguity(self):
         audit = json.loads((ROOT / "data" / "engineering-math-audit.json").read_text(encoding="utf-8"))

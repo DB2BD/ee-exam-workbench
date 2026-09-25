@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "taxonomyVersion": "2026.09.03",
+  "taxonomyVersion": "2026.09.25",
   "normalization": {
     "unicodeForm": "NFKC",
     "caseFold": true,
@@ -59,9 +59,11 @@
       "emach-three-phase-transformer": {"name": "三相變壓器組接線 (Y-Y, Y-Δ, Δ-Δ, V-V)", "aliases": ["三相變壓器", "y-δ變壓器", "δ-δ", "v-v"]},
       "emach-dc-motor-generator": {"name": "直流電機 (分激/串激特性與調速)", "aliases": ["直流電機", "直流馬達", "直流發電機", "dc motor"]},
       "emach-induction-motor-equiv": {"name": "感應電動機等效電路與戴維寧化簡", "aliases": ["感應電動機", "感應馬達", "等效電路", "induction motor"]},
+      "emach-single-phase-rotating-field": {"name": "單相感應電動機二相旋轉磁場", "aliases": ["單相感應電動機", "二相旋轉磁場", "輔助繞組", "旋轉磁場"]},
       "emach-induction-motor-torque": {"name": "感應電動機轉矩-轉差率曲線與最大轉矩", "aliases": ["最大轉矩", "轉矩", "轉差率", "torque", "slip"]},
       "emach-synchronous-generator-round": {"name": "隱極同步發電機功角與相量圖", "aliases": ["同步發電機", "同步機", "功角", "激磁", "同步速度"]},
-      "emach-synchronous-salient-pole": {"name": "凸極同步電機雙反應理論 (Xd, Xq)", "aliases": ["凸極", "雙反應", "xq", "xd", "salient pole"]}
+      "emach-synchronous-salient-pole": {"name": "凸極同步電機雙反應理論 (Xd, Xq)", "aliases": ["凸極", "雙反應", "xq", "xd", "salient pole"]},
+      "emach-reluctance-motor": {"name": "磁阻電動機磁阻—位置轉矩", "aliases": ["磁阻電動機", "磁阻轉矩", "磁阻位置", "reluctance motor"]}
     }},
     "05": {"name": "電力系統", "chapters": {
       "ps-per-unit": {"name": "標么值 (Per-Unit) 系統換算", "aliases": ["標么", "pu", "per-unit", "基準容量", "基準電壓"]},
@@ -87,7 +89,7 @@
       "dist-power-factor-correction": {"name": "功率因數改善與電容器組容量", "aliases": ["功率因數改善", "功因改善", "並聯電容", "無效功率補償", "kvar"]},
       "dist-short-circuit-capacity": {"name": "短路容量計算 (MVA 法)", "aliases": ["短路容量", "短路電流", "mva 法", "故障點", "對稱啟斷電流"]},
       "dist-protection-coordination": {"name": "過電流電驛與保護協調 (TCC 曲線)", "aliases": ["過電流電驛", "保護協調", "反時限", "tcc", "比流器", "time dial"]},
-      "dist-harmonics-mitigation": {"name": "非線性負載諧波分析與抑制 (IEEE 519)", "aliases": ["諧波", "諧波共振", "thd", "諧波濾波器", "電壓閃爍", "電力品質"]},
+      "dist-harmonics-mitigation": {"name": "電力品質：電壓閃爍與諧波分析", "aliases": ["諧波", "諧波共振", "thd", "諧波濾波器", "電壓閃爍", "電力品質"]},
       "dist-arc-flash-ieee80": {"name": "IEEE Std 80 變電所接地網跨步/接觸安全電壓", "aliases": ["跨步電壓", "接觸電壓", "接地網", "ieee 80", "弧閃"]}
     }}
   }

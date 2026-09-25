@@ -2332,7 +2332,7 @@
       "qid": "GK-114-04-4",
       "examFamily": "GK",
       "nodeIds": [
-        "gk-emach-synchronous-salient-pole"
+        "gk-emach-reluctance-motor"
       ],
       "confidence": 0.9,
       "evidence": [
@@ -3560,13 +3560,13 @@
       "nodeIds": [
         "emach-dc-motor-generator"
       ],
-      "confidence": 0.92,
+      "confidence": 0.96,
       "evidence": [
         "dashboard-data.js:EE-106-04-3",
         "data/taxonomy/alias-map.json:emach-dc-motor-generator"
       ],
       "reviewStatus": "approved",
-      "sourcePriority": "deterministic"
+      "sourcePriority": "manual"
     },
     "PE:EE-106-04-4": {
       "qid": "EE-106-04-4",
@@ -4610,13 +4610,13 @@
       "nodeIds": [
         "el-pe-buck-boost"
       ],
-      "confidence": 0.9,
+      "confidence": 0.96,
       "evidence": [
         "dashboard-data.js:EE-109-02-2",
         "data/taxonomy/alias-map.json:el-pe-buck-boost"
       ],
       "reviewStatus": "approved",
-      "sourcePriority": "deterministic"
+      "sourcePriority": "manual"
     },
     "PE:EE-109-02-3": {
       "qid": "EE-109-02-3",
@@ -6250,13 +6250,13 @@
       "nodeIds": [
         "el-pe-buck-boost"
       ],
-      "confidence": 0.9,
+      "confidence": 0.96,
       "evidence": [
         "dashboard-data.js:EE-113-02-4",
         "data/taxonomy/alias-map.json:el-pe-buck-boost"
       ],
       "reviewStatus": "approved",
-      "sourcePriority": "deterministic"
+      "sourcePriority": "manual"
     },
     "PE:EE-113-03-1": {
       "qid": "EE-113-03-1",
@@ -6766,12 +6766,12 @@
       "qid": "EE-114-04-3",
       "examFamily": "PE",
       "nodeIds": [
-        "emach-induction-motor-equiv"
+        "emach-single-phase-rotating-field"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-114-04-3",
-        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+        "data/taxonomy/alias-map.json:emach-single-phase-rotating-field"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -6794,12 +6794,12 @@
       "qid": "EE-114-04-5",
       "examFamily": "PE",
       "nodeIds": [
-        "emach-synchronous-salient-pole"
+        "emach-reluctance-motor"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-114-04-5",
-        "data/taxonomy/alias-map.json:emach-synchronous-salient-pole"
+        "data/taxonomy/alias-map.json:emach-reluctance-motor"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"

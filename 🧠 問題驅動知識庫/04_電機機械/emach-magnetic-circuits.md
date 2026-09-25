@@ -5,7 +5,7 @@ nodeId: emach-magnetic-circuits
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 7c646dded3e1d01bb921a2a97adbb3317e4aa050a34937e5945a3f6ac8cdd49e
 generatedBodyHash: e42068b406e899f4ad10783aa64f395d7c1204ec088ff1276c63fd454625fb65
 ---

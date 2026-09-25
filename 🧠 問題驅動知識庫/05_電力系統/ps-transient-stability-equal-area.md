@@ -5,7 +5,7 @@ nodeId: ps-transient-stability-equal-area
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: a05a34ee77a979089c23757f9f7e1679344c99c4d298d91357d186ee33d5b612
 generatedBodyHash: edbb629fec0cf7debfbbc59da50abd2a385129352fe8666d79630eefa35bb41e
 ---

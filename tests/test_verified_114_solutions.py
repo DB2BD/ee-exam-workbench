@@ -18,40 +18,57 @@ POWER_112_Q4 = ROOT / "📝 個人題解與錯題本/05_電力系統/canonical/E
 class TestEE11402Q3Solution(unittest.TestCase):
     def test_switch_states_recalculate_the_inductor_waveform(self):
         text = ELECTRONICS_Q3.read_text(encoding="utf-8")
-        self.assertIn(r"L\frac{di_L}{dt}+Ri_L=0-E=-10", text)
-        self.assertIn(r"-20(1-e^{-t/50\,\mathrm{ms}})", text)
-        self.assertIn(r"-10+9.8009967e^{-(t-0.5\,\mathrm{ms})/50\,\mathrm{ms}}", text)
-        self.assertNotIn(r"-10(1-e^{-t/50\,\mathrm{ms}})", text)
-        self.assertNotIn(r"-20+19.9005e^{-(t-0.5\,\mathrm{ms})/50\,\mathrm{ms}}", text)
-
+        self.assertIn("先開路、後短路", text)
+        self.assertIn(r"L\dot i_L+Ri_L=V_S-E=-5", text)
+        self.assertIn(r"L\dot i_L+Ri_L=-E=-10", text)
+        self.assertIn("題面沒有", text)
+        self.assertIn(r"i_L(1\,\mathrm{ms})=i_L(0)", text)
+        self.assertIn("-15.025000", text)
+        self.assertIn("-14.975000", text)
         tau = 0.025 / 0.5
-        i_switch = -(10 / 0.5) * (1 - math.exp(-0.0005 / tau))
-        i_end = -10 + (i_switch + 10) * math.exp(-0.0005 / tau)
-        self.assertAlmostEqual(i_switch, -0.1990033, places=6)
-        self.assertAlmostEqual(i_end, -0.2965249, places=6)
+        a = math.exp(-0.0005 / tau)
+        i_start = -10 * (2 + a) / (1 + a)
+        i_switch = -10 + (i_start + 10) * a
+        i_end = -20 + (i_switch + 20) * a
+        self.assertAlmostEqual(i_start, -15.02499979, places=6)
+        self.assertAlmostEqual(i_switch, -14.97500021, places=6)
+        self.assertAlmostEqual(i_end, i_start, places=10)
+        self.assertLess(i_switch, 0)
 
     def test_annual_note_uses_the_same_switch_state_order(self):
         text = ELECTRONICS_ANNUAL.read_text(encoding="utf-8")
-        self.assertIn(r"圖示 \(Q\) 在 \(0\le t<0.5\,\mathrm{ms}\) 導通", text)
-        self.assertIn(r"L\frac{di_L}{dt}+Ri_L=0-E=-10", text)
-        self.assertIn(r"i_L(t)=-20(1-e^{-t/50\,\mathrm{ms}})", text)
-        self.assertIn(r"Q 關斷後，負向電感電流使二極體導通", text)
-        self.assertIn(r"i_L(t)=-10+9.8009967e^{-(t-0.5\,\mathrm{ms})/50\,\mathrm{ms}}", text)
-        self.assertNotIn(r"i_L(t)=-10(1-e^{-t/50\,\mathrm{ms}})", text)
-        self.assertNotIn(r"i_L(t)=-20+19.9005e^{-(t-0.5\,\mathrm{ms})/50\,\mathrm{ms}}", text)
+        self.assertIn("先開路、後短路", text)
+        self.assertIn(r"L\dot i_L+Ri_L=V_S-E=-5", text)
+        self.assertIn(r"L\dot i_L+Ri_L=-E=-10", text)
+        self.assertIn("-15.025000", text)
+        self.assertIn("-14.975000", text)
 
 
 class TestEE11404Q5Solution(unittest.TestCase):
+    def test_official_product_to_sum_typo_is_flagged(self):
+        text = MACHINES_Q5.read_text(encoding="utf-8")
+        mock = (ROOT / "docs/上榜被動模考_114年六科執行包.md").read_text(encoding="utf-8")
+        for source in (text, mock):
+            self.assertIn("Hint", source)
+            self.assertIn("誤植", source)
+            self.assertIn(r"\cos u\sin v", source)
+        alpha = beta = math.pi / 2
+        self.assertNotAlmostEqual(
+            math.sin(alpha) * math.sin(beta),
+            (math.sin(alpha + beta) + math.sin(alpha - beta)) / 2,
+        )
+
     def test_average_torque_keeps_the_cosine_squared_factor(self):
         text = MACHINES_Q5.read_text(encoding="utf-8")
-        self.assertIn(r"T=-\tfrac12\phi^2\,d\mathcal R/d\theta", text)
-        self.assertIn(r"T(t)=-2\mathcal R_1\Phi_m^2\cos^2(\omega t)\sin(4\omega_mt+4\delta)", text)
-        self.assertIn(r"T_{avg}=-\frac{1}{2}\mathcal R_1\Phi_m^2\sin(4\delta)", text)
+        standard = text.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        self.assertIn(r"T=\tfrac12\phi^2\,d\mathcal R/d\theta", text)
+        self.assertIn(r"T(t)=+2\mathcal R_1\Phi_m^2\cos^2(\omega t)\sin(4\omega_mt+4\delta)", standard)
+        self.assertIn(r"T_{avg}=\tfrac12\mathcal R_1\Phi_m^2\sin4\delta", standard)
+        self.assertIn(r"T_{avg}=+\frac{1}{2}\mathcal R_1\Phi_m^2\sin(4\delta)", text)
         self.assertIn(r"|T_{avg,max}|=\frac{1}{2}\mathcal R_1\Phi_m^2=3.4055", text)
         self.assertIn(r"0.642\;\mathrm{kW}", text)
-        self.assertNotIn(r"T_{avg}=\frac{1}{2}\mathcal R_1\Phi_m^2\sin(4\delta)", text)
-        self.assertNotIn(r"T_{avg}=\mathcal R_1\Phi_m^2\sin(4\delta)", text)
-        self.assertNotIn(r"T(t)=2\mathcal R_1\Phi_m^2\cos^2(\omega t)\sin(4\omega_mt+4\delta)", text)
+        self.assertNotIn(r"T(t)=-2\mathcal R_1", standard)
+        self.assertNotIn(r"T_{avg}=-\frac{1}{2}\mathcal R_1", text)
         self.assertNotIn(r"|T_{avg,max}|=\mathcal R_1\Phi_m^2=6.811", text)
 
         flux_peak = 8.2530e-3
@@ -59,6 +76,18 @@ class TestEE11404Q5Solution(unittest.TestCase):
         power_max = torque_max * 60 * math.pi
         self.assertAlmostEqual(torque_max, 3.4055, places=3)
         self.assertAlmostEqual(power_max / 1000, 0.6419, places=3)
+
+        # Numerically integrate the official positive-sign torque expression
+        # over one 60-Hz electrical cycle, for both synchronous directions.
+        phase = math.pi / 8  # sin(4 delta)=1
+        for direction in (1, -1):
+            samples = 20_000
+            normalized_mean = sum(
+                2 * math.cos(2 * math.pi * k / samples) ** 2
+                * math.sin(direction * 4 * math.pi * k / samples + 4 * phase)
+                for k in range(samples)
+            ) / samples
+            self.assertAlmostEqual(normalized_mean, 0.5, places=6)
 
 
 class TestEE11205Q2AuditDisposition(unittest.TestCase):

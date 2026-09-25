@@ -5,7 +5,7 @@ nodeId: gk-ps-economic-dispatch
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 2c430739f011b9b010b48e4738cc4705755f4601d05a4aa126a080a58644a06f
 generatedBodyHash: b480d08953825385f169b651480518beb844e400ac876e8ea040fc46ca2fe67e
 ---

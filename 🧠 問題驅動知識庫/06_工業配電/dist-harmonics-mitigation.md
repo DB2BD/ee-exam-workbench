@@ -5,11 +5,11 @@ nodeId: dist-harmonics-mitigation
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
-sourceHash: 7c9366fff42a65752f08a49538327cbc85ff35e9fa8a113d0f52d5cec51c0291
-generatedBodyHash: 806cf901f8d3ae5c4e6593dbf2a1fac34d90824e734fc641d4e2d993f742b625
+graphRevision: kg-v1-6f7a29de450d7597
+sourceHash: 712bdd2696f8ee69125f66ebcfd2833ac172388b81d09a97697401bbd90d0d55
+generatedBodyHash: 3ccaf4912a9329969842f3c2da20bcdf4357943603eb48da286cd47b2271df00
 ---
-# 非線性負載諧波分析與抑制 (IEEE 519)
+# 電力品質：電壓閃爍與諧波分析
 
 > 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
 

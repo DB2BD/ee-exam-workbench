@@ -5,7 +5,7 @@ nodeId: ps-economic-dispatch
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 0967e4e686f043f23a586f73e38e0e4d84b06ee0afda12c1a7a714ae6077599d
 generatedBodyHash: 2a565eccbbe89d146fd99c3d194aa1adda0dac10e91045b4fcb55b6d825e8350
 ---

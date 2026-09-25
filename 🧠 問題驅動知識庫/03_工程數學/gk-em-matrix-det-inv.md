@@ -5,7 +5,7 @@ nodeId: gk-em-matrix-det-inv
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 52fabb66602b211649ccd1f1cfb77f31417847cb9db347d4435e1518e7981277
 generatedBodyHash: 3525234e3ba23dc3c4e76a6bc12a7d7b283832f0eddfde4e780c313b2909d2ff
 ---

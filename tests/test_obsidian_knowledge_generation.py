@@ -39,7 +39,7 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             report = json.loads(result.stdout)
             self.assertTrue(report["valid"], report)
-            self.assertEqual(report["generatedNoteCount"], 145)
+            self.assertEqual(report["generatedNoteCount"], 149)
             self.assertTrue(report["generatedAt"])
             self.assertEqual(report["sourceIdentity"]["canonicalGraphRevision"], report["graphRevision"])
             self.assertEqual(report["outputIdentity"]["kind"], "obsidian-generated-notes")
@@ -50,7 +50,7 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
             self.assertIn("nodeId: pe-mainline-circuit", content)
             self.assertIn("nodeType: mainline", content)
             self.assertIn("examFamily: PE", content)
-            self.assertIn("graphRevision: kg-v1-9b95af550b0b1b9e", content)
+            self.assertIn(f"graphRevision: {report['graphRevision']}", content)
             self.assertRegex(content, r"sourceHash: [0-9a-f]{64}")
             self.assertIn("[[ct-ohm-kcl-kvl]]", content)
 

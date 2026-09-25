@@ -85,5 +85,15 @@ class TestKnowledgeDAG(unittest.TestCase):
         for expected_subj in ['01', '02', '03', '04', '05', '06']:
             self.assertIn(expected_subj, subjects, f"Subject {expected_subj} must be present in DAG")
 
+    def test_power_quality_node_separates_flicker_from_harmonics(self):
+        with open(os.path.join(WORKSPACE, 'src', 'data', 'knowledge-dag.js'), encoding='utf-8') as handle:
+            source = handle.read()
+        node = source.split("'dist-harmonics-mitigation': {", 1)[1].split("'dist-arc-flash-ieee80': {", 1)[0]
+        self.assertIn('電力品質：電壓閃爍與諧波分析', node)
+        self.assertIn('純電抗斷弧／導通模型', node)
+        self.assertIn('含電阻時改用複數阻抗', node)
+        self.assertIn('諧波放大', node)
+        self.assertNotIn('可消除 5 次以上諧波', node)
+
 if __name__ == '__main__':
     unittest.main()

@@ -5,7 +5,7 @@ nodeId: gk-ct-thevenin-norton
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: f84edf30dec829da267be27cde1555569d32e7e028bad46d0f77b52ed10382bd
 generatedBodyHash: a55ea73832093a608a22294d586cc956578de81e4de645daaca0180d6051ba9b
 ---

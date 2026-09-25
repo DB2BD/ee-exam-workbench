@@ -5,7 +5,7 @@ nodeId: ps-per-unit
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 095603bca10955cd0457a530404a70d01c4cb0ccb2a6e993d2a15f25eb9985a4
 generatedBodyHash: 9f786e3ea5d0658df22ccf1d59b27c652fc854a34e516e458ff91d3ff39ad35f
 ---

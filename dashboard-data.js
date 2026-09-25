@@ -710,7 +710,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-113-02-4.md",
     "依考科分類/02_電子學_含電力電子/113年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -752,7 +752,7 @@ const DB_DATA = {
     "03",
     113,
     3,
-    "試以留數定理（Residue Theorem）求 $\\int_{-\\infty}^\\infty \\frac{1}{x^4 + 16} dx$ 之值。（20 分）",
+    "試以留數定理（Residue Theorem）求 $\\int_{-\\infty}^\\infty \\frac{\\sqrt{2}}{1+16x^4}\\,dx$ 之值。（20 分）",
     [
       "工程數學",
       "等效定理"
@@ -802,7 +802,7 @@ const DB_DATA = {
     "03",
     113,
     6,
-    "$X$ 與 $Y$ 為兩隨機變數（Random variables），其聯合機率密度函數（Joint probability density function）為：\n$$p(x,y) = \\begin{cases} k e^{-x-2y}, & 0 \\le x < \\infty, \\ 0 \\le y < \\infty \\\\ 0, & \\text{其他區域} \\end{cases}$$\n\n* **(一)** 試求常數 $k$ 之值。（5 分）\n\n* **(二)** 試求 $X$ 與 $Y$ 的邊際機率密度函數（Marginal probability density functions）$p_X(x)$ 及 $p_Y(y)$。（5 分）\n\n* **(三)** 試求期望值 $E[X]$ 及 $E[Y]$。（5 分）\n\n* **(四)** 試求機率 $P(0 \\le X \\le 1, 0 \\le Y \\le 2)$ 之值。（5 分）",
+    "$X$ 與 $Y$ 為兩隨機變數（Random variables），其聯合機率密度函數（Joint probability density function）為：\n$$p(x,y) = \\begin{cases} k e^{-x-y/2}, & 0 \\le x < \\infty, \\ 0 \\le y < \\infty \\\\ 0, & \\text{其他區域} \\end{cases}$$\n\n* **(一)** 試求 $k$ 值。（5 分）\n\n* **(二)** 試求其邊際平均值（Marginal Mean）$E\\{Y\\}$。（5 分）\n\n* **(三)** 試求其期望值（Expected value）$E\\{X^3Y^2\\}$。（5 分）",
     [
       "工程數學"
     ],
@@ -2729,7 +2729,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-109-02-2.md",
     "依考科分類/02_電子學_含電力電子/109年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -4524,7 +4524,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-106-04-3.md",
     "依考科分類/04_電機機械/106年_電機工程技師_電機機械.pdf",
     4,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5865,7 +5865,7 @@ const DB_DATA = {
   {
     "id": "L1",
     "title": "題型辨識與範圍盤點",
-    "desc": "先用歷屆題建立出題輪廓，避免把時間耗在低命中率內容。",
+    "desc": "先用歷屆題建立出題輪廓，優先練習跨年度重複出現的章節。",
     "objective": "建立考科與題型地圖",
     "action": "all"
   },
@@ -6596,7 +6596,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "ct-thevenin-norton",
     "source": "canonical-chapter",
     "canonicalChapter": "諾頓與戴維寧等效",
-    "noteTitle": "114 年電路學第 2 題"
+    "noteTitle": "114 年電路學第 2 題｜諾頓等效"
   },
   "EE-104-01-2": {
     "primaryChapter": "ct-mutual-inductance",
@@ -6626,7 +6626,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "ct-second-order-rlc",
     "source": "canonical-chapter",
     "canonicalChapter": "二階 RLC 暫態",
-    "noteTitle": "114 年電路學第 3 題"
+    "noteTitle": "114 年電路學第 3 題｜二階 RLC 暫態"
   },
   "EE-104-01-3": {
     "primaryChapter": "ct-three-phase",
@@ -6650,7 +6650,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "ct-mutual-inductance",
     "source": "canonical-chapter",
     "canonicalChapter": "互感耦合與同名端分析",
-    "noteTitle": "108 年電路學第 4 題：互感耦合電路"
+    "noteTitle": "108 年電路學第 4 題｜互感耦合電路"
   },
   "EE-113-01-4": {
     "primaryChapter": "ct-two-port",
@@ -6794,7 +6794,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "ct-superposition",
     "source": "canonical-chapter",
     "canonicalChapter": "重疊定理與正弦穩態",
-    "noteTitle": "114 年電路學第 4 題"
+    "noteTitle": "114 年電路學第 4 題｜不同頻率的重疊定理"
   },
   "EE-104-01-4": {
     "primaryChapter": "ct-second-order-rlc",
@@ -6824,7 +6824,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "ct-laplace-circuit",
     "source": "canonical-chapter",
     "canonicalChapter": "拉氏轉換與含相依源電路",
-    "noteTitle": "114 年電路學第 5 題"
+    "noteTitle": "114 年電路學第 5 題｜拉氏轉換與含相依源電路"
   },
   "EE-104-01-5": {
     "primaryChapter": "ct-two-port",
@@ -6848,7 +6848,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "ct-node-mesh",
     "source": "canonical-chapter",
     "canonicalChapter": "節點分析與相依源",
-    "noteTitle": "114 年電路學第 1 題"
+    "noteTitle": "114 年電路學第 1 題｜節點電壓法與超節點"
   },
   "EE-104-01-1": {
     "primaryChapter": "ct-thevenin-norton",
@@ -6879,7 +6879,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "el-diff-amp",
     "source": "canonical-chapter",
     "canonicalChapter": "BJT 差動放大器",
-    "noteTitle": "114 年電子學第 1 題"
+    "noteTitle": "114 年電子學第 1 題：BJT 差動放大器"
   },
   "EE-111-02-2": {
     "primaryChapter": "el-pe-buck-boost",
@@ -6934,7 +6934,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "el-pe-thyristor-rectifier",
     "source": "canonical-chapter",
     "canonicalChapter": "閘流體保護",
-    "noteTitle": "114 年電子學第 4 題"
+    "noteTitle": "114 年電子學第 4 題：閘流體保護"
   },
   "EE-108-02-3": {
     "primaryChapter": "el-feedback-stability",
@@ -6944,9 +6944,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-109-02-2": {
     "primaryChapter": "el-pe-buck-boost",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "Boost 轉換器漣波與臨界值",
-    "noteTitle": "109 年電子學_含電力電子第 2 題"
+    "noteTitle": "109 年電子學第 2 題｜Boost 漣波與臨界值",
+    "manualChapter": "el-pe-buck-boost"
   },
   "EE-105-02-1": {
     "primaryChapter": "el-active-filter",
@@ -6957,8 +6958,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-113-02-3": {
     "primaryChapter": "el-pe-buck-boost",
     "source": "canonical-chapter",
-    "canonicalChapter": "升壓型轉換器的邊界導通模式",
-    "noteTitle": "113 年電子學含電力電子第 3 題｜升壓型轉換器 BCM"
+    "canonicalChapter": "降壓型轉換器的邊界導通模式",
+    "noteTitle": "113 年電子學第 3 題｜Buck 降壓轉換器的 BCM"
   },
   "EE-112-02-2": {
     "primaryChapter": "el-opamp-ideal",
@@ -7049,9 +7050,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-113-02-4": {
     "primaryChapter": "el-pe-buck-boost",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "全橋隔離型轉換器與邊界導通模式",
-    "noteTitle": "113 年電子學第 4 題：全橋隔離型轉換器"
+    "noteTitle": "113 年電子學第 4 題：全橋隔離型轉換器",
+    "manualChapter": "el-pe-buck-boost"
   },
   "EE-106-02-3": {
     "primaryChapter": "el-bjt-bias-small-signal",
@@ -7130,7 +7132,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "el-mosfet-bias-small-signal",
     "source": "canonical-title-override",
     "canonicalChapter": "MOS 小訊號與頻率響應",
-    "noteTitle": "114 年電子學第 2 題"
+    "noteTitle": "114 年電子學第 2 題：MOS 小訊號與頻率響應"
   },
   "EE-105-02-3": {
     "primaryChapter": "el-diode-rectifier",
@@ -7600,7 +7602,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "emach-synchronous-generator-round",
     "source": "canonical-title-override",
     "canonicalChapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 5 (Synchronous motors)",
-    "noteTitle": "112 年第 3 題｜獨立驗證"
+    "noteTitle": "112 年電機機械第 3 題｜同步電動機激磁調整"
   },
   "EE-107-04-4": {
     "primaryChapter": "emach-synchronous-generator-round",
@@ -7639,9 +7641,9 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "105 年電機機械第 4 題"
   },
   "EE-114-04-5": {
-    "primaryChapter": "emach-synchronous-salient-pole",
+    "primaryChapter": "emach-reluctance-motor",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
+    "canonicalChapter": "磁阻電動機磁阻—位置轉矩",
     "noteTitle": "114 年電機機械第 5 題：磁阻電動機轉矩"
   },
   "EE-104-04-5": {
@@ -7743,9 +7745,9 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "109 年電機機械第 1 題｜磁化電流與漏磁電抗"
   },
   "EE-114-04-3": {
-    "primaryChapter": "emach-induction-motor-equiv",
+    "primaryChapter": "emach-single-phase-rotating-field",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
+    "canonicalChapter": "單相感應電動機二相旋轉磁場",
     "noteTitle": "114 年電機機械第 3 題：單相感應電動機二相旋轉磁場"
   },
   "EE-104-04-3": {
@@ -7866,7 +7868,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "emach-dc-motor-generator",
     "source": "canonical-title-override",
     "canonicalChapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 8 (DC motors and generators)",
-    "noteTitle": "112 年第 5 題｜獨立驗證"
+    "noteTitle": "112 年第 5 題｜直流並激電動機"
   },
   "EE-113-04-4": {
     "primaryChapter": "emach-induction-motor-equiv",
@@ -7877,9 +7879,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-106-04-3": {
     "primaryChapter": "emach-dc-motor-generator",
-    "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "106 年電機機械第 3 題"
+    "source": "manual-topic-confirmed",
+    "canonicalChapter": "直流電機（並激馬達轉矩與調速）",
+    "noteTitle": "106 年電機機械第 3 題｜並激馬達外接負載轉矩",
+    "manualChapter": "emach-dc-motor-generator"
   },
   "EE-107-04-2": {
     "primaryChapter": "emach-dc-motor-generator",
@@ -8055,7 +8058,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "ps-load-flow-admittance",
     "source": "canonical-title-override",
     "canonicalChapter": "",
-    "noteTitle": "114 年電力系統第 2 題：二匯流排潮流"
+    "noteTitle": "114 年電力系統第 2 題｜二匯流排潮流"
   },
   "EE-104-05-2": {
     "primaryChapter": "ps-power-analysis",
@@ -8563,6 +8566,16 @@ const SOLUTION_REVIEW_METADATA = {
     "referenceBookConvention": "參考書以源極退化增益式與長通道平方律分別處理；本 canonical 依使用者裁決採雙分支呈現，保留參考書讀值、題面增益分支、平方律分支與最小更正候選，不把矛盾壓成單一官方數值。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
   },
+  "EE-109-02-2": {
+    "disposition": "critical_capacitance_criterion_unspecified",
+    "blocker": "官方題面雖問臨界電容 Cc，卻未指定臨界輸出電壓漣波或連續電容電壓的判準；以已知 C=200 μF 算出漣波後倒推 Cc=200 μF 是循環計算，不是獨立的臨界值。",
+    "action": "查明官方評分參考採用何種臨界電容定義；在此之前保留 D、ΔIL、ILpeak、ΔVC、Lc 的可驗算數值及 Cc 隨指定容許漣波比變化的條件式。",
+    "evidence": "官方裁切圖明列 Vs=15 V、Vo=30 V、Io=3 A、f=25 kHz、L=100 μH、C=200 μF，僅問 Cc 而無容許漣波比；由電荷平衡可得 Cc=D/(Rf ε)，需先指定 ε=ΔVC允許/Vo。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=109180&q=1&s=0601&t=Q"
+  },
   "EE-113-02-2": {
     "disposition": "",
     "blocker": "",
@@ -8592,6 +8605,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "reference_book",
     "referenceBookConvention": "參考書以 V_T=25 mV、r_e=50 Ω 並採教材近似計算；canonical 另保留納入 R_B 與有限 β 的精確回代作對照。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0701&t=Q"
+  },
+  "EE-113-02-4": {
+    "disposition": "center_tapped_secondary_turns_ratio_ambiguous",
+    "blocker": "官方圖標 Np:Ns，卻未指明 Ns 是整段中心抽頭次級匝數或每個半繞組匝數；兩種口徑的 Vo/Vs 差一倍。D 的定義亦需確認為每組對角開關在整個 Ts 中的導通時間比例。",
+    "action": "查核命題／評分口徑對 Ns 與 D 的定義；此前以每半繞組匝比 n_h 先作答，並列出 Ns 為半繞組或整段次級的兩個條件式，不宣稱唯一數值比。",
+    "evidence": "官方裁切只在變壓器旁標 Np:Ns，兩半次級另標 Vs1、Vs2，未將 Ns 明確畫在任一半繞組或端對端全繞組上；原解直接指定半繞組 Ns。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0701&t=Q"
   },
   "EE-111-02-4": {
     "disposition": "",
@@ -8652,6 +8675,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "reference_book",
     "referenceBookConvention": "以參考書的 s=0.067、0.1(1-s)/s 機械輸出功率項及圖示 0.2/s 電流支路計算；官方圖示與提示文字矛盾，canonical 保留另一完整分支作來源對照。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0711&t=Q"
+  },
+  "EE-106-04-3": {
+    "disposition": "missing_rotational_loss_model",
+    "blocker": "官方題面給外接軸負載轉矩與非零無載電樞電流，但未給旋轉損失轉矩隨轉速變化的模型，故無唯一數值工作點。",
+    "action": "取得官方評分參考或命題口徑確認是否視旋轉損失轉矩為定值；在此之前保留定損失轉矩與忽略損失兩組明示假設的條件解。",
+    "evidence": "官方裁切圖明示無載電樞電流 4 A 與外接負載轉矩 100 N·m；定損失轉矩近似得 56.89 A／866.4 rpm，直接令 100 N·m 為電磁轉矩則得 52.89 A／876.5 rpm。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0610&t=Q"
   },
   "EE-112-05-2": {
     "disposition": "unresolved_model_interpretation",

@@ -5,7 +5,7 @@ nodeId: dist-distribution-equipment
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: ccb6d501481df3872c43b1fb9c74d6da604064d0cd2a291b512c93dc32d68e7a
 generatedBodyHash: 56368049cd84e072c25e3ac413281db7ce36871ec0d5d306aef0432e58ef06c0
 ---

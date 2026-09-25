@@ -5,7 +5,7 @@ nodeId: gk-emach-single-phase-transformer
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 4b3277524a78c3948c1998e8dc0c6b26d6316bb75543387ae817aa522ebab2be
 generatedBodyHash: ad878df4e222978307792229c7afa97e13b6e146b1a2b4343912a1a4b005b5eb
 ---

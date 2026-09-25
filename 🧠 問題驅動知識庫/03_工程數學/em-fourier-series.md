@@ -5,7 +5,7 @@ nodeId: em-fourier-series
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: ccc809fef57528be61436e903aec09c30a2a84fab2804e05d287b7941eb8d7ac
 generatedBodyHash: b159d8f4536a937efeaf1d00d98a8bc9138813611b78f99dc6d91ec96a6ceb0b
 ---

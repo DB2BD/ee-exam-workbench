@@ -46,7 +46,7 @@ class TestKnowledgeGraphSchema(unittest.TestCase):
         result = validate_graph_directory(ROOT / "data" / "knowledge")
 
         self.assertTrue(result["valid"], result)
-        self.assertEqual(result["nodeCount"], 145)
+        self.assertEqual(result["nodeCount"], 149)
         self.assertEqual(result["questionLinkCount"], 484)
         self.assertGreaterEqual(result["edgeCount"], 120)
 

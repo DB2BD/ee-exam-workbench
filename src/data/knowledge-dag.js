@@ -457,6 +457,16 @@ const KNOWLEDGE_DAG = {
     coreFormula: 's = \\frac{n_s - n_r}{n_s}, R_2\'/s = R_2\' + R_2\'\\frac{1-s}{s}, V_{th} = V_1 \\frac{X_m}{\\sqrt{R_1^2 + (X_1 + X_m)^2}}',
     keyTrap: '轉子電阻 R2/s 包含銅損電阻 R2 與等效機械負載電阻 R2(1-s)/s。'
   },
+  'emach-single-phase-rotating-field': {
+    id: 'emach-single-phase-rotating-field',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '單相感應電動機二相旋轉磁場',
+    level: 2,
+    prereqs: ['emach-magnetic-circuits'],
+    coreFormula: '\\boldsymbol{\\Phi}=\\Phi_m(\\cos\\omega t\\,\\hat x+\\sin\\omega t\\,\\hat y)',
+    keyTrap: '圖上兩繞組電流同時為峰值的 1/\\sqrt2 時，合成磁通在 45° 斜向，不在單一繞組軸上。'
+  },
   'emach-induction-motor-torque': {
     id: 'emach-induction-motor-torque',
     subject: '04',
@@ -486,6 +496,16 @@ const KNOWLEDGE_DAG = {
     prereqs: ['emach-synchronous-generator-round'],
     coreFormula: 'P = \\frac{E_f V_t}{X_d} \\sin\\delta + \\frac{V_t^2}{2} \\left(\\frac{1}{X_q} - \\frac{1}{X_d}\\right) \\sin 2\\delta',
     keyTrap: '第二項為磁阻轉矩 (Reluctance Torque)，即使激磁失去 (Ef=0) 仍可輸出磁阻功率。'
+  },
+  'emach-reluctance-motor': {
+    id: 'emach-reluctance-motor',
+    subject: '04',
+    subjectName: '電機機械',
+    name: '磁阻電動機磁阻—位置轉矩',
+    level: 3,
+    prereqs: ['emach-magnetic-circuits'],
+    coreFormula: 'T=\\frac12\\phi^2\\frac{d\\mathcal R}{d\\theta}\\quad(\\text{依題目指定正方向})',
+    keyTrap: '先核對題目給的轉矩正方向，再從磁阻函數微分；不要直接套凸極同步機 Xd/Xq 功率式。'
   },
 
   // -------------------------------------------------------------
@@ -709,11 +729,11 @@ const KNOWLEDGE_DAG = {
     id: 'dist-harmonics-mitigation',
     subject: '06',
     subjectName: '工業配電',
-    name: '非線性負載諧波分析與抑制 (IEEE 519)',
+    name: '電力品質：電壓閃爍與諧波分析',
     level: 4,
     prereqs: ['dist-power-factor-correction'],
-    coreFormula: '\\text{THD}_V = \\frac{\\sqrt{\\sum_{h=2}^\\infty V_h^2}}{V_1} \\times 100\\%, X_L = \\frac{1}{h^2} X_C \\text{ (串聯電抗器防止諧振)}',
-    keyTrap: '改善功因電容器串聯 6% 抗流圈可消除 5 次以上諧波，串聯 13% 抗流圈可消除 3 次諧波。'
+    coreFormula: '\\Delta V_f=\\frac{X_{\\mathrm{up}}}{X_{\\mathrm{up}}+X_{\\mathrm{down}}},\\quad \\mathrm{THD}_V=\\frac{\\sqrt{\\sum_{h=2}^{\\infty}V_h^2}}{V_1}\\times100\\%,\\quad h_r=\\frac{1}{\\sqrt{p}}\\ (p=X_{L,1}/X_{C,1})',
+    keyTrap: '先辨認題目是電弧爐閃爍或諧波共振：純電抗斷弧／導通模型才用分壓比例；含電阻時改用複數阻抗。諧波題須依頻率換算阻抗並檢查共振；串聯電抗器限制諧波放大，不代表消除全部諧波。'
   },
   'dist-arc-flash-ieee80': {
     id: 'dist-arc-flash-ieee80',

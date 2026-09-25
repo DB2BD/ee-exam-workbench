@@ -5,7 +5,7 @@ nodeId: emach-synchronous-generator-round
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 2808dbbf84d13f58173a5048cafedc47a04e1bb25d5ec0409630076766aa235c
 generatedBodyHash: b647e0069de263fae182d46de02d255783f6e156b386ef12f20cbe9104214baa
 ---

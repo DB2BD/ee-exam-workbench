@@ -5,7 +5,7 @@ nodeId: gk-el-feedback-stability
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 2a503ab6d78ee4e62217464fd80b2a65018c9a5ea0b383f10cfebae148472cf6
 generatedBodyHash: 6a3aab389d69b00765bea16876486e2ae67989fe557683d7eca2d6da52024a19
 ---

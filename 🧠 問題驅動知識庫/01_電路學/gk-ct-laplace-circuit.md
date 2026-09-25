@@ -5,7 +5,7 @@ nodeId: gk-ct-laplace-circuit
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 94e0630a188dc033befe34f9f4cc79d6e3318faf0327015be8e51ead8550078e
 generatedBodyHash: d12a6f09bc67a89107d122033c9cbe310afa17dad4c69bb697bab1678eddb378
 ---

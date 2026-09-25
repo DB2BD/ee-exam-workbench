@@ -255,8 +255,10 @@ CANONICAL_CHAPTER_RULES = {
         ('em-first-order-ode', ('一階', '常微分', 'Bernoulli', '可分離')),
     ],
     '04': [
-        ('emach-synchronous-salient-pole', ('凸極', '雙反應', '磁阻電動機')),
+        ('emach-reluctance-motor', ('磁阻電動機', '磁阻—位置', '磁阻位置')),
+        ('emach-synchronous-salient-pole', ('凸極', '雙反應')),
         ('emach-synchronous-generator-round', ('同步發電機', '同步機', '同步電容', '同步馬達', '同步電動機')),
+        ('emach-single-phase-rotating-field', ('二相旋轉磁場', '單相感應電動機', '輔助繞組', '旋轉磁場')),
         ('emach-induction-motor-torque', ('最大轉矩', '轉矩', '轉差率', '轉差', '旋轉磁動勢')),
         ('emach-induction-motor-equiv', ('感應', '感應馬達', '感應電動機')),
         ('emach-three-phase-transformer', ('三相變壓器', '三相繞組')),
@@ -344,9 +346,9 @@ CANONICAL_TAXONOMY_OVERRIDES = {
     'EE-113-04-4': 'emach-induction-motor-equiv',
     'EE-114-04-1': 'emach-magnetic-circuits',
     'EE-114-04-2': 'emach-single-phase-transformer',
-    'EE-114-04-3': 'emach-induction-motor-equiv',
+    'EE-114-04-3': 'emach-single-phase-rotating-field',
     'EE-114-04-4': 'emach-synchronous-generator-round',
-    'EE-114-04-5': 'emach-synchronous-salient-pole',
+    'EE-114-04-5': 'emach-reluctance-motor',
     # Power-system notes without frontmatter.
     # Sequence networks are used here to solve an SLG/grounding fault; the
     # fault type is the primary review topic and must not fall back to the
@@ -680,7 +682,7 @@ for qid, evidence in QUESTION_TAXONOMY_MAP.items():
 
 # Seven-layer score-oriented study path. Each layer is actionable in the UI.
 sevenLayers = [
-    { "id": "L1", "title": "題型辨識與範圍盤點", "desc": "先用歷屆題建立出題輪廓，避免把時間耗在低命中率內容。", "objective": "建立考科與題型地圖", "action": "all" },
+    { "id": "L1", "title": "題型辨識與範圍盤點", "desc": "先用歷屆題建立出題輪廓，優先練習跨年度重複出現的章節。", "objective": "建立考科與題型地圖", "action": "all" },
     { "id": "L2", "title": "核心公式與單位", "desc": "先能在無提示下寫出公式、符號意義與單位，再進入計算。", "objective": "降低公式與單位失分", "action": "formula" },
     { "id": "L3", "title": "標準題型 SOP", "desc": "使用完整推導題練習固定解題順序，建立可重複的得分步驟。", "objective": "把會觀念轉成可拿分步驟", "action": "dedicated" },
     { "id": "L4", "title": "錯題與高難陷阱", "desc": "優先處理曾答錯與高難度題，記錄錯因、判斷點及下一次的防錯動作。", "objective": "直接降低重複錯誤", "action": "review" },

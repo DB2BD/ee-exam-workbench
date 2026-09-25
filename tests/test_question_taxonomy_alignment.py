@@ -168,6 +168,8 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             "EE-109-04-5": "emach-synchronous-salient-pole",
             "EE-110-04-4": "emach-dc-motor-generator",
             "EE-113-04-4": "emach-induction-motor-equiv",
+            "EE-114-04-3": "emach-single-phase-rotating-field",
+            "EE-114-04-5": "emach-reluctance-motor",
             "EE-105-05-3": "ps-unsymmetrical-faults",
             "EE-106-05-4": "ps-system-protection-relay",
             "EE-107-05-1": "ps-transmission-line-models",

@@ -14,6 +14,25 @@ CANONICAL = ROOT / "📝 個人題解與錯題本"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
+    def test_114_rotating_field_has_the_requested_xy_vector_sketch(self):
+        note = (CANONICAL / "04_電機機械" / "canonical" / "EE-114-04-3.md").read_text(encoding="utf-8")
+        for sample, arrow in (("t₁", "↗"), ("t₃", "↖"), ("t₅", "↙"), ("t₇", "↘")):
+            with self.subTest(sample=sample):
+                self.assertRegex(note, rf"(?:{sample}.{{0,3}}{arrow}|{arrow}.{{0,3}}{sample})")
+        self.assertIn("t₁ → t₃ → t₅ → t₇：逆時針", note)
+
+    def test_114_generator_air_gap_power_closes_exactly(self):
+        note = (CANONICAL / "04_電機機械" / "canonical" / "EE-114-04-4.md").read_text(encoding="utf-8")
+        line_voltage = 3200.0
+        current = 1_000_000.0 / (math.sqrt(3) * line_voltage)
+        terminal_power = math.sqrt(3) * line_voltage * current * 0.9
+        copper_loss = 3 * current**2 * 0.1
+        air_gap_power = terminal_power + copper_loss
+        self.assertAlmostEqual(air_gap_power, 909_765.625)
+        self.assertAlmostEqual(air_gap_power + 15_000 + 14_000, 938_765.625)
+        self.assertIn("909.765625", note)
+        self.assertIn("3\\operatorname{Re}(\\underline E_f\\underline I_a^*)", note)
+
     def test_pe_solution_manifest_hashes_match_canonical_notes(self):
         """The PE audit manifest must fingerprint the exact canonical answer body."""
         manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
@@ -140,7 +159,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         source_path = "reports/manual-review-index.md"
         source = (ROOT / source_path).read_text(encoding="utf-8")
         self.assertEqual(payload.get(source_path), source)
-        self.assertIn("目前共 **7 題**待人工覆核。", payload[source_path])
+        self.assertIn("目前共 **10 題**待人工覆核。", payload[source_path])
         self.assertNotIn("EE-108-06-2", payload[source_path])
 
     def test_111_power_system_q3_keeps_missing_frequency_conditional(self):
@@ -244,7 +263,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for path in CANONICAL.glob("*/canonical/EE-*.md"):
             text = path.read_text(encoding="utf-8")
             qid = re.search(r"^qid:\s*(EE-\d{3}-\d{2}-(\d+))\s*$", text, re.M)
-            prompt = re.search(r"^## 官方題目.*?\n(.*?)(?=\n## |\Z)", text, re.S | re.M)
+            prompt = re.search(r"^##+ 官方題目.*?\n(.*?)(?=\n##+ |\Z)", text, re.S | re.M)
             if not qid or not prompt:
                 continue
             year = qid.group(1).split("-")[1]
@@ -478,7 +497,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 7, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 10, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -911,9 +930,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", note)
         self.assertIn("official_source_url:", note)
         self.assertIn("A 點在 69 kV 母線上", note)
-        self.assertIn("另一觀測點分支：B 點", note)
-        self.assertIn("19.0520", note)
-        self.assertIn("6.070853", note)
+        self.assertIn("另一觀測點分支：圖示 B 點", note)
+        self.assertIn("X_{T1}+X_{T2}=0.168835329", note)
+        self.assertIn("32.5412", note)
+        self.assertIn("10.736853", note)
+        self.assertIn("假想觀測點，既非 A 點，也非圖示 B 點", note)
 
     def test_flyback_manual_review_records_critical_conduction_boundary(self):
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-109-02-3.md").read_text(encoding="utf-8")
@@ -1617,8 +1638,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertNotIn("條件式；完整回代見 canonical", annual_108)
         self.assertNotIn("非唯一官方答案", annual_108)
         self.assertIn("EE-110-06-4", annual_110)
-        self.assertIn("另一觀測點分支：B 點", annual_110)
-        self.assertIn("此組數值僅保留作差異追蹤", annual_110)
+        self.assertIn("另一觀測點分支：圖示 B 點", annual_110)
+        self.assertIn("32.5412", annual_110)
+        self.assertIn("舊年度答案的 19.05%／6.07 pu", annual_110)
 
 
 if __name__ == "__main__":

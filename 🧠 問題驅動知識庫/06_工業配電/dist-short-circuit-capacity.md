@@ -5,7 +5,7 @@ nodeId: dist-short-circuit-capacity
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 01e29f311532bf5eb0705996e30757a734a79c7e6d208bc02b49e6686d732280
 generatedBodyHash: 8751a48ac09b8612d317f2c9e43d58279c37f83d9f6f9dc921d663ab9e97e2b7
 ---

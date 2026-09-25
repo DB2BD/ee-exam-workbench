@@ -5,7 +5,7 @@ nodeId: el-diff-amp
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 972ad811a16f9749e6310740a7fe364065eed89e94711443b1a1fa70ed0eca85
 generatedBodyHash: b34fac7689007ca82ab3d7fd387d4fcf000821cd9808134ca707054b73c07156
 ---

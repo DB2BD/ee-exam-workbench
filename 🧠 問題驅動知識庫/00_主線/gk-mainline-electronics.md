@@ -5,7 +5,7 @@ nodeId: gk-mainline-electronics
 nodeType: mainline
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-9b95af550b0b1b9e
+graphRevision: kg-v1-6f7a29de450d7597
 sourceHash: 5a8720880fdf0dc0a69f3920db55cc797b280a6254c72b4a3e7bbfbcd33ff305
 generatedBodyHash: f3cc385760cd10be104877fdf9c10c1f6b7800899a2d9b1c9cf792ec43d11bf3
 ---

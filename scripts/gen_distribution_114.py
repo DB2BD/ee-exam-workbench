@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+# Retired draft: retained as historical reference and blocked from overwriting canonical notes.
+import sys
+raise SystemExit("此舊版草稿產生器已停用；請使用 canonical 同步流程。")
+
+# -*- coding: utf-8 -*-
 import os
 
 out_dir = "📝 個人題解與錯題本/06_工業配電"

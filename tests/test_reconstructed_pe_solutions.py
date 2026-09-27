@@ -7,6 +7,7 @@ import math
 import re
 import unittest
 from pathlib import Path
+from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -159,7 +160,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         source_path = "reports/manual-review-index.md"
         source = (ROOT / source_path).read_text(encoding="utf-8")
         self.assertEqual(payload.get(source_path), source)
-        self.assertIn("目前共 **10 題**待人工覆核。", payload[source_path])
+        self.assertIn("目前共 **13 題**待人工覆核。", payload[source_path])
         self.assertNotIn("EE-108-06-2", payload[source_path])
 
     def test_111_power_system_q3_keeps_missing_frequency_conditional(self):
@@ -497,7 +498,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 10, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 13, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -581,12 +582,20 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
     def test_manual_review_index_is_complete_and_uses_canonical_taxonomy(self):
         """The central queue must cover every manual item without leaking prompt text as chapters."""
-        report = (ROOT / "reports" / "manual-review-index.md").read_text(encoding="utf-8")
+        report_path = ROOT / "reports" / "manual-review-index.md"
+        report = report_path.read_text(encoding="utf-8")
         manual_qids = []
         for manifest in (ROOT / "data" / "pe-solution-audit.json", ROOT / "data" / "engineering-math-audit.json"):
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual_qids.extend(entry["qid"] for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
         self.assertEqual(report.count("| EE-"), len(manual_qids))
+        note_links = dict(re.findall(r"\[(EE-\d{3}-\d{2}-\d+)\]\(([^)]+)\)", report))
+        self.assertEqual(set(note_links), set(manual_qids))
+        self.assertTrue(any("%20" in target for target in note_links.values()))
+        for qid, target in note_links.items():
+            resolved = (report_path.parent / unquote(target.split("#", 1)[0])).resolve()
+            with self.subTest(qid=qid, target=target):
+                self.assertTrue(resolved.is_file(), resolved)
         for qid in manual_qids:
             self.assertIn(qid, report)
         self.assertNotIn("工業配電系統電壓降與串聯電抗器", report)

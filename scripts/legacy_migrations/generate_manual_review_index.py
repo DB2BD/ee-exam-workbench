@@ -6,6 +6,7 @@ import json
 import re
 from datetime import date
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "reports" / "manual-review-index.md"
@@ -61,6 +62,8 @@ def main() -> None:
             public_cell = "、".join(
                 f"[來源{i + 1}]({url})" for i, url in enumerate(public_urls)
             ) or "—"
+            relative_note = Path("..") / Path(entry["solution_link"])
+            note_target = quote(relative_note.as_posix(), safe="/")
             raw_subject = meta.get("subject", meta.get("考科", entry.get("subject_id", "")))
             chapter = meta.get("chapter", meta.get("章節", "")).strip()
             if not chapter:
@@ -77,7 +80,7 @@ def main() -> None:
                 "chapter": chapter,
                 "blocker": meta.get("review_blocker", ""),
                 "action": meta.get("review_action", ""),
-                "note": f"[{entry['qid']}]({entry['solution_link']})",
+                "note": f"[{entry['qid']}]({note_target})",
                 "source": source_cell,
                 "public": public_cell,
             })

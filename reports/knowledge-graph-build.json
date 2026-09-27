@@ -18,14 +18,14 @@
     "status": "passed"
   },
   "errors": [],
-  "generatedAt": "2026-09-25T15:08:48.229Z",
+  "generatedAt": "2026-09-27T09:32:04.213Z",
   "sourceIdentity": {
     "canonicalGraphRevision": "kg-v1-0cf2f6e1cdfb7cd2",
     "schemaVersion": "canonical-knowledge-graph.v1"
   },
   "outputIdentity": {
     "kind": "website-bundle",
-    "path": "/private/var/folders/16/t_5h62150ksg96z6btd0_5fw0000gn/T/tmpdpgkjh_t/second.js"
+    "path": "/private/var/folders/16/t_5h62150ksg96z6btd0_5fw0000gn/T/tmplwp1_ez0/second.js"
   },
   "checks": [
     {

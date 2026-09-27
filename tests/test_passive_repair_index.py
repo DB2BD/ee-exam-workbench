@@ -98,7 +98,7 @@ class TestPassiveRepairIndex(unittest.TestCase):
                 self.assertTrue(resolved.is_file(), resolved)
                 self.assertEqual(resolved.stem, qid)
 
-    def test_all_59_canonical_solutions_are_verified(self):
+    def test_original_59_question_index_keeps_one_manual_boundary_question(self):
         by_qid = {
             path.stem: path
             for path in CANONICAL_ROOT.glob("*/canonical/EE-*.md")
@@ -108,7 +108,12 @@ class TestPassiveRepairIndex(unittest.TestCase):
                 self.assertIn(qid, by_qid)
                 values = frontmatter(by_qid[qid])
                 self.assertEqual(values.get("qid"), qid)
-                self.assertEqual(values.get("audit_status"), "verified")
+                expected_status = "needs_manual_review" if qid in {"EE-114-06-2", "EE-114-06-3"} else "verified"
+                self.assertEqual(values.get("audit_status"), expected_status)
+                if expected_status == "needs_manual_review":
+                    self.assertEqual(values.get("verified_at"), "null")
+                    for field in ("review_disposition", "review_blocker", "review_action", "review_evidence"):
+                        self.assertTrue(values.get(field), field)
 
     def test_fixed_rules_are_present_and_passive(self):
         self.assertIn("被動、免回填", self.text)

@@ -16,7 +16,7 @@ EXPECTED_BY_SUBJECT = {
     "03": {"EE-107-03-5", "EE-112-03-4"},
     "04": {"EE-111-04-3", "EE-112-04-3"},
     "05": {"EE-105-05-2", "EE-110-05-5"},
-    "06": {"EE-114-06-3", "EE-113-06-3"},
+    "06": {"EE-109-06-3", "EE-113-06-3"},
 }
 REQUIRED_SECTIONS = (
     "## 考場標準作答",
@@ -66,6 +66,8 @@ class TestMixedBridgePack(unittest.TestCase):
     def test_pack_is_fixed_blind_and_noninteractive(self):
         for phrase in (
             "未顯示章節",
+            "不表示每題都是前段已練題目的變式",
+            "EE-109-06-3` 是額外歷屆題，不在核心 36 題清單",
             "50 分鐘閉卷",
             "20 分鐘得分證據核對",
             "20 分鐘重寫",

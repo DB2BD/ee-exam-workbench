@@ -666,7 +666,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "official_crop_conditional_per_unit_short_circuit_recalculation",
-      "solution_hash": "bd1990f879cd95e1857d1f9d05f8ac274e9d6971918a58ab8ccec26fe19cd4d6",
+      "solution_hash": "952f3c65397201ab74098b61fba6670928cd7998ab703d8676879221f6af29c1",
       "duplicate_qids": [],
       "source_crop": "依考科分類/06_工業配電/images/questions/PE_113年_工業配電_Q04.png",
       "review_disposition": "conditional_initial_symmetrical_subtransient_calculation",

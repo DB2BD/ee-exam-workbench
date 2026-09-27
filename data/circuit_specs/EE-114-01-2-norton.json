@@ -1,0 +1,50 @@
+{
+  "title": "114 年電路學第 2 題：a-b 端諾頓等效電路",
+  "width": 540,
+  "height": 330,
+  "source": {
+    "page": 1,
+    "bbox_norm": [0.0, 0.5811, 1.0, 0.9786],
+    "question_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q02.png",
+    "derivation": "由原題含相依源網路求得 V_oc=10 V、I_sc(a→b)=10 A；本圖為等效結果，不是原題圖的重畫。"
+  },
+  "components": [
+    {
+      "ref": "IN",
+      "type": "current-source",
+      "label": "I_N = 10 A",
+      "x": 220,
+      "y": 100,
+      "rotation": 0,
+      "arrow": "1->2",
+      "pins": {"1": "b", "2": "a"}
+    },
+    {
+      "ref": "RN",
+      "type": "resistor",
+      "label": "R_N = 1 Ω",
+      "x": 220,
+      "y": 220,
+      "rotation": 0,
+      "pins": {"1": "b", "2": "a"}
+    },
+    {"ref": "A", "type": "port", "label": "a (+)", "x": 460, "y": 100, "pins": {"1": "a"}},
+    {"ref": "B", "type": "port", "label": "b (−)", "label_offset": -25, "x": 100, "y": 280, "pins": {"1": "b"}}
+  ],
+  "nets": [
+    {
+      "id": "a",
+      "paths": [[[260, 100], [380, 100], [380, 220], [260, 220]], [[380, 100], [460, 100]]],
+      "junctions": [[380, 100]]
+    },
+    {
+      "id": "b",
+      "paths": [[[180, 100], [100, 100], [100, 220], [180, 220]], [[100, 220], [100, 280]]],
+      "junctions": [[100, 220]]
+    }
+  ],
+  "labels": [
+    {"text": "諾頓電流源箭頭：b → a", "x": 355, "y": 300}
+  ],
+  "checks": ["component-count", "values", "arrow", "node-map", "open-circuit-voltage"]
+}

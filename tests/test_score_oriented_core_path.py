@@ -22,7 +22,7 @@ COMPLETED_QIDS = (
     "EE-113-03-6",
     "EE-112-04-5",
     "EE-114-05-2",
-    "EE-113-06-4",
+    "EE-112-06-4",
     "EE-112-01-4",
     "EE-111-01-3",
     "EE-106-02-4",
@@ -34,7 +34,7 @@ COMPLETED_QIDS = (
     "EE-109-05-3",
     "EE-105-05-2",
     "EE-112-06-3",
-    "EE-114-06-3",
+    "EE-105-06-3",
     "EE-112-01-2",
     "EE-107-02-3",
     "EE-113-03-3",
@@ -228,10 +228,38 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         match = re.search(r"!\[官方單線圖與故障點 F\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
+        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn("status: needs_manual_review", note)
+        self.assertIn("verified_at: null", note)
+        frontmatter = note.split("---", 2)[1]
+        for field in (
+            "review_disposition",
+            "review_blocker",
+            "review_action",
+            "review_evidence",
+            "official_source_url",
+        ):
+            with self.subTest(review_field=field):
+                value = re.search(rf"(?m)^{field}:[ \t]*(.+)$", frontmatter)
+                self.assertIsNotNone(value, field)
+                self.assertTrue(value.group(1).strip(), field)
         self.assertIn(r"S_{\mathrm{CB},F}", standard)
-        self.assertIn(r"15.42\,\mathrm{MVA}", standard)
-        self.assertIn(r"18.55\,\mathrm{kA}", standard)
-        self.assertIn("馬達向 F 的倒灌不流過該 CB 接點", standard)
+        self.assertIn(r"X_{SM}''=0.15\frac{3}{1}\left(\frac{6.3}{6.6}\right)^2=0.410020661\,\mathrm{pu}", standard)
+        self.assertIn(r"15.475381\,\mathrm{MVA}", standard)
+        self.assertIn(r"18.613991\,\mathrm{kA}", standard)
+        self.assertIn(r"17.475381\,\mathrm{MVA}", standard)
+        self.assertIn(r"21.019617\,\mathrm{kA}", standard)
+        self.assertIn(r"電源、同步馬達與感應馬達的內部電勢均為 \(1\angle0^\circ\,\mathrm{pu}\)", standard)
+        self.assertIn(r"低壓 CB 位於 \(T_2\) 與 F 之間", standard)
+        self.assertIn("感應馬達支路接在 F 點右側", standard)
+        self.assertIn("馬達對 F 的倒灌不流經此 CB", standard)
+        self.assertIn("題面未給分離時間、衰減／時間常數及故障前運轉資料，故無法唯一求得", standard)
+        self.assertIn("不能宣稱為唯一官方評分口徑", standard)
+        self.assertNotIn(r"15.42\,\mathrm{MVA}", standard)
+        self.assertIn(
+            r"I_{IM,F}=\frac{I_b}{1.50}=\frac{3608.439\,\mathrm{A}}{1.50}=2405.626\,\mathrm{A}=2.405626\,\mathrm{kA}",
+            note,
+        )
 
     def test_parallel_rlc_same_type_keeps_step_forcing_in_equation(self):
         note_path = self.by_qid["EE-112-01-4"]
@@ -244,6 +272,22 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         match = re.search(r"!\[官方並聯 RLC 題圖\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
+
+    def test_low_voltage_relay_pickup_uses_squared_ratio_minus_one(self):
+        note = self.by_qid["EE-112-06-4"].read_text(encoding="utf-8")
+        question = next(row for row in self.questions if row[0] == "EE-112-06-4")
+        canonical_prompt = note.split("## 官方題目", 1)[1].split("## 考場標準作答", 1)[0]
+        relay_formula = (
+            r"T_s\s*=\s*\\d?frac\{k\s*\\times\s*80\}"
+            r"\{\(I/I_s\)\^2\s*-\s*1\}\s*\\times\s*\\d?frac\{1\}\{0\.808\}"
+        )
+        self.assertRegex(question[4], relay_formula, "compiled workbench stem diverges from the official formula")
+        self.assertRegex(canonical_prompt, relay_formula, "canonical question transcription diverges from the official formula")
+        self.assertIn(r"\left(\frac{I}{I_s}\right)^2-1=159.3321923", note)
+        self.assertIn(r"0.3=\frac{k\times80}{159.3321923}\times\frac{1}{0.808}", note)
+        self.assertIn(r"0.3\times0.808\times\frac{159.3321923}{80}", note)
+        self.assertIn(r"\boxed{0.48}", note)
+        self.assertNotIn("160.3321923", note)
 
     def test_notch_variation_links_official_topology_without_stale_annual_conflict(self):
         note_path = self.by_qid["EE-111-01-3"]

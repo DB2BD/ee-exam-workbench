@@ -512,7 +512,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-2.md",
     "依考科分類/06_工業配電/114年_電機工程技師_工業配電.pdf",
     4,
-    "verified",
+    "needs_manual_review",
     [
       "Ssc = Sbase / Xpu",
       "ΔV = √3 I (R cosθ + X sinθ)"
@@ -535,7 +535,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-3.md",
     "依考科分類/06_工業配電/114年_電機工程技師_工業配電.pdf",
     4,
-    "verified",
+    "needs_manual_review",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -1060,7 +1060,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-113-06-4.md",
     "依考科分類/06_工業配電/113年_電機工程技師_工業配電.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)",
       "Ssc = Sbase / Xpu"
@@ -1554,7 +1554,7 @@ const DB_DATA = {
     "06",
     112,
     4,
-    "一供電系統之單線圖如圖三所示。由 $11.4\\text{ kV}$ 受電，已知電源側之三相短路容量為 $500\\text{ MVA}$，三相變壓器額定為 $750\\text{ kVA}$，11400 V / 220-380 V，$Z\\% = 5.7\\%$。若在 220-380V 側之 F 點發生三相短路故障，忽略線路電阻。試求：（20 分）\n* **(一)** 對稱故障電流為多少安培？（8 分）\n* **(二)** 電驛的動作時間為反時性，其參考公式為 $T_s = \\frac{k \\times 80}{(I/I_s)^2 - 1} \\times 0.808$，其中 $I$ 為故障電流，$I_s$ 為始動電流，$k$ 為用戶曲線選擇。若設定始動電流為 135\\% 滿載電流時，上述短路故障過電流電驛在 0.3 秒動作，則最接近的 $k$ 值須為多少（至小數點第 2 位）？（12 分）",
+    "一供電系統之單線圖如圖三所示。由 $11.4\\text{ kV}$ 受電，已知電源側之三相短路容量為 $500\\text{ MVA}$，三相變壓器額定為 $750\\text{ kVA}$，11400 V / 220-380 V，$Z\\% = 5.7\\%$。若在 220-380V 側之 F 點發生三相短路故障，忽略線路電阻。試求：（20 分）\n* **(一)** 對稱故障電流為多少安培？（8 分）\n* **(二)** 電驛的動作時間為反時性，其參考公式為 $T_s = \\frac{k \\times 80}{(I/I_s)^2 - 1} \\times \\frac{1}{0.808}$，其中 $I$ 為故障電流，$I_s$ 為始動電流，$k$ 為用戶曲線選擇。若設定始動電流為 135\\% 滿載電流時，上述短路故障過電流電驛在 0.3 秒動作，則最接近的 $k$ 值須為多少（至小數點第 2 位）？（12 分）",
     [
       "交流相量",
       "工業配電",
@@ -8245,9 +8245,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-113-06-4": {
     "primaryChapter": "dist-short-circuit-capacity",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "標么法與三相短路啟斷容量",
-    "noteTitle": "113 年第 4 題｜480 V 匯流排三相短路啟斷容量"
+    "noteTitle": "113 年第 4 題｜480 V 匯流排三相短路啟斷容量",
+    "manualChapter": "dist-short-circuit-capacity"
   },
   "EE-112-06-5": {
     "primaryChapter": "dist-protection-coordination",
@@ -8275,9 +8276,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-114-06-3": {
     "primaryChapter": "dist-short-circuit-capacity",
-    "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "114 年工業配電第 3 題：汽電共生短路"
+    "source": "manual-topic-confirmed",
+    "canonicalChapter": "短路容量計算與同步發電機標么阻抗",
+    "noteTitle": "114 年工業配電第 3 題：汽電共生短路",
+    "manualChapter": "dist-short-circuit-capacity"
   },
   "EE-109-06-1": {
     "primaryChapter": "dist-load-characteristics",
@@ -8353,9 +8355,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-114-06-2": {
     "primaryChapter": "dist-harmonics-mitigation",
-    "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "114 年工業配電第 2 題：電弧爐壓降與閃爍"
+    "source": "manual-topic-confirmed",
+    "canonicalChapter": "電力品質：電壓閃爍與諧波分析",
+    "noteTitle": "114 年工業配電第 2 題：電弧爐壓降與閃爍",
+    "manualChapter": "dist-harmonics-mitigation"
   },
   "EE-108-06-1": {
     "primaryChapter": "dist-distribution-equipment",
@@ -8736,6 +8739,26 @@ const SOLUTION_REVIEW_METADATA = {
     "referenceBookConvention": "主要解答採 1 HP≈1 kVA 的額定電流換算與參考書線路公式；官方表格／銘牌缺口仍由題面來源鏈保留。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=107180&q=1&s=0612&t=Q"
   },
+  "EE-113-06-4": {
+    "disposition": "conditional_initial_symmetrical_subtransient_calculation",
+    "blocker": "題目未指定啟斷電流計算程序、接點分離時間、衰減／時間常數與故障前運轉條件，不能由題面唯一確定實際接點分離電流或唯一評分口徑。",
+    "action": "補查正式命題／評分口徑及適用的機器與斷路器時間資料；在此之前僅保留明列假設的初始次暫態條件解，不列為無警示的 verified 核心計分題。",
+    "evidence": "官方題圖可確認低壓 CB 位於 T2 與 F 之間、感應馬達接在 F 點右側；研究報告確認本題沒有可證明唯一官方口徑的資料，且 Xd'' 初始估算與接點分離時刻電流是不同問題。",
+    "referenceBookEvidence": "",
+    "verificationScope": "已獨立重算 6.3／6.6 kV 電壓基準換算及純電抗、內電勢同相假設下的 CB 支路與 F 點總量；未驗證題目欲採的唯一啟斷程序或實際接點分離電流。",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0712&t=Q"
+  },
+  "EE-114-06-3": {
+    "disposition": "generator_mw_rating_missing_mva_and_power_factor",
+    "blocker": "題目給兩台發電機容量50 MW與30 MW及各自次暫態電抗25%，但未提供額定MVA或額定功率因數；無法將MW額定值直接當成pu電抗換算的機組MVA基準。",
+    "action": "查核命題或評分說明採用的機組MVA額定值／功率因數；此前保留以S1、S2表示的通式，並將50 MW=50 MVA明確列作PF=1的條件分支，不列預設計分。",
+    "evidence": "官方原卷逐字標示發電機1為50 MW、發電機2為30 MW，但未標額定MVA與功率因數；忽略負載電流只簡化故障前網路，不能補出機組額定MVA。",
+    "referenceBookEvidence": "",
+    "verificationScope": "已驗算MVA基準通式，以及PF=1與PF=0.8兩組自洽數值分支；尚未確認題目採用的發電機額定MVA，故不能確認唯一電流答案。",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=114180&q=1&s=0712&t=Q"
+  },
   "EE-111-06-4": {
     "disposition": "",
     "blocker": "",
@@ -8765,6 +8788,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "reference_book",
     "referenceBookConvention": "以過流電驛 I'=8 A 作臨界動作基準；200 A 前者可動作、後者不可。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
+  },
+  "EE-114-06-2": {
+    "disposition": "electrode_short_residual_furnace_reactance_ambiguous",
+    "blocker": "題文將電弧爐及其配線合稱為 Z_F=j0.4 pu，未拆分固定高電流路徑與隨電弧狀態改變的部分，也未明定電極短路時保留的電抗。",
+    "action": "查核命題或評分說明對 Z_F 的定義及短路時剩餘電抗；此前保留全部 j0.4 的 15.49% 作條件主解，另列全部消失的 62.26% 分支，不列預設模考計分。",
+    "evidence": "官方裁切將 Z_F 畫在爐 F 前方，且數值為純電抗，支持保留串聯路徑的解讀；但電弧爐及其配線的合併定義未排除等效阻抗隨狀態改變，無旁路圖示不足以證明全部 0.4 固定。",
+    "referenceBookEvidence": "",
+    "verificationScope": "已驗算各指定剩餘電抗下的電流、母線電壓與 KVL；尚未確認原題唯一指定哪一個短路模型，數值驗算不能消除題意歧義。",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=114180&q=1&s=0712&t=Q"
   },
   "EE-104-06-5": {
     "disposition": "power_factor_parameterized",

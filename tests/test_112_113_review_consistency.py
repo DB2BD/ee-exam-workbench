@@ -138,7 +138,7 @@ class Test112113ReviewConsistency(unittest.TestCase):
         self.assertTrue(report.is_file())
         for note in (canonical, annual):
             self.assertIn("reports/113年工業配電Q4啟斷容量口徑研究.md", note)
-            self.assertIn("未納入工作台發布套件", note)
+            self.assertIn("尚未加入 Pages 靜態套件", note)
             self.assertNotRegex(note, r"\[[^\]]+\]\([^)]*113年工業配電Q4啟斷容量口徑研究\.md\)")
 
 

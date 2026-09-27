@@ -34,7 +34,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "norton-test-source",
-      "solution_hash": "9a2ce14f69482521d5a017952afef5f279aa0808c8954bc3276256f4fbc65139",
+      "solution_hash": "0cbfbb66fa104501ed94d37d4b71709bd31baaeb81050cf9faf97e03059c69f7",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q02.png"
     },
@@ -62,7 +62,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "phasor-superposition",
-      "solution_hash": "072af3dce1081bc9a9164436e565d12f7302dea54b56bfe95e7ea351ad086e5c",
+      "solution_hash": "1e6464cef4edaf3f4fa7d80b0de3d59786a7be6a48820a90981fe2ed83813153",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q04.png"
     },
@@ -76,7 +76,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "s-domain-nodal-analysis",
-      "solution_hash": "05ee1e92063644ccd0416a54b5a478711e9cf0088d6413cc94042cc209e13906",
+      "solution_hash": "a1fb664a02c08784087661407159195b08b2ea3b1c6c948d981a3950835faf8e",
       "duplicate_qids": [],
       "source_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q05.png"
     },
@@ -90,7 +90,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "hybrid-pi-small-signal",
-      "solution_hash": "d6879ed4fb6a0e167c275b6369e959131fc026a83019ea47ac7f81a54aee6605",
+      "solution_hash": "086a7968d7ee8b7a56d7a6f07a7f71144b84012400d581b2eef60920255c21f7",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_114年_電子學（包括電力電子學）_Q01.png"
     },
@@ -132,7 +132,7 @@
       "audit_status": "verified",
       "verified_at": "2026-08-30",
       "method": "dvdt-didt-protection-design",
-      "solution_hash": "e8ad483ba9bb6ee94d3b049b074329f20511de37d1d35bf07a6ffa55f805aac2",
+      "solution_hash": "d4e1139593c620edd6cad23275ce24de31c1cb4470ff37b7f83361722627755f",
       "duplicate_qids": [],
       "source_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_114年_電子學（包括電力電子學）_Q04.png"
     },

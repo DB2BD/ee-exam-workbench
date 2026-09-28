@@ -5,7 +5,7 @@ nodeId: gk-ps-symmetrical-components
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: 54c685bf3978c40524bcb3351c579b0dba2ba60b026b1c954f730c563e6fc3f3
 generatedBodyHash: 83245a76a4b69e13d0898fccee49160256b7bc0eb238147938e95961810fc710
 ---

@@ -16,12 +16,18 @@ Architecture:
 
 Usage:
     python3 scripts/compile_national_exams.py
+
+    For a scoped bridge correction that must preserve every other existing
+    relatedPEQid, provide the current bundle as a baseline. Without this flag,
+    cross-references are recalculated for the full question set:
+    python3 scripts/compile_national_exams.py --cross-reference-baseline national-exams-data.js
 """
 
 import os
 import re
 import json
 import hashlib
+import argparse
 
 # ═══════════════════════════════════════════════════════════════════════
 # § 0. SAFETY: Verify we never overwrite PE technician files
@@ -402,7 +408,7 @@ def choose_related_pe_qid(n_tags, n_topic, pe_entries, min_score=3):
     return winners[0]
 
 
-def build_cross_references(nat_questions, pe_data_path='dashboard-data.js'):
+def build_cross_references(nat_questions, pe_data_path='dashboard-data.js', baseline_path=None):
     """
     Read PE technician questions from dashboard-data.js (read-only!)
     and match national exam questions by topic similarity (tag overlap).
@@ -426,15 +432,49 @@ def build_cross_references(nat_questions, pe_data_path='dashboard-data.js'):
 
     # Build PE topic index: {(sid, tag_set_key): [pe_qid, ...]}
     pe_index = {}
+    pe_subject_by_qid = {}
     for pq in pe_questions:
         pe_qid, pe_sid = pq[0], pq[1]
         pe_tags = set(pq[5]) if len(pq) > 5 else set()
         pe_topic = pq[4] if len(pq) > 4 else ''
+        pe_subject_by_qid[pe_qid] = pe_sid
         pe_index.setdefault(pe_sid, []).append({
             'qid': pe_qid,
             'tags': pe_tags,
             'topic': pe_topic,
         })
+
+    # A scoped rebuild can retain every other previously published bridge.
+    baseline_links = None
+    if baseline_path:
+        from question_schema import load_questions_from_bundle
+        baseline_links = {row[0]: row[13] for row in load_questions_from_bundle(baseline_path)}
+        current_qids = {row[0] for row in nat_questions}
+        baseline_qids = set(baseline_links)
+        missing = current_qids - baseline_qids
+        unexpected = baseline_qids - current_qids
+        if missing or unexpected:
+            raise ValueError(
+                'Cross-reference baseline question set mismatch: '
+                f'missing={sorted(missing)}, unexpected={sorted(unexpected)}'
+            )
+        cross_subject = []
+        unknown_targets = []
+        for row in nat_questions:
+            qid = row[0]
+            related = baseline_links[qid]
+            if not related:
+                continue
+            pe_subject = pe_subject_by_qid.get(related)
+            if pe_subject is None:
+                unknown_targets.append((qid, related))
+            elif pe_subject != row[1]:
+                cross_subject.append((qid, related, row[1], pe_subject))
+        if cross_subject or unknown_targets:
+            raise ValueError(
+                'Cross-reference baseline has invalid PE targets: '
+                f'cross-subject={sorted(cross_subject)}, unknown={sorted(unknown_targets)}'
+            )
 
     # Match national questions to PE questions
     for nq in nat_questions:
@@ -443,6 +483,17 @@ def build_cross_references(nat_questions, pe_data_path='dashboard-data.js'):
         n_topic = nq[4]
 
         if n_sid not in pe_index:
+            continue
+
+        # Official GK Q04 asks induction-motor slip and torque (60 Hz, six
+        # poles); PE 105 Q03 asks induction-motor starting torque. Character
+        # overlap instead selected PE 114 Q05, a reluctance-motor question.
+        if nq[0] == 'GK-114-04-4':
+            nq[13] = 'EE-105-04-3'
+            continue
+
+        if baseline_links is not None:
+            nq[13] = baseline_links[nq[0]]
             continue
 
         # Score = tag overlap + topic keyword overlap.  Only a unique best
@@ -582,6 +633,9 @@ def generate_bundle_js():
 # ═══════════════════════════════════════════════════════════════════════
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--cross-reference-baseline', help='Retain existing bridges except the confirmed GK-114-04-4 correction')
+    args = parser.parse_args()
     print('🔒 Computing PE database checksums (safety snapshot)...')
     pre_checksums = safety_check()
 
@@ -595,7 +649,7 @@ if __name__ == '__main__':
             print(f'  📋 {cat["name"]}: {len(questions)} questions found')
 
     # Build cross-references (read-only from dashboard-data.js)
-    build_cross_references(all_nat_questions)
+    build_cross_references(all_nat_questions, baseline_path=args.cross_reference_baseline)
 
     # Sort: year desc, subject asc, question number asc
     all_nat_questions.sort(key=lambda q: (-q[2], q[1], q[3]))

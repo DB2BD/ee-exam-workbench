@@ -16,6 +16,9 @@ GRAPH = ROOT / "data" / "knowledge"
 
 class TestObsidianKnowledgeGeneration(unittest.TestCase):
     def _run_generator(self, graph_dir, output_root, report_path=None, personal_root=None):
+        if report_path is None:
+            output = Path(output_root)
+            report_path = output.with_name(f"{output.name}.report.json")
         command = [
             "python3",
             str(GENERATOR),
@@ -24,9 +27,9 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
             "--output-root",
             str(output_root),
             "--json",
+            "--report",
+            str(report_path),
         ]
-        if report_path:
-            command.extend(["--report", str(report_path)])
         if personal_root:
             command.extend(["--personal-root", str(personal_root)])
         return subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
@@ -43,6 +46,9 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
             self.assertTrue(report["generatedAt"])
             self.assertEqual(report["sourceIdentity"]["canonicalGraphRevision"], report["graphRevision"])
             self.assertEqual(report["outputIdentity"]["kind"], "obsidian-generated-notes")
+            self.assertEqual(report["outputIdentity"]["path"], output_root.name)
+            self.assertEqual(report["preservedPersonalRoot"], "📝 個人知識補充")
+            self.assertTrue(all(not Path(path).is_absolute() for path in report["generatedPaths"]))
             mainline = output_root / "00_主線" / "pe-mainline-circuit.md"
             self.assertTrue(mainline.exists())
             content = mainline.read_text(encoding="utf-8")
@@ -58,6 +64,24 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
             concept_content = concept.read_text(encoding="utf-8")
             self.assertIn("[[ct-procedure-thevenin-controlled-source]]", concept_content)
             self.assertIn("[[EE-114-01-2]]", concept_content)
+
+    def test_temporary_generation_does_not_overwrite_the_checked_in_report(self):
+        report = ROOT / "reports" / "obsidian-knowledge-build.json"
+        original = report.read_bytes()
+        try:
+            with tempfile.TemporaryDirectory() as temp_dir:
+                output_root = Path(temp_dir) / "temporary-notes"
+                result = self._run_generator(GRAPH, output_root)
+
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(
+                    report.read_bytes(),
+                    original,
+                    "a temporary Obsidian generation must not replace the checked-in build report",
+                )
+        finally:
+            if report.read_bytes() != original:
+                report.write_bytes(original)
 
     def test_repeated_generation_is_deterministic_and_preserves_personal_files(self):
         with tempfile.TemporaryDirectory() as temp_dir:

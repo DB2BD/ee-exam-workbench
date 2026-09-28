@@ -5,9 +5,9 @@ nodeId: dist-harmonics-mitigation
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
-sourceHash: 712bdd2696f8ee69125f66ebcfd2833ac172388b81d09a97697401bbd90d0d55
-generatedBodyHash: 3ccaf4912a9329969842f3c2da20bcdf4357943603eb48da286cd47b2271df00
+graphRevision: kg-v1-69f62a38770a392f
+sourceHash: 4e8f69bdd973647ae987b38c0bd8150a0ea056604856c8577005b425ba29eba8
+generatedBodyHash: 43a30d075bbb06d8c949294b1115fca776a9e6ce8febb701fd0b2bb5a73540e2
 ---
 # 電力品質：電壓閃爍與諧波分析
 
@@ -29,7 +29,7 @@ generatedBodyHash: 3ccaf4912a9329969842f3c2da20bcdf4357943603eb48da286cd47b2271d
 - [[EE-106-06-5]]（confidence: 0.9）
 - [[EE-110-06-4]]（confidence: 0.9）
 - [[EE-113-06-3]]（confidence: 0.9）
-- [[EE-114-06-2]]（confidence: 0.92）
+- [[EE-114-06-2]]（confidence: 0.96）
 
 ## Provenance
 - legacyNodeId: dist-harmonics-mitigation

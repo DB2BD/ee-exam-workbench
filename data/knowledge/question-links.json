@@ -2332,13 +2332,13 @@
       "qid": "GK-114-04-4",
       "examFamily": "GK",
       "nodeIds": [
-        "gk-emach-reluctance-motor"
+        "gk-emach-induction-motor-torque"
       ],
       "confidence": 0.9,
       "evidence": [
         "national-exams-data.js:GK-114-04-4",
-        "national-exams-data.js:GK-114-04-4:relatedPEId=EE-114-04-5",
-        "dashboard-data.js:EE-114-04-5"
+        "national-exams-data.js:GK-114-04-4:relatedPEId=EE-105-04-3",
+        "dashboard-data.js:EE-105-04-3"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -6516,13 +6516,13 @@
       "nodeIds": [
         "dist-short-circuit-capacity"
       ],
-      "confidence": 0.9,
+      "confidence": 0.96,
       "evidence": [
         "dashboard-data.js:EE-113-06-4",
         "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
       ],
       "reviewStatus": "approved",
-      "sourcePriority": "deterministic"
+      "sourcePriority": "manual"
     },
     "PE:EE-113-06-5": {
       "qid": "EE-113-06-5",
@@ -6894,13 +6894,13 @@
       "nodeIds": [
         "dist-harmonics-mitigation"
       ],
-      "confidence": 0.92,
+      "confidence": 0.96,
       "evidence": [
         "dashboard-data.js:EE-114-06-2",
         "data/taxonomy/alias-map.json:dist-harmonics-mitigation"
       ],
       "reviewStatus": "approved",
-      "sourcePriority": "deterministic"
+      "sourcePriority": "manual"
     },
     "PE:EE-114-06-3": {
       "qid": "EE-114-06-3",
@@ -6908,13 +6908,13 @@
       "nodeIds": [
         "dist-short-circuit-capacity"
       ],
-      "confidence": 0.92,
+      "confidence": 0.96,
       "evidence": [
         "dashboard-data.js:EE-114-06-3",
         "data/taxonomy/alias-map.json:dist-short-circuit-capacity"
       ],
       "reviewStatus": "approved",
-      "sourcePriority": "deterministic"
+      "sourcePriority": "manual"
     },
     "PE:EE-114-06-4": {
       "qid": "EE-114-06-4",

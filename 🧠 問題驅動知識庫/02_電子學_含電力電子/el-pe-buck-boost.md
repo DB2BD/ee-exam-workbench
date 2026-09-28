@@ -5,9 +5,9 @@ nodeId: el-pe-buck-boost
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
-sourceHash: d3902bc1254e9f0cfeea6ecd20f71330ddf6eef0c3d9c3531176933f86d6a63f
-generatedBodyHash: 29204bff87e9d429d2b00386167189fffff5a2c9358d2c6cd2539b1a791451de
+graphRevision: kg-v1-69f62a38770a392f
+sourceHash: 40286fd8f91e55d39c4e0ffb4fa4a006a9de13c3e5bda2e1f9cc1b97ea6eadba
+generatedBodyHash: 3229a5ab3438046bc46355b26a6d8e86d9cc4fcd2938c5eb8164bb8053c452d4
 ---
 # DC-DC Buck/Boost 轉換器 (CCM/DCM)
 
@@ -27,12 +27,12 @@ generatedBodyHash: 29204bff87e9d429d2b00386167189fffff5a2c9358d2c6cd2539b1a79145
 - [[EE-107-02-3]]（confidence: 0.9）
 - [[EE-107-02-4]]（confidence: 0.9）
 - [[EE-108-02-5]]（confidence: 0.9）
-- [[EE-109-02-2]]（confidence: 0.9）
+- [[EE-109-02-2]]（confidence: 0.96）
 - [[EE-109-02-3]]（confidence: 0.96）
 - [[EE-111-02-2]]（confidence: 0.9）
 - [[EE-112-02-3]]（confidence: 0.9）
 - [[EE-113-02-3]]（confidence: 0.9）
-- [[EE-113-02-4]]（confidence: 0.9）
+- [[EE-113-02-4]]（confidence: 0.96）
 - [[EE-114-02-3]]（confidence: 0.9）
 
 ## Provenance

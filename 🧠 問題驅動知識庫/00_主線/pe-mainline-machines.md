@@ -5,7 +5,7 @@ nodeId: pe-mainline-machines
 nodeType: mainline
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: 4ab79ad8083f9742a7ef43cab8cbe2085205feaa68480b7c0f87353efb1bb6b9
 generatedBodyHash: 4a18b484b98e00d5bada13ed09c91eefc4c756c1db88e61f25adc31119d929ef
 ---

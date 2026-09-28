@@ -5,9 +5,9 @@ nodeId: dist-short-circuit-capacity
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
-sourceHash: 01e29f311532bf5eb0705996e30757a734a79c7e6d208bc02b49e6686d732280
-generatedBodyHash: 8751a48ac09b8612d317f2c9e43d58279c37f83d9f6f9dc921d663ab9e97e2b7
+graphRevision: kg-v1-69f62a38770a392f
+sourceHash: 6b3cfdf06efd24895aab57684b4167a7d9a0500fd417b80d53513869771f5fd4
+generatedBodyHash: 3627f3a6e9de1f7c69224edabfddbeae03d7f8c315d3c4f2f937e696974de99f
 ---
 # 短路容量計算 (MVA 法)
 
@@ -34,8 +34,8 @@ generatedBodyHash: 8751a48ac09b8612d317f2c9e43d58279c37f83d9f6f9dc921d663ab9e97e
 - [[EE-111-06-3]]（confidence: 0.96）
 - [[EE-112-06-3]]（confidence: 0.9）
 - [[EE-112-06-4]]（confidence: 0.92）
-- [[EE-113-06-4]]（confidence: 0.9）
-- [[EE-114-06-3]]（confidence: 0.92）
+- [[EE-113-06-4]]（confidence: 0.96）
+- [[EE-114-06-3]]（confidence: 0.96）
 
 ## Provenance
 - legacyNodeId: dist-short-circuit-capacity

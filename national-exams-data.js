@@ -11,7 +11,7 @@ const NATIONAL_EXAMS_DATA = {
     {
         "id": "PE",
         "name": "🏆 電機工程技師",
-        "total": 321,
+        "total": 323,
         "isPrimary": true
     },
     {
@@ -503,7 +503,7 @@ const NATIONAL_EXAMS_DATA = {
     ],
     true,
     "GK",
-    "EE-114-04-5",
+    "EE-105-04-3",
     "依考科分類/🏛️_國考同級參考題庫/04_電機機械/images/questions/GK_114年_電機機械_Q04.png",
     [],
     [

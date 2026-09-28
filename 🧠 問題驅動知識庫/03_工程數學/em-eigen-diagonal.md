@@ -5,7 +5,7 @@ nodeId: em-eigen-diagonal
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: 23d95be0cf1bb3a95cde8d39b56e64112e1eefde209c7cb55baf0ec8d5a3a3ad
 generatedBodyHash: c79b0cd8fd5c4f7481f4a6b98183cdd06cd62a19290ba4819268aa272d0cde71
 ---

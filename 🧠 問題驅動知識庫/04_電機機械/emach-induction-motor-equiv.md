@@ -5,9 +5,9 @@ nodeId: emach-induction-motor-equiv
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
-sourceHash: ba4ce757c4707fb8e043627cf0d3c745df7ca3014dfa5f8e1d377b6603ff5b2f
-generatedBodyHash: 140706cbcd2fd70fd9e966266dd42e2d7b2115213cd9622c19bd2fffa58e714c
+graphRevision: kg-v1-69f62a38770a392f
+sourceHash: 343bafb0d0b9a3fe6f3e1fce5f6545fd752321cf82196667652df58278a4adcb
+generatedBodyHash: 876d128702b174e521656254c26733c07db5a1d276d7c571b0361259444e3131
 ---
 # 感應電動機等效電路與戴維寧化簡
 
@@ -32,7 +32,6 @@ generatedBodyHash: 140706cbcd2fd70fd9e966266dd42e2d7b2115213cd9622c19bd2fffa58e7
 - [[EE-112-04-4]]（confidence: 0.92）
 - [[EE-113-04-4]]（confidence: 0.96）
 - [[EE-113-04-5]]（confidence: 0.9）
-- [[EE-114-04-3]]（confidence: 0.92）
 
 ## Provenance
 - legacyNodeId: emach-induction-motor-equiv

@@ -5,7 +5,7 @@ nodeId: el-mosfet-bias-small-signal
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: da554f1f04958a58dc6c13737771940991933f960915c79a11d285c3b1f784d9
 generatedBodyHash: 4e3aa99e6d802b2adfa19e53df2d1819550b9292b3143c90c8fa275fcaf4007f
 ---

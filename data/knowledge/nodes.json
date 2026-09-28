@@ -2968,7 +2968,7 @@
     {
       "nodeId": "q-ee-114-01-3",
       "nodeType": "question",
-      "title": "EE-114-01-3 一階暫態題",
+      "title": "EE-114-01-3 二階 RLC 暫態題",
       "examFamily": "PE",
       "qid": "EE-114-01-3",
       "lifecycle": "active",
@@ -2976,7 +2976,7 @@
         "sourceType": "dashboard-data",
         "sourcePath": "dashboard-data.js"
       },
-      "nodeRevisionHash": "qid-EE-114-01-3-v1"
+      "nodeRevisionHash": "qid-EE-114-01-3-v2"
     },
     {
       "nodeId": "q-ee-114-03-1",

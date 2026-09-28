@@ -30,6 +30,14 @@ DEFAULT_INVENTORY = WORKSPACE / "data" / "knowledge" / "migration-inventory.json
 DEFAULT_REQUIRED_QUESTION_LINKS = 484
 
 
+def _report_path(path: Path | str) -> str:
+    resolved = Path(path).resolve()
+    try:
+        return resolved.relative_to(WORKSPACE.resolve()).as_posix()
+    except ValueError:
+        return resolved.name
+
+
 def _load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -217,7 +225,7 @@ def build_knowledge_graph(
                 "canonicalGraphRevision": result["graphRevision"],
                 "schemaVersion": result["schemaVersion"],
             },
-            "outputIdentity": {"kind": "website-bundle", "path": str(Path(output).resolve())},
+            "outputIdentity": {"kind": "website-bundle", "path": _report_path(output)},
         }
     )
     report["checks"] = [

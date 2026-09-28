@@ -5,9 +5,9 @@ nodeId: emach-dc-motor-generator
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
-sourceHash: 4e1a9fa6cfbec6eb9cc276dc517eca18014af7076f97bc92bae2292ca0e36d44
-generatedBodyHash: ba62f71a30794058c7fef3852b4002216bd83bdcf137bb19de91bad43a94507c
+graphRevision: kg-v1-69f62a38770a392f
+sourceHash: 50b475555553eb771be18bea2858e4cb42425cdf49f01d42b2444bc93970965f
+generatedBodyHash: 2aff258ba2a3b71beb60874ac9c3d17ba3dcea305588f77903d8959bd4d0a9eb
 ---
 # 直流電機 (分激/串激特性與調速)
 
@@ -25,7 +25,7 @@ generatedBodyHash: ba62f71a30794058c7fef3852b4002216bd83bdcf137bb19de91bad43a945
 ## Linked questions
 - [[EE-104-04-3]]（confidence: 0.92）
 - [[EE-105-04-5]]（confidence: 0.96）
-- [[EE-106-04-3]]（confidence: 0.92）
+- [[EE-106-04-3]]（confidence: 0.96）
 - [[EE-107-04-2]]（confidence: 0.92）
 - [[EE-108-04-2]]（confidence: 0.92）
 - [[EE-108-04-5]]（confidence: 0.92）

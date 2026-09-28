@@ -512,6 +512,18 @@ console.log("Loaded national exam cross-reference database with", NATIONAL_EXAMS
     print(f'✅ {OUTPUT_DATA_JS} generated with {len(all_questions)} national exam questions.')
 
 
+def is_unverified_bundle_path(path):
+    """Recognize quarantined paths by both their visible and resolved names."""
+    candidate = os.path.abspath(path)
+    if '_unverified_pre_moex' in candidate.split(os.sep):
+        return True
+    if not os.path.exists(candidate):
+        # Broken or looping aliases are not publishable assets.
+        return True
+    resolved = os.path.realpath(candidate)
+    return '_unverified_pre_moex' in resolved.split(os.sep)
+
+
 def generate_bundle_js():
     """Generate national-solutions-bundle.js (only national exam markdown + images)"""
     bundle = {}
@@ -527,8 +539,14 @@ def generate_bundle_js():
         if not os.path.exists(scan_dir):
             continue
         for root, dirs, files in os.walk(scan_dir):
+            # Quarantined legacy material is research-only: neither its
+            # Markdown nor images/aliases may enter the Pages runtime bundle.
+            dirs[:] = [directory for directory in dirs if directory != '_unverified_pre_moex']
             for f in files:
-                rel_path = os.path.relpath(os.path.join(root, f), '.').replace(os.sep, '/')
+                source_path = os.path.join(root, f)
+                if is_unverified_bundle_path(source_path):
+                    continue
+                rel_path = os.path.relpath(source_path, '.').replace(os.sep, '/')
                 if f.endswith('.md'):
                     with open(os.path.join(root, f), 'r', encoding='utf-8', errors='ignore') as fp:
                         bundle[rel_path] = fp.read()

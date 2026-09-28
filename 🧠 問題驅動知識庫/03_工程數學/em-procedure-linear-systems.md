@@ -5,7 +5,7 @@ nodeId: em-procedure-linear-systems
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: 0db596bc1498528c5111871dc4fbded6be4bd904fd8123c4fc69a1fad2ca571d
 generatedBodyHash: eaaf382f71e3d092a2e01076a8b261fbedd5185e736614a475dd51666dcd9bb9
 ---

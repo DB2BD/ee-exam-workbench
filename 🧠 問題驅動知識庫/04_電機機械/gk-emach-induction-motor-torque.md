@@ -5,9 +5,9 @@ nodeId: gk-emach-induction-motor-torque
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
-sourceHash: 99e9fa809f556a02241f42ddc986c6393c492dbb1d5061e965b034802f307361
-generatedBodyHash: 88b92eb92ef52767a6b801a4b6f00899cd2d747a20e2560b92ef76c25c699d0a
+graphRevision: kg-v1-69f62a38770a392f
+sourceHash: 0c68cffa3fffb83f42ee927e0c504c9edc9a74014d8758375b87d66c03c79e9f
+generatedBodyHash: 24d13af0b956ed534049d683fc040ba6b7314e6cf5ae460cf1e77099cb146a3d
 ---
 # 感應電動機轉矩-轉差率曲線與最大轉矩
 
@@ -24,6 +24,7 @@ generatedBodyHash: 88b92eb92ef52767a6b801a4b6f00899cd2d747a20e2560b92ef76c25c699
 
 ## Linked questions
 - [[GK-112-04-3]]（confidence: 0.9）
+- [[GK-114-04-4]]（confidence: 0.9）
 
 ## Provenance
 - familyIsolation: GK

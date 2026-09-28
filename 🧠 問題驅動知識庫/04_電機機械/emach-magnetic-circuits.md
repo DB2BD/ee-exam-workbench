@@ -5,9 +5,9 @@ nodeId: emach-magnetic-circuits
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
-sourceHash: 7c646dded3e1d01bb921a2a97adbb3317e4aa050a34937e5945a3f6ac8cdd49e
-generatedBodyHash: e42068b406e899f4ad10783aa64f395d7c1204ec088ff1276c63fd454625fb65
+graphRevision: kg-v1-69f62a38770a392f
+sourceHash: c8b722dd2226c7eaf02e1ef6e9a7320ca8710420a9f16477a79a5d11036637f3
+generatedBodyHash: b55aca23df3af6a2c9f84cce4e43501b1d64425c55b2b2fa38f23cca4fb72b40
 ---
 # 磁路定律與磁滯飽和
 
@@ -21,6 +21,8 @@ generatedBodyHash: e42068b406e899f4ad10783aa64f395d7c1204ec088ff1276c63fd454625f
 
 ## Semantic links
 - `prerequisite` → [[emach-dc-motor-generator]] — 掌握「直流電機 (分激/串激特性與調速)」前，先建立「磁路定律與磁滯飽和」這個前置概念。
+- `prerequisite` → [[emach-reluctance-motor]] — 掌握「磁阻電動機磁阻—位置轉矩」前，先建立「磁路定律與磁滯飽和」這個前置概念。
+- `prerequisite` → [[emach-single-phase-rotating-field]] — 掌握「單相感應電動機二相旋轉磁場」前，先建立「磁路定律與磁滯飽和」這個前置概念。
 - `prerequisite` → [[emach-single-phase-transformer]] — 掌握「單相變壓器等效電路與開短路試驗」前，先建立「磁路定律與磁滯飽和」這個前置概念。
 
 ## Linked questions

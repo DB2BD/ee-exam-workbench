@@ -1,21 +1,21 @@
 ---
 generated: true
 generator: scripts/generate_obsidian_knowledge.py
-nodeId: gk-ct-two-port
-nodeType: procedure
+nodeId: gk-emach-single-phase-rotating-field
+nodeType: mechanism
 examFamily: GK
 lifecycle: active
 graphRevision: kg-v1-69f62a38770a392f
-sourceHash: b65dae84bb2c24cc5debf48b7bee47ac5c2cbc3f4336bd15a06e0387e24be6a9
-generatedBodyHash: dac1c74853a3dbc99ed40b331c6613de5456f3616bc13176ffc898e96ff0879c
+sourceHash: eaff3a8c9ee67efdcd22c0985cfd22999c482381bfe8a19f020dec32e0fad930
+generatedBodyHash: cc455269064789782d76dcc30f539c504c964fc9e668b917342210ce4d07f3cc
 ---
-# 雙埠網路參數 (ABCD, Z, Y, H)
+# 單相感應電動機二相旋轉磁場
 
 > 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
 
 ## Canonical identity
-- node: `gk-ct-two-port`
-- type: `procedure`
+- node: `gk-emach-single-phase-rotating-field`
+- type: `mechanism`
 - exam family: `GK`
 - lifecycle: `active`
 
@@ -27,6 +27,6 @@ generatedBodyHash: dac1c74853a3dbc99ed40b331c6613de5456f3616bc13176ffc898e96ff08
 
 ## Provenance
 - familyIsolation: GK
-- legacyNodeId: ct-two-port
+- legacyNodeId: emach-single-phase-rotating-field
 - sourcePath: src/data/knowledge-dag.js
 - sourceType: family-isolated-legacy-dag

@@ -1,21 +1,21 @@
 ---
 generated: true
 generator: scripts/generate_obsidian_knowledge.py
-nodeId: gk-ct-two-port
-nodeType: procedure
+nodeId: gk-emach-reluctance-motor
+nodeType: mechanism
 examFamily: GK
 lifecycle: active
 graphRevision: kg-v1-69f62a38770a392f
-sourceHash: b65dae84bb2c24cc5debf48b7bee47ac5c2cbc3f4336bd15a06e0387e24be6a9
-generatedBodyHash: dac1c74853a3dbc99ed40b331c6613de5456f3616bc13176ffc898e96ff0879c
+sourceHash: dcc4e7d7bf5b8a7fc5ee792524c812793165077f860af3de37a0855a5045f0c5
+generatedBodyHash: 6a9f940a640d9c84b48bbed20c20a290b44ee4b502eacc1bb63933eae25f1ea5
 ---
-# 雙埠網路參數 (ABCD, Z, Y, H)
+# 磁阻電動機磁阻—位置轉矩
 
 > 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
 
 ## Canonical identity
-- node: `gk-ct-two-port`
-- type: `procedure`
+- node: `gk-emach-reluctance-motor`
+- type: `mechanism`
 - exam family: `GK`
 - lifecycle: `active`
 
@@ -27,6 +27,6 @@ generatedBodyHash: dac1c74853a3dbc99ed40b331c6613de5456f3616bc13176ffc898e96ff08
 
 ## Provenance
 - familyIsolation: GK
-- legacyNodeId: ct-two-port
+- legacyNodeId: emach-reluctance-motor
 - sourcePath: src/data/knowledge-dag.js
 - sourceType: family-isolated-legacy-dag

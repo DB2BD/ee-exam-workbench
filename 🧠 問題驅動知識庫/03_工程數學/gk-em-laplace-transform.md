@@ -5,7 +5,7 @@ nodeId: gk-em-laplace-transform
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: ef6a1f6fda2fb78b5e6bcd070ccacd906f23c81c159bb44224cf89f8aa8776ba
 generatedBodyHash: 23fe9cde859a7afa1b98c271cac2d5179959087b8b5213f321b5c816618d9385
 ---

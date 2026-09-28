@@ -1,20 +1,20 @@
 ---
 generated: true
 generator: scripts/generate_obsidian_knowledge.py
-nodeId: dist-distribution-equipment
+nodeId: emach-single-phase-rotating-field
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
 graphRevision: kg-v1-69f62a38770a392f
-sourceHash: ccb6d501481df3872c43b1fb9c74d6da604064d0cd2a291b512c93dc32d68e7a
-generatedBodyHash: 56368049cd84e072c25e3ac413281db7ce36871ec0d5d306aef0432e58ef06c0
+sourceHash: acadfa43a649f8d6535541ae04047496b153806c36bd521ae8c34913c6460c59
+generatedBodyHash: 9a9a8df9a6cdc14b66be86e4c6192ee5a9f235ef35810d4da600562591177aec
 ---
-# 配電變壓器與供電接線
+# 單相感應電動機二相旋轉磁場
 
 > 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
 
 ## Canonical identity
-- node: `dist-distribution-equipment`
+- node: `emach-single-phase-rotating-field`
 - type: `mechanism`
 - exam family: `PE`
 - lifecycle: `active`
@@ -23,13 +23,9 @@ generatedBodyHash: 56368049cd84e072c25e3ac413281db7ce36871ec0d5d306aef0432e58ef0
 - 尚無已核准的語意邊。
 
 ## Linked questions
-- [[EE-104-06-1]]（confidence: 0.9）
-- [[EE-106-06-3]]（confidence: 0.9）
-- [[EE-108-06-1]]（confidence: 0.9）
-- [[EE-108-06-3]]（confidence: 0.9）
-- [[EE-114-06-1]]（confidence: 0.92）
+- [[EE-114-04-3]]（confidence: 0.92）
 
 ## Provenance
-- legacyNodeId: dist-distribution-equipment
+- legacyNodeId: emach-single-phase-rotating-field
 - sourcePath: src/data/knowledge-dag.js
 - sourceType: legacy-dag

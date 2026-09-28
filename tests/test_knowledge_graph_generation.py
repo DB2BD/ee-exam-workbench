@@ -17,6 +17,9 @@ GRAPH = ROOT / "data" / "knowledge"
 
 class TestKnowledgeGraphGeneration(unittest.TestCase):
     def _run_generator(self, graph_dir, output_path, report_path=None, *extra):
+        if report_path is None:
+            output = Path(output_path)
+            report_path = output.with_name(f"{output.name}.report.json")
         command = [
             "python3",
             str(GENERATOR),
@@ -25,9 +28,9 @@ class TestKnowledgeGraphGeneration(unittest.TestCase):
             "--output",
             str(output_path),
             "--json",
+            "--report",
+            str(report_path),
         ]
-        if report_path:
-            command.extend(["--report", str(report_path)])
         command.extend(extra)
         return subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
 
@@ -57,6 +60,25 @@ class TestKnowledgeGraphGeneration(unittest.TestCase):
             self.assertTrue(result["generatedAt"])
             self.assertEqual(result["sourceIdentity"]["canonicalGraphRevision"], result["graphRevision"])
             self.assertEqual(result["outputIdentity"]["kind"], "website-bundle")
+            self.assertEqual(result["outputIdentity"]["path"], "first.js")
+
+    def test_temporary_build_does_not_overwrite_the_checked_in_report(self):
+        report = ROOT / "reports" / "knowledge-graph-build.json"
+        original = report.read_bytes()
+        try:
+            with tempfile.TemporaryDirectory() as temp_dir:
+                output = Path(temp_dir) / "temporary-bundle.js"
+                result = self._run_generator(GRAPH, output)
+
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(
+                    report.read_bytes(),
+                    original,
+                    "a temporary test build must not replace the checked-in build report",
+                )
+        finally:
+            if report.read_bytes() != original:
+                report.write_bytes(original)
 
     def test_generated_bundle_is_consumable_by_the_existing_adapter(self):
         with tempfile.TemporaryDirectory() as temp_dir:

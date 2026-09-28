@@ -5,7 +5,7 @@ nodeId: ct-laplace-circuit
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: 30893c81232dc46bcbd086587d1113c504d0ff01347f934b8dca40755bed52b9
 generatedBodyHash: 94ae766edd00ae83f72239c621219bb67b07cbb8ebc3a042847896dfb2608749
 ---

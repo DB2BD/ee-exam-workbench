@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "taxonomyVersion": "2026.09.25",
+  "taxonomyVersion": "2026.09.27",
   "normalization": {
     "unicodeForm": "NFKC",
     "caseFold": true,

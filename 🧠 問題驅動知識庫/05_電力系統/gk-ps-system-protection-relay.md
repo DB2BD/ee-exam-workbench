@@ -5,7 +5,7 @@ nodeId: gk-ps-system-protection-relay
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: d546853918c33d69a57a0620717afdb4362d03f678857eca89d089e38ba44c0d
 generatedBodyHash: 4ad858b1aeb8654692685cb834ec2d5739fadfc3be64648ae8f01e36567ef56e
 ---

@@ -5,7 +5,7 @@ nodeId: pe-mainline-electronics
 nodeType: mainline
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: 84d6dc9cbe82519fc25dfbf4cc0fc6ade10cc2eeddcdcca11544cefea53ec3c4
 generatedBodyHash: 5810a589143aba55fbc75ab033f4821fe35d16bc0783b44ba5678d71914eeb4a
 ---

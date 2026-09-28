@@ -40,6 +40,14 @@ CATEGORY_NAMES = {
 }
 
 
+def _report_path(path: Path | str) -> str:
+    resolved = Path(path).resolve()
+    try:
+        return resolved.relative_to(WORKSPACE.resolve()).as_posix()
+    except ValueError:
+        return resolved.name
+
+
 def _load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -237,9 +245,9 @@ def generate_obsidian_knowledge(
         "graphRevision": validation["graphRevision"],
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
         "sourceIdentity": {"canonicalGraphRevision": validation["graphRevision"]},
-        "outputIdentity": {"kind": "obsidian-generated-notes", "path": str(destination.resolve())},
+        "outputIdentity": {"kind": "obsidian-generated-notes", "path": _report_path(destination)},
         "generatedNoteCount": 0,
-        "preservedPersonalRoot": str(personal),
+        "preservedPersonalRoot": _report_path(personal),
         "errors": list(validation["errors"]),
     }
     if validation["valid"]:
@@ -306,7 +314,7 @@ def generate_obsidian_knowledge(
         }
         report["sourceHashes"] = {key: source_hashes[key] for key in sorted(source_hashes)}
         report["generatedNoteCount"] = len(rendered)
-        report["generatedPaths"] = [str(path) for path in sorted(rendered)]
+        report["generatedPaths"] = [path.relative_to(destination).as_posix() for path in sorted(rendered)]
         report["valid"] = not report["errors"]
         if report["valid"]:
             for path in sorted(rendered):

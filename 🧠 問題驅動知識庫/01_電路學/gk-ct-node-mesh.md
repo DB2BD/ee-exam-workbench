@@ -5,7 +5,7 @@ nodeId: gk-ct-node-mesh
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-6f7a29de450d7597
+graphRevision: kg-v1-69f62a38770a392f
 sourceHash: 2c926e91f33504c1b195167c2e81cb0cbf9bde1dd038579d19f6addce4296a9f
 generatedBodyHash: 35901258161268746e8a66e8abfa3feebe413e4c88a517e24f621164e469ba79
 ---

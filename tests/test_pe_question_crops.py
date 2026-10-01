@@ -97,10 +97,11 @@ class PEQuestionCropTests(unittest.TestCase):
             (block[1], block[3], " ".join(block[4].split()))
             for block in page.get_text("blocks")
         ]
+        # Line-level positions: PDF blocks merge the 代號 header into Q4's first line.
         q4_blocks = [
-            (top, bottom)
-            for top, bottom, text in blocks
-            if "圖二所示電力系統" in text or "試針對發生在匯流排1" in text
+            (rect.y0, rect.y1)
+            for needle in ("圖二所示電力系統", "試針對發生在匯流排")
+            for rect in page.search_for(needle)
         ]
         q5_blocks = [
             top for top, _bottom, text in blocks
@@ -146,6 +147,42 @@ class PEQuestionCropTests(unittest.TestCase):
                                 f"{question['app_question_id']} p{page_info['page']}: {text.strip()[:20]}",
                             )
             doc.close()
+
+    def test_every_ink_band_is_in_exactly_one_crop(self):
+        """No question content is cut off (C1) or shared with a neighbour (C2).
+
+        Rendered ink is used instead of text lines because captions, matrix
+        brackets and diagrams are mostly vector graphics.
+        """
+        import sys
+
+        sys.path.insert(0, str(WORKSPACE / "scripts"))
+        import crop_pe_questions as crops
+
+        problems = []
+        for entry in self.entries:
+            doc = fitz.open(WORKSPACE / entry["pdf_path"])
+            first = min(q["source_pages"][0]["page"] for q in entry["questions"])
+            first_top = min(
+                q["source_pages"][0]["crop_rect"][1]
+                for q in entry["questions"] if q["source_pages"][0]["page"] == first
+            )
+            for page_number in range(first, doc.page_count + 1):
+                page = doc[page_number - 1]
+                spans = [
+                    (question["app_question_id"], info["crop_rect"][1], info["crop_rect"][3])
+                    for question in entry["questions"]
+                    for info in question["source_pages"]
+                    if info["page"] == page_number
+                ]
+                for y0, y1 in crops.ink_bands(page):
+                    if page_number == first and y1 <= first_top:
+                        continue  # paper instructions above question 1
+                    holders = [qid for qid, top, bottom in spans if top - 0.5 <= y0 and y1 <= bottom + 0.5]
+                    if len(holders) != 1:
+                        problems.append((entry["year"], entry["subject"], page_number, round(y0, 1), round(y1, 1), holders))
+            doc.close()
+        self.assertEqual(problems, [])
 
     def test_continuation_pages_carry_real_question_content(self):
         """A page is stitched only if it holds question content besides chrome."""

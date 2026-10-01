@@ -154,7 +154,7 @@ CHROME_WEAK = re.compile(
 # Lines that only occur in the exam header block.  Older papers set 等／類／科
 # in a separate text line from 「別：」「科：」「目：」, so match either half.
 HEADER_LINE = re.compile(
-    r"專門職業|考試試題|考試時間|座\s*號|※注意|不必抄題|不予計分|"
+    r"專門職業|考試試題|考試時間|座\s*號|※注意|不必抄題|不予計分|本科目除專門名詞|應使用本國文字|"
     r"^(等\s*)?別\s*：|^(類\s*)?科\s*：|^(科\s*)?目\s*："
 )
 HEADER_BAND = 0.30
@@ -204,24 +204,83 @@ def chrome_rects(page: fitz.Page) -> list[fitz.Rect]:
     return rects
 
 
-def has_question_content(page: fitz.Page, clip: fitz.Rect, masks: list[fitz.Rect]) -> bool:
-    """True when ``clip`` holds text, images or drawings outside the masks."""
+def has_question_content(bands: list[tuple[float, float]], clip: fitz.Rect) -> bool:
+    """True when ``clip`` holds any non-chrome ink (text, figure or rule)."""
 
-    def masked(rect: fitz.Rect) -> bool:
-        return any(mask.contains(rect & clip) for mask in masks)
+    return any(y1 > clip.y0 + 0.5 and y0 < clip.y1 - 0.5 for y0, y1 in bands)
 
-    for bbox, _text in page_lines(page):
-        if bbox.intersects(clip) and not masked(bbox):
-            return True
-    for info in page.get_image_info():
-        rect = fitz.Rect(info["bbox"])
-        if rect.intersects(clip) and not masked(rect):
-            return True
-    for drawing in page.get_drawings():
-        rect = fitz.Rect(drawing["rect"])
-        if rect.intersects(clip) and not rect.is_empty and not masked(rect):
-            return True
-    return False
+
+HEADING_PAD = 3.0
+LINE_HEADING = re.compile(r"^\s*[一二三四五六七八九十]+\s*[、．.]")
+
+
+def heading_top(page: fitz.Page, block: fitz.Rect, numeral: str) -> float:
+    """Crop top for a heading block: the visual row of its numbered line.
+
+    Blocks can merge the running 代號／頁次 header with the first question
+    line, and a fixed lead above the block clipped captions that end just
+    above the next heading; the numbered line's row top is exact.
+    """
+
+    for bbox, text in page_lines(page):
+        if block.contains(bbox) and LINE_HEADING.match(text) and text.lstrip().startswith(numeral[0]):
+            return max(0.0, row_top(page, bbox) - HEADING_PAD)
+    return max(0.0, block.y0 - 12.0)
+
+
+INK_SCALE = 2.0
+INK_LEVEL = 200
+MAX_SNAP_UP = 40.0
+
+
+def ink_bands(page: fitz.Page) -> list[tuple[float, float]]:
+    """Vertical runs (in PDF points) of rows holding non-chrome ink.
+
+    Figure captions, display-math brackets and diagrams are often vector
+    graphics absent from the text layer, so boundaries are placed using the
+    rendered page rather than text lines.
+    """
+
+    pixmap = page.get_pixmap(matrix=fitz.Matrix(INK_SCALE, INK_SCALE), alpha=False)
+    image = Image.open(io.BytesIO(pixmap.tobytes("png"))).convert("L")
+    draw = ImageDraw.Draw(image)
+    for mask in chrome_rects(page):
+        draw.rectangle([mask.x0 * INK_SCALE, mask.y0 * INK_SCALE, mask.x1 * INK_SCALE, mask.y1 * INK_SCALE], fill=255)
+    # Column-wise minimum per row: a row has ink if any pixel is dark.
+    width, height = image.size
+    data = image.tobytes()
+    bands: list[tuple[float, float]] = []
+    start = None
+    for row in range(height):
+        dark = min(data[row * width:(row + 1) * width]) < INK_LEVEL
+        if dark and start is None:
+            start = row
+        elif not dark and start is not None:
+            bands.append((start / INK_SCALE, row / INK_SCALE))
+            start = None
+    if start is not None:
+        bands.append((start / INK_SCALE, height / INK_SCALE))
+    return bands
+
+
+def snap_to_gap(bands: list[tuple[float, float]], y: float) -> float:
+    """Move a question boundary into the blank gap just above the ink at ``y``.
+
+    ``y`` points at (or just above) the next question's first row.  The band
+    holding it may begin higher when display math or a bracket rises above
+    the numbered line; the cut goes midway into the gap above that band, so
+    the previous question keeps its trailing caption or formula.
+    """
+
+    holder = next((band for band in bands if band[1] > y), None)
+    if holder is None:
+        return y
+    top = holder[0]
+    if y - top > MAX_SNAP_UP:
+        return y
+    above = [band[1] for band in bands if band[1] <= top]
+    gap = top - max(above) if above else top
+    return max(0.0, top - min(HEADING_PAD, gap / 2.0))
 
 
 def heading_candidates(doc: fitz.Document) -> list[dict]:
@@ -244,7 +303,7 @@ def heading_candidates(doc: fitz.Document) -> list[dict]:
                 continue
             candidates.append({
                 "page": page_index + 1,
-                "y": max(0.0, y0 - 12.0),
+                "y": heading_top(page, fitz.Rect(block[:4]), match.group(0)),
                 "number": value,
                 "text": text[:500],
             })
@@ -325,7 +384,7 @@ def ink_heading_starts(doc: fitz.Document) -> list[dict]:
                     "page": page_index + 1,
                     # The numeral shares this line, so a small lead suffices
                     # and keeps one-line questions (109 電路學 Q02) intact.
-                    "y": max(0.0, row_top(page, bbox) - 6.0),
+                    "y": max(0.0, row_top(page, bbox) - HEADING_PAD),
                     "number": len(starts) + 1,
                     "text": text[:500],
                 })
@@ -341,7 +400,7 @@ def starts_for(doc: fitz.Document, year: int, subject: str, count: int) -> tuple
         if len(manual) != count:
             raise ValueError(f"Manual crop table/count mismatch for {year} {subject}")
         return [
-            {"page": page, "y": y, "number": index + 1, "text": "manual audited boundary"}
+            {"page": page, "y": y, "number": index + 1, "text": "manual audited boundary", "gap": 8.0}
             for index, (page, y) in enumerate(manual)
         ], "manual_audit"
 
@@ -441,7 +500,9 @@ def segment_bounds(doc: fitz.Document, starts: list[dict], index: int, page_numb
     page_index = page_number - 1
     top = start["y"] if page_number == start["page"] else 18.0
     if index + 1 < len(starts) and page_number == starts[index + 1]["page"]:
-        bottom = starts[index + 1]["y"] - 8.0
+        # Detected starts are exact row tops, so questions abut; manual
+        # coordinates keep the historical 8pt safety gap.
+        bottom = starts[index + 1]["y"] - starts[index + 1].get("gap", 0.0)
     elif index + 1 < len(starts) and page_number == starts[index + 1]["page"] - 1:
         bottom = doc[page_index].rect.height - 18.0
     else:
@@ -465,6 +526,12 @@ def process_pdf(pdf_path: Path, dpi: int) -> dict:
     doc = fitz.open(pdf_path)
     page_count = doc.page_count
     starts, boundary_method = starts_for(doc, year, subject, count)
+    bands_by_page: dict[int, list[tuple[float, float]]] = {}
+    for start in starts:
+        bands = bands_by_page.setdefault(start["page"], ink_bands(doc[start["page"] - 1]))
+        anchor = start["y"] + (start.get("gap", 0.0) if "gap" in start else HEADING_PAD)
+        start["y"] = snap_to_gap(bands, anchor)
+        start["gap"] = 0.0
     validate_starts(starts, year, subject)
     question_dir = (WORKSPACE / "依考科分類" / {
         "電路學": "01_電路學",
@@ -495,9 +562,10 @@ def process_pdf(pdf_path: Path, dpi: int) -> dict:
             page = doc[page_number - 1]
             segment = segment_bounds(doc, starts, index, page_number)
             masks = [mask for mask in chrome_rects(page) if mask.intersects(segment)]
+            bands = bands_by_page.setdefault(page_number, ink_bands(page))
             # A continuation page that only adds the running header/footer is
             # not part of the question.
-            if not has_question_content(page, segment, masks):
+            if not has_question_content(bands, segment):
                 if page_number == start["page"]:
                     raise ValueError(
                         f"Empty crop for {year} {subject} Q{index + 1:02d} on page {page_number}; "

@@ -1,0 +1,106 @@
+[
+ {
+  "qid": "EE-114-05-3",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-114-05-3.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "P1=250 MW, P2=300 MW, λ=8 $/MWh",
+  "new_answer": "P1=250 MW, P2=300 MW（λ=8 $/MWh 留在內文，不再 boxed，因題目只問發電量）",
+  "evidence": "裁切圖：C1=400+6.0P1+0.004P1²、C2=400+6.8P2+0.002P2²、各 800 MW、需求 550 MW、忽略耗損。SymPy 拉格朗日解得 (250,300,8)，0.01 MW 網格搜尋總成本最小值也落在 P1=250。",
+  "chars_before": 1601,
+  "chars_after": 809,
+  "asserted_strings_kept": false,
+  "needs_test_change": "tests/test_power_system_114_official_values.py::test_all_five_score_answers_show_the_official_question 斷言 '## 考場標準作答'；tests/test_mock_score_solution_audit.py → scripts/audit_mock_score_solutions.py 要求 5 個舊標題（考場標準作答／得分點拆解／完整教學推導／獨立驗算／常見失分）。這些標題被 lean-v1 lint 判為 section-not-allowed，無法兩者兼顧。protected_notes.json 未列此 QID。",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_annual_canonical_alignment.py --sync、sync_mock_score_solutions.py、audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js）"
+  ]
+ },
+ {
+  "qid": "EE-106-03-8",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-106-03-8.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "77π/2 ≈ 120.9513",
+  "new_answer": "77π/2 ≈ 120.95 平方單位",
+  "evidence": "裁切圖：半徑 1..10，任選一枚。SymPy Σπk²/10 = 77π/2；用 Var+mean² 恆等式交叉檢查。舊稿有 broken-latex:ldots，(R)/(120.9513) 也在數學分隔符外，已修正。裁切 metadata 有一個 masked_rect（y≈982–1006），但題文完整、沒有受影響。",
+  "chars_before": 200,
+  "chars_after": 575,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "標題維持 '# 106 年第 8 題｜硬幣面積期望值'（未改為 '106 年工程數學第 8 題'），因 test_engineering_math_annual_notes_use_canonical_bodies 要求年度頁含相同 H1。字數變多，是因為補上 lean-v1 必要段落與裁切圖。"
+  ]
+ },
+ {
+  "qid": "EE-104-04-2",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-104-04-2.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "論述題：磁通 ×1.2、易飽和；I2=10 A、I1=5 A（滿載）；建議 166.7 V",
+  "new_answer": "相同結論，並 boxed Φ50/Φ60=1.2、I2=10 A、V1=166.7 V；補上鐵損的定量拆解（渦流損不變、磁滯損 ×1.12–1.2）與漏抗 ×5/6",
+  "evidence": "裁切圖：1.0 kVA、200/100 V、60 Hz，低壓側 10 Ω，高壓側接 200 V/50 Hz。以 Fraction 精確驗證 V/f 比 6/5、I2=10=S/V2、反射電阻 40 Ω→I1=5 A、Pe∝f²B² 比值=1、166.7 V/83.3 V/694 W。舊稿只寫『磁滯損與渦流損…鐵損上升』，這是籠統說法而非答案錯誤；渦流損在電壓固定時其實不變。",
+  "chars_before": 1507,
+  "chars_after": 1417,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "論述題；腳本驗證的是定量論據（PASS 字串註明 descriptive）。磁滯 Steinmetz 指數 n≈1.6–2 是一般假設，非題給。",
+   "衍生檔待主 session 重建：audit_annual_canonical_alignment.py --sync、sync_mock_score_solutions.py、audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js）"
+  ]
+ },
+ {
+  "qid": "EE-114-01-2",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-114-01-2.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "I_sc=10 A（外部 a→b），R_N=1 Ω，源內箭頭 b→a",
+  "new_answer": "I_N=10 A（源內箭頭 b→a），R_N=1 Ω，兩者並聯",
+  "evidence": "裁切圖：6 Ω、10 A 向上、2Vx（+在左節點、−在 a）、2 Ω 跨 a-b，Vx 上正。SymPy 端口律 Va=10+1·I；短路法 Isc=10 A；Voc/Isc=R_th。",
+  "chars_before": 1806,
+  "chars_after": 1126,
+  "asserted_strings_kept": true,
+  "needs_test_change": "tests/test_norton_direction_114.py 全數通過（I_{sc}=10\\ \\mathrm A、V_{ab}=+10\\,\\mathrm V、b\\to a、a\\to b、**並聯** 皆保留）。但 tests/test_mock_score_solution_audit.py → scripts/audit_mock_score_solutions.py 要求 5 個舊標題，與 lean-v1 衝突。",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_annual_canonical_alignment.py --sync、sync_mock_score_solutions.py、audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js）"
+  ]
+ },
+ {
+  "qid": "EE-112-02-1",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-112-02-1.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "boxed：f_Hπ=6.69e8 Hz、f_Hμ=1.6e8 Hz（參考書）及 668.451 MHz、160.746 MHz、Av=9.336153 V/V（V_T=25 mV）",
+  "new_answer": "f_Hπ=668.451 MHz、f_Hμ=160.746 MHz、Av=9.336153 V/V（V_T=25 mV）；26 mV 分支：656.21 MHz、9.1446 V/V",
+  "evidence": "裁切圖參數全數比對一致。SymPy 含 Cπ、Cμ 的混合π完整節點方程：因受控源單向耦合，H(s) 剛好分解為兩個極點，即 668.451/160.746 MHz，Av(0)=9.336153；再以 OCTC 閉式與電流分流法獨立重算。直流 VCB=0.495 V>0，確認在主動區。",
+  "chars_before": 3355,
+  "chars_after": 2323,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "reference_book_verified",
+  "lint_passed": true,
+  "open_issues": [
+   "題圖未給 V_T，故保留『條件與疑義』（25/26 mV 分支）。",
+   "參考書中頻增益 9.47 V/V 無法由題目數據重現（若取 r_e=V_T/I_C 且忽略 R_B，約為 9.474，但無法確認書中作法）；frontmatter reference_book_evidence 原文保留。",
+   "本筆新增 annual_sync: true（舊稿沒有），同步後會覆寫 112 年電子學年度頁第一題。",
+   "衍生檔待主 session 重建：audit_annual_canonical_alignment.py --sync、sync_mock_score_solutions.py、audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js）"
+  ]
+ }
+]

@@ -14,7 +14,7 @@ trigger: always_on
    - 分段函數一律使用 `\begin{cases} ... \end{cases}`。
    - 嚴格避免破音字與 OCR 雜訊字（如 `30o`, `w=`, `ohm`）。
 3. **題解架構標準**：
-   - PE canonical 題解一律採 `AGENT-SOLVE.md` 的 `lean-v1` 版型：「已知與所求／解答／驗算／失分點」，必要時加「條件與疑義」；「計算機按法」只用於複數相量或矩陣題。
+   - PE canonical 題解一律採 `AGENT-SOLVE.md` 的 `lean-v1` 版型：「已知與所求／考場標準作答／驗算／失分點」；短題可用 `compact: true` 精簡形式，必要時加「條件與疑義」；「計算機按法」只用於複數相量或矩陣題。
    - 同一答案只推導一次；正文不寫稽核歷程與 metadata。
 4. **強制執行雙重對抗批判與 Python 獨立審計（Adversarial Audit）**：
    - 在剖析、回答或修改任何題目時，**嚴禁盲目相信舊筆記**，必須執行 `adversarial-audit` 技能：

@@ -36,7 +36,7 @@ graph TD
    - 拉氏轉換：建立標準 $s$ 域阻抗模型（$sL, \frac{1}{sC}$），嚴禁漏掉初始儲能項。
 2. **公式輸出格式**：
    - 必須使用標準 LaTeX 格式（行內 `$ ... $`，獨立區塊 `$$ ... $$`）。
-   - PE canonical 題解的段落結構一律依 `AGENT-SOLVE.md` 的 `lean-v1` 版型（已知與所求／解答／驗算／失分點）。
+   - PE canonical 題解的段落結構一律依 `AGENT-SOLVE.md` 的 `lean-v1` 版型（已知與所求／考場標準作答／驗算／失分點）。
 
 ### 階段三：SymPy 數值程式交叉驗算 (Assertion Check)
 每次產出題解後，必須在本機執行 SymPy 腳本驗算數值解與行列式，例如：

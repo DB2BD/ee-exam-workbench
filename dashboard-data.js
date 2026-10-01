@@ -7042,7 +7042,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "el-bjt-bias-small-signal",
     "source": "manual-topic-confirmed",
     "canonicalChapter": "BJT 共基極放大器與高頻響應",
-    "noteTitle": "",
+    "noteTitle": "112 年電子學第 1 題｜共基極高頻響應",
     "manualChapter": "el-bjt-bias-small-signal",
     "secondaryTopicIds": [
       "el-active-filter"
@@ -8123,8 +8123,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-114-05-3": {
     "primaryChapter": "ps-economic-dispatch",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "114 年電力系統第 3 題：經濟調度"
+    "canonicalChapter": "經濟調度（忽略損失）",
+    "noteTitle": "114 年電力系統第 3 題｜經濟調度"
   },
   "EE-104-05-3": {
     "primaryChapter": "ps-three-phase-fault",

@@ -1,5 +1,6 @@
 """Contract tests for the canonical-note precision/redundancy linter."""
 
+import re
 import sys
 import tempfile
 import unittest
@@ -31,7 +32,7 @@ LEAN_BODY = r"""
 
 \(C_1, C_2\)；需求 550 MW。
 
-## 解答
+## 考場標準作答
 
 ### （一）
 
@@ -92,6 +93,16 @@ class LintCanonicalNotesTests(unittest.TestCase):
     def test_trap_list_is_capped(self):
         body = LEAN_BODY + "- 二\n- 三\n- 四\n"
         self.assertIn("too-many-traps>3", self.run_lint(body))
+
+    def test_compact_short_question_may_omit_givens_and_traps(self):
+        front = FRONT.replace("template: lean-v1\n", "template: lean-v1\ncompact: true\n")
+        body = re.sub(r"## 已知與所求.*?(?=## 考場標準作答)", "", LEAN_BODY, flags=re.S)
+        body = body.split("## 失分點")[0]
+        self.assertEqual(self.run_lint(body, stem="（一）求 P。（二）求 λ。（10 分）", front=front), [])
+        long_stem = "（一）求 P。（二）求 λ。（20 分）"
+        self.assertEqual(self.run_lint(body, stem=long_stem, front=front), [])  # still short body
+        padded = body + "\n" + "說明。" * 400
+        self.assertIn("compact-not-allowed:20分", self.run_lint(padded, stem=long_stem, front=front))
 
     def test_unmigrated_note_only_gets_universal_checks(self):
         front = FRONT.replace("template: lean-v1\n", "")

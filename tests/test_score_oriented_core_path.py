@@ -55,13 +55,26 @@ COMPLETED_QIDS = (
     "EE-113-06-3",
 )
 
-REQUIRED_SECTIONS = (
+LEGACY_SECTIONS = (
     "## 考場標準作答",
     "## 得分點拆解",
     "## 完整教學推導",
     "## 獨立驗算",
     "## 常見失分",
 )
+# lean-v1 (AGENT-SOLVE.md) keeps the exam answer and drops the duplicated
+# teaching derivation; both are accepted while notes migrate.
+LEAN_SECTIONS = ("## 考場標準作答", "## 驗算", "## 失分點")
+
+
+def required_sections(text):
+    if re.search(r"^template:\s*lean-v1\s*$", text, re.MULTILINE):
+        return LEAN_SECTIONS
+    return LEGACY_SECTIONS
+
+
+def heading_count(text, heading):
+    return len(re.findall(rf"^{re.escape(heading)}\s*$", text, re.MULTILINE))
 
 
 class TestScoreOrientedCorePath(unittest.TestCase):
@@ -92,9 +105,9 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 text = self.by_qid[qid].read_text(encoding="utf-8")
                 self.assertIn("audit_status: verified", text)
                 positions = []
-                for heading in REQUIRED_SECTIONS:
-                    self.assertEqual(text.count(heading), 1, f"{qid}: {heading}")
-                    positions.append(text.index(heading))
+                for heading in required_sections(text):
+                    self.assertEqual(heading_count(text, heading), 1, f"{qid}: {heading}")
+                    positions.append(re.search(rf"^{re.escape(heading)}\s*$", text, re.MULTILINE).start())
                 self.assertEqual(positions, sorted(positions), qid)
                 self.assertIn(qid, self.path_doc)
 
@@ -167,11 +180,11 @@ class TestScoreOrientedCorePath(unittest.TestCase):
             note = self.by_qid[qid].read_text(encoding="utf-8")
             with self.subTest(qid=qid):
                 self.assertIn("整流", note)
-                for heading in REQUIRED_SECTIONS:
-                    self.assertEqual(note.count(heading), 1)
+                for heading in required_sections(note):
+                    self.assertEqual(heading_count(note, heading), 1)
 
         mother = self.by_qid["EE-110-02-3"].read_text(encoding="utf-8")
-        standard = mother.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = mother.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"i_s(\theta)=i_L(\theta)=v_o(\theta)/R", standard)
         self.assertIn("負半週負載與電源電流都為零", standard)
 
@@ -189,7 +202,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
 
     def test_six_pulse_resistive_rms_uses_pulse_integral_and_symmetry(self):
         note = self.by_qid["EE-104-02-3"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"\int_{-\pi/6}^{\pi/6}\cos^2\phi", standard)
         self.assertIn(r"\frac\pi6+\frac{\sqrt3}{4}", standard)
         self.assertIn("每顆的均方值是負載的", standard)
@@ -198,7 +211,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
 
     def test_joint_density_mother_proves_independence_in_standard_answer(self):
         note = self.by_qid["EE-113-03-6"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"p_X(x)=\int_0^\infty", standard)
         self.assertIn(r"p(x,y)=p_X(x)p_Y(y)", standard)
         self.assertIn(r"\boxed{48}", standard)
@@ -215,7 +228,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
 
     def test_power_flow_mother_states_angle_branch_before_q_limit(self):
         note = self.by_qid["EE-114-05-2"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("低功角分支", standard)
         self.assertIn(r"|\delta_2|<90^\circ", standard)
         self.assertLess(standard.index("低功角分支"), standard.index(r"Q_{g2}=0.11314"))
@@ -224,7 +237,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
     def test_short_circuit_mother_separates_fault_total_from_breaker_branch(self):
         note_path = self.by_qid["EE-113-06-4"]
         note = note_path.read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         match = re.search(r"!\[官方單線圖與故障點 F\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
@@ -264,7 +277,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
     def test_parallel_rlc_same_type_keeps_step_forcing_in_equation(self):
         note_path = self.by_qid["EE-112-01-4"]
         note = note_path.read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"+250i=-1500", standard)
         self.assertNotIn(r"+250i=0", standard)
         self.assertIn(r"i_p=-6\,\mathrm A", note)
@@ -276,7 +289,8 @@ class TestScoreOrientedCorePath(unittest.TestCase):
     def test_low_voltage_relay_pickup_uses_squared_ratio_minus_one(self):
         note = self.by_qid["EE-112-06-4"].read_text(encoding="utf-8")
         question = next(row for row in self.questions if row[0] == "EE-112-06-4")
-        canonical_prompt = note.split("## 官方題目", 1)[1].split("## 考場標準作答", 1)[0]
+        # The transcribed prompt precedes the exam answer (「官方題目」 or 「已知與所求」).
+        canonical_prompt = note.split("---", 2)[2].split("## 考場標準作答", 1)[0]
         relay_formula = (
             r"T_s\s*=\s*\\d?frac\{k\s*\\times\s*80\}"
             r"\{\(I/I_s\)\^2\s*-\s*1\}\s*\\times\s*\\d?frac\{1\}\{0\.808\}"
@@ -301,18 +315,18 @@ class TestScoreOrientedCorePath(unittest.TestCase):
 
     def test_probability_pair_shows_marginal_proof_and_complete_pmf_support(self):
         density = self.by_qid["EE-104-03-4"].read_text(encoding="utf-8")
-        density_standard = density.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        density_standard = density.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"f_X(x)=\int_0^1", density_standard)
         self.assertIn(r"f_Y(y)=\int_0^1", density_standard)
         self.assertIn("區間外為零", density_standard)
         sampling = self.by_qid["EE-107-03-5"].read_text(encoding="utf-8")
-        sampling_standard = sampling.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        sampling_standard = sampling.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"x\notin\{0,1,2,3\}", sampling_standard)
         self.assertIn("時均為 \(0\)", sampling_standard)
 
     def test_dc_motor_external_torque_does_not_erase_no_load_loss(self):
         note = self.by_qid["EE-106-04-3"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("外接軸負載轉矩", note)
         self.assertIn("空載損失轉矩近似不變", note)
         self.assertIn(r"I_a=4+\frac{100}{1.8907607}=56.89", standard)
@@ -329,7 +343,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
 
     def test_dc_motor_same_type_uses_a_fully_specified_magnetization_question(self):
         note = self.by_qid["EE-107-04-2"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("[題目 EE-107-04-2]", self.path_doc)
         # Fixed inputs transcribed from the official crop, not parsed from the solution.
         for current, reference_emf, shown_speed, shown_torque in (
@@ -357,7 +371,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         same_topology = self.by_qid["EE-107-02-3"].read_text(encoding="utf-8")
         self.assertIn("![官方題目裁切圖]", mother)
         self.assertIn("![官方題目裁切圖]", same_topology)
-        standard = same_topology.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = same_topology.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"L_B=", standard)
         self.assertIn(r"\boxed{\mathrm{DCM}}", standard)
         self.assertIn(r"D+D_2=0.8165<1", standard)
@@ -370,13 +384,13 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         self.assertAlmostEqual(duty, 0.3265986, places=6)
         self.assertLess(duty + release_fraction, 1)
         variant = self.by_qid["EE-106-02-5"].read_text(encoding="utf-8")
-        variant_standard = variant.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        variant_standard = variant.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("三角形電感電流", variant_standard)
         self.assertIn(r"\frac{1}{12}", variant_standard)
 
     def test_boost_critical_capacitance_requires_an_external_ripple_limit(self):
         note = self.by_qid["EE-109-02-2"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("audit_status: needs_manual_review", note)
         self.assertIn(r"C_c(\varepsilon)", standard)
         self.assertIn("無唯一數值", standard)
@@ -391,7 +405,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
 
     def test_synchronous_buck_boost_rms_keeps_the_ripple_term(self):
         note = self.by_qid["EE-106-02-5"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"\frac{V_o}{V_{in}}=\frac{D}{1-D}", standard)
         self.assertIn(r"\frac{1}{12}", standard)
         self.assertIn("小漣波近似", standard)
@@ -407,7 +421,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
 
     def test_compound_generator_does_not_borrow_later_condition_as_unique_answer(self):
         note = self.by_qid["EE-111-04-3"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("![官方題目裁切圖]", note)
         self.assertIn("第（二）題本身未給場控電阻", standard)
         self.assertIn("附加條件下的精細近似", standard)
@@ -435,8 +449,8 @@ class TestScoreOrientedCorePath(unittest.TestCase):
             note = self.by_qid[qid].read_text(encoding="utf-8")
             with self.subTest(qid=qid):
                 self.assertIn("電弧爐", note)
-                for heading in REQUIRED_SECTIONS:
-                    self.assertEqual(note.count(heading), 1)
+                for heading in required_sections(note):
+                    self.assertEqual(heading_count(note, heading), 1)
         mother = self.by_qid["EE-110-06-4"].read_text(encoding="utf-8")
         variation = self.by_qid["EE-113-06-3"].read_text(encoding="utf-8")
         self.assertIn("題目未指定串聯電抗器位置", mother)
@@ -451,7 +465,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
 
     def test_frequency_variation_shows_the_cutoff_scoring_equation(self):
         note = self.by_qid["EE-111-01-3"].read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"|\omega_0^2-\omega^2|=\alpha\omega", standard)
         self.assertIn(r"\omega_1\omega_2=\omega_0^2", standard)
         self.assertIn("2400", standard)

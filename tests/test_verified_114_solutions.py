@@ -60,7 +60,7 @@ class TestEE11404Q5Solution(unittest.TestCase):
 
     def test_average_torque_keeps_the_cosine_squared_factor(self):
         text = MACHINES_Q5.read_text(encoding="utf-8")
-        standard = text.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = text.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"T=\tfrac12\phi^2\,d\mathcal R/d\theta", text)
         self.assertIn(r"T(t)=+2\mathcal R_1\Phi_m^2\cos^2(\omega t)\sin(4\omega_mt+4\delta)", standard)
         self.assertIn(r"T_{avg}=\tfrac12\mathcal R_1\Phi_m^2\sin4\delta", standard)

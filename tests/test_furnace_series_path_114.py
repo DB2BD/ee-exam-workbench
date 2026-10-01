@@ -35,7 +35,7 @@ class TestFurnaceSeriesPath114(unittest.TestCase):
         self.assertAlmostEqual(100 * (abs(open_bus) - abs(bus)) / 1, 15.4929577465)
 
     def assert_main_model(self, note):
-        main = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        main = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"\frac1{j0.5325}", main)
         self.assertIn(r"X_d=0.05+0.4=0.45", main)
         self.assertIn(r"0.84507", main)

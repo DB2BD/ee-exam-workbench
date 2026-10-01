@@ -12,7 +12,7 @@ NOTE = ROOT / "📝 個人題解與錯題本/03_工程數學/canonical/EE-114-03
 class TestFourierEndpoint114(unittest.TestCase):
     def test_score_answer_distinguishes_function_from_series_at_jump(self):
         note = NOTE.read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"\boxed{f(x)\sim", standard)
         self.assertIn(r"f(\pi)=\pi", standard)
         self.assertIn(r"\pi/2", standard)

@@ -107,7 +107,7 @@ class Test112113ReviewConsistency(unittest.TestCase):
         self.assertIsNone(audit["verified_at"])
         self.assertEqual(self.questions["EE-113-06-4"]["solutionStatus"], expected_status)
 
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         for exact_value_and_unit in (
             r"15.475381\,\mathrm{MVA}",
             r"18.613991\,\mathrm{kA}",

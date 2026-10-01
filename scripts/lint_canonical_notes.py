@@ -27,7 +27,11 @@ NOTES = ROOT / "📝 個人題解與錯題本"
 DASHBOARD = ROOT / "dashboard-data.js"
 
 LEAN = "lean-v1"
-REQUIRED_SECTIONS = ("已知與所求", "解答", "驗算", "失分點")
+REQUIRED_SECTIONS = ("已知與所求", "考場標準作答", "驗算", "失分點")
+# ``compact: true`` short questions keep only the answer and its check.
+COMPACT_SECTIONS = ("考場標準作答", "驗算")
+COMPACT_MAX_POINTS = 10
+COMPACT_MAX_CHARS = 700
 OPTIONAL_SECTIONS = ("條件與疑義", "計算機按法")
 REQUIRED_FRONTMATTER = ("qid", "year", "subject", "audit_status", "verified_at", "method", "source_crop")
 # Audit history belongs to frontmatter / data/pe-solution-audit.json, not the
@@ -122,7 +126,12 @@ def lint(path: Path, stem: str) -> dict:
             if heading not in allowed:
                 errors.append(f"section-not-allowed:{heading}")
         order = [heading for heading in found if heading in allowed]
-        for heading in REQUIRED_SECTIONS:
+        compact = fields.get("compact") == "true"
+        if compact:
+            points = sum(int(value) for value in re.findall(r"（\s*(\d+)\s*分\s*）", stem))
+            if points > COMPACT_MAX_POINTS and len(body.strip()) > COMPACT_MAX_CHARS:
+                errors.append(f"compact-not-allowed:{points}分")
+        for heading in COMPACT_SECTIONS if compact else REQUIRED_SECTIONS:
             if heading not in found:
                 errors.append(f"section-missing:{heading}")
         if order != sorted(order, key=allowed.index):

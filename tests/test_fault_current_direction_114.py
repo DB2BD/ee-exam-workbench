@@ -11,7 +11,7 @@ NOTE = ROOT / "📝 個人題解與錯題本/05_電力系統/canonical/EE-114-05
 class TestFaultCurrentDirection114(unittest.TestCase):
     def test_score_answer_declares_and_reverses_line_current_directions(self):
         note = NOTE.read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("![官方題目裁切圖]", note)
         self.assertIn("題圖未指定線路電流正方向", standard)
         for name in (r"I_{31}", r"I_{21}", r"I_{13}", r"I_{12}"):

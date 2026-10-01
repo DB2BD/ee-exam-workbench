@@ -32,7 +32,7 @@ import re
 from pathlib import Path
 
 import fitz
-from PIL import Image
+from PIL import Image, ImageDraw
 
 
 WORKSPACE = Path(__file__).resolve().parents[1]
@@ -43,6 +43,9 @@ DEFAULT_DPI = 180
 # but their boundary must leave enough room for the PDF text line and its
 # descenders.  This gate caught the original PE-109 circuit Q02 boundary.
 MIN_BOUNDARY_GAP_POINTS = 24.0
+# One text line (~16pt) plus a little lead; the start gap above already
+# rejects clipped headings.
+MIN_SEGMENT_POINTS = 18.0
 CN_NUMERALS = "一二三四五六七八九十"
 CN_VALUES = {char: index for index, char in enumerate(CN_NUMERALS, 1)}
 
@@ -72,7 +75,9 @@ MANUAL_STARTS: dict[tuple[int, str], list[tuple[int, float]]] = {
     (113, "工業配電"): [(1, 245), (1, 575), (2, 60), (2, 390), (3, 60)],
     (113, "電力系統"): [(1, 245), (1, 570), (2, 60), (2, 200)],
     (113, "電機機械"): [(1, 245), (1, 565), (1, 665), (2, 60), (2, 400)],
-    (114, "工業配電"): [(1, 240), (1, 350), (1, 635), (2, 60), (2, 390)],
+    # Q5 begins at y=216pt on page 2; the former 390pt start produced a blank
+    # Q5 crop and leaked all of Q5 into Q4.
+    (114, "工業配電"): [(1, 240), (1, 350), (1, 635), (2, 60), (2, 204)],
 }
 
 # A few source Markdown files predate the official paper transcription and
@@ -138,6 +143,87 @@ def content_top(page: fitz.Page) -> float:
     return instruction_bottom + 5 if instruction_bottom else 18.0
 
 
+# Running page furniture printed by the exam board.  Strong markers are masked
+# wherever they appear; weak markers only inside the header/footer bands so a
+# question that mentions e.g. 「科目」 is never blanked.
+CHROME_STRONG = re.compile(r"代號：|頁次：|請接背面|請接第|請翻頁|全一張|專門職業及技術人員")
+CHROME_WEAK = re.compile(
+    r"等\s*別\s*：|類\s*科\s*：|科\s*目\s*：|考試時間|座\s*號|※注意|不必抄題|不予計分|電子計算器|"
+    r"（正面）|（背面）|技師|考試試題"
+)
+# Lines that only occur in the exam header block.  Older papers set 等／類／科
+# in a separate text line from 「別：」「科：」「目：」, so match either half.
+HEADER_LINE = re.compile(
+    r"專門職業|考試試題|考試時間|座\s*號|※注意|不必抄題|不予計分|"
+    r"^(等\s*)?別\s*：|^(類\s*)?科\s*：|^(科\s*)?目\s*："
+)
+HEADER_BAND = 0.30
+FOOTER_BAND = 0.12
+MASK_PAD = 2.0
+
+
+def page_lines(page: fitz.Page) -> list[tuple[fitz.Rect, str]]:
+    lines = []
+    for block in page.get_text("dict")["blocks"]:
+        for line in block.get("lines", []):
+            text = "".join(span["text"] for span in line["spans"]).strip()
+            if text:
+                lines.append((fitz.Rect(line["bbox"]), text))
+    return lines
+
+
+def chrome_rects(page: fitz.Page) -> list[fitz.Rect]:
+    """Return page rectangles holding exam-board headers, footers and page ids.
+
+    When the full exam header (title + 等別／類科／科目) is repeated on a page,
+    the whole band above its last line is chrome, including title lines that
+    carry no keyword of their own.
+    """
+
+    height, width = page.rect.height, page.rect.width
+    rects: list[fitz.Rect] = []
+    header_bottom = 0.0
+    for bbox, text in page_lines(page):
+        in_header = bbox.y1 <= height * HEADER_BAND
+        in_footer = bbox.y0 >= height * (1 - FOOTER_BAND)
+        weak = CHROME_WEAK.search(text) or HEADER_LINE.search(text)
+        if CHROME_STRONG.search(text) or ((in_header or in_footer) and weak):
+            rects.append(fitz.Rect(bbox.x0 - MASK_PAD, bbox.y0 - MASK_PAD, bbox.x1 + MASK_PAD, bbox.y1 + MASK_PAD))
+            if in_header and HEADER_LINE.search(text):
+                header_bottom = max(header_bottom, bbox.y1)
+    if header_bottom:
+        rects.append(fitz.Rect(0, 0, width, header_bottom + MASK_PAD))
+    # Rules and boxes drawn around the 代號／頁次 label belong to the chrome.
+    strong = list(rects)
+    for drawing in page.get_drawings():
+        rect = fitz.Rect(drawing["rect"])
+        if rect.width > 200 or rect.height > 40:
+            continue
+        if any((mask + (-4, -4, 4, 4)).intersects(rect) for mask in strong):
+            rects.append(rect + (-MASK_PAD, -MASK_PAD, MASK_PAD, MASK_PAD))
+    return rects
+
+
+def has_question_content(page: fitz.Page, clip: fitz.Rect, masks: list[fitz.Rect]) -> bool:
+    """True when ``clip`` holds text, images or drawings outside the masks."""
+
+    def masked(rect: fitz.Rect) -> bool:
+        return any(mask.contains(rect & clip) for mask in masks)
+
+    for bbox, _text in page_lines(page):
+        if bbox.intersects(clip) and not masked(bbox):
+            return True
+    for info in page.get_image_info():
+        rect = fitz.Rect(info["bbox"])
+        if rect.intersects(clip) and not masked(rect):
+            return True
+    for drawing in page.get_drawings():
+        rect = fitz.Rect(drawing["rect"])
+        if rect.intersects(clip) and not rect.is_empty and not masked(rect):
+            return True
+    return False
+
+
 def heading_candidates(doc: fitz.Document) -> list[dict]:
     """Find top-level Chinese-numbered headings in PDF text blocks."""
 
@@ -180,9 +266,78 @@ def complete_numbered_sequence(candidates: list[dict], count: int) -> list[dict]
     return None
 
 
+def row_top(page: fitz.Page, bbox: fitz.Rect) -> float:
+    """Top of the visual row whose first text line is ``bbox``.
+
+    Display math (a matrix typed as separate glyph lines) can start above the
+    text line it sits on.  Grow upward through small elements lying within the
+    row's horizontal extent and touching it (3pt), at most 40pt.
+    """
+
+    lines = page_lines(page)
+    row = [rect for rect, _text in lines if abs(rect.y0 - bbox.y0) < 2.0]
+    x0, x1 = min(rect.x0 for rect in row), max(rect.x1 for rect in row)
+    elements = [rect for rect, _text in lines]
+    elements += [fitz.Rect(drawing["rect"]) for drawing in page.get_drawings()]
+    elements = [
+        rect for rect in elements
+        if rect.height < 30 and rect.x0 >= x0 - 1 and rect.x1 <= x1 + 1 and rect.y0 < bbox.y0
+    ]
+    top = bbox.y0
+    changed = True
+    while changed:
+        changed = False
+        for rect in elements:
+            if rect.y0 < top and rect.y1 >= top - 3.0 and bbox.y0 - rect.y0 <= 40.0:
+                top, changed = rect.y0, True
+    return top
+
+
+SUBITEM_GLYPHS = "\ue129\ue12a\ue12b\ue12c\ue12d\ue12e"
+
+
+def ink_heading_starts(doc: fitz.Document) -> list[dict]:
+    """Detect question starts when the 「一、」 numerals are missing from the text layer.
+
+    In these papers the numeral is rendered but not extractable, so the first
+    body line of each question sits at the hanging indent with ink in the
+    left gutter.  Continuation and sub-item lines have an empty gutter.
+    """
+
+    scale = 4.0
+    starts: list[dict] = []
+    for page_index, page in enumerate(doc):
+        top = content_top(page) if page_index == 0 else 0.0
+        gutter = fitz.Rect(28, 0, 62, page.rect.height)
+        pixmap = page.get_pixmap(matrix=fitz.Matrix(scale, scale), clip=gutter, alpha=False)
+        image = Image.open(io.BytesIO(pixmap.tobytes("png"))).convert("L")
+        pixels = image.load()
+        masks = chrome_rects(page)
+        for bbox, text in page_lines(page):
+            if bbox.y0 < top or not 60 <= bbox.x0 <= 70 or bbox.width < 60:
+                continue
+            if text[0] in SUBITEM_GLYPHS or any(mask.contains(bbox) for mask in masks):
+                continue
+            rows = range(int(bbox.y0 * scale), min(int(bbox.y1 * scale), image.height))
+            ink = sum(1 for y in rows for x in range(image.width) if pixels[x, y] < 128)
+            if ink > 40:
+                starts.append({
+                    "page": page_index + 1,
+                    # The numeral shares this line, so a small lead suffices
+                    # and keeps one-line questions (109 電路學 Q02) intact.
+                    "y": max(0.0, row_top(page, bbox) - 6.0),
+                    "number": len(starts) + 1,
+                    "text": text[:500],
+                })
+    return starts
+
+
 def starts_for(doc: fitz.Document, year: int, subject: str, count: int) -> tuple[list[dict], str]:
     manual = MANUAL_STARTS.get((year, subject))
     if manual:
+        detected = ink_heading_starts(doc)
+        if len(detected) == count:
+            return detected, "pdf_ink_heading"
         if len(manual) != count:
             raise ValueError(f"Manual crop table/count mismatch for {year} {subject}")
         return [
@@ -199,10 +354,29 @@ def starts_for(doc: fitz.Document, year: int, subject: str, count: int) -> tuple
     return sequence, "pdf_text_sequence"
 
 
-def page_png(page: fitz.Page, clip: fitz.Rect, dpi: int) -> bytes:
+def page_png(page: fitz.Page, clip: fitz.Rect, dpi: int, masks: list[fitz.Rect] = ()) -> bytes:
+    """Render ``clip`` and paint page chrome white, then trim blank margins."""
+
     scale = dpi / 72.0
     pixmap = page.get_pixmap(matrix=fitz.Matrix(scale, scale), clip=clip, alpha=False, annots=True)
-    return pixmap.tobytes("png")
+    image = Image.open(io.BytesIO(pixmap.tobytes("png"))).convert("RGB")
+    draw = ImageDraw.Draw(image)
+    for mask in masks:
+        visible = mask & clip
+        if visible.is_empty:
+            continue
+        draw.rectangle(
+            [
+                (visible.x0 - clip.x0) * scale,
+                (visible.y0 - clip.y0) * scale,
+                (visible.x1 - clip.x0) * scale,
+                (visible.y1 - clip.y0) * scale,
+            ],
+            fill="white",
+        )
+    buffer = io.BytesIO()
+    image.save(buffer, format="PNG")
+    return trim_whitespace(buffer.getvalue(), padding=0)
 
 
 def stitch(parts: list[bytes], gap: int = 18) -> bytes:
@@ -272,7 +446,7 @@ def segment_bounds(doc: fitz.Document, starts: list[dict], index: int, page_numb
         bottom = doc[page_index].rect.height - 18.0
     else:
         bottom = doc[page_index].rect.height - 18.0
-    if page_number == start["page"] and bottom < top + MIN_BOUNDARY_GAP_POINTS:
+    if page_number == start["page"] and bottom < top + MIN_SEGMENT_POINTS:
         raise ValueError(
             f"Question segment is too small on page {page_number}: "
             f"y={top:.1f}..{bottom:.1f}"
@@ -318,11 +492,23 @@ def process_pdf(pdf_path: Path, dpi: int) -> dict:
                 and starts[index + 1]["y"] <= 70
             ):
                 break
+            page = doc[page_number - 1]
             segment = segment_bounds(doc, starts, index, page_number)
-            parts.append(page_png(doc[page_number - 1], segment, dpi))
+            masks = [mask for mask in chrome_rects(page) if mask.intersects(segment)]
+            # A continuation page that only adds the running header/footer is
+            # not part of the question.
+            if not has_question_content(page, segment, masks):
+                if page_number == start["page"]:
+                    raise ValueError(
+                        f"Empty crop for {year} {subject} Q{index + 1:02d} on page {page_number}; "
+                        "fix the audited boundary"
+                    )
+                continue
+            parts.append(page_png(page, segment, dpi, masks))
             source_pages.append({
                 "page": page_number,
                 "crop_rect": [round(value, 2) for value in segment],
+                "masked_rects": [[round(value, 2) for value in mask] for mask in masks],
             })
         path = question_dir / f"PE_{year}年_{subject}_Q{index + 1:02d}.png"
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -334,7 +520,10 @@ def process_pdf(pdf_path: Path, dpi: int) -> dict:
             "question_crop": rel(path),
             "source_pages": source_pages,
             "boundary_method": boundary_method,
-            "boundary_confidence": "audited" if boundary_method == "manual_audit" else "text_sequence",
+            "boundary_confidence": {
+                "manual_audit": "audited",
+                "pdf_ink_heading": "ink_heading",
+            }.get(boundary_method, "text_sequence"),
         })
     doc.close()
     return {
@@ -386,7 +575,7 @@ def main() -> int:
         "schema_version": 1,
         "source_type": "official_pe_question_pdf",
         "render_dpi": args.dpi,
-        "boundary_policy": "audited PDF text sequence; explicit manual coordinates for damaged text layers; no equal-page fallback",
+        "boundary_policy": "audited PDF text sequence; gutter-ink heading detection for damaged text layers, falling back to explicit manual coordinates; page chrome masked; no equal-page fallback",
         "entries": entries,
         "summary": {
             "papers": len(entries),

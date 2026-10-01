@@ -14,15 +14,11 @@ trigger: always_on
    - 分段函數一律使用 `\begin{cases} ... \end{cases}`。
    - 嚴格避免破音字與 OCR 雜訊字（如 `30o`, `w=`, `ohm`）。
 3. **題解架構標準**：
-   - 每一道題解必須包含：
-     - 📌 **題目與已知條件**
-     - 💡 **核心考點與破題關鍵**
-     - ✏️ **步驟式詳細數學推導**
-     - ⚠️ **考場陷阱與評分避坑指南**
-     - 🎯 **計算機按法提示**
+   - PE canonical 題解一律採 `AGENT-SOLVE.md` 的 `lean-v1` 版型：「已知與所求／解答／驗算／失分點」，必要時加「條件與疑義」；「計算機按法」只用於複數相量或矩陣題。
+   - 同一答案只推導一次；正文不寫稽核歷程與 metadata。
 4. **強制執行雙重對抗批判與 Python 獨立審計（Adversarial Audit）**：
    - 在剖析、回答或修改任何題目時，**嚴禁盲目相信舊筆記**，必須執行 `adversarial-audit` 技能：
      - **第一關（真題原圖核對）**：調用 `view_file` 查驗原卷圖檔或 PDF，嚴防數字、單位、基準值或接線條件抄錯。
-     - **第二關（Python 獨立求解）**：撰寫 scratch Python 腳本（NumPy/SymPy）以第一原理求解，確認小數點後 3 位精度。
+     - **第二關（Python 獨立求解）**：在 `verification/pe/EE-YYY-SS-N.py` 撰寫可重跑的 NumPy/SymPy 腳本以第一原理求解並 `assert` 每個 boxed 答案。
      - **第三關（審稿官挑錯）**：嚴格檢查是否漏解任何子問、是否有 Y-$\Delta$ $30^\circ$ 相位旋轉、是否有中性點不接地阻斷零序。
-     - **第四關（自動修訂與熱重載）**：發現錯誤立即重寫 Markdown 並重新編譯 `solutions-bundle.js`。
+     - **第四關（修訂與重編譯）**：發現錯誤只改 canonical 來源，再由主 session 執行 `AGENTS.md` 的編譯與測試流程；不手改生成檔。

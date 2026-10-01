@@ -52,6 +52,8 @@ def build_workbench():
         'src/domain/questionRecord.js',
         'src/domain/knowledgeDiagnosis.js',
         'src/domain/weaknessProjection.js',
+        'src/domain/passingProbability.js',
+        'src/domain/numericVerifier.js',
         'src/data/taxonomyAliases.js',
         'src/data/knowledge-dag.js',
         'src/data/knowledge-dag.generated.js',
@@ -74,6 +76,8 @@ def build_workbench():
         'src/components/dagGraphViewer.js',
         'src/components/header.js',
         'src/components/questionList.js',
+        'src/components/calculatorGuide.js',
+        'src/components/passbookGenerator.js',
         'src/components/solutionModal.js',
         'src/components/mockExamTimer.js',
         'src/components/dailyPractice.js',
@@ -89,6 +93,10 @@ def build_workbench():
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>電機工程技師 & 公務高考三級 歷屆試題全真雙欄工作台 (104-114年)</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#4a7c8f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <!-- Offline KaTeX & Marked.js Libraries -->
 <link rel="stylesheet" href="./libs/katex.min.css">
@@ -165,6 +173,10 @@ def build_workbench():
         <span class="label">⚡ 今日待提取 (SM-2)</span>
         <span class="val" id="stat-due-flashcards" style="color: var(--accent-dark);">0</span>
       </div>
+      <div class="stat-card stat-readiness-card" id="stat-readiness-card" onclick="openPassbookModal()" style="cursor: pointer;" title="點擊查看考前 15 天個人化奪榜衝刺手冊與六科戰力預測">
+        <span class="label">🎯 上榜預測 (PPI)</span>
+        <span class="val" id="stat-passing-prob" style="color: var(--accent-dark);">--%</span>
+      </div>
     </div>
 
     <!-- Progress Bar -->
@@ -205,6 +217,8 @@ def build_workbench():
         <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')"><span>🪜 七層訓練</span></button>
         <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')"><span>📊 統計</span></button>
         <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')"><span>⚡ 速查</span></button>
+        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 15天奪榜本</span></button>
+        <button class="main-tab-btn" id="tab-btn-calcguide" onclick="openCalculatorGuideModal()"><span>🧮 fx-82 按法</span></button>
       </div>
     </details>
   </div>
@@ -545,6 +559,13 @@ def build_workbench():
 
 <script>
 {bundled_js}
+</script>
+<script>
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {{
+  window.addEventListener('load', () => {{
+    navigator.serviceWorker.register('./sw.js').catch(() => {{}});
+  }});
+}}
 </script>
 </body>
 </html>

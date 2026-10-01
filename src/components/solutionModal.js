@@ -727,6 +727,9 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
           <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
             🔍 展開題幹文字
           </button>
+          <button class="btn-stem-toggle" onclick="openCalculatorGuideModal()" id="btn-calc-guide" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="考選部核定計算機按法與相量速查">
+            🧮 fx-82 按法
+          </button>
         </div>
         <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
           新分頁開啟 ⬈
@@ -1384,6 +1387,30 @@ function submitSM2Rating(rating) {
   finishCommittedLearningAttempt(result, qid, Number(rating), attemptId);
 }
 
+function checkModalNumericAnswer(qid) {
+  const input = document.getElementById('modal-numeric-input');
+  const feedback = document.getElementById('modal-numeric-feedback');
+  if (!input || !feedback) return;
+  const val = input.value;
+  if (!val || !val.trim()) {
+    feedback.innerHTML = '<span style="color: var(--muted);">請先在輸入框鍵入算出的數值。</span>';
+    return;
+  }
+  const rawMd = typeof currentModalSolLink !== 'undefined'
+    ? resolveSolutionMarkdown(currentModalSolLink, qid)
+    : '';
+  const res = typeof verifyNumericAnswer === 'function'
+    ? verifyNumericAnswer(val, rawMd)
+    : { ok: false, message: '數值驗證模組載入中...' };
+
+  if (res.ok) {
+    feedback.innerHTML = `<span style="color: var(--success); font-weight: 700;">${res.message}</span>`;
+    if (typeof showToast === 'function') showToast('🎉 數值命中！運算精確！');
+  } else {
+    feedback.innerHTML = `<span style="color: var(--warn); font-weight: 600;">${res.message}</span>`;
+  }
+}
+
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
@@ -1428,7 +1455,21 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         <!-- Keep the four-step workflow immediately above the hidden solution. -->
         <div class="active-recall-box" id="recall-step-box">
           <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
-          <p style="font-size: 0.85rem; color: var(--muted); margin: 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
+          <p style="font-size: 0.85rem; color: var(--muted); margin: 0 0 10px 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
+          
+          <!-- Fast Numeric Verifier -->
+          <div class="numeric-check-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: left;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+              <span>🎯 考場數值盲測（看答案前先核算最終數值）：</span>
+              <button type="button" onclick="openCalculatorGuideModal()" style="background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.78rem; text-decoration: underline;">🧮 fx-82 相量速查</button>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <input type="text" id="modal-numeric-input" placeholder="輸入算出數值 (例: 14.14 或 88.5)" style="flex: 1; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: 4px; font-size: 0.85rem; background: var(--bg); color: var(--ink);">
+              <button type="button" class="btn-sol" style="padding: 6px 12px; font-size: 0.82rem;" onclick="checkModalNumericAnswer('${currentModalQid}')">對答案</button>
+            </div>
+            <div id="modal-numeric-feedback" style="margin-top: 6px; font-size: 0.82rem; min-height: 18px;"></div>
+          </div>
+
           <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
             <button class="btn-reveal-hint" onclick="revealRecallLayer(1)">① 顯示章節</button>
             <button class="btn-reveal-hint" onclick="revealRecallLayer(2)">② 顯示起手式</button>

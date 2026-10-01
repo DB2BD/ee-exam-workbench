@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>電機工程技師 & 公務高考三級 歷屆試題全真雙欄工作台 (104-114年)</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#4a7c8f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <!-- Offline KaTeX & Marked.js Libraries -->
 <link rel="stylesheet" href="./libs/katex.min.css">
@@ -1738,6 +1742,179 @@ select:focus {
   }
 }
 
+/* === Productization 2.0 & Passing Probability Upgrades === */
+.stat-readiness-card {
+  border: 1px solid var(--accent) !important;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--bg-secondary) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.stat-readiness-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+}
+
+/* Calculator Guide & Phasor Converter */
+.calc-modal-content {
+  max-width: 820px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.phasor-converter-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+.phasor-converter-box h4 {
+  color: var(--accent-dark);
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+.converter-grid {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.converter-col {
+  flex: 1;
+  min-width: 220px;
+}
+.converter-col label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.input-duo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.input-duo input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: var(--surface);
+  color: var(--ink);
+}
+.converter-center {
+  font-size: 1.4rem;
+  color: var(--accent);
+  padding: 0 4px;
+}
+.converter-feedback {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  min-height: 24px;
+  padding: 6px 10px;
+  background: var(--surface);
+  border-radius: 4px;
+  border: 1px dashed var(--line);
+}
+.calc-recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 14px;
+}
+.calc-recipe-card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+.calc-recipe-card.highlight {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+.calc-recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.calc-recipe-header h4 {
+  font-size: 0.95rem;
+  color: var(--accent-dark);
+}
+.calc-tag {
+  font-size: 0.78rem;
+  background: var(--bg-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--ink-light);
+}
+.calc-keystroke-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.key-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.calc-key {
+  display: inline-block;
+  background: var(--ink);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+.key-desc {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.key-arrow {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.calc-trap-alert {
+  font-size: 0.78rem;
+  color: var(--warn);
+  background: var(--warn-light);
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+/* Print CSS additions for Passbook */
+@media print {
+  .passbook-hide-print, .btn-close, .modal-footer {
+    display: none !important;
+  }
+  .passbook-modal-content {
+    max-width: 100% !important;
+    max-height: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .passbook-printable-area {
+    padding: 0 !important;
+  }
+  .passbook-item {
+    page-break-inside: avoid !important;
+  }
+}
+
 
 /* === src/styles/modal.css === */
 /* src/styles/modal.css */
@@ -2686,6 +2863,10 @@ select:focus {
         <span class="label">⚡ 今日待提取 (SM-2)</span>
         <span class="val" id="stat-due-flashcards" style="color: var(--accent-dark);">0</span>
       </div>
+      <div class="stat-card stat-readiness-card" id="stat-readiness-card" onclick="openPassbookModal()" style="cursor: pointer;" title="點擊查看考前 15 天個人化奪榜衝刺手冊與六科戰力預測">
+        <span class="label">🎯 上榜預測 (PPI)</span>
+        <span class="val" id="stat-passing-prob" style="color: var(--accent-dark);">--%</span>
+      </div>
     </div>
 
     <!-- Progress Bar -->
@@ -2726,6 +2907,8 @@ select:focus {
         <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')"><span>🪜 七層訓練</span></button>
         <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')"><span>📊 統計</span></button>
         <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')"><span>⚡ 速查</span></button>
+        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 15天奪榜本</span></button>
+        <button class="main-tab-btn" id="tab-btn-calcguide" onclick="openCalculatorGuideModal()"><span>🧮 fx-82 按法</span></button>
       </div>
     </details>
   </div>
@@ -3755,6 +3938,392 @@ function buildWeaknessProjection(stream, options = {}) {
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { WEAKNESS_PROJECTION_VERSION, WEAKNESS_PRIORITY_VERSION, buildWeaknessProjection };
+}
+
+
+// === src/domain/passingProbability.js ===
+// src/domain/passingProbability.js
+/**
+ * Passing Probability Index (PPI) & Readiness Prediction Engine
+ * ==============================================================
+ * Scientifically estimates examinee's performance in Taiwan Professional Electrical
+ * Engineer (PE) Examination (6 core subjects, 100 pts each, passing line: avg >= 60).
+ *
+ * Factors:
+ * 1. Historical chapter frequency & difficulty weighting
+ * 2. Active recall layer achievement (L1 ~ L4)
+ * 3. SM-2 memory retention & overdue decay
+ * 4. Dangerous single-subject bottleneck penalty (< 40 pts)
+ * 5. High-ROI chapter improvement recommendations
+ */
+
+const PASSING_SCORE_THRESHOLD = 60.0;
+const DANGER_SCORE_THRESHOLD = 40.0;
+
+const SUBJECT_CONFIG_PE = {
+  '01': { id: '01', name: '電路學', icon: '⚡', targetScore: 70 },
+  '02': { id: '02', name: '電子學（含電力電子）', icon: '🔬', targetScore: 65 },
+  '03': { id: '03', name: '工程數學', icon: '📐', targetScore: 60 },
+  '04': { id: '04', name: '電機機械', icon: '⚙️', targetScore: 65 },
+  '05': { id: '05', name: '電力系統', icon: '🏭', targetScore: 70 },
+  '06': { id: '06', name: '工業配電', icon: '🔌', targetScore: 65 }
+};
+
+/**
+ * Calculate effective mastery multiplier for a single question.
+ */
+function evaluateQuestionReadiness(qid, progressVal, sm2Item, recallItem, now = new Date()) {
+  const p = Number(progressVal) || 0;
+  let baseMastery = 0.08; // Base unstarted familiarity
+  if (p === 1) baseMastery = 1.0;       // Mastered
+  else if (p === 2) baseMastery = 0.35; // In review / wrong
+
+  // Recall layer multiplier (Level 1 ~ 4)
+  let recallMult = 0.75;
+  if (recallItem && typeof recallItem.achievedLevel === 'number') {
+    const lvl = recallItem.achievedLevel;
+    if (lvl >= 4) recallMult = 1.0;
+    else if (lvl === 3) recallMult = 0.85;
+    else if (lvl === 2) recallMult = 0.65;
+    else if (lvl === 1) recallMult = 0.45;
+  }
+
+  // SM-2 retention decay if overdue
+  let retentionMult = 1.0;
+  if (sm2Item && sm2Item.nextReviewDate) {
+    const dueDate = new Date(sm2Item.nextReviewDate);
+    const nowDate = new Date(now);
+    const diffDays = Math.floor((nowDate - dueDate) / (1000 * 60 * 60 * 24));
+    if (diffDays > 0) {
+      // Memory decay over time: 5% per day overdue, minimum 0.4
+      retentionMult = Math.max(0.4, 1.0 - diffDays * 0.05);
+    }
+  }
+
+  return Math.min(1.0, Math.max(0.05, baseMastery * recallMult * retentionMult));
+}
+
+/**
+ * Calculates projected score and metrics for a specific subject.
+ */
+function calculateSubjectReadiness(subjectId, questions, progressState = {}, sm2Store = {}, recallStore = {}, options = {}) {
+  const now = options.now ? new Date(options.now) : new Date();
+  const subjQuestions = (questions || []).filter(q => {
+    const sid = Array.isArray(q) ? q[1] : (q && q.subjectId);
+    return String(sid) === String(subjectId);
+  });
+
+  const totalQuestions = subjQuestions.length;
+  if (totalQuestions === 0) {
+    return {
+      subjectId,
+      totalQuestions: 0,
+      masteredCount: 0,
+      reviewCount: 0,
+      estimatedScore: 25,
+      effectiveMasteryRate: 0.1,
+      isDanger: true,
+      weakChapters: []
+    };
+  }
+
+  let totalWeight = 0;
+  let earnedScoreWeight = 0;
+  let masteredCount = 0;
+  let reviewCount = 0;
+  const chapterBreakdown = {};
+
+  subjQuestions.forEach(q => {
+    const qid = Array.isArray(q) ? q[0] : q.id;
+    const year = Number(Array.isArray(q) ? q[2] : q.year) || 104;
+    const diff = Number(Array.isArray(q) ? q[8] : q.difficulty) || 3;
+    const chapter = (q.taxonomy && q.taxonomy.primaryChapter) || (Array.isArray(q) ? (q[4] || '未分類') : '未分類');
+
+    // Recency weight: recent 5 years (>= 110) have 1.3x weight
+    const recencyWeight = year >= 110 ? 1.3 : 1.0;
+    // Difficulty weight: Level 3 ~ 5 have higher discriminator in exam
+    const diffWeight = 0.8 + (diff * 0.1);
+    const qWeight = recencyWeight * diffWeight;
+
+    const pVal = progressState[qid] || 0;
+    if (pVal === 1) masteredCount++;
+    else if (pVal === 2) reviewCount++;
+
+    const sm2Item = sm2Store[qid] || null;
+    const recallItem = recallStore[qid] || null;
+    const readiness = evaluateQuestionReadiness(qid, pVal, sm2Item, recallItem, now);
+
+    totalWeight += qWeight;
+    earnedScoreWeight += qWeight * readiness;
+
+    // Track chapter weaknesses
+    if (!chapterBreakdown[chapter]) {
+      chapterBreakdown[chapter] = { total: 0, mastered: 0, unmasteredQids: [] };
+    }
+    chapterBreakdown[chapter].total++;
+    if (pVal === 1) {
+      chapterBreakdown[chapter].mastered++;
+    } else {
+      chapterBreakdown[chapter].unmasteredQids.push(qid);
+    }
+  });
+
+  const effectiveMastery = totalWeight > 0 ? (earnedScoreWeight / totalWeight) : 0;
+  // Scaled score formula:
+  // Base 20 pts (formula setup / basic recognition) + 78 pts scaled by effective mastery
+  const rawScore = 20.0 + (78.0 * effectiveMastery);
+  const estimatedScore = Math.min(96, Math.max(20, Math.round(rawScore * 10) / 10));
+  const isDanger = estimatedScore < DANGER_SCORE_THRESHOLD;
+
+  // Identify weak chapters
+  const weakChapters = Object.entries(chapterBreakdown)
+    .map(([chap, data]) => ({
+      chapter: chap,
+      total: data.total,
+      mastered: data.mastered,
+      masteryRate: data.total > 0 ? data.mastered / data.total : 0,
+      gapCount: data.total - data.mastered,
+      unmasteredQids: data.unmasteredQids
+    }))
+    .filter(c => c.gapCount > 0)
+    .sort((a, b) => b.gapCount - a.gapCount);
+
+  return {
+    subjectId,
+    totalQuestions,
+    masteredCount,
+    reviewCount,
+    estimatedScore,
+    effectiveMasteryRate: Math.round(effectiveMastery * 100) / 100,
+    isDanger,
+    weakChapters
+  };
+}
+
+/**
+ * Calculates overall Exam Readiness and Passing Probability Index (PPI).
+ */
+function calculateExamReadiness(questions, progressState = {}, sm2Store = {}, recallStore = {}, options = {}) {
+  const family = options.examFamily || 'PE';
+  const subjectsMap = SUBJECT_CONFIG_PE;
+  const subjectIds = Object.keys(subjectsMap);
+
+  const subjectResults = {};
+  let totalScoreSum = 0;
+  let minScore = 100;
+  let dangerCount = 0;
+
+  subjectIds.forEach(sid => {
+    const res = calculateSubjectReadiness(sid, questions, progressState, sm2Store, recallStore, options);
+    subjectResults[sid] = Object.assign({}, res, {
+      name: subjectsMap[sid].name,
+      icon: subjectsMap[sid].icon,
+      targetScore: subjectsMap[sid].targetScore
+    });
+    totalScoreSum += res.estimatedScore;
+    if (res.estimatedScore < minScore) minScore = res.estimatedScore;
+    if (res.isDanger) dangerCount++;
+  });
+
+  const subjectCount = subjectIds.length;
+  const projectedAverage = Math.round((totalScoreSum / subjectCount) * 10) / 10;
+
+  // Logistic Passing Probability Model
+  // Sigmoid center at 60.0 points
+  const delta = projectedAverage - PASSING_SCORE_THRESHOLD;
+  let baseProb = 1.0 / (1.0 + Math.exp(-0.22 * delta));
+
+  // Single-subject fatal flaw penalty (if any subject < 40 pts, passing probability plummets)
+  if (minScore < DANGER_SCORE_THRESHOLD) {
+    const penaltyFactor = Math.max(0.2, (minScore - 15) / 25);
+    baseProb *= penaltyFactor;
+  }
+
+  const passingProbability = Math.min(99, Math.max(3, Math.round(baseProb * 100)));
+
+  // Tier classification
+  let tier = 'danger';
+  let tierLabel = '死穴待搶救';
+  let tierColor = '#b85d58';
+  if (passingProbability >= 80) {
+    tier = 'top';
+    tierLabel = '高機率金榜';
+    tierColor = '#5f8d64';
+  } else if (passingProbability >= 62) {
+    tier = 'competitive';
+    tierLabel = '穩健衝刺中';
+    tierColor = '#4a7c8f';
+  } else if (passingProbability >= 45) {
+    tier = 'borderline';
+    tierLabel = '拔河及格邊緣';
+    tierColor = '#d49e35';
+  }
+
+  // Derive Top ROI Actionable Boosters
+  const topRoiBoosters = deriveTopRoiBoosters(subjectResults);
+
+  return {
+    examFamily: family,
+    projectedAverage,
+    passingThreshold: PASSING_SCORE_THRESHOLD,
+    passingProbability,
+    tier,
+    tierLabel,
+    tierColor,
+    minSubjectScore: minScore,
+    dangerCount,
+    subjectResults,
+    topRoiBoosters
+  };
+}
+
+/**
+ * Derives the Top 3 High-ROI chapters that give the biggest jump in projected score.
+ */
+function deriveTopRoiBoosters(subjectResults, limit = 3) {
+  const candidates = [];
+
+  Object.values(subjectResults).forEach(subj => {
+    (subj.weakChapters || []).forEach(chap => {
+      if (chap.gapCount >= 2) {
+        // Impact score: gap questions * subject weakness factor
+        const subjUrgency = Math.max(1.0, (70.0 - subj.estimatedScore) / 10.0);
+        const scoreGainPotential = Math.min(6.5, Math.round(chap.gapCount * 0.8 * subjUrgency * 10) / 10);
+        candidates.push({
+          subjectId: subj.subjectId,
+          subjectName: subj.name,
+          subjectIcon: subj.icon,
+          chapter: chap.chapter,
+          unmasteredCount: chap.gapCount,
+          sampleQids: chap.unmasteredQids.slice(0, 3),
+          projectedScoreGain: scoreGainPotential,
+          recommendation: `攻克【${subj.name} · ${chap.chapter}】${chap.gapCount} 道核心題，預估拉升本科 +${scoreGainPotential} 分`
+        });
+      }
+    });
+  });
+
+  candidates.sort((a, b) => b.projectedScoreGain - a.projectedScoreGain);
+  return candidates.slice(0, limit);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    PASSING_SCORE_THRESHOLD,
+    DANGER_SCORE_THRESHOLD,
+    SUBJECT_CONFIG_PE,
+    evaluateQuestionReadiness,
+    calculateSubjectReadiness,
+    calculateExamReadiness,
+    deriveTopRoiBoosters
+  };
+}
+
+
+// === src/domain/numericVerifier.js ===
+// src/domain/numericVerifier.js
+/**
+ * Fast Numeric Verifier for Engineering Exam Solutions
+ * ===================================================
+ * Compares examinee's calculated final answer against mathematical solutions.
+ * Detects common engineering exam pitfalls:
+ * 1. Missing / extra sqrt(3) (line vs phase factor ~1.732)
+ * 2. Missing / extra 1000x unit prefixes (kilo, milli)
+ * 3. Sign inversion (negative sign error)
+ * 4. High accuracy match (<= 2.5% tolerance)
+ */
+
+function extractNumbersFromText(text) {
+  if (!text || typeof text !== 'string') return [];
+  // Match numbers including decimals and scientific notation
+  const regex = /[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?/g;
+  const matches = text.match(regex);
+  if (!matches) return [];
+  return matches
+    .map(Number)
+    .filter(n => Number.isFinite(n) && Math.abs(n) > 0.0001);
+}
+
+function verifyNumericAnswer(userInput, solutionText) {
+  if (userInput === undefined || userInput === null) {
+    return { ok: false, matchType: 'empty', message: '請輸入計算數值。' };
+  }
+  const cleanInput = String(userInput).trim().replace(/,/g, '');
+  const userNum = parseFloat(cleanInput);
+  if (isNaN(userNum)) {
+    return { ok: false, matchType: 'invalid', message: '請輸入有效的數值格式。' };
+  }
+
+  const solutionNumbers = extractNumbersFromText(solutionText);
+  if (solutionNumbers.length === 0) {
+    return { ok: false, matchType: 'no_numbers', message: '本題詳解中未檢索到可用於比對的數值。' };
+  }
+
+  const userAbs = Math.abs(userNum);
+
+  // 1. Check for direct match (tolerance <= 3.0%)
+  for (const solNum of solutionNumbers) {
+    const solAbs = Math.abs(solNum);
+    const diffRatio = Math.abs(userAbs - solAbs) / Math.max(solAbs, 0.001);
+    if (diffRatio <= 0.03) {
+      if (Math.sign(userNum) !== Math.sign(solNum) && solNum !== 0) {
+        return {
+          ok: false,
+          matchType: 'sign_error',
+          matchedVal: solNum,
+          message: `⚠️ 數值大小正確（${solAbs}），但「正負號相反」！請檢查參考方向定義（如流入／流出、吸收／提供）。`
+        };
+      }
+      return {
+        ok: true,
+        matchType: 'exact',
+        matchedVal: solNum,
+        message: `🎉 數值完全命中（約 ${solNum}）！運算精確無誤，請繼續保持！`
+      };
+    }
+  }
+
+  // 2. Check for sqrt(3) factor (~1.732) error (3-phase line vs phase mistake)
+  const SQRT3 = Math.sqrt(3);
+  for (const solNum of solutionNumbers) {
+    const solAbs = Math.abs(solNum);
+    const ratio = userAbs / solAbs;
+    if (Math.abs(ratio - SQRT3) < 0.06 || Math.abs(ratio - (1 / SQRT3)) < 0.03) {
+      return {
+        ok: false,
+        matchType: 'sqrt3_trap',
+        matchedVal: solNum,
+        message: `⚠️ 數值偏差約 1.732 倍！強烈提醒：檢查是否漏乘或多除了三相「根號三（√3）」線／相轉換！`
+      };
+    }
+  }
+
+  // 3. Check for 1000x factor error (kilo / milli prefix)
+  for (const solNum of solutionNumbers) {
+    const solAbs = Math.abs(solNum);
+    const ratio = userAbs / solAbs;
+    if (Math.abs(ratio - 1000) < 5 || Math.abs(ratio - 0.001) < 0.00005) {
+      return {
+        ok: false,
+        matchType: 'unit_prefix_trap',
+        matchedVal: solNum,
+        message: `⚠️ 數值偏差 1000 倍！提示：注意單位前綴（如 W 與 kW、V 與 kV、A 與 mA）。`
+      };
+    }
+  }
+
+  return {
+    ok: false,
+    matchType: 'mismatch',
+    message: `🤔 數值未在標準答案中找到相符項。建議點擊下方步驟逐步對照公式與推導。`
+  };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    extractNumbersFromText,
+    verifyNumericAnswer
+  };
 }
 
 
@@ -21580,6 +22149,22 @@ function updateStatsAndBar() {
   if (statStarred) statStarred.innerText = starred;
   if (statExams) statExams.innerText = currentExamCategory === 'PE' ? 66 : 25;
 
+  // Passing Probability Index (PPI)
+  if (typeof calculateExamReadiness === 'function') {
+    const readiness = calculateExamReadiness(
+      qList,
+      progressState,
+      typeof sm2Data !== 'undefined' ? sm2Data : {},
+      typeof recallProgress !== 'undefined' ? recallProgress : {},
+      { examFamily: currentExamCategory }
+    );
+    const probEl = document.getElementById('stat-passing-prob');
+    if (probEl) {
+      probEl.innerText = readiness.passingProbability + "%";
+      probEl.style.color = readiness.tierColor || 'var(--accent-dark)';
+    }
+  }
+
   // SM-2 Due Flashcards count
   const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
   const statDue = document.getElementById('stat-due-flashcards');
@@ -22127,6 +22712,439 @@ function renderQuestions() {
   }
 
   refreshAnalysisViews();
+}
+
+
+// === src/components/calculatorGuide.js ===
+// src/components/calculatorGuide.js
+/**
+ * Casio fx-82SOLAR II Exam Calculator Keystroke Guide & Phasor Converter
+ * ======================================================================
+ * Designed specifically for Taiwan National Electrical Engineering Examinations
+ * (where only non-programmable, memory-less calculators are approved).
+ *
+ * Provides:
+ * 1. Step-by-step keystroke sequences for R<->P, Parallel Impedances, 3-Phase sqrt(3)
+ * 2. DEG vs RAD trap warnings (Transmission lines & Wave equations)
+ * 3. In-browser Phasor / Complex number quick verification tool
+ */
+
+const FX82_RECIPES = [
+  {
+    id: 'r_to_p',
+    title: '直角座標轉極座標 (R ➔ P)',
+    formula: 'A + jB \\implies R\\angle \\theta^\\circ',
+    example: '3 + j4 \\implies 5\\angle 53.13^\\circ',
+    keystrokes: [
+      { key: '3', desc: '輸入實部 A' },
+      { key: 'INV', desc: '功能切換鍵' },
+      { key: 'R➔P', desc: '按 [+] 鍵上方黃色字 (R➔P)' },
+      { key: '4', desc: '輸入虛部 B' },
+      { key: '=', desc: '顯示大小 R (得 5)' },
+      { key: 'b', desc: '按 [b] 鍵 (或 a b/c) 顯示角度 θ (得 53.13°)' }
+    ],
+    trap: '若虛部為負（如 3 - j4），輸入 4 之後需按 [+/-] 變號，再按 [=]。'
+  },
+  {
+    id: 'p_to_r',
+    title: '極座標轉直角座標 (P ➔ R)',
+    formula: 'R\\angle \\theta^\\circ \\implies A + jB',
+    example: '100\\angle 30^\\circ \\implies 86.60 + j50.00',
+    keystrokes: [
+      { key: '100', desc: '輸入大小 R' },
+      { key: 'INV', desc: '功能切換鍵' },
+      { key: 'P➔R', desc: '按 [-] 鍵上方黃色字 (P➔R)' },
+      { key: '30', desc: '輸入角度 θ' },
+      { key: '=', desc: '顯示實部 A (得 86.60)' },
+      { key: 'b', desc: '按 [b] 鍵顯示虛部 B (得 50.00)' }
+    ],
+    trap: '請確認螢幕頂端顯示 [D] (Degree 角度制)。若顯示 [R] 或 [G] 算出來數值全錯！'
+  },
+  {
+    id: 'parallel_z',
+    title: '並聯阻抗倒數鏈算法',
+    formula: 'Z_{eq} = \\frac{1}{\\frac{1}{Z_1} + \\frac{1}{Z_2}}',
+    example: '20\\ \\Omega \\parallel 30\\ \\Omega = 12\\ \\Omega',
+    keystrokes: [
+      { key: '20', desc: '輸入 Z1' },
+      { key: '1/x', desc: '取倒數 (得 0.05)' },
+      { key: '+', desc: '加' },
+      { key: '30', desc: '輸入 Z2' },
+      { key: '1/x', desc: '取倒數 (得 0.0333)' },
+      { key: '=', desc: '求和 (得 0.0833)' },
+      { key: '1/x', desc: '再取倒數 (得 12 Ω)' }
+    ],
+    trap: '複數阻抗並聯時，建議先用 R➔P 轉極座標計算，或分步先算分母。'
+  },
+  {
+    id: 'three_phase_p',
+    title: '三相功率根號三常數鏈',
+    formula: 'P = \\sqrt{3} V_L I_L \\cos\\theta',
+    example: 'V_L=380\\text{V}, I_L=15\\text{A}, \\text{pf}=0.85 \\implies 8391.8\\text{ W}',
+    keystrokes: [
+      { key: '3', desc: '輸入 3' },
+      { key: '√', desc: '開根號 (得 1.73205)' },
+      { key: '×', desc: '乘' },
+      { key: '380', desc: '線電壓 VL' },
+      { key: '×', desc: '乘' },
+      { key: '15', desc: '線電流 IL' },
+      { key: '×', desc: '乘' },
+      { key: '0.85', desc: '功率因數 pf' },
+      { key: '=', desc: '得 8391.8 W (8.39 kW)' }
+    ],
+    trap: '題目若給相電壓 V_p，公式為 3 V_p I_p，切勿再乘根號三！'
+  }
+];
+
+/**
+ * Pure calculation functions for quick verification.
+ */
+function convertRectToPolar(real, imag) {
+  const r = Math.sqrt(real * real + imag * imag);
+  let thetaDeg = (Math.atan2(imag, real) * 180) / Math.PI;
+  return {
+    magnitude: Math.round(r * 1000) / 1000,
+    angleDeg: Math.round(thetaDeg * 100) / 100
+  };
+}
+
+function convertPolarToRect(magnitude, angleDeg) {
+  const rad = (angleDeg * Math.PI) / 180;
+  const real = magnitude * Math.cos(rad);
+  const imag = magnitude * Math.sin(rad);
+  return {
+    real: Math.round(real * 1000) / 1000,
+    imag: Math.round(imag * 1000) / 1000
+  };
+}
+
+/**
+ * Renders the Calculator Guide Modal.
+ */
+function openCalculatorGuideModal(defaultRecipeId = null) {
+  let modal = document.getElementById('calculator-guide-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'calculator-guide-modal';
+    modal.className = 'modal-backdrop';
+    document.body.appendChild(modal);
+  }
+
+  const recipesHtml = FX82_RECIPES.map(item => `
+    <div class="calc-recipe-card ${item.id === defaultRecipeId ? 'highlight' : ''}" id="recipe-${item.id}">
+      <div class="calc-recipe-header">
+        <h4>${item.title}</h4>
+        <span class="calc-tag">${item.example}</span>
+      </div>
+      <div class="calc-keystroke-row">
+        ${item.keystrokes.map(k => `
+          <div class="key-step">
+            <span class="calc-key">${k.key}</span>
+            <span class="key-desc">${k.desc}</span>
+          </div>
+        `).join('<span class="key-arrow">➔</span>')}
+      </div>
+      <div class="calc-trap-alert">
+        <strong>⚠️ 考場防坑：</strong>${item.trap}
+      </div>
+    </div>
+  `).join('');
+
+  modal.innerHTML = `
+    <div class="modal-content calc-modal-content">
+      <div class="modal-header">
+        <h3>🧮 考選部核定計算機（Casio fx-82SOLAR II）考場按法與速算驗證</h3>
+        <button type="button" class="btn-close" onclick="closeCalculatorGuideModal()">✕</button>
+      </div>
+      <div class="modal-body calc-modal-body">
+        <!-- Interactive Verification Tool -->
+        <div class="phasor-converter-box">
+          <h4>⚡ 相量與極座標即時速查器（考前對答案專用）</h4>
+          <div class="converter-grid">
+            <div class="converter-col">
+              <label>直角座標 (A + jB)</label>
+              <div class="input-duo">
+                <input type="number" id="calc-in-real" placeholder="實部 A (例: 3)" step="any" oninput="runInteractiveConverter('rect')">
+                <span>+ j</span>
+                <input type="number" id="calc-in-imag" placeholder="虛部 B (例: 4)" step="any" oninput="runInteractiveConverter('rect')">
+              </div>
+            </div>
+            <div class="converter-center">
+              <span class="exchange-icon">⇄</span>
+            </div>
+            <div class="converter-col">
+              <label>極座標 (R ∠ θ°)</label>
+              <div class="input-duo">
+                <input type="number" id="calc-in-mag" placeholder="大小 R" step="any" oninput="runInteractiveConverter('polar')">
+                <span>∠</span>
+                <input type="number" id="calc-in-ang" placeholder="角度 θ°" step="any" oninput="runInteractiveConverter('polar')">
+              </div>
+            </div>
+          </div>
+          <div id="converter-feedback" class="converter-feedback">請輸入數值進行雙向即時換算</div>
+        </div>
+
+        <!-- Recipe Keystroke Cards -->
+        <h4 style="margin: 18px 0 10px 0; color: var(--accent-dark);">📖 考場核心公式按鍵順序圖解</h4>
+        <div class="calc-recipes-grid">
+          ${recipesHtml}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-sol" onclick="closeCalculatorGuideModal()">關閉指南</button>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add('show');
+}
+
+function closeCalculatorGuideModal() {
+  const modal = document.getElementById('calculator-guide-modal');
+  if (modal) modal.classList.remove('show');
+}
+
+function runInteractiveConverter(source) {
+  const fb = document.getElementById('converter-feedback');
+  if (source === 'rect') {
+    const real = parseFloat(document.getElementById('calc-in-real').value);
+    const imag = parseFloat(document.getElementById('calc-in-imag').value);
+    if (!isNaN(real) && !isNaN(imag)) {
+      const p = convertRectToPolar(real, imag);
+      document.getElementById('calc-in-mag').value = p.magnitude;
+      document.getElementById('calc-in-ang').value = p.angleDeg;
+      if (fb) fb.innerHTML = `✅ 換算完成：<strong>${real} + j${imag}</strong> = <strong>${p.magnitude} ∠ ${p.angleDeg}°</strong>（fx-82: 按 ${real} ➔ INV ➔ R➔P ➔ ${imag} ➔ = ➔ b）`;
+    }
+  } else if (source === 'polar') {
+    const mag = parseFloat(document.getElementById('calc-in-mag').value);
+    const ang = parseFloat(document.getElementById('calc-in-ang').value);
+    if (!isNaN(mag) && !isNaN(ang)) {
+      const r = convertPolarToRect(mag, ang);
+      document.getElementById('calc-in-real').value = r.real;
+      document.getElementById('calc-in-imag').value = r.imag;
+      if (fb) fb.innerHTML = `✅ 換算完成：<strong>${mag} ∠ ${ang}°</strong> = <strong>${r.real} + j${r.imag}</strong>（fx-82: 按 ${mag} ➔ INV ➔ P➔R ➔ ${ang} ➔ = ➔ b）`;
+    }
+  }
+}
+
+/**
+ * Checks if question stem or solution involves phasor / AC / polar operations.
+ */
+function shouldShowCalculatorTip(stem, tags, topic) {
+  const str = String(stem || '') + ' ' + (tags || []).join(' ') + ' ' + String(topic || '');
+  return /交流|阻抗|相量|功率因數|虛功|實功|視在功率|短路容量|變壓器|感應機|相角|極座標|三相|正相|負相|零相|傳輸線|RLC|暫態/i.test(str);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    FX82_RECIPES,
+    convertRectToPolar,
+    convertPolarToRect,
+    shouldShowCalculatorTip
+  };
+}
+
+
+// === src/components/passbookGenerator.js ===
+// src/components/passbookGenerator.js
+/**
+ * 15-Day Personal Exam Passbook Generator (考前 15 天專屬奪榜衝刺手冊)
+ * ======================================================================
+ * Synthesizes examinee's individual progress, wrong questions, SM-2 decay,
+ * and high-yield anchor problems into an A4 printable cram passbook.
+ */
+
+function generatePassbookData(questions, progressState = {}, sm2Store = {}, recallStore = {}) {
+  const readiness = typeof calculateExamReadiness === 'function'
+    ? calculateExamReadiness(questions, progressState, sm2Store, recallStore)
+    : { projectedAverage: 55, passingProbability: 40, subjectResults: {}, topRoiBoosters: [] };
+
+  // Identify Top 15 High-Yield Anchor Questions
+  // Priority: 1) In review (wrong), 2) High difficulty in weak subjects, 3) Recent years (>=110)
+  const allQ = (questions || []).slice();
+  const scoredQuestions = allQ.map(q => {
+    const qid = Array.isArray(q) ? q[0] : q.id;
+    const sid = Array.isArray(q) ? q[1] : q.subjectId;
+    const yr = Number(Array.isArray(q) ? q[2] : q.year) || 104;
+    const diff = Number(Array.isArray(q) ? q[8] : q.difficulty) || 3;
+    const pVal = progressState[qid] || 0;
+
+    let priorityScore = 0;
+    if (pVal === 2) priorityScore += 50; // Wrong / in-review
+    else if (pVal === 0) priorityScore += 20; // Unstarted
+
+    // Higher weight for weak subjects
+    const subjRes = readiness.subjectResults && readiness.subjectResults[sid];
+    if (subjRes && subjRes.isDanger) priorityScore += 25;
+    else if (subjRes && subjRes.estimatedScore < 60) priorityScore += 15;
+
+    // Recency weight
+    if (yr >= 110) priorityScore += 15;
+    priorityScore += diff * 2;
+
+    return {
+      q,
+      qid,
+      subjectId: sid,
+      year: yr,
+      number: Array.isArray(q) ? q[3] : q.number,
+      topic: Array.isArray(q) ? q[4] : (q.stem || ''),
+      tags: Array.isArray(q) ? q[5] : (q.tags || []),
+      solLink: Array.isArray(q) ? q[6] : q.solutionLink,
+      priorityScore
+    };
+  });
+
+  scoredQuestions.sort((a, b) => b.priorityScore - a.priorityScore);
+  const topAnchorQuestions = scoredQuestions.slice(0, 15);
+
+  return {
+    generatedAt: new Date().toISOString(),
+    readiness,
+    topAnchorQuestions
+  };
+}
+
+function openPassbookModal() {
+  const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
+  const passbook = generatePassbookData(
+    questions,
+    typeof progressState !== 'undefined' ? progressState : {},
+    typeof sm2Data !== 'undefined' ? sm2Data : {},
+    typeof recallProgress !== 'undefined' ? recallProgress : {}
+  );
+
+  let modal = document.getElementById('passbook-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'passbook-modal';
+    modal.className = 'modal-backdrop';
+    document.body.appendChild(modal);
+  }
+
+  const subjSummaryHtml = Object.values(passbook.readiness.subjectResults || {}).map(s => `
+    <div style="border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--surface);">
+      <div style="font-weight: 700; color: var(--accent-dark);">${s.icon || ''} ${s.name}</div>
+      <div style="font-size: 1.1rem; font-weight: 800; color: ${s.isDanger ? 'var(--warn)' : 'var(--ink)'}; margin: 4px 0;">
+        預估：${s.estimatedScore} 分
+      </div>
+      <div style="font-size: 0.78rem; color: var(--muted);">掌握率：${Math.round(s.effectiveMasteryRate * 100)}%</div>
+    </div>
+  `).join('');
+
+  const anchorQuestionsHtml = passbook.topAnchorQuestions.map((item, idx) => {
+    const meta = typeof getSubjectMeta === 'function' ? getSubjectMeta(item.subjectId) : { name: item.subjectId };
+    return `
+      <div class="passbook-item" style="border-bottom: 1px solid var(--line); padding: 12px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+          <span style="font-weight: 800; color: var(--accent-dark); font-family: var(--font-mono);">
+            #${idx + 1} · ${item.qid} (${item.year} 年 ${meta.name} 第 ${item.number} 題)
+          </span>
+          <span style="font-size: 0.8rem; background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px;">
+            ${(item.tags || []).slice(0, 3).join(' · ')}
+          </span>
+        </div>
+        <div style="font-size: 0.86rem; color: var(--ink); line-height: 1.5;">${item.topic}</div>
+      </div>
+    `;
+  }).join('');
+
+  modal.innerHTML = `
+    <div class="modal-content passbook-modal-content" style="max-width: 840px; max-height: 92vh; overflow-y: auto;">
+      <div class="modal-header passbook-hide-print">
+        <h3>📕 個人專屬 15 天考前奪榜衝刺手冊 (Custom Passbook)</h3>
+        <button type="button" class="btn-close" onclick="closePassbookModal()">✕</button>
+      </div>
+      <div class="modal-body passbook-printable-area" style="padding: 24px;">
+        <!-- Header Banner -->
+        <div style="border-bottom: 2px solid var(--accent); padding-bottom: 14px; margin-bottom: 18px;">
+          <h2 style="color: var(--accent-dark); margin: 0 0 6px 0;">專門職業及技術人員高等考試：電機工程技師</h2>
+          <h4 style="color: var(--ink-light); margin: 0; font-weight: 600;">考前 15 天個人化高頻母題與死穴急救衝刺手冊</h4>
+          <p style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">
+            生成時間：${new Date().toLocaleDateString('zh-TW')} · 預估總平均：<strong>${passbook.readiness.projectedAverage} 分</strong> · 預估上榜機率：<strong>${passbook.readiness.passingProbability}%</strong>
+          </p>
+        </div>
+
+        <!-- Section 1: Subject Readiness Radar -->
+        <div style="margin-bottom: 24px;">
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">📊 壹、個人六科戰力分佈與及格安全線</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px;">
+            ${subjSummaryHtml}
+          </div>
+        </div>
+
+        <!-- Section 2: Pacing Strategy -->
+        <div style="margin-bottom: 24px; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-sm);">
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 貳、考場 120 分鐘黃金配速四階段守則</h4>
+          <ul style="font-size: 0.85rem; line-height: 1.8; margin-left: 20px; color: var(--ink);">
+            <li><strong>0 ~ 25 分鐘</strong>：第 1 大題作答（先瀏覽全卷 2 分鐘，選最有把握之題目優先作答）</li>
+            <li><strong>25 ~ 50 分鐘</strong>：第 2 大題作答（嚴格控管時間，每題上限 25 分鐘）</li>
+            <li><strong>50 ~ 75 分鐘</strong>：第 3 大題作答（遇繁複推導先寫出等效電路與主方程式保底）</li>
+            <li><strong>75 ~ 100 分鐘</strong>：第 4 大題作答（切勿交白卷，依步驟列出符號式仍能拿 50% 步驟分）</li>
+            <li><strong>100 ~ 120 分鐘</strong>：🚨 <strong>全局黃金檢查期</strong>（檢查正負號、相角、單位、計算機模式 DEG）</li>
+          </ul>
+        </div>
+
+        <!-- Section 3: fx-82 Keystroke Quick Reference -->
+        <div style="margin-bottom: 24px;">
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">🧮 參、考選部指定計算機（Casio fx-82SOLAR II）必背按鍵流</h4>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.82rem;">
+            <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
+              <strong>直角轉極座標 (R➔P)</strong><br>
+              <code>A ➔ INV ➔ R➔P ➔ B ➔ = ➔ b</code><br>
+              <small style="color: var(--muted);">(顯示大小 R 與相角 θ)</small>
+            </div>
+            <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
+              <strong>極座標轉直角 (P➔R)</strong><br>
+              <code>R ➔ INV ➔ P➔R ➔ θ ➔ = ➔ b</code><br>
+              <small style="color: var(--muted);">(顯示實部 A 與虛部 B)</small>
+            </div>
+            <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
+              <strong>並聯阻抗倒數鏈</strong><br>
+              <code>Z1 ➔ 1/x ➔ + ➔ Z2 ➔ 1/x ➔ = ➔ 1/x</code>
+            </div>
+            <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
+              <strong>三相功率常數鏈</strong><br>
+              <code>3 ➔ √ ➔ × ➔ VL ➔ × ➔ IL ➔ × ➔ pf ➔ =</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Top 15 Anchor Questions -->
+        <div>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">🎯 肆、考前 15 天個人專屬核心必殺母題清單（Top 15）</h4>
+          <div style="font-size: 0.82rem; color: var(--muted); margin-bottom: 10px;">
+            基於您的做題錯誤紀錄、弱項科目與近 5 年高頻考點精選，考前務必在白紙上蓋牌獨立重算一次：
+          </div>
+          ${anchorQuestionsHtml}
+        </div>
+      </div>
+      <div class="modal-footer passbook-hide-print" style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.85rem; color: var(--muted);">提示：可使用鍵盤快捷鍵 Cmd + P 列印或另存為 PDF</span>
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn-pdf" onclick="closePassbookModal()">關閉</button>
+          <button type="button" class="btn-sol" onclick="printPassbook()">🖨️ 一鍵列印衝刺手冊 (A4 / PDF)</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add('show');
+}
+
+function closePassbookModal() {
+  const modal = document.getElementById('passbook-modal');
+  if (modal) modal.classList.remove('show');
+}
+
+function printPassbook() {
+  window.print();
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    generatePassbookData
+  };
 }
 
 
@@ -22860,6 +23878,9 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
           <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
             🔍 展開題幹文字
           </button>
+          <button class="btn-stem-toggle" onclick="openCalculatorGuideModal()" id="btn-calc-guide" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="考選部核定計算機按法與相量速查">
+            🧮 fx-82 按法
+          </button>
         </div>
         <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
           新分頁開啟 ⬈
@@ -23517,6 +24538,30 @@ function submitSM2Rating(rating) {
   finishCommittedLearningAttempt(result, qid, Number(rating), attemptId);
 }
 
+function checkModalNumericAnswer(qid) {
+  const input = document.getElementById('modal-numeric-input');
+  const feedback = document.getElementById('modal-numeric-feedback');
+  if (!input || !feedback) return;
+  const val = input.value;
+  if (!val || !val.trim()) {
+    feedback.innerHTML = '<span style="color: var(--muted);">請先在輸入框鍵入算出的數值。</span>';
+    return;
+  }
+  const rawMd = typeof currentModalSolLink !== 'undefined'
+    ? resolveSolutionMarkdown(currentModalSolLink, qid)
+    : '';
+  const res = typeof verifyNumericAnswer === 'function'
+    ? verifyNumericAnswer(val, rawMd)
+    : { ok: false, message: '數值驗證模組載入中...' };
+
+  if (res.ok) {
+    feedback.innerHTML = `<span style="color: var(--success); font-weight: 700;">${res.message}</span>`;
+    if (typeof showToast === 'function') showToast('🎉 數值命中！運算精確！');
+  } else {
+    feedback.innerHTML = `<span style="color: var(--warn); font-weight: 600;">${res.message}</span>`;
+  }
+}
+
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
@@ -23561,7 +24606,21 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         <!-- Keep the four-step workflow immediately above the hidden solution. -->
         <div class="active-recall-box" id="recall-step-box">
           <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
-          <p style="font-size: 0.85rem; color: var(--muted); margin: 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
+          <p style="font-size: 0.85rem; color: var(--muted); margin: 0 0 10px 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
+          
+          <!-- Fast Numeric Verifier -->
+          <div class="numeric-check-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: left;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-dark); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+              <span>🎯 考場數值盲測（看答案前先核算最終數值）：</span>
+              <button type="button" onclick="openCalculatorGuideModal()" style="background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.78rem; text-decoration: underline;">🧮 fx-82 相量速查</button>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <input type="text" id="modal-numeric-input" placeholder="輸入算出數值 (例: 14.14 或 88.5)" style="flex: 1; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: 4px; font-size: 0.85rem; background: var(--bg); color: var(--ink);">
+              <button type="button" class="btn-sol" style="padding: 6px 12px; font-size: 0.82rem;" onclick="checkModalNumericAnswer('${currentModalQid}')">對答案</button>
+            </div>
+            <div id="modal-numeric-feedback" style="margin-top: 6px; font-size: 0.82rem; min-height: 18px;"></div>
+          </div>
+
           <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
             <button class="btn-reveal-hint" onclick="revealRecallLayer(1)">① 顯示章節</button>
             <button class="btn-reveal-hint" onclick="revealRecallLayer(2)">② 顯示起手式</button>
@@ -23796,11 +24855,18 @@ window.addEventListener('pagehide', () => persistSolutionModalReadingState(Boole
 // === src/components/mockExamTimer.js ===
 // src/components/mockExamTimer.js
 /**
- * 120-Minute Full Mock Exam System & Countdown Timer.
+ * 120-Minute Full Mock Exam System 2.0 & Step-Marking Rubric
+ * ==========================================================
+ * Features:
+ * 1. 120-minute Countdown Timer with localStorage persistence & wake-up recovery.
+ * 2. Exam Pacing Ribbon (25 mins per question + 20 mins final audit).
+ * 3. Step-by-Step Marking Rubric (4-tier scoring for professional essay exams).
+ * 4. Mock Exam History Storage & Scorecard generation.
  */
 
 const MOCK_EXAM_TIMER_DURATION_SECONDS = 120 * 60;
 const MOCK_EXAM_TIMER_STORAGE_KEY = 'EE_MOCK_EXAM_TIMER_V1';
+const MOCK_EXAM_HISTORY_STORAGE_KEY = 'EE_MOCK_EXAM_HISTORY_V1';
 
 let examTimerSeconds = MOCK_EXAM_TIMER_DURATION_SECONDS;
 let examTimerInterval = null;
@@ -23810,6 +24876,8 @@ let examTimerCompleted = false;
 let examTimerWarningShown = false;
 let examTimerExamKey = null;
 
+let currentLoadedMockExam = null;
+
 function formatTime(secs) {
   const safeSecs = Math.max(0, Math.floor(Number(secs) || 0));
   const m = Math.floor(safeSecs / 60);
@@ -23817,9 +24885,37 @@ function formatTime(secs) {
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
+/**
+ * Returns the recommended pacing stage based on remaining seconds.
+ */
+function getMockExamPacingInfo(secondsRemaining) {
+  const s = Math.max(0, Number(secondsRemaining) || 0);
+  const elapsed = MOCK_EXAM_TIMER_DURATION_SECONDS - s;
+  const elapsedMins = elapsed / 60;
+
+  if (elapsedMins < 25) {
+    return { stage: 1, label: '第 1 大題作答期 (0~25分)', hint: '建立等效電路、列出初始公式', color: '#4a7c8f' };
+  } else if (elapsedMins < 50) {
+    return { stage: 2, label: '第 2 大題作答期 (25~50分)', hint: '掌握主要計算、注意極座標相角', color: '#4a7c8f' };
+  } else if (elapsedMins < 75) {
+    return { stage: 3, label: '第 3 大題作答期 (50~75分)', hint: '推導中間式、注意標么值基準容量', color: '#4a7c8f' };
+  } else if (elapsedMins < 100) {
+    return { stage: 4, label: '第 4 大題作答期 (75~100分)', hint: '最後大題衝刺、切勿空白', color: '#d49e35' };
+  } else {
+    return { stage: 5, label: '🚨 全卷總檢查期 (最後 20 分鐘)', hint: '檢查小數點、正負號、單位（kW/kVA/Ω）', color: '#b85d58' };
+  }
+}
+
 function updateTimerDisplay() {
+  if (typeof document === 'undefined') return;
   const el = document.getElementById('exam-timer');
   if (el) el.innerText = formatTime(examTimerSeconds);
+
+  const pacingEl = document.getElementById('exam-pacing-indicator');
+  if (pacingEl) {
+    const pacing = getMockExamPacingInfo(examTimerSeconds);
+    pacingEl.innerHTML = `<span style="color: ${pacing.color}; font-weight: 700;">⏱️ 配速建議：${pacing.label}</span> · <small style="color: var(--muted);">${pacing.hint}</small>`;
+  }
 }
 
 function getMockExamTimerStorage() {
@@ -23840,11 +24936,12 @@ function persistMockExamTimerState() {
       savedAt: Date.now(),
     }));
   } catch (_) {
-    // 私密瀏覽或儲存空間不足時，計時仍可在目前頁面繼續。
+    // Storage quota or private mode fallback
   }
 }
 
 function setExamTimerToggleButton() {
+  if (typeof document === 'undefined') return;
   const toggleBtn = document.getElementById('btn-timer-toggle');
   if (toggleBtn) {
     if (examTimerCompleted) {
@@ -23879,7 +24976,14 @@ function completeExamTimer() {
   updateTimerDisplay();
   persistMockExamTimerState();
   setExamTimerToggleButton();
-  showToast('⏰ 考試時間結束！請停止作答。');
+  showToast('⏰ 考試時間結束！請停止作答，準備進行步驟自評。');
+
+  // Trigger self-grading rubric if exam questions are loaded
+  if (currentLoadedMockExam && currentLoadedMockExam.questions && currentLoadedMockExam.questions.length > 0) {
+    setTimeout(() => {
+      openMockGradingModal();
+    }, 1200);
+  }
 }
 
 function updateExamTimerFromClock(now = Date.now()) {
@@ -23989,13 +25093,20 @@ function prepareExamTimerForExam(examKey) {
   }
 }
 
+/**
+ * Loads mock exam questions and initializes the pacing ribbon.
+ */
 function loadMockExam() {
-  const sid = document.getElementById('exam-select-subj').value;
-  const yr = document.getElementById('exam-select-yr').value;
+  const subjSelect = document.getElementById('exam-select-subj');
+  const yrSelect = document.getElementById('exam-select-yr');
+  if (!subjSelect || !yrSelect) return;
+
+  const sid = subjSelect.value;
+  const yr = yrSelect.value;
   const container = document.getElementById('mock-exam-questions');
   if (!container) return;
 
-  const activeList = getActiveQuestionsList();
+  const activeList = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
   if (!activeList || activeList.length === 0) return;
 
   let targetQuestions = [];
@@ -24012,37 +25123,331 @@ function loadMockExam() {
     return;
   }
 
-  const meta = getSubjectMeta(sid);
+  const meta = typeof getSubjectMeta === 'function' ? getSubjectMeta(sid) : { name: sid, icon: '📋' };
+  currentLoadedMockExam = {
+    subjectId: sid,
+    subjectName: meta.name,
+    subjectIcon: meta.icon,
+    year: yr,
+    questions: targetQuestions,
+    loadedAt: Date.now()
+  };
+
+  const pacing = getMockExamPacingInfo(examTimerSeconds);
+
   container.innerHTML = `
-    <div style="background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 16px;">
-      <h3 style="color: var(--accent-dark); margin-bottom: 6px;">📋 模考試卷：${meta.icon} ${meta.name}（${yr === 'random' ? '隨機抽 4 題模考' : yr + ' 年全卷'}）</h3>
-      <p style="font-size: 0.85rem; color: var(--muted);">共 ${targetQuestions.length} 道大題 · 滿分 100 分 · 請於 120 分鐘內獨立白紙推導</p>
+    <div class="mock-exam-header-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow);">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h3 style="color: var(--accent-dark); margin-bottom: 6px; font-size: 1.25rem;">
+            📋 模考試卷：${meta.icon} ${meta.name}（${yr === 'random' ? '隨機 4 題全真模考' : yr + ' 年全卷'}）
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 8px;">
+            共 ${targetQuestions.length} 道大題 · 滿分 100 分 · 請於 120 分鐘內於白紙獨立推導作答
+          </p>
+          <div id="exam-pacing-indicator" style="background: var(--bg-secondary); padding: 6px 12px; border-radius: var(--radius-sm); display: inline-block;">
+            <span style="color: ${pacing.color}; font-weight: 700;">⏱️ 配速建議：${pacing.label}</span> · <small style="color: var(--muted);">${pacing.hint}</small>
+          </div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button type="button" class="btn-sol" style="background: var(--warn); color: white;" onclick="openMockGradingModal()">
+            🏁 提前交卷與步驟自評
+          </button>
+        </div>
+      </div>
     </div>
+
     <div class="qlist">
       ${targetQuestions.map((q, idx) => {
         const [qid, qsid, qyr, qnum, topic, tags, solLink, pdfLink] = q;
+        const renderTopic = typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : topic;
         return `
-          <div class="qcard" style="border-left: 4px solid var(--accent);">
+          <div class="qcard" style="border-left: 4px solid var(--accent); margin-bottom: 16px;">
             <div class="qhead">
               <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
-              <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分</span>
+              <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分 · 建議 25 分鐘</span>
             </div>
-            <div class="qtopic">${renderQuestionTopic(topic)}</div>
+            <div class="qtopic">${renderTopic}</div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
               <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse'})" class="btn-sol">📝 檢視標準推導解答</button>
-              <a href="${pdfLink}" target="_blank" class="btn-pdf">📄 查看官方 PDF</a>
+              <a href="${pdfLink}" target="_blank" class="btn-pdf">📄 查看官方 PDF 原題</a>
             </div>
           </div>
         `;
       }).join('')}
     </div>
+
+    <!-- Past Mock History Section -->
+    <div id="mock-history-container" style="margin-top: 36px;">
+      ${renderMockExamHistoryListHtml()}
+    </div>
   `;
+
   const category = typeof currentExamCategory === 'undefined' ? 'PE' : currentExamCategory;
   prepareExamTimerForExam(`${category}:${sid}:${yr}`);
   showToast('📑 模考試卷已載入，準備好後點擊開始計時！');
 }
 
+/**
+ * Standard Step-Marking Rubric for a 25-point essay question.
+ */
+const DEFAULT_RUBRIC_STEPS = [
+  { id: 'step_model', label: '① 系統假設與等效模型建立', maxPts: 6, desc: '畫出正確電路圖/相量圖/系統邊界，列出初始條件' },
+  { id: 'step_deriv', label: '② 核心公式列式與符號化簡推導', maxPts: 8, desc: '公式引用無誤，符號推導邏輯嚴謹無跳步' },
+  { id: 'step_calc', label: '③ 數值代入、小數精度與正確單位', maxPts: 8, desc: '數值計算無誤，標明單位 (kW/kVA/Ω/A/pu)，相角符號正確' },
+  { id: 'step_audit', label: '④ 防坑提醒與合理性檢核', maxPts: 3, desc: '檢核邊界極值、功率因數正負、方向定義一致性' }
+];
+
+/**
+ * Opens Step-Marking Rubric Modal for self-grading.
+ */
+function openMockGradingModal() {
+  if (!currentLoadedMockExam || !currentLoadedMockExam.questions || currentLoadedMockExam.questions.length === 0) {
+    showToast('⚠️ 請先載入模考試卷');
+    return;
+  }
+
+  let modal = document.getElementById('mock-grading-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'mock-grading-modal';
+    modal.className = 'modal-backdrop';
+    document.body.appendChild(modal);
+  }
+
+  const questions = currentLoadedMockExam.questions;
+  const questionsHtml = questions.map((q, qIdx) => {
+    const qid = q[0];
+    const qnum = q[3];
+    return `
+      <div class="rubric-question-card" style="border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px; background: var(--surface);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h4 style="color: var(--accent-dark); margin: 0;">第 ${qIdx + 1} 大題 (${qid}) · 配分 25 分</h4>
+          <span style="font-weight: 700; color: var(--accent);" id="q-subtotal-${qIdx}">得分：25 / 25</span>
+        </div>
+        <div class="rubric-steps-grid">
+          ${DEFAULT_RUBRIC_STEPS.map((step, sIdx) => `
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--line);">
+              <div>
+                <strong>${step.label} (${step.maxPts}分)</strong>
+                <div style="font-size: 0.8rem; color: var(--muted);">${step.desc}</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <input type="number" min="0" max="${step.maxPts}" value="${step.maxPts}"
+                  data-qidx="${qIdx}" data-sidx="${sIdx}" class="rubric-score-input"
+                  oninput="updateMockRubricTotalScore()"
+                  style="width: 55px; text-align: center; padding: 4px; border: 1px solid var(--line-strong); border-radius: 4px;">
+                <span style="font-size: 0.85rem; color: var(--muted);">/ ${step.maxPts}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  modal.innerHTML = `
+    <div class="modal-content" style="max-width: 720px; max-height: 90vh; overflow-y: auto;">
+      <div class="modal-header">
+        <h3>📋 模考成績單與申論步驟分自評尺規（滿分 100 分）</h3>
+        <button type="button" class="btn-close" onclick="closeMockGradingModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="background: var(--bg-secondary); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 0.9rem; color: var(--muted);">本次模考：${currentLoadedMockExam.subjectIcon} ${currentLoadedMockExam.subjectName}（${currentLoadedMockExam.year} 年）</div>
+            <div style="font-size: 0.85rem; color: var(--muted);">耗時：${formatTime(MOCK_EXAM_TIMER_DURATION_SECONDS - examTimerSeconds)}</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.85rem; color: var(--muted);">自評總分</div>
+            <div id="rubric-grand-total" style="font-size: 1.8rem; font-weight: 800; color: var(--success);">100 / 100</div>
+          </div>
+        </div>
+        ${questionsHtml}
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <span id="rubric-pass-status" style="font-weight: 700; color: var(--success);">🎉 達到專技高考及格標準 (>= 60 分)</span>
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn-pdf" onclick="closeMockGradingModal()">取消</button>
+          <button type="button" class="btn-sol" onclick="commitMockGradingResult()">💾 保存成績並結算</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add('show');
+  updateMockRubricTotalScore();
+}
+
+function closeMockGradingModal() {
+  const modal = document.getElementById('mock-grading-modal');
+  if (modal) modal.classList.remove('show');
+}
+
+function updateMockRubricTotalScore() {
+  if (!currentLoadedMockExam || !currentLoadedMockExam.questions) return 0;
+  const numQuestions = currentLoadedMockExam.questions.length;
+  let grandTotal = 0;
+
+  for (let q = 0; q < numQuestions; q++) {
+    let qSubtotal = 0;
+    const inputs = document.querySelectorAll(`.rubric-score-input[data-qidx="${q}"]`);
+    inputs.forEach(inp => {
+      const val = Math.max(0, Math.min(Number(inp.max) || 25, Number(inp.value) || 0));
+      qSubtotal += val;
+    });
+    const subEl = document.getElementById(`q-subtotal-${q}`);
+    if (subEl) subEl.innerText = `得分：${qSubtotal} / 25`;
+    grandTotal += qSubtotal;
+  }
+
+  const grandEl = document.getElementById('rubric-grand-total');
+  if (grandEl) grandEl.innerText = `${grandTotal} / 100`;
+
+  const statusEl = document.getElementById('rubric-pass-status');
+  if (statusEl) {
+    if (grandTotal >= 60) {
+      statusEl.style.color = 'var(--success)';
+      statusEl.innerText = '🎉 達到專技高考及格標準 (>= 60 分)';
+    } else {
+      statusEl.style.color = 'var(--warn)';
+      statusEl.innerText = `⚠️ 距離及格門檻還差 ${60 - grandTotal} 分，建議針對失分大題二刷`;
+    }
+  }
+
+  return grandTotal;
+}
+
+/**
+ * Commits self-grading result to localStorage history.
+ */
+function commitMockGradingResult() {
+  const grandTotal = updateMockRubricTotalScore();
+  const passed = grandTotal >= 60;
+  const durationSecs = MOCK_EXAM_TIMER_DURATION_SECONDS - examTimerSeconds;
+
+  const record = {
+    id: `MOCK_${Date.now()}`,
+    date: new Date().toISOString(),
+    subjectId: currentLoadedMockExam.subjectId,
+    subjectName: currentLoadedMockExam.subjectName,
+    subjectIcon: currentLoadedMockExam.subjectIcon,
+    year: currentLoadedMockExam.year,
+    durationSeconds: durationSecs,
+    score: grandTotal,
+    passed,
+    questionsCount: currentLoadedMockExam.questions.length,
+    qids: currentLoadedMockExam.questions.map(q => q[0])
+  };
+
+  saveMockExamResult(record);
+  closeMockGradingModal();
+  pauseExamTimer();
+
+  // Refresh history UI
+  const histContainer = document.getElementById('mock-history-container');
+  if (histContainer) {
+    histContainer.innerHTML = renderMockExamHistoryListHtml();
+  }
+
+  showToast(`💾 模考成績 ${grandTotal} 分已保存！${passed ? '🎉 及格！' : '持續加油！'}`);
+}
+
+function getMockExamHistory() {
+  const storage = getMockExamTimerStorage();
+  if (!storage) return [];
+  try {
+    const raw = storage.getItem(MOCK_EXAM_HISTORY_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function saveMockExamResult(record) {
+  const storage = getMockExamTimerStorage();
+  if (!storage || !record) return;
+  try {
+    const history = getMockExamHistory();
+    history.unshift(record);
+    storage.setItem(MOCK_EXAM_HISTORY_STORAGE_KEY, JSON.stringify(history.slice(0, 50)));
+  } catch (_) {
+    // Storage fallback
+  }
+}
+
+function renderMockExamHistoryListHtml() {
+  const history = getMockExamHistory();
+  if (!history || history.length === 0) {
+    return `
+      <div style="background: var(--bg); border: 1px dashed var(--line); border-radius: var(--radius); padding: 24px; text-align: center; color: var(--muted);">
+        <h4>📊 尚無全真模考成績紀錄</h4>
+        <p style="font-size: 0.85rem; margin-top: 6px;">完成一輪 120 分鐘模考並交卷自評後，此處將自動繪製成績與及格走勢。</p>
+      </div>
+    `;
+  }
+
+  const rowsHtml = history.slice(0, 10).map(item => {
+    const passTag = item.passed
+      ? '<span style="background: var(--success-light); color: var(--success); padding: 3px 8px; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">及格通過</span>'
+      : '<span style="background: var(--review-light); color: var(--review); padding: 3px 8px; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">待加強</span>';
+    const dateStr = item.date ? new Date(item.date).toLocaleDateString('zh-TW') : '';
+    const minsTaken = Math.round(item.durationSeconds / 60);
+
+    return `
+      <tr style="border-bottom: 1px solid var(--line);">
+        <td style="padding: 10px 12px;">${dateStr}</td>
+        <td style="padding: 10px 12px;"><strong>${item.subjectIcon || '📋'} ${item.subjectName}</strong> (${item.year} 年)</td>
+        <td style="padding: 10px 12px;">${minsTaken} 分鐘</td>
+        <td style="padding: 10px 12px; font-weight: 800; font-size: 1.1rem; color: ${item.passed ? 'var(--success)' : 'var(--warn)'};">${item.score} 分</td>
+        <td style="padding: 10px 12px;">${passTag}</td>
+      </tr>
+    `;
+  }).join('');
+
+  return `
+    <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);">
+      <h4 style="color: var(--accent-dark); margin-bottom: 14px;">📈 歷史模考成績單與實力軌跡（近 10 次）</h4>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+          <thead>
+            <tr style="background: var(--bg-secondary); text-align: left; color: var(--muted); border-bottom: 2px solid var(--line);">
+              <th style="padding: 8px 12px;">日期</th>
+              <th style="padding: 8px 12px;">考科與年度</th>
+              <th style="padding: 8px 12px;">作答耗時</th>
+              <th style="padding: 8px 12px;">自評總分</th>
+              <th style="padding: 8px 12px;">及格狀態</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
 loadMockExamTimerState();
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    MOCK_EXAM_TIMER_DURATION_SECONDS,
+    MOCK_EXAM_TIMER_STORAGE_KEY,
+    MOCK_EXAM_HISTORY_STORAGE_KEY,
+    formatTime,
+    getMockExamPacingInfo,
+    startExamTimer,
+    pauseExamTimer,
+    resetExamTimer,
+    updateExamTimerFromClock,
+    getMockExamTimerState,
+    loadMockExamTimerState,
+    saveMockExamResult,
+    getMockExamHistory,
+    DEFAULT_RUBRIC_STEPS
+  };
+}
 
 
 // === src/components/dailyPractice.js ===
@@ -24876,6 +26281,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('hashchange', handleUrlHashRouting);
 
+</script>
+<script>
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>

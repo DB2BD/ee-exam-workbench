@@ -1,0 +1,24 @@
+{
+  "name": "電機工程技師 歷屆試題全真雙欄工作台",
+  "short_name": "電機技師題庫",
+  "description": "104-114 年電機工程技師與高考三級歷屆真題、AI 詳解、SM-2 閃卡與 120 分鐘全真模考系統",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f6f0",
+  "theme_color": "#4a7c8f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "./data/official_pdfs/pe/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./data/official_pdfs/pe/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -23,14 +23,14 @@
 
 **E｜重寫**
 7. 依 `lean-v1` 版型整份重寫該題 canonical：
-   - frontmatter：保留既有鍵（含 `review_*`、`reference_book_*`），統一為 `qid/year/subject/chapter`，加入 `template: lean-v1`；工程數學以外的科目設 `annual_sync: true`；`method` 改為描述你的獨立方法；`verified_at` 設為今天；**不要改 `audit_status`**（狀態由主 session 決定）。
+   - frontmatter：保留既有鍵（含 `review_*`、`reference_book_*`），統一為 `qid/year/subject/chapter`，加入 `template: lean-v1`；工程數學以外的科目設 `annual_sync: true`；`method` 改為描述你的獨立方法；`verified_at` 設為今天（`needs_manual_review` 題維持原本的 `verified_at: null`）；**不要改 `audit_status`**（狀態由主 session 決定）。
    - 正文：標題 → 裁切圖連結 → 已知與所求 → 考場標準作答（每子題 `\boxed{}` 帶單位）→ 驗算（不同方法）→ 失分點（≤3 條、本題具體）→ 必要時條件與疑義／計算機按法。
    - 短題（總配分 ≤10 分或一式解完）加 `compact: true`，只留考場標準作答與驗算（失分點僅在確有典型陷阱時保留）。
    - H1 標題若被年度頁測試要求（例如工程數學「# 106 年第 8 題｜…」），沿用原標題。
    - 舊五段式的「得分點拆解」「完整教學推導」內容：有得分價值且未重複者併入考場標準作答，其餘刪除。
    - 驗算段只放「不同方法」的檢查；不得重抄主解已算過的比值或數值，也不用單側擾動（如 ±1 MW）冒充最佳性證明（試點審查教訓）。
    - 刪除：重複推導、校驗紀錄、稽核歷程、正文中的路徑／QID／日期、泛用提醒。
-   - 有測試引用的題解：保留測試 `assertIn` 的字串（先讀該測試檔）；若精簡必須動到斷言字串，保留原句並在結果中回報 `needs_test_change`。
+   - 有測試引用的題解：先 `grep -rn <QID> tests/` 找出所有引用的測試，逐條讀斷言；`assertIn`／`assertRegex` 的字串與圖片替代文字（如 `![官方並聯 RLC 題圖](…)`）都必須原樣保留；交件前實際執行這些測試並確認通過（第 1 波有 4 題因此返工）；若精簡必須動到斷言字串，保留原句並在結果中回報 `needs_test_change`。
 8. 自檢：
    - `python3 scripts/lint_canonical_notes.py <QID> --strict`
    - `python3 scripts/run_verify_scripts.py <QID>`

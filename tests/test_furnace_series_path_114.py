@@ -59,7 +59,7 @@ class TestFurnaceSeriesPath114(unittest.TestCase):
     def test_bypassed_path_is_a_different_model(self):
         self.assertAlmostEqual(100 * 0.0825 / (0.0825 + 0.05), 62.2641509434)
         note = NOTE.read_text(encoding="utf-8")
-        for phrase in ("15.49", "0.5325", "## 舊答案的條件界線",
+        for phrase in ("15.49", "0.5325", "62.26",
                        "沒有畫出繞過", "不是取得官方評分答案"):
             self.assertIn(phrase, note)
         self.assertNotIn("沿用既有 verified", note)

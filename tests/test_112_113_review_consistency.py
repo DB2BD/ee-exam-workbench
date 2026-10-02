@@ -136,9 +136,10 @@ class Test112113ReviewConsistency(unittest.TestCase):
             / "113年_工業配電_全卷完整詳細題解.md"
         ).read_text(encoding="utf-8")
         self.assertTrue(report.is_file())
+        # The research report is provenance metadata, not learner-facing text.
+        frontmatter = canonical.split("---", 2)[1]
+        self.assertIn("supplemental_research: reports/113年工業配電Q4啟斷容量口徑研究.md", frontmatter)
         for note in (canonical, annual):
-            self.assertIn("reports/113年工業配電Q4啟斷容量口徑研究.md", note)
-            self.assertIn("尚未加入 Pages 靜態套件", note)
             self.assertNotRegex(note, r"\[[^\]]+\]\([^)]*113年工業配電Q4啟斷容量口徑研究\.md\)")
 
 

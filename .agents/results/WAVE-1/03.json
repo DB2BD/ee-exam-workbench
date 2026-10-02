@@ -1,0 +1,344 @@
+[
+ {
+  "qid": "EE-114-03-1",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-114-03-1.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "P(S)=0.016=1.6%",
+  "new_answer": "P(S)=0.016=1.6%",
+  "evidence": "裁切圖：70/20/10%、垃圾率 1/2/5%。SymPy 有理數全機率得 16/1000；Monte Carlo 2e6 封誤差 <2%。",
+  "chars_before": 1155,
+  "chars_after": 526,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-114-03-2",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-114-03-2.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "0",
+  "new_answer": "0",
+  "evidence": "裁切圖：單位圓、逆時針。Laurent 係數 z^{-1} 為 0；數值周線積分 |I|<1e-8。",
+  "chars_before": 1032,
+  "chars_after": 550,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-114-03-3",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-114-03-3.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "y=(1+5t)e^{-2t}",
+  "new_answer": "y=(1+5t)e^{-2t}",
+  "evidence": "裁切圖第二初值印為 y^{(1)}=3（缺 (0)），依 IVP 讀為 y'(0)=3，於作答首句註明。dsolve 與拉氏反轉換皆得 (1+5t)e^{-2t}。",
+  "chars_before": 940,
+  "chars_after": 604,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-114-03-4",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-114-03-4.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "π/4+Σ[((-1)^n-1)/(πn²) cos nx+(-1)^{n+1}/n sin nx]",
+  "new_answer": "同左",
+  "evidence": "SymPy 符號積分係數；數值積分 n=1..5 與部分和在 x=0、π/2、π（=π/2）皆吻合。",
+  "chars_before": 2058,
+  "chars_after": 1446,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-114-03-5",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-114-03-5.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "x=(0,0,-1,0)+c1(1,0,0,0)+c2(0,1,1,1)；N(A)=span{(1,0,0,0),(0,1,1,1)}",
+  "new_answer": "同左",
+  "evidence": "SymPy nullspace、rank=2、gauss_jordan_solve 一般解皆落在 x_p+span{v1,v2}。",
+  "chars_before": 1366,
+  "chars_after": 1051,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-113-03-1",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-113-03-1.py",
+  "verify_passed": true,
+  "answer_change": "corrected",
+  "old_answer": "y=e^{-2x}[C1cos x+C2 sin x−x cos x+sin x ln|sin x|]（解的是 y''+4y'+5y=e^{-2x}csc x）",
+  "new_answer": "y=e^{2x}[C1cos x+C2 sin x−x cos x+sin x ln|sin x|]",
+  "evidence": "題圖原文：y''−4y'+5y=e^{2x}csc x。特徵根 2±i，W=e^{4x}，u1=−x、u2=ln|sin x|；SymPy 將通解代回殘差為 0，並以 Wronskian 參數變異法獨立重算 y_p。舊解把 −4y' 與 e^{2x} 抄成 +4y' 與 e^{-2x}（題幹抄錯，非推導錯）。",
+  "chars_before": 393,
+  "chars_after": 1142,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-113-03-2",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-113-03-2.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "1/(s²+β²)²",
+  "new_answer": "1/(s²+β²)²",
+  "evidence": "SymPy laplace_transform；mpmath 數值積分 (β,s)=(2,3)、(−1.5,1.2) 相對誤差 <1e-6。",
+  "chars_before": 416,
+  "chars_after": 685,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-113-03-3",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-113-03-3.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "I=π/2",
+  "new_answer": "I=π/2",
+  "evidence": "留數和 −i√2/4；mpmath 直接數值積分 = π/2（誤差 <1e-9）。原檔多處數學缺反斜線與 \\( \\) 分隔（P6），已修正。",
+  "chars_before": 1756,
+  "chars_after": 1072,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-113-03-4",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-113-03-4.py",
+  "verify_passed": true,
+  "answer_change": "corrected",
+  "old_answer": "（一）P=(1/10)[[11,1],[1,1]]；（二）未作答",
+  "new_answer": "（一）P=(1/10)[[11,1],[1,1]]；（二）λ=(6±√26)/10≈1.1099, 0.0901",
+  "evidence": "題圖有㈡「求 P 的兩特徵值（5 分）」，舊題解缺此子題。SymPy 逐元素解 P；Kronecker 向量化線性解與 numpy eigvalsh 一致；tr=1.2、det=0.1 檢核。",
+  "chars_before": 505,
+  "chars_after": 1110,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-113-03-5",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-113-03-5.py",
+  "verify_passed": true,
+  "answer_change": "corrected",
+  "old_answer": "r'=(6t,4,32t³)，T=r'/√(36t²+16+1024t⁶)（以 r=(3t²,4t,8t⁴) 計算）；通量 324π",
+  "new_answer": "r'=[3,8t,32t³]，T=[3,8t,32t³]/√(9+64t²+1024t⁶)；通量 324π",
+  "evidence": "題圖原文：r(t)=[3t,4t²,8t⁴]。SymPy 微分得 [3,8t,32t³]；舊解把前兩分量抄成 3t²、4t。（二）散度定理與 SymPy 球座標直接面積分皆得 324π。",
+  "chars_before": 485,
+  "chars_after": 997,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-113-03-6",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-113-03-6.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "k=1/2, E[Y]=2, E[X³Y²]=48",
+  "new_answer": "同左",
+  "evidence": "SymPy 二重積分；mpmath 數值二重積分 1、2、48。",
+  "chars_before": 1876,
+  "chars_after": 1255,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-112-03-1",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-112-03-1.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "y=u(t−5)Φ(t−5)−u(t−20)Φ(t−20)，Φ=1/2−(1/2)e^{-t/4}[cos(√15t/4)+sin(√15t/4)/√15]",
+  "new_answer": "同左（另列分段形式）",
+  "evidence": "SymPy 驗 L{Φ}=1/(s(2s²+s+2))、Φ 回代 ODE 與零初值；mpmath odefun 分段數值積分於 t=8,12,19.5,22,30 誤差 <1e-8。",
+  "chars_before": 461,
+  "chars_after": 1457,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-112-03-2",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-112-03-2.py",
+  "verify_passed": true,
+  "answer_change": "condition_clarified",
+  "old_answer": "以 [-2,2) 為基本區間 f=2|x|：a0=2, an=8((-1)^n−1)/(n²π²), bn=0（未說明題幹衝突）",
+  "new_answer": "主答同左；條件與疑義另列鋸齒波分支 a0=4, an=0, bn=−8/(nπ)",
+  "evidence": "題圖原文：f=−2x（−2≤x<0）、2x（0≤x<4），f(x+4)=f(x)。兩段合計長 6 與週期 4 衝突（在 [−2,0) 上 −2x≠2(x+4)）。腳本同時驗兩分支：三角波係數（SymPy＋數值積分、x=0 部分和→0）與鋸齒波係數（x=1 部分和→2）。",
+  "chars_before": 535,
+  "chars_after": 1486,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "needs_manual_review",
+  "lint_passed": true,
+  "open_issues": [
+   "題幹自相矛盾，建議狀態 needs_manual_review；需主 session 決定是否採 0≤x<2 的推定題意",
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-112-03-3",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-112-03-3.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "5883/8150≈0.7218；12/37≈0.3243",
+  "new_answer": "同左",
+  "evidence": "SymPy 有理數全機率與貝氏；Monte Carlo 1e6 次抽彈誤差 <0.5%/1%。",
+  "chars_before": 1394,
+  "chars_after": 930,
+  "asserted_strings_kept": true,
+  "needs_test_change": "tests/test_reconstructed_pe_solutions.py::test_explicit_crop_questions_align_with_annual_notes（計數門檻，非本題斷言字串）",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "tests/test_reconstructed_pe_solutions.py::test_explicit_crop_questions_align_with_annual_notes 只計數含『## 官方題目』段的 canonical（門檻 50）；lean-v1 移除該段後此題不再被計入（同類問題為全科系統性，需主 session 調整測試）",
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-112-03-4",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-112-03-4.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "v=e^{-x}(x cos y+y sin y)+C，f=ize^{-z}+iC",
+  "new_answer": "同左",
+  "evidence": "SymPy 對 v_y=u_x 積分並以 v_x=−u_y 得 g'(x)=0；另以 ize^{-z} 展開實虛部比對；u 調和。",
+  "chars_before": 1242,
+  "chars_after": 935,
+  "asserted_strings_kept": true,
+  "needs_test_change": "tests/test_mixed_bridge_pack.py::test_exactly_two_verified_variation_questions_per_subject 要求 5 個舊標題（得分點拆解／完整教學推導／獨立驗算／常見失分），lean-v1 lint 不允許；該測試目前已因他科 EE-113-01-3 先失敗",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-112-03-5",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-112-03-5.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "T=(cos t,sin t,2)/√5，κ=1/(5t)（t>0）",
+  "new_answer": "同左",
+  "evidence": "SymPy：|T'|/|F'| 與 |F'×F''|/|F'|³ 兩公式皆得 1/(5t)。",
+  "chars_before": 504,
+  "chars_after": 731,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ },
+ {
+  "qid": "EE-112-03-6",
+  "crop_checked": true,
+  "crop_defect": "",
+  "verify_script": "verification/pe/EE-112-03-6.py",
+  "verify_passed": true,
+  "answer_change": "none",
+  "old_answer": "x=(1−3t−2s,t,6−4s,s)^T；λ=0,1±√3 與單位特徵向量",
+  "new_answer": "同左",
+  "evidence": "裁切圖確認為本題矩陣（A 3×3、b、c），無他題滲入。SymPy 回代、rank、特徵多項式；numpy eig 單位向量內積 |·|=1、tr=2、det=0。原檔特徵向量正確。",
+  "chars_before": 1098,
+  "chars_after": 1692,
+  "asserted_strings_kept": true,
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "lint_passed": true,
+  "open_issues": [
+   "衍生檔待主 session 重建：audit_pe_solutions.py --write（solution_hash）、compile_dashboard_database.py（solutions-bundle.js / manifest hash）；tests/test_reconstructed_pe_solutions.py 的 bundle／manifest hash 測試在重建前會失敗"
+  ]
+ }
+]

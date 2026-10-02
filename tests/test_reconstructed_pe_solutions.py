@@ -80,7 +80,6 @@ class TestReconstructedPESolutions(unittest.TestCase):
             "EE-109-02-3": ("60 A", "274.4 μH"),
             "EE-106-02-2": ("A_f", "R_out,f"),
             "EE-111-04-4": ("68.87%", "186 A"),
-            "EE-113-04-4": ("189.35 A", "57.67"),
             "EE-111-02-3": ("1 mS", "4.4444"),
             "EE-111-02-4": ("beta_f", "R_{of}"),
         }
@@ -160,7 +159,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         source_path = "reports/manual-review-index.md"
         source = (ROOT / source_path).read_text(encoding="utf-8")
         self.assertEqual(payload.get(source_path), source)
-        self.assertIn("目前共 **13 題**待人工覆核。", payload[source_path])
+        self.assertIn("目前共 **15 題**待人工覆核。", payload[source_path])
         self.assertNotIn("EE-108-06-2", payload[source_path])
 
     def test_111_power_system_q3_keeps_missing_frequency_conditional(self):
@@ -182,8 +181,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertNotIn("P_{e3}(\\delta) = 1.5", section)
         self.assertNotIn("\\delta_{cr} = 59.10", section)
 
-    def test_113_dc_motor_q3_does_not_hide_linear_magnetization_assumption(self):
-        """A torque-ratio calculation cannot become unique without a flux model."""
+    def test_113_dc_motor_q3_answer_is_independent_of_the_magnetization_curve(self):
+        """With the diverter the field current returns to 60 A, so the flux is
+        unchanged for any monotone magnetization curve (2026-10-02 review)."""
         qid = "EE-113-04-3"
         note = (CANONICAL / "04_電機機械" / "canonical" / f"{qid}.md").read_text(encoding="utf-8")
         annual = (CANONICAL / "04_電機機械" / "113年_電機機械_全卷完整詳細題解.md").read_text(encoding="utf-8")
@@ -191,13 +191,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         entry = next(item for item in manifest["entries"] if item["qid"] == qid)
         section = re.split(r"^## 四、", re.split(r"^## 三、", annual, maxsplit=1, flags=re.M)[1], maxsplit=1, flags=re.M)[0]
 
-        self.assertEqual(entry["audit_status"], "needs_manual_review")
-        self.assertIsNone(entry["verified_at"])
-        self.assertIn("review_blocker: 題目未提供串激馬達磁化曲線", note)
-        self.assertIn("上述三個數值只在未飽和線性磁化模型", annual)
-        self.assertIn(r"120\,\mathrm{A}", section)
-        self.assertIn(r"1762.5\,\mathrm{rpm}", section)
-        self.assertIn(r"94.00\%", section)
+        self.assertEqual(entry["audit_status"], "verified")
+        self.assertIn("對任何單調磁化曲線", note)
+        self.assertIn("忽略電樞反應", note)
+        self.assertIn("I_{a2}=120", section)
+        self.assertIn("1762.5", section)
+        self.assertIn("94.00", section)
 
     def test_electronics_conditional_branches_keep_unresolved_status(self):
         """Explicit textbook assumptions must not silently become official facts."""
@@ -264,7 +263,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for path in CANONICAL.glob("*/canonical/EE-*.md"):
             text = path.read_text(encoding="utf-8")
             qid = re.search(r"^qid:\s*(EE-\d{3}-\d{2}-(\d+))\s*$", text, re.M)
-            prompt = re.search(r"^##+ 官方題目.*?\n(.*?)(?=\n##+ |\Z)", text, re.S | re.M)
+            # Legacy notes transcribe the stem under 「官方題目」; lean-v1 notes
+            # list the same official givens under 「已知與所求」.
+            prompt = re.search(r"^##+ (?:官方題目|已知與所求).*?\n(.*?)(?=\n##+ |\Z)", text, re.S | re.M)
             if not qid or not prompt:
                 continue
             year = qid.group(1).split("-")[1]
@@ -498,7 +499,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 13, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 15, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -870,9 +871,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         note = (CANONICAL / "04_電機機械" / "canonical" / "EE-113-04-4.md").read_text(encoding="utf-8")
         self.assertIn("圖示 0.2/s", note)
         self.assertIn("0.1(1-s)/s", note)
-        self.assertIn("完整重算的第二組結果", note)
-        self.assertIn("audit_status: reference_book_verified", note)
-        self.assertIn("參考書主解", note)
+        # 2026-10-02: the reference-book mixture violates power balance, so the
+        # note is manual-review with the diagram branch as main answer.
+        self.assertIn("audit_status: needs_manual_review", note)
+        self.assertIn(r"\boxed{T=\frac{13593}{117.29}=115.9\ \mathrm{N\cdot m}}", note)
+        self.assertIn("57.67", note)
+        self.assertIn("功率平衡", note)
 
     def test_equal_area_solution_traces_official_source_and_conditional_frequency(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")

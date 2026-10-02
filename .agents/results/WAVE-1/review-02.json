@@ -1,0 +1,264 @@
+[
+ {
+  "qid": "EE-114-02-1",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "盲解（I_E=I_S/2=1 mA，R_S 僅為尾源小訊號並聯電阻）：r_e=25 Ω、r_π=(β+1)r_e=1025 Ω、g_m=αI_E/V_T=0.039024 S；射極 KCL k=(β+1)R_S/r_π=80 → (1) R_i=1025 Ω、A_v=2g_mR_C=156.098；(2) R_i=161·1025=165.025 kΩ、A_v=0；(3) v_e=-160/161·v1，R_i=1025·161/321=514.097 Ω、A_v=βR_C·4/r_π=312.195。與新主解一致。裁決 CONFIRMED：題目明給 β=40 且 I_S 為尾電流，I_C=αI_E 是自洽的精確值；舊主解 r_π=1 kΩ 卻同時用 β+1=41（隱含 I_E=1.025 mA、與 I_S=2 mA 矛盾），501.52 Ω 本身混用兩種口徑。I_C≈I_E 組僅差約 2.5%，評分上可接受，放在條件與疑義恰當。",
+  "issues": [
+   {
+    "check": "R1",
+    "where": "已知與所求末段粗體「數值答案的偏壓前提」與條件與疑義第 2 點",
+    "fix": "（建議，非阻擋）R_S 直流分流疑義兩處各說一次，可只保留已知與所求的一句假設，刪條件與疑義第 2 點或反之。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-114-02-2",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "完全獨立重推：輸出節點 KCL sC_a(v_o-v_a)+G_m v_a+v_o/R_L+sC_L v_o=0 → v_o[G_L+s(C_a+C_L)]=v_a(sC_a-G_m)，零點 s=+G_m/C_a=+5×10⁹ rad/s（RHP）確認；套圖(b) 1+s/ω_z 則 ω_z=-5×10⁹。A_vo=-G_mR_L·R_a/(R_s+R_a)=-2.5；OCTC R_a°=2.5k+1k+37.5k=41 kΩ、τ=123+2=125 ns、ω_H=8×10⁶ rad/s；SymPy 全轉移函數：零點 5e9，極點 -8.0077e6、-8.3253e9，與題解一致。",
+  "issues": [
+   {
+    "check": "R1",
+    "where": "ω_z 段末句與條件與疑義",
+    "fix": "（建議，非阻擋）RHP 零點與正負號口徑在 ω_z 段已說清（含 -2.5(1-s/5e9) 改寫），條件與疑義可縮為一句或刪除。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-114-02-3",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": false,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "電路讀圖一致（D 陽極在開關節點、陰極接 V_S+；0–0.5 ms Q 開路、0.5–1 ms Q 短路）。週期穩態精確 i0=-10(2+a)/(1+a)=-15.0250 A、i_m=-14.9750 A（a=e^{-0.01}），與題解一致。但依題幹指定近似 e^{-x}≈1-x、(1-x)²≈1-2x：(1-a²)i0=-20+10a+10a² → i0=-0.3/0.02=-15.000 A，i_m=-10+(-5)(0.99)=-14.950 A，第二段 i=-20+5.05[1-(t-0.5ms)/τ]=-14.95-101(t-0.5ms)，於 1 ms 回到 -15.000 A。命題者刻意給 (1-x)² 近似以得整數 -15 A。",
+  "issues": [
+   {
+    "check": "P5",
+    "where": "考場標準作答 boxed i_L(t) 與條件與疑義第 1 點",
+    "fix": "題幹明令「計算時使用以下近似」，此非缺條件的分支而是作答條件：主 boxed 改為依題給近似之結果 i_L=-15+100t A（0≤t≤0.5 ms，t 以 s 計）、i_L=-14.95-101(t-0.5 ms) A（0.5≤t≤1 ms），寫出 (1-a²)i0=-20+10a+10a²、a≈0.99、a²≈0.98 → i0=-15 A 一行；精確值 -15.025/-14.975 A 移到驗算作一行比對（差 0.17%）；刪條件與疑義第 1 點；驗算腳本 assert 改以近似值為主答案、精確值為交叉檢查。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-114-02-4",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false
+  },
+  "independent_answer": "盲答：(1) S 閉合時 T 阻斷、V_T 由 0 步階至 V_S，dv/dt 極大，J₂ 接面電容位移電流 C_j dv/dt 造成無閘極誤觸發，局部導通大 di/dt 熱點燒毀；(2) RC 緩衝器並聯 T（C 限 dv/dt、R 限放電電流）；(3) 串聯電感限 di/dt、MOV/TVS/RCD 過壓箝位、快速熔絲。與題解一致；dv_T/dt|0+=R_LV_S/((R_L+R_s)²C_s) 以 Laplace 重算相符。",
+  "issues": [
+   {
+    "check": "R5",
+    "where": "（1）損毀原因末句「同一時刻 V_T 與 V_L 由 KVL 分配，不能同時各取 V_S。」",
+    "fix": "刪除此句；前文已由 KVL 得 V_T≈V_S、V_L≈0，此句是對舊版錯誤的修正痕跡，對作答無貢獻。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-113-02-1",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": false,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "假設皆導通得 I_D1=1.2-2.4=-1.2 mA 矛盾；D1 截止、D2 導通：I=24/15k=1.6 mA，V_x=V_o=-4 V，D1 反偏 -4 V。V_o=-4.0 V，與題解一致。",
+  "issues": [
+   {
+    "check": "R3",
+    "where": "失分點第 2 條「只比較節點電位而不檢查導通二極體的電流方向，得分只拿一半。」",
+    "fix": "改為指涉本題量：「D2 導通須驗 I=1.6 mA>0、D1 截止須驗 V_{D1}=-4 V<0，兩項缺一即未完成狀態驗證。」並刪去無依據的「得分只拿一半」；或直接刪除此條（第 1 條已涵蓋）。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-113-02-2",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false
+  },
+  "independent_answer": "共基極 T 模型：r_e=V_T/I_E=25 mV/0.5 mA=50 Ω，R_in=r_e=50 Ω（電流源交流開路）；A_v=α(R_C∥R_L)/(R_sig+r_e)=0.99·6000/125=47.52 V/V，同相。V_T 題面未給，分支表合理（P5 成立）。",
+  "issues": [
+   {
+    "check": "R1/R5",
+    "where": "已知與所求末句與條件與疑義表下句「官方題面未給 V_T，各列都不是官方唯一數值；參考書 evidence 不等同官方公布答案。」",
+    "fix": "V_T 未給只需說一次：保留已知與所求末句（可改為「題面未給 V_T，取 25 mV」），刪除表下那句（屬稽核/來源說明，已在 frontmatter reference_book_* 欄位）。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-113-02-3",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "Buck：V_o=DV_s；BCM I_Lmin=0 → I_Lmax=2I_o=2DV_s/R=V_sD(1-D)/(Lf_s)；L_min=(1-D)R/(2f_s)；ΔV_o/V_o=(1-D)/(8LCf_s²)，於 L_min 為 1/(4RCf_s)。與題解一致；SVG 等效電路檔存在。",
+  "issues": []
+ },
+ {
+  "qid": "EE-113-02-4",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": false,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "開關耐壓各 V_s；每對角組導通 DT_s（0<D<0.5），整流輸出每半週一脈波，伏秒平衡 V_o=2D(N_s/N_p)V_s（N_s 為每半繞組，Mohan/Hart 慣例）；BCM 電感電流頻率 2f_s，Δi=V_o(1/2-D)T_s/L_x=2V_o/R → L_x=(1-2D)R/(4f_s)。與題解主分支一致。",
+  "issues": [
+   {
+    "check": "P5",
+    "where": "條件與疑義第 2 點（D_eff=2D 分支）",
+    "fix": "刪除。題幹寫「其開關之切換頻率 f_s，責任週期 D」，D 已定義為開關導通比；全橋同臂開關不能同時導通，開關 D 必 <0.5，故 D_eff∈(0,1) 的讀法與題幹自身定義矛盾，不屬題幹缺條件。腳本中 D_eff 的 assert 一併刪除。"
+   },
+   {
+    "check": "P2",
+    "where": "（二）boxed V_o/V_s=2Dn_h",
+    "fix": "（建議）題目要求「依圖四符號」作答，n_h 非圖上符號：主 boxed 寫 V_o/V_s=2D·N_s/N_p（N_s 取每半繞組，中心抽頭的教科書慣例），端對端口徑 DN_s/N_p 保留在條件與疑義一句；N_s 口徑是否足以維持 needs_manual_review 由主 session 決定。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-112-02-2",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "β=R1/(R1+R2)=1/3，V_TH=±5/3 V，τ=0.8 ms；v_X(0)=-5/3 V，v_X=5-(20/3)e^{-t/τ}，t_H=τ ln2=0.5545 ms，對稱 T=1.109 ms，f=901.7 Hz，D=50%。與題解一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-02-3",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "D/(1-D)=1.5 → D=0.6；I_o=3.6 A、I_L=9 A；i_min=3.6 A → Δi=10.8 A；L=24·0.6·10 μs/10.8=13.33 μH；C=D/(R f_s·0.005)=120 μF。失分點 L=40 μH 重算正確。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-02-4",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "V_o 平均 V_m/π=54.113 V，I_0=3.0113 A，P_dc=72.27 W。自寫 RK4 時域穩態：L=0.4962 H 時峰對峰 0.99993 A、P_R=91.754 W；L=0.4502 H（基頻 2I_1=1 A 估計）時峰對峰 1.1017 A、P_R=91.98 W。題解數值正確且嚴格滿足「不超過 1 A」。",
+  "issues": [
+   {
+    "check": "R3",
+    "where": "失分點第 1 條與（電感值）段",
+    "fix": "（建議，非阻擋）基頻近似 L≈0.45 H、P_R≈91.9 W 是教科書（Hart 型例題）與多數評分口徑的「藉由傅立葉級數」標準作法；將失分點 1 改為「只用基頻得 0.450 H 時嚴格峰對峰約 1.10 A；考場可寫 0.45 H 並註明需略增 L」，避免暗示該答案必然失分；主 boxed 0.4962 H 可保留。"
+   }
+  ]
+ }
+]

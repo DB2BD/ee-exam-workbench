@@ -1,0 +1,236 @@
+[
+ {
+  "qid": "EE-114-05-1",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "S=1000∠30° VA；I=1000/100=10 A，α−60°=30°→α=90°，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-114-05-2",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "P2=10sinδ2=−1.5→δ2=−8.627°；Q2=10(1−cosδ2)=0.1131→Qg2=111.31 Mvar>100 超限；PQ 後 Q2spec=0，平坦起始 J=diag(10,10)，Δδ=−0.15 rad、ΔV=0，一致。舊版大角度根註記已濃縮為「取低功角根」一句，未失分。",
+  "issues": []
+ },
+ {
+  "qid": "EE-114-05-4",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "Zth=j0.5∥j0.3=j0.1875，If=1/j0.2=−j5，V1=0.0625；分流 I31=−j1.875、I21=−j3.125；V3=0.8125、V2=0.6875，一致。（「若採由故障點向外為正方向…」一句與失分點第 3 條略重疊，屬可接受的方向宣告，不判 fail。）",
+  "issues": []
+ },
+ {
+  "qid": "EE-114-05-5",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "α=ωsPa/2H=120π(0.24)/8.64=10.472 rad/s²=100 rpm/s；0.2 s 後 3620 rpm，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-113-05-1",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "ZΔ/3∥ZY=7.8118−j2.0471 Ω，Zin=8.8118−j1.0471 Ω，|I|=13.663 A，S=4935.0−j586.4 VA，|S|=4969.7 VA，pf=0.99301 超前，一致。P5 判定：題幹「由三相電源端看入」（含線路）與「Y 連接合併負載」（僅負載）字面互相拉扯，屬真實措辭歧義；且 Z_L 本為求 Zin 的必經中間量、其餘答案不受影響，並列兩值不增加推導，分支成立。另此兩讀法舊版（HEAD）即已存在，非本輪新增。",
+  "issues": []
+ },
+ {
+  "qid": "EE-113-05-2",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "I=0.6+j0.45，Eg'=0.6758+j0.21，Em'=0.9233−j0.12；Ig'=0.84−j2.7033（2.8308 pu＝6.810 kA）、Im'=−0.4−j3.0778（3.1037 pu＝7.466 kA）、If'=5.7978 pu＝13.947 kA，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-113-05-3",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "λ=10→P1=200、P2=600；λ=12→P1=400、P2=1100（<1300）；α+1200β=10、α+2200β=12→β=0.002、α=7.6，一致。（frontmatter 重複 status: verified 為 HEAD 既有，非本輪引入。）",
+  "issues": []
+ },
+ {
+  "qid": "EE-113-05-4",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "ΔPM=(1/60)/0.05=1/3 pu；0→1 pu 頻率變動 0.05×60=3 Hz，一致。25 分但屬單一公式題，compact 符合 AGENT-SOLVE 條件，lint 通過。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-05-1",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "Deq=18.899 m，DsL=1.0905(0.014173·0.5³)^{1/4}=0.22373 m，DsC=0.23601 m；L=0.8873 mH/km、C=0.012693 μF/km，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-05-2",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false
+  },
+  "independent_answer": "內點解 γ=0.004、β=6.3 但 P2b=925>800 MW；P2=800 分支 γ=0.003、β=6.4667（IC2(800)=9.667≤10）；P1=800 分支 β=8、γ=1/1100（P2a=0 退化、IC1(800)=8.455≤10）；兩邊界分支皆 KKT 自洽，且無約束組在硬上限下 λ=11≠10。P5 判定：題幹明給兩座 800 MW 容量，使內點解不可行，而資料同時容許兩個容量邊界解，題面未指定受限機組，分支確屬必要，needs_manual_review 合理。三組答案均自 HEAD 保留，無失分內容遺失。",
+  "issues": [
+   {
+    "check": "R1/R5",
+    "where": "考場標準作答末句「兩個邊界分支都能重現兩個λ，題面未指定哪一台達上限，不得把其中一組當成唯一答案。」與「條件與疑義」三條",
+    "fix": "「條件與疑義」第 1、2 條重述已在步驟 1–3 boxed 的三組 (β,γ) 與 KKT 結論，第 3 條又與考場標準作答末句同義。刪除考場標準作答末句；「條件與疑義」整段改為一句：「題面未說明 800 MW 是否為硬上限，亦未指定第二運轉點由哪台機組受限；步驟 1–3 三組結果分別對應無約束、P2=800、P1=800，須待命題／閱卷口徑擇一。」"
+   }
+  ]
+ },
+ {
+  "qid": "EE-112-05-3",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "yT1=−j100、a=0.8：Y11=−j156.25、Y13=j125；yT2=−j5、a=1.25（Bus4 側）：Y44 加 −j3.2、Y24=j4、Y22=−j5；Y33=−j115、Y44=−j18.2、Y34=j15，一致。舊版「1.25 在 Bus 2 側」替代矩陣分支已刪、改列失分點（Y22=−j3.2、Y44=−j20 已驗算正確）；圖上箭頭標明分接頭側，題幹條件完整，刪除分支符合 P5。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-05-4",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "E'=1.037+j0.4=1.11147∠21.093°，Pmax=2.2229；故障期間以 Bus1 戴維寧（V 經 j0.1 與 Zf 分壓）+j0.4 自寫數值等面積：Zf=j0.01→δcr=101.0936°，Zf=0.01→102.0837°，與題解主解及敏感度值一致。題面「故障阻抗為 0.01 標么」未標 j，敏感度一句屬題幹真缺條件，符合 P5。（frontmatter 重複 status: verified 為 HEAD 既有。）",
+  "issues": []
+ }
+]

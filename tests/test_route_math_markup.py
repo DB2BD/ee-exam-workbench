@@ -10,8 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class TestRouteMathMarkup(unittest.TestCase):
-    def test_all_94_routed_canonical_notes_have_no_bare_latex_commands(self):
-        self.assertEqual(len(route_qids()), 94)
+    def test_all_93_routed_canonical_notes_have_no_bare_latex_commands(self):
+        self.assertEqual(len(route_qids()), 93)
         self.assertEqual(audit(), [])
 
     def test_known_learner_visible_repairs_remain_fixed(self):

@@ -31,7 +31,7 @@ LEGACY_HEADINGS = (
 LEAN_HEADINGS = ("考場標準作答", "驗算", "失分點")
 REQUIRED_HEADINGS = LEGACY_HEADINGS
 BULLET_HEADINGS = {"得分點拆解", "常見失分", "失分點"}
-MIN_SECTION_CHARS = {"驗算": 15}
+MIN_SECTION_CHARS = {"驗算": 15, "失分點": 15}
 
 
 def headings_for(canonical_text: str) -> tuple[str, ...]:

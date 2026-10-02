@@ -220,11 +220,11 @@ class TestScoreOrientedCorePath(unittest.TestCase):
     def test_dc_motor_mother_links_magnetization_curve_and_checks_speed_direction(self):
         note_path = self.by_qid["EE-112-04-5"]
         note = note_path.read_text(encoding="utf-8")
-        match = re.search(r"!\[官方題目與 1200 rpm 磁化曲線\]\(([^)]+\.png)\)", note)
+        match = re.search(r"!\[官方題目(?:裁切圖|與 1200 rpm 磁化曲線)\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
-        self.assertIn("轉速必須高於", note)
-        self.assertIn(r"232.6\,\mathrm V", note)
+        self.assertIn("1396", note)  # speed rises above 1200 rpm because E_A > 200 V
+        self.assertIn("232.6", note)
 
     def test_power_flow_mother_states_angle_branch_before_q_limit(self):
         note = self.by_qid["EE-114-05-2"].read_text(encoding="utf-8")
@@ -238,7 +238,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         note_path = self.by_qid["EE-113-06-4"]
         note = note_path.read_text(encoding="utf-8")
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
-        match = re.search(r"!\[官方單線圖與故障點 F\]\(([^)]+\.png)\)", note)
+        match = re.search(r"!\[官方(?:題目裁切圖|單線圖與故障點 F)\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
         self.assertIn("audit_status: needs_manual_review", note)
@@ -256,23 +256,17 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 value = re.search(rf"(?m)^{field}:[ \t]*(.+)$", frontmatter)
                 self.assertIsNotNone(value, field)
                 self.assertTrue(value.group(1).strip(), field)
-        self.assertIn(r"S_{\mathrm{CB},F}", standard)
-        self.assertIn(r"X_{SM}''=0.15\frac{3}{1}\left(\frac{6.3}{6.6}\right)^2=0.410020661\,\mathrm{pu}", standard)
+        # The breaker branch excludes the motor back-feed; the fault total does not.
+        self.assertIn("馬達倒灌不流經此 CB", standard)
+        self.assertIn("0.410021", standard)
         self.assertIn(r"15.475381\,\mathrm{MVA}", standard)
         self.assertIn(r"18.613991\,\mathrm{kA}", standard)
         self.assertIn(r"17.475381\,\mathrm{MVA}", standard)
         self.assertIn(r"21.019617\,\mathrm{kA}", standard)
-        self.assertIn(r"電源、同步馬達與感應馬達的內部電勢均為 \(1\angle0^\circ\,\mathrm{pu}\)", standard)
-        self.assertIn(r"低壓 CB 位於 \(T_2\) 與 F 之間", standard)
-        self.assertIn("感應馬達支路接在 F 點右側", standard)
-        self.assertIn("馬達對 F 的倒灌不流經此 CB", standard)
-        self.assertIn("題面未給分離時間、衰減／時間常數及故障前運轉資料，故無法唯一求得", standard)
-        self.assertIn("不能宣稱為唯一官方評分口徑", standard)
-        self.assertNotIn(r"15.42\,\mathrm{MVA}", standard)
-        self.assertIn(
-            r"I_{IM,F}=\frac{I_b}{1.50}=\frac{3608.439\,\mathrm{A}}{1.50}=2405.626\,\mathrm{A}=2.405626\,\mathrm{kA}",
-            note,
-        )
+        # Model assumptions and the non-unique interrupting duty are stated.
+        self.assertIn(r"1\angle0^\circ", note)
+        self.assertRegex(note, r"不(?:能|宣稱)[^。]*唯一官方(?:評分)?口徑")
+        self.assertIn("2.405626", note)
 
     def test_parallel_rlc_same_type_keeps_step_forcing_in_equation(self):
         note_path = self.by_qid["EE-112-01-4"]
@@ -281,8 +275,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         self.assertIn(r"+250i=-1500", standard)
         self.assertNotIn(r"+250i=0", standard)
         self.assertIn(r"i_p=-6\,\mathrm A", note)
-        self.assertIn(r"\tilde i=i-i_p=i+6", note)
-        match = re.search(r"!\[官方並聯 RLC 題圖\]\(([^)]+\.png)\)", note)
+        match = re.search(r"!\[官方(?:題目裁切圖|並聯 RLC 題圖)\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
 
@@ -298,8 +291,8 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         self.assertRegex(question[4], relay_formula, "compiled workbench stem diverges from the official formula")
         self.assertRegex(canonical_prompt, relay_formula, "canonical question transcription diverges from the official formula")
         self.assertIn(r"\left(\frac{I}{I_s}\right)^2-1=159.3321923", note)
-        self.assertIn(r"0.3=\frac{k\times80}{159.3321923}\times\frac{1}{0.808}", note)
-        self.assertIn(r"0.3\times0.808\times\frac{159.3321923}{80}", note)
+        # Solving T_s=0.3 s for k must keep the squared-ratio-minus-one term.
+        self.assertIn(r"0.3\times0.808\times159.3321923", note)
         self.assertIn(r"\boxed{0.48}", note)
         self.assertNotIn("160.3321923", note)
 

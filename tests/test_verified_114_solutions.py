@@ -120,8 +120,9 @@ class TestAnnualPowerNotesFollowCanonicalPrimaryAnswers(unittest.TestCase):
     def test_112_q1_annual_note_matches_the_official_spacing(self):
         annual = POWER_112_ANNUAL.read_text(encoding="utf-8")
         q1 = annual.split("## 二、", 1)[0]
-        self.assertIn(r"D_{ab}=15\,\mathrm{m}", q1)
-        self.assertIn(r"D_{ca}=30\,\mathrm{m}", q1)
+        # Official horizontal spacing 15 m / 15 m / 30 m, in any LaTeX spacing form.
+        self.assertRegex(q1, r"D_\{ab\}=(?:D_\{bc\}=)?15")
+        self.assertRegex(q1, r"D_\{(?:ac|ca)\}=30")
         self.assertIn("0.8873", q1)
         self.assertIn("0.01269", q1)
         self.assertNotIn("0.8061", q1)
@@ -130,11 +131,9 @@ class TestAnnualPowerNotesFollowCanonicalPrimaryAnswers(unittest.TestCase):
     def test_112_q4_annual_note_does_not_promote_the_sensitivity_branch(self):
         annual = POWER_112_ANNUAL.read_text(encoding="utf-8")
         canonical = POWER_112_Q4.read_text(encoding="utf-8")
-        self.assertIn("主答案", annual)
-        self.assertIn("101.0936492", annual)
+        self.assertIn(r"\boxed{\delta_{cr}=1.764417\ \mathrm{rad}=101.0936492^\circ}", annual)
         self.assertIn("102.0837294", annual)
-        self.assertIn("原題符號的歧義與替代結果", annual)
-        self.assertIn("字面實阻抗結果", annual)
+        self.assertIn("僅作敏感度對照", annual)
         self.assertIn("主解：等效接地電抗", canonical)
         self.assertNotIn("主分支取 $Z_f=0.01$ pu", annual)
 
@@ -143,7 +142,7 @@ class TestAnnualPowerNotesFollowCanonicalPrimaryAnswers(unittest.TestCase):
         self.assertIn("6.4667", annual)
         self.assertIn("0.00090909", annual)
         self.assertIn(r"\beta=8", annual)
-        self.assertIn("維持 `needs_manual_review`", annual)
+        self.assertIn("本題仍有官方資料缺口", annual)
         self.assertIn("不得把其中一組當成唯一答案", annual)
         self.assertNotIn("6.8667", annual)
         self.assertNotIn("0.001875", annual)

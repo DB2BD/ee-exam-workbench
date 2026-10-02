@@ -1512,15 +1512,20 @@
         }
       ],
       "solution_version": "canonical-1.0.0",
-      "audit_status": "verified",
-      "verified_at": "2026-08-30",
+      "audit_status": "needs_manual_review",
+      "verified_at": null,
       "method": "independent_reconstruction_from_official_crop",
       "evidence_hash": "6013b32d8bb559f46f26df2034f5408370b08f6594af9b4f83864300d75068d7",
       "solution_hash": "2a4bfa287a97eb95b587a2e9b053c42e7fcdaa98907b40ab14cd67e5e24ce0fd",
       "duplicate_qids": [],
       "solver_output": "",
       "review_note": "",
-      "supersedes": null
+      "supersedes": null,
+      "review_disposition": "stem_internal_contradiction",
+      "review_blocker": "兩段定義域合計 [−2,4) 長 6，但 f(x+4)=f(x) 規定週期 4，兩者矛盾（例如 x=−1 時兩式給 2 與 6）。",
+      "review_action": "取得官方更正或命題口徑；確認前以保留兩段公式的最小修正 [−2,2)、f=2|x| 為主解，鋸齒波讀法列為分支。",
+      "review_evidence": "主解與鋸齒波分支（a0=4、an=0、bn=−8/(nπ)）均以 SymPy 與數值積分獨立驗算。",
+      "official_source_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=112190&q=1&s=0708&t=Q"
     },
     {
       "qid": "EE-112-03-3",
@@ -1962,9 +1967,9 @@
   ],
   "summary": {
     "questions": 67,
-    "verified": 66,
+    "verified": 65,
     "suspected_error": 0,
-    "needs_manual_review": 1,
+    "needs_manual_review": 2,
     "not_attempted": 0
   }
 }

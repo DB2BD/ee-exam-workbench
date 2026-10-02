@@ -19,6 +19,8 @@ SUBJECT_COUNTS = {
     "06": {114: 5, 108: 5},
 }
 
+BOUNDARY_QIDS = {"EE-114-06-2", "EE-114-06-3", "EE-114-06-4"}
+
 REPAIR_RULES = {
     "R": "重讀題幹，只寫已知、所求、限制條件與應用章節，再閉卷重開題。",
     "S": "只看題解第一個關鍵式，立即關閉題解，自己補完後續。",
@@ -98,7 +100,7 @@ class TestPassiveRepairIndex(unittest.TestCase):
                 self.assertTrue(resolved.is_file(), resolved)
                 self.assertEqual(resolved.stem, qid)
 
-    def test_original_59_question_index_keeps_one_manual_boundary_question(self):
+    def test_original_59_question_index_keeps_three_manual_boundary_questions(self):
         by_qid = {
             path.stem: path
             for path in CANONICAL_ROOT.glob("*/canonical/EE-*.md")
@@ -108,12 +110,23 @@ class TestPassiveRepairIndex(unittest.TestCase):
                 self.assertIn(qid, by_qid)
                 values = frontmatter(by_qid[qid])
                 self.assertEqual(values.get("qid"), qid)
-                expected_status = "needs_manual_review" if qid in {"EE-114-06-2", "EE-114-06-3"} else "verified"
+                expected_status = "needs_manual_review" if qid in BOUNDARY_QIDS else "verified"
                 self.assertEqual(values.get("audit_status"), expected_status)
                 if expected_status == "needs_manual_review":
                     self.assertEqual(values.get("verified_at"), "null")
                     for field in ("review_disposition", "review_blocker", "review_action", "review_evidence"):
                         self.assertTrue(values.get(field), field)
+
+    def test_boundary_questions_are_disclosed_as_unscored(self):
+        self.assertTrue(BOUNDARY_QIDS <= set(self.rows))
+        self.assertIn("59 題中 56 題 canonical `audit_status` 為 `verified`", self.text)
+        self.assertNotIn("均為 `verified`", self.text)
+        note = next(
+            line for line in self.text.splitlines()
+            if line.startswith("- ") and all(f"`{qid}`" in line for qid in BOUNDARY_QIDS)
+        )
+        for phrase in ("`needs_manual_review`", "不列 114 年模考預設計分", "先寫假設再寫條件解", "上榜精確解答邊界_條件題處理.md"):
+            self.assertIn(phrase, note)
 
     def test_fixed_rules_are_present_and_passive(self):
         self.assertIn("被動、免回填", self.text)

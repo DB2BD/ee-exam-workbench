@@ -18,13 +18,22 @@ EXPECTED_BY_SUBJECT = {
     "05": {"EE-105-05-2", "EE-110-05-5"},
     "06": {"EE-109-06-3", "EE-113-06-3"},
 }
-REQUIRED_SECTIONS = (
+LEGACY_SECTIONS = (
     "## 考場標準作答",
     "## 得分點拆解",
     "## 完整教學推導",
     "## 獨立驗算",
     "## 常見失分",
 )
+# lean-v1 notes (AGENT-SOLVE.md) keep the exam answer without the duplicated
+# teaching derivation; both are accepted while notes migrate.
+LEAN_SECTIONS = ("## 考場標準作答", "## 驗算", "## 失分點")
+
+
+def required_sections(text):
+    if re.search(r"^template:\s*lean-v1\s*$", text, re.MULTILINE):
+        return LEAN_SECTIONS
+    return LEGACY_SECTIONS
 
 
 class TestMixedBridgePack(unittest.TestCase):
@@ -49,8 +58,9 @@ class TestMixedBridgePack(unittest.TestCase):
                 matches = list(CANONICAL_ROOT.glob(f"*/canonical/{qid}.md"))
                 self.assertEqual(len(matches), 1, qid)
                 canonical = matches[0].read_text(encoding="utf-8")
-                for heading in REQUIRED_SECTIONS:
-                    self.assertEqual(canonical.count(heading), 1, f"{qid}: {heading}")
+                for heading in required_sections(canonical):
+                    count = len(re.findall(rf"^{re.escape(heading)}\s*$", canonical, re.MULTILINE))
+                    self.assertEqual(count, 1, f"{qid}: {heading}")
 
     def test_question_and_solution_links_resolve(self):
         links = re.findall(r"\[[^]]+\]\(([^)]+)\)", self.text)

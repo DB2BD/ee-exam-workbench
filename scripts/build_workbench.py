@@ -57,6 +57,8 @@ def build_workbench():
         'src/data/taxonomyAliases.js',
         'src/data/knowledge-dag.js',
         'src/data/knowledge-dag.generated.js',
+        'src/data/dailySchedule.generated.js',
+        'src/data/answerCorrections.generated.js',
         'src/state/store.js',
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
@@ -68,6 +70,7 @@ def build_workbench():
         'src/components/weaknessView.js',
         'src/data/manualTopicLabels.js',
         'src/data/scenarioMatrixData.js',
+        'src/components/answerCorrectionNotice.js',
         'src/components/reviewPage.js',
         'src/components/quickReviewSheet.js',
         'src/renderers/katexRenderer.js',
@@ -81,6 +84,7 @@ def build_workbench():
         'src/components/solutionModal.js',
         'src/components/mockExamTimer.js',
         'src/components/dailyPractice.js',
+        'src/components/todayTask.js',
         'src/components/topTopics.js',
         'src/main.js'
     ]
@@ -173,10 +177,6 @@ def build_workbench():
         <span class="label">⚡ 今日待提取 (SM-2)</span>
         <span class="val" id="stat-due-flashcards" style="color: var(--accent-dark);">0</span>
       </div>
-      <div class="stat-card stat-readiness-card" id="stat-readiness-card" onclick="openPassbookModal()" style="cursor: pointer;" title="點擊查看考前 15 天個人化奪榜衝刺手冊與六科戰力預測">
-        <span class="label">🎯 上榜預測 (PPI)</span>
-        <span class="val" id="stat-passing-prob" style="color: var(--accent-dark);">--%</span>
-      </div>
     </div>
 
     <!-- Progress Bar -->
@@ -238,6 +238,8 @@ def build_workbench():
       </div>
 
       <!-- 戰情 Hero 區塊：Progress Ring + 互動統計卡 -->
+      <div id="review-corrections"></div>
+
       <div class="review-hero">
         <div class="progress-ring-card" id="review-progress-card"></div>
         <div class="review-stats" id="review-stats"></div>
@@ -274,6 +276,7 @@ def build_workbench():
 
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
+    <div id="today-task-card"></div>
     <section class="practice-home-actions" aria-label="練習首頁主要入口">
       <button id="home-action-start" type="button" onclick="dailyPracticePrepareNewRound()"><span>▶</span><strong>開始練習</strong><small>選擇考科，建立新的 3 題練習</small></button>
       <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled><span>↩</span><strong>繼續上次</strong><small>接回原題、揭露進度與閱讀位置</small></button>

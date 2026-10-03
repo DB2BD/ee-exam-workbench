@@ -111,9 +111,9 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 self.assertEqual(positions, sorted(positions), qid)
                 self.assertIn(qid, self.path_doc)
 
-    @unittest.expectedFailure  # Re-rank after the Phase 0C stem audit (user decision 2026-10-03):
-    # stem corrections moved EE-111-03-5 / EE-109-03-2 to vector analysis, which now
-    # out-ranks complex analysis; the 03 core-path chapters are rebuilt once stems are fixed.
+    @unittest.expectedFailure  # Re-rank after waves 3-4 (user decision 2026-10-03): stem
+    # corrections moved EE-111-03-5 / EE-109-03-2 to vector analysis; chapter counts are
+    # final only once the 104-108 math notes that solved wrong stems are rewritten.
     def test_each_subject_uses_exactly_its_two_highest_year_coverage_chapters(self):
         chapter_rows = defaultdict(list)
         for row in self.questions:

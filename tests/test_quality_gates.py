@@ -181,6 +181,7 @@ process.stdout.write(JSON.stringify(context.__missing));
             "['manual-label-modal','manual-label-body','manual-label-progress','manual-label-prev','manual-label-next']"
             ".forEach(id => elements[id] = { classList: { add: () => {}, remove: () => {} }, querySelector: () => null, innerHTML: '', innerText: '', disabled: false }); "
             "elements['manual-label-modal'].classList = { added: '', add(value) { this.added = value; }, remove() {} }; "
+            "context.location = { search: '?maint=1' }; "
             "context.document = { body: { style: {} }, getElementById: id => elements[id] }; "
             "context.getActiveQuestionsList = () => " + json.dumps([question], ensure_ascii=False) + "; "
             "context.getSubjectMeta = () => ({ name: '電子學（含電力電子）', icon: '' }); "

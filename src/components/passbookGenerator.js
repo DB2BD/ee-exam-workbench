@@ -127,13 +127,13 @@ function openPassbookModal() {
 
         <!-- Section 2: Pacing Strategy -->
         <div style="margin-bottom: 24px; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-sm);">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 貳、考場 120 分鐘黃金配速四階段守則</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 貳、考場 120 分鐘得分節奏（5＋90＋17＋8）</h4>
           <ul style="font-size: 0.85rem; line-height: 1.8; margin-left: 20px; color: var(--ink);">
-            <li><strong>0 ~ 25 分鐘</strong>：第 1 大題作答（先瀏覽全卷 2 分鐘，選最有把握之題目優先作答）</li>
-            <li><strong>25 ~ 50 分鐘</strong>：第 2 大題作答（嚴格控管時間，每題上限 25 分鐘）</li>
-            <li><strong>50 ~ 75 分鐘</strong>：第 3 大題作答（遇繁複推導先寫出等效電路與主方程式保底）</li>
-            <li><strong>75 ~ 100 分鐘</strong>：第 4 大題作答（切勿交白卷，依步驟列出符號式仍能拿 50% 步驟分）</li>
-            <li><strong>100 ~ 120 分鐘</strong>：🚨 <strong>全局黃金檢查期</strong>（檢查正負號、相角、單位、計算機模式 DEG）</li>
+            <li><strong>0 ~ 5 分鐘（掃卷）</strong>：看完所有題目與小題，在題號旁標 A／B／C；不開始長算式</li>
+            <li><strong>5 ~ 95 分鐘（第一輪 90 分鐘）</strong>：先做 A，再做 B，最後處理 C；每題依配分設時間帽，每配分最多 0.9 分鐘（20 分題 18 分鐘、25 分題 22.5 分鐘）</li>
+            <li><strong>連續 8 分鐘寫不出下一步</strong>：先留下已能確定的定義、起手式或中間量，然後換題，不讓同一題吞掉後面題的可得分時間</li>
+            <li><strong>95 ~ 112 分鐘（搶分 17 分鐘）</strong>：從未完成題中選「配分最高且下一步已知道」者補完；完全沒有起手式的題不救</li>
+            <li><strong>112 ~ 120 分鐘（收尾 8 分鐘）</strong>：補題號、小題結論、單位、方向、相角與計算機 DEG 模式，只修明顯抄算錯誤，不開新推導</li>
           </ul>
         </div>
 

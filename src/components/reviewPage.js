@@ -441,7 +441,17 @@ function getManualQuestionCrop(q, qid) {
   return typeof resolveImageMapUrl === 'function' ? resolveImageMapUrl(crop, isGK, qid) : crop;
 }
 
+// K4: 維護者工具，網址帶 ?maint=1 才顯示。
+function isMaintMode() {
+  try {
+    return /(?:^|[?&])maint=1(?:&|$)/.test(String((typeof location !== 'undefined' && location.search) || ''));
+  } catch (e) {
+    return false;
+  }
+}
+
 function openManualLabelModal(startQid) {
+  if (!isMaintMode()) return;
   manualLabelQueue = getManualReviewQuestions();
   if (!manualLabelQueue.length) {
     showToast('目前沒有待人工覆核題目');
@@ -777,7 +787,7 @@ function renderReviewPage() {
 
   const manualButton = document.getElementById('manual-label-open');
   if (manualButton) {
-    manualButton.style.display = 'none';
+    manualButton.style.display = isMaintMode() && manual > 0 ? '' : 'none';
   }
 
   // 3. Chapter Chip Filter (Hide 0 count chapters)
@@ -864,8 +874,10 @@ function renderReviewPage() {
         </div>
         <div class="focus-card-actions">
           <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始逐步揭露</button>
-          <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>
-          <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
+          <details class="more-practice more-practice-inline"><summary>更多練習方式</summary>
+            <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>
+            <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
+          </details>
         </div>
       </article>
     `;

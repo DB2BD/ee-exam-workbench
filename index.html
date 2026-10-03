@@ -2018,6 +2018,31 @@ select:focus {
 .answer-correction-row-date { color: var(--muted); font-size: 0.8rem; }
 .answer-correction-review-btn { padding: 4px 12px; font-size: 0.82rem; }
 
+/* K4: 首頁／複習頁入口收斂 */
+.home-primary-actions { max-width: 900px; margin: 0 auto 16px; }
+.home-due-button {
+  width: 100%; min-height: 72px; padding: 14px 16px; display: grid;
+  grid-template-columns: auto 1fr; gap: 2px 12px; align-items: center; text-align: left;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); cursor: pointer; box-shadow: var(--shadow);
+}
+.home-due-button > span { grid-row: 1 / 3; font-size: 1.5rem; }
+.home-due-button strong { color: var(--accent-dark); font-size: 1.05rem; }
+.home-due-button small { color: var(--muted); }
+.home-due-button:hover:not(:disabled), .home-due-button:focus-visible { border-color: var(--accent); }
+.home-due-button:disabled { opacity: .6; cursor: not-allowed; }
+.more-practice { max-width: 900px; margin: 0 auto 16px; }
+.more-practice > summary {
+  cursor: pointer; color: var(--muted); font-weight: 600; padding: 10px 4px; min-height: 44px;
+  display: flex; align-items: center;
+}
+.more-practice > summary::-webkit-details-marker { display: none; }
+.more-practice > summary::before { content: '▸'; margin-right: 8px; transition: transform .15s; }
+.more-practice[open] > summary::before { transform: rotate(90deg); }
+.more-practice[open] > summary { margin-bottom: 8px; }
+.more-practice-inline { margin: 0; flex-basis: 100%; }
+.more-practice-inline > summary { min-height: 36px; padding: 4px; font-size: .9rem; }
+
 
 /* === src/styles/modal.css === */
 /* src/styles/modal.css */
@@ -3022,7 +3047,7 @@ select:focus {
         </div>
         <div class="review-header-actions">
           <button class="btn-sol" id="btn-start-review" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
-          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()"></button>
+          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()">🧭 人工覆核題型標注</button>
         </div>
       </div>
 
@@ -3066,12 +3091,18 @@ select:focus {
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
     <div id="today-task-card"></div>
-    <section class="practice-home-actions" aria-label="練習首頁主要入口">
+    <section class="home-primary-actions" aria-label="首頁主要入口">
+      <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span>🎴</span><strong>到期複習</strong><small>今天沒有到期題</small></button>
+    </section>
+    <details class="more-practice" id="more-practice">
+      <summary>更多練習方式</summary>
+      <section class="practice-home-actions" aria-label="練習首頁主要入口">
       <button id="home-action-start" type="button" onclick="dailyPracticePrepareNewRound()"><span>▶</span><strong>開始練習</strong><small>選擇考科，建立新的 3 題練習</small></button>
       <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled><span>↩</span><strong>繼續上次</strong><small>接回原題、揭露進度與閱讀位置</small></button>
       <button id="home-action-find" type="button" onclick="dailyPracticeFindQuestions()"><span>⌕</span><strong>找題</strong><small>依考科、年度、章節或關鍵字搜尋</small></button>
     </section>
-    <div id="daily-practice-container"></div>
+      <div id="daily-practice-container"></div>
+    </details>
   </div>
 
   <!-- TAB 1: Questions Explorer -->
@@ -23301,7 +23332,17 @@ function getManualQuestionCrop(q, qid) {
   return typeof resolveImageMapUrl === 'function' ? resolveImageMapUrl(crop, isGK, qid) : crop;
 }
 
+// K4: 維護者工具，網址帶 ?maint=1 才顯示。
+function isMaintMode() {
+  try {
+    return /(?:^|[?&])maint=1(?:&|$)/.test(String((typeof location !== 'undefined' && location.search) || ''));
+  } catch (e) {
+    return false;
+  }
+}
+
 function openManualLabelModal(startQid) {
+  if (!isMaintMode()) return;
   manualLabelQueue = getManualReviewQuestions();
   if (!manualLabelQueue.length) {
     showToast('目前沒有待人工覆核題目');
@@ -23637,7 +23678,7 @@ function renderReviewPage() {
 
   const manualButton = document.getElementById('manual-label-open');
   if (manualButton) {
-    manualButton.style.display = 'none';
+    manualButton.style.display = isMaintMode() && manual > 0 ? '' : 'none';
   }
 
   // 3. Chapter Chip Filter (Hide 0 count chapters)
@@ -23724,8 +23765,10 @@ function renderReviewPage() {
         </div>
         <div class="focus-card-actions">
           <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始逐步揭露</button>
-          <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>
-          <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
+          <details class="more-practice more-practice-inline"><summary>更多練習方式</summary>
+            <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>
+            <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
+          </details>
         </div>
       </article>
     `;
@@ -25638,13 +25681,13 @@ function openPassbookModal() {
 
         <!-- Section 2: Pacing Strategy -->
         <div style="margin-bottom: 24px; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-sm);">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 貳、考場 120 分鐘黃金配速四階段守則</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 貳、考場 120 分鐘得分節奏（5＋90＋17＋8）</h4>
           <ul style="font-size: 0.85rem; line-height: 1.8; margin-left: 20px; color: var(--ink);">
-            <li><strong>0 ~ 25 分鐘</strong>：第 1 大題作答（先瀏覽全卷 2 分鐘，選最有把握之題目優先作答）</li>
-            <li><strong>25 ~ 50 分鐘</strong>：第 2 大題作答（嚴格控管時間，每題上限 25 分鐘）</li>
-            <li><strong>50 ~ 75 分鐘</strong>：第 3 大題作答（遇繁複推導先寫出等效電路與主方程式保底）</li>
-            <li><strong>75 ~ 100 分鐘</strong>：第 4 大題作答（切勿交白卷，依步驟列出符號式仍能拿 50% 步驟分）</li>
-            <li><strong>100 ~ 120 分鐘</strong>：🚨 <strong>全局黃金檢查期</strong>（檢查正負號、相角、單位、計算機模式 DEG）</li>
+            <li><strong>0 ~ 5 分鐘（掃卷）</strong>：看完所有題目與小題，在題號旁標 A／B／C；不開始長算式</li>
+            <li><strong>5 ~ 95 分鐘（第一輪 90 分鐘）</strong>：先做 A，再做 B，最後處理 C；每題依配分設時間帽，每配分最多 0.9 分鐘（20 分題 18 分鐘、25 分題 22.5 分鐘）</li>
+            <li><strong>連續 8 分鐘寫不出下一步</strong>：先留下已能確定的定義、起手式或中間量，然後換題，不讓同一題吞掉後面題的可得分時間</li>
+            <li><strong>95 ~ 112 分鐘（搶分 17 分鐘）</strong>：從未完成題中選「配分最高且下一步已知道」者補完；完全沒有起手式的題不救</li>
+            <li><strong>112 ~ 120 分鐘（收尾 8 分鐘）</strong>：補題號、小題結論、單位、方向、相角與計算機 DEG 模式，只修明顯抄算錯誤，不開新推導</li>
           </ul>
         </div>
 
@@ -27459,16 +27502,15 @@ function getMockExamPacingInfo(secondsRemaining) {
   const elapsed = MOCK_EXAM_TIMER_DURATION_SECONDS - s;
   const elapsedMins = elapsed / 60;
 
-  if (elapsedMins < 25) {
-    return { stage: 1, label: '第 1 大題作答期 (0~25分)', hint: '建立等效電路、列出初始公式', color: '#4a7c8f' };
-  } else if (elapsedMins < 50) {
-    return { stage: 2, label: '第 2 大題作答期 (25~50分)', hint: '掌握主要計算、注意極座標相角', color: '#4a7c8f' };
-  } else if (elapsedMins < 75) {
-    return { stage: 3, label: '第 3 大題作答期 (50~75分)', hint: '推導中間式、注意標么值基準容量', color: '#4a7c8f' };
-  } else if (elapsedMins < 100) {
-    return { stage: 4, label: '第 4 大題作答期 (75~100分)', hint: '最後大題衝刺、切勿空白', color: '#d49e35' };
+  // Same timeline as docs/上榜考場120分鐘得分節奏.md (5 + 90 + 17 + 8).
+  if (elapsedMins < 5) {
+    return { stage: 1, label: '掃卷 (0~5分)', hint: '看完全部題目與小題，題號旁標 A／B／C；不開始長算式', color: '#4a7c8f' };
+  } else if (elapsedMins < 95) {
+    return { stage: 2, label: '第一輪 (5~95分)', hint: '先 A 再 B 後 C；每配分最多 0.9 分鐘，卡 8 分鐘留下起手式就換題', color: '#4a7c8f' };
+  } else if (elapsedMins < 112) {
+    return { stage: 3, label: '搶分輪 (95~112分)', hint: '補配分最高且下一步已知道的題；不救完全沒有起手式的題', color: '#d49e35' };
   } else {
-    return { stage: 5, label: '🚨 全卷總檢查期 (最後 20 分鐘)', hint: '檢查小數點、正負號、單位（kW/kVA/Ω）', color: '#b85d58' };
+    return { stage: 4, label: '🚨 收尾 (最後 8 分鐘)', hint: '補題號、小題結論、單位、方向、相角；不開新推導', color: '#b85d58' };
   }
 }
 
@@ -27731,7 +27773,7 @@ function loadMockExam() {
           <div class="qcard" style="border-left: 4px solid var(--accent); margin-bottom: 16px;">
             <div class="qhead">
               <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
-              <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分 · 建議 25 分鐘</span>
+              <span style="font-weight: 700; color: var(--accent-dark);">配分以官方題目為準 · 第一輪每配分最多 0.9 分鐘</span>
             </div>
             <div class="qtopic">${renderTopic}</div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
@@ -28483,6 +28525,31 @@ function initDailyPracticeHome() {
   }
   const container = document.getElementById('daily-practice-container');
   if (container) renderDailyPractice(container, loaded.error);
+  homeMorePracticeSync();
+  homeDueReviewRefresh();
+}
+
+// K4: 首頁預設只留「今天的任務」與「到期複習」；其餘練習入口收在「更多練習方式」。
+function homeMorePracticeSync() {
+  const details = document.getElementById('more-practice');
+  if (!details) return;
+  const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
+  if (hasSession || dailyPracticeHomeMode === 'start' || dailyPracticeHomeMode === 'summary') details.open = true;
+}
+
+function homeDueReviewRefresh() {
+  const button = document.getElementById('home-action-due');
+  if (!button) return;
+  const due = typeof getDueQuestionsList === 'function' ? getDueQuestionsList().length : 0;
+  button.disabled = due <= 0;
+  if (button.setAttribute) button.setAttribute('aria-disabled', due > 0 ? 'false' : 'true');
+  button.innerHTML = '<span>🎴</span><strong>' + (due > 0 ? '到期複習（' + due + ' 題）' : '到期複習') + '</strong><small>' + (due > 0 ? '用間隔重複複習今天到期的題目' : '今天沒有到期題') + '</small>';
+}
+
+function homeStartDueReview() {
+  if (typeof switchTab === 'function') switchTab('review');
+  if (typeof setReviewSubjectFilter === 'function') setReviewSubjectFilter('all');
+  if (typeof startReviewSession === 'function') startReviewSession();
 }
 
 

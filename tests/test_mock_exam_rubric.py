@@ -21,13 +21,19 @@ class TestMockExamRubric(unittest.TestCase):
         const p1 = getMockExamPacingInfo(7200);
         if (p1.stage !== 1) throw new Error('Stage at start should be 1');
 
-        // 2. Test pacing stage 3 (at 60 mins remaining: 3600s)
-        const p3 = getMockExamPacingInfo(3600);
-        if (p3.stage !== 3) throw new Error('Stage at 60 mins should be 3');
-
-        // 3. Test final 10 mins (600s remaining)
-        const p5 = getMockExamPacingInfo(600);
-        if (p5.stage !== 5) throw new Error('Stage in last 10 mins should be 5 (audit period)');
+        // 2-3. Stages follow docs/上榜考場120分鐘得分節奏.md: 5 scan + 90 first
+        // pass + 17 score-recovery + 8 wrap-up.
+        const expectStage = (remaining, stage, word) => {{
+            const p = getMockExamPacingInfo(remaining);
+            if (p.stage !== stage || p.label.indexOf(word) < 0) throw new Error('remaining ' + remaining + 's: ' + JSON.stringify(p));
+        }};
+        expectStage(7200 - 4 * 60, 1, '掃卷');
+        expectStage(7200 - 5 * 60, 2, '第一輪');
+        expectStage(3600, 2, '第一輪');
+        expectStage(7200 - 95 * 60, 3, '搶分');
+        expectStage(600, 3, '搶分');
+        expectStage(8 * 60, 4, '收尾');
+        expectStage(0, 4, '收尾');
 
         // 4. Test rubric steps total points
         const totalRubricPts = DEFAULT_RUBRIC_STEPS.reduce((sum, s) => sum + s.maxPts, 0);

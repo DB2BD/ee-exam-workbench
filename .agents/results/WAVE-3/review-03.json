@@ -1,0 +1,460 @@
+{
+ "reviewer": "REVIEWER_lean_v1",
+ "scope": "Wave 3 工程數學 108/107/106（18 題；106-03-8 不在範圍）",
+ "summary": {
+  "pass": 13,
+  "fail": 5,
+  "fail_qids": [
+   "EE-108-03-2",
+   "EE-108-03-3",
+   "EE-108-03-5",
+   "EE-108-03-6",
+   "EE-107-03-3"
+  ]
+ },
+ "commands": {
+  "run_verify_scripts": "scripts=18 failed=0 missing=0",
+  "lint_strict": "notes=18 lean-v1=18 notes-with-errors=0（但見 other_notes：compact 配分正則漏判）",
+  "unittest": "tests.test_engineering_math_official_alignment, tests.test_formula_format, tests.test_score_oriented_core_path：56 tests OK (expected failures=1)"
+ },
+ "priority": [
+  {
+   "qid": "EE-106-03-1",
+   "item": "官方分塊矩陣；A⁻¹=⅓·diag([[2,1],[−1,1]],[[−1,2],[2,−1]])",
+   "result": "CONFIRMED",
+   "reason": "裁切圖 A=diag([[1,−1],[1,2]],[[1,2],[2,1]])；numpy inv×3 完全吻合，det=−9。"
+  },
+  {
+   "qid": "EE-106-03-2",
+   "item": "最小平方 x=(18/17,−8/17)",
+   "result": "CONFIRMED",
+   "reason": "以 QR 分解獨立求得 17x=(18,−8)；殘差與 A 的行空間正交。"
+  },
+  {
+   "qid": "EE-106-03-4",
+   "item": "卷積核 (1+τ)y(t−τ)；y=cosh t",
+   "result": "CONFIRMED",
+   "reason": "裁切圖確為 y(t−τ)；拉氏得 Y=s/(s²−1)；數值 Volterra 求解 y(2)=3.762196=cosh 2。"
+  },
+  {
+   "qid": "EE-107-03-1",
+   "item": "1−y⁻³=C(1+t²)，特解 y=2(1−7t²)^(−1/3)；舊版漏 y",
+   "result": "CONFIRMED",
+   "reason": "裁切圖右側為 2ty(y³−1)；HEAD 舊版用 2t(y³−1)（z=y⁻² 代換）確實漏 y；mpmath 數值積分於 t=0.3 與新公式 10 位一致。"
+  },
+  {
+   "qid": "EE-107-03-2",
+   "item": "λ=−2, 1±4i；向量 (18,−8,9)、(1∓4i,1,2)",
+   "result": "CONFIRMED",
+   "reason": "特徵式 (λ+2)(λ²−2λ+17)；numpy eigvals 一致；三組 Av=λv 殘差為 0。"
+  },
+  {
+   "qid": "EE-107-03-3",
+   "item": "頂蓋 ∬3y dA=0，兩種讀法皆 16π；分支是否需要",
+   "result": "CONFIRMED（數學）",
+   "reason": "3y 在圓盤 x²+y²≤4 上奇對稱積分為 0（數值 1.6e−26），側面直積與散度定理皆 16π。分支判斷：題幹「封閉曲面」與 0≤z≤2 圓錐面確有字面矛盾，但答案不分岔，因此不需要獨立的「條件與疑義」段；頂蓋本來就要在作答中算出（散度定理與封閉面讀法都需要），只要在作答中加一句「兩種讀法答案相同」即可（P5 不違反，但目前同一論證重複三次，判 R1）。本題另因「面積分」被放在驗算而非考場標準作答判 fail（題目要求兩法都做）。"
+  }
+ ],
+ "reviews": [
+  {
+   "qid": "EE-108-03-1",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "令 u=a+x，指標方程 m²−m−2=0 → m=2,−1；共振項 Au²ln u：y''=A(2ln u+3) → A=1；常數項 −1/2。另以 sympy 驗 u<0 時 u²ln(−u) 亦使殘差為 0（支持 ln|a+x|）；變數變易 W=−3、y_p=u²ln u−u²/3−1/2 重算一致。",
+   "issues": []
+  },
+  {
+   "qid": "EE-108-03-2",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": false
+   },
+   "independent_answer": "第 2 行為 0 → λ=0 特徵向量 (0,1,0)；λ=2：(2,1,0)；λ=3：(0,2,3)；A·v 逐一回代成立，tr=5、det=0。",
+   "issues": [
+    {
+     "check": "R5",
+     "where": "標題「特徵值、特徵向量與對角化」與「考場標準作答」末段「三個相異特徵值，故可對角化：A=PDP^{-1}…」",
+     "fix": "裁切圖只問特徵值與特徵向量（10 分），未要求對角化。標題改為「# 108 年第 2 題｜特徵值與特徵向量」，並刪除整句「三個相異特徵值，故可對角化：…（特徵向量可乘任意非零倍數）」；如需保留倍數說明，改成一句「（特徵向量可乘任意非零倍數）」接在 λ=3 那行之後。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-108-03-3",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "∇T=(y+z,x+z,x+y)=(2,2,2)；û=(3,0,−4)/5 → D=(6−8)/5=−2/5；鏈鎖律直線微分亦得 −2/5。",
+   "issues": [
+    {
+     "check": "P2",
+     "where": "frontmatter compact: true",
+     "fix": "本題 20 分（每小題 10 分）且正文 744 字 >700，依 AGENT-SOLVE「compact 只限 ≤10 分或單一公式題」及 lint 的 compact-not-allowed 門檻（>10 分且 >700 字）不得用 compact；lint 未攔下是因配分正則抓不到「（每小題 10 分，共 20 分）」。刪除 `compact: true`，在「考場標準作答」前加「## 已知與所求」一行：「\\(T=xy+yz+zx\\)（每小題 10 分）。求（一）\\((1,1,1)\\) 的 \\(\\nabla T\\)；（二）該點沿 \\(3\\hat i-4\\hat k\\) 的方向導數。」既有失分點保留。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-108-03-4",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "div F=3，V=4π/3 → 4π；球面上 F·n=1，面積 4π，一致。10 分，compact 合規。",
+   "issues": []
+  },
+  {
+   "qid": "EE-108-03-5",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "Res(1)=1/2、Res(−1)=−1/2；圓心 1 半徑 1 的圓只含 z=1（z=−1 距 2）→ πi；圓心 −1 → −πi；mpmath 數值圍道積分 ±3.14159i 一致。",
+   "issues": [
+    {
+     "check": "P2",
+     "where": "frontmatter compact: true",
+     "fix": "20 分（每小題 10 分）且正文 729 字 >700，超過 lint 的 compact 機械門檻（lint 因配分正則抓不到「每小題 10 分，共 20 分」而漏判）。刪除 `compact: true`，加「## 已知與所求」一行：「求 \\(\\oint_C\\frac{dz}{z^2-1}\\)（每小題 10 分）：（一）\\(C\\)：圓心 \\((1,0)\\)、半徑 1；（二）圓心 \\((-1,0)\\)、半徑 1。」；若要保留 compact，則需將正文刪到 ≤700 字（例如刪失分點第 2 條），但較建議前者。不得更動被 tests/test_engineering_math_official_alignment.py 鎖住的兩個 boxed 字串。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-108-03-6",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "E[X²]=5+4·2=13；E(−4X+10)=2；Var X=13−4=9，Var(−4X+10)=144，σ=12；E[Y²]=148 法一致。",
+   "issues": [
+    {
+     "check": "P2",
+     "where": "frontmatter compact: true 與正文首行「已知 E(X)=2，E[X(X-4)]=5。」",
+     "fix": "本題 3 小題共 20 分，需用期望值線性、Var=E[X²]−(E X)²、Var(aX+b)=a²Var 三個式子，不符「≤10 分或單一公式」。刪除 `compact: true`，把首行改為「## 已知與所求」段：「\\(E(X)=2\\)，\\(E[X(X-4)]=5\\)（5／5／10 分）。求（一）\\(E(X^2)\\)；（二）\\(E(-4X+10)\\)；（三）\\(-4X+10\\) 的標準差。」其餘不動（保留 tests 鎖住的 \\boxed{E[X^2]=13} 與 Var(−4X+10)=144 字串）。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-107-03-1",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "分離變數：3/(y(y³−1)) 積分 = ln|1−y^{−3}|，故 1−y^{−3}=C(1+t²)，y(0)=2 → C=7/8，y=2(1−7t²)^{−1/3}；mpmath odefun 於 t=0.3 數值積分 2.785882237 與公式完全一致。HEAD 舊版解的是 3(1+t²)y'=2t(y³−1)（漏 y），新版依裁切圖修正正確。",
+   "issues": []
+  },
+  {
+   "qid": "EE-107-03-2",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "沿第 3 列展開 −λ³−13λ−34=−(λ+2)(λ²−2λ+17)；numpy eigvals = −2, 1±4i；(18,−8,9)、(1∓4i,1,2) 回代殘差 0；tr=0、det=−34。",
+   "issues": []
+  },
+  {
+   "qid": "EE-107-03-3",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": false,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "div F=4z+xz²；∭4z dV=2π∫₀²2r(4−r²)dr=16π，xz² 項為 0；另以 z̄ 驗：圓錐 V=8π/3、形心 z̄=3/2，4·z̄·V=16π。頂蓋 ∬3y dA=0（奇對稱，mpmath 數值 1.6e−26）。以 (φ,z) 參數化直接積側面（外法向 (z cosφ, z sinφ, −z)）得 16π。開圓錐與含頂蓋閉曲面兩種讀法皆 16π。",
+   "issues": [
+    {
+     "check": "P2",
+     "where": "「考場標準作答」只有散度定理；面積分直接計算放在「驗算」",
+     "fix": "裁切圖要求「以面積分及散度定理計算」，兩種方法都是作答內容。把現行「驗算」的側面直接積分移入「考場標準作答」作為「### （一）面積分」：側面參數化與外向面積元 → 側面 16π，加頂蓋 ∬3y dA=0 → 封閉面通量，box 寫成 \\(\\boxed{\\iint_S\\vec F\\cdot\\hat n\\,dA=16\\pi}\\)；原散度定理段改為「### （二）散度定理」，box 寫成 \\(\\boxed{\\iiint_V\\nabla\\cdot\\vec F\\,dV=16\\pi}\\)（兩個 box 字串須不同，否則 lint boxed-duplicate）。「驗算」改用與兩法都不同的最少行：例如「∭4z dV=4\\bar z V=4\\cdot\\tfrac32\\cdot\\tfrac{8\\pi}{3}=16\\pi（圓錐形心 \\(\\bar z=\\tfrac34h\\) 自頂點量起），xz² 項對 x 奇對稱為 0」。"
+    },
+    {
+     "check": "R1",
+     "where": "頂蓋通量為 0 的論證出現三次：考場標準作答「頂蓋 z=2」段、失分點第 1 條、「條件與疑義」整段",
+     "fix": "刪除「## 條件與疑義」整段；在（一）面積分加頂蓋那一行補一句「題稱封閉曲面，故含 z=2 頂蓋；頂蓋通量為 0，只算側面答案亦同為 16π」。失分點第 1 條改成本題特有的錯誤，例如「頂蓋外法向為 +k̂，F·k̂=3y，不是 4xz 或 xyz²」。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-107-03-4",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "a0=2/π（常數項 1/π），a1=0，b1=1/2，奇數 n≥3 的 a_n=0，a_{2k}=−2/(π(4k²−1))；mpmath 數值 a2=−0.2122066=−2/(3π)、a4=−0.0424413=−2/(15π)；Parseval 1/2 成立。",
+   "issues": [
+    {
+     "check": "R3",
+     "where": "失分點第 2 條「一般公式 1/(1−n²) 在 n=1 無意義」",
+     "fix": "（建議，非阻擋）正文顯示的通式是 −2/(π(n²−1))（僅 n 偶），與失分點引用的 1/(1−n²) 形式不一致；改為「通式 \\(a_n=\\frac{1+\\cos n\\pi}{\\pi(1-n^2)}\\) 在 n=1 分母為 0，須另算 a₁=0、b₁=½」。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-107-03-5",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "放回：Bin(3,1/4) → 27/64, 27/64, 9/64, 1/64；不放回：C(5,x)C(15,3−x)/1140 → 91/228, 35/76, 5/38, 1/114；兩列和為 1。",
+   "issues": [
+    {
+     "check": "R5",
+     "where": "已知與所求「題目要求任意 x…不必額外求指定 x 的數值」與驗算「逐一列出…只是驗算示例，不是題目另問的小題」",
+     "fix": "（建議，非阻擋）兩句屬防衛性說明，失分點第 3 條已涵蓋；但三個字串被 tests/test_score_oriented_core_path.py::test_discrete_probability_variation_answers_arbitrary_x 鎖住（canonical 與年度整卷皆斷言），worker 不能刪。若主 session 要精簡，需先放寬該測試再刪；否則維持現狀。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-106-03-1",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "numpy inv(A)×3 = [[2,1,0,0],[−1,1,0,0],[0,0,−1,2],[0,0,2,−1]]，與 box 一致；det=−9。HEAD 舊版矩陣 [[1,1,0,0],[0,1,2,0],…] 與裁切圖不符，新版依官方分塊對角矩陣修正正確。10 分，compact 合規。",
+   "issues": []
+  },
+  {
+   "qid": "EE-106-03-2",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "QR 分解求最小平方：17x=(18,−8)；A^TA=[[6,5],[5,7]]、A^Tb=(4,2)；殘差 (−11,−2,24,−9)/17 與兩行正交；失分點 (23/17,−14/17) 重算正確。HEAD 舊版 A 抄錯（[[2,1],[1,1],[2,0],[1,1]]）。",
+   "issues": []
+  },
+  {
+   "qid": "EE-106-03-3",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "重根 −2，令 y=e^{−2x}v → v''=2/x² → v=−2ln x+C₂x+C₁；變數變易 u₁'=−2/x、u₂'=2/x² 重算一致。10 分，compact 合規。",
+   "issues": []
+  },
+  {
+   "qid": "EE-106-03-4",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "卷積核 (1+τ)y(t−τ)=(1+t)*y；Y(1−1/s−1/s²)=1/s−1/(s²−1) → Y=s/(s²−1) → cosh t；另以梯形法數值解 Volterra 方程，y(2)=3.762196 vs cosh2=3.762196；∫₀^t τcosh(t−τ)dτ=cosh t−1 重算正確。HEAD 舊版誤讀為 y(τ) 而得非初等解。",
+   "issues": []
+  },
+  {
+   "qid": "EE-106-03-5",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "|z|=2、arg=−π/3 → 2¹²e^{−4πi}=4096；z³=−8 → (−8)⁴=4096。15 分但單一公式（De Moivre）、508 字，compact 合規。",
+   "issues": [
+    {
+     "check": "R3",
+     "where": "失分點第 1 條",
+     "fix": "（建議，非阻擋）該條自承「結果仍為正實數」，即此錯不影響答案，作為失分點自相抵銷；可刪除，或改為「誤取 arg z=π/3 而寫成 \\(z=2e^{i\\pi/3}\\) 的極式會被扣過程分，雖最終值相同」。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-106-03-6",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "∫₀^∞ kxe^{−x}dx=k → k=1；F(x)=1−(x+1)e^{−x}（x>0）、0（x≤0）；F'=f、F(∞)=1。15 分（10+5），但兩小題由同一反導數 ∫₀^x ue^{−u}du 求得，屬單一公式題，619 字 <700，compact 可接受（邊界情形）。tests/test_formula_format.py 鎖定的 \\end{cases} 格式仍在。",
+   "issues": []
+  },
+  {
+   "qid": "EE-106-03-7",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "E=7/2、E[X²]=91/6 → 35/12；定義法與 (n²−1)/12 公式一致。10 分，compact 合規。",
+   "issues": []
+  }
+ ],
+ "other_notes": [
+  "lint 漏洞：scripts/lint_canonical_notes.py 的 compact 配分正則 r'（\\s*(\\d+)\\s*分\\s*）' 抓不到「（每小題 10 分，共 20 分）」，EE-108-03-3（744 字）、EE-108-03-5（729 字）因此計為 0 分而逃過 compact-not-allowed。建議主 session 另行修正（例如先抓「共 (\\d+) 分」，否則加總各「(\\d+) 分」），並補一個回歸測試；修正後全庫可能浮出其他同型題。",
+  "compact 規則判定標準：≤10 分直接合規（106-1、106-3、106-7、108-2、108-4）；>10 分者須單一公式且 ≤700 字：106-5（De Moivre）、106-6（同一反導數）判合規；108-3、108-5 超過 700 字、108-6 需三個式子，判不合規。",
+  "裁切圖與 依考科分類/03_工程數學.md（經 dashboard-data.js）題幹逐題比對 18 題一致；worker 報告 03.json 於盲審完成後才讀，結論與其一致，唯 worker 未處理 107-3「面積分」必須列入作答及 compact 合規問題。"
+ ]
+}

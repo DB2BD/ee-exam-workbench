@@ -84,6 +84,15 @@ def expected_subitems(stem: str) -> int:
     return len({re.sub(r"[\s（）()]", "", item) for item in SUBITEM.findall(stem)})
 
 
+def total_points(stem: str) -> int:
+    """Total marks of a question: 「共 N 分」 when stated, else the sum of 「（N 分）」."""
+
+    stated = re.findall(r"共\s*(\d+)\s*分", stem)
+    if stated:
+        return max(int(value) for value in stated)
+    return sum(int(value) for value in re.findall(r"[（(]\s*(\d+)\s*分\s*[）)]", stem))
+
+
 def sections(body: str) -> list[str]:
     return [heading.strip() for heading in re.findall(r"^##\s+(.+?)\s*$", body, re.M)]
 
@@ -128,7 +137,7 @@ def lint(path: Path, stem: str) -> dict:
         order = [heading for heading in found if heading in allowed]
         compact = fields.get("compact") == "true"
         if compact:
-            points = sum(int(value) for value in re.findall(r"（\s*(\d+)\s*分\s*）", stem))
+            points = total_points(stem)
             if points > COMPACT_MAX_POINTS and len(body.strip()) > COMPACT_MAX_CHARS:
                 errors.append(f"compact-not-allowed:{points}分")
         for heading in COMPACT_SECTIONS if compact else REQUIRED_SECTIONS:

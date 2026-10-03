@@ -2282,7 +2282,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-3.md",
     "依考科分類/03_工程數學/110年_電機工程技師_工程數學.pdf",
     2,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -3291,7 +3291,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-108-02-5.md",
     "依考科分類/02_電子學_含電力電子/108年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -3935,7 +3935,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-107-04-1.md",
     "依考科分類/04_電機機械/107年_電機工程技師_電機機械.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [
       "S = VI*"
     ],
@@ -4173,7 +4173,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-107-06-4.md",
     "依考科分類/06_工業配電/107年_電機工程技師_工業配電.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -4292,7 +4292,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-106-02-2.md",
     "依考科分類/02_電子學_含電力電子/106年_電機工程技師_電子學（包括電力電子學）.pdf",
     4,
-    "reference_book_verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -4628,7 +4628,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-106-05-3.md",
     "依考科分類/05_電力系統/106年_電機工程技師_電力系統.pdf",
     3,
-    "needs_manual_review",
+    "verified",
     [],
     true
   ],
@@ -4687,7 +4687,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-106-06-2.md",
     "依考科分類/06_工業配電/106年_電機工程技師_工業配電.pdf",
     4,
-    "reference_book_verified",
+    "needs_manual_review",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -7155,9 +7155,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-108-02-5": {
     "primaryChapter": "el-pe-buck-boost",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "三相交錯式降壓轉換器與輸出漣波",
-    "noteTitle": "108 年電子學第 5 題｜三相交錯式降壓轉換器"
+    "noteTitle": "108 年電子學第 5 題｜三相交錯式降壓轉換器",
+    "manualChapter": "el-pe-buck-boost"
   },
   "EE-105-03-1": {
     "primaryChapter": "em-second-order-ode-homogeneous",
@@ -7239,9 +7240,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-110-03-3": {
     "primaryChapter": "em-fourier-series",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "傅立葉級數",
-    "noteTitle": "110 年第 3 題｜\\(f(x)=x-x^2\\) 的傅立葉展開"
+    "noteTitle": "110 年第 3 題｜\\(f(x)=x-x^2\\) 的傅立葉展開",
+    "manualChapter": "em-fourier-series"
   },
   "EE-111-03-2": {
     "primaryChapter": "em-laplace-transform",
@@ -7565,9 +7567,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-107-04-1": {
     "primaryChapter": "emach-three-phase-transformer",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "三相變壓器 Y–Y 接線、供電電流與利用率",
-    "noteTitle": "107 年電機機械第 1 題｜三相變壓器供電與利用率"
+    "noteTitle": "107 年電機機械第 1 題｜三相變壓器供電與利用率",
+    "manualChapter": "emach-three-phase-transformer"
   },
   "EE-113-04-3": {
     "primaryChapter": "emach-dc-motor-generator",
@@ -8529,9 +8532,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-107-06-4": {
     "primaryChapter": "dist-motor-installation",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "電動機配線設計：分路、幹線與過電流保護",
-    "noteTitle": "107 年工業配電第 4 題｜多台電動機分路與幹線設計"
+    "noteTitle": "107 年工業配電第 4 題｜多台電動機分路與幹線設計",
+    "manualChapter": "dist-motor-installation"
   },
   "EE-112-06-3": {
     "primaryChapter": "dist-short-circuit-capacity",
@@ -8604,10 +8608,10 @@ const SOLUTION_REVIEW_METADATA = {
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=113190&q=1&s=0701&t=Q"
   },
   "EE-106-02-2": {
-    "disposition": "",
-    "blocker": "",
-    "action": "",
-    "evidence": "",
+    "disposition": "reference_book_conflict",
+    "blocker": "主解的開迴路增益 A 計入分壓器負載 R_1+R_2，與參考書未含負載的 A=½g_mN·r_o 不同；A_f 差約 8.5%、R_out,f 差約 28%（僅在 R_1+R_2≫r_o/2 時一致）。官方題面無數值，也無標準答案。",
+    "action": "取得官方參考解答或命題口徑，確認開迴路增益是否計入 R_1+R_2 負載；確認前以含負載的 A 為主解，參考書形式視為 R_1+R_2≫r_o/2 的極限，列於條件與疑義。",
+    "evidence": "四電晶體完整小訊號節點解（g_mN=g_mP=1 mS、r_o=100 kΩ、R_1=10 kΩ、R_2=90 kΩ）：A_f=7.681、R_out,f=7757 Ω；含負載的 A 式給 7.692、7692 Ω；參考書 A 式給 8.333、5556 Ω。令 g_mP→∞ 時含負載的 A 式與節點解嚴格相等。2026-10-03 審查確認，由參考書核對降為人工覆核。",
     "referenceBookEvidence": "使用者提供參考書照片將原電路化為非反相負回授放大器，採 A=1/2 g_mN r_o、β=R_1/(R_1+R_2)，得到 A_f=A/(1+Aβ) 與 R_out,f=((R_1+R_2)∥(r_o/2))/(1+Aβ)。此為 reference_book evidence，not official，不是官方題面新增資料。",
     "verificationScope": "reference_book",
     "referenceBookConvention": "參考書採對稱 MOSFET 小訊號模型 r_ON=r_OP=r_o，並以符號式回答；題圖未提供數值元件參數，故不虛構數值結果。",
@@ -8643,6 +8647,26 @@ const SOLUTION_REVIEW_METADATA = {
     "referenceBookConvention": "以 hybrid-\\pi 模型、r_{o1}=r_{o2}=\\infty、理想偏壓電流源交流開路，\\beta_T 表示電晶體共集級的電流增益；\\beta_f 僅表示回授因素，避免符號混淆。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
   },
+  "EE-108-02-5": {
+    "disposition": "stem_internal_conflict",
+    "blocker": "題給 V_S=9 V、D=1/6 的理想降壓平均輸出為 1.5 V，與題給 V_L=3 V 矛盾；依 V_L=3 V，一相導通時三相電感電流總斜率為 0、全關時為 −9/L，總電流每 T/3 淨降 0.75 A，不存在週期穩態，「以 3 A 為中心的 3.375／2.625 A」不是任何真實波形的極值。",
+    "action": "取得官方參考解答或更正公告，確認 V_L 取 3 V 或 DV_S=1.5 V；確認前 L_min=100 μH 與漣波頻率 60 kHz 由題給資料直接推得，最高、最低值並列 3.375／2.625 A（V_L=3 V 的形式值）與 1.65／1.35 A（V_L=1.5 V 自洽值，此時 L=125 μH）。",
+    "evidence": "獨立狀態斜率與伏秒平衡驗算：V_L=3 V 時 6×(1/6)=1 對 3×(5/6)=2.5，不平衡；V_L=1.5 V 時 7.5×(1/6)=1.25=1.5×(5/6)，平衡，ΔI_o=0.30 A，極值 1.65／1.35 A。DCM 讀法需 D2=1/3、電感峰值約 12 A，違反 0.5 A 漣波條件而不成立。2026-10-03 審查確認題幹自相矛盾，降為人工覆核。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=108180&q=1&s=0601&t=Q"
+  },
+  "EE-110-03-3": {
+    "disposition": "missing_expansion_interval",
+    "blocker": "官方題幹只寫「求 f(x)=x−x² 的傅立葉展開」，未給展開區間或週期；主解自行假設 (−π,π)、週期 2π。",
+    "action": "取得官方參考解答或閱卷口徑，確認展開區間（(−π,π) 或 (−L,L)）；確認前以 (−π,π) 為主解，並保留 (−L,L) 通式。",
+    "evidence": "題幹審查（reports/題幹稽核_2026-10-03.md）逐字核對裁切圖，確認無區間。SymPy 驗算：(−π,π) 的係數 a_0/2=−π²/3、a_n=−4(−1)^n/n²、b_n=2(−1)^(n+1)/n，並檢驗 x=0 與跳躍點 x=π 的收斂值；(−L,L) 通式 L=π 時回到主解。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=110180&q=1&s=0608&t=Q"
+  },
   "EE-112-03-2": {
     "disposition": "stem_internal_contradiction",
     "blocker": "兩段定義域合計 [−2,4) 長 6，但 f(x+4)=f(x) 規定週期 4，兩者矛盾（例如 x=−1 時兩式給 2 與 6）。",
@@ -8662,6 +8686,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "",
     "referenceBookConvention": "",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0708&t=Q"
+  },
+  "EE-107-04-1": {
+    "disposition": "load_model_not_specified",
+    "blocker": "題幹未說明電源降至 10.92 kV 時負載是維持 165 kVA（定視在功率）還是維持 380 V 下 165 kVA 的定阻抗，「供給之線電流」也未指明一次側或二次側；各讀法的線電流與利用率不同。",
+    "action": "取得官方參考解答或命題口徑，確認負載模型與線電流所指的一側；確認前以定 165 kVA 的一次側線電流 8.724 A、利用率 83.33% 為主解，並保留定阻抗分支（8.005 A、76.46%）與二次側線電流（261.7 A／240.1 A）。",
+    "evidence": "獨立 numpy 驗算：定 kVA 時 I_L=8.7237 A、U=83.33%；定阻抗時二次線電壓 364.0 V、S=151.40 kVA、I_L=8.0045 A、U=76.46%；二次側線電流 261.7 A（定 kVA）／240.1 A（定阻抗），皆低於每台額定二次電流 300 A。2026-10-03 審查確認題幹未給負載模型，降為人工覆核。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=107180&q=1&s=0610&t=Q"
   },
   "EE-105-04-5": {
     "disposition": "flux_curve_parameterized",
@@ -8723,24 +8757,14 @@ const SOLUTION_REVIEW_METADATA = {
     "referenceBookConvention": "",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q"
   },
-  "EE-106-05-3": {
-    "disposition": "unresolved_operating_branch",
-    "blocker": "官方題面未指定 Newton 初值、正常運轉條件或電壓穩定分支；同一潮流方程存在高、低電壓兩個正值解。",
-    "action": "取得官方完整解答或命題口徑確認採用的運轉分支；在此之前保留兩組根及共同可驗證的 P_1 與無效功率方向。",
-    "evidence": "以官方線路電抗建立的 Y_bus 與三條潮流方程皆可回代出高電壓 |V_3|=0.686921 pu 及低電壓 |V_3|=0.396731 pu；題面未提供足以排除低電壓根的條件，因此不能把高電壓根冒充唯一答案。",
-    "referenceBookEvidence": "",
-    "verificationScope": "",
-    "referenceBookConvention": "",
-    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0611&t=Q"
-  },
   "EE-106-06-2": {
-    "disposition": "",
-    "blocker": "",
-    "action": "",
-    "evidence": "",
+    "disposition": "reference_book_conflict",
+    "blocker": "參考書 Z_f=0.057 pu（5.98 kA／7.475 kA）無法由題給阻抗重建，題給阻抗合成的各模型為 7.96–11.32 kA；題幹也未給非對稱倍率 K（主解採低壓慣例 K=1.25），且上游是否取往返迴路需命題口徑確認。",
+    "action": "取得官方參考解答或命題口徑，確認故障型式、上游迴路阻抗取法與 K；確認前以題幹數據、220 V 線間短路且上游取 Z_1+Z_2=2Z_1 的 7.956 kA（K=1.25 時 9.946 kA）為主解，參考書值列於條件與疑義。",
+    "evidence": "以 220 V 側歐姆值獨立驗算：|Z|=0.02765 Ω，220/0.02765=7.956 kA，與標么法一致；上游不加倍的簡化相加為 9.927 kA；參考書 Z_f=0.057 pu 以常見倍數搜尋仍無法重建。2026-10-03 審查確認，由參考書核對降為人工覆核。",
     "referenceBookEvidence": "使用者提供參考書照片依圖與參考書採 F 點為 220 V 線間短路，三相 380 V 側換算後 Zf=0.057 pu；對稱故障電流 5.98 kA，以 K=1.25 得非對稱故障電流 7.475 kA。此為 reference_book evidence，not official，不是官方題面新增資料。",
     "verificationScope": "reference_book",
-    "referenceBookConvention": "主要解答採參考書的線間短路、三相側短路容量換算與 K 倍率慣例；官方裁切圖中 F 的位置與其他阻抗解讀仍保留為來源對照。",
+    "referenceBookConvention": "參考書採 F 點為 220 V 線間短路、由三相 380 V 側換算與 K=1.25 倍率，Z_f=0.057 pu 無法由題給阻抗重建，僅作來源對照；主解改採題幹數據。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=106180&q=1&s=0612&t=Q"
   },
   "EE-107-06-2": {
@@ -8862,6 +8886,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "reference_book",
     "referenceBookConvention": "以參考書的 1 MW≈1 MVA 額定換算、共同基準與三馬達投入慣例作主要解答；官方拓撲與原始數據仍由 source_crop 保留。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
+  },
+  "EE-107-06-4": {
+    "disposition": "external_table_values_not_given",
+    "blocker": "題幹未附屋內線路裝置規則的導線安培容量表與標準 AT 級距；30／38／50／60 mm² 的容量為題外表值，不同版本表值不同（例如 38 mm² 的 3 線 PVC 管容量有 100 A 與 115 A 兩種讀法），線徑無法由題面唯一確定。",
+    "action": "以屋內線路裝置規則 PVC 管內 3 線安培容量表核對 30、38、50、60 mm² 的值（或取得官方參考解答）；確認前以 1.25 倍導線電流（33.75 A、97.5 A、124.5 A）與標準 AT（分路 50 AT、125 AT，幹線 150 AT）為主解，線徑依條件與疑義的假設表。",
+    "evidence": "獨立重算：1.25×27=33.75 A、1.5×27=40.5 A→50 AT；1.25×78=97.5 A、1.5×78=117 A→125 AT；幹線 1.25×78+27=124.5 A、1.5×78+27=144 A→150 AT（≤125+27=152 A）。2026-10-03 審查確認 AT 與電流與表值無關，降為人工覆核。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=107180&q=1&s=0612&t=Q"
   }
 };
 

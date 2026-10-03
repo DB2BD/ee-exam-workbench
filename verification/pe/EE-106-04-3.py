@@ -23,5 +23,16 @@ for Te, n_expect in ((TL + Kphi * Ia0, nA), (TL, nB)):
     assert abs(w * 60 / (2 * math.pi) - n_expect) < 1e-9
 # branch A also reproduces the stem's no-load point exactly
 assert abs((Vt - Ra * Ia0) / Kphi * 60 / (2 * math.pi) - n0) < 1e-9
+# branch C: constant rotational-loss POWER (792 W = Kphi*Ia0*w0 at no load)
+Ploss = Kphi * Ia0 * w0
+from math import sqrt
+# Te*w = Ea*Ia - ... solve  Ea*(Ia-Ia0)... : Kphi*w*Ia = TL*w + Ploss, Ea = Kphi*w = Vt - Ra*Ia
+wC = (Vt - Ra * (TL / Kphi)) / Kphi
+for _ in range(200):
+    IaC = (TL * wC + Ploss) / (Kphi * wC)
+    wC = (Vt - Ra * IaC) / Kphi
+nC = wC * 60 / (2 * math.pi)
+assert abs(Ploss - 792) / 792 <= 0.005 and abs(IaC - 57.51) / 57.51 <= 0.005 and abs(nC - 864.9) / 864.9 <= 0.005
+print(f"C: Ia={IaC:.3f} n={nC:.2f}")
 print(f"Kphi={Kphi:.7f} A: Ia={IaA:.4f} n={nA:.3f} | B: Ia={IaB:.4f} n={nB:.3f}")
 print("PASS EE-106-04-3")

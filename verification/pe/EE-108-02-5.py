@@ -70,6 +70,12 @@ assert vals2 == [-4.5, 4.5], vals2
 assert abs(np.sum(sl2) * dt) < 1e-3 * 4.5 / L_alt * Tf / 2   # periodic: zero net change
 dI_alt = 4.5 / L_alt * Tf / 6
 assert close(dI_alt, 0.3)
+# net change of the total current per T/3 at the stated V_L = 3 V (no periodic steady state) vs the self-consistent 1.5 V
+net_stated = float(np.sum(sl) * dt) / 3
+assert close(net_stated, -0.75), net_stated
+assert close(float(D) * Vs, 1.5) and abs((Vs - 1.5) * float(D) - 1.5 * (1 - float(D))) < 1e-12
+assert abs((Vs - VL) * float(D) - VL * (1 - float(D))) > 1
+assert close(1.5 + dI_alt / 2, 1.65) and close(1.5 - dI_alt / 2, 1.35)
 print(f"L={Lv*1e6:.3f} uH, dI_tot={dI_tot:.4f} A, Imax={Imax:.4f}, Imin={Imin:.4f}; alt L_off={float(L_off)*1e6:.1f} uH, "
       f"alt L={L_alt*1e6:.1f} uH dI={dI_alt:.3f} A")
 print("PASS EE-108-02-5")

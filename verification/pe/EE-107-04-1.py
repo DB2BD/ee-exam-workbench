@@ -14,7 +14,7 @@ V_actual = 10.92e3
 # main model (constant 165 kVA)
 IL = Sload / (np.sqrt(3) * V_actual)
 util = (Sload / 3) / Sunit
-assert abs(IL - 8.725) / 8.725 <= 0.005
+assert abs(IL - 8.724) / 8.724 <= 0.005
 assert abs(util - 0.8333) / 0.8333 <= 0.005
 # independent: phase-by-phase, power balance of each transformer
 Iph_prim = (Sload / 3) / (V_actual / np.sqrt(3))
@@ -28,5 +28,12 @@ S_actual = Sload * (Vsec_line / Vload) ** 2
 IL_b = S_actual / (np.sqrt(3) * V_actual)
 util_b = S_actual / 3 / Sunit
 print(f"main: IL={IL:.4f} A util={util*100:.2f}% | Z-branch: Vsec={Vsec_line:.1f} V S={S_actual/1e3:.2f} kVA IL={IL_b:.3f} A util={util_b*100:.2f}%")
+assert abs(IL_b - 8.005) / 8.005 <= 0.005
+assert abs(util_b - 0.7646) / 0.7646 <= 0.005
+assert abs(S_actual - 151.40e3) / 151.40e3 <= 0.005
+# secondary-side check (independent): 364 V, 165 kVA -> 261.7 A, /30 -> 8.724 A
+assert abs(Sload / (np.sqrt(3) * 364.0) - 261.7) / 261.7 <= 0.005
+assert abs(Sload / (np.sqrt(3) * 364.0) / 30 - 8.724) / 8.724 <= 0.005
+assert abs(S_actual / (np.sqrt(3) * 364.0) - 240.1) / 240.1 <= 0.005
 assert abs(IL_b - Sload / (np.sqrt(3) * Vsrc_nom) * k) / IL_b < 0.002
 print("PASS EE-107-04-1")

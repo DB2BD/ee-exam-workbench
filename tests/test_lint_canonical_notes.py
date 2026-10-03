@@ -104,6 +104,11 @@ class LintCanonicalNotesTests(unittest.TestCase):
         padded = body + "\n" + "說明。" * 400
         self.assertIn("compact-not-allowed:20分", self.run_lint(padded, stem=long_stem, front=front))
 
+    def test_total_points_reads_shared_marks(self):
+        self.assertEqual(lint.total_points("（每小題 10 分，共 20 分）"), 20)
+        self.assertEqual(lint.total_points("（一）…（5 分）（二）…（15 分）"), 20)
+        self.assertEqual(lint.total_points("求 E[A]。(10分)"), 10)
+
     def test_unmigrated_note_only_gets_universal_checks(self):
         front = FRONT.replace("template: lean-v1\n", "")
         body = LEAN_BODY + "\n## 完整教學推導\n"

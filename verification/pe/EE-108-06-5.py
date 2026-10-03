@@ -34,4 +34,7 @@ assert abs(3 * I1**2 * R - loss(S1)) < 1e-6
 
 d_s = (S1 - S2) / 1e3
 assert abs(d_s - 65.698) / 65.698 < 5e-4                    # boxed (四)
+# alternative definition (note's 條件與疑義): extra pf-0.8 load inside the 800 kVA limit, Qc stays
+x = max(np.roots([1 + 0.75**2, 2 * 640 + 2 * 360 * 0.75, 640**2 + 360**2 - 800**2]))
+assert abs(x - 52.98) < 0.01 and abs(x / 0.8 - 66.22) < 0.01
 print("PASS EE-108-06-5")

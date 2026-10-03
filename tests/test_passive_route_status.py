@@ -14,10 +14,15 @@ EXPECTED_MANUAL_QIDS = {
     "EE-104-06-5",
     "EE-105-04-5",
     "EE-106-04-3",
-    "EE-106-05-3",
+    "EE-106-02-2",
+    "EE-106-06-2",
     "EE-109-02-2",
     "EE-110-01-1",
     "EE-110-06-3",
+    "EE-107-04-1",
+    "EE-107-06-4",
+    "EE-108-02-5",
+    "EE-110-03-3",
     "EE-111-02-4",
     "EE-111-04-4",
     "EE-113-02-4",
@@ -32,8 +37,12 @@ EXPECTED_MANUAL_QIDS = {
 }
 # Downgraded to needs_manual_review on 2026-10-03 (user-approved): EE-110-01-1,
 # EE-110-06-3, EE-111-02-4, EE-111-04-4; none sits in a passive scored route.
+# Downgraded on 2026-10-03 (Wave 3, user-approved): EE-107-04-1, EE-108-02-5, EE-106-02-2,
+# EE-106-06-2, EE-107-06-4, EE-110-03-3. EE-108-02-5 left the 108 retest pack scoring set
+# (like EE-114-06-4 left the 114 mock) and has no first-move rescue card.
 # Promoted back to verified on 2026-10-02: the answer is independent of the magnetization curve.
-PROMOTED_FROM_MANUAL_QIDS = {"EE-113-04-3"}
+# Promoted to verified on 2026-10-03: all asked answers are branch-independent.
+PROMOTED_FROM_MANUAL_QIDS = {"EE-113-04-3", "EE-106-05-3"}
 
 
 class TestPassiveRouteStatus(unittest.TestCase):
@@ -121,14 +130,14 @@ class TestPassiveRouteStatus(unittest.TestCase):
         self.assertEqual(actual, EXPECTED_MANUAL_QIDS)
 
         text = BOUNDARY.read_text(encoding="utf-8")
-        self.assertIn("# 上榜精確解答邊界：19 題條件題安全作答卡", text)
-        self.assertIn("19 題條件作答卡", text)
+        self.assertIn("# 上榜精確解答邊界：24 題條件題安全作答卡", text)
+        self.assertIn("24 題條件作答卡", text)
         card_qids = [
             match.group(1)
             for line in text.splitlines()
             if (match := re.match(r"^\| \[`(EE-\d{3}-\d{2}-\d+)`\]", line))
         ]
-        self.assertEqual(len(card_qids), 19)
+        self.assertEqual(len(card_qids), 24)
         self.assertEqual(set(card_qids), EXPECTED_MANUAL_QIDS)
         for qid in PROMOTED_FROM_MANUAL_QIDS:
             self.assertNotIn(qid, text)
@@ -152,6 +161,12 @@ class TestPassiveRouteStatus(unittest.TestCase):
             "EE-110-06-3": ("1000 kVA", "420.04", "800 kW", "164.11"),
             "EE-111-02-4": ("\\beta_f=I_f/I_o=-1", "R_{iA}=r_{\\pi1}", "r_{\\pi1}/(1+|A|)", "144.0", "503.6"),
             "EE-111-04-4": ("68.6414", "118.595", "110.264", "線性化 OCC", "68.87%", "186 A", "68.65"),
+            "EE-107-04-1": ("8.724", "83.33", "151.40", "8.005", "76.46", "261.7", "240.1"),
+            "EE-108-02-5": ("100\\,\\mu\\mathrm H", "60\\,\\mathrm{kHz}", "3.375/2.625", "1.65/1.35", "125\\,\\mu\\mathrm H"),
+            "EE-106-02-2": ("串聯-並聯", "(r_o/2)\\parallel(R_1+R_2)", "\\tfrac12g_{mN}r_o", "8.5%", "28%"),
+            "EE-106-06-2": ("0.04285", "7.956", "9.946", "K=1.25", "5.98", "9.927"),
+            "EE-107-06-4": ("33.75", "97.5", "124.5", "50\\,\\mathrm{AT}", "125\\,\\mathrm{AT}", "150\\,\\mathrm{AT}", "安培容量表"),
+            "EE-110-03-3": ("(-\\pi,\\pi)", "-\\pi^2/3", "(-L,L)", "-L^2/3", "L=\\pi"),
         }
         for qid, phrases in expected.items():
             for phrase in phrases:

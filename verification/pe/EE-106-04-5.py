@@ -16,6 +16,6 @@ for name, sg in (("lag", +1), ("lead", -1)):
     E = np.hypot(Vph + Ia * (Ra * 0.8 + sg * Xs * 0.6), Ia * (Xs * 0.8 - sg * Ra * 0.6))
     assert abs((E - Vph) / Vph * 100 - res[name]) < 1e-9
 assert abs(res["lag"] - 94.65) / 94.65 <= 0.005
-assert abs(res["lead"] - (-0.36)) / 0.36 <= 0.05
+assert abs(res["lead"] - (-0.357)) / 0.357 <= 0.005
 print(f"VR lag={res['lag']:.3f}% lead={res['lead']:.3f}%")
 print("PASS EE-106-04-5")

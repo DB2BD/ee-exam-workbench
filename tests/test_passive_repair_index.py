@@ -19,7 +19,7 @@ SUBJECT_COUNTS = {
     "06": {114: 5, 108: 5},
 }
 
-BOUNDARY_QIDS = {"EE-114-06-2", "EE-114-06-3", "EE-114-06-4"}
+BOUNDARY_QIDS = {"EE-114-06-2", "EE-114-06-3", "EE-114-06-4", "EE-108-02-5"}
 
 REPAIR_RULES = {
     "R": "重讀題幹，只寫已知、所求、限制條件與應用章節，再閉卷重開題。",
@@ -100,7 +100,7 @@ class TestPassiveRepairIndex(unittest.TestCase):
                 self.assertTrue(resolved.is_file(), resolved)
                 self.assertEqual(resolved.stem, qid)
 
-    def test_original_59_question_index_keeps_three_manual_boundary_questions(self):
+    def test_original_59_question_index_keeps_four_manual_boundary_questions(self):
         by_qid = {
             path.stem: path
             for path in CANONICAL_ROOT.glob("*/canonical/EE-*.md")
@@ -119,14 +119,20 @@ class TestPassiveRepairIndex(unittest.TestCase):
 
     def test_boundary_questions_are_disclosed_as_unscored(self):
         self.assertTrue(BOUNDARY_QIDS <= set(self.rows))
-        self.assertIn("59 題中 56 題 canonical `audit_status` 為 `verified`", self.text)
+        self.assertIn("59 題中 55 題 canonical `audit_status` 為 `verified`", self.text)
         self.assertNotIn("均為 `verified`", self.text)
-        note = next(
-            line for line in self.text.splitlines()
-            if line.startswith("- ") and all(f"`{qid}`" in line for qid in BOUNDARY_QIDS)
-        )
-        for phrase in ("`needs_manual_review`", "不列 114 年模考預設計分", "先寫假設再寫條件解", "上榜精確解答邊界_條件題處理.md"):
-            self.assertIn(phrase, note)
+        for qids, scored_phrase in (
+            (("EE-114-06-2", "EE-114-06-3", "EE-114-06-4"), "不列 114 年模考預設計分"),
+            (("EE-108-02-5",), "不列 108 年複測預設計分"),
+        ):
+            note = next(
+                line for line in self.text.splitlines()
+                if line.startswith("- ") and all(f"`{qid}`" in line for qid in qids)
+            )
+            for phrase in ("`needs_manual_review`", scored_phrase, "先寫假設再寫條件解", "上榜精確解答邊界_條件題處理.md"):
+                self.assertIn(phrase, note)
+        # Boundary questions are never S/T rescue-card questions.
+        self.assertEqual(self.rows["EE-108-02-5"]["code"], "R")
 
     def test_fixed_rules_are_present_and_passive(self):
         self.assertIn("被動、免回填", self.text)

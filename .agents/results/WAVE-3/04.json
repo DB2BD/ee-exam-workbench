@@ -273,5 +273,87 @@
   "proposed_status": "verified",
   "lint_passed": true,
   "open_issues": []
+ },
+ {
+  "round": 2,
+  "qid": "EE-107-04-1",
+  "verify_script": "verification/pe/EE-107-04-1.py",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "evidence": "依 review 修正：條件與疑義補二次側線電流分支（定 kVA 261.7 A／定阻抗 240.1 A）；驗算改為二次側 364 V、261.7 A÷30=8.724 A；腳本斷言 8.724 與分支值（8.005 A、76.46%、151.40 kVA、261.7/240.1 A）。audit_status 未動。",
+  "needs_test_change": "tests/test_reconstructed_pe_solutions.py 約第 1369 行 8.725\\,\\mathrm A 需改為 8.724\\ \\mathrm A（題解用 \\ 空格）；若改 needs_manual_review，第 1367 行 audit_status 同步改。",
+  "proposed_status": "needs_manual_review",
+  "asserted_strings_kept": false,
+  "open_issues": [
+   "定 kVA／定阻抗命題口徑未定"
+  ]
+ },
+ {
+  "round": 2,
+  "qid": "EE-106-04-5",
+  "verify_script": "verification/pe/EE-106-04-5.py",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "evidence": "boxed 改 −0.357%（|Ef|=119.660 V），標么驗算同步；腳本容差收緊為 0.5%。",
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "asserted_strings_kept": true,
+  "open_issues": []
+ },
+ {
+  "round": 2,
+  "qid": "EE-106-04-3",
+  "verify_script": "verification/pe/EE-106-04-3.py",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "evidence": "刪除考場標準作答重複的另一模型段與稽核流程句，僅在首段保留 52.89 A（測試字串）；條件與疑義表新增定損失功率 792 W 列（57.51 A／864.9 rpm），腳本加入並斷言；needs_manual_review、review_*、verified_at: null 保留。",
+  "needs_test_change": "",
+  "proposed_status": "needs_manual_review",
+  "asserted_strings_kept": true,
+  "open_issues": [
+   "旋轉損失模型未給"
+  ]
+ },
+ {
+  "round": 2,
+  "qid": "EE-108-04-3",
+  "verify_script": "verification/pe/EE-108-04-3.py",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "evidence": "刪除條件與疑義段，403 W 含鐵損自 P_dev 扣除、P_in 取自電路併入（四）。",
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "asserted_strings_kept": true,
+  "open_issues": []
+ },
+ {
+  "round": 2,
+  "qid": "EE-107-04-2",
+  "verify_script": "verification/pe/EE-107-04-2.py",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "evidence": "失分點 2 改為重載誤用 40 V 曲線值得 1200 rpm、正確 1000 rpm。",
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "asserted_strings_kept": true,
+  "open_issues": []
+ },
+ {
+  "round": 2,
+  "qid": "EE-106-04-2",
+  "verify_script": "verification/pe/EE-106-04-2.py",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "evidence": "失分點 1 更正：2400 V 繞組電流 20.83 A 乘 2640 V 得 55 kVA，限制電流是 240 V 串聯繞組 208.33 A。",
+  "needs_test_change": "",
+  "proposed_status": "verified",
+  "asserted_strings_kept": true,
+  "open_issues": []
  }
 ]

@@ -143,9 +143,9 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
         audit = json.loads((ROOT / "data" / "engineering-math-audit.json").read_text(encoding="utf-8"))
         self.assertEqual(audit["summary"], {
             "questions": 67,
-            "verified": 65,
+            "verified": 64,
             "suspected_error": 0,
-            "needs_manual_review": 2,  # 2026-10-02: + EE-112-03-2 (self-contradictory stem)
+            "needs_manual_review": 3,  # 2026-10-02: + EE-112-03-2 (self-contradictory stem); 2026-10-03: + EE-110-03-3 (no expansion interval)
             "not_attempted": 0,
         })
         entry = next(item for item in audit["entries"] if item["qid"] == "EE-104-03-3")

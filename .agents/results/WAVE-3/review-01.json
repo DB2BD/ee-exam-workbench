@@ -1,0 +1,131 @@
+{
+ "reviewer": "REVIEWER_lean_v1",
+ "scope": "Wave 3 電路學 108/107/106（13 題：EE-108-01-1..4、EE-107-01-1..5、EE-106-01-1..4）",
+ "summary": {
+  "pass": 10,
+  "fail": 3,
+  "fail_qids": ["EE-108-01-4", "EE-107-01-2", "EE-106-01-1"]
+ },
+ "commands": {
+  "run_verify_scripts": "scripts=13 failed=0 missing=0",
+  "lint_strict": "notes=13 lean-v1=13 notes-with-errors=0（皆 20–25 分，無 compact）",
+  "unittest": "tests.test_reconstructed_pe_solutions + tests.test_route_math_markup：83 tests，7 failures，全部屬其他科目（107/106 電力系統、電機機械、工業配電）或全域 bundle/manifest 雜湊（待重編）；本 13 題的 EE-108-01-1、EE-107-01-1/2/4/5、EE-108-01-2 斷言字串皆仍存在"
+ },
+ "priority": [
+  {
+   "qid": "EE-107-01-2",
+   "item": "corrected：i1=1.6−9.6e^{−2t} A、i3=5.76e^{−2t} A（舊 −4.8−3.2e^{−2t}、1.28e^{−2t}）",
+   "result": "CONFIRMED",
+   "reason": "放大裁切圖：8 A 與 4 A 箭頭皆向上、i1,i2 向下，故 i1(0)=−8、i2(0)=−4；i3 箭頭緊貼 10 Ω。自行求 R=40∥10=8 Ω、L=4 H、v=96e^{−2t}，i1=−8+9.6(1−e^{−2t})，i3=0.06v=5.76e^{−2t}，與新版一致。但舊答案其實有兩處誤讀：4 A 方向，以及把 i3 當 15 Ω 電流（舊稿第 62–64 行）。失分點第 1 條把 1.28e^{−2t} 全歸因於 4 A 方向，與事實不符（只看反 4 A 的話 i3=1.92e^{−2t}）。needs_test_change 成立：測試鎖的是舊錯答案。"
+  },
+  {
+   "qid": "EE-106-01-1",
+   "item": "condition_clarified：明示零初始條件，並補時域 v_ab(t)",
+   "result": "CONFIRMED",
+   "reason": "題幹確實沒給初值，拉氏題慣例取零初值，假設合理且寫在「條件與疑義」。V_ab(s) 與自行推導一致；sympy 反轉換得暫態係數 148939/36862=4.04045、104225√7/36862=7.48070，強迫響應 (45 sin6t−213 cos6t)/5266。boxed 時域式中的 7.4809 末兩位算錯（應為 7.4807，誤差在 0.5% 容許內，腳本照樣通過）。"
+  }
+ ],
+ "reviews": [
+  {
+   "qid": "EE-108-01-1",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "以疊加法求：直流部分 6 A 在 2 Ω∥1 Ω 間分流，i0=−4 A；交流 12/(3+j3)=2√2∠−45°，因為 j1∥(−j2)=j2。得 i=−4+2√2cos(5t−45°) A，P=16+4=20 W。",
+   "issues": []
+  },
+  {
+   "qid": "EE-108-01-2",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "以超節點 {A,B,C} 加上 T 節點求解；i1 箭頭沿底線向左，故 i1=−V_A。得 V_A=−2、v=−8、V_C=0、V_T=−4 V，P_2Ω=8 W。若取 i1=+V_A，會得 v=−72/13 V（與失分點所述相符）。",
+   "issues": []
+  },
+  {
+   "qid": "EE-108-01-3",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "S=V_L²/Z_Y*+3V_L²/Z_Δ*=48400/(6−j8)+145200/(8+j6)=(2904+j3872)+(11616−j8712)=14520−j4840 VA；並手算 Z_eq=3−j1 Ω 核對。",
+   "issues": []
+  },
+  {
+   "qid": "EE-108-01-4",
+   "verdict": "fail",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": false, "R4": true, "R5": true},
+   "independent_answer": "放大裁切圖確認一次側點在下、二次側點在上。i1 流入一次側非點端；i2 由二次側點端流出，等於流入非點端，故互感項取 +jωM。I2(Z_L+j2)=−jI1，Z_L=0.2−j0.4，求得 I2=5∠135° A（峰值），即 i2=5cos(2t+135°) A。",
+   "issues": [
+    {"check": "R3", "where": "失分點第 3 條「若取 10 當峰值，最後振幅只剩 \\(5/\\sqrt2\\) 倍」", "fix": "改為「若取 10 當峰值，最後振幅只剩 \\(5/\\sqrt2\\approx3.54\\ \\mathrm A\\)」。原句的「倍」是錯的：這種錯誤會使振幅變成 1/√2 倍，而不是 5/√2 倍。"}
+   ]
+  },
+  {
+   "qid": "EE-107-01-1",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "以中節點 KCL 求解：0.3125M=10，得 M=32 V，右節點 24 V。4 Ω 電流 2 A，P=16 W。另驗失分點的反極性情況：V1=160/11 V、P≈162 W，與失分點所述相符。",
+   "issues": []
+  },
+  {
+   "qid": "EE-107-01-2",
+   "verdict": "fail",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": false, "R4": true, "R5": true},
+   "independent_answer": "i_Σ(0)=−12 A、R=8 Ω、L=4 H、τ=0.5 s，v=96e^{−2t} V。i1=1.6−9.6e^{−2t} A，i3=0.6v/10=5.76e^{−2t} A。若只把 4 A 反向，會得 i1=−4.8−3.2e^{−2t}，i3=1.92e^{−2t}（不是 1.28）；1.28e^{−2t} 要再把 i3 誤當 15 Ω 電流才會出現（0.04·32）。",
+   "issues": [
+    {"check": "R3", "where": "失分點第 1 條", "fix": "改為「兩個初始電流箭頭都向上，應同號相加（\\(i_\\Sigma(0)=-12\\ \\mathrm A\\)）；把 4 A 當成向下（\\(i_2(0)=+4\\)）會得 \\(i_1=-4.8-3.2e^{-2t}\\)；若再把 \\(i_3\\) 誤當 \\(15\\ \\Omega\\) 電流，會得 \\(i_3=1.28e^{-2t}\\)。」這樣仍保留測試要的兩個字串，敘述也正確。比較好的做法是由主 session 把測試斷言改成 1.6-9.6e^{-2t}／5.76e^{-2t}（needs_test_change），再刪掉舊錯答案。年度檔 107年_電路學_全卷完整詳細題解.md 也要同步。"}
+   ]
+  },
+  {
+   "qid": "EE-107-01-3",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "以兩節點法（V_b、V_c）求解：V1=109.33+j8，V2=96−j34.67 V；I1=2+j2.667、I2=0.4+j0.533、I3=1.333+j4.267、I0=2.4+j3.2=4∠53.13° A，Z_in=18−j24 Ω。",
+   "issues": []
+  },
+  {
+   "qid": "EE-107-01-4",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "放大裁切圖確認二次側點在下端。整電路解出 V_a=−210R_L/(35+R_L)，故 R_th=35 Ω、|V_oc|=210 V，P_max=44100/140=315 W。另驗失分點：若點在同側，得 R_th=15 Ω、P=735 W，與所述相符。",
+   "issues": []
+  },
+  {
+   "qid": "EE-107-01-5",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "Z_Y=(118.5+j85.8)/3=39.5+j28.6，總阻抗 40+j30=50∠36.87°，I_a=2.4∠−36.87°、I_b=2.4∠−156.87°、I_c=2.4∠83.13° A。也驗了失分點的兩種錯法：當成線電壓得 1.386 A，Δ 不除以 3 得 0.8135 A。驗算段的 202.72∠29.04° V 也已核對。",
+   "issues": []
+  },
+  {
+   "qid": "EE-106-01-1",
+   "verdict": "fail",
+   "checks": {"P1": true, "P2": false, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "自行由 KCL 推得 V(4s²+5s+2)=16s+20+6s/(s²+36)。sympy 反轉換求得暫態 e^{−5t/8}[4.04045cos(√7t/8)+7.48070 sin(√7t/8)]，穩態 −0.04045cos6t+0.008545 sin6t；v(0+)=4 V。",
+   "issues": [
+    {"check": "P2", "where": "考場標準作答第二個 boxed 的 v_ab(t)", "fix": "把 7.4809 改成 7.4807，因為 104225√7/36862=7.48070。其餘係數 4.0404、0.04045、0.00855 正確。"}
+   ]
+  },
+  {
+   "qid": "EE-106-01-2",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "自寫 sympy 模型：以 O 為地，對 TL 節點、{ML,BL} 超節點、{TR,MR,BR} 超節點列 KCL，消去後求 i_C3=(V_BM−V_BL)/R3+(V_BM−V_BR)/R4。結果與題解 boxed 式的符號差化簡為 0。",
+   "issues": [
+    {"check": "R5", "where": "驗算段最後一句（隨機 R、8 節點 MNA、相對誤差 1e−9）", "fix": "可刪（非阻擋）。這句描述的是驗算腳本，考生無法在考場重現；前三條係數檢查已足夠。"}
+   ]
+  },
+  {
+   "qid": "EE-106-01-3",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "已確認圖上接法：上方運放 +→V1、−→V3、輸出→V4；下方運放 −→V3、+→V5、輸出→V2。由虛短得 V4=V(1+Z4/Z5)、V2=V(1−Z2Z4/(Z3Z5))，故 Z_in=Z1Z3Z5/(Z2Z4)。",
+   "issues": [
+    {"check": "P3", "where": "verification/pe/EE-106-01-3.py", "fix": "建議（非阻擋）：腳本解的是與題解相同的五式，無法抓到建模錯誤。可改用有限增益運放 V_o=A(V+−V−)，加上節點 2、4 的完整 MNA，取 A→∞ 的極限，或以 A=1e9 數值求 Z_in 再比對。"}
+   ]
+  },
+  {
+   "qid": "EE-106-01-4",
+   "verdict": "pass",
+   "checks": {"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "R1": true, "R2": true, "R3": true, "R4": true, "R5": true},
+   "independent_answer": "直接用 sympy 對原電路做節點法：T1=99/4、T2=129/4、B1=21/4、B2=−9/4 V，右源負端 −15 V，I_o=51/4=12.75 A；功率 922.5 W 也已核對。",
+   "issues": []
+  }
+ ]
+}

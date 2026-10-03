@@ -13,7 +13,8 @@ CANONICAL_ROOT = ROOT / "📝 個人題解與錯題本"
 
 SUBJECTS = (
     ("01", "電路學", (25, 25, 25, 25)),
-    ("02", "電子學（含電力電子）", (20, 20, 20, 20, 20)),
+    # 2026-10-03: 原卷第 5 題（EE-108-02-5）題幹自相矛盾，只作邊界練習，不列預設計分。
+    ("02", "電子學（含電力電子）", (20, 20, 20, 20)),
     ("03", "工程數學", (20, 10, 20, 10, 20, 20)),
     ("04", "電機機械", (20, 20, 20, 20, 20)),
     ("05", "電力系統", (20, 20, 20, 20, 20)),
@@ -30,11 +31,11 @@ class TestPassiveRetestPack(unittest.TestCase):
             for path in CANONICAL_ROOT.glob("*/canonical/EE-108-*.md")
         }
 
-    def test_all_30_questions_are_verified_and_each_subject_totals_100(self):
+    def test_all_29_scored_questions_are_verified_and_each_subject_total_is_locked(self):
         expected_qids = []
         subject_positions = []
         for subject_code, subject_name, points in SUBJECTS:
-            self.assertEqual(sum(points), 100, subject_name)
+            self.assertEqual(sum(points), 80 if subject_code == "02" else 100, subject_name)
             subject_positions.append(self.text.index(f"| {subject_name} |"))
             for number in range(1, len(points) + 1):
                 qid = f"EE-108-{subject_code}-{number}"
@@ -44,8 +45,8 @@ class TestPassiveRetestPack(unittest.TestCase):
                 canonical = self.by_qid[qid].read_text(encoding="utf-8")
                 self.assertIn("audit_status: verified", canonical, qid)
 
-        self.assertEqual(len(expected_qids), 30)
-        self.assertEqual(len(set(expected_qids)), 30)
+        self.assertEqual(len(expected_qids), 29)
+        self.assertEqual(len(set(expected_qids)), 29)
         self.assertEqual(subject_positions, sorted(subject_positions))
 
     def test_retest_contract_is_passive_and_blind(self):
@@ -55,7 +56,7 @@ class TestPassiveRetestPack(unittest.TestCase):
             "30 分鐘得分證據核對",
             "30 分鐘單題修復",
             "第一個盲測移轉點",
-            "30 題，與 36 題核心路徑零重疊",
+            "29 題預設計分題與 36 題核心路徑零重疊",
             "不與 114 年原始總分換算成改善幅度",
             "不是官方成績換算",
         )
@@ -66,9 +67,17 @@ class TestPassiveRetestPack(unittest.TestCase):
         qid_re = r"EE-\d{3}-\d{2}-\d+"
         retest_qids = set(re.findall(qid_re, self.text))
         core_qids = set(re.findall(qid_re, CORE_PATH.read_text(encoding="utf-8")))
-        self.assertEqual(len(retest_qids), 30)
+        self.assertEqual(len(retest_qids), 29)
         self.assertFalse(retest_qids & core_qids)
-        self.assertIn("108 年 30 題與核心路徑、混合橋接皆零重疊", self.text)
+        self.assertIn("108 年 29 題預設計分題與核心路徑、混合橋接皆零重疊", self.text)
+
+    def test_unresolved_electronics_q5_is_boundary_practice_not_scored(self):
+        qid = "EE-108-02-5"
+        self.assertNotIn(qid, self.text)
+        canonical = self.by_qid[qid].read_text(encoding="utf-8")
+        self.assertIn("audit_status: needs_manual_review", canonical)
+        for phrase in ("原卷第 5 題只作邊界練習", "電子學第 5 題覆核提醒", "3.375／2.625 A", "1.65／1.35 A", "四題合計 80 分", "580 分"):
+            self.assertIn(phrase, self.text)
 
     def test_every_local_markdown_link_resolves(self):
         links = re.findall(r"\[[^]]+\]\(([^)]+)\)", self.text)

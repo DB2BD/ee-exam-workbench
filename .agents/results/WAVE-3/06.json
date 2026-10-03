@@ -293,5 +293,117 @@
   "proposed_status": "verified",
   "lint_passed": true,
   "open_issues": []
+ },
+ {
+  "round": 2,
+  "qid": "EE-106-06-2",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "corrected",
+  "chars_after": 2232,
+  "proposed_status": "needs_manual_review",
+  "needs_test_change": "tests/test_reconstructed_pe_solutions.py 失敗：test_single_phase_fault_prefers_complete_line_line_return_model（需 19.36/22.49/19.1841 及『I_{peak,exact,LL}』）、test_single_phase_fault_exact_peak_branch_is_reproducible（16.5404、『四分之一週期近似』）、test_single_phase_fault_main_model_doubles_each_primary_conductor（1.6195、『故障相角、觀察時刻與系統頻率』）；另第 ~77 行 reference_book 預期表在狀態改為 needs_manual_review 後須移除 EE-106-06-2；建議改鎖 7.956、9.946、0.04285，保留 5.98 對照。未改測試。",
+  "open_issues": [
+   "待主 session 於使用者同意後改 needs_manual_review 並加 review_blocker"
+  ],
+  "old_answer": "參考書 5.98/7.475 kA 為主解",
+  "new_answer": "I_sym=7.956 kA（Zf=0.04285 pu，75 kVA/220 V，上游 2Z1 往返迴路）；I_asym=9.946 kA（K=1.25 為慣例，非題給）",
+  "evidence": "腳本：220 V 側歐姆法 |Z|=0.02765 Ω → 7.956 kA；9.927 kA 為上游不加倍；已刪除峰值分析與 boxed。參考書值移至條件與疑義對照。audit_status 與 reference_book_* 未動。"
+ },
+ {
+  "round": 2,
+  "qid": "EE-107-06-5",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "chars_after": 1100,
+  "proposed_status": "verified",
+  "needs_test_change": "",
+  "open_issues": [],
+  "evidence": "移除 compact，新增已知與所求；lint --strict 已實跑通過；答案不變"
+ },
+ {
+  "round": 2,
+  "qid": "EE-108-06-3",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "chars_after": 1660,
+  "proposed_status": "verified",
+  "needs_test_change": "",
+  "open_issues": [],
+  "evidence": "刪除條件與疑義，圖中標『11.4 kV（線間）』"
+ },
+ {
+  "round": 2,
+  "qid": "EE-106-06-3",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "chars_after": 1670,
+  "proposed_status": "verified",
+  "needs_test_change": "",
+  "open_issues": [],
+  "evidence": "刪除條件與疑義，併入『104.8%、105% 容許』一句；測試字串保留"
+ },
+ {
+  "round": 2,
+  "qid": "EE-107-06-1",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "chars_after": 1418,
+  "proposed_status": "verified",
+  "needs_test_change": "",
+  "open_issues": [],
+  "evidence": "刪除條件與疑義"
+ },
+ {
+  "round": 2,
+  "qid": "EE-107-06-2",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "chars_after": 2112,
+  "proposed_status": "reference_book_verified",
+  "needs_test_change": "",
+  "open_issues": [],
+  "evidence": "條件與疑義濃縮為保留測試字串的段落；表格 I 欄改 \\(238\\,\\mathrm A\\)/\\(250\\,\\mathrm A\\)，並保留純文字 238 A、250 A；刪『最大容許長度 108.42 m』重複。canonical 斷言全過；年度彙編頁需由主 session 重新生成（test_motor_voltage_drop_review_traces_historical_current_rule 目前因年度頁尚無 238\\,\\mathrm A 而失敗）。"
+ },
+ {
+  "round": 2,
+  "qid": "EE-106-06-4",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "chars_after": 2028,
+  "proposed_status": "verified",
+  "needs_test_change": "",
+  "open_issues": [],
+  "evidence": "刪除含糊句"
+ },
+ {
+  "round": 2,
+  "qid": "EE-108-06-4",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "chars_after": 1854,
+  "proposed_status": "verified",
+  "needs_test_change": "",
+  "open_issues": [],
+  "evidence": "刪除 K 說明句（review 非阻擋項）"
+ },
+ {
+  "round": 2,
+  "qid": "EE-108-06-5",
+  "verify_passed": true,
+  "lint_passed": true,
+  "answer_change": "none",
+  "chars_after": 1837,
+  "proposed_status": "verified",
+  "needs_test_change": "",
+  "open_issues": [],
+  "evidence": "條件與疑義補替代定義值 +66.22 kVA（52.98 kW），腳本已斷言"
  }
 ]

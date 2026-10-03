@@ -40,7 +40,8 @@ def visible_lines(source: str):
 
 
 # 2026-10-02: EE-114-06-4 left the 114 mock scoring set (needs_manual_review), 94 -> 93.
-EXPECTED_ROUTE_QIDS = 93
+# 2026-10-03: EE-108-02-5 left the 108 retest scoring set (needs_manual_review), 93 -> 92.
+EXPECTED_ROUTE_QIDS = 92
 
 
 def audit() -> list[str]:

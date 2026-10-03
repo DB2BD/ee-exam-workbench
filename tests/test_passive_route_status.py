@@ -16,6 +16,10 @@ EXPECTED_MANUAL_QIDS = {
     "EE-106-04-3",
     "EE-106-05-3",
     "EE-109-02-2",
+    "EE-110-01-1",
+    "EE-110-06-3",
+    "EE-111-02-4",
+    "EE-111-04-4",
     "EE-113-02-4",
     "EE-111-05-3",
     "EE-112-03-2",
@@ -26,6 +30,8 @@ EXPECTED_MANUAL_QIDS = {
     "EE-114-06-3",
     "EE-114-06-4",
 }
+# Downgraded to needs_manual_review on 2026-10-03 (user-approved): EE-110-01-1,
+# EE-110-06-3, EE-111-02-4, EE-111-04-4; none sits in a passive scored route.
 # Promoted back to verified on 2026-10-02: the answer is independent of the magnetization curve.
 PROMOTED_FROM_MANUAL_QIDS = {"EE-113-04-3"}
 
@@ -115,14 +121,14 @@ class TestPassiveRouteStatus(unittest.TestCase):
         self.assertEqual(actual, EXPECTED_MANUAL_QIDS)
 
         text = BOUNDARY.read_text(encoding="utf-8")
-        self.assertIn("# 上榜精確解答邊界：15 題條件題安全作答卡", text)
-        self.assertIn("15 題條件作答卡", text)
+        self.assertIn("# 上榜精確解答邊界：19 題條件題安全作答卡", text)
+        self.assertIn("19 題條件作答卡", text)
         card_qids = [
             match.group(1)
             for line in text.splitlines()
             if (match := re.match(r"^\| \[`(EE-\d{3}-\d{2}-\d+)`\]", line))
         ]
-        self.assertEqual(len(card_qids), 15)
+        self.assertEqual(len(card_qids), 19)
         self.assertEqual(set(card_qids), EXPECTED_MANUAL_QIDS)
         for qid in PROMOTED_FROM_MANUAL_QIDS:
             self.assertNotIn(qid, text)
@@ -141,6 +147,11 @@ class TestPassiveRouteStatus(unittest.TestCase):
             "EE-114-06-4": ("屋內線路裝置規則", "1/3", "78.7", "95.5", "22", "125", "75", "38", "150", "52.49", "不列預設模考計分"),
             "EE-113-04-4": ("0.2/s", "189.35", "40.23", "115.9", "90.32", "197.85", "87.50", "57.67", "功率平衡"),
             "EE-112-03-2": ("[-2,2)", "a_0=2", "b_n=0", "a_0=4", "b_n=-8/(n\\pi)", "基本區間"),
+            "EE-109-02-2": ("\\Delta V_C=2V_o", "C_c=D/(2fR)=1\\,\\mu\\mathrm F", "C_c(\\varepsilon)", "200 μF"),
+            "EE-110-01-1": ("I_C=0", "-\\tfrac{20}{7}\\cos t", "2.041", "共地", "4.079\\cos(t+78.23^\\circ)", "5.726"),
+            "EE-110-06-3": ("1000 kVA", "420.04", "800 kW", "164.11"),
+            "EE-111-02-4": ("\\beta_f=I_f/I_o=-1", "R_{iA}=r_{\\pi1}", "r_{\\pi1}/(1+|A|)", "144.0", "503.6"),
+            "EE-111-04-4": ("68.6414", "118.595", "110.264", "線性化 OCC", "68.87%", "186 A", "68.65"),
         }
         for qid, phrases in expected.items():
             for phrase in phrases:

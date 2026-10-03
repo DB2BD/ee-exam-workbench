@@ -1,0 +1,329 @@
+{
+ "reviewer": "REVIEWER_lean_v1",
+ "scope": "Wave 2 電子學 111/110/109",
+ "summary": {
+  "pass": 9,
+  "fail": 3,
+  "fail_qids": [
+   "EE-111-02-4",
+   "EE-110-02-3",
+   "EE-109-02-2"
+  ],
+  "status_recommendation": {
+   "EE-111-02-4": "主解改嚴格二埠後可維持 reference_book_verified（參考書只用來核對型態與 βf）；需主 session 改測試斷言",
+   "EE-109-02-2": "主解改 C_c=1 μF；待參考書確認前維持 needs_manual_review，確認後可升 reference_book_verified"
+  }
+ },
+ "commands": {
+  "run_verify_scripts": "scripts=12 failed=0 missing=0",
+  "lint_strict": "notes=12 lean-v1=12 notes-with-errors=0",
+  "tests/test_reconstructed_pe_solutions.py": "81 tests, 3 failures，全是需要重新產生的 bundle／manifest hash／年度投影測試（test_pe_solution_bundle_matches_canonical_notes、test_pe_solution_manifest_hashes_match_canonical_notes、test_corrected_canonical_sections_are_projected_into_annual_notes）；本批各題的字串斷言都通過"
+ },
+ "priority": [
+  {
+   "qid": "EE-111-02-4",
+   "item": "輸入負載：RF∥rπ1（參考書）或 rπ1（嚴格二埠）",
+   "result": "CONFIRMED",
+   "reason": "讀圖確認：RL 下端節點只接 RF 與理想偏壓電流源（交流開路），沒有其他交流對地路徑，所以 g11=0，RF 只以 g22=RF 串在輸出迴路裡。參考書的 RF∥rπ1 必須假設 RF 遠端交流接地，但那樣 βf=0，和它自己的 βf=1 矛盾。數值上嚴格二埠的 Af 與精確解差 1e-5，參考書差 6e-3；R_of 參考書形式 144 kΩ，精確值約 504 kΩ（差 3.5 倍）。主解應改成嚴格二埠形式；tests 中的 A=-(R_F\\parallel r_{\\pi1})g_{m1} 與 R_{if}=\\frac{R_F\\parallel r_{\\pi1}}{1+A\\beta_f} 斷言需由主 session 改成 r_{\\pi1}，驗算腳本也要改 assert 方向。"
+  },
+  {
+   "qid": "EE-111-02-4",
+   "item": "符號補註「1+Aβ_f 指 1+|A|β_f」",
+   "result": "CONFIRMED（內容正確，但寫法建議改）",
+   "reason": "物理上沒錯：A<0，I_f 與 I_in 相加，迴路增益 =|A|βf>0。但字面上 A/(1+Aβf) 代 A<0、βf=+1 會變成正回授式，(三) 的 Af≈−1/βf 也和 Af→1/βf 的慣例相反。建議把 I_f 定義成由輸入節點流出，令 βf=−1，讓 Aβf=|A| 字面成立，並刪除補註。"
+  },
+  {
+   "qid": "EE-109-02-2",
+   "item": "臨界電容判準是否真的未定義",
+   "result": "REJECTED",
+   "reason": "題幹句型（求 D、ΔIL、IL,peak、ΔVC 及「電感器與輸出電容器之臨界值 Lc 與 Cc」）出自 Rashid 升壓轉換器例題，教材定義 Cc 為 ΔVC=2Vo（電容電壓剛降到零）→Cc=k/(2fR)=1 μF，和新增的 ε=2 分支相同；這是有明確教材定義的唯一答案，應升為主解。Lc=25 μH（由 IL,min=0）正確，題幹的 Lc 就是 CCM/DCM 邊界；教材若印 k(1−k)R/(2f)=50 μH，代入 L=50 μH 得 IL,min=3 A，不是邊界，不採用（該教材式出處未經查證）。"
+  },
+  {
+   "qid": "EE-109-02-3",
+   "item": "疑義收斂：只有 Ip(max)、Lp 依賴 CrCM",
+   "result": "CONFIRMED",
+   "reason": "在 CCM 與 CrCM 下，伏秒平衡 (Vs−Vt)D=4(Vo+Vd)(1−D) 定出 Vs=34.133 V，功率平衡 (Vs−Vt)Ip,avg=(Vo+Vd)Io 定出 22.5 A 與 η=93.75%，都不需要知道波形；只有 Ip(max) 與 Lp 需要谷值＝0 的假設。補充：在真正 DCM（t_demag<(1−D)T）時伏秒式不成立，Vs 也無法確定；題解只寫「CCM 下也相同」，範圍描述正確。"
+  }
+ ],
+ "reviews": [
+  {
+   "qid": "EE-111-02-1",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "Vo=2Vm/π=63.662 V；|Z2|=13.486 Ω→I2=42.441/13.486=3.147 A，|Z4|=20.675 Ω→I4=0.4106 A；Irms²≈40.53+4.952+0.084=45.57 A²→P≈455.7 W；PF=455.7/(70.71×6.751)=0.9547。全部一致。",
+   "issues": []
+  },
+  {
+   "qid": "EE-111-02-2",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "D/(1−D)=0.4→D=2/7；IL1=1.2 A、IL2=3 A；L1=15(2/7)(4μ)/0.48=35.71 μH、L2=17.143μ/1.2=14.29 μH；C1=C2=3(2/7)(4μ)/0.12=28.57 μF。一致。",
+   "issues": []
+  },
+  {
+   "qid": "EE-111-02-3",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "VOV=0.0951 V、VG=0.5902 V→R1=7.244 kΩ、R2=3.534 kΩ；增益分支 gm=5/(200−150)=0.1 S、W/L=5257.6；平方律分支 gm=2/RS=0.06667 S、W/L=3505.1、|Av|=4.444。題面確實過定且矛盾，雙分支（P5）成立。",
+   "issues": [
+    {
+     "check": "R5",
+     "where": "條件與疑義「最小更正候選」第二點（改 RS 的整組數值）",
+     "fix": "非必要：frontmatter 載明依使用者裁決保留，故不判 fail；若要再精簡，可只留「改 RS=26.67 Ω 可同時滿足」一句，刪除 W/L、R1、R2 的六位數值。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-111-02-4",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": false,
+    "P4": true,
+    "P5": false,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": false
+   },
+   "independent_answer": "自行讀圖：Q2 射極電流 Io 經 RL 流到下端節點，該節點只再接 RF（回 Q1 基極）與理想偏壓電流源（交流開路），所以 Io 全部經 RF 回到輸入，|βf|=1。精確節點解 Af=−rπ1(1+β)(1+gm1RC)/[rπ1(1+β)(1+gm1RC)+RC+rπ2+(1+β)(RL+RF)]（手推與題解驗算段一致）。試算值（rπ1=2.5k、rπ2=250、gm1=40 mS、β=100、RC=5k、RL=100、RF=1k）：Af 精確 −0.99771、嚴格二埠 −0.99770、參考書形式 −0.99200；A 嚴格 −434.0、參考書 −124.0；裝置看入的輸出電阻精確值 503.55 kΩ，嚴格二埠 R_of（含 RL）501.15 kΩ，參考書形式 144.0 kΩ（差 3.5 倍）。結論：嚴格二埠（R_iA=rπ1）正確；RF∥rπ1 只有在 RF 遠端交流接地時才成立，但那樣 βf 會變成 0，和 βf=1 自相矛盾。",
+   "issues": [
+    {
+     "check": "P5",
+     "where": "（二）（四）（五）主解與「條件與疑義」",
+     "fix": "題幹條件完整，分歧源於參考書的拓樸錯誤，不是題幹缺條件。主解應改用嚴格二埠：R_iA=r_{π1}；A=−g_{m1}r_{π1}(1+β_T)R_C/[R_C+r_{π2}+(1+β_T)(R_L+R_F)]；R_if=r_{π1}/(1+|A|)；R_of=R_oA(1+|A|)=R_C+r_{π2}/(1+β_T)+R_L+R_F+g_{m1}r_{π1}R_C（數值仍用原 R_oA）。參考書 RF∥rπ1 形式改成條件與疑義裡的一句：「參考書以 RF∥rπ1 作輸入負載，相當於把 RF 遠端交流接地，與 βf=1 矛盾，不採用」。需由主 session 同步修改 tests/test_reconstructed_pe_solutions.py 中 `A=-(R_F\\parallel r_{\\pi1})g_{m1}`、`R_{if}=\\frac{R_F\\parallel r_{\\pi1}}{1+A\\beta_f}`、`(R_F\\parallel r_{\\pi1})`、「參考書開路增益式漏掉」等斷言。"
+    },
+    {
+     "check": "P3",
+     "where": "verification/pe/EE-111-02-4.py 最後段",
+     "fix": "腳本現在 assert 參考書形式「不等於」精確解（>1e-3），等於證明 boxed (二)(四)(五) 不是正確結果。改主解後，改為 assert 嚴格二埠的 A_f、R_if 與精確解相對誤差 <0.5%，並 assert R_of≈精確輸出電阻（差值為前饋項 r_{π1}，約 0.5%）。"
+    },
+    {
+     "check": "R5",
+     "where": "（二）末段「A<0 而 I_f 與 I_in 同向相加，兩負號抵消，以下 Aβ_f 一律指 |A|β_f>0」及（三）「≈−1/β_f」",
+     "fix": "字面上 A<0、β_f=+1 代入 A/(1+Aβ_f) 會變成正回授式，與 A_f→1/β_f 的慣例也不一致，現在靠一句補註硬改定義。建議改用一致的符號：I_f 定義為由輸入節點經 R_F 流出（與 I_in 相減），則 β_f=I_f/I_o=−1，Aβ_f=|A|>0 字面成立，A_f→1/β_f=−1，刪除補註；若要保留 β_f=1，則所有式子直接寫成 1+|A|β_f。（同樣牽動測試字串 `\\beta_f=\\frac{I_f}{I_o}=1`、`1+A\\beta_f`，由主 session 處理）"
+    }
+   ]
+  },
+  {
+   "qid": "EE-110-02-1",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "IB=11.3/(100k+101×10k)=10.180 μA→IC=1.0180 mA、VCE=1.718 V；75°C：IB=11.5/1.61M=7.143 μA→IC=1.0714 mA、VCE=1.214 V；ΔIC/IC=+5.25%、ΔVCE/VCE=−29.32%。一致。",
+   "issues": []
+  },
+  {
+   "qid": "EE-110-02-2",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "Ac=1500/20000=0.075；20log20000=86.02 dB；(三) 1500×500μ+0.075×250μ≈0.75 V；(四) 1500×1 mV=1.5 V；(五) 0.075×1 V=75 mV。一致。",
+   "issues": []
+  },
+  {
+   "qid": "EE-110-02-3",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": false,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": false
+   },
+   "independent_answer": "Vm=155.56 V；Iavg=Vm/(πR)=4.952 A；Irms=Vm/(2R)=7.778 A→P=605 W；PF=605/(110×7.778)=0.7071。一致。",
+   "issues": [
+    {
+     "check": "P5",
+     "where": "「條件與疑義」整段（0.7 V 二極體壓降分支）",
+     "fix": "電力電子整流題未給壓降時，慣例就是取理想二極體，不算題幹缺條件，所以這個分支沒必要。刪除整段「條件與疑義」，只保留「已知與所求」裡的「題面未給二極體壓降，取理想二極體」一句。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-110-02-4",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "ω=1885 rad/s，|Z1|=22.345 Ω→V1,rms=134.07 V→Vdc=π√2/4×134.07=148.92 V；I3=0.773、I5=0.282、I7=0.145 A，全級數 √ΣIn²=0.845 A→THD=14.08%（取 3/5/7 次為 13.93%）。一致。",
+   "issues": []
+  },
+  {
+   "qid": "EE-109-02-1",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "ICS=199/11=18.091 A，IBS=18.091/8=2.261 A，IB=6×IBS=13.568 A→RB=8.5/13.568=0.6265 Ω；PT=1.5×13.568+1.0×18.091=38.44 W。一致。",
+   "issues": [
+    {
+     "check": "R4",
+     "where": "frontmatter 另有 `status: verified`，與 audit_status 重複",
+     "fix": "非正文、不影響判定；可刪除重複的 status 鍵，避免與 audit_status 不同步（109-02-2、109-02-4 也一樣）。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-109-02-2",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": true,
+    "P5": false,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "D=0.5、ΔIL=15(0.5)(40μ)/100μ=3 A、IL=6 A→IL,peak=7.5 A、ΔVC=3(0.5)(40μ)/200μ=0.3 V，都一致。Lc：邊界 IL=ΔIL/2→300μ/Lc=12→Lc=25 μH，正確（L=50 μH 時 IL,min=3 A，並非邊界）。Cc：題幹「電感器與輸出電容器之臨界值 Lc 與 Cc」是 Rashid《Power Electronics》升壓轉換器例題的句型，教材定義臨界電容為 ΔVC=2Vo（電容電壓最低點剛好降到零）→Cc=D/(2fR)=0.5/(2×25k×10)=1 μF。",
+   "issues": [
+    {
+     "check": "P2",
+     "where": "（臨界電容）的 boxed C_c(ε)=2 μF/ε",
+     "fix": "在考場標準作答裡給唯一數值：「臨界電容定義為電容電壓漣波等於兩倍平均值（ΔV_C=2V_o，電容電壓恰降至零）：\\boxed{C_c=\\frac{D}{2fR}=1\\ \\mu\\mathrm F}」。C_c(ε)=D/(Rfε) 只留在「條件與疑義」一行，說明若評分改用容許漣波比 ε 時的式子。"
+    },
+    {
+     "check": "P5",
+     "where": "「條件與疑義」與 review_blocker",
+     "fix": "ΔV_C=2V_o 是題目句型所屬教材的標準定義，不是題幹缺條件；應改為主解（見上）。狀態由主 session 決定：若手邊參考書能確認 C_c=1 μF，可升 reference_book_verified；在此之前維持 needs_manual_review 也可以，但 review_blocker 要改寫成「待參考書確認 C_c 定義」。另可在條件與疑義加一句：部分教材印 L_c=k(1−k)R/(2f)=50 μH，但代入後 I_L,min=3 A 不是邊界，主解 25 μH 正確（此教材口徑尚未查證）。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-109-02-3",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "Io=30 A；伏秒平衡 (Vs−1.2)(0.75)=4(24.7)(0.25)→Vs=34.133 V；功率平衡 (Vs−Vt)Ip,avg=(Vo+Vd)Io→Ip,avg=741/32.933=22.5 A；η=720/768=93.75%；CrCM：Is,max=2Io/(1−D)=240 A→Ip,max=60 A，Lp=32.933×500μ/60=274.4 μH；能量 ½LpIp²f=741 W，t_demag=166.67 μs=(1−D)T。一致。",
+   "issues": [
+    {
+     "check": "R1",
+     "where": "「已知與所求」末句「參考書主解採磁化電流由零開始的 DCM 三角波，且 I_p(avg) 指整個週期平均」",
+     "fix": "非必要：和「條件與疑義」第一段重複，可刪除這句；不影響判定。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-109-02-4",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "((12−Vt)/(8−Vt))²=4→Vt=4 V（另一根 9.33 V 大於 8 V，第二點會截止，捨去）；β=2(1.5m)/16=187.5 μA/V²；回代 ½(187.5μ)(8²)=6 mA。一致。",
+   "issues": []
+  }
+ ]
+}

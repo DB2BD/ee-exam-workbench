@@ -1,0 +1,513 @@
+{
+ "subject": "06",
+ "audited": 55,
+ "items": [
+  {
+   "qid": "EE-114-06-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「開 \\Delta」為未包數學模式的裸 LaTeX／裁切圖：開Δ；改為 $\\Delta$"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-114-06-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：Z_MTr、Z_FTr 各自標 pu／裁切圖：「ZMTr=j0.06 與 ZFTr=j0.05 pu」；依原文調整"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-114-06-3",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-114-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：20 hp、10 hp、4.5~4.99 kVA/hp／裁切圖：20 HP、10 HP、4.5-4.99 kVA/HP",
+    "來源：「Y-\\Delta」裸 LaTeX／裁切圖：Y-Δ"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-114-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：1~24 時、8~17 時／裁切圖：1-24 時、8-17 時"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-113-06-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題首多出「（20 分）」／裁切圖：題首無總配分，僅子題各 10 分"
+   ],
+   "stem_issue": "用電量曲線為累積用電量（度）圖，數據僅標於圖上，題幹以「如下圖所示」指稱",
+   "fixed": true
+  },
+  {
+   "qid": "EE-113-06-2",
+   "verdict": "major",
+   "diffs": [
+    "來源：缺「（本題計算過程中，小數點請採計至第 4 位）」／裁切圖：有此計算精度條件",
+    "來源：5\\% 裸 LaTeX"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-113-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題首多出「（20 分）」／裁切圖：無",
+    "來源：41\\% 裸 LaTeX"
+   ],
+   "stem_issue": "主變壓器 7 MVA/X_T1=6%、爐用變壓器 3 MVA/X_T2=5%、X_F=41% 等規格僅標於圖上",
+   "fixed": true
+  },
+  {
+   "qid": "EE-113-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：1 hp ≈ 1 kVA／裁切圖：1 HP≒1 kVA"
+   ],
+   "stem_issue": "各設備規格（主變 3000 kVA X_T1=5%、配電變 750 kVA X_T2=3.5%、SM 1000 HP、IM 500 HP 等）僅標於圖上",
+   "fixed": true
+  },
+  {
+   "qid": "EE-113-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：CTA／裁切圖：CT_A（下標）"
+   ],
+   "stem_issue": "CO-7 動作特性曲線為圖 2，需讀圖",
+   "fixed": true
+  },
+  {
+   "qid": "EE-112-06-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：單一句「（10 分），並請繪出…（10 分）」／裁切圖：分為(一)(二)兩子題"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-112-06-2",
+   "verdict": "major",
+   "diffs": [
+    "來源子題：(一)變壓器A最高需量(二)變壓器B最高需量(三)主變壓器最高需量(四)每日總用電度數(kWh)／裁切圖：(一)各設備的最高需量（kW）(二)各變壓器的最小容量（kW）(三)總平均功率（kW）(四)全月用電度數（kWH）",
+    "來源：題首多出「（20 分）」且無表格數據／裁切圖：附表（變壓器A：設備1 300kVA/95/80/70、設備2 250/85/60/60，設備間參差1.2；變壓器B：設備3 500/80/50/40、設備4 250/70/70/50，設備間參差1.4；變壓器間參差1.15），已以 Markdown 表格轉錄（合併儲存格值逐列重複）"
+   ],
+   "stem_issue": "「全月用電度數」未給定每月天數",
+   "fixed": true
+  },
+  {
+   "qid": "EE-112-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：F1，F2，F3／裁切圖：F₁、F₂、F₃ 下標"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-112-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題首「試求：（20 分）」多出總配分／裁切圖：無",
+    "來源：135\\% 裸 LaTeX"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-112-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：51N、kW／裁切圖：51 N、KW"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-06-1",
+   "verdict": "major",
+   "diffs": [
+    "來源：PDF 文字層亂碼（Z≥、誤差定義分式斷裂、多行圖標籤殘字）",
+    "來源：(二) 的負擔值缺漏（「當負擔 B Z Ω時」）／裁切圖：Z_B=3 Ω",
+    "來源：誤差定義公式遺失／裁切圖：誤差=(I_e/(I'+I_e))×100%"
+   ],
+   "stem_issue": "激磁曲線需讀圖（100:5 曲線）",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-06-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：子題(一)(二)行內斷行、5\\% 裸 LaTeX；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：Xd\"、Xd' 未入數學模式，子題行內斷行；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹斷行切開詞語（電焊機一\\n台），數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「10,$000\\text{ MVA}$」數學模式斷裂／裁切圖：10,000 MVA；子題行內"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-110-06-1",
+   "verdict": "major",
+   "diffs": [
+    "來源：(二) 的電源方程式亂碼（sin( ) m V t V t α °）／裁切圖：V(t)=V_m sin(ωt+α°)",
+    "來源：混入圖一標籤殘字（AC、S.W.、R、X、負載、圖一…）"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-110-06-2",
+   "verdict": "major",
+   "diffs": [
+    "來源：題內無負載表，只有圖二標籤殘字（設/備…）；裝置 1~8 的表格被錯置到第三題且遺失裝置編號／裁切圖：表格（裝置1-8 容量、f_D、f_L、各設備間 f_div 1.35/1.56/1.6、變壓器間 f_div 1.25），已以 Markdown 表格轉錄（合併儲存格值逐列重複）"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-110-06-3",
+   "verdict": "major",
+   "diffs": [
+    "來源：題尾混入第二題的負載表數據（9 kVA、0.9、0.7、1.35、1.25…）／裁切圖：第三題僅(一)(二)兩情境，無表格"
+   ],
+   "stem_issue": "(一) 發電機額定 800 kW，原負載 1000 kVA×0.8 已為 800 kW，再加 150 kW 後實功率超額，並聯電容無法降低 kW；命題條件須依 kVA 容量解讀",
+   "fixed": true
+  },
+  {
+   "qid": "EE-110-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「ZL= j4.$0\\ \\Omega$」數學模式斷裂，並混入圖三標籤殘字／裁切圖：Z_L=j4.0 Ω"
+   ],
+   "stem_issue": "主變 Z%=8、爐用變 Z%=7（12.5 MVA）、MVAsc=1500 MVA 僅標於圖上",
+   "fixed": true
+  },
+  {
+   "qid": "EE-110-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：混入圖四標籤殘字（I/M2、S/M、2000 HP…）"
+   ],
+   "stem_issue": "各電動機 HP、X_d''、變壓器 Z% 僅標於圖四",
+   "fixed": true
+  },
+  {
+   "qid": "EE-109-06-1",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-109-06-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：Ω/km／裁切圖：Ω/公里"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-109-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：S_b=1000 kVA, V_b=220 V、Ω/km／裁切圖：kVA_b=1000 kVA，kV_b=220 V、Ω/公里"
+   ],
+   "stem_issue": "官方以「kV_b=220 V」表示基準電壓（符號與單位不一致），照原文轉錄",
+   "fixed": true
+  },
+  {
+   "qid": "EE-109-06-4",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-109-06-5",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-108-06-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹斷行並殘留「圖一」字樣"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-108-06-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：殘留「圖二」「Ω」字樣、1.5\\% 裸 LaTeX"
+   ],
+   "stem_issue": "電源 2500 MVA、Z_L=j0.405 Ω、主變 30 MVA Z=7%、爐用變 15 MVA Z=6%、Z_F=8%(12.5 MVA) 僅標於圖二",
+   "fixed": true
+  },
+  {
+   "qid": "EE-108-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹斷行；文字一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-108-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：殘留「圖三」字樣、題幹斷行；數值一致"
+   ],
+   "stem_issue": "官方題幹「共同基準容量 S_b=20 kVA」疑為 20 MVA 筆誤，照原文轉錄",
+   "fixed": true
+  },
+  {
+   "qid": "EE-108-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「0.26+j0.$72\\ \\Omega$」數學模式斷裂，殘留「圖四」「Ω」「kvar」字樣"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-06-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：表格為逐格斷行之未排版文字（數值順序正確）／裁切圖：A~D 四用戶表格；改以 Markdown 表格轉錄"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-06-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「j0.$0909\\ \\Omega$/km」數學模式斷裂、100 mm2／裁切圖：100 mm²"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題尾混入差動電驛接線圖標籤殘字（A B C A' … 差動電驛C）"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹斷行；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：Qc 未下標、題幹斷行；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-06-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：(一) 併在題號行／裁切圖：(一)(二) 兩子題"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-06-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：殘留「圖一」字樣、題幹斷行"
+   ],
+   "stem_issue": "所有系統數據（250 MVA、T1 1000 kVA Z%=1.2+j4.9、60 mm²×3 30 m、T2 75 kVA Z%=1.2+j2.3 等）僅標於圖一",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹於詞中斷行；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：(一)(二)(三) 行內、CT1/CT2 未下標，題尾混入試卷背面頁首殘字（建築師、技師…全一張（背面））"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：殘留「圖三」字樣"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-06-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：VAN、VBN、Rg 未下標，題幹斷行"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-06-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：子題(一)(二)行內斷行、ZT/kVAb/Vb 未下標；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：ZG″ 斷行、題尾混入試卷背面頁首殘字（技師、第二次食品技師考試暨普通 全一張（背面））"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹斷行、5\\% 寫法；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題尾殘留「/」字元、RT/XT/fr 未下標"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-06-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：(一) 併在題號行並於詞中斷行"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-06-2",
+   "verdict": "major",
+   "diffs": [
+    "來源：表格缺「參差因數」欄數值（電燈、馬達各列只有 150/100/0.95、200/100/0.80）／裁切圖：電燈參差因數 3、馬達參差因數 2；已以 Markdown 表格完整轉錄"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-06-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹斷行、「0.131+j0.$405\\ \\Omega$」數學模式斷裂；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-06-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「單\\n相短路容量」詞中斷行；數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-06-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：子題結構錯亂（「(一)…(二)…(三)A組電容器分 路諧波電流、 B」與「* **(四)** 組電容器…」拆散），並混入兩份單線圖標籤殘字／裁切圖：(一)~(四)四子題、每小題 5 分"
+   ],
+   "stem_issue": "單線圖數據（250 MVA、2000 kVA 11.4kV/380V X%=6.1、A 組 400 kVAR、B 組 200 kVAR）僅標於圖上",
+   "fixed": true
+  }
+ ],
+ "overrides": [],
+ "overrides_note": "scripts/compile_dashboard_database.py 的 ENGINEERING_MATH_TOPIC_OVERRIDES／PE_TOPIC_OVERRIDES 均無 06 科（EE-YYY-06-N）條目，無可移除或不符者。CANONICAL_TAXONOMY_OVERRIDES 有 06 科條目，但屬分類用途、與題幹無關，未檢查。",
+ "test_conflicts": [],
+ "other_copies_changed": [
+  "依考科分類/06_工業配電/06_工業配電_歷屆試題彙編_104-114年.md（第 25 行起與主檔逐字一致；僅前段導覽表的連結格式本來就不同，未動）"
+ ],
+ "follow_ups": [
+  "EE-104-06-2 題解（📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-2.md）的「官方題目」段沿用舊的亂碼表格，漏掉電燈參差因數 3、馬達參差因數 2；推導只用了 f_div=1.1，答案 406.84 kVA 可能不對，需要依裁切圖重新解題。",
+  "canonical 筆記中有「## 官方題目」逐字題幹的有 EE-104-06-1/2/4、105-06-1~5、106-06-1/2/3/5、107-06-4、108-06-1/3、112-06-4，其中多數仍是舊的 PDF 文字層亂碼版本，需要由主 session 決定是否同步（本任務不得改題解）。",
+  "EE-110-06-3(一) 命題疑義（800 kW 發電機加上 150 kW 後實功率超過額定）已在 canonical 的「條件與疑義」處理，僅供參考。",
+  "各年度段中第一題之前的 PDF 頁首殘字（例如 110 年「考試分階段考試（第二階段考試）、公共衛生師」、106/105/104 年「建築師、技師…全一張（正面）」、107 年「建築師、技師、第二次食品技師考試暨」）不在題目區塊內，依模板未動；編譯器不會把它們算進題幹。"
+ ]
+}

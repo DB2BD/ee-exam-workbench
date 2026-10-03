@@ -73,7 +73,7 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
         )
         self.assert_stem_and_note(
             "EE-108-03-5",
-            ["1/(z²−1)", "圓心 (±1,0)"],
+            ["\\frac{dz}{z^2-1}", "圓心位置 $(1,0)$", "圓心位置 $(-1,0)$"],
             ["\\boxed{I_1=2\\pi i", "\\boxed{I_2=2\\pi i\\left(-\\frac12\\right)=-\\pi i}"],
         )
         self.assert_stem_and_note(
@@ -85,7 +85,7 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
     def test_109_and_110_official_question_forms(self):
         self.assert_stem_and_note(
             "EE-109-03-3",
-            ["P(X>Y)"],
+            ["P[X>Y]"],  # official paper uses square brackets
             ["\\boxed{P(X>Y)=0.7}"],
         )
         self.assert_stem_and_note(

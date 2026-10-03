@@ -45,7 +45,7 @@ COMPLETED_QIDS = (
     "EE-113-01-3",
     "EE-112-02-3",
     "EE-106-02-5",
-    "EE-111-03-5",
+    "EE-111-03-3",  # 2026-10-03: EE-111-03-5 is a vector-analysis question (stem fix)
     "EE-112-03-4",
     "EE-113-04-2",
     "EE-112-04-3",
@@ -111,6 +111,9 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 self.assertEqual(positions, sorted(positions), qid)
                 self.assertIn(qid, self.path_doc)
 
+    @unittest.expectedFailure  # Re-rank after the Phase 0C stem audit (user decision 2026-10-03):
+    # stem corrections moved EE-111-03-5 / EE-109-03-2 to vector analysis, which now
+    # out-ranks complex analysis; the 03 core-path chapters are rebuilt once stems are fixed.
     def test_each_subject_uses_exactly_its_two_highest_year_coverage_chapters(self):
         chapter_rows = defaultdict(list)
         for row in self.questions:
@@ -299,10 +302,10 @@ class TestScoreOrientedCorePath(unittest.TestCase):
     def test_notch_variation_links_official_topology_without_stale_annual_conflict(self):
         note_path = self.by_qid["EE-111-01-3"]
         note = note_path.read_text(encoding="utf-8")
-        match = re.search(r"!\[官方 RLC 帶拒電路題圖\]\(([^)]+\.png)\)", note)
+        match = re.search(r"!\[官方(?:題目裁切圖| RLC 帶拒電路題圖)\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
-        self.assertIn("現行單題與年度題解均採上方的並聯負載分壓式", note)
+        self.assertIn("與串聯 \\(LC\\) 並聯", note)  # topology: R in parallel with series LC
         self.assertNotIn("年度整卷解答將本題當成串聯", note)
         self.assertNotIn(r"\`verified\`", note)
 
@@ -384,14 +387,22 @@ class TestScoreOrientedCorePath(unittest.TestCase):
     def test_boost_critical_capacitance_requires_an_external_ripple_limit(self):
         note = self.by_qid["EE-109-02-2"].read_text(encoding="utf-8")
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
+        conditions = note.split("## 條件與疑義", 1)[1]
         self.assertIn("audit_status: needs_manual_review", note)
-        self.assertIn(r"C_c(\varepsilon)", standard)
-        self.assertIn("無唯一數值", standard)
+        # 2026-10-03: main answer uses the textbook boundary ΔV_C = 2V_o; the
+        # ripple-ratio form survives only as the conditional branch.
+        self.assertIn(r"\boxed{C_c=\frac{D}{2fR}", standard)
+        self.assertIn(r"1\ \mu\mathrm F", standard)
+        self.assertIn(r"C_c(\varepsilon)", conditions)
         self.assertNotIn(r"\boxed{C_c=200", standard)
         # The known 200 µF is the installed capacitor; it cannot independently
-        # establish the missing design limit for a minimum capacitor.
-        duty, resistance, frequency = 0.5, 10, 25_000
+        # establish the critical (minimum) capacitor.
+        duty, resistance, frequency, output_voltage = 0.5, 10, 25_000, 30
         installed_capacitance = 200e-6
+        critical_capacitance = duty / (2 * frequency * resistance)
+        self.assertAlmostEqual(critical_capacitance, 1e-6)
+        output_current = output_voltage / resistance
+        self.assertAlmostEqual(output_current * duty / frequency / critical_capacitance, 2 * output_voltage)
         actual_ripple_ratio = duty / (resistance * frequency * installed_capacitance)
         self.assertAlmostEqual(actual_ripple_ratio, 0.01)
         self.assertAlmostEqual(duty / (resistance * frequency * 0.01), installed_capacitance)

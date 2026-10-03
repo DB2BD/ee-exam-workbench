@@ -113,7 +113,7 @@ function openPassbookModal() {
           <h2 style="color: var(--accent-dark); margin: 0 0 6px 0;">專門職業及技術人員高等考試：電機工程技師</h2>
           <h4 style="color: var(--ink-light); margin: 0; font-weight: 600;">考前 15 天個人化高頻母題與死穴急救衝刺手冊</h4>
           <p style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">
-            生成時間：${new Date().toLocaleDateString('zh-TW')} · 預估總平均：<strong>${passbook.readiness.projectedAverage} 分</strong> · 預估上榜機率：<strong>${passbook.readiness.passingProbability}%</strong>
+            生成時間：${new Date().toLocaleDateString('zh-TW')}
           </p>
         </div>
 

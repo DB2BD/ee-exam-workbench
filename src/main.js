@@ -32,6 +32,7 @@ function switchTab(tabId) {
   }
   if (tabId === 'practice' && typeof initDailyPracticeHome === 'function') {
     initDailyPracticeHome();
+    if (typeof initTodayTask === 'function') initTodayTask();
   }
 }
 
@@ -128,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderQuestions();
   renderReviewPage();
   if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
+  if (typeof initTodayTask === 'function') initTodayTask();
   renderLayers();
   renderTopTopics();
   initPaneResizer();

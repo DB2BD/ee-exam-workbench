@@ -1583,6 +1583,9 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
       throwOnError: false
     });
   }
+  // K1: banner is inserted after KaTeX so old/new answer text stays literal.
+  // Recall mode must not leak the answer, so the banner waits for the full solution.
+  if (!isActiveRecallMode && typeof insertAnswerCorrectionBanner === 'function') insertAnswerCorrectionBanner(rightPane, currentModalQid);
 }
 
 function syncRecallRevealPresentation() {

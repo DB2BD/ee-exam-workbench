@@ -59,22 +59,6 @@ function updateStatsAndBar() {
   if (statStarred) statStarred.innerText = starred;
   if (statExams) statExams.innerText = currentExamCategory === 'PE' ? 66 : 25;
 
-  // Passing Probability Index (PPI)
-  if (typeof calculateExamReadiness === 'function') {
-    const readiness = calculateExamReadiness(
-      qList,
-      progressState,
-      typeof sm2Data !== 'undefined' ? sm2Data : {},
-      typeof recallProgress !== 'undefined' ? recallProgress : {},
-      { examFamily: currentExamCategory }
-    );
-    const probEl = document.getElementById('stat-passing-prob');
-    if (probEl) {
-      probEl.innerText = readiness.passingProbability + "%";
-      probEl.style.color = readiness.tierColor || 'var(--accent-dark)';
-    }
-  }
-
   // SM-2 Due Flashcards count
   const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
   const statDue = document.getElementById('stat-due-flashcards');

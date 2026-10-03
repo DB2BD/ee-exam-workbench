@@ -304,6 +304,7 @@ function renderQuestions() {
             <span class="diff-badge" title="難度評定：${diff} 星">${starIcons}</span>
             ${(tags || []).slice(1, 3).map(t => `<span class="qtag">${t}</span>`).join('')}
             ${auditLabel ? `<span class="qtag solution-audit s-audit-${status}" title="詳解稽核狀態">${auditLabel}</span>` : ''}
+            ${typeof answerCorrectionBadgeHtml === 'function' ? answerCorrectionBadgeHtml(qid) : ''}
           </div>
           <button class="btn-star ${isStarred ? 'active' : ''}" onclick="toggleStarred('${qid}', event)" title="${isStarred ? '取消收藏' : '加入重點收藏'}">
             ${isStarred ? '★' : '☆'}

@@ -38,16 +38,15 @@ function getMockExamPacingInfo(secondsRemaining) {
   const elapsed = MOCK_EXAM_TIMER_DURATION_SECONDS - s;
   const elapsedMins = elapsed / 60;
 
-  if (elapsedMins < 25) {
-    return { stage: 1, label: '第 1 大題作答期 (0~25分)', hint: '建立等效電路、列出初始公式', color: '#4a7c8f' };
-  } else if (elapsedMins < 50) {
-    return { stage: 2, label: '第 2 大題作答期 (25~50分)', hint: '掌握主要計算、注意極座標相角', color: '#4a7c8f' };
-  } else if (elapsedMins < 75) {
-    return { stage: 3, label: '第 3 大題作答期 (50~75分)', hint: '推導中間式、注意標么值基準容量', color: '#4a7c8f' };
-  } else if (elapsedMins < 100) {
-    return { stage: 4, label: '第 4 大題作答期 (75~100分)', hint: '最後大題衝刺、切勿空白', color: '#d49e35' };
+  // Same timeline as docs/上榜考場120分鐘得分節奏.md (5 + 90 + 17 + 8).
+  if (elapsedMins < 5) {
+    return { stage: 1, label: '掃卷 (0~5分)', hint: '看完全部題目與小題，題號旁標 A／B／C；不開始長算式', color: '#4a7c8f' };
+  } else if (elapsedMins < 95) {
+    return { stage: 2, label: '第一輪 (5~95分)', hint: '先 A 再 B 後 C；每配分最多 0.9 分鐘，卡 8 分鐘留下起手式就換題', color: '#4a7c8f' };
+  } else if (elapsedMins < 112) {
+    return { stage: 3, label: '搶分輪 (95~112分)', hint: '補配分最高且下一步已知道的題；不救完全沒有起手式的題', color: '#d49e35' };
   } else {
-    return { stage: 5, label: '🚨 全卷總檢查期 (最後 20 分鐘)', hint: '檢查小數點、正負號、單位（kW/kVA/Ω）', color: '#b85d58' };
+    return { stage: 4, label: '🚨 收尾 (最後 8 分鐘)', hint: '補題號、小題結論、單位、方向、相角；不開新推導', color: '#b85d58' };
   }
 }
 
@@ -310,7 +309,7 @@ function loadMockExam() {
           <div class="qcard" style="border-left: 4px solid var(--accent); margin-bottom: 16px;">
             <div class="qhead">
               <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
-              <span style="font-weight: 700; color: var(--accent-dark);">配分：25 分 · 建議 25 分鐘</span>
+              <span style="font-weight: 700; color: var(--accent-dark);">配分以官方題目為準 · 第一輪每配分最多 0.9 分鐘</span>
             </div>
             <div class="qtopic">${renderTopic}</div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">

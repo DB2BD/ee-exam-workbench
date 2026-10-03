@@ -233,7 +233,7 @@ def build_workbench():
         </div>
         <div class="review-header-actions">
           <button class="btn-sol" id="btn-start-review" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
-          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()"></button>
+          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()">🧭 人工覆核題型標注</button>
         </div>
       </div>
 
@@ -277,12 +277,18 @@ def build_workbench():
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
     <div id="today-task-card"></div>
-    <section class="practice-home-actions" aria-label="練習首頁主要入口">
+    <section class="home-primary-actions" aria-label="首頁主要入口">
+      <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span>🎴</span><strong>到期複習</strong><small>今天沒有到期題</small></button>
+    </section>
+    <details class="more-practice" id="more-practice">
+      <summary>更多練習方式</summary>
+      <section class="practice-home-actions" aria-label="練習首頁主要入口">
       <button id="home-action-start" type="button" onclick="dailyPracticePrepareNewRound()"><span>▶</span><strong>開始練習</strong><small>選擇考科，建立新的 3 題練習</small></button>
       <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled><span>↩</span><strong>繼續上次</strong><small>接回原題、揭露進度與閱讀位置</small></button>
       <button id="home-action-find" type="button" onclick="dailyPracticeFindQuestions()"><span>⌕</span><strong>找題</strong><small>依考科、年度、章節或關鍵字搜尋</small></button>
     </section>
-    <div id="daily-practice-container"></div>
+      <div id="daily-practice-container"></div>
+    </details>
   </div>
 
   <!-- TAB 1: Questions Explorer -->

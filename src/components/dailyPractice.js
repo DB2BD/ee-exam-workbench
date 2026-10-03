@@ -464,4 +464,29 @@ function initDailyPracticeHome() {
   }
   const container = document.getElementById('daily-practice-container');
   if (container) renderDailyPractice(container, loaded.error);
+  homeMorePracticeSync();
+  homeDueReviewRefresh();
+}
+
+// K4: 首頁預設只留「今天的任務」與「到期複習」；其餘練習入口收在「更多練習方式」。
+function homeMorePracticeSync() {
+  const details = document.getElementById('more-practice');
+  if (!details) return;
+  const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
+  if (hasSession || dailyPracticeHomeMode === 'start' || dailyPracticeHomeMode === 'summary') details.open = true;
+}
+
+function homeDueReviewRefresh() {
+  const button = document.getElementById('home-action-due');
+  if (!button) return;
+  const due = typeof getDueQuestionsList === 'function' ? getDueQuestionsList().length : 0;
+  button.disabled = due <= 0;
+  if (button.setAttribute) button.setAttribute('aria-disabled', due > 0 ? 'false' : 'true');
+  button.innerHTML = '<span>🎴</span><strong>' + (due > 0 ? '到期複習（' + due + ' 題）' : '到期複習') + '</strong><small>' + (due > 0 ? '用間隔重複複習今天到期的題目' : '今天沒有到期題') + '</small>';
+}
+
+function homeStartDueReview() {
+  if (typeof switchTab === 'function') switchTab('review');
+  if (typeof setReviewSubjectFilter === 'function') setReviewSubjectFilter('all');
+  if (typeof startReviewSession === 'function') startReviewSession();
 }

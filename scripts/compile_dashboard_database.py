@@ -321,6 +321,9 @@ CANONICAL_TAXONOMY_OVERRIDES = {
     'EE-105-03-1': 'em-second-order-ode-homogeneous',
     'EE-108-03-1': 'em-second-order-ode-nonhomogeneous',
     'EE-113-03-4': 'em-matrix-det-inv',
+    # 2026-10-03: the official 109 Q2 crop is a double integral with order
+    # swap (重積分), which the DAG files under multivariable/vector calculus.
+    'EE-109-03-2': 'em-vector-analysis',
     # Electric machinery notes without frontmatter.
     'EE-104-04-1': 'emach-magnetic-circuits',
     'EE-104-04-3': 'emach-dc-motor-generator',

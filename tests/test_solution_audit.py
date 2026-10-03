@@ -109,7 +109,7 @@ process.stdout.write(JSON.stringify(result));
     def test_pe_manifest_materializes_manual_disposition_evidence(self):
         manifest = json.loads((ROOT / "data" / "pe-solution-audit.json").read_text(encoding="utf-8"))
         manual = [entry for entry in manifest["entries"] if entry.get("audit_status") == "needs_manual_review"]
-        self.assertEqual(len(manual), 13)  # 2026-10-02: +EE-113-04-4, +EE-114-06-4, −EE-113-04-3
+        self.assertEqual(len(manual), 17)  # 2026-10-03: +EE-110-01-1, +EE-111-04-4, +EE-111-02-4, +EE-110-06-3
         for entry in manual:
             self.assertIsNone(entry.get("verified_at"), f"{entry['qid']} retains a verification date after downgrade")
             note = (ROOT / entry["solution_link"]).read_text(encoding="utf-8")

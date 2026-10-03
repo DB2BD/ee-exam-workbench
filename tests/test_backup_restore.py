@@ -183,6 +183,39 @@ process.stdout.write(JSON.stringify(result));
         self.assertFalse(result["applied"]["success"])
         self.assertEqual(result["before"], result["after"])
 
+    def test_today_task_key_is_exported_and_restored(self):
+        payload = self.payload_v21()
+        payload["todayTask"] = {
+            "completed": {"CORE-01": "2026-09-23T00:00:00.000Z"},
+            "active": {"code": "CORE-02", "phaseIndex": 1, "phaseStartedAt": 1788278400000},
+        }
+        options = self.options()
+        result = self.run_js(
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "
+            "const applied=applyUserDataBackup(payload,'replace',options); "
+            "const stored=JSON.parse(localStorage.getItem('EE_EXAM_TODAY_TASK_V1')); "
+            "const exported=JSON.parse(exportAllUserDataJSON()).todayTask; "
+            "const bad=JSON.parse(JSON.stringify(payload)); bad.todayTask.active.phaseIndex='x'; "
+            "const rejected=applyUserDataBackup(bad,'replace',options); "
+            "return {applied,stored,exported,rejected}; })()"
+        )
+        self.assertTrue(result["applied"]["success"])
+        self.assertEqual(result["stored"], payload["todayTask"])
+        self.assertEqual(result["exported"], payload["todayTask"])
+        self.assertFalse(result["rejected"]["success"])
+
+    def test_backup_without_today_task_keeps_local_state(self):
+        payload = self.payload_v21()
+        options = self.options()
+        result = self.run_js(
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "
+            "localStorage.setItem('EE_EXAM_TODAY_TASK_V1', JSON.stringify({completed:{'CORE-03':'2026-09-25T00:00:00.000Z'},active:null})); "
+            "const applied=applyUserDataBackup(payload,'replace',options); "
+            "return {applied, stored: JSON.parse(localStorage.getItem('EE_EXAM_TODAY_TASK_V1'))}; })()"
+        )
+        self.assertTrue(result["applied"]["success"])
+        self.assertEqual(list(result["stored"]["completed"]), ["CORE-03"])
+
     def test_v21_restore_includes_practice_and_timer_atomically(self):
         payload = self.payload_v21()
         options = self.options()

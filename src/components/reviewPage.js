@@ -686,6 +686,9 @@ function advanceReviewSessionItem() {
 function renderReviewPage() {
   const container = document.getElementById('review-container');
   if (!container) return;
+  if (typeof renderAnswerCorrectionReviewSection === 'function') {
+    try { renderAnswerCorrectionReviewSection(); } catch (_) { /* optional section */ }
+  }
   populateReviewSubjects();
   const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
   const subject = document.getElementById('review-subject');

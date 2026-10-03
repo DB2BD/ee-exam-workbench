@@ -20,6 +20,7 @@ const USER_BACKUP_VERSION = '2.1.0';
 const USER_BACKUP_SUPPORTED_V2 = ['2.0.0', USER_BACKUP_VERSION];
 const BACKUP_META_STORAGE_KEY = 'EE_EXAM_BACKUP_META_V1';
 const BACKUP_DAILY_PRACTICE_KEY = 'EE_EXAM_DAILY_PRACTICE_V1';
+const BACKUP_TODAY_TASK_KEY = 'EE_EXAM_TODAY_TASK_V1';
 const BACKUP_MOCK_EXAM_TIMER_KEY = 'EE_MOCK_EXAM_TIMER_V1';
 const BACKUP_PROGRESS_KEYS = { PE: 'EE_EXAM_PROGRESS_V1', GK: 'GK_EXAM_PROGRESS_V1' };
 const BACKUP_STARRED_KEYS = { PE: 'EE_EXAM_STARRED_V1', GK: 'GK_EXAM_STARRED_V1' };
@@ -272,6 +273,56 @@ function backupIsPracticeTimestamp(value) {
   return backupIsPlainObject(value) && backupIsPracticeTimestamp(value.completedAt)
     && [1, 3, 5].includes(value.rating)
     && (value.errorType === null || BACKUP_RECALL_ERROR_TYPES.includes(value.errorType));
+}
+
+function backupEmptyTodayTask() {
+  return { completed: {}, active: null };
+}
+
+function backupReadTodayTask(storage) {
+  const errors = [];
+  const raw = backupReadJSON(storage, BACKUP_TODAY_TASK_KEY, null);
+  if (!raw) return backupEmptyTodayTask();
+  const state = backupValidateTodayTask(raw, errors);
+  return errors.length ? backupEmptyTodayTask() : state;
+}
+
+function backupValidateTodayTask(value, errors) {
+  const codeOk = code => typeof code === 'string' && /^[A-Z0-9-]{1,32}$/.test(code);
+  if (!value || typeof value !== 'object' || Array.isArray(value)
+      || !value.completed || typeof value.completed !== 'object' || Array.isArray(value.completed)) {
+    backupError(errors, 'todayTask 資料格式無效。');
+    return backupEmptyTodayTask();
+  }
+  const completed = {};
+  Object.keys(value.completed).forEach(code => {
+    if (!codeOk(code) || typeof value.completed[code] !== 'string' || Number.isNaN(Date.parse(value.completed[code]))) {
+      backupError(errors, `todayTask 的完成紀錄「${code}」無效。`);
+      return;
+    }
+    completed[code] = value.completed[code];
+  });
+  let active = null;
+  const a = value.active;
+  if (a !== null && a !== undefined) {
+    if (!a || typeof a !== 'object' || !codeOk(a.code) || !Number.isInteger(a.phaseIndex) || a.phaseIndex < 0
+        || typeof a.phaseStartedAt !== 'number' || !Number.isFinite(a.phaseStartedAt)) {
+      backupError(errors, 'todayTask.active 資料格式無效。');
+    } else {
+      active = { code: a.code, phaseIndex: a.phaseIndex, phaseStartedAt: a.phaseStartedAt };
+    }
+  }
+  return { completed, active };
+}
+
+function backupMergeTodayTask(oldState, importedState) {
+  const completed = Object.assign({}, importedState.completed, oldState.completed);
+  let active = oldState.active || importedState.active;
+  if (oldState.active && importedState.active && importedState.active.phaseStartedAt > oldState.active.phaseStartedAt) {
+    active = importedState.active;
+  }
+  if (active && completed[active.code]) active = null;
+  return { completed, active: active ? Object.assign({}, active) : null };
 }
 
 function backupValidateDailyPractice(value, ids, errors) {
@@ -672,6 +723,8 @@ function validateUserDataBackup(payload, options) {
   const phase2Required = payload.version === USER_BACKUP_VERSION;
   const dailyPracticeProvided = Object.prototype.hasOwnProperty.call(payload, 'dailyPractice');
   const mockExamTimerProvided = Object.prototype.hasOwnProperty.call(payload, 'mockExamTimer');
+  const todayTaskProvided = Object.prototype.hasOwnProperty.call(payload, 'todayTask');
+  const todayTask = todayTaskProvided ? backupValidateTodayTask(payload.todayTask, errors) : null;
   if (phase2Required && !dailyPracticeProvided) backupError(errors, '缺少 dailyPractice 每日練習資料。');
   if (phase2Required && !mockExamTimerProvided) backupError(errors, '缺少 mockExamTimer 模考計時資料。');
   const dailyPractice = dailyPracticeProvided
@@ -693,6 +746,8 @@ function validateUserDataBackup(payload, options) {
     manualTopicLabels,
     dailyPractice,
     mockExamTimer,
+    todayTask,
+    todayTaskProvided,
     learningData,
     dailyPracticeProvided,
     mockExamTimerProvided,
@@ -770,6 +825,7 @@ function buildUserBackupSnapshot() {
     manualTopicLabels: typeof getManualTopicLabels === 'function' ? backupClone(getManualTopicLabels()) : {},
     dailyPractice: backupClone(loadedPractice.state),
     mockExamTimer,
+    todayTask: backupReadTodayTask(storage),
     learningData: backupClone(learningData),
     learningDataCapacity: buildLearningDataCapacityReport(learningData),
   };
@@ -824,6 +880,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   const oldLabels = backupReadJSON(storage, 'EE_MANUAL_TOPIC_LABELS_V1', typeof getManualTopicLabels === 'function' ? getManualTopicLabels() : {});
   const oldPractice = backupReadJSON(storage, BACKUP_DAILY_PRACTICE_KEY, { version: 1, completionByQuestion: {}, activeSession: null });
   const oldTimer = backupReadJSON(storage, BACKUP_MOCK_EXAM_TIMER_KEY, {});
+  const oldTodayTask = backupReadTodayTask(storage);
   const oldLearning = backupReadLearningData(storage);
   const nextProgress = backupClone(oldProgress);
   const nextStarred = backupClone(oldStarred);
@@ -856,6 +913,8 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
       };
     }
   }
+  const nextTodayTask = !validation.normalized.todayTaskProvided ? oldTodayTask
+    : (selectedMode === 'merge' ? backupMergeTodayTask(oldTodayTask, validation.normalized.todayTask) : backupClone(validation.normalized.todayTask));
   const nextTimer = validation.normalized.mockExamTimerProvided
     ? backupClone(validation.normalized.mockExamTimer) : oldTimer;
   const nextLearning = selectedMode === 'merge'
@@ -863,7 +922,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     : backupClone(validation.normalized.learningData);
   const metadataKey = BACKUP_META_STORAGE_KEY;
   const oldRaw = {};
-  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].forEach(key => {
+  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].forEach(key => {
     oldRaw[key] = storage.getItem(key);
   });
   const importedAt = new Date().toISOString();
@@ -882,6 +941,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
       [BACKUP_LEARNING_KEYS.knowledgeReviews.GK, JSON.stringify(nextLearning.knowledgeReviews.GK)],
     ];
     if (validation.normalized.dailyPracticeProvided) writes.splice(writes.length - 1, 0, [BACKUP_DAILY_PRACTICE_KEY, JSON.stringify(nextPractice)]);
+    if (validation.normalized.todayTaskProvided) writes.splice(writes.length - 1, 0, [BACKUP_TODAY_TASK_KEY, JSON.stringify(nextTodayTask)]);
     if (validation.normalized.mockExamTimerProvided) writes.splice(writes.length - 1, 0, [BACKUP_MOCK_EXAM_TIMER_KEY, JSON.stringify(nextTimer)]);
   } catch (_) {
     return { success: false, error: '匯入失敗：備份資料無法序列化，未修改任何資料。' };
@@ -902,6 +962,9 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   if (typeof starredState !== 'undefined') starredState = backupClone(nextStarred[currentCategory]);
   sm2Schedule = backupClone(nextSM2);
   sm2StoreLoadError = null;
+  try {
+    if (typeof todayTaskRefresh === 'function' && typeof document !== 'undefined') { todayTaskRefresh(); renderTodayTaskCard(); }
+  } catch (_) { /* UI refresh is best-effort. */ }
   if (typeof recallState !== 'undefined') recallState = backupClone(nextRecall);
   if (typeof recallStoreLoadError !== 'undefined') recallStoreLoadError = null;
   if (typeof manualTopicLabels !== 'undefined') manualTopicLabels = backupClone(nextLabels);

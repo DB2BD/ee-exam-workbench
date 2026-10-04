@@ -18,22 +18,12 @@ EXPECTED_BY_SUBJECT = {
     "05": {"EE-105-05-2", "EE-110-05-5"},
     "06": {"EE-109-06-3", "EE-113-06-3"},
 }
-LEGACY_SECTIONS = (
-    "## 考場標準作答",
-    "## 得分點拆解",
-    "## 完整教學推導",
-    "## 獨立驗算",
-    "## 常見失分",
-)
-# lean-v1 notes (AGENT-SOLVE.md) keep the exam answer without the duplicated
-# teaching derivation; both are accepted while notes migrate.
+# lean-v1 (AGENT-SOLVE.md) is the only accepted canonical structure.
 LEAN_SECTIONS = ("## 考場標準作答", "## 驗算", "## 失分點")
 
 
 def required_sections(text):
-    if re.search(r"^template:\s*lean-v1\s*$", text, re.MULTILINE):
-        return LEAN_SECTIONS
-    return LEGACY_SECTIONS
+    return LEAN_SECTIONS
 
 
 class TestMixedBridgePack(unittest.TestCase):

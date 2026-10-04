@@ -5,7 +5,7 @@ nodeId: em-matrix-det-inv
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 1e82b01835c709182ca934d6e8432ac661fdaeca100b80a903fc2c4f14e2a402
 generatedBodyHash: 12659c9031f6d37e5bc2e0ad07cf7bc350e53edd5925b6581f834627875c392a
 ---

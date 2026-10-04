@@ -5,7 +5,7 @@ nodeId: emach-induction-motor-equiv
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 343bafb0d0b9a3fe6f3e1fce5f6545fd752321cf82196667652df58278a4adcb
 generatedBodyHash: 876d128702b174e521656254c26733c07db5a1d276d7c571b0361259444e3131
 ---

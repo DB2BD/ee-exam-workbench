@@ -9,9 +9,7 @@ CURRENT_DOCS = (
     "docs/上榜被動模考_114年六科執行包.md",
     "docs/上榜被動複測_108年六科執行包.md",
     "docs/上榜預設24時段_核心題路徑.md",
-    "AGENT-SOLVE.md",
     "📝 個人題解與錯題本/TEMPLATE_題解與錯題筆記範本.md",
-    ".agents/rules/exam_solution_standards.md",
 )
 LEGACY_TERMS = ("五區塊", "得分點拆解", "完整教學推導")
 

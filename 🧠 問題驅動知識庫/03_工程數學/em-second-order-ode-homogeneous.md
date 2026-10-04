@@ -5,7 +5,7 @@ nodeId: em-second-order-ode-homogeneous
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: fe67e73170c8dd289be8a7b029b4a2461536ac47dd864611502c46bf6e36eaac
 generatedBodyHash: b23d1d2b061aa385833ac98be53f123c58bbb9085cee336a1ae2ab80c57bb72a
 ---

@@ -5,7 +5,7 @@ nodeId: emach-single-phase-transformer
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: d2e5cc0c279747ffce7f11dfc91bd14046d65a53bef0cc7d51e371fe9fd2f939
 generatedBodyHash: 721183ba05145527e146b68131ae4a6e7d4b9a5d317b7af46de89e790dfabb67
 ---

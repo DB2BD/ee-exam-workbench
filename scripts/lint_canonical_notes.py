@@ -4,7 +4,7 @@
 Every note is checked for markup that cannot render and for answer coverage.
 Notes migrated to the lean template (frontmatter ``template: lean-v1``) are
 additionally held to the section, metadata and redundancy rules of
-``docs/WORKPLAN_題解精確化與去冗迭代_2026-10-01.md``.
+the lean-v1 題解版型 (internal work record, unpublished).
 
 Usage::
 

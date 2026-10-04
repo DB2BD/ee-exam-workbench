@@ -66,9 +66,8 @@ class TestAnswerCorrections(unittest.TestCase):
         for q in self.by_qid:
             self.assertIn(q, known)
 
-    def test_unreported_not_emitted(self):
-        for q in self.doc["unreported"]:
-            self.assertNotIn(q, self.by_qid)
+    def test_js_exports_mapping(self):
+        self.assertNotIn("unreported", self.doc)
         js = (ROOT / "src/data/answerCorrections.generated.js").read_text(encoding="utf-8")
         self.assertTrue(re.search(r"const ANSWER_CORRECTIONS = \{", js))
 

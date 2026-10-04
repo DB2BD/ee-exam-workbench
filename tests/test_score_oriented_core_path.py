@@ -55,7 +55,7 @@ COMPLETED_QIDS = (
     "EE-113-06-3",
 )
 
-# lean-v1 (AGENT-SOLVE.md) is the only accepted canonical structure.
+# lean-v1 題解版型 is the only accepted canonical structure.
 LEAN_SECTIONS = ("## 考場標準作答", "## 驗算", "## 失分點")
 
 

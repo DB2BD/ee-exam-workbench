@@ -5,9 +5,9 @@ nodeId: pe-mainline-power
 nodeType: mainline
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
-sourceHash: 6b19e6042f873b09cd1741fa49867160fb25646a072b8b6bab1bea6f29266611
-generatedBodyHash: 3ed9ca8ba91a8c1c5271624e411de7c8506832b2f318496d99ccb81545a139a4
+graphRevision: kg-v1-94aec3f278d6e297
+sourceHash: 1bfa95d23234074e2d068ee69090f239cb998de9f32d4e97e44ddb54e907cb72
+generatedBodyHash: bff1bf8e58c699d4b0062e1106f1cb5a24c587886d79e2d8c5e6f0c16dfb5908
 ---
 # 電力系統主線
 
@@ -26,5 +26,5 @@ generatedBodyHash: 3ed9ca8ba91a8c1c5271624e411de7c8506832b2f318496d99ccb81545a13
 - 尚無已核准的題目連結。
 
 ## Provenance
-- sourcePath: docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+- sourcePath: data/knowledge/golden-fixture.json
 - sourceType: golden-fixture

@@ -656,6 +656,50 @@ class TestG2aFixes(unittest.TestCase):
         self.assertIn("openResultCard({", body)
         self.assertNotIn("mount", body.split("openResultCard({")[1].split("});")[0].split("onSaved")[0])
 
+    def test_variant_comparison_phase_shows_anchor_same_type_and_variant(self):
+        schedule = json.loads(bds.render_json(bds.build_schedule()))
+        for n in list(range(7, 13)) + list(range(19, 25)):
+            task = schedule["tasks"][f"CORE-{n:02d}"]
+            phase = next(p for p in task["phases"] if p["label"] == "三題對照")
+            anchor = schedule["tasks"][f"CORE-{n - 6:02d}"]["qids"][0]
+            self.assertEqual(phase["qids"], [anchor] + task["qids"])
+            self.assertEqual(phase["qidLabels"], ["母題", "同型", "變式"])
+        t0 = local_ms(2026, 10, 4, 9, 0)
+        html = run_node(
+            f"(() => {{ let s = todayTaskStart({{completed:{{}}, active:null}}, {t0}, 'CORE-07'); "
+            f"s = todayTaskAdvance(s, {t0}); s = todayTaskAdvance(s, {t0}); "
+            f"return todayTaskOverlayHtml(todayTaskViewModel(s, {t0})); }})()")["result"]
+        self.assertEqual(html.count("today-task-figure"), 3)
+        for label in ("母題", "同型", "變式"):
+            self.assertIn(label, html)
+        self.assertIn("EE-114-01-3", html)
+
+    def test_rest_days_do_not_auto_open_and_note_dropped_task(self):
+        src = TODAY_JS.read_text(encoding="utf-8")
+        init = src.split("function initTodayTask()")[1]
+        self.assertIn("restDay", init)
+        self.assertIn("&& !restDay", init)
+        for d in (12, 13):
+            t = local_ms(2026, 11, d, 9, 0)
+            res = run_node(
+                f"(() => {{ const s = todayTaskStart({{completed:{{}}, active:null}}, {t}, 'CORE-07'); "
+                f"const vm = todayTaskViewModel(s, {t}); return [vm.mode, todayTaskCardHtml(vm)]; }})()")["result"]
+            self.assertIn(res[0], ("exam-check", "stop"))
+            self.assertIn("不開新題" if d == 12 else "不再開新題", res[1])
+            self.assertIn("不再繼續", res[1])
+            self.assertNotIn("today-task-start", res[1])
+
+    def test_fresh_user_sees_prompt_not_cut_line(self):
+        t = local_ms(2026, 10, 4, 9, 0)
+        fresh = run_node(f"todayTaskCardHtml(todayTaskViewModel({{completed:{{}}, active:null}}, {t}))")["result"]
+        self.assertNotIn("已自動刪減", fresh)
+        self.assertIn("先設定已在紙本做過的任務，再排今天", fresh)
+        self.assertIn("today-task-from is-prompt", fresh)
+        set_up = run_node(
+            f"(() => {{ const s = todayTaskStartFrom({{completed:{{}}, active:null}}, 'CORE-07', {t}); "
+            f"return todayTaskCardHtml(todayTaskViewModel(s, {t})); }})()")["result"]
+        self.assertNotIn("先設定已在紙本做過的任務", set_up)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1600,7 +1600,8 @@ function syncRecallRevealPresentation() {
   if (full) full.style.display = currentRecallAchievedLevel >= 4 ? 'block' : 'none';
   if (rating) rating.style.display = currentRecallAchievedLevel >= 4 ? 'flex' : 'none';
   if (box) box.style.display = currentRecallAchievedLevel >= 4 ? 'none' : 'flex';
-  const buttons = box && typeof box.querySelectorAll === 'function' ? [...box.querySelectorAll('button')] : [];
+  // Count only the four reveal buttons; the box also holds the numeric-check buttons.
+  const buttons = box && typeof box.querySelectorAll === 'function' ? [...box.querySelectorAll('.btn-reveal-hint, .btn-reveal-full')] : [];
   buttons.forEach((button, index) => {
     const step = index + 1;
     button.disabled = step !== currentRecallAchievedLevel + 1;

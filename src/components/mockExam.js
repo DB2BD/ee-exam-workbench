@@ -276,10 +276,19 @@ function mockExamRecords() {
 }
 
 function mockExamSolutionButton(item, label) {
-  return `<button type="button" class="mock-btn mock-btn-sol" data-mock-solution="${mockExamEscape(item.qid)}">${label || '📝 看題解'}</button>`;
+  return `<button type="button" class="mock-btn mock-btn-sol" data-mock-solution="${mockExamEscape(item.qid)}">${label || '看題解'}</button>`;
 }
 
 const MOCK_EXAM_MARK_SYMBOL = { o: '○', tri: '△', x: '×' };
+
+/** Same text as mockExamMarksText, each ○△× wrapped in a semantic-colour span (data-mark). */
+function mockExamMarksHtml(q) {
+  const parts = (q && q.parts) || [];
+  if (!parts.length) return '';
+  const sym = m => `<span class="mark-sym" data-mark="${MOCK_EXAM_MARK_SYMBOL[m] ? m : ''}">${MOCK_EXAM_MARK_SYMBOL[m] || '？'}</span>`;
+  if (parts.length === 1) return sym(parts[0].mark);
+  return parts.map(p => (p.label ? mockExamEscape(p.label) + ' ' : '') + sym(p.mark)).join('　');
+}
 
 /** 每個子題的實際標記：單一整題只顯示符號，多子題顯示「（一）○ （二）△」。 */
 function mockExamMarksText(q) {
@@ -359,13 +368,13 @@ function mockExamPaperHtml(paper) {
   const scoreText = paper.scoredTotal === paper.total ? `${paper.total} 分` : `計分 ${paper.scoredTotal} 分（全卷 ${paper.total} 分）`;
   const head = `
     <div class="mock-paper-head">
-      <h3>📋 ${mockExamEscape(paper.year)} 年 ${mockExamEscape(mockExamSubjectName(paper.subjectId))}</h3>
+      <h3>${mockExamEscape(paper.year)} 年 ${mockExamEscape(mockExamSubjectName(paper.subjectId))}</h3>
       <p class="mock-meta">共 ${paper.items.length} 題 · ${scoreText}</p>
       <p class="mock-reminder">${mockExamEscape(paper.reminder)}（共 120 分鐘；請自行計時）</p>
       ${paper.scoringNote ? `<p class="mock-scoring-note" role="note">${mockExamEscape(paper.scoringNote)}</p>` : ''}
       <div class="mock-paper-actions">
-        ${paper.pdfUrl ? `<a class="mock-btn" href="${mockExamEscape(paper.pdfUrl)}" target="_blank" rel="noopener">📄 開啟官方試卷 PDF</a>` : ''}
-        ${graded ? '<span class="mock-total" id="mock-running-total" aria-live="polite"></span>' : '<button type="button" class="mock-btn mock-btn-primary" data-mock-submit>🏁 交卷</button>'}
+        ${paper.pdfUrl ? `<a class="mock-btn" href="${mockExamEscape(paper.pdfUrl)}" target="_blank" rel="noopener">開啟官方試卷 PDF</a>` : ''}
+        ${graded ? '<span class="mock-total" id="mock-running-total" aria-live="polite"></span>' : '<button type="button" class="mock-btn mock-btn-primary" data-mock-submit>交卷</button>'}
       </div>
     </div>`;
   const cards = paper.items.map(it => {
@@ -403,7 +412,7 @@ function mockExamHistoryHtml() {
       <td>${mockExamEscape(item && item.year)} 年 ${mockExamEscape(item && item.subjectName)}</td>
       <td>${mockExamEscape(item && item.score)} 分</td></tr>`).join('') + '</tbody></table>';
   }
-  return `<section class="mock-history"><h3>📈 模考紀錄</h3>${body}</section>`;
+  return `<section class="mock-history"><h3>模考紀錄</h3>${body}</section>`;
 }
 
 function mockExamPaperNow() {
@@ -419,7 +428,7 @@ function mockExamRender() {
   mockExamInlineHandles = {};
   host.innerHTML = `
     <div class="mock-exam-box" id="mock-exam-root">
-      <h2 class="mock-title">📄 模考</h2>
+      <h2 class="mock-title">模考</h2>
       <p class="mock-sub">整卷閉卷、自己手動計時；交卷後逐題標 ○△×，系統只估分、標出先修題。</p>
       ${mockExamPickerHtml()}
       <div id="mock-paper">${paper ? mockExamPaperHtml(paper) : ''}</div>
@@ -465,7 +474,7 @@ function mockExamSummaryHtml(paper, sum) {
     <section class="mock-summary" aria-label="本卷總結">
       <h3>本卷估計 ${mockExamFormat(sum.estimate)}／${mockExamFormat(paper.scoredTotal)}</h3>
       ${mockExamState && mockExamState.syncedCode ? `<p class="mock-sync-notice" role="status">已同步完成排程任務 ${mockExamEscape(mockExamState.syncedCode)}</p>` : ''}
-      <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamEscape(mockExamMarksText(q))}</span></li>`).join('')}</ul>
+      <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamMarksHtml(q)}</span></li>`).join('')}</ul>
       <p class="mock-tally"><strong>錯因統計：</strong>${tally.length ? tally.map(c => `${mockExamEscape(c)} ${mockExamEscape(labels[c] || '')} ×${sum.errorTally[c]}`).join('、') : '未選錯因'}</p>
       ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '📝 開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
       <button type="button" class="mock-btn" data-mock-reset>換一份試卷</button>

@@ -3312,6 +3312,223 @@ select:focus {
 .home-due-summary[hidden] { display: none; }
 .home-due-summary-close { min-width: 40px; min-height: 40px; border: 0; background: transparent; color: inherit; font-size: 1rem; cursor: pointer; }
 
+
+/* === src/styles/v122-design.css === */
+/* src/styles/v122-design.css — v1.2.2 visual design pass. Loaded LAST so it wins. */
+
+/* ---------- Tokens ---------- */
+:root {
+  /* 3. contrast: muted one step darker (>= 4.5:1 on bg, bg-secondary, surface, tinted cards) */
+  --muted: #5d6975;
+  /* 4. semantic marks: ○ green, △ amber, × red; --on-mark is the text colour on a solid fill */
+  --mark-o: #2e7d4a;
+  --mark-tri: #9a5b00;
+  --mark-x: #b3261e;
+  --mark-o-bg: #e8f3ec;
+  --mark-tri-bg: #fbf0dc;
+  --mark-x-bg: #fbeae8;
+  --on-mark: #ffffff;
+  /* neutral (non-semantic) button outline */
+  --btn-neutral-border: #b9b0a0;
+}
+
+[data-theme="dark"] {
+  --muted: #a3aeb9;
+  /* 10. dark amber: less saturated, still >= 4.5:1 on dark surfaces */
+  --star: #c9a45a;
+  --mark-o: #6fbf84;
+  --mark-tri: #c9a45a;
+  --mark-x: #ec867f;
+  --mark-o-bg: #223329;
+  --mark-tri-bg: #372f20;
+  --mark-x-bg: #3a2625;
+  --on-mark: #14181b;
+  --btn-neutral-border: #5b6975;
+}
+
+/* ---------- 1. Header: phone ---------- */
+.title-area h1 .title-short { display: none; }
+.theme-ico { display: inline-block; }
+
+@media (max-width: 640px) {
+  .container { padding: 10px 12px 64px; }
+  header { padding: 10px 12px; margin-bottom: 10px; }
+  .header-top { flex-wrap: nowrap; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .title-area { flex: 1 1 auto; min-width: 0; }
+  .title-area h1 { font-size: 1.15rem; letter-spacing: 0; white-space: nowrap; gap: 6px; }
+  .title-area h1 .title-full { display: none; }
+  .title-area h1 .title-short { display: inline; overflow: hidden; text-overflow: ellipsis; }
+  .title-area p { display: none; }
+  .header-actions { flex: 0 0 auto; flex-wrap: nowrap; }
+  #theme-toggle-btn { width: 40px; height: 40px; min-width: 40px; min-height: 40px; padding: 0; justify-content: center; align-items: center; display: inline-flex; border-radius: var(--radius-pill); font-size: 1.05rem; line-height: 1; }
+  #theme-toggle-btn .theme-label { display: none; }
+  .header-summary { padding: 6px 10px; font-size: 0.8125rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: normal; }
+  .main-tabs { margin-bottom: 12px; }
+  .main-tab-btn { padding: 8px 14px; }
+}
+
+/* ---------- 2 + 5. Four-stage cover buttons, badges ---------- */
+.btn-reveal-hint {
+  background: transparent;
+  color: var(--ink-light);
+  border: 1px solid var(--btn-neutral-border);
+  padding: 7px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.btn-reveal-hint:hover { background: var(--bg); color: var(--ink); border-color: var(--ink-light); }
+.btn-reveal-full { padding: 11px 24px; font-size: 0.95rem; font-weight: 800; background: var(--accent); color: #fff; border-color: var(--accent-dark); }
+[data-theme="dark"] .btn-reveal-full { background: var(--accent-dark); color: #14181b; border-color: var(--accent-dark); }
+[data-theme="dark"] .btn-reveal-full:hover { background: var(--accent); }
+.active-recall-box p { color: var(--ink-light); }
+
+/* 主攻 = solid accent, 基本分 = outline of the same hue */
+.tier-badge.tier-main { background: var(--accent-dark); color: #fff; border-color: var(--accent-dark); }
+.tier-badge.tier-basic { background: transparent; color: var(--accent-dark); border-color: var(--accent-dark); }
+[data-theme="dark"] .tier-badge.tier-main { background: var(--accent); color: #14181b; border-color: var(--accent); }
+[data-theme="dark"] .tier-badge.tier-basic { background: transparent; color: var(--accent-dark); border-color: var(--accent); }
+
+/* ---------- 4. Semantic mark colours ---------- */
+.result-card-mark.on[data-mark="o"],
+.result-card-mark.on[data-mark="o"]:hover { background: var(--mark-o); border-color: var(--mark-o); color: var(--on-mark); }
+.result-card-mark.on[data-mark="tri"],
+.result-card-mark.on[data-mark="tri"]:hover,
+.result-card-mark.on[data-mark="tri"]:focus-visible { background: var(--mark-tri); border-color: var(--mark-tri); color: var(--on-mark); }
+.result-card-mark.on[data-mark="x"],
+.result-card-mark.on[data-mark="x"]:hover { background: var(--mark-x); border-color: var(--mark-x); color: var(--on-mark); }
+.result-card-mark[data-mark="o"]:hover { background: var(--mark-o-bg); border-color: var(--mark-o); color: var(--ink); }
+.result-card-mark[data-mark="tri"]:hover { background: var(--mark-tri-bg); border-color: var(--mark-tri); color: var(--ink); }
+.result-card-mark[data-mark="x"]:hover { background: var(--mark-x-bg); border-color: var(--mark-x); color: var(--ink); }
+.mark-sym { font-weight: 800; }
+.mark-sym[data-mark="o"] { color: var(--mark-o); }
+.mark-sym[data-mark="tri"] { color: var(--mark-tri); }
+.mark-sym[data-mark="x"] { color: var(--mark-x); }
+.mock-weak, .mock-ok { color: inherit; }
+/* error-cause chips are neutral, not red */
+.sb-chip { background: var(--bg-secondary); color: var(--ink-light); border: 1px solid var(--line-strong); }
+
+/* ---------- 3. Contrast / readable body copy ---------- */
+.home-due-button small, .home-random-button small { font-size: 0.8125rem; }
+.sb-nums dd, .sb-rates, .sb-errors, .sb-next, .sb-total small, .sb-note,
+.today-task-note, .today-task-plan, .today-task-from, .mock-sub, .mock-meta, .mock-scoring-note { font-size: 0.875rem; }
+.sb-nums dt, .sb-total-label { color: var(--muted); }
+
+/* solid accent fills: dark theme accent is light, so the text on it is dark (>= 6:1) */
+[data-theme="dark"] .btn-sol,
+[data-theme="dark"] .daily-practice-primary,
+[data-theme="dark"] .today-task-start,
+[data-theme="dark"] .mock-btn-primary,
+[data-theme="dark"] .btn-layout.active,
+[data-theme="dark"] .sub-q-pill.active,
+[data-theme="dark"] .result-card-chip.on,
+[data-theme="dark"] .result-card-save,
+[data-theme="dark"] .facet-tag-pill.active,
+[data-theme="dark"] .weakness-toolbar .pill.active,
+[data-theme="dark"] .btn-session-next,
+[data-theme="dark"] .btn-recall-primary,
+[data-theme="dark"] .btn-print-sheet { color: #14181b !important; }
+[data-theme="dark"] .btn-sol { color: #14181b; }
+[data-theme="dark"] .result-card-save:disabled { color: #14181b !important; opacity: .55; }
+/* amber / terracotta text on tinted surfaces: darker in light mode for >= 4.5:1 */
+.sb-role--high, .dag-trap-alert strong { color: #8f4a2c; }
+[data-theme="dark"] .sb-role--high, [data-theme="dark"] .dag-trap-alert strong { color: var(--warn); }
+.dag-tracer-badge, .main-tab-btn.active { color: var(--accent-dark); }
+.btn-star { opacity: 0.7; }
+
+/* ---------- 7. Scoreboard legend + bar values ---------- */
+.sb-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 12px; font-size: 0.8125rem; color: var(--ink-light); }
+.sb-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.sb-swatch { display: inline-block; width: 18px; height: 8px; border-radius: 4px; }
+.sb-swatch--mock { background: var(--accent); }
+.sb-swatch--practice { background: var(--star); }
+.sb-swatch--target { width: 3px; height: 14px; border-radius: 1px; background: var(--ink); }
+.sb-bar { flex-direction: row; align-items: stretch; gap: 10px; padding: 0; }
+.sb-tracks { position: relative; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.sb-row { height: 20px; display: flex; align-items: center; }
+.sb-row .sb-track { flex: 1 1 auto; }
+.sb-track { height: 10px; }
+.sb-track--thin { height: 6px; }
+.sb-vals { flex: 0 0 2.4em; display: flex; flex-direction: column; text-align: right; font-variant-numeric: tabular-nums; }
+.sb-val { height: 20px; line-height: 20px; font-size: 0.8125rem; font-weight: 700; color: var(--ink); }
+.sb-val--mock { color: var(--accent-dark); }
+.sb-val--practice { color: var(--ink-light); }
+.sb-target { top: 0; bottom: 0; }
+[data-theme="dark"] .sb-fill--practice { background: var(--star); }
+
+/* ---------- 8. Desktop solution modal: 45:55, crop fills its pane ---------- */
+.modal-pane-left { flex: 0 0 45%; }
+.question-crop-wrap { padding: 8px; }
+.question-crop-preview { width: 100%; max-width: 100%; }
+
+/* ---------- 9. 考前速查手冊 print: black on white, flat, one page per subject ---------- */
+@media print {
+  #passbook-modal, #passbook-modal * { background: #fff !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
+  #passbook-modal *, #passbook-modal *::before { border-color: #000 !important; }
+  #passbook-modal .cheatsheet-subject, #passbook-modal .cheatsheet-assumptions { break-before: page !important; page-break-before: always !important; }
+  #passbook-modal .passbook-item, #passbook-modal .cheatsheet-subject li { break-inside: avoid; }
+}
+
+/* 13px floor: every rule that declared < 13px */
+.qtag,
+.progress-ring-sub,
+.progress-health-label,
+.interactive-stat-card .label,
+.review-type-filter .pill,
+.status-badge,
+.diff-badge,
+.due-badge,
+.backup-textarea,
+.facet-tag-pill,
+.facet-tag-count,
+.qsheet-count-tag,
+.qsheet-node-id,
+.qsheet-lvl-badge,
+.qsheet-label,
+.daily-practice-start-card label,
+.daily-practice-source-figure figcaption,
+.daily-practice-result-item code,
+.diagnosis-save-hint,
+.converter-col label,
+.calc-tag,
+.calc-key,
+.key-desc,
+.key-arrow,
+.calc-trap-alert,
+.today-task-eyebrow,
+.answer-correction-row-date,
+.sb-total-label,
+.sb-role,
+.sb-nums dt,
+.sb-chip,
+.sb-note,
+.mock-picker label,
+.tier-badge,
+.btn-layout,
+.sub-q-pill,
+.question-crop-hint,
+.btn-sm2 .subtext,
+.dag-tracer-badge,
+.dag-vis-card-level,
+.dag-vis-card-prereqs,
+.today-task-zoom-hint,
+.daily-practice-result-meta,
+.daily-practice-result-meta .tier-badge,
+.recall-question-peek figcaption { font-size: 0.8125rem; }
+
+@media (max-width: 640px) {
+  .mock-history-table,
+  #solution-modal #btn-layout-exam::after,
+  #solution-modal .result-card--docked .result-card-chip,
+  #solution-modal .result-card--docked .result-card-note-toggle { font-size: 0.8125rem; }
+
+}
+
+/* header 「四段蓋牌進行中」 button carries inline warn colours: >= 4.5:1 in both themes */
+#btn-modal-active-recall { background: #a4502e !important; border-color: #a4502e !important; color: #fff !important; }
+[data-theme="dark"] #btn-modal-active-recall { background: var(--warn) !important; border-color: var(--warn) !important; color: #14181b !important; }
+.btn-star { color: var(--ink-light); opacity: 1; }
+.btn-star:not(.active) { opacity: 0.85; }
+
 </style>
 </head>
 
@@ -3322,11 +3539,11 @@ select:focus {
   <header>
     <div class="header-top">
       <div class="title-area">
-        <h1>⚡ 電機工程技師 歷屆試題工作台</h1>
+        <h1>⚡ <span class="title-full">電機工程技師 歷屆試題工作台</span><span class="title-short">電機技師工作台</span></h1>
         <p>專技高考電機工程技師 · 104 ~ 114 年 6 大考科 · <span id="hero-total-count">323 題</span> · 逐題來源可追溯 · 離線使用</p>
       </div>
       <div class="header-actions">
-        <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
+        <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn" aria-label="切換暗色／亮色模式"><span class="theme-ico" aria-hidden="true">🌙</span><span class="theme-label"> 暗色模式</span></button>
       </div>
     </div>
 
@@ -31869,7 +32086,7 @@ function renderDagTracerCard(qid, sid, topic) {
           <span>🕸️ 觀念相依 DAG 溯源與前置盲點補強</span>
           <span class="dag-tracer-badge">Level ${targetNode.level} 核心考點</span>
         </div>
-        <span style="font-size: 0.8rem; color: var(--muted); font-weight: 600;">若本題卡關，建議依循下方拓撲鏈逆向複習：</span>
+        <span style="font-size: 0.8125rem; color: var(--muted); font-weight: 600;">若本題卡關，建議依循下方拓撲鏈逆向複習：</span>
       </div>
 
       <div class="dag-chain-flow">
@@ -31881,7 +32098,7 @@ function renderDagTracerCard(qid, sid, topic) {
           return `
             <div class="dag-node-chip ${isTarget ? 'target' : 'prereq'}" title="核心公式：${node.coreFormula || '請先回想定義與適用條件'}">
               <span>${isTarget ? '🎯' : '📚'} ${nodeName}</span>
-              <span style="font-size: 0.72rem; opacity: 0.8;">L${node.level || 0}</span>
+              <span style="font-size: 0.8125rem; opacity: 0.8;">L${node.level || 0}</span>
             </div>
             ${arrow}
           `;
@@ -32030,7 +32247,7 @@ function renderDagGraphVisualizer() {
               <span class="dag-vis-card-title">${nodeTitle}</span>
               <span class="dag-vis-card-level">⭐ Level ${n.level || 0}</span>
             </div>
-            <div style="font-size: 0.8rem; color: var(--accent-dark); font-weight: 600; margin-bottom: 4px;">
+            <div style="font-size: 0.8125rem; color: var(--accent-dark); font-weight: 600; margin-bottom: 4px;">
               考別：${n.examFamily} · 考科：${nodeSubject}
             </div>
             <div class="dag-vis-card-formula">
@@ -32041,7 +32258,7 @@ function renderDagGraphVisualizer() {
                 <span>前置必備：</span>
                 ${prereqNames.map(pn => `<span class="dag-prereq-tag">⬅️ ${pn}</span>`).join('')}
               </div>
-            ` : '<div style="font-size: 0.76rem; color: var(--success); margin-top: 6px;">🌱 基礎起始概念 (無前置相依)</div>'}
+            ` : '<div style="font-size: 0.8125rem; color: var(--success); margin-top: 6px;">🌱 基礎起始概念 (無前置相依)</div>'}
           </div>
         `;
       }).join('')}
@@ -32295,7 +32512,7 @@ function toggleTheme() {
   document.documentElement.setAttribute('data-theme', next);
   try { localStorage.setItem('ee_theme_preference', next); } catch (_) { /* theme still applies this session */ }
   const btn = document.getElementById('theme-toggle-btn');
-  if (btn) btn.innerText = next === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
+  if (btn && typeof themeButtonLabel === 'function') btn.innerHTML = themeButtonLabel(next);
 }
 
 
@@ -34551,26 +34768,26 @@ function renderCheatsheetSectionHtml(data, options) {
   const templates = data.assumption_templates || [];
   if (!subjects.length && !templates.length) return '';
   const qidHtml = qids => (qids || []).map(q =>
-    `<code style="font-size: 0.72rem; color: var(--muted);">${escapePassbookHtml(q)}</code>`).join(' ');
+    `<code style="font-size: 0.8125rem; color: var(--muted);">${escapePassbookHtml(q)}</code>`).join(' ');
   const subjectsHtml = subjects.map((s, idx) => `
     <div class="cheatsheet-subject" style="${idx ? 'page-break-before: always; ' : ''}margin-top: 12px;">
       <div style="font-weight: 800; color: var(--accent-dark); margin-bottom: 6px;">${escapePassbookHtml(s.name)}</div>
       ${s.categories.map(c => `
         <div style="font-weight: 700; font-size: 0.82rem; margin: 6px 0 2px;">${escapePassbookHtml(c.label)}</div>
-        <ul style="font-size: 0.8rem; line-height: 1.6; margin-left: 20px;">
+        <ul style="font-size: 0.8125rem; line-height: 1.6; margin-left: 20px;">
           ${(c.items || []).map(it => `<li>${escapePassbookHtml(it.text)} ${qidHtml(it.qids)}</li>`).join('')}
         </ul>`).join('')}
     </div>`).join('');
   const templatesHtml = templates.length ? `
     <div class="cheatsheet-assumptions" style="${subjects.length ? 'page-break-before: always; ' : ''}margin-top: 12px;">
       <div style="font-weight: 800; color: var(--accent-dark); margin-bottom: 6px;">缺條件時怎麼寫假設</div>
-      <ul style="font-size: 0.8rem; line-height: 1.6; margin-left: 20px;">
+      <ul style="font-size: 0.8125rem; line-height: 1.6; margin-left: 20px;">
         ${templates.map(t => `<li><strong>${escapePassbookHtml(t.subject_name || '')}</strong>：${escapePassbookHtml(t.situation)}。${escapePassbookHtml(t.how_to_write)} ${qidHtml(t.qids)}</li>`).join('')}
       </ul>
     </div>` : '';
   return `
         <div class="cheatsheet-section" style="margin-top: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">📌 肆、失分點速查卡</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">肆、失分點速查卡</h4>
           ${subjectsHtml}${templatesHtml}
         </div>`;
 }
@@ -34617,7 +34834,7 @@ function openPassbookModal() {
           <span style="font-weight: 800; color: var(--accent-dark); font-family: var(--font-mono);">
             #${idx + 1} · ${item.qid} (${item.year} 年 ${escapePassbookHtml(meta.name)} 第 ${escapePassbookHtml(item.number)} 題)
           </span>
-          <span style="font-size: 0.8rem; background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px;">
+          <span style="font-size: 0.8125rem; background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px;">
             ${escapePassbookHtml((item.tags || []).slice(0, 3).join(' · '))}
           </span>
         </div>
@@ -34631,7 +34848,7 @@ function openPassbookModal() {
   modal.innerHTML = `
     <div class="passbook-dialog passbook-modal-content">
       <div class="passbook-head passbook-hide-print">
-        <h3 id="passbook-title">📕 考前速查手冊（列印）</h3>
+        <h3 id="passbook-title">考前速查手冊（列印）</h3>
         <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">✕ 關閉</button>
       </div>
       <div class="modal-body passbook-printable-area" style="padding: 24px;">
@@ -34639,7 +34856,7 @@ function openPassbookModal() {
         <div style="border-bottom: 2px solid var(--accent); padding-bottom: 14px; margin-bottom: 18px;">
           <h2 style="color: var(--accent-dark); margin: 0 0 6px 0;">專門職業及技術人員高等考試：電機工程技師</h2>
           <h4 style="color: var(--ink-light); margin: 0; font-weight: 600;">考前速查手冊：時間分配、計算機按鍵、高頻母題與失分點</h4>
-          <p style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">
+          <p style="font-size: 0.8125rem; color: var(--muted); margin-top: 6px;">
             生成時間：${new Date().toLocaleDateString('zh-TW')}
           </p>
         </div>
@@ -34649,7 +34866,7 @@ function openPassbookModal() {
 
         <!-- Section 2: Pacing Strategy -->
         <div style="margin-bottom: 24px; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-sm);">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 壹、考場 120 分鐘得分節奏（5＋90＋17＋8）</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">壹、考場 120 分鐘得分節奏（5＋90＋17＋8）</h4>
           <ul style="font-size: 0.85rem; line-height: 1.8; margin-left: 20px; color: var(--ink);">
             <li><strong>0 ~ 5 分鐘（掃卷）</strong>：看完所有題目與小題，在題號旁標 A／B／C；不開始長算式</li>
             <li><strong>5 ~ 95 分鐘（第一輪 90 分鐘）</strong>：先做 A，再做 B，最後處理 C；每題依配分設時間帽，每配分最多 0.9 分鐘（20 分題 18 分鐘、25 分題 22.5 分鐘）</li>
@@ -34661,7 +34878,7 @@ function openPassbookModal() {
 
         <!-- Section 3: fx-82 Keystroke Quick Reference -->
         <div style="margin-bottom: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">🧮 貳、考選部指定計算機（Casio fx-82SOLAR II）必背按鍵流</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">貳、考選部指定計算機（Casio fx-82SOLAR II）必背按鍵流</h4>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.82rem;">
             <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
               <strong>直角轉極座標 (R➔P)</strong><br>
@@ -34686,7 +34903,7 @@ function openPassbookModal() {
 
         <!-- Section 4: Top 15 Anchor Questions -->
         <div>
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">🎯 參、考前個人專屬核心母題清單（Top 15）</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">參、考前個人專屬核心母題清單（Top 15）</h4>
           <div style="font-size: 0.82rem; color: var(--muted); margin-bottom: 10px;">
             依您的做題紀錄、弱項科目與近年高頻考點挑出；尚未完成的 114 模考與 108 盲測題不會出現在這裡。考前在白紙上蓋牌獨立重算一次：
           </div>
@@ -34697,7 +34914,7 @@ function openPassbookModal() {
         <span style="font-size: 0.85rem; color: var(--muted);">提示：可使用鍵盤快捷鍵 Cmd + P 列印或另存為 PDF</span>
         <div style="display: flex; gap: 10px;">
           <button type="button" class="btn-pdf" onclick="closePassbookModal()">關閉</button>
-          <button type="button" class="btn-sol" onclick="printPassbook()">🖨️ 一鍵列印衝刺手冊 (A4 / PDF)</button>
+          <button type="button" class="btn-sol" onclick="printPassbook()">一鍵列印衝刺手冊 (A4 / PDF)</button>
         </div>
       </div>
     </div>
@@ -34879,7 +35096,7 @@ function openResultCard(options) {
     </div>`).join('');
 
   root.innerHTML = `
-    <button type="button" class="result-card-expand">✍️ 做完了？記錄作答結果 ▲</button>
+    <button type="button" class="result-card-expand">做完了？記錄作答結果 ▲</button>
     <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span>${docked ? '<button type="button" class="result-card-collapse" aria-label="收合作答結果卡">▼ 收合</button>' : ''}</div>
     <div class="result-card-rows">${rowsHtml}</div>
     <div class="result-card-errors" hidden>
@@ -35216,7 +35433,7 @@ function renderKnowledgeDiagnosisCard(diagnosis) {
     <label><input id="diagnosis-secondary" type="checkbox" value="${solutionModalEscape(gap.nodeId)}"> 同時標記前置缺口：${solutionModalEscape(gap.title)}</label>` : '';
   const html = `
     <section class="knowledge-diagnosis-card" data-diagnosis-card id="knowledge-diagnosis-card">
-      <h3>🧭 作答後診斷：下一步怎麼補強</h3>
+      <h3>作答後診斷：下一步怎麼補強</h3>
       <p class="diagnosis-reason">${solutionModalEscape(diagnosisReason)}</p>
       <p class="diagnosis-confidence">${solutionModalEscape(diagnosisConfidence)}</p>
       <div class="diagnosis-candidates">${primary}</div>
@@ -35736,21 +35953,21 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     leftContent.innerHTML = `
       <div style="padding: 8px 14px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-dark);">📄 官方原始考卷 PDF</span>
-          <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-            🔍 展開題幹文字
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-dark);">官方原始考卷 PDF</span>
+          <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.8125rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+            展開題幹文字
           </button>
-          <button class="btn-stem-toggle" onclick="openCalculatorGuideModal()" id="btn-calc-guide" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="考選部核定計算機按法與相量速查">
-            🧮 fx-82 按法
+          <button class="btn-stem-toggle" onclick="openCalculatorGuideModal()" id="btn-calc-guide" style="padding: 3px 8px; font-size: 0.8125rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="考選部核定計算機按法與相量速查">
+            fx-82 按法
           </button>
         </div>
-        <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
+        <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.8125rem; padding: 3px 8px;">
           新分頁開啟 ⬈
         </a>
       </div>
 
       <div id="modal-stem-collapse" style="display: none; padding: 12px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--ink); max-height: 180px; overflow-y: auto;">
-        <div style="font-weight: 700; font-size: 0.78rem; color: var(--accent-dark); margin-bottom: 4px;">📌 原題題幹文字描述：</div>
+        <div style="font-weight: 700; font-size: 0.8125rem; color: var(--accent-dark); margin-bottom: 4px;">原題題幹文字描述：</div>
         <div>${renderQuestionTopic(topic)}</div>
       </div>
 
@@ -35771,7 +35988,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     // If sub-parts exist, render pills for quick navigation
     if (subParts.length > 1 && subQPillsBar) {
       subQPillsBar.style.display = 'flex';
-      let pillsHtml = `<button class="sub-q-pill active" onclick="switchSubQuestion(0)">📖 完整全題推導</button>`;
+      let pillsHtml = `<button class="sub-q-pill active" onclick="switchSubQuestion(0)">完整全題推導</button>`;
       for (let i = 0; i < subParts.length; i++) {
         const titleMatch = subParts[i].match(/###\s+([^\n]+)/);
         const title = titleMatch ? titleMatch[1].trim() : `第 (${i + 1}) 小題`;
@@ -35792,9 +36009,9 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     if (rightPane) {
       rightPane.innerHTML = `
         <div style="text-align: center; padding: 60px 20px;">
-          <h3 style="color: var(--warn); margin-bottom: 10px;">📑 詳解收錄於題解知識庫中</h3>
+          <h3 style="color: var(--warn); margin-bottom: 10px;">詳解收錄於題解知識庫中</h3>
           <p style="color: var(--muted); margin-bottom: 20px;">點擊下方按鈕前往知識庫檢視本題完整解答：</p>
-          <a href="${safeSolLink}" target="_blank" class="btn-sol">🔗 前往考科詳解庫</a>
+          <a href="${safeSolLink}" target="_blank" class="btn-sol">前往考科詳解庫</a>
         </div>
       `;
     }
@@ -36043,7 +36260,7 @@ function renderSolutionReviewCard(qid, qRecord) {
         <textarea id="solution-report-textarea" class="solution-report-textarea" rows="7">${esc(report)}</textarea>
         <div class="solution-report-actions">
           <button type="button" class="btn-sol" onclick="prepareSolutionIssueReport('${esc(qid)}')">重新產生回報文字</button>
-          <button type="button" class="btn-sol" onclick="copySolutionIssueReport()">📋 複製回報文字</button>
+          <button type="button" class="btn-sol" onclick="copySolutionIssueReport()">複製回報文字</button>
         </div>
       </div>
     </aside>
@@ -36505,7 +36722,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         ${solutionModalQuestionPeekHtml(currentModalQid)}
         <!-- Keep the four-step workflow immediately above the hidden solution. -->
         <div class="active-recall-box" id="recall-step-box">
-          <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall) ${recallTierBadgeHtml(currentModalQid)}</div>
+          <div class="active-recall-title">主動回想 ${recallTierBadgeHtml(currentModalQid)}</div>
           <p style="font-size: 0.85rem; color: var(--muted); margin: 0 0 10px 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
           
           <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
@@ -36673,7 +36890,7 @@ function toggleStemDescription() {
   const isHidden = collapseEl.style.display === 'none';
   collapseEl.style.display = isHidden ? 'block' : 'none';
   if (btn) {
-    btn.innerHTML = isHidden ? '▲ 收合題幹文字' : '🔍 展開題幹文字';
+    btn.innerHTML = isHidden ? '▲ 收合題幹文字' : '展開題幹文字';
     btn.style.background = isHidden ? 'var(--accent)' : 'var(--bg-secondary)';
     btn.style.color = isHidden ? '#ffffff' : 'var(--ink-light)';
   }
@@ -36986,10 +37203,19 @@ function mockExamRecords() {
 }
 
 function mockExamSolutionButton(item, label) {
-  return `<button type="button" class="mock-btn mock-btn-sol" data-mock-solution="${mockExamEscape(item.qid)}">${label || '📝 看題解'}</button>`;
+  return `<button type="button" class="mock-btn mock-btn-sol" data-mock-solution="${mockExamEscape(item.qid)}">${label || '看題解'}</button>`;
 }
 
 const MOCK_EXAM_MARK_SYMBOL = { o: '○', tri: '△', x: '×' };
+
+/** Same text as mockExamMarksText, each ○△× wrapped in a semantic-colour span (data-mark). */
+function mockExamMarksHtml(q) {
+  const parts = (q && q.parts) || [];
+  if (!parts.length) return '';
+  const sym = m => `<span class="mark-sym" data-mark="${MOCK_EXAM_MARK_SYMBOL[m] ? m : ''}">${MOCK_EXAM_MARK_SYMBOL[m] || '？'}</span>`;
+  if (parts.length === 1) return sym(parts[0].mark);
+  return parts.map(p => (p.label ? mockExamEscape(p.label) + ' ' : '') + sym(p.mark)).join('　');
+}
 
 /** 每個子題的實際標記：單一整題只顯示符號，多子題顯示「（一）○ （二）△」。 */
 function mockExamMarksText(q) {
@@ -37069,13 +37295,13 @@ function mockExamPaperHtml(paper) {
   const scoreText = paper.scoredTotal === paper.total ? `${paper.total} 分` : `計分 ${paper.scoredTotal} 分（全卷 ${paper.total} 分）`;
   const head = `
     <div class="mock-paper-head">
-      <h3>📋 ${mockExamEscape(paper.year)} 年 ${mockExamEscape(mockExamSubjectName(paper.subjectId))}</h3>
+      <h3>${mockExamEscape(paper.year)} 年 ${mockExamEscape(mockExamSubjectName(paper.subjectId))}</h3>
       <p class="mock-meta">共 ${paper.items.length} 題 · ${scoreText}</p>
       <p class="mock-reminder">${mockExamEscape(paper.reminder)}（共 120 分鐘；請自行計時）</p>
       ${paper.scoringNote ? `<p class="mock-scoring-note" role="note">${mockExamEscape(paper.scoringNote)}</p>` : ''}
       <div class="mock-paper-actions">
-        ${paper.pdfUrl ? `<a class="mock-btn" href="${mockExamEscape(paper.pdfUrl)}" target="_blank" rel="noopener">📄 開啟官方試卷 PDF</a>` : ''}
-        ${graded ? '<span class="mock-total" id="mock-running-total" aria-live="polite"></span>' : '<button type="button" class="mock-btn mock-btn-primary" data-mock-submit>🏁 交卷</button>'}
+        ${paper.pdfUrl ? `<a class="mock-btn" href="${mockExamEscape(paper.pdfUrl)}" target="_blank" rel="noopener">開啟官方試卷 PDF</a>` : ''}
+        ${graded ? '<span class="mock-total" id="mock-running-total" aria-live="polite"></span>' : '<button type="button" class="mock-btn mock-btn-primary" data-mock-submit>交卷</button>'}
       </div>
     </div>`;
   const cards = paper.items.map(it => {
@@ -37113,7 +37339,7 @@ function mockExamHistoryHtml() {
       <td>${mockExamEscape(item && item.year)} 年 ${mockExamEscape(item && item.subjectName)}</td>
       <td>${mockExamEscape(item && item.score)} 分</td></tr>`).join('') + '</tbody></table>';
   }
-  return `<section class="mock-history"><h3>📈 模考紀錄</h3>${body}</section>`;
+  return `<section class="mock-history"><h3>模考紀錄</h3>${body}</section>`;
 }
 
 function mockExamPaperNow() {
@@ -37129,7 +37355,7 @@ function mockExamRender() {
   mockExamInlineHandles = {};
   host.innerHTML = `
     <div class="mock-exam-box" id="mock-exam-root">
-      <h2 class="mock-title">📄 模考</h2>
+      <h2 class="mock-title">模考</h2>
       <p class="mock-sub">整卷閉卷、自己手動計時；交卷後逐題標 ○△×，系統只估分、標出先修題。</p>
       ${mockExamPickerHtml()}
       <div id="mock-paper">${paper ? mockExamPaperHtml(paper) : ''}</div>
@@ -37175,7 +37401,7 @@ function mockExamSummaryHtml(paper, sum) {
     <section class="mock-summary" aria-label="本卷總結">
       <h3>本卷估計 ${mockExamFormat(sum.estimate)}／${mockExamFormat(paper.scoredTotal)}</h3>
       ${mockExamState && mockExamState.syncedCode ? `<p class="mock-sync-notice" role="status">已同步完成排程任務 ${mockExamEscape(mockExamState.syncedCode)}</p>` : ''}
-      <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamEscape(mockExamMarksText(q))}</span></li>`).join('')}</ul>
+      <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamMarksHtml(q)}</span></li>`).join('')}</ul>
       <p class="mock-tally"><strong>錯因統計：</strong>${tally.length ? tally.map(c => `${mockExamEscape(c)} ${mockExamEscape(labels[c] || '')} ×${sum.errorTally[c]}`).join('、') : '未選錯因'}</p>
       ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '📝 開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
       <button type="button" class="mock-btn" data-mock-reset>換一份試卷</button>
@@ -37553,11 +37779,20 @@ function scoreboardBarHtml_(s) {
   const mockW = s.mock ? pct(s.mock.estimate) : 0;
   const prW = s.practice !== null ? pct(s.practice) : 0;
   const tgt = s.target !== null && s.target !== undefined ? pct(s.target) : null;
+  const mockV = s.mock ? String(Math.round(s.mock.estimate)) : '—';
+  const prV = s.practice !== null ? String(Math.round(s.practice)) : '—';
   return `<div class="sb-bar" aria-hidden="true">
-    <div class="sb-track"><span class="sb-fill sb-fill--mock" style="width:${mockW}%"></span></div>
-    <div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div>
-    ${tgt !== null ? `<span class="sb-target" style="left:${tgt}%"></span>` : ''}
+    <div class="sb-tracks">
+      <div class="sb-row"><div class="sb-track"><span class="sb-fill sb-fill--mock" style="width:${mockW}%"></span></div></div>
+      <div class="sb-row"><div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div></div>
+      ${tgt !== null ? `<span class="sb-target" style="left:${tgt}%"></span>` : ''}
+    </div>
+    <div class="sb-vals"><span class="sb-val sb-val--mock">${mockV}</span><span class="sb-val sb-val--practice">${prV}</span></div>
   </div>`;
+}
+
+function scoreboardLegendHtml_() {
+  return `<p class="sb-legend" aria-label="圖例"><span class="sb-legend-item"><i class="sb-swatch sb-swatch--mock"></i>模考實測</span><span class="sb-legend-item"><i class="sb-swatch sb-swatch--practice"></i>練習估計</span><span class="sb-legend-item"><i class="sb-swatch sb-swatch--target"></i>目標線</span></p>`;
 }
 
 function scoreboardSubjectHtml_(s) {
@@ -37616,7 +37851,7 @@ function renderScoreboard(container, options) {
        <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。練習中的基本分題 ○ 只計 50%；模考一律照真實考試計分（○ 100%）。</p>`;
   container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
     <h2 class="sb-title">成績</h2>
-    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${body}</section>`;
+    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
   return model;
 }
 
@@ -38148,7 +38383,7 @@ function dailyPracticeSolutionUnlocked(qid) {
 function dailyPracticeSolutionButton() {
   return '<div class="daily-practice-solution-note"><p>先用上方蓋牌模式回想，再依序揭露章節、起手式、公式與完整推導。</p>' +
     '<div class="daily-practice-solution-actions">' +
-    '<button class="btn-pdf" type="button" data-daily-open-solution="browse">📝 直接看完整詳解</button>' +
+    '<button class="btn-pdf" type="button" data-daily-open-solution="browse">直接看完整詳解</button>' +
     '</div></div>';
 }
 
@@ -38171,7 +38406,7 @@ function renderDailyPractice(container, error) {
     const summary = dailyPracticeLastSummary;
     const items = summary.qids ? dailyPracticeSummaryItems(summary.qids) : [];
     container.innerHTML = '<section class="daily-practice-shell daily-practice-summary" aria-live="polite">' +
-      '<span class="eyebrow">本輪完成摘要</span><h2>🎉 完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
+      '<span class="eyebrow">本輪完成摘要</span><h2>完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
       '<p>' + dailyPracticeEscape(summary.category) + ' · ' + dailyPracticeEscape(summary.modeLabel || (summary.subjectId === 'all' ? '隨機練習' : dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
       (summary.qids ? dailyPracticeSummaryEstimateRows(summary.qids) : dailyPracticeSummaryRows(summary.results)) +
       '<div class="daily-practice-actions">' + dailyPracticeModeSelectHtml() + '<button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
@@ -38190,7 +38425,7 @@ function renderDailyPractice(container, error) {
       ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
       : '';
     container.innerHTML = '<section class="daily-practice-shell">' +
-      '<div class="daily-practice-heading"><div><span class="eyebrow">隨機練習</span><h2>🎲 隨機練習 3 題</h2><p>預設依目標分配抽題（主攻章多抽），避開 7 天內已完成的題目。</p></div></div>' +
+      '<div class="daily-practice-heading"><div><span class="eyebrow">隨機練習</span><h2>隨機練習 3 題</h2><p>預設依目標分配抽題（主攻章多抽），避開 7 天內已完成的題目。</p></div></div>' +
       '<div class="daily-practice-start-card">' + dailyPracticeModeSelectHtml() + '<button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeStart()">▶ 開始 3 題練習</button></div>' +
       activeNote + '<p class="daily-practice-note">查看題目或詳解不算完成；做完第 ④ 段並記錄作答結果後，才會進入 7 天避重紀錄。</p></section>';
     return;
@@ -38205,7 +38440,7 @@ function renderDailyPractice(container, error) {
   const progress = (session.currentIndex + 1) + ' / ' + session.questionIds.length;
   const solutionUnlocked = dailyPracticeSolutionUnlocked(qid);
   if (!solutionUnlocked) dailyPracticeView = 'question';
-  const startLabel = dailyPracticeGetRecallProgress(qid) > 0 ? '🎴 回到四段蓋牌' : '🎴 開始四段蓋牌';
+  const startLabel = dailyPracticeGetRecallProgress(qid) > 0 ? '回到四段蓋牌' : '開始四段蓋牌';
   const scrollPosition = session.scrollByQuestion[qid] || { question: 0, solution: 0 };
   const scrollTop = Number(scrollPosition[dailyPracticeView] || 0);
   container.innerHTML = '<section class="daily-practice-shell">' +
@@ -38215,7 +38450,7 @@ function renderDailyPractice(container, error) {
       : '') +
     '<div class="daily-practice-scroll" onscroll="dailyPracticeScroll(event)" tabindex="0">' +
       (dailyPracticeView === 'question'
-        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「' + startLabel + '」。</p>' + (solutionUnlocked ? '<div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">📝 其他詳解選項</button></div>' : '') + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
+        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「' + startLabel + '」。</p>' + (solutionUnlocked ? '<div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">📝 其他詳解選項</button></div>' : '') + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton()) +
     '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
@@ -38243,7 +38478,7 @@ function renderDailyPractice(container, error) {
       const figure = image.closest('.daily-practice-source-figure');
       if (!figure) return;
       figure.outerHTML = '<div class="daily-practice-source-missing" role="status"><strong>原題截圖載入失敗</strong><span>已切換為官方 PDF，請用原卷核對電路圖與題目配置。</span>' +
-        (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<span>本題尚未提供獨立原題連結。</span>') + '</div>';
+        (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">開啟官方原題 PDF</a>' : '<span>本題尚未提供獨立原題連結。</span>') + '</div>';
     }, { once: true });
   }
   dailyPracticeRestoreOpenModal(question);
@@ -38696,7 +38931,7 @@ function renderTodayTaskCard() {
       ? '<div class="today-task-optional"><span>' + todayTaskEscape(vm.optional.text) + '</span>' +
         '<button type="button" class="btn-pdf today-task-optional-start" id="today-task-optional-start" onclick="todayTaskOnStartOptional(\'' + todayTaskEscape(vm.optional.code) + '\')">開始選做</button></div>'
       : '';
-    body = '<div class="today-task-main"><span class="today-task-eyebrow">🎯 一鍵開始今天</span><strong>' + todayTaskEscape(label) + '</strong>' +
+    body = '<div class="today-task-main"><span class="today-task-eyebrow">一鍵開始今天</span><strong>' + todayTaskEscape(label) + '</strong>' +
       '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + optional + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + (resume ? '繼續' : '開始') + '</button></div>';
   }
@@ -38845,7 +39080,7 @@ function todayTaskOverlayHtml(vm) {
     return '<figure class="today-task-figure"><figcaption><code>' + todayTaskEscape(qid) + '</code></figcaption>' + img + '</figure>';
   }).join('');
   const pdf = v.pdfUrl
-    ? '<a class="btn-pdf" href="' + todayTaskEscape(v.pdfUrl) + '" target="_blank" rel="noopener">📄 官方原卷 PDF</a>' : '';
+    ? '<a class="btn-pdf" href="' + todayTaskEscape(v.pdfUrl) + '" target="_blank" rel="noopener">官方原卷 PDF</a>' : '';
   const note = v.scoringNote ? '<p class="today-task-note">計分範圍：' + todayTaskEscape(v.scoringNote) + '</p>' : '';
   const instruction = v.instruction ? '<p class="today-task-instruction" role="note">' + todayTaskEscape(v.instruction) + '</p>' : '';
   let check = '';
@@ -39273,7 +39508,7 @@ function renderTopTopics() {
         <span>有出題年度 ${item.yearCoveragePct}%（${item.years.length}/${model.selectedYears.length}）</span>
       </div>
       <div style="height:8px; background:var(--line); border-radius:9999px; overflow:hidden;"><div style="width:${item.questionPct}%; background:var(--accent); height:100%; border-radius:9999px;"></div></div>
-      <div style="font-size:0.78rem; color:var(--muted); margin-top:8px;">點擊後以相同章節 QID 集合查看題目</div>
+      <div style="font-size: 0.8125rem; color:var(--muted); margin-top:8px;">點擊後以相同章節 QID 集合查看題目</div>
     </button>
   `).join('');
 }
@@ -39309,7 +39544,7 @@ function renderLayers() {
     const percent = pool.length ? Math.round(((pool.length - unstable) / pool.length) * 100) : 0;
     const isMock = layer.action === 'mock';
     return `<div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px 22px; margin-bottom: 14px; box-shadow: var(--shadow);">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><h4 style="color: var(--accent-dark); font-size: 1.05rem; font-weight: 700;">${layer.id} · ${layer.title || layer.name || '未命名層級'}</h4><span style="font-size: 0.8rem; font-weight: 600; color: var(--muted); background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">${layer.objective || '考試得分'}</span></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><h4 style="color: var(--accent-dark); font-size: 1.05rem; font-weight: 700;">${layer.id} · ${layer.title || layer.name || '未命名層級'}</h4><span style="font-size: 0.8125rem; font-weight: 600; color: var(--muted); background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">${layer.objective || '考試得分'}</span></div>
       <p style="font-size: 0.88rem; color: var(--ink-light); line-height: 1.6; margin-bottom: 10px;">${layer.desc}</p>
       <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:0.82rem; color:var(--muted); margin-bottom:8px;"><span>${isMock ? '建議以整卷模考驗證' : `範圍 ${layer.count} 題 · 尚未穩定 ${unstable} 題`}</span><span>${isMock ? '輸出訓練' : `目前穩定度 ${percent}%`}</span></div>
       <div style="height:7px; background:var(--line); border-radius:9999px; overflow:hidden; margin-bottom:12px;"><div style="width:${isMock ? 0 : percent}%; background:var(--accent); height:100%;"></div></div>
@@ -39427,13 +39662,13 @@ function initPaneResizer() {
 }
 
 function themeButtonLabel(theme) {
-  return theme === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
+  return theme === 'dark' ? '<span class="theme-ico" aria-hidden="true">☀️</span><span class="theme-label"> 亮色模式</span>' : '<span class="theme-ico" aria-hidden="true">🌙</span><span class="theme-label"> 暗色模式</span>';
 }
 
 function applyThemeAttribute(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   const btn = document.getElementById('theme-toggle-btn');
-  if (btn) btn.innerText = themeButtonLabel(theme);
+  if (btn) btn.innerHTML = themeButtonLabel(theme);
 }
 
 function readThemePreference() {

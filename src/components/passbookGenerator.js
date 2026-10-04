@@ -102,26 +102,26 @@ function renderCheatsheetSectionHtml(data, options) {
   const templates = data.assumption_templates || [];
   if (!subjects.length && !templates.length) return '';
   const qidHtml = qids => (qids || []).map(q =>
-    `<code style="font-size: 0.72rem; color: var(--muted);">${escapePassbookHtml(q)}</code>`).join(' ');
+    `<code style="font-size: 0.8125rem; color: var(--muted);">${escapePassbookHtml(q)}</code>`).join(' ');
   const subjectsHtml = subjects.map((s, idx) => `
     <div class="cheatsheet-subject" style="${idx ? 'page-break-before: always; ' : ''}margin-top: 12px;">
       <div style="font-weight: 800; color: var(--accent-dark); margin-bottom: 6px;">${escapePassbookHtml(s.name)}</div>
       ${s.categories.map(c => `
         <div style="font-weight: 700; font-size: 0.82rem; margin: 6px 0 2px;">${escapePassbookHtml(c.label)}</div>
-        <ul style="font-size: 0.8rem; line-height: 1.6; margin-left: 20px;">
+        <ul style="font-size: 0.8125rem; line-height: 1.6; margin-left: 20px;">
           ${(c.items || []).map(it => `<li>${escapePassbookHtml(it.text)} ${qidHtml(it.qids)}</li>`).join('')}
         </ul>`).join('')}
     </div>`).join('');
   const templatesHtml = templates.length ? `
     <div class="cheatsheet-assumptions" style="${subjects.length ? 'page-break-before: always; ' : ''}margin-top: 12px;">
       <div style="font-weight: 800; color: var(--accent-dark); margin-bottom: 6px;">缺條件時怎麼寫假設</div>
-      <ul style="font-size: 0.8rem; line-height: 1.6; margin-left: 20px;">
+      <ul style="font-size: 0.8125rem; line-height: 1.6; margin-left: 20px;">
         ${templates.map(t => `<li><strong>${escapePassbookHtml(t.subject_name || '')}</strong>：${escapePassbookHtml(t.situation)}。${escapePassbookHtml(t.how_to_write)} ${qidHtml(t.qids)}</li>`).join('')}
       </ul>
     </div>` : '';
   return `
         <div class="cheatsheet-section" style="margin-top: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">📌 肆、失分點速查卡</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">肆、失分點速查卡</h4>
           ${subjectsHtml}${templatesHtml}
         </div>`;
 }
@@ -168,7 +168,7 @@ function openPassbookModal() {
           <span style="font-weight: 800; color: var(--accent-dark); font-family: var(--font-mono);">
             #${idx + 1} · ${item.qid} (${item.year} 年 ${escapePassbookHtml(meta.name)} 第 ${escapePassbookHtml(item.number)} 題)
           </span>
-          <span style="font-size: 0.8rem; background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px;">
+          <span style="font-size: 0.8125rem; background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px;">
             ${escapePassbookHtml((item.tags || []).slice(0, 3).join(' · '))}
           </span>
         </div>
@@ -182,7 +182,7 @@ function openPassbookModal() {
   modal.innerHTML = `
     <div class="passbook-dialog passbook-modal-content">
       <div class="passbook-head passbook-hide-print">
-        <h3 id="passbook-title">📕 考前速查手冊（列印）</h3>
+        <h3 id="passbook-title">考前速查手冊（列印）</h3>
         <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">✕ 關閉</button>
       </div>
       <div class="modal-body passbook-printable-area" style="padding: 24px;">
@@ -190,7 +190,7 @@ function openPassbookModal() {
         <div style="border-bottom: 2px solid var(--accent); padding-bottom: 14px; margin-bottom: 18px;">
           <h2 style="color: var(--accent-dark); margin: 0 0 6px 0;">專門職業及技術人員高等考試：電機工程技師</h2>
           <h4 style="color: var(--ink-light); margin: 0; font-weight: 600;">考前速查手冊：時間分配、計算機按鍵、高頻母題與失分點</h4>
-          <p style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">
+          <p style="font-size: 0.8125rem; color: var(--muted); margin-top: 6px;">
             生成時間：${new Date().toLocaleDateString('zh-TW')}
           </p>
         </div>
@@ -200,7 +200,7 @@ function openPassbookModal() {
 
         <!-- Section 2: Pacing Strategy -->
         <div style="margin-bottom: 24px; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-sm);">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 壹、考場 120 分鐘得分節奏（5＋90＋17＋8）</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">壹、考場 120 分鐘得分節奏（5＋90＋17＋8）</h4>
           <ul style="font-size: 0.85rem; line-height: 1.8; margin-left: 20px; color: var(--ink);">
             <li><strong>0 ~ 5 分鐘（掃卷）</strong>：看完所有題目與小題，在題號旁標 A／B／C；不開始長算式</li>
             <li><strong>5 ~ 95 分鐘（第一輪 90 分鐘）</strong>：先做 A，再做 B，最後處理 C；每題依配分設時間帽，每配分最多 0.9 分鐘（20 分題 18 分鐘、25 分題 22.5 分鐘）</li>
@@ -212,7 +212,7 @@ function openPassbookModal() {
 
         <!-- Section 3: fx-82 Keystroke Quick Reference -->
         <div style="margin-bottom: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">🧮 貳、考選部指定計算機（Casio fx-82SOLAR II）必背按鍵流</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">貳、考選部指定計算機（Casio fx-82SOLAR II）必背按鍵流</h4>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.82rem;">
             <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
               <strong>直角轉極座標 (R➔P)</strong><br>
@@ -237,7 +237,7 @@ function openPassbookModal() {
 
         <!-- Section 4: Top 15 Anchor Questions -->
         <div>
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">🎯 參、考前個人專屬核心母題清單（Top 15）</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">參、考前個人專屬核心母題清單（Top 15）</h4>
           <div style="font-size: 0.82rem; color: var(--muted); margin-bottom: 10px;">
             依您的做題紀錄、弱項科目與近年高頻考點挑出；尚未完成的 114 模考與 108 盲測題不會出現在這裡。考前在白紙上蓋牌獨立重算一次：
           </div>
@@ -248,7 +248,7 @@ function openPassbookModal() {
         <span style="font-size: 0.85rem; color: var(--muted);">提示：可使用鍵盤快捷鍵 Cmd + P 列印或另存為 PDF</span>
         <div style="display: flex; gap: 10px;">
           <button type="button" class="btn-pdf" onclick="closePassbookModal()">關閉</button>
-          <button type="button" class="btn-sol" onclick="printPassbook()">🖨️ 一鍵列印衝刺手冊 (A4 / PDF)</button>
+          <button type="button" class="btn-sol" onclick="printPassbook()">一鍵列印衝刺手冊 (A4 / PDF)</button>
         </div>
       </div>
     </div>

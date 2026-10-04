@@ -46,7 +46,7 @@ function renderDagTracerCard(qid, sid, topic) {
           <span>🕸️ 觀念相依 DAG 溯源與前置盲點補強</span>
           <span class="dag-tracer-badge">Level ${targetNode.level} 核心考點</span>
         </div>
-        <span style="font-size: 0.8rem; color: var(--muted); font-weight: 600;">若本題卡關，建議依循下方拓撲鏈逆向複習：</span>
+        <span style="font-size: 0.8125rem; color: var(--muted); font-weight: 600;">若本題卡關，建議依循下方拓撲鏈逆向複習：</span>
       </div>
 
       <div class="dag-chain-flow">
@@ -58,7 +58,7 @@ function renderDagTracerCard(qid, sid, topic) {
           return `
             <div class="dag-node-chip ${isTarget ? 'target' : 'prereq'}" title="核心公式：${node.coreFormula || '請先回想定義與適用條件'}">
               <span>${isTarget ? '🎯' : '📚'} ${nodeName}</span>
-              <span style="font-size: 0.72rem; opacity: 0.8;">L${node.level || 0}</span>
+              <span style="font-size: 0.8125rem; opacity: 0.8;">L${node.level || 0}</span>
             </div>
             ${arrow}
           `;

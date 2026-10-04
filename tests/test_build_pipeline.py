@@ -34,24 +34,20 @@ class TestBuildPipeline(unittest.TestCase):
             'modal-left-content',
             'modal-right-content',
             'modal-resizer',
-            'tab-pane-dag',
-            'dag-graph-viewer-content',
-            'exam-timer',
-            'bar-mastered',
+            'tab-pane-mock',
+            'tab-pane-scoreboard',
+            'scoreboard-container',
+            'header-summary-line',
+            'review-corrections',
             'filter-subject',
             'filter-year',
             'filter-status',
             'filter-diff',
             'search-input',
-            'review-container',
-            'review-type-filter',
-            'tab-pane-review',
-            'tab-btn-review',
             'recall-step-box',
             'recall-full-section'
             ,'home-action-start'
             ,'home-action-continue'
-            ,'home-action-find'
             ,'more-tools-menu'
         ]
 
@@ -70,7 +66,7 @@ class TestBuildPipeline(unittest.TestCase):
         self.assertIn("function setReviewFilter", html)
         self.assertIn("getDueQuestionsList()", html)
         self.assertIn("data-review-type", html)
-        self.assertIn("setReviewSubjectFilter(this.value)", html)
+        self.assertIn("function setReviewSubjectFilter", html)
         self.assertIn("const subjectQuestions = questions.filter", html)
         self.assertIn("getReviewChapterFilterValues(subjectQuestions, 'all')", html)
         self.assertIn('全部章節', html)
@@ -97,7 +93,8 @@ class TestBuildPipeline(unittest.TestCase):
         menu_start = html.index('id="more-tools-menu"')
         menu_end = html.index('</details>', menu_start)
         menu = html[menu_start:menu_end]
-        for tab_id in ('dag', 'layers', 'stats', 'quicksheet'):
+        # v1.2: 更多 holds only 題庫瀏覽、奪榜本、備份／還原.
+        for tab_id in ('questions', 'passbook', 'backup'):
             self.assertIn(f'id="tab-btn-{tab_id}"', menu)
 
     def test_review_taxonomy_uses_textbook_chapter_names(self):

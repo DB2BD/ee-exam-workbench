@@ -158,6 +158,9 @@ select:focus {
   line-height: 1.6;
   color: var(--ink);
   margin-bottom: 14px;
+  /* Long inline formulas scroll inside the card instead of widening the page (390 px). */
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .qtopic p {
@@ -768,36 +771,6 @@ select:focus {
   margin-bottom: 24px;
 }
 
-.timer-display {
-  font-family: var(--font-mono);
-  font-size: 2.8rem;
-  font-weight: 800;
-  text-align: center;
-  color: var(--accent-dark);
-  margin: 16px 0;
-  letter-spacing: 2px;
-}
-
-.timer-controls {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.btn-timer {
-  padding: 8px 20px;
-  border-radius: var(--radius-sm);
-  font-weight: 700;
-  font-size: 0.92rem;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-timer.start { background: var(--success); color: #fff; }
-.btn-timer.pause { background: var(--warn); color: #fff; }
-.btn-timer.reset { background: var(--bg-secondary); color: var(--ink); border: 1px solid var(--line); }
-
 /* 🧠 SM-2 Spaced Repetition Badges */
 .due-badge {
   font-size: 0.76rem;
@@ -901,24 +874,6 @@ select:focus {
 .backup-history {
   color: var(--muted);
   padding: 0;
-}
-
-/* Stat Due Card Highlight */
-.stat-card.stat-due-card {
-  transition: all 0.25s ease;
-  border-left: 3px solid var(--accent);
-}
-.stat-card.stat-due-card.has-due {
-  border-left-color: #e11d48;
-  background: #fff5f5;
-}
-[data-theme="dark"] .stat-card.stat-due-card.has-due {
-  background: #351a1e;
-  border-left-color: #f43f5e;
-}
-.stat-card.stat-due-card.has-due .val {
-  color: #e11d48 !important;
-  font-weight: 800;
 }
 
 /* Facet Tag Filter Pills */
@@ -1402,6 +1357,7 @@ select:focus {
   list-style: none;
 }
 .more-tools-menu > summary::-webkit-details-marker { display: none; }
+.more-tools-menu.has-active > summary { color: var(--accent-dark); }
 .more-tools-panel {
   position: absolute;
   z-index: 20;
@@ -1419,13 +1375,16 @@ select:focus {
 .more-tools-panel .main-tab-btn { width: 100%; min-height: 44px; padding: 9px 12px; justify-content: flex-start; border-radius: 6px; border-bottom: 0; margin: 0; }
 .more-tools-panel .main-tab-btn.active { background: var(--accent-light); color: var(--accent-dark); }
 @media (max-width: 680px) {
-  .more-tools-menu { margin-left: 0; }
+  .main-tabs { flex-wrap: nowrap; gap: 0; }
+  .main-tabs > .main-tab-btn { padding: 10px 12px; gap: 5px; }
+  .more-tools-menu { margin-left: auto; }
+  .more-tools-menu > summary { padding: 9px 8px; }
   .more-tools-panel { position: fixed; left: 12px; right: 12px; top: auto; min-width: 0; }
 }
 
 /* Print CSS for physical A4 review sheets */
 @media print {
-  header, .main-tabs, .category-switcher, .quicksheet-top-bar .quicksheet-actions, .quicksheet-sub-filters {
+  header, .main-tabs, .quicksheet-top-bar .quicksheet-actions, .quicksheet-sub-filters {
     display: none !important;
   }
   body {
@@ -1729,17 +1688,20 @@ select:focus {
 .answer-correction-review-btn { padding: 4px 12px; font-size: 0.82rem; }
 
 /* K4: 首頁／複習頁入口收斂 */
-.home-primary-actions { max-width: 900px; margin: 0 auto 16px; }
-.home-due-button {
+.home-primary-actions { max-width: 900px; margin: 0 auto 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .home-primary-actions { grid-template-columns: 1fr; } }
+.practice-home-secondary { max-width: 900px; margin: -6px auto 12px; }
+.practice-home-secondary button { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); cursor: pointer; }
+.home-due-button, .home-random-button {
   width: 100%; min-height: 72px; padding: 14px 16px; display: grid;
   grid-template-columns: auto 1fr; gap: 2px 12px; align-items: center; text-align: left;
   color: var(--ink); background: var(--surface); border: 1px solid var(--line);
   border-radius: var(--radius-sm); cursor: pointer; box-shadow: var(--shadow);
 }
-.home-due-button > span { grid-row: 1 / 3; font-size: 1.5rem; }
-.home-due-button strong { color: var(--accent-dark); font-size: 1.05rem; }
-.home-due-button small { color: var(--muted); }
-.home-due-button:hover:not(:disabled), .home-due-button:focus-visible { border-color: var(--accent); }
+.home-due-button > span, .home-random-button > span { grid-row: 1 / 3; font-size: 1.5rem; }
+.home-due-button strong, .home-random-button strong { color: var(--accent-dark); font-size: 1.05rem; }
+.home-due-button small, .home-random-button small { color: var(--muted); }
+.home-due-button:hover:not(:disabled), .home-due-button:focus-visible, .home-random-button:hover, .home-random-button:focus-visible { border-color: var(--accent); }
 .home-due-button:disabled { opacity: .6; cursor: not-allowed; }
 .more-practice { max-width: 900px; margin: 0 auto 16px; }
 .more-practice > summary {
@@ -1955,3 +1917,7 @@ select:focus {
   .daily-practice-actions .daily-practice-mode { width: 100%; }
   .daily-practice-actions .daily-practice-mode select { flex: 1; min-width: 0; }
 }
+
+/* v1.2 today pane: compact idle mode selector under the primary buttons */
+.daily-practice-idle { max-width: 900px; margin: 0 auto 16px; font-size: .9rem; color: var(--muted); }
+.daily-practice-idle select { margin-left: 8px; min-height: 36px; }

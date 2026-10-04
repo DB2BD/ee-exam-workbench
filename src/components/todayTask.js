@@ -314,6 +314,7 @@ function renderTodayTaskCard() {
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + (resume ? '繼續' : '開始') + '</button></div>';
   }
   host.innerHTML = '<section class="today-task-card" aria-label="今天的任務">' + body + plan + todayTaskStartFromHtml(vm) + '</section>';
+  if (typeof updateHeaderSummary === 'function') updateHeaderSummary();
 }
 
 function todayTaskStartFromHtml(vm) {

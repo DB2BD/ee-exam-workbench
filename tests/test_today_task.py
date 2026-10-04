@@ -252,7 +252,7 @@ class TestTodayTaskStructure(unittest.TestCase):
         tt = build.index("'src/components/todayTask.js'")
         self.assertLess(gen, dp)
         self.assertLess(dp, tt)
-        self.assertLess(build.index('id="today-task-card"'), build.index('class="practice-home-actions"'))
+        self.assertLess(build.index('id="today-task-card"'), build.index('class="home-primary-actions"'))
 
 
 class TestTodayTaskBackup(unittest.TestCase):

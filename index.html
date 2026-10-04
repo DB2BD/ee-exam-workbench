@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>電機工程技師 & 公務高考三級 歷屆試題全真雙欄工作台 (104-114年)</title>
+<title>電機工程技師 歷屆試題全真雙欄工作台 (104-114年)</title>
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#4a7c8f">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,11 +15,10 @@
 <script src="./libs/auto-render.min.js"></script>
 <script src="./libs/marked.min.js"></script>
 
-<!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
+<!-- Embedded PE Database & Bundled Markdown Data (100% Offline & Zero-Latency).
+     GK data files stay in the repo and are loaded lazily by ensureGkData() only if a GK path is triggered. -->
 <script src="./dashboard-data.js?v=dev"></script>
 <script src="./solutions-bundle.js?v=dev"></script>
-<script src="./national-exams-data.js?v=dev"></script>
-<script src="./national-solutions-bundle.js?v=dev"></script>
 
 <style>
 /* === src/styles/base.css === */
@@ -174,80 +173,17 @@ header {
   flex-wrap: wrap;
 }
 
-/* Category Switcher Tabs */
-.category-switcher {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 14px;
-}
-
-.cat-tab {
-  padding: 8px 18px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  background: var(--bg-secondary);
-  color: var(--muted);
-  border: 1px solid var(--line);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
-}
-
-.cat-tab:hover {
-  color: var(--ink);
-  background: var(--surface);
-  border-color: var(--line-strong);
-}
-
-.cat-tab.on {
-  background: var(--accent);
-  color: #ffffff;
-  border-color: var(--accent-dark);
-  box-shadow: 0 2px 8px rgba(74, 124, 143, 0.25);
-}
-
-.cat-badge {
-  font-size: 0.75rem;
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.2);
-  font-weight: 700;
-}
-
-/* Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 14px;
-  margin-top: 18px;
-}
-
-.stat-card {
+/* One-line header summary: 今天｜到期｜成績 */
+.header-summary {
+  margin: 0;
+  padding: 10px 14px;
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.stat-card .label {
-  font-size: 0.8rem;
-  color: var(--muted);
+  font-size: 0.95rem;
   font-weight: 600;
-}
-
-.stat-card .val {
-  font-size: 1.55rem;
-  font-weight: 700;
   color: var(--ink);
-  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
 }
 
 /* Main Tab Navigation */
@@ -448,6 +384,9 @@ select:focus {
   line-height: 1.6;
   color: var(--ink);
   margin-bottom: 14px;
+  /* Long inline formulas scroll inside the card instead of widening the page (390 px). */
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .qtopic p {
@@ -1058,36 +997,6 @@ select:focus {
   margin-bottom: 24px;
 }
 
-.timer-display {
-  font-family: var(--font-mono);
-  font-size: 2.8rem;
-  font-weight: 800;
-  text-align: center;
-  color: var(--accent-dark);
-  margin: 16px 0;
-  letter-spacing: 2px;
-}
-
-.timer-controls {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.btn-timer {
-  padding: 8px 20px;
-  border-radius: var(--radius-sm);
-  font-weight: 700;
-  font-size: 0.92rem;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-timer.start { background: var(--success); color: #fff; }
-.btn-timer.pause { background: var(--warn); color: #fff; }
-.btn-timer.reset { background: var(--bg-secondary); color: var(--ink); border: 1px solid var(--line); }
-
 /* 🧠 SM-2 Spaced Repetition Badges */
 .due-badge {
   font-size: 0.76rem;
@@ -1191,24 +1100,6 @@ select:focus {
 .backup-history {
   color: var(--muted);
   padding: 0;
-}
-
-/* Stat Due Card Highlight */
-.stat-card.stat-due-card {
-  transition: all 0.25s ease;
-  border-left: 3px solid var(--accent);
-}
-.stat-card.stat-due-card.has-due {
-  border-left-color: #e11d48;
-  background: #fff5f5;
-}
-[data-theme="dark"] .stat-card.stat-due-card.has-due {
-  background: #351a1e;
-  border-left-color: #f43f5e;
-}
-.stat-card.stat-due-card.has-due .val {
-  color: #e11d48 !important;
-  font-weight: 800;
 }
 
 /* Facet Tag Filter Pills */
@@ -1692,6 +1583,7 @@ select:focus {
   list-style: none;
 }
 .more-tools-menu > summary::-webkit-details-marker { display: none; }
+.more-tools-menu.has-active > summary { color: var(--accent-dark); }
 .more-tools-panel {
   position: absolute;
   z-index: 20;
@@ -1709,13 +1601,16 @@ select:focus {
 .more-tools-panel .main-tab-btn { width: 100%; min-height: 44px; padding: 9px 12px; justify-content: flex-start; border-radius: 6px; border-bottom: 0; margin: 0; }
 .more-tools-panel .main-tab-btn.active { background: var(--accent-light); color: var(--accent-dark); }
 @media (max-width: 680px) {
-  .more-tools-menu { margin-left: 0; }
+  .main-tabs { flex-wrap: nowrap; gap: 0; }
+  .main-tabs > .main-tab-btn { padding: 10px 12px; gap: 5px; }
+  .more-tools-menu { margin-left: auto; }
+  .more-tools-menu > summary { padding: 9px 8px; }
   .more-tools-panel { position: fixed; left: 12px; right: 12px; top: auto; min-width: 0; }
 }
 
 /* Print CSS for physical A4 review sheets */
 @media print {
-  header, .main-tabs, .category-switcher, .quicksheet-top-bar .quicksheet-actions, .quicksheet-sub-filters {
+  header, .main-tabs, .quicksheet-top-bar .quicksheet-actions, .quicksheet-sub-filters {
     display: none !important;
   }
   body {
@@ -2019,17 +1914,20 @@ select:focus {
 .answer-correction-review-btn { padding: 4px 12px; font-size: 0.82rem; }
 
 /* K4: 首頁／複習頁入口收斂 */
-.home-primary-actions { max-width: 900px; margin: 0 auto 16px; }
-.home-due-button {
+.home-primary-actions { max-width: 900px; margin: 0 auto 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .home-primary-actions { grid-template-columns: 1fr; } }
+.practice-home-secondary { max-width: 900px; margin: -6px auto 12px; }
+.practice-home-secondary button { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); cursor: pointer; }
+.home-due-button, .home-random-button {
   width: 100%; min-height: 72px; padding: 14px 16px; display: grid;
   grid-template-columns: auto 1fr; gap: 2px 12px; align-items: center; text-align: left;
   color: var(--ink); background: var(--surface); border: 1px solid var(--line);
   border-radius: var(--radius-sm); cursor: pointer; box-shadow: var(--shadow);
 }
-.home-due-button > span { grid-row: 1 / 3; font-size: 1.5rem; }
-.home-due-button strong { color: var(--accent-dark); font-size: 1.05rem; }
-.home-due-button small { color: var(--muted); }
-.home-due-button:hover:not(:disabled), .home-due-button:focus-visible { border-color: var(--accent); }
+.home-due-button > span, .home-random-button > span { grid-row: 1 / 3; font-size: 1.5rem; }
+.home-due-button strong, .home-random-button strong { color: var(--accent-dark); font-size: 1.05rem; }
+.home-due-button small, .home-random-button small { color: var(--muted); }
+.home-due-button:hover:not(:disabled), .home-due-button:focus-visible, .home-random-button:hover, .home-random-button:focus-visible { border-color: var(--accent); }
 .home-due-button:disabled { opacity: .6; cursor: not-allowed; }
 .more-practice { max-width: 900px; margin: 0 auto 16px; }
 .more-practice > summary {
@@ -2245,6 +2143,10 @@ select:focus {
   .daily-practice-actions .daily-practice-mode { width: 100%; }
   .daily-practice-actions .daily-practice-mode select { flex: 1; min-width: 0; }
 }
+
+/* v1.2 today pane: compact idle mode selector under the primary buttons */
+.daily-practice-idle { max-width: 900px; margin: 0 auto 16px; font-size: .9rem; color: var(--muted); }
+.daily-practice-idle select { margin-left: 8px; min-height: 36px; }
 
 
 /* === src/styles/modal.css === */
@@ -3143,169 +3045,51 @@ select:focus {
   <header>
     <div class="header-top">
       <div class="title-area">
-        <h1>⚡ 電機工程技師 & 公務高考三級 歷屆試題工作台</h1>
-        <p>104 ~ 114 年 6 大考科 · <span id="hero-total-count">484 道題目記錄</span> · 逐題來源可追溯 · 5 大維度難度評級 · 離線使用</p>
+        <h1>⚡ 電機工程技師 歷屆試題工作台</h1>
+        <p>專技高考電機工程技師 · 104 ~ 114 年 6 大考科 · <span id="hero-total-count">323 題</span> · 逐題來源可追溯 · 離線使用</p>
       </div>
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
-        <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
       </div>
     </div>
 
-    <!-- Category Switcher Tabs (PE 技師 vs GK 高考三級) -->
-    <div class="category-switcher">
-      <button class="cat-tab on" id="cat-tab-PE" onclick="switchExamCategory('PE')">
-        <span>🏆 專技高考：電機工程技師</span>
-        <span class="cat-badge" id="cat-count-PE">323 題 · 66 卷</span>
-      </button>
-      <button class="cat-tab" id="cat-tab-GK" onclick="switchExamCategory('GK')">
-        <span>🏛️ 公務高考：三級電力/電子</span>
-        <span class="cat-badge" id="cat-count-GK">161 題 · 25 卷</span>
-      </button>
-    </div>
-
-    <!-- Statistics Grid -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="label">📚 收錄試題總數</span>
-        <span class="val" id="stat-total">323</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">🟢 已掌握題數</span>
-        <span class="val" id="stat-mastered" style="color: var(--success);">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">🔴 需二刷 (錯題本)</span>
-        <span class="val" id="stat-review" style="color: var(--review);">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">⚪ 未開始題數</span>
-        <span class="val" id="stat-unstarted" style="color: var(--muted);">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">⭐ 重點收藏題數</span>
-        <span class="val" id="stat-starred" style="color: var(--star);">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">📑 考卷總卷數</span>
-        <span class="val" id="stat-exams">66</span>
-      </div>
-      <div class="stat-card stat-due-card" id="stat-due-card" onclick="onDueFlashcardsClick()" style="cursor: pointer;" title="艾賓浩斯遺忘曲線到期題（點擊前往提取訓練）">
-        <span class="label">⚡ 今日待提取 (SM-2)</span>
-        <span class="val" id="stat-due-flashcards" style="color: var(--accent-dark);">0</span>
-      </div>
-    </div>
-
-    <!-- Progress Bar -->
-    <div style="margin-top: 18px;">
-      <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--muted); font-weight: 600; margin-bottom: 6px;">
-        <span>📊 刷題整體掌握度</span>
-        <span id="stat-pct" style="color: var(--accent-dark); font-weight: 700;">0%</span>
-      </div>
-      <div style="height: 10px; background: var(--bg-secondary); border-radius: 9999px; overflow: hidden; display: flex;">
-        <div id="bar-mastered" style="width: 0%; background: var(--success); height: 100%; transition: width 0.3s;"></div>
-        <div id="bar-review" style="width: 0%; background: var(--review); height: 100%; transition: width 0.3s;"></div>
-        <div id="bar-unstarted" style="width: 100%; background: var(--line); height: 100%; transition: width 0.3s;"></div>
-      </div>
-    </div>
+    <!-- One-line summary: 今天 / 到期 / 成績 -->
+    <p class="header-summary" id="header-summary-line" role="status" aria-live="polite">今天：—｜到期 0 題｜估計總分：尚無資料</p>
   </header>
 
-  <!-- Main Navigation Tabs -->
+  <!-- Main Navigation: three entries plus a collapsed 更多 -->
   <div class="main-tabs">
     <button class="main-tab-btn active" id="tab-btn-practice" onclick="switchTab('practice')">
-      <span>🎯 今日練習</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-questions" onclick="switchTab('questions')">
-      <span>📚 歷屆真題雙欄刷題庫</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-review" onclick="switchTab('review')">
-      <span>📝 複習中心</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-weakness" onclick="switchTab('weakness')">
-      <span>🧭 我的弱點</span>
+      <span>🎯 今天</span>
     </button>
     <button class="main-tab-btn" id="tab-btn-mock" onclick="switchTab('mock')">
-      <span>⏱️ 120 分鐘計時全真模考</span>
+      <span>📄 模考</span>
+    </button>
+    <button class="main-tab-btn" id="tab-btn-scoreboard" onclick="switchTab('scoreboard')">
+      <span>📊 成績</span>
     </button>
     <details class="more-tools-menu" id="more-tools-menu">
-      <summary>🧰 更多工具</summary>
+      <summary>⋯ 更多</summary>
       <div class="more-tools-panel">
-        <button class="main-tab-btn" id="tab-btn-dag" onclick="switchTab('dag')"><span>🕸️ 知識圖譜</span></button>
-        <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')"><span>🪜 七層訓練</span></button>
-        <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')"><span>📊 統計</span></button>
-        <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')"><span>⚡ 速查</span></button>
+        <button class="main-tab-btn" id="tab-btn-questions" onclick="switchTab('questions')"><span>📚 題庫瀏覽</span></button>
         <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 15天奪榜本</span></button>
-        <button class="main-tab-btn" id="tab-btn-calcguide" onclick="openCalculatorGuideModal()"><span>🧮 fx-82 按法</span></button>
+        <button class="main-tab-btn" id="tab-btn-backup" onclick="openBackupModal()"><span>💾 備份／還原</span></button>
       </div>
     </details>
-  </div>
-
-  <!-- TAB 1.5: Review Center -->
-  <div class="tab-pane" id="tab-pane-review" style="display: none;">
-    <div class="review-shell">
-      <div class="review-header">
-        <div>
-          <h2>📝 複習中心 · 備考戰情看板</h2>
-          <p>基於艾賓浩斯遺忘曲線與 SM-2 間隔重複演算法，精準鎖定今日到期與薄弱考點。</p>
-        </div>
-        <div class="review-header-actions">
-          <button class="btn-sol" id="btn-start-review" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
-          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()">🧭 人工覆核題型標注</button>
-        </div>
-      </div>
-
-      <!-- 戰情 Hero 區塊：Progress Ring + 互動統計卡 -->
-      <div id="review-corrections"></div>
-
-      <div class="review-hero">
-        <div class="progress-ring-card" id="review-progress-card"></div>
-        <div class="review-stats" id="review-stats"></div>
-      </div>
-
-      <!-- 考科分段標籤 Segmented Tabs -->
-      <div class="review-subject-segmented" id="review-subject-segmented" role="tablist" aria-label="考科切換"></div>
-
-      <!-- 保留原生 controls 供測試與腳本相容性（CSS 設為 display:none） -->
-      <div class="review-controls" style="display: none;">
-        <label for="review-scope">複習範圍</label>
-        <select id="review-scope" onchange="setReviewFilter(this.value)">
-          <option value="due">今日到期</option>
-          <option value="errors">回想未完成</option>
-          <option value="wrong">錯題本</option>
-          <option value="starred">收藏題目</option>
-          <option value="manual">待人工覆核</option>
-          <option value="all">全部題目</option>
-        </select>
-        <label for="review-subject">考科</label>
-        <select id="review-subject" onchange="setReviewSubjectFilter(this.value)"><option value="all">所有考科</option></select>
-        <span id="review-filter-count"></span>
-      </div>
-
-      <div class="review-type-filter" id="review-type-filter" aria-label="教科書章節篩選"></div>
-      <div id="review-container"></div>
-    </div>
-  </div>
-
-  <!-- TAB 1.6: Explainable weakness projection -->
-  <div class="tab-pane" id="tab-pane-weakness" style="display: none;">
-    <div id="weakness-view"></div>
   </div>
 
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
     <div id="today-task-card"></div>
+    <div id="review-corrections"></div>
     <section class="home-primary-actions" aria-label="首頁主要入口">
+      <button id="home-action-start" class="home-random-button" type="button" onclick="dailyPracticePrepareNewRound()"><span>🎲</span><strong>隨機練習 3 題</strong><small>依目標分配抽題，按一次就開始</small></button>
       <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span>🎴</span><strong>到期複習</strong><small>今天沒有到期題</small></button>
     </section>
-    <details class="more-practice" id="more-practice">
-      <summary>更多練習方式</summary>
-      <section class="practice-home-actions" aria-label="練習首頁主要入口">
-      <button id="home-action-start" type="button" onclick="dailyPracticePrepareNewRound()"><span>▶</span><strong>開始練習</strong><small>選擇考科，建立新的 3 題練習</small></button>
-      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled><span>↩</span><strong>繼續上次</strong><small>接回原題、揭露進度與閱讀位置</small></button>
-      <button id="home-action-find" type="button" onclick="dailyPracticeFindQuestions()"><span>⌕</span><strong>找題</strong><small>依考科、年度、章節或關鍵字搜尋</small></button>
-    </section>
-      <div id="daily-practice-container"></div>
-    </details>
+    <div class="practice-home-secondary">
+      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled>↩ 繼續上次</button>
+    </div>
+    <div id="daily-practice-container"></div>
   </div>
 
   <!-- TAB 1: Questions Explorer -->
@@ -3379,89 +3163,12 @@ select:focus {
     <div id="questions-container" class="qlist"></div>
   </div>
 
-  <!-- TAB 2: Knowledge DAG Graph Visualizer -->
-  <div class="tab-pane" id="tab-pane-dag" style="display: none;">
-    <div class="dag-visualizer-container">
-      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">
-        🕸️ 6 大考科知識相依有向無環圖 (Knowledge Dependency DAG)
-      </h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">
-        全方位梳理電機工程考科的前置觀念流向。每道進階試題皆可沿著拓撲關係逆向溯源，精準擊破前置盲點！
-      </p>
-      <div id="dag-graph-viewer-content"></div>
-    </div>
-  </div>
+  <!-- TAB 2: Mock exam (rendered by src/components/mockExam.js) -->
+  <div class="tab-pane" id="tab-pane-mock" style="display: none;"></div>
 
-  <!-- TAB 3: Mock Exam System -->
-  <div class="tab-pane" id="tab-pane-mock" style="display: none;">
-    <div class="mock-exam-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px;">
-        <div>
-          <h2 style="color: var(--accent-dark); font-weight: 700; font-size: 1.3rem;">⏱️ 國考全真 120 分鐘計時模考系統</h2>
-          <p style="font-size: 0.85rem; color: var(--muted); margin-top: 2px;">白紙蓋牌獨立推導，訓練考場時間分配與作答節奏</p>
-        </div>
-        
-        <!-- Exam Year & Subject Selector -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-          <select id="exam-select-subj" style="font-weight: 600;">
-            <option value="01">⚡ 01. 電路學</option>
-            <option value="02">🔌 02. 電子學（含電力電子）</option>
-            <option value="03">📐 03. 工程數學</option>
-            <option value="04">⚙️ 04. 電機機械</option>
-            <option value="05">🏢 05. 電力系統</option>
-            <option value="06">🏭 06. 工業配電</option>
-          </select>
-          <select id="exam-select-yr" style="font-weight: 600;">
-            <option value="114">114 年全卷</option>
-            <option value="113">113 年全卷</option>
-            <option value="112">112 年全卷</option>
-            <option value="111">111 年全卷</option>
-            <option value="110">110 年全卷</option>
-            <option value="109">109 年全卷</option>
-            <option value="108">108 年全卷</option>
-            <option value="107">107 年全卷</option>
-            <option value="106">106 年全卷</option>
-            <option value="105">105 年全卷</option>
-            <option value="104">104 年全卷</option>
-            <option value="random">🎲 隨機抽 4 題模考</option>
-          </select>
-          <button onclick="loadMockExam()" class="btn-sol">📄 載入試卷</button>
-        </div>
-      </div>
-
-      <!-- Timer Center -->
-      <div class="timer-display" id="exam-timer">120:00</div>
-      
-      <div class="timer-controls">
-        <button onclick="startExamTimer()" class="btn-timer start" id="btn-timer-toggle">▶️ 開始計時</button>
-        <button onclick="resetExamTimer()" class="btn-timer reset">🔄 重設時間</button>
-      </div>
-
-      <div id="mock-exam-questions" style="margin-top: 24px;"></div>
-    </div>
-  </div>
-
-  <!-- TAB 4: Seven Layers -->
-  <div class="tab-pane" id="tab-pane-layers" style="display: none;">
-    <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
-      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">7 種訓練路徑</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">依目前弱點選擇辨識、公式、SOP、錯題、整合、複習或限時輸出；這些是不同訓練方式，不是 L1～L4 的升級階梯：</p>
-      <div id="layers-container"></div>
-    </div>
-  </div>
-
-  <!-- TAB 5: Top Topics -->
-  <div class="tab-pane" id="tab-pane-stats" style="display: none;">
-    <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
-      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">🔥 歷屆高頻命題考點命中分析</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">目前題庫：<span id="stats-category-label">電機工程技師題庫</span>；年度範圍：<span id="stats-year-range">尚未計算</span>；統計分母：<span id="stats-denominator">0</span> 題（<span id="stats-total-count">0</span>）。題數占比與有出題年度占比是描述性統計，不代表命中率。</p>
-      <div id="top-topics-container"></div>
-    </div>
-  </div>
-
-  <!-- TAB 6: Last 30-Minute High-Yield Cheat Sheet -->
-  <div class="tab-pane" id="tab-pane-quicksheet" style="display: none;">
-    <div id="quicksheet-container"></div>
+  <!-- TAB 3: Scoreboard (rendered by renderScoreboard on switch) -->
+  <div class="tab-pane" id="tab-pane-scoreboard" style="display: none;">
+    <div id="scoreboard-container"></div>
   </div>
 </div>
 
@@ -25328,13 +25035,9 @@ function setQuickFilter(type, btn) {
 function updateFilterDropdownsForCategory() {
   const yrSelect = document.getElementById('filter-year');
   const subSelect = document.getElementById('filter-subject');
-  const examYrSelect = document.getElementById('exam-select-yr');
-  const examSubSelect = document.getElementById('exam-select-subj');
 
   const currentYr = yrSelect ? yrSelect.value : 'all';
   const currentSub = subSelect ? subSelect.value : 'all';
-  const currentExamYr = examYrSelect ? examYrSelect.value : '114';
-  const currentExamSub = examSubSelect ? examSubSelect.value : '01';
 
   if (currentExamCategory === 'GK') {
     if (yrSelect) {
@@ -25350,25 +25053,6 @@ function updateFilterDropdownsForCategory() {
     if (subSelect) {
       subSelect.innerHTML = `
         <option value="all">所有考科 (5 大考科)</option>
-        <option value="01">⚡ 01. 電路學</option>
-        <option value="02">🔌 02. 電子學（含電力電子）</option>
-        <option value="03">📐 03. 工程數學</option>
-        <option value="04">⚙️ 04. 電機機械</option>
-        <option value="05">🏢 05. 電力系統</option>
-      `;
-    }
-    if (examYrSelect) {
-      examYrSelect.innerHTML = `
-        <option value="114">114 年全卷</option>
-        <option value="113">113 年全卷</option>
-        <option value="112">112 年全卷</option>
-        <option value="111">111 年全卷</option>
-        <option value="110">110 年全卷</option>
-        <option value="random">🎲 隨機抽 4 題模考</option>
-      `;
-    }
-    if (examSubSelect) {
-      examSubSelect.innerHTML = `
         <option value="01">⚡ 01. 電路學</option>
         <option value="02">🔌 02. 電子學（含電力電子）</option>
         <option value="03">📐 03. 工程數學</option>
@@ -25404,42 +25088,44 @@ function updateFilterDropdownsForCategory() {
         <option value="06">🏭 06. 工業配電</option>
       `;
     }
-    if (examYrSelect) {
-      examYrSelect.innerHTML = `
-        <option value="114">114 年全卷</option>
-        <option value="113">113 年全卷</option>
-        <option value="112">112 年全卷</option>
-        <option value="111">111 年全卷</option>
-        <option value="110">110 年全卷</option>
-        <option value="109">109 年全卷</option>
-        <option value="108">108 年全卷</option>
-        <option value="107">107 年全卷</option>
-        <option value="106">106 年全卷</option>
-        <option value="105">105 年全卷</option>
-        <option value="104">104 年全卷</option>
-        <option value="random">🎲 隨機抽 4 題模考</option>
-      `;
-    }
-    if (examSubSelect) {
-      examSubSelect.innerHTML = `
-        <option value="01">⚡ 01. 電路學</option>
-        <option value="02">🔌 02. 電子學（含電力電子）</option>
-        <option value="03">📐 03. 工程數學</option>
-        <option value="04" selected>⚙️ 04. 電機機械</option>
-        <option value="05">🏢 05. 電力系統</option>
-        <option value="06">🏭 06. 工業配電</option>
-      `;
-    }
   }
 
   // Restore previous values if valid in the new options
   if (yrSelect && Array.from(yrSelect.options).some(o => o.value === currentYr)) yrSelect.value = currentYr;
   if (subSelect && Array.from(subSelect.options).some(o => o.value === currentSub)) subSelect.value = currentSub;
-  if (examYrSelect && Array.from(examYrSelect.options).some(o => o.value === currentExamYr)) examYrSelect.value = currentExamYr;
-  if (examSubSelect && Array.from(examSubSelect.options).some(o => o.value === currentExamSub)) examSubSelect.value = currentExamSub;
 }
 
-function switchExamCategory(catId) {
+// GK data (national-exams-data.js / national-solutions-bundle.js) is not preloaded.
+// Any GK code path must go through ensureGkData() first.
+let gkDataPromise = null;
+
+function gkDataLoaded() {
+  return typeof NATIONAL_EXAMS_DATA !== 'undefined';
+}
+
+function ensureGkData() {
+  if (gkDataLoaded() && typeof NATIONAL_BUNDLED_MD !== 'undefined') return Promise.resolve(true);
+  if (gkDataPromise) return gkDataPromise;
+  if (typeof document === 'undefined') return Promise.resolve(false);
+  const load = src => new Promise((resolve, reject) => {
+    const el = document.createElement('script');
+    el.src = src;
+    el.onload = () => resolve();
+    el.onerror = () => reject(new Error('load failed: ' + src));
+    document.head.appendChild(el);
+  });
+  gkDataPromise = load('./national-exams-data.js')
+    .then(() => load('./national-solutions-bundle.js'))
+    .then(() => true)
+    .catch(() => { gkDataPromise = null; return false; });
+  return gkDataPromise;
+}
+
+function switchExamCategory(catId, silent) {
+  if (catId === 'GK' && !gkDataLoaded() && typeof document !== 'undefined') {
+    ensureGkData().then(ok => { if (ok) switchExamCategory('GK', silent); });
+    return;
+  }
   currentExamCategory = catId;
   if (typeof resetQuestionFacetState === 'function') resetQuestionFacetState();
   localStorage.setItem('exam_category_tab', catId);
@@ -25457,12 +25143,12 @@ function switchExamCategory(catId) {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
     if (typeof renderReviewPage === 'function') renderReviewPage();
-    showToast(`🏆 已切換至「電機工程技師」核心題庫 (${categoryCount} 題)`);
+    if (!silent) showToast(`🏆 已切換至「電機工程技師」核心題庫 (${categoryCount} 題)`);
   } else {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
     if (typeof renderReviewPage === 'function') renderReviewPage();
-    showToast(`🏛️ 已切換至「公務人員高考三級」參考題庫 (${categoryCount} 題)`);
+    if (!silent) showToast(`🏛️ 已切換至「公務人員高考三級」參考題庫 (${categoryCount} 題)`);
   }
 }
 
@@ -26725,6 +26411,9 @@ function saveResultRecord(record, options) {
     if (rating !== null && typeof recordSM2Review === 'function') {
       try { sm2 = recordSM2Review(normalized.qid, rating); } catch (_) { sm2 = { ok: false, error: 'sm2_failed' }; }
     }
+  }
+  if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+    try { window.dispatchEvent(new CustomEvent('result-card-saved', { detail: { qid: normalized.qid } })); } catch (_) { /* header refresh is best-effort */ }
   }
   return { ok: true, error: null, record: normalized, sm2 };
 }
@@ -31987,85 +31676,46 @@ function getQuestionCountForCategory(category) {
   return 0;
 }
 
+// Hero subtitle is PE-only; the GK count is no longer part of the default UI.
 function updateQuestionCountLabels() {
   const peCount = getQuestionCountForCategory('PE');
-  const gkCount = getQuestionCountForCategory('GK');
-  const total = peCount + gkCount;
-  const peLabel = document.getElementById('cat-count-PE');
-  const gkLabel = document.getElementById('cat-count-GK');
   const totalLabel = document.getElementById('hero-total-count');
-  const statsTotalLabel = document.getElementById('stats-total-count');
-  if (peLabel) peLabel.innerText = `${peCount} 題 · 66 卷`;
-  if (gkLabel) gkLabel.innerText = `${gkCount} 題 · 25 卷`;
-  if (totalLabel) totalLabel.innerText = `${total} 道題目記錄`;
-  if (statsTotalLabel) statsTotalLabel.innerText = total;
-  return total;
+  if (totalLabel) totalLabel.innerText = `${peCount} 題`;
+  return peCount;
 }
 
+/** 「今天：<今天任務代碼或 已完成>｜到期 N 題｜<成績一行>」 */
+function headerTodayLabel() {
+  try {
+    if (typeof todayTaskViewModel !== 'function' || typeof loadTodayTaskState !== 'function') return '—';
+    const vm = todayTaskViewModel(loadTodayTaskState(), Date.now());
+    if (vm.mode === 'done') return '已完成';
+    if (vm.mode === 'exam-check') return '考前確認';
+    if (vm.mode === 'stop') return '停止新增練習';
+    return vm.code || '已完成';
+  } catch (_) {
+    return '—';
+  }
+}
+
+function headerSummaryText() {
+  let due = 0;
+  try { due = typeof getDueQuestionsList === 'function' ? getDueQuestionsList().length : 0; } catch (_) { due = 0; }
+  let score = '估計總分：尚無資料';
+  try { if (typeof scoreboardSummaryLine === 'function') score = scoreboardSummaryLine(); } catch (_) { /* keep default */ }
+  return `今天：${headerTodayLabel()}｜到期 ${due} 題｜${score}`;
+}
+
+function updateHeaderSummary() {
+  const line = document.getElementById('header-summary-line');
+  if (line) line.innerText = headerSummaryText();
+}
+
+// Kept under its old name: many callers refresh the header after progress changes.
 function updateStatsAndBar() {
   updateQuestionCountLabels();
-  const qList = getActiveQuestionsList();
-  const total = qList.length;
-  let mastered = 0, review = 0, starred = 0;
-
-  qList.forEach(q => {
-    const qid = q[0];
-    const s = progressState[qid] || 0;
-    if (s === 1) mastered++;
-    if (s === 2) review++;
-    if (starredState[qid]) starred++;
-  });
-
-  const unstarted = total - mastered - review;
-  const pct = total > 0 ? Math.round((mastered / total) * 100) : 0;
-
-  const statTotal = document.getElementById('stat-total');
-  const statMastered = document.getElementById('stat-mastered');
-  const statReview = document.getElementById('stat-review');
-  const statUnstarted = document.getElementById('stat-unstarted');
-  const statStarred = document.getElementById('stat-starred');
-  const statExams = document.getElementById('stat-exams');
-
-  if (statTotal) statTotal.innerText = total;
-  if (statMastered) statMastered.innerText = mastered;
-  if (statReview) statReview.innerText = review;
-  if (statUnstarted) statUnstarted.innerText = unstarted;
-  if (statStarred) statStarred.innerText = starred;
-  if (statExams) statExams.innerText = currentExamCategory === 'PE' ? 66 : 25;
-
-  // SM-2 Due Flashcards count
-  const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
-  const statDue = document.getElementById('stat-due-flashcards');
-  const statDueCard = document.getElementById('stat-due-card');
-  if (statDue) statDue.innerText = dueList.length;
-  if (statDueCard) {
-    if (dueList.length > 0) {
-      statDueCard.classList.add('has-due');
-    } else {
-      statDueCard.classList.remove('has-due');
-    }
-  }
-
-  const barMastered = document.getElementById('bar-mastered');
-  const barReview = document.getElementById('bar-review');
-  const barUnstarted = document.getElementById('bar-unstarted');
-  const barPct = document.getElementById('stat-pct');
-
-  if (barMastered && total > 0) barMastered.style.width = `${(mastered / total) * 100}%`;
-  if (barReview && total > 0) barReview.style.width = `${(review / total) * 100}%`;
-  if (barUnstarted && total > 0) barUnstarted.style.width = `${(unstarted / total) * 100}%`;
-  if (barPct) barPct.innerText = `${pct}%`;
-}
-
-function onDueFlashcardsClick() {
-  if (typeof switchTab === 'function') {
-    switchTab('review');
-    const reviewScope = document.getElementById('review-scope');
-    if (reviewScope) {
-      reviewScope.value = 'due';
-      if (typeof setReviewFilter === 'function') setReviewFilter('due');
-    }
-  }
+  updateHeaderSummary();
+  if (typeof homeDueReviewRefresh === 'function') homeDueReviewRefresh();
 }
 
 
@@ -32158,11 +31808,24 @@ function renderBackupPreview(result) {
   renderBackupHistory();
 }
 
+// Backup validation checks PE and GK question ids, so the lazily loaded GK data
+// must be present first (no-op outside the browser and once loaded).
+function backupDeferUntilGkLoaded(retry) {
+  if (typeof document === 'undefined' || typeof gkDataLoaded !== 'function' || typeof ensureGkData !== 'function') return false;
+  if (gkDataLoaded()) return false;
+  ensureGkData().then(ok => { if (ok) retry(); else renderBackupPreview({ success: false, error: '無法載入 GK 題庫資料，暫時無法驗證備份。' }); });
+  return true;
+}
+
 function previewImportedBackupJSON() {
   const textarea = document.getElementById('backup-json-textarea');
   if (!textarea || !textarea.value.trim()) {
     renderBackupPreview({ success: false, error: '請先貼上或載入備份 JSON。' });
     return { success: false, error: '請先貼上或載入備份 JSON。' };
+  }
+  if (backupDeferUntilGkLoaded(previewImportedBackupJSON)) {
+    renderBackupPreview({ success: false, error: '正在載入題庫資料以驗證備份…' });
+    return { success: false, pending: true };
   }
   let result;
   try {
@@ -32184,15 +31847,16 @@ function applyImportedBackupJSON(mode) {
     return;
   }
   const selectedMode = mode === 'merge' || mode === 'replace' ? mode : 'replace';
+  if (backupDeferUntilGkLoaded(() => applyImportedBackupJSON(selectedMode))) return { success: false, pending: true };
   const res = typeof applyUserDataBackup === 'function'
     ? applyUserDataBackup(textarea.value.trim(), selectedMode)
     : { success: false, error: '備份還原功能尚未載入。' };
   if (res.success) {
-    if (typeof loadMockExamTimerState === 'function') loadMockExamTimerState();
     if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
     updateStatsAndBar();
     renderQuestions();
     if (typeof renderReviewPage === 'function') renderReviewPage();
+    if (typeof renderAnswerCorrectionReviewSection === 'function') renderAnswerCorrectionReviewSection();
     renderBackupHistory();
     closeBackupModal();
     showToast(`📥 已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
@@ -35656,7 +35320,8 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   const firstFocus = modal.querySelector('button, [href], select, input, textarea, [tabindex]:not([tabindex="-1"])');
   if (firstFocus && typeof firstFocus.focus === 'function') firstFocus.focus();
   document.body.style.overflow = 'hidden';
-  const shouldOpenRecallPane = currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry;
+  // Any recall entry (random practice, due review, mock/today result flows) opens on the four-stage cover, never on 原題.
+  const shouldOpenRecallPane = currentSolutionRecallEntry;
   if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 760px)').matches) {
     setModalLayout(shouldOpenRecallPane || (savedReading && savedReading.pane === 'solution') ? 'solution-only' : 'exam-only');
   } else {
@@ -37781,8 +37446,13 @@ function dailyPracticeSummaryRows(results) {
 }
 
 function dailyPracticeOpenErrorList() {
-  if (typeof switchTab === 'function') switchTab('review');
-  if (typeof setReviewFilter === 'function') setReviewFilter('errors');
+  // 複習中心入口已移除：改到題庫瀏覽的「我的錯題本」篩選。
+  if (typeof switchTab === 'function') switchTab('questions');
+  if (typeof setQuickFilter === 'function') {
+    const pill = typeof document !== 'undefined'
+      ? Array.from(document.querySelectorAll('.pills-bar .pill')).find(el => /setQuickFilter\('review'/.test(el.getAttribute('onclick') || '')) : null;
+    setQuickFilter('review', pill || null);
+  }
 }
 
 function dailyPracticeSolutionButton() {
@@ -37819,7 +37489,13 @@ function renderDailyPractice(container, error) {
       '<button class="btn-pdf" type="button" onclick="dailyPracticeFindQuestions()">找其他題目</button></div></section>';
     return;
   }
-  if (!session || !question || dailyPracticeHomeMode === 'start') {
+  if (!session) {
+    // The 今天 pane already has the primary 「隨機練習 3 題」 button; idle only
+    // shows how questions will be drawn.
+    container.innerHTML = '<section class="daily-practice-idle">' + dailyPracticeModeSelectHtml() + '</section>';
+    return;
+  }
+  if (!question || dailyPracticeHomeMode === 'start') {
     const activeNote = session
       ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
       : '';
@@ -37898,12 +37574,12 @@ function initDailyPracticeHome() {
   homeDueReviewRefresh();
 }
 
-// K4: 首頁預設只留「今天的任務」與「到期複習」；其餘練習入口收在「更多練習方式」。
+// v1.2: 排程任務、隨機練習 3 題與到期複習都直接放在今天分頁；「繼續上次」只在有進行中的回合時出現。
 function homeMorePracticeSync() {
-  const details = document.getElementById('more-practice');
-  if (!details) return;
+  const row = typeof document !== 'undefined' && document.querySelector ? document.querySelector('.practice-home-secondary') : null;
+  if (!row) return;
   const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
-  if (hasSession || dailyPracticeHomeMode === 'start' || dailyPracticeHomeMode === 'summary') details.open = true;
+  row.hidden = !hasSession;
 }
 
 function homeDueReviewRefresh() {
@@ -37916,7 +37592,8 @@ function homeDueReviewRefresh() {
 }
 
 function homeStartDueReview() {
-  if (typeof switchTab === 'function') switchTab('review');
+  // The 複習中心 pane is gone; the due-review session runs straight from the 今天 pane.
+  if (typeof switchTab === 'function') switchTab('practice');
   if (typeof setReviewSubjectFilter === 'function') setReviewSubjectFilter('all');
   if (typeof startReviewSession === 'function') startReviewSession();
 }
@@ -38239,6 +37916,7 @@ function renderTodayTaskCard() {
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + (resume ? '繼續' : '開始') + '</button></div>';
   }
   host.innerHTML = '<section class="today-task-card" aria-label="今天的任務">' + body + plan + todayTaskStartFromHtml(vm) + '</section>';
+  if (typeof updateHeaderSummary === 'function') updateHeaderSummary();
 }
 
 function todayTaskStartFromHtml(vm) {
@@ -38705,36 +38383,35 @@ function focusStudyLayer(action) {
  */
 
 function switchTab(tabId) {
+  // Only the panes that still exist in the shell are routable (今天 / 模考 / 成績 / 題庫瀏覽).
+  const activePane = document.getElementById('tab-pane-' + tabId);
+  if (!activePane) return;
   document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
 
-  // A tool selected from the compact secondary menu should leave the menu
-  // closed, so the selected pane—not the menu overlay—gets the user's focus.
+  // A tool selected from the compact 更多 menu should leave the menu closed, so
+  // the selected pane (not the menu overlay) gets the user's focus.
   const moreToolsMenu = document.getElementById('more-tools-menu');
-  if (moreToolsMenu) moreToolsMenu.open = false;
+  if (moreToolsMenu) {
+    moreToolsMenu.open = false;
+    moreToolsMenu.classList.toggle('has-active', tabId === 'questions');
+  }
 
   const activeBtn = document.getElementById('tab-btn-' + tabId);
-  const activePane = document.getElementById('tab-pane-' + tabId);
-
   if (activeBtn) activeBtn.classList.add('active');
-  if (activePane) activePane.style.display = 'block';
+  activePane.style.display = 'block';
 
-  if (tabId === 'dag' && typeof renderDagGraphVisualizer === 'function') {
-    renderDagGraphVisualizer();
+  if (tabId === 'scoreboard' && typeof renderScoreboard === 'function') {
+    renderScoreboard(document.getElementById('scoreboard-container'));
   }
-  if (tabId === 'review' && typeof renderReviewPage === 'function') {
-    renderReviewPage();
-  }
-  if (tabId === 'weakness' && typeof renderWeaknessView === 'function') {
-    renderWeaknessView();
-  }
-  if (tabId === 'quicksheet' && typeof renderQuickReviewSheet === 'function') {
-    renderQuickReviewSheet();
-  }
-  if (tabId === 'practice' && typeof initDailyPracticeHome === 'function') {
-    initDailyPracticeHome();
+  if (tabId === 'practice') {
+    if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
     if (typeof initTodayTask === 'function') initTodayTask();
+    if (typeof renderAnswerCorrectionReviewSection === 'function') {
+      try { renderAnswerCorrectionReviewSection(); } catch (_) { /* optional section */ }
+    }
   }
+  if (typeof updateHeaderSummary === 'function') updateHeaderSummary();
 }
 
 
@@ -38789,6 +38466,13 @@ function initPaneResizer() {
 
 // Global DOM Content Loaded Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
+  // 0. The 更多 menu closes after picking an item or clicking elsewhere.
+  document.addEventListener('click', event => {
+    const menu = document.getElementById('more-tools-menu');
+    if (!menu || !menu.open) return;
+    if (!menu.contains(event.target) || event.target.closest('.more-tools-panel button')) menu.open = false;
+  });
+
   // 1. Theme initialization
   const savedTheme = localStorage.getItem('ee_theme_preference');
   if (savedTheme) {
@@ -38798,8 +38482,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2. Restore category & populate category dropdown options first
-  const savedCat = localStorage.getItem('exam_category_tab') || 'PE';
-  switchExamCategory(savedCat);
+  // PE only: the GK switcher is gone and its data is not preloaded.
+  switchExamCategory('PE', true);
 
   // 3. Restore persisted filter selections
   const savedSub = localStorage.getItem('filter-subject');
@@ -38828,24 +38512,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Render initial components
   updateStatsAndBar();
   renderQuestions();
-  renderReviewPage();
+  if (typeof renderAnswerCorrectionReviewSection === 'function') {
+    try { renderAnswerCorrectionReviewSection(); } catch (_) { /* optional section */ }
+  }
   if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
   if (typeof initTodayTask === 'function') initTodayTask();
-  renderLayers();
-  renderTopTopics();
   initPaneResizer();
   handleUrlHashRouting();
 });
 
 window.addEventListener('hashchange', handleUrlHashRouting);
 
+// Keep the header one-liner current after any saved result card.
+window.addEventListener('result-card-saved', () => {
+  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+});
+
 </script>
 <script>
-if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
-  });
-}
+// 不再註冊 service worker（K12）。解除既有註冊，避免舊快取釘住舊版本。
+try {
+  if ('serviceWorker' in navigator && navigator.serviceWorker.getRegistrations) {
+    navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {});
+  }
+} catch (_) {}
 </script>
 </body>
 </html>

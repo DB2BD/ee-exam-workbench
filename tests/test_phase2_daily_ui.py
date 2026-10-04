@@ -61,11 +61,13 @@ globalThis.initDailyPracticeHome();
 
     def test_first_use_renders_start_form_and_category_scope(self):
         # WP5a: the PE/GK category + subject pickers (and the 「第二階段練習入口」 wording) were
-        # replaced by a single 選題方式 selector; PE only.
+        # replaced by a single 選題方式 selector; PE only.  v1.2: the 今天 pane's primary
+        # 「隨機練習 3 題」 button starts a round, so idle shows only the selector.
         result = self.run_node(
             "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
         )
-        self.assertIn("開始 3 題練習", result["html"])
+        self.assertNotIn("開始 3 題練習", result["html"])
+        self.assertIn("daily-practice-idle", result["html"])
         self.assertIn('id="daily-practice-mode"', result["html"])
         self.assertIn("依目標分配", result["html"])
         self.assertIn("全部隨機", result["html"])

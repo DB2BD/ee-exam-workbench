@@ -441,8 +441,13 @@ function dailyPracticeSummaryRows(results) {
 }
 
 function dailyPracticeOpenErrorList() {
-  if (typeof switchTab === 'function') switchTab('review');
-  if (typeof setReviewFilter === 'function') setReviewFilter('errors');
+  // 複習中心入口已移除：改到題庫瀏覽的「我的錯題本」篩選。
+  if (typeof switchTab === 'function') switchTab('questions');
+  if (typeof setQuickFilter === 'function') {
+    const pill = typeof document !== 'undefined'
+      ? Array.from(document.querySelectorAll('.pills-bar .pill')).find(el => /setQuickFilter\('review'/.test(el.getAttribute('onclick') || '')) : null;
+    setQuickFilter('review', pill || null);
+  }
 }
 
 function dailyPracticeSolutionButton() {
@@ -479,7 +484,13 @@ function renderDailyPractice(container, error) {
       '<button class="btn-pdf" type="button" onclick="dailyPracticeFindQuestions()">找其他題目</button></div></section>';
     return;
   }
-  if (!session || !question || dailyPracticeHomeMode === 'start') {
+  if (!session) {
+    // The 今天 pane already has the primary 「隨機練習 3 題」 button; idle only
+    // shows how questions will be drawn.
+    container.innerHTML = '<section class="daily-practice-idle">' + dailyPracticeModeSelectHtml() + '</section>';
+    return;
+  }
+  if (!question || dailyPracticeHomeMode === 'start') {
     const activeNote = session
       ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
       : '';
@@ -558,12 +569,12 @@ function initDailyPracticeHome() {
   homeDueReviewRefresh();
 }
 
-// K4: 首頁預設只留「今天的任務」與「到期複習」；其餘練習入口收在「更多練習方式」。
+// v1.2: 排程任務、隨機練習 3 題與到期複習都直接放在今天分頁；「繼續上次」只在有進行中的回合時出現。
 function homeMorePracticeSync() {
-  const details = document.getElementById('more-practice');
-  if (!details) return;
+  const row = typeof document !== 'undefined' && document.querySelector ? document.querySelector('.practice-home-secondary') : null;
+  if (!row) return;
   const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
-  if (hasSession || dailyPracticeHomeMode === 'start' || dailyPracticeHomeMode === 'summary') details.open = true;
+  row.hidden = !hasSession;
 }
 
 function homeDueReviewRefresh() {
@@ -576,7 +587,8 @@ function homeDueReviewRefresh() {
 }
 
 function homeStartDueReview() {
-  if (typeof switchTab === 'function') switchTab('review');
+  // The 複習中心 pane is gone; the due-review session runs straight from the 今天 pane.
+  if (typeof switchTab === 'function') switchTab('practice');
   if (typeof setReviewSubjectFilter === 'function') setReviewSubjectFilter('all');
   if (typeof startReviewSession === 'function') startReviewSession();
 }

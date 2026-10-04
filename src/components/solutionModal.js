@@ -1445,10 +1445,10 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
           <strong>章節：</strong> ${reviewHtmlEscape(recallHints.chapter)}
         </div>
         <div id="recall-layer-2" style="display: none; margin: 16px 0; padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
-          <strong>起手式：</strong> ${reviewHtmlEscape(recallHints.activation)}
+          <strong>起手式：</strong> ${recallHints.activationMd ? processMarkdownWithMath(recallHints.activationMd) : reviewHtmlEscape(recallHints.activation)}
         </div>
         <div id="recall-layer-3" style="display: none; margin: 16px 0; padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
-          <strong>核心公式：</strong> <span class="math-inline">$${recallHints.formula}$</span><br><strong>常見陷阱：</strong> ${reviewHtmlEscape(recallHints.trap)}
+          <strong>核心公式：</strong> <span class="math-inline">$${recallHints.formula}$</span><br><strong>${recallHints.trapsMd ? '本題失分點' : '常見陷阱'}：</strong> ${recallHints.trapsMd ? processMarkdownWithMath(recallHints.trapsMd) : reviewHtmlEscape(recallHints.trap)}
         </div>
 
         <div id="recall-full-section" style="display: none;">

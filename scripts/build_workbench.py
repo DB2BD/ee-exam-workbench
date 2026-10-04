@@ -62,6 +62,7 @@ def build_workbench():
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
         'src/state/practiceStore.js',
+        'src/data/recallHints.generated.js',
         'src/state/recallStore.js',
         'src/state/attemptStore.js',
         'src/state/knowledgeIssueStore.js',

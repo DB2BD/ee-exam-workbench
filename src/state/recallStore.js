@@ -114,12 +114,18 @@ function getRecallHintBundle(qid, qRecord) {
   const chapter = typeof getReviewTypeLabel === 'function' ? getReviewTypeLabel(qRecord) : '待人工複核';
   const key = typeof getReviewChapterKey === 'function' ? getReviewChapterKey(qRecord) : null;
   const node = key && typeof KNOWLEDGE_DAG !== 'undefined' ? KNOWLEDGE_DAG[key] : null;
-  return {
+  const bundle = {
     chapter,
     activation: node ? `先畫出已知／未知量，依「${node.name}」的標準解法建立第一條方程式。` : '先列出已知量、未知量與要求量，再寫出第一條關係式。',
     formula: node && node.coreFormula ? node.coreFormula : '先寫出本章節的核心公式，再代入題目條件。',
     trap: node && node.keyTrap ? node.keyTrap : '檢查單位、極性、參考方向與邊界條件。',
   };
+  // Question-specific Markdown (rescue-card first move, the note's 失分點)
+  // takes precedence over the chapter template when the modal renders it.
+  const own = typeof RECALL_HINTS !== 'undefined' ? RECALL_HINTS[qid] : null;
+  if (own && own.activationMd) bundle.activationMd = own.activationMd;
+  if (own && own.trapsMd) bundle.trapsMd = own.trapsMd;
+  return bundle;
 }
 
 initRecallStore();

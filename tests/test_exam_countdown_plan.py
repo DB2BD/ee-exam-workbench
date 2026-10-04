@@ -17,10 +17,10 @@ class TestExamCountdownPlan(unittest.TestCase):
 
     def test_official_dates_and_budget_are_explicit(self):
         for phrase in (
-            "2026-09-23",
+            "2026-10-04",
             "2026-11-14 至 2026-11-15",
-            "52 個日曆日",
-            "69 小時",
+            "41 個日曆日",
+            "平日 2 小時、週末 4 小時",
             "2026-08-04 至 2026-08-13",
             "https://wwwc.moex.gov.tw/main/exam/wFrmPropertyDetail.aspx?c=115180&m=7975",
         ):
@@ -28,17 +28,20 @@ class TestExamCountdownPlan(unittest.TestCase):
 
     def test_route_budget_is_complete_and_noninteractive(self):
         for phrase in (
-            "24 × 60 分鐘",
-            "6 × 90 分鐘",
+            "18 × 60 分鐘",
+            "14 × 75 分鐘",
             "6 × 180 分鐘",
-            "不需要回填日期、分數、錯因或每日可用時間",
+            "不需要回填日期、分數或錯因",
             "不等待個人化分析",
             "不依單科感覺或分數改序",
-            "24 核心 → 混合橋接 → 114 模考 → 108 複測",
+            "12 份模考卷與 10/31 期限永不刪減",
+            "每科至少保留 1 個母題時段",
             "11/13 停止新增練習",
+            "10/31（不可延後）",
         ):
             self.assertIn(phrase, self.text)
-        self.assertEqual(len(re.findall(r"\| [1-8] \|", self.text)), 8)
+        for retired in ("混合橋接", "擴章日", "69 小時", "52 天"):
+            self.assertNotIn(retired, self.text)
 
     def test_local_links_resolve(self):
         links = re.findall(r"\[[^]]+\]\(([^)]+)\)", self.text)

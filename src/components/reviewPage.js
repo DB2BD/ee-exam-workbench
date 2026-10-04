@@ -510,7 +510,7 @@ function renderManualLabelModal() {
         <div class="manual-label-qid">${reviewHtmlEscape(qid)}</div>
         <div class="manual-label-subject">${reviewHtmlEscape(getSubjectMeta(record.subjectId).name)} · ${record.year} 年第 ${record.number} 題</div>
       </div>
-      <span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工覆核</span>
+      <span class="qtag solution-audit s-audit-needs_manual_review">待人工覆核</span>
     </div>
     <div class="manual-label-grid">
       <section class="manual-label-question-pane">
@@ -526,9 +526,9 @@ function renderManualLabelModal() {
         <label for="manual-label-select">請選擇本題最符合的教科書章節</label>
         <select id="manual-label-select" class="manual-label-select">${selectOptions.join('')}</select>
         <div class="manual-label-auto"><strong>自動候選：</strong>${reviewHtmlEscape(autoName)}</div>
-        ${selected ? `<div class="manual-label-saved">✅ 已保存：${reviewHtmlEscape(getManualLabelDisplayName(selected))}</div>` : '<div class="manual-label-saved">尚未保存人工標注</div>'}
+        ${selected ? `<div class="manual-label-saved">已保存：${reviewHtmlEscape(getManualLabelDisplayName(selected))}</div>` : '<div class="manual-label-saved">尚未保存人工標注</div>'}
         ${meta && meta.blocker ? `<div class="manual-label-blocker"><strong>覆核阻擋：</strong>${reviewHtmlEscape(meta.blocker)}<br>${reviewHtmlEscape(meta.action || '')}</div>` : ''}
-        ${solutionLink ? `<button type="button" class="btn-sol manual-label-solution" data-manual-open-solution="${reviewHtmlEscape(qid)}">📝 開啟本題詳解</button>` : ''}
+        ${solutionLink ? `<button type="button" class="btn-sol manual-label-solution" data-manual-open-solution="${reviewHtmlEscape(qid)}">開啟本題詳解</button>` : ''}
       </section>
     </div>
   `;
@@ -557,7 +557,7 @@ function saveCurrentManualLabel(showMessage = true) {
     showToast('標注無效：請選擇本考科的教科書章節');
     return false;
   }
-  if (showMessage) showToast(select.value ? '✅ 題型標注已保存' : '已清除本題人工標注');
+  if (showMessage) showToast(select.value ? '題型標注已保存' : '已清除本題人工標注');
   return true;
 }
 
@@ -587,16 +587,16 @@ function populateReviewSubjects() {
     const current = select.value || 'all';
     select.innerHTML = '<option value="all">所有考科</option>' + ids.map(sid => {
       const meta = getSubjectMeta(sid);
-      return `<option value="${reviewHtmlEscape(sid)}">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</option>`;
+      return `<option value="${reviewHtmlEscape(sid)}">${reviewHtmlEscape(meta.name)}</option>`;
     }).join('');
     select.value = ids.includes(current) ? current : 'all';
   }
   const segmented = document.getElementById('review-subject-segmented');
   if (segmented) {
     const current = select ? select.value : 'all';
-    const tabs = [['all', '🌟 全部考科']].concat(ids.map(sid => {
+    const tabs = [['all', '全部考科']].concat(ids.map(sid => {
       const meta = getSubjectMeta(sid);
-      return [sid, `${meta.icon || ''} ${meta.name}`];
+      return [sid, meta.name];
     }));
     segmented.innerHTML = tabs.map(([sid, label]) => `
       <button type="button" class="subject-seg-btn ${current === sid ? 'active' : ''}" data-review-sub-tab="${reviewHtmlEscape(sid)}">
@@ -634,7 +634,7 @@ function startReviewSession() {
   setReviewFilter('due');
   const questions = getReviewQuestions();
   if (!questions.length) {
-    if (typeof showToast === 'function') showToast('🌿 今日沒有待提取的到期題目');
+    if (typeof showToast === 'function') showToast('今日沒有待提取的到期題目');
     return;
   }
   currentReviewSessionQueue = questions;
@@ -686,7 +686,7 @@ function reviewSessionShowSummary() {
     anchor.parentNode.insertBefore(box, anchor.nextSibling);
   }
   box.hidden = false;
-  box.innerHTML = '<span class="home-due-summary-text"></span><button type="button" class="home-due-summary-close" aria-label="關閉摘要">✕</button>';
+  box.innerHTML = '<span class="home-due-summary-text"></span><button type="button" class="home-due-summary-close" aria-label="關閉摘要">'+uiIcon('x')+'</button>';
   box.querySelector('.home-due-summary-text').textContent = text;
   box.querySelector('button').addEventListener('click', () => { box.hidden = true; });
   if (typeof homeDueReviewRefresh === 'function') homeDueReviewRefresh();
@@ -798,7 +798,7 @@ function renderReviewPage() {
         </div>
       </div>
       <div class="progress-health-label">
-        ${dueCount > 0 ? `<span>⚡ 今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">🌿 今日沒有到期題</span>'}
+        ${dueCount > 0 ? `<span>今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">今日沒有到期題</span>'}
         <small>本輪作答結果記錄 ${practiceRoundCompleted} 題・提取能力 L1／L2／L3／L4：${recallLevels.join('／')}</small>
       </div>
     `;
@@ -808,11 +808,11 @@ function renderReviewPage() {
   const stats = document.getElementById('review-stats');
   if (stats) {
     const statDefs = [
-      { id: 'due', label: '⚡ 今日到期', value: dueCount },
-      { id: 'errors', label: '🧠 回想未完成', value: recallErrors },
-      { id: 'wrong', label: '🔥 需二刷錯題', value: wrong },
-      { id: 'starred', label: '⭐ 重點收藏', value: starred },
-      { id: 'all', label: '📚 全部收錄', value: totalSubject }
+      { id: 'due', label: '今日到期', value: dueCount },
+      { id: 'errors', label: '回想未完成', value: recallErrors },
+      { id: 'wrong', label: '需二刷錯題', value: wrong },
+      { id: 'starred', label: '重點收藏', value: starred },
+      { id: 'all', label: '全部收錄', value: totalSubject }
     ];
     stats.innerHTML = statDefs.map(item => `
       <div class="interactive-stat-card ${reviewFilter === item.id ? 'active' : ''}" data-review-filter-trigger="${item.id}" role="button" tabindex="0">
@@ -870,7 +870,6 @@ function renderReviewPage() {
         : '目前排程今天無需複習；你仍可從錯題本、收藏或全部題目自主練習。';
       container.innerHTML = `
         <div class="review-empty-calm">
-          <span class="calm-icon">🌿</span>
           <h3>${emptyTitle}</h3>
           <p>${emptyDescription}</p>
         </div>
@@ -879,7 +878,6 @@ function renderReviewPage() {
       const title = reviewFilter === 'manual' ? '目前沒有待人工覆核題' : reviewFilter === 'errors' ? '目前沒有回想未完成題' : reviewFilter === 'wrong' ? '太棒了！目前錯題本已全數攻克' : reviewFilter === 'starred' ? '目前尚無收藏試題' : '目前篩選條件下沒有題目';
       container.innerHTML = `
         <div class="review-empty-calm">
-          <span class="calm-icon">📋</span>
           <h3>${title}</h3>
           <p>可切換考科或複習範圍，進行更進一步的專題演練。</p>
         </div>
@@ -891,7 +889,7 @@ function renderReviewPage() {
   // 5. Minimalist Focus Cards Grid
   const groups = {};
   filtered.forEach(q => { const type = getReviewTypeLabel(q); (groups[type] ||= []).push(q); });
-  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div><div class="review-card-grid">${list.map(q => {
+  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div><div class="review-card-grid">${list.map(q => {
     const record = getReviewRecord(q);
     const { id: qid, subjectId: sid, year, number: qnum, stem: topic, solutionLink: solLink } = record;
     const meta = getSubjectMeta(sid);
@@ -899,16 +897,16 @@ function renderReviewPage() {
     const recall = typeof getRecallState === 'function' ? getRecallState(qid) : { level: 1 };
     const statusText = status === 2 ? '需二刷' : status === 1 ? '已掌握' : '未開始';
     const isStarred = typeof starredState !== 'undefined' && !!starredState[qid];
-    const starIcon = isStarred ? '★' : '☆';
+    const starIcon = uiIcon('star', { filled: isStarred });
     const dueBadge = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
-    const auditText = isManualReviewQuestion(q) ? '<span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工</span>' : '';
+    const auditText = isManualReviewQuestion(q) ? '<span class="qtag solution-audit s-audit-needs_manual_review">待人工</span>' : '';
     const manualLabel = getManualTopicLabel(qid);
-    const manualLabelText = manualLabel ? `<span class="qtag manual-label-chip">✅ ${reviewHtmlEscape(getManualLabelDisplayName(manualLabel))}</span>` : '';
+    const manualLabelText = manualLabel ? `<span class="qtag manual-label-chip">${reviewHtmlEscape(getManualLabelDisplayName(manualLabel))}</span>` : '';
     return `
       <article class="review-card focus-card" data-review-type="${reviewHtmlEscape(type)}">
         <div class="focus-card-meta">
           <div class="focus-card-meta-left">
-            <strong>${meta.icon || ''} ${reviewHtmlEscape(meta.name)}・民國${year}年・第${qnum}題</strong>
+            <strong>${reviewHtmlEscape(meta.name)}・民國${year}年・第${qnum}題</strong>
             <span class="qid" title="可複製識別碼">${reviewHtmlEscape(qid)}</span>
             <span class="qtag">L${recall.level}</span>
             ${auditText}${manualLabelText}${dueBadge}
@@ -917,11 +915,11 @@ function renderReviewPage() {
         </div>
         <div class="focus-card-topic">${renderQuestionTopic(topic)}</div>
         <div class="review-recall-cover" data-review-cover="${reviewHtmlEscape(qid)}" aria-label="詳解已蓋牌">
-          <span aria-hidden="true">🎴</span>
+          <span aria-hidden="true">${uiIcon('layers',{size:'1.5em'})}</span>
           <div><strong>詳解已蓋牌</strong><small>先自行作答，再依序揭露章節、起手式、公式與完整推導。</small></div>
         </div>
         <div class="focus-card-actions">
-          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始逐步揭露</button>
+          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">${uiIcon('play')} 開始逐步揭露</button>
           <details class="more-practice more-practice-inline"><summary>更多練習方式</summary>
             ${due.has(qid) ? '' : `<button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>`}
             <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>

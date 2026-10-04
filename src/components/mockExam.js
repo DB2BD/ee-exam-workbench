@@ -11,12 +11,12 @@ const MOCK_EXAM_TIME_CAP_PER_POINT = 0.9;
 const MOCK_EXAM_REMINDER = '5 分鐘掃卷＋90 分鐘第一輪＋17 分鐘搶分＋8 分鐘收尾';
 const MOCK_EXAM_LEGACY_HISTORY_KEY = 'EE_MOCK_EXAM_HISTORY_V1';
 const MOCK_EXAM_FALLBACK_SUBJECTS = [
-  { id: '01', name: '電路學', icon: '⚡' },
-  { id: '02', name: '電子學（含電力電子）', icon: '🔌' },
-  { id: '03', name: '工程數學', icon: '📐' },
-  { id: '04', name: '電機機械', icon: '⚙️' },
-  { id: '05', name: '電力系統', icon: '🏢' },
-  { id: '06', name: '工業配電', icon: '🏭' }
+  { id: '01', name: '電路學' },
+  { id: '02', name: '電子學（含電力電子）' },
+  { id: '03', name: '工程數學' },
+  { id: '04', name: '電機機械' },
+  { id: '05', name: '電力系統' },
+  { id: '06', name: '工業配電' }
 ];
 // 只計部分題的試卷（出處：docs/上榜被動模考_114年六科執行包.md、上榜被動複測_108年六科執行包.md）。
 // 其餘題只作邊界練習：照樣顯示題目與題解，但不評分、不計入總分。
@@ -337,23 +337,40 @@ function mockExamOpenSolution(qid) {
   }
 }
 
+/** 已完成的排程代碼（來自今日任務狀態；讀不到就視為都未完成）。 */
+function mockExamCompletedCodes() {
+  try {
+    return typeof loadTodayTaskState === 'function' ? (loadTodayTaskState().completed || {}) : {};
+  } catch (_) { return {}; }
+}
+
+/** 模考／盲測捷徑 chips；已完成的排程卷加勾號與淡化樣式。 */
+function mockExamShortcutHtml(shortcuts, completed) {
+  const done = completed || {};
+  const icon = typeof uiIcon === 'function' ? uiIcon('check') : '';
+  return shortcuts.map(s => `
+    <div class="mock-shortcut">
+      <strong>${mockExamEscape(s.label)}</strong>
+      ${s.items.map(it => {
+        const finished = !!done[it.code];
+        return `<button type="button" class="mock-chip${finished ? ' is-done' : ''}" data-mock-pick="${mockExamEscape(it.year)}:${mockExamEscape(it.sid)}" title="排程代碼 ${mockExamEscape(it.code)}${finished ? '（已完成）' : ''}">${finished ? icon + ' ' : ''}${mockExamEscape(it.code)} ${mockExamEscape(it.title)}</button>`;
+      }).join('')}
+    </div>`).join('');
+}
+
 function mockExamPickerHtml() {
   const st = mockExamState;
   const subjects = mockExamSubjects();
   const sched = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null;
   const shortcuts = mockExamShortcuts(sched).filter(s => s.items.length);
-  const shortcutHtml = shortcuts.map(s => `
-    <div class="mock-shortcut">
-      <strong>${mockExamEscape(s.label)}</strong>
-      ${s.items.map(it => `<button type="button" class="mock-chip" data-mock-pick="${mockExamEscape(it.year)}:${mockExamEscape(it.sid)}" title="排程代碼 ${mockExamEscape(it.code)}">${mockExamEscape(it.code)} ${mockExamEscape(it.title)}</button>`).join('')}
-    </div>`).join('');
+  const shortcutHtml = mockExamShortcutHtml(shortcuts, mockExamCompletedCodes());
   return `
     <div class="mock-picker">
       <label>年度
         <select id="mock-year">${MOCK_EXAM_YEARS.map(y => `<option value="${y}"${String(y) === st.year ? ' selected' : ''}>${y} 年</option>`).join('')}</select>
       </label>
       <label>科目
-        <select id="mock-subject">${subjects.map(s => `<option value="${mockExamEscape(s.id)}"${String(s.id) === st.sid ? ' selected' : ''}>${mockExamEscape(s.icon || '')} ${mockExamEscape(s.id)}. ${mockExamEscape(s.name)}</option>`).join('')}</select>
+        <select id="mock-subject">${subjects.map(s => `<option value="${mockExamEscape(s.id)}"${String(s.id) === st.sid ? ' selected' : ''}>${mockExamEscape(s.id)}. ${mockExamEscape(s.name)}</option>`).join('')}</select>
       </label>
       <button type="button" class="mock-btn mock-btn-primary" data-mock-load>載入試卷</button>
     </div>
@@ -476,7 +493,7 @@ function mockExamSummaryHtml(paper, sum) {
       ${mockExamState && mockExamState.syncedCode ? `<p class="mock-sync-notice" role="status">已同步完成排程任務 ${mockExamEscape(mockExamState.syncedCode)}</p>` : ''}
       <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamMarksHtml(q)}</span></li>`).join('')}</ul>
       <p class="mock-tally"><strong>錯因統計：</strong>${tally.length ? tally.map(c => `${mockExamEscape(c)} ${mockExamEscape(labels[c] || '')} ×${sum.errorTally[c]}`).join('、') : '未選錯因'}</p>
-      ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '📝 開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
+      ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
       <button type="button" class="mock-btn" data-mock-reset>換一份試卷</button>
     </section>`;
 }

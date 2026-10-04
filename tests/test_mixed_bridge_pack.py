@@ -1,4 +1,4 @@
-"""Regression coverage for the six-subject mixed bridge."""
+"""Regression coverage for the six-subject mixed bridge (retired from the schedule in v1.3; the 12-question list stays for reference)."""
 
 import json
 import re
@@ -62,6 +62,17 @@ class TestMixedBridgePack(unittest.TestCase):
             resolved = (PACK.parent / target).resolve()
             with self.subTest(target=raw_target):
                 self.assertTrue(resolved.is_file(), resolved)
+
+    def test_pack_is_marked_retired_and_not_in_the_schedule(self):
+        self.assertIn("已退休", self.text.split("\n", 8)[0] + "\n".join(self.text.splitlines()[:5]))
+        self.assertIn("v1.3", self.text)
+        schedule = (ROOT / "docs" / "上榜逐日開工表_115年.md").read_text(encoding="utf-8")
+        table = schedule.split("## 41 天固定日程", 1)[1].split("\n## ", 1)[0]
+        self.assertNotIn("MIX-", table)
+        self.assertNotIn("上榜混合橋接", table)
+        data = json.loads((ROOT / "data" / "daily-schedule.json").read_text(encoding="utf-8"))
+        self.assertFalse([c for c in data["tasks"] if c.startswith("MIX-")])
+        self.assertFalse([c for c in data["order"] if c.startswith("MIX-")])
 
     def test_pack_is_fixed_blind_and_noninteractive(self):
         for phrase in (

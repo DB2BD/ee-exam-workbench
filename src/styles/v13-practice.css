@@ -1,0 +1,11 @@
+/* v1.3 B: random-practice mode selector hint */
+.daily-practice-mode { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.daily-practice-mode-hint {
+  flex-basis: 100%;
+  color: var(--ink-light);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+@media (max-width: 480px) {
+  .daily-practice-mode select { max-width: 100%; }
+}

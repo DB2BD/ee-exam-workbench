@@ -49,7 +49,7 @@
   #solution-modal .view-layout-toggle .btn-layout { white-space: nowrap; }
   #solution-modal .view-layout-toggle .btn-layout { padding: 0 8px; min-width: 40px; }
   #solution-modal #btn-layout-solution { font-size: 0; }
-  #solution-modal #btn-layout-solution::before { content: '📝'; font-size: 1rem; }
+  #solution-modal #btn-layout-solution::before { content: ''; font-size: 1rem; }
   #solution-modal #btn-layout-exam .sm-lbl { display: none; }
   #solution-modal #btn-layout-exam::after { content: '看原題'; font-size: 0.78rem; margin-left: 4px; }
 
@@ -86,7 +86,7 @@
 #solution-modal #btn-active-recall { display: none; }
 /* #12: 「主動回想蓋牌」 appears once (header) at every width; the toolbar copy is gone. */
 
-/* N3: 已記錄 ✓ confirmation where the docked result card was */
+/* N3: 「已記錄」 confirmation where the docked result card was */
 .result-card-saved-notice {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 40;
   padding: 12px 16px; text-align: center; font-weight: 700;

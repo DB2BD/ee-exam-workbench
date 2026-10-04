@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class TestDiagnosisUI(unittest.TestCase):
     def _run(self, expression, setup="", include_issue_store=False):
-        sources = []
+        sources = [(ROOT / "src/components/icons.js").read_text(encoding="utf-8")]
         if include_issue_store:
             sources.append((ROOT / "src/state/knowledgeIssueStore.js").read_text(encoding="utf-8"))
         sources.append((ROOT / "src/components/solutionModal.js").read_text(encoding="utf-8"))

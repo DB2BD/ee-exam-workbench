@@ -14,11 +14,12 @@ import build_daily_schedule as bds  # noqa: E402
 
 SCHEDULE_JS = WORKSPACE / "src/data/dailySchedule.generated.js"
 TODAY_JS = WORKSPACE / "src/components/todayTask.js"
+PACING_JS = WORKSPACE / "src/domain/pacing.js"
 SM2_JS = WORKSPACE / "src/state/sm2Store.js"
 
 
 def run_node(expression, storage=None, extra_sources=()):
-    sources = [SCHEDULE_JS.read_text(encoding="utf-8"), TODAY_JS.read_text(encoding="utf-8")]
+    sources = [(WORKSPACE / "src/components/icons.js").read_text(encoding="utf-8"), SCHEDULE_JS.read_text(encoding="utf-8"), PACING_JS.read_text(encoding="utf-8"), TODAY_JS.read_text(encoding="utf-8")]
     sources += [Path(p).read_text(encoding="utf-8") for p in extra_sources]
     script = f"""
 const vm = require('vm');
@@ -63,42 +64,67 @@ class TestGeneratedSchedule(unittest.TestCase):
 
     def test_task_counts_qids_and_minutes(self):
         tasks = self.schedule["tasks"]
-        for prefix, count, minutes in (("CORE", 24, 60), ("MIX", 6, 90), ("MOCK114", 6, 180), ("BLIND108", 6, 180), ("EXT", 9, 90)):
+        for prefix, count, minutes in (("CORE", 24, 60), ("WEAK", 14, 75), ("MOCK114", 6, 180), ("BLIND108", 6, 180),
+                                       ("REINF", 9, 120), ("WRAP", 3, 120)):
             codes = [c for c in tasks if c.startswith(prefix + "-")]
             self.assertEqual(len(codes), count, prefix)
             for code in codes:
                 task = tasks[code]
-                self.assertGreaterEqual(len(task["qids"]), 1, code)
                 self.assertEqual(sum(p["minutes"] for p in task["phases"]), minutes, code)
-                for qid in task["qids"]:
-                    self.assertIn(f'"{qid}"', self.dashboard, f"{code}: {qid} missing in dashboard-data.js")
-        self.assertEqual(len(self.schedule["order"]), 42)
-        self.assertEqual(len(tasks), 51)
+                self.assertEqual(task["hours"], minutes / 60, code)
+                if prefix in ("CORE", "MOCK114", "BLIND108"):
+                    self.assertGreaterEqual(len(task["qids"]), 1, code)
+                    for qid in task["qids"]:
+                        self.assertIn(f'"{qid}"', self.dashboard, f"{code}: {qid} missing in dashboard-data.js")
+                else:
+                    self.assertEqual(task["qids"], [], f"{code}: practice/review tasks have no fixed qids")
+                    self.assertIn(task["kind"], ("practice", "review"), code)
+        self.assertEqual(tasks["BUFFER"]["hours"], 4)
+        self.assertEqual(len(tasks), 63)
+        self.assertEqual(len(self.schedule["order"]), 63)
 
-    def test_ext_tasks_are_optional_and_outside_mandatory_order(self):
+    def test_retired_mix_and_ext_are_not_in_the_schedule(self):
         tasks = self.schedule["tasks"]
-        codes = [f"EXT-{i:02d}" for i in range(1, 10)]
-        self.assertEqual([c for c in tasks if c.startswith("EXT-")], codes)
-        self.assertEqual(self.schedule["optionalOrder"], codes)
-        self.assertFalse(set(codes) & set(self.schedule["order"]))
-        seen = set()
-        for code in codes:
-            task = tasks[code]
-            self.assertTrue(task["optional"], code)
-            self.assertEqual(len(task["qids"]), 2, code)
-            self.assertEqual([p["minutes"] for p in task["phases"]], [50, 20, 20], code)
-            self.assertEqual([p["closed"] for p in task["phases"]], [True, False, False], code)
-            self.assertEqual(task["phases"][0]["qids"], task["qids"], code)
-            for qid in task["qids"]:
-                self.assertIn(f'"{qid}"', self.dashboard, f"{code}: {qid}")
-        for code, task in tasks.items():
-            if code.startswith("EXT-"):
-                continue
-            self.assertFalse(task.get("optional"), code)
-            seen.update(task["qids"])
-        all_ext = [q for c in codes for q in tasks[c]["qids"]]
-        self.assertEqual(len(set(all_ext)), 18)
-        self.assertFalse(set(all_ext) & seen, "EXT qids overlap CORE/MIX/MOCK114/BLIND108")
+        self.assertFalse([c for c in tasks if c.startswith(("MIX-", "EXT-"))])
+        self.assertFalse([c for c in self.schedule["order"] if c.startswith(("MIX-", "EXT-", "RECOVERY"))])
+        self.assertNotIn("optionalOrder", self.schedule)
+        self.assertFalse([t for t in tasks.values() if t.get("optional") or t["kind"] in ("mix", "ext")])
+        self.assertNotIn("RECOVERY", bds.NON_WORK)
+
+    def test_practice_tasks_expose_launch_modes_and_gates(self):
+        tasks = self.schedule["tasks"]
+        self.assertEqual({tasks[f"WEAK-{i:02d}"]["launch"] for i in range(1, 15)}, {"random-balanced"})
+        self.assertEqual({tasks[f"REINF-{i:02d}"]["launch"] for i in range(1, 10)}, {"random-reinforce"})
+        self.assertEqual(tasks["BUFFER"]["launch"], "random-reinforce")
+        self.assertEqual(tasks["BUFFER"]["notBefore"], "2026-11-01")
+        self.assertEqual(tasks["REINF-01"]["notBefore"], "2026-11-02")
+        self.assertEqual(tasks["WRAP-03"]["notBefore"], "2026-11-09")
+        self.assertNotIn("notBefore", tasks["WEAK-01"])
+        self.assertNotIn("notBefore", tasks["MOCK114-01"])
+        self.assertEqual(tasks["WEAK-01"]["phases"][0]["launch"], "random-balanced")
+        self.assertTrue(tasks["CORE-07"]["variant"])
+        self.assertFalse(tasks["CORE-01"]["variant"])
+
+    def test_milestones_budget_days_and_order(self):
+        s = self.schedule
+        self.assertEqual(s["budget"], {"weekday": 2, "weekend": 4})
+        self.assertEqual([(m["date"], m["label"], m["hard"]) for m in s["milestones"]],
+                         [("2026-10-17", "弱題分析關卡", False), ("2026-10-31", "模考截止", True), ("2026-11-11", "補強完成", False)])
+        hard = s["milestones"][1]
+        papers = [c for c in s["order"] if c.startswith(("MOCK114-", "BLIND108-"))]
+        self.assertEqual(len(papers), 12)
+        self.assertTrue(set(papers) <= set(hard["codes"]))
+        self.assertNotIn("BUFFER", hard["codes"])
+        self.assertEqual(len(s["days"]), 41)
+        self.assertEqual(s["days"][0]["date"], "2026-10-04")
+        self.assertEqual(s["days"][0]["dow"], 0)  # Sunday
+        self.assertEqual(s["days"][0]["budget"], 4)
+        self.assertEqual(s["order"][:6], [f"CORE-0{i}" for i in range(1, 7)])
+        self.assertEqual(s["order"][6], "CORE-07")
+        self.assertEqual(s["due"]["CORE-01"], "2026-10-03")
+        self.assertEqual(s["due"]["MOCK114-01"], "2026-10-16")  # closed 10/15, 核對 10/16
+        for day in s["days"]:
+            self.assertLessEqual(day["hours"], day["budget"] + 0.5)
 
     def test_pdf_files_exist_for_paper_tasks(self):
         for code, task in self.schedule["tasks"].items():
@@ -117,26 +143,38 @@ class TestGeneratedSchedule(unittest.TestCase):
         with self.assertRaises(bds.ParseError):
             bds.parse_days("| 2026-09-23（三） | `CORE-01` | 1 | x |")
         with self.assertRaises(bds.ParseError):
-            bds.parse_mix("no table here")
+            bds.parse_milestones("no milestones here")
+        with self.assertRaises(bds.ParseError):
+            bds.parse_days("| 2026-10-04（日） | 4 | `CORE-07` |")  # not 41 continuous rows
 
 
 class TestTodayTaskStore(unittest.TestCase):
     def test_next_task_skips_completed_not_by_date(self):
-        now = local_ms(2026, 11, 1)
+        # Only CORE-01/02 done by 10/20: the card still continues from CORE-03 (never by date) and cuts the surplus.
+        now = local_ms(2026, 10, 20)
         res = run_node(
             "(() => { const s = {completed:{'CORE-01':'2026-09-23T00:00:00.000Z','CORE-02':'2026-09-24T00:00:00.000Z'}, active:null};"
-            f"const vm = todayTaskViewModel(s, {now}); return {{code: vm.code, mode: vm.mode, pace: vm.plan.pace, text: vm.planText}}; }})()")["result"]
+            f"const vm = todayTaskViewModel(s, {now}); return {{code: vm.code, mode: vm.mode, status: vm.status, cut: vm.cutText}}; }})()")["result"]
         self.assertEqual(res["code"], "CORE-03")
         self.assertEqual(res["mode"], "task")
-        self.assertEqual(res["pace"], "behind")
-        self.assertIn("依日程今天應做到", res["text"])
-        self.assertIn("你目前在 CORE-03", res["text"])
-        self.assertIn("點下方設定進度", res["text"])
+        self.assertEqual(res["status"], "behind")
+        self.assertTrue(res["cut"].startswith("已自動刪減："), res["cut"])
+        self.assertIn("（有空再做）", res["cut"])
+        self.assertIn("模考卷照順序做，做不完的排到 11/01 緩衝日補考", res["cut"])  # hours still short after every allowed cut
 
-    def test_plan_suggestion_and_ahead(self):
-        now = local_ms(2026, 10, 3)
-        res = run_node(f"(() => {{ const vm = todayTaskViewModel({{completed:{{}}, active:null}}, {now}); return vm.planText; }})()")["result"]
-        self.assertIn("依日程今天應做到 CORE-14～15；你目前在 CORE-01（若紙本已做過，點下方設定進度）", res)
+    def test_plan_line_shows_budget_and_planned_hours(self):
+        done = {f"CORE-0{i}": "x" for i in range(1, 7)}
+        sunday = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 4)}).planText")["result"]
+        monday = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 5)}).planText")["result"]
+        self.assertEqual(sunday, "今天預算 4 小時（週末）｜還要做約 4.25 小時")  # CORE-07～09 + WEAK-01
+        self.assertEqual(monday, "今天預算 2 小時（平日）｜還要做約 2 小時")  # CORE-07, CORE-08 (a 2 h weekday)
+
+    def test_plan_line_when_todays_share_is_done(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order}
+        done["WRAP-03"] = "2026-10-05T04:00:00.000Z"
+        text = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 5, 14)}).planText")["result"]
+        self.assertEqual(text, "今天的份量已完成")
 
     def test_resume_computes_remaining_time(self):
         started = local_ms(2026, 10, 3, 9, 0)
@@ -212,11 +250,12 @@ class TestTodayTaskStore(unittest.TestCase):
         # Learners who already worked on paper set their position once instead
         # of replaying CORE-01..; earlier codes become done, later ones open.
         res = run_node(
-            "(() => { const s = todayTaskStartFrom({completed:{'MIX-01':'old'}, active:{code:'CORE-01',phaseIndex:0,phaseStartedAt:1}}, 'CORE-14', 0); "
-            "return {next: todayTaskCurrentCode(s), done: Object.keys(s.completed).length, active: s.active, mix: s.completed['MIX-01'], "
+            "(() => { const s = todayTaskStartFrom({completed:{'WEAK-01':'old'}, active:{code:'CORE-01',phaseIndex:0,phaseStartedAt:1}}, 'CORE-14', 0); "
+            "return {next: todayTaskCurrentCode(s), done: Object.keys(s.completed).length, active: s.active, mix: s.completed['WEAK-01'], "
             "back: todayTaskCurrentCode(todayTaskStartFrom(s, 'CORE-05', 0)), bogus: todayTaskStartFrom(s, 'NOPE', 0) === s}; })()")["result"]
         self.assertEqual(res["next"], "CORE-14")
-        self.assertEqual(res["done"], 14)  # CORE-01..13 plus the untouched later MIX-01
+        # CORE-01..13 plus the interleaved WEAK-01..05 that precede CORE-14 in the order (WEAK-01 was already done and stays 'old')
+        self.assertEqual(res["done"], 18)
         self.assertIsNone(res["active"])
         self.assertEqual(res["mix"], "old")
         self.assertEqual(res["back"], "CORE-05")
@@ -229,6 +268,19 @@ class TestTodayTaskStore(unittest.TestCase):
             f"todayTaskViewModel({empty}, {local_ms(2026, 11, 20)}).mode, "
             f"todayTaskViewModel({{completed: Object.fromEntries(DAILY_SCHEDULE.order.map(c => [c, 'x'])), active:null}}, {local_ms(2026, 10, 3)}).mode]")["result"]
         self.assertEqual(modes, ["exam-check", "stop", "stop", "done"])
+
+    def test_rest_days_show_no_budget_or_milestone_lines(self):
+        # 11/12 and 11/13 have no study hours: the card must not say 「今天預算 2 小時」, and after the
+        # exam no 「已過 10/31 模考截止｜仍剩 N 份卷」 nag either.
+        empty = "{completed:{}, active:null}"
+        html = run_node(
+            f"[{local_ms(2026, 11, 12)}, {local_ms(2026, 11, 13)}, {local_ms(2026, 11, 20)}].map(t => todayTaskCardHtml(todayTaskViewModel({empty}, t)))")["result"]
+        for card in html:
+            self.assertNotIn("預算", card)
+            self.assertNotIn("today-pacing-milestone", card)
+            self.assertNotIn("today-pacing-cut", card)
+        self.assertIn("今天不開新題", html[0])
+        self.assertIn("好好休息", html[2])
 
     def test_store_roundtrip_and_corrupt_storage(self):
         res = run_node(
@@ -252,8 +304,11 @@ class TestTodayTaskStructure(unittest.TestCase):
         gen = build.index("'src/data/dailySchedule.generated.js'")
         dp = build.index("'src/components/dailyPractice.js'")
         tt = build.index("'src/components/todayTask.js'")
+        pacing = build.index("'src/domain/pacing.js'")
         self.assertLess(gen, dp)
         self.assertLess(dp, tt)
+        self.assertLess(pacing, tt)
+        self.assertGreater(build.index("'src/styles/v13-pacing.css'"), build.index("'src/styles/v122-design.css'"))
         self.assertLess(build.index('id="today-task-card"'), build.index('class="home-primary-actions"'))
 
 
@@ -266,77 +321,234 @@ class TestTodayTaskBackup(unittest.TestCase):
         # key must be in the rollback snapshot list
         self.assertRegex(text, r"BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY")
 
+    def test_backup_keeps_weekday_mock_hold(self):
+        # A held weekday mock (「先離開，明天核對」) must survive export／import; otherwise the restored
+        # state auto-opens an expired 核對 phase instead of the 接續 card.
+        res = run_node(
+            "(() => { const errors = []; const v = backupValidateTodayTask({completed:{}, active:{code:'MOCK114-01', phaseIndex:1, phaseStartedAt:5, "
+            "mockId:'114-01-5', holdDate:'2026-10-15', heldFrom:'bad'}}, errors); return {errors, active: v.active}; })()",
+            extra_sources=[SM2_JS])["result"]
+        self.assertEqual(res["errors"], [])
+        self.assertEqual(res["active"]["holdDate"], "2026-10-15")
+        self.assertNotIn("heldFrom", res["active"])
 
-def mandatory_before(date_iso):
-    """Mandatory (non-EXT, non-non-work) codes scheduled strictly before date_iso."""
-    schedule = bds.build_schedule()
-    out = []
-    for day in schedule["days"]:
-        if day["date"] < date_iso:
-            out += [c for c in day["codes"] if c in schedule["order"]]
-    return out
+
+DONE_ONE_TO_SIX = {f"CORE-0{i}": "2026-10-03T00:00:00.000Z" for i in range(1, 7)}
 
 
-class TestTodayTaskExt(unittest.TestCase):
-    """WP5a: EXT is optional; it is secondary while behind and primary once caught up."""
+class TestTodayTaskPacingCard(unittest.TestCase):
+    """v1.3: today's plan, milestone line, cuts, weekday-mock continuation (view-model + card html)."""
 
     def vm(self, completed, now, active="null"):
         res = run_node(
             f"(() => {{ const s = {{completed:{json.dumps(completed)}, active:{active}}}; "
             f"const v = todayTaskViewModel(s, {now}); "
-            "return {mode:v.mode, code:v.code, mandatoryCode:v.mandatoryCode, primaryIsOptional:v.primaryIsOptional, "
-            "optional:v.optional, text:v.planText, pace:v.plan.pace, diff:v.plan.diff, done:v.doneCount}; })()")
+            "return {mode:v.mode, code:v.code, part:v.part, items:v.items.map(i => i.code), rest:v.restText, milestone:v.milestoneText, "
+            "cut:v.cutText, status:v.status, held:v.held, suggestion:v.suggestion, plan:v.planText, action:v.primaryAction, "
+            "html: todayTaskCardHtml(v)}; })()")
         return res["result"]
 
-    def test_behind_on_ext_day_keeps_mandatory_primary_and_ext_secondary(self):
-        res = self.vm({}, local_ms(2026, 10, 16))
-        self.assertEqual(res["pace"], "behind")
-        self.assertEqual(res["code"], "CORE-01")
-        self.assertFalse(res["primaryIsOptional"])
-        self.assertEqual(res["optional"]["code"], "EXT-01")
-        self.assertTrue(res["optional"]["text"].startswith("選做：EXT-01｜"))
-        self.assertTrue(res["optional"]["text"].endswith("（有餘力再做）"))
-        self.assertNotIn("EXT", res["text"])
+    def test_primary_task_then_rest_of_today(self):
+        res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 4))
+        self.assertEqual(res["code"], "CORE-07")
+        self.assertEqual(res["items"], ["CORE-07", "CORE-08", "CORE-09", "WEAK-01"])
+        self.assertTrue(res["rest"].startswith("今天還有：CORE-08｜"), res["rest"])
+        self.assertIn("WEAK-01｜弱題分析｜隨機練習 第 1 輪（各科輪流）", res["rest"])
+        self.assertIn("今天還有：", res["html"])
+        self.assertLess(res["html"].index("下一個任務：CORE-07"), res["html"].index("今天還有："))
+        self.assertIn("</svg> 開始<", res["html"])
 
-    def test_caught_up_on_ext_day_makes_ext_primary(self):
-        done = {c: "2026-10-01T00:00:00.000Z" for c in mandatory_before("2026-10-16")}
+    def test_milestone_line_counts_days_and_papers(self):
+        res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 5))
+        # next milestone is the non-hard 10/17: hours plus the hard deadline's paper count
+        self.assertTrue(res["milestone"].startswith("距 10/17 弱題分析關卡還有 12 天｜剩 "), res["milestone"])
+        self.assertTrue(res["milestone"].endswith("｜10/31 模考截止剩 12 份卷"), res["milestone"])
+        # after 10/17 the hard milestone is next: 「距 10/31 模考截止還有 N 天｜剩 X 份卷」
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("MOCK114-03")]}
+        res = self.vm(done, local_ms(2026, 10, 18))
+        self.assertEqual(res["milestone"], "距 10/31 模考截止還有 13 天｜剩 10 份卷")
+        self.assertIn('class="today-pacing-milestone"', res["html"])
+
+    def test_behind_shows_cut_line_and_keeps_papers(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("CORE-16")]}
         res = self.vm(done, local_ms(2026, 10, 16))
-        self.assertEqual(res["pace"], "on")
-        self.assertEqual(res["code"], "EXT-01")
-        self.assertTrue(res["primaryIsOptional"])
-        self.assertIsNone(res["optional"])
-        self.assertEqual(res["mandatoryCode"] in done, False)
-        self.assertNotIn("EXT", res["text"])
-        self.assertIn("選做", res["text"])
+        self.assertEqual(res["status"], "behind")
+        self.assertTrue(res["cut"].startswith("已自動刪減："), res["cut"])
+        self.assertTrue(res["cut"].endswith("（有空再做）"), res["cut"])
+        self.assertIn("WEAK-", res["cut"])
+        self.assertNotIn("MOCK", res["cut"])
+        self.assertNotIn("BLIND", res["cut"])
+        self.assertIn('class="today-pacing-cut"', res["html"])
 
-    def test_ext_completion_never_blocks_order_or_counts_for_pace(self):
-        res = self.vm({"EXT-01": "2026-10-16T00:00:00.000Z"}, local_ms(2026, 10, 16))
-        self.assertEqual(res["mandatoryCode"], "CORE-01")
-        self.assertEqual(res["done"], 0)
-        self.assertEqual(res["pace"], "behind")
-        self.assertIsNone(res["optional"])  # already done -> not offered again
+    def test_soft_milestone_at_risk_shows_flexible_cue(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("CORE-16")]}
+        res = self.vm(done, local_ms(2026, 10, 16))
+        self.assertIn("10/17", res["milestone"])
+        self.assertTrue(res["milestone"].endswith("｜彈性關卡：做不完就順延，不影響模考"), res["milestone"])
+        ok = self.vm({c: "x" for c in order[:order.index("CORE-07")]}, local_ms(2026, 10, 4))
+        self.assertNotIn("彈性關卡", ok["milestone"])
 
-    def test_pace_counts_only_mandatory_codes(self):
-        done = {c: "2026-10-01T00:00:00.000Z" for c in mandatory_before("2026-10-17")}
-        # 10-16 is an EXT-only day: finishing every earlier mandatory code is exactly on pace.
-        res = self.vm(done, local_ms(2026, 10, 17))
-        self.assertEqual(res["pace"], "on")
-        self.assertEqual(res["diff"], 0)
-
-    def test_start_optional_requires_optional_code_and_keeps_order(self):
+    def test_long_cut_list_collapses_into_details(self):
         res = run_node(
-            "(() => { const s0 = {completed:{}, active:null}; "
-            "const bad = todayTaskStart(s0, 1000, 'CORE-02'); "
-            "const ext = todayTaskStart(s0, 1000, 'EXT-01'); "
+            "(() => { const s = {completed:{'CORE-01':'2026-09-23T00:00:00.000Z'}, active:null};"
+            f"const v = todayTaskViewModel(s, {local_ms(2026, 10, 20)}); return todayTaskCardHtml(v); }})()")["result"]
+        self.assertIn("<details>", res)
+        self.assertNotIn("<details open", res)
+        self.assertRegex(res, r"<summary>已自動刪減 \d+ 項（有空再做）</summary>")
+        self.assertIn("WEAK-10～14", res)
+        self.assertIn("11/01 緩衝日補考", res)
+        short = run_node(
+            "todayTaskCardHtml({mode:'task', pacing:{cut:['WEAK-07','WEAK-08','WEAK-09'], overload:false, hardMilestone:null}, cutText:'已自動刪減：WEAK-07～09（有空再做）', planText:'', milestoneText:'', suggestion:'', items:[], rest:[], restText:'', completedMap:{}, doneCount:0, total:1})")["result"]
+        self.assertIn('<p class="today-pacing-cut">已自動刪減：WEAK-07～09（有空再做）</p>', short)
+        self.assertNotIn("<p class=\"today-pacing-cut\"><details", short)
+        self.assertNotIn("<summary>已自動刪減", short)
+
+    def test_ahead_after_all_mocks_suggests_113(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("BUFFER")]}
+        res = self.vm(done, local_ms(2026, 10, 28))
+        self.assertEqual(res["status"], "ahead")
+        self.assertIn("113 年整卷", res["suggestion"])
+        self.assertEqual(res["mode"], "idle")  # BUFFER/REINF are not due yet
+        self.assertIn("今天沒有待做的必做任務", res["html"])
+        self.assertIn("today-pacing-suggestion", res["html"])
+
+    def test_weekday_mock_day_one_is_closed_and_stops_the_day(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("MOCK114-04")]}
+        res = self.vm(done, local_ms(2026, 10, 19))
+        self.assertEqual((res["code"], res["part"]), ("MOCK114-04", "closed"))
+        self.assertEqual(res["items"], ["MOCK114-04"])
+        self.assertIn("今天閉卷，明天核對＋修復", res["html"])
+
+    def test_held_mock_continues_next_day_as_first_item(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("MOCK114-04")]}
+        active = "{code:'MOCK114-04', phaseIndex:1, phaseStartedAt:1000, mockId:'114-01-1000', holdDate:'2026-10-19'}"
+        res = self.vm(done, local_ms(2026, 10, 20), active)
+        self.assertEqual(res["code"], "MOCK114-04")
+        self.assertEqual(res["action"], "resume")
+        self.assertEqual(res["held"]["text"], "接續 MOCK114-04：核對＋修復")
+        self.assertFalse(res["held"]["sameDay"])
+        self.assertIn("接續 MOCK114-04：核對＋修復", res["html"])
+        self.assertIn("</svg> 開始核對<", res["html"])
+        self.assertLess(res["html"].index("接續 MOCK114-04"), res["html"].index("今天還有"))
+        self.assertEqual(res["items"][0], "MOCK114-04")
+        same = self.vm(done, local_ms(2026, 10, 19, 20), active)
+        self.assertTrue(same["held"]["sameDay"])
+        self.assertIn("今天的閉卷已完成，明天接續 MOCK114-04：核對＋修復", same["html"])
+        self.assertIn("</svg> 現在就核對<", same["html"])
+
+    def test_hold_and_resume_keep_phase_and_mock_id(self):
+        res = run_node(
+            "(() => { let s = todayTaskStartFrom({completed:{}, active:null}, 'MOCK114-04', 1); s = todayTaskStart(s, 1000); "
+            "const id = s.active.mockId; s = todayTaskAdvance(s, 2000); "
+            "const h = todayTaskHold(s, '2026-10-19'); const n = todayTaskNormalizeState(JSON.parse(JSON.stringify(h))); "
+            "const r = todayTaskResumeHeld(n, 99000); "
+            "return {id, held: h.active.holdDate, kept: n.active.holdDate, phase: n.active.phaseIndex, mock: n.active.mockId, "
+            "resumed: r.active, noop: todayTaskResumeHeld(s, 5) === s}; })()")["result"]
+        self.assertEqual(res["held"], "2026-10-19")
+        self.assertEqual(res["kept"], "2026-10-19")
+        self.assertEqual(res["phase"], 1)
+        self.assertEqual(res["mock"], res["id"])
+        self.assertNotIn("holdDate", res["resumed"])
+        self.assertEqual(res["resumed"]["phaseStartedAt"], 99000)
+        self.assertEqual(res["resumed"]["phaseIndex"], 1)
+        self.assertTrue(res["noop"])
+
+    def test_resumed_mock_does_not_offer_hold_again(self):
+        # Day 2 (核對＋修復) after 「先離開，明天核對」 must not offer the same split again.
+        now = local_ms(2026, 10, 20, 19)
+        res = run_node(
+            "(() => { let s = todayTaskStartFrom({completed:{}, active:null}, 'MOCK114-04', 1); s = todayTaskStart(s, 1000); "
+            "s = todayTaskAdvance(s, 2000); const fresh = todayTaskOverlayHtml(todayTaskViewModel(s, " + str(now) + ")); "
+            "s = todayTaskHold(s, '2026-10-19'); s = todayTaskNormalizeState(JSON.parse(JSON.stringify(todayTaskResumeHeld(s, " + str(now) + ")))); "
+            "return {fresh, resumed: todayTaskOverlayHtml(todayTaskViewModel(s, " + str(now) + ")), heldFrom: s.active.heldFrom}; })()")["result"]
+        self.assertIn('data-today-act="hold"', res["fresh"])
+        self.assertNotIn('data-today-act="hold"', res["resumed"])
+        self.assertIn('data-today-act="leave"', res["resumed"])
+        self.assertEqual(res["heldFrom"], "2026-10-19")
+
+    def test_hold_button_only_for_weekday_mock_after_closed_phase(self):
+        def html(now, code, phase):
+            return run_node(
+                f"(() => {{ const s = {{completed:{{}}, active:{{code:'{code}', phaseIndex:{phase}, phaseStartedAt:{now}}}}}; "
+                f"return todayTaskOverlayHtml(todayTaskViewModel(s, {now})); }})()")["result"]
+        weekday = html(local_ms(2026, 10, 20), "MOCK114-04", 1)
+        self.assertIn('data-today-act="hold"', weekday)
+        self.assertIn("先離開，明天核對", weekday)
+        self.assertNotIn('data-today-act="leave"', weekday)
+        self.assertNotIn('data-today-act="hold"', html(local_ms(2026, 10, 20), "MOCK114-04", 0))  # still closed-book
+        self.assertNotIn('data-today-act="hold"', html(local_ms(2026, 10, 24), "MOCK114-04", 1))  # Saturday: one sitting
+        self.assertNotIn('data-today-act="hold"', html(local_ms(2026, 10, 20), "CORE-01", 1))
+        self.assertIn('data-today-act="leave"', html(local_ms(2026, 10, 20), "CORE-01", 1))
+
+    def test_start_any_uncompleted_code_but_not_completed_or_unknown(self):
+        res = run_node(
+            "(() => { const s0 = {completed:{'CORE-02':'x'}, active:null}; "
+            "const a = todayTaskStart(s0, 1000, 'WEAK-03'); const done = todayTaskStart(s0, 1000, 'CORE-02'); const bad = todayTaskStart(s0, 1000, 'MIX-01'); "
             "const plain = todayTaskStart(s0, 1000); "
-            "let s = ext; for (let i = 0; i < 3; i++) s = todayTaskAdvance(s, 2000 + i); "
-            "return {badCode: bad.active && bad.active.code, ext: ext.active.code, plain: plain.active.code, "
-            "done: Object.keys(s.completed), current: todayTaskCurrentCode(s)}; })()")["result"]
-        self.assertEqual(res["ext"], "EXT-01")
-        self.assertEqual(res["plain"], "CORE-01")
-        self.assertIsNone(res["badCode"])  # a mandatory code is not accepted as the optional argument
-        self.assertEqual(res["done"], ["EXT-01"])
-        self.assertEqual(res["current"], "CORE-01")
+            "return {a: a.active.code, done: done === s0, bad: bad === s0, plain: plain.active.code}; })()")["result"]
+        self.assertEqual(res, {"a": "WEAK-03", "done": True, "bad": True, "plain": "CORE-01"})
+
+    def test_start_from_select_lists_current_codes_and_defaults_to_core_07(self):
+        res = self.vm({}, local_ms(2026, 10, 5))
+        self.assertIn('<option value="CORE-07" selected>', res["html"])
+        self.assertIn('<option value="CORE-01">', res["html"])
+        self.assertIn('<option value="WEAK-14">', res["html"])
+        self.assertIn('<option value="REINF-09">', res["html"])
+        self.assertIn('<option value="BUFFER">', res["html"])
+        for retired in ("MIX-", "EXT-", "RECOVERY"):
+            self.assertNotIn(retired, res["html"])
+        self.assertIn("已在紙本做過前面的任務？", res["html"])
+        # once CORE-01..07 are done the default follows today's task
+        later = self.vm({**DONE_ONE_TO_SIX, "CORE-07": "x"}, local_ms(2026, 10, 5))
+        self.assertIn('<option value="CORE-08" selected>', later["html"])
+
+    def test_old_retired_codes_in_saved_state_are_dropped_harmlessly(self):
+        res = run_node(
+            "todayTaskNormalizeState({completed:{'MIX-01':'x','EXT-02':'y','RECOVERY':'z','CORE-01':'ok'}, active:{code:'MIX-03',phaseIndex:0,phaseStartedAt:5}})")["result"]
+        self.assertEqual(list(res["completed"]), ["CORE-01"])
+        self.assertIsNone(res["active"])
+
+    def test_reinforcement_day_plan(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("REINF-02")]}
+        res = self.vm(done, local_ms(2026, 11, 3))
+        self.assertEqual((res["code"], res["items"]), ("REINF-02", ["REINF-02"]))
+        self.assertIn("距 11/11 補強完成還有 8 天", res["milestone"])
+
+    def test_launch_phase_markup_and_no_empty_check_row(self):
+        res = run_node(
+            "(() => { let s = todayTaskStart({completed:{}, active:null}, 1000, 'WEAK-01'); "
+            "const first = todayTaskOverlayHtml(todayTaskViewModel(s, 1000)); "
+            "s = todayTaskAdvance(s, 2000); const second = todayTaskOverlayHtml(todayTaskViewModel(s, 2000)); "
+            "const r = todayTaskStart({completed:{}, active:null}, 1000, 'REINF-01'); const re = todayTaskOverlayHtml(todayTaskViewModel(r, 1000)); "
+            "return {first, second, re}; })()")["result"]
+        self.assertIn('data-today-launch="random-balanced"', res["first"])
+        self.assertIn("開啟隨機練習（各科輪流）", res["first"])
+        self.assertNotIn("data-today-check", res["first"])
+        self.assertNotIn("核對題解", res["first"])
+        self.assertNotIn("today-task-result-mount", res["first"])
+        self.assertNotIn("data-today-launch", res["second"])
+        self.assertIn('data-today-launch="random-reinforce"', res["re"])
+        self.assertIn("開啟補強練習", res["re"])
+
+    def test_launch_calls_the_other_entry_points_with_fallback(self):
+        src = TODAY_JS.read_text(encoding="utf-8")
+        body = src.split("function todayTaskLaunchPractice(launch)")[1].split("\nfunction ")[0]
+        self.assertIn("dailyPracticeStartWithMode", body)
+        self.assertIn("dailyPracticePrepareNewRound", body)
+        self.assertIn("'random-reinforce' ? 'reinforce' : 'balanced'", body)
+        res = run_node(
+            "(() => { const calls = []; globalThis.dailyPracticeStartWithMode = m => calls.push('mode:' + m); "
+            "globalThis.dailyPracticePrepareNewRound = () => calls.push('new'); "
+            "todayTaskLaunchPractice('random-reinforce'); todayTaskLaunchPractice('random-balanced'); "
+            "delete globalThis.dailyPracticeStartWithMode; todayTaskLaunchPractice('random-balanced'); return calls; })()")["result"]
+        self.assertEqual(res, ["mode:reinforce", "mode:balanced", "new"])
 
 
 class TestTodayTaskReviewResultCard(unittest.TestCase):
@@ -349,12 +561,17 @@ class TestTodayTaskReviewResultCard(unittest.TestCase):
             "return {label: p.label, review: v.isReview, qids: v.resultQids, source: v.resultSource, closed: v.closed}; }); })()")
         return res["result"]
 
-    def test_every_task_has_exactly_one_review_phase_listing_all_qids(self):
+    def test_every_fixed_question_task_has_exactly_one_review_phase_listing_all_qids(self):
         codes = run_node("Object.keys(DAILY_SCHEDULE.tasks)")["result"]
         for code in codes:
             task = run_node(f"DAILY_SCHEDULE.tasks['{code}']")["result"]
             phases = self.phases(code)
             reviews = [p for p in phases if p["review"]]
+            if not task["qids"]:
+                # WEAK／REINF／WRAP／BUFFER: no fixed qids, so no result card is ever requested
+                for p in phases:
+                    self.assertEqual(p["qids"], [], f"{code}: practice phases carry no result-card qids")
+                continue
             self.assertEqual(len(reviews), 1, code)
             self.assertEqual(reviews[0]["qids"], task["qids"], code)
             self.assertFalse(reviews[0]["closed"], code)
@@ -362,9 +579,10 @@ class TestTodayTaskReviewResultCard(unittest.TestCase):
                 if p["closed"]:
                     self.assertEqual(p["qids"], [], f"{code}: closed phase must not show result cards")
 
-    def test_source_is_today_for_mandatory_and_ext_for_optional(self):
+    def test_source_is_today_for_scheduled_tasks_and_mock_for_papers(self):
         self.assertEqual([p["source"] for p in self.phases("CORE-01") if p["review"]], ["today"])
-        self.assertEqual([p["source"] for p in self.phases("EXT-01") if p["review"]], ["ext"])
+        self.assertEqual({p["source"] for p in self.phases("WEAK-01")}, {"today"})
+        self.assertEqual([p["source"] for p in self.phases("MOCK114-01") if p["review"]], ["mock"])
 
     def test_overlay_markup_mounts_card_only_in_review_phase(self):
         res = run_node(
@@ -385,11 +603,11 @@ class TestTodayTaskReviewResultCard(unittest.TestCase):
         self.assertIn("還有 1 題未處理", res["review"])
         self.assertNotIn("today-task-result-mount", res["last"])
 
-    def test_overlay_header_names_the_active_task_even_when_it_is_ext(self):
+    def test_overlay_header_names_the_active_task_even_when_not_the_earliest(self):
         res = run_node(
-            "(() => { const s = todayTaskStart({completed:{}, active:null}, 1000, 'EXT-01'); "
+            "(() => { const s = todayTaskStart({completed:{}, active:null}, 1000, 'WEAK-01'); "
             "return todayTaskOverlayHtml(todayTaskViewModel(s, 1000)); })()")["result"]
-        self.assertIn("EXT-01｜", res)
+        self.assertIn("WEAK-01｜", res)
         self.assertNotIn("CORE-01｜", res)
 
 

@@ -771,7 +771,7 @@ select:focus {
   margin-bottom: 24px;
 }
 
-/* 🧠 SM-2 Spaced Repetition Badges */
+/* SM-2 Spaced Repetition Badges */
 .due-badge {
   font-size: 0.76rem;
   font-weight: 700;
@@ -810,7 +810,7 @@ select:focus {
   100% { box-shadow: 0 0 0 0 rgba(184, 93, 88, 0); }
 }
 
-/* 💾 Backup & Restore Modal */
+/* Backup & Restore Modal */
 #backup-modal {
   display: none;
   position: fixed;
@@ -1411,142 +1411,6 @@ select:focus {
   }
 }
 
-/* Calculator Guide & Phasor Converter */
-.calc-modal-content {
-  max-width: 820px;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.phasor-converter-box {
-  background: var(--bg-secondary);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  margin-bottom: 20px;
-}
-.phasor-converter-box h4 {
-  color: var(--accent-dark);
-  margin-bottom: 12px;
-  font-size: 0.95rem;
-}
-.converter-grid {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.converter-col {
-  flex: 1;
-  min-width: 220px;
-}
-.converter-col label {
-  font-size: 0.8rem;
-  color: var(--muted);
-  display: block;
-  margin-bottom: 4px;
-  font-weight: 600;
-}
-.input-duo {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.input-duo input {
-  flex: 1;
-  padding: 8px 10px;
-  border: 1px solid var(--line-strong);
-  border-radius: 4px;
-  font-size: 0.9rem;
-  background: var(--surface);
-  color: var(--ink);
-}
-.converter-center {
-  font-size: 1.4rem;
-  color: var(--accent);
-  padding: 0 4px;
-}
-.converter-feedback {
-  margin-top: 10px;
-  font-size: 0.85rem;
-  color: var(--ink-light);
-  min-height: 24px;
-  padding: 6px 10px;
-  background: var(--surface);
-  border-radius: 4px;
-  border: 1px dashed var(--line);
-}
-.calc-recipes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 14px;
-}
-.calc-recipe-card {
-  border: 1px solid var(--line);
-  background: var(--surface);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-}
-.calc-recipe-card.highlight {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-light);
-}
-.calc-recipe-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 10px;
-}
-.calc-recipe-header h4 {
-  font-size: 0.95rem;
-  color: var(--accent-dark);
-}
-.calc-tag {
-  font-size: 0.78rem;
-  background: var(--bg-secondary);
-  padding: 2px 6px;
-  border-radius: 4px;
-  color: var(--ink-light);
-}
-.calc-keystroke-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-.key-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-.calc-key {
-  display: inline-block;
-  background: var(--ink);
-  color: #ffffff;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 0.78rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.2);
-}
-.key-desc {
-  font-size: 0.68rem;
-  color: var(--muted);
-}
-.key-arrow {
-  color: var(--muted);
-  font-size: 0.8rem;
-}
-.calc-trap-alert {
-  font-size: 0.78rem;
-  color: var(--warn);
-  background: var(--warn-light);
-  padding: 6px 10px;
-  border-radius: 4px;
-}
-
 /* Print CSS additions for Passbook */
 @media print {
   .passbook-hide-print, .btn-close, .modal-footer {
@@ -1855,6 +1719,8 @@ select:focus {
 .mock-shortcut strong { color: var(--accent-dark); margin-right: 4px; }
 .mock-chip { min-height: 44px; padding: 6px 12px; border-radius: var(--radius-pill); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; font-size: 0.82rem; }
 .mock-chip:hover { background: var(--accent-light); }
+.mock-chip.is-done { color: var(--muted, var(--ink-muted, #6b7280)); background: var(--bg-secondary); }
+.mock-chip.is-done svg { width: 1em; height: 1em; vertical-align: -0.15em; }
 .mock-btn { min-height: 44px; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
 .mock-btn:hover { background: var(--accent-light); }
 .mock-btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }

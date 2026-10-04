@@ -72,7 +72,7 @@ function exportProgressJSON() {
   a.download = `電機國考備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast("💾 備考與 SM-2 排程進度已成功匯出備份！");
+  showToast("備考與 SM-2 排程進度已成功匯出備份！");
 }
 
 function openBackupModal() {
@@ -99,11 +99,11 @@ function copyBackupToClipboard() {
     ? navigator.clipboard.writeText(textarea.value)
     : Promise.reject(new Error('clipboard unavailable'));
   copyPromise.then(() => {
-    showToast("📋 已複製 JSON 備份代碼至剪貼簿！");
+    showToast("已複製 JSON 備份代碼至剪貼簿！");
   }).catch(() => {
     try {
       document.execCommand('copy');
-      showToast("📋 已複製 JSON 備份代碼至剪貼簿！");
+      showToast("已複製 JSON 備份代碼至剪貼簿！");
     } catch (_) {
       alert('請手動選取並複製備份內容。');
     }
@@ -142,7 +142,7 @@ function renderBackupPreview(result) {
     return;
   }
   preview.classList.add('is-valid');
-  preview.innerText = `✅ 備份可還原\n${formatBackupSummary(result.summary)}`;
+  preview.innerText = `備份可還原\n${formatBackupSummary(result.summary)}`;
   renderBackupHistory();
 }
 
@@ -197,10 +197,10 @@ function applyImportedBackupJSON(mode) {
     if (typeof renderAnswerCorrectionReviewSection === 'function') renderAnswerCorrectionReviewSection();
     renderBackupHistory();
     closeBackupModal();
-    showToast(`📥 已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
+    showToast(`已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
   } else {
     renderBackupPreview(res);
-    alert(`❌ ${res.error || '匯入失敗：無效的 JSON 格式'}`);
+    alert(`${res.error || '匯入失敗：無效的 JSON 格式'}`);
   }
   return res;
 }

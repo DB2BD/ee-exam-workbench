@@ -103,7 +103,7 @@ function calculateSM2ReviewItem(currentItem, rating, nowValue) {
 /**
  * SuperMemo SM-2 Core Algorithm
  * @param {string} qid - Question ID (e.g., 'EE-114-05-1')
- * @param {number} rating - 1: Forgot (🔴), 3: Hard (🟡), 5: Easy/Mastered (🟢)
+ * @param {number} rating - 1: Forgot (), 3: Hard (), 5: Easy/Mastered ()
  */
 function recordSM2Review(qid, rating) {
   const now = new Date();
@@ -145,19 +145,19 @@ function getDueQuestionsList(nowValue) {
 function getReviewBadgeInfo(qid, nowValue) {
   const item = sm2Schedule[qid];
   if (!item || !item.nextReviewDate) {
-    return { text: '⚪ 尚未排程', cssClass: 'due-none', isDue: false };
+    return { text: '尚未排程', cssClass: 'due-none', isDue: false };
   }
 
   const todayStr = formatLocalCalendarDate(nowValue instanceof Date ? nowValue : new Date(nowValue || Date.now()));
   if (item.nextReviewDate <= todayStr) {
-    return { text: '🔔 今日待複習', cssClass: 'due-today', isDue: true };
+    return { text: '今日待複習', cssClass: 'due-today', isDue: true };
   }
 
   const diffMs = parseLocalCalendarDate(item.nextReviewDate) - parseLocalCalendarDate(todayStr);
   const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
   if (diffDays >= 14) {
-    return { text: `🔥 已穩固 (${diffDays}天後)`, cssClass: 'due-far', isDue: false };
+    return { text: `已穩固 (${diffDays}天後)`, cssClass: 'due-far', isDue: false };
   } else {
     return { text: `⏳ ${diffDays} 天後複習`, cssClass: 'due-soon', isDue: false };
   }

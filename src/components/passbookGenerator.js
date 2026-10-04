@@ -183,7 +183,7 @@ function openPassbookModal() {
     <div class="passbook-dialog passbook-modal-content">
       <div class="passbook-head passbook-hide-print">
         <h3 id="passbook-title">考前速查手冊（列印）</h3>
-        <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">✕ 關閉</button>
+        <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">${uiIcon('x')} 關閉</button>
       </div>
       <div class="modal-body passbook-printable-area" style="padding: 24px;">
         <!-- Header Banner -->

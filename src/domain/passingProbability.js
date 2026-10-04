@@ -17,12 +17,12 @@ const PASSING_SCORE_THRESHOLD = 60.0;
 const DANGER_SCORE_THRESHOLD = 40.0;
 
 const SUBJECT_CONFIG_PE = {
-  '01': { id: '01', name: '電路學', icon: '⚡', targetScore: 70 },
-  '02': { id: '02', name: '電子學（含電力電子）', icon: '🔬', targetScore: 65 },
-  '03': { id: '03', name: '工程數學', icon: '📐', targetScore: 60 },
-  '04': { id: '04', name: '電機機械', icon: '⚙️', targetScore: 65 },
-  '05': { id: '05', name: '電力系統', icon: '🏭', targetScore: 70 },
-  '06': { id: '06', name: '工業配電', icon: '🔌', targetScore: 65 }
+  '01': { id: '01', name: '電路學', icon: '', targetScore: 70 },
+  '02': { id: '02', name: '電子學（含電力電子）', icon: '', targetScore: 65 },
+  '03': { id: '03', name: '工程數學', icon: '', targetScore: 60 },
+  '04': { id: '04', name: '電機機械', icon: '', targetScore: 65 },
+  '05': { id: '05', name: '電力系統', icon: '', targetScore: 70 },
+  '06': { id: '06', name: '工業配電', icon: '', targetScore: 65 }
 };
 
 /**

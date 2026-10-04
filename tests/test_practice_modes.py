@@ -199,6 +199,7 @@ const store = {{}};
 const ctx = {{ console, Date: FakeDate, document: {{getElementById: el, querySelector: () => null, querySelectorAll: () => []}},
   localStorage: {{getItem: k => k in store ? store[k] : null, setItem: (k, v) => {{ store[k] = String(v); }}}} }};
 vm.createContext(ctx);
+vm.runInContext({json.dumps((ROOT / 'src/components/icons.js').read_text(encoding='utf-8'))}, ctx);
 vm.runInContext({json.dumps(STORE)}, ctx);
 vm.runInContext({json.dumps((ROOT / 'src/domain/questionRecord.js').read_text(encoding='utf-8'))}, ctx);
 vm.runInContext({json.dumps(UI)}, ctx);

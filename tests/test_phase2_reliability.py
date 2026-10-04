@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def run_node(source_files, expression, setup=""):
-    source = "\n".join((ROOT / path).read_text(encoding="utf-8") for path in source_files)
+    source = "\n".join((ROOT / path).read_text(encoding="utf-8") for path in ["src/components/icons.js", *source_files])
     script = f"""
 const vm = require('vm');
 const context = {{ console }};

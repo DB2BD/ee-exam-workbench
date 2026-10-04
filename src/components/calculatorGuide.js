@@ -127,7 +127,7 @@ function openCalculatorGuideModal(defaultRecipeId = null) {
         `).join('<span class="key-arrow">➔</span>')}
       </div>
       <div class="calc-trap-alert">
-        <strong>⚠️ 考場防坑：</strong>${item.trap}
+        <strong>${uiIcon('alert-triangle',{class:'warn-ico'})} 考場防坑：</strong>${item.trap}
       </div>
     </div>
   `).join('');
@@ -135,13 +135,13 @@ function openCalculatorGuideModal(defaultRecipeId = null) {
   modal.innerHTML = `
     <div class="modal-content calc-modal-content">
       <div class="modal-header">
-        <h3>🧮 考選部核定計算機（Casio fx-82SOLAR II）考場按法與速算驗證</h3>
-        <button type="button" class="btn-close" onclick="closeCalculatorGuideModal()">✕</button>
+        <h3>考選部核定計算機（Casio fx-82SOLAR II）考場按法與速算驗證</h3>
+        <button type="button" class="btn-close" onclick="closeCalculatorGuideModal()" aria-label="關閉">${uiIcon('x')}</button>
       </div>
       <div class="modal-body calc-modal-body">
         <!-- Interactive Verification Tool -->
         <div class="phasor-converter-box">
-          <h4>⚡ 相量與極座標即時速查器（考前對答案專用）</h4>
+          <h4>相量與極座標即時速查器（考前對答案專用）</h4>
           <div class="converter-grid">
             <div class="converter-col">
               <label>直角座標 (A + jB)</label>
@@ -167,7 +167,7 @@ function openCalculatorGuideModal(defaultRecipeId = null) {
         </div>
 
         <!-- Recipe Keystroke Cards -->
-        <h4 style="margin: 18px 0 10px 0; color: var(--accent-dark);">📖 考場核心公式按鍵順序圖解</h4>
+        <h4 style="margin: 18px 0 10px 0; color: var(--accent-dark);">考場核心公式按鍵順序圖解</h4>
         <div class="calc-recipes-grid">
           ${recipesHtml}
         </div>
@@ -195,7 +195,7 @@ function runInteractiveConverter(source) {
       const p = convertRectToPolar(real, imag);
       document.getElementById('calc-in-mag').value = p.magnitude;
       document.getElementById('calc-in-ang').value = p.angleDeg;
-      if (fb) fb.innerHTML = `✅ 換算完成：<strong>${real} + j${imag}</strong> = <strong>${p.magnitude} ∠ ${p.angleDeg}°</strong>（fx-82: 按 ${real} ➔ INV ➔ R➔P ➔ ${imag} ➔ = ➔ b）`;
+      if (fb) fb.innerHTML = `${uiIcon('check')} 換算完成：<strong>${real} + j${imag}</strong> = <strong>${p.magnitude} ∠ ${p.angleDeg}°</strong>（fx-82: 按 ${real} ➔ INV ➔ R➔P ➔ ${imag} ➔ = ➔ b）`;
     }
   } else if (source === 'polar') {
     const mag = parseFloat(document.getElementById('calc-in-mag').value);
@@ -204,7 +204,7 @@ function runInteractiveConverter(source) {
       const r = convertPolarToRect(mag, ang);
       document.getElementById('calc-in-real').value = r.real;
       document.getElementById('calc-in-imag').value = r.imag;
-      if (fb) fb.innerHTML = `✅ 換算完成：<strong>${mag} ∠ ${ang}°</strong> = <strong>${r.real} + j${r.imag}</strong>（fx-82: 按 ${mag} ➔ INV ➔ P➔R ➔ ${ang} ➔ = ➔ b）`;
+      if (fb) fb.innerHTML = `${uiIcon('check')} 換算完成：<strong>${mag} ∠ ${ang}°</strong> = <strong>${r.real} + j${r.imag}</strong>（fx-82: 按 ${mag} ➔ INV ➔ P➔R ➔ ${ang} ➔ = ➔ b）`;
     }
   }
 }

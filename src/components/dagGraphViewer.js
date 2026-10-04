@@ -53,7 +53,7 @@ function submitKnowledgeRecallRating(rating) {
 function renderKnowledgeRecallPanel() {
   if (!currentKnowledgeRecall) return '';
   return `<section class="knowledge-recall-card">
-    <h3>🧠 知識節點回想：${knowledgeRecallEscape(currentKnowledgeRecall.nodeId)}</h3>
+    <h3>知識節點回想：${knowledgeRecallEscape(currentKnowledgeRecall.nodeId)}</h3>
     <p>先遮住筆記，回想這個問題點的核心定義、適用條件與一個反例，再選擇回想程度。閱讀或查看節點不會自動排程。</p>
     <div class="knowledge-recall-actions">
       <button type="button" class="pill" onclick="submitKnowledgeRecallRating(1)">忘記</button>
@@ -100,12 +100,12 @@ function renderDagGraphVisualizer() {
     <div class="dag-vis-header">
       <div style="display: flex; gap: 8px; flex-wrap: wrap;">
         <button class="pill ${currentDagSubjectFilter === 'all' ? 'active' : ''}" onclick="setDagSubjectFilter('all')">全部考科 (${nodes.length} 節點)</button>
-        <button class="pill ${currentDagSubjectFilter === '01' ? 'active' : ''}" onclick="setDagSubjectFilter('01')">⚡ 01. 電路學</button>
-        <button class="pill ${currentDagSubjectFilter === '02' ? 'active' : ''}" onclick="setDagSubjectFilter('02')">🔌 02. 電子學</button>
-        <button class="pill ${currentDagSubjectFilter === '03' ? 'active' : ''}" onclick="setDagSubjectFilter('03')">📐 03. 工程數學</button>
-        <button class="pill ${currentDagSubjectFilter === '04' ? 'active' : ''}" onclick="setDagSubjectFilter('04')">⚙️ 04. 電機機械</button>
-        <button class="pill ${currentDagSubjectFilter === '05' ? 'active' : ''}" onclick="setDagSubjectFilter('05')">🏢 05. 電力系統</button>
-        <button class="pill ${currentDagSubjectFilter === '06' ? 'active' : ''}" onclick="setDagSubjectFilter('06')">🏭 06. 工業配電</button>
+        <button class="pill ${currentDagSubjectFilter === '01' ? 'active' : ''}" onclick="setDagSubjectFilter('01')">01. 電路學</button>
+        <button class="pill ${currentDagSubjectFilter === '02' ? 'active' : ''}" onclick="setDagSubjectFilter('02')">02. 電子學</button>
+        <button class="pill ${currentDagSubjectFilter === '03' ? 'active' : ''}" onclick="setDagSubjectFilter('03')">03. 工程數學</button>
+        <button class="pill ${currentDagSubjectFilter === '04' ? 'active' : ''}" onclick="setDagSubjectFilter('04')">04. 電機機械</button>
+        <button class="pill ${currentDagSubjectFilter === '05' ? 'active' : ''}" onclick="setDagSubjectFilter('05')">05. 電力系統</button>
+        <button class="pill ${currentDagSubjectFilter === '06' ? 'active' : ''}" onclick="setDagSubjectFilter('06')">06. 工業配電</button>
       </div>
       <span style="font-size: 0.84rem; color: var(--muted); font-weight: 600;">共 ${nodes.length} 個知識拓撲節點</span>
     </div>
@@ -127,7 +127,7 @@ function renderDagGraphVisualizer() {
           <div class="dag-vis-card">
             <div class="dag-vis-card-head">
               <span class="dag-vis-card-title">${nodeTitle}</span>
-              <span class="dag-vis-card-level">⭐ Level ${n.level || 0}</span>
+              <span class="dag-vis-card-level">Level ${n.level || 0}</span>
             </div>
             <div style="font-size: 0.8125rem; color: var(--accent-dark); font-weight: 600; margin-bottom: 4px;">
               考別：${n.examFamily} · 考科：${nodeSubject}
@@ -138,9 +138,9 @@ function renderDagGraphVisualizer() {
             ${prereqNames.length > 0 ? `
               <div class="dag-vis-card-prereqs">
                 <span>前置必備：</span>
-                ${prereqNames.map(pn => `<span class="dag-prereq-tag">⬅️ ${pn}</span>`).join('')}
+                ${prereqNames.map(pn => `<span class="dag-prereq-tag">${pn}</span>`).join('')}
               </div>
-            ` : '<div style="font-size: 0.8125rem; color: var(--success); margin-top: 6px;">🌱 基礎起始概念 (無前置相依)</div>'}
+            ` : '<div style="font-size: 0.8125rem; color: var(--success); margin-top: 6px;">基礎起始概念 (無前置相依)</div>'}
           </div>
         `;
       }).join('')}

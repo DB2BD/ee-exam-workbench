@@ -771,7 +771,7 @@ select:focus {
   margin-bottom: 24px;
 }
 
-/* 🧠 SM-2 Spaced Repetition Badges */
+/* SM-2 Spaced Repetition Badges */
 .due-badge {
   font-size: 0.76rem;
   font-weight: 700;
@@ -810,7 +810,7 @@ select:focus {
   100% { box-shadow: 0 0 0 0 rgba(184, 93, 88, 0); }
 }
 
-/* 💾 Backup & Restore Modal */
+/* Backup & Restore Modal */
 #backup-modal {
   display: none;
   position: fixed;

@@ -93,7 +93,7 @@ function renderWeaknessView(options = {}) {
   const pending = projection.pendingClassification || { count: 0, events: [] };
   const pendingRows = (pending.events || []).map(event => `<li class="weakness-event-row"><span><code>${weaknessViewEscape(event.eventId)}</code> · ${weaknessViewEscape(event.qid)}</span><span>${weaknessViewEscape(event.eventType || '待分類')} · ${weaknessViewEscape(event.recordedAt || '')}</span>${event.customText ? `<small>補充說明：${weaknessViewEscape(event.customText)}</small>` : ''}${(event.evidence || []).length ? `<small>證據：${weaknessViewEscape(event.evidence.join('；'))}</small>` : ''}<button type="button" class="pill" onclick="weaknessViewOpenQuestion('${weaknessViewEscape(event.qid)}')">查看題目</button></li>`).join('');
   container.innerHTML = `<section class="weakness-shell">
-    <div class="weakness-header"><div><h2>🧭 我的弱點</h2><p>由 issue event stream 重算；每個節點都能展開回看 QID、事件與證據。</p></div><div class="weakness-toolbar" aria-label="弱點篩選">${familyButtons}${rangeButtons}</div></div>
+    <div class="weakness-header"><div><h2>我的弱點</h2><p>由 issue event stream 重算；每個節點都能展開回看 QID、事件與證據。</p></div><div class="weakness-toolbar" aria-label="弱點篩選">${familyButtons}${rangeButtons}</div></div>
     <p class="weakness-summary">${weaknessViewEscape(family)} · ${weaknessViewEscape(rangeLabels[range])} · 有效事件 ${Number(projection.totals && projection.totals.effectiveEventCount) || 0} 筆 · 待分類 ${Number(pending.count) || 0} 筆</p>
     <div class="weakness-node-list">${nodes || '<p class="weakness-empty">目前沒有符合範圍的已確認問題點。</p>'}</div>
     <details class="weakness-pending-card" ${pending.count ? 'open' : ''}><summary>待分類事件（${Number(pending.count) || 0}）</summary><ul>${pendingRows || '<li>目前沒有待分類事件。</li>'}</ul></details>

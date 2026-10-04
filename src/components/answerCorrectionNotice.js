@@ -31,7 +31,7 @@ function answerCorrectionBannerHtml(qid) {
   const c = answerCorrectionFor(qid);
   if (!c) return '';
   return `<details class="answer-correction-banner" data-answer-correction="${answerCorrectionEscape(qid)}">`
-    + `<summary>⚠ 本題答案已更正　舊：${answerCorrectionEscape(c.old_answer)} → 新：${answerCorrectionEscape(c.new_answer)}</summary>`
+    + `<summary>${uiIcon('alert-triangle',{class:'warn-ico'})} 本題答案已更正　舊：${answerCorrectionEscape(c.old_answer)} → 新：${answerCorrectionEscape(c.new_answer)}</summary>`
     + `<div class="answer-correction-detail">`
     + `<div class="answer-correction-reason">原因：${answerCorrectionEscape(c.reason)}（${answerCorrectionEscape(c.decided_at)} 更正）</div>`
     + `</div></details>`;
@@ -40,7 +40,7 @@ function answerCorrectionBannerHtml(qid) {
 function answerCorrectionBadgeHtml(qid) {
   const c = answerCorrectionFor(qid);
   if (!c) return '';
-  return `<span class="qtag answer-correction-badge" title="本題答案已於 ${answerCorrectionEscape(c.decided_at)} 更正，做過的話請重看題解">⚠ 答案已更正</span>`;
+  return `<span class="qtag answer-correction-badge" title="本題答案已於 ${answerCorrectionEscape(c.decided_at)} 更正，做過的話請重看題解">${uiIcon('alert-triangle',{class:'warn-ico'})} 答案已更正</span>`;
 }
 
 // ---- Learner records -------------------------------------------------------
@@ -213,7 +213,7 @@ function renderAnswerCorrectionReviewSection() {
       + `<span class="answer-correction-row-label">${answerCorrectionEscape(label)}</span>`
       + `<span class="answer-correction-row-date">${answerCorrectionEscape(item.decided_at)} 更正</span>${button}</li>`;
   }).join('');
-  host.innerHTML = `<section class="answer-correction-section"><h3>⚠ 答案已更正、而你做過的題（${items.length}）</h3>`
+  host.innerHTML = `<section class="answer-correction-section"><h3>${uiIcon('alert-triangle',{class:'warn-ico'})} 答案已更正、而你做過的題（${items.length}）</h3>`
     + `<ul class="answer-correction-list">${rows}</ul></section>`;
   host.querySelectorAll('[data-answer-correction-review]').forEach(btn => {
     btn.addEventListener('click', () => {

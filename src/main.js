@@ -86,7 +86,7 @@ function initPaneResizer() {
 }
 
 function themeButtonLabel(theme) {
-  return theme === 'dark' ? '<span class="theme-ico" aria-hidden="true">☀️</span><span class="theme-label"> 亮色模式</span>' : '<span class="theme-ico" aria-hidden="true">🌙</span><span class="theme-label"> 暗色模式</span>';
+  return theme === 'dark' ? '<span class="theme-ico" aria-hidden="true">' + uiIcon('sun') + '</span><span class="theme-label"> 亮色模式</span>' : '<span class="theme-ico" aria-hidden="true">' + uiIcon('moon') + '</span><span class="theme-label"> 暗色模式</span>';
 }
 
 function applyThemeAttribute(theme) {
@@ -116,6 +116,7 @@ function applyInitialTheme() {
 
 // Global DOM Content Loaded Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
+  uiIconHydrate(document);
   // 0. The 更多 menu closes after picking an item or clicking elsewhere.
   document.addEventListener('click', event => {
     const menu = document.getElementById('more-tools-menu');

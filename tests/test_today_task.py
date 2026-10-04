@@ -19,7 +19,7 @@ SM2_JS = WORKSPACE / "src/state/sm2Store.js"
 
 
 def run_node(expression, storage=None, extra_sources=()):
-    sources = [SCHEDULE_JS.read_text(encoding="utf-8"), PACING_JS.read_text(encoding="utf-8"), TODAY_JS.read_text(encoding="utf-8")]
+    sources = [(WORKSPACE / "src/components/icons.js").read_text(encoding="utf-8"), SCHEDULE_JS.read_text(encoding="utf-8"), PACING_JS.read_text(encoding="utf-8"), TODAY_JS.read_text(encoding="utf-8")]
     sources += [Path(p).read_text(encoding="utf-8") for p in extra_sources]
     script = f"""
 const vm = require('vm');
@@ -325,7 +325,7 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertIn("WEAK-01｜弱題分析｜隨機練習 第 1 輪（各科輪流）", res["rest"])
         self.assertIn("今天還有：", res["html"])
         self.assertLess(res["html"].index("下一個任務：CORE-07"), res["html"].index("今天還有："))
-        self.assertIn(">開始<", res["html"])
+        self.assertIn("</svg> 開始<", res["html"])
 
     def test_milestone_line_counts_days_and_papers(self):
         res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 5))
@@ -379,13 +379,13 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertEqual(res["held"]["text"], "接續 MOCK114-04：核對＋修復")
         self.assertFalse(res["held"]["sameDay"])
         self.assertIn("接續 MOCK114-04：核對＋修復", res["html"])
-        self.assertIn(">開始核對<", res["html"])
+        self.assertIn("</svg> 開始核對<", res["html"])
         self.assertLess(res["html"].index("接續 MOCK114-04"), res["html"].index("今天還有"))
         self.assertEqual(res["items"][0], "MOCK114-04")
         same = self.vm(done, local_ms(2026, 10, 19, 20), active)
         self.assertTrue(same["held"]["sameDay"])
         self.assertIn("今天的閉卷已完成，明天接續 MOCK114-04：核對＋修復", same["html"])
-        self.assertIn(">現在就核對<", same["html"])
+        self.assertIn("</svg> 現在就核對<", same["html"])
 
     def test_hold_and_resume_keep_phase_and_mock_id(self):
         res = run_node(

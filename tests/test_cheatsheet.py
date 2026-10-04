@@ -120,7 +120,7 @@ class TestPassbookSection(unittest.TestCase):
                 'items:[{text:"<img src=x onerror=1>",qids:["EE-104-01-1"]}]}]}],'
                 'assumption_templates:[{subject_name:"電路學",situation:"缺 <b>",how_to_write:"寫假設",qids:["EE-105-01-3"]}]}')
         html = self.run_node(data)
-        self.assertIn("伍、失分點速查卡", html)
+        self.assertIn("肆、失分點速查卡", html)
         self.assertIn("&lt;img src=x onerror=1&gt;", html)
         self.assertNotIn("<img", html)
         self.assertNotIn("<b>", html)

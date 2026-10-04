@@ -60,8 +60,14 @@ class TestBanner(unittest.TestCase):
 
     def test_corrected_qid_banner_escaped(self):
         html = run_node("answerCorrectionBannerHtml('EE-112-01-2')")
-        self.assertIn("本題答案已於", html)
+        self.assertIn("本題答案已更正", html)
+        self.assertIn("2026-10-02", html)
         self.assertIn("612.5", html)
+        # old -> new sits in the one-line summary; the reason is in the details
+        summary = re.search(r"<summary>(.*?)</summary>", html).group(1)
+        self.assertIn("舊：", summary)
+        self.assertIn("→ 新：", summary)
+        self.assertNotIn("原因", summary)
         self.assertIn("<details", html)
         self.assertIn("舊：", html)
         self.assertIn("原因：", html)

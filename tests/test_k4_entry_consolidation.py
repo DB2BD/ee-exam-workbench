@@ -20,40 +20,40 @@ def practice_pane():
     return html[start:end]
 
 
-def split_details(pane):
-    open_i = pane.index('<details class="more-practice"')
-    close_i = pane.index('</details>', open_i)
-    return pane[:open_i], pane[open_i:close_i], pane[close_i:]
+def primary_section(pane):
+    open_i = pane.index('<section class="home-primary-actions"')
+    close_i = pane.index('</section>', open_i)
+    return pane[open_i:close_i]
 
 
 def run_node(source):
-    out = subprocess.run(["node", "-e", source], capture_output=True, text=True, timeout=30)
+    out = subprocess.run(["node", "-"], input=source, capture_output=True, text=True, timeout=30)
     if out.returncode != 0:
         raise AssertionError(out.stderr)
     return json.loads(out.stdout)
 
 
 class TestHomeLayout(unittest.TestCase):
-    def test_primary_actions_outside_details(self):
-        before, inside, _ = split_details(practice_pane())
-        self.assertIn('id="today-task-card"', before)
-        self.assertIn('id="home-action-due"', before)
-        self.assertIn("homeStartDueReview()", before)
-        for hid in ("home-action-start", "home-action-continue", "home-action-find"):
-            self.assertNotIn(f'id="{hid}"', before)
-            self.assertIn(f'id="{hid}"', inside)
-        self.assertIn('id="daily-practice-container"', inside)
-        self.assertIn("更多練習方式", inside)
+    # v1.2: the learner uses 排程任務, 隨機練習 3 題 and 到期複習 daily, so all
+    # three sit on the 今天 pane; there is no collapsed 「更多練習方式」 anymore.
+    def test_random_three_and_due_review_are_primary(self):
+        pane = practice_pane()
+        primary = primary_section(pane)
+        self.assertLess(pane.index('id="today-task-card"'), pane.index('<section class="home-primary-actions"'))
+        self.assertIn('id="home-action-start"', primary)
+        self.assertIn("dailyPracticePrepareNewRound()", primary)
+        self.assertIn("隨機練習 3 題", primary)
+        self.assertIn('id="home-action-due"', primary)
+        self.assertIn("homeStartDueReview()", primary)
+        self.assertEqual(len(re.findall(r"<button", primary)), 2)
+        self.assertNotIn('<details class="more-practice"', pane)
+        self.assertIn('id="daily-practice-container"', pane)
+        self.assertIn('id="home-action-continue"', pane)
 
     def test_due_button_default_disabled_with_message(self):
-        before, _, _ = split_details(practice_pane())
-        self.assertRegex(before, r'id="home-action-due"[^>]*disabled')
-        self.assertIn("今天沒有到期題", before)
-
-    def test_at_most_two_primary_start_buttons_outside_details(self):
-        before, _, _ = split_details(practice_pane())
-        # 靜態模板：到期複習按鈕 1 個；今日任務卡由 JS 渲染 1 個「開始」。
-        self.assertEqual(len(re.findall(r"<button", before)), 1)
+        primary = primary_section(practice_pane())
+        self.assertRegex(primary, r'id="home-action-due"[^>]*disabled')
+        self.assertIn("今天沒有到期題", primary)
 
     def test_due_refresh_logic(self):
         src = DAILY_JS.read_text(encoding="utf-8")
@@ -102,7 +102,10 @@ console.log(JSON.stringify([r(''), r('?maint=1'), r('?a=1&maint=1'), r('?maint=1
         j = src.index("</details>", i)
         self.assertIn("data-review-open", src[i:j])
         self.assertLess(src.index("data-review-recall"), i)
-        self.assertIn('id="btn-start-review"', INDEX.read_text(encoding="utf-8"))
+        # The 複習中心 pane (and #btn-start-review) is gone in v1.2; due review starts from 今天.
+        html = INDEX.read_text(encoding="utf-8")
+        self.assertNotIn('id="btn-start-review"', html)
+        self.assertIn("function startReviewSession", html)
 
 
 if __name__ == "__main__":

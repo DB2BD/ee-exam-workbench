@@ -13,85 +13,46 @@ function getQuestionCountForCategory(category) {
   return 0;
 }
 
+// Hero subtitle is PE-only; the GK count is no longer part of the default UI.
 function updateQuestionCountLabels() {
   const peCount = getQuestionCountForCategory('PE');
-  const gkCount = getQuestionCountForCategory('GK');
-  const total = peCount + gkCount;
-  const peLabel = document.getElementById('cat-count-PE');
-  const gkLabel = document.getElementById('cat-count-GK');
   const totalLabel = document.getElementById('hero-total-count');
-  const statsTotalLabel = document.getElementById('stats-total-count');
-  if (peLabel) peLabel.innerText = `${peCount} 題 · 66 卷`;
-  if (gkLabel) gkLabel.innerText = `${gkCount} 題 · 25 卷`;
-  if (totalLabel) totalLabel.innerText = `${total} 道題目記錄`;
-  if (statsTotalLabel) statsTotalLabel.innerText = total;
-  return total;
+  if (totalLabel) totalLabel.innerText = `${peCount} 題`;
+  return peCount;
 }
 
+/** 「今天：<今天任務代碼或 已完成>｜到期 N 題｜<成績一行>」 */
+function headerTodayLabel() {
+  try {
+    if (typeof todayTaskViewModel !== 'function' || typeof loadTodayTaskState !== 'function') return '—';
+    const vm = todayTaskViewModel(loadTodayTaskState(), Date.now());
+    if (vm.mode === 'done') return '已完成';
+    if (vm.mode === 'exam-check') return '考前確認';
+    if (vm.mode === 'stop') return '停止新增練習';
+    return vm.code || '已完成';
+  } catch (_) {
+    return '—';
+  }
+}
+
+function headerSummaryText() {
+  let due = 0;
+  try { due = typeof getDueQuestionsList === 'function' ? getDueQuestionsList().length : 0; } catch (_) { due = 0; }
+  let score = '估計總分：尚無資料';
+  try { if (typeof scoreboardSummaryLine === 'function') score = scoreboardSummaryLine(); } catch (_) { /* keep default */ }
+  return `今天：${headerTodayLabel()}｜到期 ${due} 題｜${score}`;
+}
+
+function updateHeaderSummary() {
+  const line = document.getElementById('header-summary-line');
+  if (line) line.innerText = headerSummaryText();
+}
+
+// Kept under its old name: many callers refresh the header after progress changes.
 function updateStatsAndBar() {
   updateQuestionCountLabels();
-  const qList = getActiveQuestionsList();
-  const total = qList.length;
-  let mastered = 0, review = 0, starred = 0;
-
-  qList.forEach(q => {
-    const qid = q[0];
-    const s = progressState[qid] || 0;
-    if (s === 1) mastered++;
-    if (s === 2) review++;
-    if (starredState[qid]) starred++;
-  });
-
-  const unstarted = total - mastered - review;
-  const pct = total > 0 ? Math.round((mastered / total) * 100) : 0;
-
-  const statTotal = document.getElementById('stat-total');
-  const statMastered = document.getElementById('stat-mastered');
-  const statReview = document.getElementById('stat-review');
-  const statUnstarted = document.getElementById('stat-unstarted');
-  const statStarred = document.getElementById('stat-starred');
-  const statExams = document.getElementById('stat-exams');
-
-  if (statTotal) statTotal.innerText = total;
-  if (statMastered) statMastered.innerText = mastered;
-  if (statReview) statReview.innerText = review;
-  if (statUnstarted) statUnstarted.innerText = unstarted;
-  if (statStarred) statStarred.innerText = starred;
-  if (statExams) statExams.innerText = currentExamCategory === 'PE' ? 66 : 25;
-
-  // SM-2 Due Flashcards count
-  const dueList = typeof getDueQuestionsList === 'function' ? getDueQuestionsList() : [];
-  const statDue = document.getElementById('stat-due-flashcards');
-  const statDueCard = document.getElementById('stat-due-card');
-  if (statDue) statDue.innerText = dueList.length;
-  if (statDueCard) {
-    if (dueList.length > 0) {
-      statDueCard.classList.add('has-due');
-    } else {
-      statDueCard.classList.remove('has-due');
-    }
-  }
-
-  const barMastered = document.getElementById('bar-mastered');
-  const barReview = document.getElementById('bar-review');
-  const barUnstarted = document.getElementById('bar-unstarted');
-  const barPct = document.getElementById('stat-pct');
-
-  if (barMastered && total > 0) barMastered.style.width = `${(mastered / total) * 100}%`;
-  if (barReview && total > 0) barReview.style.width = `${(review / total) * 100}%`;
-  if (barUnstarted && total > 0) barUnstarted.style.width = `${(unstarted / total) * 100}%`;
-  if (barPct) barPct.innerText = `${pct}%`;
-}
-
-function onDueFlashcardsClick() {
-  if (typeof switchTab === 'function') {
-    switchTab('review');
-    const reviewScope = document.getElementById('review-scope');
-    if (reviewScope) {
-      reviewScope.value = 'due';
-      if (typeof setReviewFilter === 'function') setReviewFilter('due');
-    }
-  }
+  updateHeaderSummary();
+  if (typeof homeDueReviewRefresh === 'function') homeDueReviewRefresh();
 }
 
 
@@ -157,6 +118,7 @@ function formatBackupSummary(summary) {
     `格式 ${summary.version || '未知'} · PE 做題 ${byCategory.PE || 0} · GK 做題 ${byCategory.GK || 0}`,
     `收藏 ${summary.starred || 0}（PE ${starredByCategory.PE || 0}／GK ${starredByCategory.GK || 0}）`,
     `SM-2 ${summary.sm2 || 0} · 主動回想 ${summary.recall || 0} · 人工章節 ${summary.manualLabels || 0}`,
+    `作答結果卡紀錄 ${summary.resultCardRecords || 0} 筆 · 排程任務已完成 ${summary.todayTaskDone || 0} 項${summary.todayTaskActive ? '（含進行中任務）' : ''}`,
     `每日練習完成 ${summary.practiceCompleted || 0} 題 · ${summary.practiceSession ? '含續做進度' : '無進行中練習'} · ${summary.mockTimer ? '含模考計時' : '無模考計時'}`,
   ].join('\n');
 }
@@ -184,11 +146,24 @@ function renderBackupPreview(result) {
   renderBackupHistory();
 }
 
+// Backup validation checks PE and GK question ids, so the lazily loaded GK data
+// must be present first (no-op outside the browser and once loaded).
+function backupDeferUntilGkLoaded(retry) {
+  if (typeof document === 'undefined' || typeof gkDataLoaded !== 'function' || typeof ensureGkData !== 'function') return false;
+  if (gkDataLoaded()) return false;
+  ensureGkData().then(ok => { if (ok) retry(); else renderBackupPreview({ success: false, error: '無法載入 GK 題庫資料，暫時無法驗證備份。' }); });
+  return true;
+}
+
 function previewImportedBackupJSON() {
   const textarea = document.getElementById('backup-json-textarea');
   if (!textarea || !textarea.value.trim()) {
     renderBackupPreview({ success: false, error: '請先貼上或載入備份 JSON。' });
     return { success: false, error: '請先貼上或載入備份 JSON。' };
+  }
+  if (backupDeferUntilGkLoaded(previewImportedBackupJSON)) {
+    renderBackupPreview({ success: false, error: '正在載入題庫資料以驗證備份…' });
+    return { success: false, pending: true };
   }
   let result;
   try {
@@ -210,15 +185,16 @@ function applyImportedBackupJSON(mode) {
     return;
   }
   const selectedMode = mode === 'merge' || mode === 'replace' ? mode : 'replace';
+  if (backupDeferUntilGkLoaded(() => applyImportedBackupJSON(selectedMode))) return { success: false, pending: true };
   const res = typeof applyUserDataBackup === 'function'
     ? applyUserDataBackup(textarea.value.trim(), selectedMode)
     : { success: false, error: '備份還原功能尚未載入。' };
   if (res.success) {
-    if (typeof loadMockExamTimerState === 'function') loadMockExamTimerState();
     if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
     updateStatsAndBar();
     renderQuestions();
     if (typeof renderReviewPage === 'function') renderReviewPage();
+    if (typeof renderAnswerCorrectionReviewSection === 'function') renderAnswerCorrectionReviewSection();
     renderBackupHistory();
     closeBackupModal();
     showToast(`📥 已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
@@ -253,7 +229,7 @@ function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('ee_theme_preference', next);
+  try { localStorage.setItem('ee_theme_preference', next); } catch (_) { /* theme still applies this session */ }
   const btn = document.getElementById('theme-toggle-btn');
   if (btn) btn.innerText = next === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
 }

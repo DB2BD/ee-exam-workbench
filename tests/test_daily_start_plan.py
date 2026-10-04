@@ -40,14 +40,30 @@ class TestDailyStartPlan(unittest.TestCase):
             ("MIX", 6),
             ("MOCK114", 6),
             ("BLIND108", 6),
+            ("EXT", 9),
         ):
             actual = re.findall(rf"`{prefix}-(\d{{2}})`", schedule)
             expected = [f"{number:02d}" for number in range(1, count + 1)]
             with self.subTest(prefix=prefix):
                 self.assertEqual(actual, expected)
 
-    def test_daily_hours_recompute_to_69(self):
-        self.assertEqual(sum(float(row.group("hours")) for row in self.rows), 69.0)
+    def test_daily_hours_recompute_to_82_5(self):
+        # 69 h mandatory + 9 optional EXT days x 1.5 h.
+        self.assertEqual(sum(float(row.group("hours")) for row in self.rows), 82.5)
+
+    def test_ext_days_replace_recovery_and_are_marked_optional(self):
+        by_date = {row.group("date"): row.groupdict() for row in self.rows}
+        for day, code in (("2026-10-16", "01"), ("2026-10-18", "02"), ("2026-10-20", "03"),
+                          ("2026-10-23", "04"), ("2026-10-25", "05"), ("2026-10-29", "06"),
+                          ("2026-10-31", "07"), ("2026-11-03", "08"), ("2026-11-07", "09")):
+            with self.subTest(day=day):
+                self.assertEqual(by_date[day]["task"], f"`EXT-{code}`")
+                self.assertEqual(float(by_date[day]["hours"]), 1.5)
+                self.assertIn("上榜擴章日_強科與電力配電.md", by_date[day]["entry"])
+        recovery = [d for d, r in by_date.items() if r["task"] == "`RECOVERY`"]
+        self.assertEqual(recovery, ["2026-10-21", "2026-10-27", "2026-11-02",
+                                    "2026-11-05", "2026-11-09", "2026-11-10"])
+        self.assertIn("選做", self.text)
 
     def test_last_two_days_open_no_new_questions(self):
         by_date = {row.group("date"): row.groupdict() for row in self.rows}
@@ -73,7 +89,7 @@ class TestDailyStartPlan(unittest.TestCase):
 
     def test_all_local_links_resolve(self):
         links = re.findall(r"\[[^]]+\]\(([^)]+)\)", self.text)
-        self.assertEqual(len(links), 44)
+        self.assertEqual(len(links), 54)
         for raw_target in links:
             target = unquote(raw_target.split("#", 1)[0])
             resolved = (PLAN.parent / target).resolve()

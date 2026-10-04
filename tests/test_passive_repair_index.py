@@ -7,8 +7,8 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INDEX = ROOT / "docs" / "上榜錯因修復索引_114-108.md"
-CANONICAL_ROOT = ROOT / "📝 個人題解與錯題本"
+INDEX = ROOT / "docs" / "02_考場策略" / "錯因修復索引_114-108.md"
+CANONICAL_ROOT = ROOT / "02_題解/技師題解"
 
 SUBJECT_COUNTS = {
     "01": {114: 5, 108: 4},
@@ -129,7 +129,7 @@ class TestPassiveRepairIndex(unittest.TestCase):
                 line for line in self.text.splitlines()
                 if line.startswith("- ") and all(f"`{qid}`" in line for qid in qids)
             )
-            for phrase in ("`needs_manual_review`", scored_phrase, "先寫假設再寫條件解", "上榜精確解答邊界_條件題處理.md"):
+            for phrase in ("`needs_manual_review`", scored_phrase, "先寫假設再寫條件解", "精確解答邊界_條件題處理.md"):
                 self.assertIn(phrase, note)
         # Boundary questions are never S/T rescue-card questions.
         self.assertEqual(self.rows["EE-108-02-5"]["code"], "R")
@@ -145,7 +145,7 @@ class TestPassiveRepairIndex(unittest.TestCase):
     def test_all_local_markdown_links_in_index_resolve(self):
         links = re.findall(r"\[[^]]+\]\(([^)]+)\)", self.text)
         self.assertEqual(len(links), len(self.rows) + 1)
-        self.assertIn("./上榜起手式急救卡_114-108.md", links)
+        self.assertIn("./起手式急救卡_114-108.md", links)
         for raw_target in links:
             target = unquote(raw_target.split("#", 1)[0])
             if not target or "://" in target:

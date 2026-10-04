@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-os.makedirs('📝 個人題解與錯題本/05_電力系統', exist_ok=True)
+os.makedirs('02_題解/技師題解/05_電力系統', exist_ok=True)
 
 # 112 年 電力系統
 sol_112 = r'''---
@@ -200,7 +200,7 @@ $$\delta_{cr} = \cos^{-1}(0.08336) \approx 85.22^\circ = 1.487\text{ rad}$$
 $$\delta_{cr} = 85.22^\circ\quad (1.487\text{ rad})$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/112年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/112年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_112)
 
 print('✅ 112年_電力系統_全卷完整詳細題解.md created!')

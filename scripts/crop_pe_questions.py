@@ -12,7 +12,7 @@ Outputs:
 
 * ``data/pe-question-crops.json`` - qid -> source page rectangles and image
   paths, including the boundary method and confidence.
-* ``依考科分類/*/images/questions/PE_*.png`` - one stitched image per
+* ``01_原始試題/依考科/*/images/questions/PE_*.png`` - one stitched image per
   question, preserving all pages occupied by that question.
 
 Run from the repository root::
@@ -98,7 +98,7 @@ def subject_from_filename(path: Path) -> str:
 
 
 def pdf_paths() -> list[Path]:
-    return sorted((WORKSPACE / "依年度分類").glob("*/*.pdf"))
+    return sorted((WORKSPACE / "01_原始試題/依年度").glob("*/*.pdf"))
 
 
 def markdown_question_count(year: int, subject: str) -> int:
@@ -112,7 +112,7 @@ def markdown_question_count(year: int, subject: str) -> int:
         "電力系統": "05_電力系統.md",
         "工業配電": "06_工業配電.md",
     }[subject]
-    text = (WORKSPACE / "依考科分類" / subject_file).read_text(encoding="utf-8")
+    text = (WORKSPACE / "01_原始試題/依考科" / subject_file).read_text(encoding="utf-8")
     sections = list(re.finditer(r"^##\s+(\d{3})\s*年", text, re.MULTILINE))
     for index, match in enumerate(sections):
         if int(match.group(1)) != year:
@@ -533,7 +533,7 @@ def process_pdf(pdf_path: Path, dpi: int) -> dict:
         start["y"] = snap_to_gap(bands, anchor)
         start["gap"] = 0.0
     validate_starts(starts, year, subject)
-    question_dir = (WORKSPACE / "依考科分類" / {
+    question_dir = (WORKSPACE / "01_原始試題/依考科" / {
         "電路學": "01_電路學",
         "電子學（包括電力電子學）": "02_電子學_含電力電子",
         "工程數學": "03_工程數學",

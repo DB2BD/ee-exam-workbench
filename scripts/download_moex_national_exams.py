@@ -30,7 +30,7 @@ from pathlib import Path
 
 
 WORKSPACE = Path(__file__).resolve().parents[1]
-BASE_DIR = WORKSPACE / "依考科分類" / "🏛️_國考同級參考題庫"
+BASE_DIR = WORKSPACE / "04_國考同級題庫"
 MANIFEST_PATH = WORKSPACE / "data" / "moex-national-exams.json"
 OFFICIAL_HOST = "wwwq.moex.gov.tw"
 SEARCH_PATH = "/exam/wFrmExamQandASearch.aspx"

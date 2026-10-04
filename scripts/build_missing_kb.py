@@ -7,9 +7,9 @@ kb_electronics = [
     {
         'file': '01_BJT與MOSFET小訊號交流分析.md',
         'title': 'BJT 與 MOSFET 小訊號交流分析與放大器組態',
-        'content': r'''# ⚡ 電子學 核心考點 01 — BJT 與 MOSFET 小訊號分析
+        'content': r'''# 電子學 核心考點 01 — BJT 與 MOSFET 小訊號分析
 
-## 📌 核心參數與小訊號模型
+## 核心參數與小訊號模型
 1. **BJT 小訊號參數**：
    - 轉導（Transconductance）：$g_m = \frac{I_C}{V_T} \approx \frac{I_C}{25\text{ mV}}$
    - 輸入電阻：$r_\pi = \frac{\beta}{g_m} = \frac{V_T}{I_B}, \quad r_e = \frac{\alpha}{g_m} = \frac{r_\pi}{1 + \beta} \approx \frac{1}{g_m}$
@@ -25,7 +25,7 @@ kb_electronics = [
 
 ---
 
-## 🎯 歷屆技師高頻出題年份
+## 歷屆技師高頻出題年份
 - **114 年 第一題**：MOSFET 差動對與主動負載小訊號增益計算。
 - **113 年 第一題**：BJT 共射極放大器偏壓穩定度與交流頻率響應。
 - **111 年 第二題**：MOSFET 多級放大器串級分析與輸入/輸出阻抗。
@@ -34,9 +34,9 @@ kb_electronics = [
     {
         'file': '02_電力電子DC-DC轉換器Buck-Boost.md',
         'title': '電力電子：Buck, Boost 與 Buck-Boost 轉換器穩態分析',
-        'content': r'''# ⚡ 電子學（含電力電子） 核心考點 02 — DC-DC 轉換器
+        'content': r'''# 電子學（含電力電子） 核心考點 02 — DC-DC 轉換器
 
-## 📌 核心穩態原理（連續導通模式 CCM）
+## 核心穩態原理（連續導通模式 CCM）
 1. **電感伏秒平衡原理（Inductor Volt-Second Balance）**：
    $$\int_0^{T_s} v_L(t) dt = 0 \implies V_{L,\text{on}} \cdot D T_s + V_{L,\text{off}} \cdot (1-D) T_s = 0$$
 2. **電容安秒平衡原理（Capacitor Charge Balance）**：
@@ -51,7 +51,7 @@ kb_electronics = [
 
 ---
 
-## 🎯 歷屆技師高頻出題年份
+## 歷屆技師高頻出題年份
 - **114 年 第四題**：Boost 升壓轉換器輸出漣波電壓與電感電容選定。
 - **112 年 第四題**：Buck 降壓轉換器連續/不連續導通模式（CCM/DCM）臨界邊界分析。
 - **110 年 第四題**：單相全橋反流器（Inverter）PWM 調變指數與輸出諧波分析。
@@ -63,9 +63,9 @@ kb_distribution = [
     {
         'file': '01_工廠配電負載特性與契約容量.md',
         'title': '工廠配電：負載因數、需量因數、參差因數與契約容量',
-        'content': r'''# ⚡ 工業配電 核心考點 01 — 負載特性與契約容量
+        'content': r'''# 工業配電 核心考點 01 — 負載特性與契約容量
 
-## 📌 核心名詞定義與計算公式
+## 核心名詞定義與計算公式
 1. **需量因數（Demand Factor, DF）**：
    $$\text{DF} = \frac{\text{最大需量 (Maximum Demand)}}{\text{總連接負載 (Connected Load)}} \le 1$$
 2. **負載因數（Load Factor, LF）**：
@@ -77,7 +77,7 @@ kb_distribution = [
 
 ---
 
-## 🎯 歷屆技師高頻出題年份
+## 歷屆技師高頻出題年份
 - **114 年 第一題**：多用電戶群負載曲線、參差因數與主變壓器容量計算。
 - **111 年 第一題**：需量因數與日負載因數改善對電費支出之評估。
 '''
@@ -85,9 +85,9 @@ kb_distribution = [
     {
         'file': '02_短路電流計算與斷路器容量選定.md',
         'title': '工業配電：短路電流計算（標么法/歐姆法）與保護協調',
-        'content': r'''# ⚡ 工業配電 核心考點 02 — 短路電流與保護協調
+        'content': r'''# 工業配電 核心考點 02 — 短路電流與保護協調
 
-## 📌 核心計算公式
+## 核心計算公式
 1. **短路容量（Short-Circuit MVA, SCMVA）與對稱短路電流**：
    $$I_{\text{sc}} = \frac{I_{\text{base}}}{Z_{\text{pu}}} = \frac{S_{\text{base}}}{\sqrt{3} V_{\text{base}} Z_{\text{pu}}} \quad [\text{kA}]$$
    $$\text{SCMVA} = \sqrt{3} V_{\text{base}} I_{\text{sc}} = \frac{S_{\text{base}}}{Z_{\text{pu}}} \quad [\text{MVA}]$$
@@ -100,7 +100,7 @@ kb_distribution = [
 
 ---
 
-## 🎯 歷屆技師高頻出題年份
+## 歷屆技師高頻出題年份
 - **114 年 第三題**：工廠 22.8 kV 轉 380 V 系統短路容量與 VCB 啟斷容量選定。
 - **113 年 第二題**：過電流電驛 CO-8 反時限曲線保護協調階梯圖設定。
 '''
@@ -108,14 +108,14 @@ kb_distribution = [
 ]
 
 # Write KB files
-os.makedirs('🧠 核心考點知識庫/02_電子學_含電力電子', exist_ok=True)
+os.makedirs('03_知識庫/核心考點/02_電子學_含電力電子', exist_ok=True)
 for item in kb_electronics:
-    with open(f'🧠 核心考點知識庫/02_電子學_含電力電子/{item["file"]}', 'w', encoding='utf-8') as f:
+    with open(f'03_知識庫/核心考點/02_電子學_含電力電子/{item["file"]}', 'w', encoding='utf-8') as f:
         f.write(item['content'].strip() + '\n')
 
-os.makedirs('🧠 核心考點知識庫/06_工業配電', exist_ok=True)
+os.makedirs('03_知識庫/核心考點/06_工業配電', exist_ok=True)
 for item in kb_distribution:
-    with open(f'🧠 核心考點知識庫/06_工業配電/{item["file"]}', 'w', encoding='utf-8') as f:
+    with open(f'03_知識庫/核心考點/06_工業配電/{item["file"]}', 'w', encoding='utf-8') as f:
         f.write(item['content'].strip() + '\n')
 
 print('Created missing KB folders and notes!')

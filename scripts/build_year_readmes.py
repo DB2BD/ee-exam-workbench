@@ -28,7 +28,7 @@ AUDIT_ORDER = ("verified", "reference_book_verified", "needs_manual_review")
 
 
 def official_pdf(year: int, pdf_subject: str) -> Path:
-    return ROOT / "依年度分類" / f"{year}年" / f"{year}年_電機工程技師_{pdf_subject}.pdf"
+    return ROOT / "01_原始試題/依年度" / f"{year}年" / f"{year}年_電機工程技師_{pdf_subject}.pdf"
 
 
 def read_pdf_header(pdf_path: Path) -> tuple[str, str]:
@@ -54,7 +54,7 @@ def read_pdf_header(pdf_path: Path) -> tuple[str, str]:
 
 
 def audit_summary(year: int, subject_code: str, subject_folder: str) -> tuple[int, str]:
-    canonical_dir = ROOT / "📝 個人題解與錯題本" / subject_folder / "canonical"
+    canonical_dir = ROOT / "02_題解/技師題解" / subject_folder / "canonical"
     paths = sorted(canonical_dir.glob(f"EE-{year}-{subject_code}-*.md"))
     if not paths:
         raise ValueError(f"找不到 canonical 題目：{year} / {subject_folder}")
@@ -76,10 +76,10 @@ def audit_summary(year: int, subject_code: str, subject_folder: str) -> tuple[in
 
 def route_link(year: int) -> str:
     if year == 114:
-        return "[114 年六科被動模考執行包](../../docs/上榜被動模考_114年六科執行包.md)"
+        return "[114 年六科被動模考執行包](../../../docs/01_備考計畫/被動模考_114年六科執行包.md)"
     if year == 108:
-        return "[108 年六科被動複測執行包](../../docs/上榜被動複測_108年六科執行包.md)"
-    return "[固定上榜路徑](../../docs/上榜預設24時段_核心題路徑.md)"
+        return "[108 年六科被動複測執行包](../../../docs/01_備考計畫/被動複測_108年六科執行包.md)"
+    return "[固定上榜路徑](../../../docs/01_備考計畫/預設24時段_核心題路徑.md)"
 
 
 def render_year_readme(year: int) -> str:
@@ -105,10 +105,10 @@ def render_year_readme(year: int) -> str:
         question_count, audits = audit_summary(year, subject_code, subject_folder)
         solution_subject = "電子學" if subject_code == "02" else subject_name
         solution_name = f"{year}年_{solution_subject}_全卷完整詳細題解.md"
-        solution_path = ROOT / "📝 個人題解與錯題本" / subject_folder / solution_name
+        solution_path = ROOT / "02_題解/技師題解" / subject_folder / solution_name
         if not solution_path.exists():
             raise FileNotFoundError(solution_path)
-        solution_href = f"../../📝%20個人題解與錯題本/{subject_folder}/{solution_name}"
+        solution_href = f"../../../02_題解/技師題解/{subject_folder}/{solution_name}"
         lines.append(
             f"| {index} | {subject_name} | `{exam_code}` | 120 分鐘 | {calculator_rule} | "
             f"{question_count} 題；{audits} | [PDF](./{pdf_path.name}) | [完整題解]({solution_href}) |"
@@ -132,7 +132,7 @@ def render_year_readme(year: int) -> str:
 def write_year_readmes(*, check: bool = False) -> bool:
     clean = True
     for year in YEARS:
-        destination = ROOT / "依年度分類" / f"{year}年" / "README.md"
+        destination = ROOT / "01_原始試題/依年度" / f"{year}年" / "README.md"
         expected = render_year_readme(year)
         current = destination.read_text(encoding="utf-8") if destination.exists() else None
         if check:

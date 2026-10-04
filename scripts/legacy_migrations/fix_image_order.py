@@ -3,7 +3,7 @@ import re
 import os
 
 def fix_image_order():
-    for fpath in glob.glob('依考科分類/**/*.md', recursive=True) + glob.glob('依考科分類/*.md'):
+    for fpath in glob.glob('01_原始試題/依考科/**/*.md', recursive=True) + glob.glob('01_原始試題/依考科/*.md'):
         with open(fpath, 'r', encoding='utf-8') as f:
             content = f.read()
 

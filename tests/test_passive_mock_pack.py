@@ -7,10 +7,10 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACK = ROOT / "docs" / "上榜被動模考_114年六科執行包.md"
-CORE_PATH = ROOT / "docs" / "上榜預設24時段_核心題路徑.md"
-DIAGNOSTIC = ROOT / "docs" / "上榜基線_114年六科診斷.md"
-CANONICAL_ROOT = ROOT / "📝 個人題解與錯題本"
+PACK = ROOT / "docs" / "01_備考計畫" / "被動模考_114年六科執行包.md"
+CORE_PATH = ROOT / "docs" / "01_備考計畫" / "預設24時段_核心題路徑.md"
+DIAGNOSTIC = ROOT / "docs" / "01_備考計畫" / "基線_114年六科診斷.md"
+CANONICAL_ROOT = ROOT / "02_題解/技師題解"
 EXPECTED_CORE_OVERLAP = {
     "EE-114-01-3",
     "EE-114-04-4",
@@ -77,7 +77,7 @@ class TestPassiveMockPack(unittest.TestCase):
             self.assertNotIn(stale, self.text)
         row = next(line for line in self.text.splitlines() if line.startswith("| 6 | 工業配電 |"))
         self.assertEqual(re.findall(r"EE-\d{3}-\d{2}-\d+", row), ["EE-114-06-1", "EE-114-06-5"])
-        self.assertIn("上榜精確解答邊界_條件題處理.md", self.text)
+        self.assertIn("精確解答邊界_條件題處理.md", self.text)
 
     def test_optional_diagnostic_does_not_score_ambiguous_furnace_questions(self):
         diagnostic = DIAGNOSTIC.read_text(encoding="utf-8")

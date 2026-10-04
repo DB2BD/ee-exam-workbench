@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTES = ROOT / "📝 個人題解與錯題本/05_電力系統/canonical"
+NOTES = ROOT / "02_題解/技師題解/05_電力系統/canonical"
 
 
 class TestPowerSystem114OfficialValues(unittest.TestCase):

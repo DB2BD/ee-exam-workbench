@@ -19,7 +19,7 @@ class PEQuestionCropTests(unittest.TestCase):
         cls.entries = cls.manifest["entries"]
 
     def test_manifest_covers_all_66_pe_papers(self):
-        pdfs = sorted((WORKSPACE / "依年度分類").glob("*/*.pdf"))
+        pdfs = sorted((WORKSPACE / "01_原始試題/依年度").glob("*/*.pdf"))
         self.assertEqual(len(pdfs), 66)
         listed = {
             (entry["year"], Path(entry["pdf_path"]).name)

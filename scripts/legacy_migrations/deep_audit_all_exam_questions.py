@@ -14,8 +14,8 @@ subjects = [
 report = []
 
 for s in subjects:
-    sol_dir = f"📝 個人題解與錯題本/{s}"
-    exam_file = f"依考科分類/{s}.md"
+    sol_dir = f"02_題解/技師題解/{s}"
+    exam_file = f"01_原始試題/依考科/{s}.md"
     
     if not os.path.exists(sol_dir) or not os.path.exists(exam_file):
         continue

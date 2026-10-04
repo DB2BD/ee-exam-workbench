@@ -31,7 +31,7 @@ process.stdout.write(JSON.stringify(out));
 ROWS_SETUP = r"""
 var ROWS = Object.keys(QUESTION_POINTS).map(function (qid) {
   var m = /^EE-(\d+)-(\d+)-(\d+)$/.exec(qid);
-  return [qid, m[2], m[1], Number(m[3]), 'T', [], 'sol/' + qid, '依年度分類/' + m[1] + '年/' + m[1] + '年_科目.pdf'];
+  return [qid, m[2], m[1], Number(m[3]), 'T', [], 'sol/' + qid, '01_原始試題/依年度/' + m[1] + '年/' + m[1] + '年_科目.pdf'];
 });
 function rec(qid, marks, at, mockId, errors) {
   var q = QUESTION_POINTS[qid];

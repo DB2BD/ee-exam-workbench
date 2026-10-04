@@ -8,7 +8,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / "docs" / "上榜逐日開工表_115年.md"
+PLAN = ROOT / "docs" / "01_備考計畫" / "逐日開工表_115年.md"
 ROW_RE = re.compile(
     r"^\| (?P<date>2026-\d{2}-\d{2})（[^）]+） \| (?P<budget>\d+) \| (?P<task>.+) \|$",
     re.MULTILINE,

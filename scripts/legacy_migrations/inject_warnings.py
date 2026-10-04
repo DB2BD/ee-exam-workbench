@@ -38,7 +38,7 @@ warnings_map = {
 count_updated = 0
 
 for subj_dir, warn_text in warnings_map.items():
-    folder = os.path.join('📝 個人題解與錯題本', subj_dir)
+    folder = os.path.join('02_題解/技師題解', subj_dir)
     if not os.path.exists(folder):
         continue
     for f in os.listdir(folder):

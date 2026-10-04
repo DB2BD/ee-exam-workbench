@@ -9,8 +9,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INDEX = ROOT / "docs" / "上榜錯因修復索引_114-108.md"
-NOTES = ROOT / "📝 個人題解與錯題本"
+INDEX = ROOT / "docs" / "02_考場策略" / "錯因修復索引_114-108.md"
+NOTES = ROOT / "02_題解/技師題解"
 SUBJECT_DIRS = {
     "01": "01_電路學",
     "02": "02_電子學_含電力電子",
@@ -114,7 +114,7 @@ def required_sections(
 
 
 def normalized(value: str) -> str:
-    value = value.replace("../../../依考科分類", "../../依考科分類")
+    value = value.replace("../../../../01_原始試題/依考科", "../../../01_原始試題/依考科")
     value = re.sub(r"^#{3,}\s+", "# ", value, flags=re.MULTILINE)
     return re.sub(r"\s+", " ", value).strip()
 

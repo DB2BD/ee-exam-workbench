@@ -301,10 +301,10 @@ def build_math_md(is_top=False):
         
     return '\n'.join(lines)
 
-with open('依考科分類/03_工程數學/03_工程數學_歷屆試題彙編_104-114年.md', 'w', encoding='utf-8') as f:
+with open('01_原始試題/依考科/03_工程數學/03_工程數學_歷屆試題彙編_104-114年.md', 'w', encoding='utf-8') as f:
     f.write(build_math_md(is_top=False))
 
-with open('依考科分類/03_工程數學.md', 'w', encoding='utf-8') as f:
+with open('01_原始試題/依考科/03_工程數學.md', 'w', encoding='utf-8') as f:
     f.write(build_math_md(is_top=True))
 
 print('100% restored all 11 years of Engineering Math with pristine LaTeX matrices and formulas!')

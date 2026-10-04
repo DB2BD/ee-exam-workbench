@@ -229,6 +229,6 @@ $R_1 = 0.1\ \Omega, X_1 = 0.4\ \Omega, R_2' = 0.12\ \Omega, X_2' = 0.4\ \Omega, 
 - **全日能量效率**：$\eta_{all-day} = \mathbf{97.35\%}$
 '''
 
-with open('📝 個人題解與錯題本/04_電機機械/112年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/112年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_112)
 print('✅ 112年 電機機械 detailed solution written!')

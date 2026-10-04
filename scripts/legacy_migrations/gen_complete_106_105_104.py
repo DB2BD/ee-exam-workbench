@@ -167,7 +167,7 @@ $$P_1 = 0\text{ pu},\quad Q \text{ 流向：由 Bus 2 流至 Bus 3}$$
 $$I' = \frac{I_1}{n_1} - \frac{I_2}{n_2},\quad \text{匝比條件：} \frac{n_1}{n_2} = \frac{N_2}{N_1},\quad I_{\text{normal}}' = 0\text{ A}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/106年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/106年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_106)
 
 # ==============================================================================
@@ -316,7 +316,7 @@ $$I_f = 4.167\text{ pu} = 12.03\text{ kA}$$
 **發電廠 1 具有最高的罰點因數與最高的增量損失。**
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/105年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/105年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_105)
 
 # ==============================================================================
@@ -471,7 +471,7 @@ $$V_{gen1} = 20.8\text{ kV},\quad Q_{G1} = 150\text{ MVAR},\quad I_{sc} = 10.0\t
 $$V_2 = 0.931\text{ pu},\quad V_{2,\text{補償}} = 1.08\text{ pu}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/104年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/104年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_104)
 
 print('✅ 106, 105, 104 detailed solutions fully updated!')

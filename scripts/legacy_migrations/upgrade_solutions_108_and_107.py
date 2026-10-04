@@ -186,7 +186,7 @@ sol_108 = r'''---
 $$\mathbf{P_{e1}(\delta) = 2.75\sin\delta}, \quad \mathbf{P_{e2}(\delta) = 0.88\sin\delta}, \quad \mathbf{P_{e3}(\delta) = 1.833\sin\delta}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/108年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/108年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_108)
 
 print('✅ 108 upgraded to gold standard!')
@@ -466,7 +466,7 @@ sol_107 = r'''---
   - 最大線電流：$I_{\max} = \mathbf{33.46\text{ A}}$（出現在 B 相與 C 相）
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/107年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_107)
 
 print('✅ 108 and 107 upgraded to gold standard!')

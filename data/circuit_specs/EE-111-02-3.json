@@ -5,7 +5,7 @@
   "source": {
     "page": 2,
     "bbox_norm": [0.0, 0.0716, 1.0, 0.3788],
-    "question_crop": "依考科分類/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png"
+    "question_crop": "01_原始試題/依考科/02_電子學_含電力電子/images/questions/PE_111年_電子學（包括電力電子學）_Q03.png"
   },
   "components": [
     {"ref": "RD", "type": "resistor", "value": "200 Ω", "label": "R_D = 200 Ω", "x": 520, "y": 150, "rotation": 90, "pins": {"1": "0", "2": "nd"}},

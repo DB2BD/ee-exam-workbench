@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Build the K6 失分點速查卡 from curated data/cheatsheet/0X.json files.
 
-Outputs: docs/上榜失分點速查卡_六科.md, src/data/cheatsheet.generated.js
+Outputs: docs/02_考場策略/失分點速查卡_六科.md, src/data/cheatsheet.generated.js
 Exit code is non-zero when validation fails.
 """
 import glob
@@ -15,7 +15,7 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data" / "cheatsheet"
 DASHBOARD = ROOT / "dashboard-data.js"
-OUT_MD = ROOT / "docs" / "上榜失分點速查卡_六科.md"
+OUT_MD = ROOT / "docs" / "02_考場策略" / "失分點速查卡_六科.md"
 OUT_JS = ROOT / "src" / "data" / "cheatsheet.generated.js"
 
 CATEGORIES = [
@@ -97,7 +97,7 @@ def validate(docs, known_qids):
 
 def note_link(qid):
     sid = QID_RE.match(qid).group(1)
-    rel = f"../📝 個人題解與錯題本/{SUBJECT_DIRS[sid]}/canonical/{qid}.md"
+    rel = f"../../02_題解/技師題解/{SUBJECT_DIRS[sid]}/canonical/{qid}.md"
     return f"[`{qid}`]({quote(rel, safe='/')})"
 
 

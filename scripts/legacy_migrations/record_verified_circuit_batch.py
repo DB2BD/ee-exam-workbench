@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = ROOT / "📝 個人題解與錯題本/01_電路學/canonical"
+BASE = ROOT / "02_題解/技師題解/01_電路學/canonical"
 E = {
  (104,2): r"""
 獨立重算：\(Z_{22}=5+j12\ \Omega\)、\(\operatorname{Im}Z_{in}=50-(19200/169)k^2\)。令虛部為零得 \(k^2=169/384\)，故 \(k=0.6634\)。與官方 crop 的 \(\omega=4000\)、\(L_1=12.5\,\mathrm{mH}\)、\(L_2=8\,\mathrm{mH}\)、\(C=12.5\,\mu\mathrm F\) 一致；代回虛部殘差為 \(0\,\Omega\)。

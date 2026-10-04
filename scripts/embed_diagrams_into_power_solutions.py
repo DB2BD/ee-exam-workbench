@@ -3,7 +3,7 @@ import os
 import re
 
 # Mapping of specific question embeds per year
-# We will insert diagram cards under '### 📌 題目與已知條件'
+# We will insert diagram cards under '### 題目與已知條件'
 diagram_mappings = {
     '114': {
         '二、': '![[114年_電機工程技師_電力系統_p1.png|750]]\n*圖：114年電力系統第二題 二匯流排潮流系統單線圖*',
@@ -60,7 +60,7 @@ diagram_mappings = {
     }
 }
 
-sol_dir = '📝 個人題解與錯題本/05_電力系統'
+sol_dir = '02_題解/技師題解/05_電力系統'
 for fname in sorted(os.listdir(sol_dir)):
     if not fname.endswith('.md') or '全卷完整詳細題解' not in fname:
         continue
@@ -77,8 +77,8 @@ for fname in sorted(os.listdir(sol_dir)):
     if yr in diagram_mappings:
         for q_prefix, img_embed in diagram_mappings[yr].items():
             # Find the section for this question
-            # Match ## 一、 ... ### 📌 題目與已知條件
-            pattern = r'(##\s*' + re.escape(q_prefix) + r'[^\n]*\n+###\s*📌\s*題目與已知條件[^\n]*\n+)'
+            # Match ## 一、 ... ### 題目與已知條件
+            pattern = r'(##\s*' + re.escape(q_prefix) + r'[^\n]*\n+###\s*(?:📌\s*)?題目與已知條件[^\n]*\n+)'
             
             def repl(m):
                 header_part = m.group(1)

@@ -4,7 +4,7 @@ import re
 
 # Update all subject markdown files to ensure both standard Obsidian wikilinks ![[...|750]] and clean layouts
 for subj in ['01_電路學', '02_電子學_含電力電子', '03_工程數學', '04_電機機械', '05_電力系統', '06_工業配電']:
-    md_path = f'依考科分類/{subj}.md'
+    md_path = f'01_原始試題/依考科/{subj}.md'
     if not os.path.exists(md_path):
         continue
         

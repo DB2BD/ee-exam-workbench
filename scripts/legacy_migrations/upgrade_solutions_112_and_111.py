@@ -268,7 +268,7 @@ $$\mathbf{\delta_{cr} = \cos^{-1}(-0.14489) \approx 1.7162\text{ rad} = 98.33^\c
 - **臨界清除角**：$\mathbf{\delta_{cr} = 98.33^\circ}$（$1.716\text{ rad}$）
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/112年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/112年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_112)
 
 print('✅ 112年_電力系統_全卷完整詳細題解.md upgraded to gold standard!')
@@ -514,7 +514,7 @@ $$\theta = \gamma l = 0.002005\angle 87.14^\circ \times 300 = 0.6015\angle 87.14
 - **電壓調整率**：$\text{VR} = \mathbf{45.88\%}$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/111年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/111年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_111)
 
 print('✅ 111年_電力系統_全卷完整詳細題解.md upgraded to gold standard!')

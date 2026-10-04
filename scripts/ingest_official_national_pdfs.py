@@ -3,7 +3,7 @@
 ingest_official_national_pdfs.py
 ================================
 Automated ingestion tool for user-provided official MOEX Gaokao Level 3 PDFs.
-- Scans `依考科分類/🏛️_國考同級參考題庫/` and optional drop folder `PDF_DROP/`.
+- Scans `04_國考同級題庫/` and optional drop folder `PDF_DROP/`.
 - Standardizes PDF names and places them in subject folders.
 - Automatically generates 300 DPI high-resolution PNG page images using macOS `sips`.
 - Recompiles `compile_national_exams.py` to immediately update the workbench.
@@ -17,7 +17,7 @@ import subprocess
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(WORKSPACE)
 
-BASE_DIR = os.path.join(WORKSPACE, "依考科分類", "🏛️_國考同級參考題庫")
+BASE_DIR = os.path.join(WORKSPACE, "04_國考同級題庫")
 DROP_DIR = os.path.join(BASE_DIR, "📥_官方PDF投放處")
 os.makedirs(DROP_DIR, exist_ok=True)
 

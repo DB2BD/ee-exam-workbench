@@ -62,7 +62,7 @@ def run_health_check():
     # 2. Public documentation alignment (20 pts)
     print("\n[Check 2/5] Evaluating Public Documentation (20 pts)...")
     has_readme = os.path.exists('README.md')
-    release_notes = glob.glob(os.path.join('docs', '發版紀錄_*.md'))
+    release_notes = glob.glob(os.path.join('docs', '03_發版紀錄', '發版紀錄_*.md'))
     release_count = len(release_notes)
 
     if has_readme and release_count >= 4:

@@ -62,7 +62,7 @@ def projected_body(text: str) -> str:
         elif line.startswith("## "):
             line = "### " + line[3:]
         projected.append(
-            line.replace("../../../依考科分類", "../../依考科分類").rstrip()
+            line.replace("../../../../01_原始試題/依考科", "../../../01_原始試題/依考科").rstrip()
         )
     return "\n".join(projected).strip()
 
@@ -99,7 +99,7 @@ def build_annual(subject: str, year: int, qids: list[str]) -> str:
         f"校驗摘要: {status_summary}",
         "---",
         "",
-        f"# 📝 {year} 年電機工程技師｜{subject_name}逐題詳解",
+        f"# {year} 年電機工程技師｜{subject_name}逐題詳解",
         "",
         "> 本頁由題級 canonical 筆記組合；每題保留 QID、官方裁切、校驗狀態與完整得分型解答。",
         "",

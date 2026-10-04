@@ -65,7 +65,7 @@ $$E_i = 2.026\text{ pu}, \delta = 37.79^\circ, P = 0.72\text{ pu}, Q = 0.3487\te
 $$\delta' = 30.70^\circ, Q' = 0.6325\text{ pu}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/108年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/108年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_108)
 
 # 107 年
@@ -140,7 +140,7 @@ $$\mathbf{S}_S = \mathbf{V}_S \mathbf{I}^* = (1.032 + j0.32)(1.6) = 1.6512 + j0.
 $$I_{line} = 1.6\text{ pu}, P_{loss} = 0.0512\text{ pu}, V_S = 1.0805\text{ pu}, Z_C = -j0.8333\text{ pu}, P_S = 1.6512\text{ pu}, Q_S = 0.512\text{ pu}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/107年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_107)
 
 # 106 年
@@ -217,7 +217,7 @@ $$\text{VR} = \frac{|\mathbf{V}_S| - |\mathbf{V}_R|}{|\mathbf{V}_R|} \times 100\
 $$V_{S,LL} = 193.18\text{ kV},\quad P_S = 260.83\text{ MW},\quad \text{VR} = 19.98\%,\quad \eta = 92.01\%$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/106年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/106年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_106)
 
 # 105 年
@@ -284,7 +284,7 @@ $$I_f = 4.1667 \times 2886.75\text{ A} = 12028.1\text{ A} \approx 12.03\text{ kA
 $$I_f = 4.1667\text{ pu} = 12.03\text{ kA}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/105年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/105年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_105)
 
 # 104 年
@@ -365,7 +365,7 @@ year: 104
 * 最佳並聯組合：**$TR_1 + TR_2$**（電力損失最低且全機均在安全額定內）。
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/104年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/104年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_104)
 
 print('✅ 108, 107, 106, 105, 104 detailed solutions created!')

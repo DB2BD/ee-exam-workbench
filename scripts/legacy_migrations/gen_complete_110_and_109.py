@@ -240,7 +240,7 @@ $$\sin\delta_2 (2.9671 - \delta_2) - \cos\delta_2 = 0.9848$$
 $$\text{VR} = 32.73\%,\quad P_{m,max} = 0.750 P_{max}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/110年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/110年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_110)
 
 print('✅ 110年_電力系統_全卷完整詳細題解.md updated with all 5 questions!')
@@ -408,7 +408,7 @@ $$P_2^{new} = 500 + \frac{800}{3}\left(\frac{9}{26}\right) = 500 + 92.31 = 592.3
 $$\Delta f = -0.3462\text{ Hz},\quad P_1^{new} = 257.69\text{ MW},\quad P_2^{new} = 592.31\text{ MW}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/109年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/109年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_109)
 
 print('✅ 109年_電力系統_全卷完整詳細題解.md updated with all 5 questions!')

@@ -8,7 +8,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-ALIGNMENT = ROOT / "docs" / "上榜核心路徑_現行命題大綱對照.md"
+ALIGNMENT = ROOT / "docs" / "01_備考計畫" / "核心路徑_現行命題大綱對照.md"
 EXPECTED_BY_SUBJECT = {
     "01": {"EE-114-01-3", "EE-112-01-2"},
     "02": {"EE-110-02-3", "EE-112-02-3"},

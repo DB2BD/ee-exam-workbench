@@ -16,7 +16,7 @@ print("=== Starting Full Audit of All Solution Files vs Exam Questions ===")
 mismatches = []
 
 for sdir, sname in subjects:
-    exam_md_path = f"依考科分類/{sdir}.md"
+    exam_md_path = f"01_原始試題/依考科/{sdir}.md"
     if not os.path.exists(exam_md_path):
         continue
     with open(exam_md_path, 'r', encoding='utf-8') as f:
@@ -30,7 +30,7 @@ for sdir, sname in subjects:
             yr = int(year_sections[i])
             exam_years[yr] = year_sections[i+1]
             
-    sol_dir = f"📝 個人題解與錯題本/{sdir}"
+    sol_dir = f"02_題解/技師題解/{sdir}"
     if not os.path.exists(sol_dir):
         continue
         

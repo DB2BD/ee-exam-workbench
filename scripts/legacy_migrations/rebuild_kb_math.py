@@ -2,13 +2,13 @@
 """
 rebuild_kb_math.py
 ==================
-Standardizes all math formulas in 🧠 核心考點知識庫 with proper KaTeX delimiters.
+Standardizes all math formulas in 03_知識庫/核心考點 with proper KaTeX delimiters.
 """
 
 import os
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KB_DIR = os.path.join(WORKSPACE, '🧠 核心考點知識庫')
+KB_DIR = os.path.join(WORKSPACE, '03_知識庫/核心考點')
 
 kb_updates = {
     '04_電機機械/01_變壓器等效電路與效率計算.md': r"""# ⚙️ 電機機械 核心考點 01 — 變壓器等效電路與效率分析

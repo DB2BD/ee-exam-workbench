@@ -13,7 +13,7 @@ subj_meta = [
     ('06_工業配電', '工業配電', '01110')
 ]
 
-# 1. Update 📊 備考進度儀表板.md
+# 1. Update docs/01_備考計畫/備考進度儀表板.md
 dash_lines = []
 dash_lines.append('# 📊 電機工程技師 — 歷屆試題備考進度總儀表板（104 ~ 114 年）\n')
 dash_lines.append('> **目標**：專門職業及技術人員高等考試 — 電機工程技師及格（總分 600 分，平均 60 分及格）  ')
@@ -26,9 +26,9 @@ dash_lines.append('| 考科名稱 | 總份數 | 刷題進度 | 預估平均得�
 dash_lines.append('| :--- | :---: | :---: | :---: | :---: | :--- | :--- |')
 
 for sfolder, sname, _ in subj_meta:
-    dash_lines.append(f'| **{sname}** | 11 份 | 0 / 11 (0%) | — / 100 | ⚪ 未開始 | [📘 線上題庫](./依考科分類/{sfolder}.md) | [🧠 考點筆記](./🧠 核心考點知識庫/{sfolder}/) |')
+    dash_lines.append(f'| **{sname}** | 11 份 | 0 / 11 (0%) | — / 100 | ⚪ 未開始 | [📘 線上題庫](./01_原始試題/依考科/{sfolder}.md) | [🧠 考點筆記](./03_知識庫/核心考點/{sfolder}/) |')
 
-dash_lines.append('| **全科目總計** | **66 份** | **0 / 66 (0%)** | **— / 600** | ⚪ 準備中 | [📑 總目錄](./README.md) | [📝 錯題本庫](./📝 個人題解與錯題本/) |')
+dash_lines.append('| **全科目總計** | **66 份** | **0 / 66 (0%)** | **— / 600** | ⚪ 準備中 | [📑 總目錄](./README.md) | [📝 錯題本庫](./02_題解/技師題解/) |')
 dash_lines.append('\n---\n')
 
 dash_lines.append('## 📋 66 份試卷完整互動式刷題檢核表\n')
@@ -37,33 +37,33 @@ dash_lines.append('| :---: | :---: | :--- | :--- | :---: | :---: | :---: | :--- 
 
 for y in years:
     for sfolder, sname, _ in subj_meta:
-        exam_link = f'./依考科分類/{sfolder}.md#year-{y}'
-        dash_lines.append(f'| - [ ] | **{y} 年** | {sname} | [🔗 點我刷題]({exam_link}) | 2026-__-__ | ___ / 100 | ⚪ 待刷題 | [📝 建立筆記](./📝 個人題解與錯題本/{sfolder}/) |')
+        exam_link = f'./01_原始試題/依考科/{sfolder}.md#year-{y}'
+        dash_lines.append(f'| - [ ] | **{y} 年** | {sname} | [🔗 點我刷題]({exam_link}) | 2026-__-__ | ___ / 100 | ⚪ 待刷題 | [📝 建立筆記](./02_題解/技師題解/{sfolder}/) |')
 
 dash_lines.append('\n---\n')
 
 # Obsidian Dataview Section
 dash_lines.append('## 🔮 Obsidian 自動化查詢（Dataview 外掛語法）\n')
 dash_lines.append('如果您使用 Obsidian，下方代碼將**自動動態列出所有「需二刷」的錯題**與各科複習狀態：\n')
-dash_lines.append('```dataview\nTABLE 考科, 考點, 難易度, 自我評分, 最後複習日期\nFROM "📝 個人題解與錯題本"\nWHERE 掌握狀態 = "🔴 需二刷"\nSORT 難易度 DESC\n```\n')
-dash_lines.append('```dataview\nTABLE length(rows) AS 總題數, filter(rows, (r) => r.掌握狀態 = "🟢 已掌握") AS 已掌握, filter(rows, (r) => r.掌握狀態 = "🔴 需二刷") AS 需二刷\nFROM "📝 個人題解與錯題本"\nGROUP BY 考科\n```\n')
+dash_lines.append('```dataview\nTABLE 考科, 考點, 難易度, 自我評分, 最後複習日期\nFROM "02_題解/技師題解"\nWHERE 掌握狀態 = "🔴 需二刷"\nSORT 難易度 DESC\n```\n')
+dash_lines.append('```dataview\nTABLE length(rows) AS 總題數, filter(rows, (r) => r.掌握狀態 = "🟢 已掌握") AS 已掌握, filter(rows, (r) => r.掌握狀態 = "🔴 需二刷") AS 需二刷\nFROM "02_題解/技師題解"\nGROUP BY 考科\n```\n')
 dash_lines.append('---\n')
 
 # Strategy Section
 dash_lines.append('## 🎯 建議備考三階段時間規劃\n')
 dash_lines.append('```mermaid\ngraph LR\n    P1[第一階段: 單科擊破 60天] --> P2[第二階段: 錯題二刷 30天] --> P3[第三階段: 全真模考 15天]\n```\n')
-dash_lines.append('1. **第一階段（單科靶心攻堅，約 60 天）**：\n   - 依 `依考科分類/` 逐科推進，先攻【電機機械】與【電力系統】（投資報酬率最高）。\n   - 每題務必在白紙上獨立手算，對照 `🧠 核心考點知識庫` 強化觀念。\n')
+dash_lines.append('1. **第一階段（單科靶心攻堅，約 60 天）**：\n   - 依 `01_原始試題/依考科/` 逐科推進，先攻【電機機械】與【電力系統】（投資報酬率最高）。\n   - 每題務必在白紙上獨立手算，對照 `03_知識庫/核心考點` 強化觀念。\n')
 dash_lines.append('2. **第二階段（錯題二刷與弱點補強，約 30 天）**：\n   - 篩選所有標註為 `🔴 需二刷` 的題目，重新蓋牌計算。\n   - 補強易失分點（如工數留數定理、工業配電短路電流標么法計算）。\n')
-dash_lines.append('3. **第三階段（全真計時模考，考前 15 天）**：\n   - 開啟 `依年度分類/`（特別是 114、113、112、111 近 4 年），按照考場 2 小時規範計時全真模擬。\n')
+dash_lines.append('3. **第三階段（全真計時模考，考前 15 天）**：\n   - 開啟 `01_原始試題/依年度/`（特別是 114、113、112、111 近 4 年），按照考場 2 小時規範計時全真模擬。\n')
 
-with open('📊 備考進度儀表板.md', 'w', encoding='utf-8') as f:
+with open('docs/01_備考計畫/備考進度儀表板.md', 'w', encoding='utf-8') as f:
     f.write('\n'.join(dash_lines))
 
-print('Updated: 📊 備考進度儀表板.md with standard markdown links!')
+print('Updated: docs/01_備考計畫/備考進度儀表板.md with standard markdown links!')
 
 # 2. Update Year READMEs
 for y in years:
-    year_dir = os.path.join('依年度分類', f'{y}年')
+    year_dir = os.path.join('01_原始試題/依年度', f'{y}年')
     os.makedirs(year_dir, exist_ok=True)
     
     lines = []
@@ -78,7 +78,7 @@ for y in years:
     lines.append('| :---: | :--- | :---: | :---: | :---: | :--- | :--- |')
     
     for idx, (sfolder, sname, def_code) in enumerate(subj_meta, 1):
-        md_link = f'../../依考科分類/{sfolder}.md#year-{y}'
+        md_link = f'../../01_原始試題/依考科/{sfolder}.md#year-{y}'
         subj_pdf = f'{y}年_電機工程技師_{sname}.pdf'
         lines.append(f'| **第 {idx} 節** | **{sname}** | `{def_code}` | 120 分鐘 | 可以使用電子計算器 | [🔗 線上刷題]({md_link}) | [📄 下載 PDF](./{subj_pdf}) |')
     
@@ -88,7 +88,7 @@ for y in years:
     lines.append('| 科目 | 預計模考日期 | 實際作答時間 | 答對題數 / 總題數 | 自評得分 (滿分100) | 掌握狀態 | 檢討與錯題筆記 |')
     lines.append('| :--- | :---: | :---: | :---: | :---: | :---: | :--- |')
     for _, sname, _ in subj_meta:
-        lines.append(f'| **{sname}** | 2026-__-__ | ___ 分鐘 | __ / 5 題 | ___ 分 | ⚪ 待模考 | [📝 建立錯題本](../../📝 個人題解與錯題本/) |')
+        lines.append(f'| **{sname}** | 2026-__-__ | ___ 分鐘 | __ / 5 題 | ___ 分 | ⚪ 待模考 | [📝 建立錯題本](../../02_題解/技師題解/) |')
     
     lines.append('| **總計 / 平均** | — | **總時間：___ 分鐘** | **總題數：__ / 30 題** | **總分：___ / 平均：___** | ⚪ 待評估 | **目標：總分 $\\ge 360$ 分** |')
     lines.append('\n---\n')
@@ -112,17 +112,17 @@ root_lines.append('---\n')
 root_lines.append('## 🎯 備考資料庫四大核心模組\n')
 root_lines.append('| 模組 | 名稱 | 核心功能與說明 | 快速入口 |')
 root_lines.append('| :---: | :--- | :--- | :--- |')
-root_lines.append('| **📊** | **[備考進度儀表板](./📊 備考進度儀表板.md)** | **66 份試卷互動檢核表**、刷題進度統計、錯題自動化查詢與三階段時間表 | [🔗 點我開啟儀表板](./📊 備考進度儀表板.md) |')
-root_lines.append('| **📚** | **[考科題庫總彙編](./依考科分類/)** | **6 大考科 11 年歷屆試題**，標準 LaTeX 公式排版、電路圖檔對照、PDF 原檔下載 | [🔗 前往考科題庫](./依考科分類/) |')
-root_lines.append('| **🧠** | **[核心考點知識庫](./🧠 核心考點知識庫/)** | 各科高頻核心公式、標準解題步驟（SOP）、歷屆出題考點分析 | [🔗 查閱核心考點](./🧠 核心考點知識庫/) |')
-root_lines.append('| **📝** | **[個人題解與錯題本](./📝 個人題解與錯題本/)** | 包含標準題解模板、手寫/打字詳解、失分避坑筆記與複習狀態打標 | [🔗 前往錯題本庫](./📝 個人題解與錯題本/) |')
+root_lines.append('| **📊** | **[備考進度儀表板](./docs/01_備考計畫/備考進度儀表板.md)** | **66 份試卷互動檢核表**、刷題進度統計、錯題自動化查詢與三階段時間表 | [🔗 點我開啟儀表板](./docs/01_備考計畫/備考進度儀表板.md) |')
+root_lines.append('| **📚** | **[考科題庫總彙編](./01_原始試題/依考科/)** | **6 大考科 11 年歷屆試題**，標準 LaTeX 公式排版、電路圖檔對照、PDF 原檔下載 | [🔗 前往考科題庫](./01_原始試題/依考科/) |')
+root_lines.append('| **🧠** | **[核心考點知識庫](./03_知識庫/核心考點/)** | 各科高頻核心公式、標準解題步驟（SOP）、歷屆出題考點分析 | [🔗 查閱核心考點](./03_知識庫/核心考點/) |')
+root_lines.append('| **📝** | **[個人題解與錯題本](./02_題解/技師題解/)** | 包含標準題解模板、手寫/打字詳解、失分避坑筆記與複習狀態打標 | [🔗 前往錯題本庫](./02_題解/技師題解/) |')
 root_lines.append('\n---\n')
 
 root_lines.append('## 📚 6 大考科 Markdown 題庫快速導覽（點擊直接線上刷題）\n')
 root_lines.append('| 科目代號 | 考科名稱 | 收錄年份 | 份數 | 📖 完整 Markdown 題庫 | 🧠 核心考點卡 | 📂 考科資料夾 |')
 root_lines.append('| :---: | :--- | :---: | :---: | :--- | :--- | :--- |')
 for sfolder, sname, _ in subj_meta:
-    root_lines.append(f'| **{sfolder[:2]}** | **{sname}** | 104 ~ 114 年 | 11 份 | [📘 {sname}.md](./依考科分類/{sfolder}.md) | [⚡ 核心考點](./🧠 核心考點知識庫/{sfolder}/) | [📂 資料夾](./依考科分類/{sfolder}/) |')
+    root_lines.append(f'| **{sfolder[:2]}** | **{sname}** | 104 ~ 114 年 | 11 份 | [📘 {sname}.md](./01_原始試題/依考科/{sfolder}.md) | [⚡ 核心考點](./03_知識庫/核心考點/{sfolder}/) | [📂 資料夾](./01_原始試題/依考科/{sfolder}/) |')
 
 root_lines.append('\n---\n')
 
@@ -131,12 +131,12 @@ root_lines.append('| 年度 | 試卷總覽與自評卡 | 收錄科目 | 建議�
 root_lines.append('| :---: | :--- | :---: | :--- |')
 for y in years:
     status = '🎯 考前全真計時模擬' if int(y) >= 111 else ('📚 章節靶心鞏固' if int(y) >= 107 else '📚 題型廣度擴充')
-    root_lines.append(f'| **{y} 年** | [📄 {y} 年全真模擬試卷與計時自評卡](./依年度分類/{y}年/README.md) | 完整 6 科 | {status} |')
+    root_lines.append(f'| **{y} 年** | [📄 {y} 年全真模擬試卷與計時自評卡](./01_原始試題/依年度/{y}年/README.md) | 完整 6 科 | {status} |')
 
 root_lines.append('\n---\n')
 
 root_lines.append('## 💡 推薦備考作戰工作流（Obsidian / VS Code）\n')
-root_lines.append('```mermaid\ngraph TD\n    A[第 1 階段: 單科靶心攻堅] -->|依考科分類 .md| B[研讀 🧠 核心考點知識庫]\n    B --> C[白紙蓋牌獨立推導]\n    C -->|紀錄計算心得與易錯陷阱| D[撰寫 📝 個人題解與錯題本]\n    D --> E[在 📊 備考儀表板 標記 🟢已掌握 或 🔴需二刷]\n    E --> F[第 2 階段: 錯題二刷與弱點補強]\n    F --> G[第 3 階段: 依年度分類 全真 120 分鐘計時模考]\n```\n')
+root_lines.append('```mermaid\ngraph TD\n    A[第 1 階段: 單科靶心攻堅] -->|依考科分類 .md| B[研讀 03_知識庫/核心考點]\n    B --> C[白紙蓋牌獨立推導]\n    C -->|紀錄計算心得與易錯陷阱| D[撰寫 02_題解/技師題解]\n    D --> E[在 📊 備考儀表板 標記 🟢已掌握 或 🔴需二刷]\n    E --> F[第 2 階段: 錯題二刷與弱點補強]\n    F --> G[第 3 階段: 依年度分類 全真 120 分鐘計時模考]\n```\n')
 
 with open('README.md', 'w', encoding='utf-8') as f:
     f.write('\n'.join(root_lines))

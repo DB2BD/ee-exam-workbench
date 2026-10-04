@@ -333,8 +333,8 @@ sol_104 = '''---
 - **功率角**：$\delta = \mathbf{2.62^\circ}$
 '''
 
-with open('📝 個人題解與錯題本/04_電機機械/105年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/105年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_105)
-with open('📝 個人題解與錯題本/04_電機機械/104年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/104年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_104)
 print('✅ 105年 & 104年 電機機械 detailed solutions written!')

@@ -10,7 +10,7 @@ import os
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 1. 105 Circuit
-p1 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/01_電路學/105年_電路學_全卷完整詳細題解.md')
+p1 = os.path.join(WORKSPACE, '02_題解/技師題解/01_電路學/105年_電路學_全卷完整詳細題解.md')
 with open(p1, 'r', encoding='utf-8') as f:
     c1 = f.read()
 c1 = c1.replace(
@@ -21,7 +21,7 @@ with open(p1, 'w', encoding='utf-8') as f:
     f.write(c1)
 
 # 2. 114 Circuit
-p2 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/01_電路學/114年_電路學_全卷完整詳細題解.md')
+p2 = os.path.join(WORKSPACE, '02_題解/技師題解/01_電路學/114年_電路學_全卷完整詳細題解.md')
 with open(p2, 'r', encoding='utf-8') as f:
     c2 = f.read()
 c2 = c2.replace(
@@ -32,7 +32,7 @@ with open(p2, 'w', encoding='utf-8') as f:
     f.write(c2)
 
 # 3. 104 Power Systems
-p3 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/05_電力系統/104年_電力系統_全卷完整詳細題解.md')
+p3 = os.path.join(WORKSPACE, '02_題解/技師題解/05_電力系統/104年_電力系統_全卷完整詳細題解.md')
 with open(p3, 'r', encoding='utf-8') as f:
     c3 = f.read()
 c3 = c3.replace(
@@ -43,7 +43,7 @@ with open(p3, 'w', encoding='utf-8') as f:
     f.write(c3)
 
 # 4. GK 110 Electronics
-p4 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md')
+p4 = os.path.join(WORKSPACE, '02_題解/國考同級題解/02_電子學_含電力電子/GK_110年_電子學_全卷完整詳細題解.md')
 with open(p4, 'r', encoding='utf-8') as f:
     c4 = f.read()
 c4 = c4.replace(
@@ -54,7 +54,7 @@ with open(p4, 'w', encoding='utf-8') as f:
     f.write(c4)
 
 # 5. GK 110 Eng Math
-p5 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md')
+p5 = os.path.join(WORKSPACE, '02_題解/國考同級題解/03_工程數學/GK_110年_工程數學_全卷完整詳細題解.md')
 with open(p5, 'r', encoding='utf-8') as f:
     c5 = f.read()
 c5 = c5.replace(
@@ -65,7 +65,7 @@ with open(p5, 'w', encoding='utf-8') as f:
     f.write(c5)
 
 # 6. GK 111 Eng Math
-p6 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md')
+p6 = os.path.join(WORKSPACE, '02_題解/國考同級題解/03_工程數學/GK_111年_工程數學_全卷完整詳細題解.md')
 with open(p6, 'r', encoding='utf-8') as f:
     c6 = f.read()
 c6 = c6.replace(
@@ -76,7 +76,7 @@ with open(p6, 'w', encoding='utf-8') as f:
     f.write(c6)
 
 # 7. GK 113 Power Systems
-p7 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md')
+p7 = os.path.join(WORKSPACE, '02_題解/國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md')
 with open(p7, 'r', encoding='utf-8') as f:
     c7 = f.read()
 c7 = c7.replace(
@@ -91,7 +91,7 @@ with open(p7, 'w', encoding='utf-8') as f:
     f.write(c7)
 
 # 8. KB 03 RLC
-p8 = os.path.join(WORKSPACE, '🧠 核心考點知識庫/01_電路學/03_一階與二階RLC暫態響應.md')
+p8 = os.path.join(WORKSPACE, '03_知識庫/核心考點/01_電路學/03_一階與二階RLC暫態響應.md')
 with open(p8, 'r', encoding='utf-8') as f:
     c8 = f.read()
 c8 = c8.replace(

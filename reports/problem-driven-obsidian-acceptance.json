@@ -105,7 +105,7 @@
         "--graph-dir",
         "data/knowledge",
         "--output-root",
-        "🧠 問題驅動知識庫",
+        "03_知識庫/問題驅動",
         "--personal-root",
         "📝 個人知識補充",
         "--report",
@@ -114,7 +114,7 @@
       ],
       "ok": true,
       "returncode": 0,
-      "outputTail": "驅動知識庫/05_電力系統/ps-symmetrical-components.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-system-protection-relay.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-three-phase-fault.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-transient-stability-equal-area.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-models.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-transmission-line-params.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/ps-unsymmetrical-faults.md\",\n    \"🧠 問題驅動知識庫/05_電力系統/q-ee-114-05-4.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-arc-flash-ieee80.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-distribution-equipment.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-grounding-system.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-harmonics-mitigation.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-lighting-design.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-load-characteristics.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-motor-installation.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-power-factor-correction.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-protection-coordination.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-short-circuit-capacity.md\",\n    \"🧠 問題驅動知識庫/06_工業配電/dist-voltage-drop.md\"\n  ],\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"generated note preflight\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
+      "outputTail": "驅動知識庫/05_電力系統/ps-symmetrical-components.md\",\n    \"03_知識庫/問題驅動/05_電力系統/ps-system-protection-relay.md\",\n    \"03_知識庫/問題驅動/05_電力系統/ps-three-phase-fault.md\",\n    \"03_知識庫/問題驅動/05_電力系統/ps-transient-stability-equal-area.md\",\n    \"03_知識庫/問題驅動/05_電力系統/ps-transmission-line-models.md\",\n    \"03_知識庫/問題驅動/05_電力系統/ps-transmission-line-params.md\",\n    \"03_知識庫/問題驅動/05_電力系統/ps-unsymmetrical-faults.md\",\n    \"03_知識庫/問題驅動/05_電力系統/q-ee-114-05-4.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-arc-flash-ieee80.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-distribution-equipment.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-grounding-system.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-harmonics-mitigation.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-lighting-design.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-load-characteristics.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-motor-installation.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-power-factor-correction.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-protection-coordination.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-short-circuit-capacity.md\",\n    \"03_知識庫/問題驅動/06_工業配電/dist-voltage-drop.md\"\n  ],\n  \"checks\": [\n    {\n      \"name\": \"canonical graph validation\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"generated note preflight\",\n      \"passed\": true\n    }\n  ],\n  \"blockingFailures\": []\n}"
     },
     {
       "name": "workbench build",

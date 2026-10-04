@@ -265,5 +265,127 @@ class TestTodayTaskBackup(unittest.TestCase):
         self.assertRegex(text, r"BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY")
 
 
+def mandatory_before(date_iso):
+    """Mandatory (non-EXT, non-non-work) codes scheduled strictly before date_iso."""
+    schedule = bds.build_schedule()
+    out = []
+    for day in schedule["days"]:
+        if day["date"] < date_iso:
+            out += [c for c in day["codes"] if c in schedule["order"]]
+    return out
+
+
+class TestTodayTaskExt(unittest.TestCase):
+    """WP5a: EXT is optional; it is secondary while behind and primary once caught up."""
+
+    def vm(self, completed, now, active="null"):
+        res = run_node(
+            f"(() => {{ const s = {{completed:{json.dumps(completed)}, active:{active}}}; "
+            f"const v = todayTaskViewModel(s, {now}); "
+            "return {mode:v.mode, code:v.code, mandatoryCode:v.mandatoryCode, primaryIsOptional:v.primaryIsOptional, "
+            "optional:v.optional, text:v.planText, pace:v.plan.pace, diff:v.plan.diff, done:v.doneCount}; })()")
+        return res["result"]
+
+    def test_behind_on_ext_day_keeps_mandatory_primary_and_ext_secondary(self):
+        res = self.vm({}, local_ms(2026, 10, 16))
+        self.assertEqual(res["pace"], "behind")
+        self.assertEqual(res["code"], "CORE-01")
+        self.assertFalse(res["primaryIsOptional"])
+        self.assertEqual(res["optional"]["code"], "EXT-01")
+        self.assertTrue(res["optional"]["text"].startswith("選做：EXT-01｜"))
+        self.assertTrue(res["optional"]["text"].endswith("（有餘力再做）"))
+        self.assertNotIn("EXT", res["text"])
+
+    def test_caught_up_on_ext_day_makes_ext_primary(self):
+        done = {c: "2026-10-01T00:00:00.000Z" for c in mandatory_before("2026-10-16")}
+        res = self.vm(done, local_ms(2026, 10, 16))
+        self.assertEqual(res["pace"], "on")
+        self.assertEqual(res["code"], "EXT-01")
+        self.assertTrue(res["primaryIsOptional"])
+        self.assertIsNone(res["optional"])
+        self.assertEqual(res["mandatoryCode"] in done, False)
+        self.assertNotIn("EXT", res["text"])
+        self.assertIn("選做", res["text"])
+
+    def test_ext_completion_never_blocks_order_or_counts_for_pace(self):
+        res = self.vm({"EXT-01": "2026-10-16T00:00:00.000Z"}, local_ms(2026, 10, 16))
+        self.assertEqual(res["mandatoryCode"], "CORE-01")
+        self.assertEqual(res["done"], 0)
+        self.assertEqual(res["pace"], "behind")
+        self.assertIsNone(res["optional"])  # already done -> not offered again
+
+    def test_pace_counts_only_mandatory_codes(self):
+        done = {c: "2026-10-01T00:00:00.000Z" for c in mandatory_before("2026-10-17")}
+        # 10-16 is an EXT-only day: finishing every earlier mandatory code is exactly on pace.
+        res = self.vm(done, local_ms(2026, 10, 17))
+        self.assertEqual(res["pace"], "on")
+        self.assertEqual(res["diff"], 0)
+
+    def test_start_optional_requires_optional_code_and_keeps_order(self):
+        res = run_node(
+            "(() => { const s0 = {completed:{}, active:null}; "
+            "const bad = todayTaskStart(s0, 1000, 'CORE-02'); "
+            "const ext = todayTaskStart(s0, 1000, 'EXT-01'); "
+            "const plain = todayTaskStart(s0, 1000); "
+            "let s = ext; for (let i = 0; i < 3; i++) s = todayTaskAdvance(s, 2000 + i); "
+            "return {badCode: bad.active && bad.active.code, ext: ext.active.code, plain: plain.active.code, "
+            "done: Object.keys(s.completed), current: todayTaskCurrentCode(s)}; })()")["result"]
+        self.assertEqual(res["ext"], "EXT-01")
+        self.assertEqual(res["plain"], "CORE-01")
+        self.assertIsNone(res["badCode"])  # a mandatory code is not accepted as the optional argument
+        self.assertEqual(res["done"], ["EXT-01"])
+        self.assertEqual(res["current"], "CORE-01")
+
+
+class TestTodayTaskReviewResultCard(unittest.TestCase):
+    """WP5a: the 核對 phase of every task asks for a 作答結果卡 per QID (view-model level)."""
+
+    def phases(self, code, source_expected_flag=None):
+        res = run_node(
+            f"(() => {{ const t = DAILY_SCHEDULE.tasks['{code}']; "
+            "return t.phases.map((p, i) => { const v = todayTaskPhaseView(t, {code: t.code, phaseIndex: i, phaseStartedAt: 0}, 0); "
+            "return {label: p.label, review: v.isReview, qids: v.resultQids, source: v.resultSource, closed: v.closed}; }); })()")
+        return res["result"]
+
+    def test_every_task_has_exactly_one_review_phase_listing_all_qids(self):
+        codes = run_node("Object.keys(DAILY_SCHEDULE.tasks)")["result"]
+        for code in codes:
+            task = run_node(f"DAILY_SCHEDULE.tasks['{code}']")["result"]
+            phases = self.phases(code)
+            reviews = [p for p in phases if p["review"]]
+            self.assertEqual(len(reviews), 1, code)
+            self.assertEqual(reviews[0]["qids"], task["qids"], code)
+            self.assertFalse(reviews[0]["closed"], code)
+            for p in phases:
+                if p["closed"]:
+                    self.assertEqual(p["qids"], [], f"{code}: closed phase must not show result cards")
+
+    def test_source_is_today_for_mandatory_and_ext_for_optional(self):
+        self.assertEqual([p["source"] for p in self.phases("CORE-01") if p["review"]], ["today"])
+        self.assertEqual([p["source"] for p in self.phases("EXT-01") if p["review"]], ["ext"])
+
+    def test_overlay_markup_mounts_card_only_in_review_phase(self):
+        res = run_node(
+            "(() => { const t0 = 1000; let s = todayTaskStart({completed:{}, active:null}, t0); "
+            "const closed = todayTaskOverlayHtml(todayTaskViewModel(s, t0)); "
+            "s = todayTaskAdvance(s, t0 + 1000); "
+            "const review = todayTaskOverlayHtml(todayTaskViewModel(s, t0 + 1000)); "
+            "s = todayTaskAdvance(s, t0 + 2000); "
+            "const last = todayTaskOverlayHtml(todayTaskViewModel(s, t0 + 2000)); "
+            "return {closed, review, last}; })()")["result"]
+        self.assertNotIn("today-task-result-mount", res["closed"])
+        self.assertIn('id="today-task-result-mount"', res["review"])
+        self.assertIn("data-today-result-next", res["review"])
+        self.assertIn(">下一題<", res["review"])
+        self.assertNotIn("today-task-result-mount", res["last"])
+
+    def test_overlay_header_names_the_active_task_even_when_it_is_ext(self):
+        res = run_node(
+            "(() => { const s = todayTaskStart({completed:{}, active:null}, 1000, 'EXT-01'); "
+            "return todayTaskOverlayHtml(todayTaskViewModel(s, 1000)); })()")["result"]
+        self.assertIn("EXT-01｜", res)
+        self.assertNotIn("CORE-01｜", res)
+
+
 if __name__ == "__main__":
     unittest.main()

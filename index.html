@@ -2135,6 +2135,117 @@ select:focus {
   .result-card-save { flex: 1 1 100%; margin-left: 0; }
 }
 
+/* WP6 */
+.scoreboard { max-width: 1100px; margin: 0 auto; padding: 4px 0 24px; color: var(--ink); }
+.sb-title { font-size: 1.2rem; margin: 0 0 4px; }
+.sb-summary { font-weight: 700; color: var(--accent-dark); margin: 0 0 12px; }
+.sb-empty { padding: 20px; background: var(--surface); border: 1px dashed var(--line-strong); border-radius: var(--radius); color: var(--ink-light); line-height: 1.7; }
+.sb-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.sb-total { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.sb-total-label { font-size: 0.8rem; color: var(--muted); }
+.sb-total strong { font-size: 1.05rem; }
+.sb-total small { color: var(--ink-light); font-size: 0.84rem; min-height: 1em; }
+.sb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.sb-subject { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.sb-subject-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.sb-subject-head h3 { font-size: 1rem; margin: 0; }
+.sb-role { font-size: 0.75rem; padding: 2px 8px; border-radius: var(--radius-pill); background: var(--accent-light); color: var(--accent-dark); }
+.sb-role--high { background: var(--warn-light); color: var(--warn); }
+.sb-role--basic { background: var(--bg-secondary); color: var(--ink-light); }
+.sb-bar { position: relative; display: flex; flex-direction: column; gap: 3px; padding: 2px 0; }
+.sb-track { height: 10px; background: var(--bg-secondary); border-radius: 5px; overflow: hidden; }
+.sb-track--thin { height: 5px; }
+.sb-fill { display: block; height: 100%; border-radius: 5px; }
+.sb-fill--mock { background: var(--accent); }
+.sb-fill--practice { background: var(--star); }
+.sb-target { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--ink); border-radius: 1px; }
+.sb-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0; }
+.sb-nums div { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.sb-nums dt { font-size: 0.74rem; color: var(--muted); }
+.sb-nums dd { margin: 0; font-size: 0.86rem; font-weight: 600; overflow-wrap: anywhere; }
+.sb-rates, .sb-errors { margin: 0; font-size: 0.82rem; color: var(--ink-light); }
+.sb-chip { display: inline-block; margin: 0 4px 2px 0; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--review-light); color: var(--review); font-size: 0.78rem; }
+.sb-next { margin: 0; padding: 6px 10px; border-left: 3px solid var(--accent); background: var(--accent-light); border-radius: 4px; font-size: 0.86rem; }
+.sb-note { margin: 12px 0 0; font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+@media (max-width: 640px) {
+  .sb-grid { grid-template-columns: 1fr; }
+  .sb-nums { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* WP5b */
+.mock-title { color: var(--accent-dark); font-size: 1.3rem; font-weight: 700; margin: 0; }
+.mock-sub { color: var(--muted); font-size: 0.86rem; margin: 4px 0 14px; }
+.mock-picker { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-bottom: 10px; }
+.mock-picker label { display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; color: var(--muted); }
+.mock-picker select { min-height: 44px; font-weight: 600; }
+.mock-shortcuts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.mock-shortcut { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.mock-shortcut strong { color: var(--accent-dark); margin-right: 4px; }
+.mock-chip { min-height: 44px; padding: 6px 12px; border-radius: var(--radius-pill); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; font-size: 0.82rem; }
+.mock-chip:hover { background: var(--accent-light); }
+.mock-btn { min-height: 44px; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+.mock-btn:hover { background: var(--accent-light); }
+.mock-btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.mock-btn-primary:hover { background: var(--accent-dark); }
+.mock-btn-sol { background: var(--accent-light); }
+.mock-paper-head { background: var(--bg-secondary); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.mock-paper-head h3 { margin: 0 0 4px; color: var(--accent-dark); font-size: 1.15rem; }
+.mock-meta { margin: 0 0 6px; color: var(--muted); font-size: 0.88rem; }
+.mock-reminder { margin: 0 0 8px; font-weight: 600; font-size: 0.9rem; }
+.mock-scoring-note { margin: 0 0 10px; padding: 8px 12px; border-left: 4px solid var(--warn); background: var(--warn-light); border-radius: var(--radius-sm); font-size: 0.86rem; }
+.mock-paper-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.mock-total { font-weight: 800; color: var(--accent-dark); font-size: 1.05rem; }
+.mock-q { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px; margin-bottom: 16px; background: var(--surface); }
+.mock-q-unscored { border-left-color: var(--line-strong); opacity: 0.92; }
+.mock-q-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; margin-bottom: 10px; }
+.mock-q-title { font-weight: 700; }
+.mock-q-title small { color: var(--muted); font-weight: 400; }
+.mock-q-points { font-weight: 700; color: var(--accent-dark); }
+.mock-q-cap { color: var(--muted); font-size: 0.84rem; }
+.mock-q-crop { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.mock-q-after { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
+.mock-q-state { font-size: 0.86rem; color: var(--muted); }
+.mock-q-card { margin-top: 10px; }
+.mock-summary { border: 2px solid var(--accent); border-radius: var(--radius); padding: 16px; margin-top: 8px; background: var(--accent-light); }
+.mock-summary h3 { margin: 0 0 8px; color: var(--accent-dark); }
+.mock-summary-list { margin: 0 0 10px; padding-left: 20px; }
+.mock-weak { color: var(--review); font-weight: 700; }
+.mock-ok { color: var(--success); font-weight: 700; }
+.mock-fixfirst { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; padding: 12px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--warn); margin: 10px 0; }
+.mock-history { margin-top: 28px; }
+.mock-history h3 { color: var(--accent-dark); }
+.mock-history-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.mock-history-table th, .mock-history-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.mock-history-table th { color: var(--muted); }
+.mock-legacy-title { margin: 16px 0 6px; color: var(--muted); }
+.mock-legacy { opacity: 0.8; }
+.mock-incomplete { color: var(--warn); }
+.mock-empty { color: var(--muted); font-size: 0.88rem; }
+@media (max-width: 640px) {
+  .mock-exam-box { padding: 14px; }
+  .mock-picker { flex-direction: column; align-items: stretch; }
+  .mock-history-table { font-size: 0.8rem; }
+}
+
+/* WP5a */
+.tier-badge { display: inline-block; flex: none; white-space: nowrap; padding: 1px 8px; border-radius: var(--radius-pill); font-size: .75rem; font-weight: 700; line-height: 1.5; vertical-align: middle; border: 1px solid transparent; }
+.tier-badge.tier-main { background: var(--accent); color: #fff; border-color: var(--accent-dark); }
+.tier-badge.tier-basic { background: var(--bg-secondary); color: var(--ink-light); border-color: var(--line); }
+.today-task-optional { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); font-size: .88rem; color: var(--ink-light); }
+.today-task-optional .btn-pdf { min-height: 32px; padding: 3px 12px; font-size: .85rem; }
+.today-task-result { margin-top: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); display: grid; gap: 8px; }
+.today-task-result-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; font-weight: 700; }
+.today-task-result .result-card { position: static; width: auto; max-width: none; box-shadow: none; margin: 0; }
+.daily-practice-mode { display: inline-flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: .9rem; color: var(--ink-light); }
+.daily-practice-mode select { max-width: 100%; }
+.daily-practice-estimate { font-weight: 700; color: var(--accent-dark); }
+.daily-practice-total { margin: 8px 0 0; font-weight: 700; color: var(--accent-dark); }
+.recall-result-slot:empty { display: none; }
+@media (max-width: 600px) {
+  .daily-practice-actions .daily-practice-mode { width: 100%; }
+  .daily-practice-actions .daily-practice-mode select { flex: 1; min-width: 0; }
+}
+
 
 /* === src/styles/modal.css === */
 /* src/styles/modal.css */
@@ -26878,6 +26989,47 @@ function createDailyPracticeQueue(questions, options = {}) {
   return chosen;
 }
 
+// 依目標分配: weighted random without replacement over PE candidates that were not
+// completed in the last seven days.  Weight comes from options.weightOf(qid) (default
+// practiceWeightFor from studyPlan.js); zero-weight questions are never drawn.  With fewer
+// than `count` eligible weighted candidates the plain random queue is returned instead.
+function createWeightedPracticeQueue(questions, options = {}) {
+  const count = Number.isInteger(options.count) && options.count > 0 ? options.count : 3;
+  const now = practiceResolveNow(options.now);
+  const random = typeof options.random === 'function' ? options.random : Math.random;
+  const weightOf = typeof options.weightOf === 'function'
+    ? options.weightOf
+    : (typeof practiceWeightFor === 'function' ? practiceWeightFor : () => 0);
+  const seenIds = new Set();
+  const pool = [];
+  (Array.isArray(questions) ? questions : []).forEach(question => {
+    const candidate = practiceCandidate(question, options);
+    if (!candidate || seenIds.has(candidate.id)) return;
+    seenIds.add(candidate.id);
+    if (!candidate.id.startsWith('EE-')) return;
+    const age = candidate.completedAt === null ? null : now - candidate.completedAt;
+    if (age !== null && age < DAILY_PRACTICE_RECENT_WINDOW_MS) return;
+    let weight = 0;
+    try { weight = Number(weightOf(candidate.id)); } catch (error) { weight = 0; }
+    if (Number.isFinite(weight) && weight > 0) pool.push({ id: candidate.id, weight });
+  });
+  if (pool.length < count) {
+    return createDailyPracticeQueue(questions, Object.assign({}, options, { count, random, now }));
+  }
+  const chosen = [];
+  while (chosen.length < count && pool.length) {
+    const total = pool.reduce((sum, item) => sum + item.weight, 0);
+    let pick = practiceRandomValue(random) * total;
+    let index = 0;
+    for (; index < pool.length - 1; index += 1) {
+      if (pick < pool[index].weight) break;
+      pick -= pool[index].weight;
+    }
+    chosen.push(pool.splice(index, 1)[0].id);
+  }
+  return chosen;
+}
+
 function createPracticeStoreState() {
   return {
     version: DAILY_PRACTICE_STORE_VERSION,
@@ -27103,6 +27255,7 @@ if (typeof module !== 'undefined' && module.exports) {
     DAILY_PRACTICE_STORE_VERSION,
     DAILY_PRACTICE_RECENT_WINDOW_MS,
     createDailyPracticeQueue,
+    createWeightedPracticeQueue,
     createPracticeStoreState,
     loadDailyPracticeStore,
     saveDailyPracticeStore,
@@ -30752,7 +30905,7 @@ function renderReviewPage() {
       </div>
       <div class="progress-health-label">
         ${dueCount > 0 ? `<span>⚡ 今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">🌿 今日沒有到期題</span>'}
-        <small>本輪自評完成 ${practiceRoundCompleted} 題・提取能力 L1／L2／L3／L4：${recallLevels.join('／')}</small>
+        <small>本輪作答結果記錄 ${practiceRoundCompleted} 題・提取能力 L1／L2／L3／L4：${recallLevels.join('／')}</small>
       </div>
     `;
   }
@@ -35118,7 +35271,7 @@ function cancelLearningAttemptAdvance() {
 
 function setLearningAttemptButtonsDisabled(disabled) {
   if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
-  document.querySelectorAll('#recall-rating-bar .btn-sm2').forEach(button => { button.disabled = Boolean(disabled); });
+  document.querySelectorAll('.sm2-rating-bar .btn-sm2').forEach(button => { button.disabled = Boolean(disabled); });
 }
 
 function normalizeSolutionModalOptions(options) {
@@ -35306,6 +35459,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   }
 
   cancelLearningAttemptAdvance();
+  closeRecallResultCard();
   currentModalQid = qid;
   currentModalSolLink = solLink;
   currentModalQNum = qnum;
@@ -35979,10 +36133,8 @@ function revealRecallFull() {
     return;
   }
   const fullEl = document.getElementById('recall-full-section');
-  const ratingEl = document.getElementById('recall-rating-bar');
   const boxEl = document.getElementById('recall-step-box');
   if (fullEl) fullEl.style.display = 'block';
-  if (ratingEl) ratingEl.style.display = 'flex';
   if (boxEl) boxEl.style.display = 'none';
   currentRecallAchievedLevel = 4;
   if (typeof dailyPracticeRecordRecallProgress === 'function' && currentSolutionSourceMode === 'daily-practice') dailyPracticeRecordRecallProgress(4);
@@ -36018,11 +36170,7 @@ function revealRecallLayer(layer) {
   scheduleSolutionModalReadingSave();
   syncRecallRevealPresentation();
   const full = document.getElementById('recall-full-section');
-  const rating = document.getElementById('recall-rating-bar');
-  if (layer >= 4) {
-    if (full) full.style.display = 'block';
-    if (rating) rating.style.display = 'flex';
-  }
+  if (layer >= 4 && full) full.style.display = 'block';
 }
 
 function chooseRecallError(errorType) {
@@ -36030,6 +36178,61 @@ function chooseRecallError(errorType) {
   document.querySelectorAll('[data-recall-error]').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.recallError === currentRecallErrorType);
   });
+}
+
+function recallTierBadgeHtml(qid) {
+  const tier = typeof studyTierFor === 'function' ? studyTierFor(qid) : null;
+  if (tier !== 'main' && tier !== 'basic') return '';
+  return `<span class="tier-badge tier-${tier}">${tier === 'main' ? '主攻' : '基本分'}</span>`;
+}
+
+let recallResultCardHandle = null;
+let recallResultCardQid = null;
+
+function recallResultSource() {
+  if (currentSolutionSourceMode === 'daily-practice') return 'random';
+  if (currentSolutionSourceMode === 'due-review') return 'review';
+  return 'random';
+}
+
+function closeRecallResultCard() {
+  if (recallResultCardHandle && typeof recallResultCardHandle.close === 'function') recallResultCardHandle.close();
+  recallResultCardHandle = null;
+  recallResultCardQid = null;
+}
+
+// Stage ④ reached in a recall session: show the 作答結果卡 (once per question).
+function openRecallResultCard() {
+  if (!currentSolutionRecallEntry || currentRecallAchievedLevel < 4 || !currentModalQid) return;
+  if (typeof openResultCard !== 'function') return;
+  if (recallResultCardHandle && recallResultCardQid === currentModalQid && recallResultCardHandle.el && recallResultCardHandle.el.isConnected) return;
+  closeRecallResultCard();
+  const qid = currentModalQid;
+  const mode = currentSolutionSourceMode;
+  const level = currentRecallAchievedLevel;
+  recallResultCardQid = qid;
+  recallResultCardHandle = openResultCard({
+    qid, source: recallResultSource(),
+    onSaved: record => {
+      recallResultCardHandle = null;
+      recallResultCardQid = null;
+      onRecallResultSaved(record, mode, level);
+    }
+  });
+}
+
+function onRecallResultSaved(record, mode, level) {
+  const qid = record.qid;
+  if (mode === 'daily-practice') {
+    if (typeof dailyPracticeCompleteFromResultCard === 'function') dailyPracticeCompleteFromResultCard(record, level);
+    return;
+  }
+  if (mode === 'due-review' && typeof recordReviewSessionRating === 'function') recordReviewSessionRating(qid);
+  if (typeof showToast === 'function') showToast(`🎯 已記錄：估計 ${record.estimate}／${record.total} 分`);
+  if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof renderReviewPage === 'function') renderReviewPage();
+  if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
+  if (mode === 'due-review' && typeof advanceReviewSessionItem === 'function') advanceReviewSessionItem();
 }
 
 function submitSM2Rating(rating) {
@@ -36073,23 +36276,7 @@ function submitSM2Rating(rating) {
   if (result.duplicate) return;
   currentLearningAttemptResult = result;
   currentLearningAttemptRating = Number(rating);
-  let diagnosis = null;
-  if (typeof diagnose === 'function') {
-    const graph = typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined' ? CANONICAL_KNOWLEDGE_GRAPH : null;
-    const graphRevision = graph && graph.graphRevision ? graph.graphRevision : null;
-    const recall = typeof getRecallState === 'function' ? getRecallState(qid) : null;
-    diagnosis = diagnose(question, {
-      attemptId,
-      attemptStatus: result.status || 'committed',
-      rating: Number(rating),
-      errorType: currentRecallErrorType,
-      graphRevision,
-    }, graph, recall);
-  }
-  if (shouldRequireKnowledgeDiagnosis(diagnosis)) {
-    currentKnowledgeDiagnosis = diagnosis;
-    if (renderKnowledgeDiagnosisCard(diagnosis)) return;
-  }
+  // 作答後診斷卡 is no longer part of the default flow (renderKnowledgeDiagnosisCard stays for direct callers).
   currentLearningAttemptResult = null;
   currentLearningAttemptRating = null;
   finishCommittedLearningAttempt(result, qid, Number(rating), attemptId);
@@ -36098,22 +36285,6 @@ function submitSM2Rating(rating) {
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
-  const ratingTitle = currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry
-    ? '🎯 回顧揭露前的作答狀況（本輪不加入到期排程）'
-    : '🎯 回顧揭露前的作答狀況（儲存後顯示實際下次日期）';
-  const isDailyAssessment = currentSolutionSourceMode === 'daily-practice';
-  const dailyCompletionPrompt = isDailyAssessment && currentSolutionRecallEntry
-    ? (typeof dailyPracticeGetCompletionPrompt === 'function'
-      ? dailyPracticeGetCompletionPrompt()
-      : '自評即完成本題，並進入下一題')
-    : '';
-  const dailyCompletionPromptHtml = dailyCompletionPrompt
-    ? `<div class="sm2-rating-next-hint">✅ ${dailyCompletionPrompt}</div>`
-    : '';
-  const ratingSubtexts = isDailyAssessment
-    ? { 1: '只記錄本輪：無法完成', 3: '只記錄本輪：需要提示', 5: '只記錄本輪：獨立完成' }
-    : { 1: '儲存後顯示下次日期', 3: '儲存後顯示下次日期', 5: '儲存後顯示下次日期' };
-
   if (isActiveRecallMode) {
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     const recallHints = typeof getRecallHintBundle === 'function'
@@ -36138,7 +36309,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
       <div class="solution-content active-recall-active">
         <!-- Keep the four-step workflow immediately above the hidden solution. -->
         <div class="active-recall-box" id="recall-step-box">
-          <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
+          <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall) ${recallTierBadgeHtml(currentModalQid)}</div>
           <p style="font-size: 0.85rem; color: var(--muted); margin: 0 0 10px 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
           
           <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
@@ -36166,31 +36337,8 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         </div>
         <!-- recall-full-section-end -->
 
-        <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
-          <div class="sm2-rating-title">${ratingTitle}</div>
-          ${dailyCompletionPromptHtml}
-          <div class="recall-error-buttons" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0;">
-            <button type="button" class="pill" data-recall-error="題型辨識錯" onclick="chooseRecallError('題型辨識錯')">題型辨識錯</button>
-            <button type="button" class="pill" data-recall-error="起手式不會" onclick="chooseRecallError('起手式不會')">起手式不會</button>
-            <button type="button" class="pill" data-recall-error="公式忘記" onclick="chooseRecallError('公式忘記')">公式忘記</button>
-            <button type="button" class="pill" data-recall-error="計算錯" onclick="chooseRecallError('計算錯')">計算錯</button>
-            <button type="button" class="pill" data-recall-error="觀念混淆" onclick="chooseRecallError('觀念混淆')">觀念混淆</button>
-          </div>
-          <div class="sm2-rating-buttons">
-            <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
-              <span>🔴 無法完成</span>
-              <span class="subtext">${ratingSubtexts[1]}</span>
-            </button>
-            <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
-              <span>🟡 需要提示</span>
-              <span class="subtext">${ratingSubtexts[3]}</span>
-            </button>
-            <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
-              <span>🟢 揭露前能獨立完成</span>
-              <span class="subtext">${ratingSubtexts[5]}</span>
-            </button>
-          </div>
-        </div>
+        <!-- 作答結果卡 is mounted here after stage ④ (replaces the old 1/3/5 rating bar). -->
+        <div id="recall-result-slot" class="recall-result-slot"></div>
       </div>
     `;
     syncRecallRevealPresentation();
@@ -36206,35 +36354,14 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
       if (record) html += renderDagTracerCard(record.id, record.subjectId, record.stem);
     }
 
-    // Browse bypass is pure viewing: it must not expose daily-practice
-    // completion controls.  Ordinary browse still keeps its original SM-2
-    // footer; only the daily-practice recall entry is completion-eligible.
-    if (currentSolutionRecallEntry && currentRecallAchievedLevel >= 4) html += `
-      <div class="sm2-rating-bar">
-        <div class="sm2-rating-title">${ratingTitle}</div>
-        ${dailyCompletionPromptHtml}
-        <div class="sm2-rating-buttons">
-          <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
-            <span>🔴 無法完成</span>
-            <span class="subtext">${ratingSubtexts[1]}</span>
-          </button>
-          <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
-            <span>🟡 需要提示</span>
-            <span class="subtext">${ratingSubtexts[3]}</span>
-          </button>
-          <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
-            <span>🟢 揭露前能獨立完成</span>
-            <span class="subtext">${ratingSubtexts[5]}</span>
-          </button>
-        </div>
-      </div>
-    `;
+    // Browse bypass is pure viewing; only a recall entry that reached stage ④ gets the 作答結果卡.
 
     rightPane.innerHTML = `
       <div class="solution-content">
         ${html}
       </div>
     `;
+    if (currentSolutionRecallEntry && currentRecallAchievedLevel >= 4) openRecallResultCard();
   }
 
   // Auto-render any remaining math formulas
@@ -36266,10 +36393,9 @@ function syncRecallRevealPresentation() {
     if (section) section.style.display = currentRecallAchievedLevel >= layer ? 'block' : 'none';
   }
   const full = document.getElementById('recall-full-section');
-  const rating = document.getElementById('recall-rating-bar');
   const box = document.getElementById('recall-step-box');
   if (full) full.style.display = currentRecallAchievedLevel >= 4 ? 'block' : 'none';
-  if (rating) rating.style.display = currentRecallAchievedLevel >= 4 ? 'flex' : 'none';
+  if (currentRecallAchievedLevel >= 4) openRecallResultCard();
   if (box) box.style.display = currentRecallAchievedLevel >= 4 ? 'none' : 'flex';
   // Count only the four reveal buttons; the box also holds the numeric-check buttons.
   const buttons = box && typeof box.querySelectorAll === 'function' ? [...box.querySelectorAll('.btn-reveal-hint, .btn-reveal-full')] : [];
@@ -36282,6 +36408,7 @@ function syncRecallRevealPresentation() {
 
 function closeModal() {
   cancelLearningAttemptAdvance();
+  closeRecallResultCard();
   if (solutionModalReadingTimer !== null && typeof clearTimeout === 'function') clearTimeout(solutionModalReadingTimer);
   solutionModalReadingTimer = null;
   persistSolutionModalReadingState(false);
@@ -36376,609 +36503,838 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('pagehide', () => persistSolutionModalReadingState(Boolean(currentModalQid)));
 
 
-// === src/components/mockExamTimer.js ===
-// src/components/mockExamTimer.js
+// === src/components/mockExam.js ===
+// src/components/mockExam.js — WP5b (模考分頁；無任何計時器，使用者自行手動計時)
 /**
- * 120-Minute Full Mock Exam System 2.0 & Step-Marking Rubric
- * ==========================================================
- * Features:
- * 1. 120-minute Countdown Timer with localStorage persistence & wake-up recovery.
- * 2. Exam Pacing Ribbon (25 mins per question + 20 mins final audit).
- * 3. Step-by-Step Marking Rubric (4-tier scoring for professional essay exams).
- * 4. Mock Exam History Storage & Scorecard generation.
+ * 流程：選卷（年度 × 科目，或 114 模考／108 盲測捷徑）→ 試卷（官方 PDF、每題裁切圖、配分、
+ * 第一輪時間帽）→ 交卷 → 逐題題解連結與結果卡 → 全部保存後出總結與「先修這題」。
+ * 模考紀錄存成結果紀錄（mockId 欄位），成績分頁以 latestMockScoreBySubject 取模考實測。
+ * 純函式（可在 node 測試）與 DOM 分開；整個 #tab-pane-mock 由本檔於載入時渲染。
  */
 
-const MOCK_EXAM_TIMER_DURATION_SECONDS = 120 * 60;
-const MOCK_EXAM_TIMER_STORAGE_KEY = 'EE_MOCK_EXAM_TIMER_V1';
-const MOCK_EXAM_HISTORY_STORAGE_KEY = 'EE_MOCK_EXAM_HISTORY_V1';
-
-let examTimerSeconds = MOCK_EXAM_TIMER_DURATION_SECONDS;
-let examTimerInterval = null;
-let examTimerRunning = false;
-let examTimerDeadlineMs = null;
-let examTimerCompleted = false;
-let examTimerWarningShown = false;
-let examTimerExamKey = null;
-
-let currentLoadedMockExam = null;
-
-function formatTime(secs) {
-  const safeSecs = Math.max(0, Math.floor(Number(secs) || 0));
-  const m = Math.floor(safeSecs / 60);
-  const s = safeSecs % 60;
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-}
-
-/**
- * Returns the recommended pacing stage based on remaining seconds.
- */
-function getMockExamPacingInfo(secondsRemaining) {
-  const s = Math.max(0, Number(secondsRemaining) || 0);
-  const elapsed = MOCK_EXAM_TIMER_DURATION_SECONDS - s;
-  const elapsedMins = elapsed / 60;
-
-  // Same timeline as docs/上榜考場120分鐘得分節奏.md (5 + 90 + 17 + 8).
-  if (elapsedMins < 5) {
-    return { stage: 1, label: '掃卷 (0~5分)', hint: '看完全部題目與小題，題號旁標 A／B／C；不開始長算式', color: '#4a7c8f' };
-  } else if (elapsedMins < 95) {
-    return { stage: 2, label: '第一輪 (5~95分)', hint: '先 A 再 B 後 C；每配分最多 0.9 分鐘，卡 8 分鐘留下起手式就換題', color: '#4a7c8f' };
-  } else if (elapsedMins < 112) {
-    return { stage: 3, label: '搶分輪 (95~112分)', hint: '補配分最高且下一步已知道的題；不救完全沒有起手式的題', color: '#d49e35' };
-  } else {
-    return { stage: 4, label: '🚨 收尾 (最後 8 分鐘)', hint: '補題號、小題結論、單位、方向、相角；不開新推導', color: '#b85d58' };
-  }
-}
-
-function updateTimerDisplay() {
-  if (typeof document === 'undefined') return;
-  const el = document.getElementById('exam-timer');
-  if (el) el.innerText = formatTime(examTimerSeconds);
-
-  const pacingEl = document.getElementById('exam-pacing-indicator');
-  if (pacingEl) {
-    const pacing = getMockExamPacingInfo(examTimerSeconds);
-    pacingEl.innerHTML = `<span style="color: ${pacing.color}; font-weight: 700;">⏱️ 配速建議：${pacing.label}</span> · <small style="color: var(--muted);">${pacing.hint}</small>`;
-  }
-}
-
-function getMockExamTimerStorage() {
-  return typeof localStorage === 'undefined' ? null : localStorage;
-}
-
-function persistMockExamTimerState() {
-  const storage = getMockExamTimerStorage();
-  if (!storage) return;
-  try {
-    storage.setItem(MOCK_EXAM_TIMER_STORAGE_KEY, JSON.stringify({
-      seconds: examTimerSeconds,
-      deadline: examTimerDeadlineMs,
-      running: examTimerRunning,
-      completed: examTimerCompleted,
-      warningShown: examTimerWarningShown,
-      examKey: examTimerExamKey,
-      savedAt: Date.now(),
-    }));
-  } catch (_) {
-    // Storage quota or private mode fallback
-  }
-}
-
-function setExamTimerToggleButton() {
-  if (typeof document === 'undefined') return;
-  const toggleBtn = document.getElementById('btn-timer-toggle');
-  if (toggleBtn) {
-    if (examTimerCompleted) {
-      toggleBtn.innerText = '⏰ 時間已到';
-      toggleBtn.className = 'btn-timer reset';
-      toggleBtn.onclick = null;
-    } else if (examTimerRunning) {
-      toggleBtn.innerText = '⏸️ 暫停計時';
-      toggleBtn.className = 'btn-timer pause';
-      toggleBtn.onclick = pauseExamTimer;
-    } else {
-      toggleBtn.innerText = examTimerSeconds === MOCK_EXAM_TIMER_DURATION_SECONDS ? '▶️ 開始計時' : '▶️ 繼續計時';
-      toggleBtn.className = 'btn-timer start';
-      toggleBtn.onclick = startExamTimer;
-    }
-  }
-}
-
-function scheduleExamTimerInterval() {
-  if (examTimerInterval !== null) clearInterval(examTimerInterval);
-  examTimerInterval = setInterval(() => updateExamTimerFromClock(), 1000);
-}
-
-function completeExamTimer() {
-  if (examTimerCompleted) return;
-  examTimerSeconds = 0;
-  examTimerDeadlineMs = null;
-  examTimerRunning = false;
-  examTimerCompleted = true;
-  clearInterval(examTimerInterval);
-  examTimerInterval = null;
-  updateTimerDisplay();
-  persistMockExamTimerState();
-  setExamTimerToggleButton();
-  showToast('⏰ 考試時間結束！請停止作答，準備進行步驟自評。');
-
-  // Trigger self-grading rubric if exam questions are loaded
-  if (currentLoadedMockExam && currentLoadedMockExam.questions && currentLoadedMockExam.questions.length > 0) {
-    setTimeout(() => {
-      openMockGradingModal();
-    }, 1200);
-  }
-}
-
-function updateExamTimerFromClock(now = Date.now()) {
-  if (!examTimerRunning || examTimerDeadlineMs === null) return examTimerSeconds;
-  examTimerSeconds = Math.max(0, Math.ceil((examTimerDeadlineMs - now) / 1000));
-  updateTimerDisplay();
-  if (examTimerSeconds <= 0) {
-    completeExamTimer();
-    return examTimerSeconds;
-  }
-  if (examTimerSeconds <= 300 && !examTimerWarningShown) {
-    examTimerWarningShown = true;
-    showToast('⚠️ 提醒：距離考試結束僅剩 5 分鐘！請準備收卷核算。');
-  }
-  persistMockExamTimerState();
-  return examTimerSeconds;
-}
-
-function startExamTimer(now = Date.now()) {
-  if (examTimerCompleted || examTimerSeconds <= 0) return;
-  if (!examTimerRunning || examTimerInterval === null) {
-    if (examTimerDeadlineMs === null || examTimerDeadlineMs <= now) {
-      examTimerDeadlineMs = now + examTimerSeconds * 1000;
-    }
-    examTimerRunning = true;
-    persistMockExamTimerState();
-    setExamTimerToggleButton();
-    scheduleExamTimerInterval();
-  }
-}
-
-function pauseExamTimer(now = Date.now()) {
-  if (!examTimerRunning) return;
-  updateExamTimerFromClock(now);
-  if (examTimerCompleted) return;
-  clearInterval(examTimerInterval);
-  examTimerInterval = null;
-  examTimerRunning = false;
-  examTimerDeadlineMs = null;
-  persistMockExamTimerState();
-  setExamTimerToggleButton();
-}
-
-function resetExamTimer(examKey = null) {
-  if (examTimerInterval !== null) clearInterval(examTimerInterval);
-  examTimerInterval = null;
-  examTimerSeconds = MOCK_EXAM_TIMER_DURATION_SECONDS;
-  examTimerDeadlineMs = null;
-  examTimerRunning = false;
-  examTimerCompleted = false;
-  examTimerWarningShown = false;
-  examTimerExamKey = examKey;
-  updateTimerDisplay();
-  persistMockExamTimerState();
-  setExamTimerToggleButton();
-}
-
-function getMockExamTimerState() {
-  return {
-    seconds: examTimerSeconds,
-    deadline: examTimerDeadlineMs,
-    running: examTimerRunning,
-    completed: examTimerCompleted,
-    examKey: examTimerExamKey,
-  };
-}
-
-function loadMockExamTimerState(now = Date.now()) {
-  const storage = getMockExamTimerStorage();
-  if (!storage) {
-    updateTimerDisplay();
-    setExamTimerToggleButton();
-    return false;
-  }
-  let saved;
-  try {
-    const raw = storage.getItem(MOCK_EXAM_TIMER_STORAGE_KEY);
-    saved = raw ? JSON.parse(raw) : null;
-  } catch (_) {
-    saved = null;
-  }
-  if (!saved || !Number.isFinite(Number(saved.seconds))) {
-    updateTimerDisplay();
-    setExamTimerToggleButton();
-    return false;
-  }
-
-  examTimerSeconds = Math.max(0, Math.min(MOCK_EXAM_TIMER_DURATION_SECONDS, Math.floor(Number(saved.seconds))));
-  examTimerDeadlineMs = Number.isFinite(Number(saved.deadline)) ? Number(saved.deadline) : null;
-  examTimerCompleted = Boolean(saved.completed) || examTimerSeconds === 0;
-  examTimerWarningShown = Boolean(saved.warningShown);
-  examTimerExamKey = saved.examKey || null;
-  examTimerRunning = !examTimerCompleted && Boolean(saved.running) && examTimerDeadlineMs !== null;
-  if (examTimerRunning) updateExamTimerFromClock(now);
-  updateTimerDisplay();
-  setExamTimerToggleButton();
-  if (examTimerRunning && !examTimerCompleted) scheduleExamTimerInterval();
-  return true;
-}
-
-function prepareExamTimerForExam(examKey) {
-  if (examTimerExamKey !== examKey) {
-    resetExamTimer(examKey);
-  } else {
-    updateTimerDisplay();
-    setExamTimerToggleButton();
-  }
-}
-
-/**
- * Loads mock exam questions and initializes the pacing ribbon.
- */
-function loadMockExam() {
-  const subjSelect = document.getElementById('exam-select-subj');
-  const yrSelect = document.getElementById('exam-select-yr');
-  if (!subjSelect || !yrSelect) return;
-
-  const sid = subjSelect.value;
-  const yr = yrSelect.value;
-  const container = document.getElementById('mock-exam-questions');
-  if (!container) return;
-
-  const activeList = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
-  if (!activeList || activeList.length === 0) return;
-
-  let targetQuestions = [];
-  if (yr === 'random') {
-    const subjQuestions = activeList.filter(q => q[1] === sid);
-    const shuffled = [...subjQuestions].sort(() => 0.5 - Math.random());
-    targetQuestions = shuffled.slice(0, 4);
-  } else {
-    targetQuestions = activeList.filter(q => q[1] === sid && String(q[2]) === yr);
-  }
-
-  if (targetQuestions.length === 0) {
-    container.innerHTML = '<div style="text-align:center; padding: 30px; color: var(--muted);">查無符合的試卷題目</div>';
-    return;
-  }
-
-  const meta = typeof getSubjectMeta === 'function' ? getSubjectMeta(sid) : { name: sid, icon: '📋' };
-  currentLoadedMockExam = {
-    subjectId: sid,
-    subjectName: meta.name,
-    subjectIcon: meta.icon,
-    year: yr,
-    questions: targetQuestions,
-    loadedAt: Date.now()
-  };
-
-  const pacing = getMockExamPacingInfo(examTimerSeconds);
-
-  container.innerHTML = `
-    <div class="mock-exam-header-card" style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow);">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
-        <div>
-          <h3 style="color: var(--accent-dark); margin-bottom: 6px; font-size: 1.25rem;">
-            📋 模考試卷：${meta.icon} ${meta.name}（${yr === 'random' ? '隨機 4 題全真模考' : yr + ' 年全卷'}）
-          </h3>
-          <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 8px;">
-            共 ${targetQuestions.length} 道大題 · 滿分 100 分 · 請於 120 分鐘內於白紙獨立推導作答
-          </p>
-          <div id="exam-pacing-indicator" style="background: var(--bg-secondary); padding: 6px 12px; border-radius: var(--radius-sm); display: inline-block;">
-            <span style="color: ${pacing.color}; font-weight: 700;">⏱️ 配速建議：${pacing.label}</span> · <small style="color: var(--muted);">${pacing.hint}</small>
-          </div>
-        </div>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <button type="button" class="btn-sol" style="background: var(--warn); color: white;" onclick="openMockGradingModal()">
-            🏁 提前交卷與步驟自評
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="qlist">
-      ${targetQuestions.map((q, idx) => {
-        const [qid, qsid, qyr, qnum, topic, tags, solLink, pdfLink] = q;
-        const renderTopic = typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : topic;
-        return `
-          <div class="qcard" style="border-left: 4px solid var(--accent); margin-bottom: 16px;">
-            <div class="qhead">
-              <span class="qid">第 ${idx + 1} 大題 (${qid})</span>
-              <span style="font-weight: 700; color: var(--accent-dark);">配分以官方題目為準 · 第一輪每配分最多 0.9 分鐘</span>
-            </div>
-            <div class="qtopic">${renderTopic}</div>
-            <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
-              <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse'})" class="btn-sol">📝 檢視標準推導解答</button>
-              <a href="${pdfLink}" target="_blank" class="btn-pdf">📄 查看官方 PDF 原題</a>
-            </div>
-          </div>
-        `;
-      }).join('')}
-    </div>
-
-    <!-- Past Mock History Section -->
-    <div id="mock-history-container" style="margin-top: 36px;">
-      ${renderMockExamHistoryListHtml()}
-    </div>
-  `;
-
-  const category = typeof currentExamCategory === 'undefined' ? 'PE' : currentExamCategory;
-  prepareExamTimerForExam(`${category}:${sid}:${yr}`);
-  showToast('📑 模考試卷已載入，準備好後點擊開始計時！');
-}
-
-/**
- * Standard Step-Marking Rubric for a 25-point essay question.
- */
-const DEFAULT_RUBRIC_STEPS = [
-  { id: 'step_model', label: '① 系統假設與等效模型建立', maxPts: 6, desc: '畫出正確電路圖/相量圖/系統邊界，列出初始條件' },
-  { id: 'step_deriv', label: '② 核心公式列式與符號化簡推導', maxPts: 8, desc: '公式引用無誤，符號推導邏輯嚴謹無跳步' },
-  { id: 'step_calc', label: '③ 數值代入、小數精度與正確單位', maxPts: 8, desc: '數值計算無誤，標明單位 (kW/kVA/Ω/A/pu)，相角符號正確' },
-  { id: 'step_audit', label: '④ 防坑提醒與合理性檢核', maxPts: 3, desc: '檢核邊界極值、功率因數正負、方向定義一致性' }
+const MOCK_EXAM_YEARS = [114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104];
+const MOCK_EXAM_TIME_CAP_PER_POINT = 0.9;
+const MOCK_EXAM_REMINDER = '5 分鐘掃卷＋90 分鐘第一輪＋17 分鐘搶分＋8 分鐘收尾';
+const MOCK_EXAM_LEGACY_HISTORY_KEY = 'EE_MOCK_EXAM_HISTORY_V1';
+const MOCK_EXAM_FALLBACK_SUBJECTS = [
+  { id: '01', name: '電路學', icon: '⚡' },
+  { id: '02', name: '電子學（含電力電子）', icon: '🔌' },
+  { id: '03', name: '工程數學', icon: '📐' },
+  { id: '04', name: '電機機械', icon: '⚙️' },
+  { id: '05', name: '電力系統', icon: '🏢' },
+  { id: '06', name: '工業配電', icon: '🏭' }
 ];
-
-/**
- * Opens Step-Marking Rubric Modal for self-grading.
- */
-function openMockGradingModal() {
-  if (!currentLoadedMockExam || !currentLoadedMockExam.questions || currentLoadedMockExam.questions.length === 0) {
-    showToast('⚠️ 請先載入模考試卷');
-    return;
+// 只計部分題的試卷（出處：docs/上榜被動模考_114年六科執行包.md、上榜被動複測_108年六科執行包.md）。
+// 其餘題只作邊界練習：照樣顯示題目與題解，但不評分、不計入總分。
+const MOCK_EXAM_SCORED_SUBSETS = {
+  '114-06': {
+    qids: ['EE-114-06-1', 'EE-114-06-5'],
+    note: '114 年工業配電只計第 1、5 題（各 20 分，合計 40 分）；第 2、3、4 題只作邊界練習，不評分、不計入本卷估計，總分以 40 分為滿分，不換算成 100 分。'
+  },
+  '108-02': {
+    qids: ['EE-108-02-1', 'EE-108-02-2', 'EE-108-02-3', 'EE-108-02-4'],
+    note: '108 年電子學只計第 1～4 題（各 20 分，合計 80 分）；第 5 題只作邊界練習，不評分、不計入本卷估計，總分以 80 分為滿分，不換算成 100 分。'
   }
+};
 
-  let modal = document.getElementById('mock-grading-modal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'mock-grading-modal';
-    modal.className = 'modal-backdrop';
-    document.body.appendChild(modal);
-  }
+let mockExamState = null;
 
-  const questions = currentLoadedMockExam.questions;
-  const questionsHtml = questions.map((q, qIdx) => {
-    const qid = q[0];
-    const qnum = q[3];
-    return `
-      <div class="rubric-question-card" style="border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px; background: var(--surface);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h4 style="color: var(--accent-dark); margin: 0;">第 ${qIdx + 1} 大題 (${qid}) · 配分 25 分</h4>
-          <span style="font-weight: 700; color: var(--accent);" id="q-subtotal-${qIdx}">得分：25 / 25</span>
-        </div>
-        <div class="rubric-steps-grid">
-          ${DEFAULT_RUBRIC_STEPS.map((step, sIdx) => `
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--line);">
-              <div>
-                <strong>${step.label} (${step.maxPts}分)</strong>
-                <div style="font-size: 0.8rem; color: var(--muted);">${step.desc}</div>
-              </div>
-              <div style="display: flex; align-items: center; gap: 6px;">
-                <input type="number" min="0" max="${step.maxPts}" value="${step.maxPts}"
-                  data-qidx="${qIdx}" data-sidx="${sIdx}" class="rubric-score-input"
-                  oninput="updateMockRubricTotalScore()"
-                  style="width: 55px; text-align: center; padding: 4px; border: 1px solid var(--line-strong); border-radius: 4px;">
-                <span style="font-size: 0.85rem; color: var(--muted);">/ ${step.maxPts}</span>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  modal.innerHTML = `
-    <div class="modal-content" style="max-width: 720px; max-height: 90vh; overflow-y: auto;">
-      <div class="modal-header">
-        <h3>📋 模考成績單與申論步驟分自評尺規（滿分 100 分）</h3>
-        <button type="button" class="btn-close" onclick="closeMockGradingModal()">✕</button>
-      </div>
-      <div class="modal-body">
-        <div style="background: var(--bg-secondary); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <div style="font-size: 0.9rem; color: var(--muted);">本次模考：${currentLoadedMockExam.subjectIcon} ${currentLoadedMockExam.subjectName}（${currentLoadedMockExam.year} 年）</div>
-            <div style="font-size: 0.85rem; color: var(--muted);">耗時：${formatTime(MOCK_EXAM_TIMER_DURATION_SECONDS - examTimerSeconds)}</div>
-          </div>
-          <div style="text-align: right;">
-            <div style="font-size: 0.85rem; color: var(--muted);">自評總分</div>
-            <div id="rubric-grand-total" style="font-size: 1.8rem; font-weight: 800; color: var(--success);">100 / 100</div>
-          </div>
-        </div>
-        ${questionsHtml}
-      </div>
-      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
-        <span id="rubric-pass-status" style="font-weight: 700; color: var(--success);">🎉 達到專技高考及格標準 (>= 60 分)</span>
-        <div style="display: flex; gap: 10px;">
-          <button type="button" class="btn-pdf" onclick="closeMockGradingModal()">取消</button>
-          <button type="button" class="btn-sol" onclick="commitMockGradingResult()">💾 保存成績並結算</button>
-        </div>
-      </div>
-    </div>
-  `;
-
-  modal.classList.add('show');
-  updateMockRubricTotalScore();
+function mockExamEscape(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]
+  ));
 }
 
-function closeMockGradingModal() {
-  const modal = document.getElementById('mock-grading-modal');
-  if (modal) modal.classList.remove('show');
+function mockExamRound(value) {
+  return Math.round((Number(value) || 0) * 100) / 100;
 }
 
-function updateMockRubricTotalScore() {
-  if (!currentLoadedMockExam || !currentLoadedMockExam.questions) return 0;
-  const numQuestions = currentLoadedMockExam.questions.length;
-  let grandTotal = 0;
+function mockExamFormat(value) {
+  const n = mockExamRound(value);
+  return Number.isInteger(n) ? String(n) : String(n);
+}
 
-  for (let q = 0; q < numQuestions; q++) {
-    let qSubtotal = 0;
-    const inputs = document.querySelectorAll(`.rubric-score-input[data-qidx="${q}"]`);
-    inputs.forEach(inp => {
-      const val = Math.max(0, Math.min(Number(inp.max) || 25, Number(inp.value) || 0));
-      qSubtotal += val;
-    });
-    const subEl = document.getElementById(`q-subtotal-${q}`);
-    if (subEl) subEl.innerText = `得分：${qSubtotal} / 25`;
-    grandTotal += qSubtotal;
-  }
+/** 第一輪時間帽：0.9 分鐘 × 配分（四捨五入到 0.1 分鐘）。 */
+function mockExamTimeCap(points) {
+  return Math.round(Number(points) * MOCK_EXAM_TIME_CAP_PER_POINT * 10) / 10;
+}
 
-  const grandEl = document.getElementById('rubric-grand-total');
-  if (grandEl) grandEl.innerText = `${grandTotal} / 100`;
+function mockExamQidNumber(qid) {
+  const m = /-(\d+)$/.exec(String(qid || ''));
+  return m ? Number(m[1]) : 0;
+}
 
-  const statusEl = document.getElementById('rubric-pass-status');
-  if (statusEl) {
-    if (grandTotal >= 60) {
-      statusEl.style.color = 'var(--success)';
-      statusEl.innerText = '🎉 達到專技高考及格標準 (>= 60 分)';
-    } else {
-      statusEl.style.color = 'var(--warn)';
-      statusEl.innerText = `⚠️ 距離及格門檻還差 ${60 - grandTotal} 分，建議針對失分大題二刷`;
-    }
-  }
+function mockExamQidParts(qid) {
+  const m = /^EE-(\d+)-(\d+)-(\d+)$/.exec(String(qid || ''));
+  return m ? { year: m[1], sid: m[2], num: Number(m[3]) } : null;
+}
 
-  return grandTotal;
+/** 與 todayTaskPdfUrl 相同：取檔名，指向 data/official_pdfs/pe/。 */
+function mockExamPdfUrl(pdf) {
+  if (!pdf) return '';
+  const name = String(pdf).split('/').pop();
+  return name ? 'data/official_pdfs/pe/' + encodeURIComponent(name) : '';
+}
+
+function mockExamPoints(qid, pointsTable) {
+  const table = pointsTable || (typeof QUESTION_POINTS !== 'undefined' ? QUESTION_POINTS : null);
+  const entry = table && table[qid];
+  return entry && Number.isFinite(Number(entry.total)) ? Number(entry.total) : 0;
 }
 
 /**
- * Commits self-grading result to localStorage history.
+ * 組卷。rows 為 DB_DATA.questions 的列 [qid, sid, year, num, topic, tags, solLink, pdfLink, ...]。
+ * 回傳題目（依題號）、配分、時間帽、是否計分，以及總分／計分總分。
  */
-function commitMockGradingResult() {
-  const grandTotal = updateMockRubricTotalScore();
-  const passed = grandTotal >= 60;
-  const durationSecs = MOCK_EXAM_TIMER_DURATION_SECONDS - examTimerSeconds;
-
-  const record = {
-    id: `MOCK_${Date.now()}`,
-    date: new Date().toISOString(),
-    subjectId: currentLoadedMockExam.subjectId,
-    subjectName: currentLoadedMockExam.subjectName,
-    subjectIcon: currentLoadedMockExam.subjectIcon,
-    year: currentLoadedMockExam.year,
-    durationSeconds: durationSecs,
-    score: grandTotal,
-    passed,
-    questionsCount: currentLoadedMockExam.questions.length,
-    qids: currentLoadedMockExam.questions.map(q => q[0])
+function mockExamPaper(rows, year, subjectId, pointsTable) {
+  const y = String(year);
+  const sid = String(subjectId);
+  const list = (rows || []).filter(r => r && String(r[1]) === sid && String(r[2]) === y)
+    .sort((a, b) => Number(a[3]) - Number(b[3]));
+  const subset = MOCK_EXAM_SCORED_SUBSETS[`${y}-${sid}`] || null;
+  const items = list.map(r => {
+    const points = mockExamPoints(r[0], pointsTable);
+    const scored = !subset || subset.qids.indexOf(r[0]) >= 0;
+    return {
+      qid: r[0], num: Number(r[3]), points, timeCap: mockExamTimeCap(points), scored,
+      topic: r[4], solLink: r[6], pdfLink: r[7]
+    };
+  });
+  const total = items.reduce((s, it) => s + it.points, 0);
+  const scoredTotal = items.filter(it => it.scored).reduce((s, it) => s + it.points, 0);
+  return {
+    key: `${y}-${sid}`, year: y, subjectId: sid, items, total, scoredTotal,
+    scoredQids: items.filter(it => it.scored).map(it => it.qid),
+    scoringNote: subset ? subset.note : '',
+    pdfUrl: list.length ? mockExamPdfUrl(list[0][7]) : '',
+    reminder: MOCK_EXAM_REMINDER
   };
-
-  saveMockExamResult(record);
-  closeMockGradingModal();
-  pauseExamTimer();
-
-  // Refresh history UI
-  const histContainer = document.getElementById('mock-history-container');
-  if (histContainer) {
-    histContainer.innerHTML = renderMockExamHistoryListHtml();
-  }
-
-  showToast(`💾 模考成績 ${grandTotal} 分已保存！${passed ? '🎉 及格！' : '持續加油！'}`);
 }
 
-function getMockExamHistory() {
-  const storage = getMockExamTimerStorage();
-  if (!storage) return [];
+function mockExamNewId(year, subjectId, timestamp) {
+  return `${year}-${subjectId}-${Number.isFinite(Number(timestamp)) ? Number(timestamp) : Date.now()}`;
+}
+
+function mockExamParseId(mockId) {
+  const m = /^(\d+)-(\d+)-(\d+)$/.exec(String(mockId || ''));
+  return m ? { year: m[1], subjectId: m[2], timestamp: Number(m[3]) } : null;
+}
+
+/** 同一題多筆紀錄取最新一筆。 */
+function mockExamLatestPerQid(records) {
+  const byQid = {};
+  (records || []).forEach(r => {
+    if (!r || !r.qid) return;
+    if (!byQid[r.qid] || Number(r.at) >= Number(byQid[r.qid].at)) byQid[r.qid] = r;
+  });
+  return byQid;
+}
+
+/**
+ * 單一模考（同 mockId）的紀錄 → 總結。
+ * 先修這題＝△／× 的題目中配分最高者；同分取題號最早者。
+ */
+function mockExamSummary(records) {
+  const byQid = mockExamLatestPerQid(records);
+  const qids = Object.keys(byQid).sort((a, b) => mockExamQidNumber(a) - mockExamQidNumber(b));
+  const perQuestion = qids.map(qid => {
+    const r = byQid[qid];
+    const marks = (r.parts || []).map(p => p.mark);
+    const total = Number.isFinite(Number(r.total)) ? Number(r.total) : (r.parts || []).reduce((s, p) => s + Number(p.points || 0), 0);
+    const weak = marks.some(m => m === 'x' || m === 'tri');
+    return {
+      qid, num: mockExamQidNumber(qid), estimate: mockExamRound(r.estimate), total, marks,
+      weak, errors: (r.errors || []).slice(), at: Number(r.at) || 0
+    };
+  });
+  const errorTally = {};
+  perQuestion.forEach(q => q.errors.forEach(code => { errorTally[code] = (errorTally[code] || 0) + 1; }));
+  let fixFirst = null;
+  perQuestion.forEach(q => {
+    if (!q.weak) return;
+    if (!fixFirst || q.total > fixFirst.total) fixFirst = q;
+  });
+  return {
+    questionCount: perQuestion.length,
+    estimate: mockExamRound(perQuestion.reduce((s, q) => s + q.estimate, 0)),
+    total: perQuestion.reduce((s, q) => s + q.total, 0),
+    perQuestion, errorTally,
+    fixFirst: fixFirst ? { qid: fixFirst.qid, num: fixFirst.num, total: fixFirst.total, estimate: fixFirst.estimate } : null,
+    at: perQuestion.reduce((m, q) => Math.max(m, q.at), 0)
+  };
+}
+
+function mockExamExpectedQids(year, subjectId, rows, pointsTable) {
+  if (!rows) return null;
+  const paper = mockExamPaper(rows, year, subjectId, pointsTable);
+  return paper.items.length ? paper.scoredQids : null;
+}
+
+function mockExamActiveRows() {
+  return typeof DB_DATA !== 'undefined' && DB_DATA && DB_DATA.questions ? DB_DATA.questions : null;
+}
+
+/** 依 mockId 分組所有模考紀錄，回傳每份模考的總結與完成度。 */
+function mockExamGroups(records, rows, pointsTable) {
+  const groups = {};
+  (records || []).forEach(r => {
+    if (!r || !r.mockId) return;
+    (groups[r.mockId] = groups[r.mockId] || []).push(r);
+  });
+  return Object.keys(groups).map(mockId => {
+    const parsed = mockExamParseId(mockId);
+    const summary = mockExamSummary(groups[mockId]);
+    const parts = mockExamQidParts(groups[mockId][0].qid);
+    const year = parsed ? parsed.year : (parts ? parts.year : '');
+    const subjectId = parsed ? parsed.subjectId : (parts ? parts.sid : '');
+    const expected = mockExamExpectedQids(year, subjectId, rows, pointsTable);
+    const saved = summary.perQuestion.map(q => q.qid);
+    const complete = expected ? expected.every(q => saved.indexOf(q) >= 0) : true;
+    return {
+      mockId, year, subjectId, at: summary.at || (parsed ? parsed.timestamp : 0),
+      summary, complete, expectedCount: expected ? expected.length : saved.length
+    };
+  }).sort((a, b) => b.at - a.at);
+}
+
+/** 歷史清單（新到舊）；未評完的標記 complete:false。 */
+function mockExamHistory(records, rows, pointsTable) {
+  return mockExamGroups(records, rows, pointsTable);
+}
+
+/**
+ * 給成績分頁：每科最近一次「評完」的整卷模考。
+ * 回傳 { [subjectId]: { mockId, year, estimate, total, scaled(0-100), at } }。
+ * 只計分子集（如 114 配電 40 分）時 total 為 40，scaled 已換算成百分制供與其他科比較。
+ */
+function latestMockScoreBySubject(records, rows, pointsTable) {
+  const out = {};
+  const groups = mockExamGroups(records, rows === undefined ? mockExamActiveRows() : rows, pointsTable);
+  groups.forEach(g => {
+    if (!g.complete || !g.summary.questionCount) return;
+    const cur = out[g.subjectId];
+    if (cur && cur.at >= g.at) return;
+    out[g.subjectId] = {
+      mockId: g.mockId, year: g.year, estimate: g.summary.estimate, total: g.summary.total,
+      scaled: g.summary.total ? mockExamRound(g.summary.estimate / g.summary.total * 100) : 0,
+      at: g.at
+    };
+  });
+  return out;
+}
+
+/** 114 模考／108 盲測捷徑：由排程代碼導出（MOCK114-0x、BLIND108-0x → 年度、科目）。 */
+function mockExamShortcuts(schedule) {
+  const tasks = schedule && schedule.tasks ? schedule.tasks : {};
+  const make = (kind, label, year) => ({
+    kind, label, year,
+    items: Object.keys(tasks).filter(code => tasks[code].kind === kind).map(code => {
+      const p = mockExamQidParts((tasks[code].qids || [])[0]);
+      return { code, year: p ? p.year : String(year), sid: p ? p.sid : '', title: tasks[code].subject || tasks[code].title || code };
+    })
+  });
+  return [make('mock114', '114 年模考', 114), make('blind108', '108 年盲測', 108)];
+}
+
+function mockExamCropUrl(qid) {
+  const crop = typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] || '' : '';
+  if (!crop) return '';
+  return typeof resolveImageMapUrl === 'function' ? resolveImageMapUrl(crop, false, qid) : crop;
+}
+
+function mockExamSubjects() {
+  const list = typeof DB_DATA !== 'undefined' && DB_DATA && DB_DATA.meta && DB_DATA.meta.subjects;
+  return Array.isArray(list) && list.length ? list : MOCK_EXAM_FALLBACK_SUBJECTS;
+}
+
+function mockExamSubjectName(sid) {
+  const s = mockExamSubjects().find(x => String(x.id) === String(sid));
+  return s ? s.name : sid;
+}
+
+function mockExamLegacyHistory() {
   try {
-    const raw = storage.getItem(MOCK_EXAM_HISTORY_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (typeof localStorage === 'undefined') return [];
+    const raw = localStorage.getItem(MOCK_EXAM_LEGACY_HISTORY_KEY);
+    const list = raw ? JSON.parse(raw) : [];
+    return Array.isArray(list) ? list : [];
   } catch (_) {
     return [];
   }
 }
 
-function saveMockExamResult(record) {
-  const storage = getMockExamTimerStorage();
-  if (!storage || !record) return;
-  try {
-    const history = getMockExamHistory();
-    history.unshift(record);
-    storage.setItem(MOCK_EXAM_HISTORY_STORAGE_KEY, JSON.stringify(history.slice(0, 50)));
-  } catch (_) {
-    // Storage fallback
-  }
+function mockExamDateText(ms) {
+  const d = new Date(ms);
+  if (isNaN(d.getTime())) return '';
+  const p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
-function renderMockExamHistoryListHtml() {
-  const history = getMockExamHistory();
-  if (!history || history.length === 0) {
-    return `
-      <div style="background: var(--bg); border: 1px dashed var(--line); border-radius: var(--radius); padding: 24px; text-align: center; color: var(--muted);">
-        <h4>📊 尚無全真模考成績紀錄</h4>
-        <p style="font-size: 0.85rem; margin-top: 6px;">完成一輪 120 分鐘模考並交卷自評後，此處將自動繪製成績與及格走勢。</p>
-      </div>
-    `;
-  }
+// ---------------------------------------------------------------- DOM
 
-  const rowsHtml = history.slice(0, 10).map(item => {
-    const passTag = item.passed
-      ? '<span style="background: var(--success-light); color: var(--success); padding: 3px 8px; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">及格通過</span>'
-      : '<span style="background: var(--review-light); color: var(--review); padding: 3px 8px; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">待加強</span>';
-    const dateStr = item.date ? new Date(item.date).toLocaleDateString('zh-TW') : '';
-    const minsTaken = Math.round(item.durationSeconds / 60);
+function mockExamHost() {
+  return typeof document !== 'undefined' ? document.getElementById('tab-pane-mock') : null;
+}
 
-    return `
-      <tr style="border-bottom: 1px solid var(--line);">
-        <td style="padding: 10px 12px;">${dateStr}</td>
-        <td style="padding: 10px 12px;"><strong>${item.subjectIcon || '📋'} ${item.subjectName}</strong> (${item.year} 年)</td>
-        <td style="padding: 10px 12px;">${minsTaken} 分鐘</td>
-        <td style="padding: 10px 12px; font-weight: 800; font-size: 1.1rem; color: ${item.passed ? 'var(--success)' : 'var(--warn)'};">${item.score} 分</td>
-        <td style="padding: 10px 12px;">${passTag}</td>
-      </tr>
-    `;
-  }).join('');
+function mockExamRecords() {
+  try { return typeof getResultRecords === 'function' ? getResultRecords({ source: 'mock' }) : []; } catch (_) { return []; }
+}
 
+function mockExamSolutionButton(item, label) {
+  return `<button type="button" class="mock-btn mock-btn-sol" data-mock-solution="${mockExamEscape(item.qid)}">${label || '📝 看題解'}</button>`;
+}
+
+function mockExamOpenSolution(qid) {
+  const r = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
+  if (!r || typeof openSolutionModal !== 'function') return;
+  openSolutionModal(null, r[6], qid, r[3], { mode: 'browse' });
+}
+
+function mockExamPickerHtml() {
+  const st = mockExamState;
+  const subjects = mockExamSubjects();
+  const sched = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null;
+  const shortcuts = mockExamShortcuts(sched).filter(s => s.items.length);
+  const shortcutHtml = shortcuts.map(s => `
+    <div class="mock-shortcut">
+      <strong>${mockExamEscape(s.label)}</strong>
+      ${s.items.map(it => `<button type="button" class="mock-chip" data-mock-pick="${mockExamEscape(it.year)}:${mockExamEscape(it.sid)}" title="排程代碼 ${mockExamEscape(it.code)}">${mockExamEscape(it.code)} ${mockExamEscape(it.title)}</button>`).join('')}
+    </div>`).join('');
   return `
-    <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);">
-      <h4 style="color: var(--accent-dark); margin-bottom: 14px;">📈 歷史模考成績單與實力軌跡（近 10 次）</h4>
-      <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
-          <thead>
-            <tr style="background: var(--bg-secondary); text-align: left; color: var(--muted); border-bottom: 2px solid var(--line);">
-              <th style="padding: 8px 12px;">日期</th>
-              <th style="padding: 8px 12px;">考科與年度</th>
-              <th style="padding: 8px 12px;">作答耗時</th>
-              <th style="padding: 8px 12px;">自評總分</th>
-              <th style="padding: 8px 12px;">及格狀態</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rowsHtml}
-          </tbody>
-        </table>
-      </div>
+    <div class="mock-picker">
+      <label>年度
+        <select id="mock-year">${MOCK_EXAM_YEARS.map(y => `<option value="${y}"${String(y) === st.year ? ' selected' : ''}>${y} 年</option>`).join('')}</select>
+      </label>
+      <label>科目
+        <select id="mock-subject">${subjects.map(s => `<option value="${mockExamEscape(s.id)}"${String(s.id) === st.sid ? ' selected' : ''}>${mockExamEscape(s.icon || '')} ${mockExamEscape(s.id)}. ${mockExamEscape(s.name)}</option>`).join('')}</select>
+      </label>
+      <button type="button" class="mock-btn mock-btn-primary" data-mock-load>載入試卷</button>
     </div>
-  `;
+    <div class="mock-shortcuts">${shortcutHtml}</div>`;
 }
 
-loadMockExamTimerState();
+function mockExamPaperHtml(paper) {
+  const st = mockExamState;
+  const graded = st.phase === 'grading';
+  const rows = mockExamActiveRows() || [];
+  if (!paper.items.length) return '<p class="mock-empty">查無這份試卷的題目。</p>';
+  const scoreText = paper.scoredTotal === paper.total ? `${paper.total} 分` : `計分 ${paper.scoredTotal} 分（全卷 ${paper.total} 分）`;
+  const head = `
+    <div class="mock-paper-head">
+      <h3>📋 ${mockExamEscape(paper.year)} 年 ${mockExamEscape(mockExamSubjectName(paper.subjectId))}</h3>
+      <p class="mock-meta">共 ${paper.items.length} 題 · ${scoreText}</p>
+      <p class="mock-reminder">${mockExamEscape(paper.reminder)}（共 120 分鐘；請自行計時）</p>
+      ${paper.scoringNote ? `<p class="mock-scoring-note" role="note">${mockExamEscape(paper.scoringNote)}</p>` : ''}
+      <div class="mock-paper-actions">
+        ${paper.pdfUrl ? `<a class="mock-btn" href="${mockExamEscape(paper.pdfUrl)}" target="_blank" rel="noopener">📄 開啟官方試卷 PDF</a>` : ''}
+        ${graded ? '<span class="mock-total" id="mock-running-total" aria-live="polite"></span>' : '<button type="button" class="mock-btn mock-btn-primary" data-mock-submit>🏁 交卷</button>'}
+      </div>
+    </div>`;
+  const cards = paper.items.map(it => {
+    const crop = mockExamCropUrl(it.qid);
+    const cap = `第一輪時間帽 ≈ ${mockExamFormat(it.timeCap)} 分鐘`;
+    return `
+    <article class="mock-q${it.scored ? '' : ' mock-q-unscored'}" data-mock-q="${mockExamEscape(it.qid)}">
+      <div class="mock-q-head">
+        <span class="mock-q-title">第 ${it.num} 題 <small>${mockExamEscape(it.qid)}</small></span>
+        <span class="mock-q-points">${it.scored ? `${mockExamFormat(it.points)} 分` : '不計分（邊界練習）'}</span>
+        <span class="mock-q-cap">${mockExamEscape(cap)}</span>
+      </div>
+      ${crop ? `<img class="mock-q-crop" src="${mockExamEscape(crop)}" alt="${mockExamEscape(it.qid)} 本題裁切圖" loading="lazy">` : '<p class="mock-empty">尚未建立本題裁切圖，請看官方 PDF。</p>'}
+      ${graded ? `<div class="mock-q-after">${mockExamSolutionButton(it)}<span class="mock-q-state" data-mock-state="${mockExamEscape(it.qid)}"></span></div><div class="mock-q-card" data-mock-card="${mockExamEscape(it.qid)}"></div>` : ''}
+    </article>`;
+  }).join('');
+  return head + `<div class="mock-q-list">${cards}</div>` + (graded ? '<div id="mock-summary"></div>' : '');
+}
+
+function mockExamHistoryHtml() {
+  const rows = mockExamActiveRows();
+  const hist = mockExamHistory(mockExamRecords(), rows);
+  const legacy = mockExamLegacyHistory();
+  let body = '';
+  if (!hist.length) body += '<p class="mock-empty">尚無模考紀錄。交卷並評完所有題目後會出現在這裡。</p>';
+  else {
+    body += '<table class="mock-history-table"><thead><tr><th>日期</th><th>試卷</th><th>本卷估計</th></tr></thead><tbody>' + hist.map(h => `
+      <tr><td>${mockExamEscape(mockExamDateText(h.at))}</td>
+      <td>${mockExamEscape(h.year)} 年 ${mockExamEscape(mockExamSubjectName(h.subjectId))}</td>
+      <td>${h.complete ? `<strong>${mockExamFormat(h.summary.estimate)}／${mockExamFormat(h.summary.total)}</strong>` : `<span class="mock-incomplete">未評完（${h.summary.questionCount}／${h.expectedCount} 題）</span>`}</td></tr>`).join('') + '</tbody></table>';
+  }
+  if (legacy.length) {
+    body += '<h4 class="mock-legacy-title">舊版紀錄（唯讀）</h4><table class="mock-history-table mock-legacy"><thead><tr><th>日期</th><th>試卷</th><th>當時自評</th></tr></thead><tbody>' + legacy.slice(0, 20).map(item => `
+      <tr><td>${mockExamEscape(item && item.date ? mockExamDateText(item.date) : '')}</td>
+      <td>${mockExamEscape(item && item.year)} 年 ${mockExamEscape(item && item.subjectName)}</td>
+      <td>${mockExamEscape(item && item.score)} 分</td></tr>`).join('') + '</tbody></table>';
+  }
+  return `<section class="mock-history"><h3>📈 模考紀錄</h3>${body}</section>`;
+}
+
+function mockExamPaperNow() {
+  return mockExamPaper(mockExamActiveRows(), mockExamState.year, mockExamState.sid);
+}
+
+function mockExamRender() {
+  const host = mockExamHost();
+  if (!host) return;
+  if (!mockExamState) mockExamState = { year: '114', sid: '01', phase: 'pick', mockId: null, loaded: false };
+  const st = mockExamState;
+  const paper = st.loaded ? mockExamPaperNow() : null;
+  host.innerHTML = `
+    <div class="mock-exam-box" id="mock-exam-root">
+      <h2 class="mock-title">📄 模考</h2>
+      <p class="mock-sub">整卷閉卷、自己手動計時；交卷後逐題標 ○△×，系統只估分、標出先修題。</p>
+      ${mockExamPickerHtml()}
+      <div id="mock-paper">${paper ? mockExamPaperHtml(paper) : ''}</div>
+      <div id="mock-history">${mockExamHistoryHtml()}</div>
+    </div>`;
+  if (paper && st.phase === 'grading') mockExamMountCards(paper);
+}
+
+function mockExamSavedRecords() {
+  const st = mockExamState;
+  return mockExamRecords().filter(r => r.mockId === st.mockId);
+}
+
+function mockExamUpdateProgress(paper) {
+  const saved = mockExamLatestPerQid(mockExamSavedRecords());
+  paper.items.forEach(it => {
+    const stateEl = document.querySelector(`[data-mock-state="${it.qid}"]`);
+    if (stateEl) {
+      const r = saved[it.qid];
+      stateEl.textContent = !it.scored ? '邊界練習：只核對假設與條件式' : (r ? `已保存：${mockExamFormat(r.estimate)}／${mockExamFormat(r.total)} 分` : '尚未評分');
+    }
+  });
+  const sum = mockExamSummary(Object.keys(saved).filter(q => paper.scoredQids.indexOf(q) >= 0).map(q => saved[q]));
+  const totalEl = document.getElementById('mock-running-total');
+  if (totalEl) totalEl.textContent = `本卷估計 ${mockExamFormat(sum.estimate)}／${mockExamFormat(paper.scoredTotal)}（已評 ${sum.questionCount}／${paper.scoredQids.length} 題）`;
+  const done = paper.scoredQids.every(q => saved[q]);
+  const box = document.getElementById('mock-summary');
+  if (box) box.innerHTML = done ? mockExamSummaryHtml(paper, sum) : '';
+  const hist = document.getElementById('mock-history');
+  if (hist) hist.innerHTML = mockExamHistoryHtml();
+}
+
+function mockExamSummaryHtml(paper, sum) {
+  const tally = Object.keys(sum.errorTally).sort((a, b) => sum.errorTally[b] - sum.errorTally[a] || a.localeCompare(b));
+  const labels = typeof RESULT_CARD_ERROR_LABELS !== 'undefined' ? RESULT_CARD_ERROR_LABELS : {};
+  const fix = sum.fixFirst;
+  return `
+    <section class="mock-summary" aria-label="本卷總結">
+      <h3>本卷估計 ${mockExamFormat(sum.estimate)}／${mockExamFormat(paper.scoredTotal)}</h3>
+      <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分${q.weak ? ' <span class="mock-weak">△／×</span>' : ' <span class="mock-ok">○</span>'}</li>`).join('')}</ul>
+      <p class="mock-tally"><strong>錯因統計：</strong>${tally.length ? tally.map(c => `${mockExamEscape(c)} ${mockExamEscape(labels[c] || '')} ×${sum.errorTally[c]}`).join('、') : '未選錯因'}</p>
+      ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '📝 開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
+      <button type="button" class="mock-btn" data-mock-reset>換一份試卷</button>
+    </section>`;
+}
+
+function mockExamMountCards(paper) {
+  const st = mockExamState;
+  paper.items.forEach(it => {
+    if (!it.scored) return;
+    const mount = document.querySelector(`[data-mock-card="${it.qid}"]`);
+    if (!mount || typeof openResultCard !== 'function') return;
+    const saved = mockExamLatestPerQid(mockExamSavedRecords())[it.qid];
+    if (saved) return;
+    openResultCard({
+      qid: it.qid, source: 'mock', mockId: st.mockId, mount,
+      onSaved: () => mockExamUpdateProgress(paper)
+    });
+  });
+  mockExamUpdateProgress(paper);
+}
+
+function mockExamSubmit() {
+  const st = mockExamState;
+  if (!st || !st.loaded) return;
+  const paper = mockExamPaperNow();
+  if (!paper.items.length) return;
+  st.phase = 'grading';
+  st.mockId = mockExamNewId(st.year, st.sid, Date.now());
+  mockExamRender();
+}
+
+function mockExamLoad(year, sid) {
+  if (year) mockExamState.year = String(year);
+  if (sid) mockExamState.sid = String(sid);
+  mockExamState.phase = 'paper';
+  mockExamState.loaded = true;
+  mockExamState.mockId = null;
+  mockExamRender();
+}
+
+function mockExamOnClick(event) {
+  const t = event.target && event.target.closest ? event.target.closest('button') : null;
+  const host = mockExamHost();
+  if (!t || !host || !host.contains(t)) return;
+  if (t.hasAttribute('data-mock-load')) {
+    const y = document.getElementById('mock-year');
+    const s = document.getElementById('mock-subject');
+    mockExamLoad(y && y.value, s && s.value);
+  } else if (t.hasAttribute('data-mock-pick')) {
+    const [y, s] = t.getAttribute('data-mock-pick').split(':');
+    mockExamLoad(y, s);
+  } else if (t.hasAttribute('data-mock-submit')) {
+    mockExamSubmit();
+  } else if (t.hasAttribute('data-mock-solution')) {
+    mockExamOpenSolution(t.getAttribute('data-mock-solution'));
+  } else if (t.hasAttribute('data-mock-reset')) {
+    mockExamState.loaded = false;
+    mockExamState.phase = 'pick';
+    mockExamRender();
+    host.scrollIntoView && host.scrollIntoView({ block: 'start' });
+  }
+}
+
+function initMockExam() {
+  const host = mockExamHost();
+  if (!host || host.__mockExamReady) return;
+  host.__mockExamReady = true;
+  host.addEventListener('click', mockExamOnClick);
+  mockExamRender();
+}
+
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMockExam);
+  else initMockExam();
+}
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
-    MOCK_EXAM_TIMER_DURATION_SECONDS,
-    MOCK_EXAM_TIMER_STORAGE_KEY,
-    MOCK_EXAM_HISTORY_STORAGE_KEY,
-    formatTime,
-    getMockExamPacingInfo,
-    startExamTimer,
-    pauseExamTimer,
-    resetExamTimer,
-    updateExamTimerFromClock,
-    getMockExamTimerState,
-    loadMockExamTimerState,
-    saveMockExamResult,
-    getMockExamHistory,
-    DEFAULT_RUBRIC_STEPS
+    MOCK_EXAM_YEARS, MOCK_EXAM_REMINDER, MOCK_EXAM_SCORED_SUBSETS,
+    mockExamTimeCap, mockExamPdfUrl, mockExamPaper, mockExamNewId, mockExamParseId,
+    mockExamSummary, mockExamHistory, latestMockScoreBySubject, mockExamShortcuts, initMockExam
   };
 }
 
 
-// === src/components/mockExam.js ===
-// src/components/mockExam.js — WP5b (mock exam tab without timer)
-
-
 // === src/components/scoreboard.js ===
 // src/components/scoreboard.js — WP6 (成績 tab)
+/**
+ * 成績看板：每科「模考實測／練習估計／目標」、距離 360／375、錯因分布＋一行下一步、主攻／基本分得分率。
+ * 純函式（scoreboardCompute 等）＋ renderScoreboard(container)。
+ * Depends on: QUESTION_POINTS, TARGET_ALLOCATION, studyPlan.js, resultCardStore.js (getResultRecords).
+ */
+
+const SCOREBOARD_WINDOW_DAYS = 21;
+const SCOREBOARD_MIN_QUESTIONS = 3;
+const SCOREBOARD_MIN_ERRORS = 3;
+const SCOREBOARD_SUBJECTS = ['01', '02', '03', '04', '05', '06'];
+const SCOREBOARD_ROLE_LABELS = { high: '衝高分', combined: '合併準備', basic: '基本分' };
+const SCOREBOARD_ERROR_CODES = ['R', 'S', 'F', 'C', 'K', 'U', 'T'];
+const SCOREBOARD_ERROR_NAMES = { R: '題型', S: '起手式', F: '公式', C: '計算', K: '觀念', U: '單位方向', T: '時間' };
+// Tie-break priority when several codes share the top count.
+const SCOREBOARD_NEXT_PRIORITY = ['S', 'C', 'F', 'K', 'T', 'U', 'R'];
+const SCOREBOARD_NEXT_STEPS = {
+  S: '卡在起手式：先用四段蓋牌第②段與起手式急救卡',
+  C: '計算錯：每題留 1 分鐘回代驗算',
+  F: '公式或觀念：回到本章主攻題的核心公式',
+  K: '公式或觀念：回到本章主攻題的核心公式',
+  T: '時間不夠：照配分時間帽換題',
+  U: '單位方向：結論前檢查單位、正負與相角',
+  R: '題型判錯：先寫已知、所求、適用章節再動筆'
+};
+const SCOREBOARD_EMPTY_TEXT = '還沒有作答結果。到「今天」或「模考」完成題目後，用作答結果卡保存，分數就會出現在這裡。';
+
+function scoreboardEscape_(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]
+  ));
+}
+
+function scoreboardRound1_(n) { return Math.round(n * 10) / 10; }
+
+function scoreboardSubjectOf_(qid) {
+  const m = /^EE-(\d+)-(\d+)-(\d+)$/.exec(String(qid || ''));
+  return m ? m[2] : null;
+}
+
+function scoreboardYearOf_(qid) {
+  const m = /^EE-(\d+)-(\d+)-(\d+)$/.exec(String(qid || ''));
+  return m ? m[1] : null;
+}
+
+function scoreboardPoints_() {
+  return typeof QUESTION_POINTS !== 'undefined' && QUESTION_POINTS ? QUESTION_POINTS : {};
+}
+
+function scoreboardTierOf_(qid, fallback) {
+  try {
+    if (typeof studyTierFor === 'function') {
+      const t = studyTierFor(qid);
+      if (t === 'main' || t === 'basic') return t;
+    }
+  } catch (_) { /* fall through */ }
+  return fallback === 'basic' ? 'basic' : 'main';
+}
+
+function scoreboardTargetOf_(subjectId) {
+  try { if (typeof targetFor === 'function') return targetFor(subjectId); } catch (_) { /* none */ }
+  return null;
+}
+
+function scoreboardRoleOf_(subjectId) {
+  try { if (typeof studyRoleFor === 'function') return studyRoleFor(subjectId); } catch (_) { /* none */ }
+  return null;
+}
+
+function scoreboardNameOf_(subjectId) {
+  try {
+    if (typeof TARGET_ALLOCATION !== 'undefined' && TARGET_ALLOCATION.subjects[subjectId]) {
+      return TARGET_ALLOCATION.subjects[subjectId].name;
+    }
+  } catch (_) { /* none */ }
+  return '科目' + subjectId;
+}
+
+/** Share of exam points by tier for a subject over all past papers (QUESTION_POINTS + tiers). */
+function scoreboardTierShares(subjectId) {
+  const points = scoreboardPoints_();
+  const sums = { main: 0, basic: 0 };
+  Object.keys(points).forEach(qid => {
+    if (scoreboardSubjectOf_(qid) !== subjectId) return;
+    const total = Number(points[qid] && points[qid].total) || 0;
+    sums[scoreboardTierOf_(qid)] += total;
+  });
+  const all = sums.main + sums.basic;
+  return all > 0 ? { main: sums.main / all, basic: sums.basic / all } : { main: 0, basic: 0 };
+}
+
+function scoreboardLatestPerQuestion_(records) {
+  const latest = {};
+  records.forEach(r => {
+    if (!latest[r.qid] || r.at >= latest[r.qid].at) latest[r.qid] = r;
+  });
+  return latest;
+}
+
+/**
+ * Latest complete mock for one subject. Records of source 'mock' are grouped by mockId; a group counts
+ * for a subject when every scored question of that paper (same year and subject in QUESTION_POINTS)
+ * has a record. Returns { mockId, estimate, at } or null.
+ */
+function scoreboardMockForSubject(records, subjectId) {
+  const points = scoreboardPoints_();
+  const groups = {};
+  records.forEach(r => {
+    if (r.source !== 'mock' || !r.mockId || scoreboardSubjectOf_(r.qid) !== subjectId) return;
+    (groups[r.mockId] = groups[r.mockId] || []).push(r);
+  });
+  let best = null;
+  Object.keys(groups).forEach(mockId => {
+    const list = groups[mockId];
+    const year = scoreboardYearOf_(list[0].qid);
+    const expected = Object.keys(points).filter(q => scoreboardYearOf_(q) === year && scoreboardSubjectOf_(q) === subjectId);
+    if (!expected.length) return;
+    const latest = scoreboardLatestPerQuestion_(list);
+    if (!expected.every(q => latest[q])) return;
+    const estimate = expected.reduce((s, q) => s + (Number(latest[q].estimate) || 0), 0);
+    const at = Math.max.apply(null, expected.map(q => latest[q].at));
+    if (!best || at > best.at) best = { mockId, estimate: scoreboardRound1_(estimate), at };
+  });
+  return best;
+}
+
+/** Practice projection (0–100) from non-mock, non-legacy records of the window; null when < 3 questions. */
+function scoreboardPracticeForSubject(windowRecords, subjectId) {
+  const list = windowRecords.filter(r => r.source !== 'mock' && !r.legacy && scoreboardSubjectOf_(r.qid) === subjectId);
+  const latest = scoreboardLatestPerQuestion_(list);
+  const qids = Object.keys(latest);
+  if (qids.length < SCOREBOARD_MIN_QUESTIONS) return { projection: null, questions: qids.length };
+  const shares = scoreboardTierShares(subjectId);
+  const agg = { main: { sum: 0, n: 0 }, basic: { sum: 0, n: 0 } };
+  qids.forEach(q => {
+    const r = latest[q];
+    const total = Number(r.total) || 0;
+    if (total <= 0) return;
+    const tier = scoreboardTierOf_(q, r.tier);
+    agg[tier].sum += (Number(r.estimate) || 0) / total;
+    agg[tier].n += 1;
+  });
+  // Renormalise over tiers that have data so a missing tier does not drag the projection to 0.
+  let weight = 0;
+  let acc = 0;
+  ['main', 'basic'].forEach(t => {
+    if (!agg[t].n) return;
+    weight += shares[t];
+    acc += shares[t] * (agg[t].sum / agg[t].n);
+  });
+  if (weight <= 0) return { projection: null, questions: qids.length };
+  return { projection: scoreboardRound1_(100 * acc / weight), questions: qids.length };
+}
+
+function scoreboardErrorsForSubject(windowRecords, subjectId) {
+  const counts = {};
+  SCOREBOARD_ERROR_CODES.forEach(c => { counts[c] = 0; });
+  windowRecords.forEach(r => {
+    if (r.legacy || scoreboardSubjectOf_(r.qid) !== subjectId) return;
+    (r.errors || []).forEach(c => { if (c in counts) counts[c] += 1; });
+  });
+  return counts;
+}
+
+/** One 「下一步」 line from the dominant error code, or null when fewer than 3 errors. */
+function scoreboardNextStep(counts) {
+  const total = SCOREBOARD_ERROR_CODES.reduce((s, c) => s + (counts[c] || 0), 0);
+  if (total < SCOREBOARD_MIN_ERRORS) return null;
+  let top = null;
+  SCOREBOARD_NEXT_PRIORITY.forEach(c => {
+    if (counts[c] > 0 && (top === null || counts[c] > counts[top])) top = c;
+  });
+  return top ? SCOREBOARD_NEXT_STEPS[top] : null;
+}
+
+function scoreboardTierRates(windowRecords, subjectId) {
+  const acc = { main: { got: 0, total: 0 }, basic: { got: 0, total: 0 } };
+  windowRecords.forEach(r => {
+    if (r.legacy || scoreboardSubjectOf_(r.qid) !== subjectId) return;
+    const total = Number(r.total) || 0;
+    if (total <= 0) return;
+    const tier = scoreboardTierOf_(r.qid, r.tier);
+    acc[tier].got += Number(r.estimate) || 0;
+    acc[tier].total += total;
+  });
+  const rate = a => (a.total > 0 ? Math.round(100 * a.got / a.total) : null);
+  return { main: rate(acc.main), basic: rate(acc.basic) };
+}
+
+function scoreboardDistanceText(total, line) {
+  const diff = scoreboardRound1_(line - total);
+  return diff > 0 ? `還差 ${diff} 分` : `已超過 ${scoreboardRound1_(-diff)} 分`;
+}
+
+function scoreboardCompute(records, now) {
+  const all = Array.isArray(records) ? records : [];
+  const nowMs = Number.isFinite(now) ? now : Date.now();
+  const since = nowMs - SCOREBOARD_WINDOW_DAYS * 86400000;
+  const windowRecords = all.filter(r => r.at >= since && r.at <= nowMs + 86400000);
+  const subjects = SCOREBOARD_SUBJECTS.map(id => {
+    const mock = scoreboardMockForSubject(all, id);
+    const practice = scoreboardPracticeForSubject(windowRecords, id);
+    const errors = scoreboardErrorsForSubject(windowRecords, id);
+    const role = scoreboardRoleOf_(id);
+    return {
+      id, name: scoreboardNameOf_(id), role, roleLabel: SCOREBOARD_ROLE_LABELS[role] || '',
+      target: scoreboardTargetOf_(id), mock, practice: practice.projection, practiceQuestions: practice.questions,
+      errors, nextStep: scoreboardNextStep(errors), rates: scoreboardTierRates(windowRecords, id)
+    };
+  });
+  const mocked = subjects.filter(s => s.mock);
+  const mockTotal = mocked.length ? scoreboardRound1_(mocked.reduce((s, x) => s + x.mock.estimate, 0)) : null;
+  let estTotal = 0;
+  let estCount = 0;
+  subjects.forEach(s => {
+    const v = s.mock ? s.mock.estimate : s.practice;
+    s.estimate = v;
+    s.estimateFrom = s.mock ? 'mock' : (s.practice !== null ? 'practice' : null);
+    if (v !== null && v !== undefined) { estTotal += v; estCount += 1; }
+  });
+  estTotal = estCount ? scoreboardRound1_(estTotal) : null;
+  const passLine = typeof PASS_LINE !== 'undefined' ? PASS_LINE : 360;
+  const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 375;
+  return {
+    empty: all.length === 0,
+    hasData: estCount > 0,
+    subjects, mockTotal, mockCount: mocked.length,
+    mockDistance: mocked.length === subjects.length ? { pass: scoreboardDistanceText(mockTotal, passLine), goal: scoreboardDistanceText(mockTotal, goal) } : null,
+    estimateTotal: estTotal, estimateCount: estCount,
+    estimateDistance: estCount ? { pass: scoreboardDistanceText(estTotal, passLine), goal: scoreboardDistanceText(estTotal, goal) } : null,
+    passLine, goal
+  };
+}
+
+function scoreboardSummaryFromModel_(model) {
+  if (!model.hasData) return '估計總分：尚無資料';
+  return `估計總分 ${Math.round(model.estimateTotal)}／${model.goal}`;
+}
+
+function scoreboardReadRecords_(options) {
+  if (options && Array.isArray(options.records)) return options.records;
+  try { return typeof getResultRecords === 'function' ? getResultRecords() : []; } catch (_) { return []; }
+}
+
+/** Header one-liner for WP7: 「估計總分 X／375」 or 「估計總分：尚無資料」. */
+function scoreboardSummaryLine(options) {
+  return scoreboardSummaryFromModel_(scoreboardCompute(scoreboardReadRecords_(options), options && options.now));
+}
+
+function scoreboardDate_(at) {
+  const d = new Date(at);
+  return `${d.getMonth() + 1}/${d.getDate()}`;
+}
+
+function scoreboardBarHtml_(s) {
+  const pct = v => Math.max(0, Math.min(100, v));
+  const mockW = s.mock ? pct(s.mock.estimate) : 0;
+  const prW = s.practice !== null ? pct(s.practice) : 0;
+  const tgt = s.target !== null && s.target !== undefined ? pct(s.target) : null;
+  return `<div class="sb-bar" aria-hidden="true">
+    <div class="sb-track"><span class="sb-fill sb-fill--mock" style="width:${mockW}%"></span></div>
+    <div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div>
+    ${tgt !== null ? `<span class="sb-target" style="left:${tgt}%"></span>` : ''}
+  </div>`;
+}
+
+function scoreboardSubjectHtml_(s) {
+  const e = scoreboardEscape_;
+  const mockText = s.mock ? `${s.mock.estimate} 分（${scoreboardDate_(s.mock.at)}）` : '未考';
+  const prText = s.practice !== null ? `${Math.round(s.practice)} 分（偏樂觀）` : `資料不足（${s.practiceQuestions}／${SCOREBOARD_MIN_QUESTIONS} 題）`;
+  const tgtText = s.target !== null && s.target !== undefined ? `${s.target} 分` : '—';
+  const errTotal = SCOREBOARD_ERROR_CODES.reduce((n, c) => n + s.errors[c], 0);
+  const errChips = SCOREBOARD_ERROR_CODES.filter(c => s.errors[c] > 0)
+    .map(c => `<span class="sb-chip">${c} ${e(SCOREBOARD_ERROR_NAMES[c])} ${s.errors[c]}</span>`).join('');
+  const rateText = r => (r === null ? '—' : `${r}%`);
+  return `<article class="sb-subject" data-subject="${e(s.id)}">
+    <div class="sb-subject-head"><h3>${e(s.name)}</h3><span class="sb-role sb-role--${e(s.role || '')}">${e(s.roleLabel)}</span></div>
+    ${scoreboardBarHtml_(s)}
+    <dl class="sb-nums">
+      <div><dt>模考實測</dt><dd>${e(mockText)}</dd></div>
+      <div><dt>練習估計</dt><dd>${e(prText)}</dd></div>
+      <div><dt>目標</dt><dd>${e(tgtText)}</dd></div>
+    </dl>
+    <p class="sb-rates">近 ${SCOREBOARD_WINDOW_DAYS} 天得分率：主攻 ${rateText(s.rates.main)}｜基本分 ${rateText(s.rates.basic)}</p>
+    <p class="sb-errors">${errTotal ? `錯因：${errChips}` : '錯因：近期無記錄'}</p>
+    ${s.nextStep ? `<p class="sb-next"><strong>下一步</strong>　${e(s.nextStep)}</p>` : ''}
+  </article>`;
+}
+
+function scoreboardTotalsHtml_(m) {
+  const e = scoreboardEscape_;
+  const missing = m.subjects.filter(s => s.mock === null).map(s => s.name);
+  const mockLine = m.mockCount
+    ? `${m.mockTotal} 分${m.mockCount < m.subjects.length ? `（${m.mockCount}／${m.subjects.length} 科，未考：${missing.join('、')}）` : ''}`
+    : '尚無整卷模考';
+  const mockDist = m.mockDistance ? `；距 ${m.passLine}：${m.mockDistance.pass}，距 ${m.goal}：${m.mockDistance.goal}` : '';
+  let estLine = '尚無資料';
+  if (m.hasData) {
+    const lacking = m.subjects.filter(s => s.estimate === null).map(s => s.name);
+    estLine = `${m.estimateTotal} 分${lacking.length ? `（未含無資料：${lacking.join('、')}）` : ''}`;
+  }
+  const estDist = m.estimateDistance ? `距 ${m.passLine}：${m.estimateDistance.pass}；距 ${m.goal}：${m.estimateDistance.goal}` : '';
+  return `<section class="sb-totals" aria-label="合計">
+    <div class="sb-total"><span class="sb-total-label">模考實測合計</span><strong>${e(mockLine)}</strong><small>${e(mockDist.replace(/^；/, ''))}</small></div>
+    <div class="sb-total"><span class="sb-total-label">預估總分（有模考用模考，否則用練習估計）</span><strong>${e(estLine)}</strong><small>${e(estDist)}</small></div>
+  </section>`;
+}
+
+function renderScoreboard(container, options) {
+  if (!container) return null;
+  const model = scoreboardCompute(scoreboardReadRecords_(options), options && options.now);
+  const body = model.empty
+    ? `<p class="sb-empty">${scoreboardEscape_(SCOREBOARD_EMPTY_TEXT)}</p>`
+    : `${scoreboardTotalsHtml_(model)}<div class="sb-grid">${model.subjects.map(scoreboardSubjectHtml_).join('')}</div>
+       <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。基本分題 ○ 只計 50%。</p>`;
+  container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
+    <h2 class="sb-title">成績</h2>
+    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${body}</section>`;
+  return model;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    scoreboardCompute, scoreboardSummaryLine, scoreboardTierShares, scoreboardMockForSubject,
+    scoreboardPracticeForSubject, scoreboardNextStep, scoreboardEscape_, renderScoreboard
+  };
+}
 
 
 // === src/components/dailyPractice.js ===
@@ -36991,6 +37347,40 @@ let dailyPracticeSubject = 'all';
 let dailyPracticeState = null;
 let dailyPracticeHomeMode = 'continue';
 let dailyPracticeLastSummary = null;
+
+// 選題方式: 'weighted' (依目標分配, default) | 'all' (全部隨機) | a PE subject id.
+const DAILY_PRACTICE_MODE_KEY = 'EE_EXAM_DAILY_PRACTICE_MODE_V1';
+
+function dailyPracticeLoadMode() {
+  try {
+    const value = typeof localStorage !== 'undefined' ? localStorage.getItem(DAILY_PRACTICE_MODE_KEY) : null;
+    if (value === 'all' || (value && value !== 'weighted' && dailyPracticeSubjects('PE').some(item => String(item.id) === value))) return value;
+  } catch (_) { /* fall back to the default */ }
+  return 'weighted';
+}
+
+function dailyPracticeSaveMode(mode) {
+  try { if (typeof localStorage !== 'undefined') localStorage.setItem(DAILY_PRACTICE_MODE_KEY, String(mode)); } catch (_) { /* optional */ }
+}
+
+function dailyPracticeSetMode(mode) {
+  dailyPracticeSaveMode(mode);
+}
+
+function dailyPracticeModeSelectHtml() {
+  const mode = dailyPracticeLoadMode();
+  const opts = [['weighted', '依目標分配'], ['all', '全部隨機']].concat(
+    dailyPracticeSubjects('PE').map(subject => [String(subject.id), '只練 ' + (subject.icon || '📘') + ' ' + subject.name]));
+  return '<label class="daily-practice-mode">選題方式<select id="daily-practice-mode" onchange="dailyPracticeSetMode(this.value)">' +
+    opts.map(([value, label]) => '<option value="' + dailyPracticeEscape(value) + '"' + (value === mode ? ' selected' : '') + '>' + dailyPracticeEscape(label) + '</option>').join('') +
+    '</select></label>';
+}
+
+function dailyPracticeTierBadge(qid) {
+  const tier = typeof studyTierFor === 'function' ? studyTierFor(qid) : null;
+  if (tier !== 'main' && tier !== 'basic') return '';
+  return '<span class="tier-badge tier-' + tier + '" title="' + (tier === 'main' ? '主攻：此章要拿滿分' : '基本分：寫出骨架即可拿分') + '">' + (tier === 'main' ? '主攻' : '基本分') + '</span>';
+}
 
 function dailyPracticeEscape(value) {
   return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
@@ -37026,7 +37416,9 @@ function dailyPracticeSubjects(category) {
   const data = category === 'GK'
     ? (typeof NATIONAL_EXAMS_DATA !== 'undefined' ? NATIONAL_EXAMS_DATA : null)
     : (typeof DB_DATA !== 'undefined' ? DB_DATA : null);
-  return data && Array.isArray(data.subjects) ? data.subjects : [];
+  if (data && Array.isArray(data.subjects)) return data.subjects;
+  // Production PE bundle keeps the subject list under DB_DATA.meta.subjects.
+  return data && data.meta && Array.isArray(data.meta.subjects) ? data.meta.subjects : [];
 }
 
 function dailyPracticeSubjectLabel(category, subjectId) {
@@ -37104,29 +37496,37 @@ function dailyPracticeSetCategory(category) {
     ? dailyPracticeSubject : 'all';
 }
 
+function dailyPracticeBuildQueue(mode, questions, loaded) {
+  const base = {
+    count: 3,
+    now: Date.now(),
+    completionByQuestion: loaded.state.completionByQuestion,
+    chapterOf: question => dailyPracticeFacet(question, 'chapter'),
+    typeOf: question => dailyPracticeFacet(question, 'type'),
+  };
+  if (mode === 'weighted' && typeof createWeightedPracticeQueue === 'function') {
+    return createWeightedPracticeQueue(questions, base);
+  }
+  if (typeof createDailyPracticeQueue !== 'function') return [];
+  return createDailyPracticeQueue(questions, Object.assign({ subjectId: mode === 'all' || mode === 'weighted' ? 'all' : mode }, base));
+}
+
+// One click: pick 3 questions by the remembered mode and open the first one.
 function dailyPracticeStart() {
-  const categorySelect = document.getElementById('daily-practice-category');
-  const subjectSelect = document.getElementById('daily-practice-subject');
-  const category = categorySelect ? categorySelect.value : (dailyPracticeCategory || 'PE');
-  const subjectId = subjectSelect ? subjectSelect.value : 'all';
+  // The selector saves its value on change, so the remembered mode is the single source.
+  const mode = dailyPracticeLoadMode();
+  const category = 'PE';
+  const subjectId = mode === 'all' || mode === 'weighted' ? 'all' : mode;
   const loaded = dailyPracticeLoad();
-  const queue = typeof createDailyPracticeQueue === 'function'
-    ? createDailyPracticeQueue(dailyPracticeQuestions(category), {
-      subjectId: subjectId,
-      count: 3,
-      now: Date.now(),
-      completionByQuestion: loaded.state.completionByQuestion,
-      chapterOf: question => dailyPracticeFacet(question, 'chapter'),
-      typeOf: question => dailyPracticeFacet(question, 'type'),
-    }) : [];
+  const queue = dailyPracticeBuildQueue(mode, dailyPracticeQuestions(category), loaded);
   if (!queue.length) {
-    showToast('目前範圍沒有可安排的每日練習題。');
+    showToast('目前範圍沒有可安排的隨機練習題。');
     return;
   }
   const session = createPracticeSession(category, subjectId, queue, { now: Date.now() });
   const result = typeof savePracticeSession === 'function' ? savePracticeSession(session) : { ok: false };
   if (!result.ok) {
-    showToast(result.error || '每日練習進度無法儲存。');
+    showToast(result.error || '練習進度無法儲存。');
     return;
   }
   dailyPracticeCategory = category;
@@ -37134,6 +37534,7 @@ function dailyPracticeStart() {
   dailyPracticeView = 'question';
   dailyPracticeHomeMode = 'continue';
   dailyPracticeLastSummary = null;
+  if (typeof switchTab === 'function') switchTab('practice');
   initDailyPracticeHome();
 }
 
@@ -37146,12 +37547,9 @@ function dailyPracticeContinue() {
 }
 
 function dailyPracticePrepareNewRound() {
-  dailyPracticeHomeMode = 'start';
+  // No intermediate screen: start a round straight away with the remembered mode.
   dailyPracticeLastSummary = null;
-  if (typeof switchTab === 'function') switchTab('practice');
-  else initDailyPracticeHome();
-  const category = document.getElementById('daily-practice-category');
-  if (category && typeof category.focus === 'function') category.focus();
+  dailyPracticeStart();
 }
 
 function dailyPracticeFindQuestions() {
@@ -37203,7 +37601,7 @@ function dailyPracticeDefer() {
     showToast(result.error || '本題進度無法儲存。');
     return;
   }
-  showToast('已保留本題進度；完成詳解自評後才會進入下一題。');
+  showToast('已保留本題進度；記錄作答結果後才會進入下一題。');
 }
 
 // Compatibility guard for old bookmarks: this never advances or completes.
@@ -37255,6 +37653,50 @@ function dailyPracticeRestoreOpenModal(question) {
   }
 }
 
+function dailyPracticeFinishQuestion(session, qid) {
+  const nextIndex = session.currentIndex + 1;
+  const nextSession = nextIndex >= session.questionIds.length ? null : JSON.parse(JSON.stringify(session));
+  if (nextSession) nextSession.currentIndex = nextIndex;
+  const result = typeof commitPracticeProgress === 'function'
+    ? commitPracticeProgress(nextSession, qid, Date.now())
+    : { ok: false, error: '每日練習進度模組尚未載入。' };
+  if (!result.ok) { showToast(result.error || '每日練習進度無法儲存。'); return false; }
+  dailyPracticeState = result.state;
+  if (!nextSession) {
+    dailyPracticeLastSummary = {
+      category: session.category, subjectId: session.subjectId, total: session.questionIds.length,
+      completed: session.questionIds.length, qids: session.questionIds.slice()
+    };
+    dailyPracticeHomeMode = 'summary';
+    showToast('🎉 本輪隨機練習已完成！');
+  } else {
+    dailyPracticeView = 'question';
+    dailyPracticeHomeMode = 'continue';
+  }
+  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+  if (typeof closeSolutionModal === 'function') closeSolutionModal();
+  initDailyPracticeHome();
+  return true;
+}
+
+// Called by the 作答結果卡 (source 'random') after a successful save at stage ④.
+function dailyPracticeCompleteFromResultCard(record, achievedLevel) {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  if (!session) return false;
+  const qid = session.questionIds[session.currentIndex];
+  if (!qid || !record || String(record.qid || '') !== String(qid)) {
+    showToast('目前詳解題號與練習題號不一致，未完成本題。');
+    return false;
+  }
+  const level = achievedLevel === undefined ? dailyPracticeGetRecallProgress(qid) : Number(achievedLevel) || 0;
+  if (level < 4) {
+    showToast('請先完成第 ④ 段完整推導，再記錄結果。');
+    return false;
+  }
+  return dailyPracticeFinishQuestion(session, qid);
+}
+
+// Legacy entry (1/3/5 self-rating); the result card replaced it in the default flow.
 function dailyPracticeCompleteFromModal(rating, achievedLevel, modalQid) {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   if (!session) return false;
@@ -37267,26 +37709,7 @@ function dailyPracticeCompleteFromModal(rating, achievedLevel, modalQid) {
     showToast('請先完成第 ④ 段完整推導，再進行自評。');
     return false;
   }
-  const nextIndex = session.currentIndex + 1;
-  const nextSession = nextIndex >= session.questionIds.length ? null : JSON.parse(JSON.stringify(session));
-  if (nextSession) nextSession.currentIndex = nextIndex;
-  const result = typeof commitPracticeProgress === 'function'
-    ? commitPracticeProgress(nextSession, qid, Date.now())
-    : { ok: false, error: '每日練習進度模組尚未載入。' };
-  if (!result.ok) { showToast(result.error || '每日練習進度無法儲存。'); return false; }
-  dailyPracticeState = result.state;
-  if (!nextSession) {
-    dailyPracticeLastSummary = { category: session.category, subjectId: session.subjectId, total: session.questionIds.length, completed: session.questionIds.length };
-    dailyPracticeHomeMode = 'summary';
-    showToast('🎉 本輪每日練習已完成！');
-  } else {
-    dailyPracticeView = 'question';
-    dailyPracticeHomeMode = 'continue';
-  }
-  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
-  if (typeof closeSolutionModal === 'function') closeSolutionModal();
-  initDailyPracticeHome();
-  return true;
+  return dailyPracticeFinishQuestion(session, qid);
 }
 
 function dailyPracticeApplyCompletedAttempt(qid, nextAction) {
@@ -37325,6 +37748,32 @@ function dailyPracticeScheduleFollowUp(qid, button) {
   if (typeof showToast === 'function') showToast(result.ok ? `${result.message} 下次：${result.nextReviewDate}` : result.message);
 }
 
+// Round summary built from the saved 作答結果卡 records (estimate per question).
+function dailyPracticeSummaryItems(qids) {
+  return (Array.isArray(qids) ? qids : []).map(qid => {
+    const record = typeof latestRecordFor === 'function' ? latestRecordFor(qid) : null;
+    const tier = typeof studyTierFor === 'function' ? studyTierFor(qid) : null;
+    return {
+      qid, tier,
+      recorded: !!record,
+      estimate: record ? record.estimate : null,
+      total: record ? record.total : null,
+      text: record ? '估計 ' + (Math.round(record.estimate * 100) / 100) + '／' + (Math.round(record.total * 100) / 100) + ' 分' : '未記錄',
+      full: !!record && record.estimate >= record.total
+    };
+  });
+}
+
+function dailyPracticeSummaryEstimateRows(qids) {
+  const items = dailyPracticeSummaryItems(qids);
+  if (!items.length) return '<p class="daily-practice-muted">本輪沒有可顯示的作答結果。</p>';
+  const sum = items.reduce((n, item) => n + (item.estimate || 0), 0);
+  const total = items.reduce((n, item) => n + (item.total || 0), 0);
+  return '<div class="daily-practice-result-list">' + items.map(item =>
+    '<article class="daily-practice-result-item"><div><strong>' + dailyPracticeEscape(dailyPracticeQuestionLabel(item.qid)) + '</strong> ' + dailyPracticeTierBadge(item.qid) + '<code>' + dailyPracticeEscape(item.qid) + '</code></div><span class="daily-practice-estimate">' + dailyPracticeEscape(item.text) + '</span></article>'
+  ).join('') + '</div><p class="daily-practice-total">本輪合計：估計 ' + (Math.round(sum * 100) / 100) + '／' + (Math.round(total * 100) / 100) + ' 分</p>';
+}
+
 function dailyPracticeSummaryRows(results) {
   if (!Array.isArray(results) || !results.length) return '<p class="daily-practice-muted">本輪沒有可顯示的逐題自評。</p>';
   const labels = { 1: '🔴 無法完成', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
@@ -37346,7 +37795,7 @@ function dailyPracticeSolutionButton() {
 function dailyPracticeGetCompletionPrompt() {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   const isLast = session && session.currentIndex >= session.questionIds.length - 1;
-  return isLast ? '自評即完成本題，並查看本輪摘要' : '自評即完成本題，並進入下一題';
+  return isLast ? '記錄作答結果即完成本題，並查看本輪摘要' : '記錄作答結果即完成本題，並進入下一題';
 }
 
 function renderDailyPractice(container, error) {
@@ -37360,12 +37809,13 @@ function renderDailyPractice(container, error) {
   }
   if (dailyPracticeLastSummary && dailyPracticeHomeMode === 'summary') {
     const summary = dailyPracticeLastSummary;
+    const items = summary.qids ? dailyPracticeSummaryItems(summary.qids) : [];
     container.innerHTML = '<section class="daily-practice-shell daily-practice-summary" aria-live="polite">' +
       '<span class="eyebrow">本輪完成摘要</span><h2>🎉 完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
-      '<p>' + dailyPracticeEscape(summary.category) + ' · ' + (summary.subjectId === 'all' ? '跨科混合' : dailyPracticeEscape(dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
-      dailyPracticeSummaryRows(summary.results) +
-      '<div class="daily-practice-actions"><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
-      ((summary.results || []).some(item => item.rating < 5) ? '<button class="btn-pdf" type="button" onclick="dailyPracticeOpenErrorList()">查看需二刷題目</button>' : '') +
+      '<p>' + dailyPracticeEscape(summary.category) + ' · ' + (summary.subjectId === 'all' ? '隨機練習' : dailyPracticeEscape(dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
+      (summary.qids ? dailyPracticeSummaryEstimateRows(summary.qids) : dailyPracticeSummaryRows(summary.results)) +
+      '<div class="daily-practice-actions">' + dailyPracticeModeSelectHtml() + '<button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
+      ((summary.qids ? items.some(item => !item.full) : (summary.results || []).some(item => item.rating < 5)) ? '<button class="btn-pdf" type="button" onclick="dailyPracticeOpenErrorList()">查看需二刷題目</button>' : '') +
       '<button class="btn-pdf" type="button" onclick="dailyPracticeFindQuestions()">找其他題目</button></div></section>';
     return;
   }
@@ -37374,13 +37824,9 @@ function renderDailyPractice(container, error) {
       ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
       : '';
     container.innerHTML = '<section class="daily-practice-shell">' +
-      '<div class="daily-practice-heading"><div><span class="eyebrow">第二階段練習入口</span><h2>🎯 今日練習</h2><p>每輪 3 題，優先分散章節與題型，避開 7 天內已完成的題目。</p></div></div>' +
-      '<div class="daily-practice-start-card"><label>考別<select id="daily-practice-category" onchange="dailyPracticeSetCategory(this.value)"><option value="PE">電機工程技師（PE）</option><option value="GK">國考同級題庫（GK）</option></select></label>' +
-      '<label>範圍<select id="daily-practice-subject"></select></label><button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeStart()">▶ 開始 3 題練習</button></div>' +
-      activeNote + '<p class="daily-practice-note">查看題目或詳解不會算完成；必須完成第 ④ 段並自評後，才會進入 7 天避重紀錄。</p></section>';
-    const categorySelect = document.getElementById('daily-practice-category');
-    if (categorySelect) categorySelect.value = dailyPracticeCategory;
-    dailyPracticeSetCategory(dailyPracticeCategory);
+      '<div class="daily-practice-heading"><div><span class="eyebrow">隨機練習</span><h2>🎲 隨機練習 3 題</h2><p>預設依目標分配抽題（主攻章多抽），避開 7 天內已完成的題目。</p></div></div>' +
+      '<div class="daily-practice-start-card">' + dailyPracticeModeSelectHtml() + '<button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticeStart()">▶ 開始 3 題練習</button></div>' +
+      activeNote + '<p class="daily-practice-note">查看題目或詳解不算完成；做完第 ④ 段並記錄作答結果後，才會進入 7 天避重紀錄。</p></section>';
     return;
   }
   const qid = question.id;
@@ -37394,7 +37840,7 @@ function renderDailyPractice(container, error) {
   const scrollPosition = session.scrollByQuestion[qid] || { question: 0, solution: 0 };
   const scrollTop = Number(scrollPosition[dailyPracticeView] || 0);
   container.innerHTML = '<section class="daily-practice-shell">' +
-    '<div class="daily-practice-heading"><div><span class="eyebrow">' + session.category + ' · ' + (session.subjectId === 'all' ? '跨科混合' : dailyPracticeSubjectLabel(session.category, session.subjectId)) + '</span><h2>🎯 今日練習 <span class="daily-practice-progress">' + progress + '</span></h2></div><div class="daily-practice-heading-actions"><button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">🎴 開始四段蓋牌</button><button class="btn-pdf" type="button" onclick="dailyPracticeStartOver()">結束本輪</button></div></div>' +
+    '<div class="daily-practice-heading"><div><span class="eyebrow">' + session.category + ' · ' + (session.subjectId === 'all' ? '跨科混合' : dailyPracticeSubjectLabel(session.category, session.subjectId)) + '</span><h2>🎲 隨機練習 <span class="daily-practice-progress">' + progress + '</span> ' + dailyPracticeTierBadge(qid) + '</h2></div><div class="daily-practice-heading-actions"><button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">🎴 開始四段蓋牌</button><button class="btn-pdf" type="button" onclick="dailyPracticeStartOver()">結束本輪</button></div></div>' +
     '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">📄 原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">📝 詳解</button></div>' +
     '<div class="daily-practice-scroll" onscroll="dailyPracticeScroll(event)" tabindex="0">' +
       (dailyPracticeView === 'question'
@@ -37553,9 +37999,17 @@ function todayTaskCurrentCode(state) {
   return null;
 }
 
-function todayTaskStart(state, now) {
-  const code = todayTaskCurrentCode(state);
-  if (!code || state.active) return state;
+// Start the current mandatory task, or (optionalCode) one of the optional EXT tasks.
+// Optional completion is tracked in `completed` but never moves `order` forward.
+function todayTaskStart(state, now, optionalCode) {
+  if (state.active) return state;
+  let code = todayTaskCurrentCode(state);
+  if (optionalCode) {
+    const t = DAILY_SCHEDULE.tasks[optionalCode];
+    if (!t || !t.optional || state.completed[optionalCode]) return state;
+    code = optionalCode;
+  }
+  if (!code) return state;
   return { completed: state.completed, active: { code, phaseIndex: 0, phaseStartedAt: now } };
 }
 
@@ -37597,8 +38051,18 @@ function todayTaskLocalDate(now) {
   return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
 }
 
+function todayTaskIsOptional(code) {
+  const t = DAILY_SCHEDULE.tasks[code];
+  return !!(t && t.optional);
+}
+
+// Mandatory work only; optional EXT codes never count toward pace or the day's requirement.
 function todayTaskWorkCodes(day) {
-  return day.codes.filter(c => TODAY_TASK_NON_WORK_CODES.indexOf(c) < 0);
+  return day.codes.filter(c => TODAY_TASK_NON_WORK_CODES.indexOf(c) < 0 && !todayTaskIsOptional(c));
+}
+
+function todayTaskOptionalCodes(day) {
+  return day ? day.codes.filter(c => todayTaskIsOptional(c)) : [];
 }
 
 function todayTaskPlan(state, todayIso) {
@@ -37614,14 +38078,16 @@ function todayTaskPlan(state, todayIso) {
   if (todayIso < first) pace = 'before';
   else if (diff > 0) pace = 'ahead';
   else if (diff < 0) pace = 'behind';
-  return { row, diff, pace, beforeStart: todayIso < first, afterEnd: todayIso > last, firstDate: first };
+  return { row, diff, pace, hasOptional: todayTaskOptionalCodes(row).length > 0, beforeStart: todayIso < first, afterEnd: todayIso > last, firstDate: first };
 }
 
 function todayTaskPlanText(plan) {
   let line = '';
   if (plan.row) {
     const work = todayTaskWorkCodes(plan.row);
-    line = work.length ? '今天日程建議：' + work.join('＋') : '今天日程：不開新題';
+    if (work.length) line = '今天日程建議：' + work.join('＋');
+    else if (plan.hasOptional) line = '今天日程：沒有必做的新題，有餘力再做選做擴章';
+    else line = '今天日程：不開新題';
   } else if (plan.beforeStart) {
     line = '日程自 ' + plan.firstDate + ' 開始';
   } else {
@@ -37645,6 +38111,7 @@ function todayTaskPhaseView(task, a, now) {
   const elapsed = Math.min(Math.max(0, now - a.phaseStartedAt), total);
   const remainingMs = total - elapsed;
   const closed = !!phase.closed;
+  const isReview = !closed && /核對|對照/.test(phase.label);
   return {
     code: task.code,
     phaseIndex: a.phaseIndex,
@@ -37660,6 +38127,10 @@ function todayTaskPhaseView(task, a, now) {
     questionQids: (phase.qids || task.qids).slice(),
     // Solution entry points. Empty (and never rendered) while a closed-book phase runs.
     solutionQids: closed ? [] : task.qids.slice(),
+    isReview,
+    // 作答結果卡: one card per QID, recorded right after checking.
+    resultQids: isReview ? task.qids.slice() : [],
+    resultSource: task.optional ? 'ext' : 'today',
     pdfUrl: closed ? todayTaskPdfUrl(task) : '',
     scoringNote: task.scoringNote || '',
   };
@@ -37672,22 +38143,36 @@ function todayTaskViewModel(state, now) {
   const activeTask = state.active ? DAILY_SCHEDULE.tasks[state.active.code] : null;
   const view = activeTask ? todayTaskPhaseView(activeTask, state.active, now) : null;
   const rowCodes = plan.row ? plan.row.codes : [];
-  let mode;
   const code = todayTaskCurrentCode(state);
+  // Optional EXT task of today's row: secondary while earlier mandatory work is
+  // outstanding, primary once caught up (or when every mandatory task is done).
+  const extCode = todayTaskOptionalCodes(plan.row).find(c => !state.completed[c]) || null;
+  const extPrimary = !!extCode && (plan.diff >= 0 || !code);
+  let mode;
   if (rowCodes.indexOf('EXAM-CHECK') >= 0) mode = 'exam-check';
   else if (rowCodes.indexOf('STOP') >= 0 || plan.afterEnd) mode = 'stop';
-  else if (!code) mode = 'done';
+  else if (!code && !extPrimary && !view) mode = 'done';
   else mode = 'task';
-  const task = code ? DAILY_SCHEDULE.tasks[code] : null;
+  const primaryCode = extPrimary ? extCode : code;
+  const task = primaryCode ? DAILY_SCHEDULE.tasks[primaryCode] : null;
+  const extTask = extCode ? DAILY_SCHEDULE.tasks[extCode] : null;
   const total = DAILY_SCHEDULE.order.length;
   const doneCount = DAILY_SCHEDULE.order.filter(c => state.completed[c]).length;
+  const minutesOf = t => t ? t.phases.reduce((n, p) => n + p.minutes, 0) : 0;
   return {
     mode,
     planText,
     plan,
-    code,
+    // `code` is the card's current task (earliest uncompleted mandatory, or today's EXT when it is primary).
+    code: primaryCode,
+    mandatoryCode: code,
+    primaryIsOptional: !!task && !!task.optional,
     title: task ? task.title : '',
-    totalMinutes: task ? task.phases.reduce((n, p) => n + p.minutes, 0) : 0,
+    totalMinutes: minutesOf(task),
+    optional: extTask && !extPrimary ? {
+      code: extCode, title: extTask.title, topic: String(extTask.title).replace(/^擴章日｜/, ''),
+      minutes: minutesOf(extTask), text: '選做：' + extCode + '｜' + String(extTask.title).replace(/^擴章日｜/, '') + '（有餘力再做）'
+    } : null,
     doneCount,
     total,
     active: view,
@@ -37743,10 +38228,14 @@ function renderTodayTaskCard() {
   } else {
     const resume = vm.primaryAction === 'resume';
     const label = resume
-      ? '進行中：' + vm.code + '｜' + vm.activeTitle + '（' + vm.active.label + '）'
-      : '下一個任務：' + vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘';
+      ? '進行中：' + vm.active.code + '｜' + vm.activeTitle + '（' + vm.active.label + '）'
+      : (vm.primaryIsOptional ? '今天的選做任務：' : '下一個任務：') + vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘';
+    const optional = vm.optional && !resume
+      ? '<div class="today-task-optional"><span>' + todayTaskEscape(vm.optional.text) + '</span>' +
+        '<button type="button" class="btn-pdf today-task-optional-start" id="today-task-optional-start" onclick="todayTaskOnStartOptional(\'' + todayTaskEscape(vm.optional.code) + '\')">開始選做</button></div>'
+      : '';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">🎯 一鍵開始今天</span><strong>' + todayTaskEscape(label) + '</strong>' +
-      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p></div>' +
+      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + optional + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + (resume ? '繼續' : '開始') + '</button></div>';
   }
   host.innerHTML = '<section class="today-task-card" aria-label="今天的任務">' + body + plan + todayTaskStartFromHtml(vm) + '</section>';
@@ -37775,7 +38264,19 @@ function todayTaskOnStartFrom() {
 function todayTaskOnStart() {
   const state = todayTaskRefresh();
   if (!state.active) {
-    const next = todayTaskStart(state, Date.now());
+    const vm = todayTaskViewModel(state, Date.now());
+    const next = todayTaskStart(state, Date.now(), vm.primaryIsOptional ? vm.code : null);
+    if (next === state) return;
+    todayTaskCommit(next);
+  }
+  renderTodayTaskCard();
+  openTodayTaskOverlay();
+}
+
+function todayTaskOnStartOptional(code) {
+  const state = todayTaskRefresh();
+  if (!state.active) {
+    const next = todayTaskStart(state, Date.now(), code);
     if (next === state) return;
     todayTaskCommit(next);
   }
@@ -37805,6 +38306,12 @@ function todayTaskOverlayHtml(vm) {
     check = '<div class="today-task-check"><span>核對題解：</span>' + v.solutionQids.map(qid =>
       '<button type="button" class="btn-pdf" data-today-check="' + todayTaskEscape(qid) + '">核對 ' + todayTaskEscape(qid) + '</button>').join('') + '</div>';
   }
+  let resultSlot = '';
+  if (v.isReview && v.resultQids.length) {
+    resultSlot = '<div class="today-task-result" id="today-task-result"><div class="today-task-result-head"><span id="today-task-result-title"></span>' +
+      '<button type="button" class="btn-pdf" data-today-result-next title="先不記錄這題，看下一題">下一題</button></div>' +
+      '<div id="today-task-result-mount"></div></div>';
+  }
   const timerClass = v.expired ? 'today-task-timer is-expired' : 'today-task-timer';
   const timerText = v.expired ? '時間到' : todayTaskFormatClock(v.remainingMs);
   let controls;
@@ -37814,10 +38321,10 @@ function todayTaskOverlayHtml(vm) {
     controls = '<button type="button" class="today-task-start" data-today-act="next">' + (v.isLast ? '完成' : '下一步') + '</button>';
   }
   return '<div class="today-task-panel" role="dialog" aria-modal="true" aria-label="今天的任務">' +
-    '<header class="today-task-head"><div><span class="today-task-eyebrow">' + todayTaskEscape(vm.code) + '｜' + todayTaskEscape(vm.activeTitle) + '</span>' +
+    '<header class="today-task-head"><div><span class="today-task-eyebrow">' + todayTaskEscape(v.code) + '｜' + todayTaskEscape(vm.activeTitle) + '</span>' +
     '<strong>' + (v.phaseIndex + 1) + '／' + v.phaseCount + ' ' + todayTaskEscape(v.label) + (v.closed ? '（閉卷）' : '') + ' · ' + v.minutes + ' 分鐘</strong></div>' +
     '<div class="' + timerClass + '" id="today-task-timer" role="timer">' + timerText + '</div></header>' +
-    '<div class="today-task-body">' + note + figures + pdf + check + '</div>' +
+    '<div class="today-task-body">' + note + figures + pdf + check + resultSlot + '</div>' +
     '<footer class="today-task-foot">' + controls +
     '<button type="button" class="btn-pdf" data-today-act="leave">先離開</button>' +
     '<button type="button" class="btn-pdf" data-today-act="abandon">放棄本次</button></footer></div>';
@@ -37829,7 +38336,63 @@ function renderTodayTaskOverlay() {
   const state = todayTaskState || todayTaskRefresh();
   if (!state.active) { closeTodayTaskOverlay(); return; }
   const vm = todayTaskViewModel(state, Date.now());
+  todayTaskCloseResultCard();
   overlay.innerHTML = todayTaskOverlayHtml(vm);
+  if (vm.active.isReview) todayTaskMountResultCard(vm);
+}
+
+// ---- 作答結果卡 at the review phase: one QID at a time ---------------------
+
+let todayTaskResultFlow = { key: '', index: 0, saved: [] };
+let todayTaskResultHandle = null;
+
+function todayTaskCloseResultCard() {
+  if (todayTaskResultHandle && typeof todayTaskResultHandle.close === 'function') todayTaskResultHandle.close();
+  todayTaskResultHandle = null;
+}
+
+function todayTaskResultFlowFor(vm) {
+  const key = vm.active.code + ':' + vm.active.phaseIndex;
+  if (todayTaskResultFlow.key !== key) todayTaskResultFlow = { key, index: 0, saved: [] };
+  return todayTaskResultFlow;
+}
+
+function todayTaskMountResultCard(vm) {
+  const mount = document.getElementById('today-task-result-mount');
+  const title = document.getElementById('today-task-result-title');
+  if (!mount) return;
+  const flow = todayTaskResultFlowFor(vm);
+  const qids = vm.active.resultQids;
+  const nextButton = document.querySelector('[data-today-result-next]');
+  if (flow.index >= qids.length) {
+    if (title) title.textContent = '作答結果：已處理完 ' + qids.length + ' 題（記錄 ' + flow.saved.length + ' 題）';
+    if (nextButton) nextButton.hidden = true;
+    mount.innerHTML = '';
+    return;
+  }
+  const qid = qids[flow.index];
+  if (title) title.textContent = '記錄作答結果 ' + (flow.index + 1) + '／' + qids.length + '：' + qid;
+  if (nextButton) nextButton.hidden = false;
+  if (typeof openResultCard !== 'function') return;
+  todayTaskResultHandle = openResultCard({
+    qid, source: vm.active.resultSource, mount,
+    onSaved: () => {
+      if (flow.saved.indexOf(qid) < 0) flow.saved.push(qid);
+      todayTaskResultHandle = null;
+      todayTaskResultAdvance();
+    }
+  });
+}
+
+function todayTaskResultAdvance() {
+  const state = todayTaskState || todayTaskRefresh();
+  if (!state.active) return;
+  const vm = todayTaskViewModel(state, Date.now());
+  if (!vm.active.isReview) return;
+  const flow = todayTaskResultFlowFor(vm);
+  flow.index += 1;
+  todayTaskCloseResultCard();
+  todayTaskMountResultCard(vm);
 }
 
 function todayTaskTick() {
@@ -37840,7 +38403,9 @@ function todayTaskTick() {
   if (!el) return;
   if (vm.active.expired) {
     todayTaskStopTimer();
-    renderTodayTaskOverlay();
+    // A review phase hosts the result card: do not rebuild it (that would drop the marks).
+    if (vm.active.closed) renderTodayTaskOverlay();
+    else { el.textContent = '時間到'; el.classList.add('is-expired'); }
   } else {
     el.textContent = todayTaskFormatClock(vm.active.remainingMs);
   }
@@ -37865,6 +38430,7 @@ function openTodayTaskOverlay() {
 
 function closeTodayTaskOverlay() {
   todayTaskStopTimer();
+  todayTaskCloseResultCard();
   const overlay = document.getElementById('today-task-overlay');
   if (overlay) { overlay.style.display = 'none'; overlay.innerHTML = ''; }
   renderTodayTaskCard();
@@ -37873,6 +38439,7 @@ function closeTodayTaskOverlay() {
 function todayTaskOverlayClick(event) {
   const target = event.target && event.target.closest ? event.target.closest('button') : null;
   if (!target) return;
+  if (target.hasAttribute('data-today-result-next')) { todayTaskResultAdvance(); return; }
   const check = target.getAttribute('data-today-check');
   if (check) { todayTaskOpenSolution(check); return; }
   const act = target.getAttribute('data-today-act');

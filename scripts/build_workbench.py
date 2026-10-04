@@ -53,7 +53,6 @@ def build_workbench():
         'src/domain/knowledgeDiagnosis.js',
         'src/domain/weaknessProjection.js',
         'src/domain/passingProbability.js',
-        'src/domain/numericVerifier.js',
         'src/data/taxonomyAliases.js',
         'src/data/knowledge-dag.js',
         'src/data/knowledge-dag.generated.js',

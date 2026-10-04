@@ -190,6 +190,9 @@ function saveResultRecord(record, options) {
       try { sm2 = recordSM2Review(normalized.qid, rating); } catch (_) { sm2 = { ok: false, error: 'sm2_failed' }; }
     }
   }
+  if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+    try { window.dispatchEvent(new CustomEvent('result-card-saved', { detail: { qid: normalized.qid } })); } catch (_) { /* header refresh is best-effort */ }
+  }
   return { ok: true, error: null, record: normalized, sm2 };
 }
 

@@ -179,6 +179,47 @@ function createDailyPracticeQueue(questions, options = {}) {
   return chosen;
 }
 
+// 依目標分配: weighted random without replacement over PE candidates that were not
+// completed in the last seven days.  Weight comes from options.weightOf(qid) (default
+// practiceWeightFor from studyPlan.js); zero-weight questions are never drawn.  With fewer
+// than `count` eligible weighted candidates the plain random queue is returned instead.
+function createWeightedPracticeQueue(questions, options = {}) {
+  const count = Number.isInteger(options.count) && options.count > 0 ? options.count : 3;
+  const now = practiceResolveNow(options.now);
+  const random = typeof options.random === 'function' ? options.random : Math.random;
+  const weightOf = typeof options.weightOf === 'function'
+    ? options.weightOf
+    : (typeof practiceWeightFor === 'function' ? practiceWeightFor : () => 0);
+  const seenIds = new Set();
+  const pool = [];
+  (Array.isArray(questions) ? questions : []).forEach(question => {
+    const candidate = practiceCandidate(question, options);
+    if (!candidate || seenIds.has(candidate.id)) return;
+    seenIds.add(candidate.id);
+    if (!candidate.id.startsWith('EE-')) return;
+    const age = candidate.completedAt === null ? null : now - candidate.completedAt;
+    if (age !== null && age < DAILY_PRACTICE_RECENT_WINDOW_MS) return;
+    let weight = 0;
+    try { weight = Number(weightOf(candidate.id)); } catch (error) { weight = 0; }
+    if (Number.isFinite(weight) && weight > 0) pool.push({ id: candidate.id, weight });
+  });
+  if (pool.length < count) {
+    return createDailyPracticeQueue(questions, Object.assign({}, options, { count, random, now }));
+  }
+  const chosen = [];
+  while (chosen.length < count && pool.length) {
+    const total = pool.reduce((sum, item) => sum + item.weight, 0);
+    let pick = practiceRandomValue(random) * total;
+    let index = 0;
+    for (; index < pool.length - 1; index += 1) {
+      if (pick < pool[index].weight) break;
+      pick -= pool[index].weight;
+    }
+    chosen.push(pool.splice(index, 1)[0].id);
+  }
+  return chosen;
+}
+
 function createPracticeStoreState() {
   return {
     version: DAILY_PRACTICE_STORE_VERSION,
@@ -404,6 +445,7 @@ if (typeof module !== 'undefined' && module.exports) {
     DAILY_PRACTICE_STORE_VERSION,
     DAILY_PRACTICE_RECENT_WINDOW_MS,
     createDailyPracticeQueue,
+    createWeightedPracticeQueue,
     createPracticeStoreState,
     loadDailyPracticeStore,
     saveDailyPracticeStore,

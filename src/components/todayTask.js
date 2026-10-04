@@ -74,9 +74,17 @@ function todayTaskCurrentCode(state) {
   return null;
 }
 
-function todayTaskStart(state, now) {
-  const code = todayTaskCurrentCode(state);
-  if (!code || state.active) return state;
+// Start the current mandatory task, or (optionalCode) one of the optional EXT tasks.
+// Optional completion is tracked in `completed` but never moves `order` forward.
+function todayTaskStart(state, now, optionalCode) {
+  if (state.active) return state;
+  let code = todayTaskCurrentCode(state);
+  if (optionalCode) {
+    const t = DAILY_SCHEDULE.tasks[optionalCode];
+    if (!t || !t.optional || state.completed[optionalCode]) return state;
+    code = optionalCode;
+  }
+  if (!code) return state;
   return { completed: state.completed, active: { code, phaseIndex: 0, phaseStartedAt: now } };
 }
 
@@ -118,8 +126,18 @@ function todayTaskLocalDate(now) {
   return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
 }
 
+function todayTaskIsOptional(code) {
+  const t = DAILY_SCHEDULE.tasks[code];
+  return !!(t && t.optional);
+}
+
+// Mandatory work only; optional EXT codes never count toward pace or the day's requirement.
 function todayTaskWorkCodes(day) {
-  return day.codes.filter(c => TODAY_TASK_NON_WORK_CODES.indexOf(c) < 0);
+  return day.codes.filter(c => TODAY_TASK_NON_WORK_CODES.indexOf(c) < 0 && !todayTaskIsOptional(c));
+}
+
+function todayTaskOptionalCodes(day) {
+  return day ? day.codes.filter(c => todayTaskIsOptional(c)) : [];
 }
 
 function todayTaskPlan(state, todayIso) {
@@ -135,14 +153,16 @@ function todayTaskPlan(state, todayIso) {
   if (todayIso < first) pace = 'before';
   else if (diff > 0) pace = 'ahead';
   else if (diff < 0) pace = 'behind';
-  return { row, diff, pace, beforeStart: todayIso < first, afterEnd: todayIso > last, firstDate: first };
+  return { row, diff, pace, hasOptional: todayTaskOptionalCodes(row).length > 0, beforeStart: todayIso < first, afterEnd: todayIso > last, firstDate: first };
 }
 
 function todayTaskPlanText(plan) {
   let line = '';
   if (plan.row) {
     const work = todayTaskWorkCodes(plan.row);
-    line = work.length ? '今天日程建議：' + work.join('＋') : '今天日程：不開新題';
+    if (work.length) line = '今天日程建議：' + work.join('＋');
+    else if (plan.hasOptional) line = '今天日程：沒有必做的新題，有餘力再做選做擴章';
+    else line = '今天日程：不開新題';
   } else if (plan.beforeStart) {
     line = '日程自 ' + plan.firstDate + ' 開始';
   } else {
@@ -166,6 +186,7 @@ function todayTaskPhaseView(task, a, now) {
   const elapsed = Math.min(Math.max(0, now - a.phaseStartedAt), total);
   const remainingMs = total - elapsed;
   const closed = !!phase.closed;
+  const isReview = !closed && /核對|對照/.test(phase.label);
   return {
     code: task.code,
     phaseIndex: a.phaseIndex,
@@ -181,6 +202,10 @@ function todayTaskPhaseView(task, a, now) {
     questionQids: (phase.qids || task.qids).slice(),
     // Solution entry points. Empty (and never rendered) while a closed-book phase runs.
     solutionQids: closed ? [] : task.qids.slice(),
+    isReview,
+    // 作答結果卡: one card per QID, recorded right after checking.
+    resultQids: isReview ? task.qids.slice() : [],
+    resultSource: task.optional ? 'ext' : 'today',
     pdfUrl: closed ? todayTaskPdfUrl(task) : '',
     scoringNote: task.scoringNote || '',
   };
@@ -193,22 +218,36 @@ function todayTaskViewModel(state, now) {
   const activeTask = state.active ? DAILY_SCHEDULE.tasks[state.active.code] : null;
   const view = activeTask ? todayTaskPhaseView(activeTask, state.active, now) : null;
   const rowCodes = plan.row ? plan.row.codes : [];
-  let mode;
   const code = todayTaskCurrentCode(state);
+  // Optional EXT task of today's row: secondary while earlier mandatory work is
+  // outstanding, primary once caught up (or when every mandatory task is done).
+  const extCode = todayTaskOptionalCodes(plan.row).find(c => !state.completed[c]) || null;
+  const extPrimary = !!extCode && (plan.diff >= 0 || !code);
+  let mode;
   if (rowCodes.indexOf('EXAM-CHECK') >= 0) mode = 'exam-check';
   else if (rowCodes.indexOf('STOP') >= 0 || plan.afterEnd) mode = 'stop';
-  else if (!code) mode = 'done';
+  else if (!code && !extPrimary && !view) mode = 'done';
   else mode = 'task';
-  const task = code ? DAILY_SCHEDULE.tasks[code] : null;
+  const primaryCode = extPrimary ? extCode : code;
+  const task = primaryCode ? DAILY_SCHEDULE.tasks[primaryCode] : null;
+  const extTask = extCode ? DAILY_SCHEDULE.tasks[extCode] : null;
   const total = DAILY_SCHEDULE.order.length;
   const doneCount = DAILY_SCHEDULE.order.filter(c => state.completed[c]).length;
+  const minutesOf = t => t ? t.phases.reduce((n, p) => n + p.minutes, 0) : 0;
   return {
     mode,
     planText,
     plan,
-    code,
+    // `code` is the card's current task (earliest uncompleted mandatory, or today's EXT when it is primary).
+    code: primaryCode,
+    mandatoryCode: code,
+    primaryIsOptional: !!task && !!task.optional,
     title: task ? task.title : '',
-    totalMinutes: task ? task.phases.reduce((n, p) => n + p.minutes, 0) : 0,
+    totalMinutes: minutesOf(task),
+    optional: extTask && !extPrimary ? {
+      code: extCode, title: extTask.title, topic: String(extTask.title).replace(/^擴章日｜/, ''),
+      minutes: minutesOf(extTask), text: '選做：' + extCode + '｜' + String(extTask.title).replace(/^擴章日｜/, '') + '（有餘力再做）'
+    } : null,
     doneCount,
     total,
     active: view,
@@ -264,10 +303,14 @@ function renderTodayTaskCard() {
   } else {
     const resume = vm.primaryAction === 'resume';
     const label = resume
-      ? '進行中：' + vm.code + '｜' + vm.activeTitle + '（' + vm.active.label + '）'
-      : '下一個任務：' + vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘';
+      ? '進行中：' + vm.active.code + '｜' + vm.activeTitle + '（' + vm.active.label + '）'
+      : (vm.primaryIsOptional ? '今天的選做任務：' : '下一個任務：') + vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘';
+    const optional = vm.optional && !resume
+      ? '<div class="today-task-optional"><span>' + todayTaskEscape(vm.optional.text) + '</span>' +
+        '<button type="button" class="btn-pdf today-task-optional-start" id="today-task-optional-start" onclick="todayTaskOnStartOptional(\'' + todayTaskEscape(vm.optional.code) + '\')">開始選做</button></div>'
+      : '';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">🎯 一鍵開始今天</span><strong>' + todayTaskEscape(label) + '</strong>' +
-      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p></div>' +
+      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + optional + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + (resume ? '繼續' : '開始') + '</button></div>';
   }
   host.innerHTML = '<section class="today-task-card" aria-label="今天的任務">' + body + plan + todayTaskStartFromHtml(vm) + '</section>';
@@ -296,7 +339,19 @@ function todayTaskOnStartFrom() {
 function todayTaskOnStart() {
   const state = todayTaskRefresh();
   if (!state.active) {
-    const next = todayTaskStart(state, Date.now());
+    const vm = todayTaskViewModel(state, Date.now());
+    const next = todayTaskStart(state, Date.now(), vm.primaryIsOptional ? vm.code : null);
+    if (next === state) return;
+    todayTaskCommit(next);
+  }
+  renderTodayTaskCard();
+  openTodayTaskOverlay();
+}
+
+function todayTaskOnStartOptional(code) {
+  const state = todayTaskRefresh();
+  if (!state.active) {
+    const next = todayTaskStart(state, Date.now(), code);
     if (next === state) return;
     todayTaskCommit(next);
   }
@@ -326,6 +381,12 @@ function todayTaskOverlayHtml(vm) {
     check = '<div class="today-task-check"><span>核對題解：</span>' + v.solutionQids.map(qid =>
       '<button type="button" class="btn-pdf" data-today-check="' + todayTaskEscape(qid) + '">核對 ' + todayTaskEscape(qid) + '</button>').join('') + '</div>';
   }
+  let resultSlot = '';
+  if (v.isReview && v.resultQids.length) {
+    resultSlot = '<div class="today-task-result" id="today-task-result"><div class="today-task-result-head"><span id="today-task-result-title"></span>' +
+      '<button type="button" class="btn-pdf" data-today-result-next title="先不記錄這題，看下一題">下一題</button></div>' +
+      '<div id="today-task-result-mount"></div></div>';
+  }
   const timerClass = v.expired ? 'today-task-timer is-expired' : 'today-task-timer';
   const timerText = v.expired ? '時間到' : todayTaskFormatClock(v.remainingMs);
   let controls;
@@ -335,10 +396,10 @@ function todayTaskOverlayHtml(vm) {
     controls = '<button type="button" class="today-task-start" data-today-act="next">' + (v.isLast ? '完成' : '下一步') + '</button>';
   }
   return '<div class="today-task-panel" role="dialog" aria-modal="true" aria-label="今天的任務">' +
-    '<header class="today-task-head"><div><span class="today-task-eyebrow">' + todayTaskEscape(vm.code) + '｜' + todayTaskEscape(vm.activeTitle) + '</span>' +
+    '<header class="today-task-head"><div><span class="today-task-eyebrow">' + todayTaskEscape(v.code) + '｜' + todayTaskEscape(vm.activeTitle) + '</span>' +
     '<strong>' + (v.phaseIndex + 1) + '／' + v.phaseCount + ' ' + todayTaskEscape(v.label) + (v.closed ? '（閉卷）' : '') + ' · ' + v.minutes + ' 分鐘</strong></div>' +
     '<div class="' + timerClass + '" id="today-task-timer" role="timer">' + timerText + '</div></header>' +
-    '<div class="today-task-body">' + note + figures + pdf + check + '</div>' +
+    '<div class="today-task-body">' + note + figures + pdf + check + resultSlot + '</div>' +
     '<footer class="today-task-foot">' + controls +
     '<button type="button" class="btn-pdf" data-today-act="leave">先離開</button>' +
     '<button type="button" class="btn-pdf" data-today-act="abandon">放棄本次</button></footer></div>';
@@ -350,7 +411,63 @@ function renderTodayTaskOverlay() {
   const state = todayTaskState || todayTaskRefresh();
   if (!state.active) { closeTodayTaskOverlay(); return; }
   const vm = todayTaskViewModel(state, Date.now());
+  todayTaskCloseResultCard();
   overlay.innerHTML = todayTaskOverlayHtml(vm);
+  if (vm.active.isReview) todayTaskMountResultCard(vm);
+}
+
+// ---- 作答結果卡 at the review phase: one QID at a time ---------------------
+
+let todayTaskResultFlow = { key: '', index: 0, saved: [] };
+let todayTaskResultHandle = null;
+
+function todayTaskCloseResultCard() {
+  if (todayTaskResultHandle && typeof todayTaskResultHandle.close === 'function') todayTaskResultHandle.close();
+  todayTaskResultHandle = null;
+}
+
+function todayTaskResultFlowFor(vm) {
+  const key = vm.active.code + ':' + vm.active.phaseIndex;
+  if (todayTaskResultFlow.key !== key) todayTaskResultFlow = { key, index: 0, saved: [] };
+  return todayTaskResultFlow;
+}
+
+function todayTaskMountResultCard(vm) {
+  const mount = document.getElementById('today-task-result-mount');
+  const title = document.getElementById('today-task-result-title');
+  if (!mount) return;
+  const flow = todayTaskResultFlowFor(vm);
+  const qids = vm.active.resultQids;
+  const nextButton = document.querySelector('[data-today-result-next]');
+  if (flow.index >= qids.length) {
+    if (title) title.textContent = '作答結果：已處理完 ' + qids.length + ' 題（記錄 ' + flow.saved.length + ' 題）';
+    if (nextButton) nextButton.hidden = true;
+    mount.innerHTML = '';
+    return;
+  }
+  const qid = qids[flow.index];
+  if (title) title.textContent = '記錄作答結果 ' + (flow.index + 1) + '／' + qids.length + '：' + qid;
+  if (nextButton) nextButton.hidden = false;
+  if (typeof openResultCard !== 'function') return;
+  todayTaskResultHandle = openResultCard({
+    qid, source: vm.active.resultSource, mount,
+    onSaved: () => {
+      if (flow.saved.indexOf(qid) < 0) flow.saved.push(qid);
+      todayTaskResultHandle = null;
+      todayTaskResultAdvance();
+    }
+  });
+}
+
+function todayTaskResultAdvance() {
+  const state = todayTaskState || todayTaskRefresh();
+  if (!state.active) return;
+  const vm = todayTaskViewModel(state, Date.now());
+  if (!vm.active.isReview) return;
+  const flow = todayTaskResultFlowFor(vm);
+  flow.index += 1;
+  todayTaskCloseResultCard();
+  todayTaskMountResultCard(vm);
 }
 
 function todayTaskTick() {
@@ -361,7 +478,9 @@ function todayTaskTick() {
   if (!el) return;
   if (vm.active.expired) {
     todayTaskStopTimer();
-    renderTodayTaskOverlay();
+    // A review phase hosts the result card: do not rebuild it (that would drop the marks).
+    if (vm.active.closed) renderTodayTaskOverlay();
+    else { el.textContent = '時間到'; el.classList.add('is-expired'); }
   } else {
     el.textContent = todayTaskFormatClock(vm.active.remainingMs);
   }
@@ -386,6 +505,7 @@ function openTodayTaskOverlay() {
 
 function closeTodayTaskOverlay() {
   todayTaskStopTimer();
+  todayTaskCloseResultCard();
   const overlay = document.getElementById('today-task-overlay');
   if (overlay) { overlay.style.display = 'none'; overlay.innerHTML = ''; }
   renderTodayTaskCard();
@@ -394,6 +514,7 @@ function closeTodayTaskOverlay() {
 function todayTaskOverlayClick(event) {
   const target = event.target && event.target.closest ? event.target.closest('button') : null;
   if (!target) return;
+  if (target.hasAttribute('data-today-result-next')) { todayTaskResultAdvance(); return; }
   const check = target.getAttribute('data-today-check');
   if (check) { todayTaskOpenSolution(check); return; }
   const act = target.getAttribute('data-today-act');

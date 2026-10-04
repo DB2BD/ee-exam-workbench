@@ -410,7 +410,7 @@ function cancelLearningAttemptAdvance() {
 
 function setLearningAttemptButtonsDisabled(disabled) {
   if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
-  document.querySelectorAll('#recall-rating-bar .btn-sm2').forEach(button => { button.disabled = Boolean(disabled); });
+  document.querySelectorAll('.sm2-rating-bar .btn-sm2').forEach(button => { button.disabled = Boolean(disabled); });
 }
 
 function normalizeSolutionModalOptions(options) {
@@ -598,6 +598,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   }
 
   cancelLearningAttemptAdvance();
+  closeRecallResultCard();
   currentModalQid = qid;
   currentModalSolLink = solLink;
   currentModalQNum = qnum;
@@ -1271,10 +1272,8 @@ function revealRecallFull() {
     return;
   }
   const fullEl = document.getElementById('recall-full-section');
-  const ratingEl = document.getElementById('recall-rating-bar');
   const boxEl = document.getElementById('recall-step-box');
   if (fullEl) fullEl.style.display = 'block';
-  if (ratingEl) ratingEl.style.display = 'flex';
   if (boxEl) boxEl.style.display = 'none';
   currentRecallAchievedLevel = 4;
   if (typeof dailyPracticeRecordRecallProgress === 'function' && currentSolutionSourceMode === 'daily-practice') dailyPracticeRecordRecallProgress(4);
@@ -1310,11 +1309,7 @@ function revealRecallLayer(layer) {
   scheduleSolutionModalReadingSave();
   syncRecallRevealPresentation();
   const full = document.getElementById('recall-full-section');
-  const rating = document.getElementById('recall-rating-bar');
-  if (layer >= 4) {
-    if (full) full.style.display = 'block';
-    if (rating) rating.style.display = 'flex';
-  }
+  if (layer >= 4 && full) full.style.display = 'block';
 }
 
 function chooseRecallError(errorType) {
@@ -1322,6 +1317,61 @@ function chooseRecallError(errorType) {
   document.querySelectorAll('[data-recall-error]').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.recallError === currentRecallErrorType);
   });
+}
+
+function recallTierBadgeHtml(qid) {
+  const tier = typeof studyTierFor === 'function' ? studyTierFor(qid) : null;
+  if (tier !== 'main' && tier !== 'basic') return '';
+  return `<span class="tier-badge tier-${tier}">${tier === 'main' ? '主攻' : '基本分'}</span>`;
+}
+
+let recallResultCardHandle = null;
+let recallResultCardQid = null;
+
+function recallResultSource() {
+  if (currentSolutionSourceMode === 'daily-practice') return 'random';
+  if (currentSolutionSourceMode === 'due-review') return 'review';
+  return 'random';
+}
+
+function closeRecallResultCard() {
+  if (recallResultCardHandle && typeof recallResultCardHandle.close === 'function') recallResultCardHandle.close();
+  recallResultCardHandle = null;
+  recallResultCardQid = null;
+}
+
+// Stage ④ reached in a recall session: show the 作答結果卡 (once per question).
+function openRecallResultCard() {
+  if (!currentSolutionRecallEntry || currentRecallAchievedLevel < 4 || !currentModalQid) return;
+  if (typeof openResultCard !== 'function') return;
+  if (recallResultCardHandle && recallResultCardQid === currentModalQid && recallResultCardHandle.el && recallResultCardHandle.el.isConnected) return;
+  closeRecallResultCard();
+  const qid = currentModalQid;
+  const mode = currentSolutionSourceMode;
+  const level = currentRecallAchievedLevel;
+  recallResultCardQid = qid;
+  recallResultCardHandle = openResultCard({
+    qid, source: recallResultSource(),
+    onSaved: record => {
+      recallResultCardHandle = null;
+      recallResultCardQid = null;
+      onRecallResultSaved(record, mode, level);
+    }
+  });
+}
+
+function onRecallResultSaved(record, mode, level) {
+  const qid = record.qid;
+  if (mode === 'daily-practice') {
+    if (typeof dailyPracticeCompleteFromResultCard === 'function') dailyPracticeCompleteFromResultCard(record, level);
+    return;
+  }
+  if (mode === 'due-review' && typeof recordReviewSessionRating === 'function') recordReviewSessionRating(qid);
+  if (typeof showToast === 'function') showToast(`🎯 已記錄：估計 ${record.estimate}／${record.total} 分`);
+  if (typeof renderQuestions === 'function') renderQuestions();
+  if (typeof renderReviewPage === 'function') renderReviewPage();
+  if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
+  if (mode === 'due-review' && typeof advanceReviewSessionItem === 'function') advanceReviewSessionItem();
 }
 
 function submitSM2Rating(rating) {
@@ -1365,23 +1415,7 @@ function submitSM2Rating(rating) {
   if (result.duplicate) return;
   currentLearningAttemptResult = result;
   currentLearningAttemptRating = Number(rating);
-  let diagnosis = null;
-  if (typeof diagnose === 'function') {
-    const graph = typeof CANONICAL_KNOWLEDGE_GRAPH !== 'undefined' ? CANONICAL_KNOWLEDGE_GRAPH : null;
-    const graphRevision = graph && graph.graphRevision ? graph.graphRevision : null;
-    const recall = typeof getRecallState === 'function' ? getRecallState(qid) : null;
-    diagnosis = diagnose(question, {
-      attemptId,
-      attemptStatus: result.status || 'committed',
-      rating: Number(rating),
-      errorType: currentRecallErrorType,
-      graphRevision,
-    }, graph, recall);
-  }
-  if (shouldRequireKnowledgeDiagnosis(diagnosis)) {
-    currentKnowledgeDiagnosis = diagnosis;
-    if (renderKnowledgeDiagnosisCard(diagnosis)) return;
-  }
+  // 作答後診斷卡 is no longer part of the default flow (renderKnowledgeDiagnosisCard stays for direct callers).
   currentLearningAttemptResult = null;
   currentLearningAttemptRating = null;
   finishCommittedLearningAttempt(result, qid, Number(rating), attemptId);
@@ -1390,22 +1424,6 @@ function submitSM2Rating(rating) {
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
-  const ratingTitle = currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry
-    ? '🎯 回顧揭露前的作答狀況（本輪不加入到期排程）'
-    : '🎯 回顧揭露前的作答狀況（儲存後顯示實際下次日期）';
-  const isDailyAssessment = currentSolutionSourceMode === 'daily-practice';
-  const dailyCompletionPrompt = isDailyAssessment && currentSolutionRecallEntry
-    ? (typeof dailyPracticeGetCompletionPrompt === 'function'
-      ? dailyPracticeGetCompletionPrompt()
-      : '自評即完成本題，並進入下一題')
-    : '';
-  const dailyCompletionPromptHtml = dailyCompletionPrompt
-    ? `<div class="sm2-rating-next-hint">✅ ${dailyCompletionPrompt}</div>`
-    : '';
-  const ratingSubtexts = isDailyAssessment
-    ? { 1: '只記錄本輪：無法完成', 3: '只記錄本輪：需要提示', 5: '只記錄本輪：獨立完成' }
-    : { 1: '儲存後顯示下次日期', 3: '儲存後顯示下次日期', 5: '儲存後顯示下次日期' };
-
   if (isActiveRecallMode) {
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     const recallHints = typeof getRecallHintBundle === 'function'
@@ -1430,7 +1448,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
       <div class="solution-content active-recall-active">
         <!-- Keep the four-step workflow immediately above the hidden solution. -->
         <div class="active-recall-box" id="recall-step-box">
-          <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall)</div>
+          <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall) ${recallTierBadgeHtml(currentModalQid)}</div>
           <p style="font-size: 0.85rem; color: var(--muted); margin: 0 0 10px 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
           
           <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
@@ -1458,31 +1476,8 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         </div>
         <!-- recall-full-section-end -->
 
-        <div id="recall-rating-bar" class="sm2-rating-bar" style="display: none;">
-          <div class="sm2-rating-title">${ratingTitle}</div>
-          ${dailyCompletionPromptHtml}
-          <div class="recall-error-buttons" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0;">
-            <button type="button" class="pill" data-recall-error="題型辨識錯" onclick="chooseRecallError('題型辨識錯')">題型辨識錯</button>
-            <button type="button" class="pill" data-recall-error="起手式不會" onclick="chooseRecallError('起手式不會')">起手式不會</button>
-            <button type="button" class="pill" data-recall-error="公式忘記" onclick="chooseRecallError('公式忘記')">公式忘記</button>
-            <button type="button" class="pill" data-recall-error="計算錯" onclick="chooseRecallError('計算錯')">計算錯</button>
-            <button type="button" class="pill" data-recall-error="觀念混淆" onclick="chooseRecallError('觀念混淆')">觀念混淆</button>
-          </div>
-          <div class="sm2-rating-buttons">
-            <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
-              <span>🔴 無法完成</span>
-              <span class="subtext">${ratingSubtexts[1]}</span>
-            </button>
-            <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
-              <span>🟡 需要提示</span>
-              <span class="subtext">${ratingSubtexts[3]}</span>
-            </button>
-            <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
-              <span>🟢 揭露前能獨立完成</span>
-              <span class="subtext">${ratingSubtexts[5]}</span>
-            </button>
-          </div>
-        </div>
+        <!-- 作答結果卡 is mounted here after stage ④ (replaces the old 1/3/5 rating bar). -->
+        <div id="recall-result-slot" class="recall-result-slot"></div>
       </div>
     `;
     syncRecallRevealPresentation();
@@ -1498,35 +1493,14 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
       if (record) html += renderDagTracerCard(record.id, record.subjectId, record.stem);
     }
 
-    // Browse bypass is pure viewing: it must not expose daily-practice
-    // completion controls.  Ordinary browse still keeps its original SM-2
-    // footer; only the daily-practice recall entry is completion-eligible.
-    if (currentSolutionRecallEntry && currentRecallAchievedLevel >= 4) html += `
-      <div class="sm2-rating-bar">
-        <div class="sm2-rating-title">${ratingTitle}</div>
-        ${dailyCompletionPromptHtml}
-        <div class="sm2-rating-buttons">
-          <button class="btn-sm2 btn-sm2-1" onclick="submitSM2Rating(1)">
-            <span>🔴 無法完成</span>
-            <span class="subtext">${ratingSubtexts[1]}</span>
-          </button>
-          <button class="btn-sm2 btn-sm2-3" onclick="submitSM2Rating(3)">
-            <span>🟡 需要提示</span>
-            <span class="subtext">${ratingSubtexts[3]}</span>
-          </button>
-          <button class="btn-sm2 btn-sm2-5" onclick="submitSM2Rating(5)">
-            <span>🟢 揭露前能獨立完成</span>
-            <span class="subtext">${ratingSubtexts[5]}</span>
-          </button>
-        </div>
-      </div>
-    `;
+    // Browse bypass is pure viewing; only a recall entry that reached stage ④ gets the 作答結果卡.
 
     rightPane.innerHTML = `
       <div class="solution-content">
         ${html}
       </div>
     `;
+    if (currentSolutionRecallEntry && currentRecallAchievedLevel >= 4) openRecallResultCard();
   }
 
   // Auto-render any remaining math formulas
@@ -1558,10 +1532,9 @@ function syncRecallRevealPresentation() {
     if (section) section.style.display = currentRecallAchievedLevel >= layer ? 'block' : 'none';
   }
   const full = document.getElementById('recall-full-section');
-  const rating = document.getElementById('recall-rating-bar');
   const box = document.getElementById('recall-step-box');
   if (full) full.style.display = currentRecallAchievedLevel >= 4 ? 'block' : 'none';
-  if (rating) rating.style.display = currentRecallAchievedLevel >= 4 ? 'flex' : 'none';
+  if (currentRecallAchievedLevel >= 4) openRecallResultCard();
   if (box) box.style.display = currentRecallAchievedLevel >= 4 ? 'none' : 'flex';
   // Count only the four reveal buttons; the box also holds the numeric-check buttons.
   const buttons = box && typeof box.querySelectorAll === 'function' ? [...box.querySelectorAll('.btn-reveal-hint, .btn-reveal-full')] : [];
@@ -1574,6 +1547,7 @@ function syncRecallRevealPresentation() {
 
 function closeModal() {
   cancelLearningAttemptAdvance();
+  closeRecallResultCard();
   if (solutionModalReadingTimer !== null && typeof clearTimeout === 'function') clearTimeout(solutionModalReadingTimer);
   solutionModalReadingTimer = null;
   persistSolutionModalReadingState(false);

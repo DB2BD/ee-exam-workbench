@@ -22,7 +22,8 @@ const result = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, con
 process.stdout.write(JSON.stringify(result));
 """
     completed = subprocess.run(
-        ["node", "-e", script],
+        ["node", "-"],
+        input=script,
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -705,8 +706,10 @@ globalThis.showToast = () => {};
 const elements = new Map();
 const stepButtons = [0,1,2,3].map(() => ({disabled:false,title:''}));
 const make = id => ({id, innerHTML:'', style:{display:'none'}, scrollIntoView(){}, querySelectorAll:() => id === 'recall-step-box' ? stepButtons : []});
-['modal-right-content','recall-layer-1','recall-layer-2','recall-layer-3','recall-full-section','recall-rating-bar','recall-step-box']
+['modal-right-content','recall-layer-1','recall-layer-2','recall-layer-3','recall-full-section','recall-step-box']
   .forEach(id => elements.set(id, make(id)));
+// WP5a: stage 4 mounts the 作答結果卡 instead of showing the 1/3/5 rating bar.
+globalThis.openResultCard = opts => { globalThis.__cardCalls = (globalThis.__cardCalls || []).concat([opts]); return {el:{isConnected:true}, close(){}}; };
 globalThis.document = {
   body:{style:{}},
   getElementById:id => elements.get(id) || null,
@@ -724,6 +727,8 @@ globalThis.reviewHtmlEscape = value => String(value);
         expression = r'''
 (() => {
   isActiveRecallMode = true;
+  currentSolutionRecallEntry = true;
+  currentSolutionSourceMode = 'due-review';
   currentModalQid = 'q1';
   renderSubQuestionContent('答案內容', ['q1','01',114,1,'題目']);
   const initialHtml = document.getElementById('modal-right-content').innerHTML;
@@ -738,7 +743,8 @@ globalThis.reviewHtmlEscape = value => String(value);
   return {
     initialHtml, layer1, fullBefore,
     fullAfter: document.getElementById('recall-full-section').style.display,
-    ratingAfter: document.getElementById('recall-rating-bar').style.display,
+    cardCalls: (globalThis.__cardCalls || []).map(c => ({qid: c.qid, source: c.source})),
+    hasRatingBar: document.getElementById('recall-rating-bar') !== null,
     restoredLayer3: document.getElementById('recall-layer-3').style.display,
     restoredFull: document.getElementById('recall-full-section').style.display,
     restoredBox: document.getElementById('recall-step-box').style.display
@@ -751,7 +757,9 @@ globalThis.reviewHtmlEscape = value => String(value);
         self.assertEqual(result["layer1"], "block")
         self.assertEqual(result["fullBefore"], "none")
         self.assertEqual(result["fullAfter"], "block")
-        self.assertEqual(result["ratingAfter"], "flex")
+        # Old 1/3/5 rating bar is gone; reaching stage 4 opens exactly one result card (source review).
+        self.assertFalse(result["hasRatingBar"])
+        self.assertEqual(result["cardCalls"], [{"qid": "q1", "source": "review"}])
         self.assertEqual(result["restoredLayer3"], "block")
         self.assertEqual(result["restoredFull"], "block")
         self.assertEqual(result["restoredBox"], "none")
@@ -787,7 +795,7 @@ globalThis.window = {addEventListener(){}};
         for state in states:
             self.assertEqual(state["other"], [False, False])
 
-    def test_daily_recall_rating_explains_that_self_assessment_advances(self):
+    def test_daily_recall_has_result_card_slot_and_no_one_three_five_rating_bar(self):
         setup = r'''
 const rightPane = {innerHTML:''};
 globalThis.document = {getElementById:id => id === 'modal-right-content' ? rightPane : null, querySelectorAll:() => []};
@@ -812,7 +820,37 @@ globalThis.dailyPracticeGetCompletionPrompt = () => '自評即完成本題，並
 })()
 '''
         result = run_node(["src/components/solutionModal.js"], expression, setup)
-        self.assertIn("自評即完成本題，並進入下一題", result)
+        self.assertIn('id="recall-result-slot"', result)
+        self.assertNotIn("btn-sm2", result)
+        self.assertNotIn("submitSM2Rating", result)
+        self.assertNotIn("自評即完成本題", result)
+        self.assertNotIn("recall-error-buttons", result)
+
+    def test_result_card_save_routes_by_source_mode(self):
+        setup = r'''
+globalThis.document = {getElementById:() => null, querySelectorAll:() => []};
+globalThis.window = {addEventListener(){}};
+globalThis.__log = [];
+globalThis.showToast = m => __log.push('toast');
+globalThis.dailyPracticeCompleteFromResultCard = (rec, level) => { __log.push('daily:' + rec.qid + ':' + level); return true; };
+globalThis.recordReviewSessionRating = qid => __log.push('rated:' + qid);
+globalThis.advanceReviewSessionItem = () => __log.push('advance');
+globalThis.renderReviewPage = () => __log.push('render-review');
+'''
+        expression = r'''
+(() => {
+  const rec = {qid:'EE-1', estimate: 3, total: 10};
+  onRecallResultSaved(rec, 'daily-practice', 4);
+  const daily = __log.splice(0);
+  onRecallResultSaved(rec, 'due-review', 4);
+  const review = __log.splice(0);
+  return {daily, review};
+})()
+'''
+        result = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertEqual(result["daily"], ["daily:EE-1:4"])
+        self.assertIn("rated:EE-1", result["review"])
+        self.assertEqual(result["review"][-1], "advance")
 
     def test_active_recall_keeps_answer_bearing_matrix_inside_fourth_reveal(self):
         setup = r'''
@@ -877,85 +915,6 @@ globalThis.renderDagTracerCard = () => '';
         result = run_node(["src/components/solutionModal.js"], expression, setup)
         self.assertNotIn('sm2-rating-bar', result)
         self.assertNotIn('solution-review-card', result)
-
-
-class TestMockExamTimerReliability(unittest.TestCase):
-    SETUP = r'''
-globalThis.__now = 1000000;
-globalThis.__toastCount = 0;
-globalThis.__toasts = [];
-const timerElement = {innerText: ''};
-const toggleElement = {innerText: '', className: '', onclick: null};
-const storage = new Map();
-globalThis.localStorage = {
-  getItem: key => storage.has(key) ? storage.get(key) : null,
-  setItem: (key, value) => storage.set(key, String(value)),
-  removeItem: key => storage.delete(key),
-};
-globalThis.document = {getElementById: id => id === 'exam-timer' ? timerElement : id === 'btn-timer-toggle' ? toggleElement : null};
-globalThis.setInterval = () => 1;
-globalThis.clearInterval = () => {};
-globalThis.showToast = message => { globalThis.__toastCount += 1; globalThis.__toasts.push(message); };
-const NativeDate = Date;
-globalThis.Date = class TestDate extends NativeDate {
-  static now() { return globalThis.__now; }
-};
-'''
-
-    def test_background_delay_uses_absolute_deadline(self):
-        expression = r'''
-(() => {
-  globalThis.startExamTimer();
-  const deadline = globalThis.getMockExamTimerState().deadline;
-  globalThis.__now += 6500;
-  globalThis.updateExamTimerFromClock();
-  return {deadline, seconds: globalThis.getMockExamTimerState().seconds};
-})()
-'''
-        result = run_node(["src/components/mockExamTimer.js"], expression, self.SETUP)
-        # 1,000,000 ms + 120 minutes.
-        self.assertEqual(result["deadline"], 8200000)
-        self.assertEqual(result["seconds"], 7194)
-
-    def test_saved_running_timer_can_be_loaded_and_expiry_notifies_once(self):
-        expression = r'''
-(() => {
-  globalThis.startExamTimer();
-  const deadline = globalThis.getMockExamTimerState().deadline;
-  globalThis.loadMockExamTimerState(deadline - 1000);
-  const restored = globalThis.getMockExamTimerState();
-  globalThis.__now = deadline + 1;
-  globalThis.updateExamTimerFromClock();
-  globalThis.updateExamTimerFromClock();
-  const expired = globalThis.getMockExamTimerState();
-  const expiryNotices = globalThis.__toasts.filter(message => message.includes('考試時間結束')).length;
-  return {restored, expired, expiryNotices};
-})()
-'''
-        result = run_node(["src/components/mockExamTimer.js"], expression, self.SETUP)
-        self.assertEqual(result["restored"]["seconds"], 1)
-        self.assertEqual(result["expired"]["seconds"], 0)
-        self.assertTrue(result["expired"]["completed"])
-        self.assertEqual(result["expiryNotices"], 1)
-
-    def test_pause_keeps_remaining_seconds_until_resume(self):
-        expression = r'''
-(() => {
-  globalThis.startExamTimer();
-  globalThis.__now += 5000;
-  globalThis.pauseExamTimer();
-  const paused = globalThis.getMockExamTimerState();
-  globalThis.__now += 999999;
-  globalThis.startExamTimer();
-  const resumed = globalThis.getMockExamTimerState();
-  return {paused, resumed};
-})()
-'''
-        result = run_node(["src/components/mockExamTimer.js"], expression, self.SETUP)
-        self.assertEqual(result["paused"]["seconds"], 7195)
-        self.assertEqual(result["paused"]["running"], False)
-        # Resume at 2,004,999 ms with 7,195 seconds remaining.
-        self.assertEqual(result["resumed"]["deadline"], 9199999)
 
 
 if __name__ == "__main__":

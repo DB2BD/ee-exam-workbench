@@ -33,11 +33,12 @@ function mockRecs(mockId, year, subj, at, ratio, skip) {
 """
 
 
-def run_node(expression):
+def run_node(expression, mock=False):
+    sources = SOURCES[:-1] + [ROOT / "src" / "components" / "mockExam.js"] + SOURCES[-1:] if mock else SOURCES
     script = (
-        "const vm = require('vm');\nconst context = {};\nvm.createContext(context);\n"
+        "const vm = require('vm');\nconst context = {};\ncontext.globalThis = context;\nvm.createContext(context);\n"
         + "".join(
-            f"vm.runInContext({json.dumps(p.read_text(encoding='utf-8'))}, context);\n" for p in SOURCES
+            f"vm.runInContext({json.dumps(p.read_text(encoding='utf-8'))}, context);\n" for p in sources
         )
         + f"vm.runInContext({json.dumps(PRELUDE)}, context);\n"
         + f"process.stdout.write(JSON.stringify(vm.runInContext({json.dumps(expression)}, context)));\n"
@@ -102,11 +103,37 @@ class TestScoreboard(unittest.TestCase):
           return { mockTotal: m.mockTotal, est: m.estimateTotal, d: m.estimateDistance, md: m.mockDistance,
                    un: m.subjects[1].mock, line: scoreboardSummaryLine({records: recs, now: NOW}) }; })()""")
         self.assertAlmostEqual(r["mockTotal"], 80.0, places=1)
-        self.assertEqual(r["d"]["pass"], "還差 280 分")
-        self.assertEqual(r["d"]["goal"], "還差 295 分")
+        self.assertIsNone(r["d"])  # distance only when all six subjects have data
         self.assertIsNone(r["md"])
         self.assertIsNone(r["un"])
-        self.assertEqual(r["line"], "估計總分 80／375")
+        self.assertRegex(r["line"], r"^估計總分 80／\d+（1／6 科）$")
+        self.assertNotIn("／375", r["line"])
+
+    def test_all_six_subjects_show_distance(self):
+        r = run_node("""(() => {
+          const recs = ['01','02','03','04','05','06'].reduce((a, s) => a.concat(mockRecs('m'+s,'114',s,NOW-DAY,0.8)), []);
+          const m = scoreboardCompute(recs, NOW);
+          return { n: m.estimateCount, d: m.estimateDistance, line: scoreboardSummaryLine({records: recs, now: NOW}) }; })()""")
+        self.assertEqual(r["n"], 6)
+        self.assertIsNotNone(r["d"])
+        self.assertIn("（6／6 科）", r["line"])
+
+    def test_scored_subset_mock_counts_and_scales(self):
+        # 114 配電 only scores Q1 and Q5 (40 points); latestMockScoreBySubject scales it to 0–100.
+        r = run_node("""(() => {
+          const rows = Object.keys(QUESTION_POINTS).map(q => { const m = /^EE-(\\d+)-(\\d+)-(\\d+)$/.exec(q);
+            return [q, m[2], m[1], Number(m[3]), 'T', [], 's/' + q, 'p/' + m[1]]; });
+          globalThis.DB_DATA = { questions: rows };
+          const mk = q => Object.assign(rec(q, {source: 'mock', mockId: '114-06-4000', at: NOW - DAY}),
+            {parts: [{label: 'p', points: QUESTION_POINTS[q].total, mark: 'o'}]});
+          const full = ['EE-114-06-1', 'EE-114-06-5'].map(mk);
+          const partial = scoreboardMockForSubject([full[0]], '06');
+          const done = scoreboardMockForSubject(full, '06');
+          return { partial, done, line: scoreboardSummaryLine({records: full, now: NOW}) }; })()""", mock=True)
+        self.assertIsNone(r["partial"])
+        self.assertEqual(r["done"]["estimate"], 100)
+        self.assertEqual(r["done"]["rawTotal"], 40)
+        self.assertIn("（1／6 科）", r["line"])
 
     def test_distance_exceeded(self):
         r = run_node("scoreboardCompute([], NOW) && [scoreboardDistanceText(370, 360), scoreboardDistanceText(370, 375)]")
@@ -119,7 +146,8 @@ class TestScoreboard(unittest.TestCase):
           scoreboardNextStep({R:0,S:0,F:0,C:0,K:0,U:0,T:3}),
           scoreboardNextStep({R:0,S:0,F:0,C:0,K:0,U:3,T:0}),
           scoreboardNextStep({R:3,S:0,F:0,C:0,K:0,U:0,T:0}),
-          scoreboardNextStep({R:0,S:1,F:1,C:0,K:0,U:0,T:0})]""")
+          scoreboardNextStep({R:0,S:1,F:1,C:0,K:0,U:0,T:0}),
+          scoreboardNextStep({R:0,S:2,F:0,C:0,K:0,U:0,T:0})]""")
         self.assertIn("起手式急救卡", r[0])
         self.assertIn("回代驗算", r[1])
         self.assertIn("核心公式", r[2])
@@ -127,6 +155,7 @@ class TestScoreboard(unittest.TestCase):
         self.assertIn("單位", r[4])
         self.assertIn("已知、所求", r[5])
         self.assertIsNone(r[6])
+        self.assertIn("起手式急救卡", r[7])  # two errors of the same code are enough
 
     def test_errors_exclude_legacy_and_old(self):
         r = run_node("""(() => { const q = qidsOf('114','01');
@@ -157,7 +186,8 @@ class TestScoreboard(unittest.TestCase):
           return { html: c.innerHTML, esc: scoreboardEscape_('<a href="x">&\\'') }; })()""")
         self.assertIn("電路學", r["html"])
         self.assertIn("衝高分", r["html"])
-        self.assertIn("資料不足", r["html"])
+        self.assertIn("再練 2 題就會顯示（需近 21 天 3 題）", r["html"])
+        self.assertIn("尚有 6 科無資料", r["html"])
         self.assertIn("未考", r["html"])
         self.assertNotIn("<img", r["html"])
         self.assertEqual(r["esc"], "&lt;a href=&quot;x&quot;&gt;&amp;&#39;")

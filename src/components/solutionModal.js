@@ -796,9 +796,12 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   if (firstFocus && typeof firstFocus.focus === 'function') firstFocus.focus();
   document.body.style.overflow = 'hidden';
   // Any recall entry (random practice, due review, mock/today result flows) opens on the four-stage cover, never on 原題.
-  const shouldOpenRecallPane = currentSolutionRecallEntry;
+  // On narrow screens every mode opens on 純詳解 (the cover in recall modes);
+  // the question image stays one tap away through the 看原題 toggle.
+  modal.classList[currentSolutionRecallEntry ? 'add' : 'remove']('sm-recall-entry');
+  solutionModalCompactHeader();
   if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 760px)').matches) {
-    setModalLayout(shouldOpenRecallPane || (savedReading && savedReading.pane === 'solution') ? 'solution-only' : 'exam-only');
+    setModalLayout('solution-only');
   } else {
     setModalLayout('split');
   }
@@ -817,6 +820,30 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   };
   if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => requestAnimationFrame(restoreReading));
   else restoreReading();
+  if (typeof homeMorePracticeSync === 'function') homeMorePracticeSync();
+}
+
+// Header controls: wrap icon + label so ≤640px CSS can show icon-only buttons.
+function solutionModalIconLabel(icon, label) {
+  return `<span class="sm-ico" aria-hidden="true">${icon}</span><span class="sm-lbl"> ${label}</span>`;
+}
+
+function solutionModalSetAria(el, label) {
+  if (el && typeof el.setAttribute === 'function') el.setAttribute('aria-label', label);
+}
+
+function solutionModalCompactHeader() {
+  if (typeof document === 'undefined') return;
+  const close = document.querySelector('#solution-modal .modal-actions button[onclick="closeModal()"]');
+  if (close && !close.querySelector('.sm-ico')) {
+    close.innerHTML = solutionModalIconLabel('✕', '關閉');
+    solutionModalSetAria(close, '關閉詳解');
+  }
+  const exam = document.getElementById('btn-layout-exam');
+  if (exam && !exam.querySelector('.sm-ico')) {
+    exam.innerHTML = solutionModalIconLabel('📄', '原題考卷');
+    solutionModalSetAria(exam, '看原題');
+  }
 }
 
 function getSolutionReviewMetadata(qid) {
@@ -1219,7 +1246,8 @@ function syncActiveRecallButtonState() {
     btn.style.background = isActiveRecallMode ? 'var(--warn)' : 'var(--surface)';
     btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
     btn.style.borderColor = isActiveRecallMode ? 'var(--warn)' : 'var(--line)';
-    btn.innerHTML = isActiveRecallMode ? '🎴 四段蓋牌進行中' : '🎴 主動回想蓋牌';
+    btn.innerHTML = solutionModalIconLabel('🎴', isActiveRecallMode ? '四段蓋牌進行中' : '主動回想蓋牌');
+    solutionModalSetAria(btn, isActiveRecallMode ? '四段蓋牌進行中' : '主動回想蓋牌');
   });
 }
 
@@ -1422,6 +1450,24 @@ function submitSM2Rating(rating) {
   finishCommittedLearningAttempt(result, qid, Number(rating), attemptId);
 }
 
+// Narrow screens hide the left pane, so the cover carries a compact question image
+// (CSS shows it only at ≤760px; tap to zoom).
+function solutionModalQuestionPeekHtml(qid) {
+  const isGK = String(qid || '').startsWith('GK-');
+  let crop = '';
+  if (isGK) {
+    const raw = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
+    const rec = raw && typeof toQuestionRecord === 'function' ? toQuestionRecord(raw, 'GK') : null;
+    crop = rec && rec.provenance ? rec.provenance.questionCrop || '' : '';
+  } else if (typeof QUESTION_CROP_MAP !== 'undefined') {
+    crop = QUESTION_CROP_MAP[qid] || '';
+  }
+  if (!crop || typeof resolveImageMapUrl !== 'function') return '';
+  const src = solutionModalEscape(resolveImageMapUrl(crop, isGK, qid));
+  const safeQid = solutionModalEscape(qid);
+  return `<figure class="recall-question-peek"><img src="${src}" alt="${safeQid} 原題；點擊放大" loading="eager" tabindex="0" role="button" onclick="openImageLightbox(this.src, this.alt, this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openImageLightbox(this.src, this.alt, this);}"><figcaption>原題（點擊放大）</figcaption></figure>`;
+}
+
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
@@ -1447,6 +1493,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
 
     rightPane.innerHTML = `
       <div class="solution-content active-recall-active">
+        ${solutionModalQuestionPeekHtml(currentModalQid)}
         <!-- Keep the four-step workflow immediately above the hidden solution. -->
         <div class="active-recall-box" id="recall-step-box">
           <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall) ${recallTierBadgeHtml(currentModalQid)}</div>
@@ -1535,6 +1582,8 @@ function syncRecallRevealPresentation() {
   const full = document.getElementById('recall-full-section');
   const box = document.getElementById('recall-step-box');
   if (full) full.style.display = currentRecallAchievedLevel >= 4 ? 'block' : 'none';
+  // The answer-correction banner would leak the answer earlier, so it only appears with the full solution.
+  if (full && currentRecallAchievedLevel >= 4 && typeof insertAnswerCorrectionBanner === 'function') insertAnswerCorrectionBanner(full, currentModalQid);
   if (currentRecallAchievedLevel >= 4) openRecallResultCard();
   if (box) box.style.display = currentRecallAchievedLevel >= 4 ? 'none' : 'flex';
   // Count only the four reveal buttons; the box also holds the numeric-check buttons.
@@ -1555,6 +1604,7 @@ function closeModal() {
   const modal = document.getElementById('solution-modal');
   if (modal) modal.classList.remove('show');
   document.body.style.overflow = '';
+  if (modal) modal.classList.remove('sm-recall-entry');
   currentModalQid = null;
   currentModalSolLink = null;
   currentModalQNum = null;
@@ -1577,6 +1627,8 @@ function closeModal() {
   const returnFocus = solutionModalReturnFocus;
   solutionModalReturnFocus = null;
   if (returnFocus && typeof returnFocus.focus === 'function' && returnFocus.isConnected !== false) returnFocus.focus();
+  if (typeof dailyPracticeAfterModalClose === 'function') dailyPracticeAfterModalClose();
+  else if (typeof homeMorePracticeSync === 'function') homeMorePracticeSync();
 }
 
 function closeSolutionModal() {
@@ -1593,11 +1645,13 @@ function updateModalStatusButtons(qid) {
 
   const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
   statusBtn.className = `status-badge s-${curStatus}`;
-  statusBtn.innerText = statusLabels[curStatus];
+  statusBtn.innerHTML = solutionModalIconLabel(statusLabels[curStatus].split(' ')[0], statusLabels[curStatus].split(' ')[1]);
+  solutionModalSetAria(statusBtn, '學習狀態：' + statusLabels[curStatus].split(' ')[1]);
   statusBtn.onclick = (e) => toggleStatus(qid, e);
 
   starBtn.className = `btn-star ${isStarred ? 'active' : ''}`;
-  starBtn.innerHTML = isStarred ? '★ 已收藏' : '☆ 收藏本題';
+  starBtn.innerHTML = isStarred ? solutionModalIconLabel('★', '已收藏') : solutionModalIconLabel('☆', '收藏本題');
+  solutionModalSetAria(starBtn, isStarred ? '已收藏' : '收藏本題');
   starBtn.onclick = (e) => toggleStarred(qid, e);
 }
 

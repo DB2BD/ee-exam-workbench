@@ -112,5 +112,21 @@ class TestBuildAndModalWiring(unittest.TestCase):
         self.assertIn("recallHints.trapsMd", modal)
 
 
+
+
+class TestStageThreeMasking(unittest.TestCase):
+    def test_result_values_in_traps_are_masked(self):
+        note = "## 已知與所求\n\n電源 220 V。\n\n## 考場標準作答\n\n\\(\\boxed{V=380.0}\\)\n"
+        out = brh.mask_trap_numbers("- 忘記乘 \\(\\sqrt3\\)，答成 219.39 V；會得 15 Ω；正確 380.0 V；電源 220 V", note)
+        self.assertNotIn("219.39", out)
+        self.assertNotIn("380.0", out)
+        self.assertIn("答成 □", out)
+        self.assertIn("220 V", out)
+
+    def test_generated_traps_hide_known_leaks(self):
+        traps = brh.build()["EE-107-04-4"]["trapsMd"]
+        self.assertNotIn("228.83", traps)
+
+
 if __name__ == "__main__":
     unittest.main()

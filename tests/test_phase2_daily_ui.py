@@ -88,7 +88,7 @@ globalThis.initDailyPracticeHome();
 
     def test_reload_restores_solution_view_and_dual_scroll_positions(self):
         result = self.run_node(
-            "dailyPracticeStart(); dailyPracticeSetView('solution'); "
+            "dailyPracticeStart(); dailyPracticeRecordRecallProgress(4); dailyPracticeSetView('solution'); "
             "dailyPracticeScroll({currentTarget:{scrollTop:88}}); "
             "const saved=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
             "dailyPracticeState=null; initDailyPracticeHome(); "
@@ -168,9 +168,15 @@ process.stdout.write(JSON.stringify({html,visible}));
         result = self.run_node(
             "savePracticeSession(createPracticeSession('PE', 'all', ['EE-a'], {now: Date.now()})); "
             "initDailyPracticeHome(); const original=node('daily-practice-container').innerHTML; "
-            "dailyPracticeSetView('solution'); "
-            "process.stdout.write(JSON.stringify({original, solution:node('daily-practice-container').innerHTML}));"
+            "dailyPracticeSetView('solution'); const locked=node('daily-practice-container').innerHTML; "
+            "dailyPracticeRecordRecallProgress(4); dailyPracticeSetView('solution'); "
+            "process.stdout.write(JSON.stringify({original, locked, solution:node('daily-practice-container').innerHTML}));"
         )
+        # Full-solution entries stay hidden until stage 4.
+        for text in ("📝 詳解", "其他詳解選項", "直接看完整詳解", 'data-daily-open-solution="browse"'):
+            self.assertNotIn(text, result["original"])
+            self.assertNotIn(text, result["locked"])
+        self.assertIn("daily-practice-tab", result["solution"])
         self.assertIn('/assets/crop-a.png', result["original"])
         self.assertIn("原題截圖", result["original"])
         self.assertIn("開始四段蓋牌", result["original"])
@@ -189,6 +195,33 @@ process.stdout.write(JSON.stringify({html,visible}));
         )
         self.assertIn('data-daily-open-solution="browse"', result["solution"])
 
+    def test_one_click_start_opens_first_question_on_the_recall_cover(self):
+        result = self.run_node(
+            "dailyPracticeStart(); "
+            "process.stdout.write(JSON.stringify({args: globalThis.openSolutionArgs.slice(2), opts: globalThis.openSolutionArgs[4]}));"
+        )
+        self.assertEqual(result["opts"], {"mode": "daily-practice", "recall": True})
+
+    def test_mode_label_follows_the_chosen_mode(self):
+        result = self.run_node(
+            "process.stdout.write(JSON.stringify([dailyPracticeModeLabel('weighted'), dailyPracticeModeLabel('all'), dailyPracticeModeLabel('01')]));"
+        )
+        self.assertEqual(result[0], "依目標分配")
+        self.assertEqual(result[1], "全部隨機")
+        self.assertIn("只練", result[2])
+        self.assertIn("電路學", result[2])
+
+    def test_summary_uses_plain_estimates_with_small_tier_badge(self):
+        result = self.run_node(
+            "globalThis.latestRecordFor = qid => ({estimate: 12.5, total: 25}); "
+            "process.stdout.write(JSON.stringify({html: dailyPracticeSummaryEstimateRows(['EE-a','EE-b'])}));"
+        )
+        self.assertIn("daily-practice-result-list--plain", result["html"])
+        self.assertIn("估計 12.5／25 分", result["html"])
+        self.assertIn("本輪合計：估計 25／50 分", result["html"])
+        self.assertNotIn("<progress", result["html"])
+        self.assertNotIn("meter", result["html"])
+
     def test_daily_practice_does_not_expose_a_misleading_completion_action(self):
         result = self.run_node(
             "dailyPracticeStart(); const before=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
@@ -206,7 +239,8 @@ process.stdout.write(JSON.stringify({html,visible}));
         result = self.run_node(
             "savePracticeSession(createPracticeSession('PE', 'all', ['EE-a','EE-b','EE-c'], {now: Date.now()})); "
             "const loaded=loadDailyPracticeStore(); loaded.state.activeSession.currentIndex=2; "
-            "savePracticeSession(loaded.state.activeSession); initDailyPracticeHome(); dailyPracticeSetView('solution'); "
+            "savePracticeSession(loaded.state.activeSession); initDailyPracticeHome(); "
+            "dailyPracticeRecordRecallProgress(4); dailyPracticeSetView('solution'); "
             "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
         )
         self.assertNotIn('data-daily-completion-action', result["html"])

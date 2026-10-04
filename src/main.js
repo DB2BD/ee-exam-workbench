@@ -85,6 +85,35 @@ function initPaneResizer() {
   });
 }
 
+function themeButtonLabel(theme) {
+  return theme === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
+}
+
+function applyThemeAttribute(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) btn.innerText = themeButtonLabel(theme);
+}
+
+function readThemePreference() {
+  try { return localStorage.getItem('ee_theme_preference'); } catch (_) { return null; }
+}
+
+function applyInitialTheme() {
+  const saved = readThemePreference();
+  if (saved === 'dark' || saved === 'light') { applyThemeAttribute(saved); return; }
+  if (typeof window.matchMedia !== 'function') return;
+  const query = window.matchMedia('(prefers-color-scheme: dark)');
+  applyThemeAttribute(query.matches ? 'dark' : 'light');
+  const onChange = event => {
+    const manual = readThemePreference();
+    if (manual === 'dark' || manual === 'light') return;
+    applyThemeAttribute(event.matches ? 'dark' : 'light');
+  };
+  if (typeof query.addEventListener === 'function') query.addEventListener('change', onChange);
+  else if (typeof query.addListener === 'function') query.addListener(onChange);
+}
+
 // Global DOM Content Loaded Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
   // 0. The 更多 menu closes after picking an item or clicking elsewhere.
@@ -94,13 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!menu.contains(event.target) || event.target.closest('.more-tools-panel button')) menu.open = false;
   });
 
-  // 1. Theme initialization
-  const savedTheme = localStorage.getItem('ee_theme_preference');
-  if (savedTheme) {
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    const btn = document.getElementById('theme-toggle-btn');
-    if (btn) btn.innerText = savedTheme === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
-  }
+  // 1. Theme initialization: a manual choice wins; otherwise follow the system setting live.
+  applyInitialTheme();
 
   // 2. Restore category & populate category dropdown options first
   // PE only: the GK switcher is gone and its data is not preloaded.

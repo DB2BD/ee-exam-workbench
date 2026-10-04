@@ -8,6 +8,7 @@
 const SCOREBOARD_WINDOW_DAYS = 21;
 const SCOREBOARD_MIN_QUESTIONS = 3;
 const SCOREBOARD_MIN_ERRORS = 3;
+const SCOREBOARD_MIN_SAME_ERRORS = 2;
 const SCOREBOARD_SUBJECTS = ['01', '02', '03', '04', '05', '06'];
 const SCOREBOARD_ROLE_LABELS = { high: '衝高分', combined: '合併準備', basic: '基本分' };
 const SCOREBOARD_ERROR_CODES = ['R', 'S', 'F', 'C', 'K', 'U', 'T'];
@@ -98,15 +99,28 @@ function scoreboardLatestPerQuestion_(records) {
 }
 
 /**
- * Latest complete mock for one subject. Records of source 'mock' are grouped by mockId; a group counts
- * for a subject when every scored question of that paper (same year and subject in QUESTION_POINTS)
- * has a record. Returns { mockId, estimate, at } or null.
+ * Latest complete mock for one subject. When mockExam.js is loaded, completeness and the 0–100 scaling
+ * come from latestMockScoreBySubject (a paper whose SCORED subset is fully answered counts; e.g. 114 配電
+ * scores only 40 points and is scaled to 100). Otherwise falls back to grouping by mockId and requiring
+ * every QUESTION_POINTS question of that paper. Returns { mockId, estimate (0–100), raw, rawTotal, at } or null.
  */
 function scoreboardMockForSubject(records, subjectId) {
+  const mockRecords = records.filter(r => r.source === 'mock' && r.mockId);
+  const mockRows = typeof mockExamActiveRows === 'function' ? mockExamActiveRows() : null;
+  if (typeof latestMockScoreBySubject === 'function' && mockRows) {
+    try {
+      const byId = latestMockScoreBySubject(mockRecords, mockRows);
+      const hit = byId && byId[subjectId];
+      return hit ? {
+        mockId: hit.mockId, estimate: scoreboardRound1_(Number(hit.scaled) || 0),
+        raw: hit.estimate, rawTotal: hit.total, at: hit.at
+      } : null;
+    } catch (_) { /* fall back to the local rule below */ }
+  }
   const points = scoreboardPoints_();
   const groups = {};
-  records.forEach(r => {
-    if (r.source !== 'mock' || !r.mockId || scoreboardSubjectOf_(r.qid) !== subjectId) return;
+  mockRecords.forEach(r => {
+    if (scoreboardSubjectOf_(r.qid) !== subjectId) return;
     (groups[r.mockId] = groups[r.mockId] || []).push(r);
   });
   let best = null;
@@ -162,10 +176,11 @@ function scoreboardErrorsForSubject(windowRecords, subjectId) {
   return counts;
 }
 
-/** One 「下一步」 line from the dominant error code, or null when fewer than 3 errors. */
+/** One 「下一步」 line from the dominant error code, or null when fewer than 3 errors and no code twice. */
 function scoreboardNextStep(counts) {
   const total = SCOREBOARD_ERROR_CODES.reduce((s, c) => s + (counts[c] || 0), 0);
-  if (total < SCOREBOARD_MIN_ERRORS) return null;
+  const maxSame = SCOREBOARD_ERROR_CODES.reduce((m, c) => Math.max(m, counts[c] || 0), 0);
+  if (total < SCOREBOARD_MIN_ERRORS && maxSame < SCOREBOARD_MIN_SAME_ERRORS) return null;
   let top = null;
   SCOREBOARD_NEXT_PRIORITY.forEach(c => {
     if (counts[c] > 0 && (top === null || counts[c] > counts[top])) top = c;
@@ -219,6 +234,9 @@ function scoreboardCompute(records, now) {
     if (v !== null && v !== undefined) { estTotal += v; estCount += 1; }
   });
   estTotal = estCount ? scoreboardRound1_(estTotal) : null;
+  const withData = subjects.filter(s => s.estimate !== null && s.estimate !== undefined);
+  const noData = subjects.filter(s => s.estimate === null || s.estimate === undefined);
+  const targetSum = withData.reduce((n, s) => n + (Number(s.target) || 0), 0);
   const passLine = typeof PASS_LINE !== 'undefined' ? PASS_LINE : 360;
   const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 375;
   return {
@@ -227,14 +245,18 @@ function scoreboardCompute(records, now) {
     subjects, mockTotal, mockCount: mocked.length,
     mockDistance: mocked.length === subjects.length ? { pass: scoreboardDistanceText(mockTotal, passLine), goal: scoreboardDistanceText(mockTotal, goal) } : null,
     estimateTotal: estTotal, estimateCount: estCount,
-    estimateDistance: estCount ? { pass: scoreboardDistanceText(estTotal, passLine), goal: scoreboardDistanceText(estTotal, goal) } : null,
+    estimateTargetTotal: targetSum > 0 ? scoreboardRound1_(targetSum) : null,
+    missingNames: noData.map(s => s.name), missingCount: noData.length, subjectCount: subjects.length,
+    estimateDistance: estCount === subjects.length ? { pass: scoreboardDistanceText(estTotal, passLine), goal: scoreboardDistanceText(estTotal, goal) } : null,
     passLine, goal
   };
 }
 
+/** 「估計總分 X／Y（N／6 科）」: Y is the sum of the targets of the subjects that have data. */
 function scoreboardSummaryFromModel_(model) {
   if (!model.hasData) return '估計總分：尚無資料';
-  return `估計總分 ${Math.round(model.estimateTotal)}／${model.goal}`;
+  const y = model.estimateTargetTotal !== null && model.estimateTargetTotal !== undefined ? model.estimateTargetTotal : model.goal;
+  return `估計總分 ${Math.round(model.estimateTotal)}／${Math.round(y)}（${model.estimateCount}／${model.subjectCount} 科）`;
 }
 
 function scoreboardReadRecords_(options) {
@@ -242,7 +264,7 @@ function scoreboardReadRecords_(options) {
   try { return typeof getResultRecords === 'function' ? getResultRecords() : []; } catch (_) { return []; }
 }
 
-/** Header one-liner for WP7: 「估計總分 X／375」 or 「估計總分：尚無資料」. */
+/** Header one-liner: 「估計總分 X／Y（N／6 科）」 or 「估計總分：尚無資料」. */
 function scoreboardSummaryLine(options) {
   return scoreboardSummaryFromModel_(scoreboardCompute(scoreboardReadRecords_(options), options && options.now));
 }
@@ -267,7 +289,7 @@ function scoreboardBarHtml_(s) {
 function scoreboardSubjectHtml_(s) {
   const e = scoreboardEscape_;
   const mockText = s.mock ? `${s.mock.estimate} 分（${scoreboardDate_(s.mock.at)}）` : '未考';
-  const prText = s.practice !== null ? `${Math.round(s.practice)} 分（偏樂觀）` : `資料不足（${s.practiceQuestions}／${SCOREBOARD_MIN_QUESTIONS} 題）`;
+  const prText = s.practice !== null ? `${Math.round(s.practice)} 分（偏樂觀）` : `再練 ${Math.max(1, SCOREBOARD_MIN_QUESTIONS - s.practiceQuestions)} 題就會顯示（需近 ${SCOREBOARD_WINDOW_DAYS} 天 ${SCOREBOARD_MIN_QUESTIONS} 題）`;
   const tgtText = s.target !== null && s.target !== undefined ? `${s.target} 分` : '—';
   const errTotal = SCOREBOARD_ERROR_CODES.reduce((n, c) => n + s.errors[c], 0);
   const errChips = SCOREBOARD_ERROR_CODES.filter(c => s.errors[c] > 0)
@@ -293,15 +315,20 @@ function scoreboardTotalsHtml_(m) {
   const mockLine = m.mockCount
     ? `${m.mockTotal} 分${m.mockCount < m.subjects.length ? `（${m.mockCount}／${m.subjects.length} 科，未考：${missing.join('、')}）` : ''}`
     : '尚無整卷模考';
-  const mockDist = m.mockDistance ? `；距 ${m.passLine}：${m.mockDistance.pass}，距 ${m.goal}：${m.mockDistance.goal}` : '';
+  const mockDist = m.mockDistance
+    ? `距 ${m.passLine}：${m.mockDistance.pass}；距 ${m.goal}：${m.mockDistance.goal}`
+    : (m.mockCount ? `尚有 ${m.subjects.length - m.mockCount} 科未考，湊齊六科才算距離` : '');
   let estLine = '尚無資料';
+  let estDist = `尚有 ${m.missingCount} 科無資料`;
   if (m.hasData) {
-    const lacking = m.subjects.filter(s => s.estimate === null).map(s => s.name);
-    estLine = `${m.estimateTotal} 分${lacking.length ? `（未含無資料：${lacking.join('、')}）` : ''}`;
+    const y = m.estimateTargetTotal !== null && m.estimateTargetTotal !== undefined ? m.estimateTargetTotal : m.goal;
+    estLine = `估計總分 ${m.estimateTotal}／${y}（${m.estimateCount}／${m.subjectCount} 科）`;
+    estDist = m.estimateDistance
+      ? `距 ${m.passLine}：${m.estimateDistance.pass}；距 ${m.goal}：${m.estimateDistance.goal}`
+      : `尚有 ${m.missingCount} 科無資料：${m.missingNames.join('、')}`;
   }
-  const estDist = m.estimateDistance ? `距 ${m.passLine}：${m.estimateDistance.pass}；距 ${m.goal}：${m.estimateDistance.goal}` : '';
   return `<section class="sb-totals" aria-label="合計">
-    <div class="sb-total"><span class="sb-total-label">模考實測合計</span><strong>${e(mockLine)}</strong><small>${e(mockDist.replace(/^；/, ''))}</small></div>
+    <div class="sb-total"><span class="sb-total-label">模考實測合計</span><strong>${e(mockLine)}</strong><small>${e(mockDist)}</small></div>
     <div class="sb-total"><span class="sb-total-label">預估總分（有模考用模考，否則用練習估計）</span><strong>${e(estLine)}</strong><small>${e(estDist)}</small></div>
   </section>`;
 }
@@ -312,7 +339,7 @@ function renderScoreboard(container, options) {
   const body = model.empty
     ? `<p class="sb-empty">${scoreboardEscape_(SCOREBOARD_EMPTY_TEXT)}</p>`
     : `${scoreboardTotalsHtml_(model)}<div class="sb-grid">${model.subjects.map(scoreboardSubjectHtml_).join('')}</div>
-       <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。基本分題 ○ 只計 50%。</p>`;
+       <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。練習中的基本分題 ○ 只計 50%；模考一律照真實考試計分（○ 100%）。</p>`;
   container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
     <h2 class="sb-title">成績</h2>
     <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${body}</section>`;

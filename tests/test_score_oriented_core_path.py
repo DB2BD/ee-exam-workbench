@@ -101,41 +101,36 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 self.assertEqual(positions, sorted(positions), qid)
                 self.assertIn(qid, self.path_doc)
 
-    @unittest.expectedFailure  # Re-rank after waves 3-4 (user decision 2026-10-03): stem
-    # corrections moved EE-111-03-5 / EE-109-03-2 to vector analysis; chapter counts are
-    # final only once the 104-108 math notes that solved wrong stems are rewritten.
-    def test_each_subject_uses_exactly_its_two_highest_year_coverage_chapters(self):
-        chapter_rows = defaultdict(list)
+    def test_each_subject_uses_its_two_highest_year_coverage_chapters(self):
+        # Chapters are ranked by the number of exam years they appeared in.
+        # When chapters tie on year coverage at the cut-off, any of them may
+        # be chosen (user decision 2026-10-04: 工數 keeps 複變與留數, tied with
+        # 向量分析 at 8 years, so the in-progress path is not reshuffled).
+        chapter_years = defaultdict(set)
         for row in self.questions:
             chapter = self.taxonomy[row[0]]["primaryChapter"]
-            chapter_rows[(row[1], chapter)].append(row)
-
-        expected_top_two = {}
-        for subject in ("01", "02", "03", "04", "05", "06"):
-            ranked = sorted(
-                (
-                    (chapter, rows)
-                    for (chapter_subject, chapter), rows in chapter_rows.items()
-                    if chapter_subject == subject
-                ),
-                key=lambda item: (
-                    -len({row[2] for row in item[1]}),
-                    -len(item[1]),
-                    item[0],
-                ),
-            )
-            expected_top_two[subject] = {chapter for chapter, _ in ranked[:2]}
+            chapter_years[(row[1], chapter)].add(row[2])
 
         selected = defaultdict(Counter)
         for qid in COMPLETED_QIDS:
             subject = qid.split("-")[2]
             selected[subject][self.taxonomy[qid]["primaryChapter"]] += 1
 
-        self.assertEqual(set(selected), set(expected_top_two))
-        for subject, expected_chapters in expected_top_two.items():
+        self.assertEqual(set(selected), {"01", "02", "03", "04", "05", "06"})
+        for subject, chosen in selected.items():
             with self.subTest(subject=subject):
-                self.assertEqual(set(selected[subject]), expected_chapters)
-                self.assertEqual(sorted(selected[subject].values()), [3, 3])
+                years = {
+                    chapter: len(year_set)
+                    for (chapter_subject, chapter), year_set in chapter_years.items()
+                    if chapter_subject == subject
+                }
+                cutoff = sorted(years.values(), reverse=True)[1]
+                must_include = {c for c, n in years.items() if n > cutoff}
+                eligible = {c for c, n in years.items() if n >= cutoff}
+                self.assertEqual(len(chosen), 2)
+                self.assertTrue(must_include <= set(chosen), (subject, must_include, dict(chosen)))
+                self.assertTrue(set(chosen) <= eligible, (subject, eligible, dict(chosen)))
+                self.assertEqual(sorted(chosen.values()), [3, 3])
 
     def test_each_question_has_separate_question_and_solution_links(self):
         links = re.findall(

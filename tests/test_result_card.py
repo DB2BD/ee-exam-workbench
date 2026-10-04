@@ -274,5 +274,16 @@ class TestViewModel(unittest.TestCase):
         self.assertNotIn(".focus()", src)
 
 
+
+class TestDockedCollapse(unittest.TestCase):
+    def test_docked_card_starts_collapsed_inline_card_does_not(self):
+        src = (ROOT / "src/components/resultCard.js").read_text(encoding="utf-8")
+        self.assertIn("function resultCardStartsCollapsed", src)
+        out = subprocess.run(["node", "-"], input=src + "\nprocess.stdout.write(JSON.stringify([resultCardStartsCollapsed({}), resultCardStartsCollapsed({expanded:true}), resultCardStartsCollapsed({mount:{}})]));", capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stderr)
+        self.assertEqual(json.loads(out.stdout), [True, False, False])
+        self.assertIn("做完了？記錄作答結果", src)
+
+
 if __name__ == "__main__":
     unittest.main()

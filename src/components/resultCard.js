@@ -100,6 +100,13 @@ function resultCardShowSavedNotice(host) {
   } catch (_) { /* cosmetic only */ }
 }
 
+// A card docked in the solution window starts as a small bar so it does not
+// cover the solution while the learner is still working; inline cards open.
+function resultCardStartsCollapsed(options) {
+  const opts = options || {};
+  return !opts.mount && !opts.expanded;
+}
+
 function openResultCard(options) {
   const opts = options || {};
   const qid = String(opts.qid || '');
@@ -120,6 +127,7 @@ function openResultCard(options) {
   root.setAttribute('aria-label', '作答結果卡');
   if (docked) root.setAttribute('data-result-card-docked', '1');
   if (docked && host === document.body) root.classList.add('result-card--viewport');
+  let collapsed = resultCardStartsCollapsed(opts);
 
   const rowsHtml = model.parts.map((part, i) => `
     <div class="result-card-row" data-row="${i}">
@@ -130,7 +138,8 @@ function openResultCard(options) {
     </div>`).join('');
 
   root.innerHTML = `
-    <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span></div>
+    <button type="button" class="result-card-expand">✍️ 做完了？記錄作答結果 ▲</button>
+    <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span>${docked ? '<button type="button" class="result-card-collapse" aria-label="收合作答結果卡">▼ 收合</button>' : ''}</div>
     <div class="result-card-rows">${rowsHtml}</div>
     <div class="result-card-errors" hidden>
       <span class="result-card-errors-label">錯在哪（可多選，可不選）</span>
@@ -160,6 +169,7 @@ function openResultCard(options) {
   }
 
   function sync() {
+    root.classList.toggle('is-collapsed', collapsed);
     const vm = resultCardViewModel(qid, marks, errors, source);
     q('.result-card-title').textContent = vm.header;
     q('.result-card-hint').textContent = vm.hint;
@@ -196,6 +206,11 @@ function openResultCard(options) {
   root.addEventListener('click', event => {
     const target = event.target.closest ? event.target.closest('button') : null;
     if (!target || !root.contains(target)) return;
+    if (target.classList.contains('result-card-expand') || target.classList.contains('result-card-collapse')) {
+      collapsed = target.classList.contains('result-card-collapse');
+      sync();
+      return;
+    }
     if (target.classList.contains('result-card-mark')) {
       marks[Number(target.getAttribute('data-row'))] = target.getAttribute('data-mark');
       sync();
@@ -249,5 +264,5 @@ function openResultCard(options) {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { resultCardViewModel, resultCardMarkButtons, resultCardEscape, openResultCard };
+  module.exports = { resultCardViewModel, resultCardMarkButtons, resultCardEscape, openResultCard, resultCardStartsCollapsed };
 }

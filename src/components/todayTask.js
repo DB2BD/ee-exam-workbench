@@ -384,7 +384,7 @@ function renderTodayTaskCard() {
       ? '<div class="today-task-optional"><span>' + todayTaskEscape(vm.optional.text) + '</span>' +
         '<button type="button" class="btn-pdf today-task-optional-start" id="today-task-optional-start" onclick="todayTaskOnStartOptional(\'' + todayTaskEscape(vm.optional.code) + '\')">開始選做</button></div>'
       : '';
-    body = '<div class="today-task-main"><span class="today-task-eyebrow">🎯 一鍵開始今天</span><strong>' + todayTaskEscape(label) + '</strong>' +
+    body = '<div class="today-task-main"><span class="today-task-eyebrow">一鍵開始今天</span><strong>' + todayTaskEscape(label) + '</strong>' +
       '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + optional + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + (resume ? '繼續' : '開始') + '</button></div>';
   }
@@ -533,7 +533,7 @@ function todayTaskOverlayHtml(vm) {
     return '<figure class="today-task-figure"><figcaption><code>' + todayTaskEscape(qid) + '</code></figcaption>' + img + '</figure>';
   }).join('');
   const pdf = v.pdfUrl
-    ? '<a class="btn-pdf" href="' + todayTaskEscape(v.pdfUrl) + '" target="_blank" rel="noopener">📄 官方原卷 PDF</a>' : '';
+    ? '<a class="btn-pdf" href="' + todayTaskEscape(v.pdfUrl) + '" target="_blank" rel="noopener">官方原卷 PDF</a>' : '';
   const note = v.scoringNote ? '<p class="today-task-note">計分範圍：' + todayTaskEscape(v.scoringNote) + '</p>' : '';
   const instruction = v.instruction ? '<p class="today-task-instruction" role="note">' + todayTaskEscape(v.instruction) + '</p>' : '';
   let check = '';

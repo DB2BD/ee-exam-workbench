@@ -46,7 +46,8 @@ def build_workbench():
         'src/styles/dag-graph.css',
         'src/styles/v12-g1.css',
         'src/styles/v12-g2a.css',
-        'src/styles/v12-g2b.css'
+        'src/styles/v12-g2b.css',
+        'src/styles/v122-design.css'
     ]
     bundled_css = "\n\n".join([f"/* === {f} === */\n" + read_file(f) for f in css_files])
 
@@ -135,11 +136,11 @@ def build_workbench():
   <header>
     <div class="header-top">
       <div class="title-area">
-        <h1>⚡ 電機工程技師 歷屆試題工作台</h1>
+        <h1>⚡ <span class="title-full">電機工程技師 歷屆試題工作台</span><span class="title-short">電機技師工作台</span></h1>
         <p>專技高考電機工程技師 · 104 ~ 114 年 6 大考科 · <span id="hero-total-count">323 題</span> · 逐題來源可追溯 · 離線使用</p>
       </div>
       <div class="header-actions">
-        <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
+        <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn" aria-label="切換暗色／亮色模式"><span class="theme-ico" aria-hidden="true">🌙</span><span class="theme-label"> 暗色模式</span></button>
       </div>
     </div>
 

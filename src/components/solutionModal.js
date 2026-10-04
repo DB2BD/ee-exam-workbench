@@ -204,7 +204,7 @@ function renderKnowledgeDiagnosisCard(diagnosis) {
     <label><input id="diagnosis-secondary" type="checkbox" value="${solutionModalEscape(gap.nodeId)}"> 同時標記前置缺口：${solutionModalEscape(gap.title)}</label>` : '';
   const html = `
     <section class="knowledge-diagnosis-card" data-diagnosis-card id="knowledge-diagnosis-card">
-      <h3>🧭 作答後診斷：下一步怎麼補強</h3>
+      <h3>作答後診斷：下一步怎麼補強</h3>
       <p class="diagnosis-reason">${solutionModalEscape(diagnosisReason)}</p>
       <p class="diagnosis-confidence">${solutionModalEscape(diagnosisConfidence)}</p>
       <div class="diagnosis-candidates">${primary}</div>
@@ -724,21 +724,21 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     leftContent.innerHTML = `
       <div style="padding: 8px 14px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-dark);">📄 官方原始考卷 PDF</span>
-          <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-            🔍 展開題幹文字
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-dark);">官方原始考卷 PDF</span>
+          <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.8125rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+            展開題幹文字
           </button>
-          <button class="btn-stem-toggle" onclick="openCalculatorGuideModal()" id="btn-calc-guide" style="padding: 3px 8px; font-size: 0.76rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="考選部核定計算機按法與相量速查">
-            🧮 fx-82 按法
+          <button class="btn-stem-toggle" onclick="openCalculatorGuideModal()" id="btn-calc-guide" style="padding: 3px 8px; font-size: 0.8125rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="考選部核定計算機按法與相量速查">
+            fx-82 按法
           </button>
         </div>
-        <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.78rem; padding: 3px 8px;">
+        <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.8125rem; padding: 3px 8px;">
           新分頁開啟 ⬈
         </a>
       </div>
 
       <div id="modal-stem-collapse" style="display: none; padding: 12px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--line); font-size: 0.88rem; line-height: 1.6; color: var(--ink); max-height: 180px; overflow-y: auto;">
-        <div style="font-weight: 700; font-size: 0.78rem; color: var(--accent-dark); margin-bottom: 4px;">📌 原題題幹文字描述：</div>
+        <div style="font-weight: 700; font-size: 0.8125rem; color: var(--accent-dark); margin-bottom: 4px;">原題題幹文字描述：</div>
         <div>${renderQuestionTopic(topic)}</div>
       </div>
 
@@ -759,7 +759,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     // If sub-parts exist, render pills for quick navigation
     if (subParts.length > 1 && subQPillsBar) {
       subQPillsBar.style.display = 'flex';
-      let pillsHtml = `<button class="sub-q-pill active" onclick="switchSubQuestion(0)">📖 完整全題推導</button>`;
+      let pillsHtml = `<button class="sub-q-pill active" onclick="switchSubQuestion(0)">完整全題推導</button>`;
       for (let i = 0; i < subParts.length; i++) {
         const titleMatch = subParts[i].match(/###\s+([^\n]+)/);
         const title = titleMatch ? titleMatch[1].trim() : `第 (${i + 1}) 小題`;
@@ -780,9 +780,9 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     if (rightPane) {
       rightPane.innerHTML = `
         <div style="text-align: center; padding: 60px 20px;">
-          <h3 style="color: var(--warn); margin-bottom: 10px;">📑 詳解收錄於題解知識庫中</h3>
+          <h3 style="color: var(--warn); margin-bottom: 10px;">詳解收錄於題解知識庫中</h3>
           <p style="color: var(--muted); margin-bottom: 20px;">點擊下方按鈕前往知識庫檢視本題完整解答：</p>
-          <a href="${safeSolLink}" target="_blank" class="btn-sol">🔗 前往考科詳解庫</a>
+          <a href="${safeSolLink}" target="_blank" class="btn-sol">前往考科詳解庫</a>
         </div>
       `;
     }
@@ -1031,7 +1031,7 @@ function renderSolutionReviewCard(qid, qRecord) {
         <textarea id="solution-report-textarea" class="solution-report-textarea" rows="7">${esc(report)}</textarea>
         <div class="solution-report-actions">
           <button type="button" class="btn-sol" onclick="prepareSolutionIssueReport('${esc(qid)}')">重新產生回報文字</button>
-          <button type="button" class="btn-sol" onclick="copySolutionIssueReport()">📋 複製回報文字</button>
+          <button type="button" class="btn-sol" onclick="copySolutionIssueReport()">複製回報文字</button>
         </div>
       </div>
     </aside>
@@ -1493,7 +1493,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
         ${solutionModalQuestionPeekHtml(currentModalQid)}
         <!-- Keep the four-step workflow immediately above the hidden solution. -->
         <div class="active-recall-box" id="recall-step-box">
-          <div class="active-recall-title">🧠 主動回想閃卡模式 (Active Recall) ${recallTierBadgeHtml(currentModalQid)}</div>
+          <div class="active-recall-title">主動回想 ${recallTierBadgeHtml(currentModalQid)}</div>
           <p style="font-size: 0.85rem; color: var(--muted); margin: 0 0 10px 0;">先在白紙寫下答案，再依序揭露章節、起手式、公式與陷阱：</p>
           
           <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
@@ -1661,7 +1661,7 @@ function toggleStemDescription() {
   const isHidden = collapseEl.style.display === 'none';
   collapseEl.style.display = isHidden ? 'block' : 'none';
   if (btn) {
-    btn.innerHTML = isHidden ? '▲ 收合題幹文字' : '🔍 展開題幹文字';
+    btn.innerHTML = isHidden ? '▲ 收合題幹文字' : '展開題幹文字';
     btn.style.background = isHidden ? 'var(--accent)' : 'var(--bg-secondary)';
     btn.style.color = isHidden ? '#ffffff' : 'var(--ink-light)';
   }

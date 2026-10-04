@@ -279,11 +279,20 @@ function scoreboardBarHtml_(s) {
   const mockW = s.mock ? pct(s.mock.estimate) : 0;
   const prW = s.practice !== null ? pct(s.practice) : 0;
   const tgt = s.target !== null && s.target !== undefined ? pct(s.target) : null;
+  const mockV = s.mock ? String(Math.round(s.mock.estimate)) : '—';
+  const prV = s.practice !== null ? String(Math.round(s.practice)) : '—';
   return `<div class="sb-bar" aria-hidden="true">
-    <div class="sb-track"><span class="sb-fill sb-fill--mock" style="width:${mockW}%"></span></div>
-    <div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div>
-    ${tgt !== null ? `<span class="sb-target" style="left:${tgt}%"></span>` : ''}
+    <div class="sb-tracks">
+      <div class="sb-row"><div class="sb-track"><span class="sb-fill sb-fill--mock" style="width:${mockW}%"></span></div></div>
+      <div class="sb-row"><div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div></div>
+      ${tgt !== null ? `<span class="sb-target" style="left:${tgt}%"></span>` : ''}
+    </div>
+    <div class="sb-vals"><span class="sb-val sb-val--mock">${mockV}</span><span class="sb-val sb-val--practice">${prV}</span></div>
   </div>`;
+}
+
+function scoreboardLegendHtml_() {
+  return `<p class="sb-legend" aria-label="圖例"><span class="sb-legend-item"><i class="sb-swatch sb-swatch--mock"></i>模考實測</span><span class="sb-legend-item"><i class="sb-swatch sb-swatch--practice"></i>練習估計</span><span class="sb-legend-item"><i class="sb-swatch sb-swatch--target"></i>目標線</span></p>`;
 }
 
 function scoreboardSubjectHtml_(s) {
@@ -342,7 +351,7 @@ function renderScoreboard(container, options) {
        <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。練習中的基本分題 ○ 只計 50%；模考一律照真實考試計分（○ 100%）。</p>`;
   container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
     <h2 class="sb-title">成績</h2>
-    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${body}</section>`;
+    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
   return model;
 }
 

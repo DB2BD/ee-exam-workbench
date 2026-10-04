@@ -138,7 +138,7 @@ function openResultCard(options) {
     </div>`).join('');
 
   root.innerHTML = `
-    <button type="button" class="result-card-expand">✍️ 做完了？記錄作答結果 ▲</button>
+    <button type="button" class="result-card-expand">做完了？記錄作答結果 ▲</button>
     <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span>${docked ? '<button type="button" class="result-card-collapse" aria-label="收合作答結果卡">▼ 收合</button>' : ''}</div>
     <div class="result-card-rows">${rowsHtml}</div>
     <div class="result-card-errors" hidden>

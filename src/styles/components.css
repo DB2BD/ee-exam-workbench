@@ -1719,6 +1719,8 @@ select:focus {
 .mock-shortcut strong { color: var(--accent-dark); margin-right: 4px; }
 .mock-chip { min-height: 44px; padding: 6px 12px; border-radius: var(--radius-pill); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; font-size: 0.82rem; }
 .mock-chip:hover { background: var(--accent-light); }
+.mock-chip.is-done { color: var(--muted, var(--ink-muted, #6b7280)); background: var(--bg-secondary); }
+.mock-chip.is-done svg { width: 1em; height: 1em; vertical-align: -0.15em; }
 .mock-btn { min-height: 44px; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
 .mock-btn:hover { background: var(--accent-light); }
 .mock-btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }

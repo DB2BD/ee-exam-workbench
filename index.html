@@ -1945,6 +1945,8 @@ select:focus {
 .mock-shortcut strong { color: var(--accent-dark); margin-right: 4px; }
 .mock-chip { min-height: 44px; padding: 6px 12px; border-radius: var(--radius-pill); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); cursor: pointer; font-size: 0.82rem; }
 .mock-chip:hover { background: var(--accent-light); }
+.mock-chip.is-done { color: var(--muted, var(--ink-muted, #6b7280)); background: var(--bg-secondary); }
+.mock-chip.is-done svg { width: 1em; height: 1em; vertical-align: -0.15em; }
 .mock-btn { min-height: 44px; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); font-weight: 700; font-size: 0.9rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
 .mock-btn:hover { background: var(--accent-light); }
 .mock-btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
@@ -38039,16 +38041,33 @@ function mockExamOpenSolution(qid) {
   }
 }
 
+/** 已完成的排程代碼（來自今日任務狀態；讀不到就視為都未完成）。 */
+function mockExamCompletedCodes() {
+  try {
+    return typeof loadTodayTaskState === 'function' ? (loadTodayTaskState().completed || {}) : {};
+  } catch (_) { return {}; }
+}
+
+/** 模考／盲測捷徑 chips；已完成的排程卷加勾號與淡化樣式。 */
+function mockExamShortcutHtml(shortcuts, completed) {
+  const done = completed || {};
+  const icon = typeof uiIcon === 'function' ? uiIcon('check') : '';
+  return shortcuts.map(s => `
+    <div class="mock-shortcut">
+      <strong>${mockExamEscape(s.label)}</strong>
+      ${s.items.map(it => {
+        const finished = !!done[it.code];
+        return `<button type="button" class="mock-chip${finished ? ' is-done' : ''}" data-mock-pick="${mockExamEscape(it.year)}:${mockExamEscape(it.sid)}" title="排程代碼 ${mockExamEscape(it.code)}${finished ? '（已完成）' : ''}">${finished ? icon + ' ' : ''}${mockExamEscape(it.code)} ${mockExamEscape(it.title)}</button>`;
+      }).join('')}
+    </div>`).join('');
+}
+
 function mockExamPickerHtml() {
   const st = mockExamState;
   const subjects = mockExamSubjects();
   const sched = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null;
   const shortcuts = mockExamShortcuts(sched).filter(s => s.items.length);
-  const shortcutHtml = shortcuts.map(s => `
-    <div class="mock-shortcut">
-      <strong>${mockExamEscape(s.label)}</strong>
-      ${s.items.map(it => `<button type="button" class="mock-chip" data-mock-pick="${mockExamEscape(it.year)}:${mockExamEscape(it.sid)}" title="排程代碼 ${mockExamEscape(it.code)}">${mockExamEscape(it.code)} ${mockExamEscape(it.title)}</button>`).join('')}
-    </div>`).join('');
+  const shortcutHtml = mockExamShortcutHtml(shortcuts, mockExamCompletedCodes());
   return `
     <div class="mock-picker">
       <label>年度
@@ -39388,7 +39407,7 @@ function homeStartDueReview() {
 // phase is already done counts only its remaining 核對＋修復 hours).
 
 const PACING_DAY_TOLERANCE = 0.25;   // a later task may overshoot today's remaining hours by this much
-const PACING_MIN_ROOM = 0.75;        // stop adding tasks once this little (or less) of the budget is left
+const PACING_MIN_ROOM = 0.25;        // stop adding tasks once this little (or less) of the budget is left (room ~0)
 const PACING_FEASIBILITY_SLACK = 0.5; // hours of rounding allowed before a milestone counts as unreachable
 const PACING_NON_WORK = ['EXAM-CHECK', 'STOP'];
 
@@ -39555,7 +39574,7 @@ function pacingPlan(input) {
       const cost = pacingCost(task, partial, weekend);
       if (plan.length) {
         const room = dayBudget - used;
-        if (!(room > PACING_MIN_ROOM && cost.hours <= room + PACING_DAY_TOLERANCE)) break;
+        if (!(room > PACING_MIN_ROOM - 1e-9 && cost.hours <= room + PACING_DAY_TOLERANCE + 1e-9)) break;
       }
       plan.push({ code: task.code, part: cost.part, hours: cost.hours, phaseIndex: cost.phaseIndex, partial: !!partial && partial.code === task.code });
       used += cost.hours;
@@ -39884,18 +39903,36 @@ function todayTaskMilestoneText(pacing) {
   if (next.hard) return hardLine(next);
   const head = '距 ' + todayTaskMonthDay(next.date) + ' ' + next.label + (next.daysLeft === 0 ? '就是今天' : '還有 ' + next.daysLeft + ' 天') +
     '｜剩 ' + todayTaskFormatHours(next.remainingHours) + ' 小時';
-  return hard && !hard.passed ? head + '｜' + todayTaskMonthDay(hard.date) + ' ' + hard.label + '剩 ' + hard.remainingPapers + ' 份卷' : head;
+  const tail = hard && !hard.passed ? head + '｜' + todayTaskMonthDay(hard.date) + ' ' + hard.label + '剩 ' + hard.remainingPapers + ' 份卷' : head;
+  return next.atRisk ? tail + '｜彈性關卡：做不完就順延，不影響模考' : tail;
+}
+
+function todayTaskCutNote(pacing) {
+  return pacing.overload
+    ? '時數仍短缺約 ' + todayTaskFormatHours(pacing.shortHours) + ' 小時：模考卷照順序做，做不完的排到 11/01 緩衝日補考' : '';
 }
 
 function todayTaskCutText(pacing) {
   if (!pacing.cut.length) return '';
-  let text = '已自動刪減：' + todayTaskCompressCodes(pacing.cut) + '（有空再做）';
-  if (pacing.overload) text += '；時數仍短缺約 ' + todayTaskFormatHours(pacing.shortHours) + ' 小時，模考卷與 10/31 期限不刪';
-  return text;
+  const note = todayTaskCutNote(pacing);
+  return '已自動刪減：' + todayTaskCompressCodes(pacing.cut) + '（有空再做）' + (note ? '；' + note : '');
 }
 
-function todayTaskPlanLine(pacing) {
-  return '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜排入 ' + todayTaskFormatHours(pacing.planHours) + ' 小時';
+// Card html for the cut line: few ranges stay inline; a long list collapses into a <details> under a short summary.
+function todayTaskCutHtml(vm) {
+  const pacing = vm.pacing;
+  if (!pacing || !pacing.cut || !pacing.cut.length) return vm.cutText ? '<p class="today-pacing-cut">' + todayTaskEscape(vm.cutText) + '</p>' : '';
+  const ranges = todayTaskCompressCodes(pacing.cut);
+  if (ranges.split('、').length <= 3) return '<p class="today-pacing-cut">' + todayTaskEscape(vm.cutText) + '</p>';
+  const note = todayTaskCutNote(pacing);
+  return '<div class="today-pacing-cut"><details><summary>已自動刪減 ' + pacing.cut.length + ' 項（有空再做）</summary><p>' + todayTaskEscape(ranges) + '</p></details>' +
+    (note ? '<p>' + todayTaskEscape(note) + '</p>' : '') + '</div>';
+}
+
+function todayTaskPlanLine(pacing, hasDoneToday) {
+  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜';
+  if (!pacing.planHours && hasDoneToday) return '今天的份量已完成';
+  return head + '還要做約 ' + todayTaskFormatHours(pacing.planHours) + ' 小時';
 }
 
 function todayTaskPdfUrl(task) {
@@ -39957,6 +39994,7 @@ function todayTaskViewModel(state, now) {
   const items = pacing.plan.map(todayTaskPlanItem);
   const total = DAILY_SCHEDULE.order.length;
   const doneCount = DAILY_SCHEDULE.order.filter(c => state.completed[c]).length;
+  const doneToday = DAILY_SCHEDULE.order.some(c => state.completed[c] && todayTaskLocalDate(Date.parse(state.completed[c])) === todayIso);
   let mode;
   if (rowCodes.indexOf('EXAM-CHECK') >= 0) mode = 'exam-check';
   else if (rowCodes.indexOf('STOP') >= 0 || pacing.afterEnd) mode = 'stop';
@@ -39979,7 +40017,7 @@ function todayTaskViewModel(state, now) {
     mode,
     todayIso,
     pacing,
-    planText: todayTaskPlanLine(pacing),
+    planText: todayTaskPlanLine(pacing, doneToday),
     plan: pacing,
     items,
     rest,
@@ -40043,7 +40081,7 @@ function todayTaskCardHtml(vm) {
   const plan = restDay ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
   const pacingLines = restDay ? '' :
     (vm.milestoneText ? '<p class="today-pacing-milestone' + (vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(vm.milestoneText) + '</p>' : '') +
-    (vm.cutText ? '<p class="today-pacing-cut">' + esc(vm.cutText) + '</p>' : '') +
+    todayTaskCutHtml(vm) +
     (vm.suggestion ? '<p class="today-pacing-suggestion">' + esc(vm.suggestion) + '</p>' : '');
   let body;
   if (vm.mode === 'exam-check') {

@@ -142,6 +142,21 @@ class MockExamTests(unittest.TestCase):
         self.assertIn("src/components/mockExam.js", build)
 
 
+class MockShortcutDoneTests(unittest.TestCase):
+    def test_completed_scheduled_papers_get_check_and_muted_class(self):
+        out = run_node("""(function () {
+          globalThis.uiIcon = function (n) { return '<svg data-i="' + n + '"></svg>'; };
+          var sc = [{kind: 'mock114', label: '114 年模考', year: '114', items: [
+            {code: 'MOCK114-01', year: '114', sid: '01', title: 'A'}, {code: 'MOCK114-02', year: '114', sid: '02', title: 'B'}]}];
+          return mockExamShortcutHtml(sc, {'MOCK114-01': '2026-10-05T00:00:00.000Z'});
+        })()""")
+        first, second = out.split("</button>")[:2]
+        self.assertIn("is-done", first)
+        self.assertIn('data-i="check"', first)
+        self.assertNotIn("is-done", second)
+        self.assertNotIn("check", second)
+
+
 class G2aTests(unittest.TestCase):
     def test_summary_shows_actual_marks(self):
         out = run_node("""(function () {

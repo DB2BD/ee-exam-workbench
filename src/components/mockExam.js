@@ -337,16 +337,33 @@ function mockExamOpenSolution(qid) {
   }
 }
 
+/** 已完成的排程代碼（來自今日任務狀態；讀不到就視為都未完成）。 */
+function mockExamCompletedCodes() {
+  try {
+    return typeof loadTodayTaskState === 'function' ? (loadTodayTaskState().completed || {}) : {};
+  } catch (_) { return {}; }
+}
+
+/** 模考／盲測捷徑 chips；已完成的排程卷加勾號與淡化樣式。 */
+function mockExamShortcutHtml(shortcuts, completed) {
+  const done = completed || {};
+  const icon = typeof uiIcon === 'function' ? uiIcon('check') : '';
+  return shortcuts.map(s => `
+    <div class="mock-shortcut">
+      <strong>${mockExamEscape(s.label)}</strong>
+      ${s.items.map(it => {
+        const finished = !!done[it.code];
+        return `<button type="button" class="mock-chip${finished ? ' is-done' : ''}" data-mock-pick="${mockExamEscape(it.year)}:${mockExamEscape(it.sid)}" title="排程代碼 ${mockExamEscape(it.code)}${finished ? '（已完成）' : ''}">${finished ? icon + ' ' : ''}${mockExamEscape(it.code)} ${mockExamEscape(it.title)}</button>`;
+      }).join('')}
+    </div>`).join('');
+}
+
 function mockExamPickerHtml() {
   const st = mockExamState;
   const subjects = mockExamSubjects();
   const sched = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null;
   const shortcuts = mockExamShortcuts(sched).filter(s => s.items.length);
-  const shortcutHtml = shortcuts.map(s => `
-    <div class="mock-shortcut">
-      <strong>${mockExamEscape(s.label)}</strong>
-      ${s.items.map(it => `<button type="button" class="mock-chip" data-mock-pick="${mockExamEscape(it.year)}:${mockExamEscape(it.sid)}" title="排程代碼 ${mockExamEscape(it.code)}">${mockExamEscape(it.code)} ${mockExamEscape(it.title)}</button>`).join('')}
-    </div>`).join('');
+  const shortcutHtml = mockExamShortcutHtml(shortcuts, mockExamCompletedCodes());
   return `
     <div class="mock-picker">
       <label>年度

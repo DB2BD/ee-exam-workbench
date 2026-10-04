@@ -160,14 +160,21 @@ class TestTodayTaskStore(unittest.TestCase):
         self.assertEqual(res["status"], "behind")
         self.assertTrue(res["cut"].startswith("已自動刪減："), res["cut"])
         self.assertIn("（有空再做）", res["cut"])
-        self.assertIn("模考卷與 10/31 期限不刪", res["cut"])  # hours still short after every allowed cut
+        self.assertIn("模考卷照順序做，做不完的排到 11/01 緩衝日補考", res["cut"])  # hours still short after every allowed cut
 
     def test_plan_line_shows_budget_and_planned_hours(self):
         done = {f"CORE-0{i}": "x" for i in range(1, 7)}
         sunday = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 4)}).planText")["result"]
         monday = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 5)}).planText")["result"]
-        self.assertEqual(sunday, "今天預算 4 小時（週末）｜排入 4.25 小時")  # CORE-07～09 + WEAK-01
-        self.assertEqual(monday, "今天預算 2 小時（平日）｜排入 2 小時")  # CORE-07, CORE-08 (a 2 h weekday)
+        self.assertEqual(sunday, "今天預算 4 小時（週末）｜還要做約 4.25 小時")  # CORE-07～09 + WEAK-01
+        self.assertEqual(monday, "今天預算 2 小時（平日）｜還要做約 2 小時")  # CORE-07, CORE-08 (a 2 h weekday)
+
+    def test_plan_line_when_todays_share_is_done(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order}
+        done["WRAP-03"] = "2026-10-05T04:00:00.000Z"
+        text = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 5, 14)}).planText")["result"]
+        self.assertEqual(text, "今天的份量已完成")
 
     def test_resume_computes_remaining_time(self):
         started = local_ms(2026, 10, 3, 9, 0)
@@ -374,6 +381,30 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertNotIn("MOCK", res["cut"])
         self.assertNotIn("BLIND", res["cut"])
         self.assertIn('class="today-pacing-cut"', res["html"])
+
+    def test_soft_milestone_at_risk_shows_flexible_cue(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("CORE-16")]}
+        res = self.vm(done, local_ms(2026, 10, 16))
+        self.assertIn("10/17", res["milestone"])
+        self.assertTrue(res["milestone"].endswith("｜彈性關卡：做不完就順延，不影響模考"), res["milestone"])
+        ok = self.vm({c: "x" for c in order[:order.index("CORE-07")]}, local_ms(2026, 10, 4))
+        self.assertNotIn("彈性關卡", ok["milestone"])
+
+    def test_long_cut_list_collapses_into_details(self):
+        res = run_node(
+            "(() => { const s = {completed:{'CORE-01':'2026-09-23T00:00:00.000Z'}, active:null};"
+            f"const v = todayTaskViewModel(s, {local_ms(2026, 10, 20)}); return todayTaskCardHtml(v); }})()")["result"]
+        self.assertIn("<details>", res)
+        self.assertNotIn("<details open", res)
+        self.assertRegex(res, r"<summary>已自動刪減 \d+ 項（有空再做）</summary>")
+        self.assertIn("WEAK-10～14", res)
+        self.assertIn("11/01 緩衝日補考", res)
+        short = run_node(
+            "todayTaskCardHtml({mode:'task', pacing:{cut:['WEAK-07','WEAK-08','WEAK-09'], overload:false, hardMilestone:null}, cutText:'已自動刪減：WEAK-07～09（有空再做）', planText:'', milestoneText:'', suggestion:'', items:[], rest:[], restText:'', completedMap:{}, doneCount:0, total:1})")["result"]
+        self.assertIn('<p class="today-pacing-cut">已自動刪減：WEAK-07～09（有空再做）</p>', short)
+        self.assertNotIn("<p class=\"today-pacing-cut\"><details", short)
+        self.assertNotIn("<summary>已自動刪減", short)
 
     def test_ahead_after_all_mocks_suggests_113(self):
         order = run_node("DAILY_SCHEDULE.order")["result"]

@@ -10,6 +10,7 @@ Writes src/data/recallHints.generated.js (const RECALL_HINTS).
 """
 
 import json
+import subprocess
 import re
 import sys
 from pathlib import Path
@@ -33,21 +34,50 @@ def section(text, name):
 RESULT_NUMBER_RE = re.compile(r"((?:=|≈|\\approx|得|答成|算成|變成|誤為|成為)\s*\$?\s*)(-?\d+(?:\.\d+)?)")
 
 
-def mask_trap_numbers(bullet, note_text):
+STEM_DUMP = r"""
+const fs=require("fs"),vm=require("vm");
+const c={};vm.runInNewContext(fs.readFileSync("dashboard-data.js","utf8")+";this.D=DB_DATA",c);
+process.stdout.write(JSON.stringify(Object.fromEntries(c.D.questions.map(q=>[q[0],String(q[4]||"")]))));
+"""
+_STEMS = None
+
+
+def official_stems():
+    """Official question text per QID (from dashboard-data.js)."""
+    global _STEMS
+    if _STEMS is None:
+        done = subprocess.run(["node", "-"], input=STEM_DUMP, capture_output=True, text=True, cwd=ROOT, check=True)
+        _STEMS = json.loads(done.stdout)
+    return _STEMS
+
+
+def given_numbers(note_text, stem_text=""):
+    known = section(note_text, "已知與所求") + "\n" + stem_text
+    given = set(NUMBER_RE.findall(known))
+    for pct in re.findall(r"(\d+(?:\.\d+)?)\s*\\?[%％]", known):
+        given.add(f"{float(pct) / 100:g}")
+    return given
+
+
+def mask_trap_numbers(bullet, note_text, stem_text=""):
     """Stage ③ shows before the full solution, so hide computed values.
 
-    Numbers in a result position (after =, ≈, 得, 答成 …) and any boxed answer
-    value become 「□」; the method wording of the 失分點 stays intact.
+    Every multi-digit or decimal number that is not given in the question
+    (official stem or 已知與所求) becomes 「□」, as do numbers in a result
+    position (after =, ≈, 得, 答成 …); the method wording stays intact.
     """
-    masked = RESULT_NUMBER_RE.sub(lambda m: m.group(1) + "□", bullet)
+    given = given_numbers(note_text, stem_text)
+    masked = RESULT_NUMBER_RE.sub(lambda m: m.group(0) if m.group(2) in given else m.group(1) + "□", bullet)
+    # Subscripts and exponents (Y_{22}, 10^{-3}) are labels, not results.
+    masked = re.sub(r"(?<![\d.])(?<!_\{)(?<!\^\{)(?<!_)(?<!\^)(\d+\.\d+|\d{2,})(?![\d])", lambda m: m.group(0) if m.group(0) in given else "□", masked)
     for value in answer_numbers(note_text):
         masked = re.sub(rf"(?<![\d.]){re.escape(value)}(?![\d])", "□", masked)
     return masked
 
 
-def traps_from_note(text):
+def traps_from_note(text, stem_text=""):
     body = section(text, "失分點")
-    bullets = [mask_trap_numbers(line, text) for line in body.splitlines() if line.startswith("- ")]
+    bullets = [mask_trap_numbers(line, text, stem_text) for line in body.splitlines() if line.startswith("- ")]
     return "\n".join(bullets)
 
 
@@ -95,8 +125,9 @@ def written_hints():
 def build():
     hints = {}
     notes = {path.stem: path.read_text(encoding="utf-8") for path in sorted(ROOT.glob(CANONICAL_GLOB))}
+    stems = official_stems()
     for qid, text in notes.items():
-        traps = traps_from_note(text)
+        traps = traps_from_note(text, stems.get(qid, ""))
         if traps:
             hints.setdefault(qid, {})["trapsMd"] = traps
     for qid, move in written_hints().items():

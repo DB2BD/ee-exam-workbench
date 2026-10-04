@@ -118,6 +118,7 @@ function formatBackupSummary(summary) {
     `格式 ${summary.version || '未知'} · PE 做題 ${byCategory.PE || 0} · GK 做題 ${byCategory.GK || 0}`,
     `收藏 ${summary.starred || 0}（PE ${starredByCategory.PE || 0}／GK ${starredByCategory.GK || 0}）`,
     `SM-2 ${summary.sm2 || 0} · 主動回想 ${summary.recall || 0} · 人工章節 ${summary.manualLabels || 0}`,
+    `作答結果卡紀錄 ${summary.resultCardRecords || 0} 筆 · 排程任務已完成 ${summary.todayTaskDone || 0} 項${summary.todayTaskActive ? '（含進行中任務）' : ''}`,
     `每日練習完成 ${summary.practiceCompleted || 0} 題 · ${summary.practiceSession ? '含續做進度' : '無進行中練習'} · ${summary.mockTimer ? '含模考計時' : '無模考計時'}`,
   ].join('\n');
 }

@@ -639,7 +639,9 @@ function startReviewSession() {
   }
   currentReviewSessionQueue = questions;
   currentReviewSessionIndex = 0;
-  currentReviewSessionResults = { rated: [], skipped: [] };
+  currentReviewSessionResults = { rated: [], skipped: [], marks: {} };
+  const oldSummary = typeof document !== 'undefined' ? document.getElementById('home-due-summary') : null;
+  if (oldSummary) oldSummary.hidden = true;
   openReviewSessionItem(0);
 }
 
@@ -649,9 +651,53 @@ function getReviewSessionCompletionMessage(queue) {
   return `本輪完成 ${summary.rated} 題、略過 ${summary.skipped} 題。略過題仍保留在到期清單。`;
 }
 
-function recordReviewSessionRating(qid) {
+// Classify a saved result record (or a legacy 1/3/5 rating) as ○ / △ / ×.
+function reviewSessionMarkFor(record, rating) {
+  if (record && Number.isFinite(Number(record.total)) && Number(record.total) > 0) {
+    const est = Number(record.estimate) || 0;
+    return est >= Number(record.total) ? 'o' : (est <= 0 ? 'x' : 'tri');
+  }
+  return rating === 5 ? 'o' : (rating === 3 ? 'tri' : (rating === 1 ? 'x' : ''));
+}
+
+// Pure: 「到期複習完成：N 題，○ a／△ b／× c」 from the session results.
+function reviewSessionSummaryText(results) {
+  const rated = (results && results.rated) || [];
+  const marks = (results && results.marks) || {};
+  const skipped = ((results && results.skipped) || []).filter(q => rated.indexOf(q) < 0);
+  const count = m => rated.filter(q => marks[q] === m).length;
+  const skipText = skipped.length ? `（略過 ${skipped.length} 題，仍保留在到期清單）` : '';
+  if (!rated.length) return skipped.length ? `到期複習結束：略過 ${skipped.length} 題，仍保留在到期清單` : '到期複習結束';
+  return `到期複習完成：${rated.length} 題，○ ${count('o')}／△ ${count('tri')}／× ${count('x')}${skipText}`;
+}
+
+function reviewSessionShowSummary() {
+  const text = reviewSessionSummaryText(currentReviewSessionResults);
+  if (typeof document === 'undefined' || typeof document.querySelector !== 'function') return text;
+  if (typeof switchTab === 'function') { try { switchTab('practice'); } catch (_) { /* best-effort */ } }
+  let box = document.getElementById('home-due-summary');
+  if (!box) {
+    const anchor = document.querySelector('.home-primary-actions');
+    if (!anchor || !anchor.parentNode) return text;
+    box = document.createElement('div');
+    box.id = 'home-due-summary';
+    box.className = 'home-due-summary';
+    box.setAttribute('role', 'status');
+    anchor.parentNode.insertBefore(box, anchor.nextSibling);
+  }
+  box.hidden = false;
+  box.innerHTML = '<span class="home-due-summary-text"></span><button type="button" class="home-due-summary-close" aria-label="關閉摘要">✕</button>';
+  box.querySelector('.home-due-summary-text').textContent = text;
+  box.querySelector('button').addEventListener('click', () => { box.hidden = true; });
+  if (typeof homeDueReviewRefresh === 'function') homeDueReviewRefresh();
+  return text;
+}
+
+function recordReviewSessionRating(qid, record, rating) {
   const id = String(qid || '');
   if (!id) return;
+  const mark = reviewSessionMarkFor(record, rating);
+  if (mark) currentReviewSessionResults.marks = Object.assign({}, currentReviewSessionResults.marks, { [id]: mark });
   currentReviewSessionResults.rated = [...new Set([...(currentReviewSessionResults.rated || []), id])];
   currentReviewSessionResults.skipped = (currentReviewSessionResults.skipped || []).filter(item => item !== id);
 }
@@ -669,6 +715,7 @@ function openReviewSessionItem(index) {
   if (!currentReviewSessionQueue || index < 0 || index >= currentReviewSessionQueue.length) {
     if (typeof showToast === 'function') showToast(getReviewSessionCompletionMessage(currentReviewSessionQueue));
     renderReviewPage();
+    reviewSessionShowSummary();
     return;
   }
   currentReviewSessionIndex = index;
@@ -690,6 +737,7 @@ function advanceReviewSessionItem() {
     if (typeof showToast === 'function') showToast(getReviewSessionCompletionMessage(currentReviewSessionQueue));
     if (typeof closeSolutionModal === 'function') closeSolutionModal();
     renderReviewPage();
+    reviewSessionShowSummary();
   }
 }
 

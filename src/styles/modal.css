@@ -543,7 +543,7 @@
   font-weight: 600;
 }
 
-/* 🎴 Active Recall Mode */
+/* Active Recall Mode */
 .active-recall-box {
   background: var(--bg-secondary);
   border: 1.5px dashed var(--accent);

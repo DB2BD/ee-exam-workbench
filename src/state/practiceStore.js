@@ -275,6 +275,196 @@ function createWeightedPracticeQueue(questions, options = {}) {
   return chosen;
 }
 
+// ---- v1.3 B: 各科輪流 (balanced) / 補強 (reinforce) / 依日期的預設模式 ----
+const PRACTICE_BALANCED_WINDOW_MS = 14 * 24 * 60 * 60 * 1000;
+const PRACTICE_ERROR_WINDOW_MS = 21 * 24 * 60 * 60 * 1000;
+const PRACTICE_MAIN_PICK_RATE = 0.75;
+
+// Local-date phase: p1 < 2026-10-18 <= p2 <= 2026-11-01 < p3.
+function practicePhaseFor(now) {
+  const d = new Date(practiceResolveNow(now));
+  const key = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  if (key < 20261018) return 'p1';
+  if (key <= 20261101) return 'p2';
+  return 'p3';
+}
+
+function practiceDefaultModeFor(now) {
+  const phase = practicePhaseFor(now);
+  return phase === 'p1' ? 'balanced' : (phase === 'p2' ? 'weighted' : 'reinforce');
+}
+
+function practiceRecordList(options) {
+  if (options && Array.isArray(options.records)) return options.records;
+  try { if (typeof getResultRecords === 'function') return getResultRecords({}) || []; } catch (error) { /* none */ }
+  return [];
+}
+
+// Worst mark over the parts of one result-card record: x > tri > o.
+function practiceRecordMark(record) {
+  const marks = record && Array.isArray(record.parts) ? record.parts.map(p => p && p.mark) : [];
+  if (marks.indexOf('x') >= 0) return 'x';
+  if (marks.indexOf('tri') >= 0) return 'tri';
+  return marks.length ? 'o' : null;
+}
+
+function practiceLatestByQid(records, filter) {
+  const latest = {};
+  records.forEach(record => {
+    if (!record || typeof record.qid !== 'string' || (filter && !filter(record))) return;
+    const at = Number(record.at) || 0;
+    if (!latest[record.qid] || at >= (Number(latest[record.qid].at) || 0)) latest[record.qid] = record;
+  });
+  return latest;
+}
+
+function practiceTierOf(options, qid) {
+  try {
+    const fn = typeof options.tierOf === 'function' ? options.tierOf : (typeof studyTierFor === 'function' ? studyTierFor : null);
+    return fn ? fn(qid) : null;
+  } catch (error) { return null; }
+}
+
+// Shared pool: PE questions that are not locked, not duplicated and not done in the last 7 days.
+function practicePool(questions, options, now) {
+  const locked = practiceLockedQids(options);
+  const seen = new Set();
+  const pool = [];
+  (Array.isArray(questions) ? questions : []).forEach(question => {
+    const candidate = practiceCandidate(question, options);
+    if (!candidate || seen.has(candidate.id)) return;
+    seen.add(candidate.id);
+    if (!candidate.id.startsWith('EE-') || locked.has(candidate.id)) return;
+    const age = candidate.completedAt === null ? null : now - candidate.completedAt;
+    if (age !== null && age < DAILY_PRACTICE_RECENT_WINDOW_MS) return;
+    candidate.subjectId = practiceSubjectId(question) || (/^EE-\d+-(\d+)-\d+$/.exec(candidate.id) || [])[1] || '';
+    candidate.tier = practiceTierOf(options, candidate.id);
+    pool.push(candidate);
+  });
+  return pool;
+}
+
+function practiceTakeRandom(list, random) {
+  return list.splice(Math.floor(practiceRandomValue(random) * list.length), 1)[0];
+}
+
+// Prefer 主攻 (main) candidates; still draw 基本分 (about one in four) when both exist.
+function practiceTakeByTier(list, random) {
+  const main = list.filter(c => c.tier === 'main');
+  const other = list.filter(c => c.tier !== 'main');
+  let source = main.length ? main : other;
+  if (main.length && other.length && practiceRandomValue(random) >= PRACTICE_MAIN_PICK_RATE) source = other;
+  const chosen = practiceTakeRandom(source.slice(), random);
+  list.splice(list.indexOf(chosen), 1);
+  return chosen;
+}
+
+function practiceTopUp(chosen, questions, options, count, random, now) {
+  if (chosen.length >= count) return chosen;
+  const rest = (Array.isArray(questions) ? questions : []).filter(q => chosen.indexOf(practiceQuestionId(q)) < 0);
+  return chosen.concat(createDailyPracticeQueue(rest, Object.assign({}, options, {
+    count: count - chosen.length, random, now, subjectId: undefined,
+  })));
+}
+
+// 各科輪流: least-practised subjects first (result-card records of the last 14 days), one
+// question per subject per round, 主攻 chapters preferred.
+function createBalancedPracticeQueue(questions, options = {}) {
+  const count = Number.isInteger(options.count) && options.count > 0 ? options.count : 3;
+  const now = practiceResolveNow(options.now);
+  const random = typeof options.random === 'function' ? options.random : Math.random;
+  const pool = practicePool(questions, options, now);
+  const bySubject = {};
+  pool.forEach(c => { (bySubject[c.subjectId] = bySubject[c.subjectId] || []).push(c); });
+  const subjectOfQid = {};
+  (Array.isArray(questions) ? questions : []).forEach(q => { subjectOfQid[practiceQuestionId(q)] = practiceSubjectId(q); });
+  const counts = {};
+  practiceRecordList(options).forEach(record => {
+    if (!record || record.legacy || (Number(record.at) || 0) < now - PRACTICE_BALANCED_WINDOW_MS) return;
+    const subject = subjectOfQid[record.qid] || (/^EE-\d+-(\d+)-\d+$/.exec(String(record.qid)) || [])[1];
+    if (subject) counts[subject] = (counts[subject] || 0) + 1;
+  });
+  const chosen = [];
+  while (chosen.length < count) {
+    const subjects = Object.keys(bySubject).filter(id => bySubject[id].length)
+      .map(id => ({ id, n: counts[id] || 0, tie: practiceRandomValue(random) }))
+      .sort((a, b) => a.n - b.n || a.tie - b.tie);
+    if (!subjects.length) break;
+    for (const subject of subjects) {
+      if (chosen.length >= count) break;
+      chosen.push(practiceTakeByTier(bySubject[subject.id], random).id);
+      counts[subject.id] = (counts[subject.id] || 0) + 1;
+    }
+  }
+  return practiceTopUp(chosen, questions, options, count, random, now);
+}
+
+// 補強: (a) mock questions whose latest mock record is △／×, (b) same-chapter questions,
+// (c) chapters with the most error codes in the last 21 days.  A question whose latest
+// record is all ○ is never repeated.  Empty -> 各科輪流.
+function createReinforcePracticeQueue(questions, options = {}) {
+  const count = Number.isInteger(options.count) && options.count > 0 ? options.count : 3;
+  const now = practiceResolveNow(options.now);
+  const random = typeof options.random === 'function' ? options.random : Math.random;
+  const records = practiceRecordList(options).filter(r => r && !r.legacy);
+  const latestAny = practiceLatestByQid(records);
+  const latestMock = practiceLatestByQid(records, r => r.source === 'mock');
+  const pool = practicePool(questions, options, now).filter(c => {
+    const latest = latestAny[c.id];
+    return !(latest && practiceRecordMark(latest) === 'o');
+  });
+  const byId = {};
+  pool.forEach(c => { byId[c.id] = c; });
+  const chosen = [];
+  const take = list => {
+    while (chosen.length < count && list.length) chosen.push(practiceTakeByTier(list, random).id);
+  };
+  const isUsed = c => chosen.indexOf(c.id) >= 0;
+
+  // (a) mock misses, × before △.
+  const seedAll = Object.keys(latestMock).filter(qid => ['x', 'tri'].indexOf(practiceRecordMark(latestMock[qid])) >= 0);
+  ['x', 'tri'].forEach(mark => {
+    take(seedAll.filter(qid => practiceRecordMark(latestMock[qid]) === mark && byId[qid]).map(qid => byId[qid]));
+  });
+  // (b) same chapter as any mock miss (main tier first).
+  const chapterOfId = {};
+  pool.forEach(c => { chapterOfId[c.id] = c.chapter; });
+  (Array.isArray(questions) ? questions : []).forEach(q => {
+    const id = practiceQuestionId(q);
+    if (!(id in chapterOfId)) chapterOfId[id] = practiceFacet(options.chapterOf, q);
+  });
+  const seedChapters = new Set(seedAll.map(qid => chapterOfId[qid]).filter(ch => ch && ch !== 'unknown'));
+  if (chosen.length < count && seedChapters.size) {
+    const same = pool.filter(c => !isUsed(c) && seedChapters.has(c.chapter));
+    const main = same.filter(c => c.tier === 'main');
+    take(main);
+    take(same.filter(c => !isUsed(c)));
+  }
+  // (c) chapters with the most error codes in the last 21 days.
+  if (chosen.length < count) {
+    const errorCount = {};
+    records.forEach(r => {
+      if ((Number(r.at) || 0) < now - PRACTICE_ERROR_WINDOW_MS || !Array.isArray(r.errors) || !r.errors.length) return;
+      const chapter = chapterOfId[r.qid];
+      if (chapter && chapter !== 'unknown') errorCount[chapter] = (errorCount[chapter] || 0) + r.errors.length;
+    });
+    Object.keys(errorCount).sort((a, b) => errorCount[b] - errorCount[a]).forEach(chapter => {
+      if (chosen.length >= count) return;
+      const list = pool.filter(c => !isUsed(c) && c.chapter === chapter);
+      take(list.filter(c => c.tier === 'main'));
+      take(list.filter(c => !isUsed(c)));
+    });
+  }
+  if (!chosen.length) return createBalancedPracticeQueue(questions, Object.assign({}, options, { count, random, now }));
+  return practiceTopUpBalanced(chosen, questions, options, count, random, now);
+}
+
+function practiceTopUpBalanced(chosen, questions, options, count, random, now) {
+  if (chosen.length >= count) return chosen;
+  const rest = (Array.isArray(questions) ? questions : []).filter(q => chosen.indexOf(practiceQuestionId(q)) < 0);
+  return chosen.concat(createBalancedPracticeQueue(rest, Object.assign({}, options, { count: count - chosen.length, random, now })));
+}
+
 function createPracticeStoreState() {
   return {
     version: DAILY_PRACTICE_STORE_VERSION,
@@ -502,6 +692,10 @@ if (typeof module !== 'undefined' && module.exports) {
     practiceLockedQids,
     createDailyPracticeQueue,
     createWeightedPracticeQueue,
+    createBalancedPracticeQueue,
+    createReinforcePracticeQueue,
+    practicePhaseFor,
+    practiceDefaultModeFor,
     createPracticeStoreState,
     loadDailyPracticeStore,
     saveDailyPracticeStore,

@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class TestDailyPracticeUI(unittest.TestCase):
     def run_node(self, expression):
+        icons_js = (ROOT / "src/components/icons.js").read_text(encoding="utf-8")
         practice_store = (ROOT / "src/state/practiceStore.js").read_text(encoding="utf-8")
         question_record = (ROOT / "src/domain/questionRecord.js").read_text(encoding="utf-8")
         daily_ui = (ROOT / "src/components/dailyPractice.js").read_text(encoding="utf-8")
@@ -47,6 +48,7 @@ globalThis.DB_DATA = {{
   ]
 }};
 globalThis.NATIONAL_EXAMS_DATA = {{subjects:[], questions:[]}};
+vm.runInThisContext({json.dumps(icons_js, ensure_ascii=False)});
 vm.runInThisContext({json.dumps(practice_store, ensure_ascii=False)});
 vm.runInThisContext({json.dumps(question_record, ensure_ascii=False)});
 vm.runInThisContext({json.dumps(daily_ui, ensure_ascii=False)});
@@ -134,6 +136,7 @@ globalThis.DB_DATA = {subjects:[{id:'02',name:'電子學',icon:'🔌'}], questio
 globalThis.NATIONAL_EXAMS_DATA = {subjects:[],questions:[]};
 globalThis.katex = require('./libs/katex.min.js');
 globalThis.marked = require('./libs/marked.min.js');
+vm.runInThisContext(fs.readFileSync('src/components/icons.js','utf8'));
 vm.runInThisContext(fs.readFileSync('src/renderers/katexRenderer.js','utf8'));
 vm.runInThisContext(fs.readFileSync('src/renderers/markdownRenderer.js','utf8'));
 vm.runInThisContext(fs.readFileSync('src/domain/questionRecord.js','utf8'));
@@ -321,7 +324,7 @@ process.stdout.write(JSON.stringify({html,visible}));
             "process.stdout.write(JSON.stringify({remembered, invalid, subject, session: store.activeSession}));"
         )
         self.assertEqual(result["remembered"], "all")
-        self.assertEqual(result["invalid"], "weighted")
+        self.assertIn(result["invalid"], ("balanced", "weighted", "reinforce"))  # date default
         self.assertEqual(result["subject"], "01")
         self.assertEqual(result["session"]["subjectId"], "01")
 

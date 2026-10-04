@@ -121,7 +121,7 @@ function renderCheatsheetSectionHtml(data, options) {
     </div>` : '';
   return `
         <div class="cheatsheet-section" style="margin-top: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">肆、失分點速查卡</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">參、失分點速查卡</h4>
           ${subjectsHtml}${templatesHtml}
         </div>`;
 }
@@ -183,7 +183,7 @@ function openPassbookModal() {
     <div class="passbook-dialog passbook-modal-content">
       <div class="passbook-head passbook-hide-print">
         <h3 id="passbook-title">考前速查手冊（列印）</h3>
-        <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">✕ 關閉</button>
+        <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">${uiIcon('x')} 關閉</button>
       </div>
       <div class="modal-body passbook-printable-area" style="padding: 24px;">
         <!-- Header Banner -->
@@ -210,34 +210,9 @@ function openPassbookModal() {
           </ul>
         </div>
 
-        <!-- Section 3: fx-82 Keystroke Quick Reference -->
-        <div style="margin-bottom: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">貳、考選部指定計算機（Casio fx-82SOLAR II）必背按鍵流</h4>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.82rem;">
-            <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
-              <strong>直角轉極座標 (R➔P)</strong><br>
-              <code>A ➔ INV ➔ R➔P ➔ B ➔ = ➔ b</code><br>
-              <small style="color: var(--muted);">(顯示大小 R 與相角 θ)</small>
-            </div>
-            <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
-              <strong>極座標轉直角 (P➔R)</strong><br>
-              <code>R ➔ INV ➔ P➔R ➔ θ ➔ = ➔ b</code><br>
-              <small style="color: var(--muted);">(顯示實部 A 與虛部 B)</small>
-            </div>
-            <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
-              <strong>並聯阻抗倒數鏈</strong><br>
-              <code>Z1 ➔ 1/x ➔ + ➔ Z2 ➔ 1/x ➔ = ➔ 1/x</code>
-            </div>
-            <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
-              <strong>三相功率常數鏈</strong><br>
-              <code>3 ➔ √ ➔ × ➔ VL ➔ × ➔ IL ➔ × ➔ pf ➔ =</code>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 4: Top 15 Anchor Questions -->
+        <!-- Section 3: Top 15 Anchor Questions -->
         <div>
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">參、考前個人專屬核心母題清單（Top 15）</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">貳、考前個人專屬核心母題清單（Top 15）</h4>
           <div style="font-size: 0.82rem; color: var(--muted); margin-bottom: 10px;">
             依您的做題紀錄、弱項科目與近年高頻考點挑出；尚未完成的 114 模考與 108 盲測題不會出現在這裡。考前在白紙上蓋牌獨立重算一次：
           </div>

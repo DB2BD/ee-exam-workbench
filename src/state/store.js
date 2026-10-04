@@ -53,7 +53,7 @@ function toggleStarred(qid, event) {
   if (typeof renderQuestions === 'function') renderQuestions();
   if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
-  showToast(starredState[qid] ? '⭐ 已加入重點收藏' : '⚪ 已移除收藏');
+  showToast(starredState[qid] ? '已加入重點收藏' : '已移除收藏');
 }
 
 function toggleStatus(qid, event) {
@@ -67,7 +67,7 @@ function toggleStatus(qid, event) {
   if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
 
-  const msgs = ['⚪ 狀態重設：未開始', '🟢 狀態更新：已掌握', '🔴 狀態更新：需二刷 (加入錯題本)'];
+  const msgs = ['狀態重設：未開始', '狀態更新：已掌握', '狀態更新：需二刷 (加入錯題本)'];
   showToast(msgs[nxt]);
 }
 

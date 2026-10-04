@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 FILES = [
     "src/data/dailySchedule.generated.js", "src/data/questionPoints.generated.js",
-    "src/components/mockExam.js", "src/components/todayTask.js",
+    "src/components/mockExam.js", "src/domain/pacing.js", "src/components/todayTask.js",
 ]
 
 

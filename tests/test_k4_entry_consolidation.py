@@ -60,7 +60,9 @@ class TestHomeLayout(unittest.TestCase):
         start = src.index("function homeDueReviewRefresh")
         end = src.index("function homeStartDueReview")
         fn = src[start:end]
+        icons = (WORKSPACE / "src/components/icons.js").read_text(encoding="utf-8")
         script = f"""
+{icons}
 {fn}
 const mk = n => {{ global.getDueQuestionsList = () => new Array(n).fill('x');
   global.document = {{ getElementById: () => global.btn }};

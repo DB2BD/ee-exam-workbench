@@ -33,11 +33,11 @@ function updateFilterDropdownsForCategory() {
     if (subSelect) {
       subSelect.innerHTML = `
         <option value="all">所有考科 (5 大考科)</option>
-        <option value="01">⚡ 01. 電路學</option>
-        <option value="02">🔌 02. 電子學（含電力電子）</option>
-        <option value="03">📐 03. 工程數學</option>
-        <option value="04">⚙️ 04. 電機機械</option>
-        <option value="05">🏢 05. 電力系統</option>
+        <option value="01">01. 電路學</option>
+        <option value="02">02. 電子學（含電力電子）</option>
+        <option value="03">03. 工程數學</option>
+        <option value="04">04. 電機機械</option>
+        <option value="05">05. 電力系統</option>
       `;
     }
   } else {
@@ -60,12 +60,12 @@ function updateFilterDropdownsForCategory() {
     if (subSelect) {
       subSelect.innerHTML = `
         <option value="all">所有考科 (6 大考科)</option>
-        <option value="01">⚡ 01. 電路學</option>
-        <option value="02">🔌 02. 電子學（含電力電子）</option>
-        <option value="03">📐 03. 工程數學</option>
-        <option value="04">⚙️ 04. 電機機械</option>
-        <option value="05">🏢 05. 電力系統</option>
-        <option value="06">🏭 06. 工業配電</option>
+        <option value="01">01. 電路學</option>
+        <option value="02">02. 電子學（含電力電子）</option>
+        <option value="03">03. 工程數學</option>
+        <option value="04">04. 電機機械</option>
+        <option value="05">05. 電力系統</option>
+        <option value="06">06. 工業配電</option>
       `;
     }
   }
@@ -123,11 +123,11 @@ function switchExamCategory(catId, silent) {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
     if (typeof renderReviewPage === 'function') renderReviewPage();
-    if (!silent) showToast(`🏆 已切換至「電機工程技師」核心題庫 (${categoryCount} 題)`);
+    if (!silent) showToast(`已切換至「電機工程技師」核心題庫 (${categoryCount} 題)`);
   } else {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
     if (typeof renderReviewPage === 'function') renderReviewPage();
-    if (!silent) showToast(`🏛️ 已切換至「公務人員高考三級」參考題庫 (${categoryCount} 題)`);
+    if (!silent) showToast(`已切換至「公務人員高考三級」參考題庫 (${categoryCount} 題)`);
   }
 }

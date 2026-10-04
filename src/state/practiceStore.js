@@ -107,6 +107,59 @@ function practiceCandidate(question, options) {
   };
 }
 
+// 模考／盲測保留題：MOCK114-*、BLIND108-* 任務尚未完成時，其題目不進隨機練習與奪榜本
+// （避免提前看到模考題）。同時出現在 CORE／MIX 任務的題目照常可練。
+// options.lockedQids（Set 或陣列）可直接覆寫；否則讀 DAILY_SCHEDULE 與 EE_EXAM_TODAY_TASK_V1.completed。
+const PRACTICE_TODAY_TASK_KEY = 'EE_EXAM_TODAY_TASK_V1';
+const PRACTICE_RESERVED_KINDS = ['mock114', 'blind108'];
+const PRACTICE_PRACTISED_KINDS = ['core', 'mix'];
+
+function practicePaperKey(qid) {
+  const m = /^(EE-\d+-\d+)-\d+$/.exec(String(qid || ''));
+  return m ? m[1] : null;
+}
+
+function practiceLockedQids(options) {
+  if (options && options.lockedQids) return new Set(Array.from(options.lockedQids));
+  const locked = new Set();
+  let schedule = options && options.schedule;
+  if (!schedule) {
+    try { schedule = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null; } catch (error) { schedule = null; }
+  }
+  const tasks = schedule && practiceIsPlainObject(schedule.tasks) ? schedule.tasks : null;
+  if (!tasks) return locked;
+  let completed = {};
+  try {
+    const storage = practiceStorageFrom(options);
+    const raw = storage ? storage.getItem(PRACTICE_TODAY_TASK_KEY) : null;
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (parsed && practiceIsPlainObject(parsed.completed)) completed = parsed.completed;
+  } catch (error) { completed = {}; }
+  const practised = new Set();
+  const papers = new Set();
+  Object.keys(tasks).forEach(code => {
+    const task = tasks[code];
+    if (task && PRACTICE_PRACTISED_KINDS.indexOf(task.kind) >= 0) (task.qids || []).forEach(q => practised.add(q));
+  });
+  Object.keys(tasks).forEach(code => {
+    const task = tasks[code];
+    if (!task || PRACTICE_RESERVED_KINDS.indexOf(task.kind) < 0 || completed[code]) return;
+    (task.qids || []).forEach(q => {
+      if (practised.has(q)) return;
+      locked.add(q);
+      const paper = practicePaperKey(q);
+      if (paper) papers.add(paper);
+    });
+  });
+  // 整份試卷一起保留：例如 114 配電只計分 Q1、Q5，但模考畫面會看到 Q2–Q4。
+  if (papers.size) {
+    const hasExplicit = Set.prototype.has;
+    locked.has = qid => hasExplicit.call(locked, qid)
+      || (papers.has(practicePaperKey(qid)) && !practised.has(qid));
+  }
+  return locked;
+}
+
 function practiceSelectDiverse(candidates, count, random) {
   const remaining = candidates.map(candidate => Object.assign({}, candidate, {
     tie: practiceRandomValue(random),
@@ -147,10 +200,11 @@ function createDailyPracticeQueue(questions, options = {}) {
   const now = practiceResolveNow(options.now);
   const random = typeof options.random === 'function' ? options.random : Math.random;
   const seenIds = new Set();
+  const locked = practiceLockedQids(options);
   const candidates = (Array.isArray(questions) ? questions : [])
     .map(question => practiceCandidate(question, options))
     .filter(candidate => {
-      if (!candidate || seenIds.has(candidate.id)) return false;
+      if (!candidate || seenIds.has(candidate.id) || locked.has(candidate.id)) return false;
       if (selectedSubject !== 'all' && practiceSubjectId(candidate.question) !== selectedSubject) return false;
       seenIds.add(candidate.id);
       return true;
@@ -191,12 +245,13 @@ function createWeightedPracticeQueue(questions, options = {}) {
     ? options.weightOf
     : (typeof practiceWeightFor === 'function' ? practiceWeightFor : () => 0);
   const seenIds = new Set();
+  const locked = practiceLockedQids(options);
   const pool = [];
   (Array.isArray(questions) ? questions : []).forEach(question => {
     const candidate = practiceCandidate(question, options);
     if (!candidate || seenIds.has(candidate.id)) return;
     seenIds.add(candidate.id);
-    if (!candidate.id.startsWith('EE-')) return;
+    if (!candidate.id.startsWith('EE-') || locked.has(candidate.id)) return;
     const age = candidate.completedAt === null ? null : now - candidate.completedAt;
     if (age !== null && age < DAILY_PRACTICE_RECENT_WINDOW_MS) return;
     let weight = 0;
@@ -444,6 +499,7 @@ if (typeof module !== 'undefined' && module.exports) {
     DAILY_PRACTICE_STORAGE_KEY,
     DAILY_PRACTICE_STORE_VERSION,
     DAILY_PRACTICE_RECENT_WINDOW_MS,
+    practiceLockedQids,
     createDailyPracticeQueue,
     createWeightedPracticeQueue,
     createPracticeStoreState,

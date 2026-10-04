@@ -35,10 +35,19 @@ function resultCardFormatNumber(value) {
   return String(Math.round(value * 100) / 100);
 }
 
-function resultCardViewModel(qid, marks, errors) {
+// ○ wording: mock exams score 100/50/0 (○＝全對); basic-tier practice keeps 「骨架寫完」.
+function resultCardMarkButtons(tier, source) {
+  const basicPractice = tier === 'basic' && source !== 'mock';
+  return RESULT_CARD_MARK_BUTTONS.map(b => ({
+    mark: b.mark, symbol: b.symbol,
+    text: b.mark === 'o' && basicPractice ? '骨架寫完' : b.text
+  }));
+}
+
+function resultCardViewModel(qid, marks, errors, source) {
   const model = buildResultModel(qid);
   const list = Array.isArray(marks) ? marks : [];
-  const score = scoreResult(model, list);
+  const score = scoreResult(model, list, source);
   const tierLabel = model.tier === 'basic' ? '基本分' : '主攻';
   const chapter = resultCardChapterTitle(qid);
   const selectedErrors = Array.isArray(errors) ? errors : [];
@@ -49,7 +58,8 @@ function resultCardViewModel(qid, marks, errors) {
     tierLabel,
     chapter,
     header: [qid, chapter, tierLabel].filter(Boolean).join('｜'),
-    hint: model.tier === 'basic' ? '○＝骨架寫完' : '',
+    markButtons: resultCardMarkButtons(model.tier, source),
+    hint: source === 'mock' ? '模考按 100／50／0 計分' : (model.tier === 'basic' ? '○＝骨架寫完' : ''),
     rows: model.parts.map((part, i) => ({
       index: i,
       label: part.label,
@@ -135,9 +145,12 @@ function openResultCard(options) {
   }
 
   function sync() {
-    const vm = resultCardViewModel(qid, marks, errors);
+    const vm = resultCardViewModel(qid, marks, errors, source);
     q('.result-card-title').textContent = vm.header;
     q('.result-card-hint').textContent = vm.hint;
+    vm.markButtons.forEach(b => {
+      Array.prototype.forEach.call(root.querySelectorAll(`.result-card-mark[data-mark="${b.mark}"]`), btn => { btn.textContent = `${b.symbol} ${b.text}`; });
+    });
     vm.rows.forEach(row => {
       Array.prototype.forEach.call(root.querySelectorAll(`.result-card-mark[data-row="${row.index}"]`), btn => {
         const on = btn.getAttribute('data-mark') === row.mark;
@@ -183,7 +196,7 @@ function openResultCard(options) {
       target.textContent = noteOpen ? '－ 收合加註' : '＋ 加註（選用）';
       syncPadding();
     } else if (target.classList.contains('result-card-save')) {
-      const vm = resultCardViewModel(qid, marks, errors);
+      const vm = resultCardViewModel(qid, marks, errors, source);
       if (!vm.canSave || saving) return;
       saving = true;
       const record = {
@@ -219,5 +232,5 @@ function openResultCard(options) {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { resultCardViewModel, resultCardEscape, openResultCard };
+  module.exports = { resultCardViewModel, resultCardMarkButtons, resultCardEscape, openResultCard };
 }

@@ -142,5 +142,24 @@ class MockExamTests(unittest.TestCase):
         self.assertIn("src/components/mockExam.js", build)
 
 
+class G2aTests(unittest.TestCase):
+    def test_summary_shows_actual_marks(self):
+        out = run_node("""(function () {
+          var r = rec('EE-114-03-3', ['o', 'x'], 1, 'm1');
+          var q = mockExamSummary([r]).perQuestion[0];
+          return [mockExamMarksText(q), mockExamMarksText({parts: [{label: '整題', mark: 'tri'}]})];
+        })()""")
+        self.assertEqual(out[0], "p0 ○　p1 ×")
+        self.assertEqual(out[1], "△")
+
+    def test_solution_button_docks_card_without_mount(self):
+        src = (ROOT / "src/components/mockExam.js").read_text(encoding="utf-8")
+        body = src.split("function mockExamOpenSolution(qid)")[1].split("function mockExamPickerHtml")[0]
+        self.assertIn("openSolutionModal(", body)
+        opts = body.split("openResultCard({")[1].split("});")[0]
+        self.assertNotIn("mount", opts)
+        self.assertIn("source: 'mock'", opts)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -134,10 +134,11 @@ function mockExamSummary(records) {
   const perQuestion = qids.map(qid => {
     const r = byQid[qid];
     const marks = (r.parts || []).map(p => p.mark);
+    const parts = (r.parts || []).map(p => ({ label: String(p.label == null ? '' : p.label), mark: p.mark }));
     const total = Number.isFinite(Number(r.total)) ? Number(r.total) : (r.parts || []).reduce((s, p) => s + Number(p.points || 0), 0);
     const weak = marks.some(m => m === 'x' || m === 'tri');
     return {
-      qid, num: mockExamQidNumber(qid), estimate: mockExamRound(r.estimate), total, marks,
+      qid, num: mockExamQidNumber(qid), estimate: mockExamRound(r.estimate), total, marks, parts,
       weak, errors: (r.errors || []).slice(), at: Number(r.at) || 0
     };
   });
@@ -278,10 +279,53 @@ function mockExamSolutionButton(item, label) {
   return `<button type="button" class="mock-btn mock-btn-sol" data-mock-solution="${mockExamEscape(item.qid)}">${label || '📝 看題解'}</button>`;
 }
 
+const MOCK_EXAM_MARK_SYMBOL = { o: '○', tri: '△', x: '×' };
+
+/** 每個子題的實際標記：單一整題只顯示符號，多子題顯示「（一）○ （二）△」。 */
+function mockExamMarksText(q) {
+  const parts = (q && q.parts) || [];
+  if (!parts.length) return '';
+  const sym = m => MOCK_EXAM_MARK_SYMBOL[m] || '？';
+  if (parts.length === 1) return sym(parts[0].mark);
+  return parts.map(p => (p.label ? p.label + ' ' : '') + sym(p.mark)).join('　');
+}
+
+let mockExamInlineHandles = {};
+
+function mockExamCloseInline(qid) {
+  const h = mockExamInlineHandles[qid];
+  if (h && typeof h.close === 'function') h.close();
+  delete mockExamInlineHandles[qid];
+  const mount = typeof document !== 'undefined' ? document.querySelector(`[data-mock-card="${qid}"]`) : null;
+  if (mount) mount.innerHTML = '';
+}
+
+/** 打開題解並把這題的結果卡停靠在題解視窗內（交卷後、尚未保存的計分題）。 */
 function mockExamOpenSolution(qid) {
   const r = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
   if (!r || typeof openSolutionModal !== 'function') return;
   openSolutionModal(null, r[6], qid, r[3], { mode: 'browse' });
+  const st = mockExamState;
+  if (!st || st.phase !== 'grading' || !st.mockId || typeof openResultCard !== 'function') return;
+  const paper = mockExamPaperNow();
+  const item = paper.items.find(it => it.qid === qid);
+  if (!item || !item.scored || mockExamLatestPerQid(mockExamSavedRecords())[qid]) return;
+  const mockId = st.mockId;
+  openResultCard({
+    qid, source: 'mock', mockId,
+    onSaved: () => { mockExamCloseInline(qid); mockExamUpdateProgress(paper); }
+  });
+  // 題解關閉後，行內結果卡依已保存的紀錄重新呈現。
+  const modal = document.getElementById('solution-modal');
+  if (modal && typeof MutationObserver !== 'undefined') {
+    const obs = new MutationObserver(() => {
+      if (modal.classList.contains('show')) return;
+      obs.disconnect();
+      paper.items.forEach(it => { if (mockExamLatestPerQid(mockExamSavedRecords())[it.qid]) mockExamCloseInline(it.qid); });
+      mockExamUpdateProgress(paper);
+    });
+    obs.observe(modal, { attributes: true, attributeFilter: ['class'] });
+  }
 }
 
 function mockExamPickerHtml() {
@@ -372,6 +416,7 @@ function mockExamRender() {
   if (!mockExamState) mockExamState = { year: '114', sid: '01', phase: 'pick', mockId: null, loaded: false };
   const st = mockExamState;
   const paper = st.loaded ? mockExamPaperNow() : null;
+  mockExamInlineHandles = {};
   host.innerHTML = `
     <div class="mock-exam-box" id="mock-exam-root">
       <h2 class="mock-title">📄 模考</h2>
@@ -414,7 +459,7 @@ function mockExamSummaryHtml(paper, sum) {
   return `
     <section class="mock-summary" aria-label="本卷總結">
       <h3>本卷估計 ${mockExamFormat(sum.estimate)}／${mockExamFormat(paper.scoredTotal)}</h3>
-      <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分${q.weak ? ' <span class="mock-weak">△／×</span>' : ' <span class="mock-ok">○</span>'}</li>`).join('')}</ul>
+      <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamEscape(mockExamMarksText(q))}</span></li>`).join('')}</ul>
       <p class="mock-tally"><strong>錯因統計：</strong>${tally.length ? tally.map(c => `${mockExamEscape(c)} ${mockExamEscape(labels[c] || '')} ×${sum.errorTally[c]}`).join('、') : '未選錯因'}</p>
       ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '📝 開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
       <button type="button" class="mock-btn" data-mock-reset>換一份試卷</button>
@@ -429,9 +474,9 @@ function mockExamMountCards(paper) {
     if (!mount || typeof openResultCard !== 'function') return;
     const saved = mockExamLatestPerQid(mockExamSavedRecords())[it.qid];
     if (saved) return;
-    openResultCard({
+    mockExamInlineHandles[it.qid] = openResultCard({
       qid: it.qid, source: 'mock', mockId: st.mockId, mount,
-      onSaved: () => mockExamUpdateProgress(paper)
+      onSaved: () => { delete mockExamInlineHandles[it.qid]; mockExamUpdateProgress(paper); }
     });
   });
   mockExamUpdateProgress(paper);
@@ -496,6 +541,6 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     MOCK_EXAM_YEARS, MOCK_EXAM_REMINDER, MOCK_EXAM_SCORED_SUBSETS,
     mockExamTimeCap, mockExamPdfUrl, mockExamPaper, mockExamNewId, mockExamParseId,
-    mockExamSummary, mockExamHistory, latestMockScoreBySubject, mockExamShortcuts, initMockExam
+    mockExamSummary, mockExamMarksText, mockExamHistory, latestMockScoreBySubject, mockExamShortcuts, initMockExam
   };
 }

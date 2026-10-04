@@ -25,6 +25,22 @@ function dailyPracticeSaveMode(mode) {
 
 function dailyPracticeSetMode(mode) {
   dailyPracticeSaveMode(mode);
+  dailyPracticeSyncModeSubtitle();
+}
+
+// Short phrase describing how the next round is drawn (follows the chosen mode).
+function dailyPracticeModeLabel(mode) {
+  const value = mode || dailyPracticeLoadMode();
+  if (value === 'all') return '全部隨機';
+  if (value === 'weighted') return '依目標分配';
+  return '只練 ' + dailyPracticeSubjectLabel('PE', value);
+}
+
+// The 今天 pane button subtitle must name the mode actually chosen.
+function dailyPracticeSyncModeSubtitle() {
+  if (typeof document === 'undefined' || typeof document.querySelector !== 'function') return;
+  const small = document.querySelector('#home-action-start small');
+  if (small) small.textContent = dailyPracticeModeLabel() + '抽題，按一次就開始';
 }
 
 function dailyPracticeModeSelectHtml() {
@@ -196,14 +212,48 @@ function dailyPracticeStart() {
   dailyPracticeLastSummary = null;
   if (typeof switchTab === 'function') switchTab('practice');
   initDailyPracticeHome();
+  dailyPracticeScrollRoundIntoView();
+  dailyPracticeOpenCurrentRecall();
+}
+
+// The round card can sit below the fold (390px); bring it into view so it is
+// visible as soon as the cover is closed.
+function dailyPracticeScrollRoundIntoView() {
+  if (typeof document === 'undefined') return;
+  const container = document.getElementById('daily-practice-container');
+  if (!container || typeof container.scrollIntoView !== 'function') return;
+  const rect = container.getBoundingClientRect ? container.getBoundingClientRect() : null;
+  const viewport = typeof window !== 'undefined' ? window.innerHeight || 0 : 0;
+  // Only move the page when part of the round sits below the fold (or above the top).
+  if (rect && viewport && rect.top >= 0 && rect.bottom <= viewport) return;
+  try { container.scrollIntoView({ block: 'start', behavior: 'auto' }); } catch (_) { container.scrollIntoView(); }
+}
+
+// Called when the solution window closes: a paused round must be visible and resumable.
+function dailyPracticeAfterModalClose() {
+  homeMorePracticeSync();
+  if (dailyPracticeState && dailyPracticeState.activeSession && dailyPracticeHomeMode !== 'summary') {
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(dailyPracticeScrollRoundIntoView);
+    else dailyPracticeScrollRoundIntoView();
+  }
+}
+
+// One click opens the current question straight on the four-stage cover (recall mode).
+function dailyPracticeOpenCurrentRecall() {
+  const question = dailyPracticeCurrentQuestion();
+  if (!question || typeof openSolutionModal !== 'function') return false;
+  openSolutionModal(null, question.solutionLink, question.id, question.number, { mode: 'daily-practice', recall: true });
+  if (typeof homeMorePracticeSync === 'function') homeMorePracticeSync();
+  return true;
 }
 
 function dailyPracticeContinue() {
   dailyPracticeHomeMode = 'continue';
   const session = dailyPracticeState && dailyPracticeState.activeSession;
-  const qid = session && session.questionIds[session.currentIndex];
-  dailyPracticeView = session && session.viewByQuestion && session.viewByQuestion[qid] === 'solution' ? 'solution' : 'question';
+  dailyPracticeView = 'question';
   initDailyPracticeHome();
+  dailyPracticeScrollRoundIntoView();
+  if (session) dailyPracticeOpenCurrentRecall();
 }
 
 function dailyPracticePrepareNewRound() {
@@ -229,7 +279,8 @@ function dailyPracticeStartOver() {
 }
 
 function dailyPracticeSetView(view) {
-  dailyPracticeView = view === 'solution' ? 'solution' : 'question';
+  const current = dailyPracticeGetCurrentQuestionId();
+  dailyPracticeView = view === 'solution' && current && dailyPracticeSolutionUnlocked(current) ? 'solution' : 'question';
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   if (session) {
     const qid = session.questionIds[session.currentIndex];
@@ -325,7 +376,8 @@ function dailyPracticeFinishQuestion(session, qid) {
   if (!nextSession) {
     dailyPracticeLastSummary = {
       category: session.category, subjectId: session.subjectId, total: session.questionIds.length,
-      completed: session.questionIds.length, qids: session.questionIds.slice()
+      completed: session.questionIds.length, qids: session.questionIds.slice(),
+      modeLabel: '隨機練習・' + dailyPracticeModeLabel(session.subjectId === 'all' ? dailyPracticeLoadMode() : session.subjectId)
     };
     dailyPracticeHomeMode = 'summary';
     showToast('🎉 本輪隨機練習已完成！');
@@ -336,6 +388,7 @@ function dailyPracticeFinishQuestion(session, qid) {
   if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
   if (typeof closeSolutionModal === 'function') closeSolutionModal();
   initDailyPracticeHome();
+  if (nextSession) dailyPracticeOpenCurrentRecall();
   return true;
 }
 
@@ -424,14 +477,20 @@ function dailyPracticeSummaryItems(qids) {
   });
 }
 
+function dailyPracticeRound2(value) { return Math.round(Number(value) * 100) / 100; }
+
 function dailyPracticeSummaryEstimateRows(qids) {
   const items = dailyPracticeSummaryItems(qids);
   if (!items.length) return '<p class="daily-practice-muted">本輪沒有可顯示的作答結果。</p>';
   const sum = items.reduce((n, item) => n + (item.estimate || 0), 0);
   const total = items.reduce((n, item) => n + (item.total || 0), 0);
-  return '<div class="daily-practice-result-list">' + items.map(item =>
-    '<article class="daily-practice-result-item"><div><strong>' + dailyPracticeEscape(dailyPracticeQuestionLabel(item.qid)) + '</strong> ' + dailyPracticeTierBadge(item.qid) + '<code>' + dailyPracticeEscape(item.qid) + '</code></div><span class="daily-practice-estimate">' + dailyPracticeEscape(item.text) + '</span></article>'
-  ).join('') + '</div><p class="daily-practice-total">本輪合計：估計 ' + (Math.round(sum * 100) / 100) + '／' + (Math.round(total * 100) / 100) + ' 分</p>';
+  // Tier is a small badge; the estimate is a plain "估計 x／y 分" figure with a
+  // meter-free layout so it cannot be mistaken for a score bar.
+  return '<ul class="daily-practice-result-list daily-practice-result-list--plain">' + items.map(item =>
+    '<li class="daily-practice-result-item"><div class="daily-practice-result-main"><strong>' + dailyPracticeEscape(dailyPracticeQuestionLabel(item.qid)) + '</strong>' +
+    '<span class="daily-practice-result-meta">' + dailyPracticeTierBadge(item.qid) + '<code>' + dailyPracticeEscape(item.qid) + '</code></span></div>' +
+    '<span class="daily-practice-estimate' + (item.recorded ? '' : ' is-empty') + '">' + dailyPracticeEscape(item.text) + '</span></li>'
+  ).join('') + '</ul><p class="daily-practice-total">本輪合計：估計 ' + dailyPracticeRound2(sum) + '／' + dailyPracticeRound2(total) + ' 分（自評估計，非實測）</p>';
 }
 
 function dailyPracticeSummaryRows(results) {
@@ -448,6 +507,11 @@ function dailyPracticeOpenErrorList() {
       ? Array.from(document.querySelectorAll('.pills-bar .pill')).find(el => /setQuickFilter\('review'/.test(el.getAttribute('onclick') || '')) : null;
     setQuickFilter('review', pill || null);
   }
+}
+
+// Full solution entries stay hidden until stage ④ has been revealed.
+function dailyPracticeSolutionUnlocked(qid) {
+  return dailyPracticeGetRecallProgress(qid) >= 4;
 }
 
 function dailyPracticeSolutionButton() {
@@ -477,7 +541,7 @@ function renderDailyPractice(container, error) {
     const items = summary.qids ? dailyPracticeSummaryItems(summary.qids) : [];
     container.innerHTML = '<section class="daily-practice-shell daily-practice-summary" aria-live="polite">' +
       '<span class="eyebrow">本輪完成摘要</span><h2>🎉 完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
-      '<p>' + dailyPracticeEscape(summary.category) + ' · ' + (summary.subjectId === 'all' ? '隨機練習' : dailyPracticeEscape(dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
+      '<p>' + dailyPracticeEscape(summary.category) + ' · ' + dailyPracticeEscape(summary.modeLabel || (summary.subjectId === 'all' ? '隨機練習' : dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
       (summary.qids ? dailyPracticeSummaryEstimateRows(summary.qids) : dailyPracticeSummaryRows(summary.results)) +
       '<div class="daily-practice-actions">' + dailyPracticeModeSelectHtml() + '<button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
       ((summary.qids ? items.some(item => !item.full) : (summary.results || []).some(item => item.rating < 5)) ? '<button class="btn-pdf" type="button" onclick="dailyPracticeOpenErrorList()">查看需二刷題目</button>' : '') +
@@ -508,14 +572,19 @@ function renderDailyPractice(container, error) {
     ? '<figure class="daily-practice-source-figure"><img class="daily-practice-source-image" data-daily-zoom-image src="' + dailyPracticeEscape(imageSrc) + '" alt="' + dailyPracticeEscape(qid) + ' 原題截圖；按 Enter 或空白鍵放大" loading="eager" tabindex="0" role="button"><figcaption>原題截圖；點擊、觸控或按 Enter／空白鍵可放大查看。</figcaption></figure>'
     : '<div class="daily-practice-source-missing"><strong>原題截圖尚未建立</strong><span>先以文字題幹練習，並可開啟官方 PDF 查看原圖。</span></div>';
   const progress = (session.currentIndex + 1) + ' / ' + session.questionIds.length;
+  const solutionUnlocked = dailyPracticeSolutionUnlocked(qid);
+  if (!solutionUnlocked) dailyPracticeView = 'question';
+  const startLabel = dailyPracticeGetRecallProgress(qid) > 0 ? '🎴 回到四段蓋牌' : '🎴 開始四段蓋牌';
   const scrollPosition = session.scrollByQuestion[qid] || { question: 0, solution: 0 };
   const scrollTop = Number(scrollPosition[dailyPracticeView] || 0);
   container.innerHTML = '<section class="daily-practice-shell">' +
-    '<div class="daily-practice-heading"><div><span class="eyebrow">' + session.category + ' · ' + (session.subjectId === 'all' ? '跨科混合' : dailyPracticeSubjectLabel(session.category, session.subjectId)) + '</span><h2>🎲 隨機練習 <span class="daily-practice-progress">' + progress + '</span> ' + dailyPracticeTierBadge(qid) + '</h2></div><div class="daily-practice-heading-actions"><button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">🎴 開始四段蓋牌</button><button class="btn-pdf" type="button" onclick="dailyPracticeStartOver()">結束本輪</button></div></div>' +
-    '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">📄 原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">📝 詳解</button></div>' +
+    '<div class="daily-practice-heading"><div><span class="eyebrow">' + session.category + ' · ' + dailyPracticeModeLabel(session.subjectId === 'all' ? dailyPracticeLoadMode() : session.subjectId) + '</span><h2>🎲 隨機練習 <span class="daily-practice-progress">' + progress + '</span> ' + dailyPracticeTierBadge(qid) + '</h2></div><div class="daily-practice-heading-actions"><button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">' + startLabel + '</button><button class="btn-pdf" type="button" onclick="dailyPracticeStartOver()">結束本輪</button></div></div>' +
+    (solutionUnlocked
+      ? '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">📄 原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">📝 詳解</button></div>'
+      : '') +
     '<div class="daily-practice-scroll" onscroll="dailyPracticeScroll(event)" tabindex="0">' +
       (dailyPracticeView === 'question'
-        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「🎴 開始四段蓋牌」。</p><div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">📝 其他詳解選項</button></div>' + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
+        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「' + startLabel + '」。</p>' + (solutionUnlocked ? '<div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">📝 其他詳解選項</button></div>' : '') + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">📄 開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton()) +
     '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
@@ -555,8 +624,9 @@ function initDailyPracticeHome() {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   if (session) {
     const qid = session.questionIds[session.currentIndex];
-    dailyPracticeView = session.viewByQuestion && session.viewByQuestion[qid] === 'solution' ? 'solution' : 'question';
+    dailyPracticeView = session.viewByQuestion && session.viewByQuestion[qid] === 'solution' && dailyPracticeSolutionUnlocked(qid) ? 'solution' : 'question';
   }
+  dailyPracticeSyncModeSubtitle();
   const continueButton = document.getElementById('home-action-continue');
   if (continueButton) {
     const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
@@ -574,7 +644,10 @@ function homeMorePracticeSync() {
   const row = typeof document !== 'undefined' && document.querySelector ? document.querySelector('.practice-home-secondary') : null;
   if (!row) return;
   const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);
-  row.hidden = !hasSession;
+  // 「繼續上次」 only while the round is paused (cover closed mid-round).
+  const modal = document.getElementById('solution-modal');
+  const modalOpen = !!(modal && modal.classList && modal.classList.contains('show'));
+  row.hidden = !(hasSession && !modalOpen);
 }
 
 function homeDueReviewRefresh() {

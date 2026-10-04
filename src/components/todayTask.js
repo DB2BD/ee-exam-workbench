@@ -5,6 +5,7 @@
 // Data: DAILY_SCHEDULE (src/data/dailySchedule.generated.js).
 
 const TODAY_TASK_STORAGE_KEY = 'EE_EXAM_TODAY_TASK_V1';
+const TODAY_TASK_NEXT_ACTION_TEXT = '寫下一句：下次最先要改的動作（不必回填）。寫完就可以按「完成」。';
 const TODAY_TASK_NON_WORK_CODES = ['RECOVERY', 'EXAM-CHECK', 'STOP'];
 
 function todayTaskEscape(value) {
@@ -153,13 +154,27 @@ function todayTaskPlan(state, todayIso) {
   if (todayIso < first) pace = 'before';
   else if (diff > 0) pace = 'ahead';
   else if (diff < 0) pace = 'behind';
-  return { row, diff, pace, hasOptional: todayTaskOptionalCodes(row).length > 0, beforeStart: todayIso < first, afterEnd: todayIso > last, firstDate: first };
+  return { row, diff, pace, currentCode: todayTaskCurrentCode(state), hasOptional: todayTaskOptionalCodes(row).length > 0, beforeStart: todayIso < first, afterEnd: todayIso > last, firstDate: first };
+}
+
+// ['CORE-16','CORE-17'] -> 'CORE-16～17'
+function todayTaskCodeRange(codes) {
+  if (codes.length === 1) return codes[0];
+  const first = codes[0];
+  const last = codes[codes.length - 1];
+  const a = /^(.*?)(\d+)$/.exec(first);
+  const b = /^(.*?)(\d+)$/.exec(last);
+  if (a && b && a[1] === b[1]) return first + '～' + b[2];
+  return first + '～' + last;
 }
 
 function todayTaskPlanText(plan) {
   let line = '';
   if (plan.row) {
     const work = todayTaskWorkCodes(plan.row);
+    if (work.length && plan.pace === 'behind' && plan.currentCode) {
+      return '依日程今天應做到 ' + todayTaskCodeRange(work) + '；你目前在 ' + plan.currentCode + '（若紙本已做過，點下方設定進度）';
+    }
     if (work.length) line = '今天日程建議：' + work.join('＋');
     else if (plan.hasOptional) line = '今天日程：沒有必做的新題，有餘力再做選做擴章';
     else line = '今天日程：不開新題';
@@ -206,8 +221,11 @@ function todayTaskPhaseView(task, a, now) {
     // 作答結果卡: one card per QID, recorded right after checking.
     resultQids: isReview ? task.qids.slice() : [],
     resultSource: task.optional ? 'ext' : 'today',
+    phaseStartedAt: a.phaseStartedAt,
     pdfUrl: closed ? todayTaskPdfUrl(task) : '',
     scoringNote: task.scoringNote || '',
+    // One-line instruction for phases that otherwise show nothing (docs/上榜預設24時段_核心題路徑.md: 5 分鐘只留一句下次動作).
+    instruction: phase.label === '下次動作' ? TODAY_TASK_NEXT_ACTION_TEXT : '',
   };
 }
 
@@ -367,25 +385,84 @@ function todayTaskStopTimer() {
   }
 }
 
+// ---- 作答結果卡 at the review phase: one QID at a time ---------------------
+
+let todayTaskResultFlow = { key: '', index: 0, skipped: [], saved: [], init: false };
+let todayTaskResultHandle = null;
+
+function todayTaskCloseResultCard() {
+  if (todayTaskResultHandle && typeof todayTaskResultHandle.close === 'function') todayTaskResultHandle.close();
+  todayTaskResultHandle = null;
+}
+
+function todayTaskResultFlowFor(vm) {
+  const key = vm.active.code + ':' + vm.active.phaseIndex;
+  if (todayTaskResultFlow.key !== key) todayTaskResultFlow = { key, index: 0, skipped: [], saved: [], init: false };
+  return todayTaskResultFlow;
+}
+
+// A QID is handled once it has a record saved since this phase began, or was explicitly skipped.
+function todayTaskQidStatus(qid, flow, since) {
+  try {
+    if (typeof latestRecordFor === 'function') {
+      const r = latestRecordFor(qid);
+      if (r && Number(r.at) >= since) return 'saved';
+    }
+  } catch (_) { /* store unavailable: fall back to this session's saves */ }
+  if (flow.saved.indexOf(qid) >= 0) return 'saved';
+  if (flow.skipped.indexOf(qid) >= 0) return 'skipped';
+  return 'pending';
+}
+
+// Pure: progress of the review phase (what the footer button and reason line show).
+function todayTaskReviewProgress(qids, flow, since) {
+  const items = qids.map(qid => ({ qid, status: todayTaskQidStatus(qid, flow, since) }));
+  const pending = items.filter(i => i.status === 'pending').map(i => i.qid);
+  return {
+    items, pending,
+    canFinish: pending.length === 0,
+    reason: pending.length
+      ? '還有 ' + pending.length + ' 題未處理（' + pending.join('、') + '）：請記錄結果，或按「略過不記錄」。'
+      : ''
+  };
+}
+
+function todayTaskNextPendingIndex(vm, flow, from) {
+  const qids = vm.active.resultQids;
+  const since = vm.active.phaseStartedAt;
+  for (let i = from + 1; i < qids.length; i++) if (todayTaskQidStatus(qids[i], flow, since) === 'pending') return i;
+  for (let i = 0; i <= from && i < qids.length; i++) if (todayTaskQidStatus(qids[i], flow, since) === 'pending') return i;
+  return qids.length;
+}
+
+const TODAY_TASK_STATUS_TEXT = { saved: '已記錄', skipped: '已略過', pending: '未處理' };
+
 function todayTaskOverlayHtml(vm) {
   const v = vm.active;
   const figures = v.questionQids.map(qid => {
     const src = todayTaskQuestionImage(qid);
-    return '<figure class="today-task-figure"><figcaption><code>' + todayTaskEscape(qid) + '</code></figcaption>' +
-      (src ? '<img src="' + todayTaskEscape(src) + '" alt="' + todayTaskEscape(qid) + ' 官方題目裁切圖" loading="eager">' : '<p class="today-task-note">本題沒有裁切圖。</p>') + '</figure>';
+    const img = src
+      ? '<img src="' + todayTaskEscape(src) + '" alt="' + todayTaskEscape(qid) + ' 官方題目裁切圖" loading="eager" data-today-zoom tabindex="0" role="button" aria-label="點擊放大題目圖">' +
+        '<p class="today-task-zoom-hint">點圖可放大</p>'
+      : '<p class="today-task-note">本題沒有裁切圖。</p>';
+    return '<figure class="today-task-figure"><figcaption><code>' + todayTaskEscape(qid) + '</code></figcaption>' + img + '</figure>';
   }).join('');
   const pdf = v.pdfUrl
     ? '<a class="btn-pdf" href="' + todayTaskEscape(v.pdfUrl) + '" target="_blank" rel="noopener">📄 官方原卷 PDF</a>' : '';
   const note = v.scoringNote ? '<p class="today-task-note">計分範圍：' + todayTaskEscape(v.scoringNote) + '</p>' : '';
+  const instruction = v.instruction ? '<p class="today-task-instruction" role="note">' + todayTaskEscape(v.instruction) + '</p>' : '';
   let check = '';
   if (!v.closed) {
-    check = '<div class="today-task-check"><span>核對題解：</span>' + v.solutionQids.map(qid =>
+    check = '<div class="today-task-check"><span>核對題解（開啟後可邊讀邊記錄）：</span>' + v.solutionQids.map(qid =>
       '<button type="button" class="btn-pdf" data-today-check="' + todayTaskEscape(qid) + '">核對 ' + todayTaskEscape(qid) + '</button>').join('') + '</div>';
   }
   let resultSlot = '';
+  let progress = null;
   if (v.isReview && v.resultQids.length) {
+    progress = todayTaskReviewProgress(v.resultQids, todayTaskResultFlowFor(vm), v.phaseStartedAt);
     resultSlot = '<div class="today-task-result" id="today-task-result"><div class="today-task-result-head"><span id="today-task-result-title"></span>' +
-      '<button type="button" class="btn-pdf" data-today-result-next title="先不記錄這題，看下一題">下一題</button></div>' +
+      '<button type="button" class="today-task-skip" data-today-result-next title="先不記錄這題，看下一題">略過不記錄</button></div>' +
+      '<div class="today-task-chips" id="today-task-result-chips"></div>' +
       '<div id="today-task-result-mount"></div></div>';
   }
   const timerClass = v.expired ? 'today-task-timer is-expired' : 'today-task-timer';
@@ -393,17 +470,20 @@ function todayTaskOverlayHtml(vm) {
   let controls;
   if (v.closed && !v.expired) {
     controls = '<button type="button" class="today-task-start" data-today-act="next">停筆</button>';
+  } else if (progress) {
+    controls = '<button type="button" class="today-task-start" id="today-task-finish" data-today-act="next"' + (progress.canFinish ? '' : ' disabled') + '>' + (v.isLast ? '完成核對並結束' : '完成核對 →') + '</button>' +
+      '<span class="today-task-reason" id="today-task-reason" role="status">' + todayTaskEscape(progress.reason) + '</span>';
   } else {
     controls = '<button type="button" class="today-task-start" data-today-act="next">' + (v.isLast ? '完成' : '下一步') + '</button>';
   }
-  return '<div class="today-task-panel" role="dialog" aria-modal="true" aria-label="今天的任務">' +
+  const foot = '<footer class="today-task-foot">' + controls +
+    '<button type="button" class="btn-pdf" data-today-act="leave">先離開</button>' +
+    '<button type="button" class="btn-pdf" data-today-act="abandon">放棄本次</button></footer>';
+  return '<div class="today-task-panel' + (progress ? ' today-task-panel--review' : '') + '" role="dialog" aria-modal="true" aria-label="今天的任務">' +
     '<header class="today-task-head"><div><span class="today-task-eyebrow">' + todayTaskEscape(v.code) + '｜' + todayTaskEscape(vm.activeTitle) + '</span>' +
     '<strong>' + (v.phaseIndex + 1) + '／' + v.phaseCount + ' ' + todayTaskEscape(v.label) + (v.closed ? '（閉卷）' : '') + ' · ' + v.minutes + ' 分鐘</strong></div>' +
     '<div class="' + timerClass + '" id="today-task-timer" role="timer">' + timerText + '</div></header>' +
-    '<div class="today-task-body">' + note + figures + pdf + check + resultSlot + '</div>' +
-    '<footer class="today-task-foot">' + controls +
-    '<button type="button" class="btn-pdf" data-today-act="leave">先離開</button>' +
-    '<button type="button" class="btn-pdf" data-today-act="abandon">放棄本次</button></footer></div>';
+    '<div class="today-task-body">' + instruction + note + figures + pdf + check + resultSlot + foot + '</div></div>';
 }
 
 function renderTodayTaskOverlay() {
@@ -417,20 +497,20 @@ function renderTodayTaskOverlay() {
   if (vm.active.isReview) todayTaskMountResultCard(vm);
 }
 
-// ---- 作答結果卡 at the review phase: one QID at a time ---------------------
-
-let todayTaskResultFlow = { key: '', index: 0, saved: [] };
-let todayTaskResultHandle = null;
-
-function todayTaskCloseResultCard() {
-  if (todayTaskResultHandle && typeof todayTaskResultHandle.close === 'function') todayTaskResultHandle.close();
-  todayTaskResultHandle = null;
-}
-
-function todayTaskResultFlowFor(vm) {
-  const key = vm.active.code + ':' + vm.active.phaseIndex;
-  if (todayTaskResultFlow.key !== key) todayTaskResultFlow = { key, index: 0, saved: [] };
-  return todayTaskResultFlow;
+function todayTaskUpdateReviewUi(vm) {
+  const flow = todayTaskResultFlowFor(vm);
+  const progress = todayTaskReviewProgress(vm.active.resultQids, flow, vm.active.phaseStartedAt);
+  const finish = document.getElementById('today-task-finish');
+  if (finish) finish.disabled = !progress.canFinish;
+  const reason = document.getElementById('today-task-reason');
+  if (reason) reason.textContent = progress.reason;
+  const chips = document.getElementById('today-task-result-chips');
+  if (chips) {
+    chips.innerHTML = progress.items.map((it, i) =>
+      '<button type="button" class="today-task-chip is-' + it.status + (i === flow.index ? ' is-current' : '') + '" data-today-result-goto="' + i + '">' +
+      todayTaskEscape(it.qid) + ' ' + TODAY_TASK_STATUS_TEXT[it.status] + '</button>').join('');
+  }
+  return progress;
 }
 
 function todayTaskMountResultCard(vm) {
@@ -439,9 +519,12 @@ function todayTaskMountResultCard(vm) {
   if (!mount) return;
   const flow = todayTaskResultFlowFor(vm);
   const qids = vm.active.resultQids;
+  if (!flow.init) { flow.init = true; flow.index = todayTaskNextPendingIndex(vm, flow, -1); }
   const nextButton = document.querySelector('[data-today-result-next]');
+  const progress = todayTaskUpdateReviewUi(vm);
   if (flow.index >= qids.length) {
-    if (title) title.textContent = '作答結果：已處理完 ' + qids.length + ' 題（記錄 ' + flow.saved.length + ' 題）';
+    const savedCount = progress.items.filter(i => i.status === 'saved').length;
+    if (title) title.textContent = '作答結果：已處理完 ' + qids.length + ' 題（記錄 ' + savedCount + ' 題）';
     if (nextButton) nextButton.hidden = true;
     mount.innerHTML = '';
     return;
@@ -460,15 +543,47 @@ function todayTaskMountResultCard(vm) {
   });
 }
 
-function todayTaskResultAdvance() {
+function todayTaskResultAdvance(skipCurrent) {
   const state = todayTaskState || todayTaskRefresh();
   if (!state.active) return;
   const vm = todayTaskViewModel(state, Date.now());
   if (!vm.active.isReview) return;
   const flow = todayTaskResultFlowFor(vm);
-  flow.index += 1;
+  const current = vm.active.resultQids[flow.index];
+  if (skipCurrent && current && flow.skipped.indexOf(current) < 0) flow.skipped.push(current);
+  flow.index = todayTaskNextPendingIndex(vm, flow, flow.index);
   todayTaskCloseResultCard();
   todayTaskMountResultCard(vm);
+}
+
+function todayTaskResultGoto(index) {
+  const state = todayTaskState || todayTaskRefresh();
+  if (!state.active) return;
+  const vm = todayTaskViewModel(state, Date.now());
+  if (!vm.active.isReview || !(index >= 0 && index < vm.active.resultQids.length)) return;
+  const flow = todayTaskResultFlowFor(vm);
+  flow.index = index;
+  const qid = vm.active.resultQids[index];
+  flow.skipped = flow.skipped.filter(q => q !== qid);
+  todayTaskCloseResultCard();
+  todayTaskMountResultCard(vm);
+}
+
+// After the solution modal closes (or a docked card saved): re-read saved state.  The inline card
+// is only replaced when its QID was meanwhile recorded, so half-marked inline input survives.
+function todayTaskAfterSolution() {
+  const state = todayTaskState || todayTaskRefresh();
+  if (!state.active || !document.getElementById('today-task-result-mount')) return;
+  const vm = todayTaskViewModel(state, Date.now());
+  if (!vm.active.isReview) return;
+  const flow = todayTaskResultFlowFor(vm);
+  const qid = vm.active.resultQids[flow.index];
+  if (!qid || todayTaskQidStatus(qid, flow, vm.active.phaseStartedAt) === 'saved') {
+    flow.index = todayTaskNextPendingIndex(vm, flow, flow.index);
+    todayTaskCloseResultCard();
+  }
+  if (todayTaskResultHandle) todayTaskUpdateReviewUi(vm);
+  else todayTaskMountResultCard(vm);
 }
 
 function todayTaskTick() {
@@ -496,6 +611,7 @@ function openTodayTaskOverlay() {
     overlay.id = 'today-task-overlay';
     overlay.className = 'today-task-overlay';
     overlay.addEventListener('click', todayTaskOverlayClick);
+    overlay.addEventListener('keydown', todayTaskOverlayKey);
     document.body.appendChild(overlay);
   }
   overlay.style.display = 'flex';
@@ -512,14 +628,31 @@ function closeTodayTaskOverlay() {
   renderTodayTaskCard();
 }
 
+function todayTaskOverlayKey(event) {
+  if (event.key !== 'Enter' && event.key !== ' ') return;
+  const zoom = event.target && event.target.closest ? event.target.closest('[data-today-zoom]') : null;
+  if (zoom) { event.preventDefault(); todayTaskZoomImage(zoom); }
+}
+
 function todayTaskOverlayClick(event) {
+  const zoom = event.target && event.target.closest ? event.target.closest('[data-today-zoom]') : null;
+  if (zoom) { todayTaskZoomImage(zoom); return; }
   const target = event.target && event.target.closest ? event.target.closest('button') : null;
-  if (!target) return;
-  if (target.hasAttribute('data-today-result-next')) { todayTaskResultAdvance(); return; }
+  if (!target || target.disabled) return;
+  if (target.hasAttribute('data-today-result-next')) { todayTaskResultAdvance(true); return; }
+  if (target.hasAttribute('data-today-result-goto')) { todayTaskResultGoto(Number(target.getAttribute('data-today-result-goto'))); return; }
   const check = target.getAttribute('data-today-check');
   if (check) { todayTaskOpenSolution(check); return; }
   const act = target.getAttribute('data-today-act');
   if (act === 'next') {
+    const cur = todayTaskState || todayTaskRefresh();
+    if (cur.active) {
+      const cvm = todayTaskViewModel(cur, Date.now());
+      if (cvm.active.isReview && cvm.active.resultQids.length) {
+        const prog = todayTaskReviewProgress(cvm.active.resultQids, todayTaskResultFlowFor(cvm), cvm.active.phaseStartedAt);
+        if (!prog.canFinish) return;
+      }
+    }
     todayTaskCommit(todayTaskAdvance(todayTaskState || todayTaskRefresh(), Date.now()));
     if (!todayTaskState.active) { closeTodayTaskOverlay(); return; }
     renderTodayTaskOverlay();
@@ -540,6 +673,40 @@ function todayTaskOpenSolution(qid) {
     return;
   }
   openSolutionModal(null, r[6], qid, r[3], { mode: 'browse' });
+  const state = todayTaskState || todayTaskRefresh();
+  if (!state.active) return;
+  const vm = todayTaskViewModel(state, Date.now());
+  if (!vm.active.isReview) return;
+  // Dock the result card inside the solution modal so the learner can mark while reading.
+  if (typeof openResultCard === 'function') {
+    openResultCard({
+      qid, source: vm.active.resultSource,
+      onSaved: () => {
+        const flow = todayTaskResultFlowFor(vm);
+        if (flow.saved.indexOf(qid) < 0) flow.saved.push(qid);
+        todayTaskAfterSolution();
+      }
+    });
+  }
+  const modal = document.getElementById('solution-modal');
+  if (modal && typeof MutationObserver !== 'undefined') {
+    const obs = new MutationObserver(() => {
+      if (modal.classList.contains('show')) return;
+      obs.disconnect();
+      todayTaskAfterSolution();
+    });
+    obs.observe(modal, { attributes: true, attributeFilter: ['class'] });
+  }
+}
+
+// Tap-to-zoom for the question image: reuse the solution modal's lightbox, else a simple pinch-zoomable overlay.
+function todayTaskZoomImage(img) {
+  if (typeof openImageLightbox === 'function') { openImageLightbox(img.src, img.alt, img); return; }
+  const box = document.createElement('div');
+  box.className = 'today-task-zoom-fallback';
+  box.innerHTML = '<button type="button" aria-label="關閉">✕ 關閉</button><div><img src="' + todayTaskEscape(img.src) + '" alt="' + todayTaskEscape(img.alt) + '"></div>';
+  box.querySelector('button').addEventListener('click', () => box.remove());
+  document.body.appendChild(box);
 }
 
 function initTodayTask() {

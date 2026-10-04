@@ -253,6 +253,15 @@ class TestViewModel(unittest.TestCase):
         self.assertTrue(out["header"].endswith("基本分"))
         self.assertEqual(out["estimate"], out["total"] / 2 if len(out["rows"]) == 1 else out["estimate"])
 
+    def test_mock_source_wording(self):
+        basic_qid = run_node("Object.keys(TARGET_ALLOCATION.questionTiers).find(q => TARGET_ALLOCATION.questionTiers[q].tier === 'basic')")["result"]
+        out = run_node(f"({{mock: resultCardViewModel('{basic_qid}', ['o'], [], 'mock'), today: resultCardViewModel('{basic_qid}', ['o'], [], 'today')}})")["result"]
+        o = lambda vm: next(b for b in vm["markButtons"] if b["mark"] == "o")["text"]
+        self.assertEqual(o(out["mock"]), "全對")
+        self.assertNotIn("骨架寫完", out["mock"]["hint"])
+        self.assertEqual(o(out["today"]), "骨架寫完")
+        self.assertEqual(out["today"]["hint"], "○＝骨架寫完")
+
     def test_text_escaped(self):
         out = run_node("""[resultCardEscape('<img src=x onerror=alert(1)>&"\\''), (() => {
           const vm = resultCardViewModel('<b>x</b>', ['o'], []); return vm.header; })()]""")["result"]

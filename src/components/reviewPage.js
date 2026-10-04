@@ -875,7 +875,7 @@ function renderReviewPage() {
         <div class="focus-card-actions">
           <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始逐步揭露</button>
           <details class="more-practice more-practice-inline"><summary>更多練習方式</summary>
-            <button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>
+            ${due.has(qid) ? '' : `<button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>`}
             <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
           </details>
         </div>

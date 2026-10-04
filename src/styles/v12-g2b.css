@@ -1,0 +1,67 @@
+/* v1.2 QA fixes — g2b */
+
+/* #17 random round summary: tier is a small badge, estimate is plain text (no bar look) */
+.daily-practice-result-list--plain { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.daily-practice-result-list--plain .daily-practice-result-item {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px;
+  padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.daily-practice-result-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1 1 200px; }
+.daily-practice-result-meta { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.8rem; }
+.daily-practice-result-meta .tier-badge {
+  display: inline-block; flex: 0 0 auto; width: auto; height: auto; min-width: 0;
+  padding: 1px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; line-height: 1.5;
+  border: 1px solid var(--line-strong); background: var(--bg-secondary); color: var(--ink-light);
+}
+.daily-practice-estimate { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.daily-practice-estimate.is-empty { color: var(--muted); font-weight: 400; }
+.daily-practice-total { margin: 12px 0 4px; font-weight: 700; }
+
+/* #5 「繼續上次」 hidden attribute must win over the button row styles */
+.practice-home-secondary[hidden] { display: none !important; }
+
+/* Correction banner: one summary line "舊 → 新"; reason in the details */
+.answer-correction-banner summary { display: block; overflow-wrap: anywhere; }
+
+/* #12 solution window on phones: one compact header row, icon-only controls */
+@media (max-width: 640px) {
+  #solution-modal .modal-header { flex-wrap: nowrap; align-items: center; gap: 6px; padding: 6px 8px; }
+  #solution-modal .modal-title { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  #solution-modal .modal-title > span:nth-child(2) { display: none; }
+  #solution-modal .modal-title > span:first-child { font-size: 0.9rem; }
+  #solution-modal .modal-actions { flex-wrap: nowrap; flex: 0 0 auto; gap: 4px; }
+  #solution-modal .modal-actions button { padding: 0; min-width: 40px; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+  #solution-modal .modal-actions .sm-lbl { display: none; }
+  #solution-modal .modal-actions .sm-ico { font-size: 1.1rem; line-height: 1; }
+  /* duplicate 四段蓋牌 control: the header icon stays, the nav-bar copy goes */
+  #solution-modal #btn-active-recall { display: none; }
+  #solution-modal.sm-recall-entry #btn-modal-active-recall { display: none; }
+
+  #solution-modal .modal-nav-bar { flex-wrap: nowrap; align-items: center; gap: 6px; padding: 4px 8px; }
+  #solution-modal .modal-nav-bar > .modal-nav-group { flex-wrap: nowrap; gap: 6px; min-width: 0; }
+  #solution-modal .modal-nav-bar > .modal-nav-group:first-child { flex: 1 1 auto; }
+  #solution-modal .modal-same-exam-select { flex: 1 1 0; min-width: 0; max-width: 100%; }
+  #solution-modal #btn-modal-prev, #solution-modal #btn-modal-next { font-size: 0; padding: 0; min-width: 40px; min-height: 40px; }
+  #solution-modal #btn-modal-prev::before { content: '←'; font-size: 1rem; }
+  #solution-modal #btn-modal-next::before { content: '→'; font-size: 1rem; }
+  #solution-modal .modal-nav-bar > .modal-nav-group:last-child { flex: 0 0 auto; }
+  #solution-modal .view-layout-toggle { display: inline-flex; flex-wrap: nowrap; }
+  #solution-modal .view-layout-toggle .btn-layout { white-space: nowrap; }
+  #solution-modal .view-layout-toggle .btn-layout { padding: 0 8px; min-width: 40px; }
+  #solution-modal #btn-layout-solution { font-size: 0; }
+  #solution-modal #btn-layout-solution::before { content: '📝'; font-size: 1rem; }
+  #solution-modal #btn-layout-exam .sm-lbl { display: none; }
+  #solution-modal #btn-layout-exam::after { content: '看原題'; font-size: 0.78rem; margin-left: 4px; }
+
+  /* docked 作答結果卡: never more than 45vh, scroll inside */
+  #solution-modal .result-card--docked { max-height: 45vh; overflow-y: auto; }
+}
+
+/* Compact question image on the cover (left pane is hidden on narrow screens) */
+.recall-question-peek { display: none; margin: 0 0 12px; text-align: center; }
+.recall-question-peek img { max-width: 100%; max-height: 34vh; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); cursor: zoom-in; }
+.recall-question-peek figcaption { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+@media (max-width: 760px) { .recall-question-peek { display: block; } }
+
+/* Recall entry: one 四段蓋牌 indicator only (header), on every width */
+#solution-modal.sm-recall-entry #btn-active-recall { display: none; }

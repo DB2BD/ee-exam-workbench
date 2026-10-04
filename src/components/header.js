@@ -231,5 +231,5 @@ function toggleTheme() {
   document.documentElement.setAttribute('data-theme', next);
   try { localStorage.setItem('ee_theme_preference', next); } catch (_) { /* theme still applies this session */ }
   const btn = document.getElementById('theme-toggle-btn');
-  if (btn) btn.innerText = next === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
+  if (btn && typeof themeButtonLabel === 'function') btn.innerHTML = themeButtonLabel(next);
 }

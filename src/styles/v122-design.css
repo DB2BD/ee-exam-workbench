@@ -1,0 +1,214 @@
+/* src/styles/v122-design.css — v1.2.2 visual design pass. Loaded LAST so it wins. */
+
+/* ---------- Tokens ---------- */
+:root {
+  /* 3. contrast: muted one step darker (>= 4.5:1 on bg, bg-secondary, surface, tinted cards) */
+  --muted: #5d6975;
+  /* 4. semantic marks: ○ green, △ amber, × red; --on-mark is the text colour on a solid fill */
+  --mark-o: #2e7d4a;
+  --mark-tri: #9a5b00;
+  --mark-x: #b3261e;
+  --mark-o-bg: #e8f3ec;
+  --mark-tri-bg: #fbf0dc;
+  --mark-x-bg: #fbeae8;
+  --on-mark: #ffffff;
+  /* neutral (non-semantic) button outline */
+  --btn-neutral-border: #b9b0a0;
+}
+
+[data-theme="dark"] {
+  --muted: #a3aeb9;
+  /* 10. dark amber: less saturated, still >= 4.5:1 on dark surfaces */
+  --star: #c9a45a;
+  --mark-o: #6fbf84;
+  --mark-tri: #c9a45a;
+  --mark-x: #ec867f;
+  --mark-o-bg: #223329;
+  --mark-tri-bg: #372f20;
+  --mark-x-bg: #3a2625;
+  --on-mark: #14181b;
+  --btn-neutral-border: #5b6975;
+}
+
+/* ---------- 1. Header: phone ---------- */
+.title-area h1 .title-short { display: none; }
+.theme-ico { display: inline-block; }
+
+@media (max-width: 640px) {
+  .container { padding: 10px 12px 64px; }
+  header { padding: 10px 12px; margin-bottom: 10px; }
+  .header-top { flex-wrap: nowrap; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .title-area { flex: 1 1 auto; min-width: 0; }
+  .title-area h1 { font-size: 1.15rem; letter-spacing: 0; white-space: nowrap; gap: 6px; }
+  .title-area h1 .title-full { display: none; }
+  .title-area h1 .title-short { display: inline; overflow: hidden; text-overflow: ellipsis; }
+  .title-area p { display: none; }
+  .header-actions { flex: 0 0 auto; flex-wrap: nowrap; }
+  #theme-toggle-btn { width: 40px; height: 40px; min-width: 40px; min-height: 40px; padding: 0; justify-content: center; align-items: center; display: inline-flex; border-radius: var(--radius-pill); font-size: 1.05rem; line-height: 1; }
+  #theme-toggle-btn .theme-label { display: none; }
+  .header-summary { padding: 6px 10px; font-size: 0.8125rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: normal; }
+  .main-tabs { margin-bottom: 12px; }
+  .main-tab-btn { padding: 8px 14px; }
+}
+
+/* ---------- 2 + 5. Four-stage cover buttons, badges ---------- */
+.btn-reveal-hint {
+  background: transparent;
+  color: var(--ink-light);
+  border: 1px solid var(--btn-neutral-border);
+  padding: 7px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.btn-reveal-hint:hover { background: var(--bg); color: var(--ink); border-color: var(--ink-light); }
+.btn-reveal-full { padding: 11px 24px; font-size: 0.95rem; font-weight: 800; background: var(--accent); color: #fff; border-color: var(--accent-dark); }
+[data-theme="dark"] .btn-reveal-full { background: var(--accent-dark); color: #14181b; border-color: var(--accent-dark); }
+[data-theme="dark"] .btn-reveal-full:hover { background: var(--accent); }
+.active-recall-box p { color: var(--ink-light); }
+
+/* 主攻 = solid accent, 基本分 = outline of the same hue */
+.tier-badge.tier-main { background: var(--accent-dark); color: #fff; border-color: var(--accent-dark); }
+.tier-badge.tier-basic { background: transparent; color: var(--accent-dark); border-color: var(--accent-dark); }
+[data-theme="dark"] .tier-badge.tier-main { background: var(--accent); color: #14181b; border-color: var(--accent); }
+[data-theme="dark"] .tier-badge.tier-basic { background: transparent; color: var(--accent-dark); border-color: var(--accent); }
+
+/* ---------- 4. Semantic mark colours ---------- */
+.result-card-mark.on[data-mark="o"],
+.result-card-mark.on[data-mark="o"]:hover { background: var(--mark-o); border-color: var(--mark-o); color: var(--on-mark); }
+.result-card-mark.on[data-mark="tri"],
+.result-card-mark.on[data-mark="tri"]:hover,
+.result-card-mark.on[data-mark="tri"]:focus-visible { background: var(--mark-tri); border-color: var(--mark-tri); color: var(--on-mark); }
+.result-card-mark.on[data-mark="x"],
+.result-card-mark.on[data-mark="x"]:hover { background: var(--mark-x); border-color: var(--mark-x); color: var(--on-mark); }
+.result-card-mark[data-mark="o"]:hover { background: var(--mark-o-bg); border-color: var(--mark-o); color: var(--ink); }
+.result-card-mark[data-mark="tri"]:hover { background: var(--mark-tri-bg); border-color: var(--mark-tri); color: var(--ink); }
+.result-card-mark[data-mark="x"]:hover { background: var(--mark-x-bg); border-color: var(--mark-x); color: var(--ink); }
+.mark-sym { font-weight: 800; }
+.mark-sym[data-mark="o"] { color: var(--mark-o); }
+.mark-sym[data-mark="tri"] { color: var(--mark-tri); }
+.mark-sym[data-mark="x"] { color: var(--mark-x); }
+.mock-weak, .mock-ok { color: inherit; }
+/* error-cause chips are neutral, not red */
+.sb-chip { background: var(--bg-secondary); color: var(--ink-light); border: 1px solid var(--line-strong); }
+
+/* ---------- 3. Contrast / readable body copy ---------- */
+.home-due-button small, .home-random-button small { font-size: 0.8125rem; }
+.sb-nums dd, .sb-rates, .sb-errors, .sb-next, .sb-total small, .sb-note,
+.today-task-note, .today-task-plan, .today-task-from, .mock-sub, .mock-meta, .mock-scoring-note { font-size: 0.875rem; }
+.sb-nums dt, .sb-total-label { color: var(--muted); }
+
+/* solid accent fills: dark theme accent is light, so the text on it is dark (>= 6:1) */
+[data-theme="dark"] .btn-sol,
+[data-theme="dark"] .daily-practice-primary,
+[data-theme="dark"] .today-task-start,
+[data-theme="dark"] .mock-btn-primary,
+[data-theme="dark"] .btn-layout.active,
+[data-theme="dark"] .sub-q-pill.active,
+[data-theme="dark"] .result-card-chip.on,
+[data-theme="dark"] .result-card-save,
+[data-theme="dark"] .facet-tag-pill.active,
+[data-theme="dark"] .weakness-toolbar .pill.active,
+[data-theme="dark"] .btn-session-next,
+[data-theme="dark"] .btn-recall-primary,
+[data-theme="dark"] .btn-print-sheet { color: #14181b !important; }
+[data-theme="dark"] .btn-sol { color: #14181b; }
+[data-theme="dark"] .result-card-save:disabled { color: #14181b !important; opacity: .55; }
+/* amber / terracotta text on tinted surfaces: darker in light mode for >= 4.5:1 */
+.sb-role--high, .dag-trap-alert strong { color: #8f4a2c; }
+[data-theme="dark"] .sb-role--high, [data-theme="dark"] .dag-trap-alert strong { color: var(--warn); }
+.dag-tracer-badge, .main-tab-btn.active { color: var(--accent-dark); }
+.btn-star { opacity: 0.7; }
+
+/* ---------- 7. Scoreboard legend + bar values ---------- */
+.sb-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 12px; font-size: 0.8125rem; color: var(--ink-light); }
+.sb-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.sb-swatch { display: inline-block; width: 18px; height: 8px; border-radius: 4px; }
+.sb-swatch--mock { background: var(--accent); }
+.sb-swatch--practice { background: var(--star); }
+.sb-swatch--target { width: 3px; height: 14px; border-radius: 1px; background: var(--ink); }
+.sb-bar { flex-direction: row; align-items: stretch; gap: 10px; padding: 0; }
+.sb-tracks { position: relative; flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.sb-row { height: 20px; display: flex; align-items: center; }
+.sb-row .sb-track { flex: 1 1 auto; }
+.sb-track { height: 10px; }
+.sb-track--thin { height: 6px; }
+.sb-vals { flex: 0 0 2.4em; display: flex; flex-direction: column; text-align: right; font-variant-numeric: tabular-nums; }
+.sb-val { height: 20px; line-height: 20px; font-size: 0.8125rem; font-weight: 700; color: var(--ink); }
+.sb-val--mock { color: var(--accent-dark); }
+.sb-val--practice { color: var(--ink-light); }
+.sb-target { top: 0; bottom: 0; }
+[data-theme="dark"] .sb-fill--practice { background: var(--star); }
+
+/* ---------- 8. Desktop solution modal: 45:55, crop fills its pane ---------- */
+.modal-pane-left { flex: 0 0 45%; }
+.question-crop-wrap { padding: 8px; }
+.question-crop-preview { width: 100%; max-width: 100%; }
+
+/* ---------- 9. 考前速查手冊 print: black on white, flat, one page per subject ---------- */
+@media print {
+  #passbook-modal, #passbook-modal * { background: #fff !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
+  #passbook-modal *, #passbook-modal *::before { border-color: #000 !important; }
+  #passbook-modal .cheatsheet-subject, #passbook-modal .cheatsheet-assumptions { break-before: page !important; page-break-before: always !important; }
+  #passbook-modal .passbook-item, #passbook-modal .cheatsheet-subject li { break-inside: avoid; }
+}
+
+/* 13px floor: every rule that declared < 13px */
+.qtag,
+.progress-ring-sub,
+.progress-health-label,
+.interactive-stat-card .label,
+.review-type-filter .pill,
+.status-badge,
+.diff-badge,
+.due-badge,
+.backup-textarea,
+.facet-tag-pill,
+.facet-tag-count,
+.qsheet-count-tag,
+.qsheet-node-id,
+.qsheet-lvl-badge,
+.qsheet-label,
+.daily-practice-start-card label,
+.daily-practice-source-figure figcaption,
+.daily-practice-result-item code,
+.diagnosis-save-hint,
+.converter-col label,
+.calc-tag,
+.calc-key,
+.key-desc,
+.key-arrow,
+.calc-trap-alert,
+.today-task-eyebrow,
+.answer-correction-row-date,
+.sb-total-label,
+.sb-role,
+.sb-nums dt,
+.sb-chip,
+.sb-note,
+.mock-picker label,
+.tier-badge,
+.btn-layout,
+.sub-q-pill,
+.question-crop-hint,
+.btn-sm2 .subtext,
+.dag-tracer-badge,
+.dag-vis-card-level,
+.dag-vis-card-prereqs,
+.today-task-zoom-hint,
+.daily-practice-result-meta,
+.daily-practice-result-meta .tier-badge,
+.recall-question-peek figcaption { font-size: 0.8125rem; }
+
+@media (max-width: 640px) {
+  .mock-history-table,
+  #solution-modal #btn-layout-exam::after,
+  #solution-modal .result-card--docked .result-card-chip,
+  #solution-modal .result-card--docked .result-card-note-toggle { font-size: 0.8125rem; }
+
+}
+
+/* header 「四段蓋牌進行中」 button carries inline warn colours: >= 4.5:1 in both themes */
+#btn-modal-active-recall { background: #a4502e !important; border-color: #a4502e !important; color: #fff !important; }
+[data-theme="dark"] #btn-modal-active-recall { background: var(--warn) !important; border-color: var(--warn) !important; color: #14181b !important; }
+.btn-star { color: var(--ink-light); opacity: 1; }
+.btn-star:not(.active) { opacity: 0.85; }

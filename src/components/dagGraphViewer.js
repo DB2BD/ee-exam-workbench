@@ -129,7 +129,7 @@ function renderDagGraphVisualizer() {
               <span class="dag-vis-card-title">${nodeTitle}</span>
               <span class="dag-vis-card-level">⭐ Level ${n.level || 0}</span>
             </div>
-            <div style="font-size: 0.8rem; color: var(--accent-dark); font-weight: 600; margin-bottom: 4px;">
+            <div style="font-size: 0.8125rem; color: var(--accent-dark); font-weight: 600; margin-bottom: 4px;">
               考別：${n.examFamily} · 考科：${nodeSubject}
             </div>
             <div class="dag-vis-card-formula">
@@ -140,7 +140,7 @@ function renderDagGraphVisualizer() {
                 <span>前置必備：</span>
                 ${prereqNames.map(pn => `<span class="dag-prereq-tag">⬅️ ${pn}</span>`).join('')}
               </div>
-            ` : '<div style="font-size: 0.76rem; color: var(--success); margin-top: 6px;">🌱 基礎起始概念 (無前置相依)</div>'}
+            ` : '<div style="font-size: 0.8125rem; color: var(--success); margin-top: 6px;">🌱 基礎起始概念 (無前置相依)</div>'}
           </div>
         `;
       }).join('')}

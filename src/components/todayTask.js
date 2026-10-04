@@ -35,8 +35,57 @@ function todayTaskNormalizeState(raw) {
       && a.phaseIndex < tasks[a.code].phases.length
       && typeof a.phaseStartedAt === 'number' && isFinite(a.phaseStartedAt)) {
     state.active = { code: a.code, phaseIndex: a.phaseIndex, phaseStartedAt: a.phaseStartedAt };
+    const mockId = todayTaskIsMockKind(tasks[a.code]) ? (todayTaskValidMockId(a.mockId) ? a.mockId : todayTaskMockId(tasks[a.code], a.phaseStartedAt)) : '';
+    if (mockId) state.active.mockId = mockId;
+    if (Array.isArray(a.skipped)) {
+      const own = tasks[a.code].qids;
+      state.active.skipped = a.skipped.filter(q => typeof q === 'string' && own.indexOf(q) >= 0);
+    }
   }
   return state;
+}
+
+// ---- Scheduled mock / blind tasks are real mocks (source 'mock' + mockId) --
+
+function todayTaskIsMockKind(task) {
+  return !!task && (task.kind === 'mock114' || task.kind === 'blind108');
+}
+
+function todayTaskValidMockId(value) {
+  return typeof value === 'string' && /^\d+-\d+-\d+$/.test(value);
+}
+
+// Same format as mockExam.js: `${year}-${subjectId}-${timestamp}`.
+function todayTaskMockId(task, timestamp) {
+  const m = /^EE-(\d+)-(\d+)-\d+$/.exec(String(((task && task.qids) || [])[0] || ''));
+  return m ? `${m[1]}-${m[2]}-${Number.isFinite(Number(timestamp)) ? Number(timestamp) : Date.now()}` : '';
+}
+
+// Scored questions of a scheduled mock (same subset rules as mockExam.js).
+function todayTaskScoredQids(task) {
+  const qids = task.qids.slice();
+  const m = /^EE-(\d+)-(\d+)-\d+$/.exec(String(qids[0] || ''));
+  if (!m || typeof MOCK_EXAM_SCORED_SUBSETS === 'undefined') return qids;
+  const subset = MOCK_EXAM_SCORED_SUBSETS[m[1] + '-' + m[2]];
+  return subset ? qids.filter(q => subset.qids.indexOf(q) >= 0) : qids;
+}
+
+// Mock tab finished a full scored paper: complete the matching scheduled MOCK114/BLIND108 task.
+// Returns { state, code } (code is null when nothing changed).  Order rules are untouched:
+// earlier tasks stay as they are; the current task is still the earliest uncompleted.
+function todayTaskCompleteMock(state, year, subjectId, now) {
+  const tasks = DAILY_SCHEDULE.tasks;
+  const code = DAILY_SCHEDULE.order.find(c => {
+    const t = tasks[c];
+    if (!todayTaskIsMockKind(t) || state.completed[c]) return false;
+    const m = /^EE-(\d+)-(\d+)-\d+$/.exec(String(t.qids[0] || ''));
+    return !!m && m[1] === String(year) && m[2] === String(subjectId);
+  });
+  if (!code) return { state, code: null };
+  const completed = Object.assign({}, state.completed);
+  completed[code] = new Date(now).toISOString();
+  const active = state.active && state.active.code === code ? null : state.active;
+  return { state: { completed, active }, code };
 }
 
 function todayTaskStorage(storage) {
@@ -86,7 +135,10 @@ function todayTaskStart(state, now, optionalCode) {
     code = optionalCode;
   }
   if (!code) return state;
-  return { completed: state.completed, active: { code, phaseIndex: 0, phaseStartedAt: now } };
+  const active = { code, phaseIndex: 0, phaseStartedAt: now };
+  const task = DAILY_SCHEDULE.tasks[code];
+  if (todayTaskIsMockKind(task)) active.mockId = todayTaskMockId(task, now);
+  return { completed: state.completed, active };
 }
 
 function todayTaskAdvance(state, now) {
@@ -94,7 +146,9 @@ function todayTaskAdvance(state, now) {
   if (!a) return state;
   const task = DAILY_SCHEDULE.tasks[a.code];
   if (a.phaseIndex + 1 < task.phases.length) {
-    return { completed: state.completed, active: { code: a.code, phaseIndex: a.phaseIndex + 1, phaseStartedAt: now } };
+    const next = { code: a.code, phaseIndex: a.phaseIndex + 1, phaseStartedAt: now };
+    if (a.mockId) next.mockId = a.mockId;
+    return { completed: state.completed, active: next };
   }
   const completed = Object.assign({}, state.completed);
   completed[a.code] = new Date(now).toISOString();
@@ -219,8 +273,11 @@ function todayTaskPhaseView(task, a, now) {
     solutionQids: closed ? [] : task.qids.slice(),
     isReview,
     // 作答結果卡: one card per QID, recorded right after checking.
-    resultQids: isReview ? task.qids.slice() : [],
-    resultSource: task.optional ? 'ext' : 'today',
+    resultQids: isReview ? todayTaskScoredQids(task) : [],
+    resultSource: todayTaskIsMockKind(task) ? 'mock' : (task.optional ? 'ext' : 'today'),
+    // Generated once per task run and stored with the active task, so a reload keeps it.
+    resultMockId: todayTaskIsMockKind(task) ? (a.mockId || todayTaskMockId(task, a.phaseStartedAt)) : '',
+    skipped: Array.isArray(a.skipped) ? a.skipped.slice() : [],
     phaseStartedAt: a.phaseStartedAt,
     pdfUrl: closed ? todayTaskPdfUrl(task) : '',
     scoringNote: task.scoringNote || '',
@@ -396,9 +453,37 @@ function todayTaskCloseResultCard() {
 }
 
 function todayTaskResultFlowFor(vm) {
-  const key = vm.active.code + ':' + vm.active.phaseIndex;
-  if (todayTaskResultFlow.key !== key) todayTaskResultFlow = { key, index: 0, skipped: [], saved: [], init: false };
+  const key = vm.active.code + ':' + vm.active.phaseIndex + ':' + vm.active.phaseStartedAt;
+  if (todayTaskResultFlow.key !== key) todayTaskResultFlow = { key, index: 0, skipped: vm.active.skipped.slice(), saved: [], init: false };
   return todayTaskResultFlow;
+}
+
+// Skip state survives a reload: it lives on the active task state (reset when the phase advances).
+function todayTaskPersistSkipped(flow) {
+  const state = todayTaskState || todayTaskRefresh();
+  if (!state.active) return;
+  const active = Object.assign({}, state.active, { skipped: flow.skipped.slice() });
+  todayTaskCommit({ completed: state.completed, active });
+}
+
+// Open docked/inline cards for scheduled mocks carry the task's mockId.
+function todayTaskCardOptions(vm, qid) {
+  const o = { qid, source: vm.active.resultSource };
+  if (vm.active.resultMockId) o.mockId = vm.active.resultMockId;
+  return o;
+}
+
+// Mock tab completed a full scored paper: sync the matching scheduled task.  Returns the code or null.
+function todayTaskSyncMockCompletion(year, subjectId, now) {
+  const state = todayTaskRefresh();
+  const res = todayTaskCompleteMock(state, year, subjectId, now == null ? Date.now() : now);
+  if (!res.code) return null;
+  todayTaskCommit(res.state);
+  if (typeof document !== 'undefined') {
+    if (!res.state.active) { const ov = document.getElementById('today-task-overlay'); if (ov && ov.style.display !== 'none') closeTodayTaskOverlay(); }
+    if (document.getElementById('today-task-card')) renderTodayTaskCard();
+  }
+  return res.code;
 }
 
 // A QID is handled once it has a record saved since this phase began, or was explicitly skipped.
@@ -533,14 +618,14 @@ function todayTaskMountResultCard(vm) {
   if (title) title.textContent = '記錄作答結果 ' + (flow.index + 1) + '／' + qids.length + '：' + qid;
   if (nextButton) nextButton.hidden = false;
   if (typeof openResultCard !== 'function') return;
-  todayTaskResultHandle = openResultCard({
-    qid, source: vm.active.resultSource, mount,
+  todayTaskResultHandle = openResultCard(Object.assign(todayTaskCardOptions(vm, qid), {
+    mount,
     onSaved: () => {
       if (flow.saved.indexOf(qid) < 0) flow.saved.push(qid);
       todayTaskResultHandle = null;
       todayTaskResultAdvance();
     }
-  });
+  }));
 }
 
 function todayTaskResultAdvance(skipCurrent) {
@@ -550,7 +635,7 @@ function todayTaskResultAdvance(skipCurrent) {
   if (!vm.active.isReview) return;
   const flow = todayTaskResultFlowFor(vm);
   const current = vm.active.resultQids[flow.index];
-  if (skipCurrent && current && flow.skipped.indexOf(current) < 0) flow.skipped.push(current);
+  if (skipCurrent && current && flow.skipped.indexOf(current) < 0) { flow.skipped.push(current); todayTaskPersistSkipped(flow); }
   flow.index = todayTaskNextPendingIndex(vm, flow, flow.index);
   todayTaskCloseResultCard();
   todayTaskMountResultCard(vm);
@@ -564,7 +649,7 @@ function todayTaskResultGoto(index) {
   const flow = todayTaskResultFlowFor(vm);
   flow.index = index;
   const qid = vm.active.resultQids[index];
-  flow.skipped = flow.skipped.filter(q => q !== qid);
+  if (flow.skipped.indexOf(qid) >= 0) { flow.skipped = flow.skipped.filter(q => q !== qid); todayTaskPersistSkipped(flow); }
   todayTaskCloseResultCard();
   todayTaskMountResultCard(vm);
 }
@@ -680,7 +765,7 @@ function todayTaskOpenSolution(qid) {
   // Dock the result card inside the solution modal so the learner can mark while reading.
   if (typeof openResultCard === 'function') {
     openResultCard({
-      qid, source: vm.active.resultSource,
+      qid, source: vm.active.resultSource, mockId: vm.active.resultMockId || undefined,
       onSaved: () => {
         const flow = todayTaskResultFlowFor(vm);
         if (flow.saved.indexOf(qid) < 0) flow.saved.push(qid);

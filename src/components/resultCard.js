@@ -81,8 +81,23 @@ function resultCardViewModel(qid, marks, errors, source) {
 }
 
 function resultCardRemoveExisting() {
+  Array.prototype.forEach.call(typeof document !== 'undefined' ? document.querySelectorAll('.result-card-saved-notice') : [], el => el.remove());
   const old = typeof document !== 'undefined' ? document.querySelectorAll('.result-card[data-result-card-docked="1"]') : [];
   Array.prototype.forEach.call(old, el => { if (el.__resultCardClose) el.__resultCardClose(); else el.remove(); });
+}
+
+// 「已記錄 ✓」: a short confirmation in the docked card's place; removed after ~1.8s or on the next card.
+function resultCardShowSavedNotice(host) {
+  try {
+    const old = document.querySelectorAll('.result-card-saved-notice');
+    Array.prototype.forEach.call(old, el => el.remove());
+    const note = document.createElement('div');
+    note.className = 'result-card-saved-notice' + (host === document.body ? ' result-card--viewport' : '');
+    note.setAttribute('role', 'status');
+    note.textContent = '已記錄 ✓';
+    (host || document.body).appendChild(note);
+    setTimeout(() => note.remove(), 1800);
+  } catch (_) { /* cosmetic only */ }
 }
 
 function openResultCard(options) {
@@ -213,6 +228,8 @@ function openResultCard(options) {
         return;
       }
       close();
+      // Docked card: no next question to move to, so confirm briefly where the card was and keep the solution open.
+      if (docked && typeof document !== 'undefined') resultCardShowSavedNotice(host);
       if (typeof opts.onSaved === 'function') opts.onSaved(result.record, result);
     }
   });

@@ -446,6 +446,11 @@ function mockExamUpdateProgress(paper) {
   const totalEl = document.getElementById('mock-running-total');
   if (totalEl) totalEl.textContent = `本卷估計 ${mockExamFormat(sum.estimate)}／${mockExamFormat(paper.scoredTotal)}（已評 ${sum.questionCount}／${paper.scoredQids.length} 題）`;
   const done = paper.scoredQids.every(q => saved[q]);
+  // A full scored paper also completes the matching scheduled MOCK114-0N / BLIND108-0N task.
+  if (done && paper.scoredQids.length && mockExamState && mockExamState.mockId && !mockExamState.syncedCode
+      && typeof todayTaskSyncMockCompletion === 'function') {
+    try { mockExamState.syncedCode = todayTaskSyncMockCompletion(paper.year, paper.subjectId, Date.now()) || ''; } catch (_) { /* best-effort */ }
+  }
   const box = document.getElementById('mock-summary');
   if (box) box.innerHTML = done ? mockExamSummaryHtml(paper, sum) : '';
   const hist = document.getElementById('mock-history');
@@ -459,6 +464,7 @@ function mockExamSummaryHtml(paper, sum) {
   return `
     <section class="mock-summary" aria-label="本卷總結">
       <h3>本卷估計 ${mockExamFormat(sum.estimate)}／${mockExamFormat(paper.scoredTotal)}</h3>
+      ${mockExamState && mockExamState.syncedCode ? `<p class="mock-sync-notice" role="status">已同步完成排程任務 ${mockExamEscape(mockExamState.syncedCode)}</p>` : ''}
       <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamEscape(mockExamMarksText(q))}</span></li>`).join('')}</ul>
       <p class="mock-tally"><strong>錯因統計：</strong>${tally.length ? tally.map(c => `${mockExamEscape(c)} ${mockExamEscape(labels[c] || '')} ×${sum.errorTally[c]}`).join('、') : '未選錯因'}</p>
       ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '📝 開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
@@ -488,6 +494,7 @@ function mockExamSubmit() {
   const paper = mockExamPaperNow();
   if (!paper.items.length) return;
   st.phase = 'grading';
+  st.syncedCode = '';
   st.mockId = mockExamNewId(st.year, st.sid, Date.now());
   mockExamRender();
 }
@@ -530,6 +537,14 @@ function initMockExam() {
   host.__mockExamReady = true;
   host.addEventListener('click', mockExamOnClick);
   mockExamRender();
+  // Records can be added elsewhere (scheduled MOCK/BLIND tasks): refresh the history whenever the tab is shown.
+  if (typeof MutationObserver !== 'undefined') {
+    new MutationObserver(() => {
+      if (host.style.display === 'none') return;
+      const hist = document.getElementById('mock-history');
+      if (hist) hist.innerHTML = mockExamHistoryHtml();
+    }).observe(host, { attributes: true, attributeFilter: ['style'] });
+  }
 }
 
 if (typeof document !== 'undefined') {

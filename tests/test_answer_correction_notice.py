@@ -9,6 +9,7 @@ from pathlib import Path
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 SOURCES = [
+    WORKSPACE / "src/components/icons.js",
     WORKSPACE / "src/data/answerCorrections.generated.js",
     WORKSPACE / "src/data/dailySchedule.generated.js",
     WORKSPACE / "src/components/answerCorrectionNotice.js",
@@ -73,7 +74,7 @@ class TestBanner(unittest.TestCase):
         self.assertIn("原因：", html)
         # every dynamic value is escaped: only our own tags may appear
         tags = set(re.findall(r"</?([a-z]+)", html))
-        self.assertEqual(tags, {"details", "summary", "div"})
+        self.assertEqual(tags, {"details", "summary", "div", "svg", "path"})  # svg/path: alert-triangle icon
 
     def test_every_correction_renders_and_escapes(self):
         qids = run_node("Object.keys(ANSWER_CORRECTIONS)")
@@ -82,7 +83,7 @@ class TestBanner(unittest.TestCase):
         for qid in qids:
             html = run_node(f"answerCorrectionBannerHtml('{qid}')")
             self.assertTrue(html.startswith("<details"), qid)
-            self.assertEqual(set(re.findall(r"</?([a-z]+)", html)), {"details", "summary", "div"}, qid)
+            self.assertEqual(set(re.findall(r"</?([a-z]+)", html)), {"details", "summary", "div", "svg", "path"}, qid)
 
     def test_escape_function(self):
         self.assertEqual(run_node("answerCorrectionEscape('<b>\"&\\'')"), "&lt;b&gt;&quot;&amp;&#39;")

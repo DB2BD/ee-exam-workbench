@@ -86,7 +86,7 @@ function resultCardRemoveExisting() {
   Array.prototype.forEach.call(old, el => { if (el.__resultCardClose) el.__resultCardClose(); else el.remove(); });
 }
 
-// 「已記錄 ✓」: a short confirmation in the docked card's place; removed after ~1.8s or on the next card.
+// 「已記錄 」: a short confirmation in the docked card's place; removed after ~1.8s or on the next card.
 function resultCardShowSavedNotice(host) {
   try {
     const old = document.querySelectorAll('.result-card-saved-notice');
@@ -94,7 +94,7 @@ function resultCardShowSavedNotice(host) {
     const note = document.createElement('div');
     note.className = 'result-card-saved-notice' + (host === document.body ? ' result-card--viewport' : '');
     note.setAttribute('role', 'status');
-    note.textContent = '已記錄 ✓';
+    note.innerHTML = '已記錄 ' + (typeof uiIcon === 'function' ? uiIcon('check') : '');
     (host || document.body).appendChild(note);
     setTimeout(() => note.remove(), 1800);
   } catch (_) { /* cosmetic only */ }

@@ -445,7 +445,7 @@ function todayTaskCardHtml(vm) {
     const buttonText = resume ? (vm.held ? (vm.held.sameDay ? '現在就核對' : '開始核對') : '繼續') : '開始';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">一鍵開始今天</span><strong>' + esc(label) + '</strong>' +
       '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + rest + '</div>' +
-      '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + buttonText + '</button></div>';
+      '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' ' + buttonText + '</button></div>';
   }
   return '<section class="today-task-card" aria-label="今天的任務">' + body + plan + pacingLines + todayTaskStartFromHtml(vm, vm.completedMap) + '</section>';
 }
@@ -869,7 +869,7 @@ function todayTaskZoomImage(img) {
   if (typeof openImageLightbox === 'function') { openImageLightbox(img.src, img.alt, img); return; }
   const box = document.createElement('div');
   box.className = 'today-task-zoom-fallback';
-  box.innerHTML = '<button type="button" aria-label="關閉">✕ 關閉</button><div><img src="' + todayTaskEscape(img.src) + '" alt="' + todayTaskEscape(img.alt) + '"></div>';
+  box.innerHTML = '<button type="button" aria-label="關閉">' + uiIcon('x') + ' 關閉</button><div><img src="' + todayTaskEscape(img.src) + '" alt="' + todayTaskEscape(img.alt) + '"></div>';
   box.querySelector('button').addEventListener('click', () => box.remove());
   document.body.appendChild(box);
 }

@@ -24,7 +24,7 @@
 /* === src/styles/base.css === */
 /* src/styles/base.css */
 :root {
-  /* 🌿 莫蘭迪 (Morandi) 亮色主題 - 溫潤低飽和配色，長時間閱卷不疲勞 */
+  /* 莫蘭迪 (Morandi) 亮色主題 - 溫潤低飽和配色，長時間閱卷不疲勞 */
   --bg: #f8f6f0;
   --bg-secondary: #f0ebe1;
   --surface: #ffffff;
@@ -55,7 +55,7 @@
 }
 
 [data-theme="dark"] {
-  /* 🌌 莫蘭迪暗色護眼主題 */
+  /* 莫蘭迪暗色護眼主題 */
   --bg: #1c2125;
   --bg-secondary: #242b30;
   --surface: #2b3339;
@@ -997,7 +997,7 @@ select:focus {
   margin-bottom: 24px;
 }
 
-/* 🧠 SM-2 Spaced Repetition Badges */
+/* SM-2 Spaced Repetition Badges */
 .due-badge {
   font-size: 0.76rem;
   font-weight: 700;
@@ -1036,7 +1036,7 @@ select:focus {
   100% { box-shadow: 0 0 0 0 rgba(184, 93, 88, 0); }
 }
 
-/* 💾 Backup & Restore Modal */
+/* Backup & Restore Modal */
 #backup-modal {
   display: none;
   position: fixed;
@@ -2695,7 +2695,7 @@ select:focus {
   font-weight: 600;
 }
 
-/* 🎴 Active Recall Mode */
+/* Active Recall Mode */
 .active-recall-box {
   background: var(--bg-secondary);
   border: 1.5px dashed var(--accent);
@@ -3251,7 +3251,7 @@ select:focus {
   #solution-modal .view-layout-toggle .btn-layout { white-space: nowrap; }
   #solution-modal .view-layout-toggle .btn-layout { padding: 0 8px; min-width: 40px; }
   #solution-modal #btn-layout-solution { font-size: 0; }
-  #solution-modal #btn-layout-solution::before { content: '📝'; font-size: 1rem; }
+  #solution-modal #btn-layout-solution::before { content: ''; font-size: 1rem; }
   #solution-modal #btn-layout-exam .sm-lbl { display: none; }
   #solution-modal #btn-layout-exam::after { content: '看原題'; font-size: 0.78rem; margin-left: 4px; }
 
@@ -3288,7 +3288,7 @@ select:focus {
 #solution-modal #btn-active-recall { display: none; }
 /* #12: 「主動回想蓋牌」 appears once (header) at every width; the toolbar copy is gone. */
 
-/* N3: 已記錄 ✓ confirmation where the docked result card was */
+/* N3: 「已記錄」 confirmation where the docked result card was */
 .result-card-saved-notice {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 40;
   padding: 12px 16px; text-align: center; font-weight: 700;
@@ -3576,6 +3576,44 @@ select:focus {
   .today-pacing-milestone, .today-pacing-cut, .today-pacing-suggestion { font-size: .85rem; }
 }
 
+
+/* === src/styles/v13-icons.css === */
+/* src/styles/v13-icons.css — v1.3 unified inline-SVG line icons. Loaded LAST. Colours inherit currentColor (dark-mode safe). */
+.ui-icon { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
+.ui-ico { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+
+/* buttons that contain an icon: icon + label on one line */
+.main-tab-btn > span { display: inline-flex; align-items: center; gap: 6px; }
+.more-tools-menu > summary { gap: 6px; }
+#theme-toggle-btn { display: inline-flex; align-items: center; gap: 6px; }
+.btn-pdf, .btn-sol, .btn-star, .btn-recall-primary, .practice-home-secondary button,
+.passbook-close, .btn-close, .home-due-summary-close { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.sm-ico { display: inline-flex; align-items: center; }
+.btn-star.on .ui-icon, .btn-star .ui-icon-filled { color: var(--star, currentColor); }
+
+/* primary home actions: icon in a tinted square instead of a big emoji */
+.home-due-button > .ui-ico, .home-random-button > .ui-ico {
+  grid-row: 1 / 3; width: 2.5rem; height: 2.5rem; border-radius: 10px; font-size: 1.35rem;
+  background: var(--accent-light); color: var(--accent-dark);
+}
+.search-box .search-icon { display: inline-flex; align-items: center; color: var(--muted); }
+.status-line-icon { display: inline-flex; align-items: center; gap: 4px; }
+.warn-ico { color: var(--mark-tri, currentColor); }
+
+/* status dots (replace colour-circle emoji): solid = mastered, red = needs second pass, hollow = not started */
+.status-dot { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; background: currentColor; border: 1.5px solid currentColor; box-sizing: border-box; }
+.status-dot.s-dot-0 { background: transparent; opacity: .7; }
+.sm-ico .status-dot { width: 0.6em; height: 0.6em; }
+
+/* phone: icon-only 純詳解 button shows the file-text glyph (CSS mask, same geometry as uiIcon('file-text')) */
+@media (max-width: 640px) {
+  #solution-modal #btn-layout-solution::before {
+    display: inline-block; width: 1.1rem; height: 1.1rem; vertical-align: middle; background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+}
+
 </style>
 </head>
 
@@ -3586,11 +3624,11 @@ select:focus {
   <header>
     <div class="header-top">
       <div class="title-area">
-        <h1>⚡ <span class="title-full">電機工程技師 歷屆試題工作台</span><span class="title-short">電機技師工作台</span></h1>
+        <h1><span class="title-full">電機工程技師 歷屆試題工作台</span><span class="title-short">電機技師工作台</span></h1>
         <p>專技高考電機工程技師 · 104 ~ 114 年 6 大考科 · <span id="hero-total-count">323 題</span> · 逐題來源可追溯 · 離線使用</p>
       </div>
       <div class="header-actions">
-        <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn" aria-label="切換暗色／亮色模式"><span class="theme-ico" aria-hidden="true">🌙</span><span class="theme-label"> 暗色模式</span></button>
+        <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn" aria-label="切換暗色／亮色模式"><span class="theme-ico" aria-hidden="true"><span class="ui-ico" data-ui-icon="moon"></span></span><span class="theme-label"> 暗色模式</span></button>
       </div>
     </div>
 
@@ -3601,20 +3639,20 @@ select:focus {
   <!-- Main Navigation: three entries plus a collapsed 更多 -->
   <div class="main-tabs">
     <button class="main-tab-btn active" id="tab-btn-practice" onclick="switchTab('practice')">
-      <span>🎯 今天</span>
+      <span><span class="ui-ico" data-ui-icon="calendar"></span> 今天</span>
     </button>
     <button class="main-tab-btn" id="tab-btn-mock" onclick="switchTab('mock')">
-      <span>📄 模考</span>
+      <span><span class="ui-ico" data-ui-icon="file-text"></span> 模考</span>
     </button>
     <button class="main-tab-btn" id="tab-btn-scoreboard" onclick="switchTab('scoreboard')">
-      <span>📊 成績</span>
+      <span><span class="ui-ico" data-ui-icon="bar-chart"></span> 成績</span>
     </button>
     <details class="more-tools-menu" id="more-tools-menu">
-      <summary>⋯ 更多</summary>
+      <summary><span class="ui-ico" data-ui-icon="more-horizontal"></span> 更多</summary>
       <div class="more-tools-panel">
-        <button class="main-tab-btn" id="tab-btn-questions" onclick="switchTab('questions')"><span>📚 題庫瀏覽</span></button>
-        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 考前速查手冊（列印）</span></button>
-        <button class="main-tab-btn" id="tab-btn-backup" onclick="openBackupModal()"><span>💾 備份／還原</span></button>
+        <button class="main-tab-btn" id="tab-btn-questions" onclick="switchTab('questions')"><span><span class="ui-ico" data-ui-icon="book"></span> 題庫瀏覽</span></button>
+        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span><span class="ui-ico" data-ui-icon="printer"></span> 考前速查手冊（列印）</span></button>
+        <button class="main-tab-btn" id="tab-btn-backup" onclick="openBackupModal()"><span><span class="ui-ico" data-ui-icon="download"></span> 備份／還原</span></button>
       </div>
     </details>
   </div>
@@ -3624,8 +3662,8 @@ select:focus {
     <div id="today-task-card"></div>
     <div id="review-corrections"></div>
     <section class="home-primary-actions" aria-label="首頁主要入口">
-      <button id="home-action-start" class="home-random-button" type="button" onclick="dailyPracticePrepareNewRound()"><span>🎲</span><strong>隨機練習 3 題</strong><small>依目標分配抽題，按一次就開始</small></button>
-      <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span>🎴</span><strong>到期複習</strong><small>今天沒有到期題</small></button>
+      <button id="home-action-start" class="home-random-button" type="button" onclick="dailyPracticePrepareNewRound()"><span class="ui-ico" data-ui-icon="shuffle"></span><strong>隨機練習 3 題</strong><small>依目標分配抽題，按一次就開始</small></button>
+      <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span class="ui-ico" data-ui-icon="rotate-ccw"></span><strong>到期複習</strong><small>今天沒有到期題</small></button>
     </section>
     <div class="practice-home-secondary">
       <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled>↩ 繼續上次</button>
@@ -3638,18 +3676,18 @@ select:focus {
     <!-- Filter Bar -->
     <div class="filter-bar">
       <div class="search-box">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon" data-ui-icon="search"></span>
         <input type="text" id="search-input" placeholder="搜尋考題關鍵字、公式標籤、觀念、題號..." oninput="renderQuestions()">
       </div>
 
       <select id="filter-subject" onchange="handleQuestionSubjectFilterChange(this.value)">
         <option value="all">所有考科 (6 大考科)</option>
-        <option value="01">⚡ 01. 電路學</option>
-        <option value="02">🔌 02. 電子學（含電力電子）</option>
-        <option value="03">📐 03. 工程數學</option>
-        <option value="04">⚙️ 04. 電機機械</option>
-        <option value="05">🏢 05. 電力系統</option>
-        <option value="06">🏭 06. 工業配電</option>
+        <option value="01">01. 電路學</option>
+        <option value="02">02. 電子學（含電力電子）</option>
+        <option value="03">03. 工程數學</option>
+        <option value="04">04. 電機機械</option>
+        <option value="05">05. 電力系統</option>
+        <option value="06">06. 工業配電</option>
       </select>
 
       <select id="filter-year" onchange="renderQuestions()">
@@ -3669,31 +3707,31 @@ select:focus {
 
       <select id="filter-status" onchange="renderQuestions()">
         <option value="all">所有做題狀態</option>
-        <option value="1">🟢 已掌握</option>
-        <option value="2">🔴 需二刷 (錯題本)</option>
-        <option value="0">⚪ 未開始</option>
-        <option value="starred">⭐ 僅看收藏</option>
+        <option value="1">已掌握</option>
+        <option value="2">需二刷 (錯題本)</option>
+        <option value="0">未開始</option>
+        <option value="starred">僅看收藏</option>
       </select>
 
       <select id="filter-diff" onchange="renderQuestions()">
         <option value="all">所有難度</option>
-        <option value="5">⭐⭐⭐⭐⭐ 5星 地獄壓軸</option>
-        <option value="4">⭐⭐⭐⭐ 4星 高難挑戰</option>
-        <option value="3">⭐⭐⭐ 3星 中等進階</option>
-        <option value="2">⭐⭐ 2星 常規核心</option>
-        <option value="1">⭐ 1星 入門基礎</option>
+        <option value="5">5星 地獄壓軸</option>
+        <option value="4">4星 高難挑戰</option>
+        <option value="3">3星 中等進階</option>
+        <option value="2">2星 常規核心</option>
+        <option value="1">1星 入門基礎</option>
       </select>
     </div>
 
     <!-- Quick Filter Pills -->
     <div class="pills-bar">
-      <span style="font-size: 0.82rem; color: var(--muted); font-weight: 600;">⚡ 快速篩選：</span>
+      <span style="font-size: 0.82rem; color: var(--muted); font-weight: 600;">快速篩選：</span>
       <button class="pill active" onclick="setQuickFilter('all', this)">全部試題</button>
       <button class="pill" onclick="setQuickFilter('due', this)" title="SM-2 今日待複習或逾期試題">⏳ 今日待複習</button>
-      <button class="pill" onclick="setQuickFilter('review', this)">🔴 我的錯題本</button>
-      <button class="pill" onclick="setQuickFilter('starred', this)">⭐ 我的收藏</button>
-      <button class="pill" onclick="setQuickFilter('top10', this)">🔥 高頻核心考點</button>
-      <button class="pill" onclick="setQuickFilter('dedicated', this)">📝 有完整步驟推導</button>
+      <button class="pill" onclick="setQuickFilter('review', this)">我的錯題本</button>
+      <button class="pill" onclick="setQuickFilter('starred', this)">我的收藏</button>
+      <button class="pill" onclick="setQuickFilter('top10', this)">高頻核心考點</button>
+      <button class="pill" onclick="setQuickFilter('dedicated', this)">有完整步驟推導</button>
       <span id="filtered-count" style="margin-left: auto; font-size: 0.82rem; color: var(--muted); font-weight: 600;"></span>
     </div>
 
@@ -3723,11 +3761,11 @@ select:focus {
       </div>
       <div class="modal-actions">
         <button id="btn-modal-active-recall" onclick="toggleActiveRecallMode()" class="btn-sol" style="background: var(--warn); border-color: var(--warn); color: #fff; font-weight: 700; padding: 5px 12px; font-size: 0.82rem;" title="切換主動回想白紙蓋牌模式">
-          🎴 主動回想蓋牌
+          主動回想蓋牌
         </button>
-        <button id="modal-status-btn" class="status-badge s-0">⚪ 未開始</button>
-        <button id="modal-star-btn" class="btn-star">☆ 收藏本題</button>
-        <button onclick="closeModal()" class="btn-pdf" style="font-size: 0.9rem; font-weight: 700;">✕ 關閉</button>
+        <button id="modal-status-btn" class="status-badge s-0">未開始</button>
+        <button id="modal-star-btn" class="btn-star"><span class="sm-ico" aria-hidden="true"><span class="ui-ico" data-ui-icon="star"></span></span><span class="sm-lbl"> 收藏本題</span></button>
+        <button onclick="closeModal()" class="btn-pdf" style="font-size: 0.9rem; font-weight: 700;"><span class="sm-ico" aria-hidden="true"><span class="ui-ico" data-ui-icon="x"></span></span><span class="sm-lbl"> 關閉</span></button>
       </div>
     </div>
 
@@ -3743,20 +3781,20 @@ select:focus {
           下一題 →
         </button>
         <button class="btn-modal-nav" id="btn-active-recall" onclick="toggleActiveRecallMode()" title="主動回想蓋牌模式：先白紙列式，再揭曉破題提示與步驟">
-          🎴 主動回想
+          主動回想
         </button>
       </div>
 
       <div class="modal-nav-group">
         <div class="view-layout-toggle">
           <button class="btn-layout active" id="btn-layout-split" onclick="setModalLayout('split')" title="雙欄對照檢視 (預設)">
-            ⚖️ 雙欄對照
+            雙欄對照
           </button>
           <button class="btn-layout" id="btn-layout-solution" onclick="setModalLayout('solution-only')" title="純詳解全寬檢視">
-            📝 純詳解
+            純詳解
           </button>
           <button class="btn-layout" id="btn-layout-exam" onclick="setModalLayout('exam-only')" title="原題優先全寬檢視">
-            📄 原題考卷
+            原題考卷
           </button>
         </div>
       </div>
@@ -3788,17 +3826,17 @@ select:focus {
   <div class="manual-label-dialog" onclick="event.stopPropagation()">
     <div class="manual-label-header">
       <div>
-        <h3 id="manual-label-title">🧭 人工覆核題型標注</h3>
+        <h3 id="manual-label-title">人工覆核題型標注</h3>
         <span id="manual-label-progress" class="manual-label-progress">0 / 0</span>
       </div>
-      <button type="button" class="btn-pdf" onclick="closeManualLabelModal()">✕ 關閉</button>
+      <button type="button" class="btn-pdf" onclick="closeManualLabelModal()"><span class="ui-ico" data-ui-icon="x"></span> 關閉</button>
     </div>
     <div id="manual-label-body" class="manual-label-body"></div>
     <div class="manual-label-footer">
       <button type="button" class="btn-modal-nav" id="manual-label-prev" onclick="moveManualLabel(-1)">← 上一題</button>
       <button type="button" class="btn-pdf" onclick="moveManualLabel(1, false)">略過（不儲存）→</button>
       <div class="manual-label-footer-spacer"></div>
-      <button type="button" class="btn-sol" onclick="saveManualLabel()">💾 儲存標注</button>
+      <button type="button" class="btn-sol" onclick="saveManualLabel()">儲存標注</button>
       <button type="button" class="btn-sol" id="manual-label-next" onclick="saveManualLabelAndNext()">儲存並下一題 →</button>
     </div>
   </div>
@@ -3809,9 +3847,9 @@ select:focus {
   <div class="backup-modal-box" onclick="event.stopPropagation()">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 10px;">
       <h3 style="color: var(--accent-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
-        💾 備考進度與 SM-2 排程備份/還原
+        備考進度與 SM-2 排程備份/還原
       </h3>
-      <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;">✕</button>
+      <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;" aria-label="關閉"><span class="ui-ico" data-ui-icon="x"></span></button>
     </div>
     <p style="font-size: 0.86rem; color: var(--muted);">
       備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。載入或貼上後請先驗證，再選擇合併或取代還原：
@@ -3821,19 +3859,76 @@ select:focus {
     <div id="backup-history" class="backup-history"></div>
     <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
       <div style="display: flex; gap: 8px;">
-        <button onclick="copyBackupToClipboard()" class="btn-sol">📋 複製代碼</button>
-        <button onclick="exportProgressJSON()" class="btn-pdf">📥 下載 .json</button>
+        <button onclick="copyBackupToClipboard()" class="btn-sol"><span class="ui-ico" data-ui-icon="copy"></span> 複製代碼</button>
+        <button onclick="exportProgressJSON()" class="btn-pdf"><span class="ui-ico" data-ui-icon="download"></span> 下載 .json</button>
       </div>
       <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button onclick="previewImportedBackupJSON()" class="btn-pdf">🔍 先驗證／預覽</button>
-        <button onclick="applyImportedBackupJSON('merge')" class="btn-sol">↔️ 合併還原</button>
-        <button onclick="applyImportedBackupJSON('replace')" class="btn-sol" style="background: var(--success); border-color: var(--success);">✅ 取代還原</button>
+        <button onclick="previewImportedBackupJSON()" class="btn-pdf"><span class="ui-ico" data-ui-icon="search"></span> 先驗證／預覽</button>
+        <button onclick="applyImportedBackupJSON('merge')" class="btn-sol">合併還原</button>
+        <button onclick="applyImportedBackupJSON('replace')" class="btn-sol" style="background: var(--success); border-color: var(--success);"><span class="ui-ico" data-ui-icon="check"></span> 取代還原</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+// === src/components/icons.js ===
+// src/components/icons.js — one inline-SVG line-icon set (Lucide-style geometry, hand-written, offline-safe).
+// uiIcon(name, opts) -> '<svg class="ui-icon" ...>' string, or '' for an unknown name.
+// Icons carry meaning only (tabs, primary actions, status, modal controls); never decorate headings.
+const UI_ICON_PATHS = {
+  'calendar': '<path d="M8 2v4M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/>',
+  'file-text': '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/>',
+  'bar-chart': '<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9M13 17V5M8 17v-3"/>',
+  'more-horizontal': '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+  'shuffle': '<path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/>',
+  'rotate-ccw': '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+  'play': '<polygon points="6 3 20 12 6 21 6 3"/>',
+  'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/>',
+  'check': '<path d="M20 6 9 17l-5-5"/>',
+  'sun': '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+  'moon': '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  'x': '<path d="M18 6 6 18M6 6l12 12"/>',
+  'star': '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+  'image': '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/>',
+  'eye': '<path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/>',
+  'chevron-right': '<path d="m9 18 6-6-6-6"/>',
+  'chevron-down': '<path d="m6 9 6 6 6-6"/>',
+  'download': '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/>',
+  'upload': '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5M12 3v12"/>',
+  'search': '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  'book': '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>',
+  'copy': '<rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+  'external-link': '<path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+  'layers': '<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+  'columns': '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18"/>',
+  'printer': '<path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3h12v6"/><rect x="6" y="14" width="12" height="8" rx="1"/>'
+};
+
+function uiIcon(name, opts) {
+  const body = UI_ICON_PATHS[name];
+  if (!body) return '';
+  const o = opts || {};
+  const size = o.size || '1em';
+  const cls = 'ui-icon' + (o.class ? ' ' + o.class : '');
+  const fill = o.filled ? 'currentColor' : 'none';
+  return '<svg class="' + cls + '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="' + size + '" height="' + size
+    + '" fill="' + fill + '" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+    + body + '</svg>';
+}
+
+// Static-shell helper: <span data-ui-icon="calendar"></span> placeholders become inline SVG.
+function uiIconHydrate(root) {
+  const scope = root || (typeof document !== 'undefined' ? document : null);
+  if (!scope || !scope.querySelectorAll) return;
+  scope.querySelectorAll('[data-ui-icon]').forEach(el => {
+    if (el.getAttribute('data-ui-icon-ready')) return;
+    el.innerHTML = uiIcon(el.getAttribute('data-ui-icon'), { filled: el.hasAttribute('data-ui-icon-filled') });
+    el.setAttribute('data-ui-icon-ready', '1');
+  });
+}
+
+
 // === src/domain/questionRecord.js ===
 // src/domain/questionRecord.js
 /**
@@ -4547,12 +4642,12 @@ const PASSING_SCORE_THRESHOLD = 60.0;
 const DANGER_SCORE_THRESHOLD = 40.0;
 
 const SUBJECT_CONFIG_PE = {
-  '01': { id: '01', name: '電路學', icon: '⚡', targetScore: 70 },
-  '02': { id: '02', name: '電子學（含電力電子）', icon: '🔬', targetScore: 65 },
-  '03': { id: '03', name: '工程數學', icon: '📐', targetScore: 60 },
-  '04': { id: '04', name: '電機機械', icon: '⚙️', targetScore: 65 },
-  '05': { id: '05', name: '電力系統', icon: '🏭', targetScore: 70 },
-  '06': { id: '06', name: '工業配電', icon: '🔌', targetScore: 65 }
+  '01': { id: '01', name: '電路學', icon: '', targetScore: 70 },
+  '02': { id: '02', name: '電子學（含電力電子）', icon: '', targetScore: 65 },
+  '03': { id: '03', name: '工程數學', icon: '', targetScore: 60 },
+  '04': { id: '04', name: '電機機械', icon: '', targetScore: 65 },
+  '05': { id: '05', name: '電力系統', icon: '', targetScore: 70 },
+  '06': { id: '06', name: '工業配電', icon: '', targetScore: 65 }
 };
 
 /**
@@ -26338,7 +26433,7 @@ function toggleStarred(qid, event) {
   if (typeof renderQuestions === 'function') renderQuestions();
   if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
-  showToast(starredState[qid] ? '⭐ 已加入重點收藏' : '⚪ 已移除收藏');
+  showToast(starredState[qid] ? '已加入重點收藏' : '已移除收藏');
 }
 
 function toggleStatus(qid, event) {
@@ -26352,7 +26447,7 @@ function toggleStatus(qid, event) {
   if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
 
-  const msgs = ['⚪ 狀態重設：未開始', '🟢 狀態更新：已掌握', '🔴 狀態更新：需二刷 (加入錯題本)'];
+  const msgs = ['狀態重設：未開始', '狀態更新：已掌握', '狀態更新：需二刷 (加入錯題本)'];
   showToast(msgs[nxt]);
 }
 
@@ -26429,11 +26524,11 @@ function updateFilterDropdownsForCategory() {
     if (subSelect) {
       subSelect.innerHTML = `
         <option value="all">所有考科 (5 大考科)</option>
-        <option value="01">⚡ 01. 電路學</option>
-        <option value="02">🔌 02. 電子學（含電力電子）</option>
-        <option value="03">📐 03. 工程數學</option>
-        <option value="04">⚙️ 04. 電機機械</option>
-        <option value="05">🏢 05. 電力系統</option>
+        <option value="01">01. 電路學</option>
+        <option value="02">02. 電子學（含電力電子）</option>
+        <option value="03">03. 工程數學</option>
+        <option value="04">04. 電機機械</option>
+        <option value="05">05. 電力系統</option>
       `;
     }
   } else {
@@ -26456,12 +26551,12 @@ function updateFilterDropdownsForCategory() {
     if (subSelect) {
       subSelect.innerHTML = `
         <option value="all">所有考科 (6 大考科)</option>
-        <option value="01">⚡ 01. 電路學</option>
-        <option value="02">🔌 02. 電子學（含電力電子）</option>
-        <option value="03">📐 03. 工程數學</option>
-        <option value="04">⚙️ 04. 電機機械</option>
-        <option value="05">🏢 05. 電力系統</option>
-        <option value="06">🏭 06. 工業配電</option>
+        <option value="01">01. 電路學</option>
+        <option value="02">02. 電子學（含電力電子）</option>
+        <option value="03">03. 工程數學</option>
+        <option value="04">04. 電機機械</option>
+        <option value="05">05. 電力系統</option>
+        <option value="06">06. 工業配電</option>
       `;
     }
   }
@@ -26519,12 +26614,12 @@ function switchExamCategory(catId, silent) {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
     if (typeof renderReviewPage === 'function') renderReviewPage();
-    if (!silent) showToast(`🏆 已切換至「電機工程技師」核心題庫 (${categoryCount} 題)`);
+    if (!silent) showToast(`已切換至「電機工程技師」核心題庫 (${categoryCount} 題)`);
   } else {
     if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
     if (typeof renderQuestions === 'function') renderQuestions();
     if (typeof renderReviewPage === 'function') renderReviewPage();
-    if (!silent) showToast(`🏛️ 已切換至「公務人員高考三級」參考題庫 (${categoryCount} 題)`);
+    if (!silent) showToast(`已切換至「公務人員高考三級」參考題庫 (${categoryCount} 題)`);
   }
 }
 
@@ -26635,7 +26730,7 @@ function calculateSM2ReviewItem(currentItem, rating, nowValue) {
 /**
  * SuperMemo SM-2 Core Algorithm
  * @param {string} qid - Question ID (e.g., 'EE-114-05-1')
- * @param {number} rating - 1: Forgot (🔴), 3: Hard (🟡), 5: Easy/Mastered (🟢)
+ * @param {number} rating - 1: Forgot (), 3: Hard (), 5: Easy/Mastered ()
  */
 function recordSM2Review(qid, rating) {
   const now = new Date();
@@ -26677,19 +26772,19 @@ function getDueQuestionsList(nowValue) {
 function getReviewBadgeInfo(qid, nowValue) {
   const item = sm2Schedule[qid];
   if (!item || !item.nextReviewDate) {
-    return { text: '⚪ 尚未排程', cssClass: 'due-none', isDue: false };
+    return { text: '尚未排程', cssClass: 'due-none', isDue: false };
   }
 
   const todayStr = formatLocalCalendarDate(nowValue instanceof Date ? nowValue : new Date(nowValue || Date.now()));
   if (item.nextReviewDate <= todayStr) {
-    return { text: '🔔 今日待複習', cssClass: 'due-today', isDue: true };
+    return { text: '今日待複習', cssClass: 'due-today', isDue: true };
   }
 
   const diffMs = parseLocalCalendarDate(item.nextReviewDate) - parseLocalCalendarDate(todayStr);
   const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
   if (diffDays >= 14) {
-    return { text: `🔥 已穩固 (${diffDays}天後)`, cssClass: 'due-far', isDue: false };
+    return { text: `已穩固 (${diffDays}天後)`, cssClass: 'due-far', isDue: false };
   } else {
     return { text: `⏳ ${diffDays} 天後複習`, cssClass: 'due-soon', isDue: false };
   }
@@ -31001,7 +31096,7 @@ function renderWeaknessView(options = {}) {
   const pending = projection.pendingClassification || { count: 0, events: [] };
   const pendingRows = (pending.events || []).map(event => `<li class="weakness-event-row"><span><code>${weaknessViewEscape(event.eventId)}</code> · ${weaknessViewEscape(event.qid)}</span><span>${weaknessViewEscape(event.eventType || '待分類')} · ${weaknessViewEscape(event.recordedAt || '')}</span>${event.customText ? `<small>補充說明：${weaknessViewEscape(event.customText)}</small>` : ''}${(event.evidence || []).length ? `<small>證據：${weaknessViewEscape(event.evidence.join('；'))}</small>` : ''}<button type="button" class="pill" onclick="weaknessViewOpenQuestion('${weaknessViewEscape(event.qid)}')">查看題目</button></li>`).join('');
   container.innerHTML = `<section class="weakness-shell">
-    <div class="weakness-header"><div><h2>🧭 我的弱點</h2><p>由 issue event stream 重算；每個節點都能展開回看 QID、事件與證據。</p></div><div class="weakness-toolbar" aria-label="弱點篩選">${familyButtons}${rangeButtons}</div></div>
+    <div class="weakness-header"><div><h2>我的弱點</h2><p>由 issue event stream 重算；每個節點都能展開回看 QID、事件與證據。</p></div><div class="weakness-toolbar" aria-label="弱點篩選">${familyButtons}${rangeButtons}</div></div>
     <p class="weakness-summary">${weaknessViewEscape(family)} · ${weaknessViewEscape(rangeLabels[range])} · 有效事件 ${Number(projection.totals && projection.totals.effectiveEventCount) || 0} 筆 · 待分類 ${Number(pending.count) || 0} 筆</p>
     <div class="weakness-node-list">${nodes || '<p class="weakness-empty">目前沒有符合範圍的已確認問題點。</p>'}</div>
     <details class="weakness-pending-card" ${pending.count ? 'open' : ''}><summary>待分類事件（${Number(pending.count) || 0}）</summary><ul>${pendingRows || '<li>目前沒有待分類事件。</li>'}</ul></details>
@@ -31290,7 +31385,7 @@ function answerCorrectionBannerHtml(qid) {
   const c = answerCorrectionFor(qid);
   if (!c) return '';
   return `<details class="answer-correction-banner" data-answer-correction="${answerCorrectionEscape(qid)}">`
-    + `<summary>⚠ 本題答案已更正　舊：${answerCorrectionEscape(c.old_answer)} → 新：${answerCorrectionEscape(c.new_answer)}</summary>`
+    + `<summary>${uiIcon('alert-triangle',{class:'warn-ico'})} 本題答案已更正　舊：${answerCorrectionEscape(c.old_answer)} → 新：${answerCorrectionEscape(c.new_answer)}</summary>`
     + `<div class="answer-correction-detail">`
     + `<div class="answer-correction-reason">原因：${answerCorrectionEscape(c.reason)}（${answerCorrectionEscape(c.decided_at)} 更正）</div>`
     + `</div></details>`;
@@ -31299,7 +31394,7 @@ function answerCorrectionBannerHtml(qid) {
 function answerCorrectionBadgeHtml(qid) {
   const c = answerCorrectionFor(qid);
   if (!c) return '';
-  return `<span class="qtag answer-correction-badge" title="本題答案已於 ${answerCorrectionEscape(c.decided_at)} 更正，做過的話請重看題解">⚠ 答案已更正</span>`;
+  return `<span class="qtag answer-correction-badge" title="本題答案已於 ${answerCorrectionEscape(c.decided_at)} 更正，做過的話請重看題解">${uiIcon('alert-triangle',{class:'warn-ico'})} 答案已更正</span>`;
 }
 
 // ---- Learner records -------------------------------------------------------
@@ -31472,7 +31567,7 @@ function renderAnswerCorrectionReviewSection() {
       + `<span class="answer-correction-row-label">${answerCorrectionEscape(label)}</span>`
       + `<span class="answer-correction-row-date">${answerCorrectionEscape(item.decided_at)} 更正</span>${button}</li>`;
   }).join('');
-  host.innerHTML = `<section class="answer-correction-section"><h3>⚠ 答案已更正、而你做過的題（${items.length}）</h3>`
+  host.innerHTML = `<section class="answer-correction-section"><h3>${uiIcon('alert-triangle',{class:'warn-ico'})} 答案已更正、而你做過的題（${items.length}）</h3>`
     + `<ul class="answer-correction-list">${rows}</ul></section>`;
   host.querySelectorAll('[data-answer-correction-review]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -31997,7 +32092,7 @@ function renderManualLabelModal() {
         <div class="manual-label-qid">${reviewHtmlEscape(qid)}</div>
         <div class="manual-label-subject">${reviewHtmlEscape(getSubjectMeta(record.subjectId).name)} · ${record.year} 年第 ${record.number} 題</div>
       </div>
-      <span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工覆核</span>
+      <span class="qtag solution-audit s-audit-needs_manual_review">待人工覆核</span>
     </div>
     <div class="manual-label-grid">
       <section class="manual-label-question-pane">
@@ -32013,9 +32108,9 @@ function renderManualLabelModal() {
         <label for="manual-label-select">請選擇本題最符合的教科書章節</label>
         <select id="manual-label-select" class="manual-label-select">${selectOptions.join('')}</select>
         <div class="manual-label-auto"><strong>自動候選：</strong>${reviewHtmlEscape(autoName)}</div>
-        ${selected ? `<div class="manual-label-saved">✅ 已保存：${reviewHtmlEscape(getManualLabelDisplayName(selected))}</div>` : '<div class="manual-label-saved">尚未保存人工標注</div>'}
+        ${selected ? `<div class="manual-label-saved">已保存：${reviewHtmlEscape(getManualLabelDisplayName(selected))}</div>` : '<div class="manual-label-saved">尚未保存人工標注</div>'}
         ${meta && meta.blocker ? `<div class="manual-label-blocker"><strong>覆核阻擋：</strong>${reviewHtmlEscape(meta.blocker)}<br>${reviewHtmlEscape(meta.action || '')}</div>` : ''}
-        ${solutionLink ? `<button type="button" class="btn-sol manual-label-solution" data-manual-open-solution="${reviewHtmlEscape(qid)}">📝 開啟本題詳解</button>` : ''}
+        ${solutionLink ? `<button type="button" class="btn-sol manual-label-solution" data-manual-open-solution="${reviewHtmlEscape(qid)}">開啟本題詳解</button>` : ''}
       </section>
     </div>
   `;
@@ -32044,7 +32139,7 @@ function saveCurrentManualLabel(showMessage = true) {
     showToast('標注無效：請選擇本考科的教科書章節');
     return false;
   }
-  if (showMessage) showToast(select.value ? '✅ 題型標注已保存' : '已清除本題人工標注');
+  if (showMessage) showToast(select.value ? '題型標注已保存' : '已清除本題人工標注');
   return true;
 }
 
@@ -32074,16 +32169,16 @@ function populateReviewSubjects() {
     const current = select.value || 'all';
     select.innerHTML = '<option value="all">所有考科</option>' + ids.map(sid => {
       const meta = getSubjectMeta(sid);
-      return `<option value="${reviewHtmlEscape(sid)}">${meta.icon || ''} ${reviewHtmlEscape(meta.name)}</option>`;
+      return `<option value="${reviewHtmlEscape(sid)}">${reviewHtmlEscape(meta.name)}</option>`;
     }).join('');
     select.value = ids.includes(current) ? current : 'all';
   }
   const segmented = document.getElementById('review-subject-segmented');
   if (segmented) {
     const current = select ? select.value : 'all';
-    const tabs = [['all', '🌟 全部考科']].concat(ids.map(sid => {
+    const tabs = [['all', '全部考科']].concat(ids.map(sid => {
       const meta = getSubjectMeta(sid);
-      return [sid, `${meta.icon || ''} ${meta.name}`];
+      return [sid, meta.name];
     }));
     segmented.innerHTML = tabs.map(([sid, label]) => `
       <button type="button" class="subject-seg-btn ${current === sid ? 'active' : ''}" data-review-sub-tab="${reviewHtmlEscape(sid)}">
@@ -32121,7 +32216,7 @@ function startReviewSession() {
   setReviewFilter('due');
   const questions = getReviewQuestions();
   if (!questions.length) {
-    if (typeof showToast === 'function') showToast('🌿 今日沒有待提取的到期題目');
+    if (typeof showToast === 'function') showToast('今日沒有待提取的到期題目');
     return;
   }
   currentReviewSessionQueue = questions;
@@ -32173,7 +32268,7 @@ function reviewSessionShowSummary() {
     anchor.parentNode.insertBefore(box, anchor.nextSibling);
   }
   box.hidden = false;
-  box.innerHTML = '<span class="home-due-summary-text"></span><button type="button" class="home-due-summary-close" aria-label="關閉摘要">✕</button>';
+  box.innerHTML = '<span class="home-due-summary-text"></span><button type="button" class="home-due-summary-close" aria-label="關閉摘要">'+uiIcon('x')+'</button>';
   box.querySelector('.home-due-summary-text').textContent = text;
   box.querySelector('button').addEventListener('click', () => { box.hidden = true; });
   if (typeof homeDueReviewRefresh === 'function') homeDueReviewRefresh();
@@ -32285,7 +32380,7 @@ function renderReviewPage() {
         </div>
       </div>
       <div class="progress-health-label">
-        ${dueCount > 0 ? `<span>⚡ 今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">🌿 今日沒有到期題</span>'}
+        ${dueCount > 0 ? `<span>今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">今日沒有到期題</span>'}
         <small>本輪作答結果記錄 ${practiceRoundCompleted} 題・提取能力 L1／L2／L3／L4：${recallLevels.join('／')}</small>
       </div>
     `;
@@ -32295,11 +32390,11 @@ function renderReviewPage() {
   const stats = document.getElementById('review-stats');
   if (stats) {
     const statDefs = [
-      { id: 'due', label: '⚡ 今日到期', value: dueCount },
-      { id: 'errors', label: '🧠 回想未完成', value: recallErrors },
-      { id: 'wrong', label: '🔥 需二刷錯題', value: wrong },
-      { id: 'starred', label: '⭐ 重點收藏', value: starred },
-      { id: 'all', label: '📚 全部收錄', value: totalSubject }
+      { id: 'due', label: '今日到期', value: dueCount },
+      { id: 'errors', label: '回想未完成', value: recallErrors },
+      { id: 'wrong', label: '需二刷錯題', value: wrong },
+      { id: 'starred', label: '重點收藏', value: starred },
+      { id: 'all', label: '全部收錄', value: totalSubject }
     ];
     stats.innerHTML = statDefs.map(item => `
       <div class="interactive-stat-card ${reviewFilter === item.id ? 'active' : ''}" data-review-filter-trigger="${item.id}" role="button" tabindex="0">
@@ -32357,7 +32452,6 @@ function renderReviewPage() {
         : '目前排程今天無需複習；你仍可從錯題本、收藏或全部題目自主練習。';
       container.innerHTML = `
         <div class="review-empty-calm">
-          <span class="calm-icon">🌿</span>
           <h3>${emptyTitle}</h3>
           <p>${emptyDescription}</p>
         </div>
@@ -32366,7 +32460,6 @@ function renderReviewPage() {
       const title = reviewFilter === 'manual' ? '目前沒有待人工覆核題' : reviewFilter === 'errors' ? '目前沒有回想未完成題' : reviewFilter === 'wrong' ? '太棒了！目前錯題本已全數攻克' : reviewFilter === 'starred' ? '目前尚無收藏試題' : '目前篩選條件下沒有題目';
       container.innerHTML = `
         <div class="review-empty-calm">
-          <span class="calm-icon">📋</span>
           <h3>${title}</h3>
           <p>可切換考科或複習範圍，進行更進一步的專題演練。</p>
         </div>
@@ -32378,7 +32471,7 @@ function renderReviewPage() {
   // 5. Minimalist Focus Cards Grid
   const groups = {};
   filtered.forEach(q => { const type = getReviewTypeLabel(q); (groups[type] ||= []).push(q); });
-  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>📚 ${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div><div class="review-card-grid">${list.map(q => {
+  container.innerHTML = `<div class="review-type-grid">${Object.entries(groups).map(([type, list]) => `<section class="review-type-section" data-review-type="${reviewHtmlEscape(type)}"><div class="review-type-title"><span>${reviewHtmlEscape(type)}</span><span>${list.length} 題</span></div><div class="review-card-grid">${list.map(q => {
     const record = getReviewRecord(q);
     const { id: qid, subjectId: sid, year, number: qnum, stem: topic, solutionLink: solLink } = record;
     const meta = getSubjectMeta(sid);
@@ -32386,16 +32479,16 @@ function renderReviewPage() {
     const recall = typeof getRecallState === 'function' ? getRecallState(qid) : { level: 1 };
     const statusText = status === 2 ? '需二刷' : status === 1 ? '已掌握' : '未開始';
     const isStarred = typeof starredState !== 'undefined' && !!starredState[qid];
-    const starIcon = isStarred ? '★' : '☆';
+    const starIcon = uiIcon('star', { filled: isStarred });
     const dueBadge = due.has(qid) ? '<span class="due-badge due-today">今日到期</span>' : '';
-    const auditText = isManualReviewQuestion(q) ? '<span class="qtag solution-audit s-audit-needs_manual_review">🟡 待人工</span>' : '';
+    const auditText = isManualReviewQuestion(q) ? '<span class="qtag solution-audit s-audit-needs_manual_review">待人工</span>' : '';
     const manualLabel = getManualTopicLabel(qid);
-    const manualLabelText = manualLabel ? `<span class="qtag manual-label-chip">✅ ${reviewHtmlEscape(getManualLabelDisplayName(manualLabel))}</span>` : '';
+    const manualLabelText = manualLabel ? `<span class="qtag manual-label-chip">${reviewHtmlEscape(getManualLabelDisplayName(manualLabel))}</span>` : '';
     return `
       <article class="review-card focus-card" data-review-type="${reviewHtmlEscape(type)}">
         <div class="focus-card-meta">
           <div class="focus-card-meta-left">
-            <strong>${meta.icon || ''} ${reviewHtmlEscape(meta.name)}・民國${year}年・第${qnum}題</strong>
+            <strong>${reviewHtmlEscape(meta.name)}・民國${year}年・第${qnum}題</strong>
             <span class="qid" title="可複製識別碼">${reviewHtmlEscape(qid)}</span>
             <span class="qtag">L${recall.level}</span>
             ${auditText}${manualLabelText}${dueBadge}
@@ -32404,11 +32497,11 @@ function renderReviewPage() {
         </div>
         <div class="focus-card-topic">${renderQuestionTopic(topic)}</div>
         <div class="review-recall-cover" data-review-cover="${reviewHtmlEscape(qid)}" aria-label="詳解已蓋牌">
-          <span aria-hidden="true">🎴</span>
+          <span aria-hidden="true">${uiIcon('layers',{size:'1.5em'})}</span>
           <div><strong>詳解已蓋牌</strong><small>先自行作答，再依序揭露章節、起手式、公式與完整推導。</small></div>
         </div>
         <div class="focus-card-actions">
-          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">🎴 開始逐步揭露</button>
+          <button class="btn-recall-primary" type="button" data-review-recall="${reviewHtmlEscape(qid)}">${uiIcon('play')} 開始逐步揭露</button>
           <details class="more-practice more-practice-inline"><summary>更多練習方式</summary>
             ${due.has(qid) ? '' : `<button class="btn-solution-subtle" type="button" data-review-open="${reviewHtmlEscape(qid)}">跳過蓋牌看詳解</button>`}
             <button class="btn-solution-subtle" type="button" data-review-status="${reviewHtmlEscape(qid)}" title="點擊切換掌握狀態">${statusText}</button>
@@ -32489,12 +32582,12 @@ function renderQuickReviewSheet() {
   }
 
   const subjects = [
-    { id: '01', name: '電路學', icon: '⚡', color: '#4a7c8f' },
-    { id: '02', name: '電子學（含電力電子）', icon: '🔬', color: '#686b8f' },
-    { id: '03', name: '工程數學', icon: '📐', color: '#54826b' },
-    { id: '04', name: '電機機械', icon: '⚙️', color: '#a17846' },
-    { id: '05', name: '電力系統', icon: '🗼', color: '#a85858' },
-    { id: '06', name: '工業配電', icon: '🏭', color: '#7d6382' }
+    { id: '01', name: '電路學', icon: '', color: '#4a7c8f' },
+    { id: '02', name: '電子學（含電力電子）', icon: '', color: '#686b8f' },
+    { id: '03', name: '工程數學', icon: '', color: '#54826b' },
+    { id: '04', name: '電機機械', icon: '', color: '#a17846' },
+    { id: '05', name: '電力系統', icon: '', color: '#a85858' },
+    { id: '06', name: '工業配電', icon: '', color: '#7d6382' }
   ];
 
   // 1. Controls Header
@@ -32502,7 +32595,7 @@ function renderQuickReviewSheet() {
     `<button class="pill ${quickReviewSelectedSubject === 'all' ? 'active' : ''}" onclick="setQuickReviewSubject('all')">全科合輯 (60+ 考點)</button>`
   ].concat(subjects.map(s => {
     const activeClass = quickReviewSelectedSubject === s.id ? 'active' : '';
-    return `<button class="pill ${activeClass}" onclick="setQuickReviewSubject('${s.id}')">${s.icon} ${s.name}</button>`;
+    return `<button class="pill ${activeClass}" onclick="setQuickReviewSubject('${s.id}')">${s.name}</button>`;
   })).join('');
 
   // 2. Build Sections
@@ -32518,7 +32611,7 @@ function renderQuickReviewSheet() {
     const cardsHtml = nodes.map(n => {
       const levelBadge = `<span class="qsheet-lvl-badge lvl-${n.level || 1}">L${n.level || 1} 核心</span>`;
       const formulaMath = n.coreFormula ? `<div class="qsheet-formula">$$${n.coreFormula}$$</div>` : '<div class="qsheet-no-formula">定性分析 / 概念題型</div>';
-      const trapText = n.keyTrap ? `<div class="qsheet-trap">⚠️ <strong>常考陷阱與防坑突破：</strong>${n.keyTrap}</div>` : '';
+      const trapText = n.keyTrap ? `<div class="qsheet-trap">${uiIcon('alert-triangle',{class:'warn-ico'})} <strong>常考陷阱與防坑突破：</strong>${n.keyTrap}</div>` : '';
 
       return `
         <div class="qsheet-card" id="qsheet-node-${n.id}">
@@ -32530,7 +32623,7 @@ function renderQuickReviewSheet() {
             ${levelBadge}
           </div>
           <div class="qsheet-formula-wrap">
-            <div class="qsheet-label">📐 核心必背推導公式：</div>
+            <div class="qsheet-label">核心必背推導公式：</div>
             ${formulaMath}
           </div>
           ${trapText}
@@ -32543,7 +32636,6 @@ function renderQuickReviewSheet() {
         <details open>
           <summary class="qsheet-sec-header">
             <div class="qsheet-sec-title">
-              <span class="qsheet-sec-icon">${s.icon}</span>
               <h3 style="display:inline;font-size:1.15rem;margin:0;color:var(--ink);">${s.name}</h3>
               <span class="qsheet-count-tag">${nodes.length} 個高頻核心考點</span>
             </div>
@@ -32561,13 +32653,13 @@ function renderQuickReviewSheet() {
     <div class="quicksheet-shell">
       <div class="quicksheet-top-bar">
         <div class="quicksheet-header-text">
-          <h2>⚡ 考前 30 分鐘考點陷阱急救速覽手冊</h2>
+          <h2>考前 30 分鐘考點陷阱急救速覽手冊</h2>
           <p>全科 60+ 核心考點定理、必背公式、考選部歷屆易錯陷阱提煉；支援 A4 列印排版帶入考場速讀。</p>
         </div>
         <div class="quicksheet-actions">
           <button class="pill" onclick="toggleAllQuickCards(true)">展開全部</button>
           <button class="pill" onclick="toggleAllQuickCards(false)">收合全部</button>
-          <button class="pill btn-print-sheet" onclick="window.print()">🖨️ 列印/匯出 PDF</button>
+          <button class="pill btn-print-sheet" onclick="window.print()">${uiIcon('printer')} 列印/匯出 PDF</button>
         </div>
       </div>
 
@@ -33157,7 +33249,7 @@ function renderDagTracerCard(qid, sid, topic) {
     <div class="dag-tracer-card">
       <div class="dag-tracer-header">
         <div class="dag-tracer-title">
-          <span>🕸️ 觀念相依 DAG 溯源與前置盲點補強</span>
+          <span>觀念相依 DAG 溯源與前置盲點補強</span>
           <span class="dag-tracer-badge">Level ${targetNode.level} 核心考點</span>
         </div>
         <span style="font-size: 0.8125rem; color: var(--muted); font-weight: 600;">若本題卡關，建議依循下方拓撲鏈逆向複習：</span>
@@ -33171,7 +33263,7 @@ function renderDagTracerCard(qid, sid, topic) {
           const arrow = idx < prereqChain.length - 1 ? '<span class="dag-arrow">➔</span>' : '';
           return `
             <div class="dag-node-chip ${isTarget ? 'target' : 'prereq'}" title="核心公式：${node.coreFormula || '請先回想定義與適用條件'}">
-              <span>${isTarget ? '🎯' : '📚'} ${nodeName}</span>
+              <span>${nodeName}</span>
               <span style="font-size: 0.8125rem; opacity: 0.8;">L${node.level || 0}</span>
             </div>
             ${arrow}
@@ -33181,7 +33273,7 @@ function renderDagTracerCard(qid, sid, topic) {
 
       ${targetNode.keyTrap ? `
         <div class="dag-trap-alert">
-          <strong>⚠️ 考場易錯陷阱提點：</strong> ${targetNode.keyTrap}
+          <strong>${uiIcon('alert-triangle',{class:'warn-ico'})} 考場易錯陷阱提點：</strong> ${targetNode.keyTrap}
         </div>
       ` : ''}
     </div>
@@ -33245,7 +33337,7 @@ function submitKnowledgeRecallRating(rating) {
 function renderKnowledgeRecallPanel() {
   if (!currentKnowledgeRecall) return '';
   return `<section class="knowledge-recall-card">
-    <h3>🧠 知識節點回想：${knowledgeRecallEscape(currentKnowledgeRecall.nodeId)}</h3>
+    <h3>知識節點回想：${knowledgeRecallEscape(currentKnowledgeRecall.nodeId)}</h3>
     <p>先遮住筆記，回想這個問題點的核心定義、適用條件與一個反例，再選擇回想程度。閱讀或查看節點不會自動排程。</p>
     <div class="knowledge-recall-actions">
       <button type="button" class="pill" onclick="submitKnowledgeRecallRating(1)">忘記</button>
@@ -33292,12 +33384,12 @@ function renderDagGraphVisualizer() {
     <div class="dag-vis-header">
       <div style="display: flex; gap: 8px; flex-wrap: wrap;">
         <button class="pill ${currentDagSubjectFilter === 'all' ? 'active' : ''}" onclick="setDagSubjectFilter('all')">全部考科 (${nodes.length} 節點)</button>
-        <button class="pill ${currentDagSubjectFilter === '01' ? 'active' : ''}" onclick="setDagSubjectFilter('01')">⚡ 01. 電路學</button>
-        <button class="pill ${currentDagSubjectFilter === '02' ? 'active' : ''}" onclick="setDagSubjectFilter('02')">🔌 02. 電子學</button>
-        <button class="pill ${currentDagSubjectFilter === '03' ? 'active' : ''}" onclick="setDagSubjectFilter('03')">📐 03. 工程數學</button>
-        <button class="pill ${currentDagSubjectFilter === '04' ? 'active' : ''}" onclick="setDagSubjectFilter('04')">⚙️ 04. 電機機械</button>
-        <button class="pill ${currentDagSubjectFilter === '05' ? 'active' : ''}" onclick="setDagSubjectFilter('05')">🏢 05. 電力系統</button>
-        <button class="pill ${currentDagSubjectFilter === '06' ? 'active' : ''}" onclick="setDagSubjectFilter('06')">🏭 06. 工業配電</button>
+        <button class="pill ${currentDagSubjectFilter === '01' ? 'active' : ''}" onclick="setDagSubjectFilter('01')">01. 電路學</button>
+        <button class="pill ${currentDagSubjectFilter === '02' ? 'active' : ''}" onclick="setDagSubjectFilter('02')">02. 電子學</button>
+        <button class="pill ${currentDagSubjectFilter === '03' ? 'active' : ''}" onclick="setDagSubjectFilter('03')">03. 工程數學</button>
+        <button class="pill ${currentDagSubjectFilter === '04' ? 'active' : ''}" onclick="setDagSubjectFilter('04')">04. 電機機械</button>
+        <button class="pill ${currentDagSubjectFilter === '05' ? 'active' : ''}" onclick="setDagSubjectFilter('05')">05. 電力系統</button>
+        <button class="pill ${currentDagSubjectFilter === '06' ? 'active' : ''}" onclick="setDagSubjectFilter('06')">06. 工業配電</button>
       </div>
       <span style="font-size: 0.84rem; color: var(--muted); font-weight: 600;">共 ${nodes.length} 個知識拓撲節點</span>
     </div>
@@ -33319,7 +33411,7 @@ function renderDagGraphVisualizer() {
           <div class="dag-vis-card">
             <div class="dag-vis-card-head">
               <span class="dag-vis-card-title">${nodeTitle}</span>
-              <span class="dag-vis-card-level">⭐ Level ${n.level || 0}</span>
+              <span class="dag-vis-card-level">Level ${n.level || 0}</span>
             </div>
             <div style="font-size: 0.8125rem; color: var(--accent-dark); font-weight: 600; margin-bottom: 4px;">
               考別：${n.examFamily} · 考科：${nodeSubject}
@@ -33330,9 +33422,9 @@ function renderDagGraphVisualizer() {
             ${prereqNames.length > 0 ? `
               <div class="dag-vis-card-prereqs">
                 <span>前置必備：</span>
-                ${prereqNames.map(pn => `<span class="dag-prereq-tag">⬅️ ${pn}</span>`).join('')}
+                ${prereqNames.map(pn => `<span class="dag-prereq-tag">${pn}</span>`).join('')}
               </div>
-            ` : '<div style="font-size: 0.8125rem; color: var(--success); margin-top: 6px;">🌱 基礎起始概念 (無前置相依)</div>'}
+            ` : '<div style="font-size: 0.8125rem; color: var(--success); margin-top: 6px;">基礎起始概念 (無前置相依)</div>'}
           </div>
         `;
       }).join('')}
@@ -33427,7 +33519,7 @@ function exportProgressJSON() {
   a.download = `電機國考備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast("💾 備考與 SM-2 排程進度已成功匯出備份！");
+  showToast("備考與 SM-2 排程進度已成功匯出備份！");
 }
 
 function openBackupModal() {
@@ -33454,11 +33546,11 @@ function copyBackupToClipboard() {
     ? navigator.clipboard.writeText(textarea.value)
     : Promise.reject(new Error('clipboard unavailable'));
   copyPromise.then(() => {
-    showToast("📋 已複製 JSON 備份代碼至剪貼簿！");
+    showToast("已複製 JSON 備份代碼至剪貼簿！");
   }).catch(() => {
     try {
       document.execCommand('copy');
-      showToast("📋 已複製 JSON 備份代碼至剪貼簿！");
+      showToast("已複製 JSON 備份代碼至剪貼簿！");
     } catch (_) {
       alert('請手動選取並複製備份內容。');
     }
@@ -33497,7 +33589,7 @@ function renderBackupPreview(result) {
     return;
   }
   preview.classList.add('is-valid');
-  preview.innerText = `✅ 備份可還原\n${formatBackupSummary(result.summary)}`;
+  preview.innerText = `備份可還原\n${formatBackupSummary(result.summary)}`;
   renderBackupHistory();
 }
 
@@ -33552,10 +33644,10 @@ function applyImportedBackupJSON(mode) {
     if (typeof renderAnswerCorrectionReviewSection === 'function') renderAnswerCorrectionReviewSection();
     renderBackupHistory();
     closeBackupModal();
-    showToast(`📥 已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
+    showToast(`已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
   } else {
     renderBackupPreview(res);
-    alert(`❌ ${res.error || '匯入失敗：無效的 JSON 格式'}`);
+    alert(`${res.error || '匯入失敗：無效的 JSON 格式'}`);
   }
   return res;
 }
@@ -33603,9 +33695,9 @@ function getSubjectMeta(sid) {
     if (s) return s;
   }
   if (typeof DB_DATA === 'undefined' || !DB_DATA.meta || !DB_DATA.meta.subjects) {
-    return { name: '考科', icon: '⚡', color: '#4a7c8f' };
+    return { name: '考科', icon: '', color: '#4a7c8f' };
   }
-  return DB_DATA.meta.subjects.find(s => s.id === sid) || { name: '未知', icon: '📝', color: '#798694' };
+  return DB_DATA.meta.subjects.find(s => s.id === sid) || { name: '未知', icon: '', color: '#798694' };
 }
 
 let activeFacetTag = null;
@@ -33788,7 +33880,7 @@ function renderFacetTagsBar(currentSubFilter, model) {
   if (facets.length === 0) {
     if (model.examFamily === 'GK' && model.unclassifiedCount > 0) {
       bar.style.display = 'flex';
-      bar.innerHTML = '<span class="facet-filter-label">📌 尚有題目沒有可用的正式考點連結</span>';
+      bar.innerHTML = '<span class="facet-filter-label">尚有題目沒有可用的正式考點連結</span>';
     } else {
       bar.style.display = 'none';
     }
@@ -33796,7 +33888,7 @@ function renderFacetTagsBar(currentSubFilter, model) {
   }
 
   bar.style.display = 'flex';
-  let pills = `<span class="facet-filter-label">🎯 考點快篩：</span>`;
+  let pills = `<span class="facet-filter-label">考點快篩：</span>`;
   pills += `<label class="facet-secondary-toggle"><input type="checkbox" ${includeSecondaryFacets ? 'checked' : ''} onchange="setSecondaryFacetIncluded(this.checked)"> 包含相關考點</label>`;
   facets.forEach(facet => {
     const isActive = activeFacetTag === facet.id;
@@ -33808,7 +33900,7 @@ function renderFacetTagsBar(currentSubFilter, model) {
   });
 
   if (activeFacetTag) {
-    pills += `<button class="facet-tag-pill" style="color:var(--review);border-color:var(--review);" onclick="setFacetTag(null)">✕ 清除標籤快篩</button>`;
+    pills += `<button class="facet-tag-pill" style="color:var(--review);border-color:var(--review);" onclick="setFacetTag(null)">${uiIcon('x')} 清除標籤快篩</button>`;
   }
 
   bar.innerHTML = pills;
@@ -33859,7 +33951,7 @@ function renderQuestions() {
   if (filtered.length === 0) {
     container.innerHTML = `
       <div style="text-align: center; padding: 60px 20px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius);">
-        <div style="font-size: 2.2rem; margin-bottom: 12px;">🔍</div>
+        <div style="font-size: 2.2rem; margin-bottom: 12px; color: var(--muted);">${uiIcon('search')}</div>
         <h3 style="color: var(--ink); margin-bottom: 6px;">查無符合條件的試題</h3>
         <p style="font-size: 0.88rem;">請嘗試調整或重設篩選條件與搜尋關鍵字</p>
       </div>
@@ -33874,12 +33966,12 @@ function renderQuestions() {
     const curStatus = progressState[qid] || 0;
     const isStarred = !!starredState[qid];
 
-    const starIcons = '⭐'.repeat(Math.max(1, Math.min(5, diff || 3)));
-    const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
+    const starIcons = uiIcon('star', { filled: true }).repeat(Math.max(1, Math.min(5, diff || 3)));
+    const statusLabels = ['未開始', '已掌握', '需二刷'];
     const auditLabels = {
-      verified: '✅ 解答已校驗',
-      suspected_error: '⚠️ 待更正',
-      needs_manual_review: '🟡 待人工覆核',
+      verified: '解答已校驗',
+      suspected_error: '待更正',
+      needs_manual_review: '待人工覆核',
       not_attempted: '⏳ 尚未校驗',
     };
     const auditLabel = auditLabels[status] || '';
@@ -33892,7 +33984,7 @@ function renderQuestions() {
           <div class="qmeta">
             <span class="qid">${qid}</span>
             <span class="qtag" style="background: ${meta.color}15; color: ${meta.color}; border: 1px solid ${meta.color}30;">
-              ${meta.icon} ${meta.name.split('（')[0]}
+              ${meta.name.split('（')[0]}
             </span>
             <span class="diff-badge" title="難度評定：${diff} 星">${starIcons}</span>
             ${(tags || []).slice(1, 3).map(t => `<span class="qtag">${t}</span>`).join('')}
@@ -33900,7 +33992,7 @@ function renderQuestions() {
             ${typeof answerCorrectionBadgeHtml === 'function' ? answerCorrectionBadgeHtml(qid) : ''}
           </div>
           <button class="btn-star ${isStarred ? 'active' : ''}" onclick="toggleStarred('${qid}', event)" title="${isStarred ? '取消收藏' : '加入重點收藏'}">
-            ${isStarred ? '★' : '☆'}
+            ${uiIcon('star', { filled: isStarred })}
           </button>
         </div>
 
@@ -33909,19 +34001,19 @@ function renderQuestions() {
         <div class="qfooter">
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <button class="status-badge s-${curStatus}" onclick="toggleStatus('${qid}', event)" title="點擊切換做題掌握狀態">
-              ${statusLabels[curStatus]}
+              <span class="status-dot s-dot-${curStatus}"></span> ${statusLabels[curStatus]}
             </button>
             ${dueInfo.text ? `<span class="due-badge ${dueInfo.cssClass}" title="SM-2 智能間隔重複排程">${dueInfo.text}</span>` : ''}
           </div>
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse', recall: true})" class="btn-sol" style="background: var(--warn); border-color: var(--warn); box-shadow: 0 2px 6px rgba(196, 124, 93, 0.25);" title="開啟白紙蓋牌主動回想抽測">
-              🎴 蓋牌抽測
+              蓋牌抽測
             </button>
             <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse'})" class="btn-sol" title="直接檢視完整 KaTeX 推導詳解">
-              📝 完整詳解
+              完整詳解
             </button>
             <a href="${pdfLink}" target="_blank" class="btn-pdf" title="在瀏覽器開啟考選部原題 PDF">
-              📄 查看原題 PDF
+              ${uiIcon('file-text')} 查看原題 PDF
             </a>
           </div>
         </div>
@@ -34071,7 +34163,7 @@ function openCalculatorGuideModal(defaultRecipeId = null) {
         `).join('<span class="key-arrow">➔</span>')}
       </div>
       <div class="calc-trap-alert">
-        <strong>⚠️ 考場防坑：</strong>${item.trap}
+        <strong>${uiIcon('alert-triangle',{class:'warn-ico'})} 考場防坑：</strong>${item.trap}
       </div>
     </div>
   `).join('');
@@ -34079,13 +34171,13 @@ function openCalculatorGuideModal(defaultRecipeId = null) {
   modal.innerHTML = `
     <div class="modal-content calc-modal-content">
       <div class="modal-header">
-        <h3>🧮 考選部核定計算機（Casio fx-82SOLAR II）考場按法與速算驗證</h3>
-        <button type="button" class="btn-close" onclick="closeCalculatorGuideModal()">✕</button>
+        <h3>考選部核定計算機（Casio fx-82SOLAR II）考場按法與速算驗證</h3>
+        <button type="button" class="btn-close" onclick="closeCalculatorGuideModal()" aria-label="關閉">${uiIcon('x')}</button>
       </div>
       <div class="modal-body calc-modal-body">
         <!-- Interactive Verification Tool -->
         <div class="phasor-converter-box">
-          <h4>⚡ 相量與極座標即時速查器（考前對答案專用）</h4>
+          <h4>相量與極座標即時速查器（考前對答案專用）</h4>
           <div class="converter-grid">
             <div class="converter-col">
               <label>直角座標 (A + jB)</label>
@@ -34111,7 +34203,7 @@ function openCalculatorGuideModal(defaultRecipeId = null) {
         </div>
 
         <!-- Recipe Keystroke Cards -->
-        <h4 style="margin: 18px 0 10px 0; color: var(--accent-dark);">📖 考場核心公式按鍵順序圖解</h4>
+        <h4 style="margin: 18px 0 10px 0; color: var(--accent-dark);">考場核心公式按鍵順序圖解</h4>
         <div class="calc-recipes-grid">
           ${recipesHtml}
         </div>
@@ -34139,7 +34231,7 @@ function runInteractiveConverter(source) {
       const p = convertRectToPolar(real, imag);
       document.getElementById('calc-in-mag').value = p.magnitude;
       document.getElementById('calc-in-ang').value = p.angleDeg;
-      if (fb) fb.innerHTML = `✅ 換算完成：<strong>${real} + j${imag}</strong> = <strong>${p.magnitude} ∠ ${p.angleDeg}°</strong>（fx-82: 按 ${real} ➔ INV ➔ R➔P ➔ ${imag} ➔ = ➔ b）`;
+      if (fb) fb.innerHTML = `${uiIcon('check')} 換算完成：<strong>${real} + j${imag}</strong> = <strong>${p.magnitude} ∠ ${p.angleDeg}°</strong>（fx-82: 按 ${real} ➔ INV ➔ R➔P ➔ ${imag} ➔ = ➔ b）`;
     }
   } else if (source === 'polar') {
     const mag = parseFloat(document.getElementById('calc-in-mag').value);
@@ -34148,7 +34240,7 @@ function runInteractiveConverter(source) {
       const r = convertPolarToRect(mag, ang);
       document.getElementById('calc-in-real').value = r.real;
       document.getElementById('calc-in-imag').value = r.imag;
-      if (fb) fb.innerHTML = `✅ 換算完成：<strong>${mag} ∠ ${ang}°</strong> = <strong>${r.real} + j${r.imag}</strong>（fx-82: 按 ${mag} ➔ INV ➔ P➔R ➔ ${ang} ➔ = ➔ b）`;
+      if (fb) fb.innerHTML = `${uiIcon('check')} 換算完成：<strong>${mag} ∠ ${ang}°</strong> = <strong>${r.real} + j${r.imag}</strong>（fx-82: 按 ${mag} ➔ INV ➔ P➔R ➔ ${ang} ➔ = ➔ b）`;
     }
   }
 }
@@ -35923,7 +36015,7 @@ function openPassbookModal() {
     <div class="passbook-dialog passbook-modal-content">
       <div class="passbook-head passbook-hide-print">
         <h3 id="passbook-title">考前速查手冊（列印）</h3>
-        <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">✕ 關閉</button>
+        <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">${uiIcon('x')} 關閉</button>
       </div>
       <div class="modal-body passbook-printable-area" style="padding: 24px;">
         <!-- Header Banner -->
@@ -36118,7 +36210,7 @@ function resultCardRemoveExisting() {
   Array.prototype.forEach.call(old, el => { if (el.__resultCardClose) el.__resultCardClose(); else el.remove(); });
 }
 
-// 「已記錄 ✓」: a short confirmation in the docked card's place; removed after ~1.8s or on the next card.
+// 「已記錄 」: a short confirmation in the docked card's place; removed after ~1.8s or on the next card.
 function resultCardShowSavedNotice(host) {
   try {
     const old = document.querySelectorAll('.result-card-saved-notice');
@@ -36126,7 +36218,7 @@ function resultCardShowSavedNotice(host) {
     const note = document.createElement('div');
     note.className = 'result-card-saved-notice' + (host === document.body ? ' result-card--viewport' : '');
     note.setAttribute('role', 'status');
-    note.textContent = '已記錄 ✓';
+    note.innerHTML = '已記錄 ' + (typeof uiIcon === 'function' ? uiIcon('check') : '');
     (host || document.body).appendChild(note);
     setTimeout(() => note.remove(), 1800);
   } catch (_) { /* cosmetic only */ }
@@ -36619,8 +36711,8 @@ function finishCommittedLearningAttempt(result, qid, rating, attemptId, saveMess
   if (currentSolutionSourceMode === 'due-review' && typeof recordReviewSessionRating === 'function') {
     recordReviewSessionRating(qid, null, rating);
   }
-  const ratingTexts = { 1: '🔴 遺忘', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
-  if (typeof showToast === 'function') showToast(`🎯 已排程：${ratingTexts[rating]}（下次：${result.nextReviewDate}）${saveMessage ? `；${saveMessage}` : ''}`);
+  const ratingTexts = { 1: '遺忘', 3: '需要提示', 5: '獨立完成' };
+  if (typeof showToast === 'function') showToast(`已排程：${ratingTexts[rating]}（下次：${result.nextReviewDate}）${saveMessage ? `；${saveMessage}` : ''}`);
   if (typeof renderQuestions === 'function') renderQuestions();
   if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
@@ -36772,7 +36864,7 @@ function openImageLightbox(src, alt, trigger) {
     <button type="button" data-image-zoom-out aria-label="縮小">−</button>
     <span data-image-scale>100%</span>
     <button type="button" data-image-zoom-in aria-label="放大">＋</button>
-    <button type="button" data-image-close aria-label="關閉題圖">✕</button>
+    <button type="button" data-image-close aria-label="關閉題圖">${uiIcon('x')}</button>
   </div><div class="question-image-lightbox-stage" tabindex="0"><img src="${solutionModalEscape(src)}" alt="${solutionModalEscape(alt || '')}"></div>`;
   document.body.appendChild(lightbox);
   lightbox.querySelector('[data-image-close]').addEventListener('click', closeImageLightbox);
@@ -36960,7 +37052,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     const pct = Math.round((curStep / totalStep) * 100);
     sessionBar.style.display = 'flex';
     sessionBar.innerHTML = `
-      <span>🎴 沉浸複習中 · 第 ${curStep} / ${totalStep} 題</span>
+      <span>沉浸複習中 · 第 ${curStep} / ${totalStep} 題</span>
       <div class="session-progress-track">
         <div class="session-progress-fill" style="width: ${pct}%;"></div>
       </div>
@@ -37036,7 +37128,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
           </button>
         </div>
         <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.8125rem; padding: 3px 8px;">
-          新分頁開啟 ⬈
+          新分頁開啟 ${uiIcon('external-link')}
         </a>
       </div>
 
@@ -37139,12 +37231,12 @@ function solutionModalCompactHeader() {
   if (typeof document === 'undefined') return;
   const close = document.querySelector('#solution-modal .modal-actions button[onclick="closeModal()"]');
   if (close && !close.querySelector('.sm-ico')) {
-    close.innerHTML = solutionModalIconLabel('✕', '關閉');
+    close.innerHTML = solutionModalIconLabel(uiIcon('x'), '關閉');
     solutionModalSetAria(close, '關閉詳解');
   }
   const exam = document.getElementById('btn-layout-exam');
   if (exam && !exam.querySelector('.sm-ico')) {
-    exam.innerHTML = solutionModalIconLabel('📄', '原題考卷');
+    exam.innerHTML = solutionModalIconLabel(uiIcon('image'), '原題考卷');
     solutionModalSetAria(exam, '看原題');
   }
 }
@@ -37161,27 +37253,27 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
     : ['pending', 'in_progress', 'ambiguous', 'unavailable'].includes(status) ? 'not_attempted' : 'unknown';
   const statusCopy = {
     verified: {
-      label: '✅ 題解已校驗',
+      label: '題解已校驗',
       description: '題解目前標記為已校驗；這是工作庫的校驗狀態，不等同官方公布解答。',
     },
     reference_book_verified: {
-      label: '📘 參考書解已校驗',
+      label: '參考書解已校驗',
       description: '本題依使用者提供的參考書慣例完成可重現校驗；不等同官方題面已補齊或官方公布解答。',
     },
     needs_manual_review: {
-      label: '🟡 題解保留人工覆核',
+      label: '題解保留人工覆核',
       description: '本題保留可讀的條件式推導，但尚未完成足以定稿的人工覆核。',
     },
     suspected_error: {
-      label: '🔴 題解疑似有誤',
+      label: '題解疑似有誤',
       description: '本題不可直接視為定稿答案，請依來源題面重新核對。',
     },
     not_attempted: {
-      label: '⚪ 題解尚未校驗',
+      label: '題解尚未校驗',
       description: '目前沒有足夠校驗紀錄，頁面不宣稱此題解已被確認。',
     },
     unknown: {
-      label: '⚪ 題解校驗狀態未知',
+      label: '題解校驗狀態未知',
       description: '缺少可辨識的題解校驗狀態，頁面不宣稱校驗範圍或官方背書。',
     },
   }[normalizedStatus];
@@ -37226,9 +37318,9 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
 
 function getLearningStatusPresentation(status) {
   const labels = {
-    0: { status: 0, label: '⚪ 我的學習狀態：未開始' },
-    1: { status: 1, label: '🟢 我的學習狀態：已掌握' },
-    2: { status: 2, label: '🔴 我的學習狀態：需二刷' },
+    0: { status: 0, label: '我的學習狀態：未開始' },
+    1: { status: 1, label: '我的學習狀態：已掌握' },
+    2: { status: 2, label: '我的學習狀態：需二刷' },
   };
   return labels[Number(status)] || labels[0];
 }
@@ -37281,17 +37373,17 @@ function copySolutionIssueReport() {
   if (!text) return;
   if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => {
-      if (typeof showToast === 'function') showToast('📋 回報文字已複製，尚未傳送');
+      if (typeof showToast === 'function') showToast('回報文字已複製，尚未傳送');
     }).catch(() => {
       textarea.focus();
       textarea.select();
-      if (typeof showToast === 'function') showToast('📋 已選取回報文字，請手動複製');
+      if (typeof showToast === 'function') showToast('已選取回報文字，請手動複製');
     });
     return;
   }
   textarea.focus();
   textarea.select();
-  if (typeof showToast === 'function') showToast('📋 已選取回報文字，請手動複製');
+  if (typeof showToast === 'function') showToast('已選取回報文字，請手動複製');
 }
 
 function renderSolutionReviewCard(qid, qRecord) {
@@ -37360,14 +37452,14 @@ function renderScenarioMatrix(qid) {
         <div class="matrix-col-header">
           <span class="matrix-badge">${esc(sc.name)}</span>
         </div>
-        <div class="matrix-condition">📌 <strong>假設條件：</strong>${esc(sc.condition)}</div>
+        <div class="matrix-condition"><strong>假設條件：</strong>${esc(sc.condition)}</div>
         <table class="matrix-table">
           <thead>
             <tr><th>關鍵參數 / 物理量</th><th>推導數值</th></tr>
           </thead>
           <tbody>${keyValsHtml}</tbody>
         </table>
-        <div class="matrix-advice">💡 <strong>考場應對防坑對策：</strong>${esc(sc.examAdvice)}</div>
+        <div class="matrix-advice"><strong>考場應對防坑對策：</strong>${esc(sc.examAdvice)}</div>
       </div>
     `;
   };
@@ -37375,7 +37467,6 @@ function renderScenarioMatrix(qid) {
   return `
     <div class="scenario-matrix-card" id="scenario-matrix-${esc(qid)}">
       <div class="scenario-matrix-header">
-        <span class="scenario-icon">⚖️</span>
         <div>
           <h4 class="scenario-title">參數敏感度情境分支矩陣 (Scenario Matrix)</h4>
           <p class="scenario-conflict">${esc(matrix.coreConflict)}</p>
@@ -37414,9 +37505,9 @@ function updateSameExamDropdown(sid, yr, currentQid) {
     const qid = record.id;
     const qnum = record.number;
     const s = progressState[qid] || 0;
-    const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
+    const sIcon = s === 1 ? '（已掌握）' : s === 2 ? '（需二刷）' : '';
     const isCur = qid === currentQid;
-    return `<option value="${solutionModalEscape(qid)}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${solutionModalEscape(qid)})</option>`;
+    return `<option value="${solutionModalEscape(qid)}" ${isCur ? 'selected' : ''}>第 ${qnum} 大題 (${solutionModalEscape(qid)})${sIcon}</option>`;
   }).join('');
 }
 
@@ -37549,7 +37640,7 @@ function syncActiveRecallButtonState() {
     btn.style.background = isActiveRecallMode ? 'var(--warn)' : 'var(--surface)';
     btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
     btn.style.borderColor = isActiveRecallMode ? 'var(--warn)' : 'var(--line)';
-    btn.innerHTML = solutionModalIconLabel('🎴', isActiveRecallMode ? '四段蓋牌進行中' : '主動回想蓋牌');
+    btn.innerHTML = solutionModalIconLabel(uiIcon('layers'), isActiveRecallMode ? '四段蓋牌進行中' : '主動回想蓋牌');
     solutionModalSetAria(btn, isActiveRecallMode ? '四段蓋牌進行中' : '主動回想蓋牌');
   });
 }
@@ -37579,7 +37670,7 @@ function toggleActiveRecallMode() {
     currentRecallErrorType = null;
   }
   syncActiveRecallButtonState();
-  showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式（四步驟蓋牌）' : '📖 已切換為全開放詳解模式');
+  showToast(isActiveRecallMode ? '已開啟主動回想模式（四步驟蓋牌）' : '已切換為全開放詳解模式');
 
   // Re-render current question with or without active recall masking
   const rawMd = resolveSolutionMarkdown(currentModalSolLink, currentModalQid);
@@ -37696,7 +37787,7 @@ function onRecallResultSaved(record, mode, level) {
     return;
   }
   if (mode === 'due-review' && typeof recordReviewSessionRating === 'function') recordReviewSessionRating(qid, record);
-  if (typeof showToast === 'function') showToast(`🎯 已記錄：估計 ${record.estimate}／${record.total} 分`);
+  if (typeof showToast === 'function') showToast(`已記錄：估計 ${record.estimate}／${record.total} 分`);
   if (typeof renderQuestions === 'function') renderQuestions();
   if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
@@ -37944,14 +38035,14 @@ function updateModalStatusButtons(qid) {
   const curStatus = progressState[qid] || 0;
   const isStarred = !!starredState[qid];
 
-  const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
+  const statusLabels = ['未開始', '已掌握', '需二刷'];
   statusBtn.className = `status-badge s-${curStatus}`;
-  statusBtn.innerHTML = solutionModalIconLabel(statusLabels[curStatus].split(' ')[0], statusLabels[curStatus].split(' ')[1]);
-  solutionModalSetAria(statusBtn, '學習狀態：' + statusLabels[curStatus].split(' ')[1]);
+  statusBtn.innerHTML = solutionModalIconLabel('<span class="status-dot s-dot-' + curStatus + '"></span>', statusLabels[curStatus]);
+  solutionModalSetAria(statusBtn, '學習狀態：' + statusLabels[curStatus]);
   statusBtn.onclick = (e) => toggleStatus(qid, e);
 
   starBtn.className = `btn-star ${isStarred ? 'active' : ''}`;
-  starBtn.innerHTML = isStarred ? solutionModalIconLabel('★', '已收藏') : solutionModalIconLabel('☆', '收藏本題');
+  starBtn.innerHTML = isStarred ? solutionModalIconLabel(uiIcon('star', { filled: true }), '已收藏') : solutionModalIconLabel(uiIcon('star'), '收藏本題');
   solutionModalSetAria(starBtn, isStarred ? '已收藏' : '收藏本題');
   starBtn.onclick = (e) => toggleStarred(qid, e);
 }
@@ -38012,12 +38103,12 @@ const MOCK_EXAM_TIME_CAP_PER_POINT = 0.9;
 const MOCK_EXAM_REMINDER = '5 分鐘掃卷＋90 分鐘第一輪＋17 分鐘搶分＋8 分鐘收尾';
 const MOCK_EXAM_LEGACY_HISTORY_KEY = 'EE_MOCK_EXAM_HISTORY_V1';
 const MOCK_EXAM_FALLBACK_SUBJECTS = [
-  { id: '01', name: '電路學', icon: '⚡' },
-  { id: '02', name: '電子學（含電力電子）', icon: '🔌' },
-  { id: '03', name: '工程數學', icon: '📐' },
-  { id: '04', name: '電機機械', icon: '⚙️' },
-  { id: '05', name: '電力系統', icon: '🏢' },
-  { id: '06', name: '工業配電', icon: '🏭' }
+  { id: '01', name: '電路學' },
+  { id: '02', name: '電子學（含電力電子）' },
+  { id: '03', name: '工程數學' },
+  { id: '04', name: '電機機械' },
+  { id: '05', name: '電力系統' },
+  { id: '06', name: '工業配電' }
 ];
 // 只計部分題的試卷（出處：docs/上榜被動模考_114年六科執行包.md、上榜被動複測_108年六科執行包.md）。
 // 其餘題只作邊界練習：照樣顯示題目與題解，但不評分、不計入總分。
@@ -38354,7 +38445,7 @@ function mockExamPickerHtml() {
         <select id="mock-year">${MOCK_EXAM_YEARS.map(y => `<option value="${y}"${String(y) === st.year ? ' selected' : ''}>${y} 年</option>`).join('')}</select>
       </label>
       <label>科目
-        <select id="mock-subject">${subjects.map(s => `<option value="${mockExamEscape(s.id)}"${String(s.id) === st.sid ? ' selected' : ''}>${mockExamEscape(s.icon || '')} ${mockExamEscape(s.id)}. ${mockExamEscape(s.name)}</option>`).join('')}</select>
+        <select id="mock-subject">${subjects.map(s => `<option value="${mockExamEscape(s.id)}"${String(s.id) === st.sid ? ' selected' : ''}>${mockExamEscape(s.id)}. ${mockExamEscape(s.name)}</option>`).join('')}</select>
       </label>
       <button type="button" class="mock-btn mock-btn-primary" data-mock-load>載入試卷</button>
     </div>
@@ -38477,7 +38568,7 @@ function mockExamSummaryHtml(paper, sum) {
       ${mockExamState && mockExamState.syncedCode ? `<p class="mock-sync-notice" role="status">已同步完成排程任務 ${mockExamEscape(mockExamState.syncedCode)}</p>` : ''}
       <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamMarksHtml(q)}</span></li>`).join('')}</ul>
       <p class="mock-tally"><strong>錯因統計：</strong>${tally.length ? tally.map(c => `${mockExamEscape(c)} ${mockExamEscape(labels[c] || '')} ×${sum.errorTally[c]}`).join('、') : '未選錯因'}</p>
-      ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '📝 開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
+      ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
       <button type="button" class="mock-btn" data-mock-reset>換一份試卷</button>
     </section>`;
 }
@@ -39015,7 +39106,7 @@ function dailyPracticeSyncModeSubtitle() {
 function dailyPracticeModeSelectHtml() {
   const mode = dailyPracticeLoadMode();
   const opts = [['weighted', '依目標分配'], ['balanced', '各科輪流'], ['reinforce', '補強（模考錯題）'], ['all', '全部隨機']].concat(
-    dailyPracticeSubjects('PE').map(subject => [String(subject.id), '只練 ' + (subject.icon || '📘') + ' ' + subject.name]));
+    dailyPracticeSubjects('PE').map(subject => [String(subject.id), '只練 ' + subject.name]));
   return '<label class="daily-practice-mode">選題方式<select id="daily-practice-mode" onchange="dailyPracticeSetMode(this.value)">' +
     opts.map(([value, label]) => '<option value="' + dailyPracticeEscape(value) + '"' + (value === mode ? ' selected' : '') + '>' + dailyPracticeEscape(label) + '</option>').join('') +
     '</select><small class="daily-practice-mode-hint" id="daily-practice-mode-hint">' + dailyPracticeEscape(dailyPracticeModeHint(mode)) + '</small></label>';
@@ -39076,7 +39167,7 @@ function dailyPracticeSubjects(category) {
 
 function dailyPracticeSubjectLabel(category, subjectId) {
   const subject = dailyPracticeSubjects(category).find(item => String(item.id) === String(subjectId));
-  return subject ? (subject.icon || '📘') + ' ' + subject.name : '科目 ' + subjectId;
+  return subject ? subject.name : '科目 ' + subjectId;
 }
 
 function dailyPracticeFacet(question, kind) {
@@ -39377,7 +39468,7 @@ function dailyPracticeFinishQuestion(session, qid) {
       modeLabel: '隨機練習・' + dailyPracticeSessionModeLabel(session)
     };
     dailyPracticeHomeMode = 'summary';
-    showToast('🎉 本輪隨機練習已完成！');
+    showToast('本輪隨機練習已完成！');
   } else {
     dailyPracticeView = 'question';
     dailyPracticeHomeMode = 'continue';
@@ -39430,7 +39521,7 @@ function dailyPracticeApplyCompletedAttempt(qid, nextAction) {
   if (action.finished) {
     dailyPracticeLastSummary = { category: action.category || 'PE', subjectId: action.subjectId || 'all', total: action.total || 1, completed: action.total || 1, results: action.results || [] };
     dailyPracticeHomeMode = 'summary';
-    showToast('🎉 本輪每日練習已完成！');
+    showToast('本輪每日練習已完成！');
   } else {
     dailyPracticeView = 'question';
     dailyPracticeHomeMode = 'continue';
@@ -39492,7 +39583,7 @@ function dailyPracticeSummaryEstimateRows(qids) {
 
 function dailyPracticeSummaryRows(results) {
   if (!Array.isArray(results) || !results.length) return '<p class="daily-practice-muted">本輪沒有可顯示的逐題自評。</p>';
-  const labels = { 1: '🔴 無法完成', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
+  const labels = { 1: '無法完成', 3: '需要提示', 5: '獨立完成' };
   return '<div class="daily-practice-result-list">' + results.map(item => '<article class="daily-practice-result-item"><div><strong>' + dailyPracticeEscape(dailyPracticeQuestionLabel(item.qid)) + '</strong><code>' + dailyPracticeEscape(item.qid) + '</code></div><span>' + labels[item.rating] + (item.errorType ? '・' + dailyPracticeEscape(item.errorType) : '') + '</span>' + (item.rating === 1 ? '<button class="btn-pdf" type="button" onclick="dailyPracticeScheduleFollowUp(\'' + dailyPracticeEscape(item.qid) + '\', this)">加入到期複習</button>' : '') + '</article>').join('') + '</div>';
 }
 
@@ -39575,13 +39666,13 @@ function renderDailyPractice(container, error) {
   const scrollPosition = session.scrollByQuestion[qid] || { question: 0, solution: 0 };
   const scrollTop = Number(scrollPosition[dailyPracticeView] || 0);
   container.innerHTML = '<section class="daily-practice-shell">' +
-    '<div class="daily-practice-heading"><div><span class="eyebrow">' + session.category + ' · ' + dailyPracticeSessionModeLabel(session) + '</span><h2>🎲 隨機練習 <span class="daily-practice-progress">' + progress + '</span> ' + dailyPracticeTierBadge(qid) + '</h2></div><div class="daily-practice-heading-actions"><button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">' + startLabel + '</button><button class="btn-pdf" type="button" onclick="dailyPracticeStartOver()">結束本輪</button></div></div>' +
+    '<div class="daily-practice-heading"><div><span class="eyebrow">' + session.category + ' · ' + dailyPracticeSessionModeLabel(session) + '</span><h2>隨機練習 <span class="daily-practice-progress">' + progress + '</span> ' + dailyPracticeTierBadge(qid) + '</h2></div><div class="daily-practice-heading-actions"><button class="btn-sol daily-practice-primary" type="button" data-daily-open-solution="recall">' + startLabel + '</button><button class="btn-pdf" type="button" onclick="dailyPracticeStartOver()">結束本輪</button></div></div>' +
     (solutionUnlocked
-      ? '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">📄 原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">📝 詳解</button></div>'
+      ? '<div class="daily-practice-tabs" role="tablist" aria-label="每日練習內容切換"><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'question' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'question\')">原題</button><button type="button" class="daily-practice-tab ' + (dailyPracticeView === 'solution' ? 'active' : '') + '" onclick="dailyPracticeSetView(\'solution\')">詳解</button></div>'
       : '') +
     '<div class="daily-practice-scroll" onscroll="dailyPracticeScroll(event)" tabindex="0">' +
       (dailyPracticeView === 'question'
-        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「' + startLabel + '」。</p>' + (solutionUnlocked ? '<div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">📝 其他詳解選項</button></div>' : '') + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
+        ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「' + startLabel + '」。</p>' + (solutionUnlocked ? '<div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">其他詳解選項</button></div>' : '') + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton()) +
     '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
@@ -39664,7 +39755,7 @@ function homeDueReviewRefresh() {
   const due = typeof getDueQuestionsList === 'function' ? getDueQuestionsList().length : 0;
   button.disabled = due <= 0;
   if (button.setAttribute) button.setAttribute('aria-disabled', due > 0 ? 'false' : 'true');
-  button.innerHTML = '<span>🎴</span><strong>' + (due > 0 ? '到期複習（' + due + ' 題）' : '到期複習') + '</strong><small>' + (due > 0 ? '用間隔重複複習今天到期的題目' : '今天沒有到期題') + '</small>';
+  button.innerHTML = '<span class="ui-ico">' + uiIcon('rotate-ccw') + '</span><strong>' + (due > 0 ? '到期複習（' + due + ' 題）' : '到期複習') + '</strong><small>' + (due > 0 ? '用間隔重複複習今天到期的題目' : '今天沒有到期題') + '</small>';
 }
 
 function homeStartDueReview() {
@@ -40360,7 +40451,7 @@ function todayTaskCardHtml(vm) {
     const buttonText = resume ? (vm.held ? (vm.held.sameDay ? '現在就核對' : '開始核對') : '繼續') : '開始';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">一鍵開始今天</span><strong>' + esc(label) + '</strong>' +
       '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + rest + '</div>' +
-      '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + buttonText + '</button></div>';
+      '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' ' + buttonText + '</button></div>';
   }
   return '<section class="today-task-card" aria-label="今天的任務">' + body + plan + pacingLines + todayTaskStartFromHtml(vm, vm.completedMap) + '</section>';
 }
@@ -40784,7 +40875,7 @@ function todayTaskZoomImage(img) {
   if (typeof openImageLightbox === 'function') { openImageLightbox(img.src, img.alt, img); return; }
   const box = document.createElement('div');
   box.className = 'today-task-zoom-fallback';
-  box.innerHTML = '<button type="button" aria-label="關閉">✕ 關閉</button><div><img src="' + todayTaskEscape(img.src) + '" alt="' + todayTaskEscape(img.alt) + '"></div>';
+  box.innerHTML = '<button type="button" aria-label="關閉">' + uiIcon('x') + ' 關閉</button><div><img src="' + todayTaskEscape(img.src) + '" alt="' + todayTaskEscape(img.alt) + '"></div>';
   box.querySelector('button').addEventListener('click', () => box.remove());
   document.body.appendChild(box);
 }
@@ -41111,7 +41202,7 @@ function initPaneResizer() {
 }
 
 function themeButtonLabel(theme) {
-  return theme === 'dark' ? '<span class="theme-ico" aria-hidden="true">☀️</span><span class="theme-label"> 亮色模式</span>' : '<span class="theme-ico" aria-hidden="true">🌙</span><span class="theme-label"> 暗色模式</span>';
+  return theme === 'dark' ? '<span class="theme-ico" aria-hidden="true">' + uiIcon('sun') + '</span><span class="theme-label"> 亮色模式</span>' : '<span class="theme-ico" aria-hidden="true">' + uiIcon('moon') + '</span><span class="theme-label"> 暗色模式</span>';
 }
 
 function applyThemeAttribute(theme) {
@@ -41141,6 +41232,7 @@ function applyInitialTheme() {
 
 // Global DOM Content Loaded Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
+  uiIconHydrate(document);
   // 0. The 更多 menu closes after picking an item or clicking elsewhere.
   document.addEventListener('click', event => {
     const menu = document.getElementById('more-tools-menu');

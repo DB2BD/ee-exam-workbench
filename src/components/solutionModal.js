@@ -316,8 +316,8 @@ function finishCommittedLearningAttempt(result, qid, rating, attemptId, saveMess
   if (currentSolutionSourceMode === 'due-review' && typeof recordReviewSessionRating === 'function') {
     recordReviewSessionRating(qid, null, rating);
   }
-  const ratingTexts = { 1: '🔴 遺忘', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
-  if (typeof showToast === 'function') showToast(`🎯 已排程：${ratingTexts[rating]}（下次：${result.nextReviewDate}）${saveMessage ? `；${saveMessage}` : ''}`);
+  const ratingTexts = { 1: '遺忘', 3: '需要提示', 5: '獨立完成' };
+  if (typeof showToast === 'function') showToast(`已排程：${ratingTexts[rating]}（下次：${result.nextReviewDate}）${saveMessage ? `；${saveMessage}` : ''}`);
   if (typeof renderQuestions === 'function') renderQuestions();
   if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
@@ -469,7 +469,7 @@ function openImageLightbox(src, alt, trigger) {
     <button type="button" data-image-zoom-out aria-label="縮小">−</button>
     <span data-image-scale>100%</span>
     <button type="button" data-image-zoom-in aria-label="放大">＋</button>
-    <button type="button" data-image-close aria-label="關閉題圖">✕</button>
+    <button type="button" data-image-close aria-label="關閉題圖">${uiIcon('x')}</button>
   </div><div class="question-image-lightbox-stage" tabindex="0"><img src="${solutionModalEscape(src)}" alt="${solutionModalEscape(alt || '')}"></div>`;
   document.body.appendChild(lightbox);
   lightbox.querySelector('[data-image-close]').addEventListener('click', closeImageLightbox);
@@ -657,7 +657,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
     const pct = Math.round((curStep / totalStep) * 100);
     sessionBar.style.display = 'flex';
     sessionBar.innerHTML = `
-      <span>🎴 沉浸複習中 · 第 ${curStep} / ${totalStep} 題</span>
+      <span>沉浸複習中 · 第 ${curStep} / ${totalStep} 題</span>
       <div class="session-progress-track">
         <div class="session-progress-fill" style="width: ${pct}%;"></div>
       </div>
@@ -733,7 +733,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
           </button>
         </div>
         <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.8125rem; padding: 3px 8px;">
-          新分頁開啟 ⬈
+          新分頁開啟 ${uiIcon('external-link')}
         </a>
       </div>
 
@@ -836,12 +836,12 @@ function solutionModalCompactHeader() {
   if (typeof document === 'undefined') return;
   const close = document.querySelector('#solution-modal .modal-actions button[onclick="closeModal()"]');
   if (close && !close.querySelector('.sm-ico')) {
-    close.innerHTML = solutionModalIconLabel('✕', '關閉');
+    close.innerHTML = solutionModalIconLabel(uiIcon('x'), '關閉');
     solutionModalSetAria(close, '關閉詳解');
   }
   const exam = document.getElementById('btn-layout-exam');
   if (exam && !exam.querySelector('.sm-ico')) {
-    exam.innerHTML = solutionModalIconLabel('📄', '原題考卷');
+    exam.innerHTML = solutionModalIconLabel(uiIcon('image'), '原題考卷');
     solutionModalSetAria(exam, '看原題');
   }
 }
@@ -858,27 +858,27 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
     : ['pending', 'in_progress', 'ambiguous', 'unavailable'].includes(status) ? 'not_attempted' : 'unknown';
   const statusCopy = {
     verified: {
-      label: '✅ 題解已校驗',
+      label: '題解已校驗',
       description: '題解目前標記為已校驗；這是工作庫的校驗狀態，不等同官方公布解答。',
     },
     reference_book_verified: {
-      label: '📘 參考書解已校驗',
+      label: '參考書解已校驗',
       description: '本題依使用者提供的參考書慣例完成可重現校驗；不等同官方題面已補齊或官方公布解答。',
     },
     needs_manual_review: {
-      label: '🟡 題解保留人工覆核',
+      label: '題解保留人工覆核',
       description: '本題保留可讀的條件式推導，但尚未完成足以定稿的人工覆核。',
     },
     suspected_error: {
-      label: '🔴 題解疑似有誤',
+      label: '題解疑似有誤',
       description: '本題不可直接視為定稿答案，請依來源題面重新核對。',
     },
     not_attempted: {
-      label: '⚪ 題解尚未校驗',
+      label: '題解尚未校驗',
       description: '目前沒有足夠校驗紀錄，頁面不宣稱此題解已被確認。',
     },
     unknown: {
-      label: '⚪ 題解校驗狀態未知',
+      label: '題解校驗狀態未知',
       description: '缺少可辨識的題解校驗狀態，頁面不宣稱校驗範圍或官方背書。',
     },
   }[normalizedStatus];
@@ -923,9 +923,9 @@ function getSolutionAuditPresentation(status, metadata, qRecord) {
 
 function getLearningStatusPresentation(status) {
   const labels = {
-    0: { status: 0, label: '⚪ 我的學習狀態：未開始' },
-    1: { status: 1, label: '🟢 我的學習狀態：已掌握' },
-    2: { status: 2, label: '🔴 我的學習狀態：需二刷' },
+    0: { status: 0, label: '我的學習狀態：未開始' },
+    1: { status: 1, label: '我的學習狀態：已掌握' },
+    2: { status: 2, label: '我的學習狀態：需二刷' },
   };
   return labels[Number(status)] || labels[0];
 }
@@ -978,17 +978,17 @@ function copySolutionIssueReport() {
   if (!text) return;
   if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => {
-      if (typeof showToast === 'function') showToast('📋 回報文字已複製，尚未傳送');
+      if (typeof showToast === 'function') showToast('回報文字已複製，尚未傳送');
     }).catch(() => {
       textarea.focus();
       textarea.select();
-      if (typeof showToast === 'function') showToast('📋 已選取回報文字，請手動複製');
+      if (typeof showToast === 'function') showToast('已選取回報文字，請手動複製');
     });
     return;
   }
   textarea.focus();
   textarea.select();
-  if (typeof showToast === 'function') showToast('📋 已選取回報文字，請手動複製');
+  if (typeof showToast === 'function') showToast('已選取回報文字，請手動複製');
 }
 
 function renderSolutionReviewCard(qid, qRecord) {
@@ -1057,14 +1057,14 @@ function renderScenarioMatrix(qid) {
         <div class="matrix-col-header">
           <span class="matrix-badge">${esc(sc.name)}</span>
         </div>
-        <div class="matrix-condition">📌 <strong>假設條件：</strong>${esc(sc.condition)}</div>
+        <div class="matrix-condition"><strong>假設條件：</strong>${esc(sc.condition)}</div>
         <table class="matrix-table">
           <thead>
             <tr><th>關鍵參數 / 物理量</th><th>推導數值</th></tr>
           </thead>
           <tbody>${keyValsHtml}</tbody>
         </table>
-        <div class="matrix-advice">💡 <strong>考場應對防坑對策：</strong>${esc(sc.examAdvice)}</div>
+        <div class="matrix-advice"><strong>考場應對防坑對策：</strong>${esc(sc.examAdvice)}</div>
       </div>
     `;
   };
@@ -1072,7 +1072,6 @@ function renderScenarioMatrix(qid) {
   return `
     <div class="scenario-matrix-card" id="scenario-matrix-${esc(qid)}">
       <div class="scenario-matrix-header">
-        <span class="scenario-icon">⚖️</span>
         <div>
           <h4 class="scenario-title">參數敏感度情境分支矩陣 (Scenario Matrix)</h4>
           <p class="scenario-conflict">${esc(matrix.coreConflict)}</p>
@@ -1111,9 +1110,9 @@ function updateSameExamDropdown(sid, yr, currentQid) {
     const qid = record.id;
     const qnum = record.number;
     const s = progressState[qid] || 0;
-    const sIcon = s === 1 ? '🟢' : s === 2 ? '🔴' : '⚪';
+    const sIcon = s === 1 ? '（已掌握）' : s === 2 ? '（需二刷）' : '';
     const isCur = qid === currentQid;
-    return `<option value="${solutionModalEscape(qid)}" ${isCur ? 'selected' : ''}>${sIcon} 第 ${qnum} 大題 (${solutionModalEscape(qid)})</option>`;
+    return `<option value="${solutionModalEscape(qid)}" ${isCur ? 'selected' : ''}>第 ${qnum} 大題 (${solutionModalEscape(qid)})${sIcon}</option>`;
   }).join('');
 }
 
@@ -1246,7 +1245,7 @@ function syncActiveRecallButtonState() {
     btn.style.background = isActiveRecallMode ? 'var(--warn)' : 'var(--surface)';
     btn.style.color = isActiveRecallMode ? '#ffffff' : 'var(--ink)';
     btn.style.borderColor = isActiveRecallMode ? 'var(--warn)' : 'var(--line)';
-    btn.innerHTML = solutionModalIconLabel('🎴', isActiveRecallMode ? '四段蓋牌進行中' : '主動回想蓋牌');
+    btn.innerHTML = solutionModalIconLabel(uiIcon('layers'), isActiveRecallMode ? '四段蓋牌進行中' : '主動回想蓋牌');
     solutionModalSetAria(btn, isActiveRecallMode ? '四段蓋牌進行中' : '主動回想蓋牌');
   });
 }
@@ -1276,7 +1275,7 @@ function toggleActiveRecallMode() {
     currentRecallErrorType = null;
   }
   syncActiveRecallButtonState();
-  showToast(isActiveRecallMode ? '🎴 已開啟主動回想模式（四步驟蓋牌）' : '📖 已切換為全開放詳解模式');
+  showToast(isActiveRecallMode ? '已開啟主動回想模式（四步驟蓋牌）' : '已切換為全開放詳解模式');
 
   // Re-render current question with or without active recall masking
   const rawMd = resolveSolutionMarkdown(currentModalSolLink, currentModalQid);
@@ -1393,7 +1392,7 @@ function onRecallResultSaved(record, mode, level) {
     return;
   }
   if (mode === 'due-review' && typeof recordReviewSessionRating === 'function') recordReviewSessionRating(qid, record);
-  if (typeof showToast === 'function') showToast(`🎯 已記錄：估計 ${record.estimate}／${record.total} 分`);
+  if (typeof showToast === 'function') showToast(`已記錄：估計 ${record.estimate}／${record.total} 分`);
   if (typeof renderQuestions === 'function') renderQuestions();
   if (typeof renderReviewPage === 'function') renderReviewPage();
   if (typeof updateModalStatusButtons === 'function') updateModalStatusButtons(qid);
@@ -1641,14 +1640,14 @@ function updateModalStatusButtons(qid) {
   const curStatus = progressState[qid] || 0;
   const isStarred = !!starredState[qid];
 
-  const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
+  const statusLabels = ['未開始', '已掌握', '需二刷'];
   statusBtn.className = `status-badge s-${curStatus}`;
-  statusBtn.innerHTML = solutionModalIconLabel(statusLabels[curStatus].split(' ')[0], statusLabels[curStatus].split(' ')[1]);
-  solutionModalSetAria(statusBtn, '學習狀態：' + statusLabels[curStatus].split(' ')[1]);
+  statusBtn.innerHTML = solutionModalIconLabel('<span class="status-dot s-dot-' + curStatus + '"></span>', statusLabels[curStatus]);
+  solutionModalSetAria(statusBtn, '學習狀態：' + statusLabels[curStatus]);
   statusBtn.onclick = (e) => toggleStatus(qid, e);
 
   starBtn.className = `btn-star ${isStarred ? 'active' : ''}`;
-  starBtn.innerHTML = isStarred ? solutionModalIconLabel('★', '已收藏') : solutionModalIconLabel('☆', '收藏本題');
+  starBtn.innerHTML = isStarred ? solutionModalIconLabel(uiIcon('star', { filled: true }), '已收藏') : solutionModalIconLabel(uiIcon('star'), '收藏本題');
   solutionModalSetAria(starBtn, isStarred ? '已收藏' : '收藏本題');
   starBtn.onclick = (e) => toggleStarred(qid, e);
 }

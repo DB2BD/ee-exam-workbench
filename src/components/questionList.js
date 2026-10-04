@@ -10,9 +10,9 @@ function getSubjectMeta(sid) {
     if (s) return s;
   }
   if (typeof DB_DATA === 'undefined' || !DB_DATA.meta || !DB_DATA.meta.subjects) {
-    return { name: '考科', icon: '⚡', color: '#4a7c8f' };
+    return { name: '考科', icon: '', color: '#4a7c8f' };
   }
-  return DB_DATA.meta.subjects.find(s => s.id === sid) || { name: '未知', icon: '📝', color: '#798694' };
+  return DB_DATA.meta.subjects.find(s => s.id === sid) || { name: '未知', icon: '', color: '#798694' };
 }
 
 let activeFacetTag = null;
@@ -195,7 +195,7 @@ function renderFacetTagsBar(currentSubFilter, model) {
   if (facets.length === 0) {
     if (model.examFamily === 'GK' && model.unclassifiedCount > 0) {
       bar.style.display = 'flex';
-      bar.innerHTML = '<span class="facet-filter-label">📌 尚有題目沒有可用的正式考點連結</span>';
+      bar.innerHTML = '<span class="facet-filter-label">尚有題目沒有可用的正式考點連結</span>';
     } else {
       bar.style.display = 'none';
     }
@@ -203,7 +203,7 @@ function renderFacetTagsBar(currentSubFilter, model) {
   }
 
   bar.style.display = 'flex';
-  let pills = `<span class="facet-filter-label">🎯 考點快篩：</span>`;
+  let pills = `<span class="facet-filter-label">考點快篩：</span>`;
   pills += `<label class="facet-secondary-toggle"><input type="checkbox" ${includeSecondaryFacets ? 'checked' : ''} onchange="setSecondaryFacetIncluded(this.checked)"> 包含相關考點</label>`;
   facets.forEach(facet => {
     const isActive = activeFacetTag === facet.id;
@@ -215,7 +215,7 @@ function renderFacetTagsBar(currentSubFilter, model) {
   });
 
   if (activeFacetTag) {
-    pills += `<button class="facet-tag-pill" style="color:var(--review);border-color:var(--review);" onclick="setFacetTag(null)">✕ 清除標籤快篩</button>`;
+    pills += `<button class="facet-tag-pill" style="color:var(--review);border-color:var(--review);" onclick="setFacetTag(null)">${uiIcon('x')} 清除標籤快篩</button>`;
   }
 
   bar.innerHTML = pills;
@@ -266,7 +266,7 @@ function renderQuestions() {
   if (filtered.length === 0) {
     container.innerHTML = `
       <div style="text-align: center; padding: 60px 20px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius);">
-        <div style="font-size: 2.2rem; margin-bottom: 12px;">🔍</div>
+        <div style="font-size: 2.2rem; margin-bottom: 12px; color: var(--muted);">${uiIcon('search')}</div>
         <h3 style="color: var(--ink); margin-bottom: 6px;">查無符合條件的試題</h3>
         <p style="font-size: 0.88rem;">請嘗試調整或重設篩選條件與搜尋關鍵字</p>
       </div>
@@ -281,12 +281,12 @@ function renderQuestions() {
     const curStatus = progressState[qid] || 0;
     const isStarred = !!starredState[qid];
 
-    const starIcons = '⭐'.repeat(Math.max(1, Math.min(5, diff || 3)));
-    const statusLabels = ['⚪ 未開始', '🟢 已掌握', '🔴 需二刷'];
+    const starIcons = uiIcon('star', { filled: true }).repeat(Math.max(1, Math.min(5, diff || 3)));
+    const statusLabels = ['未開始', '已掌握', '需二刷'];
     const auditLabels = {
-      verified: '✅ 解答已校驗',
-      suspected_error: '⚠️ 待更正',
-      needs_manual_review: '🟡 待人工覆核',
+      verified: '解答已校驗',
+      suspected_error: '待更正',
+      needs_manual_review: '待人工覆核',
       not_attempted: '⏳ 尚未校驗',
     };
     const auditLabel = auditLabels[status] || '';
@@ -299,7 +299,7 @@ function renderQuestions() {
           <div class="qmeta">
             <span class="qid">${qid}</span>
             <span class="qtag" style="background: ${meta.color}15; color: ${meta.color}; border: 1px solid ${meta.color}30;">
-              ${meta.icon} ${meta.name.split('（')[0]}
+              ${meta.name.split('（')[0]}
             </span>
             <span class="diff-badge" title="難度評定：${diff} 星">${starIcons}</span>
             ${(tags || []).slice(1, 3).map(t => `<span class="qtag">${t}</span>`).join('')}
@@ -307,7 +307,7 @@ function renderQuestions() {
             ${typeof answerCorrectionBadgeHtml === 'function' ? answerCorrectionBadgeHtml(qid) : ''}
           </div>
           <button class="btn-star ${isStarred ? 'active' : ''}" onclick="toggleStarred('${qid}', event)" title="${isStarred ? '取消收藏' : '加入重點收藏'}">
-            ${isStarred ? '★' : '☆'}
+            ${uiIcon('star', { filled: isStarred })}
           </button>
         </div>
 
@@ -316,19 +316,19 @@ function renderQuestions() {
         <div class="qfooter">
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <button class="status-badge s-${curStatus}" onclick="toggleStatus('${qid}', event)" title="點擊切換做題掌握狀態">
-              ${statusLabels[curStatus]}
+              <span class="status-dot s-dot-${curStatus}"></span> ${statusLabels[curStatus]}
             </button>
             ${dueInfo.text ? `<span class="due-badge ${dueInfo.cssClass}" title="SM-2 智能間隔重複排程">${dueInfo.text}</span>` : ''}
           </div>
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse', recall: true})" class="btn-sol" style="background: var(--warn); border-color: var(--warn); box-shadow: 0 2px 6px rgba(196, 124, 93, 0.25);" title="開啟白紙蓋牌主動回想抽測">
-              🎴 蓋牌抽測
+              蓋牌抽測
             </button>
             <button onclick="openSolutionModal(event, '${solLink}', '${qid}', ${qnum}, {mode: 'browse'})" class="btn-sol" title="直接檢視完整 KaTeX 推導詳解">
-              📝 完整詳解
+              完整詳解
             </button>
             <a href="${pdfLink}" target="_blank" class="btn-pdf" title="在瀏覽器開啟考選部原題 PDF">
-              📄 查看原題 PDF
+              ${uiIcon('file-text')} 查看原題 PDF
             </a>
           </div>
         </div>

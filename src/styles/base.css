@@ -1,6 +1,6 @@
 /* src/styles/base.css */
 :root {
-  /* 🌿 莫蘭迪 (Morandi) 亮色主題 - 溫潤低飽和配色，長時間閱卷不疲勞 */
+  /* 莫蘭迪 (Morandi) 亮色主題 - 溫潤低飽和配色，長時間閱卷不疲勞 */
   --bg: #f8f6f0;
   --bg-secondary: #f0ebe1;
   --surface: #ffffff;
@@ -31,7 +31,7 @@
 }
 
 [data-theme="dark"] {
-  /* 🌌 莫蘭迪暗色護眼主題 */
+  /* 莫蘭迪暗色護眼主題 */
   --bg: #1c2125;
   --bg-secondary: #242b30;
   --surface: #2b3339;

@@ -42,6 +42,7 @@ for (const file of [
   'national-exams-data.js',
   'src/data/knowledge-dag.js',
   'src/data/knowledge-dag.generated.js',
+  'src/components/icons.js',
   'src/components/questionList.js',
   'src/components/topTopics.js',
 ]) {

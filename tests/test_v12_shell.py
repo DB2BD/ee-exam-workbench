@@ -30,10 +30,10 @@ class TestV12Shell(unittest.TestCase):
         buttons = re.findall(r'<button class="main-tab-btn[^"]*" id="(tab-btn-[a-z]+)"', top)
         self.assertEqual(buttons, ["tab-btn-practice", "tab-btn-mock", "tab-btn-scoreboard"])
         self.assertEqual(tabs.count("<details"), 1)
-        self.assertIn("⋯ 更多", tabs)
+        self.assertIn('data-ui-icon="more-horizontal"></span> 更多</summary>', tabs)
         self.assertNotIn("<details open", tabs)
-        for label in ("🎯 今天", "📄 模考", "📊 成績"):
-            self.assertIn(label, top)
+        for icon, label in (("calendar", "今天"), ("file-text", "模考"), ("bar-chart", "成績")):
+            self.assertIn('data-ui-icon="%s"></span> %s</span>' % (icon, label), top)
         menu = tabs[details_start:details_end]
         self.assertEqual(re.findall(r'id="(tab-btn-[a-z]+)"', menu), ["tab-btn-questions", "tab-btn-passbook", "tab-btn-backup"])
         self.assertIn("openPassbookModal()", menu)

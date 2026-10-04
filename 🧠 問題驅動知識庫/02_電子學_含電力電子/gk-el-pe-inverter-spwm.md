@@ -5,7 +5,7 @@ nodeId: gk-el-pe-inverter-spwm
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 066c21d9650da88983fe805d506bcbad5a6389bb02505d643d33e721a7252e58
 generatedBodyHash: f6978379237ab2189dad1e7fb3a48002ac0a5640d53b372a936f16e5e287b210
 ---

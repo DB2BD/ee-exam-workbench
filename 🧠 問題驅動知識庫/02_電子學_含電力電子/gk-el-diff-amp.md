@@ -5,7 +5,7 @@ nodeId: gk-el-diff-amp
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: fd011d1e8d3e9faf1d31560edda548458cfcf31466245724b88de480487aae41
 generatedBodyHash: dfdfbdf2f7ec22741d61d2ced5002c5237137bb049bf248cabaa3d846792e781
 ---

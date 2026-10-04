@@ -18,7 +18,7 @@ EXPECTED_BY_SUBJECT = {
     "05": {"EE-105-05-2", "EE-110-05-5"},
     "06": {"EE-109-06-3", "EE-113-06-3"},
 }
-# lean-v1 (AGENT-SOLVE.md) is the only accepted canonical structure.
+# lean-v1 題解版型 is the only accepted canonical structure.
 LEAN_SECTIONS = ("## 考場標準作答", "## 驗算", "## 失分點")
 
 

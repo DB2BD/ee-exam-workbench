@@ -5,7 +5,7 @@ nodeId: dist-lighting-design
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: a99488350ec7afbbbfaa29a411e19509e41f7b4f125019cfae4d699219467057
 generatedBodyHash: e23b7cd4624d39b0b1343d9c46dec7afa925851e5740771f42b7e8c4ba11ef39
 ---

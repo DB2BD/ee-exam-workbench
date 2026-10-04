@@ -5,7 +5,7 @@ nodeId: gk-el-diode-rectifier
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 26709c54b4b3d5e69b45331be616eeb618b15d4ccacaa9f0e0a6867370aae5ab
 generatedBodyHash: 343718473340a570eb635ed6feea1aa58589680005ce54c4ee2693447e396649
 ---

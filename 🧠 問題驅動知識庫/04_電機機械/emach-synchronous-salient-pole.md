@@ -5,7 +5,7 @@ nodeId: emach-synchronous-salient-pole
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 97e0d69a3ff0729f5cba86c67ab0817012284f64c3c1a5fa0e6b44d57a1ae76a
 generatedBodyHash: 1cc53bc6504fa88cb6ee6c82a45f11df9d7ef2ecb5b1f7a589ed1cec5d056ed5
 ---

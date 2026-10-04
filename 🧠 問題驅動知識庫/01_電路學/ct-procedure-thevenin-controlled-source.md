@@ -5,9 +5,9 @@ nodeId: ct-procedure-thevenin-controlled-source
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
-sourceHash: 7414c5f553268f82503a3d629cbefa60db136b4a4ffa6645c7fbd6afba28c9f7
-generatedBodyHash: bae6f76f26f7406ae45abe956d4b55b3039f84be0e9956cfaf06932c660d734a
+graphRevision: kg-v1-94aec3f278d6e297
+sourceHash: 713b77b43430b90937f48233e021423331c50a2532fbcfd891800cb8daf42a80
+generatedBodyHash: 391a0caae35680bed7a6d032c431533cfef295b057c121ce1c587b1aa031f10d
 ---
 # 含受控源的戴維寧等效求解流程
 
@@ -26,5 +26,5 @@ generatedBodyHash: bae6f76f26f7406ae45abe956d4b55b3039f84be0e9956cfaf06932c660d7
 - 尚無已核准的題目連結。
 
 ## Provenance
-- sourcePath: docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+- sourcePath: data/knowledge/golden-fixture.json
 - sourceType: golden-fixture

@@ -5,7 +5,7 @@ nodeId: emach-induction-motor-torque
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 36437d1749de50e619586ab237ccb32e72cc010f58549bda7a44e0af1c698087
 generatedBodyHash: baaec930bb48a33a883eb11331b56853c5311f4c27101ef8cd0eaed77ba1dcf5
 ---

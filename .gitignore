@@ -33,3 +33,33 @@ docs/spectra/.vector-search.db*
 node_modules/
 .qa-artifacts/
 .venv/
+
+# Internal / personal working files (kept locally, never published)
+💼 個人職涯發展與國際戰略/
+AGENT-GUIDE.md
+AGENT-SPEC.md
+AGENT-CODE.md
+AGENT-SOLVE.md
+AGENTS.md
+GEMINI.md
+NOTES.md
+CONTEXT.md
+PROJECT.yaml
+walkthrough.md
+SPEC_*.md
+/docs/WORKPLAN_*
+/docs/HANDOFF_*
+/docs/PROPOSAL_*
+/docs/IMPLEMENTATION_REPORT_*
+/docs/PERFORMANCE_BASELINE_*
+/docs/QA_WORKFLOW.md
+/docs/pe_manual_review_17_evidence.md
+/docs/adr/
+/docs/spectra/
+/docs/產品化企劃書_2026-09-05.md
+.obsidian/
+.agents/
+.spectra.yaml
+workflows/
+pyrefly.toml
+/home-*.png

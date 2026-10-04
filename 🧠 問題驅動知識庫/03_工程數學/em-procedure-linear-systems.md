@@ -5,9 +5,9 @@ nodeId: em-procedure-linear-systems
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
-sourceHash: 0db596bc1498528c5111871dc4fbded6be4bd904fd8123c4fc69a1fad2ca571d
-generatedBodyHash: eaaf382f71e3d092a2e01076a8b261fbedd5185e736614a475dd51666dcd9bb9
+graphRevision: kg-v1-94aec3f278d6e297
+sourceHash: 9a86618b15b638cbfd40e2032be620f564a9678b1afc447b1aed54201d53afb4
+generatedBodyHash: 041dd55c91db55fe376dbdc66df83e508d7cc7cdca91dd93f7862d71db68c3e6
 ---
 # 線性代數系統的特徵分解與 SVD 流程
 
@@ -26,5 +26,5 @@ generatedBodyHash: eaaf382f71e3d092a2e01076a8b261fbedd5185e736614a475dd51666dcd9
 - 尚無已核准的題目連結。
 
 ## Provenance
-- sourcePath: docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+- sourcePath: data/knowledge/golden-fixture.json
 - sourceType: golden-fixture

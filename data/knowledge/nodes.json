@@ -197,7 +197,7 @@
       "lifecycle": "active",
       "provenance": {
         "sourceType": "golden-fixture",
-        "sourcePath": "docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md"
+        "sourcePath": "data/knowledge/golden-fixture.json"
       },
       "nodeRevisionHash": "golden-ct-procedure-thevenin-v1"
     },
@@ -923,7 +923,7 @@
       "lifecycle": "active",
       "provenance": {
         "sourceType": "golden-fixture",
-        "sourcePath": "docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md"
+        "sourcePath": "data/knowledge/golden-fixture.json"
       },
       "nodeRevisionHash": "golden-em-procedure-linear-systems-v1"
     },
@@ -2619,7 +2619,7 @@
       "lifecycle": "active",
       "provenance": {
         "sourceType": "golden-fixture",
-        "sourcePath": "docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md"
+        "sourcePath": "data/knowledge/golden-fixture.json"
       },
       "nodeRevisionHash": "golden-pe-mainline-circuit-v1"
     },
@@ -2676,7 +2676,7 @@
       "lifecycle": "active",
       "provenance": {
         "sourceType": "golden-fixture",
-        "sourcePath": "docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md"
+        "sourcePath": "data/knowledge/golden-fixture.json"
       },
       "nodeRevisionHash": "golden-pe-mainline-math-v1"
     },
@@ -2688,7 +2688,7 @@
       "lifecycle": "active",
       "provenance": {
         "sourceType": "golden-fixture",
-        "sourcePath": "docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md"
+        "sourcePath": "data/knowledge/golden-fixture.json"
       },
       "nodeRevisionHash": "golden-pe-mainline-power-v1"
     },
@@ -2782,7 +2782,7 @@
       "lifecycle": "active",
       "provenance": {
         "sourceType": "golden-fixture",
-        "sourcePath": "docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md"
+        "sourcePath": "data/knowledge/golden-fixture.json"
       },
       "nodeRevisionHash": "golden-ps-procedure-slg-v1"
     },

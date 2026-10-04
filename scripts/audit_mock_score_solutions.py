@@ -19,7 +19,7 @@ SUBJECT_DIRS = {
     "05": "05_電力系統",
     "06": "06_工業配電",
 }
-# lean-v1 structure (AGENT-SOLVE.md); the legacy five-block form is retired.
+# lean-v1 題解版型; the legacy five-block form is retired.
 LEAN_HEADINGS = ("考場標準作答", "驗算", "失分點")
 REQUIRED_HEADINGS = LEAN_HEADINGS
 BULLET_HEADINGS = {"失分點"}

@@ -5,7 +5,7 @@ nodeId: gk-emach-induction-motor-torque
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 0c68cffa3fffb83f42ee927e0c504c9edc9a74014d8758375b87d66c03c79e9f
 generatedBodyHash: 24d13af0b956ed534049d683fc040ba6b7314e6cf5ae460cf1e77099cb146a3d
 ---

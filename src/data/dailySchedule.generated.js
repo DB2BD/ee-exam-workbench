@@ -393,7 +393,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-114-01-3",
+            "EE-112-01-4",
+            "EE-111-01-3"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -401,6 +411,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-114-01-3",
       "hours": 1.0
     },
     "CORE-08": {
@@ -433,7 +444,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-110-02-3",
+            "EE-106-02-4",
+            "EE-104-02-3"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -441,6 +462,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-110-02-3",
       "hours": 1.0
     },
     "CORE-09": {
@@ -473,7 +495,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-113-03-6",
+            "EE-104-03-4",
+            "EE-107-03-5"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -481,6 +513,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-113-03-6",
       "hours": 1.0
     },
     "CORE-10": {
@@ -513,7 +546,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-112-04-5",
+            "EE-107-04-2",
+            "EE-111-04-3"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -521,6 +564,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-112-04-5",
       "hours": 1.0
     },
     "CORE-11": {
@@ -553,7 +597,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-114-05-2",
+            "EE-109-05-3",
+            "EE-105-05-2"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -561,6 +615,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-114-05-2",
       "hours": 1.0
     },
     "CORE-12": {
@@ -593,7 +648,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-112-06-4",
+            "EE-112-06-3",
+            "EE-105-06-3"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -601,6 +666,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-112-06-4",
       "hours": 1.0
     },
     "CORE-13": {
@@ -819,7 +885,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-112-01-2",
+            "EE-111-01-2",
+            "EE-113-01-3"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -827,6 +903,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-112-01-2",
       "hours": 1.0
     },
     "CORE-20": {
@@ -859,7 +936,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-112-02-3",
+            "EE-107-02-3",
+            "EE-106-02-5"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -867,6 +954,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-112-02-3",
       "hours": 1.0
     },
     "CORE-21": {
@@ -899,7 +987,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-113-03-3",
+            "EE-111-03-3",
+            "EE-112-03-4"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -907,6 +1005,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-113-03-3",
       "hours": 1.0
     },
     "CORE-22": {
@@ -939,7 +1038,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-114-04-4",
+            "EE-113-04-2",
+            "EE-112-04-3"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -947,6 +1056,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-114-04-4",
       "hours": 1.0
     },
     "CORE-23": {
@@ -979,7 +1089,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-114-05-5",
+            "EE-112-05-4",
+            "EE-110-05-5"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -987,6 +1107,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-114-05-5",
       "hours": 1.0
     },
     "CORE-24": {
@@ -1019,7 +1140,17 @@ const DAILY_SCHEDULE = {
         {
           "label": "三題對照",
           "minutes": 15,
-          "closed": false
+          "closed": false,
+          "qids": [
+            "EE-110-06-4",
+            "EE-104-06-3",
+            "EE-113-06-3"
+          ],
+          "qidLabels": [
+            "母題",
+            "同型",
+            "變式"
+          ]
         },
         {
           "label": "下次動作",
@@ -1027,6 +1158,7 @@ const DAILY_SCHEDULE = {
           "closed": false
         }
       ],
+      "anchorQid": "EE-110-06-4",
       "hours": 1.0
     },
     "WEAK-01": {

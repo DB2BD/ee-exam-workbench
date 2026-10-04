@@ -81,7 +81,8 @@ function knowledgeReviewNow(dependencies) {
 }
 
 function knowledgeReviewDate(date) {
-  return date.toISOString().slice(0, 10);
+  const p = n => String(n).padStart(2, '0');
+  return date.getFullYear() + '-' + p(date.getMonth() + 1) + '-' + p(date.getDate());
 }
 
 function calculateKnowledgeReviewItem(currentItem, rating, nowValue) {

@@ -197,18 +197,6 @@ function dailyPracticeSave(state) {
   return result;
 }
 
-function dailyPracticeSetCategory(category) {
-  dailyPracticeCategory = category === 'GK' ? 'GK' : 'PE';
-  const select = document.getElementById('daily-practice-subject');
-  if (!select) return;
-  select.innerHTML = '<option value="all">跨科混合（全部科目）</option>' +
-    dailyPracticeSubjects(dailyPracticeCategory).map(subject =>
-      '<option value="' + subject.id + '">' + dailyPracticeSubjectLabel(dailyPracticeCategory, subject.id) + '</option>'
-    ).join('');
-  select.value = dailyPracticeSubjects(dailyPracticeCategory).some(item => String(item.id) === String(dailyPracticeSubject))
-    ? dailyPracticeSubject : 'all';
-}
-
 function dailyPracticeBuildQueue(mode, questions, loaded) {
   const base = {
     count: 3,

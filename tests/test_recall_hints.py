@@ -25,7 +25,9 @@ def run_node(expression, setup=""):
         + f"vm.runInContext({json.dumps(setup)}, context);\n"
         + f"process.stdout.write(JSON.stringify(vm.runInContext({json.dumps(expression)}, context)));\n"
     )
-    done = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True)
+    # Feed the script on stdin: the generated data exceeds Linux's 128 KiB
+    # per-argument limit, so `node -e <script>` fails in CI.
+    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
     if done.returncode:
         raise AssertionError(done.stderr)
     return json.loads(done.stdout)

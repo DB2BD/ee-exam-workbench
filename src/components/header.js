@@ -69,7 +69,7 @@ function exportProgressJSON() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `電機國考備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `電機國考備考進度_${currentExamCategory}_${formatLocalCalendarDate(new Date())}.json`;
   a.click();
   URL.revokeObjectURL(url);
   showToast("備考與 SM-2 排程進度已成功匯出備份！");

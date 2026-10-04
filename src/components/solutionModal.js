@@ -1296,10 +1296,7 @@ function revealRecallHint() {
 }
 
 function revealRecallFull() {
-  if (currentRecallAchievedLevel < 3) {
-    if (typeof showToast === 'function') showToast('請依序完成前 3 段提示後，再揭曉完整推導。');
-    return;
-  }
+  // ①–③ are optional hints; the learner may go straight to the full solution.
   const fullEl = document.getElementById('recall-full-section');
   const boxEl = document.getElementById('recall-step-box');
   if (fullEl) fullEl.style.display = 'block';
@@ -1590,8 +1587,9 @@ function syncRecallRevealPresentation() {
   const buttons = box && typeof box.querySelectorAll === 'function' ? [...box.querySelectorAll('.btn-reveal-hint, .btn-reveal-full')] : [];
   buttons.forEach((button, index) => {
     const step = index + 1;
-    button.disabled = step !== currentRecallAchievedLevel + 1;
-    button.title = button.disabled && step > currentRecallAchievedLevel + 1 ? '請先完成上一段揭露' : '';
+    const isFull = button.classList && button.classList.contains('btn-reveal-full');
+    button.disabled = isFull ? currentRecallAchievedLevel >= 4 : step !== currentRecallAchievedLevel + 1;
+    button.title = !isFull && button.disabled && step > currentRecallAchievedLevel + 1 ? '請先完成上一段揭露' : '';
   });
 }
 

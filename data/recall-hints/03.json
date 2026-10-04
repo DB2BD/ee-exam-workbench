@@ -1,0 +1,194 @@
+{
+ "EE-104-03-1": {
+  "activationMd": "係數含 \\(t\\)，仍可用拉氏轉換：令 \\(Y(s)=\\mathcal L\\{y\\}\\)，用 \\(\\mathcal L\\{t\\,g(t)\\}=-\\dfrac{d}{ds}\\mathcal L\\{g\\}\\) 轉換 \\(4t\\,y'\\) 項，並代入 \\(y(0)=0,\\ y'(0)=-7\\)，先把原方程化成 \\(Y(s)\\) 的一階 ODE。"
+ },
+ "EE-104-03-2": {
+  "activationMd": "先寫特徵方程 \\(\\det(A-\\lambda I)=0\\)，沿零最多的列（行）展開得 \\(\\lambda\\) 的多項式；每個 \\(\\lambda\\) 再解 \\((A-\\lambda I)v=0\\)，把特徵向量排成欄得 \\(P\\)，\\(\\Lambda\\) 為對應特徵值的對角矩陣。"
+ },
+ "EE-104-03-3": {
+  "activationMd": "實軸上 \\(x=0,4\\) 為一階極點，積分取柯西主值。用上半平面大半圓圍線，實軸極點以小半圓繞過：\n\\[\n\\operatorname{PV}\\!\\int_{-\\infty}^{\\infty}f\\,dx=\\operatorname{Re}\\Bigl\\{2\\pi i\\sum_{\\operatorname{Im}z>0}\\operatorname{Res}f+\\pi i\\sum_{\\text{實軸極點}}\\operatorname{Res}f\\Bigr\\}\n\\]\n先由 \\(x^2+9=0\\) 找出上半平面極點，並說明大圓弧貢獻為零。"
+ },
+ "EE-104-03-4": {
+  "activationMd": "所有期望值都用同一型式在單位正方形上做二重積分：\n\\[\nE[g(X,Y)]=\\int_0^1\\!\\!\\int_0^1 g(x,y)\\,x\\left(y+\\tfrac32\\right)dy\\,dx\n\\]\n依序令 \\(g=x,\\ y,\\ x^2,\\ xy\\)（可先用 \\(g=1\\) 檢查密度已歸一）。"
+ },
+ "EE-104-03-5": {
+  "activationMd": "線積分先參數化直線段：\n\\[\n\\mathbf r(u)=(1,1,1)+u\\bigl[(-2,1,3)-(1,1,1)\\bigr],\\quad 0\\le u\\le1\n\\]\n寫出 \\(x(u),y(u),z(u)\\) 及 \\(dx,dy,dz\\)，注意哪一個微分為零，再代入被積式化成單變數定積分。"
+ },
+ "EE-105-03-1": {
+  "activationMd": "通解含兩個任意常數，故為二階常係數線性 ODE。由 \\(e^{3x}\\) 與 \\(\\sin x,\\cos x\\) 的指數、頻率讀出共軛特徵根，寫出特徵多項式得左側算子 \\(L[y]\\)；再把與常數無關的特解 \\(2e^{3x}\\) 代入 \\(L[y]=g(x)\\) 決定右側 \\(g(x)\\)。"
+ },
+ "EE-105-03-2": {
+  "activationMd": "\\(f\\) 為週期 \\(T=\\pi/\\omega\\) 的週期函數，套週期函數拉氏轉換公式：\n\\[\n\\mathcal L\\{f\\}=\\frac{1}{1-e^{-sT}}\\int_0^{T}e^{-st}\\sin\\omega t\\,dt\n\\]\n分子積分用兩次分部積分或 \\(\\operatorname{Im}\\int_0^Te^{(-s+i\\omega)t}dt\\) 求出。"
+ },
+ "EE-105-03-3": {
+  "activationMd": "\\(\\operatorname{Im}z\\) 不解析，不能用原函數，直接用題給路徑參數化：\\(z(t)=t^3+it\\)，\\(0\\le t\\le1\\)，則\\n\\[\\n\\operatorname{Im}z=t,\\qquad dz=(3t^2+i)\\,dt\\n\\]\\n代入化成 \\(\\int_0^1\\) 的單變數定積分，實部與虛部分開積。"
+ },
+ "EE-105-03-4": {
+  "activationMd": "先把被積函數寫成 \\(\\dfrac{f(z)}{z-z_0}\\)，\\(f\\) 為分子；檢查唯一極點 \\(z_0\\) 的模是否小於圓的半徑 2（在圓內）。成立後用柯西積分公式：積分等於 \\(2\\pi i\\) 乘上 \\(f\\) 在 \\(z_0\\) 的值，只需把 \\(z_0\\) 代入分子。"
+ },
+ "EE-105-03-5": {
+  "activationMd": "CDF 題：\\(P(a\\le X\\le b)=F(b)-F(a^-)\\)，\\(P(X>b)=1-F(b)\\)。先確認 \\(x=1/2\\) 與 \\(x=3/2\\) 各落在哪一段分段式且 \\(F\\) 在這兩點連續（\\(F\\) 在 \\(x=1\\) 的跳躍落在區間內部，已含在差值中），再代入該段。"
+ },
+ "EE-105-03-6": {
+  "activationMd": "設 \\(W_i,R_i\\) 為第 \\(i\\) 顆為白、紅球。不放回用乘法法則，放回則兩次獨立：\n\\[\nP(W_1W_2)=P(W_1)\\,P(W_2\\mid W_1),\\qquad P(R_2)=\\sum_{c}P(R_2\\mid C_1=c)\\,P(C_1=c)\n\\]\n其中 \\(c\\) 為第一顆的顏色（黑、紅、白）。"
+ },
+ "EE-105-03-7": {
+  "activationMd": "用線性性：先把輸入寫成標準基底的組合 \\(\\begin{bmatrix}7\\\\6\\end{bmatrix}=7\\mathbf e_1+6\\mathbf e_2\\)，則\\n\\[\\nT\\!\\begin{bmatrix}7\\\\6\\end{bmatrix}=7\\,T(\\mathbf e_1)+6\\,T(\\mathbf e_2)\\n\\]\\n再代入題給的兩個基底像。"
+ },
+ "EE-105-03-8": {
+  "activationMd": "\\(A\\) 為實對稱矩陣，可正交對角化（取 \\(Y^T=Y^{-1}\\)，則 \\(Y^TAY\\) 即相似對角化）。先寫 \\(\\det(A-\\lambda I)=0\\) 求特徵值，再對每個特徵值解 \\((A-\\lambda I)v=0\\)；若有重根，其特徵空間要用 Gram–Schmidt 正交化，所有向量單位化後排成 \\(Y\\) 的欄。"
+ },
+ "EE-106-03-1": {
+  "activationMd": "觀察 \\(A\\) 為分塊對角：\\(A=\\operatorname{diag}(B_1,B_2)\\)，故 \\(A^{-1}=\\operatorname{diag}(B_1^{-1},B_2^{-1})\\)。兩個 \\(2\\times2\\) 區塊各用\n\\[\n\\begin{bmatrix}a&b\\\\c&d\\end{bmatrix}^{-1}=\\frac{1}{ad-bc}\\begin{bmatrix}d&-b\\\\-c&a\\end{bmatrix}\n\\]\n注意各自的行列式符號。"
+ },
+ "EE-106-03-2": {
+  "activationMd": "\\(A\\) 為 \\(4\\times2\\)（方程多於未知數），最小平方解滿足正規方程：\n\\[\nA^TA\\,x=A^Tb\n\\]\n先分別算 \\(A^TA\\)（\\(2\\times2\\)）與 \\(A^Tb\\)，再解 \\(2\\times2\\) 線性系統。"
+ },
+ "EE-106-03-3": {
+  "activationMd": "方程為 \\(y''+4y'+4y=\\dfrac{2e^{-2x}}{x^2}\\)。先寫齊次特徵方程並辨認根的型態（重根）得 \\(y_h\\)。右側含 \\(1/x^2\\)，不能用待定係數；改用降階（令 \\(y=e^{rx}v\\)，\\(r\\) 為該重根）或變數變易法。"
+ },
+ "EE-106-03-4": {
+  "activationMd": "積分項是卷積 \\((1+t)*y\\)，取拉氏轉換並用卷積定理：\n\\[\nY(s)=\\mathcal L\\{1-\\sinh t\\}+\\mathcal L\\{1+t\\}\\,Y(s)\n\\]\n把 \\(Y(s)\\) 當未知數解代數方程，再反轉換。"
+ },
+ "EE-106-03-5": {
+  "activationMd": "把 \\(z=1-\\sqrt3\\,i\\) 化極式：先算 \\(|z|\\)，依所在象限決定 \\(\\arg z\\)，寫成 \\(z=|z|e^{i\\theta}\\)，再用 De Moivre \\(z^{n}=|z|^{n}e^{in\\theta}\\)（\\(n=12\\)）。"
+ },
+ "EE-106-03-6": {
+  "activationMd": "密度 \\(f(x)=kxe^{-x}\\)（\\(x>0\\)）。(一) 歸一化條件 \\(\\displaystyle\\int_0^\\infty f(x)\\,dx=1\\) 決定 \\(k\\)（用 \\(\\int_0^\\infty x^ne^{-x}dx=n!\\)）。(二) \\(F(x)=\\int_0^x f(u)\\,du\\)，分段寫 \\(x\\le0\\) 與 \\(x>0\\)，後者用分部積分。"
+ },
+ "EE-106-03-7": {
+  "activationMd": "公平骰子各面機率相等。用\n\\[\n\\operatorname{Var}(X)=E[X^2]-(E[X])^2,\\qquad E[g(X)]=\\sum_{k=1}^{6}g(k)\\,P(X=k)\n\\]\n分別算 \\(E[X]\\) 與 \\(E[X^2]\\)，注意兩者不同。"
+ },
+ "EE-106-03-8": {
+  "activationMd": "半徑 \\(R\\) 等可能取 \\(1,2,\\dots,10\\)（各機率 \\(\\tfrac1{10}\\)），面積 \\(\\pi R^2\\) 是 \\(R\\) 的非線性函數，期望值用\\n\\[\\nE[\\pi R^2]=\\pi\\sum_{r=1}^{10}r^2\\cdot\\frac1{10}\\n\\]\\n不可寫成 \\(\\pi\\,(E[R])^2\\)；平方和用 \\(\\sum_{r=1}^{n}r^2=\\tfrac{n(n+1)(2n+1)}{6}\\)。"
+ },
+ "EE-107-03-1": {
+  "activationMd": "可分離變數：把含 \\(y\\) 的項移到 \\(dy\\) 側、含 \\(t\\) 的項移到 \\(dt\\) 側：\n\\[\n\\frac{3\\,dy}{y(y^3-1)}=\\frac{2t}{1+t^2}\\,dt\n\\]\n左側用部分分式（或令 \\(u=y^3\\)）積分，最後用 \\(y(0)=2\\) 定常數。"
+ },
+ "EE-107-03-2": {
+  "activationMd": "先寫 \\(\\det(A-\\lambda I)=0\\)，沿含零的第三列展開成 \\(\\lambda\\) 的三次式；以有理根試根找出一個根後做綜合除法，剩下的二次式用公式解（不必預設全為實根）。每個 \\(\\lambda\\) 再解 \\((A-\\lambda I)v=0\\)，特徵向量依序排成 \\(P\\) 的欄。"
+ },
+ "EE-107-03-3": {
+  "activationMd": "題稱封閉曲面，但 \\(0\\le z\\le2\\) 的圓錐面無頂蓋，要先說明口徑。面積分：側面參數化 \\(\\vec r=(r\\cos\\theta,\\ r\\sin\\theta,\\ r)\\)，外向面積元 \\(d\\vec A=(r\\cos\\theta,\\ r\\sin\\theta,\\ -r)\\,dr\\,d\\theta\\)；散度定理：補上頂蓋 \\(z=2\\)（\\(\\hat n=\\hat k\\)）成封閉體 \\(V\\)：\\n\\[\\n\\iint_{\\text{側面}}\\vec F\\cdot\\hat n\\,dA+\\iint_{\\text{頂蓋}}\\vec F\\cdot\\hat k\\,dA=\\iiint_V\\nabla\\cdot\\vec F\\,dV\\n\\]\\n先算 \\(\\nabla\\cdot\\vec F\\)，體積分用圓柱座標，並單獨算頂蓋通量。"
+ },
+ "EE-107-03-4": {
+  "activationMd": "週期 \\(2\\pi\\)，傅立葉係數公式：\\n\\[\\na_0=\\frac1\\pi\\int_{-\\pi}^{\\pi}f\\,dx,\\quad a_n=\\frac1\\pi\\int_{-\\pi}^{\\pi}f\\cos nx\\,dx,\\quad b_n=\\frac1\\pi\\int_{-\\pi}^{\\pi}f\\sin nx\\,dx\\n\\]\\n\\(f\\) 只在 \\([0,\\pi)\\) 非零，積分區間縮成 \\([0,\\pi]\\)；\\(\\sin x\\cos nx\\)、\\(\\sin x\\sin nx\\) 用積化和差，\\(n=1\\)（\\(a_1,b_1\\)）與 \\(n\\ge2\\) 分開處理。"
+ },
+ "EE-107-03-5": {
+  "activationMd": "放回：每次獨立，用二項分布 \\(P(X=x)=\\binom{3}{x}p^x(1-p)^{3-x}\\)，\\(p=\\)損壞比例。不放回：用超幾何分布\n\\[\nP(X=x)=\\frac{\\binom{K}{x}\\binom{N-K}{3-x}}{\\binom{N}{3}}\n\\]\n其中 \\(N\\) 為總數、\\(K\\) 為損壞數，並寫明 \\(x\\) 的範圍。"
+ },
+ "EE-108-03-2": {
+  "activationMd": "先寫特徵方程 \\(\\det(A-\\lambda I)=0\\)，沿第一列展開（該列只有對角元非零），把行列式寫成因式乘積直接讀出三個特徵值；各 \\(\\lambda\\) 再解 \\((A-\\lambda I)v=0\\)，每個特徵值都要給出非零特徵向量。"
+ },
+ "EE-108-03-3": {
+  "activationMd": "(一) \\(\\nabla T=\\left(\\dfrac{\\partial T}{\\partial x},\\dfrac{\\partial T}{\\partial y},\\dfrac{\\partial T}{\\partial z}\\right)\\) 再代入點。(二) 方向導數須先把方向向量單位化：\n\\[\nD_{\\hat u}T=\\nabla T\\cdot\\hat u,\\qquad \\hat u=\\frac{\\vec d}{\\lVert\\vec d\\rVert}\n\\]"
+ },
+ "EE-108-03-4": {
+  "activationMd": "封閉曲面、外向通量，直接用散度定理：\n\\[\n\\iint_S\\vec F\\cdot\\hat n\\,dA=\\iiint_V\\nabla\\cdot\\vec F\\,dV\n\\]\n先算 \\(\\nabla\\cdot\\vec F\\)，再乘上 \\(V\\) 的體積。"
+ },
+ "EE-108-03-5": {
+  "activationMd": "先因式分解 \\(z^2-1=(z-1)(z+1)\\) 找極點 \\(\\pm1\\)；各圓半徑為 1，判斷每個圓內含哪一個極點（另一個在圓外）。再用\n\\[\n\\oint_C f\\,dz=2\\pi i\\sum_{\\text{圓內}}\\operatorname{Res}f\n\\]\n一階極點的留數為 \\(\\lim_{z\\to z_0}(z-z_0)f(z)\\)。"
+ },
+ "EE-108-03-6": {
+  "activationMd": "先把已知條件展開：\\(E[X(X-4)]=E[X^2]-4E[X]\\)，代入 \\(E(X)\\) 求 \\(E[X^2]\\)。後兩小題用線性性 \\(E[aX+b]=aE[X]+b\\)，及 \\(\\sigma_{aX+b}=|a|\\,\\sigma_X\\)，其中 \\(\\operatorname{Var}(X)=E[X^2]-(E[X])^2\\)。"
+ },
+ "EE-109-03-1": {
+  "activationMd": "方程 \\(y''-10y'+25y=75x+20\\)。先寫齊次特徵方程並辨認根型態得 \\(y_h\\)；右側為一次多項式，設一次多項式為特解（先檢查 0 是否為特徵根），代入比較係數。"
+ },
+ "EE-109-03-2": {
+  "activationMd": "\\(e^{y^2}\\) 對 \\(y\\) 無初等反導函數，故改變積分順序：畫出區域 \\(R\\)（拋物線 \\(y=x^2\\) 與 \\(y=4\\)、\\(x=0\\) 圍成），改成 \\(y\\) 在外層、\\(x\\) 在內層，內層上限由 \\(y=x^2\\) 反解 \\(x\\)。先對 \\(x\\) 積分後，外層可用 \\(u=y^2\\) 代換。"
+ },
+ "EE-109-03-3": {
+  "activationMd": "聯合密度在矩形 \\(0\\le x\\le5,\\ 0\\le y\\le3\\) 上為常數 \\(\\tfrac1{15}\\)，故機率等於 \\(\\tfrac1{15}\\) 乘交疊區域面積。畫出矩形與直線 \\(y=x\\)，取 \\(y\\) 在外層：\\n\\[\\nP(X>Y)=\\int_0^3\\!\\!\\int_y^5\\frac1{15}\\,dx\\,dy\\n\\]"
+ },
+ "EE-109-03-4": {
+  "activationMd": "先判斷 \\(f\\) 在 \\((-\\pi,\\pi)\\) 的奇偶性，決定哪些係數為零。奇函數時\n\\[\nb_n=\\frac2\\pi\\int_0^\\pi f(x)\\sin nx\\,dx\n\\]\n用一次分部積分，並注意 \\(\\cos n\\pi=(-1)^n\\)。"
+ },
+ "EE-109-03-5": {
+  "activationMd": "先算 \\(\\det A\\) 確認 \\(A\\) 可逆，再用高斯–約旦消去：對增廣矩陣 \\([\\,A\\mid I\\,]\\) 做列運算，左側化為 \\(I\\) 時右側即為反矩陣；也可用餘因子矩陣轉置作交叉驗算。"
+ },
+ "EE-110-03-1": {
+  "activationMd": "積分項是 \\(f(t)\\) 與 \\(e^{-t}\\) 的卷積，兩邊取拉氏轉換並用卷積定理：\\n\\[\\nF(s)=\\mathcal L\\{2t^2\\}+\\frac{1}{s+1}\\,F(s)\\n\\]\\n把 \\(F(s)\\) 當未知數解代數方程，化簡後反轉換。"
+ },
+ "EE-110-03-2": {
+  "activationMd": "可分離變數：設 \\(y\\neq0\\)，兩邊除以 \\(y^2\\) 得\\n\\[\\n\\int y^{-2}\\,dy=\\int e^{-2x}\\,dx\\n\\]\\n兩邊積分後解出 \\(y\\)，並另外檢查分離時除掉的情形。"
+ },
+ "EE-110-03-3": {
+  "activationMd": "取 \\(-\\pi<x<\\pi\\) 作 \\(2\\pi\\) 週期延拓，把 \\(f\\) 拆成奇部 \\(x\\)（只貢獻 \\(b_n\\)）與偶部 \\(-x^2\\)（貢獻 \\(a_0,a_n\\)）：\n\\[\na_n=\\frac1\\pi\\int_{-\\pi}^{\\pi}f\\cos nx\\,dx,\\quad b_n=\\frac1\\pi\\int_{-\\pi}^{\\pi}f\\sin nx\\,dx\n\\]\n各用分部積分，並以 \\(\\cos n\\pi=(-1)^n\\) 化簡。"
+ },
+ "EE-110-03-4": {
+  "activationMd": "依題給參數式 \\(x=t^3,\\ y=-t,\\ z=t^2\\)（\\(1\\le t\\le2\\)）換成 \\(t\\)：\\n\\[\\ndx=3t^2\\,dt,\\quad dy=-dt,\\quad dz=2t\\,dt\\n\\]\\n代入 \\(x\\,dx-yz\\,dy+e^z\\,dz\\)，化成 \\(\\int_1^2\\) 的單變數定積分，逐項積分。"
+ },
+ "EE-110-03-5": {
+  "activationMd": "改變率即方向導數。先求\\n\\[\\n\\nabla f=\\bigl(2xy-y^2+z^2,\\ x^2-2xy,\\ 2xz\\bigr)\\n\\]\\n代入點 \\((1,-1,1)\\)；方向向量 \\((1,-2,1)\\) 先除以其長度單位化，再用 \\(D_{\\hat u}f=\\nabla f\\cdot\\hat u\\)。"
+ },
+ "EE-110-03-6": {
+  "activationMd": "(一) 沿只有一個非零元的第二列展開求 \\(\\det A\\)。(二) 特徵方程 \\(\\det(A-\\lambda I)=0\\) 同樣沿第二列展開，先提出 \\((2-\\lambda)\\) 因式，剩下 \\(2\\times2\\) 行列式為 \\(\\lambda\\) 的二次式；各 \\(\\lambda\\) 解 \\((A-\\lambda I)v=0\\)。(三) 依同順序把特徵向量排成 \\(P\\) 的欄。"
+ },
+ "EE-110-03-7": {
+  "activationMd": "先用歸一化條件決定 \\(a\\)：\n\\[\n\\int_0^2 a(x+1)\\,dx=1\n\\]\n再用 \\(E[X]=\\int xp\\,dx\\) 與 \\(\\operatorname{Var}(X)=E[X^2]-(E[X])^2\\)，其中 \\(E[X^2]=\\int x^2p\\,dx\\)。"
+ },
+ "EE-111-03-1": {
+  "activationMd": "以 \\(x^2-x\\) 除全式化成標準式 \\(y''+P(x)y'+Q(x)y=0\\)，讀出 \\(P\\)，用已知解 \\(y_1\\) 做降階法：\n\\[\ny_2=y_1\\int\\frac{e^{-\\int P\\,dx}}{y_1^2}\\,dx\n\\]"
+ },
+ "EE-111-03-2": {
+  "activationMd": "\\(F(s)\\) 含對數，無法直接查表。利用 \\(\\mathcal L\\{t\\,f(t)\\}=-F'(s)\\)：先對 \\(F(s)\\) 微分得有理式，部分分式反轉換得 \\(t\\,f(t)\\)，最後除以 \\(t\\)。"
+ },
+ "EE-111-03-3": {
+  "activationMd": "先找被積函數的極點 \\(z=-3,\\ 1\\)，比較與圓 \\(|z|=2.5\\) 的位置，只取圓內者：\n\\[\n\\oint_C f\\,dz=2\\pi i\\sum_{\\text{圓內}}\\operatorname{Res}f\n\\]\n(二) 中 \\(z=1\\) 為二階極點，留數用 \\(\\dfrac{d}{dz}\\bigl[(z-1)^2f(z)\\bigr]_{z=1}\\)。"
+ },
+ "EE-111-03-4": {
+  "activationMd": "\\(A\\) 為實對稱矩陣：奇異值 \\(\\sigma_i=\\sqrt{\\lambda_i(A^TA)}\\)，且在 \\(x^Tx=1\\) 下 \\(x^TAx\\) 的最小、最大值為 \\(A\\) 的最小、最大特徵值（Rayleigh 商）。先寫 \\(\\det(A-\\lambda I)=0\\)。"
+ },
+ "EE-111-03-5": {
+  "activationMd": "(一) \\(\\nabla\\cdot\\vec F=\\partial_xF_1+\\partial_yF_2+\\partial_zF_3\\)，旋度用 \\(\\begin{vmatrix}\\vec i&\\vec j&\\vec k\\\\ \\partial_x&\\partial_y&\\partial_z\\\\ F_1&F_2&F_3\\end{vmatrix}\\) 展開。(二) 先檢查被積向量場的旋度是否為零（保守場），若是則找位勢 \\(\\varphi\\) 使 \\(\\nabla\\varphi=(3x^2,2yz,y^2)\\)，積分值為終點減起點的 \\(\\varphi\\)。"
+ },
+ "EE-111-03-6": {
+  "activationMd": "密度分兩段，期望值也分兩段積分：\\n\\[\\nE[g(X)]=\\int_0^1 g(x)\\,x\\,dx+\\int_1^2 g(x)\\,(2-x)\\,dx\\n\\]\\n依序令 \\(g=x,\\ x^2,\\ x^3\\)；變異數用 \\(\\operatorname{Var}(X)=E[X^2]-(E[X])^2\\)。"
+ },
+ "EE-112-03-1": {
+  "activationMd": "把 \\(g(t)\\) 寫成單位階躍函數 \\(u(t-5)-u(t-20)\\)，對方程取拉氏轉換（\\(y(0)=y'(0)=0\\)）：\n\\[\n(2s^2+s+2)\\,Y(s)=\\frac{e^{-5s}-e^{-20s}}{s}\n\\]\n解 \\(Y(s)\\)，反轉換時用第二平移定理。"
+ },
+ "EE-112-03-2": {
+  "activationMd": "題目兩段定義合計長 \\(6\\)，與 \\(f(x+4)=f(x)\\) 的週期 \\(4\\) 矛盾，作答時先註明：以週期 \\(4\\)（\\(L=2\\)）為準，取基本區間 \\([-2,2)\\) 並沿用兩段公式。採 \\(f\\sim a_0+\\sum\\bigl[a_n\\cos\\frac{n\\pi x}{2}+b_n\\sin\\frac{n\\pi x}{2}\\bigr]\\)：\\n\\[\\na_0=\\frac14\\int_{-2}^{2}f\\,dx,\\quad a_n=\\frac12\\int_{-2}^{2}f\\cos\\frac{n\\pi x}{2}\\,dx,\\quad b_n=\\frac12\\int_{-2}^{2}f\\sin\\frac{n\\pi x}{2}\\,dx\\n\\]\\n先判斷 \\(f\\) 在 \\([-2,2)\\) 的奇偶性，分部積分時留意 \\(\\cos n\\pi=(-1)^n\\)。"
+ },
+ "EE-112-03-3": {
+  "activationMd": "令 \\(H\\) 為命中。射手機率依發射數比例加權，用全機率與貝氏公式：\n\\[\nP(H)=\\sum_{i}\\frac{n_i}{\\sum n}\\,p_i,\\qquad P(B\\mid H)=\\frac{p_B\\,P(B)}{P(H)}\n\\]"
+ },
+ "EE-112-03-4": {
+  "activationMd": "用柯西–黎曼方程 \\(u_x=v_y,\\ u_y=-v_x\\)：先求 \\(u_x\\)，對 \\(y\\) 積分得 \\(v=\\int u_x\\,dy+h(x)\\)，再用 \\(u_y=-v_x\\) 決定 \\(h(x)\\)。"
+ },
+ "EE-112-03-5": {
+  "activationMd": "先逐分量用乘積法則求 \\(\\mathbf F'(t)\\) 並化簡，再求 \\(\\lVert\\mathbf F'\\rVert\\)；單位切向量 \\(\\mathbf T=\\dfrac{\\mathbf F'(t)}{\\lVert\\mathbf F'(t)\\rVert}\\)（排除 \\(\\mathbf F'=0\\) 的 \\(t\\)）。曲率定義為 \\(\\kappa=\\lVert d\\mathbf T/ds\\rVert\\)，用鏈鎖律 \\(ds/dt=\\lVert\\mathbf F'\\rVert\\) 換成對 \\(t\\) 微分。"
+ },
+ "EE-112-03-6": {
+  "activationMd": "(一) 列出 \\(3\\times5\\) 增廣矩陣 \\([A\\ b\\mid c]\\)，高斯消去，辨認主元欄與自由變數，把解寫成參數式。(二) 寫特徵方程 \\(\\det(A-\\lambda I)=0\\)，各 \\(\\lambda\\) 解 \\((A-\\lambda I)v=0\\) 後單位化。"
+ },
+ "EE-113-03-1": {
+  "activationMd": "方程 \\(y''-4y'+5y=e^{2x}\\csc x\\)。先寫特徵方程求 \\(y_h\\) 得兩個基本解 \\(y_1,y_2\\)；右側含 \\(\\csc x\\) 不能待定係數，用變數變易法：\n\\[\nu_1'=-\\frac{y_2\\,g}{W},\\qquad u_2'=\\frac{y_1\\,g}{W},\\qquad y_p=u_1y_1+u_2y_2\n\\]"
+ },
+ "EE-113-03-2": {
+  "activationMd": "\\(f(t)=\\dfrac{1}{2\\beta^3}(\\sin\\beta t-\\beta t\\cos\\beta t)\\)。拆項用已知轉換對：\\(\\mathcal L\\{\\sin\\beta t\\}\\) 直接查表；\\(t\\cos\\beta t\\) 用 \\(\\mathcal L\\{t\\,g(t)\\}=-\\dfrac{d}{ds}G(s)\\)（\\(g=\\cos\\beta t\\)，\\(G=\\mathcal L\\{g\\}\\)）。線性組合後通分。"
+ },
+ "EE-113-03-3": {
+  "activationMd": "令 \\(f(z)=\\dfrac{\\sqrt2}{1+16z^4}\\)，解 \\(1+16z^4=0\\) 的四個根，只取上半平面者；用上半平面大半圓圍線（分母次數比分子高 4，大圓弧貢獻為零）：\n\\[\n\\int_{-\\infty}^{\\infty}f\\,dx=2\\pi i\\sum_{\\operatorname{Im}z_k>0}\\operatorname{Res}_{z_k}f\n\\]\n一階極點留數用 \\(\\dfrac{N(z_k)}{D'(z_k)}\\)。"
+ },
+ "EE-113-03-4": {
+  "activationMd": "設對稱 \\(P=\\begin{bmatrix}p&q\\\\q&r\\end{bmatrix}\\)，代入 \\(PA+A^TP=-I\\)，比較三個獨立元素得三元線性方程組。(二) 對求出的 \\(P\\) 寫 \\(\\det(P-\\lambda I)=0\\)。"
+ },
+ "EE-113-03-5": {
+  "activationMd": "(一) \\(r'(t)\\) 逐分量微分，\\(T=\\dfrac{r'}{\\lVert r'\\rVert}\\)。(二) 封閉球面、外向通量，用散度定理：\n\\[\n\\iint_SF\\cdot n\\,dA=\\iiint_V\\nabla\\cdot F\\,dV\n\\]\n先算 \\(\\nabla\\cdot F\\)，再乘球體積 \\(\\tfrac43\\pi R^3\\)（\\(R\\) 由 \\(S\\) 方程讀出）。"
+ },
+ "EE-113-03-6": {
+  "activationMd": "(一) 歸一化 \\(\\displaystyle\\int_0^\\infty\\!\\!\\int_0^\\infty k\\,e^{-x-y/2}\\,dx\\,dy=1\\)，指數函數可拆成 \\(x\\) 部分乘 \\(y\\) 部分，用 \\(\\int_0^\\infty t^ne^{-at}dt=\\dfrac{n!}{a^{n+1}}\\) 決定 \\(k\\)。(二) 先求邊際密度 \\(p_Y(y)=\\int_0^\\infty p(x,y)\\,dx\\)，再 \\(E[Y]=\\int_0^\\infty y\\,p_Y(y)\\,dy\\)。(三) \\(E[X^3Y^2]=\\iint x^3y^2\\,p\\,dx\\,dy\\)，同樣拆成兩個單變數積分。"
+ },
+ "EE-114-03-1": {
+  "activationMd": "令 \\(A_i\\) 為郵件進入帳戶 \\(i\\)，三者互斥且涵蓋全部，用全機率公式：\n\\[\nP(S)=\\sum_{i}P(S\\mid A_i)\\,P(A_i)\n\\]\n把題給的各帳戶郵件比例與垃圾郵件比例代入。"
+ },
+ "EE-114-03-2": {
+  "activationMd": "單位圓內奇點在 \\(z=0\\)，且為本性奇點，不能用極點公式。把 \\(e^{w}=\\sum_{k\\ge0}\\dfrac{w^k}{k!}\\) 取 \\(w=1/z^2\\) 寫出 Laurent 展開，找 \\(z^{-1}\\) 項的係數即留數，再用 \\(\\oint=2\\pi i\\operatorname{Res}\\)。"
+ },
+ "EE-114-03-4": {
+  "activationMd": "週期 \\(2\\pi\\)，\\(f\\) 只在 \\((0,\\pi]\\) 非零，故\n\\[\na_0=\\frac1\\pi\\int_0^\\pi f\\,dx,\\quad a_n=\\frac1\\pi\\int_0^\\pi f\\cos nx\\,dx,\\quad b_n=\\frac1\\pi\\int_0^\\pi f\\sin nx\\,dx\n\\]\n\\(x\\cos nx\\)、\\(x\\sin nx\\) 用分部積分，並以 \\(\\cos n\\pi=(-1)^n\\) 化簡。"
+ }
+}

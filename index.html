@@ -3191,6 +3191,13 @@ select:focus {
   .today-task-result .result-card-save { margin-bottom: 4px; }
 }
 
+/* Docked result card collapses to a bar until the learner is done (2026-10-04) */
+.result-card-expand { display: none; width: 100%; min-height: 44px; border: 0; background: transparent; color: var(--accent-dark); font-weight: 700; cursor: pointer; }
+.result-card.is-collapsed { padding-top: 4px; padding-bottom: 4px; max-height: none; }
+.result-card.is-collapsed .result-card-expand { display: block; }
+.result-card.is-collapsed > :not(.result-card-expand) { display: none !important; }
+.result-card-collapse { margin-left: auto; min-height: 32px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--muted); cursor: pointer; padding: 2px 10px; }
+
 
 /* === src/styles/v12-g2b.css === */
 /* v1.2 QA fixes — g2b */
@@ -34834,6 +34841,13 @@ function resultCardShowSavedNotice(host) {
   } catch (_) { /* cosmetic only */ }
 }
 
+// A card docked in the solution window starts as a small bar so it does not
+// cover the solution while the learner is still working; inline cards open.
+function resultCardStartsCollapsed(options) {
+  const opts = options || {};
+  return !opts.mount && !opts.expanded;
+}
+
 function openResultCard(options) {
   const opts = options || {};
   const qid = String(opts.qid || '');
@@ -34854,6 +34868,7 @@ function openResultCard(options) {
   root.setAttribute('aria-label', '作答結果卡');
   if (docked) root.setAttribute('data-result-card-docked', '1');
   if (docked && host === document.body) root.classList.add('result-card--viewport');
+  let collapsed = resultCardStartsCollapsed(opts);
 
   const rowsHtml = model.parts.map((part, i) => `
     <div class="result-card-row" data-row="${i}">
@@ -34864,7 +34879,8 @@ function openResultCard(options) {
     </div>`).join('');
 
   root.innerHTML = `
-    <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span></div>
+    <button type="button" class="result-card-expand">✍️ 做完了？記錄作答結果 ▲</button>
+    <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span>${docked ? '<button type="button" class="result-card-collapse" aria-label="收合作答結果卡">▼ 收合</button>' : ''}</div>
     <div class="result-card-rows">${rowsHtml}</div>
     <div class="result-card-errors" hidden>
       <span class="result-card-errors-label">錯在哪（可多選，可不選）</span>
@@ -34894,6 +34910,7 @@ function openResultCard(options) {
   }
 
   function sync() {
+    root.classList.toggle('is-collapsed', collapsed);
     const vm = resultCardViewModel(qid, marks, errors, source);
     q('.result-card-title').textContent = vm.header;
     q('.result-card-hint').textContent = vm.hint;
@@ -34930,6 +34947,11 @@ function openResultCard(options) {
   root.addEventListener('click', event => {
     const target = event.target.closest ? event.target.closest('button') : null;
     if (!target || !root.contains(target)) return;
+    if (target.classList.contains('result-card-expand') || target.classList.contains('result-card-collapse')) {
+      collapsed = target.classList.contains('result-card-collapse');
+      sync();
+      return;
+    }
     if (target.classList.contains('result-card-mark')) {
       marks[Number(target.getAttribute('data-row'))] = target.getAttribute('data-mark');
       sync();
@@ -34983,7 +35005,7 @@ function openResultCard(options) {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { resultCardViewModel, resultCardMarkButtons, resultCardEscape, openResultCard };
+  module.exports = { resultCardViewModel, resultCardMarkButtons, resultCardEscape, openResultCard, resultCardStartsCollapsed };
 }
 
 
@@ -36286,10 +36308,7 @@ function revealRecallHint() {
 }
 
 function revealRecallFull() {
-  if (currentRecallAchievedLevel < 3) {
-    if (typeof showToast === 'function') showToast('請依序完成前 3 段提示後，再揭曉完整推導。');
-    return;
-  }
+  // ①–③ are optional hints; the learner may go straight to the full solution.
   const fullEl = document.getElementById('recall-full-section');
   const boxEl = document.getElementById('recall-step-box');
   if (fullEl) fullEl.style.display = 'block';
@@ -36580,8 +36599,9 @@ function syncRecallRevealPresentation() {
   const buttons = box && typeof box.querySelectorAll === 'function' ? [...box.querySelectorAll('.btn-reveal-hint, .btn-reveal-full')] : [];
   buttons.forEach((button, index) => {
     const step = index + 1;
-    button.disabled = step !== currentRecallAchievedLevel + 1;
-    button.title = button.disabled && step > currentRecallAchievedLevel + 1 ? '請先完成上一段揭露' : '';
+    const isFull = button.classList && button.classList.contains('btn-reveal-full');
+    button.disabled = isFull ? currentRecallAchievedLevel >= 4 : step !== currentRecallAchievedLevel + 1;
+    button.title = !isFull && button.disabled && step > currentRecallAchievedLevel + 1 ? '請先完成上一段揭露' : '';
   });
 }
 

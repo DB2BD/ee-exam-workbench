@@ -34,12 +34,20 @@ EXPECTED_MANUAL_QIDS = {
     "EE-114-06-2",
     "EE-114-06-3",
     "EE-114-06-4",
+    "EE-105-01-3",
+    "EE-104-02-1",
+    "EE-105-02-5",
+    "EE-104-04-3",
+    "EE-104-05-1",
+    "EE-104-06-2",
 }
 # Downgraded to needs_manual_review on 2026-10-03 (user-approved): EE-110-01-1,
 # EE-110-06-3, EE-111-02-4, EE-111-04-4; none sits in a passive scored route.
 # Downgraded on 2026-10-03 (Wave 3, user-approved): EE-107-04-1, EE-108-02-5, EE-106-02-2,
 # EE-106-06-2, EE-107-06-4, EE-110-03-3. EE-108-02-5 left the 108 retest pack scoring set
 # (like EE-114-06-4 left the 114 mock) and has no first-move rescue card.
+# Downgraded on 2026-10-04 (Wave 4, user-approved): EE-105-01-3, EE-104-02-1, EE-105-02-5,
+# EE-104-04-3, EE-104-05-1, EE-104-06-2; none sits in a passive scored route.
 # Promoted back to verified on 2026-10-02: the answer is independent of the magnetization curve.
 # Promoted to verified on 2026-10-03: all asked answers are branch-independent.
 PROMOTED_FROM_MANUAL_QIDS = {"EE-113-04-3", "EE-106-05-3"}
@@ -130,14 +138,14 @@ class TestPassiveRouteStatus(unittest.TestCase):
         self.assertEqual(actual, EXPECTED_MANUAL_QIDS)
 
         text = BOUNDARY.read_text(encoding="utf-8")
-        self.assertIn("# 上榜精確解答邊界：24 題條件題安全作答卡", text)
-        self.assertIn("24 題條件作答卡", text)
+        self.assertIn("# 上榜精確解答邊界：30 題條件題安全作答卡", text)
+        self.assertIn("30 題條件作答卡", text)
         card_qids = [
             match.group(1)
             for line in text.splitlines()
             if (match := re.match(r"^\| \[`(EE-\d{3}-\d{2}-\d+)`\]", line))
         ]
-        self.assertEqual(len(card_qids), 24)
+        self.assertEqual(len(card_qids), 30)
         self.assertEqual(set(card_qids), EXPECTED_MANUAL_QIDS)
         for qid in PROMOTED_FROM_MANUAL_QIDS:
             self.assertNotIn(qid, text)

@@ -3,7 +3,8 @@
   "generated_from": [
     "reports/題解精確化_wave-1.md",
     "reports/題解精確化_wave-2.md",
-    "reports/題解精確化_wave-3.md"
+    "reports/題解精確化_wave-3.md",
+    "reports/題解精確化_wave-4.md"
   ],
   "corrections": [
     {
@@ -349,9 +350,114 @@
       "new_answer": "7.956 kA（非對稱 9.946 kA）",
       "reason": "參考書值無法由題目數據重建",
       "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-105-02-3",
+      "wave": 4,
+      "old_answer": "v_O(5 V)=−4.625 V",
+      "new_answer": "−4.877 V",
+      "reason": "−4.625 V 只是膝點；R_F 與二極體支路並聯，導通後仍在迴路中，KCL 得 −4.87705 V",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-105-03-1",
+      "wave": 4,
+      "old_answer": "y''−6y'+13y=0",
+      "new_answer": "y''−6y'+10y=2e^{3x}",
+      "reason": "舊題解依錯誤題幹（裁切圖為 2+c₁sin x+c₂cos x，虛部 1 且有常數項）；整族代入殘差恰為 2e^{3x}",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-105-03-2",
+      "wave": 4,
+      "old_answer": "L{sin ωt}=ω/(s²+ω²)",
+      "new_answer": "ω/(s²+ω²)·coth(πs/(2ω))，Re s>0",
+      "reason": "舊題解依錯誤題幹；裁切圖有絕對值，週期 π/ω",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-105-05-3",
+      "wave": 4,
+      "old_answer": "12.03 kA",
+      "new_answer": "12.55 kA（X0=0.08 pu → 0.05 pu，I_f=4.3478 pu）",
+      "reason": "舊解把中性點電抗 0.08 pu 誤當發電機 X0；Z=0.20+0.20+0.05+0.24=0.69",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-105-06-1",
+      "wave": 4,
+      "old_answer": "V_AN=183.482 V、V_BN=−36.5185 V",
+      "new_answer": "V_AN=+183.186 V、V_BN=−36.8143 V",
+      "reason": "舊解 KCL 中 R_g 電流項反號；Rg→∞ 極限為 183.33 V，舊值超過極限",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-02-2",
+      "wave": 4,
+      "old_answer": "A_v=14.3479",
+      "new_answer": "14.275（I_C=0.5 mA → I_E=I_CC=0.5 mA）",
+      "reason": "I_CC 注入集極節點，KCL 為 I_CC=I_C+I_B=I_E；舊解令 I_C=I_CC 違反 KCL",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-03-1",
+      "wave": 4,
+      "old_answer": "y=7/(4√2)(e^{(−2−2√2)t}−e^{(−2+2√2)t})",
+      "new_answer": "y(t)=−7t",
+      "reason": "舊題解漏掉係數 4t 的因子 t；代回殘差 0",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-03-3",
+      "wave": 4,
+      "old_answer": "PV=−14π/225",
+      "new_answer": "PV=−14π/75≈−0.58643",
+      "reason": "係數 −126/225 約分為 −14/25，乘 π/3 得分母 75；SymPy 與 mpmath 皆得 −14π/75（普通廣義積分發散，仍為條件題）",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-04-1",
+      "wave": 4,
+      "old_answer": "φ₁=(2F₁−F₂)/(3R)，φ₂=(2F₂−F₁)/(3R)",
+      "new_answer": "φ₁=N₁i₁/(2R)，φ₂=N₂i₂/(2R)",
+      "reason": "圖為完全圖 K4、六段磁阻均為 R，N₁、N₂ 在對邊，電橋平衡故兩線圈互不耦合；舊三柱模型誤讀圖形",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-04-4",
+      "wave": 4,
+      "old_answer": "11.006 A",
+      "new_answer": "10.60 A",
+      "reason": "轉子支路為 jx_r、r_r、(1−s)r_r/s 串聯，舊解令 Z_r=j0.15 漏掉 r_r；網目法與功率平衡一致",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-04-5",
+      "wave": 4,
+      "old_answer": "求滿載電流與 E_f、δ",
+      "new_answer": "輸出線電壓約 370 V",
+      "reason": "舊題解解別題；本題為激磁與轉速固定後改接 6.6 kVA、0.8 滯後負載求端電壓（E_f=219.62 V，三種負載模型差 0.16%）",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-05-1",
+      "wave": 4,
+      "old_answer": "V_t=19.555 kV（忽略負載 B）、零序電壓未算出",
+      "new_answer": "V_t=19.74 kV（計入負載 B）、V0=59.4／69.1 kV",
+      "reason": "圖文依據將負載 B 計入 MT_R 潮流；舊解漏答零序電壓；故障電流 37.43／34.84 kA 不變",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-06-2",
+      "wave": 4,
+      "old_answer": "406.84 kVA",
+      "new_answer": "177.45 kVA",
+      "reason": "舊解漏用表內參差因數 3、2（以 350 kW 直接計算）；群內參差後複數和 175.67，÷1.1 ÷0.9 得 177.45",
+      "decided_at": "2026-10-04"
     }
   ],
   "unreported": [
-    "EE-106-05-3"
+    "EE-106-05-3",
+    "EE-104-02-1"
   ]
 }

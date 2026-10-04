@@ -4802,7 +4802,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/01_電路學/canonical/EE-105-01-3.md",
     "依考科分類/01_電路學/105年_電機工程技師_電路學.pdf",
     2,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -4925,7 +4925,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-105-02-5.md",
     "依考科分類/02_電子學_含電力電子/105年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5442,7 +5442,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-104-02-1.md",
     "依考科分類/02_電子學_含電力電子/104年_電機工程技師_電子學（包括電力電子學）.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5642,7 +5642,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/04_電機機械/canonical/EE-104-04-3.md",
     "依考科分類/04_電機機械/104年_電機工程技師_電機機械.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [],
     true
   ],
@@ -5697,7 +5697,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/05_電力系統/canonical/EE-104-05-1.md",
     "依考科分類/05_電力系統/104年_電機工程技師_電力系統.pdf",
     3,
-    "verified",
+    "needs_manual_review",
     [
       "Ia1 = Vf / (Z1+Z2+Z0)"
     ],
@@ -5792,7 +5792,7 @@ const DB_DATA = {
     "📝 個人題解與錯題本/06_工業配電/canonical/EE-104-06-2.md",
     "依考科分類/06_工業配電/104年_電機工程技師_工業配電.pdf",
     1,
-    "verified",
+    "needs_manual_review",
     [
       "S = VI*"
     ],
@@ -6601,14 +6601,15 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-104-01-2": {
     "primaryChapter": "ct-mutual-inductance",
     "source": "canonical-chapter",
-    "canonicalChapter": "互感耦合電路與純電阻輸入阻抗",
-    "noteTitle": "104 年電路學第 2 題｜互感耦合電路與純電阻輸入阻抗"
+    "canonicalChapter": "互感耦合與輸入阻抗為實數",
+    "noteTitle": "104 年電路學第 2 題｜互感耦合輸入阻抗為實數"
   },
   "EE-105-01-3": {
     "primaryChapter": "ct-complex-power",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "交流穩態複數功率",
-    "noteTitle": "105 年電路學第 3 題｜交流穩態複數功率"
+    "noteTitle": "105 年電路學第 3 題｜交流穩態複數功率",
+    "manualChapter": "ct-complex-power"
   },
   "EE-111-01-4": {
     "primaryChapter": "ct-two-port",
@@ -6830,8 +6831,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-104-01-5": {
     "primaryChapter": "ct-two-port",
     "source": "canonical-chapter",
-    "canonicalChapter": "雙埠網路逆混合 g 參數",
-    "noteTitle": "104 年電路學第 5 題｜雙埠網路逆混合 g 參數"
+    "canonicalChapter": "雙埠網路 g 參數",
+    "noteTitle": "104 年電路學第 5 題｜雙埠網路 g 參數"
   },
   "EE-108-01-2": {
     "primaryChapter": "ct-node-mesh",
@@ -6872,9 +6873,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-104-02-1": {
     "primaryChapter": "el-mosfet-bias-small-signal",
-    "source": "canonical-title-override",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "PMOS 共源極偏壓與源極退化頻率響應",
-    "noteTitle": "104 年電子學（含電力電子）第 1 題｜PMOS 共源極偏壓與源極退化頻率響應"
+    "noteTitle": "104 年電子學（含電力電子）第 1 題｜PMOS 偏壓與源極退化頻率響應",
+    "manualChapter": "el-mosfet-bias-small-signal"
   },
   "EE-114-02-1": {
     "primaryChapter": "el-diff-amp",
@@ -6921,15 +6923,16 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-105-02-5": {
     "primaryChapter": "el-diode-rectifier",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "整流器拓撲：半波、全波、半橋與全橋",
-    "noteTitle": "105 年電子學第 5 題｜整流器拓撲與波形比較"
+    "noteTitle": "105 年電子學第 5 題｜整流器拓撲與波形比較",
+    "manualChapter": "el-diode-rectifier"
   },
   "EE-104-02-4": {
     "primaryChapter": "el-pe-inverter-spwm",
     "source": "canonical-chapter",
     "canonicalChapter": "單相全橋逆變器 RL 負載暫態",
-    "noteTitle": "104 年電子學（含電力電子）第 4 題｜單相全橋逆變器 RL 負載暫態"
+    "noteTitle": "104 年電子學（含電力電子）第 4 題｜單相全橋逆變器 RL 負載電流"
   },
   "EE-114-02-4": {
     "primaryChapter": "el-pe-thyristor-rectifier",
@@ -7164,7 +7167,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "em-second-order-ode-homogeneous",
     "source": "canonical-title-override",
     "canonicalChapter": "常微分方程／反推特徵方程",
-    "noteTitle": "105 年第 1 題｜由通解反推 ODE"
+    "noteTitle": "105 年第 1 題｜由通解反推微分方程"
   },
   "EE-109-03-2": {
     "primaryChapter": "em-vector-analysis",
@@ -7230,7 +7233,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "em-complex-cauchy-residue",
     "source": "canonical-chapter",
     "canonicalChapter": "複變函數／留數定理",
-    "noteTitle": "105 年第 4 題｜圓周留數積分"
+    "noteTitle": "105 年第 4 題｜圓周複變積分"
   },
   "EE-108-03-6": {
     "primaryChapter": "em-probability-statistics",
@@ -7254,8 +7257,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-104-03-1": {
     "primaryChapter": "em-laplace-transform",
     "source": "canonical-chapter",
-    "canonicalChapter": "拉普拉斯轉換／常係數 ODE",
-    "noteTitle": "104 年第 1 題｜初值問題"
+    "canonicalChapter": "拉普拉斯轉換／變係數 ODE",
+    "noteTitle": "104 年第 1 題｜以拉氏轉換解變係數 ODE"
   },
   "EE-114-03-1": {
     "primaryChapter": "em-probability-statistics",
@@ -7400,7 +7403,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "em-eigen-diagonal",
     "source": "canonical-chapter",
     "canonicalChapter": "線性代數／實對稱矩陣正交對角化",
-    "noteTitle": "105 年第 8 題｜正交對角化"
+    "noteTitle": "105 年第 8 題｜實對稱矩陣的對角化"
   },
   "EE-106-03-6": {
     "primaryChapter": "em-probability-statistics",
@@ -7501,14 +7504,14 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-105-03-2": {
     "primaryChapter": "em-laplace-transform",
     "source": "canonical-chapter",
-    "canonicalChapter": "拉普拉斯轉換／基本轉換對",
-    "noteTitle": "105 年第 2 題｜正弦函數的拉普拉斯轉換"
+    "canonicalChapter": "拉普拉斯轉換／週期函數轉換",
+    "noteTitle": "105 年第 2 題｜全波整流正弦的拉普拉斯轉換"
   },
   "EE-104-03-3": {
     "primaryChapter": "em-complex-cauchy-residue",
     "source": "manual-topic-confirmed",
     "canonicalChapter": "複變函數／主值積分",
-    "noteTitle": "104 年第 3 題｜主值積分",
+    "noteTitle": "104 年第 3 題｜實軸極點的廣義積分（主值）",
     "manualChapter": "em-complex-cauchy-residue"
   },
   "EE-114-03-3": {
@@ -7545,7 +7548,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "em-probability-statistics",
     "source": "canonical-chapter",
     "canonicalChapter": "機率統計／抽樣與條件機率",
-    "noteTitle": "105 年第 6 題｜球的抽樣（放回與不放回）"
+    "noteTitle": "105 年第 6 題｜球的抽樣（不放回與放回）"
   },
   "EE-108-03-4": {
     "primaryChapter": "em-vector-analysis",
@@ -7642,8 +7645,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-105-04-4": {
     "primaryChapter": "emach-synchronous-generator-round",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "105 年電機機械第 4 題"
+    "canonicalChapter": "同步電動機相量圖與 V 形曲線",
+    "noteTitle": "105 年電機機械第 4 題｜同步電動機功因調整"
   },
   "EE-114-04-5": {
     "primaryChapter": "emach-reluctance-motor",
@@ -7654,8 +7657,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-104-04-5": {
     "primaryChapter": "emach-synchronous-generator-round",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "104 年電機機械第 5 題"
+    "canonicalChapter": "同步發電機負載特性與端電壓",
+    "noteTitle": "104 年電機機械第 5 題｜固定激磁下的端電壓"
   },
   "EE-108-04-2": {
     "primaryChapter": "emach-dc-motor-generator",
@@ -7678,8 +7681,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-104-04-1": {
     "primaryChapter": "emach-magnetic-circuits",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "104 年電機機械第 1 題"
+    "canonicalChapter": "磁路 KCL／KVL 與磁阻網路",
+    "noteTitle": "104 年電機機械第 1 題｜磁路磁通推導"
   },
   "EE-108-04-3": {
     "primaryChapter": "emach-induction-motor-equiv",
@@ -7696,8 +7699,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-105-04-1": {
     "primaryChapter": "emach-magnetic-circuits",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "105 年電機機械第 1 題"
+    "canonicalChapter": "電感電壓電流關係與方波響應",
+    "noteTitle": "105 年電機機械第 1 題｜方波電壓施於電感"
   },
   "EE-111-04-3": {
     "primaryChapter": "emach-dc-motor-generator",
@@ -7715,7 +7718,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "emach-dc-motor-generator",
     "source": "manual-topic-confirmed",
     "canonicalChapter": "直流電機 (分激/串激特性與調速)",
-    "noteTitle": "105 年電機機械第 5 題（條件式校驗）",
+    "noteTitle": "105 年電機機械第 5 題｜外激直流電動機減磁降壓調速",
     "manualChapter": "emach-dc-motor-generator"
   },
   "EE-114-04-4": {
@@ -7727,8 +7730,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-104-04-4": {
     "primaryChapter": "emach-induction-motor-equiv",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "104 年電機機械第 4 題｜三相感應電動機起動電流"
+    "canonicalChapter": "感應電動機標么等效電路與起動電流",
+    "noteTitle": "104 年電機機械第 4 題｜感應電動機起動電流"
   },
   "EE-110-04-5": {
     "primaryChapter": "emach-induction-motor-torque",
@@ -7757,15 +7760,16 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-104-04-3": {
     "primaryChapter": "emach-dc-motor-generator",
-    "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "104 年電機機械第 3 題"
+    "source": "manual-topic-confirmed",
+    "canonicalChapter": "永磁直流電動機（電壓、電流、效率）",
+    "noteTitle": "104 年電機機械第 3 題｜永磁直流電動機",
+    "manualChapter": "emach-dc-motor-generator"
   },
   "EE-105-04-2": {
     "primaryChapter": "emach-single-phase-transformer",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "105 年電機機械第 2 題"
+    "canonicalChapter": "變壓器非額定電壓操作與容量",
+    "noteTitle": "105 年電機機械第 2 題｜變壓器降壓使用"
   },
   "EE-110-04-1": {
     "primaryChapter": "emach-magnetic-circuits",
@@ -7836,8 +7840,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-105-04-3": {
     "primaryChapter": "emach-induction-motor-torque",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "105 年電機機械第 3 題"
+    "canonicalChapter": "感應電動機轉矩與起動特性",
+    "noteTitle": "105 年電機機械第 3 題｜繞線式轉子外接電阻"
   },
   "EE-113-04-1": {
     "primaryChapter": "emach-single-phase-transformer",
@@ -7960,7 +7964,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "ps-load-flow-admittance",
     "source": "canonical-chapter",
     "canonicalChapter": "匯流排導納／阻抗矩陣與並聯電容電壓",
-    "noteTitle": "104 年電力系統第 4 題｜三匯流排 $Y_{bus}$、$Z_{bus}$ 與電容補償"
+    "noteTitle": "104 年電力系統第 4 題｜三匯流排 \\(Y_{bus}\\)、\\(Z_{bus}\\) 與電容補償"
   },
   "EE-105-05-5": {
     "primaryChapter": "ps-economic-dispatch",
@@ -7990,8 +7994,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-105-05-1": {
     "primaryChapter": "ps-transmission-line-models",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "105 年電力系統第 1 題"
+    "canonicalChapter": "輸電線路串聯與並聯虛功補償",
+    "noteTitle": "105 年電力系統第 1 題｜輸電線路串聯與並聯虛功補償"
   },
   "EE-109-05-2": {
     "primaryChapter": "ps-transmission-line-models",
@@ -8013,9 +8017,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-104-05-1": {
     "primaryChapter": "ps-unsymmetrical-faults",
-    "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "104 年電力系統第 1 題｜序網與接地開關故障分析"
+    "source": "manual-topic-confirmed",
+    "canonicalChapter": "序網路與接地開關單線接地故障",
+    "noteTitle": "104 年電力系統第 1 題｜序網路與接地開關單線接地故障",
+    "manualChapter": "ps-unsymmetrical-faults"
   },
   "EE-109-05-3": {
     "primaryChapter": "ps-load-flow-admittance",
@@ -8056,8 +8061,8 @@ const QUESTION_TAXONOMY_MAP = {
   "EE-105-05-3": {
     "primaryChapter": "ps-unsymmetrical-faults",
     "source": "canonical-title-override",
-    "canonicalChapter": "",
-    "noteTitle": "105 年電力系統第 3 題"
+    "canonicalChapter": "同步發電機單線接地故障（中性點經電抗接地）",
+    "noteTitle": "105 年電力系統第 3 題｜發電機中性點經電抗接地單線接地故障"
   },
   "EE-114-05-2": {
     "primaryChapter": "ps-load-flow-admittance",
@@ -8354,9 +8359,10 @@ const QUESTION_TAXONOMY_MAP = {
   },
   "EE-104-06-2": {
     "primaryChapter": "dist-load-characteristics",
-    "source": "canonical-chapter",
+    "source": "manual-topic-confirmed",
     "canonicalChapter": "參差因數與線路損失容量設計",
-    "noteTitle": "104 年工業配電第 2 題｜參差因數與線路損失容量設計"
+    "noteTitle": "104 年工業配電第 2 題｜參差因數與變電站容量",
+    "manualChapter": "dist-load-characteristics"
   },
   "EE-114-06-2": {
     "primaryChapter": "dist-harmonics-mitigation",
@@ -8423,7 +8429,7 @@ const QUESTION_TAXONOMY_MAP = {
     "primaryChapter": "dist-distribution-equipment",
     "source": "canonical-chapter",
     "canonicalChapter": "配電變壓器與供電接線",
-    "noteTitle": "104 年第 1 題｜供電方式與責任分界（規章版校驗）"
+    "noteTitle": "104 年工業配電第 1 題｜供電方式與責任分界"
   },
   "EE-114-06-1": {
     "primaryChapter": "dist-distribution-equipment",
@@ -8557,6 +8563,16 @@ const QUESTION_TAXONOMY_MAP = {
   }
 };
 const SOLUTION_REVIEW_METADATA = {
+  "EE-105-01-3": {
+    "disposition": "phasor_rms_or_peak_unspecified",
+    "blocker": "題幹只寫 12∠45° V，未標示是有效值（rms）或峰值相量；兩種讀法的平均功率差一倍。",
+    "action": "取得官方參考解答或命題口徑，確認電壓相量為 rms 或峰值；確認前兩種讀法並列 boxed：rms 93.6 W、峰值 46.8 W，答卷須先寫明所採讀法。",
+    "evidence": "獨立 numpy 驗算：Y_in=0.25+(2+j)/5=0.65+j0.2 S；rms 讀法 P=144×0.65=93.6 W、S=93.6−j28.8 VA；峰值讀法 P=½×93.6=46.8 W；吸收功率等於供應功率。同卷第 4 題明標 34.5 kV_rms，本題未標。2026-10-04 審查確認題幹缺條件，由 verified 降為人工覆核（使用者同意）。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=105170&q=1&s=0606&t=Q"
+  },
   "EE-110-01-1": {
     "disposition": "figure_topology_ambiguity",
     "blocker": "官方圖一左右兩側底線未相接，依圖 2 F 電容無電流、v₂=−(20/7)cos t V；但 25 分題放置無作用元件，命題本意可能為兩側共地（得 4.079∠78.23° V）。",
@@ -8577,6 +8593,16 @@ const SOLUTION_REVIEW_METADATA = {
     "referenceBookConvention": "參考書將 I_p(avg) 定義為整個切換週期平均開關電流，並以 DCM 三角波回算；若採 CCM，需另給谷值電流。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=109180&q=1&s=0601&t=Q"
   },
+  "EE-104-02-1": {
+    "disposition": "convention_inferred",
+    "blocker": "題幹只給 K_P=0.1 mA/V² 而未寫平方律公式；主解依符號 K_P、V_TP 採導通參數慣例 I_D=K_P(V_SG+V_TP)²，另一慣例 I_D=½K_P(V_SG−|V_TP|)² 的數值不同。",
+    "action": "取得官方參考解答或命題口徑，確認平方律慣例；確認前以導通參數慣例（R_S=5.5 kΩ、R_D=9.5 kΩ、v_o/v_i=−1.1875/(1+9.5×10⁻⁸ s)、f_c=1.675 MHz）為主解，並保留 ½K_P 分支（3.43 kΩ、11.57 kΩ、−1.66144、1.375 MHz）。",
+    "evidence": "獨立 SymPy 節點驗算兩種慣例：導通參數慣例 V_ov=2 V、R_S=5.5 kΩ、R_D=9.5 kΩ、A_v0=−1.1875、f_c=1.6753 MHz；½K_P 慣例 R_S=3.4289 kΩ、R_D=11.5711 kΩ、A_v0=−1.66144、f_c=1.3755 MHz。2026-10-04 審查確認符號指向前者但題幹未寫公式，屬慣例重判而非算錯，由 verified 降為人工覆核（使用者同意）。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0602&t=Q"
+  },
   "EE-111-02-3": {
     "disposition": "",
     "blocker": "",
@@ -8586,6 +8612,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "reference_book",
     "referenceBookConvention": "參考書以源極退化增益式與長通道平方律分別處理；本 canonical 依使用者裁決採雙分支呈現，保留參考書讀值、題面增益分支、平方律分支與最小更正候選，不把矛盾壓成單一官方數值。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0601&t=Q"
+  },
+  "EE-105-02-5": {
+    "disposition": "stem_term_ambiguous",
+    "blocker": "題目的「半橋整流器」未定義，可指一臂二極體加一臂分壓電容的半橋、或中心抽頭全波；與全橋比較的結論隨讀法而異。",
+    "action": "取得官方參考解答或命題口徑，確認「半橋」的定義；確認前（二）並列半橋與全橋的兩種讀法，主答依理想二極體、純電阻負載比較二極體數、PIV、平均值與漣波頻率。",
+    "evidence": "理想二極體電路推導：半波 V_DC=V_m/π、全波 2V_m/π；中心抽頭 PIV=2V_m、橋式 PIV=V_m；漣波頻率半波 f、全波 2f；題解並列半橋兩種讀法。2026-10-04 審查指出題幹術語未定義，由 verified 降為人工覆核（使用者同意）。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=105170&q=1&s=0602&t=Q"
   },
   "EE-109-02-2": {
     "disposition": "critical_capacitance_criterion_unspecified",
@@ -8680,12 +8716,12 @@ const SOLUTION_REVIEW_METADATA = {
   "EE-104-03-3": {
     "disposition": "missing_principal_value_convention",
     "blocker": "官方題目未標示 Cauchy 主值；普通廣義積分在 x=0 與 x=4 有實軸極點而發散。",
-    "action": "取得官方完整解答或閱卷口徑，確認是否將本題解讀為 Cauchy 主值；確認後才能把 -14π/225 標為唯一答案。",
-    "evidence": "官方裁切圖只給出積分式，未出現 PV 標記。對稱主值的條件答案為 -14π/225；若按普通廣義積分，答案是發散。",
+    "action": "取得官方完整解答或閱卷口徑，確認是否將本題解讀為 Cauchy 主值；確認後才能把 -14π/75 標為唯一答案。",
+    "evidence": "官方裁切圖只給出積分式，未出現 PV 標記。對稱主值的條件答案為 -14π/75；若按普通廣義積分，答案是發散。",
     "referenceBookEvidence": "",
     "verificationScope": "",
     "referenceBookConvention": "",
-    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0708&t=Q"
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0608&t=Q"
   },
   "EE-107-04-1": {
     "disposition": "load_model_not_specified",
@@ -8716,6 +8752,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "reference_book",
     "referenceBookConvention": "參考書採題目所示 OCC 額定電壓場電流 200 A，並以 X_s,pu=4.5/4.84=0.93 推得 SCC 場電流 186 A；曲線讀值慣例保留界線說明。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0610&t=Q"
+  },
+  "EE-104-04-3": {
+    "disposition": "source_conflict",
+    "blocker": "題設轉速 612 rpm 與「轉矩不變、無機械損」互相矛盾：Ia 不變時理論轉速為 620.7 rpm，不是 612 rpm。",
+    "action": "取得官方參考解答或命題口徑，確認以「轉矩不變」或「612 rpm」為準；確認前以轉矩不變主解 Ia=2.0 A、η=96.77%（輸出 5.80 W），並保留 612 rpm 分支（Ia=2.84 A、η=95.42%）。",
+    "evidence": "獨立驗算：Pout=2.9×2=5.80 W；轉矩不變時 Ia2=2.0 A、η=3.0/3.1=96.77%、理論 n2=600×3.00/2.90=620.69 rpm；以 612 rpm 為準時 Ea2=2.958 V、Ia=2.84 A、η=95.42%。2026-10-04 審查確認題幹自相矛盾，由 verified 降為人工覆核（使用者同意）。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0610&t=Q"
   },
   "EE-113-04-4": {
     "disposition": "reference_book_conflict",
@@ -8756,6 +8802,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "",
     "referenceBookConvention": "",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q"
+  },
+  "EE-104-05-1": {
+    "disposition": "stem_reading_ambiguous",
+    "blocker": "題幹未明說 P=360 MW、Q=270 Mvar 是否含負載 B（影響 V_t：19.74 或 19.56 kV）；「345 kV 側之故障相電流」可指故障點總電流或流過 MT_R 345 kV 繞組的 a 相電流，兩者不同。",
+    "action": "取得官方參考解答或命題口徑，確認 P、Q 是否含負載 B，以及所求故障相電流的位置；確認前以計入負載 B 的 V_t=19.74 kV 與故障點總電流 37.43／34.84 kA 為主解，並保留不計負載 B（19.56 kV）與繞組電流（3.96／1.37 kA）分支。",
+    "evidence": "獨立序網路驗算：計入負載 B 時 I_MT=0.7908−j0.6019、V_t=1.0967 pu=19.741 kV（不計為 19.555 kV）；故障點電流 37.433 kA（ES 投入）／34.836 kA（切離）；V0=59.41／69.11 kV；MT_R 345 kV 繞組 a 相電流 3.963／1.366 kA。2026-10-04 審查確認兩處題意疑義，由 verified 降為人工覆核（使用者同意）。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0611&t=Q"
   },
   "EE-106-06-2": {
     "disposition": "reference_book_conflict",
@@ -8826,6 +8882,16 @@ const SOLUTION_REVIEW_METADATA = {
     "verificationScope": "reference_book",
     "referenceBookConvention": "以過流電驛 I'=8 A 作臨界動作基準；200 A 前者可動作、後者不可。",
     "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0612&t=Q"
+  },
+  "EE-104-06-2": {
+    "disposition": "loss_denominator_undefined",
+    "blocker": "「電力損失 10%」未說明分母：取變電站輸出的 10%（÷0.9）得 177.45 kVA，取負載端需量的 10%（×1.1）得 175.67 kVA，兩者差 1.0%，題幹無法唯一決定。",
+    "action": "取得官方參考解答或命題口徑，確認損失 10% 的基準；確認前以 ÷0.9 的 177.45 kVA 為主解，並保留 ×1.1 的 175.67 kVA 分支。",
+    "evidence": "獨立 numpy 複數功率驗算：群內參差因數 3、2 → 電燈 50 kW∠pf0.95、馬達 100 kW∠pf0.80，複數和 150+j91.434、|S|=175.671 kVA；÷1.1（群間參差）=159.701；÷0.9=177.445 kVA（×1.1 則 175.671）。漏用表內參差因數 3、2 時得 406.84 kVA。2026-10-04 審查確認損失分母未定義，由 verified 降為人工覆核（使用者同意）。",
+    "referenceBookEvidence": "",
+    "verificationScope": "",
+    "referenceBookConvention": "",
+    "officialSourceUrl": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0612&t=Q"
   },
   "EE-114-06-2": {
     "disposition": "electrode_short_residual_furnace_reactance_ambiguous",

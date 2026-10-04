@@ -157,7 +157,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         source_path = "reports/manual-review-index.md"
         source = (ROOT / source_path).read_text(encoding="utf-8")
         self.assertEqual(payload.get(source_path), source)
-        self.assertIn("目前共 **24 題**待人工覆核。", payload[source_path])
+        self.assertIn("目前共 **30 題**待人工覆核。", payload[source_path])
         self.assertNotIn("EE-108-06-2", payload[source_path])
 
     def test_111_power_system_q3_keeps_missing_frequency_conditional(self):
@@ -449,9 +449,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         neutral = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-1.md").read_text(encoding="utf-8")
         annual_neutral = (CANONICAL / "06_工業配電" / "105年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
-        self.assertIn(r"V_{AN}=+110\,\mathrm V,\qquad V_{BN}=-110\,\mathrm V", neutral)
-        self.assertIn(r"V_{AN}=+110\,\mathrm V,\qquad V_{BN}=-110\,\mathrm V", annual_neutral)
-        self.assertNotIn("183.33", annual_neutral)
+        self.assertIn(r"\boxed{V_{AN}=+110\,\mathrm V},\qquad \boxed{V_{BN}=-110\,\mathrm V}", neutral)
+        self.assertIn(r"\boxed{V_{AN}=+110\,\mathrm V},\qquad \boxed{V_{BN}=-110\,\mathrm V}", annual_neutral)
+        # 183.33 V is only the R_g -> infinity limit quoted in the note, never a boxed answer.
+        self.assertNotIn("\\boxed{V_{AN}=183.33", annual_neutral)
+        self.assertIn("183.186", annual_neutral)
 
         interleaved = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-108-02-5.md").read_text(encoding="utf-8")
         annual_interleaved = (CANONICAL / "02_電子學_含電力電子" / "108年_電子學_全卷完整詳細題解.md").read_text(encoding="utf-8")
@@ -497,7 +499,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         for manifest in manifests:
             data = json.loads(manifest.read_text(encoding="utf-8"))
             manual.extend(entry for entry in data["entries"] if entry.get("audit_status") == "needs_manual_review")
-        self.assertEqual(len(manual), 24, "manual-review count changed; update the explicit review register")
+        self.assertEqual(len(manual), 30, "manual-review count changed; update the explicit review register")
         for entry in manual:
             path = ROOT / entry["solution_link"]
             text = path.read_text(encoding="utf-8")
@@ -1544,12 +1546,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         open_neutral_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", open_neutral_105)
-        self.assertIn("183.482", open_neutral_105)
-        self.assertIn("36.5185", open_neutral_105)
+        self.assertIn("183.186", open_neutral_105)
+        self.assertIn("36.8143", open_neutral_105)
 
         harmonic_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", harmonic_105)
-        self.assertIn("390.7", harmonic_105)
+        self.assertIn("390.8", harmonic_105)
         self.assertIn("第 7 次", harmonic_105)
 
         lighting_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-4.md").read_text(encoding="utf-8")
@@ -1562,8 +1564,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         circuit_105_3 = (CANONICAL / "01_電路學" / "canonical" / "EE-105-01-3.md").read_text(encoding="utf-8")
         circuit_105_4 = (CANONICAL / "01_電路學" / "canonical" / "EE-105-01-4.md").read_text(encoding="utf-8")
         circuit_105_5 = (CANONICAL / "01_電路學" / "canonical" / "EE-105-01-5.md").read_text(encoding="utf-8")
-        for note in (circuit_105_1, circuit_105_2, circuit_105_3, circuit_105_4, circuit_105_5):
+        for note in (circuit_105_1, circuit_105_2, circuit_105_4, circuit_105_5):
             self.assertIn("audit_status: verified", note)
+        self.assertIn("audit_status: needs_manual_review", circuit_105_3)
         self.assertIn("-\\frac{4}{3}", circuit_105_1)
         self.assertIn("10000}{7}", circuit_105_2)
         self.assertIn("93.6", circuit_105_3)
@@ -1593,7 +1596,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         induction_104 = (CANONICAL / "04_電機機械" / "canonical" / "EE-104-04-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", induction_104)
-        self.assertIn("11.006", induction_104)
+        self.assertIn("10.60", induction_104)
         self.assertIn("$(1-s)r_r/s$", induction_104)
 
         opamp_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-2.md").read_text(encoding="utf-8")
@@ -1642,13 +1645,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("發電廠 2", penalty_105)
 
         pmos_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-1.md").read_text(encoding="utf-8")
-        self.assertIn("audit_status: verified", pmos_104)
+        self.assertIn("audit_status: needs_manual_review", pmos_104)
         self.assertIn("-1.66144", pmos_104)
         self.assertIn("1+g_mR_S", pmos_104)
 
         cb_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", cb_104)
-        self.assertIn("14.3479", cb_104)
+        self.assertIn("14.275", cb_104)
         self.assertIn("R_L\\parallel R_B", cb_104)
 
         parallel_104 = (CANONICAL / "05_電力系統" / "canonical" / "EE-104-05-2.md").read_text(encoding="utf-8")
@@ -1658,9 +1661,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("TR1+TR2", parallel_104)
 
         capacity_104 = (CANONICAL / "06_工業配電" / "canonical" / "EE-104-06-2.md").read_text(encoding="utf-8")
-        self.assertIn("audit_status: verified", capacity_104)
-        self.assertIn("406.84", capacity_104)
-        self.assertIn("402.7673", capacity_104)
+        self.assertIn("audit_status: needs_manual_review", capacity_104)
+        self.assertIn("177.45", capacity_104)
+        self.assertIn("參差因數", capacity_104)
 
         fault_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", fault_105)
@@ -1683,7 +1686,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         annual_108 = (industrial / "108年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
         annual_110 = (industrial / "110年_工業配電_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn("EE-104-06-5", annual_104)
-        self.assertIn("功率因數／效率敏感度", annual_104)
+        self.assertIn("同一比例縮放", annual_104)
         self.assertIn("3.2211", annual_104)
         self.assertNotIn("V_5 = \\mathbf{12.8", annual_104)
         self.assertNotIn("I_{5,sys} = \\mathbf{42.5", annual_104)

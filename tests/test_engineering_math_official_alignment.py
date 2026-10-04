@@ -50,7 +50,7 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
         self.assert_stem_and_note(
             "EE-104-03-3",
             ["3x+2", "x(x-4)(x^2+9)"],
-            ["needs_manual_review", "-\\frac{14\\pi}{225}", "普通廣義積分不存在"],
+            ["needs_manual_review", "-\\frac{14\\pi}{75}", "普通廣義積分不存在"],
         )
         self.assert_stem_and_note(
             "EE-104-03-4",

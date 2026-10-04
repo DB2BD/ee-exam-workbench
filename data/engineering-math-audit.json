@@ -97,9 +97,9 @@
       "supersedes": null,
       "review_disposition": "missing_principal_value_convention",
       "review_blocker": "官方題目未標示 Cauchy 主值；普通廣義積分在 x=0 與 x=4 有實軸極點而發散。",
-      "review_action": "取得官方完整解答或閱卷口徑，確認是否將本題解讀為 Cauchy 主值；確認後才能把 -14π/225 標為唯一答案。",
-      "review_evidence": "官方裁切圖只給出積分式，未出現 PV 標記。對稱主值的條件答案為 -14π/225；若按普通廣義積分，答案是發散。",
-      "official_source_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0708&t=Q"
+      "review_action": "取得官方完整解答或閱卷口徑，確認是否將本題解讀為 Cauchy 主值；確認後才能把 -14π/75 標為唯一答案。",
+      "review_evidence": "官方裁切圖只給出積分式，未出現 PV 標記。對稱主值的條件答案為 -14π/75；若按普通廣義積分，答案是發散。",
+      "official_source_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0608&t=Q"
     },
     {
       "qid": "EE-104-03-4",

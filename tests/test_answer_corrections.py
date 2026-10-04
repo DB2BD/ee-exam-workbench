@@ -27,11 +27,13 @@ class TestAnswerCorrections(unittest.TestCase):
         wave1_rows = bac.parse_report(ROOT / "reports/題解精確化_wave-1.md")[2]
         wave2_rows = bac.parse_report(ROOT / "reports/題解精確化_wave-2.md")[2]
         wave3_rows = bac.parse_report(ROOT / "reports/題解精確化_wave-3.md")[2]
+        wave4_rows = bac.parse_report(ROOT / "reports/題解精確化_wave-4.md")[2]
         self.assertEqual(len(wave1_rows), 9)
         self.assertEqual(len(wave2_rows), 18)  # table: 17 new + 1 Wave 1 carryover
         self.assertEqual(len(wave3_rows), 17)
-        unique = {r["qid"] for r in wave1_rows + wave2_rows + wave3_rows}
-        self.assertEqual(len(unique), 43)
+        self.assertEqual(len(wave4_rows), 13)
+        unique = {r["qid"] for r in wave1_rows + wave2_rows + wave3_rows + wave4_rows}
+        self.assertEqual(len(unique), 56)
         # Later waves are picked up by glob; the output always covers every
         # confirmed row exactly once.
         all_rows = [r for path in sorted(ROOT.glob("reports/題解精確化_wave-*.md"))

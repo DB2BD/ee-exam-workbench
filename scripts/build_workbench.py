@@ -47,7 +47,9 @@ def build_workbench():
         'src/styles/v12-g1.css',
         'src/styles/v12-g2a.css',
         'src/styles/v12-g2b.css',
-        'src/styles/v122-design.css'
+        'src/styles/v122-design.css',
+        'src/styles/v13-practice.css',
+        'src/styles/v13-pacing.css'
     ]
     bundled_css = "\n\n".join([f"/* === {f} === */\n" + read_file(f) for f in css_files])
 
@@ -95,6 +97,7 @@ def build_workbench():
         'src/components/mockExam.js',
         'src/components/scoreboard.js',
         'src/components/dailyPractice.js',
+        'src/domain/pacing.js',
         'src/components/todayTask.js',
         'src/components/topTopics.js',
         'src/main.js'

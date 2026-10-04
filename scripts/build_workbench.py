@@ -52,9 +52,13 @@ def build_workbench():
         'src/domain/questionRecord.js',
         'src/domain/knowledgeDiagnosis.js',
         'src/domain/weaknessProjection.js',
+        'src/domain/passingProbability.js',
+        'src/domain/numericVerifier.js',
         'src/data/taxonomyAliases.js',
         'src/data/knowledge-dag.js',
         'src/data/knowledge-dag.generated.js',
+        'src/data/dailySchedule.generated.js',
+        'src/data/answerCorrections.generated.js',
         'src/state/store.js',
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
@@ -66,6 +70,7 @@ def build_workbench():
         'src/components/weaknessView.js',
         'src/data/manualTopicLabels.js',
         'src/data/scenarioMatrixData.js',
+        'src/components/answerCorrectionNotice.js',
         'src/components/reviewPage.js',
         'src/components/quickReviewSheet.js',
         'src/renderers/katexRenderer.js',
@@ -74,9 +79,13 @@ def build_workbench():
         'src/components/dagGraphViewer.js',
         'src/components/header.js',
         'src/components/questionList.js',
+        'src/components/calculatorGuide.js',
+        'src/data/cheatsheet.generated.js',
+        'src/components/passbookGenerator.js',
         'src/components/solutionModal.js',
         'src/components/mockExamTimer.js',
         'src/components/dailyPractice.js',
+        'src/components/todayTask.js',
         'src/components/topTopics.js',
         'src/main.js'
     ]
@@ -89,6 +98,10 @@ def build_workbench():
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>電機工程技師 & 公務高考三級 歷屆試題全真雙欄工作台 (104-114年)</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#4a7c8f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <!-- Offline KaTeX & Marked.js Libraries -->
 <link rel="stylesheet" href="./libs/katex.min.css">
@@ -205,6 +218,8 @@ def build_workbench():
         <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')"><span>🪜 七層訓練</span></button>
         <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')"><span>📊 統計</span></button>
         <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')"><span>⚡ 速查</span></button>
+        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 15天奪榜本</span></button>
+        <button class="main-tab-btn" id="tab-btn-calcguide" onclick="openCalculatorGuideModal()"><span>🧮 fx-82 按法</span></button>
       </div>
     </details>
   </div>
@@ -219,11 +234,13 @@ def build_workbench():
         </div>
         <div class="review-header-actions">
           <button class="btn-sol" id="btn-start-review" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
-          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()"></button>
+          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()">🧭 人工覆核題型標注</button>
         </div>
       </div>
 
       <!-- 戰情 Hero 區塊：Progress Ring + 互動統計卡 -->
+      <div id="review-corrections"></div>
+
       <div class="review-hero">
         <div class="progress-ring-card" id="review-progress-card"></div>
         <div class="review-stats" id="review-stats"></div>
@@ -260,12 +277,19 @@ def build_workbench():
 
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
-    <section class="practice-home-actions" aria-label="練習首頁主要入口">
+    <div id="today-task-card"></div>
+    <section class="home-primary-actions" aria-label="首頁主要入口">
+      <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span>🎴</span><strong>到期複習</strong><small>今天沒有到期題</small></button>
+    </section>
+    <details class="more-practice" id="more-practice">
+      <summary>更多練習方式</summary>
+      <section class="practice-home-actions" aria-label="練習首頁主要入口">
       <button id="home-action-start" type="button" onclick="dailyPracticePrepareNewRound()"><span>▶</span><strong>開始練習</strong><small>選擇考科，建立新的 3 題練習</small></button>
       <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled><span>↩</span><strong>繼續上次</strong><small>接回原題、揭露進度與閱讀位置</small></button>
       <button id="home-action-find" type="button" onclick="dailyPracticeFindQuestions()"><span>⌕</span><strong>找題</strong><small>依考科、年度、章節或關鍵字搜尋</small></button>
     </section>
-    <div id="daily-practice-container"></div>
+      <div id="daily-practice-container"></div>
+    </details>
   </div>
 
   <!-- TAB 1: Questions Explorer -->
@@ -545,6 +569,13 @@ def build_workbench():
 
 <script>
 {bundled_js}
+</script>
+<script>
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {{
+  window.addEventListener('load', () => {{
+    navigator.serviceWorker.register('./sw.js').catch(() => {{}});
+  }});
+}}
 </script>
 </body>
 </html>

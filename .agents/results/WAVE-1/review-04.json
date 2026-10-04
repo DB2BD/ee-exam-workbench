@@ -1,0 +1,352 @@
+{
+ "reviewer": "REVIEWER_lean_v1",
+ "scope": "Wave 1 電機機械 EE-112/113/114-04-1..5",
+ "summary": {
+  "pass": 14,
+  "fail": 1,
+  "fail_qids": [
+   "EE-113-04-1"
+  ],
+  "verify_scripts": "15/15 PASS",
+  "lint_strict": "15/15 PASS"
+ },
+ "priority_items": [
+  {
+   "item": "EE-114-04-1 L 5.027→2.011 H",
+   "result": "CONFIRMED",
+   "reason": "N²/R_eq=160000/79577=2.0106 H；HEAD 版 boxed 5.027 H 為算術錯，B_g=0.5027 T 不變。"
+  },
+  {
+   "item": "EE-113-04-4 主答案改用圖示 0.2/s 分支",
+   "result": "CONFIRMED（功率平衡論證）；狀態建議 UNCERTAIN→needs_manual_review",
+   "reason": "參考書混合慣例 P_ag=14.56 kW，sP_ag=0.97 kW＋P_mech 6.76 kW=7.73 kW，差約 6.8 kW 無處可去，確實違反 P_conv=(1−s)P_ag。圖示 0.2/s 標籤字型與掃描圖不同，是命題者另加的，支持以圖為主；但提示文字 0.1(1−s)/s 也出自命題者，兩者何者是筆誤無法由題面判定，故需保留 R2=0.1 完整分支（題解已有），且 reference_book_verified 已不符（主答案與參考書 T、η 不同）。"
+  },
+  {
+   "item": "EE-113-04-3 blocker 是否已解",
+   "result": "CONFIRMED",
+   "reason": "Φ(Ia/2)·Ia 對任意單調磁化曲線嚴格遞增，Ia=120 A 使場電流回到 60 A、磁通不變，故 120 A、1762.5 rpm、94.0% 與曲線無關且唯一；僅依賴題示「忽略電樞反應」。frontmatter review_blocker/review_evidence 已過時，需主 session 更新並同步測試。"
+  },
+  {
+   "item": "112 Q2–Q4 裁切位移",
+   "result": "CONFIRMED",
+   "reason": "現行裁切圖 Q2=變壓器開路試驗/VR、Q3=同步電動機激磁、Q4=Δ電容降啟動電流；三份題解已知量逐項與現行裁切圖一致且解的正是該題。"
+  }
+ ],
+ "reviews": [
+  {
+   "qid": "EE-114-04-1",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "自算 R_g=l_g/(μ0A_g)=3.979e4，兩氣隙串聯 R_eq=7.958e4；B_g=NI/(R_eq A_g)=0.50265 T；L=N²/R_eq=160000/79577=2.0106 H（舊版 5.027 H 為算術錯，HEAD 第 24 行可見）。",
+   "issues": []
+  },
+  {
+   "qid": "EE-114-04-2",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "|Z_s|=1 → a=√0.4=0.63246；RMS 解讀 I1=110 A、Vo=110/a=173.925 V；P=12100 W 兩側相等。RMS/峰值分支因題圖未註明，屬真缺條件。",
+   "issues": []
+  },
+  {
+   "qid": "EE-114-04-3",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "由圖 3(b)：i_A=Im sinϑ（t0 為 0、t2 峰值）、i_M=−Im cosϑ（t0 為 −Im、t4 峰值）；右手定則主繞組正電流 −x、輔助 +y，合成 φ=φm∠ϑ，t1/t3/t5/t7=45/135/225/315°，逆時針；超前繞組軸(+y)轉向落後繞組軸(−x) 亦為逆時針。對調 A–A′ → φm∠−ϑ 順時針。",
+   "issues": []
+  },
+  {
+   "qid": "EE-114-04-4",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "E_f=1847.52+(162.38−j78.64)(0.1+j2)=2021.04+j316.90 → 2045.74 V、δ=8.911°；P_in=900+9.766+29=938.77 kW，T=938766/188.496=4980.3 N·m。",
+   "issues": []
+  },
+  {
+   "qid": "EE-114-04-5",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "數值掃描 δ 求一週期平均轉矩最大值 3.4055 N·m，P=T·ω/2=641.9 W；Φm=8.2528e-3 Wb。Hint 的 sinα sinβ 式確為誤植（應為 sinα cosβ）。",
+   "issues": []
+  },
+  {
+   "qid": "EE-113-04-1",
+   "verdict": "fail",
+   "checks": {
+    "P1": true,
+    "P2": false,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "磁鏈法：λ1=N1(N1i1/R_l1+(N1i1+N2i2)/R_M) → L_l1=N1²/R_l1、L_m=N1²/R_M（一次側）、L_l2=N2²/R_l2、M=N1N2/R_M，與題解一致。",
+   "issues": [
+    {
+     "check": "P2",
+     "where": "考場標準作答「等效電路與電感」段",
+     "fix": "題目要求「畫出」等效電路，題解只以一句文字描述 T 型電路。仿磁路段加一個 ASCII 電路圖：V1 ─ R1 ─ jX_l1 ─┬─ a²R2 ─ ja²X_l2 ─ aV2，節點下接並聯 R_c ∥ jX_m 至回線，並標 R1/R2=銅損、R_c=鐵損；之後刪去現有那句文字描述以免重複。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-113-04-2",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "P=120·60/1800=4；Z_b=29.4 Ω → 0.0680+j0.6803 pu；I=82.48 A，P_cu=40.82 kW；T_em=(540+40.82)k/188.50=3081 N·m（軸端 600k/188.5=3183 N·m）。轉矩定義分支合理（題給 η 未分列損失）。",
+   "issues": []
+  },
+  {
+   "qid": "EE-113-04-3",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "If2=Ia2/2；g(Ia)=Φ(Ia/2)Ia 對單調 Φ 嚴格遞增，Ia2=120 A 使 If2=60 A=If1，Φ(60)·120=2Φ(60)·60 恆成立 → 解唯一且與磁化曲線無關。E2=300−120(0.15)=282 V，n=1800·282/288=1762.5 rpm，η=282/300=94.0%；損失 1440+360+360=2160 W 回代吻合。",
+   "issues": [
+    {
+     "check": "status",
+     "where": "frontmatter review_blocker/review_evidence",
+     "fix": "非內容錯誤，交主 session：review_blocker 與 review_evidence 仍寫「主解明確使用 Φ∝I_f」「飽和時結果會改變」，與正文已證明的曲線無關性矛盾。建議升 verified 並移除/改寫 review_*；同步 tests/test_reconstructed_pe_solutions.py::test_113_dc_motor_q3_does_not_hide_linear_magnetization_assumption 與年度全卷敘述。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-113-04-4",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "依圖示 R2=0.2：s=1/15，I_fl=127.02/|3.1+j0.6|=40.23 A，pf 0.982；P_ag=3I²(3.0)=14.564 kW，T=P_ag/ωs=115.894 N·m，η=2.8/3.1=90.32%；I_st=189.35 A，s_max=0.3288，I_Tmax=136.83 A，含激磁 I_st=192.30 A。參考書混合慣例：P_ag−sP_ag−P_book=14.564−0.971−6.76≈6.83 kW 無去處，確實違反功率平衡。",
+   "issues": [
+    {
+     "check": "status",
+     "where": "frontmatter audit_status / reference_book_evidence / reference_book_convention",
+     "fix": "非內容錯誤，交主 session：主答案（115.9 N·m、90.32%）已與參考書（57.67 N·m、≈45%）不同，reference_book_verified 不再代表與參考書一致；reference_book_convention 仍描述參考書混合慣例。依 AGENT-SOLVE 零節「來源衝突時保留 needs_manual_review」，建議改為 needs_manual_review（或明確註記參考書僅部分一致：I_st、I_fl、pf）。"
+    }
+   ]
+  },
+  {
+   "qid": "EE-113-04-5",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "∠Z_m=60.55° → 需 ∠Z_aC=−29.45°，X_C=4.8+7.2·3.5/6.2=8.8645 Ω，C=299.24 μF；以 Im(I_a I_m*) 比值得 2.316。",
+   "issues": []
+  },
+  {
+   "qid": "EE-112-04-1",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "L=μ0μrN²A/ℓ=36.560 mH；X_L=13.78 Ω，I=3.574 A rms，φmax=L√2I/N=2.6396e-3 Wb。",
+   "issues": []
+  },
+  {
+   "qid": "EE-112-04-2",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "Z_b=38.088 Ω → R_eq=0.3809、X_eq=1.904 Ω；R_c=2097 Ω，Q_oc=276.66 kvar → X_m=688.35 Ω；VR=|1+(0.8−j0.6)(0.01+j0.05)|−1=3.856%。題解解的正是現行裁切圖（變壓器題），非舊位移題。",
+   "issues": []
+  },
+  {
+   "qid": "EE-112-04-3",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "E_A=120.09−j80 → 144.30 V、δ=−33.67°；PF 0.8 超前 I=62.5∠36.87°，E_A=180.09−j80 → 197.06 V，I_f=2.7·197.06/144.30=3.687 A（線性 OCC；題幹確未給曲線，分支合理）。對應現行裁切圖（同步電動機題）。",
+   "issues": []
+  },
+  {
+   "qid": "EE-112-04-4",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "有功 168.30 A、無功 283.86 A；落後 200 A → 無功 108.05 A；Q_C=√3·380·175.81=115.7 kvar=3V²ωC → C_Δ=708.53 μF。對應現行裁切圖（Δ 電容題）。",
+   "issues": []
+  },
+  {
+   "qid": "EE-112-04-5",
+   "verdict": "pass",
+   "checks": {
+    "P1": true,
+    "P2": true,
+    "P3": true,
+    "P4": true,
+    "P5": true,
+    "P6": true,
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "R5": true
+   },
+   "independent_answer": "I_f*=5−1500/1000=3.5 A；自行像素讀圖 I_f=3.5 A 處曲線 y≈540 px → E_A0≈199.5 V（I_f=5 A 處 ≈249.5 V，與無載 250 V 一致）；E_A=232.6 V，n≈1396 rpm，T≈230.8 N·m。",
+   "issues": [
+    {
+     "check": "status",
+     "where": "frontmatter audit_status",
+     "fix": "非內容錯誤，交主 session：答案依圖四估讀（±2 V → ±1% 轉速），AGENT-SOLVE 零節規定「圖形需估讀」保留 needs_manual_review；若維持 verified，需主 session 明確接受像素數位化作為估讀證據。"
+    }
+   ]
+  }
+ ],
+ "worker_round2_note": {
+  "EE-113-04-1": "已依 P2 意見加入 T 型等效電路圖並刪除重複文字描述（round 2）。",
+  "EE-113-04-3": "worker 同意審查意見：答案與磁化曲線無關，review_blocker/review_evidence 已過時；依指示未改 audit_status（仍 needs_manual_review）、review_*、verified_at:null，交主 session 決定並同步測試與年度全卷。",
+  "EE-113-04-4": "worker 同意審查意見：主答案（115.9 N·m、90.32%）與參考書（57.67 N·m、≈45%）不同，reference_book_verified 已不代表與參考書一致；審查建議改 needs_manual_review 或註記參考書僅 I_st、I_fl、pf 一致。依指示未改 audit_status，交主 session 決定。",
+  "EE-112-04-5": "審查另建議因圖讀估值考慮 needs_manual_review；worker 未改狀態，交主 session。"
+ }
+}

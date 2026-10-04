@@ -1,0 +1,363 @@
+[
+ {
+  "qid": "EE-114-03-1",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "全機率 0.7(0.01)+0.2(0.02)+0.1(0.05)=0.016，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-114-03-2",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "e^{1/z^2} Laurent 只有偶次負冪，z^{-1} 係數 0 → 積分 0，一致；圖示逆時針，結果與方向無關。",
+  "issues": []
+ },
+ {
+  "qid": "EE-114-03-3",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "題面 y^{(1)}=3 缺引數，題幹本身以 y^{(1)} 表示一階導數，讀作 y'(0)=3 合理；重根 −2，y=(1+5t)e^{-2t}，一致。只用一句交代讀法、不另開分支，符合 P5。",
+  "issues": []
+ },
+ {
+  "qid": "EE-114-03-4",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "SymPy：a0=π/2（常數項 π/4）、an=((−1)^n−1)/(πn²)、bn=(−1)^{n+1}/n，一致。",
+  "issues": [
+   {
+    "check": "R5",
+    "severity": "minor",
+    "where": "驗算第 2 點首句「上式及 x=π 處所有 sin(nπ)=0，不能驗證 b_n。」及考場標準作答末句 ∼ 的收斂說明與失分點第 3 條重複",
+    "fix": "非阻擋：可將驗算第 2 點首句縮為「x=π/2 可檢 b_n：」，並刪去作答段或失分點其中一處關於 x=π 收斂至 π/2 的說明。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-114-03-5",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "自行消去：x4=x2、x3=x2−1，x1 自由；x_p=(0,0,−1,0)、N(A)=span{(1,0,0,0),(0,1,1,1)}，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-113-03-1",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "自行開圖（400 dpi）：y''−4y'+5y=e^{2x}csc x。特徵根 2±i；SymPy 代回 y_p=e^{2x}(−x cos x+sin x ln|sin x|) 殘差 0，一致。",
+  "issues": [
+   {
+    "check": "R5",
+    "severity": "minor",
+    "where": "失分點第 1 條「題目係數是 −4y′ 與 e^{2x}…誤看成 +4y′」",
+    "fix": "非阻擋：措辭帶有舊版抄錯的痕跡，建議改為一般解題錯誤：「r=(4±√(16−20))/2=2±i，實部為 +2；寫成 −2±i 會使 y_h、y_p 都帶錯誤的 e^{−2x}。」"
+   }
+  ],
+  "priority_check": "CONFIRMED：官方 PDF 題面為 y''−4y'+5y=e^{2x}csc x（PDF 文字層亦為 '' 4 ' 5 … e^{2x} csc x，視覺確認 −4y′ 與 e^{2x}）。新通解 e^{2x}[C1cos x+C2sin x−x cos x+sin x ln|sin x|] 經獨立代回驗證。"
+ },
+ {
+  "qid": "EE-113-03-2",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "SymPy laplace_transform 得 1/(s²+β²)²，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-113-03-3",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "u=2x 代換 → (√2/2)·π/√2=π/2；SymPy 積分 π/2，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-113-03-4",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "SymPy 解 P=[[11/10,1/10],[1/10,1/10]]；特徵值 3/5±√26/10=(6±√26)/10≈1.1099、0.0901，一致；tr=1.2、det=0.1。",
+  "issues": [],
+  "priority_check": "CONFIRMED：官方 PDF 題面確有㈡「試求該對稱矩陣 P 的兩特徵值。（5 分）」，舊版漏答。獨立求得 (6±√26)/10。"
+ },
+ {
+  "qid": "EE-113-03-5",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": false,
+   "R3": false,
+   "R4": true,
+   "R5": false
+  },
+  "independent_answer": "自行開圖：r(t)=[3t,4t²,8t⁴]，r'=[3,8t,32t³]、‖r'‖²=9+64t²+1024t⁶；∇·F=9，9·(4/3)π·27=324π，一致。",
+  "issues": [
+   {
+    "check": "R2",
+    "where": "失分點第 1 條「官方曲線是 [3t,4t²,8t⁴]，前兩分量誤抄成 [3t²,4t] 會得 r′=[6t,4,32t³]」",
+    "fix": "這是舊版題幹抄錯的稽核痕跡，不是考生的實際失分點。刪除此條，改為本題具體的失分點，例如：「‖r′‖² 要逐項平方得 9+64t²+1024t⁶；把 (8t)² 寫成 8t²、(32t³)² 寫成 32t⁶ 會讓 T 不是單位向量。」"
+   }
+  ],
+  "priority_check": "CONFIRMED：官方 PDF（300 dpi 放大）題面為 r(t)=[3t,4t²,8t⁴]；通量 324π 不受影響（直接面積分亦得 324π）。"
+ },
+ {
+  "qid": "EE-113-03-6",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "k=1/2、E[Y]=2、E[X³Y²]=6·8=48，SymPy 重積分一致。",
+  "issues": [
+   {
+    "check": "P2",
+    "severity": "minor",
+    "where": "（二）末式「E[Y]=∫…dy=\\boxed{E[Y]=2}」",
+    "fix": "非阻擋：改為 \\boxed{2}，避免等號鏈中重複出現 E[Y]=。"
+   }
+  ]
+ },
+ {
+  "qid": "EE-112-03-1",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "SymPy 反拉氏 1/(s(2s²+s+2)) 得 Φ=½−½e^{−t/4}[cos(√15t/4)+sin(√15t/4)/√15]；部分分式 A=1/2、B=−1、C=−1/2 自行重做；y=u(t−5)Φ(t−5)−u(t−20)Φ(t−20)，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-03-2",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "自行開圖（400 dpi）：f=−2x（−2≤x<0）、2x（0≤x<4），f(x+4)=f(x)。兩段長度合計 6 > 週期 4；在 [−2,0) 上週期性要求 f(x)=f(x+4)=2(x+4)，與 −2x 不等（x=−1：2≠6），矛盾確實存在。三角波分支 a0=2、an=8((−1)^n−1)/(n²π²)、bn=0；鋸齒波分支 a0=4、an=0、bn=−8/(nπ)，兩支 SymPy 皆一致。",
+  "issues": [
+   {
+    "check": "P5",
+    "severity": "note",
+    "where": "frontmatter audit_status",
+    "fix": "題幹自相矛盾，屬 AGENT-SOLVE §零「來源衝突」，分支合理；frontmatter 目前仍為 audit_status: verified，應由主 session 依工作者建議改為 needs_manual_review。"
+   }
+  ],
+  "priority_check": "矛盾屬實：定義域 [−2,4) 長 6 與 f(x+4)=f(x) 衝突，同意 needs_manual_review。主答取 [−2,2)（f=2|x| 三角波）是以兩段公式都能保留的最小修改，合理；鋸齒波分支已在條件與疑義中給出並驗算。"
+ },
+ {
+  "qid": "EE-112-03-3",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "(50·0.75+53·0.72+60·0.7)/163=117.66/163=5883/8150≈0.7218；38.16/117.66=12/37≈0.3243，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-03-4",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "u=−Im(ze^{−z})=Re(ize^{−z}) → v=e^{−x}(x cos y+y sin y)+C，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-03-5",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "F'=t(cos t,sin t,2)，‖F'‖=√5 t；T=(cos t,sin t,2)/√5；κ=1/(5t)，一致。",
+  "issues": []
+ },
+ {
+  "qid": "EE-112-03-6",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "[A b] 第 3 列=第 1+2 列，x=(1−3t−2s,t,6−4s,s)；特徵多項式 −λ(λ²−2λ−2) → 0、1±√3；SymPy 特徵向量與範數 10、5±2√3 一致。",
+  "issues": []
+ }
+]

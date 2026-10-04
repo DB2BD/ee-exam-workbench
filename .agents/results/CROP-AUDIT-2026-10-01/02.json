@@ -1,0 +1,582 @@
+{
+ "subject": "02",
+ "audited": 48,
+ "items": [
+  {
+   "qid": "EE-104-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-02-5",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-105-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": "可選：底邊 533.1pt 與「圖一」墨跡底 533.25pt 幾乎貼齊（僅反鋸齒邊緣），如需保險可外擴至 ≈535pt。"
+  },
+  {
+   "qid": "EE-105-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-105-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-105-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-105-02-5",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-02-5",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-02-5",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-02-1",
+   "verdict": "fail",
+   "checks": {
+    "C1": false,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "底邊 crop_rect y1=526.2pt 略低於「圖一」圖說字形底緣（墨跡延伸至 ≈526.8pt），「圖」字下方字腳約 0.6pt（約 1.5px @180dpi）被平切；題幹、全部配分與電路圖本體完整。",
+   "suggested_fix": "Q1 底邊（page 1）應下移至 ≈ y=528.5pt（「圖一」墨跡底 526.8pt 再加約 1.5pt 留白；Q2 起點 534.2pt 不受影響）；標註頁像素 ≈ 528.5×110/72 ≈ 807px。"
+  },
+  {
+   "qid": "EE-109-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-111-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-111-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-111-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-111-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-112-02-1",
+   "verdict": "fail",
+   "checks": {
+    "C1": false,
+    "C2": true,
+    "C3": false,
+    "C4": true
+   },
+   "defect": "頂端殘留頁首注意事項「㈢本科目除專門名詞或數理公式外，應使用本國文字作答。」底部一條字形殘片（該行墨跡 224.8–235.2pt，crop 自 234.9pt 起）；底端「圖一」圖說（墨跡 477.5–490.5pt）被 crop 底邊 484.2pt 從字身中間截斷，只剩上半。",
+   "suggested_fix": "Q1 起點（page 1）應下移至 ≈ y=242pt（注意事項㈢墨跡底 235.2pt 與題號行頂 246.9pt 之間），標註頁 ≈ 370px；Q1 底邊應下移至 ≈ y=492pt（「圖一」墨跡底 490.5pt；Q2 起點 492.2pt、題號行頂 504.2pt），標註頁 ≈ 752px。"
+  },
+  {
+   "qid": "EE-112-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-112-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-112-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-113-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-113-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-113-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-113-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-114-02-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-114-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-114-02-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-114-02-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  }
+ ]
+}

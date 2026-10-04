@@ -1,0 +1,412 @@
+{
+ "EE-104-01-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-01-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-01-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-01-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-01-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-02-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-02-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-02-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-02-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-02-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-03-4": [
+  "tests/test_engineering_math_official_alignment.py"
+ ],
+ "EE-104-04-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-05-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-05-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-06-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-06-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-06-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-104-06-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-01-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-01-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-01-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-01-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-01-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-02-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-02-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-02-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-02-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-04-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-05-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-05-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-05-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-06-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-06-2": [
+  "tests/test_formula_format.py",
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-06-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-06-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-105-06-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-02-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-02-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-02-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-02-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-03-6": [
+  "tests/test_formula_format.py"
+ ],
+ "EE-106-04-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-05-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-06-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-06-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-06-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-106-06-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-01-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-01-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-01-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-01-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-02-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-02-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-02-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-02-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-04-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-04-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-04-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-04-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-04-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-05-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-05-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-05-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-05-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-06-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-06-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-06-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-107-06-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-01-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-01-2": [
+  "tests/test_route_math_markup.py"
+ ],
+ "EE-108-02-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-02-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-04-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-04-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-04-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-04-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-05-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-06-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-108-06-4": [
+  "tests/test_route_math_markup.py"
+ ],
+ "EE-109-02-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-109-04-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-109-04-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-109-04-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-109-04-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-109-05-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-109-06-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-109-06-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-109-06-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-110-04-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-110-04-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-110-04-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-110-04-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-110-06-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-110-06-5": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-111-02-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-111-02-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-111-04-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-111-05-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-111-06-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-111-06-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-111-06-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-111-06-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-112-02-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-112-02-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-112-02-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-112-03-3": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-112-03-6": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-112-05-2": [
+  "tests/test_verified_114_solutions.py"
+ ],
+ "EE-112-05-4": [
+  "tests/test_verified_114_solutions.py",
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-112-06-4": [
+  "tests/test_reconstructed_pe_solutions.py",
+  "tests/test_112_113_review_consistency.py"
+ ],
+ "EE-113-02-2": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-113-02-3": [
+  "tests/test_buck_bcm_113.py"
+ ],
+ "EE-113-02-4": [
+  "tests/test_full_bridge_bcm_113.py"
+ ],
+ "EE-113-03-6": [
+  "tests/test_route_math_markup.py"
+ ],
+ "EE-113-04-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-113-06-4": [
+  "tests/test_formula_format.py",
+  "tests/test_112_113_review_consistency.py"
+ ],
+ "EE-114-01-1": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-114-01-2": [
+  "tests/test_norton_direction_114.py"
+ ],
+ "EE-114-01-4": [
+  "tests/test_superposition_114.py"
+ ],
+ "EE-114-01-5": [
+  "tests/test_laplace_114.py"
+ ],
+ "EE-114-02-1": [
+  "tests/test_bjt_tail_bias_114.py"
+ ],
+ "EE-114-02-3": [
+  "tests/test_verified_114_solutions.py"
+ ],
+ "EE-114-02-4": [
+  "tests/test_thyristor_protection_114.py"
+ ],
+ "EE-114-03-4": [
+  "tests/test_fourier_endpoint_114.py"
+ ],
+ "EE-114-04-2": [
+  "tests/test_passive_route_status.py"
+ ],
+ "EE-114-04-3": [
+  "tests/test_reconstructed_pe_solutions.py",
+  "tests/test_rotating_field_114.py"
+ ],
+ "EE-114-04-4": [
+  "tests/test_reconstructed_pe_solutions.py"
+ ],
+ "EE-114-04-5": [
+  "tests/test_verified_114_solutions.py",
+  "tests/test_rotating_field_114.py"
+ ],
+ "EE-114-05-1": [
+  "tests/test_power_system_114_official_values.py"
+ ],
+ "EE-114-05-4": [
+  "tests/test_fault_current_direction_114.py",
+  "tests/test_verified_power_system_solution.py"
+ ],
+ "EE-114-06-1": [
+  "tests/test_open_delta_114.py"
+ ],
+ "EE-114-06-2": [
+  "tests/test_passive_route_status.py",
+  "tests/test_furnace_series_path_114.py"
+ ],
+ "EE-114-06-3": [
+  "tests/test_passive_route_status.py"
+ ],
+ "EE-999-05-1": [
+  "tests/test_lint_canonical_notes.py"
+ ]
+}

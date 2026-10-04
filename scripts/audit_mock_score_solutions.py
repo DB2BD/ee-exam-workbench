@@ -19,13 +19,11 @@ SUBJECT_DIRS = {
     "05": "05_電力系統",
     "06": "06_工業配電",
 }
-REQUIRED_HEADINGS = (
-    "考場標準作答",
-    "得分點拆解",
-    "完整教學推導",
-    "獨立驗算",
-    "常見失分",
-)
+# lean-v1 structure (AGENT-SOLVE.md); the legacy five-block form is retired.
+LEAN_HEADINGS = ("考場標準作答", "驗算", "失分點")
+REQUIRED_HEADINGS = LEAN_HEADINGS
+BULLET_HEADINGS = {"失分點"}
+MIN_SECTION_CHARS = {"驗算": 15, "失分點": 15}
 PLACEHOLDERS = ("TODO", "TBD", "待補內容", "待完成內容", "此處補上")
 ORDINAL_HEADINGS = re.compile(r"^##\s+[一二三四五六七八九十]+、.*$", re.MULTILINE)
 
@@ -75,18 +73,20 @@ def annual_question_section(qid: str, text: str) -> str:
     return text[start:end]
 
 
-def required_sections(text: str, level: int, label: str) -> tuple[dict[str, str], list[str]]:
+def required_sections(
+    text: str, level: int, label: str, headings: tuple[str, ...] = LEAN_HEADINGS
+) -> tuple[dict[str, str], list[str]]:
     errors: list[str] = []
     marker = "#" * level
     matches = []
-    for heading in REQUIRED_HEADINGS:
+    for heading in headings:
         found = list(re.finditer(rf"^{marker}\s+{re.escape(heading)}\s*$", text, re.MULTILINE))
         if len(found) != 1:
             errors.append(f"{label}: expected one '{marker} {heading}', found {len(found)}")
             continue
         matches.append((heading, found[0]))
 
-    if len(matches) != len(REQUIRED_HEADINGS):
+    if len(matches) != len(headings):
         return {}, errors
     positions = [match.start() for _, match in matches]
     if positions != sorted(positions):
@@ -100,14 +100,15 @@ def required_sections(text: str, level: int, label: str) -> tuple[dict[str, str]
         body = text[match.end():end].strip()
         body = re.sub(r"\n?\s*---\s*$", "", body).strip()
         compact = re.sub(r"\s+", "", body)
-        if len(compact) < 60:
+        if len(compact) < MIN_SECTION_CHARS.get(heading, 60):
             errors.append(f"{label}: '{heading}' is too short to be a substantive answer")
         if any(token in body for token in PLACEHOLDERS):
             errors.append(f"{label}: '{heading}' contains placeholder text")
-        if heading in {"得分點拆解", "常見失分"}:
+        if heading in BULLET_HEADINGS:
             bullet_count = len(re.findall(r"^\s*[-*]\s+", body, re.MULTILINE))
-            if bullet_count < 2:
-                errors.append(f"{label}: '{heading}' needs at least two concrete bullets")
+            needed = 1 if heading == "失分點" else 2
+            if bullet_count < needed:
+                errors.append(f"{label}: '{heading}' needs at least {needed} concrete bullet(s)")
         sections[heading] = body
     return sections, errors
 
@@ -128,10 +129,13 @@ def audit() -> list[str]:
         if not canonical.is_file():
             errors.append(f"{qid}: canonical solution missing")
             continue
+        canonical_text = canonical.read_text(encoding="utf-8")
+        headings = LEAN_HEADINGS
         canonical_sections, section_errors = required_sections(
-            canonical.read_text(encoding="utf-8"),
+            canonical_text,
             2,
             f"{qid} canonical",
+            headings,
         )
         errors.extend(section_errors)
 
@@ -145,11 +149,12 @@ def audit() -> list[str]:
             annual_question,
             3,
             f"{qid} annual",
+            headings,
         )
         errors.extend(annual_errors)
 
         if canonical_sections and annual_sections:
-            for heading in REQUIRED_HEADINGS:
+            for heading in headings:
                 if normalized(canonical_sections[heading]) != normalized(annual_sections[heading]):
                     errors.append(f"{qid}: annual '{heading}' differs from canonical")
     return errors
@@ -162,7 +167,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print("Mock score-solution audit: 59/59 canonical and annual solutions have aligned five-part scoring structure")
+    print("Mock score-solution audit: 59/59 canonical and annual solutions have aligned scoring structure")
     return 0
 
 

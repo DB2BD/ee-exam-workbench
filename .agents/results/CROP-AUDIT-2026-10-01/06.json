@@ -1,0 +1,666 @@
+{
+  "subject": "06",
+  "audited": 55,
+  "items": [
+    {
+      "qid": "EE-104-06-1",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-104-06-2",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-104-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-104-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-104-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-105-06-1",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題一單線圖底部被裁：左側 6.6kV 下端子圓圈、變壓器線圈下緣與 B 端導線下半（約 467.9–472.5pt）不在裁切內。",
+      "suggested_fix": "Q1 page 1 crop bottom 467.9 → ≈475pt（圖底 472.5pt）；Q2 起點同步下移至 ≈480pt（Q2 首行 490pt）。"
+    },
+    {
+      "qid": "EE-105-06-2",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題二單線圖變壓器標註最後一行「Z_T=5%」被裁半（墨跡 679–686pt，裁切止於 684.1pt）。",
+      "suggested_fix": "Q2 page 1 crop bottom 684.1 → ≈689pt；Q3 起點 692pt 不變（Q3 首行 706pt）。"
+    },
+    {
+      "qid": "EE-105-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-105-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-105-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-106-06-1",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題一㈡「試述工業配電系統設備接地之目的及其重要性。（10分）」整行被攔腰切斷，只剩上半（墨跡 293–308pt，裁切止於 301pt）。",
+      "suggested_fix": "Q1 page 1 crop bottom 301 → ≈311pt；Q2 起點 309 → ≈315pt（Q2 首行 323pt）。"
+    },
+    {
+      "qid": "EE-106-06-2",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題二圖一圖說「圖一」被裁，只剩上緣筆劃（墨跡 591.5–603pt，裁切止於 596.1pt）。",
+      "suggested_fix": "Q2 page 1 crop bottom 596.1 → ≈606pt；Q3 起點 604 → ≈610pt（Q3 首行 618pt）。"
+    },
+    {
+      "qid": "EE-106-06-3",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題三㈡末行「電壓接近平衡。」被攔腰切斷（墨跡 743–758pt，裁切止於 750.8pt）。",
+      "suggested_fix": "Q3 page 1 crop bottom 750.8 → ≈761pt；Q4 起點 758.8 → ≈765pt（Q4 首行 773pt）。"
+    },
+    {
+      "qid": "EE-106-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-106-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-107-06-1",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題一表格最下框線（D 列底線）被裁掉（表格墨跡至 465.8pt，裁切止於 464.4pt），D 列無底邊。",
+      "suggested_fix": "Q1 page 1 crop bottom 464.4 → ≈468pt；Q2 起點 472.4pt 不變（Q2 首行 486.8pt）。"
+    },
+    {
+      "qid": "EE-107-06-2",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-107-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-107-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-107-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-108-06-1",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-108-06-2",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-108-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-108-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-108-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-109-06-1",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題一㈡末行「如何決定其契約容量（最大需用電力）。」字底約 1pt 被裁（墨跡至 330.0pt，裁切止於 329.1pt），裁切底列可見筆劃被切。",
+      "suggested_fix": "Q1 page 1 crop bottom 329.1 → ≈333pt；Q2 起點 337.1pt 不變（Q2 首行 345pt）。"
+    },
+    {
+      "qid": "EE-109-06-2",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題二㈡末行「到線間之百分壓降為多少？」字底約 1pt 被裁（墨跡至 464.2pt，裁切止於 463.1pt）。",
+      "suggested_fix": "Q2 page 1 crop bottom 463.1 → ≈467pt；Q3 起點 471.1pt 不變（Q3 首行 479pt）。"
+    },
+    {
+      "qid": "EE-109-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-109-06-4",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題四末行「並設計所需燈具及配置方式。（20分）」字底約 1pt 被裁（墨跡至 153.0pt，裁切止於 151.8pt）。",
+      "suggested_fix": "Q4 page 2 crop bottom 151.8 → ≈156pt；Q5 起點 159.8pt 不變（Q5 首行 168pt）。"
+    },
+    {
+      "qid": "EE-109-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-110-06-1",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-110-06-2",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題二圖說「圖二　系統架構圖」字底約 1.3pt 被裁（墨跡至 626.8pt，裁切止於 625.5pt）。",
+      "suggested_fix": "Q2 page 2 crop bottom 625.5 → ≈629.5pt；Q3 起點 633.5pt 不變（Q3 首行 646pt）。"
+    },
+    {
+      "qid": "EE-110-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-110-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-110-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-111-06-1",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-111-06-2",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-111-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-111-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-111-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-112-06-1",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-112-06-2",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-112-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-112-06-4",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "（manual_audit）題四圖三圖說「圖三」幾乎整個被裁掉，只剩上緣一點筆劃（墨跡 441.5–455pt，裁切止於 442pt）。",
+      "suggested_fix": "Q4 page 2 crop bottom 442 → ≈458pt（圖三圖說底 455pt）。"
+    },
+    {
+      "qid": "EE-112-06-5",
+      "verdict": "fail",
+      "checks": {
+        "C1": true,
+        "C2": false,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "（manual_audit）題五頂端混入上一題「圖三」圖說的下半部（墨跡 441.5–455pt，裁切起於 450pt）。",
+      "suggested_fix": "Q5 page 2 crop top 450 → ≈462pt（Q5 首行「五、」上緣 467.8pt）。"
+    },
+    {
+      "qid": "EE-113-06-1",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-113-06-2",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-113-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-113-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-113-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-114-06-1",
+      "verdict": "fail",
+      "checks": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "題一㈡末行「改接後可供應之最大負載。」字底約 1.3pt 被裁（墨跡至 347.2pt，裁切止於 345.9pt）。",
+      "suggested_fix": "Q1 page 1 crop bottom 345.9 → ≈350pt；Q2 起點 353.9pt 不變（Q2 首行 362pt）。"
+    },
+    {
+      "qid": "EE-114-06-2",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-114-06-3",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-114-06-4",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    },
+    {
+      "qid": "EE-114-06-5",
+      "verdict": "pass",
+      "checks": {
+        "C1": true,
+        "C2": true,
+        "C3": true,
+        "C4": true
+      },
+      "defect": "",
+      "suggested_fix": ""
+    }
+  ]
+}

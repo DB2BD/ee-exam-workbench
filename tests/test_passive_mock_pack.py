@@ -24,8 +24,10 @@ SUBJECTS = (
     ("03", "工程數學", (15, 15, 20, 20, 30)),
     ("04", "電機機械", (20, 20, 20, 20, 20)),
     ("05", "電力系統", (20, 20, 20, 20, 20)),
-    ("06", "工業配電", (20, 20, 20)),
+    ("06", "工業配電", (20, 20)),
 )
+SCORED_06_QUESTIONS = (1, 5)
+BOUNDARY_06_QIDS = ("EE-114-06-2", "EE-114-06-3", "EE-114-06-4")
 
 
 class TestPassiveMockPack(unittest.TestCase):
@@ -41,9 +43,9 @@ class TestPassiveMockPack(unittest.TestCase):
         expected_qids = []
         subject_positions = []
         for subject_code, subject_name, points in SUBJECTS:
-            self.assertEqual(sum(points), 60 if subject_code == "06" else 100, subject_name)
+            self.assertEqual(sum(points), 40 if subject_code == "06" else 100, subject_name)
             subject_positions.append(self.text.index(f"| {subject_name} |"))
-            question_numbers = (1, 4, 5) if subject_code == "06" else range(1, len(points) + 1)
+            question_numbers = SCORED_06_QUESTIONS if subject_code == "06" else range(1, len(points) + 1)
             for question_number, point_value in zip(question_numbers, points):
                 qid = f"EE-114-{subject_code}-{question_number}"
                 expected_qids.append(qid)
@@ -52,31 +54,35 @@ class TestPassiveMockPack(unittest.TestCase):
                 canonical = self.by_qid[qid].read_text(encoding="utf-8")
                 self.assertIn("audit_status: verified", canonical, qid)
 
-        self.assertEqual(len(expected_qids), 27)
-        self.assertEqual(len(set(expected_qids)), 27)
+        self.assertEqual(len(expected_qids), 26)
+        self.assertEqual(len(set(expected_qids)), 26)
         self.assertEqual(set(re.findall(r"EE-\d{3}-\d{2}-\d+", self.text)), set(expected_qids))
         self.assertEqual(subject_positions, sorted(subject_positions))
 
     def test_furnace_boundary_practice_is_excluded_from_scoring(self):
-        self.assertNotIn("EE-114-06-2", self.text)
-        self.assertNotIn("EE-114-06-3", self.text)
+        for qid in BOUNDARY_06_QIDS:
+            self.assertNotIn(qid, self.text)
         for phrase in (
             "工業配電仍做官方原卷 120 分鐘",
-            "原卷第 2、3 題只作邊界練習",
-            "三題合計 60 分",
-            "不把三題成績換算成 100 分",
-            "預設計分總額為 560 分",
-            "工業配電第 2、3 題不列入此選題",
+            "原卷第 2、3、4 題只作邊界練習",
+            "兩題合計 40 分",
+            "不把兩題成績換算成 100 分",
+            "預設計分總額為 540 分",
+            "工業配電第 2、3、4 題不列入此選題",
             "不判唯一數值對錯",
+            "屋內線路裝置規則",
         ):
             self.assertIn(phrase, self.text)
-        self.assertNotIn("每科配分合計 100 分", self.text)
+        for stale in ("每科配分合計 100 分", "三題合計 60 分", "預設計分總額為 560 分", "原卷第 2、3 題只作"):
+            self.assertNotIn(stale, self.text)
+        row = next(line for line in self.text.splitlines() if line.startswith("| 6 | 工業配電 |"))
+        self.assertEqual(re.findall(r"EE-\d{3}-\d{2}-\d+", row), ["EE-114-06-1", "EE-114-06-5"])
         self.assertIn("上榜精確解答邊界_條件題處理.md", self.text)
 
     def test_optional_diagnostic_does_not_score_ambiguous_furnace_questions(self):
         diagnostic = DIAGNOSTIC.read_text(encoding="utf-8")
-        self.assertIn("27 題列入預設計分（合計 560 分）", diagnostic)
-        for qid in ("EE-114-06-2", "EE-114-06-3"):
+        self.assertIn("26 題列入預設計分（合計 540 分）", diagnostic)
+        for qid in BOUNDARY_06_QIDS:
             row = next(line for line in diagnostic.splitlines() if qid in line)
             self.assertIn("不計分", row)
             self.assertIn("不列分", row)
@@ -100,7 +106,7 @@ class TestPassiveMockPack(unittest.TestCase):
         mock_qids = set(re.findall(qid_re, self.text))
         core_qids = set(re.findall(qid_re, CORE_PATH.read_text(encoding="utf-8")))
         self.assertEqual(mock_qids & core_qids, EXPECTED_CORE_OVERLAP)
-        self.assertIn("27 題預設計分題中有 4 題", self.text)
+        self.assertIn("26 題預設計分題中有 4 題", self.text)
         self.assertIn("計時演練", self.text)
         self.assertIn("不是未接觸題目的能力基線", self.text)
         for qid in EXPECTED_CORE_OVERLAP:

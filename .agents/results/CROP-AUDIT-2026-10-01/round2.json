@@ -1,0 +1,839 @@
+{
+ "rechecked": [
+  {
+   "qid": "EE-104-01-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-01-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-01-3",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-01-4",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-01-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-01-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-02-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-112-02-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-03-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-104-03-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-105-03-7",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-105-03-8",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-03-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-03-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-03-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-03-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-03-3",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-03-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-03-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-03-3",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-108-03-4",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-03-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-03-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-03-3",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-03-4",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-03-5",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-03-6",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-111-03-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-114-03-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-04-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-04-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-04-3",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-04-4",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-04-5",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-04-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-04-3",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-05-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-05-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-05-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-05-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-105-06-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-105-06-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-06-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-06-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-06-3",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-06-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-06-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-06-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-06-4",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-06-2",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-112-06-4",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-112-06-5",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-114-06-1",
+   "verdict": "pass",
+   "round1_defect_fixed": true,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  }
+ ],
+ "spot_checks": [
+  {
+   "qid": "EE-104-01-5",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-107-01-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-112-02-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-106-03-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-03-7",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-04-1",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-04-4",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-05-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-110-05-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-109-06-3",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  },
+  {
+   "qid": "EE-114-06-2",
+   "verdict": "pass",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true
+   },
+   "defect": "",
+   "suggested_fix": ""
+  }
+ ]
+}

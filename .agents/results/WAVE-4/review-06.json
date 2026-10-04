@@ -1,0 +1,270 @@
+[
+ {
+  "qid": "EE-105-06-1",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "裁切圖：N 側變壓器中心抽頭接地，M 經 Rg 接地，N–M 斷開；R_A=12.1 Ω、R_B=2.42 Ω。M 點 KCL（N 為參考）：V_M=-73.1857 V → V_AN=183.186 V、V_BN=-36.8143 V；Rg→∞ 極限 183.33 V。舊值 183.482 V 超過此極限，係 Rg 項反號（重算反號式得 V_M=-73.48 V，正好重現舊值）。更正 CONFIRMED。",
+  "correction": "CONFIRMED: 183.482→183.186 V、-36.5185→-36.8143 V",
+  "issues": [
+   {
+    "check": "P2",
+    "where": "考場標準作答（一）",
+    "fix": "（一）沒有 boxed 答案。把 V_{AN}=+110 V、V_{BN}=-110 V 改寫為 \\boxed{V_{AN}=110\\ \\mathrm V},\\ \\boxed{V_{BN}=-110\\ \\mathrm V}。"
+   },
+   {
+    "check": "R3",
+    "where": "失分點第 2 條（183.482／36.5185）",
+    "fix": "判定：保留。此條寫出一個可重現的具體錯誤（KCL 中 Rg 項反號）與可用的物理檢查（不得超過 Rg→∞ 的 183.33 V），對考生有用，不是單純為了應付測試。仍建議主 session 把 tests/test_reconstructed_pe_solutions.py:1547-1548 的斷言改為 183.186 與 36.8143，日後去冗時這一條才能自由改寫。"
+   }
+  ],
+  "recommended_status": "verified（補上（一）的 boxed 後）"
+ },
+ {
+  "qid": "EE-105-06-2",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": false,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": false,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "S_rated=1927.65 kVA，I_pu=3.68768∠-84.26°；以定電流模型、純電抗計算：|V_11.4|=0.977987→2.2013%，|V_480|=0.794794→20.5206%，與本解相符。定阻抗模型（Z_m=(460/480)/3.68768∠84.26°=0.2599 pu）得 1.894%／17.67%；若以 1/3.68768 計算則為 1.83%／17.06%。",
+  "issues": [
+   {
+    "check": "R3",
+    "where": "失分點第 1 條",
+    "fix": "刪除此條。電動機啟動採定阻抗模型是常見且物理上較嚴謹的作法（啟動電流 5.5 倍定義於額定電壓下），不是失分點；而且條中的 1.77%／16.52% 無法重現（定阻抗模型應得 1.89%／17.67%）。字串 5.5I_{rated} 仍出現在主解，測試不受影響。"
+   },
+   {
+    "check": "P5",
+    "where": "條件與疑義",
+    "fix": "補一句：『若把電動機視為定阻抗 Z_m=(460/480)/3.688∠84.26°=0.2599 pu 與系統串聯，啟動電流降為 3.17 pu，壓降為 1.89%／17.67%；本解依題意取指定的啟動電流（定電流）。』"
+   }
+  ],
+  "recommended_status": "verified（修正後）"
+ },
+ {
+  "qid": "EE-105-06-3",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "X1=0.01+0.06=0.07 pu、X2=0.2×4=0.8 pu、Ib=2405.63 A → 34.366 kA；並聯 0.0643678 pu → 37.373 kA。一致。",
+  "issues": [],
+  "recommended_status": "verified"
+ },
+ {
+  "qid": "EE-105-06-4",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": false,
+   "R4": true,
+   "R5": false
+  },
+  "independent_answer": "Φ=1500·600/(0.7·0.65)=1,978,022 lm；9000 lm/具 → 219.8 → 220 具；E=220·9000·0.455/600=1501.5 lx；219 具只有 1494.7 lx。數值一致。",
+  "issues": [
+   {
+    "check": "R5",
+    "where": "條件與疑義末句",
+    "fix": "『間距在 1～1.5 倍吊裝高度內均可』與驗算『1.82 m 為吊裝高度的 0.46 倍，照度均勻』互相矛盾。改為『間距不超過約 1～1.5 倍吊裝高度（4 m）』。"
+   },
+   {
+    "check": "R3",
+    "where": "失分點第 3 條",
+    "fix": "『N=n_xn_y 必須等於 220』與條件與疑義的『n_xn_y≥220』衝突。改為『矩形陣列須 n_xn_y≥220，取 20×11=220 剛好最省』。"
+   }
+  ],
+  "recommended_status": "verified（修正後）"
+ },
+ {
+  "qid": "EE-105-06-5",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": false,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false
+  },
+  "independent_answer": "R_s=0.007428 pu、X_s=0.018570 pu，X_T(總)=0.078570 pu=0.009051 Ω，R=0.000856 Ω，X_C=0.384 Ω，C=6908 μF；h_r=√(0.384/0.009051)=6.5135，f_r=390.81 Hz → 390.8 Hz，最接近第 7 次。",
+  "issues": [
+   {
+    "check": "P2",
+    "where": "考場標準作答（二）boxed f_r",
+    "fix": "『6.51×60=390.7 Hz』的算術本身就不成立（6.51×60=390.6；精確值 6.5135×60=390.81）。改為 \\boxed{f_r=6.5135\\times60=390.8\\ \\mathrm{Hz}}；h_r 的 boxed 可寫 6.51。驗算腳本已斷言 390.8。"
+   },
+   {
+    "check": "R5",
+    "where": "整題（測試鎖定）",
+    "fix": "390.7 是為了通過 tests/test_reconstructed_pe_solutions.py:1552 而保留，違反 Wave 3 政策。主 session 把斷言改為 390.8。"
+   }
+  ],
+  "recommended_status": "verified（改為 390.8 且測試同步後）"
+ },
+ {
+  "qid": "EE-104-06-1",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "申論題：高壓 11.4／22.8 kV、特高壓 69／161 kV；供電方式由契約容量、負載特性、地區系統與可靠度決定；責任分界點是所有權、維護與事故責任的界面。281 A 量級檢查：5000/(√3·11.4·0.9)=281.4 A，正確。",
+  "issues": [],
+  "recommended_status": "verified"
+ },
+ {
+  "qid": "EE-104-06-2",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": false,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "高 DPI 渲染的官方表格有參差因數欄：電燈 3、馬達 2，需量因數皆為 100%；題幹另給『馬達與電燈負載之參差因數 1.1』，因此 3、2 是各類負載內部的參差因數，1.1 是兩類之間的參差因數。50 kW∠pf0.95 加 100 kW∠pf0.80 → 150+j91.434，|S|=175.671 kVA；÷1.1=159.701；÷0.9=177.445 kVA（×1.1 則為 175.671）。舊值 406.84 用設備容量 350 kW 直接計算（|S|=402.77），漏掉 3、2 兩個參差因數。更正 CONFIRMED。",
+  "correction": "CONFIRMED: 406.84→177.45 kVA；表格解讀正確（3、2 為類內參差因數，1.1 為類間）；損失分母 ÷0.9 為合理主解，×1.1 為 175.67 的分支，兩者差 1%，題幹無法唯一決定。",
+  "issues": [
+   {
+    "check": "R3",
+    "where": "失分點第 3 條",
+    "fix": "內容錯誤：1.1 若誤用乘法，容量會變大（175.67×1.1/0.9=214.7 kVA），不是『偏小』。改為『參差因數 1.1 應除；誤乘得 214.7 kVA』。"
+   },
+   {
+    "check": "R3",
+    "where": "失分點第 2 條",
+    "fix": "補上本題的具體量：『算術和 (52.63+125)/1.1/0.9=179.4 kVA』。也可刪除，因驗算已有 179.4。"
+   },
+   {
+    "check": "R5",
+    "where": "失分點第 1 條（402.7673／406.84）",
+    "fix": "判定：錯誤型態有用（這正是題幹誘導的陷阱，也是舊解犯的錯），應保留；但四位小數的中間值 402.7673 只是為了配合測試字串。改寫為『漏用表內參差因數 3、2，以 350 kW 直接計算會得約 407 kVA，為正確值的 2.3 倍』。主 session 把 tests/test_reconstructed_pe_solutions.py:1660-1663 改為斷言 177.45 與『參差因數』，若狀態改為 needs_manual_review，也要同步修改 audit_status 斷言。"
+   }
+  ],
+  "recommended_status": "needs_manual_review（『電力損失 10%』的分母未定義：177.45 與 175.67 相差 1.0%，超過 0.5% 容差；主解與分支都已寫出。frontmatter 目前仍是 verified，需主 session 調整）"
+ },
+ {
+  "qid": "EE-104-06-3",
+  "verdict": "fail",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": false,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "以 11.4 kV 歐姆法重算：Zs=j0.10566、線路 0.001538+j0.004754、主變 j0.58048、爐變 j0.63421、二次側以下 j4.5746 Ω；爐變一次側匯流排 |V(0)|=0.882892、|V(10)|=0.971006 → ΔV=8.811%，與本解一致；若 44% 已含漏抗則為 10.41%（相符）。但題幹特別提到『該饋線上尚有其他用戶』，在 69 kV 公共耦合點（PCC）計算：|V(0)|=0.982091、|V(10)|=0.995408 → ΔV=1.33%。",
+  "issues": [
+   {
+    "check": "P5",
+    "where": "條件與疑義",
+    "fix": "量測點本來就未指定，分支合理，但漏了最顯而易見的另一種讀法：題幹強調 69 kV 饋線上有其他用戶，應補『若以 69 kV 受電點（PCC）計算，|V(0)|=0.98209、|V(10)|=0.99541，ΔV=1.33%』，並用一句話說明本解取 11.4 kV 匯流排的理由（電阻在爐變一次側量測，該匯流排為爐用變壓器的供電點）。"
+   }
+  ],
+  "recommended_status": "needs_manual_review（11.4 kV 匯流排 8.81% 或 69 kV PCC 1.33% 無法由題幹唯一決定；若參考書確認 8.81%，可改為 reference_book_verified）"
+ },
+ {
+  "qid": "EE-104-06-4",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "Z1=Z2=22.8²/448=1.16036 Ω；3·22.8²/470=3.31813 Ω → Z0=0.99741 Ω；100 MVA 標么值為 0.223214／0.191869 pu。一致。",
+  "issues": [],
+  "recommended_status": "verified"
+ },
+ {
+  "qid": "EE-104-06-5",
+  "verdict": "pass",
+  "checks": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": true
+  },
+  "independent_answer": "Xs=0.008、XT=0.061 → Z_up,5=j0.345；A 支路 j(1.5-1)=j0.5，B 支路 j(3-2)=j1.0；Z_bus=j0.169533；I5=0.2×759.67=151.93 A=0.05 pu → V5=3.2211 V，幹線 74.66 A，A 支路 51.52 A，B 支路 25.76 A，KCL 閉合。條件分支（AC 或 DC 的 500 kW、pf1、η、kvar 是否為淨值）都是題幹確實沒給的條件，屬合法分支；kvar 為淨值時 3.32 V 等數值抽驗相符。",
+  "issues": [],
+  "recommended_status": "needs_manual_review（維持）"
+ }
+]

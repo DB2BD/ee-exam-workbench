@@ -1,0 +1,430 @@
+{
+ "subject": "01",
+ "audited": 48,
+ "items": [
+  {
+   "qid": "EE-104-01-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹後接「圖一」圖說行／裁切圖：僅題幹文字（圖說屬圖面）"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-01-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：ω、k 未轉 LaTeX，後接「圖二」行／裁切圖：ω=4000 rad/s、k，數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-01-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：Yan=$120\\angle 20^\\circ$ Vrms、(8+j$6\\ \\Omega$)/φ 混排／裁切圖：Y_an=120∠20° V_rms、(8+j6Ω)/φ、600∠36° VA，數值一致，改為一致 LaTeX"
+   ],
+   "stem_issue": "官方題幹寫「Y_an=120∠20° V_rms」，依上下文應為相電壓 V_an（命題筆誤），已照官方原文轉錄。",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-01-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：ig=20u(t)mA、vo（t）純文字，後接「圖三」行／裁切圖：i_g=20u(t) mA、v_o(t)"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-104-01-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹後混入圖一～圖四全部元件標籤（60Ω、9V、1.8A、12.5μF、φv、100、2I…）約 40 行／裁切圖：僅「求圖四電路中的 g 參數。I1=g11V1+g12I2，V2=g21V1+g22I2。（20 分）」；g 參數定義式一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-01-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：IO 純文字，後接「圖1」行／裁切圖：I_O"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-01-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：RTH 純文字，後接「圖2」行／裁切圖：A-B、R_TH"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-01-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹後混入圖1～圖3元件標籤及試卷頁首（「技師、第二次食品技師考試暨普通／全一張（背面）」）／裁切圖：僅題幹一句，文字一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-01-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹硬換行／裁切圖：34.5 kVrms、60 Hz、0.94 領先，數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-105-01-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹後混入圖4/圖5標籤（a、b、c、C、平衡三相電源、24 MVA、0.78…）／裁切圖：僅題幹；1000 rad/s、100 rad/s、C=1 μF 一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-01-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：Vab 純文字、句中硬換行／裁切圖：V_ab，其餘一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-01-2",
+   "verdict": "major",
+   "diffs": [
+    "來源：「有關dt\\ndvC3 的狀態方程式」（分子分母顛倒成 dt/dv_C3），區塊內另混入背面頁首／裁切圖：「有關 dv_C3/dt 的狀態方程式」"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-01-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：Zin 純文字、硬換行，後接 Z1～Z5 圖面標籤／裁切圖：僅題幹，Z_in"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-106-01-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：Io 純文字、硬換行／裁切圖：I_o，文字一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-01-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹後接「圖1」行／裁切圖：題幹一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-01-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：L1、L2、i1(t)、i3(t) 純文字、硬換行，後接「圖2」／裁切圖：8 A、4 A、t≧0、各 10 分共 20 分，一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-01-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹後混入圖1/圖2標籤（40Ω、15Ω、8 A、L1(5 H)、15iψ…）／裁切圖：僅題幹；I0～I3 各 4 分、V1、V2 各 2 分，一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-01-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：RL 純文字、硬換行，子題後接「圖4」／裁切圖：4：1、(一)(二)各 10 分，一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-107-01-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹硬換行／裁切圖：120 V、0.2+j0.5 Ω、118.5+j85.8 Ω、0.3+j0.9 Ω、(一)(二)各 10 分，一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-108-01-1",
+   "verdict": "major",
+   "diffs": [
+    "來源：電源電壓被拆成「t t v cos 12 ) ( V」亂序殘字，另混入圖1標籤／裁切圖：v(t)=12cos5t V"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-108-01-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：P$2\\ \\Omega$ 排版錯置，後接圖2標籤殘字／裁切圖：(一)電阻 4 Ω 電壓 v；(二)電阻 2 Ω 功率 P_2Ω（子題內嵌，無個別配分，共 25 分）"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-108-01-3",
+   "verdict": "major",
+   "diffs": [
+    "來源：Z_Y、Z_Δ、v_ab 全為亂序殘字（遺失 6+j8、8−j6、220√2cos(120πt)），提示的反正切式亦殘缺，另混入圖3標籤與「\\tan」誤植／裁切圖：Z_Y=6+j8 Ω、Z_Δ=8−j6 Ω、v_ab(t)=220√2cos(120πt)，提示 tan⁻¹(−6/8)=−36.9°、tan⁻¹(8/6)=53.1°、tan⁻¹(8/−6)=126.9°、tan⁻¹(6/8)=36.9°"
+   ],
+   "stem_issue": "v_ab(t) 未標單位；提示 tan⁻¹(8/−6)=126.9° 採四象限（atan2）慣例而非主值。照官方原文轉錄。",
+   "fixed": true
+  },
+  {
+   "qid": "EE-108-01-4",
+   "verdict": "major",
+   "diffs": [
+    "來源：電源電壓拆成「V cos 10 ) ( t t vs」，遺失 √2 與角頻率 2／裁切圖：v_s(t)=10√2 cos2t V，求 i_2(t)"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-109-01-1",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-109-01-2",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-109-01-3",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-109-01-4",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-110-01-1",
+   "verdict": "major",
+   "diffs": [
+    "來源：「2( ) v t ，其中( ) 10cos A si t t」亂序殘字，無法讀出 v_2(t) 與 i_s(t)=10cos t A／裁切圖：求 v_2(t)，i_s(t)=10cos t A"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-110-01-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：T 未標粗體，後接圖1/圖2標籤殘字（I1、L、C、2 F、3H、1H、M=1H…）／裁切圖：僅題幹，傳輸參數矩陣 T"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-110-01-3",
+   "verdict": "major",
+   "diffs": [
+    "來源：電阻寫成 $R_1 = 10\\ \\Omega$（官方為 R），v_s(t)、f=5 kHz、X_L=25 Ω、X_C=64 Ω、f_0、Q_0、f^*、v_C(t)、v_L(t) 全為亂序殘字（X_C 的 64 與 Ω 分離）／裁切圖：v_s(t)=100cos(2πft) V，f=5 kHz 時 R=10 Ω、X_L=25 Ω、X_C=64 Ω"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-110-01-4",
+   "verdict": "major",
+   "diffs": [
+    "來源：Z_bn 遺失大小 4（殘字「50 =∠- °Ω」），Z_an 誤植「\\tan」，線電壓全為亂序殘字／裁切圖：Z_an=8∠30° Ω、Z_bn=4∠−50° Ω、Z_cn=6∠20° Ω，V_ab=208∠0°、V_bc=208∠−120°、V_ca=208∠120° V_rms，求 P_T"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-01-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：vs、vo(t) 純文字，後接「圖一」／裁切圖：v_s=2 sin(400t) V，一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-01-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「30o」角度符號誤為字母 o、I1/I2 純文字，後接圖1/圖2元件標籤（10 kΩ、0.25 μF、3 H、1.5 H…）／裁切圖：v_s=36cos(2t+30°) V、耦合電感 0.5 H，求 I1、I2 與 4 Ω 吸收功率"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-01-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：H(s)、Ro、ω1、ω2 純文字、配分行斷開／裁切圖：(一) H(s)=Vo(s)/Vi(s)（10 分）；(二) Ro=6 Ω、R=4 Ω、L=1 mH、C=4 μF，求 BW、ω1、ω2（15 分），數值一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-111-01-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：h 參數矩陣拆成「[h11 / h12 / h21 / h22]」四行，後接圖3/圖4標籤殘字／裁切圖：[[h11,h12],[h21,h22]]，改為 bmatrix"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-112-01-1",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-112-01-2",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-112-01-3",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-112-01-4",
+   "verdict": "match",
+   "diffs": [],
+   "stem_issue": "",
+   "fixed": false
+  },
+  {
+   "qid": "EE-113-01-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：題幹硬換行，後接「圖一」行／裁切圖：題幹文字一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-113-01-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：V1、V2、v1(t)、v2(t)、ω 各自斷行成獨立行，後接「圖二」／裁切圖：ω=10 rad/s，一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-113-01-3",
+   "verdict": "minor",
+   "diffs": [
+    "主檔：題幹已正確，僅後接「圖三」行；彙編副本：$R_1 = 1\\ \\Omega$（官方為 R）且 v_ab(t)、i_a(t) 為亂序殘字（副本屬 major，已同步修正）／裁切圖：R=1 Ω、L=2 H、M=1 H、v_ab(t)=110√2 sin(t+25°) V"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-113-01-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：y-parameters 未標斜體、後接「圖四」行（彙編副本另有硬換行）／裁切圖：題幹一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-114-01-1",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「電流I = ?」、v1 未轉 LaTeX／裁切圖：(一)電流 I（5 分）；(二)v1、v2、v3（15 分），一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-114-01-2",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「諾\\n頓」斷字，題幹後混入 Q1 圖面的 $v_1$ $v_2$ $v_3$ 標籤／裁切圖：端點 a-b 諾頓等效電路（20 分）"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-114-01-3",
+   "verdict": "minor",
+   "diffs": [
+    "來源：「t = 0\\n秒」硬換行、v($t = 0$) 混排／裁切圖：(一) v(t=0)、i(t=0)（10 分）；(二) v(t>0)（10 分），一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-114-01-4",
+   "verdict": "minor",
+   "diffs": [
+    "來源：vo(t) 純文字、硬換行／裁切圖：v_o(t)，一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  },
+  {
+   "qid": "EE-114-01-5",
+   "verdict": "minor",
+   "diffs": [
+    "來源：is = 10 $u(t)$ A、vo($t > 0$) 混排／裁切圖：i_s=10u(t) A、v_o(t>0)，一致"
+   ],
+   "stem_issue": "",
+   "fixed": true
+  }
+ ],
+ "overrides": [],
+ "overrides_note": "scripts/compile_dashboard_database.py 的 ENGINEERING_MATH_TOPIC_OVERRIDES／PE_TOPIC_OVERRIDES 皆無 EE-*-01-* 條目，無可移除或與裁切圖不符者。（CANONICAL_TAXONOMY_OVERRIDES 內 EE-106-01-3/4、107-01-4、108-01-1、109-01-1/2 屬章節分類覆寫，非題幹覆寫，不在本次範圍，未變動。）",
+ "test_conflicts": [],
+ "other_copies_changed": [
+  "依考科分類/01_電路學/01_電路學_歷屆試題彙編_104-114年.md（40 題題目區塊與主檔同步；113-01-3 副本原有 R_1 與 v_ab 殘字錯誤一併修正）"
+ ],
+ "untouched_noise": "各年度段「### 📝 試題內容」與第一題之間仍有試卷頁首殘字（110：考試分階段考試…；107：建築師、技師…；106/105：全一張（正面）…；104：類科／科目／全一頁），不在題目區塊內、編譯器不讀取，依規則未改動。",
+ "verification": "python3 scripts/compile_dashboard_database.py（323 題）與指定 5 個 unittest 模組共 27 測試全數通過；另跑 test_laplace_114、test_ee114_rlc_taxonomy_consistency、test_first_move_rescue_cards、test_exam_answer_skeleton、test_mixed_bridge_pack 共 13 測試通過。"
+}

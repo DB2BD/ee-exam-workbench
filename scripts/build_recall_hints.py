@@ -30,9 +30,24 @@ def section(text, name):
     return match.group(1).strip() if match else ""
 
 
+RESULT_NUMBER_RE = re.compile(r"((?:=|≈|\\approx|得|答成|算成|變成|誤為|成為)\s*\$?\s*)(-?\d+(?:\.\d+)?)")
+
+
+def mask_trap_numbers(bullet, note_text):
+    """Stage ③ shows before the full solution, so hide computed values.
+
+    Numbers in a result position (after =, ≈, 得, 答成 …) and any boxed answer
+    value become 「□」; the method wording of the 失分點 stays intact.
+    """
+    masked = RESULT_NUMBER_RE.sub(lambda m: m.group(1) + "□", bullet)
+    for value in answer_numbers(note_text):
+        masked = re.sub(rf"(?<![\d.]){re.escape(value)}(?![\d])", "□", masked)
+    return masked
+
+
 def traps_from_note(text):
     body = section(text, "失分點")
-    bullets = [line for line in body.splitlines() if line.startswith("- ")]
+    bullets = [mask_trap_numbers(line, text) for line in body.splitlines() if line.startswith("- ")]
     return "\n".join(bullets)
 
 

@@ -228,7 +228,7 @@ function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('ee_theme_preference', next);
+  try { localStorage.setItem('ee_theme_preference', next); } catch (_) { /* theme still applies this session */ }
   const btn = document.getElementById('theme-toggle-btn');
   if (btn) btn.innerText = next === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
 }

@@ -43,7 +43,10 @@ def build_workbench():
         'src/styles/layout.css',
         'src/styles/components.css',
         'src/styles/modal.css',
-        'src/styles/dag-graph.css'
+        'src/styles/dag-graph.css',
+        'src/styles/v12-g1.css',
+        'src/styles/v12-g2a.css',
+        'src/styles/v12-g2b.css'
     ]
     bundled_css = "\n\n".join([f"/* === {f} === */\n" + read_file(f) for f in css_files])
 
@@ -159,7 +162,7 @@ def build_workbench():
       <summary>⋯ 更多</summary>
       <div class="more-tools-panel">
         <button class="main-tab-btn" id="tab-btn-questions" onclick="switchTab('questions')"><span>📚 題庫瀏覽</span></button>
-        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 15天奪榜本</span></button>
+        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 考前速查手冊（列印）</span></button>
         <button class="main-tab-btn" id="tab-btn-backup" onclick="openBackupModal()"><span>💾 備份／還原</span></button>
       </div>
     </details>
@@ -327,6 +330,8 @@ def build_workbench():
       </div>
     </div>
   </div>
+</div>
+
 <!-- Manual Review Topic Annotation Modal -->
 <div id="manual-label-modal" role="dialog" aria-modal="true" aria-labelledby="manual-label-title" onclick="if (event.target === this) closeManualLabelModal()">
   <div class="manual-label-dialog" onclick="event.stopPropagation()">

@@ -63,7 +63,12 @@ function buildResultModel(qid) {
   };
 }
 
-function scoreResult(model, marks) {
+// 模考是在估計真實考試：不論題目屬主攻或基本分，都用主攻係數（○1／△0.5／×0）。
+function resultCardScoringTier_(tier, source) {
+  return source === 'mock' ? 'main' : tier;
+}
+
+function scoreResult(model, marks, source) {
   const list = Array.isArray(marks) ? marks : [];
   let estimate = 0;
   let answered = 0;
@@ -71,7 +76,7 @@ function scoreResult(model, marks) {
     const mark = list[index];
     if (RESULT_CARD_MARKS.indexOf(mark) < 0) return;
     answered += 1;
-    estimate += part.points * scoreFactorFor(model.tier, mark);
+    estimate += part.points * scoreFactorFor(resultCardScoringTier_(model.tier, source), mark);
   });
   return {
     estimate: resultCardRound_(estimate),
@@ -146,9 +151,10 @@ function resultCardNormalizeRecord_(record) {
   }));
   const total = Number.isFinite(Number(record.total)) ? Number(record.total)
     : parts.reduce((sum, p) => sum + p.points, 0);
-  const estimate = resultCardRound_(parts.reduce((sum, p) => sum + p.points * scoreFactorFor(tier, p.mark), 0));
-  const at = Number.isFinite(Number(record.at)) ? Number(record.at) : Date.now();
   const source = RESULT_CARD_SOURCES.indexOf(record.source) >= 0 ? record.source : 'today';
+  const scoringTier = resultCardScoringTier_(tier, source);
+  const estimate = resultCardRound_(parts.reduce((sum, p) => sum + p.points * scoreFactorFor(scoringTier, p.mark), 0));
+  const at = Number.isFinite(Number(record.at)) ? Number(record.at) : Date.now();
   const out = {
     id: typeof record.id === 'string' && record.id ? record.id : `rc-${at}-${record.qid}-${Math.random().toString(36).slice(2, 8)}`,
     qid: record.qid,
@@ -162,6 +168,7 @@ function resultCardNormalizeRecord_(record) {
     estimate
   };
   if (typeof record.mockId === 'string' && record.mockId) out.mockId = record.mockId;
+  if (source === 'mock') out.scoring = 'exam';
   if (record.legacy === true) out.legacy = true;
   return out;
 }

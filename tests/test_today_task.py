@@ -129,12 +129,14 @@ class TestTodayTaskStore(unittest.TestCase):
         self.assertEqual(res["code"], "CORE-03")
         self.assertEqual(res["mode"], "task")
         self.assertEqual(res["pace"], "behind")
-        self.assertIn("落後", res["text"])
+        self.assertIn("依日程今天應做到", res["text"])
+        self.assertIn("你目前在 CORE-03", res["text"])
+        self.assertIn("點下方設定進度", res["text"])
 
     def test_plan_suggestion_and_ahead(self):
         now = local_ms(2026, 10, 3)
         res = run_node(f"(() => {{ const vm = todayTaskViewModel({{completed:{{}}, active:null}}, {now}); return vm.planText; }})()")["result"]
-        self.assertIn("CORE-14＋CORE-15", res)
+        self.assertIn("依日程今天應做到 CORE-14～15；你目前在 CORE-01（若紙本已做過，點下方設定進度）", res)
 
     def test_resume_computes_remaining_time(self):
         started = local_ms(2026, 10, 3, 9, 0)
@@ -376,7 +378,11 @@ class TestTodayTaskReviewResultCard(unittest.TestCase):
         self.assertNotIn("today-task-result-mount", res["closed"])
         self.assertIn('id="today-task-result-mount"', res["review"])
         self.assertIn("data-today-result-next", res["review"])
-        self.assertIn(">下一題<", res["review"])
+        self.assertIn(">略過不記錄<", res["review"])
+        self.assertNotIn(">下一題<", res["review"])
+        self.assertIn(">完成核對 →<", res["review"])
+        self.assertRegex(res["review"], r'id="today-task-finish"[^>]*disabled')
+        self.assertIn("還有 1 題未處理", res["review"])
         self.assertNotIn("today-task-result-mount", res["last"])
 
     def test_overlay_header_names_the_active_task_even_when_it_is_ext(self):
@@ -385,6 +391,52 @@ class TestTodayTaskReviewResultCard(unittest.TestCase):
             "return todayTaskOverlayHtml(todayTaskViewModel(s, 1000)); })()")["result"]
         self.assertIn("EXT-01｜", res)
         self.assertNotIn("CORE-01｜", res)
+
+
+class TestG2aFixes(unittest.TestCase):
+    def test_code_range_text(self):
+        self.assertEqual(run_node("todayTaskCodeRange(['CORE-16','CORE-17'])")["result"], "CORE-16～17")
+        self.assertEqual(run_node("todayTaskCodeRange(['CORE-16'])")["result"], "CORE-16")
+
+    def test_next_action_phase_has_instruction_and_can_finish(self):
+        res = run_node(
+            "(() => { let s = todayTaskStart({completed:{}, active:null}, 1000); "
+            "s = todayTaskAdvance(s, 2000); s = todayTaskAdvance(s, 3000); "
+            "const vm = todayTaskViewModel(s, 3000); const html = todayTaskOverlayHtml(vm); "
+            "return {label: vm.active.label, ins: vm.active.instruction, html}; })()")["result"]
+        self.assertEqual(res["label"], "下次動作")
+        self.assertIn("寫下一句：下次最先要改的動作（不必回填）", res["ins"])
+        self.assertIn("寫下一句：下次最先要改的動作", res["html"])
+        self.assertIn(">完成<", res["html"])
+        self.assertNotIn("disabled", res["html"])
+
+    def test_review_progress_gates_finish(self):
+        res = run_node(
+            "(() => { const f = {saved:[], skipped:[]}; const a = todayTaskReviewProgress(['A','B'], f, 0); "
+            "f.saved.push('A'); const b = todayTaskReviewProgress(['A','B'], f, 0); "
+            "f.skipped.push('B'); const c = todayTaskReviewProgress(['A','B'], f, 0); "
+            "return {a: a.canFinish, b: b.canFinish, bp: b.pending, c: c.canFinish, reason: a.reason}; })()")["result"]
+        self.assertFalse(res["a"]); self.assertFalse(res["b"]); self.assertEqual(res["bp"], ["B"])
+        self.assertTrue(res["c"])
+        self.assertIn("略過不記錄", res["reason"])
+
+    def test_closed_phase_image_is_zoomable(self):
+        src = TODAY_JS.read_text(encoding="utf-8")
+        self.assertIn("data-today-zoom", src)
+        self.assertIn("openImageLightbox", src)
+
+    def test_review_html_has_check_buttons(self):
+        res = run_node(
+            "(() => { let s = todayTaskStart({completed:{}, active:null}, 1000); s = todayTaskAdvance(s, 2000); "
+            "return todayTaskOverlayHtml(todayTaskViewModel(s, 2000)); })()")["result"]
+        self.assertIn("data-today-check=", res)
+
+    def test_source_docks_card_in_solution_modal(self):
+        src = TODAY_JS.read_text(encoding="utf-8")
+        body = src.split("function todayTaskOpenSolution(qid)")[1].split("function todayTaskZoomImage")[0]
+        self.assertIn("openSolutionModal(", body)
+        self.assertIn("openResultCard({", body)
+        self.assertNotIn("mount", body.split("openResultCard({")[1].split("});")[0].split("onSaved")[0])
 
 
 if __name__ == "__main__":

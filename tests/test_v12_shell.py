@@ -108,7 +108,10 @@ class TestV12Shell(unittest.TestCase):
 
     def test_recall_entry_opens_cover_on_mobile_for_every_mode(self):
         src = (ROOT / "src/components/solutionModal.js").read_text(encoding="utf-8")
-        self.assertIn("const shouldOpenRecallPane = currentSolutionRecallEntry;", src)
+        # Narrow screens open on 純詳解 (the cover) in every mode; 看原題 stays one tap away.
+        self.assertIn("setModalLayout('solution-only')", src)
+        self.assertNotIn("setModalLayout(shouldOpenRecallPane", src)
+        self.assertIn("solutionModalQuestionPeekHtml", src)
 
 
 if __name__ == "__main__":

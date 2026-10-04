@@ -756,6 +756,37 @@ globalThis.reviewHtmlEscape = value => String(value);
         self.assertEqual(result["restoredFull"], "block")
         self.assertEqual(result["restoredBox"], "none")
 
+    def test_reveal_buttons_unlock_in_order_despite_other_buttons_in_box(self):
+        # The recall box also holds the numeric-check buttons (fx-82, 對答案).
+        # Step numbering must count only the four reveal buttons, otherwise
+        # ① is treated as step 2 and every reveal button stays disabled.
+        setup = r'''
+const other = [{disabled:false,title:''},{disabled:false,title:''}];
+const reveal = [0,1,2,3].map(() => ({disabled:false,title:''}));
+const box = {id:'recall-step-box', style:{display:'none'},
+  querySelectorAll: sel => String(sel).includes('btn-reveal') ? reveal : other.concat(reveal)};
+globalThis.document = {getElementById: id => id === 'recall-step-box' ? box : null, querySelectorAll: () => []};
+globalThis.window = {addEventListener(){}};
+'''
+        expression = r'''
+(() => {
+  isActiveRecallMode = true;
+  const states = [];
+  for (const level of [0, 1, 3]) {
+    currentRecallAchievedLevel = level;
+    syncRecallRevealPresentation();
+    states.push({level, reveal: reveal.map(b => b.disabled), other: other.map(b => b.disabled)});
+  }
+  return states;
+})()
+'''
+        states = run_node(["src/components/solutionModal.js"], expression, setup)
+        self.assertEqual(states[0]["reveal"], [False, True, True, True])
+        self.assertEqual(states[1]["reveal"], [True, False, True, True])
+        self.assertEqual(states[2]["reveal"], [True, True, True, False])
+        for state in states:
+            self.assertEqual(state["other"], [False, False])
+
     def test_daily_recall_rating_explains_that_self_assessment_advances(self):
         setup = r'''
 const rightPane = {innerHTML:''};

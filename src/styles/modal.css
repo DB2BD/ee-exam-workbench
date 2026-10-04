@@ -342,8 +342,7 @@
    pane.  Markdown/Obsidian embeds may carry an explicit width (750/850 px),
    so max-width is essential on narrow split panes to prevent overlap. */
 .solution-content img,
-.qtopic img,
-.review-card-topic img {
+.qtopic img {
   display: block;
   width: auto;
   max-width: 100%;
@@ -444,8 +443,7 @@
 }
 
 .solution-content img[width],
-.qtopic img[width],
-.review-card-topic img[width] {
+.qtopic img[width] {
   max-width: 100%;
 }
 
@@ -476,72 +474,6 @@
 }
 
 /* Cross-Exam Bridge Card */
-.cross-exam-bridge-card {
-  margin-top: 28px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--bg-secondary);
-  padding: 18px;
-}
-
-.bridge-title {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--accent-dark);
-  margin-bottom: 6px;
-}
-
-.bridge-desc {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-
-.bridge-items {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.bridge-item {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.2s;
-}
-
-.bridge-item:hover {
-  border-color: var(--accent);
-  transform: translateX(4px);
-}
-
-.bridge-qid {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--accent);
-}
-
-.bridge-topic {
-  font-size: 0.86rem;
-  color: var(--ink);
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.bridge-arrow {
-  font-size: 0.82rem;
-  color: var(--muted);
-  font-weight: 600;
-}
 
 /* Active Recall Mode */
 .active-recall-box {
@@ -610,27 +542,6 @@
   box-shadow: var(--shadow);
 }
 
-.sm2-rating-title {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--ink-light);
-  text-align: center;
-}
-
-.sm2-rating-next-hint {
-  color: var(--success);
-  font-size: 0.86rem;
-  font-weight: 700;
-  text-align: center;
-}
-
-.sm2-rating-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .btn-sm2 {
   flex: 1 1 140px;
   max-width: 220px;
@@ -651,36 +562,6 @@
   font-size: 0.72rem;
   font-weight: 500;
   opacity: 0.8;
-}
-
-.btn-sm2-1 {
-  background: var(--review-light);
-  color: var(--review);
-  border-color: var(--review);
-}
-.btn-sm2-1:hover {
-  background: var(--review);
-  color: #ffffff;
-}
-
-.btn-sm2-3 {
-  background: var(--warn-light);
-  color: var(--warn);
-  border-color: var(--warn);
-}
-.btn-sm2-3:hover {
-  background: var(--warn);
-  color: #ffffff;
-}
-
-.btn-sm2-5 {
-  background: var(--success-light);
-  color: var(--success);
-  border-color: var(--success);
-}
-.btn-sm2-5:hover {
-  background: var(--success);
-  color: #ffffff;
 }
 
 @media (max-width: 760px) {

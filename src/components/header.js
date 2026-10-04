@@ -205,26 +205,6 @@ function applyImportedBackupJSON(mode) {
   return res;
 }
 
-function importProgressJSON() {
-  const input = document.createElement("input");
-  input.type = "file";
-  input.accept = ".json";
-  input.onchange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const modal = document.getElementById('backup-modal');
-      const textarea = document.getElementById('backup-json-textarea');
-      if (textarea) textarea.value = event.target.result;
-      if (modal) modal.classList.add('show');
-      previewImportedBackupJSON();
-    };
-    reader.readAsText(file);
-  };
-  input.click();
-}
-
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';

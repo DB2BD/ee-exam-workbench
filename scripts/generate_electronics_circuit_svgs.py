@@ -10,8 +10,8 @@ import os
 import re
 import subprocess
 
-target_dir = "/Users/a/技師考試/歷屆試題_104-114年/依考科分類/02_電子學_含電力電子/images"
-md_dir = "/Users/a/技師考試/歷屆試題_104-114年/📝 個人題解與錯題本/02_電子學_含電力電子"
+target_dir = "/Users/a/技師考試/歷屆試題_104-114年/01_原始試題/依考科/02_電子學_含電力電子/images"
+md_dir = "/Users/a/技師考試/歷屆試題_104-114年/02_題解/技師題解/02_電子學_含電力電子"
 os.makedirs(target_dir, exist_ok=True)
 
 COMMON_DEFS = '''

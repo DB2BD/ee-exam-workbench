@@ -1,6 +1,6 @@
 import os
 
-# 1. Create 🧠 核心考點知識庫/README.md
+# 1. Create 03_知識庫/核心考點/README.md
 kb_readme = r'''# 🧠 電機工程技師 — 核心考點知識庫（高頻公式與解題SOP）
 
 本知識庫為電機工程技師考試精選之**高頻核心考點卡片**。每張卡片皆包含**基本定義、考場必備 LaTeX 核心公式、標準解題步驟（SOP）** 以及**歷屆近 11 年真題對照**。
@@ -32,7 +32,7 @@ kb_readme = r'''# 🧠 電機工程技師 — 核心考點知識庫（高頻公�
 > 💡 **使用訣竅**：在編寫個人題解時，可使用 `[[知識點檔案名稱]]` 進行雙向鏈結，建立你的立體知識網絡！
 '''
 
-with open('🧠 核心考點知識庫/README.md', 'w', encoding='utf-8') as f:
+with open('03_知識庫/核心考點/README.md', 'w', encoding='utf-8') as f:
     f.write(kb_readme)
 
-print('Created: 🧠 核心考點知識庫/README.md')
+print('Created: 03_知識庫/核心考點/README.md')

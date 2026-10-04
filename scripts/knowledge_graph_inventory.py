@@ -54,10 +54,10 @@ def _question_counts(root: Path) -> Dict[str, Dict[str, Any]]:
 
 
 def _core_note_paths(root: Path) -> list[str]:
-    note_root = root / "🧠 核心考點知識庫"
+    note_root = root / "03_知識庫/核心考點"
     paths = []
     for path in sorted(note_root.rglob("*.md")):
-        if path.name == "README.md" or path.name.startswith("📊_"):
+        if path.name == "README.md" or path.name == "六科高頻考點統計_104-114年.md":
             continue
         paths.append(path.relative_to(root).as_posix())
     return paths
@@ -88,7 +88,7 @@ def collect_inventory(root: Path | str) -> Dict[str, Any]:
         "src/state/sm2Store.js",
         "dashboard-data.js",
         "national-exams-data.js",
-        "🧠 核心考點知識庫/",
+        "03_知識庫/核心考點/",
     ]
 
     return {
@@ -105,9 +105,9 @@ def collect_inventory(root: Path | str) -> Dict[str, Any]:
             "coreNotePaths": core_notes,
             "excludedFiles": [
                 "README.md",
-                "📊_電機工程技師_6大考科11年高頻考點統計與命中率分析.md",
+                "六科高頻考點統計_104-114年.md",
             ],
-            "sourcePath": "🧠 核心考點知識庫/",
+            "sourcePath": "03_知識庫/核心考點/",
         },
         "questions": _question_counts(workspace),
         "mapping": {

@@ -31,10 +31,10 @@ def split_questions(text):
 def main():
     count = 0
     for sid, (folder, title, short, filename_title) in subjects.items():
-        dest = ROOT / "📝 個人題解與錯題本" / short / "canonical"
+        dest = ROOT / "02_題解/技師題解" / short / "canonical"
         dest.mkdir(parents=True, exist_ok=True)
         for year in years:
-            annual = ROOT / "📝 個人題解與錯題本" / short / f"{year}年_{filename_title}_全卷完整詳細題解.md"
+            annual = ROOT / "02_題解/技師題解" / short / f"{year}年_{filename_title}_全卷完整詳細題解.md"
             if not annual.is_file():
                 continue
             sections = split_questions(annual.read_text(encoding="utf-8"))
@@ -45,7 +45,7 @@ def main():
                 target = dest / f"{qid}.md"
                 if target.exists():
                     continue
-                crop = f"依考科分類/{short}/images/questions/PE_{year}年_{title}_Q{qnum:02d}.png"
+                crop = f"01_原始試題/依考科/{short}/images/questions/PE_{year}年_{title}_Q{qnum:02d}.png"
                 front = ("---\n" f"qid: {qid}\n" f"year: {year}\n" f"subject: {folder}\n"
                          "chapter: 待依教科書章節覆核\n"
                          "audit_status: needs_manual_review\n"

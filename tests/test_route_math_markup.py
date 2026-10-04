@@ -17,21 +17,21 @@ class TestRouteMathMarkup(unittest.TestCase):
     def test_known_learner_visible_repairs_remain_fixed(self):
         circuit = (
             ROOT
-            / "📝 個人題解與錯題本"
+            / "02_題解/技師題解"
             / "01_電路學"
             / "canonical"
             / "EE-108-01-2.md"
         ).read_text(encoding="utf-8")
         distribution = (
             ROOT
-            / "📝 個人題解與錯題本"
+            / "02_題解/技師題解"
             / "06_工業配電"
             / "canonical"
             / "EE-108-06-4.md"
         ).read_text(encoding="utf-8")
         probability = (
             ROOT
-            / "📝 個人題解與錯題本"
+            / "02_題解/技師題解"
             / "03_工程數學"
             / "canonical"
             / "EE-113-03-6.md"

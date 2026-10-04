@@ -108,14 +108,14 @@ kb_distribution = [
 ]
 
 # Write KB files
-os.makedirs('🧠 核心考點知識庫/02_電子學_含電力電子', exist_ok=True)
+os.makedirs('03_知識庫/核心考點/02_電子學_含電力電子', exist_ok=True)
 for item in kb_electronics:
-    with open(f'🧠 核心考點知識庫/02_電子學_含電力電子/{item["file"]}', 'w', encoding='utf-8') as f:
+    with open(f'03_知識庫/核心考點/02_電子學_含電力電子/{item["file"]}', 'w', encoding='utf-8') as f:
         f.write(item['content'].strip() + '\n')
 
-os.makedirs('🧠 核心考點知識庫/06_工業配電', exist_ok=True)
+os.makedirs('03_知識庫/核心考點/06_工業配電', exist_ok=True)
 for item in kb_distribution:
-    with open(f'🧠 核心考點知識庫/06_工業配電/{item["file"]}', 'w', encoding='utf-8') as f:
+    with open(f'03_知識庫/核心考點/06_工業配電/{item["file"]}', 'w', encoding='utf-8') as f:
         f.write(item['content'].strip() + '\n')
 
 print('Created missing KB folders and notes!')

@@ -13,7 +13,7 @@ import glob
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 1. Fix GK 113 Circuit
-pgk113c = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md')
+pgk113c = os.path.join(WORKSPACE, '02_題解/國考同級題解/01_電路學/GK_113年_電路學_全卷完整詳細題解.md')
 if os.path.exists(pgk113c):
     with open(pgk113c, 'r', encoding='utf-8') as f:
         c = f.read()
@@ -29,7 +29,7 @@ if os.path.exists(pgk113c):
         f.write(c)
 
 # 2. Fix GK 110 Circuit
-pgk110c = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md')
+pgk110c = os.path.join(WORKSPACE, '02_題解/國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md')
 if os.path.exists(pgk110c):
     with open(pgk110c, 'r', encoding='utf-8') as f:
         c = f.read()
@@ -39,7 +39,7 @@ if os.path.exists(pgk110c):
         f.write(c)
 
 # 3. Fix 113 Circuit
-p113c = os.path.join(WORKSPACE, '📝 個人題解與錯題本/01_電路學/113年_電路學_全卷完整詳細題解.md')
+p113c = os.path.join(WORKSPACE, '02_題解/技師題解/01_電路學/113年_電路學_全卷完整詳細題解.md')
 if os.path.exists(p113c):
     with open(p113c, 'r', encoding='utf-8') as f:
         c = f.read()
@@ -49,7 +49,7 @@ if os.path.exists(p113c):
         f.write(c)
 
 # 4. Fix 111 Circuit
-p111c = os.path.join(WORKSPACE, '📝 個人題解與錯題本/01_電路學/111年_電路學_全卷完整詳細題解.md')
+p111c = os.path.join(WORKSPACE, '02_題解/技師題解/01_電路學/111年_電路學_全卷完整詳細題解.md')
 if os.path.exists(p111c):
     with open(p111c, 'r', encoding='utf-8') as f:
         c = f.read()
@@ -59,7 +59,7 @@ if os.path.exists(p111c):
         f.write(c)
 
 # 5. Fix 106 Power Ybus matrix
-p106p = os.path.join(WORKSPACE, '📝 個人題解與錯題本/05_電力系統/106年_電力系統_全卷完整詳細題解.md')
+p106p = os.path.join(WORKSPACE, '02_題解/技師題解/05_電力系統/106年_電力系統_全卷完整詳細題解.md')
 if os.path.exists(p106p):
     with open(p106p, 'r', encoding='utf-8') as f:
         c = f.read()
@@ -72,8 +72,8 @@ if os.path.exists(p106p):
 
 # 6. Escape unescaped % in 05 Power compilers
 for f in [
-    '依考科分類/05_電力系統.md',
-    '依考科分類/05_電力系統/05_電力系統_歷屆試題彙編_104-114年.md'
+    '01_原始試題/依考科/05_電力系統.md',
+    '01_原始試題/依考科/05_電力系統/05_電力系統_歷屆試題彙編_104-114年.md'
 ]:
     p = os.path.join(WORKSPACE, f)
     if os.path.exists(p):

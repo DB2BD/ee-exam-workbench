@@ -300,11 +300,11 @@ class TestSlicingAndLinkGate(unittest.TestCase):
             temp_root / "scripts/verify_slicing_and_links.py",
         )
         shutil.copytree(
-            WORKSPACE / "📝 個人題解與錯題本",
-            temp_root / "📝 個人題解與錯題本",
+            WORKSPACE / "02_題解/技師題解",
+            temp_root / "02_題解/技師題解",
         )
         (temp_root / "fixture-crop.png").write_bytes(b"fixture")
-        for note in (temp_root / "📝 個人題解與錯題本").glob("*/canonical/EE-*.md"):
+        for note in (temp_root / "02_題解/技師題解").glob("*/canonical/EE-*.md"):
             text = note.read_text(encoding="utf-8")
             note.write_text(re.sub(r"^source_crop:\s*.*$", "source_crop: fixture-crop.png", text, flags=re.MULTILINE), encoding="utf-8")
         self._rewrite_questions(temp_root / "national-exams-data.js", "national", lambda questions: [q.__setitem__(7, "https://example.test/paper.pdf") for q in questions])
@@ -334,7 +334,7 @@ class TestSlicingAndLinkGate(unittest.TestCase):
 
     def test_missing_canonical_note_fails_the_process(self):
         temp_root = self._fixture()
-        canonical = next((temp_root / "📝 個人題解與錯題本").glob("*/canonical/EE-*.md"))
+        canonical = next((temp_root / "02_題解/技師題解").glob("*/canonical/EE-*.md"))
         canonical.unlink()
         completed = self._run_gate(temp_root)
         self.assertNotEqual(completed.returncode, 0, completed.stdout)
@@ -342,14 +342,14 @@ class TestSlicingAndLinkGate(unittest.TestCase):
 
     def test_duplicate_and_extra_canonical_notes_fail(self):
         duplicate_root = self._fixture()
-        note = next((duplicate_root / "📝 個人題解與錯題本").glob("*/canonical/EE-*.md"))
+        note = next((duplicate_root / "02_題解/技師題解").glob("*/canonical/EE-*.md"))
         shutil.copy2(note, note.with_name("EE-duplicate-copy.md"))
         duplicate = self._run_gate(duplicate_root)
         self.assertNotEqual(duplicate.returncode, 0, duplicate.stdout)
         self.assertIn("duplicate=1", duplicate.stdout)
 
         extra_root = self._fixture()
-        note = next((extra_root / "📝 個人題解與錯題本").glob("*/canonical/EE-*.md"))
+        note = next((extra_root / "02_題解/技師題解").glob("*/canonical/EE-*.md"))
         extra = note.with_name("EE-EXTRA.md")
         extra.write_text(re.sub(r"^qid:\s*\S+", "qid: EE-EXTRA", note.read_text(encoding="utf-8"), count=1, flags=re.MULTILINE), encoding="utf-8")
         completed = self._run_gate(extra_root)
@@ -358,14 +358,14 @@ class TestSlicingAndLinkGate(unittest.TestCase):
 
     def test_invalid_crop_and_full_page_embed_fail(self):
         invalid_root = self._fixture()
-        note = next((invalid_root / "📝 個人題解與錯題本").glob("*/canonical/EE-*.md"))
+        note = next((invalid_root / "02_題解/技師題解").glob("*/canonical/EE-*.md"))
         note.write_text(re.sub(r"^source_crop:\s*.*$", "source_crop: missing-crop.png", note.read_text(encoding="utf-8"), flags=re.MULTILINE), encoding="utf-8")
         invalid = self._run_gate(invalid_root)
         self.assertNotEqual(invalid.returncode, 0, invalid.stdout)
         self.assertIn("invalid_crop=1", invalid.stdout)
 
         full_root = self._fixture()
-        note = next((full_root / "📝 個人題解與錯題本").glob("*/canonical/EE-*.md"))
+        note = next((full_root / "02_題解/技師題解").glob("*/canonical/EE-*.md"))
         (full_root / "fixture_p1.png").write_bytes(b"fixture")
         note.write_text(re.sub(r"^source_crop:\s*.*$", "source_crop: fixture_p1.png", note.read_text(encoding="utf-8"), flags=re.MULTILINE), encoding="utf-8")
         full = self._run_gate(full_root)

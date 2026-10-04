@@ -287,7 +287,7 @@ $$\beta = \frac{S_{rated}}{R \times f_0} = \frac{500\text{ MW}}{0.04 \times 60\t
 - **新輸出實功率**：$P_2 = \mathbf{312.50\text{ MW}}$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/113年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/113年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_113)
 
 print('✅ 113年_電力系統_全卷完整詳細題解.md upgraded to gold standard!')

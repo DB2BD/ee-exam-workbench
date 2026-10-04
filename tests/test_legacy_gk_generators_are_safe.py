@@ -134,14 +134,12 @@ class LegacyGKGeneratorsSafetyTests(unittest.TestCase):
 
         exam_dir = (
             cls.fixture
-            / "依考科分類"
-            / "🏛️_國考同級參考題庫"
+            / "04_國考同級題庫"
             / "04_電機機械"
         )
         solution_dir = (
             cls.fixture
-            / "📝 個人題解與錯題本"
-            / "🏛️_國考同級題解"
+            / "02_題解/國考同級題解"
             / "04_電機機械"
         )
         exam_dir.mkdir(parents=True)
@@ -162,8 +160,8 @@ class LegacyGKGeneratorsSafetyTests(unittest.TestCase):
     @classmethod
     def _snapshot_fixture_sources(cls):
         protected_roots = (
-            cls.fixture / "依考科分類",
-            cls.fixture / "📝 個人題解與錯題本",
+            cls.fixture / "01_原始試題/依考科",
+            cls.fixture / "02_題解/技師題解",
         )
         snapshot = {}
         for root in protected_roots:

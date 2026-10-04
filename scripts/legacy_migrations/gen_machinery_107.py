@@ -164,6 +164,6 @@ sol_107 = '''---
   - 此時磁通 $\Phi_m \propto 1/f$ 隨頻率反比減弱，輸出能力轉為**恆功率（Constant Power）特性**，最大可用轉矩隨頻率平方反比下降（$T_{max} \propto 1/f^2$）。
 '''
 
-with open('📝 個人題解與錯題本/04_電機機械/107年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/107年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_107)
 print('✅ 107年 電機機械 detailed solution written!')

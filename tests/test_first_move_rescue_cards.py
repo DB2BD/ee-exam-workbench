@@ -7,8 +7,8 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CARDS = ROOT / "docs" / "上榜起手式急救卡_114-108.md"
-REPAIR_INDEX = ROOT / "docs" / "上榜錯因修復索引_114-108.md"
+CARDS = ROOT / "docs" / "02_考場策略" / "起手式急救卡_114-108.md"
+REPAIR_INDEX = ROOT / "docs" / "02_考場策略" / "錯因修復索引_114-108.md"
 
 # 2026-10-03: EE-108-02-5 became needs_manual_review (stem conflict); its repair-index code is R, so it has no S/T card.
 EXPECTED = {

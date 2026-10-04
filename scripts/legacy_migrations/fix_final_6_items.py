@@ -29,8 +29,8 @@ if os.path.exists(p2):
 
 # 3. 05 Power System compilers
 for f in [
-    '依考科分類/05_電力系統.md',
-    '依考科分類/05_電力系統/05_電力系統_歷屆試題彙編_104-114年.md'
+    '01_原始試題/依考科/05_電力系統.md',
+    '01_原始試題/依考科/05_電力系統/05_電力系統_歷屆試題彙編_104-114年.md'
 ]:
     p = os.path.join(WORKSPACE, f)
     if os.path.exists(p):
@@ -42,8 +42,8 @@ for f in [
 
 # 4. 06 Industrial Distribution compilers
 for f in [
-    '依考科分類/06_工業配電.md',
-    '依考科分類/06_工業配電/06_工業配電_歷屆試題彙編_104-114年.md'
+    '01_原始試題/依考科/06_工業配電.md',
+    '01_原始試題/依考科/06_工業配電/06_工業配電_歷屆試題彙編_104-114年.md'
 ]:
     p = os.path.join(WORKSPACE, f)
     if os.path.exists(p):
@@ -57,7 +57,7 @@ for f in [
             fp.write(c)
 
 # 5. 114 Electronics
-p5 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md')
+p5 = os.path.join(WORKSPACE, '02_題解/技師題解/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md')
 if os.path.exists(p5):
     with open(p5, 'r', encoding='utf-8') as f:
         c5 = f.read()
@@ -69,7 +69,7 @@ if os.path.exists(p5):
         f.write(c5)
 
 # 6. GK 113 Eng Math
-p6 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md')
+p6 = os.path.join(WORKSPACE, '02_題解/國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md')
 if os.path.exists(p6):
     with open(p6, 'r', encoding='utf-8') as f:
         c6 = f.read()

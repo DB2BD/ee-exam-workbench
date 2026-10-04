@@ -209,7 +209,7 @@ $$L = \frac{N^2}{\mathcal{R}_{total}} = \frac{400^2}{7.9577 \times 10^4} = \frac
 - **最大平均轉矩**：$T_{avg,max} = \mathbf{3.406\text{ N}\cdot\text{m}}$
 '''
 
-os.makedirs('📝 個人題解與錯題本/04_電機機械', exist_ok=True)
-with open('📝 個人題解與錯題本/04_電機機械/114年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+os.makedirs('02_題解/技師題解/04_電機機械', exist_ok=True)
+with open('02_題解/技師題解/04_電機機械/114年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_114)
 print('✅ 114年 電機機械 detailed solution written!')

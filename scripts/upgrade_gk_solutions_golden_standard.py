@@ -15,7 +15,7 @@ import glob
 import re
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GK_DIR = os.path.join(WORKSPACE, '📝 個人題解與錯題本', '🏛️_國考同級題解')
+GK_DIR = os.path.join(WORKSPACE, '02_題解/國考同級題解')
 
 def upgrade_solution_file(fpath):
     with open(fpath, 'r', encoding='utf-8') as f:

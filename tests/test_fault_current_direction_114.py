@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTE = ROOT / "📝 個人題解與錯題本/05_電力系統/canonical/EE-114-05-4.md"
+NOTE = ROOT / "02_題解/技師題解/05_電力系統/canonical/EE-114-05-4.md"
 
 
 class TestFaultCurrentDirection114(unittest.TestCase):

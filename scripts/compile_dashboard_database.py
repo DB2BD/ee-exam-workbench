@@ -4,17 +4,17 @@ import re
 import json
 
 subjects = [
-    ('01', '電路學', '', '#4a7c8f', '依考科分類/01_電路學.md', '依考科分類/01_電路學'),
-    ('02', '電子學（含電力電子）', '', '#686b8f', '依考科分類/02_電子學_含電力電子.md', '依考科分類/02_電子學_含電力電子'),
-    ('03', '工程數學', '', '#54826b', '依考科分類/03_工程數學.md', '依考科分類/03_工程數學'),
-    ('04', '電機機械', '', '#a17846', '依考科分類/04_電機機械.md', '依考科分類/04_電機機械'),
-    ('05', '電力系統', '', '#a85858', '依考科分類/05_電力系統.md', '依考科分類/05_電力系統'),
-    ('06', '工業配電', '', '#7d6382', '依考科分類/06_工業配電.md', '依考科分類/06_工業配電'),
+    ('01', '電路學', '', '#4a7c8f', '01_原始試題/依考科/01_電路學.md', '01_原始試題/依考科/01_電路學'),
+    ('02', '電子學（含電力電子）', '', '#686b8f', '01_原始試題/依考科/02_電子學_含電力電子.md', '01_原始試題/依考科/02_電子學_含電力電子'),
+    ('03', '工程數學', '', '#54826b', '01_原始試題/依考科/03_工程數學.md', '01_原始試題/依考科/03_工程數學'),
+    ('04', '電機機械', '', '#a17846', '01_原始試題/依考科/04_電機機械.md', '01_原始試題/依考科/04_電機機械'),
+    ('05', '電力系統', '', '#a85858', '01_原始試題/依考科/05_電力系統.md', '01_原始試題/依考科/05_電力系統'),
+    ('06', '工業配電', '', '#7d6382', '01_原始試題/依考科/06_工業配電.md', '01_原始試題/依考科/06_工業配電'),
 ]
 
 num_map = {'一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10}
 
-# Build automatic dedicated notes dictionary for all solution files in 📝 個人題解與錯題本/
+# Build automatic dedicated notes dictionary for all solution files in 02_題解/技師題解/
 dedicated_notes = {}
 
 # Optional question-level crop manifest.  The renderer treats this as an
@@ -38,7 +38,7 @@ CANONICAL_TOPIC_METADATA = {}
 # consumer sees the same primary chapter that the learner accepted in the UI.
 MANUAL_TOPIC_LABELS = {}
 # Stem overrides are no longer needed: the 2026-10-03 stem audit corrected every
-# question block in 依考科分類/*.md against the official crops.  Keep the hooks
+# question block in 01_原始試題/依考科/*.md against the official crops.  Keep the hooks
 # for future one-off corrections.
 ENGINEERING_MATH_TOPIC_OVERRIDES = {}
 PE_TOPIC_OVERRIDES = {}
@@ -114,8 +114,8 @@ if os.path.exists(PE_AUDIT_MANIFEST):
     except (OSError, ValueError, TypeError) as exc:
         print(f'⚠️ PE solution audit manifest ignored: {exc}')
 
-# Scan all solution files in 📝 個人題解與錯題本/
-for root, dirs, files in os.walk('📝 個人題解與錯題本'):
+# Scan all solution files in 02_題解/技師題解/
+for root, dirs, files in os.walk('02_題解/技師題解'):
     for f in files:
         if f.endswith('_全卷完整詳細題解.md'):
             match = re.match(r'(\d{3})年_([^_]+)_全卷完整詳細題解\.md', f)
@@ -144,10 +144,10 @@ for root, dirs, files in os.walk('📝 個人題解與錯題本'):
                     dedicated_notes[qid] = rel_path
 
 # Add individual standalone questions (if any specific standalone notes exist)
-if os.path.exists('📝 個人題解與錯題本/03_工程數學/114年_工程數學_第五題_線性系統完整解與零空間.md'):
-    dedicated_notes['EE-114-03-5'] = '📝 個人題解與錯題本/03_工程數學/114年_工程數學_第五題_線性系統完整解與零空間.md'
-if os.path.exists('📝 個人題解與錯題本/03_工程數學/114年_工程數學_第三題_二階線性ODE.md'):
-    dedicated_notes['EE-114-03-3'] = '📝 個人題解與錯題本/03_工程數學/114年_工程數學_第三題_二階線性ODE.md'
+if os.path.exists('02_題解/技師題解/03_工程數學/114年_工程數學_第五題_線性系統完整解與零空間.md'):
+    dedicated_notes['EE-114-03-5'] = '02_題解/技師題解/03_工程數學/114年_工程數學_第五題_線性系統完整解與零空間.md'
+if os.path.exists('02_題解/技師題解/03_工程數學/114年_工程數學_第三題_二階線性ODE.md'):
+    dedicated_notes['EE-114-03-3'] = '02_題解/技師題解/03_工程數學/114年_工程數學_第三題_二階線性ODE.md'
 
 # Canonical, question-level notes take precedence over legacy annual templates.
 # This keeps the original files available while routing the UI to a verified
@@ -179,7 +179,7 @@ for subject_dir in (
     '01_電路學', '02_電子學_含電力電子', '03_工程數學',
     '04_電機機械', '05_電力系統', '06_工業配電',
 ):
-    canonical_dir = os.path.join('📝 個人題解與錯題本', subject_dir, 'canonical')
+    canonical_dir = os.path.join('02_題解/技師題解', subject_dir, 'canonical')
     if not os.path.isdir(canonical_dir):
         continue
     for f in os.listdir(canonical_dir):
@@ -469,7 +469,7 @@ for subject_dir in (
     '01_電路學', '02_電子學_含電力電子', '03_工程數學',
     '04_電機機械', '05_電力系統', '06_工業配電',
 ):
-    canonical_dir = os.path.join('📝 個人題解與錯題本', subject_dir, 'canonical')
+    canonical_dir = os.path.join('02_題解/技師題解', subject_dir, 'canonical')
     if not os.path.isdir(canonical_dir):
         continue
     for f in os.listdir(canonical_dir):
@@ -731,9 +731,17 @@ img_map = {}
 
 # Exclude GK (which has its own national-solutions-bundle.js), career notes, specs, and docs
 EXCLUDE_DIRS = {
-    '.git', '.agents', 'node_modules', '.system_generated', 'tests', 'scripts', 'docs', 'workflows',
+    '.git', '.agents', 'node_modules', '.system_generated', 'tests', 'scripts', 'workflows',
     '💼 個人職涯發展與國際戰略', 'personal-tools-backup', '_site'
 }
+# docs/ stays out of the bundle except the three former solution-notebook cheat notes.
+BUNDLED_DOCS = {
+    'docs/01_備考計畫/每日進度追蹤看板.md',
+    'docs/02_考場策略/卡題破局指南.md',
+    'docs/02_考場策略/計算機相量與複數操作.md',
+}
+# GK content (own national-solutions-bundle.js) lives in these trees.
+GK_TREES = ('04_國考同級題庫', '02_題解/國考同級題解')
 
 for root, dirs, files in os.walk('.'):
     # Prune top-level excluded directories
@@ -742,7 +750,7 @@ for root, dirs, files in os.walk('.'):
     if top_dir in EXCLUDE_DIRS or top_dir.startswith('.'):
         continue
     # Exclude GK directories that belong strictly to national-solutions-bundle.js
-    if '🏛️_國考同級題解' in rel_root or '🏛️_國考同級參考題庫' in rel_root:
+    if any(rel_root == tree or rel_root.startswith(tree + '/') for tree in GK_TREES):
         continue
     for f in files:
         rel_path = os.path.relpath(os.path.join(root, f), '.').replace(os.sep, '/')
@@ -750,12 +758,14 @@ for root, dirs, files in os.walk('.'):
             # Filter non-PE markdown
             if rel_path.startswith('SPEC_') or rel_path.startswith('💼'):
                 continue
+            if rel_path.startswith('docs/') and rel_path not in BUNDLED_DOCS:
+                continue
             if rel_path.startswith('reports/') and rel_path != 'reports/manual-review-index.md':
                 continue
             with open(os.path.join(root, f), 'r', encoding='utf-8', errors='ignore') as fp:
                 bundle[rel_path] = fp.read()
         elif f.lower().endswith(('.png', '.jpg', '.jpeg', '.svg', '.webp')):
-            if '🏛️_國考同級' in rel_path:
+            if rel_path.startswith(tuple(tree + '/' for tree in GK_TREES)) or rel_path.startswith('docs/'):
                 continue
             import urllib.parse
             img_map[f] = rel_path

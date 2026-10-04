@@ -11,7 +11,7 @@ import re
 ROOT = Path(os.environ.get("PAGES_STAGE_ROOT", Path(__file__).resolve().parents[1])).resolve()
 DEST = Path(os.environ.get("PAGES_STAGE_DEST", ROOT / "_site")).resolve()
 ROOT_FILES = ["index.html", "dashboard-data.js", "solutions-bundle.js", "national-exams-data.js", "national-solutions-bundle.js"]
-ASSET_ROOTS = ["data/official_pdfs", "reports/circuit-diagrams", "依考科分類"]
+ASSET_ROOTS = ["data/official_pdfs", "reports/circuit-diagrams", "01_原始試題/依考科", "04_國考同級題庫"]
 ASSET_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".pdf", ".woff", ".woff2", ".ttf"}
 RUNTIME_LIBS = {
     "libs/katex.min.css",

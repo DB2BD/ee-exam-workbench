@@ -19,14 +19,14 @@ template: lean-v1
 audit_status: verified
 verified_at: 2026-10-01
 method: test
-source_crop: 依考科分類/05_電力系統/images/questions/PE_999年_電力系統_Q01.png
+source_crop: 01_原始試題/依考科/05_電力系統/images/questions/PE_999年_電力系統_Q01.png
 ---
 """
 
 LEAN_BODY = r"""
 # 999 年電力系統第 1 題｜經濟調度
 
-![官方題目裁切圖](../../../依考科分類/05_電力系統/images/questions/PE_999年_電力系統_Q01.png)
+![官方題目裁切圖](../../../01_原始試題/依考科/05_電力系統/images/questions/PE_999年_電力系統_Q01.png)
 
 ## 已知與所求
 

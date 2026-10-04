@@ -8,8 +8,8 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACK = ROOT / "docs" / "上榜混合橋接_六科12題.md"
-CANONICAL_ROOT = ROOT / "📝 個人題解與錯題本"
+PACK = ROOT / "docs" / "01_備考計畫" / "混合橋接_六科12題.md"
+CANONICAL_ROOT = ROOT / "02_題解/技師題解"
 EXPECTED_BY_SUBJECT = {
     "01": {"EE-111-01-3", "EE-113-01-3"},
     "02": {"EE-104-02-3", "EE-106-02-5"},
@@ -66,7 +66,7 @@ class TestMixedBridgePack(unittest.TestCase):
     def test_pack_is_marked_retired_and_not_in_the_schedule(self):
         self.assertIn("已退休", self.text.split("\n", 8)[0] + "\n".join(self.text.splitlines()[:5]))
         self.assertIn("v1.3", self.text)
-        schedule = (ROOT / "docs" / "上榜逐日開工表_115年.md").read_text(encoding="utf-8")
+        schedule = (ROOT / "docs" / "01_備考計畫" / "逐日開工表_115年.md").read_text(encoding="utf-8")
         table = schedule.split("## 41 天固定日程", 1)[1].split("\n## ", 1)[0]
         self.assertNotIn("MIX-", table)
         self.assertNotIn("上榜混合橋接", table)

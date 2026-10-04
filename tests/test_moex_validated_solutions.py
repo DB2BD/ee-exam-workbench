@@ -8,9 +8,9 @@ import unittest
 
 
 WORKSPACE = pathlib.Path(__file__).resolve().parents[1]
-SOLUTION = WORKSPACE / "📝 個人題解與錯題本" / "🏛️_國考同級題解" / "01_電路學" / "GK_114年_電路學_全卷完整詳細題解.md"
-SOLUTION_113 = WORKSPACE / "📝 個人題解與錯題本" / "🏛️_國考同級題解" / "01_電路學" / "GK_113年_電路學_全卷完整詳細題解.md"
-SOLUTION_110 = WORKSPACE / "📝 個人題解與錯題本" / "🏛️_國考同級題解" / "01_電路學" / "GK_110年_電路學_全卷完整詳細題解.md"
+SOLUTION = WORKSPACE / "02_題解/國考同級題解" / "01_電路學" / "GK_114年_電路學_全卷完整詳細題解.md"
+SOLUTION_113 = WORKSPACE / "02_題解/國考同級題解" / "01_電路學" / "GK_113年_電路學_全卷完整詳細題解.md"
+SOLUTION_110 = WORKSPACE / "02_題解/國考同級題解" / "01_電路學" / "GK_110年_電路學_全卷完整詳細題解.md"
 
 
 class TestMoexValidatedSolutions(unittest.TestCase):
@@ -25,7 +25,7 @@ class TestMoexValidatedSolutions(unittest.TestCase):
     def test_113_solution_hash_is_real_manifest_hash(self):
         source = (WORKSPACE / "data/moex-national-exams.json").read_text(encoding="utf-8")
         self.assertIn("8fc6cfaed5498a07aec5d414840ccf725eb908af5819fe51d65608d10ae0ec08", source)
-        solution = (WORKSPACE / "📝 個人題解與錯題本" / "🏛️_國考同級題解" / "01_電路學" / "GK_113年_電路學_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        solution = (WORKSPACE / "02_題解/國考同級題解" / "01_電路學" / "GK_113年_電路學_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn("source_pdf_sha256: 8fc6cfaed5498a07aec5d414840ccf725eb908af5819fe51d65608d10ae0ec08", solution)
 
     def test_113_rc_solution_coefficients(self):

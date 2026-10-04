@@ -50,7 +50,7 @@ process.stdout.write(ctx.processMarkdownWithMath(process.argv[1]));
 
     def test_markdown_sources_have_no_tab_corrupted_text_macros(self):
         """來源層不得重新引入 `$<tab>ext{...}` 的不可見字元污染。"""
-        roots = [ROOT / "📝 個人題解與錯題本", ROOT / "🧠 核心考點知識庫", ROOT / "依考科分類"]
+        roots = [ROOT / "02_題解/技師題解", ROOT / "03_知識庫/核心考點", ROOT / "01_原始試題/依考科"]
         bad = []
         for root in roots:
             for path in root.rglob("*.md"):
@@ -79,22 +79,22 @@ process.stdout.write(ctx.processMarkdownWithMath(process.argv[1]));
         )
         self.assertNotIn('katex-error', rendered)
         self.assertIn('class="katex"', rendered)
-        path = ROOT / "📝 個人題解與錯題本/06_工業配電/canonical/EE-105-06-2.md"
+        path = ROOT / "02_題解/技師題解/06_工業配電/canonical/EE-105-06-2.md"
         self.assertNotRegex(path.read_text(encoding="utf-8"), r"\\angle\[")
 
     def test_multiline_formula_sources_have_valid_environment_closures(self):
-        path = ROOT / "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-6.md"
+        path = ROOT / "02_題解/技師題解/03_工程數學/canonical/EE-106-03-6.md"
         text = path.read_text(encoding="utf-8")
         self.assertIn(r"\end{cases}", text)
         self.assertNotIn(r"}end{cases}", text)
 
-        path = ROOT / "📝 個人題解與錯題本/06_工業配電/canonical/EE-113-06-4.md"
+        path = ROOT / "02_題解/技師題解/06_工業配電/canonical/EE-113-06-4.md"
         text = path.read_text(encoding="utf-8")
         self.assertNotIn(r"\mathrm{kV}\\)", text)
 
     def test_all_question_level_canonical_notes_render_without_katex_errors(self):
         paths = sorted(str(path.relative_to(ROOT)) for path in (
-            ROOT / "📝 個人題解與錯題本"
+            ROOT / "02_題解/技師題解"
         ).glob("**/canonical/*.md"))
         script = r'''
 const fs = require('fs'), vm = require('vm');
@@ -130,7 +130,7 @@ process.stdout.write(JSON.stringify(failures));
 
     def test_all_active_markdown_has_no_strict_katex_parse_errors(self):
         """Catch nested or orphaned delimiters that throwOnError=False hides."""
-        roots = [ROOT / "📝 個人題解與錯題本", ROOT / "🧠 核心考點知識庫"]
+        roots = [ROOT / "02_題解/技師題解", ROOT / "03_知識庫/核心考點"]
         paths = sorted(str(path.relative_to(ROOT)) for root in roots for path in root.rglob("*.md"))
         script = r'''
 const fs = require('fs'), vm = require('vm');
@@ -170,7 +170,7 @@ process.stdout.write(JSON.stringify(errors));
 
     def test_canonical_latex_delimiters_are_balanced(self):
         """孤立的 \\) / \\] 會被當成純文字露出，需在來源層直接攔截。"""
-        for path in (ROOT / "📝 個人題解與錯題本").glob("**/canonical/*.md"):
+        for path in (ROOT / "02_題解/技師題解").glob("**/canonical/*.md"):
             text = path.read_text(encoding="utf-8")
             # Ignore LaTeX row-break syntax such as ``\\\\[4pt]``; it is not
             # a display-math opener.  A single backslash is a real delimiter.
@@ -355,12 +355,12 @@ process.stdout.write(JSON.stringify(result));
 
     def test_known_malformed_formula_delimiters_are_fixed(self):
         files = [
-            ROOT / "🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",
-            ROOT / "🧠 核心考點知識庫/01_電路學/02_交流穩態相量與功率因數改善.md",
-            ROOT / "📝 個人題解與錯題本/01_電路學/111年_電路學_全卷完整詳細題解.md",
-            ROOT / "📝 個人題解與錯題本/05_電力系統/110年_電力系統_全卷完整詳細題解.md",
-            ROOT / "📝 個人題解與錯題本/05_電力系統/111年_電力系統_全卷完整詳細題解.md",
-            ROOT / "📝 個人題解與錯題本/05_電力系統/112年_電力系統_全卷完整詳細題解.md",
+            ROOT / "03_知識庫/核心考點/01_電路學/01_直流電路與戴維寧諾頓等效.md",
+            ROOT / "03_知識庫/核心考點/01_電路學/02_交流穩態相量與功率因數改善.md",
+            ROOT / "02_題解/技師題解/01_電路學/111年_電路學_全卷完整詳細題解.md",
+            ROOT / "02_題解/技師題解/05_電力系統/110年_電力系統_全卷完整詳細題解.md",
+            ROOT / "02_題解/技師題解/05_電力系統/111年_電力系統_全卷完整詳細題解.md",
+            ROOT / "02_題解/技師題解/05_電力系統/112年_電力系統_全卷完整詳細題解.md",
         ]
         for path in files:
             text = path.read_text(encoding="utf-8")
@@ -369,11 +369,11 @@ process.stdout.write(JSON.stringify(result));
 
     def test_display_blocks_are_balanced_in_touched_files(self):
         files = [
-            ROOT / "🧠 核心考點知識庫/01_電路學/01_直流電路與戴維寧諾頓等效.md",
-            ROOT / "📝 個人題解與錯題本/01_電路學/111年_電路學_全卷完整詳細題解.md",
-            ROOT / "📝 個人題解與錯題本/05_電力系統/110年_電力系統_全卷完整詳細題解.md",
-            ROOT / "📝 個人題解與錯題本/05_電力系統/111年_電力系統_全卷完整詳細題解.md",
-            ROOT / "📝 個人題解與錯題本/05_電力系統/112年_電力系統_全卷完整詳細題解.md",
+            ROOT / "03_知識庫/核心考點/01_電路學/01_直流電路與戴維寧諾頓等效.md",
+            ROOT / "02_題解/技師題解/01_電路學/111年_電路學_全卷完整詳細題解.md",
+            ROOT / "02_題解/技師題解/05_電力系統/110年_電力系統_全卷完整詳細題解.md",
+            ROOT / "02_題解/技師題解/05_電力系統/111年_電力系統_全卷完整詳細題解.md",
+            ROOT / "02_題解/技師題解/05_電力系統/112年_電力系統_全卷完整詳細題解.md",
         ]
         for path in files:
             text = path.read_text(encoding="utf-8")

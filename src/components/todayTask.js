@@ -338,7 +338,7 @@ function todayTaskPhaseView(task, a, now) {
     phaseStartedAt: a.phaseStartedAt,
     pdfUrl: closed ? todayTaskPdfUrl(task) : '',
     scoringNote: task.scoringNote || '',
-    // One-line instruction for phases that otherwise show nothing (docs/上榜預設24時段_核心題路徑.md: 5 分鐘只留一句下次動作).
+    // One-line instruction for phases that otherwise show nothing (docs/01_備考計畫/預設24時段_核心題路徑.md: 5 分鐘只留一句下次動作).
     instruction: phase.note || (phase.label === '下次動作' ? TODAY_TASK_NEXT_ACTION_TEXT : ''),
     // 隨機練習 launcher for WEAK／REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
     launch: phase.launch || '',

@@ -8,8 +8,8 @@ compile_national_exams.py — 國考同級參考題庫獨立編譯器
     絕不讀取、修改、覆寫 dashboard-data.js 或 solutions-bundle.js
 
 Architecture:
-    1. 掃描 依考科分類/🏛️_國考同級參考題庫/ 下所有考科 Markdown
-    2. 掃描 📝 個人題解與錯題本/🏛️_國考同級題解/ 下的詳解 Markdown
+    1. 掃描 04_國考同級題庫/ 下所有考科 Markdown
+    2. 掃描 02_題解/國考同級題解/ 下的詳解 Markdown
     3. 解析題目結構 → 產生 NATIONAL_EXAMS_DATA (national-exams-data.js)
     4. 打包所有國考題解 Markdown + 圖片映射 → national-solutions-bundle.js
     5. 建立考點關聯索引 (relatedPEQid) 透過 tag 關鍵字比對
@@ -67,8 +67,8 @@ EXAM_CATEGORIES = [
         'name': '🏛️ 公務高考三級',
         'isPrimary': False,
         'prefix': 'GK',
-        'scanDir': '依考科分類/🏛️_國考同級參考題庫',
-        'solDir': '📝 個人題解與錯題本/🏛️_國考同級題解',
+        'scanDir': '04_國考同級題庫',
+        'solDir': '02_題解/國考同級題解',
         'filenamePattern': r'^GK_(\d{3})年_(.+)\.md$',
     },
     {
@@ -76,8 +76,8 @@ EXAM_CATEGORIES = [
         'name': '🚆 鐵路特考高員',
         'isPrimary': False,
         'prefix': 'RW',
-        'scanDir': '依考科分類/🏛️_國考同級參考題庫',
-        'solDir': '📝 個人題解與錯題本/🏛️_國考同級題解',
+        'scanDir': '04_國考同級題庫',
+        'solDir': '02_題解/國考同級題解',
         'filenamePattern': r'^RW_(\d{3})年_(.+)\.md$',
     },
     {
@@ -85,8 +85,8 @@ EXAM_CATEGORIES = [
         'name': '🏙️ 地方特考三級',
         'isPrimary': False,
         'prefix': 'LOC',
-        'scanDir': '依考科分類/🏛️_國考同級參考題庫',
-        'solDir': '📝 個人題解與錯題本/🏛️_國考同級題解',
+        'scanDir': '04_國考同級題庫',
+        'solDir': '02_題解/國考同級題解',
         'filenamePattern': r'^LOC_(\d{3})年_(.+)\.md$',
     },
     {
@@ -94,8 +94,8 @@ EXAM_CATEGORIES = [
         'name': '⚡ 國營事業聯招',
         'isPrimary': False,
         'prefix': 'SOE',
-        'scanDir': '依考科分類/🏛️_國考同級參考題庫',
-        'solDir': '📝 個人題解與錯題本/🏛️_國考同級題解',
+        'scanDir': '04_國考同級題庫',
+        'solDir': '02_題解/國考同級題解',
         'filenamePattern': r'^SOE_(\d{3})年_(.+)\.md$',
     },
 ]
@@ -582,8 +582,8 @@ def generate_bundle_js():
     import urllib.parse
 
     scan_dirs = [
-        '依考科分類/🏛️_國考同級參考題庫',
-        '📝 個人題解與錯題本/🏛️_國考同級題解',
+        '04_國考同級題庫',
+        '02_題解/國考同級題解',
     ]
 
     for scan_dir in scan_dirs:

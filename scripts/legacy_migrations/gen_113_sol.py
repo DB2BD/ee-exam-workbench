@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-os.makedirs('📝 個人題解與錯題本/05_電力系統', exist_ok=True)
+os.makedirs('02_題解/技師題解/05_電力系統', exist_ok=True)
 
 # 113 年 電力系統 全卷完整詳細題解
 sol_113 = r'''---
@@ -272,7 +272,7 @@ $$\alpha = 7.6\ \$/\text{MWh},\quad \beta = 0.002\ \$/\text{MW}^2\text{h}$$
 | **四** | 調速機特性與頻率響應 | $\Delta P_m = 0.333\text{ pu} (166.67\text{ MW})$, 頻率範圍 $57.0\text{ Hz} \sim 60.0\text{ Hz}$ |
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/113年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/113年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_113)
 
 print('✅ 113年_電力系統_全卷完整詳細題解.md created!')

@@ -43,9 +43,9 @@ def clean_ocr_lines(text):
     return res
 
 # Process all subjects
-for subj_file in sorted(os.listdir('依考科分類')):
+for subj_file in sorted(os.listdir('01_原始試題/依考科')):
     if subj_file.endswith('.md'):
-        full_path = os.path.join('依考科分類', subj_file)
+        full_path = os.path.join('01_原始試題/依考科', subj_file)
         with open(full_path, 'r', encoding='utf-8') as f:
             content = f.read()
         

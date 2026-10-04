@@ -3,7 +3,7 @@ import re
 import os
 
 # 1. Fix 05_電力系統.md
-power_file = '依考科分類/05_電力系統.md'
+power_file = '01_原始試題/依考科/05_電力系統.md'
 with open(power_file, 'r', encoding='utf-8') as f:
     text = f.read()
 
@@ -30,7 +30,7 @@ with open(power_file, 'w', encoding='utf-8') as f:
 print('✅ Fixed 05_電力系統.md currency and math expressions')
 
 # 2. Fix 02_電子學_含電力電子.md
-elec_file = '依考科分類/02_電子學_含電力電子.md'
+elec_file = '01_原始試題/依考科/02_電子學_含電力電子.md'
 with open(elec_file, 'r', encoding='utf-8') as f:
     text = f.read()
 

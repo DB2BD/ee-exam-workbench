@@ -9,7 +9,7 @@ from scripts.question_schema import load_questions_from_bundle, question_record_
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CANONICAL = ROOT / "📝 個人題解與錯題本" / "06_工業配電" / "canonical"
+CANONICAL = ROOT / "02_題解/技師題解" / "06_工業配電" / "canonical"
 Q112_FORMULA = re.compile(
     r"T_s\s*=\s*\\d?frac\s*\{\s*k\s*\\times\s*80\s*\}"
     r"\s*\{\s*\(I/I_s\)\^2\s*-\s*1\s*\}\s*"
@@ -52,9 +52,9 @@ def frontmatter(text):
 class Test112113ReviewConsistency(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.source = (ROOT / "依考科分類" / "06_工業配電.md").read_text(encoding="utf-8")
+        cls.source = (ROOT / "01_原始試題/依考科" / "06_工業配電.md").read_text(encoding="utf-8")
         cls.anthology = (
-            ROOT / "依考科分類" / "06_工業配電"
+            ROOT / "01_原始試題/依考科" / "06_工業配電"
             / "06_工業配電_歷屆試題彙編_104-114年.md"
         ).read_text(encoding="utf-8")
         cls.audit_entries = {
@@ -132,7 +132,7 @@ class Test112113ReviewConsistency(unittest.TestCase):
         report = ROOT / "reports" / "113年工業配電Q4啟斷容量口徑研究.md"
         canonical = (CANONICAL / "EE-113-06-4.md").read_text(encoding="utf-8")
         annual = (
-            ROOT / "📝 個人題解與錯題本" / "06_工業配電"
+            ROOT / "02_題解/技師題解" / "06_工業配電"
             / "113年_工業配電_全卷完整詳細題解.md"
         ).read_text(encoding="utf-8")
         self.assertTrue(report.is_file())

@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VERIFY_DIR = ROOT / "verification" / "pe"
-NOTES = ROOT / "📝 個人題解與錯題本"
+NOTES = ROOT / "02_題解/技師題解"
 TIMEOUT_SECONDS = 120
 NEEDS_SCRIPT = {"verified", "reference_book_verified"}
 

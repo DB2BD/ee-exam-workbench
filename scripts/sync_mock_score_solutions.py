@@ -62,7 +62,7 @@ def projected_body(text: str) -> str:
         elif line.startswith("## "):
             line = "### " + line[3:]
         projected.append(
-            line.replace("../../../依考科分類", "../../依考科分類").rstrip()
+            line.replace("../../../../01_原始試題/依考科", "../../../01_原始試題/依考科").rstrip()
         )
     return "\n".join(projected).strip()
 

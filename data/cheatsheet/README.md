@@ -1,6 +1,6 @@
 # 失分點速查卡（K6）資料格式
 
-流程：`scripts/build_cheatsheet_sources.py` 產出 `sources.json`（323 份 canonical 的「失分點」、「條件與疑義」，加 30 張條件題作答卡與 15 筆命題疑點）。策展者讀 `sources.json`，每科寫一份 `0X.json`（X = 01..06）。`scripts/build_cheatsheet.py` 驗證後產出 `docs/上榜失分點速查卡_六科.md` 與 `src/data/cheatsheet.generated.js`。
+流程：`scripts/build_cheatsheet_sources.py` 產出 `sources.json`（323 份 canonical 的「失分點」、「條件與疑義」，加 30 張條件題作答卡與 15 筆命題疑點）。策展者讀 `sources.json`，每科寫一份 `0X.json`（X = 01..06）。`scripts/build_cheatsheet.py` 驗證後產出 `docs/02_考場策略/失分點速查卡_六科.md` 與 `src/data/cheatsheet.generated.js`。
 
 ## 0X.json 格式
 
@@ -39,4 +39,4 @@
 | `method_trap` | 方法選擇陷阱 |
 | `calc_check` | 計算與驗算習慣 |
 
-驗證失敗時 `build_cheatsheet.py` 以非零狀態結束。不要手改 `docs/上榜失分點速查卡_六科.md` 或 `cheatsheet.generated.js`。
+驗證失敗時 `build_cheatsheet.py` 以非零狀態結束。不要手改 `docs/02_考場策略/失分點速查卡_六科.md` 或 `cheatsheet.generated.js`。

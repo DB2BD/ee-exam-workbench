@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTES = ROOT / "📝 個人題解與錯題本"
+NOTES = ROOT / "02_題解/技師題解"
 NON_MATH_SUBJECTS = (
     "01_電路學",
     "02_電子學_含電力電子",
@@ -67,7 +67,7 @@ def canonical_projection(canonical: Path) -> str:
             line = "#### " + line[4:]
         elif line.startswith("## "):
             line = "### " + line[3:]
-        projected.append(line.replace("../../../依考科分類", "../../依考科分類").rstrip())
+        projected.append(line.replace("../../../../01_原始試題/依考科", "../../../01_原始試題/依考科").rstrip())
     return "\n".join(projected).strip()
 
 

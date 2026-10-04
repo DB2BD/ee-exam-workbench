@@ -20,8 +20,8 @@ from urllib.parse import urlparse
 WORKSPACE = Path(__file__).resolve().parents[1]
 MANIFEST = WORKSPACE / "data" / "moex-national-exams.json"
 PDF_DIRECTORY = WORKSPACE / "data" / "official_pdfs" / "gk"
-MASTER_DIRECTORY = WORKSPACE / "依考科分類" / "🏛️_國考同級參考題庫"
-SOLUTION_DIRECTORY = WORKSPACE / "📝 個人題解與錯題本" / "🏛️_國考同級題解"
+MASTER_DIRECTORY = WORKSPACE / "04_國考同級題庫"
+SOLUTION_DIRECTORY = WORKSPACE / "02_題解/國考同級題解"
 MOEX_QUERY = "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx"
 
 SUBJECT_DIRS = {

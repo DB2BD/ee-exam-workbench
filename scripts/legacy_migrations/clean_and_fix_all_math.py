@@ -3,7 +3,7 @@ import glob
 import os
 import re
 
-directories = ['📝 個人題解與錯題本', '依考科分類', '💼 個人職涯發展與國際戰略']
+directories = ['02_題解/技師題解', '01_原始試題/依考科', '💼 個人職涯發展與國際戰略']
 all_files = []
 for d in directories:
     all_files.extend(glob.glob(f'{d}/**/*.md', recursive=True))

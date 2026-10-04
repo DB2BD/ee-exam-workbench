@@ -1,7 +1,7 @@
 import os
 
 # Base directory
-base_kb = '🧠 核心考點知識庫'
+base_kb = '03_知識庫/核心考點'
 
 kb_data = {
     '01_電路學': [

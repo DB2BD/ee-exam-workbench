@@ -10,8 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = (
     ROOT
-    / "🧠 核心考點知識庫"
-    / "📊_電機工程技師_6大考科11年高頻考點統計與命中率分析.md"
+    / "03_知識庫/核心考點"
+    / "六科高頻考點統計_104-114年.md"
 )
 
 
@@ -81,11 +81,11 @@ class TestTopicFrequencyReport(unittest.TestCase):
 
     def test_passive_route_links_are_present(self):
         for target in (
-            "../docs/上榜預設24時段_核心題路徑.md",
-            "../docs/上榜混合橋接_六科12題.md",
-            "../docs/上榜被動模考_114年六科執行包.md",
-            "../docs/上榜被動複測_108年六科執行包.md",
-            "../docs/上榜錯因修復索引_114-108.md",
+            "../../docs/01_備考計畫/預設24時段_核心題路徑.md",
+            "../../docs/01_備考計畫/混合橋接_六科12題.md",
+            "../../docs/01_備考計畫/被動模考_114年六科執行包.md",
+            "../../docs/01_備考計畫/被動複測_108年六科執行包.md",
+            "../../docs/02_考場策略/錯因修復索引_114-108.md",
         ):
             with self.subTest(target=target):
                 self.assertIn(target, self.source)

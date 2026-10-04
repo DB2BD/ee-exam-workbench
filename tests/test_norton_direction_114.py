@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTE = ROOT / "📝 個人題解與錯題本/01_電路學/canonical/EE-114-01-2.md"
+NOTE = ROOT / "02_題解/技師題解/01_電路學/canonical/EE-114-01-2.md"
 SPEC = ROOT / "data/circuit_specs/EE-114-01-2-norton.json"
 REPORT = ROOT / "reports/EE-114-01-2-norton-diagram.json"
 
@@ -15,7 +15,7 @@ REPORT = ROOT / "reports/EE-114-01-2-norton-diagram.json"
 class TestNortonDirection114(unittest.TestCase):
     def test_unreviewed_draft_is_not_in_the_release_image_inventory(self):
         draft_name = "114年_電路學_第2題_諾頓等效電路.svg"
-        self.assertFalse((ROOT / "依考科分類/01_電路學/images" / draft_name).exists())
+        self.assertFalse((ROOT / "01_原始試題/依考科/01_電路學/images" / draft_name).exists())
         bundle = (ROOT / "solutions-bundle.js").read_text(encoding="utf-8")
         self.assertNotIn(draft_name, bundle)
 

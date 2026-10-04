@@ -87,9 +87,9 @@ def process_all_markdowns():
     }
     
     for folder, sname in subj_dirs.items():
-        folder_path = os.path.join('依考科分類', folder)
+        folder_path = os.path.join('01_原始試題/依考科', folder)
         md_file = os.path.join(folder_path, f'{folder}_歷屆試題彙編_104-114年.md')
-        top_md_file = os.path.join('依考科分類', f'{folder}.md')
+        top_md_file = os.path.join('01_原始試題/依考科', f'{folder}.md')
         
         if not os.path.exists(md_file):
             continue

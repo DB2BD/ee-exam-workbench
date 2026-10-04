@@ -50,7 +50,7 @@ def diagnose():
     with open('national-solutions-bundle.js', 'r', encoding='utf-8') as f:
         nb = f.read()
         
-    m_gk_in_pe = re.findall(r'\"(📝 個人題解與錯題本/🏛️_國考同級題解[^\"]+\.md)\"', sb)
+    m_gk_in_pe = re.findall(r'\"(02_題解/國考同級題解[^\"]+\.md)\"', sb)
     print(f"  ℹ️ GK solution keys found in PE bundle: {len(m_gk_in_pe)}")
     if len(m_gk_in_pe) > 0:
         print("  ⚠️ Notice: GK solutions present in PE bundle; frontend precedence rule must prioritize NATIONAL_BUNDLED_MD.")

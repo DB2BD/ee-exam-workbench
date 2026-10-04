@@ -13,8 +13,8 @@ WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 1. 02 Electronics compiler
 for f in [
-    '依考科分類/02_電子學_含電力電子.md',
-    '依考科分類/02_電子學_含電力電子/02_電子學_含電力電子_歷屆試題彙編_104-114年.md'
+    '01_原始試題/依考科/02_電子學_含電力電子.md',
+    '01_原始試題/依考科/02_電子學_含電力電子/02_電子學_含電力電子_歷屆試題彙編_104-114年.md'
 ]:
     p = os.path.join(WORKSPACE, f)
     if os.path.exists(p):
@@ -29,8 +29,8 @@ for f in [
 
 # 2. 03 Eng Math compiler
 for f in [
-    '依考科分類/03_工程數學.md',
-    '依考科分類/03_工程數學/03_工程數學_歷屆試題彙編_104-114年.md'
+    '01_原始試題/依考科/03_工程數學.md',
+    '01_原始試題/依考科/03_工程數學/03_工程數學_歷屆試題彙編_104-114年.md'
 ]:
     p = os.path.join(WORKSPACE, f)
     if os.path.exists(p):
@@ -43,8 +43,8 @@ for f in [
 
 # 3. 04 Machine compiler
 for f in [
-    '依考科分類/04_電機機械.md',
-    '依考科分類/04_電機機械/04_電機機械_歷屆試題彙編_104-114年.md'
+    '01_原始試題/依考科/04_電機機械.md',
+    '01_原始試題/依考科/04_電機機械/04_電機機械_歷屆試題彙編_104-114年.md'
 ]:
     p = os.path.join(WORKSPACE, f)
     if os.path.exists(p):
@@ -59,8 +59,8 @@ for f in [
 
 # 4. 05 Power compiler
 for f in [
-    '依考科分類/05_電力系統.md',
-    '依考科分類/05_電力系統/05_電力系統_歷屆試題彙編_104-114年.md'
+    '01_原始試題/依考科/05_電力系統.md',
+    '01_原始試題/依考科/05_電力系統/05_電力系統_歷屆試題彙編_104-114年.md'
 ]:
     p = os.path.join(WORKSPACE, f)
     if os.path.exists(p):
@@ -75,8 +75,8 @@ for f in [
 
 # 5. 06 Distribution compiler
 for f in [
-    '依考科分類/06_工業配電.md',
-    '依考科分類/06_工業配電/06_工業配電_歷屆試題彙編_104-114年.md'
+    '01_原始試題/依考科/06_工業配電.md',
+    '01_原始試題/依考科/06_工業配電/06_工業配電_歷屆試題彙編_104-114年.md'
 ]:
     p = os.path.join(WORKSPACE, f)
     if os.path.exists(p):
@@ -87,7 +87,7 @@ for f in [
             fp.write(c)
 
 # 6. 114 Electronics
-p114e = os.path.join(WORKSPACE, '📝 個人題解與錯題本/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md')
+p114e = os.path.join(WORKSPACE, '02_題解/技師題解/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md')
 with open(p114e, 'r', encoding='utf-8') as fp:
     c = fp.read()
 c = c.replace(
@@ -98,7 +98,7 @@ with open(p114e, 'w', encoding='utf-8') as fp:
     fp.write(c)
 
 # 7. 114 Distribution
-p114d = os.path.join(WORKSPACE, '📝 個人題解與錯題本/06_工業配電/114年_工業配電_全卷完整詳細題解.md')
+p114d = os.path.join(WORKSPACE, '02_題解/技師題解/06_工業配電/114年_工業配電_全卷完整詳細題解.md')
 with open(p114d, 'r', encoding='utf-8') as fp:
     lines = fp.readlines()
 for i, l in enumerate(lines):
@@ -110,7 +110,7 @@ with open(p114d, 'w', encoding='utf-8') as fp:
     fp.writelines(lines)
 
 # 8. GK 113 Eng Math
-pgk113 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md')
+pgk113 = os.path.join(WORKSPACE, '02_題解/國考同級題解/03_工程數學/GK_113年_工程數學_全卷完整詳細題解.md')
 with open(pgk113, 'r', encoding='utf-8') as fp:
     c = fp.read()
 c = c.replace(

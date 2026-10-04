@@ -186,6 +186,6 @@ sol_109 = '''---
   - **作為非同步起動繞組**：使同步電動機在起動時能像感應馬達一樣自行加速至接近同步轉速。
 '''
 
-with open('📝 個人題解與錯題本/04_電機機械/109年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/109年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_109)
 print('✅ 109年 電機機械 detailed solution written!')

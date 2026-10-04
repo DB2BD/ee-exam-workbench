@@ -5,7 +5,7 @@
   "source": {
     "page": 1,
     "bbox_norm": [0.0, 0.5811, 1.0, 0.9786],
-    "question_crop": "依考科分類/01_電路學/images/questions/PE_114年_電路學_Q02.png",
+    "question_crop": "01_原始試題/依考科/01_電路學/images/questions/PE_114年_電路學_Q02.png",
     "derivation": "由原題含相依源網路求得 V_oc=10 V、I_sc(a→b)=10 A；本圖為等效結果，不是原題圖的重畫。"
   },
   "components": [

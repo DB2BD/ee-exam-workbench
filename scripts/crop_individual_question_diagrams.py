@@ -10,7 +10,7 @@ except ImportError:
     sys.path.insert(0, os.path.join(workspace, 'scripts', 'lib'))
     from PIL import Image, ImageOps, ImageChops
 
-out_dir = '依考科分類/05_電力系統/images'
+out_dir = '01_原始試題/依考科/05_電力系統/images'
 os.makedirs(out_dir, exist_ok=True)
 
 def crop_and_autotrim(src_file, box, out_name):

@@ -212,6 +212,6 @@ sol_110 = '''---
 - **最大電磁轉矩**：$T_{max} = \mathbf{281.67\text{ N}\cdot\text{m}}$（$s_{max} = 11.86\%$）
 '''
 
-with open('📝 個人題解與錯題本/04_電機機械/110年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/110年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_110)
 print('✅ 110年 電機機械 detailed solution written!')

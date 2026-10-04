@@ -5,7 +5,7 @@ print('Checking all 104-114 Power System solution files...')
 
 years = range(104, 115)
 for y in years:
-    fpath = f'📝 個人題解與錯題本/05_電力系統/{y}年_電力系統_全卷完整詳細題解.md'
+    fpath = f'02_題解/技師題解/05_電力系統/{y}年_電力系統_全卷完整詳細題解.md'
     if not os.path.exists(fpath):
         print(f'❌ Missing: {fpath}')
     else:

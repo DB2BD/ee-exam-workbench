@@ -166,7 +166,7 @@ $$\text{VR} = \frac{V_{R,NL} - V_{R,FL}}{V_{R,FL}} \times 100\% = \frac{285.71 -
 $$V_S = 248.14\text{ kV}\angle 15.41^\circ\ (V_{S,LL} = 429.8\text{ kV}),\quad I_S = 475.3\text{ A},\quad \text{VR} = 43.44\%$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/111年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/111年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_111)
 
 print('✅ 111年_電力系統_全卷完整詳細題解.md created!')

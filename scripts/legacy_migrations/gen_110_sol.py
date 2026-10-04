@@ -139,7 +139,7 @@ $$IC_1 = 0.007(213.98) + 4.0 = 1.4979 + 4.0 = 5.498\ \$/\text{MWh}$$
 $$P_L = 6(1 - \cos\theta_{12})\text{ pu},\quad \frac{\partial P_L}{\partial P_{G2}} = \frac{6\sin\theta_{12}}{3\sin\theta_{12} - 10\cos\theta_{12}},\quad IC_1 = 5.498\ \$/\text{MWh}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/110年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/110年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_110)
 
 print('✅ 110年_電力系統_全卷完整詳細題解.md created!')

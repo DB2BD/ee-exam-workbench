@@ -9,7 +9,7 @@
 import os, re, json
 
 BASE = '.'
-SOLUTION_ROOT = '📝 個人題解與錯題本'
+SOLUTION_ROOT = '02_題解/技師題解'
 
 # ─── Collectors ───
 katex_issues = []       # (file, line, content, issue_type)

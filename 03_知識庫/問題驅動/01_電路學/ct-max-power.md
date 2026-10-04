@@ -11,7 +11,7 @@ generatedBodyHash: 7f265e4537a5cdaf88f200c31880db3e76e66979eeca1a83765d25809ff9c
 ---
 # 最大功率轉移定理
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ct-max-power`

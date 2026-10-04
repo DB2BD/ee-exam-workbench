@@ -1,6 +1,6 @@
-# ⚡ 電子學 核心考點 01 — BJT 與 MOSFET 小訊號分析
+# 電子學 核心考點 01 — BJT 與 MOSFET 小訊號分析
 
-## 📌 核心參數與小訊號模型
+## 核心參數與小訊號模型
 1. **BJT 小訊號參數**：
    - 轉導（Transconductance）：$g_m = \frac{I_C}{V_T} \approx \frac{I_C}{25\text{ mV}}$
    - 輸入電阻：$r_\pi = \frac{\beta}{g_m} = \frac{V_T}{I_B}, \quad r_e = \frac{\alpha}{g_m} = \frac{r_\pi}{1 + \beta} \approx \frac{1}{g_m}$
@@ -16,7 +16,7 @@
 
 ---
 
-## 🎯 歷屆技師高頻出題年份
+## 歷屆技師高頻出題年份
 - **114 年 第一題**：MOSFET 差動對與主動負載小訊號增益計算。
 - **113 年 第一題**：BJT 共射極放大器偏壓穩定度與交流頻率響應。
 - **111 年 第二題**：MOSFET 多級放大器串級分析與輸入/輸出阻抗。

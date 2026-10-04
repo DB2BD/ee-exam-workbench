@@ -11,7 +11,7 @@ generatedBodyHash: 6469ae56570841f7a044c073c144f113ad6258cf44b200d121564ac47b348
 ---
 # 輸電線路中長程模型 (ABCD 參數)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ps-transmission-line-models`

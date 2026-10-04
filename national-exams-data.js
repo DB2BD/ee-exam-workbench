@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════
-// 🏛️ 國考同級參考題庫 — 獨立擴充資料庫
-// ⚠️  此檔案完全獨立於 dashboard-data.js，零覆蓋、零污染
+// 國考同級參考題庫 — 獨立擴充資料庫
+// 注意：此檔案完全獨立於 dashboard-data.js，零覆蓋、零污染
 // Auto-compiled by scripts/compile_national_exams.py
 // Total national exam questions: 161
 // ═══════════════════════════════════════════════════════════════════
@@ -10,25 +10,25 @@ const NATIONAL_EXAMS_DATA = {
   categories: [
     {
         "id": "PE",
-        "name": "🏆 電機工程技師",
+        "name": "電機工程技師",
         "total": 323,
         "isPrimary": true
     },
     {
         "id": "GK",
-        "name": "🏛️ 公務高考三級",
+        "name": "公務高考三級",
         "total": 161,
         "isPrimary": false
     },
     {
         "id": "RW",
-        "name": "🚆 鐵路特考高員",
+        "name": "鐵路特考高員",
         "total": 0,
         "isPrimary": false
     },
     {
         "id": "LOC",
-        "name": "🏙️ 地方特考三級",
+        "name": "地方特考三級",
         "total": 0,
         "isPrimary": false
     },

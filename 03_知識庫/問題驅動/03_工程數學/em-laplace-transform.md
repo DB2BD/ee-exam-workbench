@@ -11,7 +11,7 @@ generatedBodyHash: 9825a1ed617aa63b3593f6d7474bfbbfb370f38a5d695a02476adf26949e3
 ---
 # 拉氏轉換與反轉換 (部分分式法)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `em-laplace-transform`

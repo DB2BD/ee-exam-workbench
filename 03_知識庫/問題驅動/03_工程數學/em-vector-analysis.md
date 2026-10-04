@@ -11,7 +11,7 @@ generatedBodyHash: b98b1450ca1e26d343add6f85fe3463ed6d209aee7d45faa975c090988071
 ---
 # 向量分析與向量微積分
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `em-vector-analysis`

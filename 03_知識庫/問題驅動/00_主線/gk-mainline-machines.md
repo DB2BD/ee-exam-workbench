@@ -11,7 +11,7 @@ generatedBodyHash: f927313434df115a0c993b080742b41d5d6e6b4616476aa9ecfa85b82a822
 ---
 # 電機機械主線
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-mainline-machines`

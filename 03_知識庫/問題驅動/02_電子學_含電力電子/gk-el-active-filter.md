@@ -11,7 +11,7 @@ generatedBodyHash: 181074f4f345f112dfccfbea540cb963daef3312524d06a299b0fcf6b11f2
 ---
 # 主動濾波器與頻率響應
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-el-active-filter`

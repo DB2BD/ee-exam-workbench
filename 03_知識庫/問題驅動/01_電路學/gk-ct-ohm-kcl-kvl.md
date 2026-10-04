@@ -11,7 +11,7 @@ generatedBodyHash: 660c7439ecb1c4bcb8f7ba879a3065492f7469abf9843a2e858281ce04f30
 ---
 # 歐姆定律與基本 KCL/KVL
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ct-ohm-kcl-kvl`

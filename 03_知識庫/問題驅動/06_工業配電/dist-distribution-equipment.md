@@ -11,7 +11,7 @@ generatedBodyHash: 56368049cd84e072c25e3ac413281db7ce36871ec0d5d306aef0432e58ef0
 ---
 # 配電變壓器與供電接線
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-distribution-equipment`

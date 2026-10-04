@@ -11,7 +11,7 @@ generatedBodyHash: 841236c4f40fd366a0308155897d4b4d17e92589e37ec3f66b7a3554e59c5
 ---
 # 複數功率與功率因數改善
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ct-complex-power`

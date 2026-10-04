@@ -11,7 +11,7 @@ generatedBodyHash: 6bc7957c62b3687fb2f580f10b6e46efc52fb66fe178ff3498b31085bd0f3
 ---
 # BJT 偏壓分析與小訊號模型
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-el-bjt-bias-small-signal`

@@ -11,7 +11,7 @@ generatedBodyHash: 26248a2384961f17e52b0838719ba0fd19c0c9134efd9d2d36c895f6a9807
 ---
 # 複變分析、柯西定理與留數定理
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `em-complex-cauchy-residue`

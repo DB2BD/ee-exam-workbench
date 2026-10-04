@@ -11,7 +11,7 @@ generatedBodyHash: 2a565eccbbe89d146fd99c3d194aa1adda0dac10e91045b4fcb55b6d825e8
 ---
 # 經濟調度與發電協調方程式
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ps-economic-dispatch`

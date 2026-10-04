@@ -11,7 +11,7 @@ generatedBodyHash: 236354891d1a897d9eedce186b3f5e34e97fadbdbc1f95e6840cd5ae4087b
 ---
 # 功率因數改善與電容器組容量
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-power-factor-correction`

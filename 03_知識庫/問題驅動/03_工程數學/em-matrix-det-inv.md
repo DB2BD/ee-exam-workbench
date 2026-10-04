@@ -11,7 +11,7 @@ generatedBodyHash: 12659c9031f6d37e5bc2e0ad07cf7bc350e53edd5925b6581f834627875c3
 ---
 # 矩陣代數、行列式與反矩陣
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `em-matrix-det-inv`

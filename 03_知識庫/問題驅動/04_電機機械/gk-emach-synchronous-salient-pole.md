@@ -11,7 +11,7 @@ generatedBodyHash: 25e8dfa0ee952ee52663257cc2e097354f6c5d15bec6ff7ff6b35c21bbef3
 ---
 # 凸極同步電機雙反應理論 (Xd, Xq)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-emach-synchronous-salient-pole`

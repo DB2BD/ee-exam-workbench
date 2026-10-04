@@ -11,7 +11,7 @@ generatedBodyHash: e164512bc69e557c82523c3fedfd5c1b8c11aff5fbd55b70c8487888cf37f
 ---
 # 電動機配線與啟動
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-motor-installation`

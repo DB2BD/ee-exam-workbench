@@ -11,7 +11,7 @@ generatedBodyHash: 04822f838b836d9d450fcd5a047a2fd9f8413eb89b230a76e127784dc53dd
 ---
 # 一階可分離與線性 ODE
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-em-first-order-ode`

@@ -11,7 +11,7 @@ generatedBodyHash: 28e7865318943111704ae5422ac29c254b2e246ffecda66e4e6c860b03b61
 ---
 # 感應電動機等效電路與戴維寧化簡
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-emach-induction-motor-equiv`

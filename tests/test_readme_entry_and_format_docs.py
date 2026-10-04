@@ -19,7 +19,7 @@ class ReadmeEntryTest(unittest.TestCase):
         self.text = README.read_text(encoding="utf-8")
 
     def test_first_table_has_exactly_three_rows(self):
-        section = self.text.split("## 先從這裡開始", 1)[1].split("\n## ", 1)[0]
+        section = re.split(r"\n#{2,3} ", self.text.split("先從這裡開始\n", 1)[1], 1)[0]
         rows = [l for l in section.splitlines() if l.startswith("|")]
         data_rows = [l for l in rows if not re.match(r"^\|\s*:?-", l)][1:]
         self.assertEqual(len(data_rows), 3, data_rows)

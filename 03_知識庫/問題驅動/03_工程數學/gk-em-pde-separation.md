@@ -11,7 +11,7 @@ generatedBodyHash: 56b27b6e9e3bf93f723e598bf81b9e7337f7880380a4101d36720870d4d2d
 ---
 # 偏微分方程 (分離變數法)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-em-pde-separation`

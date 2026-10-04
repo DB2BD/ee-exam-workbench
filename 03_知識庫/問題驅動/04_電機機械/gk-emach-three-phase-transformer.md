@@ -11,7 +11,7 @@ generatedBodyHash: 451fd7e838dd4a46c233a4d92a586ccb91015cdb6c86182de7511d8b1ad50
 ---
 # 三相變壓器組接線 (Y-Y, Y-Δ, Δ-Δ, V-V)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-emach-three-phase-transformer`

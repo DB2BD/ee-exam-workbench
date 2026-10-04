@@ -11,7 +11,7 @@ generatedBodyHash: f191b0f63e9bbbdc9445fb643be699546cc22de7c713769f439a7b2f33f3d
 ---
 # 不對稱故障分析 (SLG, L-L, 2LG)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ps-unsymmetrical-faults`

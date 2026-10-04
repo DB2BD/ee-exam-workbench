@@ -576,10 +576,10 @@ for sid, sname, icon, color, md_file, pdf_dir in subjects:
                     q_num = num_map.get(q_chinese, 1)
                     q_body = q_blocks[j+1].strip()
                     
-                    clean_body = re.sub(r'###\s+📷\s+官方試卷[\s\S]*?(?=\n####|\n##|\Z)', '', q_body)
+                    clean_body = re.sub(r'###\s+(?:📷\s*)?官方試卷[\s\S]*?(?=\n####|\n##|\Z)', '', q_body)
                     clean_body = re.sub(r'!\[\[.*?\]\]', '', clean_body)
                     clean_body = re.sub(r'!\[.*?\]\(.*?\)', '', clean_body)
-                    clean_body = re.sub(r'\[⬆\s+回到目錄導覽\].*', '', clean_body).strip()
+                    clean_body = re.sub(r'\[(?:⬆️?\s*)?回到目錄導覽\].*', '', clean_body).strip()
                     topic = clean_body if clean_body else f'{sname} 第 {q_num} 題'
                         
                     tags = [sname.split('（')[0]]
@@ -691,12 +691,12 @@ for sid, sname, icon, color, _, _ in subjects:
         "count": subject_counts.get(sid, 0)
     })
 
-db_content = f"""// ⚡ 電機工程技師 歷屆試題與詳解知識庫 — 核心資料庫 (104 ~ 114 年)
+db_content = f"""// 電機工程技師 歷屆試題與詳解知識庫 — 核心資料庫 (104 ~ 114 年)
 // 全自動編譯：收錄 6 大考科 × 11 個年度共 {len(all_questions)} 道題目
 
 const DB_DATA = {{
   meta: {{
-    title: "⚡ 電機工程技師 歷屆試題與知識庫儀表板 (104–114 年)",
+    title: "電機工程技師 歷屆試題與知識庫儀表板 (104–114 年)",
     years: [114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104],
     totalExams: 66,
     totalQuestions: {len(all_questions)},

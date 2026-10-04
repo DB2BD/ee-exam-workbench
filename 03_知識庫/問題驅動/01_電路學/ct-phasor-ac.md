@@ -11,7 +11,7 @@ generatedBodyHash: 258a3a7a2236133a5129d4edfb5c200d016f112c76a717dc88ad053aa4c8a
 ---
 # 交流穩態相量與阻抗分析
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ct-phasor-ac`

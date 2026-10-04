@@ -11,7 +11,7 @@ generatedBodyHash: e23b7cd4624d39b0b1343d9c46dec7afa925851e5740771f42b7e8c4ba11e
 ---
 # 照明設計與照度計算
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-lighting-design`

@@ -11,7 +11,7 @@ generatedBodyHash: eda6ee5f829a8ee8fceb1f9ae9ad6606891c2ec1b942a1319cacd92715803
 ---
 # 系統接地與設備接地
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-grounding-system`

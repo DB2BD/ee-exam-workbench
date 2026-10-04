@@ -76,7 +76,7 @@ for fname in sorted(os.listdir(sol_dir)):
         text = re.sub(r'!\[\[\d{3}年_電機工程技師_電力系統_p\d+\.png\|\d+\]\]\n\*圖：[^\n]*\*\n*', '', text)
         
         for q_prefix, img_embed in exact_diagrams[yr].items():
-            pattern = r'(##\s*' + re.escape(q_prefix) + r'[^\n]*\n+###\s*📌\s*題目與已知條件[^\n]*\n+)'
+            pattern = r'(##\s*' + re.escape(q_prefix) + r'[^\n]*\n+###\s*(?:📌\s*)?題目與已知條件[^\n]*\n+)'
             
             def repl(m):
                 header_part = m.group(1)

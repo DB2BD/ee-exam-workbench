@@ -11,7 +11,7 @@ generatedBodyHash: c050d6483e6cd389eff6eb7ac9bfe0b8e95364ca5b36c24043cb2bf8708b4
 ---
 # 互感耦合與同名端分析
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ct-mutual-inductance`

@@ -11,7 +11,7 @@ generatedBodyHash: 6a3aab389d69b00765bea16876486e2ae67989fe557683d7eca2d6da52024
 ---
 # 負回授放大器與相位邊限
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-el-feedback-stability`

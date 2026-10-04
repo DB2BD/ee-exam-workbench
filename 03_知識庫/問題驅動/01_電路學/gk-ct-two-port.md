@@ -11,7 +11,7 @@ generatedBodyHash: dac1c74853a3dbc99ed40b331c6613de5456f3616bc13176ffc898e96ff08
 ---
 # 雙埠網路參數 (ABCD, Z, Y, H)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ct-two-port`

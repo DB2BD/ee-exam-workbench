@@ -11,7 +11,7 @@ generatedBodyHash: acf20779f633b17e8b4dd56b60d3f3ff0e33e59fca332060a32562216d566
 ---
 # 隱極同步發電機功角與相量圖
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-emach-synchronous-generator-round`

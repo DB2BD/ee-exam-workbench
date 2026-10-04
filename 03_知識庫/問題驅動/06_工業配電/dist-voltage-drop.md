@@ -11,7 +11,7 @@ generatedBodyHash: 814c6ec4d452390e9bc14b742b34adc1a050583b0ad3b1b673791fd497cdd
 ---
 # 配電線路電壓降與導線選用
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-voltage-drop`

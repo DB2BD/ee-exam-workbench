@@ -11,7 +11,7 @@ generatedBodyHash: 37ba7d7e34552c97f875e53a972d532a132a3e3f7b79e04878f5cfbfd2006
 ---
 # 一階 RC/RL 暫態與三要素法
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ct-first-order-rc-rl`

@@ -11,7 +11,7 @@ generatedBodyHash: 1d8d1e6428b5f7561005b7727c18d59d487c8c3f08f57fb8a2d36fe0bdb63
 ---
 # 節點電壓法與網目電流法
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ct-node-mesh`

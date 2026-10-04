@@ -11,7 +11,7 @@ generatedBodyHash: d3d999673fe3c1032f912545d2a411da874620eab0d8c8ccf0e11494f90f2
 ---
 # 分壓分流與電阻等效化簡
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ct-divider-equiv`

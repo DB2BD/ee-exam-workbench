@@ -11,7 +11,7 @@ generatedBodyHash: 6278fb6351f302f22199a27975cc0730efd5ff4f6ec580e1ec900f77a36be
 ---
 # 自耦變壓器容量提升比
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `emach-autotransformer`

@@ -11,7 +11,7 @@ generatedBodyHash: 357e420389ee568de3a9b44ee4ccff4cf8260268faddb6a91738f857676d9
 ---
 # 二階非齊次 ODE (未定係數/參數變更法)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `em-second-order-ode-nonhomogeneous`

@@ -11,7 +11,7 @@ generatedBodyHash: 4ad16fe92db09a696314deccd1f118417631152b02ca002cd6991e934aa57
 ---
 # 電力潮流與導納矩陣
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ps-load-flow-admittance`

@@ -11,7 +11,7 @@ generatedBodyHash: b2893eb22be8318240a1f86e3d63d88e86bf89bbff045d461a2671571d299
 ---
 # 電力系統主線
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-mainline-power`

@@ -11,7 +11,7 @@ generatedBodyHash: 0c71963bd3ef06eb2d4a60fce088d1e7bf132773db47667e998b36f37bd65
 ---
 # 奇異值分解 (SVD) 與零空間分析
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `em-svd-linear-systems`

@@ -11,7 +11,7 @@ generatedBodyHash: 6a9f940a640d9c84b48bbed20c20a290b44ee4b502eacc1bb63933eae25f1
 ---
 # 磁阻電動機磁阻—位置轉矩
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-emach-reluctance-motor`

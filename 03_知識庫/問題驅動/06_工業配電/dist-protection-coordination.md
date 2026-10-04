@@ -11,7 +11,7 @@ generatedBodyHash: 510ed19bdc02cc70468221e165e8641f282d987a03f2866ee093ccc95a8a1
 ---
 # 過電流電驛與保護協調 (TCC 曲線)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-protection-coordination`

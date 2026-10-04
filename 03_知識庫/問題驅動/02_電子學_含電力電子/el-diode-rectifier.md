@@ -11,7 +11,7 @@ generatedBodyHash: 8ef00ff3286a4a51965d45806703bf55a6f59356ebba60961954f7911ad76
 ---
 # 二極體整流與濾波電路
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `el-diode-rectifier`

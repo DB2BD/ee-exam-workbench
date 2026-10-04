@@ -11,7 +11,7 @@ generatedBodyHash: a55ea73832093a608a22294d586cc956578de81e4de645daaca0180d6051b
 ---
 # 戴維寧與諾頓等效定理
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ct-thevenin-norton`

@@ -11,7 +11,7 @@ generatedBodyHash: 391a0caae35680bed7a6d032c431533cfef295b057c121ce1c587b1aa031f
 ---
 # 含受控源的戴維寧等效求解流程
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ct-procedure-thevenin-controlled-source`

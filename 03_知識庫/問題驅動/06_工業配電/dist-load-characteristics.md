@@ -11,7 +11,7 @@ generatedBodyHash: 428d744d0f81308e7ef884f31b0439f91b37b1e1b4040e8b5f73da3b55099
 ---
 # 負載特性與需量因數/參差因數
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-load-characteristics`

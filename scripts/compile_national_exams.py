@@ -57,14 +57,14 @@ def safety_check():
 EXAM_CATEGORIES = [
     {
         'id': 'PE',
-        'name': '🏆 電機工程技師',
+        'name': '電機工程技師',
         'isPrimary': True,
         'prefix': 'EE',
         'total': 323,  # Read-only reference; actual count comes from dashboard-data.js
     },
     {
         'id': 'GK',
-        'name': '🏛️ 公務高考三級',
+        'name': '公務高考三級',
         'isPrimary': False,
         'prefix': 'GK',
         'scanDir': '04_國考同級題庫',
@@ -73,7 +73,7 @@ EXAM_CATEGORIES = [
     },
     {
         'id': 'RW',
-        'name': '🚆 鐵路特考高員',
+        'name': '鐵路特考高員',
         'isPrimary': False,
         'prefix': 'RW',
         'scanDir': '04_國考同級題庫',
@@ -82,7 +82,7 @@ EXAM_CATEGORIES = [
     },
     {
         'id': 'LOC',
-        'name': '🏙️ 地方特考三級',
+        'name': '地方特考三級',
         'isPrimary': False,
         'prefix': 'LOC',
         'scanDir': '04_國考同級題庫',
@@ -300,10 +300,10 @@ def scan_exam_category(cat):
                     is_mc = heading.group('mc') is not None
                     app_qnum = q_num + 100 if is_mc else q_num
                     q_body = q_blocks[j + 1].strip() if j + 1 < len(q_blocks) else ''
-                    clean_body = re.sub(r'###\s+📷\s+官方試卷[\s\S]*?(?=\n####|\n##|\Z)', '', q_body)
+                    clean_body = re.sub(r'###\s+(?:📷\s*)?官方試卷[\s\S]*?(?=\n####|\n##|\Z)', '', q_body)
                     clean_body = re.sub(r'!\[\[.*?\]\]', '', clean_body)
                     clean_body = re.sub(r'!\[.*?\]\(.*?\)', '', clean_body)
-                    clean_body = re.sub(r'\[⬆\s+回到目錄導覽\].*', '', clean_body).strip()
+                    clean_body = re.sub(r'\[(?:⬆️?\s*)?回到目錄導覽\].*', '', clean_body).strip()
                     # The source Markdown also contains the authoritative crop
                     # headings. Keep only the transcription before those headings
                     # as the card topic; the crop paths are stored separately.
@@ -542,8 +542,8 @@ def generate_data_js(all_questions, categories):
         })
 
     output = f"""// ═══════════════════════════════════════════════════════════════════
-// 🏛️ 國考同級參考題庫 — 獨立擴充資料庫
-// ⚠️  此檔案完全獨立於 dashboard-data.js，零覆蓋、零污染
+// 國考同級參考題庫 — 獨立擴充資料庫
+// 注意：此檔案完全獨立於 dashboard-data.js，零覆蓋、零污染
 // Auto-compiled by scripts/compile_national_exams.py
 // Total national exam questions: {len(all_questions)}
 // ═══════════════════════════════════════════════════════════════════

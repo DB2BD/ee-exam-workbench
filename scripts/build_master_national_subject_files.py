@@ -197,7 +197,7 @@ def render_master(subject: str, entries: list[dict]) -> str:
     title = SUBJECT_TITLES.get(subject, subject)
     selected = sorted((item for item in entries if item["subject"] == subject), key=lambda item: item["year"], reverse=True)
     lines = [
-        f"# 🏛️ 高等考試三級（電力工程類科）歷屆試題索引 — {title}（110–114 年）",
+        f"# 高等考試三級（電力工程類科）歷屆試題索引 — {title}（110–114 年）",
         "",
         "> 本頁只列可追溯來源與解答狀態，不複製未核實題幹、代號、題數或配分。",
         "> 官方來源狀態以 `data/moex-national-exams.json` 為準；解答狀態以 repo 題解的驗證標記及來源 PDF 雜湊為準。",

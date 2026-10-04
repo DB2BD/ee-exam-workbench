@@ -11,7 +11,7 @@ generatedBodyHash: a46360cdab97c1b2dea28a614ac210034e8123680b1285b9d9e56c48d88bd
 ---
 # 電力系統狀態估計 (WLS 與壞資料檢測)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ps-state-estimation-wls`

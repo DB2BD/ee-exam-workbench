@@ -11,7 +11,7 @@ generatedBodyHash: 4dc24ca774a21f3884bd6220175e29355f03d74efb25e222e6fd74f78adc3
 ---
 # SLG 故障序網組合與驗算流程
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ps-procedure-slg-sequence-networks`

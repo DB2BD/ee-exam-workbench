@@ -82,6 +82,25 @@ class TestPacingPlan(unittest.TestCase):
         self.assertEqual(r["codes"], ["CORE-07", "CORE-09"])
         self.assertEqual(r["hours"], 2)
 
+    def test_weekday_fits_one_hour_core_after_quarter_over_weak(self):
+        # 1.25 h WEAK first leaves room 0.75; a 1 h CORE still fits within the 0.25 h tolerance.
+        res = js("""
+          const c = done('CORE-10'); const r = plan('2026-10-07', c);
+          const hours = r.plan.map(p => S.tasks[p.code].kind + ':' + p.hours);
+          return {codes: codes(r), hours, used: r.planHours};
+        """)
+        self.assertEqual(res["codes"][0], "CORE-10")
+        self.assertGreaterEqual(len(res["codes"]), 2, res)
+        self.assertLessEqual(res["used"], 2.25 + 1e-9)
+
+    def test_no_task_is_added_when_room_is_gone(self):
+        res = js("""
+          const c = done('CORE-07'); const r = plan('2026-10-05', c);
+          return {codes: codes(r), used: r.planHours};
+        """)
+        self.assertEqual(res["codes"], ["CORE-07", "CORE-08"])
+        self.assertEqual(res["used"], 2)
+
     def test_weekday_mock_is_split_across_two_days(self):
         r = js("""
           const c = done('MOCK114-04');

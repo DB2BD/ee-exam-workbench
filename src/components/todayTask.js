@@ -268,18 +268,36 @@ function todayTaskMilestoneText(pacing) {
   if (next.hard) return hardLine(next);
   const head = '距 ' + todayTaskMonthDay(next.date) + ' ' + next.label + (next.daysLeft === 0 ? '就是今天' : '還有 ' + next.daysLeft + ' 天') +
     '｜剩 ' + todayTaskFormatHours(next.remainingHours) + ' 小時';
-  return hard && !hard.passed ? head + '｜' + todayTaskMonthDay(hard.date) + ' ' + hard.label + '剩 ' + hard.remainingPapers + ' 份卷' : head;
+  const tail = hard && !hard.passed ? head + '｜' + todayTaskMonthDay(hard.date) + ' ' + hard.label + '剩 ' + hard.remainingPapers + ' 份卷' : head;
+  return next.atRisk ? tail + '｜彈性關卡：做不完就順延，不影響模考' : tail;
+}
+
+function todayTaskCutNote(pacing) {
+  return pacing.overload
+    ? '時數仍短缺約 ' + todayTaskFormatHours(pacing.shortHours) + ' 小時：模考卷照順序做，做不完的排到 11/01 緩衝日補考' : '';
 }
 
 function todayTaskCutText(pacing) {
   if (!pacing.cut.length) return '';
-  let text = '已自動刪減：' + todayTaskCompressCodes(pacing.cut) + '（有空再做）';
-  if (pacing.overload) text += '；時數仍短缺約 ' + todayTaskFormatHours(pacing.shortHours) + ' 小時，模考卷與 10/31 期限不刪';
-  return text;
+  const note = todayTaskCutNote(pacing);
+  return '已自動刪減：' + todayTaskCompressCodes(pacing.cut) + '（有空再做）' + (note ? '；' + note : '');
 }
 
-function todayTaskPlanLine(pacing) {
-  return '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜排入 ' + todayTaskFormatHours(pacing.planHours) + ' 小時';
+// Card html for the cut line: few ranges stay inline; a long list collapses into a <details> under a short summary.
+function todayTaskCutHtml(vm) {
+  const pacing = vm.pacing;
+  if (!pacing || !pacing.cut || !pacing.cut.length) return vm.cutText ? '<p class="today-pacing-cut">' + todayTaskEscape(vm.cutText) + '</p>' : '';
+  const ranges = todayTaskCompressCodes(pacing.cut);
+  if (ranges.split('、').length <= 3) return '<p class="today-pacing-cut">' + todayTaskEscape(vm.cutText) + '</p>';
+  const note = todayTaskCutNote(pacing);
+  return '<div class="today-pacing-cut"><details><summary>已自動刪減 ' + pacing.cut.length + ' 項（有空再做）</summary><p>' + todayTaskEscape(ranges) + '</p></details>' +
+    (note ? '<p>' + todayTaskEscape(note) + '</p>' : '') + '</div>';
+}
+
+function todayTaskPlanLine(pacing, hasDoneToday) {
+  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜';
+  if (!pacing.planHours && hasDoneToday) return '今天的份量已完成';
+  return head + '還要做約 ' + todayTaskFormatHours(pacing.planHours) + ' 小時';
 }
 
 function todayTaskPdfUrl(task) {
@@ -341,6 +359,7 @@ function todayTaskViewModel(state, now) {
   const items = pacing.plan.map(todayTaskPlanItem);
   const total = DAILY_SCHEDULE.order.length;
   const doneCount = DAILY_SCHEDULE.order.filter(c => state.completed[c]).length;
+  const doneToday = DAILY_SCHEDULE.order.some(c => state.completed[c] && todayTaskLocalDate(Date.parse(state.completed[c])) === todayIso);
   let mode;
   if (rowCodes.indexOf('EXAM-CHECK') >= 0) mode = 'exam-check';
   else if (rowCodes.indexOf('STOP') >= 0 || pacing.afterEnd) mode = 'stop';
@@ -363,7 +382,7 @@ function todayTaskViewModel(state, now) {
     mode,
     todayIso,
     pacing,
-    planText: todayTaskPlanLine(pacing),
+    planText: todayTaskPlanLine(pacing, doneToday),
     plan: pacing,
     items,
     rest,
@@ -427,7 +446,7 @@ function todayTaskCardHtml(vm) {
   const plan = restDay ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
   const pacingLines = restDay ? '' :
     (vm.milestoneText ? '<p class="today-pacing-milestone' + (vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(vm.milestoneText) + '</p>' : '') +
-    (vm.cutText ? '<p class="today-pacing-cut">' + esc(vm.cutText) + '</p>' : '') +
+    todayTaskCutHtml(vm) +
     (vm.suggestion ? '<p class="today-pacing-suggestion">' + esc(vm.suggestion) + '</p>' : '');
   let body;
   if (vm.mode === 'exam-check') {

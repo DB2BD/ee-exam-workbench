@@ -9,7 +9,7 @@
 // phase is already done counts only its remaining 核對＋修復 hours).
 
 const PACING_DAY_TOLERANCE = 0.25;   // a later task may overshoot today's remaining hours by this much
-const PACING_MIN_ROOM = 0.75;        // stop adding tasks once this little (or less) of the budget is left
+const PACING_MIN_ROOM = 0.25;        // stop adding tasks once this little (or less) of the budget is left (room ~0)
 const PACING_FEASIBILITY_SLACK = 0.5; // hours of rounding allowed before a milestone counts as unreachable
 const PACING_NON_WORK = ['EXAM-CHECK', 'STOP'];
 
@@ -176,7 +176,7 @@ function pacingPlan(input) {
       const cost = pacingCost(task, partial, weekend);
       if (plan.length) {
         const room = dayBudget - used;
-        if (!(room > PACING_MIN_ROOM && cost.hours <= room + PACING_DAY_TOLERANCE)) break;
+        if (!(room > PACING_MIN_ROOM - 1e-9 && cost.hours <= room + PACING_DAY_TOLERANCE + 1e-9)) break;
       }
       plan.push({ code: task.code, part: cost.part, hours: cost.hours, phaseIndex: cost.phaseIndex, partial: !!partial && partial.code === task.code });
       used += cost.hours;

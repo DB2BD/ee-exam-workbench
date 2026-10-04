@@ -5,9 +5,9 @@ nodeId: ps-procedure-slg-sequence-networks
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
-sourceHash: fda5a6b78470db11ea84389de00bd4411d024d55f06f3d7d18449e06dc03534c
-generatedBodyHash: cfe57e7ddaa4df0d3c6383598ee9793469dc84c0b85b569c6144873816eae81e
+graphRevision: kg-v1-94aec3f278d6e297
+sourceHash: b3a78a10490ba17645a481a4e565c4ebbc72682be1510115fd1a3c58eca75a5d
+generatedBodyHash: 4dc24ca774a21f3884bd6220175e29355f03d74efb25e222e6fd74f78adc392d
 ---
 # SLG 故障序網組合與驗算流程
 
@@ -26,5 +26,5 @@ generatedBodyHash: cfe57e7ddaa4df0d3c6383598ee9793469dc84c0b85b569c6144873816eae
 - 尚無已核准的題目連結。
 
 ## Provenance
-- sourcePath: docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md
+- sourcePath: data/knowledge/golden-fixture.json
 - sourceType: golden-fixture

@@ -5,7 +5,7 @@ nodeId: ps-load-flow-admittance
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: c87edc51b0ec0409c43afe3f3fb689948397822bc37078d6b51daa236f6a38fd
 generatedBodyHash: 4ad16fe92db09a696314deccd1f118417631152b02ca002cd6991e934aa575bc
 ---

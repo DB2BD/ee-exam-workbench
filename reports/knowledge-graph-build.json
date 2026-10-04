@@ -1,7 +1,7 @@
 {
   "schemaVersion": "knowledge-graph-build.v1",
   "valid": true,
-  "graphRevision": "kg-v1-69f62a38770a392f",
+  "graphRevision": "kg-v1-94aec3f278d6e297",
   "sourceCounts": {
     "legacyDagNodeCount": 69,
     "coreNoteCount": 14,
@@ -18,9 +18,9 @@
     "status": "passed"
   },
   "errors": [],
-  "generatedAt": "2026-09-28T10:06:05.846Z",
+  "generatedAt": "2026-10-04T12:15:26.411Z",
   "sourceIdentity": {
-    "canonicalGraphRevision": "kg-v1-69f62a38770a392f",
+    "canonicalGraphRevision": "kg-v1-94aec3f278d6e297",
     "schemaVersion": "canonical-knowledge-graph.v1"
   },
   "outputIdentity": {

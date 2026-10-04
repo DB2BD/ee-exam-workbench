@@ -5,7 +5,7 @@ nodeId: gk-emach-autotransformer
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 3d76dbe862bcbce932dcfe81f36c911737f6ab51fca31ab5222833d6e587d683
 generatedBodyHash: d2db734d8374c60392648fc64ea39a1a8a40739fd750dd6b1e69ced49d659178
 ---

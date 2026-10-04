@@ -11,6 +11,7 @@ Calculates Architecture Health Score (0~100) based on:
 5. Automated Test Suite Status (15 pts)
 """
 
+import glob
 import os
 import json
 import re
@@ -58,20 +59,20 @@ def run_health_check():
         score -= 30
         deductions.append(f"-30 pts: Failed to parse databases ({e})")
 
-    # 2. ADR & Context Alignment (20 pts)
-    print("\n[Check 2/5] Evaluating ADR & CONTEXT.md Alignment (20 pts)...")
-    adr_dir = os.path.join('docs', 'adr')
-    has_context = os.path.exists('CONTEXT.md')
-    adr_count = len([f for f in os.listdir(adr_dir) if f.endswith('.md')]) if os.path.exists(adr_dir) else 0
+    # 2. Public documentation alignment (20 pts)
+    print("\n[Check 2/5] Evaluating Public Documentation (20 pts)...")
+    has_readme = os.path.exists('README.md')
+    release_notes = glob.glob(os.path.join('docs', '發版紀錄_*.md'))
+    release_count = len(release_notes)
 
-    if has_context and adr_count >= 4:
-        print(f"  PASS: CONTEXT.md present, {adr_count} ADRs documented.")
+    if has_readme and release_count >= 4:
+        print(f"  PASS: README.md present, {release_count} release notes documented.")
     else:
-        penalty = 10 if not has_context else 0
-        if adr_count < 4:
-            penalty += (4 - adr_count) * 2.5
+        penalty = 10 if not has_readme else 0
+        if release_count < 4:
+            penalty += (4 - release_count) * 2.5
         score -= penalty
-        deductions.append(f"-{penalty} pts: Incomplete documentation / ADR records")
+        deductions.append(f"-{penalty} pts: Incomplete public documentation / release notes")
 
     # 3. Solution Golden Standard Compliance (20 pts)
     print("\n[Check 3/5] Evaluating Validated Solution Coverage (20 pts)...")

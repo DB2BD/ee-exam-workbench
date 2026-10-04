@@ -5,7 +5,7 @@ nodeId: gk-ct-divider-equiv
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 4dc4fdf8c4a6e6c6fa72ecb99e724a33454c3ac22b44b4fe5777c0948b6d73fd
 generatedBodyHash: d3d999673fe3c1032f912545d2a411da874620eab0d8c8ccf0e11494f90f2730
 ---

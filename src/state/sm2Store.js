@@ -311,6 +311,8 @@ function backupValidateTodayTask(value, errors) {
       backupError(errors, 'todayTask.active 資料格式無效。');
     } else {
       active = { code: a.code, phaseIndex: a.phaseIndex, phaseStartedAt: a.phaseStartedAt };
+      if (typeof a.mockId === 'string' && /^\d+-\d+-\d+$/.test(a.mockId)) active.mockId = a.mockId;
+      if (Array.isArray(a.skipped)) active.skipped = a.skipped.filter(q => typeof q === 'string' && q.length <= 40);
     }
   }
   return { completed, active };
@@ -820,6 +822,9 @@ function validateUserDataBackup(payload, options) {
     practiceCompleted: dailyPractice ? Object.keys(dailyPractice.completionByQuestion).length : 0,
     practiceSession: !!(dailyPractice && dailyPractice.activeSession),
     mockTimer: !!mockExamTimer,
+    resultCardRecords: resultCard && resultCard.records ? resultCard.records.length : 0,
+    todayTaskDone: todayTask && todayTask.completed ? Object.keys(todayTask.completed).length : 0,
+    todayTaskActive: !!(todayTask && todayTask.active),
     learningAttempts: Object.keys(learningData.attempts.attempts || {}).length,
     knowledgeIssueEvents: Object.values(learningData.issues).reduce((count, log) => count + (log.events || []).length, 0),
     knowledgeReviews: Object.values(learningData.knowledgeReviews).reduce((count, log) => count + Object.keys(log.reviews || {}).length, 0),
@@ -1037,6 +1042,8 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     practiceCompleted: Object.keys(nextPractice.completionByQuestion || {}).length,
     practiceSession: !!nextPractice.activeSession,
     resultCardRecords: nextResultCard.records.length,
+    todayTaskDone: Object.keys(nextTodayTask.completed || {}).length,
+    todayTaskActive: !!nextTodayTask.active,
     mockTimer: validation.normalized.mockExamTimerProvided ? !!nextTimer : Object.keys(oldTimer).length > 0,
     learningAttempts: Object.keys(nextLearning.attempts.attempts || {}).length,
     knowledgeIssueEvents: Object.values(nextLearning.issues).reduce((count, log) => count + (log.events || []).length, 0),

@@ -640,7 +640,18 @@ function initDailyPracticeHome() {
 }
 
 // v1.2: 排程任務、隨機練習 3 題與到期複習都直接放在今天分頁；「繼續上次」只在有進行中的回合時出現。
+let homeMorePracticeObserver = null;
+// Keep 「繼續上次」 in step with the solution window: hide when it opens, show when it closes.
+function homeMorePracticeWatchModal() {
+  if (homeMorePracticeObserver || typeof document === 'undefined' || typeof MutationObserver === 'undefined') return;
+  const modal = document.getElementById('solution-modal');
+  if (!modal) return;
+  homeMorePracticeObserver = new MutationObserver(() => homeMorePracticeSync());
+  homeMorePracticeObserver.observe(modal, { attributes: true, attributeFilter: ['class'] });
+}
+
 function homeMorePracticeSync() {
+  homeMorePracticeWatchModal();
   const row = typeof document !== 'undefined' && document.querySelector ? document.querySelector('.practice-home-secondary') : null;
   if (!row) return;
   const hasSession = !!(dailyPracticeState && dailyPracticeState.activeSession);

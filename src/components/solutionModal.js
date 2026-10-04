@@ -314,7 +314,7 @@ function finishCommittedLearningAttempt(result, qid, rating, attemptId, saveMess
     return;
   }
   if (currentSolutionSourceMode === 'due-review' && typeof recordReviewSessionRating === 'function') {
-    recordReviewSessionRating(qid);
+    recordReviewSessionRating(qid, null, rating);
   }
   const ratingTexts = { 1: '🔴 遺忘', 3: '🟡 需要提示', 5: '🟢 獨立完成' };
   if (typeof showToast === 'function') showToast(`🎯 已排程：${ratingTexts[rating]}（下次：${result.nextReviewDate}）${saveMessage ? `；${saveMessage}` : ''}`);
@@ -1395,7 +1395,7 @@ function onRecallResultSaved(record, mode, level) {
     if (typeof dailyPracticeCompleteFromResultCard === 'function') dailyPracticeCompleteFromResultCard(record, level);
     return;
   }
-  if (mode === 'due-review' && typeof recordReviewSessionRating === 'function') recordReviewSessionRating(qid);
+  if (mode === 'due-review' && typeof recordReviewSessionRating === 'function') recordReviewSessionRating(qid, record);
   if (typeof showToast === 'function') showToast(`🎯 已記錄：估計 ${record.estimate}／${record.total} 分`);
   if (typeof renderQuestions === 'function') renderQuestions();
   if (typeof renderReviewPage === 'function') renderReviewPage();

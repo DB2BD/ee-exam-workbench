@@ -71,8 +71,33 @@ function escapePassbookHtml(value) {
 
 // K6: 失分點速查卡. Returns '' when no curated data exists. Plain text only
 // (the passbook does not run KaTeX), every string is HTML-escaped.
-function renderCheatsheetSectionHtml(data) {
+// Keep the 114 模考／108 盲測 lock: QIDs locked by practiceLockedQids are dropped from an item's
+// QID list, and an item whose QIDs are all locked is dropped (its text would reveal the paper).
+function cheatsheetUnlockedQids(qids, locked) {
+  return (qids || []).filter(q => !locked.has(q));
+}
+
+function cheatsheetFilterLocked(data, locked) {
+  const keep = item => !item || !(item.qids || []).length || cheatsheetUnlockedQids(item.qids, locked).length > 0;
+  const clean = item => Object.assign({}, item, { qids: cheatsheetUnlockedQids(item.qids, locked) });
+  const subjects = (data.subjects || []).map(s => Object.assign({}, s, {
+    categories: (s.categories || []).map(c => Object.assign({}, c, {
+      items: (c.items || []).filter(keep).map(clean)
+    })).filter(c => c.items.length)
+  })).filter(s => s.categories.length);
+  const templates = (data.assumption_templates || []).filter(keep).map(clean);
+  return Object.assign({}, data, { subjects, assumption_templates: templates });
+}
+
+function renderCheatsheetSectionHtml(data, options) {
   if (!data) return '';
+  let locked = new Set();
+  try {
+    if (options && options.lockedQids) locked = new Set(Array.from(options.lockedQids));
+    else if (typeof practiceLockedQids === 'function') locked = practiceLockedQids();
+  } catch (_) { locked = new Set(); }
+  if (typeof locked.has !== 'function') locked = new Set();
+  data = cheatsheetFilterLocked(data, locked);
   const subjects = (data.subjects || []).filter(s => s && (s.categories || []).length);
   const templates = data.assumption_templates || [];
   if (!subjects.length && !templates.length) return '';

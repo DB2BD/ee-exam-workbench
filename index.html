@@ -415,39 +415,11 @@ select:focus {
 }
 
 /* Review Center */
-.review-shell { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+
 /* Review Center 現代化戰情看板 */
-.review-shell { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
-.review-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
-.review-header h2 { color: var(--accent-dark); font-size: 1.35rem; margin-bottom: 5px; font-weight: 800; letter-spacing: -0.3px; }
-.review-header p { color: var(--muted); font-size: 0.88rem; }
-.review-header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.review-header-actions button:disabled { opacity: .55; cursor: not-allowed; }
 
 /* 戰情看板頂部 Hero 區塊 */
-.review-hero {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-@media (max-width: 860px) {
-  .review-hero {
-    grid-template-columns: 1fr;
-  }
-}
-.progress-ring-card {
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-}
+
 .progress-ring-wrap {
   position: relative;
   width: 108px;
@@ -583,7 +555,6 @@ select:focus {
   font-weight: 750;
 }
 
-.review-controls { display: none; } /* 隱藏原生 select，改由互動統計卡與分段標籤接管 */
 .review-type-filter { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
 .review-type-filter .pill { padding: 5px 12px; font-size: 0.8rem; border-radius: var(--radius-pill); }
 
@@ -703,11 +674,7 @@ select:focus {
   border-radius: var(--radius);
   margin: 18px 0;
 }
-.review-empty-calm .calm-icon {
-  font-size: 2.6rem;
-  margin-bottom: 12px;
-  display: block;
-}
+
 .review-empty-calm h3 {
   font-size: 1.15rem;
   color: var(--ink);
@@ -873,9 +840,7 @@ select:focus {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--line);
 }
-.scenario-matrix-header .scenario-icon {
-  font-size: 1.5rem;
-}
+
 .scenario-matrix-header .scenario-title {
   font-size: 1rem;
   font-weight: 700;
@@ -1216,9 +1181,7 @@ select:focus {
   align-items: center;
   gap: 10px;
 }
-.qsheet-sec-icon {
-  font-size: 1.25rem;
-}
+
 .qsheet-count-tag {
   font-size: 0.76rem;
   font-weight: 600;
@@ -1324,33 +1287,7 @@ select:focus {
   box-shadow: var(--shadow);
   padding: 24px;
 }
-.practice-home-actions {
-  max-width: 900px;
-  margin: 0 auto 16px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-.practice-home-actions button {
-  min-height: 92px;
-  padding: 14px;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2px 10px;
-  align-items: center;
-  text-align: left;
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  box-shadow: var(--shadow);
-}
-.practice-home-actions button > span { grid-row: 1 / 3; font-size: 1.3rem; color: var(--accent-dark); }
-.practice-home-actions button strong { color: var(--accent-dark); }
-.practice-home-actions button small { color: var(--muted); line-height: 1.35; }
-.practice-home-actions button:hover, .practice-home-actions button:focus-visible { border-color: var(--accent); }
-.practice-home-actions button:disabled { opacity: .5; cursor: not-allowed; }
+
 .daily-practice-heading {
   display: flex;
   justify-content: space-between;
@@ -1554,7 +1491,6 @@ select:focus {
 .knowledge-recall-tile small { color: var(--muted); }
 .knowledge-recall-tile button { justify-self: start; }
 @media (max-width: 680px) {
-  .practice-home-actions { grid-template-columns: 1fr; }
   .daily-practice-shell { padding: 16px; }
   .daily-practice-heading { align-items: stretch; flex-direction: column; }
   .daily-practice-heading-actions { justify-content: stretch; }
@@ -1995,8 +1931,7 @@ select:focus {
 .tier-badge { display: inline-block; flex: none; white-space: nowrap; padding: 1px 8px; border-radius: var(--radius-pill); font-size: .75rem; font-weight: 700; line-height: 1.5; vertical-align: middle; border: 1px solid transparent; }
 .tier-badge.tier-main { background: var(--accent); color: #fff; border-color: var(--accent-dark); }
 .tier-badge.tier-basic { background: var(--bg-secondary); color: var(--ink-light); border-color: var(--line); }
-.today-task-optional { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); font-size: .88rem; color: var(--ink-light); }
-.today-task-optional .btn-pdf { min-height: 32px; padding: 3px 12px; font-size: .85rem; }
+
 .today-task-result { margin-top: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); display: grid; gap: 8px; }
 .today-task-result-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; font-weight: 700; }
 .today-task-result .result-card { position: static; width: auto; max-width: none; box-shadow: none; margin: 0; }
@@ -2360,8 +2295,7 @@ select:focus {
    pane.  Markdown/Obsidian embeds may carry an explicit width (750/850 px),
    so max-width is essential on narrow split panes to prevent overlap. */
 .solution-content img,
-.qtopic img,
-.review-card-topic img {
+.qtopic img {
   display: block;
   width: auto;
   max-width: 100%;
@@ -2462,8 +2396,7 @@ select:focus {
 }
 
 .solution-content img[width],
-.qtopic img[width],
-.review-card-topic img[width] {
+.qtopic img[width] {
   max-width: 100%;
 }
 
@@ -2494,72 +2427,6 @@ select:focus {
 }
 
 /* Cross-Exam Bridge Card */
-.cross-exam-bridge-card {
-  margin-top: 28px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--bg-secondary);
-  padding: 18px;
-}
-
-.bridge-title {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--accent-dark);
-  margin-bottom: 6px;
-}
-
-.bridge-desc {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-
-.bridge-items {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.bridge-item {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.2s;
-}
-
-.bridge-item:hover {
-  border-color: var(--accent);
-  transform: translateX(4px);
-}
-
-.bridge-qid {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--accent);
-}
-
-.bridge-topic {
-  font-size: 0.86rem;
-  color: var(--ink);
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.bridge-arrow {
-  font-size: 0.82rem;
-  color: var(--muted);
-  font-weight: 600;
-}
 
 /* Active Recall Mode */
 .active-recall-box {
@@ -2628,27 +2495,6 @@ select:focus {
   box-shadow: var(--shadow);
 }
 
-.sm2-rating-title {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--ink-light);
-  text-align: center;
-}
-
-.sm2-rating-next-hint {
-  color: var(--success);
-  font-size: 0.86rem;
-  font-weight: 700;
-  text-align: center;
-}
-
-.sm2-rating-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .btn-sm2 {
   flex: 1 1 140px;
   max-width: 220px;
@@ -2669,36 +2515,6 @@ select:focus {
   font-size: 0.72rem;
   font-weight: 500;
   opacity: 0.8;
-}
-
-.btn-sm2-1 {
-  background: var(--review-light);
-  color: var(--review);
-  border-color: var(--review);
-}
-.btn-sm2-1:hover {
-  background: var(--review);
-  color: #ffffff;
-}
-
-.btn-sm2-3 {
-  background: var(--warn-light);
-  color: var(--warn);
-  border-color: var(--warn);
-}
-.btn-sm2-3:hover {
-  background: var(--warn);
-  color: #ffffff;
-}
-
-.btn-sm2-5 {
-  background: var(--success-light);
-  color: var(--success);
-  border-color: var(--success);
-}
-.btn-sm2-5:hover {
-  background: var(--success);
-  color: #ffffff;
 }
 
 @media (max-width: 760px) {
@@ -2816,14 +2632,6 @@ select:focus {
 }
 
 /* Standalone DAG Graph Visualizer (in 7 Layers tab) */
-.dag-visualizer-container {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: var(--shadow);
-}
 
 .dag-vis-header {
   display: flex;
@@ -3354,12 +3162,6 @@ select:focus {
 .daily-practice-source-figure figcaption,
 .daily-practice-result-item code,
 .diagnosis-save-hint,
-.converter-col label,
-.calc-tag,
-.calc-key,
-.key-desc,
-.key-arrow,
-.calc-trap-alert,
 .today-task-eyebrow,
 .answer-correction-row-date,
 .sb-total-label,
@@ -29995,12 +29797,6 @@ function recordRecallAttempt(qid, achievedLevel, errorType) {
   return Object.assign(getRecallState(qid), { ok: true, error: null });
 }
 
-function resetRecallState(qid) {
-  if (!qid) return;
-  delete recallState[qid];
-  saveRecallStore();
-}
-
 function getRecallHintBundle(qid, qRecord) {
   const chapter = typeof getReviewTypeLabel === 'function' ? getReviewTypeLabel(qRecord) : '待人工複核';
   const key = typeof getReviewChapterKey === 'function' ? getReviewChapterKey(qRecord) : null;
@@ -33653,26 +33449,6 @@ function applyImportedBackupJSON(mode) {
     alert(`${res.error || '匯入失敗：無效的 JSON 格式'}`);
   }
   return res;
-}
-
-function importProgressJSON() {
-  const input = document.createElement("input");
-  input.type = "file";
-  input.accept = ".json";
-  input.onchange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const modal = document.getElementById('backup-modal');
-      const textarea = document.getElementById('backup-json-textarea');
-      if (textarea) textarea.value = event.target.result;
-      if (modal) modal.classList.add('show');
-      previewImportedBackupJSON();
-    };
-    reader.readAsText(file);
-  };
-  input.click();
 }
 
 function toggleTheme() {
@@ -37430,10 +37206,6 @@ function toggleActiveRecallMode() {
   }
 }
 
-function revealRecallHint() {
-  revealRecallLayer(2);
-}
-
 function revealRecallFull() {
   // ①–③ are optional hints; the learner may go straight to the full solution.
   const fullEl = document.getElementById('recall-full-section');
@@ -37475,13 +37247,6 @@ function revealRecallLayer(layer) {
   syncRecallRevealPresentation();
   const full = document.getElementById('recall-full-section');
   if (layer >= 4 && full) full.style.display = 'block';
-}
-
-function chooseRecallError(errorType) {
-  currentRecallErrorType = errorType || null;
-  document.querySelectorAll('[data-recall-error]').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.recallError === currentRecallErrorType);
-  });
 }
 
 function recallTierBadgeHtml(qid) {
@@ -38988,18 +38753,6 @@ function dailyPracticeSave(state) {
   const result = saveDailyPracticeStore(state);
   if (result.ok) dailyPracticeState = result.state;
   return result;
-}
-
-function dailyPracticeSetCategory(category) {
-  dailyPracticeCategory = category === 'GK' ? 'GK' : 'PE';
-  const select = document.getElementById('daily-practice-subject');
-  if (!select) return;
-  select.innerHTML = '<option value="all">跨科混合（全部科目）</option>' +
-    dailyPracticeSubjects(dailyPracticeCategory).map(subject =>
-      '<option value="' + subject.id + '">' + dailyPracticeSubjectLabel(dailyPracticeCategory, subject.id) + '</option>'
-    ).join('');
-  select.value = dailyPracticeSubjects(dailyPracticeCategory).some(item => String(item.id) === String(dailyPracticeSubject))
-    ? dailyPracticeSubject : 'all';
 }
 
 function dailyPracticeBuildQueue(mode, questions, loaded) {

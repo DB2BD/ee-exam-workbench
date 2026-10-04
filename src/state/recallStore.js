@@ -104,12 +104,6 @@ function recordRecallAttempt(qid, achievedLevel, errorType) {
   return Object.assign(getRecallState(qid), { ok: true, error: null });
 }
 
-function resetRecallState(qid) {
-  if (!qid) return;
-  delete recallState[qid];
-  saveRecallStore();
-}
-
 function getRecallHintBundle(qid, qRecord) {
   const chapter = typeof getReviewTypeLabel === 'function' ? getReviewTypeLabel(qRecord) : '待人工複核';
   const key = typeof getReviewChapterKey === 'function' ? getReviewChapterKey(qRecord) : null;

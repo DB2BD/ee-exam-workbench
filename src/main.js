@@ -86,13 +86,13 @@ function initPaneResizer() {
 }
 
 function themeButtonLabel(theme) {
-  return theme === 'dark' ? '☀️ 亮色模式' : '🌙 暗色模式';
+  return theme === 'dark' ? '<span class="theme-ico" aria-hidden="true">☀️</span><span class="theme-label"> 亮色模式</span>' : '<span class="theme-ico" aria-hidden="true">🌙</span><span class="theme-label"> 暗色模式</span>';
 }
 
 function applyThemeAttribute(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   const btn = document.getElementById('theme-toggle-btn');
-  if (btn) btn.innerText = themeButtonLabel(theme);
+  if (btn) btn.innerHTML = themeButtonLabel(theme);
 }
 
 function readThemePreference() {

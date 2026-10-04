@@ -1,0 +1,4572 @@
+{
+ "generated_by": "scripts/build_cheatsheet_sources.py",
+ "notes": [
+  {
+   "qid": "EE-104-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 104,
+   "chapter": "橋接電路戴維寧等效",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電流源單獨作用時，$5\\ \\Omega$ 與 $25\\ \\Omega$ 並聯為電流源的返回路徑，電流必經 $20\\ \\Omega$ 或 $60+10\\ \\Omega$ 回到地，不是只流經 $60+30$。",
+    "$10\\ \\Omega$ 在 $b$ 端下方的主線上，$V_{th}$ 取 $V_a-V_b$（$35-5$），不是 $V_a$。",
+    "求 $R_{th}$ 時電流源開路、電壓源短路；漏掉 $10\\ \\Omega$ 會得 $60\\parallel20=15\\ \\Omega$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 104,
+   "chapter": "互感耦合與輸入阻抗為實數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "二次側含電容，$Z_{22}=5+j(32-20)$，不是 $5+j32$；漏掉 $-j20$ 會得 $(\\omega M)^2\\approx1639$，$k>1$ 不合理。",
+    "反射阻抗為 $(\\omega M)^2/Z_{22}$，要有理化後才能分出實、虛部，且 $M=k\\sqrt{L_1L_2}$ 要換算回 $k$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 104,
+   "chapter": "三相 Y 接並聯負載複數功率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "題目所給是「$a$ 相」複數功率，電源總功率必須乘 3，不能只加單相。",
+    "複數功率用 $S=V^2/Z^*$（共軛），不是 $V^2/Z$；後者會使 $Q$ 變負。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 104,
+   "chapter": "相依源 RLC 二階暫態",
+   "audit_status": "verified",
+   "pitfalls": [
+    "相依源電流 $0.015v_\\phi$ 受電容電壓 $v_\\phi$ 控制，而非 $v_o$；須先以分壓關係 $V_\\phi=V_o/(1+0.005s)$ 換成 $V_o$。",
+    "分母展開後為 $0.02(s+100)^2$（$s^2+200s+10000$），重根；若誤得兩相異根會寫成雙指數。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-01-5",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 104,
+   "chapter": "雙埠網路 g 參數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$g$ 參數的混合單位：$g_{12}$、$g_{21}$ 無單位，$g_{11}$ 單位 S，$g_{22}$ 單位 $\\Omega$。",
+    "相依源 $100I_2$ 使 $V_P$ 與 $I_1$ 無關，$g_{21}$ 為 $0$；不要以為 $V_1$ 會影響埠 2。",
+    "$g_{22}$ 的輸出節點 KCL 要包含相依源造成的 $-0.2I_2$ 項，漏掉會得 $1/(0.002+j0.02)$ 而非乘 $1.2$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 105,
+   "chapter": "多網目直流電路節點分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$6\\ \\mathrm V$ 左負右正，上方支路電流是 $(V_1+6-V_3)$；寫成 $V_1-6-V_3$ 會使 $V_2$ 錯誤。",
+    "$I_O$ 箭頭向下，$V_2<0$ 故答案為負，不要為了「好看」取絕對值。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 105,
+   "chapter": "相依源戴維寧等效電阻",
+   "audit_status": "verified",
+   "pitfalls": [
+    "相依源不可像獨立電壓源那樣短路；它受 $I_x$ 控制，必須保留並用測試源求解。",
+    "$I_x$ 單位：$2000I_x$ 的 $I_x$ 以 A 計；用 mA 代入時須換算成 $2V_1$（V）。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 105,
+   "chapter": "交流穩態複數功率",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "$-j1\\ \\Omega$ 電容不吸收平均功率；只算 $2\\ \\Omega$ 的 $|I_2|^2R$。",
+    "$|I_2|=12/\\sqrt5$，平方為 $144/5$，不是 $144/\\sqrt5$。"
+   ],
+   "conditions": "同卷第 4 題明確標示 $34.5\\ \\mathrm{kV_{rms}}$，本題對 $12\\angle45^\\circ\\ \\mathrm V$ 則未標示，故有效值與峰值兩種讀法皆可能，答案為 $93.6\\ \\mathrm W$ 或 $46.8\\ \\mathrm W$，需依出題者意圖確認。"
+  },
+  {
+   "qid": "EE-105-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 105,
+   "chapter": "三相功率因數改善與 Y 接電容",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電容接中性點是 Y 接，使用 $V_L^2$ 的 $C=Q_C/(\\omega V_L^2)$；誤當 $\\Delta$ 接須除以 $3V_L^2$，會得 $16.2\\ \\mu\\mathrm F$。",
+    "「領先 $0.94$」代表 $Q_{\\text{new}}$ 為負，不是只補到 $Q=0$ 或 $0.94$ 落後。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-01-5",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 105,
+   "chapter": "串聯 RLC 帶通濾波器設計",
+   "audit_status": "verified",
+   "pitfalls": [
+    "頻寬是 $R/L$（rad/s），不是 $R/(2L)$（那是暫態衰減係數 $\\alpha$）。",
+    "$C=1\\ \\mu\\mathrm F$ 須換成 $10^{-6}\\ \\mathrm F$；漏掉會讓 $L$ 差 $10^6$ 倍。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 106,
+   "chapter": "拉氏轉換與 s 域電路分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(4\\delta(t)\\) 源的極性（左負右正）與 \\(6\\cos6t\\,u(t)\\) 同向相加，\\(V_s\\) 的 \\(+4\\) 不可寫成 \\(-4\\)。",
+    "兩個脈衝源在零初始狀態下只造成初值跳變（\\(i_L(0^+)=2\\ \\mathrm A\\)、\\(v_C(0^+)=4\\ \\mathrm V\\)），分子的 \\(16s+16\\) 來自 \\(8\\delta\\)（乘以 \\(2(1+s)\\)），\\(+4\\) 來自 \\(4\\delta\\)，不可漏掉 \\(16s\\) 這一項。",
+    "結果要乘 \\(u(t)\\)，\\(t<0\\) 時 \\(v_{ab}=0\\)。"
+   ],
+   "conditions": "題幹未給初始條件，取 \\(i_L(0^-)=0\\)、\\(v_C(0^-)=0\\)（拉氏轉換題的慣例）。若另有初值，需在 \\(s\\) 域加上 \\(Li_L(0^-)\\) 串聯電壓源與 \\(Cv_C(0^-)\\) 並聯電流源。"
+  },
+  {
+   "qid": "EE-106-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 106,
+   "chapter": "狀態空間模型：電容電壓與電感電流",
+   "audit_status": "verified",
+   "pitfalls": [
+    "狀態變數只有 \\(v_C\\) 與 \\(i_L\\)：\\(V_{BL},V_{BR}\\) 等代數節點電壓必須消去，答案中不可殘留。",
+    "\\(C_2\\) 電流 \\(i_{C2}\\) 不是狀態量，須由 \\(TR\\) 節點 KCL 用 \\(v_{C1}\\) 與 \\(V_{TR}\\) 換掉。",
+    "\\(v_{C3}\\) 的極性是自訂的；若改為 \\(V_{BM}-V_O\\)，\\(v_{C3}\\) 自身項不變，其餘各項（\\(v_{C1},v_{C2}\\)、電感電流、\\(V_{s2}\\)）全部變號，不可只改一半。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 106,
+   "chapter": "運算放大器與主動阻抗轉換器（GIC）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "運放輸出節點（2、4）的 KCL 含未知輸出電流，不能當作含 \\(Z\\) 的獨立約束；少寫虛短就湊不出五個方程式。",
+    "上方運放的 \\(-\\) 端接 \\(V_3\\)（不是 \\(V_2\\)）、下方運放的 \\(+\\) 端接 \\(V_5\\)；極性看錯會得到 \\(V_1\\neq V_3\\) 的錯誤約束。",
+    "\\(Z_{in}\\) 的分子是奇數編號 \\(Z_1Z_3Z_5\\)，分母是偶數編號 \\(Z_2Z_4\\)；顛倒會變成導納型式。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 106,
+   "chapter": "電路分析方法／對稱與反對稱分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "對稱激勵時兩個交叉 \\(3\\ \\Omega\\) 屬於同一個串聯迴路（\\(T_2\\to B_1\\)、\\(T_1\\to B_2\\)），總電阻 10 Ω、總電動勢 90 V；不要當成兩個獨立並聯支路。",
+    "反對稱時對稱軸電位為 0，但交叉 \\(3\\ \\Omega\\) 跨越對稱軸，不能直接視為斷路或短路；須證明 \\(V_{T2}+V_{B2}=0\\) 後才知無電流。",
+    "反對稱左源是 \\(-15\\) V（極性反向），不是 \\(+15\\) V；否則 \\(I_o\\) 的疊加方向會錯。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 107,
+   "chapter": "節點分析與電流控制電壓源",
+   "audit_status": "verified",
+   "pitfalls": [
+    "CCVS 的電壓為 \\(V_2=15i_\\phi\\)；把極性看反（\\(V_2=-15i_\\phi\\)）會得 \\(V_1=160/11\\ \\mathrm V\\)、\\(P\\approx162\\ \\mathrm W\\)。",
+    "\\(i_\\phi\\) 是 \\(20\\ \\Omega\\) 的電流 \\(V_1/20\\)，不是 \\(4\\ \\Omega\\) 的電流。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 107,
+   "chapter": "並聯電感暫態與初始電流",
+   "audit_status": "verified",
+   "pitfalls": [
+    "兩個初始電流箭頭都向上，應同號相加（\\(i_\\Sigma(0)=-12\\ \\mathrm A\\)）；只把 4 A 當成向下（\\(i_2(0)=+4\\)）會得 \\(i_3=1.92e^{-2t}\\)；若再把 \\(i_3\\) 誤當 15 Ω 支路電流，則得 \\(i_1=-4.8-3.2e^{-2t}\\)、\\(i_3=1.28e^{-2t}\\)。",
+    "\\(i_1\\) 終值不為 0：電流和衰減到 0，但兩電感個別電流停在環流 \\(1.6\\ \\mathrm A\\)。",
+    "\\(i_3\\) 要經兩次分壓：先求 \\(v\\)，再經 \\(4\\ \\Omega\\) 串聯分壓到 \\(15\\parallel10\\)，最後除以 \\(10\\ \\Omega\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 107,
+   "chapter": "交流穩態分析與 Δ-Y 阻抗轉換",
+   "audit_status": "verified",
+   "pitfalls": [
+    "轉換的 Δ 是 \\(a,b,c\\)（\\(-j4\\)、\\(63.2+j2.4\\)、\\(10\\)）；\\(Z_{an}\\) 取與 \\(a\\) 相連兩邊的乘積除以 \\(Z_\\Sigma\\)，分子取錯會整個失準。",
+    "\\(\\mathbf V_1,\\mathbf V_2\\) 是 \\(b\\)–\\(d\\)、\\(c\\)–\\(d\\) 阻抗上的電壓，要用 \\(\\mathbf I_4(20+j60)\\) 與 \\(\\mathbf I_5(-j20)\\)，不是 \\(Z_{bn}\\)、\\(Z_{cn}\\) 上的壓降。",
+    "\\(\\mathbf I_1,\\mathbf I_2,\\mathbf I_3\\) 是原 Δ 的支路電流，需用原節點電壓差求，不能直接取 Y 支路電流。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 107,
+   "chapter": "理想變壓器與最大功率傳輸",
+   "audit_status": "verified",
+   "pitfalls": [
+    "點的位置：一次在上、二次在下，電壓關係含負號；視為同向會得 \\(R_L=15\\ \\Omega\\)、\\(P=735\\ \\mathrm W\\)。",
+    "二次電流也流過 \\(20\\ \\Omega\\)：該電阻電流是 \\(I_p+I_c=5I_p\\)，不是 \\(I_p\\)。",
+    "最大平均功率用有效值 \\(V_{oc}^2/(4R_{th})\\)；題給 840 V 為 RMS，不可再除以 2。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-01-5",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 107,
+   "chapter": "平衡三相電路與單相等效",
+   "audit_status": "verified",
+   "pitfalls": [
+    "「內電壓 120 V」是每相電壓；當成線電壓（\\(120/\\sqrt3\\) 每相）會得 \\(|I|=1.386\\ \\mathrm A\\)。",
+    "Δ 負載必須除以 3 才是等效 Y 的每相阻抗；沿用 \\(118.5+j85.8\\) 會得 \\(|I|\\approx0.813\\ \\mathrm A\\)。",
+    "正相序 b 相落後 \\(120^\\circ\\)（\\(-156.87^\\circ\\)），c 相超前（\\(83.13^\\circ\\)），不可對調。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 108,
+   "chapter": "正弦穩態與直流疊加",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 6 A 當成 5 rad/s 的相量一起相加；漏掉直流分量會得 \\(i=2\\sqrt2\\cos(5t-45^\\circ)\\)、\\(P=4\\ \\mathrm W\\)。",
+    "直流 \\(i\\) 的方向：\\(i\\) 箭頭向右而 \\(1\\ \\Omega\\) 實際電流向左，應為 \\(-4\\ \\mathrm A\\)，不是 \\(+4\\ \\mathrm A\\)。",
+    "交流部分以峰值相量直接用 \\(|I|^2R\\)，會使 \\(P_\\mathrm{ac}\\) 多一倍成 8 W。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 108,
+   "chapter": "節點分析與相依源",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(i_1\\) 箭頭向左（由地向上）：誤寫 \\(i_1=+V_1\\)（或把 \\(4i_1\\) 的極性看反）會得 \\(v=-72/13\\ \\mathrm V\\)、\\(P_{2\\Omega}\\approx20.9\\ \\mathrm W\\)。",
+    "相依電流源 \\(\\tfrac32v_2\\) 向上注入相依源右端，超節點 KCL 要放在「流入」側。",
+    "題目要求兩個量，求出 \\(v\\) 後還需用 \\(V_4\\)（非 \\(v\\)）算 \\(2\\ \\Omega\\) 功率。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 108,
+   "chapter": "三相平衡電路與複數功率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "Y 負載相電壓是 \\(220/\\sqrt3\\) V，Δ 負載相電壓是 220 V，不可都用 220 V。",
+    "\\(220\\sqrt2\\) 是峰值；把 \\(220\\sqrt2\\) 當有效值會使 \\(P,Q\\) 變 2 倍。",
+    "複數功率要用 \\(Z^*\\)（或 \\(V I^*\\)）；漏掉共軛會使 \\(Q\\) 符號顛倒，得 \\(Q=+4.84\\ \\mathrm{kvar}\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 108,
+   "chapter": "互感耦合與同名端分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "同名端：兩電流皆由非點端流入故 \\(+j\\omega M\\)；誤用 \\(-j\\omega M\\) 會得 \\(5\\cos(2t-45^\\circ)\\ \\mathrm A\\)，整個反相。",
+    "右側 \\(1\\ \\Omega\\) 與 \\(1\\ \\mathrm F\\) 為並聯，\\(Z_L=0.2-j0.4\\ \\Omega\\)，不是 \\(1-j0.5\\ \\Omega\\) 的串聯。",
+    "峰值相量源取 \\(10\\sqrt2\\)；若取 10 當峰值，最後振幅只剩 \\(5/\\sqrt2\\approx3.54\\ \\mathrm A\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 109,
+   "chapter": "運算放大器與儀表放大器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "本圖 \\(v_1\\) 經上方路徑進差動級的反相端，輸出正比於 \\(v_2-v_1\\)；寫成 \\(v_1-v_2\\) 會整體差一個負號。",
+    "增益寫成 \\(1+\\frac{R_1}{R_g}\\)，漏了兩個 \\(R_1\\) 都由 \\(i_g\\) 流過。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 109,
+   "chapter": "LTI 轉移函數極點與連續時間穩定度",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把虛軸單重極點（臨界穩定）寫成 BIBO 穩定。",
+    "誤稱「重根即不穩定」；只有虛軸或右半平面的重根才不穩定，左半平面重根仍漸近穩定。",
+    "未先約分就判斷，或忽略對消模態對內部穩定的影響。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 109,
+   "chapter": "節點分析與對偶網路",
+   "audit_status": "verified",
+   "pitfalls": [
+    "對偶時把電阻值直接照抄（\\(2\\ \\Omega\\to2\\ \\Omega\\)）；應取電導值 \\(0.5\\ \\Omega\\)。",
+    "\\(4\\ \\mathrm V\\) 源的正端在 \\(V_3\\)，寫成 \\(V_4-V_3=4\\) 會使超節點 \\(\\{3,4\\}\\) 的解全錯。",
+    "對偶電源方向未與順時針網目約定配合，造成網目方程常數項變號。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 109,
+   "chapter": "二階 RLC 暫態與脈衝初始條件",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(v_2\\) 是 \\(R_2\\)–\\(L_2\\) 支路電壓，\\(4\\delta(t)\\) 直接出現在其中；只寫 \\(t>0\\) 的部分會漏掉 \\(4\\delta(t)\\)。",
+    "\\(6\\delta(t)\\) 電流源使 \\(v_C\\) 跳到 \\(6\\ \\mathrm V\\)、\\(4\\delta(t)\\) 電壓源使 \\(i_L\\) 跳到 \\(4\\ \\mathrm A\\)；把脈衝當成 \\(4\\ \\mathrm V\\)、\\(6\\ \\mathrm A\\) 階躍會得錯誤初值。",
+    "直流穩態誤判為 \\(0\\)；\\(10u(t)\\) 經 \\(R_1\\)、\\(R_2\\) 有直流路徑，\\(v_2(\\infty)=5\\ \\mathrm V\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 110,
+   "chapter": "互感耦合電路與相量節點分析",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "未檢查兩側接地是否相連，直接把 \\(2\\ \\mathrm F\\) 當成兩節點間的有效支路列 KCL。",
+    "\\(L_2\\) 同名端在下方，互感電壓極性看錯會使 \\(V_2\\) 變號。",
+    "\\(V_2=-20/7\\) 的負號表示與 \\(i_s\\) 反相，寫成 \\(2.857\\cos t\\) 即漏掉 \\(180^\\circ\\)。"
+   ],
+   "conditions": "官方裁切圖的左下、右下導線在兩線圈之間斷開，上解依圖作答，電容不起作用。若出題意圖是兩側下導線共地（電容才構成迴路），則以共地為參考、兩上節點 \\(V_1,V_2\\) 列 KCL，線圈電流 \\(i_1=-\\frac j2V_1-\\frac j2V_2\\)（流入 \\(L_1\\) 點端）、\\(i_2=\\frac j2V_1+\\frac{3j}{2}V_2\\)（由下流入 \\(L_2\\) 點端）：\n\\[\n\\begin{bmatrix}1+j1.5&-j2.5\\\\-j2.5&0.5+j0.5\\end{bmatrix}\\begin{bmatrix}V_1\\\\V_2\\end{bmatrix}=\\begin{bmatrix}10\\\\0\\end{bmatrix}\n\\Rightarrow V_2=\\frac{500+j2400}{601}=4.079\\angle78.23^\\circ\\ \\mathrm V\n\\]\n即 \\(v_2(t)=4.079\\cos(t+78.23^\\circ)\\ \\mathrm V\\)。兩種讀圖答案不同，作答時應先寫明採用哪一種接法。"
+  },
+  {
+   "qid": "EE-110-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 110,
+   "chapter": "雙埠網路與傳輸參數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "圖示 \\(I_2\\) 流入網路，傳輸參數第二個自變數是 \\(-I_2\\)；若把 \\(I_2\\) 直接放進右向量，\\(B\\)、\\(D\\) 必須整欄變號。",
+    "\\(C\\) 元素寫成 \\(Y_2+\\frac1{R_3}+\\frac{sL}{R_3}\\)，漏了 \\(sL\\) 項中的 \\(Y_2\\)；應為 \\(Y_2+\\frac{1+sLY_2}{R_3}\\)。",
+    "串接矩陣相乘次序必須由埠 1 到埠 2，不能交換。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 110,
+   "chapter": "串聯 RLC 諧振與選頻特性",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以為 \\(v_C\\)、\\(v_L\\) 在 \\(f_0\\) 達最大；有限 \\(Q\\) 時 \\(v_C\\) 峰值低於 \\(f_0\\)、\\(v_L\\) 峰值高於 \\(f_0\\)。",
+    "題給 \\(X_L,X_C\\) 是 5 kHz 的值，直接拿 \\(25\\)、\\(64\\) 算 \\(Q_0=25/10\\) 或 \\(64/10\\)。",
+    "電源 100 V 為峰值，題目問峰值即不需再乘 \\(\\sqrt2\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 110,
+   "chapter": "三相四線制不平衡負載與複數功率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 208 V 線電壓直接當相電壓，功率放大 3 倍。",
+    "\\(Z_{bn}\\) 的 \\(-50^\\circ\\) 是電容性，\\(\\cos(-50^\\circ)=\\cos50^\\circ>0\\)，仍吸收實功率，不可取負。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 111,
+   "chapter": "交流穩態相量與阻抗分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "忽略 \\(20\\ \\mathrm{k\\Omega}\\) 由 \\(v_o\\) 回授至節點 \\(a\\) 的支路，把電路拆成兩級獨立放大器，會得 \\(5.657\\sin(400t+45^\\circ)\\) 之類的錯解。",
+    "非反相增益寫成 \\(40/20=2\\)，漏了「\\(1+\\)」。",
+    "題目以 \\(\\sin\\) 為基準，回時域時誤寫成 \\(\\cos\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 111,
+   "chapter": "互感耦合與同名端分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "互感項只看電流箭頭不對同名端，非對角項寫成 \\(-2+j\\) 而解錯。",
+    "共用 \\(2\\ \\Omega\\) 只放進其中一個網目，或兩網目都寫成同號的 \\(2(I_1-I_2)\\)。",
+    "峰值相量直接用 \\(P=RI^2\\)，功率多一倍成 \\(9.78\\ \\mathrm W\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 111,
+   "chapter": "二階 RLC 頻率響應與帶拒濾波器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把圖看成 \\(R_o,R,L,C\\) 全串聯並取 \\(R\\) 上電壓，寫成 \\(H=\\frac{R}{R_o+R+sL+1/(sC)}\\)、\\(\\mathrm{BW}=(R_o+R)/L=10000\\ \\mathrm{rad/s}\\)；官方圖中 \\(R\\) 與串聯 \\(LC\\) 並聯，應用上方的並聯負載分壓式。",
+    "以 \\(|H|=1/\\sqrt2\\) 為截止條件；本題通帶增益是 \\(0.4\\)，應以 \\(0.4/\\sqrt2\\) 為準。",
+    "\\(\\alpha\\) 誤用 \\(R/L\\) 或 \\(R_o/L\\)；有效電阻是 \\(R_o\\parallel R=2.4\\ \\Omega\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 111,
+   "chapter": "雙埠網路 h 參數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(I_2\\) 定義為流入埠 2，\\(b\\) 點流向右埠的電流是 \\(-I_2\\)；方向弄反會得 \\(h_{21}=+3.6\\)。",
+    "受控源方向為由地指向 \\(b\\)（注入 \\(b\\)），寫成流出會使 \\(h_{11}\\)、\\(h_{21}\\) 全錯。",
+    "\\(h_{11}\\) 單位為 \\(\\Omega\\)、\\(h_{22}\\) 為 S，\\(h_{12},h_{21}\\) 無因次，作答時單位不可混寫。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 112,
+   "chapter": "分壓分流與電阻等效化簡",
+   "audit_status": "verified",
+   "pitfalls": [
+    "此橋 \\(6/4\\neq18/6\\) 不平衡，12 kΩ 有電流，不能直接刪去（刪去會得 \\(10\\parallel24=7.06\\ \\mathrm{k\\Omega}\\)）。",
+    "漏掉外部 5 kΩ 而得 \\(120^2/7\\mathrm k=2.06\\ \\mathrm W\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 112,
+   "chapter": "互感耦合與同名端分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(L_2\\) 上的互感電壓寫成 \\(-j40\\mathbf I_1\\)，且漏掉 \\(L_1\\) 上由 \\(L_2\\) 電流感應的 \\(j40(\\mathbf I_1-\\mathbf I_2)\\)，會得錯誤的 \\(373.5\\ \\mathrm W\\)。",
+    "峰值相量求平均功率須除以 2；若用 \\(|\\mathbf I|^2R\\) 會得 1225 W。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 112,
+   "chapter": "戴維寧與諾頓等效定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "求 \\(R_N\\) 時把 CCVS 短路（相依源歸零），會得 \\(10\\parallel(10\\parallel10)=3.33\\ \\Omega\\)。",
+    "短路時 \\(i_x\\) 會改變（\\(\\frac{16}{35}\\to\\frac8{15}\\ \\mathrm A\\)），不可沿用開路時的 \\(i_x\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 112,
+   "chapter": "二階 RLC 暫態分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "左源箭頭向上但數值為 \\(-3u(t)\\)，等同 3 A 流出；誤判兩源相消會得 \\(i=v=0\\)。",
+    "\\(C=20\\ \\mathrm{mF}=0.02\\ \\mathrm F\\)；誤用 \\(20\\ \\mu\\mathrm F\\) 會使特徵根全錯。",
+    "只寫自然響應，漏掉直流特解 \\(-6\\ \\mathrm A\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 113,
+   "chapter": "歐姆定律與基本 KCL/KVL",
+   "audit_status": "verified",
+   "pitfalls": [
+    "4 A 向下是由節點流出；當成注入會得 \\(10=0.2v_x\\)、\\(v_x=50\\ \\mathrm V\\)。",
+    "右側 6 Ω 兩電阻為並聯（3 Ω）後再串 15 Ω，不是 \\(15\\parallel6\\parallel6\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 113,
+   "chapter": "交流穩態相量與阻抗分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "右側源箭頭向下（流出節點），若當成注入 \\(-j0.5\\) 會得 \\(V_1=3-j2\\ \\mathrm V\\)、\\(V_2=2\\ \\mathrm V\\)。",
+    "\\(-j5\\) 與 \\(j10\\) 並聯為 \\(-j10\\)（容性），不可串聯相加成 \\(j5\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 113,
+   "chapter": "互感耦合與同名端分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "互感當成串聯 \\(L+2M\\) 或忽略同名端寫 \\(L+M\\)，會分別得 \\(Z_\\phi=1+j4\\) 或 \\(1+j3\\)。",
+    "把支路電流 \\(110\\angle-20^\\circ\\) 當作線電流，漏乘 \\(\\sqrt3\\angle-30^\\circ\\)。",
+    "正弦基準相量回時域時改寫成 \\(\\cos\\) 而未補 \\(90^\\circ\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 113,
+   "chapter": "雙埠網路參數 (ABCD, Z, Y, H)",
+   "audit_status": "verified",
+   "pitfalls": [
+    "相依源向上注入埠 2，\\(y_{21}\\) 應為 \\(-(2s+4)\\)；符號反向會得 \\(4-2s\\)。",
+    "把 \\(\\frac13\\ \\Omega\\) 的導納寫成 \\(\\frac13\\ \\mathrm S\\)，\\(y_{22}\\) 應含 3。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-01-1",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 114,
+   "chapter": "節點分析與相依源",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 6 Ω 寫成 \\(\\frac{v_1-v_3}{6}\\) 列入超節點邊界 KCL，等於重複計算內部電流。",
+    "相依源極性看反寫成 \\(v_2-v_3=5I\\)，會得 \\(3v_1=175\\)、\\(v_1=58.33\\ \\mathrm V\\)；圖中相依源右端（\\(v_3\\)）為正。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-01-2",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 114,
+   "chapter": "諾頓與戴維寧等效",
+   "audit_status": "verified",
+   "pitfalls": [
+    "求 \\(R_N\\) 時把相依源歸零會得 \\(6\\parallel2=1.5\\ \\Omega\\)；相依源必須保留。",
+    "\\(V_x\\) 極性看反（\\(V_x=-v_a\\)）會得 \\(v_n=-v_a\\)、\\(V_{oc}=30\\ \\mathrm V\\)。",
+    "把外部短路電流 \\(a\\to b\\) 當成電流源本體箭頭；源內箭頭應為 \\(b\\to a\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-01-3",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 114,
+   "chapter": "二階 RLC 暫態",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只用 \\(v(0)=4.8\\) 而漏用 \\(\\dot v(0)=i(0)/C=19.2\\ \\mathrm V/\\mathrm s\\)，重根解的 \\(B\\) 無法決定。",
+    "開關打開後仍把 1 Ω 留在電路，會誤得 \\(s^2+8s+20=0\\) 的欠阻尼解且 \\(v(\\infty)=4.8\\ \\mathrm V\\)。",
+    "寫成 \\(\\dot v=iC\\)（\\(=1.2\\)）而非 \\(i/C\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-01-4",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 114,
+   "chapter": "重疊定理與正弦穩態",
+   "audit_status": "verified",
+   "pitfalls": [
+    "短路電壓源時連 8 Ω 一起刪除，誤得 \\(6/(j1.9)=3.158\\angle-90^\\circ\\ \\mathrm V\\)。",
+    "把 5 rad/s 與 10 rad/s 的相量直接相加。",
+    "10 rad/s 分量用餘弦求得後，改寫成正弦時漏加 \\(90^\\circ\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-01-5",
+   "subject_id": "01",
+   "subject": "電路學",
+   "year": 114,
+   "chapter": "拉氏轉換與含相依源電路",
+   "audit_status": "verified",
+   "pitfalls": [
+    "相依源極性寫反（\\(V_c=V_a+2I_x\\)）會得 \\(I_x=25/[s(s+6)]\\)、終值 \\(20.83\\ \\mathrm V\\)。",
+    "把零初始電感當直流短路只求終值，漏掉 \\(e^{-4t}\\) 暫態項。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 104,
+   "chapter": "PMOS 共源極偏壓與源極退化頻率響應",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "圖中 $R_S$ 沒有旁路電容，中頻增益要除以 $1+g_mR_S=3.2$；用 $-g_mR_D=-3.8$ 會大三倍多。",
+    "$R_S$ 用 $5-V_S$、$R_D$ 用 $V_D-(-5)$：源極 $V_S=V_G+V_{SG}=2.8\\text{ V}$，不是 0；$200\\text{ k}\\Omega$ 無直流電流。",
+    "轉角頻率只由 $R_DC_L$ 決定，與 $R_S$ 退化無關。"
+   ],
+   "conditions": "題幹只給「$K_P=0.1\\text{ mA/V}^2$」而未寫平方律公式。上列採導通參數寫法（記號 $K_P,V_{TP},I_{DQ},V_{SDQ}$ 的教科書慣例，且 $R_S,R_D$ 得整齊數值 $5.5/9.5\\text{ k}\\Omega$）。若採 ½$K_P$ 慣例 $I_D=\\tfrac12K_P(V_{SG}-|V_{TP}|)^2$：\n\n$$\nV_{SG}=0.8+\\sqrt8=3.628\\text{ V},\\quad R_S=3.43\\text{ k}\\Omega,\\quad R_D=11.57\\text{ k}\\Omega,\\quad g_m=0.2828\\text{ mA/V}\n$$\n$$\n\\frac{v_o(s)}{v_i(s)}=-\\frac{g_mR_D}{(1+g_mR_S)(1+sR_DC_L)}=-\\frac{1.66144}{1+1.15711\\times10^{-7}s},\\ \\ A_{v0}=-1.66144,\\ \\ f_c=1.375\\text{ MHz}\n$$\n兩種慣例只改數值，結構 $-\\dfrac{g_mR_D}{1+g_mR_S}\\cdot\\dfrac1{1+sR_DC_L}$ 相同；以官方公布解答的 $R_S$ 為準選擇其一。"
+  },
+  {
+   "qid": "EE-104-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 104,
+   "chapter": "BJT 共基極偏壓與中頻增益",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電流源接在集極節點而 $R_B$ 把基極也接到該節點，$I_{CC}$ 必須分給集極與基極：$I_E=I_{CC}=0.5\\text{ mA}$，不是 $I_C=I_{CC}$、$I_E=0.505\\text{ mA}$。",
+    "增益不能只看 $R_L$：基極交流接地使 $R_B$ 跨在集極與地之間，$R_{L,ac}=R_L\\parallel R_B$。",
+    "$R_i$ 是看入 $C_{C1}$ 右側，不含 $R_s$；$A_v$ 才要乘 $R_i/(R_s+R_i)$ 的分壓。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 104,
+   "chapter": "三相六脈波二極體整流器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 $380\\,\\mathrm V$ 當相電壓，或平均電壓公式誤用相電壓峰值。",
+    "直接令 $I_{o,\\mathrm{rms}}=I_{o,\\mathrm{avg}}$；本題是電阻負載，不是大電感平滑的定電流負載。",
+    "視在功率漏乘 $\\sqrt3$，或把 VA 寫成 W。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 104,
+   "chapter": "單相全橋逆變器 RL 負載暫態",
+   "audit_status": "verified",
+   "pitfalls": [
+    "若從 $i_o(0)=0$ 起算只是暫態，不是週期穩態；必須用 $i_o(0)=-I_{max}$、$i_o(T/2)=+I_{max}$ 的對稱邊界條件。",
+    "負半週的指數時間原點要平移到 $t=5\\text{ ms}$（$e^{-500(t-0.005)}$），否則末端電流錯。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-02-5",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 104,
+   "chapter": "三階 RC 移相振盪器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$\\beta$ 的分母係數是 $x^3+6x^2+5x+1$（$x^2$ 係數 6、$x$ 係數 5），對調會使 $\\omega_0$ 與增益 29 都錯。",
+    "迴路增益含反相級的負號：$L=A\\beta=-(R_f/R)\\beta$；$\\beta(j\\omega_0)<0$ 才使 $L$ 為正，不是 $L=\\beta R_f/R$ 單看大小。",
+    "最末的 $R$ 接在虛接地，等同第三個對地電阻，不可另把它當作放大器輸入阻抗忽略。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 105,
+   "chapter": "放大器頻率響應與時間常數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$C$ 跨接輸入與輸出，必須用 $R_C=R_{in}'+R_{out}'+g_mR_{in}'R_{out}'$；若只加 $C_i$、$C_o$ 的時間常數，$f_H$ 會高估約百倍。",
+    "低頻短路法求 $C_1$ 的電阻要含 $R_s$（$10\\text{ k}\\Omega$），而高頻零值法的輸入電阻是 $R_s\\parallel R_i=1.6\\text{ k}\\Omega$，兩者不同。",
+    "$A_{PB}$ 為負號（反相），且須含 $R_i/(R_s+R_i)=0.8$ 的輸入分壓。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 105,
+   "chapter": "有限開路增益反相運算放大器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "誤差須相對 $A_o\\to\\infty$ 的理想值 $-80$（$-8\\text{ V}$）計算；用 $1/A_o$ 近似 $-81/A_o$ 時別漏掉 $1+R_F/R_1=81$。",
+    "$v_O$ 為負，誤差 $\\Delta v_O=+3.2387\\text{ mV}$ 是「比理想值 $-8\\text{ V}$ 更正」，符號不可寫反。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 105,
+   "chapter": "二極體限幅器與箝位電路",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 $-4.625\\text{ V}$ 當成 $v_S=5\\text{ V}$ 的輸出：它是限幅開始的位準；$R_F$ 與分壓電阻仍在迴路中，$5\\text{ V}$ 時輸出為 $-4.877\\text{ V}$。",
+    "正向限幅的分壓是 $R_4/(R_4+R_5)=5/6$（下端接 $-V_B$），負向限幅是 $R_2/(R_2+R_3)=4/5$（上端接 $+V_A$），兩側不可互換。",
+    "虛接地使二極體導通時節點電壓為 $\\pm V_D$，輸入端 $v_S$ 與輸出關係為反相：$v_{S(min)}$ 對應正限幅。"
+   ],
+   "conditions": "註：若以硬箝位簡化，（三）會寫成 $v_{O(min)}=-4.625\\text{ V}$（見（二））；本解保留 $R_F$ 在迴路中，答 $-4.877\\text{ V}$。"
+  },
+  {
+   "qid": "EE-105-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 105,
+   "chapter": "非線性負載諧波功率與功率因數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "直流 $7\\text{ A}$ 與三次諧波都計入 $I_{rms}$，但因電壓無直流與三次成分，不貢獻實功；若把 $5\\sin(3\\omega t+60^\\circ)$ 也乘進 $P$ 會多算。",
+    "峰值需除 $\\sqrt2$ 才是 rms；漏除會使 $S$ 與 PF 錯。",
+    "THD 的分母是基波 $I_1$，不是 $I_{rms}$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-02-5",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 105,
+   "chapter": "整流器拓撲：半波、全波、半橋與全橋",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "全波不是「半波的二極體數量加倍」：重點是負半週也被翻正，所以平均值與漣波頻率都加倍。",
+    "整流語境的半橋、全橋不是兩開關、四開關的逆變器半橋、H 橋。",
+    "比較 $V_{DC}$ 前須先確定「半橋」指哪一種讀法與 $V_m$ 的定義；半控橋的輸出平均值含 $(1+\\cos\\alpha)$，不是 $2\\cos\\alpha$。"
+   ],
+   "conditions": "「半橋」在題目中未定義，上列 (a)、(b) 為兩種讀法。第三種讀法：半橋指中心抽頭全波整流（2 顆二極體、二次側分兩半繞組輪流供電，免四顆二極體但需抽頭；每顆二極體反向峰值約 $2V_m$，$V_m$ 為半繞組峰值；導通壓降 1 顆），與全橋（4 顆、免抽頭、PIV 約 $V_m$、壓降 2 顆）比較，兩者理想平均值同為 $2V_m/\\pi$（各以自身繞組峰值定義）。"
+  },
+  {
+   "qid": "EE-106-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 106,
+   "chapter": "雙積分器狀態變數濾波器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$v_Y/v_{out}$ 經兩級反相積分器，符號為正（$+1/(s^2R_1R_2C_1C_2)$），不是負。",
+    "$N$ 點是 $v_{out}$ 經 $R_6$、$v_Y$ 經 $R_3$ 的分壓：$v_{out}$ 的權重是 $R_3/(R_3+R_6)$，$v_Y$ 的權重是 $R_6/(R_3+R_6)$；對調權重會使 $A$ 變成 $R_5(R_3+R_6)/(R_6(R_4+R_5))$。",
+    "$M$ 點 $v_{in}$ 的權重是 $R_5/(R_4+R_5)$（遠端電阻在分子），不是 $R_4/(R_4+R_5)$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 106,
+   "chapter": "MOSFET 差動放大器與負回授",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "把分壓器負載寫成 $R_1\\parallel R_2$；從輸出端看，$R_1$、$R_2$ 是串聯到地，負載是 $R_1+R_2$。",
+    "以為 $A_f$ 恆等於 $1+R_2/R_1$；只有 $A\\beta\\gg1$ 才成立，有限 $A$ 時是 $A/(1+A\\beta)$。",
+    "只說「降低輸出阻抗」而不寫 $1/(1+A\\beta)$，且忘記要乘上 $r_o/2$ 與 $R_1+R_2$ 的並聯開迴路值。"
+   ],
+   "conditions": "參考書的開迴路增益 $A=\\tfrac12g_{mN}r_o$ 未計入分壓器負載 $R_1+R_2$，但其 $R_{out,f}$ 分子卻含 $(R_1+R_2)\\parallel(r_o/2)$，兩處對負載的處理不一致。以上述數值（完整節點解 $A_f=7.681$、$R_{out,f}=7757\\,\\Omega$）比較：\n\n| 項目 | 完整節點解 | 含負載的 $A$ | 參考書未含負載的 $A=\\tfrac12g_{mN}r_o$ |\n|---|---|---|---|\n| $A_f$ | 7.681 | 7.692 | 8.333（高 8.5%） |\n| $R_{out,f}$ | 7757 $\\Omega$ | 7692 $\\Omega$ | 5556 $\\Omega$（低 28%） |\n\n兩者僅在 $R_1+R_2\\gg r_o/2$ 時一致。官方題面未給數值，也無標準答案；本解以含負載的 $A$ 為主解，參考書形式視為該極限。"
+  },
+  {
+   "qid": "EE-106-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 106,
+   "chapter": "BJT 高頻小訊號與 Miller 效應",
+   "audit_status": "verified",
+   "pitfalls": [
+    "射極電阻反射到基極要乘 $(\\beta+1)=101$，分母是 $R_{TH}+101R_E$，不是 $R_{TH}+\\beta R_E$ 或只有 $R_E$。",
+    "Miller 增益用 $R_C\\parallel R_L=1.667\\ \\mathrm{k\\Omega}$（交流負載），不是只用 $R_C$ 或 $R_L$。",
+    "$R_{in}'$ 漏掉基極偏壓分壓 $10\\,\\mathrm{k\\Omega}$ 時，$R_{in}'=749\\ \\Omega$，$f_H$ 偏低為 $1.09\\ \\mathrm{MHz}$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 106,
+   "chapter": "單相半波整流器與續流二極體",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把輸入電流算成負載電流（$I_o$）或含 $D_2$ 續流段；$D_2$ 的電流不經電源，輸入 rms 只有 $I_o/\\sqrt2$。",
+    "套用純電阻半波整流的 $I_{s,rms}=V_P/(2R)=42.5\\ \\mathrm A$；本題 $L\\to\\infty$ 使電流為定值 $27.06\\ \\mathrm A$。",
+    "把功率因數當成位移因數 $\\cos\\phi=1$；輸入電流是方波，畸變使 PF $=2/\\pi$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-02-5",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 106,
+   "chapter": "非反相升降壓型轉換器（同步開關）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把此同步雙開關拓撲當成普通 Boost，寫成 $V_o/V_{in}=1/(1-D)$；本圖導通時 $L$ 兩端是 $V_{in}$，關斷時是 $-V_o$，比值為 $D/(1-D)$。",
+    "$I_L=I_o/(1-D)$，漏除 $(1-D)$ 會低估 $Q_1$ 電流。",
+    "rms 要除以整個週期 $T_s$（乘 $D$ 再開根號），並保留 $\\Delta I_L^2/12$；未註明小漣波近似就刪掉此項是不完整的。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 107,
+   "chapter": "PN 接面空乏區與內建電位",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$x_n$ 與 $x_p$ 對調：$x_p=W\\,N_D/(N_A+N_D)$（輕摻雜的 n 側 $x_n$ 較大）。",
+    "$W_{dep}$ 公式漏掉 2（寫成 $\\varepsilon V_0/q$）會得約 $0.183\\ \\mu\\mathrm m$；濃度以 $\\mathrm{cm^{-3}}$、$\\varepsilon$ 以 $\\mathrm{F/cm}$ 時結果單位是 cm，需換成 $\\mu\\mathrm m$（$1\\ \\mathrm{cm}=10^4\\ \\mu\\mathrm m$）。",
+    "$V_0$ 的對數是自然對數 $\\ln$，不是 $\\log_{10}$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 107,
+   "chapter": "NMOS 飽和區轉導與通道長度調變",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$W/L=400/10=40$，$\\mu_nC_{ox}$ 單位是 $\\mu\\mathrm A/\\mathrm V^2$：$k_n=0.8\\ \\mathrm{mA/V^2}$ 而不是 $0.8\\ \\mu\\mathrm A/\\mathrm V^2$。",
+    "（二）給的是 $I_D$ 不是 $V_{GS}$，不可再用 $V_{GS}=2\\ \\mathrm V$，須用 $g_m=\\sqrt{2k_nI_D}$。",
+    "$r_o$ 隨 $I_D$ 變：（一）$I_D=0.256\\ \\mathrm{mA}$ 與（二）$2\\ \\mathrm{mA}$ 的 $r_o$ 不同，不要沿用同一個值。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 107,
+   "chapter": "降升壓型轉換器 DCM 臨界與責任週期",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只解 CCM 增益 \\(V_o/V_d=D/(1-D)\\) 就答 \\(D=0.4\\)，未先比較 \\(L\\) 與 \\(L_B\\)；以 0.4 代入 DCM 功率式會得 18 W 而非 12 W。",
+    "導通時電感跨壓是 \\(V_d=15\\ \\mathrm V\\)，不是 \\(V_o\\)。",
+    "\\(25\\ \\mathrm{kHz}\\)、\\(40\\ \\mu\\mathrm H\\) 的單位換算（\\(10^3\\)、\\(10^{-6}\\)）漏算。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 107,
+   "chapter": "Ćuk 轉換器電容漣波與開關峰值電流",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$C_1$ 在導通期間放電電流是 $I_{L2}$（$2\\ \\mathrm A$），不是 $I_{L1}$；關斷期間才是 $I_{L1}=0.5\\ \\mathrm A$、時間 $(1-D)T$。",
+    "$\\Delta v_{C2}$ 是三角波電荷面積，分母為 $8f_sC_2$，不是 $f_sC_2$。",
+    "$I_p$ 需把兩電感的平均值與半個漣波相加，只加平均值會得 $2.5\\ \\mathrm A$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 108,
+   "chapter": "運算放大器頻率響應與波德圖",
+   "audit_status": "verified",
+   "pitfalls": [
+    "40 dB 是 $100$ V/V（$20\\log_{10}$），不是 40 V/V；若誤用 $10\\log_{10}$ 會得 $10^4$ 而得到錯誤的 $f_b$。",
+    "$f_b$ 是 $-3\\,\\mathrm{dB}$ 轉折點（相位 $-45^\\circ$），$f_t\\approx10^4f_b$ 才是 0 dB 交越；兩者不可混標。",
+    "單極點相位是 $0^\\circ\\to-90^\\circ$（負值），並要涵蓋 $f_b/100=1\\ \\mathrm{Hz}$ 到 $10f_t=10\\ \\mathrm{MHz}$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 108,
+   "chapter": "三相二極體整流（五二極體缺臂）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把圖當成六顆二極體的標準橋式，得 $V_L\\equiv120\\,\\mathrm V$、$V_{dc}=120\\,\\mathrm V$；本圖 $b$ 相上臂缺口使 $V_{dc}$ 只有 $100\\,\\mathrm V$。",
+    "只標最高相與最低相，忽略 $210^\\circ$ 附近上臂只能在 $a$、$c$ 之間換相，漏畫 $V_L$ 降到 0 的凹陷。",
+    "套用正弦三相的 $1.35V_{LL}$；本題輸入是三角波，須逐段用直線方程式。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 108,
+   "chapter": "MOSFET 串聯-串聯負回授放大器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把電流取樣誤判為並聯取樣而寫成串並或並串；$R_S$ 串在源極、取樣的是汲極電流。",
+    "忘記 $v_o=-i_oR_L$ 的反相號，把 $A_{vf}$ 寫成正值。",
+    "取 $A=g_m$ 卻同時保留 $r_o$：有限 $r_o$ 時基本放大器要用 $g_mr_o/(r_o+R_L+R_S)$，否則分母少了 $R_L+R_S$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 108,
+   "chapter": "GIC 等效電感與二階帶通濾波器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "GIC 公式 $Z_1Z_3Z_5/(Z_2Z_4)$ 中 $2R$ 在鏈的第二位（$Z_2$，分母）；若放在 $Z_3$ 會得 $2sR^2C$，等效電感大 4 倍，中心頻率與分母全錯。",
+    "漏掉 $X$ 對地的實體電容 $C$，只留 GIC 電感，就變成一階高通而非二階。",
+    "上方非反相級增益是 $1+4R_1/R_1=5$，不是 $4$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-02-5",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 108,
+   "chapter": "三相交錯式降壓轉換器與輸出漣波",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "漣波頻率寫成單相的 $20\\,\\mathrm{kHz}$，漏乘三相交錯的 3 倍。",
+    "導通時間用 $T_s/3$（相位間隔）而非脈寬 $T_s/6$。",
+    "把 $0.5\\,\\mathrm A$ 當成三相總電流漣波，極值寫成 $3.25$ 與 $2.75\\,\\mathrm A$。"
+   ],
+   "conditions": "題給 $V_S=9\\,\\mathrm V$、$D=1/6$ 的理想降壓平均輸出為 $DV_S=1.5\\,\\mathrm V$，與題給 $V_L=3\\,\\mathrm V$ 不一致。本解以題面明載的 $V_L=3\\,\\mathrm V$ 與導通區間斜率求主答案 $L_{min}=100\\ \\mu\\mathrm H$；最高、最低值並列（甲）形式值與（乙）自洽值。若同樣用 $V_L=3\\,\\mathrm V$ 但取關斷區間 $\\Delta i_L=V_L(1-D)T_s/L\\le0.5\\,\\mathrm A$，則 $L_{min}=250\\ \\mu\\mathrm H$。"
+  },
+  {
+   "qid": "EE-109-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 109,
+   "chapter": "BJT 飽和開關與過載係數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "取 $\\beta_{\\max}=40$ 計算 $I_{BS}$，低增益元件會無法飽和（得 $R_B=3.13\\,\\Omega$）。",
+    "$P_T$ 漏掉基極損耗 $20.35\\,\\mathrm W$，只答 $18.09\\,\\mathrm W$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 109,
+   "chapter": "Boost 轉換器漣波與臨界值",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "平均電感電流用 $I_o=3\\,\\mathrm A$，峰值低估為 $4.5\\,\\mathrm A$；Boost 的 $I_L=I_s=6\\,\\mathrm A$。",
+    "臨界電感漏 $(1-D)^2$ 或 $\\frac12$。",
+    "用自己算出的 $0.3\\,\\mathrm V$ 倒推出已知的 $200\\,\\mu\\mathrm F$ 當臨界值；臨界值是 $\\Delta V_C=2V_o$ 的邊界。"
+   ],
+   "conditions": "- 題面未明寫臨界電容判準，主解採教材定義 $\\Delta V_C=2V_o$；若評分改以容許漣波比 $\\varepsilon=\\Delta V_{C,\\text{允許}}/V_o$ 設計，則 $C_c(\\varepsilon)=\\frac{D}{Rf\\varepsilon}=\\frac{2\\,\\mu\\mathrm F}{\\varepsilon}$。"
+  },
+  {
+   "qid": "EE-109-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 109,
+   "chapter": "返馳式轉換器 CCM/DCM 電流與效率",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "用導通區間平均 $30\\,\\mathrm A$ 乘 $V_s$，輸入功率多算成 $1024\\,\\mathrm W$。",
+    "二次側三角波只在 $(1-D)T=0.25T$ 內導通，誤用 $D$ 會得 $I_{p(max)}=20\\,\\mathrm A$。",
+    "反射電壓要含二極體壓降：$4(24+0.7)=98.8\\,\\mathrm V$。"
+   ],
+   "conditions": "題圖未明示 CCM/DCM，也未定義 $I_{p(avg)}$ 是導通區間平均或整個週期平均；另須區分 $I_{p,avg\\mid on}=I_{p(max)}/2$ 與 $I_{p,avg}=D\\,I_{p,avg\\mid on}$ 兩種定義。由 $t_{demag}=t_{off}$，參考書數值恰落在 DCM／臨界導通模式（CrCM）邊界。\n\n$V_s$、$I_{p,avg}=22.5\\,\\mathrm A$ 與 $\\eta=93.75\\%$ 只由平均功率與伏秒平衡決定，CCM 下也相同；若實為 CCM，初級電流有未給定的谷值 $I_{p,valley}>0$，$I_{p(max)}$ 與 $L_p$ 須另給谷值或波形才能唯一決定。"
+  },
+  {
+   "qid": "EE-109-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 109,
+   "chapter": "增強型 NMOS 飽和區與製程參數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "題目定義 $\\beta=\\mu_nC_{ox}(W/L)$，電流式要帶 $\\frac12$；寫成 $I_D=\\beta(V_{GS}-V_t)^2$ 會得 $93.75\\,\\mu\\mathrm{A/V^2}$。",
+    "開根號未排除 $V_t=9.33\\,\\mathrm V$ 的增根。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 110,
+   "chapter": "BJT 集極回授偏壓與熱穩定性",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$R_C$ 上的電流寫成 $I_C$（漏 $I_B$），分母變 $R_B+\\beta R_C$，得 $I_C=1.027\\to1.078\\,\\mathrm{mA}$、變化率 4.95%。",
+    "$V_{CE}$ 由 $V_{CC}-I_CR_C$ 計算而漏掉 $I_BR_C$，$25^\\circ\\mathrm C$ 會得 $1.82\\,\\mathrm V$。",
+    "只算 $I_C$ 變化率而漏了 $V_{CE}$；Q 點是 $(I_C,V_{CE})$ 兩個量。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 110,
+   "chapter": "差動放大器與共模抑制比",
+   "audit_status": "verified",
+   "pitfalls": [
+    "（三）的差模輸入是 $500\\,\\mu\\mathrm V$ 而非 $250\\,\\mu\\mathrm V$；$250\\,\\mu\\mathrm V$ 是共模成分。",
+    "（四）兩端反相，$v_d=1\\,\\mathrm{mV}$，輸出加倍為 $1.5\\,\\mathrm V$，不是 $0.75\\,\\mathrm V$。",
+    "CMRR 換 dB 用 $20\\log$（電壓比），用 $10\\log$ 會得 43.01 dB。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 110,
+   "chapter": "半波整流器與非正弦電流功率因數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "用 $I_{avg}^2R=245.2\\,\\mathrm W$ 當功率；非直流波形必須用 rms。",
+    "純電阻就答 PF $=1$；半波電流的失真使 PF 只有 $0.7071$。",
+    "把 $110\\,\\mathrm V$ 當峰值，得 $I_{avg}=3.50\\,\\mathrm A$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 110,
+   "chapter": "方波逆變器與 RL 負載諧波分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "基本波有效值是 $\\frac{4V_{dc}}{\\sqrt2\\pi}=0.9003V_{dc}$，漏 $\\sqrt2$ 會得 $V_{dc}=105.3\\,\\mathrm V$。",
+    "諧波阻抗要用 $nX_1$，不能沿用 $|Z_1|$；否則 $I_n=I_1/n$，THD 變成電壓的 48.3%。",
+    "THD 分母是基本波 $6\\,\\mathrm A$，不是總有效值。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 111,
+   "chapter": "二極體全波整流與傅立葉諧波功率分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$I_2,I_4$ 是振幅，功率要再除以 2（或先換有效值）；直接 $I_0^2+I_2^2+I_4^2$ 會高估。",
+    "功率因數分母要用電源電流有效值 $6.751\\,\\mathrm A$，不是 $I_0=6.366\\,\\mathrm A$。",
+    "阻抗要用 $n\\omega L$，誤用基頻 $\\omega L=4.52\\,\\Omega$ 會使 $I_2$ 偏大。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 111,
+   "chapter": "SEPIC 轉換器 CCM 電感與電容漣波設計",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$C_1$ 的轉移電荷用 $I_{L2}=3\\,\\mathrm A$（或截止期間的 $I_{L1}$ 配 $1-D$）；用 $I_{in}=1.2\\,\\mathrm A$ 配 $D$ 會得 $11.43\\,\\mu\\mathrm F$。",
+    "$L_2$ 的平均電流是 $I_o=3\\,\\mathrm A$，不是 $I_{in}$。",
+    "SEPIC 增益為 $D/(1-D)$，誤用 Boost 的 $1/(1-D)$ 會得負的 $D$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 111,
+   "chapter": "MOSFET 共源極源極退化與偏壓設計",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "$V_G$ 要加兩次 $V_{OV}$（$V_{GS}=V_{TH}+V_{OV}$ 再加 $V_S=V_{OV}$），只加一次會得 $R_2=2.964\\,\\mathrm{k}\\Omega$。",
+    "源極未旁路，增益分母必有 $1+g_mR_S$；寫成 $g_mR_D=5$ 會得 $g_m=25\\,\\mathrm{mS}$。",
+    "只寫其中一個 $g_m$ 而不說明另一條件不成立，會被視為忽略題給數據。"
+   ],
+   "conditions": "**雙分支來源。**參考書主解列 $g_m=1\\,\\mathrm{mS}$、$W/L=3522.2$、$R_2=3.3185\\,\\mathrm{k}\\Omega$、$R_1=7.459\\,\\mathrm{k}\\Omega$；但 $g_m=1\\,\\mathrm{mS}$ 代入其增益式只得 $\\frac{200}{1030}=0.1942$，應為排印或計算錯誤，且其 $R_1,R_2$ 來自把 $V_{GS}=0.4951\\,\\mathrm V$ 誤排為 $0.4591\\,\\mathrm V$。\n\n**最小更正候選。**矛盾無法靠改 $I_D$ 消除（$g_m=2/R_S$ 與 $I_D$ 無關），只有兩種單點更正：\n\n- 增益改為 $4.444444$：即上方平方律分支。\n- 保留 $|A_v|=5$、改 $R_S$：$5=\\frac{(2/R_S)R_D}{3}\\Rightarrow R_S=26.666667\\,\\Omega$、$g_m=0.075\\,\\mathrm S$、$V_{OV}=0.0845333\\,\\mathrm V$、$W/L=4436.120$，$R_1=7.370858\\,\\mathrm{k}\\Omega$、$R_2=3.407585\\,\\mathrm{k}\\Omega$。"
+  },
+  {
+   "qid": "EE-111-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 111,
+   "chapter": "並聯-串聯電流回授放大器與雙極性電晶體小訊號模型",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "把型態判成串聯-並聯（電壓）回授；本題輸入是電流源、取樣量是負載電流。",
+    "把 $R_F$ 當成輸入端對地負載（$R_F\\parallel r_{\\pi1}$）；$x$ 端只接交流開路的電流源，$g_{11}=0$。",
+    "偏壓電流源當交流短路，會讓 $I_o$ 分流到地而得 $|\\beta_f|<1$。"
+   ],
+   "conditions": "參考書取 $I_f$ 流入輸入節點，寫 $\\beta_f=\\frac{I_f}{I_o}=1$，並以 $R_{iA}=R_F\\parallel r_{\\pi1}$ 作輸入負載：$A=-(R_F\\parallel r_{\\pi1})g_{m1}\\frac{(1+\\beta_T)R_C}{R_C+r_{\\pi2}+(1+\\beta_T)(R_L+R_F)}$、$R_{if}=\\frac{R_F\\parallel r_{\\pi1}}{1+A\\beta_f}$（參考書開路增益式漏掉 $R_F\\parallel r_{\\pi1}$ 因子，此處已補回；其 $A<0$ 配 $\\beta_f=+1$ 時分母須讀作 $1+|A|$）。$R_F$ 要成為輸入端對地負載，必須其遠端交流接地；但那樣 $I_o$ 會流入地而不經 $R_F$ 回到輸入，$\\beta_f=0$，與參考書自己的 $|\\beta_f|=1$ 矛盾，故不採用。以 $r_{\\pi1}=2.5\\,\\mathrm{k}\\Omega$、$r_{\\pi2}=250\\,\\Omega$、$g_{m1}=40\\,\\mathrm{mS}$、$\\beta_T=100$、$R_C=5\\,\\mathrm{k}\\Omega$、$R_L=100\\,\\Omega$、$R_F=1\\,\\mathrm{k}\\Omega$ 試算：$A_f$ 精確 $-0.997713$、本解 $-0.997701$、參考書形式 $-0.992001$；$A$ 本解 $-434.0$、參考書 $-124.0$；負載看入輸出電阻精確 $503.6\\,\\mathrm{k}\\Omega$、本解（含 $R_L$）$501.2\\,\\mathrm{k}\\Omega$、參考書形式 $144.0\\,\\mathrm{k}\\Omega$。"
+  },
+  {
+   "qid": "EE-112-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 112,
+   "chapter": "BJT 共基極放大器與高頻響應",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "漏掉 $R_B$（集極只取 $R_L$）會得 $f_{H\\mu}=159.155\\,\\mathrm{MHz}$、$A_v=9.430\\,\\mathrm{V/V}$。",
+    "$C_\\pi$ 所見電阻漏掉 $r_e$（只取 $R_s\\parallel R_E$）會得 $f_{H\\pi}=350.1\\,\\mathrm{MHz}$。",
+    "基極交流接地，$C_\\mu$ 直接跨集極–地，不可套共射極的米勒倍增。"
+   ],
+   "conditions": "- 取 $V_T=26\\,\\mathrm{mV}$ 時 $f_{H\\pi}=656.21\\,\\mathrm{MHz}$、$A_v=9.1446\\,\\mathrm{V/V}$，$f_{H\\mu}$ 不變。\n- 參考書同取 25 mV，得 $f_{H\\pi}=6.69\\times10^8\\,\\mathrm{Hz}$、$f_{H\\mu}=1.6\\times10^8\\,\\mathrm{Hz}$，與上式一致；書中中頻增益約 9.47 V/V 為近似值，與本解差 1.4%。"
+  },
+  {
+   "qid": "EE-112-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 112,
+   "chapter": "Schmitt 觸發器與鬆弛振盪器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "起點取 $v_X(0)=0$；$t=0$ 剛切換，電容電壓應在下臨界 $-5/3\\,\\mathrm V$。",
+    "分壓比寫成 $R_2/(R_1+R_2)=2/3$，臨界值會錯成 $\\pm10/3\\,\\mathrm V$、$f=388.3\\,\\mathrm{Hz}$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 112,
+   "chapter": "反相降升壓轉換器 CCM 漣波設計",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把「最小值為平均值 40%」當成 $\\Delta i_L=0.4I_L$，得 $L=40\\,\\mu\\mathrm H$。",
+    "平均電感電流誤取 $I_o=3.6\\,\\mathrm A$，漏除 $(1-D)$。",
+    "套 Boost 增益 $1/(1-D)$ 得 $D=1/3$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 112,
+   "chapter": "半波整流器傅立葉級數與平滑電感",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只用基頻得 $L\\approx0.45\\,\\mathrm H$ 是常見教科書作法，但嚴格峰對峰約 $1.10\\,\\mathrm A$；考場寫 0.45 H 時應註明 2 次諧波使 $L$ 需略增（約 0.50 H）。",
+    "$P_{V_{dc}}$ 用 $V_{dc}I_{rms}$；直流源只與平均電流作功。",
+    "$P_R$ 只算 $I_0^2R=90.68\\,\\mathrm W$，漏掉諧波電流的功率。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 113,
+   "chapter": "理想二極體電路與限幅分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "先假設 $D_1$ 導通便直接得 $V_o=0$，未檢查 $I_{D_1}=-1.2\\,\\mathrm{mA}$ 為負。",
+    "只比較節點電位、未驗 $D_2$ 電流 $I=1.6\\,\\mathrm{mA}>0$ 與 $D_1$ 電壓 $V_{D_1}=-4\\,\\mathrm V<0$，狀態判斷即不完整。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 113,
+   "chapter": "BJT 共基極放大器與 T 模型",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "漏掉 $R_{sig}$ 分壓，答成 $v_o/v_e=118.8$。",
+    "負載只取 $R_C$（$12\\,\\mathrm{k}\\Omega$），得 $95.04\\,\\mathrm{V/V}$。",
+    "把偏壓電流源當交流短路，$R_{in}$ 變 0。"
+   ],
+   "conditions": "| $V_T$ | $r_e=R_{in}$ | $A_v$（V/V） |\n|---|---:|---:|\n| $25\\,\\mathrm{mV}$（參考書主解） | $50.00\\,\\Omega$ | $47.520000$ |\n| $25.85\\,\\mathrm{mV}$（室溫） | $51.70\\,\\Omega$ | $46.882399$ |\n| $26\\,\\mathrm{mV}$ | $52.00\\,\\Omega$ | $46.771654$ |"
+  },
+  {
+   "qid": "EE-113-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 113,
+   "chapter": "降壓型轉換器的邊界導通模式",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把串聯開關的 Buck 誤判為 Boost，寫出 $V_o=V_s/(1-D)$。",
+    "BCM 峰值寫成平均值，漏掉三角波的因子 2。",
+    "漣波只算 ON 區 $I_oDT_s/C$；正確作法是積分 $i_C=i_L-I_o$ 的正面積。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 113,
+   "chapter": "全橋隔離型轉換器與邊界導通模式",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "把全橋當單脈波：一週期有兩個整流脈波，漏掉因子 2 得 $V_o/V_s=Dn_h$。",
+    "套 Buck 的 $L_{\\min}=(1-D)R/(2f_s)$；電感看到的頻率是 $2f_s$、續流時間是 $(1/2-D)T_s$。"
+   ],
+   "conditions": "官方圖只標 $N_p:N_s$，未指明 $N_s$ 為半繞組或端對端總匝數。若 $N_s$ 指端對端總匝數，$n_h=N_s/(2N_p)$，$V_o/V_s=DN_s/N_p$，與上式差一倍；$L_x$ 不受影響。題幹以 $D$ 為開關責任週期，同臂開關不可同時導通，故 $0<D<0.5$。"
+  },
+  {
+   "qid": "EE-114-02-1",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 114,
+   "chapter": "BJT 差動放大器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把尾電流 $2\\,\\mathrm{mA}$ 整個當成單管 $I_C$，會得 $g_m=0.08\\,\\mathrm S$、增益加倍。",
+    "共模時把 $v_e=v_1$ 視為精確而得 $R_i=\\infty$；$R_S$ 有限，$R_i=165.025\\,\\mathrm{k}\\Omega$。",
+    "$v_o$ 正端在 $Q_2$ 集極；若取 $v_{c1}-v_{c2}$，三個增益全部變號。"
+   ],
+   "conditions": "- 若改採 $I_C\\approx I_E=1\\,\\mathrm{mA}$ 的考場近似（$g_m=0.04\\,\\mathrm S$、$r_\\pi=1\\,\\mathrm{k}\\Omega$），三組 $(R_i,A_v)$ 為 $(1.000\\,\\mathrm{k}\\Omega,160)$、$(165.0\\,\\mathrm{k}\\Omega,0)$、$(501.52\\,\\Omega,320)$，與上列差約 2.5%。"
+  },
+  {
+   "qid": "EE-114-02-2",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 114,
+   "chapter": "MOS 小訊號與頻率響應",
+   "audit_status": "verified",
+   "pitfalls": [
+    "$\\tau_a$ 只取 $C_a(R'+R_L)=10.5\\,\\mathrm{ns}$，漏掉 $G_mR'R_L=37.5\\,\\mathrm{k}\\Omega$ 的米勒效應項，$\\omega_H$ 會高估約 10 倍。",
+    "直流時把 $C_a$ 當短路，分壓與 $A_{vo}$ 都錯。",
+    "零點寫成 $1/(R_LC_a)$；零點只由 $C_a$ 前饋電流與 $G_mv_a$ 相消決定。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-02-3",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 114,
+   "chapter": "開關電源與電感暫態",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 $0\\sim0.5\\,\\mathrm{ms}$ 讀成短路，兩段方程順序顛倒。",
+    "$Q$ 開路時仍令 $v_a=0$，漏掉二極體把節點箝在 $V_S=5\\,\\mathrm V$。",
+    "自設 $i_L(0)=0$；題面沒有此條件，且第二段初值須用電感電流連續 $i_L(0.5\\,\\mathrm{ms}^-)=i_L(0.5\\,\\mathrm{ms}^+)$。"
+   ],
+   "conditions": "若不取週期穩態，須另給 $i_0$；上列含 $i_0$ 的通解只在第一段 $i_L<0$（二極體導通）時成立。"
+  },
+  {
+   "qid": "EE-114-02-4",
+   "subject_id": "02",
+   "subject": "電子學_含電力電子",
+   "year": 114,
+   "chapter": "閘流體保護",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只寫「突波」，未指出接面電容位移電流 $C_j\\,dv/dt$ 造成誤觸發的機制。",
+    "緩衝器只並一顆電容而無 $R_s$：$T$ 導通瞬間 $C_s$ 直接經 $T$ 短路放電，反而造成極大 $di/dt$；主回路 $di/dt$ 也不是 RC 能限制，須靠串聯 $L_s$。",
+    "寫成 $S$ 閉合時 $T$ 與負載都承受 $V_S$；由 $V_S=V_T+V_L$，兩者不能同時各取 $V_S$，阻斷時是 $V_T\\approx V_S$。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 104,
+   "chapter": "拉普拉斯轉換／變係數 ODE",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(\\mathcal L\\{t\\,y'\\}=-\\dfrac{d}{ds}\\bigl(sY-y(0)\\bigr)\\)，是對 \\(sY\\) 整體微分，且帶負號；漏掉 \\(-Y\\) 項會得錯的 \\(Y'\\) 方程。",
+    "轉換後是 \\(Y\\) 的一階 ODE，通解含 \\(Ce^{s^2/8}/s^2\\)，必須以 \\(s\\to\\infty\\) 趨零（轉換條件）捨去。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 104,
+   "chapter": "線性代數／特徵值與對角化",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(P\\) 的欄順序必須與 \\(\\Lambda\\) 對角元順序一致；換欄時 \\(\\Lambda\\) 也要換。",
+    "\\(\\lambda=0\\) 的特徵向量是 \\((0,1,-1)^T\\)，不是 \\((0,1,1)^T\\)（那是 \\(\\lambda=2\\)）。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 104,
+   "chapter": "複變函數／主值積分",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "\\(\\displaystyle\\int_{-\\infty}^{\\infty}\\frac{dx}{x^2+9}=\\frac\\pi3\\)，係數 \\(-\\tfrac{126}{225}\\) 約分為 \\(-\\tfrac{14}{25}\\)，乘 \\(\\tfrac\\pi3\\) 得分母 \\(75\\)，不是 \\(225\\)。",
+    "實軸極點在上半圓繞行時各貢獻 \\(\\pi i\\operatorname{Res}\\)（半留數），不是 \\(2\\pi i\\operatorname{Res}\\)。"
+   ],
+   "conditions": "官方題幹未標示 Cauchy 主值（PV）。若按普通廣義積分，因 \\(x=0,4\\) 的單極點，積分發散；上列 \\(-14\\pi/75\\) 僅為採對稱主值的條件答案，作答時宜先寫「普通廣義積分不存在」再給主值。"
+  },
+  {
+   "qid": "EE-104-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 104,
+   "chapter": "機率統計／二維聯合密度與期望值",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(E[X^2]\\) 的被積式是 \\(x^2f_X(x)\\)，答案 \\(\\tfrac12\\)，不是 \\(E[X]^2=\\tfrac49\\)。",
+    "獨立性要先由 \\(f_{X,Y}=f_Xf_Y\\) 驗證才能用 \\(E[XY]=E[X]E[Y]\\)；本題的 \\(\\tfrac32\\) 常數使邊際 \\(f_Y\\) 的係數為 \\(\\tfrac12\\)，不是 \\(1\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 104,
+   "chapter": "向量分析／線積分",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 105,
+   "chapter": "常微分方程／反推特徵方程",
+   "audit_status": "verified",
+   "pitfalls": [
+    "常數項 \\(2\\) 不屬於齊次解，不能漏掉右側 \\(2e^{3x}\\)，否則得 \\(y''-6y'+10y=0\\)。",
+    "虛部是 \\(1\\)（\\(\\sin x,\\cos x\\)），特徵式末項為 \\(10=3^2+1^2\\)，不是 \\(13\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 105,
+   "chapter": "拉普拉斯轉換／週期函數轉換",
+   "audit_status": "verified",
+   "pitfalls": [
+    "本題是 \\(|\\sin\\omega t|\\)，不是 \\(\\sin\\omega t\\)；直接寫 \\(\\omega/(s^2+\\omega^2)\\) 會整題失分。",
+    "週期是 \\(\\pi/\\omega\\)（不是 \\(2\\pi/\\omega\\)），分母才是 \\(1-e^{-\\pi s/\\omega}\\)。",
+    "一個週期的積分用 \\(0\\) 到 \\(\\pi/\\omega\\) 的 \\(\\sin\\)，不須分段處理絕對值。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 105,
+   "chapter": "複變函數／複變線積分",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(\\operatorname{Im}(z)=t\\) 是實數，不是 \\(it\\)；否則虛部多乘 \\(i\\) 而符號錯。",
+    "\\(dz\\) 要用 \\(z'(t)dt=(3t^2+i)dt\\)，不可只寫 \\(dt\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 105,
+   "chapter": "複變函數／留數定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "分母 \\(z-1+i=z-(1-i)\\)，極點是 \\(1-i\\)，不是 \\(1+i\\)；需先確認 \\(|1-i|=\\sqrt2<2\\) 在圓內才可用留數／柯西公式。",
+    "\\(2\\pi i\\cdot i=-2\\pi\\)，實部符號易錯。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 105,
+   "chapter": "機率統計／累積分布函數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "區間含端點 \\(1\\)，要把 \\(x=1\\) 的跳躍 \\(1/6\\) 算進去；若各段單獨用密度積分而漏掉質量點，會得 \\(\\tfrac5{12}\\) 而非 \\(\\tfrac7{12}\\)。",
+    "用 \\(F(3/2)\\) 時取 \\(x/2\\)（\\(1\\le x<2\\)）\\(=3/4\\)，不是 \\(x/3\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-03-6",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 105,
+   "chapter": "機率統計／抽樣與條件機率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "不放回第二次的分母是 \\(8\\) 球，白球剩 \\(3\\) 顆。",
+    "第二顆為紅球時，不可把第一顆的所有情形（黑、白、紅）漏掉任何一類。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-03-7",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 105,
+   "chapter": "線性代數／線性轉換",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-03-8",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 105,
+   "chapter": "線性代數／實對稱矩陣正交對角化",
+   "audit_status": "verified",
+   "pitfalls": [
+    "二重根 \\(\\lambda=-1\\) 的兩個特徵向量需彼此正交；\\((1,-1,0)\\) 與 \\((1,0,-1)\\) 不正交，須再正交化。",
+    "單位化漏掉 \\(\\sqrt6\\)（\\((1,1,-2)\\) 長度為 \\(\\sqrt6\\)）會使 \\(Y^TY\\ne I\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 106,
+   "chapter": "線性代數／矩陣反矩陣",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(B_2\\) 的行列式是 \\(1-4=-3\\)（負值），伴隨矩陣的符號隨之翻轉，常誤取 \\(+3\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 106,
+   "chapter": "線性代數／最小平方法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(A^Tb\\) 第 2 分量是 \\(1+0+2-1=2\\)，不是 \\(1\\)；漏掉 \\(-1\\) 項會得 \\(x=(23/17,\\,-14/17)\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 106,
+   "chapter": "常微分方程／重根與變參數法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "右側含 \\(1/x^2\\)，無法用待定係數法，必須用變數變易法或降階法。",
+    "解只在 \\(x>0\\)（或寫 \\(\\ln|x|\\) 並避開 \\(x=0\\)）成立。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 106,
+   "chapter": "拉普拉斯轉換／Volterra 積分方程",
+   "audit_status": "verified",
+   "pitfalls": [
+    "卷積核是 \\(1+\\tau\\)（拉氏轉換 \\(\\tfrac1s+\\tfrac1{s^2}\\)），若只取 \\(\\tfrac1s\\) 會少掉 \\(\\tau\\) 項而得錯誤解。",
+    "\\(\\mathcal L\\{\\sinh t\\}=\\dfrac1{s^2-1}\\)，符號前有負號，通分時別與 \\(\\tfrac1s\\) 相消。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 106,
+   "chapter": "複數／極式與 De Moivre 定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "誤取 \\(\\arg z=+\\pi/3\\)（把 \\(z\\) 當成第一象限）寫出 \\(z=2e^{i\\pi/3}\\)，極式錯誤會被扣過程分，雖然 \\(12\\) 次方的最終值恰好相同。",
+    "模長 \\(2\\) 的 \\(12\\) 次方是 \\(2^{12}=4096\\)，不是 \\(2\\cdot12\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-03-6",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 106,
+   "chapter": "機率統計／連續型隨機變數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "分部積分 \\(\\int ue^{-u}du=-(u+1)e^{-u}\\)，代入下限 \\(0\\) 時別漏掉 \\(+1\\)。",
+    "\\(F(x)\\) 要分段寫出 \\(x\\le0\\) 的 \\(0\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-03-7",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 106,
+   "chapter": "機率統計／離散型隨機變數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(E[X^2]=91/6\\) 不是 \\((E[X])^2=49/4\\)；直接用後者會得 \\(0\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-03-8",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 106,
+   "chapter": "機率／離散期望值",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以 \\(\\pi(E[R])^2=30.25\\pi\\) 代替 \\(\\pi E[R^2]\\)，少了 \\(\\pi\\operatorname{Var}(R)=8.25\\pi\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 107,
+   "chapter": "常微分方程／Bernoulli 方程",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(\\dfrac1{y(y^3-1)}\\) 的部分分式是 \\(\\dfrac{y^2}{y^3-1}-\\dfrac1y\\)，不是 \\(\\tfrac13\\) 倍。",
+    "解在 \\(1-7t^2\\to0\\) 處發散，特解僅在 \\(|t|<1/\\sqrt7\\) 成立。",
+    "分離變數時除以 \\(y(y^3-1)\\)，會漏掉常數解 \\(y\\equiv0\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 107,
+   "chapter": "線性代數／特徵值與對角化",
+   "audit_status": "verified",
+   "pitfalls": [
+    "特徵多項式展開易錯符號；用 \\(\\operatorname{tr}\\mathbf A=0\\)（根和為 \\(0\\)）與 \\(\\det\\mathbf A=-34\\)（根積）可立即檢出。",
+    "\\(\\lambda^2-2\\lambda+17\\) 的判別式為負，根為 \\(1\\pm4i\\)，向量也是複數，不可只寫實根 \\(-2\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 107,
+   "chapter": "向量分析／散度定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "頂蓋外法向是 \\(+\\hat k\\)，\\(\\vec F\\cdot\\hat k=3y\\)（不是 \\(4xz\\) 或 \\(xyz^2\\)）。",
+    "側面外向面積元的 \\(z\\) 分量為 \\(-r\\)（向外且向下）；誤取向內法向會得 \\(-16\\pi\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 107,
+   "chapter": "傅立葉級數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(\\int_{-\\pi}^{0}\\)（\\(f=0\\)）不必計算；積分範圍只剩 \\([0,\\pi]\\)，常數項是 \\(a_0/2=1/\\pi\\)，不是 \\(a_0\\)。",
+    "\\(n=1\\) 要單獨處理：通式 \\(a_n=-\\dfrac{2}{\\pi(n^2-1)}\\) 在 \\(n=1\\) 分母為 \\(0\\)，須另算 \\(a_1=0\\)、\\(b_1=\\tfrac12\\)。",
+    "奇數 \\(n\\ge3\\) 的 \\(a_n=0\\)，級數只含偶數倍頻 \\(\\cos2kx\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 107,
+   "chapter": "機率／二項與超幾何分布",
+   "audit_status": "verified",
+   "pitfalls": [
+    "「不放回」仍套二項分布，忽略每抽一次母體比例會改變。",
+    "超幾何分子只寫 \\(\\binom5x\\)，漏掉正常品的 \\(\\binom{15}{3-x}\\)。",
+    "把「恰有 \\(x\\) 個損壞」誤解成「至少 \\(x\\) 個」，或擅自把 \\(x\\) 固定成某個值。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 108,
+   "chapter": "常微分方程／變係數 Euler 型",
+   "audit_status": "verified",
+   "pitfalls": [
+    "右側 \\(3u^2\\) 與齊次解 \\(u^2\\) 共振，直接設 \\(y=Au^2\\) 會得 \\(0=3u^2\\) 而無解，必須乘 \\(\\ln u\\)。",
+    "右側 \\(1\\) 的特解是 \\(-\\tfrac12\\)（\\(-2B=1\\)），常漏負號。",
+    "沒換成 \\(u=a+x\\) 就試 \\(x^m\\) 會失敗；結果要用 \\(\\ln|a+x|\\)，標明 \\(x\\ne-a\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 108,
+   "chapter": "線性代數／特徵值與特徵向量",
+   "audit_status": "verified",
+   "pitfalls": [
+    "第 2 行全為 \\(0\\)，所以 \\(\\lambda=0\\) 是特徵值（\\(A\\) 不可逆），不可漏掉。",
+    "\\(\\lambda=3\\) 的特徵向量 \\((0,2,3)^T\\) 需同時滿足第 2 列 \\(-3v_2+2v_3=0\\)，不是 \\((0,0,1)^T\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 108,
+   "chapter": "向量分析／梯度與方向導數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "方向 \\(3\\hat i-4\\hat k\\) 的長度是 \\(5\\)，未化為單位向量會得 \\(-2\\)。",
+    "方向中沒有 \\(\\hat j\\) 分量，\\(\\hat u\\) 的 \\(y\\) 分量是 \\(0\\)，不要把 \\(-4\\hat k\\) 當成 \\(-4\\hat j\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 108,
+   "chapter": "向量分析／散度定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "散度定理只適用封閉曲面，通量取外法向；單位球體積是 \\(\\tfrac43\\pi r^3\\)，不是 \\(\\pi r^2\\) 或 \\(4\\pi r^2\\)。",
+    "通量是純量；\\(\\vec F\\cdot\\hat n=x^2+y^2+z^2\\) 在 \\(r=1\\) 的球面上恆為 1，別把它當成還要積分的函數。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 108,
+   "chapter": "複變函數／留數定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "圓心在 \\(1\\) 不表示 \\(-1\\) 也在圓內；兩圓各只含一個極點。",
+    "順時針走向時兩個答案同時變號。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-03-6",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 108,
+   "chapter": "機率論／期望值與變異數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "第（三）小題問的是標準差，\\(144\\) 是變異數，最後要開根號得 \\(12\\)。",
+    "\\(E[X^2]\\ne[E(X)]^2=4\\)；兩者差正是 \\(\\operatorname{Var}(X)=9\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 109,
+   "chapter": "常微分方程／常係數非齊次方程",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 109,
+   "chapter": "重積分／交換積分次序",
+   "audit_status": "verified",
+   "pitfalls": [
+    "區域是拋物線 \\(y=x^2\\) 上方、\\(y=4\\) 下方；畫成拋物線下方會得不可積的式子。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 109,
+   "chapter": "機率統計／聯合機率密度",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 109,
+   "chapter": "傅立葉級數",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 109,
+   "chapter": "線性代數／矩陣反矩陣",
+   "audit_status": "verified",
+   "pitfalls": [
+    "伴隨矩陣是餘因子矩陣的轉置；漏轉置會得 \\(C/100\\)。",
+    "\\(C_{12},C_{21},C_{23},C_{32}\\) 帶負號，最容易漏。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 110,
+   "chapter": "拉普拉斯轉換／卷積積分方程",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 110,
+   "chapter": "常微分方程／一階非線性方程",
+   "audit_status": "verified",
+   "pitfalls": [
+    "除以 \\(y^2\\) 時遺失 \\(y\\equiv0\\)，且它不屬於任何有限 \\(C\\) 的通解族。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 110,
+   "chapter": "傅立葉級數",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "常數項是 \\(\\frac{a_0}{2}=-\\frac{\\pi^2}{3}\\)，誤寫 \\(a_0\\) 會差一倍。",
+    "\\(x\\) 項只貢獻 \\(b_n\\)、\\(-x^2\\) 項只貢獻 \\(a_n\\)；混算時常把 \\(\\int x\\cos nx\\) 誤當非零。"
+   ],
+   "conditions": "官方題幹只給 \\(f(x)=x-x^2\\)，未指定展開區間與週期，上式採最常見的 \\((-\\pi,\\pi)\\)。若改取 \\((-L,L)\\)、週期 \\(2L\\)，同法得\n\\[\n\\frac{a_0}{2}=-\\frac{L^2}{3},\\qquad a_n=-\\frac{4L^2(-1)^n}{n^2\\pi^2},\\qquad b_n=\\frac{2L(-1)^{n+1}}{n\\pi},\n\\]\n展開於 \\(\\cos\\frac{n\\pi x}{L}\\)、\\(\\sin\\frac{n\\pi x}{L}\\)；\\(L=\\pi\\) 時即回到主解。"
+  },
+  {
+   "qid": "EE-110-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 110,
+   "chapter": "向量分析／線積分",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 110,
+   "chapter": "向量分析／梯度與方向導數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "未把方向 \\((1,-2,1)\\) 單位化，會得 \\(-6\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-03-6",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 110,
+   "chapter": "線性代數／特徵值與相似對角化",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(P\\) 的欄順序必須與對角矩陣中特徵值順序一致。",
+    "特徵向量要寫成三維（含 \\(y\\) 分量 0），不能只寫 \\(x,z\\) 子區塊的二維向量。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-03-7",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 110,
+   "chapter": "機率論／連續型隨機變數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "未先由正規化求 \\(a\\)，直接以 \\(x+1\\) 當密度，\\(E[X]\\) 會得 \\(14/3\\)，變異數 \\(20/3-(14/3)^2\\) 甚至為負。",
+    "把 \\(E[X^2]=\\frac53\\) 當成變異數。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 111,
+   "chapter": "常微分方程／降階法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "未先除以 \\(x^2-x\\)，把 \\(P\\) 誤取為 \\(-2x\\)，積分因子就錯。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 111,
+   "chapter": "拉普拉斯轉換／反轉換（對數函數）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "由 \\(-F'(s)\\) 反轉換得到的是 \\(tf(t)\\)，忘記再除以 \\(t\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 111,
+   "chapter": "複變函數／留數定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把圓外的 \\(z=-3\\) 也計入留數和。",
+    "（二）的 \\(z=1\\) 是二階極點，仍用一階公式 \\(\\lim(z-1)f\\) 會發散。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 111,
+   "chapter": "線性代數／奇異值與 Rayleigh 商",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把奇異值寫成 \\(\\sqrt{2\\pm\\sqrt2}\\)（對 \\(A\\) 的特徵值再開根號）；應是 \\(A^TA\\) 特徵值的平方根。",
+    "（二）只寫特徵值而未說明 \\(A\\) 對稱、約束為單位向量，極值論據不完整。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 111,
+   "chapter": "向量分析／散度、旋度與保守場線積分",
+   "audit_status": "verified",
+   "pitfalls": [
+    "旋度 \\(\\vec j\\) 分量是 \\(\\partial_zF_1-\\partial_xF_3\\)，順序寫反會整項變號。",
+    "\\(4\\cos(xyz)\\) 對 \\(x\\) 偏微分要乘鏈鎖因子 \\(yz\\)，得 \\(-4yz\\sin(xyz)\\)。",
+    "（二）未先驗證保守場就直接用端點相減，論據不完整。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-03-6",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 111,
+   "chapter": "機率統計／連續型隨機變數動差",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(\\int_1^2x^2(2-x)dx\\) 代上下限出錯（應為 \\(\\frac{16}{3}-4-\\frac23+\\frac14=\\frac{11}{12}\\)）。",
+    "把 \\(E[X^2]=\\frac76\\) 直接當成變異數。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 112,
+   "chapter": "拉普拉斯轉換／矩形脈衝",
+   "audit_status": "verified",
+   "pitfalls": [
+    "二次式未先提出 2，誤寫 \\((s+\\tfrac12)^2+\\cdots\\)，阻尼與頻率都錯（正確 \\(e^{-t/4}\\)、\\(\\omega=\\sqrt{15}/4\\)）。",
+    "平移後只寫 \\(\\Phi(t-5)-\\Phi(t-20)\\)，漏掉 \\(u(t-5)\\)、\\(u(t-20)\\) 使 \\(t<5\\) 時不為 0。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 112,
+   "chapter": "傅立葉級數／週期四",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "常數項慣例混用：寫成 \\(a_0/2\\) 時 \\(a_0\\) 應為 4，不可同時寫 \\(a_0=2\\) 又除以 2。",
+    "偶函數仍去算 \\(b_n\\) 或 \\(a_n\\) 少乘 2（半區間積分要乘 \\(2/L\\)）。"
+   ],
+   "conditions": "題面兩段定義合計 \\([-2,4)\\) 長 6，與 \\(f(x+4)=f(x)\\) 的週期 4 衝突：在 \\([-2,0)\\) 上 \\(-2x\\) 與週期延拓的 \\(2(x+4)\\) 不同。上解假設第二段應為 \\(0\\le x<2\\)（基本區間 \\([-2,2)\\)）。若改取完整一週期的 \\(f=2x\\)（\\(0\\le x<4\\)）鋸齒波，則 \\(a_0=4\\)、\\(a_n=0\\)、\\(b_n=-\\dfrac{8}{n\\pi}\\)，即 \\(f\\sim4-\\dfrac8\\pi\\sum_{n\\ge1}\\dfrac{1}{n}\\sin\\dfrac{n\\pi x}{2}\\)。作答時應寫明所採的基本區間。"
+  },
+  {
+   "qid": "EE-112-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 112,
+   "chapter": "機率／獨立事件",
+   "audit_status": "verified",
+   "pitfalls": [
+    "三人命中率直接平均 \\((0.75+0.72+0.70)/3=0.7233\\)，未依發數加權。",
+    "（二）分母只用乙的發數或寫成 \\(53/163\\)，忽略需以命中數 \\(n_ip_i\\) 加權。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 112,
+   "chapter": "複變函數／解析函數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "對 \\(y\\) 積分後把 \\(g(x)\\) 直接當常數，沒用 \\(v_x=-u_y\\) 確認 \\(g'(x)=0\\)。",
+    "C–R 符號寫成 \\(u_y=v_x\\)，會得到 \\(v\\) 差一個負號。",
+    "任意常數只能加在 \\(v\\)（實數 \\(C\\)），不可改動題給的 \\(u\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 112,
+   "chapter": "向量微積分／曲線幾何",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-03-6",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 112,
+   "chapter": "線性代數／線性方程組與特徵值",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\([A\\ b]\\) 是 \\(3\\times4\\) 增廣係數，\\(b\\) 是第 4 欄的係數而非右端；誤當成 \\(Ax=b\\) 會解錯題。",
+    "第三列與前兩列相依，只有兩條獨立方程，解集須含兩個自由參數。",
+    "單位特徵向量要除以範數 \\(\\sqrt{10}\\)、\\(\\sqrt{5\\pm2\\sqrt3}\\)，只給未正規化向量會扣分。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 113,
+   "chapter": "常微分方程／參數變異法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "特徵方程 \\(r^2-4r+5=0\\) 的根是 \\(2\\pm i\\)；正負號弄反成 \\(-2\\pm i\\) 會使齊次解與 \\(e^{2x}\\csc x\\) 無法配合。",
+    "Wronskian 是 \\(e^{4x}\\) 而非 1；漏掉時 \\(u_1',u_2'\\) 會殘留 \\(e^{-2x}\\) 因子而無法積分。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 113,
+   "chapter": "拉普拉斯轉換",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 113,
+   "chapter": "複變函數／留數定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "換元後漏乘 \\(dx=du/2\\)，答案變成 \\(\\pi\\)。",
+    "把四個極點的留數全加（總和為 0），上半平面只含 \\(e^{i\\pi/4},e^{i3\\pi/4}\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 113,
+   "chapter": "線性代數／Lyapunov 矩陣方程",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只算 \\(PA\\) 漏掉 \\(A^TP\\)，非對角元素會少一半而解出錯的 \\(p_1\\)。",
+    "右端是 \\(-I\\)：對角方程應為 \\(-10p_2=-1\\)，寫成 \\(+1\\) 會得 \\(p_2<0\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 113,
+   "chapter": "向量微積分／切線與散度定理",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(\\|r'\\|^2=9+64t^2+1024t^6\\) 須逐項平方；把 \\((8t)^2\\) 寫成 \\(8t^2\\) 會使 \\(\\mathbf T\\) 不是單位向量。",
+    "\\(-z\\,\\mathbf k\\) 的散度貢獻是 \\(-1\\)，漏掉負號得 \\(11\\cdot36\\pi=396\\pi\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-03-6",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 113,
+   "chapter": "機率統計／聯合機率密度與動差",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把指數 \\(e^{-x-y/2}\\) 誤讀成 \\(e^{-x-2y}\\)，會得 \\(k=2\\)、\\(E[Y]=1/2\\)。",
+    "未先說明 \\(p(x,y)=p_X(x)p_Y(y)\\) 就把 \\(E[X^3Y^2]\\) 拆成乘積。",
+    "\\(Y\\) 的 rate 是 \\(1/2\\)：\\(E[Y^2]=2/(1/2)^2=8\\)，誤用 rate 2 得 \\(1/2\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-03-1",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 114,
+   "chapter": "機率統計／全機率公式",
+   "audit_status": "verified",
+   "pitfalls": [
+    "三個條件率直接平均得 \\((1+2+5)/3=2.67\\%\\)，漏乘帳戶比例 \\(0.7,0.2,0.1\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-03-2",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 114,
+   "chapter": "複變函數／本性奇點與留數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把常數項或 \\(z^{-2}\\) 係數 1 當成留數，得出 \\(2\\pi i\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-03-3",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 114,
+   "chapter": "常微分方程／重根二階線性 ODE",
+   "audit_status": "verified",
+   "pitfalls": [
+    "重根只寫 \\(C_1e^{-2t}+C_2e^{-2t}\\)（兩項相依）；或把 \\(y'(0)=3\\) 直接當 \\(C_2=3\\)，漏掉 \\(-2C_1\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-03-4",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 114,
+   "chapter": "傅立葉級數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 \\(a_0=\\pi/2\\) 直接當常數項，正確常數項是 \\(a_0/2=\\pi/4\\)。",
+    "\\(b_n\\) 誤寫成 \\((-1)^{n+1}/(\\pi n)\\)。",
+    "在 \\(x=\\pi\\) 直接寫級數值等於 \\(f(\\pi)=\\pi\\)，忽略跳躍點收斂到平均值。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-03-5",
+   "subject_id": "03",
+   "subject": "工程數學",
+   "year": 114,
+   "chapter": "線性代數／完整解與零空間",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(A\\) 的第 1 欄全為 0，\\(x_1\\) 是自由變數；漏掉 \\((1,0,0,0)^T\\) 會使 \\(\\dim N(A)\\) 只剩 1。",
+    "由 \\(x_2-x_3=1\\) 移項誤得 \\(x_3=1-x_2\\)，特解應為 \\(x_3=-1\\)（\\(x_2=0\\)）。",
+    "只給特解或只給零空間，未寫成「特解＋零空間」的完整解。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 104,
+   "chapter": "磁路 KCL／KVL 與磁阻網路",
+   "audit_status": "verified",
+   "pitfalls": [
+    "磁通連續：每個節點流入等於流出（非單一迴路 KVL）；只列單一迴路會漏掉其他並聯路徑。",
+    "極性依右手定則：\\(i_1\\) 由上方引線向右、在上輻條前方繞過，磁動勢向上，與 \\(\\phi_1\\) 同向；\\(i_2\\) 由左側引線向上、在下弧前方繞過，磁動勢向左（\\(B\\to A\\)），與 \\(\\phi_2\\) 同向，故兩式皆取正號。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 104,
+   "chapter": "變壓器頻率降低、伏赫比與磁飽和",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只看 \\(I_2=10\\ \\mathrm A\\) 等於額定就判定「正常滿載」，忽略磁通升為 1.2 倍造成的飽和與激磁電流。",
+    "以 \\(P_e\\propto f^2\\) 推論渦流損降為 \\(0.69\\) 倍；\\(B_m\\) 同時升為 1.2 倍，電壓不變時渦流損實際不變。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 104,
+   "chapter": "永磁直流電動機（電壓、電流、效率）",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "由 \\(T\\) 固定直接得 \\(I_a\\) 不變，不可由 612 rpm 反推電流（與轉矩不變矛盾，見條件與疑義）。",
+    "效率為 \\(P_{out}/P_{in}\\)，輸入功率 \\(V_tI_a\\) 含銅損 0.2 W，不是 \\(E_aI_a\\)。"
+   ],
+   "conditions": "題幹給的 612 rpm 與「轉矩不變且無機械損」互不相容：\\(I_a=2\\ \\mathrm A\\) 時 \\(E_{a2}=3.00\\ \\mathrm V\\)，\\(n_2=600(3.00/2.90)=620.7\\ \\mathrm{rpm}\\)。本解依「轉矩不變」取 \\(I_a=2.0\\ \\mathrm A\\)、\\(\\eta=96.77\\%\\)。若改以 612 rpm 為準（\\(E_{a2}=2.958\\ \\mathrm V\\)），則 \\(I_a=(3.1-2.958)/0.05=2.84\\ \\mathrm A\\)、\\(\\eta=2.958/3.1=95.42\\%\\)，但此時轉矩已增加，與題設衝突。"
+  },
+  {
+   "qid": "EE-104-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 104,
+   "chapter": "感應電動機標么等效電路與起動電流",
+   "audit_status": "verified",
+   "pitfalls": [
+    "起動時只有 $(1-s)r_r/s$ 為零，串聯的 \\(r_r\\) 不能省；寫成 \\(Z_r=jx_r\\) 會得約 11 A，偏高。",
+    "Y 接線電流為 \\(I_b=S_b/(\\sqrt3V_b)\\)，不是 \\(S_b/V_b\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 104,
+   "chapter": "同步發電機負載特性與端電壓",
+   "audit_status": "verified",
+   "pitfalls": [
+    "滯後負載使電樞反應去磁，端電壓低於額定；若沿用 \\(E_f=V_\\phi+jX_sI\\) 而 \\(I\\) 與 \\(V\\) 同相，會得 380 V。",
+    "\\(E_f\\) 由「電阻負載、額定電壓」得出，不是由 0.8 滯後條件得出。"
+   ],
+   "conditions": "「6.6 kVA 0.8 滯後負載」可有三種讀法，皆與 370 V 差 0.2% 以內：恆定阻抗（上式）370.0 V；負載恆定取 6.6 kVA（電流隨電壓 \\(I=6600/3V_\\phi\\) 變化）369.4 V；電流固定為額定 10.028 A 369.7 V。"
+  },
+  {
+   "qid": "EE-105-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 105,
+   "chapter": "電感電壓電流關係與方波響應",
+   "audit_status": "verified",
+   "pitfalls": [
+    "零交越為「正轉負」，第一段電壓為 \\(-10\\ \\mathrm V\\)，電流先往負方向；畫成先上升即符號錯。",
+    "電流是三角波（電壓積分），不是方波，也不是正弦。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 105,
+   "chapter": "變壓器非額定電壓操作與容量",
+   "audit_status": "verified",
+   "pitfalls": [
+    "容量不可仍答 12 kVA；電壓降低但電流上限不變，\\(S=VI\\) 隨電壓降低。",
+    "高壓側是 240 V 繞組，輸出為降壓 55 V，不是升壓到 220 V。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 105,
+   "chapter": "感應電動機轉矩與起動特性",
+   "audit_status": "verified",
+   "pitfalls": [
+    "外接電阻只改變 \\(s_{max}\\)，\\(T_{max}\\) 不變；寫成「電阻愈大轉矩愈大」會漏掉 \\(r>\\sqrt{R_{th}^2+X^2}\\) 時轉矩反降。",
+    "兩個效果須分別由 \\(I\\) 與 \\(T\\) 的式子說明：電流下降靠阻抗增加，轉矩上升靠 \\(dT_{st}/dr>0\\) 的條件 \\(r<\\sqrt{R_{th}^2+X^2}\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 105,
+   "chapter": "同步電動機相量圖與 V 形曲線",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電動機與發電機的相量式符號相反：電動機 \\(\\mathbf E_f=\\mathbf V-jX_s\\mathbf I\\)，若用 \\(+\\) 號會把超前判成欠激磁而得到「增加 \\(I_f\\)」。",
+    "調整時有功功率不變，須說明 \\(E_f\\sin\\delta\\) 為定值，\\(\\delta\\) 隨 \\(E_f\\) 減小而增大，不可畫成 \\(\\delta\\) 不變。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 105,
+   "chapter": "直流電機 (分激/串激特性與調速)",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "減磁後電樞電流不是「半載就減半」：磁通減半時 \\(I_a\\) 須為 600 A 才得半額定轉矩；若仍用 300 A 則 \\(E_{a2}=210\\ \\mathrm V\\)，轉速誤為 \\(1400\\ \\mathrm{rpm}\\)。",
+    "磁通比隨飽和而偏離 0.5 時結果改變，見下表。"
+   ],
+   "conditions": "題幹未給磁化曲線也未註明未飽和，\\(r\\) 無法由 \\(I_f=6\\ \\mathrm A\\) 唯一決定；上式 \\(r=0.5\\) 為明示假設。\n\n| \\(r=\\Phi_2/\\Phi_1\\) | \\(I_{a2}\\) (A) | \\(E_{a2}\\) (V) | \\(n_2\\) (rpm) |\n|---:|---:|---:|---:|\n| 0.45 | 666.667 | 173.333 | 1283.951 |\n| 0.50 | 600.000 | 180.000 | 1200.000 |\n| 0.55 | 545.455 | 185.455 | 1123.967 |\n| 0.60 | 500.000 | 190.000 | 1055.556 |\n\n每列皆滿足 \\(rI_{a2}=300\\ \\mathrm A\\) 與 \\(E_{a2}=240-0.1I_{a2}\\)。"
+  },
+  {
+   "qid": "EE-106-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 106,
+   "chapter": "電磁鐵吸力、線圈電壓與磁場儲能",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只算一個氣隙的吸力（\\(F=B^2A/2\\mu_0\\)），\\(B\\) 變成 0.7436 T，電壓變成 14.8 V。",
+    "安培定律的磁路長是兩個氣隙，共 \\(2g=2\\times10^{-3}\\ \\mathrm m\\)；只用 \\(g\\) 會讓電流與電壓少一半（5.23 V）。",
+    "儲能誤用 \\(\\tfrac12Fg=0.275\\ \\mathrm J\\)；兩氣隙總場能等於 \\(Fg\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 106,
+   "chapter": "雙繞組變壓器改接自耦變壓器容量與效率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以 2400 V 繞組電流 20.83 A 乘 2640 V，得 55 kVA（限制電流是串聯 240 V 繞組的 208.33 A）。",
+    "把 98% 直接當成自耦效率；損耗不變、輸出變 11 倍，效率提高到 99.81%。",
+    "損耗用 \\(50(1-0.98)=1.0\\ \\mathrm{kW}\\)：98% 效率是輸出對輸入，損耗為 \\(50/0.98-50\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 106,
+   "chapter": "直流電機（並激馬達轉矩與調速）",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "直接用 200 V 除以無載角速度求 \\(K\\Phi\\)，漏掉無載電樞壓降 \\(4(0.5)=2\\ \\mathrm V\\)（正確 \\(E_{a0}=198\\ \\mathrm V\\)）。",
+    "求得 \\(I_a\\) 後仍用 198 V 算轉速，沒有重算負載反電勢。",
+    "把外接負載轉矩直接當電磁轉矩，卻又承認無載有 4 A 損失電流；要先寫明採用哪一種損失模型。"
+   ],
+   "conditions": "題面只說忽略磁飽和與電樞反應，沒有說忽略旋轉損失，也沒有給損失轉矩隨轉速的關係；無載點只能固定該點的損失，不能單獨推出其在所有轉速的函數，因此沒有唯一數值解；與無載點相容的模型不只一種。\n\n| 模型 | 電樞電流 | 轉速 |\n| --- | --- | --- |\n| 空載損失轉矩近似不變（主解） | 56.89 A | 866.4 rpm |\n| 旋轉損失忽略（\\(T_e=100\\ \\mathrm{N\\cdot m}\\)） | 52.89 A | 876.5 rpm |\n| 旋轉損失功率 792 W 不變 | 57.51 A | 864.9 rpm |"
+  },
+  {
+   "qid": "EE-106-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 106,
+   "chapter": "三相感應電動機功率流與效率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 \\(P_{conv}=18\\,349\\ \\mathrm W\\) 當輸出，沒有再扣旋轉損 500 W；它是電磁轉換功率，不是軸輸出。",
+    "輸入功率漏乘 \\(\\sqrt3\\) 或用 \\(\\sin\\theta\\)（0.5）取代功因 0.866。",
+    "將 25 hp 銘牌（18.65 kW）當作實際輸出；本題實際負載 23.93 hp。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 106,
+   "chapter": "同步發電機電壓調整率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "額定電流四捨五入成 25.0 A，會把超前 VR 算成 −0.31%（與 −0.357% 差約 14%）；電流宜保留 24.98 A。",
+    "超前功因的 \\(\\sin\\theta\\) 取負號：電流相角 \\(+36.87^\\circ\\)，\\(jX_sI_a\\) 的實部變成 −83.9 V，抵銷了電壓壓降。",
+    "把 \\(R_a\\) 漏掉或電壓調整率分母用 \\(E_f\\)；分母是額定端電壓 \\(V_\\phi\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 107,
+   "chapter": "三相變壓器 Y–Y 接線、供電電流與利用率",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "接成 Δ 或 V–V：Y 一次側相電壓 6.58 kV 才對應 6600 V 繞組。",
+    "線電流用單相公式 \\(S/V\\) 或漏除 \\(\\sqrt3\\)，得 15.1 A。",
+    "把功因 0.8 乘進視在功率：利用率以 kVA 計，應為 55/66，不是 44/66。"
+   ],
+   "conditions": "題目沒有說明電壓降到 10.92 kV 時負載是定視在功率還是定阻抗。若負載為額定 165 kVA、380 V 的定阻抗，二次線電壓為 \\(10\\,920/30=364.0\\ \\mathrm V\\)，負載實際只吃 \\(S=165(364/380)^2=151.40\\ \\mathrm{kVA}\\)，則 \\(I_L=151.40\\times10^3/(\\sqrt3\\cdot10\\,920)=8.005\\ \\mathrm A\\)，利用率 \\(151.40/198=76.46\\%\\)。另外，「其供給之線電流」也可解讀為二次側供給負載的線電流：定 165 kVA 為 261.7 A，定阻抗為 \\(151.40\\times10^3/(\\sqrt3\\cdot364.0)=240.1\\ \\mathrm A\\)。本解主答案採定 165 kVA 的一次側線電流；各模型答案不同，須依命題口徑擇一。"
+  },
+  {
+   "qid": "EE-107-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 107,
+   "chapter": "直流串激電動機磁化曲線、轉速與電磁轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把磁化曲線的 40 V、48 V 當成工作點反電勢，漏掉 \\(V_t-I_aR_{AS}\\) 的 0.5 V 與 10 V 壓降。",
+    "把兩工作點視為同一磁通（例如重載也用 40 V 曲線值），重載會得 \\(n=1200(40/40)=1200\\ \\mathrm{rpm}\\)，正確應用 48 V 曲線值得 1000 rpm。",
+    "以 rpm 直接除 \\(P\\) 求轉矩，漏 \\(2\\pi/60\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 107,
+   "chapter": "感應電動機戴維寧等效與最大轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "同步轉速用 3600 rpm（忘記 4 極），或轉子轉速誤寫 1755 rpm（那是額定轉速，不是 5% 滑差）。",
+    "氣隙功率漏用 \\(R_2'/s=16\\ \\Omega\\)，改用 0.8 Ω。",
+    "最大轉矩把 \\(R_{TH}\\) 或 \\(X_2'\\) 漏掉；\\(s_{max}\\) 的分母要含 \\(X_{TH}+X_2'=8\\ \\Omega\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 107,
+   "chapter": "同步發電機無載電壓與滿載效率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 PF 0.8 落後的 \\(jX_sI_a\\) 當成與 \\(V_\\phi\\) 同相或反向，只做代數相加：\\(219.39+15.19=234.6\\ \\mathrm V\\)，無載電壓變成 406 V。",
+    "計入電樞銅損：題目已明示電樞電阻與銅損皆不計，效率分母只加 3 kW＋2 kW。",
+    "無載電壓忘記乘回 \\(\\sqrt3\\)，答成 228.83 V（相電壓）。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 107,
+   "chapter": "感應電動機變頻 V/f 控制與轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 10 kW 當軸功率（漏乘效率 90%）得 67.01 N·m；或用 1500 rpm 當轉子轉速得 57.30 N·m。",
+    "以電壓與頻率的平方成比例（或 \\(V\\propto f^2\\)）算 \\(V_2\\)；固定 V/f 是一次方比例。",
+    "30 Hz 轉差率改變：題目明示各頻率 \\(s\\) 固定為 5%。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 108,
+   "chapter": "自耦變壓器容量、接線與優缺點",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 480 V 與 120 V 做成相減（480−120）或把負載接在 600 V 端：此題 600 V 是 480＋120 的相加串聯。",
+    "直接用 5 kVA 當自耦容量，漏掉傳導部分；或用 480 V 繞組電流 10.42 A 乘 600 V，得 6.25 kVA（受限繞組是 120 V 串聯繞組）。",
+    "優缺點只寫「效率高」「不安全」而沒有指出本題 5 倍容量與無隔離、短路電流大的具體理由。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 108,
+   "chapter": "他激直流電動機反電勢、功率與電磁轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "套用發電機式 \\(E_a=V_t+I_aR_a\\)，得 \\(I_a=-100\\) 或符號錯誤。",
+    "以 3000 rpm 直接代入 \\(T=P/\\omega\\)，漏 \\(2\\pi/60\\)。",
+    "把 12.8 kW 當電磁功率，忘記扣電樞銅損 0.3 kW。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 108,
+   "chapter": "感應電動機等效電路、滑差與功率平衡",
+   "audit_status": "verified",
+   "pitfalls": [
+    "Y 接把線電壓 220 V 當相電壓，電流與功率差 3 倍。",
+    "氣隙功率漏用 \\(R_2'/s=7.2\\ \\Omega\\)（誤用 0.144 Ω）；或把 \\(P_{ag}\\) 當軸輸出，未乘 \\(1-s\\) 再扣 403 W。",
+    "轉矩用 1200 rpm 同步角速度：\\(P_{out}/\\omega_s=41.62\\ \\mathrm{N\\cdot m}\\)，軸轉矩須用 1176 rpm。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 108,
+   "chapter": "同步電動機功角、最大功率與相量圖",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 2300 V 當作每相電壓（漏除 \\(\\sqrt3\\)），\\(I_a\\) 與 \\(E_f\\) 都會錯。",
+    "用發電機方程 \\(\\underline E_f=\\underline V+jX_s\\underline I\\)：功因 1 時 \\(|E_f|\\) 雖相同，但得 \\(\\delta=+28.94^\\circ\\)，相量圖的 \\(E_f\\) 方向畫反。",
+    "以 30 極算同步轉速誤成 3600 rpm 或用 \\(377\\ \\mathrm{rad/s}\\) 算機械轉矩。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 108,
+   "chapter": "特殊電機結構與電樞反應",
+   "audit_status": "verified",
+   "pitfalls": [
+    "SRM 轉子畫成有繞組或永磁體，會變成其他電機。",
+    "說步進電動機「不會失步」：開迴路只是不需回授，超過保持或牽入轉矩仍會失步。",
+    "電樞反應只寫「磁通減弱」，漏掉畸變、中性面偏移與換向火花，也沒指出換向極與補償繞組各自針對的位置。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 109,
+   "chapter": "變壓器磁化電流與漏磁電抗",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以為 \\(\\mu\\to\\infty\\) 時激磁電流為 0；磁化分量為 0，但鐵損分量 0.2083 A 仍在。",
+    "用二次電壓 240 V 算 \\(R_C\\)，得 2.083 A（那是參考二次側的值）。",
+    "漏感寫成 \\(N_P/\\mathcal R_P\\) 漏掉平方，或把 \\(\\mathcal R_S\\) 配 \\(N_P\\) 當成一次側漏抗。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 109,
+   "chapter": "他激直流機發電／電動雙模式與工作點",
+   "audit_status": "verified",
+   "pitfalls": [
+    "4000 rpm 仍用 125 V 當 \\(E_a\\)；他激固定磁通時 \\(E_a\\) 與轉速成正比。",
+    "發電機式寫成 \\(V_t=E_a+I_aR_a\\)，或馬達式寫成 \\(V_t=E_a-I_aR_a\\)，方向顛倒。",
+    "（三）用輸入功率 \\(213\\times101.914\\) 除以 \\(\\omega_m\\)；題目的 21.5 kW 已是機械功率。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 109,
+   "chapter": "感應馬達等效電路、滑差與轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "轉矩除以轉子機械角速度 \\(\\omega_m\\) 卻用 \\(P_{ag}\\)（或除以 \\(\\omega_s\\) 卻用 \\(P_{conv}\\)），兩者混用。",
+    "用線電壓 220 V 當相電壓，轉矩多出 3 倍。",
+    "六極 60 Hz 同步轉速誤為 1800 rpm，使 \\(s=0.34\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 109,
+   "chapter": "三相繞組旋轉磁動勢與空間向量",
+   "audit_status": "verified",
+   "pitfalls": [
+    "合成大小寫成 \\(3NI\\) 或 \\(NI\\)；三相平衡的合成磁動勢為單相峰值的 1.5 倍。",
+    "負電流仍畫在正相軸方向，導致 \\(t=0\\) 合成為 0 或方向錯。",
+    "旋轉頻率寫成 \\(100\\pi\\ \\mathrm{Hz}\\) 或 \\(100\\ \\mathrm{Hz}\\)；\\(\\omega_e=2\\pi f\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 109,
+   "chapter": "可變磁阻電磁系統電感與共能轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只算一個氣隙（\\(\\mathcal R=g/\\mu_0A\\)），\\(L\\) 與 \\(T\\) 都多 2 倍。",
+    "\\(\\theta\\) 用度代入 \\(L(\\theta)\\)，得 \\(L(30)=40.7\\ \\mathrm{mH}\\)；必須用弧度。",
+    "用 \\(T=\\tfrac12Li^2\\) 或 \\(L(30^\\circ)\\) 直接算扭力；扭力取決於 \\(dL/d\\theta\\)。"
+   ],
+   "conditions": "題目只給轉子半徑 \\(r_1\\)，本解以 \\(r_1\\theta h\\) 為氣隙面積。若改用氣隙平均半徑 \\(r_1+g/2=2.65\\ \\mathrm{cm}\\)，係數為 \\(1.4386\\times10^{-3}\\ \\mathrm{H/rad}\\)、\\(T=0.2877\\ \\mathrm{N\\cdot m}\\)（約大 6%）；邊緣效應另忽略。"
+  },
+  {
+   "qid": "EE-110-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 110,
+   "chapter": "串聯繞組磁路之磁通密度與儲能",
+   "audit_status": "verified",
+   "pitfalls": [
+    "誤以為 \\(N_1\\) 下端接 \\(N_2\\) 上端而判成差動串聯：\\(\\mathcal F=(100-85)(0.55)=8.25\\ \\mathrm{A\\cdot t}\\)，得 \\(B=0.07603\\ \\mathrm T\\)、\\(W_m=0.4704\\ \\mathrm{mJ}\\)。",
+    "只比較兩線圈「同在柱上向上／向下」而忘了兩柱位於磁路迴圈的對邊：左柱向上與右柱向下才是同一環繞方向。",
+    "截面積換算 \\(15\\ \\mathrm{cm^2}=1.5\\times10^{-3}\\ \\mathrm{m^2}\\) 錯成 \\(1.5\\times10^{-4}\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 110,
+   "chapter": "自耦變壓器與 V–V 開放三角接線容量",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以雙繞組 30 kVA 當自耦容量，或用公共繞組電流算成 \\(380\\times136.36=51.8\\ \\mathrm{kVA}\\)；限制輸入電流的是 160 V 串聯繞組的 187.5 A。",
+    "兩繞組減極性串接只得 60 V，不是 380 V。",
+    "V–V 容量寫成 \\(2\\times71.25=142.5\\ \\mathrm{kVA}\\)；開放三角只有 \\(\\sqrt3\\) 倍單台容量。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 110,
+   "chapter": "同步電動機相量、轉矩角與電壓變動",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電動機誤用發電機式 \\(\\underline E=\\underline V+jX_s\\underline I\\)，得 \\(|E_a|=344.9\\ \\mathrm V\\)、\\(\\delta\\) 為正。",
+    "（二）沿用原電流 28.49 A 或原功因；應固定 \\(|E_a|\\) 與 \\(P\\) 先解 \\(\\delta'\\)，再求 \\(\\underline I_a'\\)。",
+    "\\(\\sin\\delta\\) 式中誤用線電壓而漏乘 3，或用 \\(V_{LL}\\) 搭配相電壓 \\(E_a\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 110,
+   "chapter": "永磁式直流電動機反電勢、轉速與轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 \\(P_{out}=2238\\ \\mathrm W\\) 當輸入功率，算成 \\(I_a=2238/180=12.43\\ \\mathrm A\\)，漏掉 \\(I_a^2R_a\\)。",
+    "二次式取大根 74.63 A，得 700 rpm、30.5 N·m。",
+    "轉矩用 rpm 直接除：\\(T=P/n\\)；須換成 \\(\\omega=2\\pi n/60\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 110,
+   "chapter": "感應電動機啟動電抗器與啟動轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "忽略 \\(X_m\\) 並聯而只用串聯阻抗 \\(0.17+j0.42\\)，啟動電流與轉矩都略偏大。",
+    "把 \\(X_{st}\\) 直接取 \\((\\sqrt3-1)|Z|=0.3283\\ \\Omega\\)，未以複數阻抗大小求解。",
+    "啟動轉矩只降為 \\(1/\\sqrt3\\)；轉矩與電流平方成正比，應為 \\(1/3\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 111,
+   "chapter": "磁路與電感",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把圖中的 \\(2a\\) 當半徑，截面積寫成 \\(\\pi(2a)^2\\)，多出 4 倍。",
+    "磁路長誤用直徑 \\(2r\\) 或截面周長；環形磁路長是平均圓周 \\(2\\pi r\\)。",
+    "只列「增加匝數」一類方法湊四點；材料（\\(\\mu\\)）與三個幾何量（\\(N,a,r\\)）應各自對應公式中的一項。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 111,
+   "chapter": "感應電動機轉矩—轉差率與轉子電阻調速",
+   "audit_status": "verified",
+   "pitfalls": [
+    "二次式取到 \\(s=1.964\\) 而得負轉速；馬達帶負載應取小根。",
+    "誤認 \\(R_2\\) 加倍轉速不變；\\(R_2\\) 不改變的是最大轉矩 \\(T_{max}\\)，同一負載下 \\(s\\) 與 \\(R_2\\) 成正比。",
+    "（三）把比值寫成 \\(s_1/s_3=0.35\\)；加電阻降速時 \\(R_2'/R_2>1\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 111,
+   "chapter": "直流機與複激發電機",
+   "audit_status": "verified",
+   "pitfalls": [
+    "無載直接把表上最大值 222 V 當端電壓而不與場阻線求交點；最大值發生在 \\(R_{fc}=0\\) 的場阻線交點。",
+    "長分路滿載漏加並激電流，寫成 \\(I_a=I_L=100\\ \\mathrm A\\)。",
+    "積複激卻把串、並激安匝相減，或把 \\(I_{f,eq}\\) 當成實際並激支路電流。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 111,
+   "chapter": "同步發電機等效電路與短路比",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "用發電機式卻寫成 \\(\\underline E=\\underline V-jX_s\\underline I\\)，得 \\(|E|\\) 偏小、VR 錯。",
+    "把題目的 200 A 當成 OCC 額定電壓場電流；200 A 是滿載 0.85 落後時的場電流，若它在無載也只產生額定電壓，第（一）題 VR 會是 0。",
+    "SCR 寫反成 \\(I_{f,\\mathrm{SCC}}/I_{f,\\mathrm{OCC}}\\)，得 \\(I_{f,\\mathrm{SCC}}>I_{f,\\mathrm{OCC}}\\)。"
+   ],
+   "conditions": "- 官方裁切圖未附完整曲線資料（無 OCC／SCC 圖或數據），第（二）（三）小題只能在「飽和同步電抗對應的線性化 OCC」假設下得唯一值；若另給實際 OCC，應以曲線讀值取代 118.595 A。\n- 參考書主解：\\(I_a=1312.16\\angle-31.8^\\circ\\ \\mathrm A\\)、\\(E_f=10710.78\\angle27.94^\\circ\\) V/相、VR = 68.87%，\\(I_{f,\\mathrm{OCC}}=200\\ \\mathrm A\\)，\\(I_{f,\\mathrm{SCC}}=0.93\\times200\\)，即 186 A。與獨立解不一致處：其 \\(E_f\\) 代回 \\((10710.78-6350.85)/6350.85=68.65\\%\\)，非 68.87%；其 OCC 取 200 A 與第（一）題「200 A 時無載電壓為 10.71 kV/相」互相矛盾，186 A 隨之偏高。參考書數值僅作對照。"
+  },
+  {
+   "qid": "EE-111-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 111,
+   "chapter": "同步電容器功率因數改善與同步阻抗",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以 \\(P/0.85=3529\\ \\mathrm{kVA}\\) 當同步機容量；同步電容器只承擔無效功率 1859 kvar。",
+    "電動機式寫成 \\(\\underline E=\\underline V+jX_s\\underline I\\) 且電流取超前，得 \\(E_f=581\\ \\mathrm V\\)（欠激磁），與「當電容器」矛盾。",
+    "相電壓與線電壓混用：用 2300 V 直接加 \\(X_sI\\)，答成 3047 V。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 112,
+   "chapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 1 (Magnetic circuits and inductance)",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 220 V 全部當成電感電壓：\\(220\\sqrt2/(377\\times70)=11.8\\times10^{-3}\\ \\mathrm{Wb}\\)，忽略 60 Ω 分壓。",
+    "用電流有效值求磁通，少乘 \\(\\sqrt2\\)，得 \\(1.87\\times10^{-3}\\ \\mathrm{Wb}\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 112,
+   "chapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 2 (Transformers)",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以 \\(V_{oc}/I_{oc}=654\\ \\Omega\\) 當 \\(X_m\\)，忽略鐵損分量。",
+    "用高壓側 230 kV 求基準阻抗（\\(Z_b=10.58\\ \\mathrm{k\\Omega}\\)），卻把參數畫在低壓側。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 112,
+   "chapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 5 (Synchronous motors)",
+   "audit_status": "verified",
+   "pitfalls": [
+    "用發電機方程 \\(\\mathbf V+jX\\mathbf I\\)，使 \\(\\delta\\) 變號、（二）的 \\(|E_A|\\) 變小。",
+    "PF 改變後仍取 50 A，違反定負載條件。"
+   ],
+   "conditions": "題目未給磁化曲線，（二）採未飽和線性關係 \\(E_A\\propto I_f\\)；若鐵心已飽和，所需激磁電流會大於 3.69 A。"
+  },
+  {
+   "qid": "EE-112-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 112,
+   "chapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 6 (Induction motors)",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把線電流 \\(175.81\\ \\mathrm A\\) 直接當 Δ 支路電流，\\(C\\) 大 \\(\\sqrt3\\) 倍（\\(1227\\ \\mu\\mathrm F\\)）。",
+    "取正根 \\(+108.05\\ \\mathrm A\\)（超前），電容變為 \\(1579\\ \\mu\\mathrm F\\)，違反「落後」條件。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 112,
+   "chapter": "Chapman Electric Machinery Fundamentals, 5e, Ch. 8 (DC motors and generators)",
+   "audit_status": "verified",
+   "pitfalls": [
+    "用 \\(I_f=5\\ \\mathrm A\\) 讀 250 V 而忽略電樞反應，得 \\(n=1116\\ \\mathrm{rpm}\\)；去磁使磁通下降，轉速應上升。",
+    "把磁化曲線讀值 200 V 直接當負載 \\(E_A\\)；\\(E_A\\) 須由電樞 KVL 求得 232.6 V。"
+   ],
+   "conditions": "\\(E_{A0}\\) 由圖讀取，約 \\(\\pm2\\ \\mathrm V\\) 的讀圖誤差會使轉速變動約 \\(\\pm1\\%\\)（約 1382–1410 rpm），轉矩隨 \\(K\\phi\\) 同比例變動。"
+  },
+  {
+   "qid": "EE-113-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 113,
+   "chapter": "變壓器磁路與等效電路",
+   "audit_status": "verified",
+   "pitfalls": [
+    "激磁電感寫成 \\(N_1N_2/\\mathcal R_M\\)（那是互感 \\(M\\)）；折算至一次側的 \\(L_m\\) 為 \\(N_1^2/\\mathcal R_M\\)。",
+    "鐵損電阻 \\(R_c\\) 畫成串聯；它應與 \\(X_m\\) 並聯在激磁支路。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 113,
+   "chapter": "同步發電機與標么系統",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以相電壓 \\(4200/\\sqrt3\\) 配三相容量求基準，\\(Z_b\\) 錯為 9.8 Ω。",
+    "用 \\(|Z_s|=20.1\\ \\Omega\\) 算銅損；銅損只取實部 \\(R_a=2\\ \\Omega\\)。"
+   ],
+   "conditions": "題目給總效率 0.9，但未分列鐵損、機械損，「所產生的電機轉矩」可有兩種解讀：主解為電磁轉矩 3081 N·m；若指原動機軸端輸入轉矩，\\(T_{shaft}=(540/0.9)\\times10^3/188.50=3183\\ \\mathrm{N\\cdot m}\\)。作答時應寫明採用的定義。"
+  },
+  {
+   "qid": "EE-113-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 113,
+   "chapter": "串激直流電動機與分流調速",
+   "audit_status": "verified",
+   "pitfalls": [
+    "忘記分流後場電流只剩 \\(I_a/2\\)，直接用 \\(T\\propto I_a^2\\) 得 \\(I_{a2}=84.9\\ \\mathrm A\\)。",
+    "分流後電樞迴路電阻應為 \\(0.1+0.1\\parallel0.1=0.15\\ \\Omega\\)，不是 0.2 Ω。"
+   ],
+   "conditions": "- 題目未給磁化曲線，也未聲明未飽和。但分流後場電流恰回到 \\(60\\ \\mathrm A\\)，\\(I_{a2}=120\\ \\mathrm A\\) 對任何單調磁化曲線都滿足扭矩加倍，磁通不變，故三個答案不依賴線性假設；前提是題示「忽略電樞反應」。"
+  },
+  {
+   "qid": "EE-113-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 113,
+   "chapter": "三相感應馬達等效電路與轉矩",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "用電氣同步速 \\(377\\ \\mathrm{rad/s}\\) 或 1200 rpm 除機械功率；應用實際轉速 1120 rpm（或以氣隙功率除 \\(\\omega_s\\)）。",
+    "效率分母只放 \\(R_2/s\\) 而漏掉 \\(R_1\\) 銅損。"
+   ],
+   "conditions": "- 來源矛盾：圖示 0.2/s（\\(R_2=0.2\\ \\Omega\\)），提示文字卻寫機械負載電阻 0.1(1-s)/s（對應 \\(R_2=0.1\\ \\Omega\\)）。兩者不能同時成立。主解採電路圖。\n- 若以提示為準，令 \\(R_2=0.1\\ \\Omega\\) 全面重算，完整重算的第二組結果：\\(I_{st}=200.83\\ \\mathrm A\\)、\\(I_{fl}=74.33\\ \\mathrm A\\)、pf \\(0.936\\) 滯後、\\(T=197.85\\ \\mathrm{N\\cdot m}\\)、\\(\\eta=87.50\\%\\)、\\(s_{max}=0.1644\\)、\\(I_{Tmax}=136.83\\ \\mathrm A\\)、計入激磁之啟動電流 \\(203.69\\ \\mathrm A\\)。\n- 參考書主解採混合慣例：電流用圖示 \\(0.2/s\\)（啟動電流 189.35 A、滿載 40.23 A、pf 0.98），機械功率卻用 \\(0.1(1-s)/s\\) 與 \\(s=0.067\\)，得 6761.3 W、轉矩 57.67 N·m、效率約 45%。此組違反功率平衡：氣隙功率 \\(3(40.23)^2(3.0)=14.56\\ \\mathrm{kW}\\)，轉子銅損 \\(sP_{ag}=0.97\\ \\mathrm{kW}\\) 加 6.76 kW 機械功率只有 7.73 kW，不宜作為考場答案。"
+  },
+  {
+   "qid": "EE-113-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 113,
+   "chapter": "單相感應馬達與電容啟動",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(X_C=1/(\\omega C)\\) 誤用 \\(\\omega=60\\) 而非 \\(2\\pi(60)\\)，得 \\(C=1.88\\ \\mathrm{mF}\\)，大 \\(2\\pi\\) 倍。",
+    "比較扭力時忘記電流大小也改變，只取 \\(1/\\sin26.86^\\circ=2.21\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-04-1",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 114,
+   "chapter": "氣隙磁路與電感",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只算一個氣隙，得 \\(B_g=1.005\\ \\mathrm T\\)、\\(L=4.02\\ \\mathrm H\\)。",
+    "\\(400\\ \\mathrm{cm^2}\\) 須換成 \\(0.04\\ \\mathrm{m^2}\\)；\\(N^2/\\mathcal R_{eq}=160000/79577=2.011\\)，不是 5.03。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-04-2",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 114,
+   "chapter": "變壓器分接頭與最大功率轉移",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把最大功率條件寫成 \\(a^2R_L=Z_s^*\\)：負載為純電阻、只能調 \\(a\\)，應取 \\(|Z_s|=1\\ \\Omega\\)。",
+    "求出一次側 110 V 後忘了再除以 \\(a\\)（\\(a<1\\)，二次電壓高於一次）。"
+   ],
+   "conditions": "題圖只標 \\(110\\sqrt2\\) V，未註明 RMS 或峰值。主解採 RMS；若該值是峰值，RMS 電壓縮小 \\(\\sqrt2\\) 倍，\\(|V_o|=173.925/\\sqrt2=122.984\\ \\mathrm V_{rms}\\)（峰值 173.925 V）。匝數比 \\(a=0.6325\\) 兩種解讀相同。"
+  },
+  {
+   "qid": "EE-114-04-3",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 114,
+   "chapter": "單相感應電動機二相旋轉磁場",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 \\(t_1,t_3,t_5,t_7\\) 讀成某一繞組峰值、另一繞組為零；圖上四點兩電流量值都是 \\(I_m/\\sqrt2\\)，磁通落在對角線。",
+    "把兩個互相垂直的分量代數相加成 \\(\\sqrt2\\phi_m\\) 或 \\(2\\phi_m\\)。",
+    "第（二）小題只寫「相序改變」而沒寫出 \\(y\\) 分量反號、角速度變為 \\(-\\omega\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-04-4",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 114,
+   "chapter": "同步發電機內生電壓與原動機轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "套用電動機方程 \\(\\underline V-\\underline I\\underline Z\\)，得 \\(|E|\\approx1704\\ \\mathrm V\\) 且 \\(\\delta<0\\)。",
+    "只加鐵損與風阻損、漏掉 9.77 kW 電樞銅損；或用電氣角速度 \\(377\\ \\mathrm{rad/s}\\) 換算，轉矩少一半。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-04-5",
+   "subject_id": "04",
+   "subject": "電機機械",
+   "year": 114,
+   "chapter": "磁阻電動機磁阻—位置轉矩",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把瞬時轉矩振幅 \\(2\\mathcal R_1\\Phi_m^2=13.6\\ \\mathrm{N\\cdot m}\\) 或 \\(\\mathcal R_1\\Phi_m^2=6.81\\ \\mathrm{N\\cdot m}\\) 當平均轉矩。",
+    "漏掉積分的 \\(1/\\omega\\) 或微分的 4；功率用 \\(\\omega=377\\) 而非 \\(\\omega/2\\)，結果大一倍。"
+   ],
+   "conditions": "- 官方 Hint 的 \\(\\sin\\alpha\\sin\\beta=[\\sin(\\alpha+\\beta)+\\sin(\\alpha-\\beta)]/2\\) 是誤植（取 \\(\\alpha=\\beta=\\pi/2\\) 即不成立）；實際需要的是 \\(\\cos u\\sin v\\) 積化和差式，見（二）。\n- 題面未給初始磁通。若保留直流偏置 \\(\\phi_{dc}\\)，瞬時式多出常數與交叉項，但在 \\(\\omega_m=\\pm\\omega/2\\) 的平均為零，最大平均轉矩與功率不變。"
+  },
+  {
+   "qid": "EE-104-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 104,
+   "chapter": "序網路與接地開關單線接地故障",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "求 \\(V_t\\) 時漏掉啟動變壓器負載 B（題目明示為定阻抗負載）會得 19.56 kV；負載 B 約 \\(35\\ \\mathrm{MW}+j31\\ \\mathrm{Mvar}\\)，需併入 \\(MT_R\\) 電流。",
+    "發電機側為 \\(\\Delta\\)，發電機 \\(X_0=12\\%\\) 與 \\(2\\ \\mathrm{k}\\Omega\\) 接地電阻不入零序網；誤把它串入會讓零序阻抗錯誤。",
+    "ES 投入才有 \\(X_0=0.10\\) 支路；切離時零序只剩系統 0.025。"
+   ],
+   "conditions": "1. 題幹未明說 \\(P,Q\\) 是否含負載 B；本解依圖示讀為匯流排送往系統等效電源的功率，負載 B 另由主變供電。若不計負載 B，\\(|V_t|=19.56\\ \\mathrm{kV}\\)，故障部分不受影響。\n2. 「345 kV 側之故障相電流」取故障點總電流。若指流過 \\(MT_R\\) 345 kV 繞組的 a 相電流，則 ES 投入約 3.96 kA、切離約 1.37 kA。"
+  },
+  {
+   "qid": "EE-104-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 104,
+   "chapter": "並聯變壓器功率分擔與損失最佳化",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(T_{R1}\\) 與 \\(T_{R3}\\) 並聯時 \\(T_{R1}\\) 分得 \\(400\\times0.5833=233.3\\) MVA，超過 220 MVA；總損失雖不是最大，仍必須剔除。",
+    "鐵損不隨負載變，每多投入一台即多 \\(0.25R_iS_b\\)；只比銅損會誤選 \\(T_{R2}+T_{R3}\\) 或三台全開。",
+    "百分阻抗是各台額定基準（200 MVA），三台容量相同故可直接換為同一基準；\\(161\\ \\mathrm{kV}\\) 側電壓要由 \\(1+z_{eq}S_L^*\\) 求，不能直接用 161 kV。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 104,
+   "chapter": "對稱三相短路計算",
+   "audit_status": "verified",
+   "pitfalls": [
+    "不可先假設 \\(E''=1\\) pu；題面給的 \\(2.5/3.0\\ \\mathrm{kA}\\) 正是反推各機 \\(E''\\) 的資料，也因此兩機的 \\(Q\\) 不同。",
+    "\\(P_i=0.8\\) 是每部機各 440 MW 對 550 MVA 基準，不是兩部合計除以兩台。",
+    "最後是兩個故障電流相量相加（5.498 kA），不是代數相加；電流的相角不同。"
+   ],
+   "conditions": "題幹未給系統等效阻抗，故「系統提供至匯流排之故障電流」只能取兩部機組貢獻之相量和；若題意另含系統側貢獻，須補系統阻抗後再加。"
+  },
+  {
+   "qid": "EE-104-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 104,
+   "chapter": "匯流排導納／阻抗矩陣與並聯電容電壓",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(Y_{bus}\\) 對角項要含電源等效阻抗的接地支路：\\(Y_{11}=-j(10+4+2.5)\\)、\\(Y_{33}=-j(5+4+2)\\)；漏掉會得到奇異矩陣，無法求 \\(Z_{bus}\\)。",
+    "負載情況的開路電壓用 \\(1.25\\) pu（不是 1.0）；電壓下降量 \\(Z_{bus}(:,2)I_L\\) 要用 Bus 2 那一行，三匯流排都要更新。",
+    "並聯電容後要先把電容與負載合成 \\(0.225-j0.300\\) 再與 \\(Z_{22}\\) 串聯，不可把電容電流另外加上。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 105,
+   "chapter": "輸電線路串聯與並聯虛功補償",
+   "audit_status": "verified",
+   "pitfalls": [
+    "並聯電容器是「供應」無功以抵消感性需求，不是供應「感性虛功」；方向寫反會被扣分。",
+    "串聯補償靠降低 \\(X_{eff}\\) 提高 \\(P_{max}\\) 與穩定度，並聯補償靠無功平衡控制電壓；兩者目的不可混為一談。",
+    "只答「如何進行」而漏寫串聯補償的保護（旁路間隙／MOV）與 \\(k\\) 的限制，屬方法敘述不完整。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 105,
+   "chapter": "三匯流排高斯–賽德潮流迭代",
+   "audit_status": "verified",
+   "pitfalls": [
+    "分子用 \\(P_i-jQ_i\\) 並除以 \\(V_i^{(k)*}\\)；負載若誤當正注入，會得 \\(V_2^{(1)}=1.0417+j0.050\\)（負載匯流排電壓反高於 1 pu，相角也反號）。",
+    "同一輪先算 \\(V_2^{(2)}\\)，再把它代入 \\(V_3^{(2)}\\)；\\(V_3^{(2)}\\) 若仍用 \\(V_2^{(1)}\\) 即成 Jacobi 法。",
+    "非對角項是支路導納的負值：\\(Y_{23}=+j12\\)、\\(Y_{31}=+j8\\)；搖擺匯流排 \\(V_1=1.04\\) 要代入 \\(V_3\\) 的式子，漏掉會少 \\(-j8.32\\) 項。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 105,
+   "chapter": "同步發電機單線接地故障（中性點經電抗接地）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "圖中 \\(X_0=5\\%\\)，不是 8%；若誤用 0.08（恰與 \\(X_n\\) 相同）會得 \\(3/0.72=4.167\\) pu、12.03 kA 的錯值。",
+    "中性點電抗在零序網要乘 3：\\(3X_n=0.24\\ \\mathrm{pu}\\)，漏乘 3 則總阻抗 0.53、電流 16.3 kA。",
+    "最後電流 \\(I_f=3I_{a1}\\)，不是 \\(I_{a1}=1.449\\) pu（4.18 kA）。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 105,
+   "chapter": "再生能源併網與暫態穩定度",
+   "audit_status": "verified",
+   "pitfalls": [
+    "結論要明確寫「乙案」，並以慣量降低（\\(H\\) 減半）當主因；只列方法而無判定理由會失分。",
+    "虛擬慣性、調相機需與題設的變流器併網假設連結；若風光採同步機型併網，結論要另行評估。",
+    "方法至少給兩種且各附一句作用機理（調相機補慣量與短路容量；儲能與成形變流器補快速有功）。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-105-05-5",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 105,
+   "chapter": "經濟調度罰點因數與增量損失",
+   "audit_status": "verified",
+   "pitfalls": [
+    "罰點因數 \\(L_i=\\lambda/\\text{IC}_i\\)：增量成本最低的廠 \\(L\\) 最大，不是最高者最大；方向反了會選成第 3 廠。",
+    "ITL 要用 \\(1-1/L_i\\)（或 \\(1-\\text{IC}_i/\\lambda\\)），不可與 \\(L\\) 直接當同一量比較數值。",
+    "排序題要寫出協調方程式 \\(\\text{IC}_iL_i=\\lambda\\)，只下結論不列式不得分（題目要求「列式說明」）。"
+   ],
+   "conditions": "題目未給 \\(\\lambda\\)，也未給損失係數；本題的判定只依賴協調方程式的單調性，結論對任何 \\(\\lambda>11\\ \\$/\\mathrm{MWh}\\) 成立。"
+  },
+  {
+   "qid": "EE-106-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 106,
+   "chapter": "短線模型電壓調整率與效率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(X=\\omega L\\ell\\) 要乘 40 km 並把 mH 換成 H：\\(0.49009\\ \\Omega/\\mathrm{km}\\times40=19.604\\ \\Omega\\)。",
+    "電壓調整率用相電壓比相電壓（或線電壓比線電壓）；以 193.18 kV 對 92.95 kV 比較會得 107.8%。",
+    "效率是有功比 \\(P_R/P_S\\)，不是視在功率比；送電端 \\(Q_S\\) 含線路電抗消耗，不可直接取負載 180 Mvar。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 106,
+   "chapter": "三匯流排三相故障與阻抗矩陣",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(Z_{11}\\) 不是只有 Bus 1 發電機支路 \\(0.2\\)（會得 \\(I_f=3.226\\)），要並聯整個其餘網路，結果為 \\(0.16\\)。",
+    "\\(Z_{31}\\) 是 Bus 3 對 Bus 1 注入的互阻抗（\\(0.12\\)），不是 Bus 3 的自阻抗；電壓式為 \\(V_3=V_f-Z_{31}I_f\\)。",
+    "三相平衡故障只用正序網路；圖中變壓器接線與中性點接地僅影響不平衡故障，與本題無關。"
+   ],
+   "conditions": "題面寫「接地阻抗為 0.11 p.u.」未標 \\(j\\)。本題網路為純電抗（電阻忽略），故取 \\(Z_f=j0.11\\)。若解讀為純電阻 \\(0.11\\) p.u.，則 \\(|I_f|=1/|0.11+j0.16|=5.150\\)，\\(|V_1|=0.5665\\)、\\(|V_3|=0.6028\\) p.u.。"
+  },
+  {
+   "qid": "EE-106-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 106,
+   "chapter": "三匯流排潮流：Ybus、PV/PQ 匯流排與無效功率流向",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(Y_{bus}\\) 以線路電抗 \\(0.8/0.4/0.4\\) 的倒數建立；若沿用其他電抗（如 0.2、0.25）則三個元素全錯。",
+    "負載為負注入：\\(P_3=-1\\)、\\(Q_3=-0.9\\)。",
+    "\\(P_1=0\\) 來自無損網路的實功守恆，不需解出電壓；但 \\(Q_1\\)、\\(V_3\\) 要看採用哪一個根。"
+   ],
+   "conditions": "題面未指定 Newton 初值或「正常運轉」分支，同一組方程有高、低兩個正電壓根；本題所問的 Y_bus、方程式、\\(P_1=0\\) 與 Bus 2–3 線路無效功率流向在兩根下相同，答案與分支無關。依通常運轉語境，高電壓根為主要候選，低電壓根亦保留作數值診斷（\\(\\lvert V_3\\rvert\\)、\\(Q_1\\) 才需指定分支，本題不問）。\n\n### Jacobian 分支診斷\n\n令 \\(F=[P_2-1,\\ P_3+1,\\ Q_3+0.9]^T\\)，\\(J=\\partial F/\\partial(\\delta_2,\\delta_3,V_3)\\)：\n\n| 分支 | \\(\\det J\\) | 最小奇異值 |\n| --- | ---: | ---: |\n| 高電壓 \\(\\lvert V_3\\rvert=0.68692\\) pu | \\(+10.8587\\) | \\(1.30072\\) |\n| 低電壓 \\(\\lvert V_3\\rvert=0.39673\\) pu | \\(-4.96510\\) | \\(0.99092\\) |\n\n兩根的行列式正負號相反，表示分別位於潮流可解邊界（鼻點）兩側；高電壓根 \\(\\det J>0\\)，對應通常的穩態操作分支，低電壓根 \\(\\det J<0\\)。這是靜態潮流的分支診斷，不等同動態穩定證明，僅用於說明兩根的位置；所問答案不依賴分支選擇。"
+  },
+  {
+   "qid": "EE-106-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 106,
+   "chapter": "變壓器差動保護與 CT 匝比匹配",
+   "audit_status": "verified",
+   "pitfalls": [
+    "圖中 \\(I_1'\\)、\\(I_2'\\) 在同一導線上皆指向右，電驛節點電流是兩者相減 \\(I_1'-I_2'\\)，不是相加。",
+    "電流比 \\(I_1/I_2=N_2/N_1\\)（與匝數比相反）；把它寫成 \\(N_1/N_2\\) 會使 \\(n_1/n_2\\) 條件顛倒。",
+    "\\(I'=0\\) 在忽略激磁電流與 CT 誤差時成立；實務上以抽頭或輔助 CT 補償標準匝比的差異，並用百分比制動避免誤動作。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 107,
+   "chapter": "輸電線電容補償與功率損失",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電容器與負載並聯在受電端，線路電流看到的是淨功率 \\(1.6+j0\\)，不是 \\(1.6+j1.2\\)；用負載視在功率 2.0 pu 算電流會得 \\(I=2\\)、損失 0.08。",
+    "\\(Z_C=-jV_R^2/Q_C\\) 為容抗（負虛數）；寫成 \\(+j0.8333\\) 即成電感。",
+    "送電端電壓用 \\(V_R+IZ\\) 的複數和再取模，不能只加 \\(IR\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 107,
+   "chapter": "變壓器電壓調整率與短路電流",
+   "audit_status": "verified",
+   "pitfalls": [
+    "負載是恆功率 60 MVA，\\(V_2\\) 下降電流隨之上升，不可令電流固定為額定 1 pu 做壓降（得 \\(V_2=0.9179\\) pu，約 21.94 kV，偏高）。",
+    "電壓調整率的無載電壓是電源電壓經變比的 \\(1.01473\\) pu（含 \\(j8\\ \\Omega\\) 源阻抗效應），不是 23.9 kV。",
+    "短路電流分母要把源阻抗 \\(0.018518\\) 與 \\(X_T=0.15\\) 相加；漏掉 \\(j8\\ \\Omega\\) 會得 \\(1.01473/0.15\\) 的偏大值。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 107,
+   "chapter": "同步發電機併網無效功率與變壓器容量",
+   "audit_status": "verified",
+   "pitfalls": [
+    "變壓器低壓側額定 25 kV、發電機 24 kV：未換算而取 \\(X_T=0.20\\)、\\(V_\\infty=1\\)，會得 \\(Q_G\\approx+76\\) MVAR（落後），方向與結論皆反。",
+    "\\(X_s=1.0\\) 屬內部電勢到端點的電抗，端點至無限匯流排的功率流不可再串入。",
+    "變壓器漏電抗吸收無效功率，高壓側 \\(Q\\)（\\(-249.2\\)）與低壓側（\\(-84.0\\)）不同；判斷過載要看較大的 837.9 MVA，不能只用 804.40 MVA。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 107,
+   "chapter": "不平衡三相系統對稱成分與中性點偏移",
+   "audit_status": "verified",
+   "pitfalls": [
+    "四線制中性線電流是 \\(3I_{a0}=60.105\\) A，不是 0；每相仍分到全額 220 V，所以三相電流都是 22 A。",
+    "三線制零序電流必為 0，但中性點偏移 601.05 V（約 2.73 倍相電壓），使 b、c 相承受 \\(|V_{b,c}-V_N|\\approx736\\) V，電流升到 73.613 A。",
+    "序分量變換中負序是 \\(I_a+a^2I_b+aI_c\\)；與正序式互換會使 \\(I_{a1}\\)、\\(I_{a2}\\) 對調。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 108,
+   "chapter": "同步發電機相量圖與激磁控制",
+   "audit_status": "verified",
+   "pitfalls": [
+    "落後功因的電流角為 \\(-25.84^\\circ\\)；寫成 \\(+25.84^\\circ\\) 會使 \\(E_i\\) 的角度與大小皆錯。",
+    "激磁增 20% 是 \\(E_i\\) 乘 1.2，不是 \\(X_d\\) 或 \\(\\delta\\) 增加；固定的是 \\(P\\)（即 \\(E_i\\sin\\delta\\) 乘積），不是 \\(\\delta\\)。",
+    "取 \\(\\sin\\delta'=0.5106\\) 的銳角解 \\(30.70^\\circ\\)，鈍角解 \\(149.3^\\circ\\) 屬不穩定區。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 108,
+   "chapter": "快速解耦潮流法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "負載是負注入：\\(P_3=-0.9\\)、\\(Q_3=-0.8\\)；寫成正值會使 \\(\\Delta P_3,\\Delta Q_3\\) 全部反號。",
+    "\\(B'\\) 只含 Bus 2、3（刪除 slack），\\(B''\\) 只含 PQ 的 Bus 3（\\(=20\\)）；Bus 2 的 \\(|V_2|=1.01\\) 保持固定。",
+    "右端要除以目前的 \\(|V|\\)（第 1 次 \\(0.7/1.01\\)），第 2 次的 \\(\\Delta P_3\\) 要除以已更新的 \\(|V_3|^{(1)}\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 108,
+   "chapter": "對稱分量與非對稱故障分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(G_2\\)、\\(T_2\\) 為 800 MVA、線路為 1500 MVA 基準，百分比必須先乘 \\(1000/800\\)、\\(1000/1500\\) 再相加；直接相加會錯。",
+    "三相故障不含零序，\\(G_1\\) 的中性點接地、\\(X_0\\) 資料只用於接地故障，本題用不到；\\(X_s\\) 為穩態電抗，也不用。",
+    "20 kV 側與 500 kV 側基準電流不同：\\(G_1\\) 電流乘 28.868 kA，\\(P\\) 點乘 1.1547 kA。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 108,
+   "chapter": "發電機縱向差動保護與百分比差動電驛",
+   "audit_status": "verified",
+   "pitfalls": [
+    "差動保護比較的是兩端電流之「差」，不是電流大小：區外大穿越電流下 \\(I_1=I_2\\)，動作量為 0，不會誤跳。",
+    "線圈 3（動作）接在中點流 \\(I_1-I_2\\)，線圈 1、2 為抑制；功能不可對調，也要說明 CT 極性使穿越電流在動作線圈中抵消。",
+    "題目沒有給 CT 變比、斜率或整定值，不可編造數值門檻；判據只寫符號式。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-05-5",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 108,
+   "chapter": "雙迴線輸電系統故障與功率角方程式",
+   "audit_status": "verified",
+   "pitfalls": [
+    "端電壓 1.0 是發電機端電壓，內部電勢必須用 \\(V_t+jX_d'I\\) 回推，不能令 \\(E'=1\\)。",
+    "30% 是故障點位置，故障點與送電端間為 \\(0.3\\times0.5=0.15\\) pu；故障中 A 點對地分路 0.15 使轉移電抗升至 1.8。",
+    "清除後是單線運轉 \\(0.2+0.1+0.5=0.8\\)，不可沿用故障前的 \\(0.25\\) 並聯線路。"
+   ],
+   "conditions": "題圖未標示「端電壓」所在的匯流排。若將 1.0 pu 理解為送電端（線路）匯流排電壓，則 \\(\\sin\\alpha=0.8(0.25)=0.2\\)，並須把 \\(X_d'\\) 與 \\(j0.1\\) 升壓變壓器一併串入 \\(E'\\) 的路徑：\n\\[\nE'=e^{j\\alpha}+j0.30\\,I=0.9556+j0.4400,\\qquad |E'|=1.0520\n\\]\n此讀法下 \\(P_{e1}=1.9127045\\sin\\delta\\)、\\(P_{e2}=0.5844375\\sin\\delta\\)、\\(P_{e3}=1.3149844\\sin\\delta\\)，各段轉移電抗（0.55、1.8、0.8）不變，只有 \\(|E'|\\) 不同。本解依「端電壓即發電機端電壓」作答。"
+  },
+  {
+   "qid": "EE-109-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 109,
+   "chapter": "交流功率與瞬時功率",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 109,
+   "chapter": "輸電線參數與中程 π 模型",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電感用導體 GMR（1.268 cm），電容用導體實際半徑 \\(3.195/2\\) cm；兩者互換會使 \\(L\\)、\\(C\\) 皆錯。",
+    "水平排列的 \\(D_{31}=20\\) m，\\(D_m=\\sqrt[3]{2000}\\)，不是 10 m。",
+    "題給為線電壓，\\(V_SV_R\\sin\\delta/X\\) 已是三相功率，不可再乘 3。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 109,
+   "chapter": "電力潮流牛頓－拉弗森法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "負載是負注入，\\(P_2^{sch}=-2.0\\)、\\(Q_2^{sch}=-0.5\\)；寫成正值會使修正方向全反。",
+    "\\(\\partial Q_2/\\partial|V_2|=20|V_2|-10\\cos\\delta_2\\)，漏掉 \\(|V_2|^2\\) 項的 2 倍會讓第 2 次電壓修正錯。",
+    "第 2 次要以 \\(\\delta_2=-0.2\\) rad、\\(|V_2|=0.95\\) 重算 Jacobian，沿用初始 \\(J\\) 不算牛頓法。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 109,
+   "chapter": "對稱成分與故障分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "零序網路須依變壓器接線判斷：\\(\\Delta\\) 側把 \\(G_1\\)、\\(G_2\\) 的零序隔開，若直接串入 \\(X_{G,0}=0.05\\) 會得錯誤的 \\(Z_0\\)。",
+    "線路零序電抗是 0.5，不是正序的 0.4。",
+    "線間故障電流是 \\(\\sqrt3|I_{a1}|\\)，不是 \\(|I_{a1}|\\)；且不經零序網路，\\(Z_0\\) 雖要求列出但不參與。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-05-5",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 109,
+   "chapter": "含輸電損失的經濟調度與協調方程",
+   "audit_status": "verified",
+   "pitfalls": [
+    "協調式是 \\(IC_i/(1-\\partial P_L/\\partial P_{Gi})\\)；寫成 \\(IC_i(1-\\partial P_L/\\partial P_{Gi})=\\lambda\\) 會使損失大的機組反而多發電。",
+    "\\(\\partial P_L/\\partial P_{G1}=2B_{11}P_{G1}=0.001P_{G1}\\)，漏乘 2 是常見錯誤。",
+    "功率平衡要含 \\(P_L\\)；只寫 \\(P_{G1}+P_{G2}=600\\) 為無損調度。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-05-6",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 109,
+   "chapter": "負載頻率控制與一次調速器響應",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(R=5\\%\\) 是以各自額定為基準，須先換成 MW/Hz（或同一基準）再相加，不能直接把兩個 0.05 並聯。",
+    "負載增加使頻率下降，\\(\\Delta f\\) 為負；兩機出力依容量比分攤，不是依原出力 200:500。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 110,
+   "chapter": "同步機功角特性與雙反應理論",
+   "audit_status": "verified",
+   "pitfalls": [
+    "（一）兩條線是並聯，等效 0.3 pu；誤加成 1.2 pu 會得 \\(X=1.9\\)、\\(\\delta\\) 錯誤。",
+    "（二）\\(X_q\\) 由垂直 q 軸的分量 \\(V\\sin\\delta=X_qI_q\\) 求得，不可把 \\(E=1.4\\) 代入 \\(X_q\\) 式。",
+    "\\(X_d\\) 分子是 \\(E-V\\cos\\delta\\)；漏乘 \\(\\cos\\delta\\) 寫成 \\(1.4-1.05\\) 會得 \\(X_d=0.87\\) pu。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 110,
+   "chapter": "電力潮流方程與快速解耦法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(Q_3\\) 的計算值含自導納項 \\(-|V_3|^2B_{33}=+19.98\\)，漏掉會得 \\(\\Delta Q_3=-1+20.5\\) 而方向全錯。",
+    "\\(B'\\) 的符號：\\(\\Delta P/|V|=-B\\Delta\\theta\\)，取 \\(-\\mathrm{Im}\\,Y\\) 為正定矩陣；直接用 \\(\\mathrm{Im}\\,Y\\) 會使 \\(\\theta_3\\) 變號。",
+    "母線 2 為 PV，不列 \\(\\Delta Q_2\\) 方程，\\(B''\\) 只剩 \\(1\\times1\\) 的 \\(19.98\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 110,
+   "chapter": "對稱成分與同時故障分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "漏用 BC 相間短路的電壓條件 \\(V_b=V_c\\)，另假設 \\(X_2=X_1=0.1\\) 會得 \\(V_{a2}=0.10\\)、\\(X_0=0.133\\)，同時違反 \\(V_b=V_c\\)。",
+    "BC 故障不接地，\\(I_c=-I_b=+6.92\\)；若把 \\(I_c\\) 當未知或取 \\(-6.92\\)，\\(I_0\\) 會錯。",
+    "\\(a^2-a=-j\\sqrt3\\) 的符號決定 \\(I_{a1}\\)、\\(I_{a2}\\) 哪個大；記反會把正、負序對調。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 110,
+   "chapter": "含線路損耗的經濟調度與增量損失",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(P_L\\) 是 \\(P_1+P_2\\)（注入功率和），不是 \\(P_{G1}+P_{G2}\\)；後者還含 300 MW 負載。",
+    "增量損失要對 \\(P_{G2}\\) 微分，須除以 \\(dP_2/d\\theta_{12}\\)；只寫 \\(dP_L/d\\theta_{12}=6\\sin\\theta_{12}\\) 單位不對。",
+    "\\(P_1\\) 已扣除負載，\\(P_{G1}=P_D+P_1\\)；直接用 \\(P_1\\) 換 MW 會得負出力。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-05-5",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 110,
+   "chapter": "同步發電機電壓調整率與等面積暫態穩定",
+   "audit_status": "verified",
+   "pitfalls": [
+    "等面積式中的 \\(\\pi-\\delta_0-\\delta_1\\) 必須以弧度代入，以度數代入結果完全錯。",
+    "臨界最大擺角是 \\(\\pi-\\delta_1\\)（新功率線與正弦曲線的另一交點），不是 \\(90^\\circ\\)。",
+    "6600 V 是線電壓，Y 接要先除以 \\(\\sqrt3\\)；滯後功因電流角取 \\(-36.87^\\circ\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 111,
+   "chapter": "輸電線路串聯補償與功角特性",
+   "audit_status": "verified",
+   "pitfalls": [
+    "串聯補償是**串接電容**降低 \\(X_L\\)；並聯電抗器／電容器是並聯補償，主要調節電壓與無效功率，不改變線路串聯電抗。",
+    "（二）須寫出 \\(P_{\\max}=V_SV_R/X\\) 並指出 \\(X\\) 減小，只寫「改善電壓」不足以說明實功率極限提高。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 111,
+   "chapter": "三相短路與 Zbus 故障分析",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(Z_{bus}\\) 已含發電機次暫態電抗，故障電流直接用 \\(1/Z_{55}\\)，不可再串入 \\(j0.1111\\)、\\(j0.1333\\)。",
+    "\\(V_i=1-Z_{i5}I_f\\) 中 \\(j\\cdot(-j)=+1\\)，扣除量為正，誤寫成 \\(1+0.4635\\) 會得 1.46 pu。",
+    "方向指定 2→1，用 \\(V_2-V_1\\)；寫成 \\(V_1-V_2\\) 符號相反。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-111-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 111,
+   "chapter": "暫態穩定度與等面積準則",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "\\(\\cos\\delta_{cr}\\) 式中的 \\(\\pi-2\\delta_0\\) 必須用弧度；以度數代入會得到無意義的餘弦值。",
+    "故障在發電機出口，故障期間 \\(P_e=0\\)，\\(t_{cr}\\) 才有封閉解；若誤用部分功率曲線則需數值解。",
+    "\\(t_{cr}\\) 公式中是 \\(\\omega_s=2\\pi f\\)（電氣角速度），不是 \\(f\\) 本身。"
+   ],
+   "conditions": "官方裁切圖未提供頻率，\\(\\delta_{cr}\\) 由題目唯一決定，但 \\(t_{cr}\\propto1/\\sqrt f\\)。依經濟部「電業供電電壓及頻率標準」第三條，交流電頻率定為 $f=60\\,\\mathrm{Hz}$（<https://www.moeaea.gov.tw/ECW/populace/news/wHandNews_File.ashx?file_id=7592>），台灣考試情境下作答寫 \\(t_{cr}=0.2704\\) s；保守寫法同時列出通式 $t_{cr}=0.2704\\sqrt{60/f}\\,\\mathrm{s}$（\\(f=50\\) Hz 時為 0.2962 s）。"
+  },
+  {
+   "qid": "EE-111-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 111,
+   "chapter": "輸電線路 ABCD 參數與電壓調整率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(V_R\\) 必須用相電壓 \\(345/\\sqrt3\\)；直接代 345 kV 會把 \\(V_S\\) 放大 \\(\\sqrt3\\) 倍。",
+    "無載時送電端電壓不變，\\(V_{R,NL}=V_S/A\\)，不是 \\(V_S\\) 本身；長線路的 \\(|A|<1\\) 使無載受電端電壓升高（Ferranti 效應）。",
+    "落後功因的 \\(I_R\\) 角度為 \\(-36.87^\\circ\\)，取正號會使 \\(|V_S|\\) 明顯偏小。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 112,
+   "chapter": "輸電線路參數與束線效應",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電容須用實際半徑 \\(r\\)，不可用 GMR；混用會使電容偏小。",
+    "水平排列 \\(D_{ac}=30\\) m，GMD 為 18.899 m，不是 15 m。",
+    "正方形四分裂的對角距離是 \\(\\sqrt2d\\)，漏乘 \\(\\sqrt2\\) 會使 \\(D_s\\) 偏小。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 112,
+   "chapter": "Wood, Wollenberg & Sheblé, Power Generation, Operation, and Control, 3rd ed., Ch. 3 — The Economic Dispatch of Thermal Units",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "未回代容量，直接以 \\(\\beta=6.3,\\ \\gamma=0.004\\) 作唯一答案，忽略 \\(P_2=925\\) MW 超限。",
+    "機組達上限時其增量成本不等於 \\(\\lambda\\)，只須 \\(\\mathrm{IC}_i\\le\\lambda\\)；把受限機組的 \\(\\mathrm{IC}\\) 設為 \\(\\lambda\\) 會得錯誤係數。"
+   ],
+   "conditions": "題面未說明 800 MW 是否為硬上限、也未指定哪台機組受限；三組結果分別對應無約束、\\(P_2=800\\)、\\(P_1=800\\)，不得把其中一組當成唯一答案。"
+  },
+  {
+   "qid": "EE-112-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 112,
+   "chapter": "變壓器分接頭與節點導納矩陣",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 T2 的 \\(1.25\\) 放到 Bus 2 側，會得 \\(Y_{22}=-j3.2\\)、\\(Y_{44}=-j20\\)。",
+    "兩條 3–4 線路應先並聯成 \\(-j15\\)，不是串聯。",
+    "有分接頭時列和不為零，不能用「每列和為零」檢查。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 112,
+   "chapter": "電力系統暫態穩定度與等面積準則",
+   "audit_status": "verified",
+   "pitfalls": [
+    "故障期間把 \\(P_e\\) 設為 0；有限故障阻抗與健全線路使 \\(P_{2\\max}=0.247\\) pu。",
+    "兩條 0.2 pu 線路在故障前後是並聯（0.1 pu），不是只算一條。",
+    "等面積式中的 \\(\\delta_{\\max}-\\delta_0\\) 必須用弧度。"
+   ],
+   "conditions": "題面只寫「故障阻抗為 0.01 標么」未標 \\(j\\)。主解：等效接地電抗 \\(Z_f=j0.01\\) pu（與公開更正解答一致），得 \\(\\delta_{cr}=101.0936492^\\circ\\)。若依字面視為純電阻 0.01 pu，故障期間曲線含電阻損耗項，數值等面積求得 \\(\\delta_{cr}=102.0837294^\\circ\\)，僅作敏感度對照。"
+  },
+  {
+   "qid": "EE-113-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 113,
+   "chapter": "三相平衡電路與複數功率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(\\Delta\\) 負載忘記除以 3，直接以 \\(24-j30\\) 與 \\(12+j5\\) 並聯。",
+    "求電源送出功率時漏掉線路阻抗，只算負載 \\(4374.9\\) W。",
+    "\\(Q<0\\) 為容性，功率因數應標「超前」。"
+   ],
+   "conditions": "「由電源端看入之 Y 連接合併負載每相等效阻抗」可讀為只含負載（\\(Z_L\\)）或含線路（\\(Z_{in}\\)）；兩者都列出。線電流與電源功率均以含線路的 \\(Z_{in}\\) 計算，不受此讀法影響。"
+  },
+  {
+   "qid": "EE-113-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 113,
+   "chapter": "同步機暫態電勢與三相短路",
+   "audit_status": "verified",
+   "pitfalls": [
+    "超前功率因數表示電動機吸收 \\(Q<0\\)，\\(S_m=0.5-j0.375\\)；符號弄反則兩個電勢都錯。",
+    "電動機端電壓是 20 kV（0.8333 pu），不可當 1.0 pu。",
+    "故障電流為相量和 \\(5.7978\\) pu，不是幅值和 \\(2.8308+3.1037\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 113,
+   "chapter": "經濟調度（由增量成本反求係數）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(0.005P_1^2\\) 微分為 \\(0.01P_1\\)；誤寫 \\(0.005P_1\\) 會得 \\(P_1=400,800\\) MW，係數全錯。",
+    "未檢查第二點 \\(P_2=1100\\) MW 是否超過 1300 MW 容量就直接作答。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 113,
+   "chapter": "發電機調速與負載頻率控制",
+   "audit_status": "verified",
+   "pitfalls": [],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-05-1",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 114,
+   "chapter": "相量與複數功率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "漏取電流共軛，寫成 \\(\\angle S=\\alpha+60^\\circ\\) 會得 \\(\\alpha=-30^\\circ\\)。",
+    "題目已寫 \\(\\sqrt2\\times100\\)，100 V 即有效值；再除以 \\(\\sqrt2\\) 會得 \\(I_{rms}=14.14\\ \\mathrm A\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-05-2",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 114,
+   "chapter": "電力潮流（PV→PQ 轉換與 Newton–Raphson）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "由潮流式得到的是淨注入 \\(Q_2=11.31\\) Mvar，漏加 100 Mvar 負載會誤判「未超限」。",
+    "超限後仍固定 \\(|V_2|=1\\)（仍當 PV 匯流排）就不需要 \\(Q_2\\) 方程，與題意不符。",
+    "\\(\\Delta\\delta_2=-0.15\\) 是弧度；誤當度數會寫成 \\(-0.15^\\circ\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-05-3",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 114,
+   "chapter": "經濟調度（忽略損失）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "兩個二次項都漏乘 2（寫成 \\(6+0.004P_1=6.8+0.002P_2\\)）會得 \\(P_1=316.7,\\ P_2=233.3\\ \\mathrm{MW}\\)。",
+    "平均分配 275／275 MW 時 \\(\\lambda_1=8.2\\neq\\lambda_2=7.9\\)，不是最佳解。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-05-4",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 114,
+   "chapter": "對稱故障（戴維寧等效）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "漏掉左側變壓器 \\(j0.4\\)，左支路誤用 \\(j0.1\\)，\\(Z_{th}\\) 與 \\(I_f\\) 全部錯誤。",
+    "有 \\(Z_f\\) 時 \\(V_1\\neq0\\)；直接令 \\(V_1=0\\) 會使兩支路電流都偏大。",
+    "未先宣告方向就混用 \\(I_{31}\\) 與 \\(I_{13}\\)，答案會差一個負號。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-05-5",
+   "subject_id": "05",
+   "subject": "電力系統",
+   "year": 114,
+   "chapter": "搖擺方程式（甩負載加速）",
+   "audit_status": "verified",
+   "pitfalls": [
+    "甩負載後誤令 \\(P_m=0\\)，得到零加速度；調速機在 0.2 s 內來不及動作。",
+    "12 週期是 0.2 s，不是 12 s；誤用會得 4800 rpm。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-104-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 104,
+   "chapter": "配電變壓器與供電接線",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只列電壓等級而未說明「契約容量、負載特性、地區條件、可靠度」才是決定因素。",
+    "把責任分界點寫成固定的「電表位置」，未說明以契約與核准圖說為準，也未交代上、下游的責任歸屬。"
+   ],
+   "conditions": "本題屬規章申論，容量門檻隨公告版本、地區網路與特殊負載條款變動，不可脫離當年度規章硬套；分界點的實際位置因供電方式與契約而異。因此作答採規章中性答案，不寫唯一的門檻數字或位置。"
+  },
+  {
+   "qid": "EE-104-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 104,
+   "chapter": "參差因數與線路損失容量設計",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "漏用表內參差因數 3 與 2、以 350 kW 的設備容量直接計算，會得約 407 kVA，為正確值的 2.3 倍。",
+    "將電燈與馬達的 kVA 以算術和相加（\\(50/0.95+100/0.80\\)，再除 \\(1.1\\times0.9\\) 得 179.4 kVA），忽略兩者功因角不同，結果偏大。",
+    "1.1 是參差因數，須除而非乘；誤乘會得 \\(175.67\\times1.1/0.9=214.7\\ \\mathrm{kVA}\\)，反而偏大。"
+   ],
+   "conditions": "1. 題目未定義表內「參差因數 3、2」；本解採通用定義：參差因數 \\(=\\) 各負載最大需量總和 \\(\\div\\) 該群同時最大需量，故表內值為各類負載內部的參差因數，1.1 為電燈與馬達兩群之間的參差因數。\n2. 「電力損失 10%」未說明分母。本解取變電站輸出的 10%（\\(\\div0.9\\)）；若指負載端需量的 10%（\\(\\times1.1\\)），則為 \\(159.70\\times1.1=175.67\\ \\mathrm{kVA}\\)。"
+  },
+  {
+   "qid": "EE-104-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 104,
+   "chapter": "電弧爐電壓變動與戴維寧等效",
+   "audit_status": "verified",
+   "pitfalls": [
+    "430 m 未換成 0.43 km；短路容量 1230 MVA 直接當阻抗，未用 \\(X=S_b/S_{sc}\\)。",
+    "44% 與 6.1% 只取其一；兩者皆為爐用變壓器（12.5 MVA）基準，須同乘 \\(15/12.5\\) 後相加。",
+    "10 Ω 以 69 kV 側基準換算，或只比較電壓的實部而未取大小。"
+   ],
+   "conditions": "量測點取爐變一次側（主變 11.4 kV 側）匯流排；電源視為理想電壓源串聯短路電抗，忽略故障前負載電流；電壓變動定義為 \\(R=10\\,\\Omega\\) 與 \\(R=0\\) 兩端的電壓大小差。電抗與電阻依題意視為「44% 在爐變二次側以下」且「電阻在爐變一次側量測」，若改以 44% 已含爐變漏抗，結果會不同（約 10.41%）。\n\n題幹提到 69 kV 饋線上尚有其他用戶，若改以 69 kV 受電點（公共耦合點，電源電抗之後、線路之前）計算，\\(|V(0)|=0.98209\\)、\\(|V(10)|=0.99541\\)，\\(\\Delta V\\approx1.33\\%\\)。本解取 11.4 kV 匯流排為主解，因為電弧電阻在爐用變壓器一次側量測，該匯流排即爐變供電點，也是電弧爐電壓閃爍最直接的量測位置。"
+  },
+  {
+   "qid": "EE-104-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 104,
+   "chapter": "短路容量與對稱成分等效阻抗",
+   "audit_status": "verified",
+   "pitfalls": [
+    "單相短路容量漏掉因數 3（寫成 \\(V^2/S_{1\\phi}\\)），會得 \\(Z_1+Z_2+Z_0=1.106\\,\\Omega<2Z_1\\)，零序為負值，不合理。",
+    "把三相短路容量用 \\(V_{LL}^2/S\\) 時誤用相電壓。"
+   ],
+   "conditions": "單相短路容量依 \\(S_{1\\phi}=\\sqrt3V_{LL}I_f\\) 定義，其中 \\(I_f\\) 為單相接地短路電流。"
+  },
+  {
+   "qid": "EE-104-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 104,
+   "chapter": "諧波等效電路與調諧電容器",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "6% 串聯電抗器在第 5 次 \\(5X_L>X_C/5\\)（A 組 \\(1.5>1\\)），支路為淨感性 \\(j0.5\\)；若把支路當純電容 \\(-jX_C/5\\)，符號與大小皆錯。",
+    "電源側阻抗須乘 \\(h=5\\)（\\(0.069\\to0.345\\)），並與兩電容支路並聯，不可只用變壓器 \\(X_T\\)。",
+    "電流基準以 380 V、2 MVA 換算 \\(I_b\\)；以 11.4 kV 側基準會差 \\(\\sqrt3\\) 與電壓比。"
+   ],
+   "conditions": "題目沒有說明 500 kW 是整流器 DC 輸出或 AC 側有功輸入，也未給基波功因 \\(\\mathrm{pf}_1\\) 與效率 \\(\\eta\\)，更未明定「額定電流」的分母是 AC 基波、AC 總 RMS 或 DC 額定電流。上列為「500 kW 為 AC 側有功、\\(\\mathrm{pf}_1=1\\)」的基準分支。\n\n500 kW 若為 DC 輸出，由 DC 功率反推的仍是 AC 輸入側線電流，不是 DC 電流：\n\\[\nI_{L,\\mathrm{AC,in}}^{(P_{DC})}=\\frac{500\\,\\mathrm{kW}}{\\eta\\,\\mathrm{pf}_1\\sqrt3(380\\,\\mathrm V)},\\qquad I_5=0.2I_{L,\\mathrm{AC,in}}^{(P_{DC})}\n\\]\n因網路與支路阻抗不變，所有四個輸出依同一比例縮放。（500 kW 為 AC 側有功時除以 \\(\\mathrm{pf}_1\\)；為 DC 輸出時除以 \\(\\eta\\,\\mathrm{pf}_1\\)。）令基準向量 \\(\\mathbf y_0=(|V_5|,|I_{source,5}|,|I_{A,5}|,|I_{B,5}|)=(3.2211,74.6606,51.5158,25.7579)\\)，則\n\\[\n\\mathbf y=\\frac{\\mathbf y_0}{\\mathrm{pf}_1}\\ \\ (\\text{AC 側有功}),\\qquad\n\\mathbf y=\\frac{\\mathbf y_0}{\\eta\\,\\mathrm{pf}_1}\\ \\ (\\text{DC 輸出})\n\\]\n即所有輸出乘 \\(1/\\mathrm{pf}_1\\) 或 \\(1/(\\eta\\,\\mathrm{pf}_1)\\)。例：500 kW 為 AC 側有功、\\(\\mathrm{pf}_1=0.95\\) 時為 \\((3.3907\\ \\mathrm V,\\,78.5901,\\,54.2272,\\,27.1136\\ \\mathrm A)\\)；500 kW 為 DC 輸出、\\(\\eta=0.90\\)、\\(\\mathrm{pf}_1=0.95\\) 時為 \\((3.7674\\ \\mathrm V,\\,87.3223,\\,60.2524,\\,30.1262\\ \\mathrm A)\\)。\n\n另一個題面未定的量是電容器標示 kvar：本解取 \\(X_C=V^2/Q_C\\)；若 400／200 kvar 為串聯電抗器後的淨輸出（\\(X_C-X_L=V^2/Q\\)），\\(Z_{A,5}=j0.5319\\)、\\(Z_{B,5}=j1.0638\\)，基準分支的輸出約為 \\(3.32\\ \\mathrm V\\)、\\(77.0\\)、\\(49.9\\)、\\(25.0\\ \\mathrm A\\)。\n\n因上述條件未唯一指定，維持人工複核。"
+  },
+  {
+   "qid": "EE-105-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 105,
+   "chapter": "單相三線中性線開路與接地電阻",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(R_g=0\\) 時仍照浮接串聯分壓（183.33 V／36.67 V），忽略接地線已把 M 點鉗位在 0 V。",
+    "KCL 中 \\(R_g\\) 電流方向反號會得 \\(183.482\\,\\mathrm V\\)／\\(36.5185\\,\\mathrm V\\)，且比 \\(R_g=\\infty\\) 的 183.33 V 還大，不合物理。",
+    "只寫大小不說明 A 過壓、B 欠壓。"
+   ],
+   "conditions": "若 \\(V_{AN}\\)、\\(V_{BN}\\) 解讀為變壓器端子 A、B 對中心抽頭 N 的電壓，則恆為 \\(\\pm110\\,\\mathrm V\\)；題意著眼於負載是否承受額定電壓，故本解取負載兩端電壓。"
+  },
+  {
+   "qid": "EE-105-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 105,
+   "chapter": "感應電動機啟動電壓降與標么值",
+   "audit_status": "verified",
+   "pitfalls": [
+    "額定電流須以 460 V 電動機額定電壓計算，標么化時才以 480 V、3000 kVA 為基準電流。",
+    "11.4 kV 側只含 \\(X_{sys}\\)，480 V 側含 \\(X_{sys}+X_T\\)。"
+   ],
+   "conditions": "圖中只給系統短路容量，未給 \\(X/R\\)，故將電源與變壓器視為純電抗並忽略開關、電纜阻抗；若取得 \\(X/R\\) 或變壓器電阻，應改用完整 \\(R+jX\\) 相量。電壓降以受電端電壓大小 \\(1-|V|\\) 定義；若取壓降向量大小 \\(|XI|\\)，則為 \\(2.2126\\%\\) 與 \\(20.651\\%\\)。\n\n若把電動機視為定阻抗 \\(Z_m=\\dfrac{460/480}{3.68768}\\angle84.26^\\circ=0.2599\\ \\mathrm{pu}\\) 與系統串聯，啟動電流降為約 3.17 pu，壓降為 \\(1.89\\%\\)／\\(17.67\\%\\)；本解依題意取指定的啟動電流 \\(5.5I_{rated}\\)（定電流）。"
+  },
+  {
+   "qid": "EE-105-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 105,
+   "chapter": "低壓匯流排三相短路與電源並聯",
+   "audit_status": "verified",
+   "pitfalls": [
+    "未先換到題給 2000 kVA 基準就把標么電抗相加；發電機 20% 須乘 \\(2000/500\\)。",
+    "CB2 開路時仍把發電機電抗併入，或兩斷路器閉合時忘記並聯。",
+    "480 V 為線電壓，基準電流用 \\(S_b/(\\sqrt3V_b)\\)。"
+   ],
+   "conditions": "題目只給電抗，採正序純電抗、故障前各電源內電勢皆為 \\(1\\angle0^\\circ\\,\\mathrm{pu}\\)、不計負載電流；若需計入電阻或電源相角差，應以完整相量重算。"
+  },
+  {
+   "qid": "EE-105-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 105,
+   "chapter": "流明法照明設計與燈具配置",
+   "audit_status": "verified",
+   "pitfalls": [
+    "每組燈具含 3 支燈管，光通量為 9000 lm 而非 3000 lm（若用 3000 lm 會得 660 具）。",
+    "燈具數無條件進位（219.8 取 220），不可四捨五入成不足照度的 219。",
+    "配置須整數具數且均勻排列；矩形陣列只需 \\(n_xn_y\\ge220\\)，取 \\(20\\times11=220\\) 最省。"
+   ],
+   "conditions": "房間比率 3、\\(C_u=0.7\\)、\\(M=0.65\\) 均為題目給定，不另查表；配置圖的行列數不唯一，凡 \\(n_x n_y\\ge220\\) 且間距不超過約 1～1.5 倍吊裝高度均可，取 220 具最省。"
+  },
+  {
+   "qid": "EE-105-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 105,
+   "chapter": "諧波等效電路與並聯共振",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只用變壓器 \\(X_T=0.06\\) 而漏掉系統電抗 \\(0.0186\\)，\\(h_r\\) 會高估為 \\(\\sqrt{0.384/0.00691}=7.45\\)。",
+    "\\(X_C\\) 須以線電壓 \\(V_{LL}^2/Q_C\\) 計算，不可混用相電壓。",
+    "只寫 \\(f_r\\) 不說明階次與第 7 次特徵諧波的關係。"
+   ],
+   "conditions": "變壓器電阻未給，視為零；\\(R_T\\) 僅來自系統 \\(X/R\\)。\\(h_r=6.51\\) 恰超過 6.5，視為最接近第 7 次，但實務上 6 次與 7 次附近均有放大風險。"
+  },
+  {
+   "qid": "EE-106-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 106,
+   "chapter": "短路電流計算與設備接地",
+   "audit_status": "verified",
+   "pitfalls": [
+    "只答「計算短路電流為了選斷路器」，漏掉保護整定協調與設備熱、動穩定校核。",
+    "把接地說成只為雷擊防護；漏掉使故障電流足以跳脫保護的功能。",
+    "論述接地電阻愈小愈好，卻未交代還需確認故障迴路阻抗與切除時間。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 106,
+   "chapter": "短路故障電流、對稱成分與斷路器額定",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "上游未乘 2：把電源、T1、饋線在同一基準直接與 T2 相加，會得到 \\(Z_f=0.0343\\) pu、\\(9.927\\,\\mathrm{kA}\\)，忽略兩線間往返迴路。",
+    "T1 與饋線在 380 V 側、T2 的百分阻抗在 220 V 全繞組（75 kVA）或 110 V 半繞組（37.5 kVA）各有基準，須先換到同一基準再相加。",
+    "單相三線的線間短路不可套用三相公式 \\(S/(\\sqrt3V)\\)。"
+   ],
+   "conditions": "參考書（reference_book evidence，not official）將 F 按 220 V 線間短路、由三相 380 V 側換算得 \\(Z_f=0.057\\,\\mathrm{pu}\\)，得對稱 5.98 kA、非對稱 7.475 kA；\\(0.057\\) 無法由題給阻抗重建（題給數字合成的 \\(|Z_f|\\) 皆小於此值），僅列為對照，主解採上列題幹數據。對照模型（對稱電流）：\n\n| 模型 | 對稱電流 |\n|---|---:|\n| 主解：220 V 線間，上游取 \\(2Z_1\\) 往返迴路 | \\(7.956\\,\\mathrm{kA}\\) |\n| 上游不加倍，\\(Z_{T2,half}+2(Z_{sys,110}+Z_{T1,110}+Z_{L,110})\\)（110 V 半繞組框架，等同 \\(Z_{T2}+Z_{up}\\)） | \\(I_{sym,LL}=9.927\\,\\mathrm{kA}\\) |\n| F 標在 T2 左側 110 V 導體端，取左 110 V 導體對中性點故障（阻抗是否為每導體或往返值題幹未說明） | \\(11.318\\,\\mathrm{kA}\\) |\n| 參考書：\\(Z_f=0.057\\,\\mathrm{pu}\\) | 5.98 kA |\n\n\\(K=1.25\\) 為採用的慣例，不是題給量；非對稱「有效值」隨 \\(K\\) 線性變化。"
+  },
+  {
+   "qid": "EE-106-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 106,
+   "chapter": "三相變壓器組接線與分接頭選擇",
+   "audit_status": "verified",
+   "pitfalls": [
+    "一次側接 Y：每繞組只承受 \\(3300/\\sqrt3=1905\\,\\mathrm V\\)，僅額定的 58%，二次電壓不足。",
+    "代用機仍選 3300 V 一次分接頭，二次只有 210 V，三相電壓不平衡。",
+    "把 \\(\\sqrt3\\times220=381\\,\\mathrm V\\) 寫成 \\(220\\,\\mathrm V\\) 線電壓；380 V 動力負載要接線電壓端。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-106-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 106,
+   "chapter": "變壓器差動保護與 CT 相位補償",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(\\mathrm{CT}_1\\) 選 \\(2000/5\\)：Δ 接使電驛電流達 6.58 A，超過 5 A 且兩側失衡 57%。",
+    "把 CT 接法與變壓器同型（Y 側接 Y、Δ 側接 Δ），沒有補償 \\(30^\\circ\\)。",
+    "選 CT 比時忘記 Δ 接多出 \\(\\sqrt3\\)，直接以 \\(1519.3/251.0\\) 比例配對。"
+   ],
+   "conditions": "標準 CT 比取 5 A 二次的常用系列（50、100、150、200、250、300、400、500、600、800、1000、1200、1500、2000、2500、3000…）；「恰當」的判準取 CT 一次不小於額定電流、二次不超過 5 A、比值最小。"
+  },
+  {
+   "qid": "EE-106-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 106,
+   "chapter": "電容器與系統諧波共振",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 \\(320\\,\\mathrm{kvar}\\) 與 \\(15.68\\,\\mathrm{MVA}\\) 直接相除（\\(15.68/320\\)），單位差 \\(10^3\\)。",
+    "忘記開根號而答第 49 次諧波。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 107,
+   "chapter": "負載參差因數與綜合負載率",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把設備容量 kVA 直接當 kW；須乘需量因數與功率因數才是各戶最大有功需量。",
+    "參差因數方向相反：同時最大負載是個別最大合計**除以** 1.5，不是乘 1.5。",
+    "平均負載應按各戶自己的負載因數算，不可用群組合計再乘單一 \\(LF\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 107,
+   "chapter": "電動機饋線電壓降與導線長度",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "電抗忘記乘更正係數 1.2，使 \\(K\\) 偏小（\\(K\\) 會降為 0.2136，壓降低估約 4%）。",
+    "用 \\(\\sqrt3IL(R\\cos\\theta+X\\sin\\theta)\\) 時把長度寫成 120 而非 0.120 km。",
+    "最大長度不能直接寫 120 m；壓降與長度成正比，應依 \\(11\\,\\mathrm V/12.175\\,\\mathrm V\\) 縮放，且結果小於 120 m（因 120 m 已超過 5%）。"
+   ],
+   "conditions": "官方裁切沒有列馬達滿載電流、銘牌效率或輸入功率定義；第 152 條只決定馬達負載電流的取值依據：原則上採銘牌全載電流，一般用電動機才可採國家標準值（經濟部 107 年 7 月 17 日歷史版《用戶用電設備裝置規則》第 152 條，<https://law.moea.gov.tw/LawContentHistory.aspx?hid=50617>），因此不能由 100 HP 與功率因數單獨反推出唯一滿載電流。本題的「壓降 5%」是題目給定的壓降門檻，只用來把同一線路模型反算成 \\(L_{max}\\)，不是由第 152 條法規推導出的電流值。各取值下的結果為：\n\n| 滿載電流取值 | \\(I\\) | \\(\\Delta V\\%\\) | \\(L_{max}\\) |\n|---|---:|---:|---:|\n| 參考書 1 HP≈1 kVA（主解） | 262.43 A | 5.53% | 108.42 m |\n| 年度詳解常用值 | \\(250\\,\\mathrm A\\) | 5.2720% | 113.81 m |\n| 107 年歷史表 163-7-3 | \\(I=258\\,\\mathrm{A}\\) | 5.4407% | 110.28 m |\n| 現行表 258-3（60 HP 以上可採製造廠資料） | \\(238\\,\\mathrm A\\) | 5.0189% | 119.55 m |\n| 100 HP＝74.6 kW、效率 1 | 230.32 A | 4.8570% | 123.53 m |\n\n各取值下 120 m 的壓降落在 4.86%–5.53%，是否超過 5% 隨取值而變。題圖未指定表號，故 238 A、250 A、258 A 僅為版本交叉檢查，不取代參考書主解與銘牌值。"
+  },
+  {
+   "qid": "EE-107-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 107,
+   "chapter": "變壓器差動保護 CT 補償",
+   "audit_status": "verified",
+   "pitfalls": [
+    "比值方向要註明：低壓／高壓 \\(=1.398\\)，高壓／低壓 \\(=0.715\\)；只寫「1.4」不標方向。",
+    "11.4 kV 側 Δ-CT 的電驛電流漏乘 \\(\\sqrt3\\)，得到 \\(3.376\\,\\mathrm A\\) 而誤判兩側已平衡。",
+    "兩側 CT 都接 Y，沒有補償 \\(30^\\circ\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-107-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 107,
+   "chapter": "電動機配線設計：分路、幹線與過電流保護",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "幹線只取 \\(1.25(78+27)=131\\,\\mathrm A\\)；連續負載 125% 只乘最大那台。",
+    "保護 \\(40.5\\,\\mathrm A\\) 取 40 AT（往下取）；題目定的是「選用 1.5 倍」，40 AT 小於 \\(40.5\\,\\mathrm A\\)，應取 50 AT。",
+    "以啟動電流選導線；全壓啟動的啟動電流只影響跳脫曲線，導線依滿載電流 125%。"
+   ],
+   "conditions": "題幹未附屋內線路裝置規則的安培容量表與 AT 級距，下列為假設值（須以規則表核對）：\n\n| 項目 | 假設值 |\n|---|---|\n| PVC 管內 3 線安培容量 | \\(5.5\\,\\mathrm{mm^2}\\)：30 A；8：40 A；14：55 A；22：70 A；30：90 A；38：100 A；50：120 A；60：150 A |\n| 標準 AT | 15、20、30、40、50、60、75、100、125、150、175、200、225 |\n\n結論只要求 \\(30\\,\\mathrm{mm^2}\\) 容量 \\(<97.5\\,\\mathrm A\\le38\\,\\mathrm{mm^2}\\) 容量，以及 \\(50\\,\\mathrm{mm^2}\\) 容量 \\(<124.5\\,\\mathrm A\\le60\\,\\mathrm{mm^2}\\) 容量；若所用表的 50 mm² 已達 124.5 A 以上，幹線改為 50 mm²，AT 不變。"
+  },
+  {
+   "qid": "EE-107-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 107,
+   "chapter": "功率因數改善與三角形電容器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "\\(Q_c=P(\\tan\\phi_1-\\tan\\phi_2)\\) 用 \\(S=1200\\) 當 \\(P\\)；有功是 \\(1200\\times0.65=780\\,\\mathrm{kW}\\)。",
+    "Δ 接每相電壓是線電壓 6.6 kV，不是 \\(6.6/\\sqrt3\\,\\mathrm{kV}\\)；用相電壓會得到 \\(39.9\\,\\mu\\mathrm F\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 108,
+   "chapter": "電容式比壓器 CVT 比壓與補償電抗",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 \\(L\\) 與 \\(Z_B\\) 畫成並聯；圖中兩者串聯在同一支路。",
+    "以電容值直接分壓寫成 \\(C_2/(C_1+C_2)\\)；阻抗分壓 \\(Z_2/(Z_1+Z_2)\\) 化簡後是 \\(C_1/(C_1+C_2)\\)。",
+    "只寫 \\(C_1/(C_1+C_2)\\)，沒有交代它只在 \\(Z_B\\to\\infty\\) 或補償諧振時成立。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 108,
+   "chapter": "工業配電系統電壓降與串聯電抗器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把測定點放到主變二次側，上游阻抗與分壓位置全錯；圖上 × 在 69 kV 電源之後、主變之前。",
+    "15 MVA 爐用變壓器與 12.5 MVA 電弧爐阻抗未換到 30 MVA 基準。",
+    "串聯電抗器裝在 11.4 kV 側，屬測定點下游，應加進分母；只加到 \\(X_S\\) 會得到相反方向的結果。"
+   ],
+   "conditions": "題圖只給電抗值，全部忽略電阻；突降定義為測定點（source/PCC）電壓相對於電源電動勢的下降，電弧爐以其標示阻抗 \\(Z_F=8\\%\\) 的定阻抗負載代表，所得 3.0261% 為此模型值，並非閃爍（flicker）量測值。"
+  },
+  {
+   "qid": "EE-108-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 108,
+   "chapter": "V-V 開放三角接線與三相四線制燈力併供",
+   "audit_status": "verified",
+   "pitfalls": [
+    "兩台一次側接成同一對線電壓，二次側失去 \\(120^\\circ\\) 相位，合成不出三相。",
+    "把兩個二次中點同時接成 \\(N\\)；中性線只能取自一台的中點。",
+    "把 \\(Z\\)–\\(N\\) 當成 110 V 使用，或漏標 190.526 V 的高腳相。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-108-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 108,
+   "chapter": "工廠配電系統短路容量與標么法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "用 11.4 kV 的基準電流 \\(1013\\,\\mathrm A\\)（\\(20\\,\\mathrm{MVA}\\)）回答；F 點在 480 V 側，須乘 480 V 的 \\(I_b\\)。",
+    "電機 \\(25\\%\\) 是以 750 kVA 為基準，要乘 \\(S_b/0.75\\,\\mathrm{MVA}\\) 換算；漏換會使電機支路電抗偏小。",
+    "把電源支路與電機支路串聯；故障時兩者各自供電，在 F 並聯。"
+   ],
+   "conditions": "題幹將共同基準容量 \\(S_b\\) 印成 \\(20\\,\\mathrm{kVA}\\)，但電源短路容量為 \\(20\\,\\mathrm{MVA}\\)，本解讀為 \\(S_b=20\\,\\mathrm{MVA}\\)。基準容量只是換算尺度：以 \\(20\\,\\mathrm{kVA}\\) 為基準時 \\(X_S=0.001\\)、\\(X_T=0.00022\\)、\\(X_M=0.006667\\ \\mathrm{pu}\\)，\\(I_b=24.056\\,\\mathrm A\\)，故障電流同為 \\(23.327\\,\\mathrm{kA}\\)，答案不受影響。"
+  },
+  {
+   "qid": "EE-108-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 108,
+   "chapter": "配電線路功率因數改善與電壓降",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 120 kvar 加到 480 kvar 上；電容器供應落後無效功率，應相減。",
+    "壓降公式的 \\(\\sin\\phi\\) 仍用補償前的 0.6；補償後 \\(\\sin\\phi_2=0.4903\\)，\\(\\cos\\phi_2=0.8716\\)。",
+    "三相電流漏掉 \\(\\sqrt3\\)，或把 \\(\\Delta P\\) 寫成單相的 \\(I^2R\\)（少乘 3）。"
+   ],
+   "conditions": "「可增加的系統供電容量」題幹未定義；本解取設備電流上限不變、有功負載不變時釋出的 kVA。若改定義為在 800 kVA 上限內再加掛功因 0.8 的負載，可增加 66.22 kVA（新增 52.98 kW）。線路阻抗取為每相值，壓降採標準近似式（沿電壓軸分量），端電壓視為定值 11.4 kV。"
+  },
+  {
+   "qid": "EE-109-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 109,
+   "chapter": "工廠變壓器裝置容量與兩段式時間電價契約需量",
+   "audit_status": "verified",
+   "pitfalls": [
+    "以變壓器 kVA 作為契約容量；契約容量是 kW 最大需量（15 分鐘平均）。",
+    "未分尖峰、離峰兩段，或未利用負載移轉降低經常契約。",
+    "變壓器容量直接加總銘牌，未用需量與參差因數。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 109,
+   "chapter": "三相配電線路電壓降與電壓等級比較",
+   "audit_status": "verified",
+   "pitfalls": [
+    "Δ 接誤用相電流 151.5 A 算壓降，得 0.610%；線路壓降看線電流。",
+    "50 m 未換成 0.05 km。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 109,
+   "chapter": "配電系統標么阻抗與三相短路",
+   "audit_status": "verified",
+   "pitfalls": [
+    "50 m 未換成 0.05 km，或線路歐姆值未除以 \\(Z_b\\)。",
+    "忽略線路電阻只取電抗和，得 \\(2.624/0.194=13.51\\,\\mathrm{kA}\\)。",
+    "把標么電流當 kA，漏乘 \\(I_b\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 109,
+   "chapter": "工業照明流明法設計",
+   "audit_status": "verified",
+   "pitfalls": [
+    "燈具數 43.41 四捨五入成 43 具，照度只有 297 lx 不足。",
+    "每具光束用 23000 lm；2 燈組應為 46000 lm。",
+    "只算數量不給配置與間距檢核。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-109-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 109,
+   "chapter": "功率因數改善與並聯電容器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "輕載時誤以為電容也按比例減半；固定電容器仍提供 242.968 kvar。",
+    "補償後 \\(Q_2'>0\\)，PF 仍為落後，不可寫成超前。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-110-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 110,
+   "chapter": "功率因數改善與短路 RL 暫態",
+   "audit_status": "verified",
+   "pitfalls": [
+    "直流項漏負號或寫成 \\(\\sin\\alpha\\)；起始值需同時扣除相角 \\(\\theta\\)。",
+    "時間常數寫成 \\(R/L\\)。",
+    "罰則寫成每 1% 加 0.3%；台電條文為 0.1%，且減收算到 95% 為止。"
+   ],
+   "conditions": "題圖開關跨接負載，閉合前若負載電流 \\(i_0\\) 不可忽略，直流項改為 \\([i_0-I_m\\sin(\\alpha-\\theta)]e^{-Rt/L}\\)；本解依短路分析慣例取故障前電流 0。"
+  },
+  {
+   "qid": "EE-110-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 110,
+   "chapter": "變壓器容量設計與需量／參差因數",
+   "audit_status": "verified",
+   "pitfalls": [
+    "參差因數用乘的；\\(f_{div}\\ge1\\)，群組需量應除以它。",
+    "主變壓器用標準額定（50+50+20）再除 1.25；應以計算需量相加。",
+    "日用電量漏乘負載因數或功因。"
+   ],
+   "conditions": "標準容量級距假設為三相 10、15、20、30、50、75、100 kVA；若級距含 37.5 kVA，A 可選 37.5 kVA。"
+  },
+  {
+   "qid": "EE-110-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 110,
+   "chapter": "功率因數改善與設備容量約束",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "新增負載的 \\(Q\\) 用 \\(150\\times0.75\\)；應為 \\(P\\tan\\phi=132.29\\,\\mathrm{kvar}\\)。",
+    "把「改善到某 PF」當目標；本題限制是額定 kVA，所需 PF 由 \\(P/S_{rated}\\) 決定。"
+   ],
+   "conditions": "（一）題幹同時給 800 kW 與 1000 kVA。依題意「並聯多少 kvar」取 1000 kVA 為發電機（電樞）容量限制得 420.04 kvar；若「不超載」指原動機 800 kW，則任何電容皆不可行，作答時兩點都要寫明。"
+  },
+  {
+   "qid": "EE-110-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 110,
+   "chapter": "電弧爐電壓閃爍與串聯電抗器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把 \\(Z_L\\) 與主變壓器算進 A 點上游；A 點在饋線之前。",
+    "\\(j4\\,\\Omega\\) 未除以 \\(Z_b=380.88\\,\\Omega\\) 直接與 pu 相加。",
+    "電抗器加在分子；串聯電抗是增大分母、降低爐電流。"
+   ],
+   "conditions": "題目未指定串聯電抗器位置；本解裝在 A 點下游。若裝在 A 點上游，A 點變動率為 \\((X_S+X_R)/(X_{all}+X_R)\\)，反而變大。\n\n### 另一觀測點分支：圖示 B 點\n\n若觀測點改為爐用變壓器低壓側 B 點：\\(X_{up,B}=X_S+X_L+X_{T1}+X_{T2}=0.168835329\\,\\mathrm{pu}\\)，\\(\\Delta V_B=0.168835/0.518835=32.5412\\%\\)，降到 1.5% 需 \\(X_R\\ge10.736853\\,\\mathrm{pu}\\)。另以 \\(X_S+X_L+X_{T1}=0.098835\\) 為上游所得的 19.05%／6.07 pu 對應兩變壓器之間的假想觀測點，既非 A 點，也非圖示 B 點。"
+  },
+  {
+   "qid": "EE-110-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 110,
+   "chapter": "工廠自備變電所短路容量與馬達次暫態貢獻",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "漏掉 480 V 側 I/M2：其經 T2 的反饋仍流到 F1。",
+    "T2 與 I/M2 電抗並聯；兩者應串聯後再與其他來源並聯。",
+    "\\(K\\) 只乘一次，不得再乘 \\(\\sqrt2\\) 或重複套用。"
+   ],
+   "conditions": "題目未給 \\(K\\) 的定義：若 \\(K\\) 是 RMS 非對稱倍率，24.47 kA 為非對稱 RMS 值；若 \\(K\\) 是峰值倍率，同一數值為峰值。須先確認是 RMS 非對稱倍率或峰值倍率，不得把同一個 \\(K\\) 再乘一次。\n\n效率／功因參數化：題目只給 HP，未給效率與功因。若 \\(S_i=0.000746\\,\\mathrm{HP}_i/k_i\\)（MVA，\\(k=\\eta\\,\\mathrm{pf}\\)），三台取相同 \\(k\\)：\n\n| \\(k\\) | \\(I_{sym}\\)（kA） | \\(1.6I_{sym}\\)（kA） |\n|---:|---:|---:|\n| 0.80 | 15.0420 | 24.0672 |\n| 0.85 | 14.8360 | 23.7376 |\n| 0.90 | 14.6522 | 23.4435 |\n| 1.00 | 14.3382 | 22.9411 |\n\n1 HP≈1 kVA 相當於 \\(k=0.746\\)，故主解略大於上表各列。"
+  },
+  {
+   "qid": "EE-111-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 111,
+   "chapter": "儀表變壓器與 CT 負擔誤差",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "讀成 50:5 曲線（飽和約 10 V）；100:5 是由右數第二條，飽和約 20～22 V。",
+    "誤差分母用 \\(I'\\) 而非 \\(I'+I_e\\)，（一）會寫成 5.0%。",
+    "（二）在圖外硬讀一個 \\(I_e\\)；應寫「超出曲線，\\(I_e\\ge30\\,\\mathrm A\\)」並以下限判斷。"
+   ],
+   "conditions": "曲線讀值（對數座標，每十倍約 297 px，判讀誤差約 ±2.5%）：\n\n| \\(E'\\)（V） | 6.4 | 7.06 | 8.5 | 12.5 | 16.6 | 19.3 | 19.7 | 20.3 | 21.9 |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n| \\(I_e\\)（A） | 0.36 | 0.38 | 0.43 | 0.62 | 0.90 | 1.9 | 3.2 | 5.6 | 29 |\n\n（一）讀值區間 \\(0.37\\sim0.40\\,\\mathrm A\\)，誤差 \\(4.4\\sim4.8\\%\\)、\\(I_p=167\\sim168\\,\\mathrm A\\)，均小於 200 A。200 A 路線的數位化交點讀值為 \\(I_e=0.42\\sim0.44\\,\\mathrm A\\)（\\(I'=9.56\\sim9.58\\,\\mathrm A\\)）與 \\(I_e=3.4\\sim3.7\\,\\mathrm A\\)（\\(I'=6.3\\sim6.6\\,\\mathrm A\\)）。兩個區間分別遠低於與遠高於門檻 \\(I_e\\le2.0\\,\\mathrm{A}\\)，故偵測結論不受圖解誤差影響，受影響的只有誤差百分比的末位。"
+  },
+  {
+   "qid": "EE-111-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 111,
+   "chapter": "同步馬達全壓啟動與電壓變動率",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "未寫明 \\(\\eta\\,\\mathrm{pf}\\) 假設即逕取 3000 kVA；若採 \\(k=1\\)（\\(X_M=0.333\\)）須註明，結果為 15.25%／2.54%。",
+    "69 kV 側把變壓器電抗也算在上游；69 kV 母線只跨 \\(X_s\\)。",
+    "用額定電流而非 5 倍啟動電流換算 \\(X_M\\)。"
+   ],
+   "conditions": "題幹只給 \\(3000\\,\\mathrm{kW}\\)，未給額定功因與效率；啟動功因為 0 只說明啟動支路為純電抗，不能代替額定運轉功因。令 \\(k=\\eta\\,\\mathrm{pf}_n\\)，\\(X_M=k/3\\)，參數化敏感度如下（主解取參考書 \\(k=0.85\\)）：\n\n\\[\n\\Delta V_2(k)=\\frac{0.06}{0.06+k/3},\\qquad \\Delta V_{69}(k)=\\frac{0.01}{0.06+k/3}\n\\]\n\n| \\(k=\\eta\\,\\mathrm{pf}_n\\) | \\(\\Delta V_2\\) | \\(\\Delta V_{69}\\) |\n|---:|---:|---:|\n| 0.80 | 18.3673% | 3.0612% |\n| 0.85 | 17.4757% | 2.9126% |\n| 0.90 | 16.6667% | 2.7778% |\n| 1.00 | 15.2542% | 2.5424% |"
+  },
+  {
+   "qid": "EE-111-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 111,
+   "chapter": "汽電共生系統與三相短路之次暫態分析",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "不得把馬達反饋分量加到 A 點；馬達電流由各 M 支路經母線流向 F，不穿過 A。",
+    "只算一台馬達（\\(6.6I_b=28.87\\,\\mathrm{kA}\\)）；圖中三個 M 支路都要列入。",
+    "用暫態電抗 \\(X_d'=25\\%\\) 求次暫態電流。"
+   ],
+   "conditions": "題目給的是 \\(25\\,\\mathrm{MW}\\) 與 \\(6000\\,\\mathrm{kW}\\)，未給額定功因／效率；\\(25\\,\\mathrm{MVA}\\) 只是題目指定的基準。圖面確認三個 M 支路，支路數量 N_M=3 已確認。若 \\(S_G=25/PF_G\\)，則 \\(X_G=0.12PF_G\\)，A 點條件分支：\n\n| \\(PF_G\\) | 1.0 | 0.9 | 0.8 |\n|---|---:|---:|---:|\n| \\(I_A''=I_b/(0.12PF_G+0.08)\\)（kA） | 21.8693 | 23.2652 | 24.8515 |\n\n若馬達 \\(\\eta\\,\\mathrm{pf}_n=0.9\\)，\\(X_M''=0.5625\\)，\\(I_F''=10.333I_b=45.20\\,\\mathrm{kA}\\)。主解採 \\(PF_G=1\\)、馬達 1 kW≈1 kVA 的參考書慣例。"
+  },
+  {
+   "qid": "EE-111-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 111,
+   "chapter": "電動機配線、導線安培容量與過電流保護",
+   "audit_status": "reference_book_verified",
+   "pitfalls": [
+    "幹線只加總滿載電流（152.2 A）；最大一台須乘 1.25。",
+    "幹線保護直接取 200 AT：超過 \\(1.8I_{\\max}+\\sum I_{\\text{其他}}=194.2\\,\\mathrm A\\) 上限。",
+    "電焊機與壓縮機各自一分路，不能兩台 20 HP 合用一條 22 mm²。"
+   ],
+   "conditions": "表值假設（須以屋內線路裝置規則核對）：滿載電流取 1 HP≈1 kVA；金屬管 3 線安培容量 5.5 mm² 30 A、8 mm² 40 A、14 mm² 55 A、22 mm² 70 A、80 mm² 150 A、100 mm² 170 A、125 mm² 220 A（80／100 mm² 為使參考書選 125 mm² 成立的假設值）；標準 AT 含 30、40、70、150、175、200、225。\n\n「幹線導線不小於幹線保護 AT」是參考書的設計準則，不是題給條件；電動機幹線保護主要作短路保護，若只依 \\(165.3\\,\\mathrm A\\) 選線，100 mm²（假設 170 A）即足夠。參考書表 100 mm² 以下安培容量 <175 A，故取 125 mm²；若 100 mm² 安培容量 ≥175 A，可取 100 mm²。\n\n效率缺口的參數化結果：若改由題給 pf 0.85 與未知效率 \\(\\eta\\) 換算，\\(I_{20}=46.0645/\\eta\\)、\\(I_{10}=23.0323/\\eta\\)、\\(I_{8}=18.4258/\\eta\\ \\mathrm A\\)（\\(\\eta=1\\) 時即 46.0645、23.0323、18.4258 A），幹線 \\(I_{w,\\mathrm{main}}\\ge145.1033/\\eta\\)，保護 \\(I_{\\mathrm{OCP,max,main}}\\le170.4387/\\eta\\)。\n\n年度解讀 B 採表列 54／28／22 A：幹線 \\(\\ge171.5\\,\\mathrm A\\)，保護上限 \\(1.8(54)+54+28+22=201.2\\,\\mathrm{A}\\)，對應 80 mm²／200 AT。現行表 258-3 只有 7.5 HP（21 A），8 HP 的 22 A 僅是年度解讀 B 的代用值，不得把 7.5 HP 表列值直接套成 8 HP。"
+  },
+  {
+   "qid": "EE-111-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 111,
+   "chapter": "中性點接地與低電阻接地系統",
+   "audit_status": "verified",
+   "pitfalls": [
+    "電阻器電壓用線電壓 33 kV；中性點只承受相電壓。",
+    "漏掉系統電抗 0.01，二次短路電流變為 14.58 kA，比例 7.26%（結論仍符合，但數值錯）。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 112,
+   "chapter": "系統接地與設備接地",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把中性線 N 當作 PE 使用；N 正常有負載電流，PE 正常無電流。",
+    "只寫「接地」而未分開接地對象（中性點 vs. 外殼）。",
+    "圖中在下游多處重複連接 N 與 PE，形成並聯迴流路徑。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 112,
+   "chapter": "負載特性、需量因數與變壓器容量",
+   "audit_status": "verified",
+   "pitfalls": [
+    "平均功率再除以參差因數；參差因數只用於尖峰需量。",
+    "變壓器容量用 kVA 作答；題目指定 kW。",
+    "全月只乘 24 h（漏乘日數）。"
+   ],
+   "conditions": "「全月」日數題目未給，此處取 30 日；若取 31 日則 \\(280\\,748\\,\\mathrm{kWh}\\)。"
+  },
+  {
+   "qid": "EE-112-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 112,
+   "chapter": "放射狀配電系統 MVA 法短路電流",
+   "audit_status": "verified",
+   "pitfalls": [
+    "串聯元件 MVA 直接相加；MVA 法串聯取倒數和。",
+    "F2、F3 用 11.4 kV 換算電流；應用故障點所在 380 V。",
+    "線路 \\(0.0722\\,\\Omega\\) 未換成 \\(V^2/Z=2\\,\\mathrm{MVA}\\) 就與其他 MVA 合成。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 112,
+   "chapter": "三相短路故障與標么值法",
+   "audit_status": "verified",
+   "pitfalls": [
+    "用相電壓 220 V 計算三相故障電流（會放大 \\(\\sqrt3\\) 倍）。",
+    "故障電流用低壓側、始動電流用高壓側，\\(I/I_s\\) 差 30 倍。",
+    "把 \\(\\times\\dfrac{1}{0.808}\\) 看成 \\(\\times0.808\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-112-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 112,
+   "chapter": "高壓受電保護與計量二次接線",
+   "audit_status": "verified",
+   "pitfalls": [
+    "CT 二次開路（AS 切換或抽換儀表時），會產生高壓危險；須用短路片。",
+    "把 V、27 串聯接在 PT 二次；電壓元件必須並聯。",
+    "51N 接在單相 CT 上；應接殘流路徑或零序 CT。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 113,
+   "chapter": "日負載曲線與變壓器容量",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把累積讀值（如 24 h 的 7200）當瞬時 kW。",
+    "各廠個別最大需量相加（\\(375+250+600=1225\\,\\mathrm{kW}\\)）不是總和需量；B 廠最大在 12–16 h，與 A、C 不同時。",
+    "8 h 讀值為 A 1000、B 600、C 1200（合計 2800）；讀錯會使 8–12 h 增量偏離 4700。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 113,
+   "chapter": "線路壓降與功率因數校正",
+   "audit_status": "verified",
+   "pitfalls": [
+    "線長 130 m 未乘 2；單相兩線來回皆有阻抗。另 \\(\\Delta V/(I\\cos\\phi)=0.131250\\) 與 \\(R_\\ell\\) 幾乎相消，\\(Z_\\ell\\) 若捨入成 \\(0.1256+j0.0282\\) 會得 PF \\(0.9805\\)，須保留 \\(0.12558+j0.028158\\)。",
+    "負載為定阻抗，\\(P\\) 須用校正後負載電壓 \\(209.5238\\,\\mathrm V\\) 計算，不能直接用 \\(220\\,\\mathrm V\\) 而不同時調整 \\(\\Delta V\\) 的基準。",
+    "若把壓降百分率改以電源電壓為分母（\\(V_L\\ge209\\,\\mathrm V\\)），精確解 PF 約 \\(0.9147\\)；本題「負載電壓降百分率」以負載端電壓為分母。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-113-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 113,
+   "chapter": "電弧爐電壓閃爍與串聯電抗",
+   "audit_status": "verified",
+   "pitfalls": [
+    "爐用變壓器算入量測點上游，分子錯誤。",
+    "\\(0.45\\%\\) 代成 \\(0.045\\) 或 \\(0.45\\)。",
+    "只寫 pu 值而未換成容量或歐姆值。"
+   ],
+   "conditions": "「電抗器容量」依慣例以額定電流（此處等於 3 MVA 基準電流）下的 \\(I^2X\\) 標示為 \\(17.01\\,\\mathrm{MVA}\\)；若指改善後實際電弧短路時的無效功率，則為 \\(I^2X_RS_b=0.16237^2(5.6710)(3)=0.449\\,\\mathrm{Mvar}\\)。"
+  },
+  {
+   "qid": "EE-113-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 113,
+   "chapter": "標么法與三相短路啟斷容量",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "同步馬達換基準漏乘 \\((6.3/6.6)^2\\)；未修正得 \\(0.45\\,\\mathrm{pu}\\)。",
+    "把 \\(250\\,\\mathrm{MVA}\\) 與馬達 kVA 直接相加，未先換成標么電抗。",
+    "CB 支路量與 F 點總量混稱。"
+   ],
+   "conditions": "題面未指定啟斷電流的計算程序、接點分離時間、衰減時間常數與故障前運轉狀態，故上列只是初始次暫態估算，不宣稱為唯一官方口徑；單有 \\(X_d'=25\\%\\) 也不能決定接點分離時刻的電流。"
+  },
+  {
+   "qid": "EE-113-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 113,
+   "chapter": "CO-7 過電流電驛與比流器選定",
+   "audit_status": "verified",
+   "pitfalls": [
+    "讀錯曲線：倍數 6 在 TD5 上約 \\(1.5\\,\\mathrm s\\)（1.0 s 附近的是 TD3–TD4），若取 \\(M=6\\) 會得 \\(1500/5\\)。",
+    "電流倍數是相對分接頭 \\(6\\,\\mathrm A\\)，不是相對 CT 二次額定 \\(5\\,\\mathrm A\\)。",
+    "只答 CTR \\(=120\\) 未寫成標準規格 \\(600/5\\,\\mathrm A\\)。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-06-1",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 114,
+   "chapter": "變壓器 V-V（開三角）接線",
+   "audit_status": "verified",
+   "pitfalls": [
+    "把剩餘兩台直接相加成 \\(100\\,\\mathrm{kVA}\\)；兩台各輸出 \\(50\\,\\mathrm{kVA}\\)，但複功率相角差 \\(60^\\circ\\)，合成只得 \\(2(50)\\cos30^\\circ=86.6\\,\\mathrm{kVA}\\)。",
+    "\\(57.7\\%\\) 與 \\(86.6\\%\\) 的分母不同（原三台 \\(150\\) 與剩餘兩台 \\(100\\,\\mathrm{kVA}\\)），須標明。",
+    "圖中把空缺的第三邊畫成導線，會造成短路。"
+   ],
+   "conditions": ""
+  },
+  {
+   "qid": "EE-114-06-2",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 114,
+   "chapter": "電力品質：電弧爐電壓變動",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "\\(X_s\\) 寫成 \\(2000/25\\)，或未換到 \\(25\\,\\mathrm{MVA}\\) 共同基準。",
+    "把爐變算在量測點上游；量測點在主變二次側，分子只含 \\(X_s+X_L+X_{MTr}\\)。",
+    "把母線電壓誤當電極電壓；短路時電極電壓為零，母線電壓為 \\(0.845\\,\\mathrm{pu}\\)。"
+   ],
+   "conditions": "原題稱 \\(Z_F\\) 為「電弧爐及其配線之等效阻抗」，未拆分固定配線與隨電弧狀態改變的部分，因此不能據此宣稱唯一答案。官方圖將 \\(Z_F\\) 畫在爐 F 前方，且沒有畫出繞過 \\(Z_F\\) 的短接支路，支持全部保留的條件主解 \\(15.49\\%\\)（總電抗 \\(0.5325\\,\\mathrm{pu}\\)）。\n\n令短路時剩餘電抗為 \\(X_{F,sc}\\)，共同式為\n\\[\n\\Delta V\\%=\\frac{0.0825}{0.0825+0.05+X_{F,sc}}\\times100\\%\n\\]\n\\(X_{F,sc}=0.4\\) 得 \\(15.49\\%\\)；\\(X_{F,sc}=0\\) 得 \\(62.26\\%\\)。兩值都不是取得官方評分答案；取得 \\(Z_F\\) 的短路定義後應依該證據定案。"
+  },
+  {
+   "qid": "EE-114-06-3",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 114,
+   "chapter": "短路容量計算與同步發電機標么阻抗",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "兩機直接以 \\(0.25\\,\\mathrm{pu}\\) 並聯，未換到 \\(100\\,\\mathrm{MVA}\\) 基準。",
+    "用 \\(V_F=1\\) 而忽略 \\(65/69=0.94203\\,\\mathrm{pu}\\)。",
+    "發電機電流用 69 kV 基準電流 \\(836.7\\,\\mathrm A\\) 換算；機組電流應在 22 kV 側。"
+   ],
+   "conditions": "標么電抗的機組基準是額定 MVA，但題面只給 \\(50\\,\\mathrm{MW}\\)、\\(30\\,\\mathrm{MW}\\)。若額定 MVA 為 \\(S_1,S_2\\)：\n\\[\nI_{sc}=\\frac{65/69}{0.1+25/(S_1+S_2)},\\qquad I_{Gi}=\\frac{S_i}{S_1+S_2}I_{sc}I_b\n\\]\n\n| 額定功率因數假設 | \\((S_1,S_2)\\) | \\(I_{sc}\\) | \\(I_{G1}\\) | \\(I_{G2}\\) |\n| --- | --- | ---: | ---: | ---: |\n| \\(c_1=c_2=1.0\\) | \\((50,30)\\,\\mathrm{MVA}\\) | \\(2.2837\\,\\mathrm{pu}\\) | \\(3745.7\\,\\mathrm A\\) | \\(2247.4\\,\\mathrm A\\) |\n| \\(c_1=c_2=0.8\\) | \\((62.5,37.5)\\,\\mathrm{MVA}\\) | \\(2.6915\\,\\mathrm{pu}\\) | \\(4414.6\\,\\mathrm A\\) | \\(2648.8\\,\\mathrm A\\) |\n\n未取得額定功率因數前，不選任一列為唯一答案。"
+  },
+  {
+   "qid": "EE-114-06-4",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 114,
+   "chapter": "電動機起動與分路設計",
+   "audit_status": "needs_manual_review",
+   "pitfalls": [
+    "Y 起動線電流寫成 \\(1/\\sqrt3\\)；漏掉 Δ 線電流為繞組電流 \\(\\sqrt3\\) 倍，正確為 \\(1/3\\)。",
+    "幹線斷路器取「往上」標準值（175 AT）會超過分路保護＋其他滿載的上限。",
+    "以起動電流選導線；導線依滿載電流 125%，起動電流只影響斷路器倍率。"
+   ],
+   "conditions": "題幹未附屋內線路裝置規則的表格，下列為假設值（須以規則表核對），作答時應註明所依表別：\n\n| 項目 | 假設值 |\n|---|---|\n| 220 V 三相滿載電流 | 20 HP：\\(54\\,\\mathrm A\\)；10 HP：\\(28\\,\\mathrm A\\) |\n| PVC 管內 3 線安培容量 | \\(5.5\\,\\mathrm{mm^2}\\)：30 A；\\(8\\)：40 A；\\(14\\)：55 A；\\(22\\)：70 A；\\(30\\)：90 A；\\(38\\)：100 A |\n| 反時限斷路器倍率 | 起動階級 B–E：200%；F–V：250%；10 HP 未給階級取 250% |\n| 標準 AT | 50、60、75、100、125、150、175、200 |\n\n選線取安培容量不小於需求的最小線徑：\\(35\\,\\mathrm A\\to8\\,\\mathrm{mm^2}\\)（\\(5.5\\) 僅 30 A）、\\(67.5\\,\\mathrm A\\to22\\,\\mathrm{mm^2}\\)（\\(14\\) 僅 55 A）、\\(95.5\\,\\mathrm A\\to38\\,\\mathrm{mm^2}\\)（\\(30\\) 僅 90 A）。若 10 HP 同為階級 E，則 \\(56\\,\\mathrm A\\to60\\,\\mathrm{AT}\\)，幹線仍為 150 AT。查表值不同時，線徑與 AT 須依同一方法重選。"
+  },
+  {
+   "qid": "EE-114-06-5",
+   "subject_id": "06",
+   "subject": "工業配電",
+   "year": 114,
+   "chapter": "功率因數改善與自動功因調整器",
+   "audit_status": "verified",
+   "pitfalls": [
+    "8–17 時只算新增 100 kW 的 kvar，漏掉原 200 kW 的 \\(123.95\\,\\mathrm{kvar}\\)。",
+    "把 \\(127.36\\) 四捨五入成 2 組（100 kvar），PF 僅 \\(0.922\\)，未達 0.95。",
+    "只答理論 kvar，未答實際組數與投入後 PF。"
+   ],
+   "conditions": ""
+  }
+ ],
+ "condition_cards": [
+  {
+   "qid": "EE-114-06-2",
+   "gap": "題文將電弧爐及其配線合稱為 \\(Z_F=j0.4\\) pu，未拆分固定路徑與電弧的狀態相關部分，未明定電極短路時剩餘電抗。",
+   "card": "先寫 \\(X_u=0.0825\\) pu，令短路時剩餘電抗為 \\(X_{F,sc}\\)，則壓降與兩狀態變動率為 \\(100\\times0.0825/(0.1325+X_{F,sc})\\%\\)；斷弧視為開路時壓降為 0%。若全部保留 \\(X_{F,sc}=0.4\\)，條件值為 15.49%；若全部消失 \\(X_{F,sc}=0\\)，條件值為 62.26%。保留全部電抗是較有支持的主解，仍需先寫假設；本題只作邊界練習，不列預設模考計分。"
+  },
+  {
+   "qid": "EE-109-02-2",
+   "gap": "Boost 題問臨界電容 \\(C_c\\)，卻未寫臨界判準（電容電壓剛好連續的邊界或容許漣波比）。",
+   "card": "\\(D=0.5\\)、\\(\\Delta I_L=3\\,\\mathrm A\\)、\\(I_{L,\\mathrm{peak}}=7.5\\,\\mathrm A\\)、\\(\\Delta V_C=0.3\\,\\mathrm V\\)、\\(L_c=25\\,\\mu\\mathrm H\\) 可直接寫。先聲明採教材定義「電容電壓剛好連續，\\(\\Delta V_C=2V_o\\)」，主答 \\(C_c=D/(2fR)=1\\,\\mu\\mathrm F\\)；末句註明若評分以容許漣波比 \\(\\varepsilon=\\Delta V_{C,\\text{允許}}/V_o\\) 設計，條件值 \\(C_c(\\varepsilon)=D/(Rf\\varepsilon)=2\\,\\mu\\mathrm F/\\varepsilon\\)。不能把已知 200 μF 代入算漣波後又倒推為「臨界」200 μF。"
+  },
+  {
+   "qid": "EE-113-02-4",
+   "gap": "中心抽頭全橋題只標 \\(N_p:N_s\\)，未指明 \\(N_s\\) 是整段次級或每個半繞組；對角開關的 \\(D\\) 時序也需先聲明。",
+   "card": "先令每個半繞組對一次側的匝比為 \\(n_h\\)，並聲明每組對角開關每半週導通 \\(DT_s\\)。主答 \\(V_o/V_s=2Dn_h\\)、\\(L_x=(1-2D)R/(4f_s)\\)。若 \\(N_s\\) 指半繞組，\\(V_o/V_s=2DN_s/N_p\\)；若指整段次級，則為 \\(DN_s/N_p\\)。不可把其中一式當作題圖唯一指定。"
+  },
+  {
+   "qid": "EE-111-02-4",
+   "gap": "回授網路遠端節點只接偏壓電流源，題面未說明該節點交流開路或接地；參考書以 \\(R_F\\parallel r_{\\pi1}\\) 作輸入負載，與其 \\(|\\beta_f|=1\\) 矛盾。",
+   "card": "先判型態「並聯-串聯（電流-電流）負回授」，並聲明偏壓電流源交流開路。主答 \\(\\beta_f=I_f/I_o=-1\\)、\\(R_{iA}=r_{\\pi1}\\)（\\(g_{11}=0\\)）、\\(A=-g_{m1}r_{\\pi1}(1+\\beta_T)R_C/[R_C+r_{\\pi2}+(1+\\beta_T)(R_L+R_F)]\\)、\\(A_f=A/(1+|A|)\\approx-1\\)、\\(R_{if}=r_{\\pi1}/(1+|A|)\\)、\\(R_{of}=R_{oA}(1+|A|)\\)。末句註明參考書形式需假設遠端交流接地，但那時 \\(I_o\\) 不經 \\(R_F\\) 回授、\\(\\beta_f=0\\)；試算 \\(R_{of}\\) 參考書形式 144.0 kΩ 對精確節點解 503.6 kΩ，故不採用。"
+  },
+  {
+   "qid": "EE-113-04-4",
+   "gap": "官方圖示轉子支路為 \\(0.2/s\\)，提示文字卻寫機械負載電阻 \\(0.1(1-s)/s\\)；兩者分別對應 \\(R_2=0.2\\) 與 \\(0.1\\,\\Omega\\)，不能同時成立。",
+   "card": "先寫 \\(n_s=1200\\,\\mathrm{rpm}\\)、\\(s=1/15\\)、\\(V_\\phi=127.02\\,\\mathrm V\\)，並聲明所採 \\(R_2\\)。主答依電路圖 \\(R_2=0.2\\,\\Omega\\)：\\(I_{st}=189.35\\,\\mathrm A\\)、\\(I_{fl}=40.23\\,\\mathrm A\\)、pf \\(0.982\\) 滯後、\\(T=115.9\\,\\mathrm{N\\cdot m}\\)、\\(\\eta=90.32\\%\\)、\\(s_{max}=0.3288\\)、\\(I_{Tmax}=136.83\\,\\mathrm A\\)、計入激磁的啟動電流 \\(192.30\\,\\mathrm A\\)。末句註明若依提示 \\(R_2=0.1\\,\\Omega\\) 全面重算，條件值為 \\(I_{st}=200.83\\,\\mathrm A\\)、\\(I_{fl}=74.33\\,\\mathrm A\\)、\\(T=197.85\\,\\mathrm{N\\cdot m}\\)、\\(\\eta=87.50\\%\\)。不可混用「電流取 0.2、機械功率取 0.1」的參考書寫法（\\(57.67\\,\\mathrm{N\\cdot m}\\)、\\(\\eta\\approx45\\%\\)），它違反 \\(P_{conv}=(1-s)P_{ag}\\) 功率平衡。"
+  },
+  {
+   "qid": "EE-111-04-4",
+   "gap": "題幹 200 A 是滿載 0.85 落後時的場電流，題面未給 OCC／SCC 曲線；參考書把 200 A 當成 OCC 額定電壓場電流，與第（一）題自相矛盾。",
+   "card": "（一）可唯一寫 \\(\\underline E=\\underline V_\\phi+jX_s\\underline I_a=10710.17\\angle27.94^\\circ\\,\\mathrm V\\)、\\(\\mathrm{VR}=68.6414\\%\\)。（二）（三）先寫「若採通過工作點的線性化 OCC」，條件值 \\(I_{f,\\mathrm{OCC}}=118.595\\,\\mathrm A\\)、\\(I_{f,\\mathrm{SCC}}=X_{s,pu}I_{f,\\mathrm{OCC}}=110.264\\,\\mathrm A\\)，並以短路法 \\(E_{sc}=X_sI_a\\) 回代。末句註明若另給實際 OCC 應以曲線讀值取代。不可照抄參考書 68.87%、\\(I_{f,\\mathrm{OCC}}=200\\,\\mathrm A\\)、186 A：200 A 若在無載只產生額定電壓，第（一）題 VR 會是 0，其自身 \\(E\\) 代回亦只得 68.65%。"
+  },
+  {
+   "qid": "EE-112-05-2",
+   "gap": "800 MW 是否作硬上限、第二運轉點哪台觸及上限未指定。",
+   "card": "若忽略容量限制，寫 \\((\\beta,\\gamma)=(6.3,0.004)\\)；若視 800 MW 為硬上限，寫 KKT 條件並列出 \\(P_2=800\\) 分支 \\((6.4667,0.003)\\) 與 \\(P_1=800\\) 分支 \\((8,1/1100)\\)，不把其中一組冒充唯一答案。"
+  },
+  {
+   "qid": "EE-112-03-2",
+   "gap": "兩段定義 \\(-2\\le x<0\\)、\\(0\\le x<4\\) 合計長 6，與 \\(f(x+4)=f(x)\\) 的週期 4 矛盾（例如 \\(x=-1\\) 時兩式給 2 與 6）。",
+   "card": "先寫出矛盾並聲明所採基本區間。主答取保留兩段公式的最小修正 \\([-2,2)\\)、\\(f=2|x|\\) 偶函數：\\(a_0=2\\)、\\(a_n=8\\bigl((-1)^n-1\\bigr)/(n^2\\pi^2)\\)（奇數 \\(n\\) 為 \\(-16/(n^2\\pi^2)\\)）、\\(b_n=0\\)。末句註明若取一週期 \\(0\\le x<4\\) 的 \\(f=2x\\) 鋸齒波，條件值為 \\(a_0=4\\)、\\(a_n=0\\)、\\(b_n=-8/(n\\pi)\\)。常數項須寫明採 \\(a_0\\) 或 \\(a_0/2\\) 慣例，不把任一讀法當成題面唯一指定。"
+  },
+  {
+   "qid": "EE-111-05-3",
+   "gap": "題幹未給系統頻率。",
+   "card": "臨界清除角可唯一寫為 \\(89.3750^\\circ\\)；時間先寫 \\(t_{cr}=0.2704\\sqrt{60/f}\\,\\mathrm s\\)，再註明若採 60 Hz，條件值為 \\(0.2704\\,\\mathrm s\\)。"
+  },
+  {
+   "qid": "EE-110-01-1",
+   "gap": "官方圖一左右兩側下導線未相接，依圖 \\(2\\,\\mathrm F\\) 電容不構成迴路；25 分題放置無作用元件，命題本意可能是兩側共地。",
+   "card": "先聲明依圖判讀：對右半電路取 KCL 得 \\(I_C=0\\)，兩側只靠互感耦合。反射阻抗 \\(1/(2+j)\\) 得 \\(V_1=(0.4+j2.8)I_a\\)、\\(I_a=10/(1.4+j2.8)\\)，主答 \\(v_2(t)=-\\tfrac{20}{7}\\cos t=2.857\\cos(t+180^\\circ)\\,\\mathrm V\\)，以功率守恆 \\(2.041\\,\\mathrm W\\) 回代。末句註明若兩側下導線共地，以兩上節點列 KCL 得條件值 \\(v_2(t)=4.079\\cos(t+78.23^\\circ)\\,\\mathrm V\\)。不可沿用舊答 \\(5.726\\angle-13.24^\\circ\\)，其節點矩陣不對稱，兩種讀法下皆不成立。"
+  },
+  {
+   "qid": "EE-105-04-5",
+   "gap": "從 \\(I_f=12\\) A 降至 6 A，但未給磁化曲線。",
+   "card": "令 \\(r=\\Phi_2/\\Phi_1\\)，先寫 \\(I_{a2}=300/r\\) A 與 \\(n_2=800/r-100/r^2\\) rpm；只在線性未飽和 \\(r=0.5\\) 假設下寫 \\(n_2=1200\\) rpm。"
+  },
+  {
+   "qid": "EE-106-04-3",
+   "gap": "給外接軸負載轉矩 100 N·m 與非零無載電樞電流 4 A，但未給旋轉損失隨轉速變化模型。",
+   "card": "先由無載點求 \\(K\\Phi=1.8907607\\) 與無載電磁轉矩 \\(7.563\\,\\mathrm{N\\cdot m}\\)。若採空載損失轉矩不變，條件值為 \\(I_a=56.89\\,\\mathrm A\\)、\\(n=866.4\\,\\mathrm{rpm}\\)；若將 100 N·m 直接視為電磁轉矩，另得 \\(52.89\\,\\mathrm A\\)、\\(876.5\\,\\mathrm{rpm}\\)。不得混用，也不背成唯一答案。"
+  },
+  {
+   "qid": "EE-104-06-5",
+   "gap": "500 kW 是 AC 輸入或 DC 輸出、功因、效率及「額定電流」定義未給。",
+   "card": "先寫基準假設「AC 側有功、\\(\\mathrm{pf}_1=1\\)」，得 \\((V_5,I_s,I_A,I_B)=(3.2211\\,\\mathrm V,74.6606,51.5158,25.7579\\,\\mathrm A)\\)；AC 分支整組除以 \\(\\mathrm{pf}_1\\)，DC 輸出分支整組除以 \\(\\eta\\mathrm{pf}_1\\)。"
+  },
+  {
+   "qid": "EE-104-03-3",
+   "gap": "實軸上 \\(x=0,4\\) 有極點，題幹未寫 Cauchy 主值。",
+   "card": "先寫「普通廣義積分發散」；若命題慣例要求 Cauchy 主值，條件解為 \\(\\operatorname{PV}I=-14\\pi/75\\)。"
+  },
+  {
+   "qid": "EE-114-06-3",
+   "gap": "發電機容量以 MW 給出，未給額定 MVA 或功率因數；次暫態電抗 25% 的機組基準不明。",
+   "card": "先令機組額定 MVA 為 \\(S_1,S_2\\)，列 \\(X_G=25/(S_1+S_2)\\) pu（以 100 MVA 為基準）與短路電流通式。若假設額定 PF=1，才代 \\(S_1=50,S_2=30\\) 得 \\(2.2837\\) pu；若兩機 PF=0.8，條件值為 \\(2.6915\\) pu。各機電流亦須依 \\(S_i/(S_1+S_2)\\) 分流，不能把 MW 無條件當 MVA。"
+  },
+  {
+   "qid": "EE-114-06-4",
+   "gap": "題幹未附屋內線路裝置規則的電動機滿載電流表、PVC 管安培容量表與斷路器倍率表；不同參考書表值不同（例如 20 HP 取 52.49 A 或 54 A），10 HP 亦未給起動階級。",
+   "card": "先寫可唯一確定的 Y-Δ 起動線電流比 \\(I_{L,Y}/I_{L,\\Delta}=1/3\\)（轉矩亦為 1/3），20 HP 全壓起動 \\(236.2\\text{–}261.9\\,\\mathrm A\\)、Y 起動降為 \\(78.7\\text{–}87.3\\,\\mathrm A\\)；再列方法：分路導線 \\(\\ge1.25I_{FL}\\)、幹線 \\(\\ge1.25I_{\\max}+\\sum I_{\\text{其他}}\\)、幹線斷路器不超過最大分路保護加其他滿載。註明所依表別；若採 \\(I_{20}=54\\,\\mathrm A\\)、\\(I_{10}=28\\,\\mathrm A\\) 與 PVC 管 3 線安培容量表等假設值，條件值為 20 HP 分路 \\(22\\,\\mathrm{mm^2}\\)、\\(125\\,\\mathrm{AT}\\)，10 HP 分路 \\(8\\,\\mathrm{mm^2}\\)、\\(75\\,\\mathrm{AT}\\)，幹線 \\(95.5\\,\\mathrm A\\to38\\,\\mathrm{mm^2}\\)、\\(150\\,\\mathrm{AT}\\)。表值不同時依同一方法重選，不背成唯一線徑；本題只作邊界練習，不列預設模考計分。"
+  },
+  {
+   "qid": "EE-110-06-3",
+   "gap": "發電機組同時標 800 kW 與 1000 kVA，加載後 \\(P=950\\,\\mathrm{kW}\\) 已超過原動機額定；題幹未說明「不超載」以 kVA 或 kW 為限制。",
+   "card": "先寫電容只供無效功率、補償後 \\(Q\\le\\sqrt{S_{rated}^2-P^2}\\)。（一）\\(Q=732.29\\,\\mathrm{kvar}\\)，若以 1000 kVA 為發電機容量限制，主答 \\(Q_c=420.04\\,\\mathrm{kvar}\\)（補償後 PF 0.95 落後）；緊接一句「950 kW 仍超過 800 kW 原動機額定，電容無法改善，須卸載 150 kW 或改用較大機組」。（二）變壓器不受此疑義影響，\\(Q_c=164.11\\,\\mathrm{kvar}\\)。不可只寫「不可行」而漏掉 kVA 限制下的數值。"
+  },
+  {
+   "qid": "EE-113-06-4",
+   "gap": "題目以「啟斷容量」提問，但未指定計算程序、接點分離時間、機器衰減／時間常數或故障前運轉條件；同步馬達銘牌 6.3 kV 與系統基準 6.6 kV 亦須正確換基準。",
+   "card": "先取 Sb=3 MVA，明列所有內電勢 1∠0° pu、忽略電阻的初始次暫態假設；換算 Xd''=0.15×(3/1)×(6.3/6.6)^2=0.410021 pu。條件下 CB 支路為 15.475 MVA / 18.614 kA，F 點總量為 17.475 MVA / 21.020 kA；感應馬達回灌不經圖示 CB。實際接點分離電流及唯一官方評分口徑仍未定，故本題只作條件題練習，不列預設核心路徑或模考計分。"
+  },
+  {
+   "qid": "EE-107-04-1",
+   "gap": "題幹未說明電源降至 10.92 kV 時負載是維持 165 kVA（定視在功率）還是維持 380 V 下 165 kVA 的定阻抗；「供給之線電流」也未指明一次側或二次側。",
+   "card": "先寫 Y–Y 變比 30，並聲明「若採定 165 kVA」：\\(I_L=165\\times10^3/(\\sqrt3\\cdot10.92\\times10^3)=8.724\\,\\mathrm A\\)、每台 55 kVA、\\(U=83.33\\%\\)。緊接一句另一分支：定阻抗時二次線電壓 364.0 V、\\(S=151.40\\,\\mathrm{kVA}\\)、\\(I_L=8.005\\,\\mathrm A\\)、\\(U=76.46\\%\\)；若問二次側線電流，定 kVA 為 261.7 A、定阻抗為 240.1 A。"
+  },
+  {
+   "qid": "EE-108-02-5",
+   "gap": "題給 \\(V_L=3\\,\\mathrm V\\) 與 \\(V_S=9\\,\\mathrm V\\)、\\(D=1/6\\) 的理想輸出 \\(DV_S=1.5\\,\\mathrm V\\) 矛盾；\\(V_L=3\\,\\mathrm V\\) 下三相電感電流總和每 \\(T_s/3\\) 淨降 0.75 A，不存在週期穩態。",
+   "card": "先寫可由題給資料直接得到的 \\(L_{min}=100\\,\\mu\\mathrm H\\) 與 \\(f_{ripple}=3f_s=60\\,\\mathrm{kHz}\\)。最高、最低值先聲明假設：依題給 \\(V_L=3\\,\\mathrm V\\) 取平均 3 A 的形式值 \\(3.375/2.625\\,\\mathrm A\\)（\\(\\Delta I_o=0.75\\,\\mathrm A\\)）；若改採自洽的 \\(V_L=DV_S=1.5\\,\\mathrm V\\)，則 \\(L=125\\,\\mu\\mathrm H\\)、\\(\\Delta I_o=0.30\\,\\mathrm A\\)、極值 \\(1.65/1.35\\,\\mathrm A\\)。不把其中一組冒充唯一答案。"
+  },
+  {
+   "qid": "EE-106-02-2",
+   "gap": "題圖無元件數值，開迴路增益 \\(A\\) 是否計入分壓器負載 \\(R_1+R_2\\) 未指定；參考書取未含負載的 \\(A=\\tfrac12g_{mN}r_o\\)，與含負載的 \\(A\\) 差在 \\(R_{out,f}\\) 約 28%。",
+   "card": "先判「串聯-並聯（電壓串聯）負回授」，\\(\\beta=R_1/(R_1+R_2)\\)。主答 \\(A=g_{mN}[(r_o/2)\\parallel(R_1+R_2)]\\)、\\(A_f=A/(1+A\\beta)\\)、\\(R_{out,f}=[(r_o/2)\\parallel(R_1+R_2)]/(1+A\\beta)\\)；末句註明參考書取 \\(A=\\tfrac12g_{mN}r_o\\)（\\(R_1+R_2\\gg r_o/2\\) 的極限），同組數值下 \\(A_f\\) 高 8.5%、\\(R_{out,f}\\) 低 28%。"
+  },
+  {
+   "qid": "EE-106-06-2",
+   "gap": "參考書 \\(Z_f=0.057\\,\\mathrm{pu}\\)（5.98 kA／7.475 kA）無法由題給阻抗重建；題幹未給非對稱倍率 \\(K\\)，上游是否取往返迴路也未指定。",
+   "card": "先寫 75 kVA、220 V 基準與 \\(Z_f=Z_{T2}+2(Z_{sys}+Z_{T1}+Z_L)=0.02408+j0.03544\\) pu（\\(|Z_f|=0.04285\\) pu），主答 \\(I_{sym}=7.956\\,\\mathrm{kA}\\)；非對稱先聲明「採低壓慣例 \\(K=1.25\\)」得 \\(9.946\\,\\mathrm{kA}\\)。附註參考書值 5.98／7.475 kA 與上游不加倍的 9.927 kA 為對照，不當成唯一答案。"
+  },
+  {
+   "qid": "EE-107-06-4",
+   "gap": "題幹未附屋內線路裝置規則的導線安培容量表與標準 AT 級距；30、38、50、60 mm² 的容量為題外表值，不同版本表值不同。",
+   "card": "先寫與表值無關的部分：分路 \\(1.25\\times27=33.75\\,\\mathrm A\\)、\\(1.5\\times27=40.5\\to50\\,\\mathrm{AT}\\)；\\(1.25\\times78=97.5\\,\\mathrm A\\)、\\(1.5\\times78=117\\to125\\,\\mathrm{AT}\\)；幹線 \\(1.25\\times78+27=124.5\\,\\mathrm A\\)、\\(1.5\\times78+27=144\\to150\\,\\mathrm{AT}\\)。線徑先聲明「若採某安培容量表」才選用（如 8、38、60 mm²），並寫明只要求容量達 33.75、97.5、124.5 A。"
+  },
+  {
+   "qid": "EE-110-03-3",
+   "gap": "題幹只寫「求 \\(f(x)=x-x^2\\) 的傅立葉展開」，未給展開區間或週期。",
+   "card": "先聲明「取 \\((-\\pi,\\pi)\\)、週期 \\(2\\pi\\)」，主答 \\(x-x^2=-\\pi^2/3+\\sum_{n\\ge1}[-4(-1)^n\\cos nx/n^2+2(-1)^{n+1}\\sin nx/n]\\)；末句註明若取 \\((-L,L)\\)，則 \\(a_0/2=-L^2/3\\)、\\(a_n=-4L^2(-1)^n/(n^2\\pi^2)\\)、\\(b_n=2L(-1)^{n+1}/(n\\pi)\\)，\\(L=\\pi\\) 時回到主解。"
+  },
+  {
+   "qid": "EE-105-01-3",
+   "gap": "題幹只寫 \\(12\\angle45^\\circ\\ \\mathrm V\\)，未標示是有效值或峰值；同卷第 4 題明標 \\(34.5\\ \\mathrm{kV_{rms}}\\)，本題未標。",
+   "card": "先由 \\(Y_{in}=0.25+(2+j)/5=0.65+j0.2\\) S 寫出吸收功率等於供應功率，再聲明「若採有效值相量」：\\(P=144\\times0.65=93.6\\,\\mathrm W\\)；緊接一句另一分支：若採峰值相量，\\(P=\\tfrac12\\times93.6=46.8\\,\\mathrm W\\)。兩個結果都明標條件，答卷先寫明所採讀法。"
+  },
+  {
+   "qid": "EE-104-02-1",
+   "gap": "題幹只給 \\(K_P=0.1\\) mA/V²，未寫平方律公式；\\(K_P\\)、\\(V_{TP}\\) 記號指向導通參數慣例，但沒有官方答案可核對。",
+   "card": "先聲明「若採導通參數 \\(I_D=K_P(V_{SG}+V_{TP})^2\\)」：\\(R_S=5.5\\,\\mathrm{k\\Omega}\\)、\\(R_D=9.5\\,\\mathrm{k\\Omega}\\)、\\(v_o/v_i=-1.1875/(1+9.5\\times10^{-8}s)\\)、\\(f_c=1.675\\,\\mathrm{MHz}\\)。緊接一句另一分支：若採 \\(\\tfrac12K_P\\) 慣例，\\(R_S=3.43\\,\\mathrm{k\\Omega}\\)、\\(R_D=11.57\\,\\mathrm{k\\Omega}\\)、\\(A_{v0}=-1.66144\\)、\\(f_c=1.375\\,\\mathrm{MHz}\\)；兩者結構 \\(-g_mR_D/[(1+g_mR_S)(1+sR_DC_L)]\\) 相同。"
+  },
+  {
+   "qid": "EE-105-02-5",
+   "gap": "題目的「半橋整流器」未定義，可指一臂二極體加一臂分壓電容，或中心抽頭全波；與全橋的比較隨讀法而異。",
+   "card": "先寫與讀法無關的部分：理想二極體、純電阻，半波 \\(V_{DC}=V_m/\\pi\\)、全波 \\(2V_m/\\pi\\)，漣波頻率 \\(f\\)／\\(2f\\)。（二）先聲明「若『半橋』指……」再比較二極體數、PIV（中心抽頭 \\(2V_m\\)、橋式 \\(V_m\\)）與平均值；緊接一句另一種讀法，兩種都明標為條件答案。"
+  },
+  {
+   "qid": "EE-104-04-3",
+   "gap": "題設 612 rpm 與「轉矩不變、無機械損」互相矛盾：\\(I_a\\) 不變時理論轉速為 620.7 rpm。",
+   "card": "先寫（一）\\(P_{out}=2.9\\times2=5.80\\,\\mathrm W\\)。聲明「若採轉矩不變」：\\(I_a=2.0\\,\\mathrm A\\)、\\(\\eta=3.0/3.1=96.77\\%\\)；緊接一句另一分支：若以 612 rpm 為準，\\(E_{a2}=2.958\\,\\mathrm V\\)、\\(I_a=2.84\\,\\mathrm A\\)、\\(\\eta=95.42\\%\\)，但此時轉矩已增加，與題設衝突，須在答卷註明。"
+  },
+  {
+   "qid": "EE-104-05-1",
+   "gap": "題幹未明說 \\(P=360\\) MW、\\(Q=270\\) Mvar 是否含負載 B；「345 kV 側之故障相電流」也可指故障點總電流或 \\(MT_R\\) 繞組電流。",
+   "card": "先寫故障序網路（與負載讀法無關）：故障點電流 37.43 kA（ES 投入）／34.84 kA（切離）。聲明「若 P、Q 不含負載 B、負載 B 由主變供電」：\\(V_t=19.74\\,\\mathrm{kV}\\)；緊接一句另一分支：若 P、Q 含負載 B，\\(V_t=19.56\\,\\mathrm{kV}\\)。若所求為 \\(MT_R\\) 345 kV 繞組 a 相電流，則為 3.96 kA／1.37 kA。"
+  },
+  {
+   "qid": "EE-104-06-2",
+   "gap": "「電力損失 10%」未說明分母；取變電站輸出或負載端需量的 10% 會差 1.0%。",
+   "card": "先寫群內參差（3、2）：電燈 50 kW、馬達 100 kW，複數和 \\(150+j91.434\\)、\\(|S|=175.67\\,\\mathrm{kVA}\\)，再除群間參差 1.1 得 159.70 kVA。聲明「若損失 10% 為變電站輸出的 10%」：\\(\\div0.9\\to177.45\\,\\mathrm{kVA}\\)；緊接一句另一分支：若為負載端需量的 10%，\\(\\times1.1\\to175.67\\,\\mathrm{kVA}\\)。"
+  }
+ ],
+ "question_doubts": [
+  {
+   "qid": "EE-104-01-3",
+   "doubt": "「Y_an=120∠20° V_rms」依上下文應為 V_an"
+  },
+  {
+   "qid": "EE-104-03-3",
+   "doubt": "實軸上有極點，積分僅主值存在"
+  },
+  {
+   "qid": "EE-108-01-3",
+   "doubt": "v_ab 未標單位；提示 tan⁻¹ 採四象限慣例"
+  },
+  {
+   "qid": "EE-106-02-1",
+   "doubt": "第（三）小題等號兩側皆為 v_out，疑似誤植"
+  },
+  {
+   "qid": "EE-109-02-3",
+   "doubt": "未給輸入電壓 V_s"
+  },
+  {
+   "qid": "EE-109-04-1",
+   "doubt": "同一符號 R_P／R_S 兼指磁阻與繞組電阻"
+  },
+  {
+   "qid": "EE-109-06-3",
+   "doubt": "kV_b=220 V 符號與單位不一致"
+  },
+  {
+   "qid": "EE-112-06-2",
+   "doubt": "「全月用電度數」未給每月天數"
+  },
+  {
+   "qid": "EE-110-03-3",
+   "doubt": "未給展開區間"
+  },
+  {
+   "qid": "EE-112-03-2",
+   "doubt": "定義區間與週期矛盾（已為人工覆核）"
+  },
+  {
+   "qid": "EE-113-04-4",
+   "doubt": "提示 0.1(1−s)/s 與圖示 0.2/s 矛盾（已為人工覆核）"
+  },
+  {
+   "qid": "EE-114-04-5",
+   "doubt": "官方提示的三角恆等式本身錯誤；轉矩式正負號"
+  },
+  {
+   "qid": "EE-111-02-2",
+   "doubt": "「SPICE」應為 SEPIC"
+  },
+  {
+   "qid": "EE-108-02-5",
+   "doubt": "V_S=9 V、D=1/6 與 V_L=3 V 不符"
+  },
+  {
+   "qid": "EE-108-06-4",
+   "doubt": "S_b=20 kVA 疑為 20 MVA"
+  }
+ ]
+}

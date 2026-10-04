@@ -55,10 +55,11 @@ class TestEE114RlcTaxonomyConsistency(unittest.TestCase):
         }
         exceptions = golden["coverageExceptions"]
         with self.subTest("first- and second-order sparse coverage is accurate"):
-            self.assertEqual(len(positive_cases["ct-first-order-rc-rl"]), 4)
-            self.assertIn("四題", exceptions["ct-first-order-rc-rl"])
-            self.assertEqual(len(positive_cases[CHAPTER]), 2)
-            self.assertIn("兩題", exceptions[CHAPTER])
+            self.assertEqual(len(positive_cases["ct-first-order-rc-rl"]), 2)
+            self.assertIn("兩題", exceptions["ct-first-order-rc-rl"])
+            # 2026-10-04 stem re-audit moved three RLC transient questions here.
+            self.assertEqual(len(positive_cases[CHAPTER]), 4)
+            self.assertIn("四題", exceptions[CHAPTER])
 
         with self.subTest("dashboard primary chapter remains stable"):
             self.assertEqual(taxonomy[QID]["primaryChapter"], CHAPTER)

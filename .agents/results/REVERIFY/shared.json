@@ -1,0 +1,382 @@
+{
+ "workpackage": "WP9-reverify-shared",
+ "generated_at": "2026-10-04",
+ "scope_chapters": [
+  "ps-three-phase-fault",
+  "dist-short-circuit-capacity",
+  "ps-unsymmetrical-faults",
+  "dist-grounding-system",
+  "ps-power-analysis",
+  "dist-power-factor-correction",
+  "ps-system-protection-relay",
+  "dist-protection-coordination"
+ ],
+ "tolerance": "0.5%",
+ "method": "blind solve from official crop/PDF render (200-600 DPI; CO-7 and CT excitation curves digitized) before opening canonical notes",
+ "counts": {
+  "match": 44,
+  "ambiguous_stem": 1
+ },
+ "results": [
+  {
+   "qid": "EE-104-05-1",
+   "my_answers": "Vt=19.74 kV; ES投入: MT_R 345kV繞組 Ia=3.96 kA (故障點總電流 37.43 kA), V0=59.41 kV; ES切離: 繞組 Ia=1.366 kA (總 34.84 kA), V0=69.11 kV",
+   "note_answers": "Vt=19.74 kV; If=37.43/34.84 kA; V0=59.4/69.1 kV; 條件與疑義列繞組電流 3.96/1.37 kA",
+   "verdict": "match",
+   "evidence": "Note is needs_manual_review and states both readings of '345 kV側故障相電流'; all my numbers equal one stated branch. Literal stem ('MTR 345 kV側') favors the winding-current branch 3.96/1.37 kA.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-104-05-2",
+   "my_answers": "V161=169.37 kV; S=157.0/130.8/112.1 MVA; Cu 616.3/513.6/440.2 kW (+鐵損 250/300/350 → 總 2470.1 kW); TR1+TR3 不允許(233.3 MVA>220); 選 TR1+TR2: 218.18/181.82 MVA, 總損 2731.8 kW",
+   "note_answers": "169.369 kV; 2470.1 kW; 不允許TR1+TR3; TR1+TR2; 2731.8 kW",
+   "verdict": "match",
+   "evidence": "All boxed values reproduced.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-104-05-3",
+   "my_answers": "|E''|=1.0865/1.3038 pu; Vt=20.43/22.11 kV; Q=52.6/362.8 Mvar; 系統故障電流=兩機相量和 5.498 kA (≈5.5)",
+   "note_answers": "20.4285/22.1098 kV; 52.627/362.836 Mvar; δ=17.13°/14.21°; 5.4982 kA (5.5)",
+   "verdict": "match",
+   "evidence": "Match; system impedance not given so both take phasor sum of the two machine contributions (note documents this).",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-104-06-4",
+   "my_answers": "Z1=Z2=j1.1604 Ω, Z0=j0.9974 Ω (單相短路容量=√3·V·I 口徑)",
+   "note_answers": "j1.16036 Ω; j0.99741 Ω",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-105-05-3",
+   "my_answers": "3/(0.2+0.2+0.05+0.24)=4.348 pu → 12.55 kA",
+   "note_answers": "12.55 kA",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-105-06-1",
+   "my_answers": "Rg=0: 負載A、B各110 V; Rg=1000Ω: VM=−73.19 V → A承受183.19 V, B承受36.81 V",
+   "note_answers": "+110/−110 V; 183.186 V, −36.814 V",
+   "verdict": "match",
+   "evidence": "Match (sign convention only).",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-105-06-3",
+   "my_answers": "34.37 kA; 37.37 kA",
+   "note_answers": "34.37; 37.37 kA",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-106-05-2",
+   "my_answers": "Zf=j0.11: If=3.704 pu, V3=0.5556, V1=0.4074 pu (Zf=0.11 resistive: 5.150, 0.6028, 0.5665)",
+   "note_answers": "3.704∠−90° pu; 0.5556; 0.4074 (疑義段列電阻分支 5.150/0.5665/0.6028)",
+   "verdict": "match",
+   "evidence": "Match; stem omits 'j' on 0.11 but note states both readings and my branches equal.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-106-05-4",
+   "my_answers": "I'=I1/n1−I2/n2; n1N1=n2N2 (n1/n2=N2/N1); I'=0",
+   "note_answers": "same",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-106-06-1",
+   "my_answers": "Descriptive (SC calc purposes; equipment grounding purposes)",
+   "note_answers": "descriptive",
+   "verdict": "match",
+   "evidence": "Content consistent; no numerics.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-106-06-2",
+   "my_answers": "Isym=7.957 kA (220 V line-line, upstream loop 2Z1); Iasym: X/R=1.47 → 8.07 kA rms (√(1+2e^{-2πR/X})), peak 12.58 kA; with K=1.25 → 9.95 kA",
+   "note_answers": "Isym=7.956 kA; Iasym=1.25×7.956=9.946 kA",
+   "verdict": "ambiguous_stem",
+   "evidence": "Symmetrical current matches. Stem gives no K; note (needs_manual_review) adopts LV convention K=1.25 and says so; an X/R-based asymmetry factor gives ~8.07 kA. Method-dependent, not an error.",
+   "severity": "low"
+  },
+  {
+   "qid": "EE-106-06-4",
+   "my_answers": "87=差動電驛; CT1(11.4kV Y側, CT二次Δ) / CT2(69kV) 300/5. Blind pick CT1 1600/5 overlooked √3 relay-current factor; re-derived with ≤5 A relay current: CT1 3000/5 (4.385 A vs 4.184 A)",
+   "note_answers": "87 差動; CT1 Δ、CT2 Y; CT1=3000/5, CT2=300/5",
+   "verdict": "match",
+   "evidence": "Match after correcting my own blind slip (1600/5 gives 8.2 A relay current vs 4.18 A — badly mismatched). Note's selection rule is sound.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-107-05-2",
+   "my_answers": "V2=21.264 kV; Es=163.37 kV; I2=1629.1 A (過載112%); VR=14.05% (電源電壓固定) [12.40% if primary held 161 kV]; Isc=8727.7 A",
+   "note_answers": "21.264; 163.37 kV; 1629.10 A; 14.05%; 8727.6 A",
+   "verdict": "match",
+   "evidence": "Match (stem says 電源電壓不變 → 14.05% branch).",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-107-05-3",
+   "my_answers": "XT=0.2170 pu, V∞=1.0417 pu; δ=11.31°; QG=−84.0 Mvar (進相); Q∞=−249.2 Mvar; S=804.4/837.9 MVA 未過載",
+   "note_answers": "−84.0 Mvar; −249.2 Mvar; 837.9 MVA",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-107-05-4",
+   "my_answers": "4W: I1=7.333, I2=5.368, I0=20.035, In=60.105 A; 3W: I1=22.0, I2=60.105, Imax=73.61 A, Vn=601.05 V",
+   "note_answers": "same 8 values",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-107-06-3",
+   "my_answers": "4.184 A (69 kV, Y); 5.848 A (11.4 kV, Δ); ratio 1.398 / 0.715",
+   "note_answers": "4.184; 5.848; 1.398 (0.715)",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-107-06-5",
+   "my_answers": "Qc=655.5 kvar; C=13.31 μF/相",
+   "note_answers": "655.547 kvar; 13.31 μF",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-108-05-1",
+   "my_answers": "Ei=2.026∠37.79°; P=0.72, Q=0.3487 pu; δ'=30.70°, Q'=0.6325 pu",
+   "note_answers": "2.026; 37.78°; 0.720; 0.3487; 30.70°; 0.6325",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-108-05-3",
+   "my_answers": "G1 C相 2.3096 pu=66.67 kA; P點 B相 LL 3.4196 pu=3.949 kA",
+   "note_answers": "66.67 kA; 3.949 kA",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-108-05-4",
+   "my_answers": "Descriptive (generator differential, |I1−I2| > pickup/percentage)",
+   "note_answers": "|I1−I2|>K(|I1|+|I2|)/2",
+   "verdict": "match",
+   "evidence": "Consistent.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-108-05-5",
+   "my_answers": "E'=1.0353∠25.15°; 1.882 sinδ / 0.5752 sinδ / 1.294 sinδ",
+   "note_answers": "1.8824 / 0.5752 / 1.2941 sinδ",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-108-06-4",
+   "my_answers": "Xs=1, XT=0.22, XM=6.667; Isym=23.33 kA; Iasym=29.16 kA",
+   "note_answers": "same",
+   "verdict": "match",
+   "evidence": "Match (Sb=20 kVA treated as 20 MVA typo; amps base-independent).",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-108-06-5",
+   "my_answers": "ΔI=3.33 A; ΔV=7.58 V(線); ΔPloss=201.7 W; ΔS=65.7 kVA",
+   "note_answers": "3.327 A; 7.579 V; 201.66 W; 65.70 kVA",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-109-05-1",
+   "my_answers": "P=VI cos(α−β); p(t)=P[1+cos2(ωt+α)]+Q sin2(ωt+α); Q=VI sin(α−β)",
+   "note_answers": "same",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-109-06-3",
+   "my_answers": "j0.01, j0.05, 0.1136+j0.1343 pu; 11.66 kA",
+   "note_answers": "11.659 kA",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-109-06-5",
+   "my_answers": "Qc=242.97 kvar; 輕載 pf=0.848 落後",
+   "note_answers": "242.968 kvar; 0.848",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-110-06-1",
+   "my_answers": "台電功因 80% 基準每 1% 加/減 0.1%(95% 以上不再減); i_ac=Vm/|Z| sin(ωt+α−θ), i_dc=−Vm/|Z| sin(α−θ)e^{−Rt/L}",
+   "note_answers": "same",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-110-06-3",
+   "my_answers": "(1) Qc=420.0 kvar (P=950 kW, Q 732.3→312.2); (2) Qc=164.1 kvar",
+   "note_answers": "420.04; 164.11 kvar",
+   "verdict": "match",
+   "evidence": "Match. (Minor observation: 950 kW exceeds the 800 kW prime-mover rating; both treat 'not overloaded' as kVA ≤ 1000.)",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-110-06-5",
+   "my_answers": "1 kVA/HP, all X''; Isym=15.29 kA; ×1.6=24.47 kA",
+   "note_answers": "15.29; 24.47 kA",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-111-05-2",
+   "my_answers": "V3=0.5365 pu; I2→1=−j0.01373 pu",
+   "note_answers": "0.53651; −j0.01373",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-111-06-1",
+   "my_answers": "ZB=0.8: E'=7.06 V, digitized 100:5 curve Ie≈0.4 A → error≈4.8%, Ip≈168 A → 可偵測; ZB=3: E'=24.7 V > saturation(~22 V), Ie≥30 A → error≈79%, Ip≈760 A → 不能偵測",
+   "note_answers": "4.76%; 168 A; 可偵測; 78.9%; 760 A; 不能偵測",
+   "verdict": "match",
+   "evidence": "Match within curve-reading tolerance (my own zoom of the official 100:5 curve gives Ie≈0.4 A at 7.06 V).",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-111-06-3",
+   "my_answers": "IF=9.8 pu=42.86 kA (gen+T 5 pu + 3 motors ×1.6 pu, each 6000 kW≈6 MVA); CB A=5 pu=21.87 kA",
+   "note_answers": "42.86; 21.87 kA",
+   "verdict": "match",
+   "evidence": "Match (shared reading: each of three motors 6000 kW).",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-111-06-5",
+   "my_answers": "19.05 kV, 1058 A; 3φ SC 13.46 kA; 7.87% ∈ 5–20% 合格",
+   "note_answers": "19.05 kV; 1058 A; 13.46 kA; 7.87%",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-112-06-1",
+   "my_answers": "Descriptive",
+   "note_answers": "descriptive",
+   "verdict": "match",
+   "evidence": "Consistent.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-112-06-3",
+   "my_answers": "10.13; 14.47; 2.511 kA",
+   "note_answers": "10.129; 14.470; 2.511 kA",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-112-06-4",
+   "my_answers": "19.48 kA; I/Is=12.66 → k=0.48",
+   "note_answers": "19.48 kA; 0.48",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-112-06-5",
+   "my_answers": "Drawing only",
+   "note_answers": "wiring description",
+   "verdict": "match",
+   "evidence": "Consistent (PT source side, CT load side; standard placement).",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-113-05-1",
+   "my_answers": "Z_L=7.812−j2.047 Ω (含線 8.812−j1.047); I=13.66 A; P=4935 W, Q=−586.4 var, |S|=4970 VA, pf=0.993 超前",
+   "note_answers": "same",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-113-05-2",
+   "my_answers": "Ig=2.831 pu=6.810 kA; Im=3.104 pu=7.466 kA; If=5.798 pu=13.947 kA",
+   "note_answers": "same",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-113-06-4",
+   "my_answers": "If at F=5.825 pu=21.02 kA (17.48 MVA); CB-only upstream 18.61 kA (15.48 MVA)",
+   "note_answers": "both values boxed",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-113-06-5",
+   "my_answers": "Digitized official CO-7 TD5: t=1.0 s at M≈15 → 90 A sec → 10800/90=120 → 600/5",
+   "note_answers": "600/5",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-114-05-1",
+   "my_answers": "Irms=10 A, α=90°",
+   "note_answers": "10 A; 90°",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-114-05-4",
+   "my_answers": "Zth=j0.1875; If=−j5; V1=0.0625, V2=0.6875, V3=0.8125; I21=3.125, I31=1.875 pu",
+   "note_answers": "same",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-114-06-3",
+   "my_answers": "2.2837 pu; G1 3746 A; G2 2247 A",
+   "note_answers": "2.2837 pu; 3745.7 A; 2247.4 A",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  },
+  {
+   "qid": "EE-114-06-5",
+   "my_answers": "離峰需 58.21 kvar → 2組 pf 0.9929; 尖峰需 127.36 kvar → 3組 pf 0.9694",
+   "note_answers": "same",
+   "verdict": "match",
+   "evidence": "Match.",
+   "severity": "none"
+  }
+ ]
+}

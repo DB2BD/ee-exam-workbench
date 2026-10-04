@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "source": "docs/WORKPLAN_抓大放小與作答結果卡_2026-10-04.md 第 1、2 節",
+  "totalTarget": 375,
+  "passLine": 360,
+  "subjects": {
+    "01": {"name": "電路學", "role": "high", "target": 80, "mainChapters": [
+      {"id": "ct-second-order-rlc"}, {"id": "ct-mutual-inductance"}, {"id": "ct-node-mesh"},
+      {"id": "ct-three-phase"}, {"id": "ct-thevenin-norton"}, {"id": "ct-phasor-ac"}]},
+    "02": {"name": "電子學", "role": "basic", "target": 45, "mainChapters": [
+      {"id": "el-diode-rectifier"}, {"id": "el-pe-buck-boost"}]},
+    "03": {"name": "工程數學", "role": "basic", "target": 55, "mainChapters": [
+      {"id": "em-probability-statistics"}]},
+    "04": {"name": "電機機械", "role": "high", "target": 80, "mainChapters": [
+      {"id": "emach-synchronous-generator-round"}, {"id": "emach-dc-motor-generator"},
+      {"id": "emach-induction-motor-equiv"}, {"id": "emach-magnetic-circuits"},
+      {"id": "emach-single-phase-transformer"}, {"id": "emach-induction-motor-torque"}]},
+    "05": {"name": "電力系統", "role": "combined", "target": 55, "mainChapters": [
+      {"id": "ps-three-phase-fault", "shared": true}, {"id": "ps-unsymmetrical-faults", "shared": true},
+      {"id": "ps-power-analysis", "shared": true}, {"id": "ps-system-protection-relay", "shared": true},
+      {"id": "ps-transient-stability-equal-area"}, {"id": "ps-load-flow-admittance"}]},
+    "06": {"name": "工業配電", "role": "combined", "target": 60, "mainChapters": [
+      {"id": "dist-short-circuit-capacity", "shared": true}, {"id": "dist-grounding-system", "shared": true},
+      {"id": "dist-power-factor-correction", "shared": true}, {"id": "dist-protection-coordination", "shared": true}]}
+  },
+  "questionOverrides": {
+    "EE-104-06-3": "main",
+    "EE-108-06-2": "main",
+    "EE-110-06-4": "main",
+    "EE-113-06-3": "main",
+    "EE-114-06-2": "main"
+  }
+}

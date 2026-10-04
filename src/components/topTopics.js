@@ -154,7 +154,7 @@ function renderTopTopics() {
         <span>有出題年度 ${item.yearCoveragePct}%（${item.years.length}/${model.selectedYears.length}）</span>
       </div>
       <div style="height:8px; background:var(--line); border-radius:9999px; overflow:hidden;"><div style="width:${item.questionPct}%; background:var(--accent); height:100%; border-radius:9999px;"></div></div>
-      <div style="font-size:0.78rem; color:var(--muted); margin-top:8px;">點擊後以相同章節 QID 集合查看題目</div>
+      <div style="font-size: 0.8125rem; color:var(--muted); margin-top:8px;">點擊後以相同章節 QID 集合查看題目</div>
     </button>
   `).join('');
 }
@@ -190,7 +190,7 @@ function renderLayers() {
     const percent = pool.length ? Math.round(((pool.length - unstable) / pool.length) * 100) : 0;
     const isMock = layer.action === 'mock';
     return `<div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px 22px; margin-bottom: 14px; box-shadow: var(--shadow);">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><h4 style="color: var(--accent-dark); font-size: 1.05rem; font-weight: 700;">${layer.id} · ${layer.title || layer.name || '未命名層級'}</h4><span style="font-size: 0.8rem; font-weight: 600; color: var(--muted); background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">${layer.objective || '考試得分'}</span></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><h4 style="color: var(--accent-dark); font-size: 1.05rem; font-weight: 700;">${layer.id} · ${layer.title || layer.name || '未命名層級'}</h4><span style="font-size: 0.8125rem; font-weight: 600; color: var(--muted); background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">${layer.objective || '考試得分'}</span></div>
       <p style="font-size: 0.88rem; color: var(--ink-light); line-height: 1.6; margin-bottom: 10px;">${layer.desc}</p>
       <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:0.82rem; color:var(--muted); margin-bottom:8px;"><span>${isMock ? '建議以整卷模考驗證' : `範圍 ${layer.count} 題 · 尚未穩定 ${unstable} 題`}</span><span>${isMock ? '輸出訓練' : `目前穩定度 ${percent}%`}</span></div>
       <div style="height:7px; background:var(--line); border-radius:9999px; overflow:hidden; margin-bottom:12px;"><div style="width:${isMock ? 0 : percent}%; background:var(--accent); height:100%;"></div></div>

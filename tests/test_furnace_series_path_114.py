@@ -35,7 +35,7 @@ class TestFurnaceSeriesPath114(unittest.TestCase):
         self.assertAlmostEqual(100 * (abs(open_bus) - abs(bus)) / 1, 15.4929577465)
 
     def assert_main_model(self, note):
-        main = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        main = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"\frac1{j0.5325}", main)
         self.assertIn(r"X_d=0.05+0.4=0.45", main)
         self.assertIn(r"0.84507", main)
@@ -59,7 +59,7 @@ class TestFurnaceSeriesPath114(unittest.TestCase):
     def test_bypassed_path_is_a_different_model(self):
         self.assertAlmostEqual(100 * 0.0825 / (0.0825 + 0.05), 62.2641509434)
         note = NOTE.read_text(encoding="utf-8")
-        for phrase in ("15.49", "0.5325", "## 舊答案的條件界線",
+        for phrase in ("15.49", "0.5325", "62.26",
                        "沒有畫出繞過", "不是取得官方評分答案"):
             self.assertIn(phrase, note)
         self.assertNotIn("沿用既有 verified", note)

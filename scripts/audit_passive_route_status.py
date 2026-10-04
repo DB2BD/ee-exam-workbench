@@ -16,9 +16,9 @@ ROUTE_DOCS = {
     ROOT / "docs" / "上榜混合橋接_六科12題.md": 12,
     ROOT / "docs" / "上榜考場得分骨架_六科.md": 12,
     ROOT / "docs" / "上榜核心路徑_現行命題大綱對照.md": 12,
-    ROOT / "docs" / "上榜起手式急救卡_114-108.md": 15,
-    ROOT / "docs" / "上榜被動模考_114年六科執行包.md": 27,
-    ROOT / "docs" / "上榜被動複測_108年六科執行包.md": 30,
+    ROOT / "docs" / "上榜起手式急救卡_114-108.md": 14,
+    ROOT / "docs" / "上榜被動模考_114年六科執行包.md": 26,
+    ROOT / "docs" / "上榜被動複測_108年六科執行包.md": 29,
 }
 MANIFESTS = (
     ROOT / "data" / "pe-solution-audit.json",

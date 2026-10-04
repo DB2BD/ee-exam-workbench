@@ -11,7 +11,7 @@ generatedBodyHash: ca60ac67770f61fb81d84864d5b68ab1c8346a6598cebb48685de94af502c
 ---
 # 機率與統計
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `em-probability-statistics`

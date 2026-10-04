@@ -1,6 +1,6 @@
-# 📐 工程數學 核心考點 02 — 線性代數：特徵值與矩陣分解
+# 工程數學 核心考點 02 — 線性代數：特徵值與矩陣分解
 
-## 📌 核心觀念與定義
+## 核心觀念與定義
 1. **特徵值與特徵向量（Eigenvalues & Eigenvectors）**：
    - 特徵方程式：$\det(\mathbf{A} - \lambda \mathbf{I}) = 0$
    - 求解 $(\mathbf{A} - \lambda_i \mathbf{I})\mathbf{v}_i = \mathbf{0}$ 得到特徵向量 $\mathbf{v}_i$。
@@ -16,7 +16,7 @@
 
 ---
 
-## 🎯 歷屆技師高頻出題年份
+## 歷屆技師高頻出題年份
 - **114 年 第五題**：線性方程組 $\mathbf{A}\mathbf{x} = \mathbf{b}$ 之完整解與零空間 $N(\mathbf{A})$。
 - **113 年 第四題**：Lyapunov 方程式 $\mathbf{P}\mathbf{A} + \mathbf{A}^T\mathbf{P} = -\mathbf{I}$ 與特徵值。
 - **111 年 第四題**：奇異值 SVD 與二次型 $\mathbf{x}^T \mathbf{A} \mathbf{x}$ 最大最小值。

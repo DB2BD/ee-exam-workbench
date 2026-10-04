@@ -11,7 +11,7 @@ generatedBodyHash: 5a0cec2200642e1753990508b42ab08abe0bb7fd7c30260fb51f376dc4186
 ---
 # 重疊定理
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ct-superposition`

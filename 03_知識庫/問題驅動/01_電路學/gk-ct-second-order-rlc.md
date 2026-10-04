@@ -11,7 +11,7 @@ generatedBodyHash: f7541daac201f57ed9f440af53a0720345238bd9b923e0a11fef5b5642ed8
 ---
 # 二階 RLC 暫態分析
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ct-second-order-rlc`

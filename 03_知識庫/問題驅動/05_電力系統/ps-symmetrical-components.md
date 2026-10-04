@@ -11,7 +11,7 @@ generatedBodyHash: 7e5df624408a5650fcaadae694d5c1d14c1dd14eca710613b5224d918794b
 ---
 # 對稱分量法 (正序、負序、零序網)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ps-symmetrical-components`

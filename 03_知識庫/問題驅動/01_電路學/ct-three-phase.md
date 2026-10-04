@@ -11,7 +11,7 @@ generatedBodyHash: e2d56f53d6b81dc0d58f1255401c6be8b8d24408cc9ac820ef4198d5d92f8
 ---
 # 三相平衡電路 (Y-Δ 轉換)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ct-three-phase`

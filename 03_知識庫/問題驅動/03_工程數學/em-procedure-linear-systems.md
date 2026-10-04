@@ -11,7 +11,7 @@ generatedBodyHash: 041dd55c91db55fe376dbdc66df83e508d7cc7cdca91dd93f7862d71db68c
 ---
 # 線性代數系統的特徵分解與 SVD 流程
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `em-procedure-linear-systems`

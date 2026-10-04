@@ -11,7 +11,7 @@ generatedBodyHash: baaec930bb48a33a883eb11331b56853c5311f4c27101ef8cd0eaed77ba1d
 ---
 # 感應電動機轉矩-轉差率曲線與最大轉矩
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `emach-induction-motor-torque`

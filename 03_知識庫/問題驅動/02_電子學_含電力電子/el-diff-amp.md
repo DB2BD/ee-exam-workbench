@@ -11,7 +11,7 @@ generatedBodyHash: b34fac7689007ca82ab3d7fd387d4fcf000821cd9808134ca707054b73c07
 ---
 # 差動放大器 (Ad, Acm, CMRR)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `el-diff-amp`

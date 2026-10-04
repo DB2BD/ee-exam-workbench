@@ -11,7 +11,7 @@ generatedBodyHash: f6978379237ab2189dad1e7fb3a48002ac0a5640d53b372a936f16e5e287b
 ---
 # 全橋變流器與 SPWM 調變
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-el-pe-inverter-spwm`

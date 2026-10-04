@@ -11,7 +11,7 @@ generatedBodyHash: 9f786e3ea5d0658df22ccf1d59b27c652fc854a34e516e458ff91d3ff39ad
 ---
 # 標么值 (Per-Unit) 系統換算
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ps-per-unit`

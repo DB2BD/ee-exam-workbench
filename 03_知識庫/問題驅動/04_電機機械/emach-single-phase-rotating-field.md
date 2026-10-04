@@ -11,7 +11,7 @@ generatedBodyHash: 9a9a8df9a6cdc14b66be86e4c6192ee5a9f235ef35810d4da600562591177
 ---
 # 單相感應電動機二相旋轉磁場
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `emach-single-phase-rotating-field`

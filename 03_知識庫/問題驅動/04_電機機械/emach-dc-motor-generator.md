@@ -11,7 +11,7 @@ generatedBodyHash: 2aff258ba2a3b71beb60874ac9c3d17ba3dcea305588f77903d8959bd4d0a
 ---
 # 直流電機 (分激/串激特性與調速)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `emach-dc-motor-generator`

@@ -11,7 +11,7 @@ generatedBodyHash: 3229a5ab3438046bc46355b26a6d8e86d9cc4fcd2938c5eb8164bb8053c45
 ---
 # DC-DC Buck/Boost 轉換器 (CCM/DCM)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `el-pe-buck-boost`

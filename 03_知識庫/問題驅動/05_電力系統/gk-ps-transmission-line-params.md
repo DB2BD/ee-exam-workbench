@@ -11,7 +11,7 @@ generatedBodyHash: 56edd17b5f01a975d560b11addbe9e3b6427127ad0418be2a89579d8f17d1
 ---
 # 輸電線參數計算 (GMD/GMR)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ps-transmission-line-params`

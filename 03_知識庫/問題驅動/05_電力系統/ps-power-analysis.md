@@ -11,7 +11,7 @@ generatedBodyHash: edd6e2e829d79fafc692af7f9669534c1f5490733202c48b6759c5d987f4f
 ---
 # 電力系統功率與相量分析
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `ps-power-analysis`

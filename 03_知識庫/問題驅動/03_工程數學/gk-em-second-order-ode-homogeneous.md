@@ -11,7 +11,7 @@ generatedBodyHash: ec4127987fb8cfb132ce0ba1d2599a73d606e34bab6b9a922351a6f582126
 ---
 # 二階常係數齊次 ODE
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-em-second-order-ode-homogeneous`

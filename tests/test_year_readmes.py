@@ -23,7 +23,7 @@ class TestYearReadmes(unittest.TestCase):
         for year in (114, 108):
             source = (ROOT / "01_原始試題/依年度" / f"{year}年" / "README.md").read_text(encoding="utf-8")
             with self.subTest(year=year):
-                self.assertNotIn("🟢 已掌握", source)
+                self.assertNotIn("掌握狀態: 已掌握", source)
                 self.assertNotIn("平均 60 分及格", source)
                 self.assertNotIn("滿分詳細題解", source)
                 self.assertEqual(source.count("[完整題解]"), 6)
@@ -53,7 +53,7 @@ class TestYearReadmes(unittest.TestCase):
         for path in paths:
             source = path.read_text(encoding="utf-8")
             with self.subTest(path=path.name):
-                self.assertIn("掌握狀態: ⚪ 未作答", source)
+                self.assertIn("掌握狀態: 未作答", source)
                 self.assertNotIn("最後複習日期: 2026-08-16", source)
                 self.assertNotRegex(source, r"自我評分:\s*\d+")
 

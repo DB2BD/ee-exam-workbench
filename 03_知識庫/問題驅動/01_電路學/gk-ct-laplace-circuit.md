@@ -11,7 +11,7 @@ generatedBodyHash: d12a6f09bc67a89107d122033c9cbe310afa17dad4c69bb697bab1678eddb
 ---
 # S 域拉氏轉換電路求解
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ct-laplace-circuit`

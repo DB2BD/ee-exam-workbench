@@ -11,7 +11,7 @@ generatedBodyHash: f3cc385760cd10be104877fdf9c10c1f6b7800899a2d9b1c9cf792ec43d11
 ---
 # 電子學主線
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-mainline-electronics`

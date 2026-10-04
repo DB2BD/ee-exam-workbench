@@ -11,7 +11,7 @@ generatedBodyHash: 5157e447a7b5ebd1cc7daeab054724883a7be1e69ec04a605e8d4e82410e2
 ---
 # 暫態穩定度與等面積準則 (Equal-Area)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ps-transient-stability-equal-area`

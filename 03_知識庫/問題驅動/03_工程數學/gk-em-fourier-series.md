@@ -11,7 +11,7 @@ generatedBodyHash: 915d3fd92ce114a4e01f2d4d3f18859e98eacc87a0526d740af57c136ca7d
 ---
 # 傅立葉級數與週期函數展開
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-em-fourier-series`

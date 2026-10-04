@@ -11,7 +11,7 @@ generatedBodyHash: 78eae86ce000d35765d6eeb1666209b5113c2cd262897b65bc7456cb9cb81
 ---
 # IEEE Std 80 變電所接地網跨步/接觸安全電壓
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-arc-flash-ieee80`

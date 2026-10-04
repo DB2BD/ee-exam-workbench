@@ -11,7 +11,7 @@ generatedBodyHash: ef613d0d0a5cefb5c25dd9c2d505462a12c9e105d459f4be53311c24b820c
 ---
 # 齊納二極體穩壓電路
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-el-zener-regulator`

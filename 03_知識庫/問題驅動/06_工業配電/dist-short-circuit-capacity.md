@@ -11,7 +11,7 @@ generatedBodyHash: 3627f3a6e9de1f7c69224edabfddbeae03d7f8c315d3c4f2f937e696974de
 ---
 # 短路容量計算 (MVA 法)
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-short-circuit-capacity`

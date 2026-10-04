@@ -11,7 +11,7 @@ generatedBodyHash: c774925bf740305f40ccd5bf171eacda7299759fb22860e9052218a3b3cdb
 ---
 # 特徵值、特徵向量與矩陣對角化
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-em-eigen-diagonal`

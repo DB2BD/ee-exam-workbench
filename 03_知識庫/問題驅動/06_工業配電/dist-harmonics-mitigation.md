@@ -11,7 +11,7 @@ generatedBodyHash: 43a30d075bbb06d8c949294b1115fca776a9e6ce8febb701fd0b2bb5a7354
 ---
 # 電力品質：電壓閃爍與諧波分析
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `dist-harmonics-mitigation`

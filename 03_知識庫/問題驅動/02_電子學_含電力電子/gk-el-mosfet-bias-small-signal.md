@@ -11,7 +11,7 @@ generatedBodyHash: cbd93f4c35f9418caf57406b05b4d7d28dacaeeae90d0a66b4b4768db9365
 ---
 # MOSFET 飽和偏壓與小訊號模型
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-el-mosfet-bias-small-signal`

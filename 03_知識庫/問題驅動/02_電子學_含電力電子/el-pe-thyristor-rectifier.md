@@ -11,7 +11,7 @@ generatedBodyHash: 87b78050c229c8f227a1fea6777306480c25b995d2a9b16dcaf78a66b6c72
 ---
 # 閘流體 (Thyristor) 相控整流
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `el-pe-thyristor-rectifier`

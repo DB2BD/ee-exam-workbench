@@ -11,7 +11,7 @@ generatedBodyHash: 2b9ac06589763320cd18ed753710482a3cb2575c9694f0dbc4af25a82f10d
 ---
 # 對稱三相短路計算
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ps-three-phase-fault`

@@ -11,7 +11,7 @@ generatedBodyHash: 8b1e683227ceeba0494b41a71d968271f12eea7549d351a203bd37d7690eb
 ---
 # 磁路定律與磁滯飽和
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-emach-magnetic-circuits`

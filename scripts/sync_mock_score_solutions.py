@@ -99,7 +99,7 @@ def build_annual(subject: str, year: int, qids: list[str]) -> str:
         f"校驗摘要: {status_summary}",
         "---",
         "",
-        f"# 📝 {year} 年電機工程技師｜{subject_name}逐題詳解",
+        f"# {year} 年電機工程技師｜{subject_name}逐題詳解",
         "",
         "> 本頁由題級 canonical 筆記組合；每題保留 QID、官方裁切、校驗狀態與完整得分型解答。",
         "",

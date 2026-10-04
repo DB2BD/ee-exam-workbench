@@ -11,7 +11,7 @@ generatedBodyHash: 4d0a953f21cd77c0bd13d2cca7e48da49ede2d0a442fbdbdbda0f02ad7421
 ---
 # 理想 OPA 與基本運算放大電路
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-el-opamp-ideal`

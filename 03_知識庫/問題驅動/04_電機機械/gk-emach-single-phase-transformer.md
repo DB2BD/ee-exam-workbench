@@ -11,7 +11,7 @@ generatedBodyHash: ad878df4e222978307792229c7afa97e13b6e146b1a2b4343912a1a4b005b
 ---
 # 單相變壓器等效電路與開短路試驗
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-emach-single-phase-transformer`

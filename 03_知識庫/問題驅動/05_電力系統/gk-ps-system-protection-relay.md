@@ -11,7 +11,7 @@ generatedBodyHash: 4ad858b1aeb8654692685cb834ec2d5739fadfc3be64648ae8f01e36567ef
 ---
 # 距離保護電驛三段式規劃
 
-> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。
+> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。
 
 ## Canonical identity
 - node: `gk-ps-system-protection-relay`

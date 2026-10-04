@@ -140,7 +140,8 @@ def parse_core(text: str) -> list[dict]:
             phases = [
                 {"label": "同型題", "minutes": 20, "closed": True, "qids": [qids[0]]},
                 {"label": "變式題", "minutes": 20, "closed": True, "qids": [qids[1]]},
-                {"label": "三題對照", "minutes": 15, "closed": False},
+                {"label": "三題對照", "minutes": 15, "closed": False, "qids": [],  # filled with 母題 + 同型 + 變式 below
+                 "qidLabels": ["母題", "同型", "變式"]},
                 {"label": "下次動作", "minutes": 5, "closed": False},
             ]
         tasks.append({
@@ -149,6 +150,17 @@ def parse_core(text: str) -> list[dict]:
         })
     _need([t["code"] for t in tasks] == [f"CORE-{i:02d}" for i in range(1, 25)],
           f"CORE rows mismatch: {[t['code'] for t in tasks]}")
+    # 同型＋變式 session N shares its topic with 母題 session N-6 (CORE-07～12 -> 01～06, CORE-19～24 -> 13～18); the 三題對照 phase shows that 母題 too.
+    for t in tasks:
+        if not t["variant"]:
+            continue
+        n = int(t["code"].split("-")[1])
+        anchor = tasks[n - 7]
+        _need(not anchor["variant"] and anchor["subject"] == t["subject"], f"{t['code']}: no 母題 at CORE-{n - 6:02d} with subject {t['subject']}")
+        t["anchorQid"] = anchor["qids"][0]
+        for ph in t["phases"]:
+            if ph["label"] == "三題對照":
+                ph["qids"] = [t["anchorQid"]] + t["qids"]
     return tasks
 
 

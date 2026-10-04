@@ -20,8 +20,6 @@ LEGACY_SCRIPTS = (
     "scripts/generate_all_national_exam_pdfs_v2.py",
     "scripts/build_all_authentic_gk_solutions.py",
     "scripts/generate_flagship_gk_diagrams_and_solutions.py",
-    "scripts/legacy_migrations/build_full_step_by_step_solutions.py",
-    "scripts/legacy_migrations/generate_all_national_exam_pdfs.py",
 )
 
 PROBE = textwrap.dedent(

@@ -69,7 +69,7 @@ function exportProgressJSON() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `電機國考備考進度_${currentExamCategory}_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `電機國考備考進度_${currentExamCategory}_${formatLocalCalendarDate(new Date())}.json`;
   a.click();
   URL.revokeObjectURL(url);
   showToast("備考與 SM-2 排程進度已成功匯出備份！");
@@ -203,26 +203,6 @@ function applyImportedBackupJSON(mode) {
     alert(`${res.error || '匯入失敗：無效的 JSON 格式'}`);
   }
   return res;
-}
-
-function importProgressJSON() {
-  const input = document.createElement("input");
-  input.type = "file";
-  input.accept = ".json";
-  input.onchange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const modal = document.getElementById('backup-modal');
-      const textarea = document.getElementById('backup-json-textarea');
-      if (textarea) textarea.value = event.target.result;
-      if (modal) modal.classList.add('show');
-      previewImportedBackupJSON();
-    };
-    reader.readAsText(file);
-  };
-  input.click();
 }
 
 function toggleTheme() {

@@ -286,6 +286,7 @@ function todayTaskCutText(pacing) {
 // Card html for the cut line: few ranges stay inline; a long list collapses into a <details> under a short summary.
 function todayTaskCutHtml(vm) {
   const pacing = vm.pacing;
+  if (vm.freshStart) return '';
   if (!pacing || !pacing.cut || !pacing.cut.length) return vm.cutText ? '<p class="today-pacing-cut">' + todayTaskEscape(vm.cutText) + '</p>' : '';
   const ranges = todayTaskCompressCodes(pacing.cut);
   if (ranges.split('、').length <= 3) return '<p class="today-pacing-cut">' + todayTaskEscape(vm.cutText) + '</p>';
@@ -326,6 +327,8 @@ function todayTaskPhaseView(task, a, now) {
     isLast: a.phaseIndex === task.phases.length - 1,
     // Question images shown in this phase; closed phases show only their own question(s).
     questionQids: (phase.qids || task.qids).slice(),
+    // Optional captions for questionQids (三題對照: 母題／同型／變式).
+    questionLabels: Array.isArray(phase.qidLabels) ? phase.qidLabels.slice() : [],
     // Solution entry points. Empty (and never rendered) while a closed-book phase runs.
     solutionQids: closed ? [] : task.qids.slice(),
     isReview,
@@ -360,6 +363,8 @@ function todayTaskViewModel(state, now) {
   const total = DAILY_SCHEDULE.order.length;
   const doneCount = DAILY_SCHEDULE.order.filter(c => state.completed[c]).length;
   const doneToday = DAILY_SCHEDULE.order.some(c => state.completed[c] && todayTaskLocalDate(Date.parse(state.completed[c])) === todayIso);
+  // Nothing completed and no start point set: the cut list would only reflect CORE-01～06 (done on paper) not being marked yet.
+  const freshStart = doneCount === 0 && !state.active;
   let mode;
   if (rowCodes.indexOf('EXAM-CHECK') >= 0) mode = 'exam-check';
   else if (rowCodes.indexOf('STOP') >= 0 || pacing.afterEnd) mode = 'stop';
@@ -388,7 +393,8 @@ function todayTaskViewModel(state, now) {
     rest,
     restText,
     milestoneText: todayTaskMilestoneText(pacing),
-    cutText: todayTaskCutText(pacing),
+    freshStart,
+    cutText: freshStart ? '' : todayTaskCutText(pacing),
     suggestion: pacing.suggestion,
     status: pacing.status,
     held,
@@ -470,7 +476,8 @@ function todayTaskCardHtml(vm) {
       '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + rest + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' ' + buttonText + '</button></div>';
   }
-  return '<section class="today-task-card" aria-label="今天的任務">' + body + plan + pacingLines + todayTaskStartFromHtml(vm, vm.completedMap) + '</section>';
+  const dropped = restDay && vm.active ? '<p class="today-task-note">先前未完成的任務（' + esc(vm.active.code) + '）不再繼續，也不會開新題。</p>' : '';
+  return '<section class="today-task-card" aria-label="今天的任務">' + body + dropped + plan + pacingLines + todayTaskStartFromHtml(vm, vm.completedMap) + '</section>';
 }
 
 function renderTodayTaskCard() {
@@ -491,7 +498,9 @@ function todayTaskStartFromHtml(vm, completed) {
     return '<option value="' + todayTaskEscape(c) + '"' + (c === preferred ? ' selected' : '') + '>' +
       todayTaskEscape(c + '｜' + t.title) + '</option>';
   }).join('');
-  return '<details class="today-task-from"><summary>已在紙本做過前面的任務？</summary>' +
+  const fresh = !!vm.freshStart;
+  const prompt = fresh ? '<p class="today-task-from-prompt" role="note"><strong>先設定已在紙本做過的任務，再排今天。</strong></p>' : '';
+  return prompt + '<details class="today-task-from' + (fresh ? ' is-prompt' : '') + '"' + (fresh ? ' open' : '') + '><summary>已在紙本做過前面的任務？</summary>' +
     '<label>從這個任務開始：<select id="today-task-from-select">' + options + '</select></label>' +
     '<button type="button" class="btn-pdf" onclick="todayTaskOnStartFrom()">設定</button>' +
     '<p class="today-task-note">之前的任務會標為完成；不會刪除其他練習紀錄。</p></details>';
@@ -617,13 +626,13 @@ const TODAY_TASK_STATUS_TEXT = { saved: '已記錄', skipped: '已略過', pendi
 
 function todayTaskOverlayHtml(vm) {
   const v = vm.active;
-  const figures = v.questionQids.map(qid => {
+  const figures = v.questionQids.map((qid, i) => {
     const src = todayTaskQuestionImage(qid);
     const img = src
       ? '<img src="' + todayTaskEscape(src) + '" alt="' + todayTaskEscape(qid) + ' 官方題目裁切圖" loading="eager" data-today-zoom tabindex="0" role="button" aria-label="點擊放大題目圖">' +
         '<p class="today-task-zoom-hint">點圖可放大</p>'
       : '<p class="today-task-note">本題沒有裁切圖。</p>';
-    return '<figure class="today-task-figure"><figcaption><code>' + todayTaskEscape(qid) + '</code></figcaption>' + img + '</figure>';
+    return '<figure class="today-task-figure"><figcaption>' + (v.questionLabels[i] ? '<span class="today-task-figlabel">' + todayTaskEscape(v.questionLabels[i]) + '</span> ' : '') + '<code>' + todayTaskEscape(qid) + '</code></figcaption>' + img + '</figure>';
   }).join('');
   const pdf = v.pdfUrl
     ? '<a class="btn-pdf" href="' + todayTaskEscape(v.pdfUrl) + '" target="_blank" rel="noopener">官方原卷 PDF</a>' : '';
@@ -903,6 +912,9 @@ function initTodayTask() {
   if (!todayTaskAutoResumed) {
     todayTaskAutoResumed = true;
     // A held weekday mock waits for the learner (next-day card says 接續); do not pop the overlay open.
-    if (todayTaskState.active && !todayTaskState.active.holdDate) openTodayTaskOverlay();
+    // 11/12 考前確認與 11/13 起停止: never reopen a leftover task; the card shows the rest-day message.
+    const vm = todayTaskViewModel(todayTaskState, Date.now());
+    const restDay = vm.mode === 'exam-check' || vm.mode === 'stop';
+    if (todayTaskState.active && !todayTaskState.active.holdDate && !restDay) openTodayTaskOverlay();
   }
 }

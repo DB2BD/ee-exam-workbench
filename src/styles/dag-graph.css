@@ -98,14 +98,6 @@
 }
 
 /* Standalone DAG Graph Visualizer (in 7 Layers tab) */
-.dag-visualizer-container {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: var(--shadow);
-}
 
 .dag-vis-header {
   display: flex;

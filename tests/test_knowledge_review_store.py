@@ -2,6 +2,7 @@
 """Independent knowledge-node retrieval SRS tests."""
 
 import json
+import os
 import subprocess
 import unittest
 from pathlib import Path
@@ -81,6 +82,24 @@ globalThis.CANONICAL_KNOWLEDGE_GRAPH={graphRevision:'kg-v1-test',nodes:{
         self.assertTrue(payload["gk"]["ok"])
         self.assertNotIn("gk-node", payload["pe"])
         self.assertIn("gk-node", payload["gkLog"])
+
+    def test_review_dates_use_local_calendar_day_not_utc(self):
+        # 2026-10-05 03:00 in Taipei is still 2026-10-04 in UTC; the stored day must be the Taipei day.
+        source = (ROOT / "src/state/knowledgeReviewStore.js").read_text(encoding="utf-8")
+        script = f"""
+const vm = require('vm');
+const context = {{console, localStorage: {{getItem:()=>null,setItem(){{}},removeItem(){{}}}}}};
+vm.createContext(context);
+vm.runInContext({json.dumps(source, ensure_ascii=False)}, context);
+const r = vm.runInContext("calculateKnowledgeReviewItem(null, 4, new Date('2026-10-04T19:00:00Z'))", context);
+process.stdout.write(JSON.stringify(r));
+"""
+        env = dict(os.environ, TZ="Asia/Taipei")
+        done = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True, env=env)
+        self.assertEqual(done.returncode, 0, done.stderr)
+        item = json.loads(done.stdout)
+        self.assertEqual(item["lastReviewed"], "2026-10-05")
+        self.assertEqual(item["nextReviewDate"], "2026-10-06")
 
 
 if __name__ == "__main__":

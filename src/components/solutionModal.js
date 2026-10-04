@@ -1287,10 +1287,6 @@ function toggleActiveRecallMode() {
   }
 }
 
-function revealRecallHint() {
-  revealRecallLayer(2);
-}
-
 function revealRecallFull() {
   // ①–③ are optional hints; the learner may go straight to the full solution.
   const fullEl = document.getElementById('recall-full-section');
@@ -1332,13 +1328,6 @@ function revealRecallLayer(layer) {
   syncRecallRevealPresentation();
   const full = document.getElementById('recall-full-section');
   if (layer >= 4 && full) full.style.display = 'block';
-}
-
-function chooseRecallError(errorType) {
-  currentRecallErrorType = errorType || null;
-  document.querySelectorAll('[data-recall-error]').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.recallError === currentRecallErrorType);
-  });
 }
 
 function recallTierBadgeHtml(qid) {

@@ -1,6 +1,6 @@
 # 題解精確化 Wave 1 報告（114–112 年，2026-10-02）
 
-> 範圍：114、113、112 年六科 82 題 canonical 題解（不含試點 5 題）。流程依 `docs/WORKPLAN_題解精確化與去冗迭代_2026-10-01.md`：Worker 盲解＋獨立驗算腳本 → 依 `lean-v1` 重寫 → 不同子 agent 盲審 → 主 session 閘門。
+> 範圍：114、113、112 年六科 82 題 canonical 題解（不含試點 5 題）。流程依內部工作計畫（內部工作紀錄，未公開）：Worker 盲解＋獨立驗算腳本 → 依 `lean-v1` 重寫 → 不同子 agent 盲審 → 主 session 閘門。
 
 ## 結果
 
@@ -44,7 +44,7 @@
 - 依賴舊五段式的閘門在遷移期間同時接受 `lean-v1`；`失分點` 單條允許短句。
 - `EE-113-06-4` 的補充研究報告路徑移到 frontmatter `supplemental_research`。
 
-## 教訓（已寫入 `.agents/templates/WORKER_lean_v1.md`）
+## 教訓（已寫入 Worker 範本，內部工作紀錄，未公開）
 
 - 交件前必須 `grep -rn <QID> tests/` 並實際執行所有引用測試；第 1 波有 4 題漏保留斷言字串。
 - `needs_manual_review` 題維持 `verified_at: null`。

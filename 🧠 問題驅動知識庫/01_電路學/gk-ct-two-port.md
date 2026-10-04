@@ -5,7 +5,7 @@ nodeId: gk-ct-two-port
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: b65dae84bb2c24cc5debf48b7bee47ac5c2cbc3f4336bd15a06e0387e24be6a9
 generatedBodyHash: dac1c74853a3dbc99ed40b331c6613de5456f3616bc13176ffc898e96ff0879c
 ---

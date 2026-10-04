@@ -5,7 +5,7 @@ nodeId: gk-emach-induction-motor-equiv
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: b0e87510cc3d76683e44eab30b9791f800ad3831df765dc584cb148efda745c5
 generatedBodyHash: 28e7865318943111704ae5422ac29c254b2e246ffecda66e4e6c860b03b61caa
 ---

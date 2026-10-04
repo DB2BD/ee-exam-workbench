@@ -5,7 +5,7 @@ nodeId: el-pe-buck-boost
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 40286fd8f91e55d39c4e0ffb4fa4a006a9de13c3e5bda2e1f9cc1b97ea6eadba
 generatedBodyHash: 3229a5ab3438046bc46355b26a6d8e86d9cc4fcd2938c5eb8164bb8053c452d4
 ---

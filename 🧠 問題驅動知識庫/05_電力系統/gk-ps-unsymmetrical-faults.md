@@ -5,7 +5,7 @@ nodeId: gk-ps-unsymmetrical-faults
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 01b2f30558b002f4467625494de671cc39fc9d0c1f02f0c2ebcb3390d2c7094f
 generatedBodyHash: 3d1e743ba6c0526550aa57b008e99309aebb79d47933e63fdecc9d46decf8c94
 ---

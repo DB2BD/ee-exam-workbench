@@ -5,7 +5,7 @@ nodeId: ct-thevenin-norton
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: b9cbac78841c92ba6f9620e0792e574828fa01569a42f33c9af65ce4d146c3a3
 generatedBodyHash: 0714756ba5fe4361ca5bde51ebffce61cb509d86ae8db383ca496a03c82f9ff5
 ---

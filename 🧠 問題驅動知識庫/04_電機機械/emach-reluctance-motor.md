@@ -5,7 +5,7 @@ nodeId: emach-reluctance-motor
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: a901646bf013e0cebae1298634aeb357b216b74d78de32e9a16ff64287c537cd
 generatedBodyHash: b87c46f973b396c1f6895e46e393b8a49e23a99cf54bff4594342fc643bf1ddb
 ---

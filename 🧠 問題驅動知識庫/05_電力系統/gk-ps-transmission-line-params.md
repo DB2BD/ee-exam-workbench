@@ -5,7 +5,7 @@ nodeId: gk-ps-transmission-line-params
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 079f23ad8910ad3300dddaf08e2b07e437f6e5742e7c92ed5c617a52aefc1548
 generatedBodyHash: 56edd17b5f01a975d560b11addbe9e3b6427127ad0418be2a89579d8f17d143b
 ---

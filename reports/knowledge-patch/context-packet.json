@@ -1,6 +1,6 @@
 {
   "schemaVersion": "knowledge-context-packet.v1",
-  "graphRevision": "kg-v1-e30faed9d5b5e0f0",
+  "graphRevision": "kg-v1-94aec3f278d6e297",
   "selectedNodeIds": [
     "ct-procedure-thevenin-controlled-source",
     "ct-thevenin-norton",
@@ -15,7 +15,7 @@
       "lifecycle": "active",
       "provenance": {
         "sourceType": "golden-fixture",
-        "sourcePath": "docs/WORKPLAN_Sol_Luna_問題驅動Obsidian知識圖譜_2026-09-12.md"
+        "sourcePath": "data/knowledge/golden-fixture.json"
       },
       "nodeRevisionHash": "golden-ct-procedure-thevenin-v1"
     },
@@ -25,25 +25,40 @@
       "title": "戴維寧與諾頓等效定理",
       "examFamily": "PE",
       "lifecycle": "active",
+      "subject": "01",
+      "subjectName": "電路學",
+      "level": 2,
+      "prereqs": [
+        "ct-node-mesh",
+        "ct-divider-equiv"
+      ],
+      "coreFormula": "V_{th} = V_{oc}, R_{th} = \\frac{V_{oc}}{I_{sc}} = \\frac{v_{\\text{test}}}{i_{\\text{test}}}",
+      "keyTrap": "含受控源時嚴禁用「獨立源關閉直接求電阻」，必須加測試電壓源法。",
       "provenance": {
         "sourceType": "legacy-dag",
         "sourcePath": "src/data/knowledge-dag.js",
         "legacyNodeId": "ct-thevenin-norton"
       },
-      "nodeRevisionHash": "legacy-ct-thevenin-norton-v1"
+      "nodeRevisionHash": "pe-legacy-ct-thevenin-norton-v1"
     },
     {
       "nodeId": "ps-per-unit",
       "nodeType": "mechanism",
-      "title": "標么值 Per Unit 系統換算",
+      "title": "標么值 (Per-Unit) 系統換算",
       "examFamily": "PE",
       "lifecycle": "active",
+      "subject": "05",
+      "subjectName": "電力系統",
+      "level": 1,
+      "prereqs": [],
+      "coreFormula": "Z_{\\text{base}} = \\frac{V_{\\text{base, L-L}}^2}{S_{\\text{base, 3\\phi}}}, Z_{\\text{pu, new}} = Z_{\\text{pu, old}} \\left(\\frac{V_{\\text{old}}}{V_{\\text{new}}}\\right)^2 \\left(\\frac{S_{\\text{new}}}{S_{\\text{old}}}\\right)",
+      "keyTrap": "三相標么公式中，基準阻抗為線電壓平方除以三相總容量！",
       "provenance": {
         "sourceType": "legacy-dag",
         "sourcePath": "src/data/knowledge-dag.js",
         "legacyNodeId": "ps-per-unit"
       },
-      "nodeRevisionHash": "legacy-ps-per-unit-v1"
+      "nodeRevisionHash": "pe-legacy-ps-per-unit-v1"
     }
   ],
   "edges": [
@@ -71,6 +86,17 @@
     },
     {
       "from": "ct-thevenin-norton",
+      "relation": "enables",
+      "to": "ct-procedure-thevenin-controlled-source",
+      "why": "The controlled-source procedure applies the equivalent theorem with a test source.",
+      "confidence": 0.98,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-thevenin-norton",
       "relation": "prerequisite",
       "to": "ct-first-order-rc-rl",
       "why": "The first-order time constant uses the equivalent network seen by the storage element.",
@@ -82,12 +108,25 @@
     },
     {
       "from": "ct-thevenin-norton",
-      "relation": "enables",
-      "to": "ct-procedure-thevenin-controlled-source",
-      "why": "The controlled-source procedure applies the equivalent theorem with a test source.",
-      "confidence": 0.98,
+      "relation": "prerequisite",
+      "to": "ct-max-power",
+      "why": "掌握「最大功率轉移定理」前，先建立「戴維寧與諾頓等效定理」這個前置概念。",
+      "confidence": 0.95,
       "evidence": [
-        "src/data/knowledge-dag.js:ct-thevenin-norton"
+        "src/data/knowledge-dag.js:ct-max-power",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-thevenin-norton",
+      "relation": "prerequisite",
+      "to": "ct-two-port",
+      "why": "掌握「雙埠網路參數 (ABCD, Z, Y, H)」前，先建立「戴維寧與諾頓等效定理」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ct-two-port",
+        "migration:explicit-legacy-prereq"
       ],
       "reviewStatus": "approved"
     },
@@ -105,11 +144,47 @@
     {
       "from": "ps-per-unit",
       "relation": "prerequisite",
+      "to": "ps-economic-dispatch",
+      "why": "掌握「經濟調度與發電協調方程式」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-economic-dispatch",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-load-flow-admittance",
+      "why": "掌握「電力潮流與導納矩陣」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-load-flow-admittance",
+        "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
       "to": "ps-power-analysis",
       "why": "Power and phasor quantities are compared consistently after per-unit conversion.",
       "confidence": 0.98,
       "evidence": [
         "src/data/knowledge-dag.js:ps-power-analysis"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "ps-symmetrical-components",
+      "why": "掌握「對稱分量法 (正序、負序、零序網)」前，先建立「標么值 (Per-Unit) 系統換算」這個前置概念。",
+      "confidence": 0.95,
+      "evidence": [
+        "src/data/knowledge-dag.js:ps-symmetrical-components",
+        "migration:explicit-legacy-prereq"
       ],
       "reviewStatus": "approved"
     },
@@ -126,31 +201,58 @@
     }
   ],
   "questionLinks": {
+    "PE:EE-104-01-1": {
+      "qid": "EE-104-01-1",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-thevenin-norton"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-104-01-1",
+        "data/taxonomy/alias-map.json:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-105-01-2": {
+      "qid": "EE-105-01-2",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-thevenin-norton"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-105-01-2",
+        "data/taxonomy/alias-map.json:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
+    "PE:EE-112-01-3": {
+      "qid": "EE-112-01-3",
+      "examFamily": "PE",
+      "nodeIds": [
+        "ct-thevenin-norton"
+      ],
+      "confidence": 0.9,
+      "evidence": [
+        "dashboard-data.js:EE-112-01-3",
+        "data/taxonomy/alias-map.json:ct-thevenin-norton"
+      ],
+      "reviewStatus": "approved",
+      "sourcePriority": "deterministic"
+    },
     "PE:EE-114-01-2": {
       "qid": "EE-114-01-2",
       "examFamily": "PE",
       "nodeIds": [
-        "ct-thevenin-norton",
-        "ct-procedure-thevenin-controlled-source"
+        "ct-thevenin-norton"
       ],
-      "confidence": 0.98,
+      "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-114-01-2",
-        "src/data/knowledge-dag.js:ct-thevenin-norton"
-      ],
-      "reviewStatus": "approved",
-      "sourcePriority": "manual"
-    },
-    "PE:EE-114-05-1": {
-      "qid": "EE-114-05-1",
-      "examFamily": "PE",
-      "nodeIds": [
-        "ps-per-unit"
-      ],
-      "confidence": 0.96,
-      "evidence": [
-        "dashboard-data.js:EE-114-05-1",
-        "src/data/knowledge-dag.js:ps-per-unit"
+        "data/taxonomy/alias-map.json:ct-thevenin-norton"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -162,5 +264,5 @@
     "maxHistory": 20,
     "maxBytes": 120000
   },
-  "payloadBytes": 3659
+  "payloadBytes": 6584
 }

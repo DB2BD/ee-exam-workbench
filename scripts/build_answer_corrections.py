@@ -3,7 +3,6 @@
 """Build learner-facing answer corrections (K1) from wave reports.
 
 Sources: reports/題解精確化_wave-*.md "## 答案更正" tables (user-confirmed only).
-Cross-check: .agents/results/WAVE-*/*.json records with answer_change == corrected.
 Outputs: data/answer-corrections.json, src/data/answerCorrections.generated.js
 """
 import glob
@@ -95,32 +94,16 @@ def dashboard_qids():
     return set(re.findall(r'"(EE-\d{3}-\d{2}-\d+)"', txt))
 
 
-def json_corrected():
-    found = set()
-    for f in sorted(glob.glob(str(ROOT / ".agents" / "results" / "WAVE-*" / "*.json"))):
-        try:
-            data = json.loads(Path(f).read_text(encoding="utf-8"))
-        except ValueError:
-            continue
-        if isinstance(data, list):
-            for r in data:
-                if isinstance(r, dict) and r.get("answer_change") == "corrected" and r.get("qid"):
-                    found.add(r["qid"])
-    return found
-
-
 def build():
     paths = report_paths()
     if not paths:
         raise ParseError("no wave reports found")
     records = {}
     pending = {}
-    table_qids = set()
     for p in paths:
         wave, date, rows = parse_report(p)
         for r in rows:
             q = r["qid"]
-            table_qids.add(q)
             if r["pending"]:
                 pending[q] = (wave, r)
                 continue
@@ -143,14 +126,10 @@ def build():
     bad = sorted(q for q in records if q not in known)
     if bad:
         raise ParseError(f"QIDs missing from dashboard-data.js: {bad}")
-    jc = json_corrected()
-    for q in sorted(table_qids - jc, key=sort_key):
-        warnings.append(f"WARNING: {q} in report table but no worker JSON answer_change=corrected")
-    unreported = sorted(jc - table_qids, key=sort_key)
     out = sorted(records.values(), key=lambda r: sort_key(r["qid"]))
     doc = {"schema_version": 1,
            "generated_from": [str(p.relative_to(ROOT)) for p in paths],
-           "corrections": out, "unreported": unreported}
+           "corrections": out}
     return doc, warnings
 
 
@@ -176,7 +155,6 @@ def main():
     for w in warnings:
         print(w)
     print(f"corrections: {len(doc['corrections'])}")
-    print(f"unreported: {' '.join(doc['unreported']) or '-'}")
     return 0
 
 

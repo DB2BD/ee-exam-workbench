@@ -5,7 +5,7 @@ nodeId: gk-emach-reluctance-motor
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: dcc4e7d7bf5b8a7fc5ee792524c812793165077f860af3de37a0855a5045f0c5
 generatedBodyHash: 6a9f940a640d9c84b48bbed20c20a290b44ee4b502eacc1bb63933eae25f1ea5
 ---

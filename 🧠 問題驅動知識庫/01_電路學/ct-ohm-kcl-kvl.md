@@ -5,7 +5,7 @@ nodeId: ct-ohm-kcl-kvl
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: b054578d9523725bfc1f1438504dbda87db173eb1b6e184b1c2368e9fd9c31c1
 generatedBodyHash: 958cc9601587494996e54575ff281a4c586742f63bdf581d2c25ddb2cb52925a
 ---

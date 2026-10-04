@@ -5,7 +5,7 @@ nodeId: emach-single-phase-rotating-field
 nodeType: mechanism
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: acadfa43a649f8d6535541ae04047496b153806c36bd521ae8c34913c6460c59
 generatedBodyHash: 9a9a8df9a6cdc14b66be86e4c6192ee5a9f235ef35810d4da600562591177aec
 ---

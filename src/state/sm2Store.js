@@ -313,6 +313,10 @@ function backupValidateTodayTask(value, errors) {
       active = { code: a.code, phaseIndex: a.phaseIndex, phaseStartedAt: a.phaseStartedAt };
       if (typeof a.mockId === 'string' && /^\d+-\d+-\d+$/.test(a.mockId)) active.mockId = a.mockId;
       if (Array.isArray(a.skipped)) active.skipped = a.skipped.filter(q => typeof q === 'string' && q.length <= 40);
+      // v1.3 平日模考分兩天：「先離開，明天核對」 state must survive export／import.
+      ['holdDate', 'heldFrom'].forEach(key => {
+        if (typeof a[key] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(a[key])) active[key] = a[key];
+      });
     }
   }
   return { completed, active };

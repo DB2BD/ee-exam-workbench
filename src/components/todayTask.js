@@ -40,6 +40,7 @@ function todayTaskNormalizeState(raw) {
     const mockId = todayTaskIsMockKind(tasks[a.code]) ? (todayTaskValidMockId(a.mockId) ? a.mockId : todayTaskMockId(tasks[a.code], a.phaseStartedAt)) : '';
     if (mockId) state.active.mockId = mockId;
     if (typeof a.holdDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(a.holdDate)) state.active.holdDate = a.holdDate;
+    if (typeof a.heldFrom === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(a.heldFrom)) state.active.heldFrom = a.heldFrom;
     if (Array.isArray(a.skipped)) {
       const own = tasks[a.code].qids;
       state.active.skipped = a.skipped.filter(q => typeof q === 'string' && own.indexOf(q) >= 0);
@@ -149,11 +150,12 @@ function todayTaskHold(state, todayIso) {
   return { completed: state.completed, active: Object.assign({}, state.active, { holdDate: todayIso }) };
 }
 
-// Pressing 開始/繼續 on a held task: drop the hold and restart the phase clock.
+// Pressing 開始/繼續 on a held task: drop the hold and restart the phase clock.  `heldFrom`
+// remembers the split was used, so the 核對 day does not offer 「先離開，明天核對」 again.
 function todayTaskResumeHeld(state, now) {
   const a = state.active;
   if (!a || !a.holdDate) return state;
-  const active = Object.assign({}, a, { phaseStartedAt: now });
+  const active = Object.assign({}, a, { phaseStartedAt: now, heldFrom: a.holdDate });
   delete active.holdDate;
   return { completed: state.completed, active };
 }
@@ -323,7 +325,7 @@ function todayTaskPhaseView(task, a, now) {
     // 隨機練習 launcher for WEAK／REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
     launch: phase.launch || '',
     // Weekday mock: after the closed phase the learner may stop and continue the next day.
-    canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !pacingIsWeekend(todayTaskLocalDate(now)),
+    canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsWeekend(todayTaskLocalDate(now)),
     holdDate: a.holdDate || '',
   };
 }
@@ -420,8 +422,10 @@ function todayTaskQuestionImage(qid) {
 // Pure: the card's inner HTML for a view model (tested without a DOM).
 function todayTaskCardHtml(vm) {
   const esc = todayTaskEscape;
-  const plan = '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
-  const pacingLines =
+  // 11/12 考前確認、11/13 起停止: no study hours, so no budget / milestone / cut lines (they would read 「今天預算 2 小時」 or 「仍剩 N 份卷」).
+  const restDay = vm.mode === 'exam-check' || vm.mode === 'stop';
+  const plan = restDay ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
+  const pacingLines = restDay ? '' :
     (vm.milestoneText ? '<p class="today-pacing-milestone' + (vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(vm.milestoneText) + '</p>' : '') +
     (vm.cutText ? '<p class="today-pacing-cut">' + esc(vm.cutText) + '</p>' : '') +
     (vm.suggestion ? '<p class="today-pacing-suggestion">' + esc(vm.suggestion) + '</p>' : '');
@@ -431,9 +435,9 @@ function todayTaskCardHtml(vm) {
   } else if (vm.mode === 'stop') {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">停止新增練習</span><strong>好好休息</strong><p class="today-task-note">只整理睡眠、交通與已備妥的用品；不再開新題。</p></div>';
   } else if (vm.mode === 'done') {
-    body = '<div class="today-task-main"><span class="today-task-eyebrow">全部完成</span><strong>日程的 ' + vm.total + ' 個任務都完成了</strong><p class="today-task-note">可改用下方「開始練習」或到期複習，維持手感即可。</p></div>';
+    body = '<div class="today-task-main"><span class="today-task-eyebrow">全部完成</span><strong>日程的 ' + vm.total + ' 個任務都完成了</strong><p class="today-task-note">可改用下方「隨機練習 3 題」或到期複習，維持手感即可。</p></div>';
   } else if (vm.mode === 'idle') {
-    body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可用下方「開始練習」維持手感。</p></div>';
+    body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可用下方「隨機練習 3 題」維持手感。</p></div>';
   } else {
     const resume = vm.primaryAction === 'resume';
     const dayNote = vm.part === 'closed' ? '（今天閉卷，明天核對＋修復）' : '';

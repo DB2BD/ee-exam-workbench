@@ -33,7 +33,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(chr(10).join(sources) + chr(10) + 'globalThis.__result = (' + expression + ');', ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify({{result: context.__result, storage: data}}));
 """
-    done = subprocess.run(["node", "-e", script], cwd=WORKSPACE, capture_output=True, text=True)
+    done = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 
@@ -63,7 +63,7 @@ class TestGeneratedSchedule(unittest.TestCase):
 
     def test_task_counts_qids_and_minutes(self):
         tasks = self.schedule["tasks"]
-        for prefix, count, minutes in (("CORE", 24, 60), ("MIX", 6, 90), ("MOCK114", 6, 180), ("BLIND108", 6, 180)):
+        for prefix, count, minutes in (("CORE", 24, 60), ("MIX", 6, 90), ("MOCK114", 6, 180), ("BLIND108", 6, 180), ("EXT", 9, 90)):
             codes = [c for c in tasks if c.startswith(prefix + "-")]
             self.assertEqual(len(codes), count, prefix)
             for code in codes:
@@ -73,6 +73,32 @@ class TestGeneratedSchedule(unittest.TestCase):
                 for qid in task["qids"]:
                     self.assertIn(f'"{qid}"', self.dashboard, f"{code}: {qid} missing in dashboard-data.js")
         self.assertEqual(len(self.schedule["order"]), 42)
+        self.assertEqual(len(tasks), 51)
+
+    def test_ext_tasks_are_optional_and_outside_mandatory_order(self):
+        tasks = self.schedule["tasks"]
+        codes = [f"EXT-{i:02d}" for i in range(1, 10)]
+        self.assertEqual([c for c in tasks if c.startswith("EXT-")], codes)
+        self.assertEqual(self.schedule["optionalOrder"], codes)
+        self.assertFalse(set(codes) & set(self.schedule["order"]))
+        seen = set()
+        for code in codes:
+            task = tasks[code]
+            self.assertTrue(task["optional"], code)
+            self.assertEqual(len(task["qids"]), 2, code)
+            self.assertEqual([p["minutes"] for p in task["phases"]], [50, 20, 20], code)
+            self.assertEqual([p["closed"] for p in task["phases"]], [True, False, False], code)
+            self.assertEqual(task["phases"][0]["qids"], task["qids"], code)
+            for qid in task["qids"]:
+                self.assertIn(f'"{qid}"', self.dashboard, f"{code}: {qid}")
+        for code, task in tasks.items():
+            if code.startswith("EXT-"):
+                continue
+            self.assertFalse(task.get("optional"), code)
+            seen.update(task["qids"])
+        all_ext = [q for c in codes for q in tasks[c]["qids"]]
+        self.assertEqual(len(set(all_ext)), 18)
+        self.assertFalse(set(all_ext) & seen, "EXT qids overlap CORE/MIX/MOCK114/BLIND108")
 
     def test_pdf_files_exist_for_paper_tasks(self):
         for code, task in self.schedule["tasks"].items():

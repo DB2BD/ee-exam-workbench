@@ -795,7 +795,8 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   const firstFocus = modal.querySelector('button, [href], select, input, textarea, [tabindex]:not([tabindex="-1"])');
   if (firstFocus && typeof firstFocus.focus === 'function') firstFocus.focus();
   document.body.style.overflow = 'hidden';
-  const shouldOpenRecallPane = currentSolutionSourceMode === 'daily-practice' && currentSolutionRecallEntry;
+  // Any recall entry (random practice, due review, mock/today result flows) opens on the four-stage cover, never on 原題.
+  const shouldOpenRecallPane = currentSolutionRecallEntry;
   if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 760px)').matches) {
     setModalLayout(shouldOpenRecallPane || (savedReading && savedReading.pane === 'solution') ? 'solution-only' : 'exam-only');
   } else {

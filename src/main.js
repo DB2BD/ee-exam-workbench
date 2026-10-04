@@ -4,36 +4,35 @@
  */
 
 function switchTab(tabId) {
+  // Only the panes that still exist in the shell are routable (今天 / 模考 / 成績 / 題庫瀏覽).
+  const activePane = document.getElementById('tab-pane-' + tabId);
+  if (!activePane) return;
   document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
 
-  // A tool selected from the compact secondary menu should leave the menu
-  // closed, so the selected pane—not the menu overlay—gets the user's focus.
+  // A tool selected from the compact 更多 menu should leave the menu closed, so
+  // the selected pane (not the menu overlay) gets the user's focus.
   const moreToolsMenu = document.getElementById('more-tools-menu');
-  if (moreToolsMenu) moreToolsMenu.open = false;
+  if (moreToolsMenu) {
+    moreToolsMenu.open = false;
+    moreToolsMenu.classList.toggle('has-active', tabId === 'questions');
+  }
 
   const activeBtn = document.getElementById('tab-btn-' + tabId);
-  const activePane = document.getElementById('tab-pane-' + tabId);
-
   if (activeBtn) activeBtn.classList.add('active');
-  if (activePane) activePane.style.display = 'block';
+  activePane.style.display = 'block';
 
-  if (tabId === 'dag' && typeof renderDagGraphVisualizer === 'function') {
-    renderDagGraphVisualizer();
+  if (tabId === 'scoreboard' && typeof renderScoreboard === 'function') {
+    renderScoreboard(document.getElementById('scoreboard-container'));
   }
-  if (tabId === 'review' && typeof renderReviewPage === 'function') {
-    renderReviewPage();
-  }
-  if (tabId === 'weakness' && typeof renderWeaknessView === 'function') {
-    renderWeaknessView();
-  }
-  if (tabId === 'quicksheet' && typeof renderQuickReviewSheet === 'function') {
-    renderQuickReviewSheet();
-  }
-  if (tabId === 'practice' && typeof initDailyPracticeHome === 'function') {
-    initDailyPracticeHome();
+  if (tabId === 'practice') {
+    if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
     if (typeof initTodayTask === 'function') initTodayTask();
+    if (typeof renderAnswerCorrectionReviewSection === 'function') {
+      try { renderAnswerCorrectionReviewSection(); } catch (_) { /* optional section */ }
+    }
   }
+  if (typeof updateHeaderSummary === 'function') updateHeaderSummary();
 }
 
 
@@ -88,6 +87,13 @@ function initPaneResizer() {
 
 // Global DOM Content Loaded Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
+  // 0. The 更多 menu closes after picking an item or clicking elsewhere.
+  document.addEventListener('click', event => {
+    const menu = document.getElementById('more-tools-menu');
+    if (!menu || !menu.open) return;
+    if (!menu.contains(event.target) || event.target.closest('.more-tools-panel button')) menu.open = false;
+  });
+
   // 1. Theme initialization
   const savedTheme = localStorage.getItem('ee_theme_preference');
   if (savedTheme) {
@@ -97,8 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 2. Restore category & populate category dropdown options first
-  const savedCat = localStorage.getItem('exam_category_tab') || 'PE';
-  switchExamCategory(savedCat);
+  // PE only: the GK switcher is gone and its data is not preloaded.
+  switchExamCategory('PE', true);
 
   // 3. Restore persisted filter selections
   const savedSub = localStorage.getItem('filter-subject');
@@ -127,13 +133,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Render initial components
   updateStatsAndBar();
   renderQuestions();
-  renderReviewPage();
+  if (typeof renderAnswerCorrectionReviewSection === 'function') {
+    try { renderAnswerCorrectionReviewSection(); } catch (_) { /* optional section */ }
+  }
   if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
   if (typeof initTodayTask === 'function') initTodayTask();
-  renderLayers();
-  renderTopTopics();
   initPaneResizer();
   handleUrlHashRouting();
 });
 
 window.addEventListener('hashchange', handleUrlHashRouting);
+
+// Keep the header one-liner current after any saved result card.
+window.addEventListener('result-card-saved', () => {
+  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+});

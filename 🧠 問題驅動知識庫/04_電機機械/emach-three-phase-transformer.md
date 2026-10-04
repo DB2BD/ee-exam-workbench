@@ -5,7 +5,7 @@ nodeId: emach-three-phase-transformer
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: cabd64534ce12c2939b1265e72da27a49419a6057392660efb64195b3e0d56da
 generatedBodyHash: aedc6089b3b2bc54df997c9e134268944f40cf613d6dfd047a0dd174b8a6d116
 ---

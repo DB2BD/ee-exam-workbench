@@ -5,9 +5,9 @@ nodeId: pe-mainline-math
 nodeType: mainline
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
-sourceHash: 8f09c530a7c580e11f8f56eb35c4700b74b93252f74b3a7be894bf8eeee2e6a6
-generatedBodyHash: 85cb6406330c9347ec41670096e35aaa85c3d54796ee8ebeede2ffe94ee765da
+graphRevision: kg-v1-94aec3f278d6e297
+sourceHash: 0448adaf2f4a137bc6244b1511160116343e80bff37d423360ab89a49ea3b6d8
+generatedBodyHash: 05bbeb3527ab9b4a2c4912469c971c3befaedd1b926c3d63a18a1cc64a85c1f7
 ---
 # 工程數學主線
 
@@ -27,5 +27,5 @@ generatedBodyHash: 85cb6406330c9347ec41670096e35aaa85c3d54796ee8ebeede2ffe94ee76
 - 尚無已核准的題目連結。
 
 ## Provenance
-- sourcePath: docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+- sourcePath: data/knowledge/golden-fixture.json
 - sourceType: golden-fixture

@@ -5,7 +5,7 @@ nodeId: gk-emach-synchronous-salient-pole
 nodeType: procedure
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 085ecac36d48aa269dc3988d135ee7eb29e5101d3b9d24435aefb5d8203f1467
 generatedBodyHash: 25e8dfa0ee952ee52663257cc2e097354f6c5d15bec6ff7ff6b35c21bbef3066
 ---

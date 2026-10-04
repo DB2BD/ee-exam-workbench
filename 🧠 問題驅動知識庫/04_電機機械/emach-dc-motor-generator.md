@@ -5,7 +5,7 @@ nodeId: emach-dc-motor-generator
 nodeType: procedure
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: 50b475555553eb771be18bea2858e4cb42425cdf49f01d42b2444bc93970965f
 generatedBodyHash: 2aff258ba2a3b71beb60874ac9c3d17ba3dcea305588f77903d8959bd4d0a9eb
 ---

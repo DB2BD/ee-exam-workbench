@@ -5,7 +5,7 @@ nodeId: gk-emach-single-phase-rotating-field
 nodeType: mechanism
 examFamily: GK
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
+graphRevision: kg-v1-94aec3f278d6e297
 sourceHash: eaff3a8c9ee67efdcd22c0985cfd22999c482381bfe8a19f020dec32e0fad930
 generatedBodyHash: cc455269064789782d76dcc30f539c504c964fc9e668b917342210ce4d07f3cc
 ---

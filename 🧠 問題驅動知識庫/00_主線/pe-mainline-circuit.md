@@ -5,9 +5,9 @@ nodeId: pe-mainline-circuit
 nodeType: mainline
 examFamily: PE
 lifecycle: active
-graphRevision: kg-v1-69f62a38770a392f
-sourceHash: 4eed5eff541f556badf32a6dab1634022fb56be40c478612e0ee22cc0a428385
-generatedBodyHash: 1fae723c2ca1dc0c0342b1a6675aeee99d0741571b18df3c583726793f083e9b
+graphRevision: kg-v1-94aec3f278d6e297
+sourceHash: e1c30ea9e2d0851cd4a3d0a4eb1bc2929c3e74cb748569f2f6ac560be7076fc9
+generatedBodyHash: d72d198e2f3e78019a2b094d01b88c95f3f42225c9c693474d0b70b859817e0c
 ---
 # 電路學主線
 
@@ -26,5 +26,5 @@ generatedBodyHash: 1fae723c2ca1dc0c0342b1a6675aeee99d0741571b18df3c583726793f083
 - 尚無已核准的題目連結。
 
 ## Provenance
-- sourcePath: docs/PROPOSAL_問題驅動Obsidian知識圖譜_2026-09-12.md
+- sourcePath: data/knowledge/golden-fixture.json
 - sourceType: golden-fixture

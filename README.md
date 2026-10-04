@@ -47,10 +47,6 @@
 
 | 檔案名稱 | 核心功能與說明 | 快速入口 |
 | :--- | :--- | :--- |
-| **[`AGENT-GUIDE.md`](./AGENT-GUIDE.md)** | **冷啟動導覽與協作指引**：模型中立的資料流架構、品質標準與交接方式 | [開啟 AGENT-GUIDE.md](./AGENT-GUIDE.md) |
-| **[`AGENT-SOLVE.md`](./AGENT-SOLVE.md)** | **`lean-v1` 題解規範**：已知與所求、考場標準作答、驗算、失分點四段版型與精確性條件 | [開啟 AGENT-SOLVE.md](./AGENT-SOLVE.md) |
-| **[`AGENT-SPEC.md`](./AGENT-SPEC.md)** | **資料庫規格與 Metadata 規範**：QID 命名、KaTeX 語法、標籤與驗證狀態 | [開啟 AGENT-SPEC.md](./AGENT-SPEC.md) |
-| **[`AGENT-CODE.md`](./AGENT-CODE.md)** | **指令集與維護 Runbook**：資料庫編譯、語法審計與自動化命令手冊 | [開啟 AGENT-CODE.md](./AGENT-CODE.md) |
 | **[`知識庫使用說明書.md`](./知識庫使用說明書.md)** | **考生完整操作手冊**：離線 Web 儀表板、120 分鐘模考、AI 批改指令引導 | [開啟 知識庫使用說明書.md](./知識庫使用說明書.md) |
 | **[`檔案架構索引表.md`](./檔案架構索引表.md)** | **全景雙向目錄索引地圖**：PE 66 份試卷／323 道題，及 GK 25 筆來源紀錄／161 筆題目快速跳轉 | [開啟 檔案架構索引表.md](./檔案架構索引表.md) |
 

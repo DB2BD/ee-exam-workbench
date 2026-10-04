@@ -16,7 +16,7 @@ INDEX = (ROOT / "index.html").read_text(encoding="utf-8")
 REQUIRED = ["calendar", "file-text", "bar-chart", "more-horizontal", "shuffle", "rotate-ccw", "play",
             "alert-triangle", "check", "sun", "moon", "x", "star", "image", "eye"]
 EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿⬀-⯿️]")
-# ➔ (U+2794): the Casio fx-82 key-sequence arrow in the calculator guide / passbook. It is content, not decoration.
+# ➔ (U+2794): the arrow in the DAG prerequisite chain. It is content, not decoration.
 ALLOWED = {"➔"}
 
 

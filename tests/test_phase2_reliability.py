@@ -765,7 +765,7 @@ globalThis.reviewHtmlEscape = value => String(value);
         self.assertEqual(result["restoredBox"], "none")
 
     def test_reveal_buttons_unlock_in_order_despite_other_buttons_in_box(self):
-        # The recall box also holds the numeric-check buttons (fx-82, 對答案).
+        # The recall box also holds the numeric-check buttons (對答案).
         # Step numbering must count only the four reveal buttons, otherwise
         # ① is treated as step 2 and every reveal button stays disabled.
         setup = r'''

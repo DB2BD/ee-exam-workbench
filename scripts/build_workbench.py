@@ -91,7 +91,6 @@ def build_workbench():
         'src/components/dagGraphViewer.js',
         'src/components/header.js',
         'src/components/questionList.js',
-        'src/components/calculatorGuide.js',
         'src/data/cheatsheet.generated.js',
         'src/components/passbookGenerator.js',
         'src/components/resultCard.js',

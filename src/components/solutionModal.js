@@ -728,9 +728,6 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
           <button class="btn-stem-toggle" onclick="toggleStemDescription()" id="btn-stem-toggle" style="padding: 3px 8px; font-size: 0.8125rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
             展開題幹文字
           </button>
-          <button class="btn-stem-toggle" onclick="openCalculatorGuideModal()" id="btn-calc-guide" style="padding: 3px 8px; font-size: 0.8125rem; font-weight: 600; border-radius: 4px; border: 1px solid var(--line); background: var(--bg-secondary); color: var(--ink-light); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="考選部核定計算機按法與相量速查">
-            fx-82 按法
-          </button>
         </div>
         <a href="${safePdfLink}" target="_blank" class="btn-pdf" style="font-size: 0.8125rem; padding: 3px 8px;">
           新分頁開啟 ${uiIcon('external-link')}

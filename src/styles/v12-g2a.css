@@ -54,3 +54,10 @@
   .today-task-figure img { width: 100%; max-width: none; }
   .today-task-result .result-card-save { margin-bottom: 4px; }
 }
+
+/* Docked result card collapses to a bar until the learner is done (2026-10-04) */
+.result-card-expand { display: none; width: 100%; min-height: 44px; border: 0; background: transparent; color: var(--accent-dark); font-weight: 700; cursor: pointer; }
+.result-card.is-collapsed { padding-top: 4px; padding-bottom: 4px; max-height: none; }
+.result-card.is-collapsed .result-card-expand { display: block; }
+.result-card.is-collapsed > :not(.result-card-expand) { display: none !important; }
+.result-card-collapse { margin-left: auto; min-height: 32px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--muted); cursor: pointer; padding: 2px 10px; }

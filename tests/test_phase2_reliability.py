@@ -770,7 +770,7 @@ globalThis.reviewHtmlEscape = value => String(value);
         # ① is treated as step 2 and every reveal button stays disabled.
         setup = r'''
 const other = [{disabled:false,title:''},{disabled:false,title:''}];
-const reveal = [0,1,2,3].map(() => ({disabled:false,title:''}));
+const reveal = [0,1,2,3].map(i => ({disabled:false,title:'',classList:{contains:c => i === 3 && c === 'btn-reveal-full'}}));
 const box = {id:'recall-step-box', style:{display:'none'},
   querySelectorAll: sel => String(sel).includes('btn-reveal') ? reveal : other.concat(reveal)};
 globalThis.document = {getElementById: id => id === 'recall-step-box' ? box : null, querySelectorAll: () => []};
@@ -789,8 +789,9 @@ globalThis.window = {addEventListener(){}};
 })()
 '''
         states = run_node(["src/components/solutionModal.js"], expression, setup)
-        self.assertEqual(states[0]["reveal"], [False, True, True, True])
-        self.assertEqual(states[1]["reveal"], [True, False, True, True])
+        # ④ 揭曉完整推導 is always available; ①–③ are optional hints in order.
+        self.assertEqual(states[0]["reveal"], [False, True, True, False])
+        self.assertEqual(states[1]["reveal"], [True, False, True, False])
         self.assertEqual(states[2]["reveal"], [True, True, True, False])
         for state in states:
             self.assertEqual(state["other"], [False, False])

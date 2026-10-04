@@ -273,7 +273,7 @@ subj_info = {
 }
 
 for folder, meta in subj_info.items():
-    subj_path = os.path.join('依考科分類', folder)
+    subj_path = os.path.join('01_原始試題/依考科', folder)
     if not os.path.isdir(subj_path):
         continue
     
@@ -366,8 +366,8 @@ for folder, meta in subj_info.items():
         f.write(generate_content(is_top_level=False))
     print(f'Updated: {subj_file}')
     
-    # Top level file in 依考科分類/
-    top_file = os.path.join('依考科分類', f'{folder}.md')
+    # Top level file in 01_原始試題/依考科/
+    top_file = os.path.join('01_原始試題/依考科', f'{folder}.md')
     with open(top_file, 'w', encoding='utf-8') as f:
         f.write(generate_content(is_top_level=True))
     print(f'Updated top-level: {top_file}')

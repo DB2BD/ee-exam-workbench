@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BOUNDARY = ROOT / "docs" / "上榜精確解答邊界_條件題處理.md"
+BOUNDARY = ROOT / "docs" / "02_考場策略" / "精確解答邊界_條件題處理.md"
 EXPECTED_MANUAL_QIDS = {
     "EE-104-03-3",
     "EE-104-06-5",
@@ -58,7 +58,7 @@ class TestPassiveRouteStatus(unittest.TestCase):
         from scripts.audit_pe_solutions import metadata
         from scripts.audit_passive_route_status import REVIEW_FIELDS
 
-        solution = ROOT / "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-2.md"
+        solution = ROOT / "02_題解/技師題解/06_工業配電/canonical/EE-114-06-2.md"
         values = metadata(solution)
         self.assertEqual(values["audit_status"], "needs_manual_review")
         self.assertEqual(values["status"], "needs_manual_review")
@@ -78,7 +78,7 @@ class TestPassiveRouteStatus(unittest.TestCase):
         from scripts.audit_pe_solutions import metadata
         from scripts.audit_passive_route_status import REVIEW_FIELDS
 
-        solution = ROOT / "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-3.md"
+        solution = ROOT / "02_題解/技師題解/06_工業配電/canonical/EE-114-06-3.md"
         values = metadata(solution)
         self.assertEqual(values["audit_status"], "needs_manual_review")
         self.assertEqual(values["status"], "needs_manual_review")
@@ -88,13 +88,13 @@ class TestPassiveRouteStatus(unittest.TestCase):
         text = solution.read_text(encoding="utf-8")
         for phrase in (r"50\,\mathrm{MW}", r"30\,\mathrm{MW}", "額定 MVA", r"c_1=c_2=1.0", "2.2837", "2.6915"):
             self.assertIn(phrase, text)
-        self.assertNotIn("EE-114-06-3", (ROOT / "docs/上榜預設24時段_核心題路徑.md").read_text(encoding="utf-8"))
+        self.assertNotIn("EE-114-06-3", (ROOT / "docs/01_備考計畫/預設24時段_核心題路徑.md").read_text(encoding="utf-8"))
 
     def test_motor_branch_design_keeps_code_table_values_conditional(self):
         from scripts.audit_pe_solutions import metadata
         from scripts.audit_passive_route_status import REVIEW_FIELDS
 
-        solution = ROOT / "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-4.md"
+        solution = ROOT / "02_題解/技師題解/06_工業配電/canonical/EE-114-06-4.md"
         values = metadata(solution)
         self.assertEqual(values["audit_status"], "needs_manual_review")
         self.assertIsNone(values["verified_at"])
@@ -104,12 +104,12 @@ class TestPassiveRouteStatus(unittest.TestCase):
         text = solution.read_text(encoding="utf-8")
         for phrase in ("條件與疑義", "屋內線路裝置規則", "95.5", "125", "150", "22", "38"):
             self.assertIn(phrase, text)
-        for route in ("docs/上榜預設24時段_核心題路徑.md", "docs/上榜被動模考_114年六科執行包.md"):
+        for route in ("docs/01_備考計畫/預設24時段_核心題路徑.md", "docs/01_備考計畫/被動模考_114年六科執行包.md"):
             self.assertNotIn("EE-114-06-4", (ROOT / route).read_text(encoding="utf-8"), route)
 
     def test_transformer_voltage_conventions_are_explicit_in_mock_and_answer(self):
-        solution = (ROOT / "📝 個人題解與錯題本/04_電機機械/canonical/EE-114-04-2.md").read_text(encoding="utf-8")
-        mock = (ROOT / "docs/上榜被動模考_114年六科執行包.md").read_text(encoding="utf-8")
+        solution = (ROOT / "02_題解/技師題解/04_電機機械/canonical/EE-114-04-2.md").read_text(encoding="utf-8")
+        mock = (ROOT / "docs/01_備考計畫/被動模考_114年六科執行包.md").read_text(encoding="utf-8")
         for text in (solution, mock):
             for phrase in ("110\\sqrt2", "173.925", "122.984", "RMS", "峰值"):
                 with self.subTest(phrase=phrase):

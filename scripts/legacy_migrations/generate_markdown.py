@@ -147,7 +147,7 @@ subj_info = {
 }
 
 for folder, meta in subj_info.items():
-    subj_path = os.path.join('依考科分類', folder)
+    subj_path = os.path.join('01_原始試題/依考科', folder)
     if not os.path.isdir(subj_path):
         continue
     
@@ -172,7 +172,7 @@ for folder, meta in subj_info.items():
             'base_name': base
         })
     
-    # 2. Build Markdown for folder-level (inside 依考科分類/0X_xxx/)
+    # 2. Build Markdown for folder-level (inside 01_原始試題/依考科/0X_xxx/)
     def make_markdown(is_top_level=False):
         prefix_path = f'./{folder}/' if is_top_level else './'
         img_prefix = f'./{folder}/images/' if is_top_level else './images/'
@@ -242,8 +242,8 @@ for folder, meta in subj_info.items():
         f.write(make_markdown(is_top_level=False))
     print(f'Created: {subj_file_path}')
     
-    # Write top-level markdown in 依考科分類/
-    top_file_path = os.path.join('依考科分類', f'{folder}.md')
+    # Write top-level markdown in 01_原始試題/依考科/
+    top_file_path = os.path.join('01_原始試題/依考科', f'{folder}.md')
     with open(top_file_path, 'w', encoding='utf-8') as f:
         f.write(make_markdown(is_top_level=True))
     print(f'Created top-level file: {top_file_path}')

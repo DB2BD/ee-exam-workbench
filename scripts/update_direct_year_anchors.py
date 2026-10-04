@@ -26,9 +26,9 @@ def build_optional_dashboard() -> str:
         "",
         "## 固定被動路徑",
         "",
-        "1. 先完成 [24 個核心時段](./docs/上榜預設24時段_核心題路徑.md)，不等待弱科分析。",
-        "2. 依序完成 [114 年六科基線](./docs/上榜被動模考_114年六科執行包.md)。",
-        "3. 再完成 [108 年六科複測](./docs/上榜被動複測_108年六科執行包.md)，以不同試卷比較得分證據。",
+        "1. 先完成 [24 個核心時段](./docs/01_備考計畫/預設24時段_核心題路徑.md)，不等待弱科分析。",
+        "2. 依序完成 [114 年六科基線](./docs/01_備考計畫/被動模考_114年六科執行包.md)。",
+        "3. 再完成 [108 年六科複測](./docs/01_備考計畫/被動複測_108年六科執行包.md)，以不同試卷比較得分證據。",
         "",
         "## 六科資料入口",
         "",
@@ -38,7 +38,7 @@ def build_optional_dashboard() -> str:
     for folder, name in SUBJECTS:
         lines.append(
             f"| {name} | 11 | 未由專案推定 | "
-            f"[題庫](./依考科分類/{folder}.md) | [核心考點](./🧠%20核心考點知識庫/{folder}/) |"
+            f"[題庫](./01_原始試題/依考科/{folder}.md) | [核心考點](./03_知識庫/核心考點/{folder}/) |"
         )
 
     lines.extend(
@@ -55,14 +55,14 @@ def build_optional_dashboard() -> str:
     for year in YEARS:
         for folder, name in SUBJECTS:
             lines.append(
-                f"| {year} | {name} | [開啟](./依考科分類/{folder}.md#{year}年) | — |"
+                f"| {year} | {name} | [開啟](./01_原始試題/依考科/{folder}.md#{year}年) | — |"
             )
     lines.append("")
     return "\n".join(lines)
 
 
 def main() -> None:
-    (ROOT / "📊 備考進度儀表板.md").write_text(build_optional_dashboard(), encoding="utf-8")
+    (ROOT / "docs/01_備考計畫/備考進度儀表板.md").write_text(build_optional_dashboard(), encoding="utf-8")
     write_year_readmes()
 
 

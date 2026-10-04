@@ -36,7 +36,7 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
 
     def test_golden_notes_have_stable_frontmatter_and_semantic_links(self):
         with tempfile.TemporaryDirectory() as temp_dir:
-            output_root = Path(temp_dir) / "🧠 問題驅動知識庫"
+            output_root = Path(temp_dir) / "03_知識庫/問題驅動"
             result = self._run_generator(GRAPH, output_root)
 
             self.assertEqual(result.returncode, 0, result.stderr)
@@ -86,7 +86,7 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
     def test_repeated_generation_is_deterministic_and_preserves_personal_files(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            output_root = temp / "🧠 問題驅動知識庫"
+            output_root = temp / "03_知識庫/問題驅動"
             personal_root = temp / "📝 個人知識補充"
             personal_root.mkdir(parents=True)
             personal = personal_root / "戴維寧與諾頓等效定理.md"
@@ -112,7 +112,7 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
     def test_manual_edit_fails_closed_before_any_note_is_rewritten(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            output_root = temp / "🧠 問題驅動知識庫"
+            output_root = temp / "03_知識庫/問題驅動"
             self.assertEqual(self._run_generator(GRAPH, output_root).returncode, 0)
             drifted = output_root / "01_電路學" / "ct-thevenin-norton.md"
             original_drifted = drifted.read_text(encoding="utf-8")
@@ -161,7 +161,7 @@ class TestObsidianKnowledgeGeneration(unittest.TestCase):
             )
             edges_path.write_text(json.dumps(edges, ensure_ascii=False), encoding="utf-8")
 
-            output_root = temp / "🧠 問題驅動知識庫"
+            output_root = temp / "03_知識庫/問題驅動"
             result = self._run_generator(graph, output_root)
 
             self.assertEqual(result.returncode, 0, result.stderr)

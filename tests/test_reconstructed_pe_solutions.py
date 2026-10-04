@@ -11,7 +11,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CANONICAL = ROOT / "📝 個人題解與錯題本"
+CANONICAL = ROOT / "02_題解/技師題解"
 
 
 class TestReconstructedPESolutions(unittest.TestCase):
@@ -375,7 +375,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
                     line = "#### " + line[4:]
                 elif line.startswith("## "):
                     line = "### " + line[3:]
-                projected.append(line.replace("../../../依考科分類", "../../依考科分類"))
+                projected.append(line.replace("../../../01_原始試題/依考科", "../../01_原始試題/依考科"))
             return "\n".join(projected).strip()
 
         corrected = 0
@@ -606,7 +606,6 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertEqual(report.count("| EE-"), len(manual_qids))
         note_links = dict(re.findall(r"\[(EE-\d{3}-\d{2}-\d+)\]\(([^)]+)\)", report))
         self.assertEqual(set(note_links), set(manual_qids))
-        self.assertTrue(any("%20" in target for target in note_links.values()))
         for qid, target in note_links.items():
             resolved = (report_path.parent / unquote(target.split("#", 1)[0])).resolve()
             with self.subTest(qid=qid, target=target):
@@ -931,7 +930,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("101.0936492", note)
 
     def test_annual_power_note_does_not_expose_stale_104_q3_answer(self):
-        note = (ROOT / "📝 個人題解與錯題本/05_電力系統/104年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        note = (ROOT / "02_題解/技師題解/05_電力系統/104年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn("EE-104-05-3.md", note)
         self.assertIn("5.4982", note)
         self.assertIn("故障電流反算", note)
@@ -963,7 +962,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
     def test_annual_107_power_note_uses_corrected_generator_q3_branch(self):
         """年度彙整頁不得重新暴露已校正的基準與無效功率方向錯誤。"""
-        note = (ROOT / "📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
+        note = (ROOT / "02_題解/技師題解/05_電力系統/107年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn(r"\boxed{Q_G=-84.0\,\mathrm{Mvar}}", note)
         self.assertIn("進相（leading）運轉", note)
         self.assertNotIn("+82.6\\text{ Mvar}", note)

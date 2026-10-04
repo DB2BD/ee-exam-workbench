@@ -420,7 +420,7 @@ $$\mathbf{V}_{ab} = 208\angle 0^\circ\text{ V}_{\text{rms}},\quad \mathbf{V}_{bc
 [[#📑 快速目錄導覽|⬆ 回到目錄導覽]]
 '''
 
-with open('依考科分類/01_電路學.md', 'w', encoding='utf-8') as f:
+with open('01_原始試題/依考科/01_電路學.md', 'w', encoding='utf-8') as f:
     f.write(content)
 
 print('✅ 01_電路學.md written cleanly with raw strings!')

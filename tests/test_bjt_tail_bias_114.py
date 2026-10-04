@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTE = ROOT / "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-114-02-1.md"
+NOTE = ROOT / "02_題解/技師題解/02_電子學_含電力電子/canonical/EE-114-02-1.md"
 
 
 class TestBJTTailBias114(unittest.TestCase):

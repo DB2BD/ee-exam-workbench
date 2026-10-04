@@ -46,7 +46,7 @@ def clean_file(fpath):
         f.write(result.strip() + '\n')
     print(f'Cleaned: {fpath}')
 
-all_subject_mds = glob.glob('依考科分類/**/*.md', recursive=True) + glob.glob('依考科分類/*.md')
+all_subject_mds = glob.glob('01_原始試題/依考科/**/*.md', recursive=True) + glob.glob('01_原始試題/依考科/*.md')
 for f in set(all_subject_mds):
     clean_file(f)
 

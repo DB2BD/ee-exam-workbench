@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-img = np.array(Image.open(ROOT / "依考科分類/04_電機機械/images/questions/PE_112年_電機機械_Q05.png").convert("L")).astype(int)
+img = np.array(Image.open(ROOT / "01_原始試題/依考科/04_電機機械/images/questions/PE_112年_電機機械_Q05.png").convert("L")).astype(int)
 
 V, Ra, Rf, Nf, AR, IL, n0 = 250.0, 0.12, 50.0, 1000, 1500, 150.0, 1200.0
 If = V / Rf

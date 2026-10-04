@@ -3,17 +3,17 @@
 generate_all_eng_math_solutions.py
 ==================================
 Generates 11 full-exam dedicated solution markdown files for Engineering Math (104~114)
-in `📝 個人題解與錯題本/03_工程數學/{yr}年_工程數學_全卷完整詳細題解.md`.
+in `02_題解/技師題解/03_工程數學/{yr}年_工程數學_全卷完整詳細題解.md`.
 """
 
 import os
 import re
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TARGET_DIR = os.path.join(WORKSPACE, '📝 個人題解與錯題本', '03_工程數學')
+TARGET_DIR = os.path.join(WORKSPACE, '02_題解/技師題解', '03_工程數學')
 os.makedirs(TARGET_DIR, exist_ok=True)
 
-SRC_MD = os.path.join(WORKSPACE, '依考科分類', '03_工程數學.md')
+SRC_MD = os.path.join(WORKSPACE, '01_原始試題/依考科', '03_工程數學.md')
 with open(SRC_MD, 'r', encoding='utf-8') as f:
     text = f.read()
 
@@ -24,25 +24,25 @@ for i in range(1, len(year_sections), 2):
     sec_content = year_sections[i+1].strip()
     
     # Remove image references for clean solution
-    clean_sec = re.sub(r'###\s+📷\s+官方試卷[\s\S]*?(?=\n\[⬆|\Z)', '', sec_content)
-    clean_sec = re.sub(r'\[⬆\s+回到目錄導覽\].*', '', clean_sec).strip()
+    clean_sec = re.sub(r'###\s+(?:📷\s*)?官方試卷[\s\S]*?(?=\n\[(?:⬆️?\s*)?回到目錄導覽|\Z)', '', sec_content)
+    clean_sec = re.sub(r'\[(?:⬆️?\s*)?回到目錄導覽\].*', '', clean_sec).strip()
     
-    sol_content = f"""# 📝 民國 {yr} 年 電機工程技師 — 工程數學 全卷完整詳細題解
+    sol_content = f"""# 民國 {yr} 年 電機工程技師 — 工程數學 全卷完整詳細題解
 
 > **考科代號**：`01140` / `01150`  
 > **科目名稱**：工程數學（含線性代數、微分方程、複變函數、機率統計）  
 > **試卷標準**：專門職業及技術人員高等考試電機工程技師  
-> **詳解狀態**：✅ 100% 完整解析與步驟推導（LaTeX 數學排版精修）
+> **詳解狀態**：100% 完整解析與步驟推導（LaTeX 數學排版精修）
 
 ---
 
-## 📋 考題與步驟解析
+## 考題與步驟解析
 
 {clean_sec}
 
 ---
 
-## 💡 考點精華與解題 SOP 總結
+## 考點精華與解題 SOP 總結
 
 1. **常微分方程 (ODE)**：特徵方程式求齊次解 $y_h$，待定係數法或參數變異法求特解 $y_p$，代入初值條件求待定常數。
 2. **拉氏轉換 (Laplace Transform)**：利用轉換表與位移定理、微分性質將時域微分方程轉為 $s$ 域代數方程，部分分式展開後反轉換。

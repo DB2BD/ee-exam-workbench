@@ -2,7 +2,7 @@
 import os
 import re
 
-target_file = '依考科分類/04_電機機械/04_電機機械_歷屆試題彙編_104-114年.md'
+target_file = '01_原始試題/依考科/04_電機機械/04_電機機械_歷屆試題彙編_104-114年.md'
 with open(target_file, 'r', encoding='utf-8') as f:
     text = f.read()
 
@@ -38,9 +38,9 @@ for yr in ['114', '113', '112', '111', '110', '109', '108', '107', '106', '105',
 with open(target_file, 'w', encoding='utf-8') as f:
     f.write(text)
 
-# Also update 依考科分類/04_電機機械.md if it exists
-if os.path.exists('依考科分類/04_電機機械.md'):
-    with open('依考科分類/04_電機機械.md', 'w', encoding='utf-8') as f:
+# Also update 01_原始試題/依考科/04_電機機械.md if it exists
+if os.path.exists('01_原始試題/依考科/04_電機機械.md'):
+    with open('01_原始試題/依考科/04_電機機械.md', 'w', encoding='utf-8') as f:
         f.write(text)
 
 print('✅ 04_電機機械.md updated with full bidirectional solution links!')

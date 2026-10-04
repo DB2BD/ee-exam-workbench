@@ -27,7 +27,6 @@ class TestManualReviewIndexLinks(unittest.TestCase):
         self.assertTrue(rows, "manual review index contains no question rows")
         self.assertEqual(set(link_qids), row_qids)
         self.assertEqual(len(link_qids), len(row_qids))
-        self.assertIn("%20", " ".join(match.group("url") for match in links))
 
         for match in links:
             qid = match.group("qid")

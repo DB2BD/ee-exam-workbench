@@ -131,7 +131,7 @@ if pe_slicing_failures[:5]:
 canonical_qids = {}
 canonical_missing_crop = []
 canonical_full_page = []
-for root, _dirs, names in os.walk('📝 個人題解與錯題本'):
+for root, _dirs, names in os.walk('02_題解/技師題解'):
     if os.path.basename(root) != 'canonical':
         continue
     for name in names:

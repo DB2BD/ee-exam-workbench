@@ -135,7 +135,7 @@ $$|V_2| = 0.9282\text{ pu},\quad \delta_2 = -11.89^\circ\ (-0.2075\text{ rad})$$
 $$\Delta f = -0.3462\text{ Hz},\quad P_1^{new} = 257.69\text{ MW},\quad P_2^{new} = 592.31\text{ MW}$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/109年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/109年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_109)
 
 print('✅ 109年_電力系統_全卷完整詳細題解.md created!')

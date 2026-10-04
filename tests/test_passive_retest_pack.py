@@ -7,9 +7,9 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACK = ROOT / "docs" / "上榜被動複測_108年六科執行包.md"
-CORE_PATH = ROOT / "docs" / "上榜預設24時段_核心題路徑.md"
-CANONICAL_ROOT = ROOT / "📝 個人題解與錯題本"
+PACK = ROOT / "docs" / "01_備考計畫" / "被動複測_108年六科執行包.md"
+CORE_PATH = ROOT / "docs" / "01_備考計畫" / "預設24時段_核心題路徑.md"
+CANONICAL_ROOT = ROOT / "02_題解/技師題解"
 
 SUBJECTS = (
     ("01", "電路學", (25, 25, 25, 25)),

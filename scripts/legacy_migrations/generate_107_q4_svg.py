@@ -199,7 +199,7 @@ def create_svg():
 
 </svg>'''
 
-    target_dir = "/Users/a/技師考試/歷屆試題_104-114年/依考科分類/01_電路學/images"
+    target_dir = "/Users/a/技師考試/歷屆試題_104-114年/01_原始試題/依考科/01_電路學/images"
     os.makedirs(target_dir, exist_ok=True)
     target_path = os.path.join(target_dir, "107年_電路學_第4題_理想變壓器與等效電阻分析圖.svg")
     

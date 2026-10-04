@@ -250,6 +250,6 @@ sol_113 = '''---
 - **滿載二次端電壓**：$V_{L2} = \mathbf{218.31\text{ V}}$
 '''
 
-with open('📝 個人題解與錯題本/04_電機機械/113年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/113年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_113)
 print('✅ 113年 電機機械 detailed solution written!')

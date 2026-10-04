@@ -17,7 +17,7 @@ import fitz
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 MANIFEST = WORKSPACE / "data" / "moex-question-crops.json"
-BASE = WORKSPACE / "依考科分類" / "🏛️_國考同級參考題庫"
+BASE = WORKSPACE / "04_國考同級題庫"
 
 SUBJECT_DIRS = {
     "電路學": "01_電路學",

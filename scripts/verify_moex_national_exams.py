@@ -56,7 +56,7 @@ def assert_true(condition: bool, message: str) -> None:
 
 
 def active_source_path(year: int, subject: str) -> Path:
-    directory = WORKSPACE / "依考科分類" / "🏛️_國考同級參考題庫" / SUBJECT_DIRS[subject]
+    directory = WORKSPACE / "04_國考同級題庫" / SUBJECT_DIRS[subject]
     return directory / f"GK_{year}年_{subject}.md"
 
 
@@ -161,7 +161,7 @@ def audit_solutions(source: dict) -> dict:
             expected_questions[canonical_id] = question
         expected_ids = set(expected_questions)
         total += len(expected_ids)
-        subject_dir = WORKSPACE / "📝 個人題解與錯題本" / "🏛️_國考同級題解" / SUBJECT_DIRS[entry["subject"]]
+        subject_dir = WORKSPACE / "02_題解/國考同級題解" / SUBJECT_DIRS[entry["subject"]]
         path = subject_dir / f"GK_{entry['year']}年_{entry['subject']}_全卷完整詳細題解.md"
         if not path.exists():
             pending.extend(sorted(expected_ids))
@@ -215,7 +215,11 @@ def audit_solutions(source: dict) -> dict:
             section = text[heading.start():section_end]
             crop_name = Path(question["question_crop"]).name
             section_errors = []
-            if len(section.strip()) < 250:
+            # Length is measured with Markdown link targets collapsed, so moving or
+            # renaming the crop folders cannot push a section over or under the floor.
+            # 180 is the shortest existing GK question section's prose (111 工數 MC16).
+            prose = re.sub(r"\]\([^)]*\)", "](...)", section).strip()
+            if len(prose) < 180:
                 section_errors.append("solution section too short")
             if crop_name not in section:
                 section_errors.append("official question crop not referenced")

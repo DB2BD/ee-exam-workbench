@@ -26,7 +26,7 @@ except ModuleNotFoundError:  # Direct ``python scripts/generate_obsidian_knowled
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 DEFAULT_GRAPH_DIR = WORKSPACE / "data" / "knowledge"
-DEFAULT_OUTPUT_ROOT = WORKSPACE / "🧠 問題驅動知識庫"
+DEFAULT_OUTPUT_ROOT = WORKSPACE / "03_知識庫/問題驅動"
 DEFAULT_PERSONAL_ROOT = WORKSPACE / "📝 個人知識補充"
 DEFAULT_REPORT = WORKSPACE / "reports" / "obsidian-knowledge-build.json"
 SAFE_NODE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
@@ -166,7 +166,7 @@ def _render_note(
     body_lines = [
         f"# {node['title']}",
         "",
-        "> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在 `📝 個人知識補充/`。",
+        "> 此檔案由 canonical knowledge graph 產生；請將個人補充寫在工作區根目錄的「個人知識補充」資料夾。",
         "",
         "## Canonical identity",
         f"- node: `{node_id}`",

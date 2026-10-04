@@ -70,7 +70,7 @@ def polish_subject_content(content):
 
     return content
 
-for fpath in glob.glob('依考科分類/**/*.md', recursive=True) + glob.glob('依考科分類/*.md') + glob.glob('🧠 核心考點知識庫/**/*.md', recursive=True):
+for fpath in glob.glob('01_原始試題/依考科/**/*.md', recursive=True) + glob.glob('01_原始試題/依考科/*.md') + glob.glob('03_知識庫/核心考點/**/*.md', recursive=True):
     with open(fpath, 'r', encoding='utf-8') as f:
         orig = f.read()
     

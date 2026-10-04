@@ -9,7 +9,7 @@ import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-im = np.array(Image.open(ROOT / "依考科分類/06_工業配電/images/questions/PE_113年_工業配電_Q05.png").convert("L")).astype(int)
+im = np.array(Image.open(ROOT / "01_原始試題/依考科/06_工業配電/images/questions/PE_113年_工業配電_Q05.png").convert("L")).astype(int)
 x1, x20, y0, y7 = 223.5, 1106.5, 1632, 675          # plot frame (pixel)
 def col_times(M):
     x = int(round(x1 + (x20 - x1) * math.log10(M) / math.log10(20)))

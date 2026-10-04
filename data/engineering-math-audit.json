@@ -14,8 +14,8 @@
       "year": 104,
       "question_number": 1,
       "chapter": "試利用拉氏轉換（Laplace Transform）求解微分方程初始值問題：\n$$\\frac{d^2y}{dt^2} + 4\\frac{dy}{dt} - 4y = 0, \\quad y(0) = 0, \\quad y'(0) = -7$$\n（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-104-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_104年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-104-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_104年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -43,8 +43,8 @@
       "year": 104,
       "question_number": 2,
       "chapter": "設矩陣 $\\mathbf{A} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 1 & 1 \\end{bmatrix}$：\n* **(一)** 求 $\\mathbf{A}$ 的特徵值（Eigenvalues）。（5 分）\n* **(二)** 求 $\\mathbf{A}$ 的特徵向量（Eigenvectors）。（5 分）\n* **(三)** 求可逆矩陣 $\\mathbf{P}$ 及對角矩陣 $\\mathbf{\\Lambda}$，使得 $\\mathbf{A} = \\mathbf{P}\\mathbf{\\Lambda}\\mathbf{P}^{-1}$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-104-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_104年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-104-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_104年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -72,8 +72,8 @@
       "year": 104,
       "question_number": 3,
       "chapter": "試以留數定理計算實數定積分 $\\int_{-\\infty}^{\\infty}\\frac{3x+2}{x(x-4)(x^2+9)}\\,dx$ 之值。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-104-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_104年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-104-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_104年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -106,8 +106,8 @@
       "year": 104,
       "question_number": 4,
       "chapter": "設隨機變數 $X,Y$ 的聯合機率密度函數為\n$$\nf_{X,Y}(x,y)=\n\\begin{cases}\nx\\left(y+\\frac32\\right),&0<x<1,\\ 0<y<1,\\\\\n0,&\\text{其他},\n\\end{cases}\n$$\n試求 $E[X]$、$E[Y]$、$E[X^2]$ 及 $E[XY]$。（各 5 分，共 20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-104-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_104年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-104-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_104年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -135,8 +135,8 @@
       "year": 104,
       "question_number": 5,
       "chapter": "試求線積分 $\\int_C xyz\\,dx-\\cos(yz)\\,dy+xz\\,dz$，其中路徑 $C$ 係由起點 $(1,1,1)$ 至終點 $(-2,1,3)$ 之直線線段。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-104-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_104年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-104-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_104年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -164,8 +164,8 @@
       "year": 105,
       "question_number": 1,
       "chapter": "試求通解為 $y = e^{3x}(c_1 \\sin 2x + c_2 \\cos 2x)$ 的二階常係數線性微分方程式，其中 $c_1, c_2$ 為任意常數。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-105-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_105年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-105-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_105年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -193,8 +193,8 @@
       "year": 105,
       "question_number": 2,
       "chapter": "試求時間函數 $f(t) = \\sin(\\omega t)$ 之拉普拉斯轉換（Laplace Transform）$F(s)$。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-105-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_105年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-105-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_105年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -222,8 +222,8 @@
       "year": 105,
       "question_number": 3,
       "chapter": "求複變積分 $\\int_C \\text{Im}(z) dz$，其中 $\\text{Im}(z)$ 為 $z$ 的虛部，路徑 $C$ 為直線段 $z(t) = 3t + it, \\quad 0 \\le t \\le 1$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-105-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_105年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-105-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_105年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -251,8 +251,8 @@
       "year": 105,
       "question_number": 4,
       "chapter": "求複變積分 $\\oint_\\gamma \\frac{z^2 - z + 2}{z^2 - 1 + 2i} dz$，其中 $\\gamma$ 為圓周 $|z| = 2$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-105-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_105年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-105-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_105年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -280,8 +280,8 @@
       "year": 105,
       "question_number": 5,
       "chapter": "隨機變數 $X$ 的累積分布函數（CDF）為：\n$$F(x) = \\begin{cases} 0, & x < 0 \\\\ x/3, & 0 \\le x < 1/2 \\\\ 1/2, & 1/2 \\le x < 1 \\\\ x/2, & 1 \\le x < 2 \\\\ 1, & x \\ge 2 \\end{cases}$$\n* **(一)** 求機率 $P(1/2 \\le X \\le 3/2)$。（5 分）\n* **(二)** 求機率 $P(X > 3/2)$。（5 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-105-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_105年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-105-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_105年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -309,8 +309,8 @@
       "year": 105,
       "question_number": 6,
       "chapter": "一容器內有 2 顆黑球、3 顆紅球及 4 顆白球，隨機從容器中拿出兩顆球。\n* **(一)** 不放回條件下，兩顆都是白球的機率為何？（2 分）\n* **(二)** 不放回條件下，第二顆是紅球的機率為何？（3 分）\n* **(三)** 若改為取出後放回，上述兩種情形的機率分別為何？（5 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-105-03-6.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_105年_工程數學_Q06.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-105-03-6.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_105年_工程數學_Q06.png",
       "source_pages": [
         {
           "page": 1,
@@ -338,8 +338,8 @@
       "year": 105,
       "question_number": 7,
       "chapter": "$T: \\mathbb{R}^2 \\to \\mathbb{R}^2$ 為一線性轉換，已知\n$$\nT\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ -3 \\end{bmatrix},\\qquad\nT\\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} -1 \\\\ 3 \\end{bmatrix}\n$$\n求 $T\\begin{bmatrix} 7 \\\\ 6 \\end{bmatrix}$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-105-03-7.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_105年_工程數學_Q07.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-105-03-7.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_105年_工程數學_Q07.png",
       "source_pages": [
         {
           "page": 1,
@@ -367,8 +367,8 @@
       "year": 105,
       "question_number": 8,
       "chapter": "設矩陣 $\\mathbf{A} = \\begin{bmatrix} 0 & 1 & 1 \\\\ 1 & 0 & 1 \\\\ 1 & 1 & 0 \\end{bmatrix}$，求正交矩陣 $\\mathbf{Y}$ 使得 $\\mathbf{Y}^T\\mathbf{A}\\mathbf{Y}$ 為對角矩陣。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-105-03-8.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_105年_工程數學_Q08.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-105-03-8.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_105年_工程數學_Q08.png",
       "source_pages": [
         {
           "page": 1,
@@ -396,8 +396,8 @@
       "year": 106,
       "question_number": 1,
       "chapter": "請求出矩陣 $\\mathbf{A} = \\begin{bmatrix} 1 & 1 & 0 & 0 \\\\ 0 & 1 & 2 & 0 \\\\ 0 & 0 & 1 & 2 \\\\ 0 & 0 & -1 & 1 \\end{bmatrix}$ 之反矩陣 $\\mathbf{A}^{-1}$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_106年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-106-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_106年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -425,8 +425,8 @@
       "year": 106,
       "question_number": 2,
       "chapter": "請求線性系統 $\\mathbf{A}\\mathbf{x} = \\mathbf{b}$ 的最小平方解（Least Squares Solution）$\\mathbf{x}$，其中：\n$$\n\\mathbf{A} = \\begin{bmatrix} 2 & 1 \\\\ 1 & 1 \\\\ 2 & 0 \\\\ 1 & 1 \\end{bmatrix},\\qquad\n\\mathbf{b} = \\begin{bmatrix} 1 \\\\ 0 \\\\ 2 \\\\ -1 \\end{bmatrix}\n$$\n（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_106年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-106-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_106年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -454,8 +454,8 @@
       "year": 106,
       "question_number": 3,
       "chapter": "求解微分方程式：$y'' + 4y' + 4y = e^{-2x} x^{-2}$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_106年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-106-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_106年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -483,8 +483,8 @@
       "year": 106,
       "question_number": 4,
       "chapter": "請用拉普拉斯轉換（Laplace Transform）求解積分方程式：\n$$y(t) - 1 + \\sinh t - \\int_0^t (1 - \\tau) y(\\tau) d\\tau = 0$$\n（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_106年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-106-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_106年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -512,8 +512,8 @@
       "year": 106,
       "question_number": 5,
       "chapter": "設複數 $z = \\frac{1 - i\\sqrt{3}}{1 + i}$，試求 $z^{12}$ 之值。（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_106年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-106-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_106年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -541,8 +541,8 @@
       "year": 106,
       "question_number": 6,
       "chapter": "假設 $f(x)$ 是一個連續隨機變數 $X$ 的機率密度函數：$f(x) = \\begin{cases} k x e^{-x}, & x > 0 \\\\ 0, & \\text{其他} \\end{cases}$\n* **(一)** 請求出 $k$ 的值。（10 分）\n* **(二)** 請求出 $X$ 的累積分布函數（CDF）$F(x)$。（5 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-6.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_106年_工程數學_Q06.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-106-03-6.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_106年_工程數學_Q06.png",
       "source_pages": [
         {
           "page": 1,
@@ -570,8 +570,8 @@
       "year": 106,
       "question_number": 7,
       "chapter": "投擲一個公正六面骰子，顯示的點數為隨機變數 $X$，求 $X$ 的期望值與變異數 $\\text{Var}(X)$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-7.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_106年_工程數學_Q07.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-106-03-7.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_106年_工程數學_Q07.png",
       "source_pages": [
         {
           "page": 1,
@@ -599,8 +599,8 @@
       "year": 106,
       "question_number": 8,
       "chapter": "一個盒子內有 10 個不同半徑的圓形硬幣，其半徑分別為 $1, 2, 3, \\dots, 10$。請問在盒子中任選一個硬幣，其面積的期望值為何？（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-106-03-8.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_106年_工程數學_Q08.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-106-03-8.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_106年_工程數學_Q08.png",
       "source_pages": [
         {
           "page": 1,
@@ -628,8 +628,8 @@
       "year": 107,
       "question_number": 1,
       "chapter": "試求解下列白努利微分方程式（Bernoulli ODE）之特解：\n$$3(1+t)\\frac{dy}{dt} + 2ty = y^{-2}(t-1), \\quad y(0) = 2$$\n（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-107-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_107年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-107-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_107年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -657,8 +657,8 @@
       "year": 107,
       "question_number": 2,
       "chapter": "試求矩陣 $\\mathbf{A} = \\begin{bmatrix} 2 & 0 & 2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 0 \\end{bmatrix}$ 的特徵值（Eigenvalues）與特徵向量（Eigenvectors），並將矩陣對角線化。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-107-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_107年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-107-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_107年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -686,8 +686,8 @@
       "year": 107,
       "question_number": 3,
       "chapter": "已知向量場 $\\mathbf{F} = xz^2\\mathbf{i} + (x^2y - z^3)\\mathbf{j} + (2xy + y^2z)\\mathbf{k}$ 及封閉曲面 $S: x^2 + y^2 = z^2, \\ 0 \\le z \\le 2$。試以散度定理（Divergence Theorem）計算通量積分 $\\iint_S \\mathbf{F} \\cdot \\mathbf{n} dA$，其中 $\\mathbf{n}$ 為指向外的單位法向量。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-107-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_107年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-107-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_107年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -715,8 +715,8 @@
       "year": 107,
       "question_number": 4,
       "chapter": "試求下列函數 $f(x)$ 之傅立葉級數（Fourier Series）：\n$$f(x) = \\begin{cases} 0, & -\\pi < x < 0 \\\\ \\sin x, & 0 \\le x < \\pi \\end{cases}, \\quad f(x+2\\pi) = f(x)$$\n（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-107-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_107年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-107-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_107年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -744,8 +744,8 @@
       "year": 107,
       "question_number": 5,
       "chapter": "假設一盒子內裝有 20 個保險絲，其中有 5 個損壞。若從盒子中隨機取出 3 個保險絲，試分別針對「取出後放回」與「取出後不放回」兩種條件，求出樣本中恰好有 $x$ 個保險絲損壞的機率分佈公式與 $x = 1$ 之機率值。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-107-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_107年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-107-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_107年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -773,8 +773,8 @@
       "year": 108,
       "question_number": 1,
       "chapter": "試求微分方程 $(a+x)^2y''-2y=3(a+x)^2+1$ 之完全解。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-108-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_108年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -802,8 +802,8 @@
       "year": 108,
       "question_number": 2,
       "chapter": "試求矩陣 $\\mathbf{A} = \\begin{bmatrix} 2 & 0 & 0 \\\\ 1 & 0 & 2 \\\\ 0 & 0 & 3 \\end{bmatrix}$ 的特徵值（Eigenvalues）與特徵向量（Eigenvectors）。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-108-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_108年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -831,8 +831,8 @@
       "year": 108,
       "question_number": 3,
       "chapter": "空間中任何點的溫度函數為 $T=xy+yz+zx$。求點 $(1,1,1)$ 的梯度向量，及沿方向 $3\\mathbf i-4\\mathbf k$ 的方向導數。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-108-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_108年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -860,8 +860,8 @@
       "year": 108,
       "question_number": 4,
       "chapter": "已知 $\\mathbf F=x\\mathbf i+y\\mathbf j+z\\mathbf k$ 及封閉曲面 $S:x^2+y^2+z^2=1$，求 $\\iint_S\\mathbf F\\cdot\\hat{\\mathbf n}\\,dA$，其中法線方向向外。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-108-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_108年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -889,8 +889,8 @@
       "year": 108,
       "question_number": 5,
       "chapter": "複變函數線積分：被積函數 1/(z²−1)，圓心 (±1,0)、半徑 1 的圓周。",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-108-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_108年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -918,8 +918,8 @@
       "year": 108,
       "question_number": 6,
       "chapter": "假設 $E[X]=2$ 且 $E[X(X-4)]=5$，求 $E[X^2]$、$E[-4X+10]$ 及 $\\operatorname{Var}(-4X+10)$。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-108-03-6.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_108年_工程數學_Q06.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-108-03-6.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_108年_工程數學_Q06.png",
       "source_pages": [
         {
           "page": 1,
@@ -947,8 +947,8 @@
       "year": 109,
       "question_number": 1,
       "chapter": "求微分方程式 $\\frac{d^2y}{dx^2} - 10\\frac{dy}{dx} + 25y = 75x + 20$ 之通解。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-109-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_109年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-109-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_109年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -976,8 +976,8 @@
       "year": 109,
       "question_number": 2,
       "chapter": "求一階分離變數常微分方程式 $\\frac{dy}{dx} = y^2 e^{-2x}$ 之通解。（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-109-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_109年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-109-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_109年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -1005,8 +1005,8 @@
       "year": 109,
       "question_number": 3,
       "chapter": "聯合機率密度：矩形區域 0≤x≤5、0≤y≤3，求 P(X>Y)。",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-109-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_109年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-109-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_109年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -1034,8 +1034,8 @@
       "year": 109,
       "question_number": 4,
       "chapter": "設 $f(x)$ 以 $2\\pi$ 為週期，且 $f(x)=\\frac{x}{\\pi}$（$-\\pi<x<\\pi$），求其傅立葉級數。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-109-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_109年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-109-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_109年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -1063,8 +1063,8 @@
       "year": 109,
       "question_number": 5,
       "chapter": "給定矩陣 $\\mathbf{A} = \\begin{bmatrix} -7 & 2 & -3 \\\\ 13 & 2 & -7 \\\\ 8 & 2 & -2 \\end{bmatrix}$：\n試以高斯-喬登消去法（Gauss-Jordan Elimination）或伴隨矩陣法求其反矩陣 $\\mathbf{A}^{-1}$。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-109-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_109年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-109-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_109年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -1092,8 +1092,8 @@
       "year": 110,
       "question_number": 1,
       "chapter": "$f(t) = 2t^2 + \\int_0^t f(t-\\tau)e^{-\\tau}\\,d\\tau$，求解 $f(t)$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-110-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_110年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -1121,8 +1121,8 @@
       "year": 110,
       "question_number": 2,
       "chapter": "求 $y'=y^2e^{-2x}$ 之通解。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-110-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_110年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -1150,8 +1150,8 @@
       "year": 110,
       "question_number": 3,
       "chapter": "傅立葉級數：f(x)=x−x²（−π<x<π）的 2π 週期延拓。",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-110-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_110年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -1184,8 +1184,8 @@
       "year": 110,
       "question_number": 4,
       "chapter": "曲線 $C$ 的參數表示式為 $x=t^3,\\ y=-t,\\ z=t^2$，且 $1\\le t\\le2$，求 $\\int_C x\\,dx-yz\\,dy+e^z\\,dz$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-110-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_110年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -1213,8 +1213,8 @@
       "year": 110,
       "question_number": 5,
       "chapter": "求 $f(x,y,z)=x^2y-xy^2+xz^2$ 在點 $(1,-1,1)$ 沿 $(1,-2,1)$ 方向的改變率。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-110-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_110年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -1242,8 +1242,8 @@
       "year": 110,
       "question_number": 6,
       "chapter": "設矩陣 $\\mathbf{A} = \\begin{bmatrix} 3 & 0 & -2 \\\\ 0 & 2 & 0 \\\\ -2 & 0 & 0 \\end{bmatrix}$，求其行列式值、特徵值與對應特徵向量，並求 $P$ 使 $P^{-1}AP$ 為對角矩陣。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-6.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q06.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-110-03-6.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_110年_工程數學_Q06.png",
       "source_pages": [
         {
           "page": 1,
@@ -1271,8 +1271,8 @@
       "year": 110,
       "question_number": 7,
       "chapter": "機率函數 $p(x)=a(x+1)$，其中 $0\\le x\\le2$，求該機率函數的期望值及變異數。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-110-03-7.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_110年_工程數學_Q07.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-110-03-7.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_110年_工程數學_Q07.png",
       "source_pages": [
         {
           "page": 1,
@@ -1300,8 +1300,8 @@
       "year": 111,
       "question_number": 1,
       "chapter": "已知 $y_1(x) = \\frac{1}{x}$ 為微分方程式 $x^2 \\frac{d^2y}{dx^2} - 2x \\frac{dy}{dx} + (2 - x^2) y = 0$ 之一解，試以降階法求其通解。（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-111-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_111年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-111-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_111年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -1329,8 +1329,8 @@
       "year": 111,
       "question_number": 2,
       "chapter": "試求微分方程式 $\\frac{d^2y}{dt^2} + 4y = 8\\cos 2t, \\quad y(0) = 1, \\quad y'(0) = 0$ 之特解。（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-111-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_111年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-111-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_111年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -1358,8 +1358,8 @@
       "year": 111,
       "question_number": 3,
       "chapter": "複變留數定理：C 為 |z|=2.5 的逆時針圓周，計算兩個留數積分。",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-111-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_111年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-111-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_111年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -1387,8 +1387,8 @@
       "year": 111,
       "question_number": 4,
       "chapter": "設矩陣 $\\mathbf{A}$：\n$\\begin{bmatrix} 1 & 1 \\\\ 1 & 3 \\end{bmatrix}$：\n\n* **(一)** 試求 $\\mathbf{A}$ 的特徵值（Eigenvalues）與對應之正交特徵向量（Orthonormal Eigenvectors）。（10 分）\n\n* **(二)** 試求正交矩陣 $\\mathbf{P}$ 使得 $\\mathbf{P}^T\\mathbf{A}\\mathbf{P}$ 為對角矩陣。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-111-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_111年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-111-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_111年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -1416,8 +1416,8 @@
       "year": 111,
       "question_number": 5,
       "chapter": "計算複變函數線積分 $\\oint_C \\frac{z^2 + 1}{z(z-1)^2} dz$，其中積分路徑 $C$ 為逆時針方向之圓 $|z| = 2$。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-111-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_111年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-111-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_111年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -1445,8 +1445,8 @@
       "year": 111,
       "question_number": 6,
       "chapter": "設隨機變數 $X$ 之機率密度函數為：\n$$p(x) = \\begin{cases} x, & 0 \\le x < 1 \\\\ 2-x, & 1 \\le x < 2 \\\\ 0, & \\text{其他} \\end{cases}$$\n試求：(一) 期望值 $E[X]$；(二) 變異數 $\\text{Var}(X)$。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-111-03-6.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_111年_工程數學_Q06.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-111-03-6.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_111年_工程數學_Q06.png",
       "source_pages": [
         {
           "page": 2,
@@ -1474,8 +1474,8 @@
       "year": 112,
       "question_number": 1,
       "chapter": "請以拉式轉換法求解 $2y''+y'+2y=g(t)$，其中 $y(0)=y'(0)=0$，且 $g(t)=1$（$5\\le t<20$），其餘為零。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_112年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-112-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_112年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -1503,8 +1503,8 @@
       "year": 112,
       "question_number": 2,
       "chapter": "假設 $f(x)=-2x$（$-2\\le x<0$）、$f(x)=2x$（$0\\le x<4$），且 $f(x+4)=f(x)$。請以傅立葉級數計算各階係數。（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_112年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-112-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_112年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -1537,8 +1537,8 @@
       "year": 112,
       "question_number": 3,
       "chapter": "甲、乙、丙三人命中靶心的單發機率分別為 $0.75,0.72,0.70$；某次練習同時對同一靶射擊，甲、乙、丙分別發射 50、53、60 發。求：(一) 此三人所發射之子彈射中靶心的機率；(二) 其中一發命中靶心之子彈為乙所射擊的機率。（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_112年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-112-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_112年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -1568,8 +1568,8 @@
       "year": 112,
       "question_number": 4,
       "chapter": "假定 $u=e^{-x}(x\\sin y-y\\cos y)$。求函數 $v$，使得 $f(z)=u+iv$ 為解析函數。（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_112年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-112-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_112年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -1597,8 +1597,8 @@
       "year": 112,
       "question_number": 5,
       "chapter": "三維曲線位置向量為 $\\mathbf r(t)=(\\cos t+t\\sin t,\\ \\sin t-t\\cos t,\\ t^2)$，$t\\ge0$。求單位切線向量 $\\mathbf T(t)$ 與曲率 $\\kappa(t)$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_112年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-112-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_112年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -1626,8 +1626,8 @@
       "year": 112,
       "question_number": 6,
       "chapter": "設 $A=\\begin{bmatrix}1&3&0\\\\0&0&1\\\\1&3&1\\end{bmatrix}$、$b=(2,4,6)^T$、$c=(1,6,7)^T$。求增廣系統 $[A\\ b]x=c$（$x\\in\\mathbb R^4$）之所有解，並求 $A$ 的特徵值與對應單位特徵向量。（25 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-112-03-6.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_112年_工程數學_Q06.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-112-03-6.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_112年_工程數學_Q06.png",
       "source_pages": [
         {
           "page": 2,
@@ -1655,8 +1655,8 @@
       "year": 113,
       "question_number": 1,
       "chapter": "試求常微分方程式 $y'' + 4y' + 5y = e^{-2x}\\csc x$ 之通解。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-113-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_113年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-113-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_113年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -1684,8 +1684,8 @@
       "year": 113,
       "question_number": 2,
       "chapter": "試求一時間函數 $f(t) = \\frac{1}{2\\beta^3} (\\sin\\beta t - \\beta t\\cos\\beta t), \\quad t \\ge 0, \\quad \\beta \\ne 0$ 之拉普拉斯轉換（Laplace Transform）$F(s)$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-113-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_113年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-113-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_113年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -1713,8 +1713,8 @@
       "year": 113,
       "question_number": 3,
       "chapter": "試以留數定理（Residue Theorem）求 $\\int_{-\\infty}^\\infty \\frac{\\sqrt{2}}{1+16x^4}\\,dx$ 之值。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-113-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_113年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-113-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_113年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -1742,8 +1742,8 @@
       "year": 113,
       "question_number": 4,
       "chapter": "矩陣 $\\mathbf{A} = \\begin{bmatrix} 0 & 1 \\\\ -5 & -6 \\end{bmatrix}$，其轉置矩陣 $\\mathbf{A}^T = \\begin{bmatrix} 0 & -5 \\\\ 1 & -6 \\end{bmatrix}$。若對稱矩陣 $\\mathbf{P} = \\begin{bmatrix} p_1 & p_2 \\\\ p_2 & p_3 \\end{bmatrix}$ 滿足下列矩陣方程式：\n$$\\mathbf{P}\\mathbf{A} + \\mathbf{A}^T\\mathbf{P} = -\\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix}$$\n試求矩陣 $\\mathbf{P}$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-113-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_113年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-113-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_113年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -1771,8 +1771,8 @@
       "year": 113,
       "question_number": 5,
       "chapter": "向量微積分分析：\n\n* **(一)** 一曲線 $C$，其表示式為 $\\mathbf{r}(t) = [3t^2, 4t, 8t^4]，t$ 為參數，試求其切線向量與單位切線向量。（10 分）\n\n* **(二)** 試求向量函數 $\\mathbf{F} = 7x\\mathbf{i} + 3y\\mathbf{j} - z\\mathbf{k}$ 之面積分 $\\iint_S \\mathbf{F} \\cdot \\mathbf{n} dA$，其中 $\\mathbf{n}$ 為 $dA$ 指向外的法線方向單位向量，且此有界封閉曲面為球面 $S: x^2 + y^2 + z^2 = 9$。（10 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-113-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_113年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-113-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_113年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,
@@ -1800,8 +1800,8 @@
       "year": 113,
       "question_number": 6,
       "chapter": "$X$ 與 $Y$ 為兩隨機變數（Random variables），其聯合機率密度函數（Joint probability density function）為：\n$$p(x,y) = \\begin{cases} k e^{-x-y/2}, & 0 \\le x < \\infty, \\ 0 \\le y < \\infty \\\\ 0, & \\text{其他區域} \\end{cases}$$\n\n* **(一)** 試求 $k$ 值。（5 分）\n\n* **(二)** 試求其邊際平均值（Marginal Mean）$E\\{Y\\}$。（5 分）\n\n* **(三)** 試求其期望值（Expected value）$E\\{X^3Y^2\\}$。（5 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-113-03-6.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_113年_工程數學_Q06.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-113-03-6.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_113年_工程數學_Q06.png",
       "source_pages": [
         {
           "page": 2,
@@ -1829,8 +1829,8 @@
       "year": 114,
       "question_number": 1,
       "chapter": "A 君擁有 3 個不同的電子郵件帳戶。其中 70% 郵件進入帳戶 1，20% 進入帳戶 2，其餘 10% 進入帳戶 3。在進入帳戶 1 的郵件中，只有 1% 是垃圾郵件，而帳戶 2 和帳戶 3 垃圾郵件的相應百分比分別為 2% 與 5%。若隨機選取 A 君 3 個電子郵件帳戶之一封郵件，而該郵件也是垃圾郵件的機率為何？（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-114-03-1.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_114年_工程數學_Q01.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-114-03-1.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_114年_工程數學_Q01.png",
       "source_pages": [
         {
           "page": 1,
@@ -1858,8 +1858,8 @@
       "year": 114,
       "question_number": 2,
       "chapter": "計算 $\\oint_C e^{1/z^2} dz$，其中路徑 $C$ 為下圖所示複數平面 $z = x+iy$ 上，圓心在原點 $O$ 之單位圓。（15 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-114-03-2.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_114年_工程數學_Q02.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-114-03-2.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_114年_工程數學_Q02.png",
       "source_pages": [
         {
           "page": 1,
@@ -1887,8 +1887,8 @@
       "year": 114,
       "question_number": 3,
       "chapter": "求解以下初始值問題之常微分方程式：$y''(t) + 4y'(t) + 4y(t) = 0, \\quad y(0) = 1, \\quad y'(0) = 3$。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-114-03-3.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_114年_工程數學_Q03.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-114-03-3.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_114年_工程數學_Q03.png",
       "source_pages": [
         {
           "page": 1,
@@ -1916,8 +1916,8 @@
       "year": 114,
       "question_number": 4,
       "chapter": "假設週期函數 $f(x)$ 之週期為 $2\\pi$：\n$$f(x) = \\begin{cases} 0, & -\\pi < x \\le 0 \\\\ x, & 0 < x \\le \\pi \\end{cases}$$\n計算 $f(x)$ 之傅立葉級數（Fourier Series）。（20 分）",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-114-03-4.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_114年_工程數學_Q04.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-114-03-4.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_114年_工程數學_Q04.png",
       "source_pages": [
         {
           "page": 1,
@@ -1945,8 +1945,8 @@
       "year": 114,
       "question_number": 5,
       "chapter": "假設矩陣 A = [[0, -1, 0, 1], [0, 1, -1, 0]] 與 b = [0, 1]^T；求 Ax=b 的完整解與矩陣 A 的零空間 N(A)。",
-      "solution_link": "📝 個人題解與錯題本/03_工程數學/canonical/EE-114-03-5.md",
-      "source_crop": "依考科分類/03_工程數學/images/questions/PE_114年_工程數學_Q05.png",
+      "solution_link": "02_題解/技師題解/03_工程數學/canonical/EE-114-03-5.md",
+      "source_crop": "01_原始試題/依考科/03_工程數學/images/questions/PE_114年_工程數學_Q05.png",
       "source_pages": [
         {
           "page": 1,

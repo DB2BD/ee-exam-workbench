@@ -23,7 +23,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTES = ROOT / "📝 個人題解與錯題本"
+NOTES = ROOT / "02_題解/技師題解"
 DASHBOARD = ROOT / "dashboard-data.js"
 
 LEAN = "lean-v1"

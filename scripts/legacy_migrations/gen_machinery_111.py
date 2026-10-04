@@ -198,6 +198,6 @@ sol_111 = '''---
 - **$\Delta$ 接每相電容值**：$C_\Delta = \mathbf{134.6\ \mu\text{F}}$
 '''
 
-with open('📝 個人題解與錯題本/04_電機機械/111年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/111年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_111)
 print('✅ 111年 電機機械 detailed solution written!')

@@ -9,16 +9,16 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BOUNDARY_DOC = ROOT / "docs" / "上榜精確解答邊界_條件題處理.md"
+BOUNDARY_DOC = ROOT / "docs" / "02_考場策略" / "精確解答邊界_條件題處理.md"
 ROUTE_DOCS = {
-    ROOT / "docs" / "上榜預設24時段_核心題路徑.md": 36,
-    ROOT / "docs" / "上榜核心母題候選_104-114年.md": 18,
-    ROOT / "docs" / "上榜混合橋接_六科12題.md": 12,
-    ROOT / "docs" / "上榜考場得分骨架_六科.md": 12,
-    ROOT / "docs" / "上榜核心路徑_現行命題大綱對照.md": 12,
-    ROOT / "docs" / "上榜起手式急救卡_114-108.md": 14,
-    ROOT / "docs" / "上榜被動模考_114年六科執行包.md": 26,
-    ROOT / "docs" / "上榜被動複測_108年六科執行包.md": 29,
+    ROOT / "docs" / "01_備考計畫" / "預設24時段_核心題路徑.md": 36,
+    ROOT / "docs" / "01_備考計畫" / "核心母題候選_104-114年.md": 18,
+    ROOT / "docs" / "01_備考計畫" / "混合橋接_六科12題.md": 12,
+    ROOT / "docs" / "02_考場策略" / "考場得分骨架_六科.md": 12,
+    ROOT / "docs" / "01_備考計畫" / "核心路徑_現行命題大綱對照.md": 12,
+    ROOT / "docs" / "02_考場策略" / "起手式急救卡_114-108.md": 14,
+    ROOT / "docs" / "01_備考計畫" / "被動模考_114年六科執行包.md": 26,
+    ROOT / "docs" / "01_備考計畫" / "被動複測_108年六科執行包.md": 29,
 }
 MANIFESTS = (
     ROOT / "data" / "pe-solution-audit.json",

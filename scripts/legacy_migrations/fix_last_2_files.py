@@ -4,7 +4,7 @@ import os
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 1. 104 Power Systems
-p104 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/05_電力系統/104年_電力系統_全卷完整詳細題解.md')
+p104 = os.path.join(WORKSPACE, '02_題解/技師題解/05_電力系統/104年_電力系統_全卷完整詳細題解.md')
 with open(p104, 'r', encoding='utf-8') as f:
     c104 = f.read()
 c104 = c104.replace(
@@ -15,7 +15,7 @@ with open(p104, 'w', encoding='utf-8') as f:
     f.write(c104)
 
 # 2. GK 113 Power Systems
-pgk = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md')
+pgk = os.path.join(WORKSPACE, '02_題解/國考同級題解/05_電力系統/GK_113年_電力系統_全卷完整詳細題解.md')
 with open(pgk, 'r', encoding='utf-8') as f:
     cgk = f.read()
 cgk = cgk.replace(

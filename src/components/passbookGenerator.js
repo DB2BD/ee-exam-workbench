@@ -57,6 +57,44 @@ function generatePassbookData(questions, progressState = {}, sm2Store = {}, reca
   };
 }
 
+function escapePassbookHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// K6: 失分點速查卡. Returns '' when no curated data exists. Plain text only
+// (the passbook does not run KaTeX), every string is HTML-escaped.
+function renderCheatsheetSectionHtml(data) {
+  if (!data) return '';
+  const subjects = (data.subjects || []).filter(s => s && (s.categories || []).length);
+  const templates = data.assumption_templates || [];
+  if (!subjects.length && !templates.length) return '';
+  const qidHtml = qids => (qids || []).map(q =>
+    `<code style="font-size: 0.72rem; color: var(--muted);">${escapePassbookHtml(q)}</code>`).join(' ');
+  const subjectsHtml = subjects.map((s, idx) => `
+    <div class="cheatsheet-subject" style="${idx ? 'page-break-before: always; ' : ''}margin-top: 12px;">
+      <div style="font-weight: 800; color: var(--accent-dark); margin-bottom: 6px;">${escapePassbookHtml(s.name)}</div>
+      ${s.categories.map(c => `
+        <div style="font-weight: 700; font-size: 0.82rem; margin: 6px 0 2px;">${escapePassbookHtml(c.label)}</div>
+        <ul style="font-size: 0.8rem; line-height: 1.6; margin-left: 20px;">
+          ${(c.items || []).map(it => `<li>${escapePassbookHtml(it.text)} ${qidHtml(it.qids)}</li>`).join('')}
+        </ul>`).join('')}
+    </div>`).join('');
+  const templatesHtml = templates.length ? `
+    <div class="cheatsheet-assumptions" style="${subjects.length ? 'page-break-before: always; ' : ''}margin-top: 12px;">
+      <div style="font-weight: 800; color: var(--accent-dark); margin-bottom: 6px;">缺條件時怎麼寫假設</div>
+      <ul style="font-size: 0.8rem; line-height: 1.6; margin-left: 20px;">
+        ${templates.map(t => `<li><strong>${escapePassbookHtml(t.subject_name || '')}</strong>：${escapePassbookHtml(t.situation)}。${escapePassbookHtml(t.how_to_write)} ${qidHtml(t.qids)}</li>`).join('')}
+      </ul>
+    </div>` : '';
+  return `
+        <div class="cheatsheet-section" style="margin-top: 24px;">
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">📌 伍、失分點速查卡</h4>
+          ${subjectsHtml}${templatesHtml}
+        </div>`;
+}
+
 function openPassbookModal() {
   const questions = typeof getActiveQuestionsList === 'function' ? getActiveQuestionsList() : [];
   const passbook = generatePassbookData(
@@ -100,6 +138,8 @@ function openPassbookModal() {
       </div>
     `;
   }).join('');
+
+  const cheatsheetHtml = renderCheatsheetSectionHtml(typeof CHEATSHEET_DATA !== 'undefined' ? CHEATSHEET_DATA : null);
 
   modal.innerHTML = `
     <div class="modal-content passbook-modal-content" style="max-width: 840px; max-height: 92vh; overflow-y: auto;">
@@ -169,7 +209,7 @@ function openPassbookModal() {
             基於您的做題錯誤紀錄、弱項科目與近 5 年高頻考點精選，考前務必在白紙上蓋牌獨立重算一次：
           </div>
           ${anchorQuestionsHtml}
-        </div>
+        </div>${cheatsheetHtml}
       </div>
       <div class="modal-footer passbook-hide-print" style="display: flex; justify-content: space-between; align-items: center;">
         <span style="font-size: 0.85rem; color: var(--muted);">提示：可使用鍵盤快捷鍵 Cmd + P 列印或另存為 PDF</span>
@@ -180,6 +220,14 @@ function openPassbookModal() {
       </div>
     </div>
   `;
+
+  // The cheat-sheet items carry inline \( \) LaTeX from the canonical notes.
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(modal, {
+      delimiters: [{ left: '\\(', right: '\\)', display: false }],
+      throwOnError: false
+    });
+  }
 
   modal.classList.add('show');
 }
@@ -195,6 +243,7 @@ function printPassbook() {
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
-    generatePassbookData
+    generatePassbookData,
+    renderCheatsheetSectionHtml
   };
 }

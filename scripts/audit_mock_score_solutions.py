@@ -19,25 +19,11 @@ SUBJECT_DIRS = {
     "05": "05_電力系統",
     "06": "06_工業配電",
 }
-# Legacy five-part notes are migrated to lean-v1 (AGENT-SOLVE.md) wave by
-# wave; both structures are accepted until the migration completes.
-LEGACY_HEADINGS = (
-    "考場標準作答",
-    "得分點拆解",
-    "完整教學推導",
-    "獨立驗算",
-    "常見失分",
-)
+# lean-v1 structure (AGENT-SOLVE.md); the legacy five-block form is retired.
 LEAN_HEADINGS = ("考場標準作答", "驗算", "失分點")
-REQUIRED_HEADINGS = LEGACY_HEADINGS
-BULLET_HEADINGS = {"得分點拆解", "常見失分", "失分點"}
+REQUIRED_HEADINGS = LEAN_HEADINGS
+BULLET_HEADINGS = {"失分點"}
 MIN_SECTION_CHARS = {"驗算": 15, "失分點": 15}
-
-
-def headings_for(canonical_text: str) -> tuple[str, ...]:
-    if re.search(r"^template:\s*lean-v1\s*$", canonical_text, re.MULTILINE):
-        return LEAN_HEADINGS
-    return LEGACY_HEADINGS
 PLACEHOLDERS = ("TODO", "TBD", "待補內容", "待完成內容", "此處補上")
 ORDINAL_HEADINGS = re.compile(r"^##\s+[一二三四五六七八九十]+、.*$", re.MULTILINE)
 
@@ -88,7 +74,7 @@ def annual_question_section(qid: str, text: str) -> str:
 
 
 def required_sections(
-    text: str, level: int, label: str, headings: tuple[str, ...] = LEGACY_HEADINGS
+    text: str, level: int, label: str, headings: tuple[str, ...] = LEAN_HEADINGS
 ) -> tuple[dict[str, str], list[str]]:
     errors: list[str] = []
     marker = "#" * level
@@ -144,7 +130,7 @@ def audit() -> list[str]:
             errors.append(f"{qid}: canonical solution missing")
             continue
         canonical_text = canonical.read_text(encoding="utf-8")
-        headings = headings_for(canonical_text)
+        headings = LEAN_HEADINGS
         canonical_sections, section_errors = required_sections(
             canonical_text,
             2,

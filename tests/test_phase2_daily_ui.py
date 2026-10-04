@@ -54,18 +54,24 @@ globalThis.initDailyPracticeHome();
 {expression}
 """
         completed = subprocess.run(
-            ["node", "-e", script], cwd=ROOT, capture_output=True, text=True,
+            ["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True,
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
 
     def test_first_use_renders_start_form_and_category_scope(self):
+        # WP5a: the PE/GK category + subject pickers (and the 「第二階段練習入口」 wording) were
+        # replaced by a single 選題方式 selector; PE only.
         result = self.run_node(
             "process.stdout.write(JSON.stringify({html:node('daily-practice-container').innerHTML}));"
         )
         self.assertIn("開始 3 題練習", result["html"])
-        self.assertIn("daily-practice-category", result["html"])
-        self.assertIn("daily-practice-subject", result["html"])
+        self.assertIn('id="daily-practice-mode"', result["html"])
+        self.assertIn("依目標分配", result["html"])
+        self.assertIn("全部隨機", result["html"])
+        self.assertIn("只練", result["html"])
+        self.assertNotIn("第二階段練習入口", result["html"])
+        self.assertNotIn("daily-practice-category", result["html"])
 
     def test_start_and_reload_keep_same_session_order(self):
         result = self.run_node(
@@ -137,7 +143,7 @@ const visible = html.replace(/<annotation[\s\S]*?<\/annotation>/g,'').replace(/<
 process.stdout.write(JSON.stringify({html,visible}));
 '''
         completed = subprocess.run(
-            ["node", "-e", script], cwd=ROOT, capture_output=True, text=True,
+            ["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True,
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         result = json.loads(completed.stdout)
@@ -213,7 +219,7 @@ process.stdout.write(JSON.stringify({html,visible}));
             "const last=dailyPracticeGetCompletionPrompt(); "
             "process.stdout.write(JSON.stringify({first,last}));"
         )
-        self.assertEqual(result, {"first": "自評即完成本題，並進入下一題", "last": "自評即完成本題，並查看本輪摘要"})
+        self.assertEqual(result, {"first": "記錄作答結果即完成本題，並進入下一題", "last": "記錄作答結果即完成本題，並查看本輪摘要"})
 
     def test_summary_exposes_assessment_and_explicit_follow_up_action(self):
         source = (ROOT / "src/components/dailyPractice.js").read_text(encoding="utf-8")
@@ -258,6 +264,65 @@ process.stdout.write(JSON.stringify({html,visible}));
         )
         self.assertIn("complex-power", result)
         self.assertIn("induction-slip", result)
+
+    def test_one_click_start_creates_a_three_question_round_with_tier_badge(self):
+        result = self.run_node(
+            "globalThis.TARGET_ALLOCATION = undefined; "
+            "dailyPracticePrepareNewRound(); const store=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "process.stdout.write(JSON.stringify({store, html:node('daily-practice-container').innerHTML}));"
+        )
+        self.assertEqual(len(result["store"]["activeSession"]["questionIds"]), 3)
+        self.assertEqual(result["store"]["activeSession"]["currentIndex"], 0)
+        self.assertIn("開始四段蓋牌", result["html"])
+        self.assertNotIn("第二階段練習入口", result["html"])
+
+    def test_mode_selection_is_remembered_and_scopes_the_queue(self):
+        result = self.run_node(
+            "dailyPracticeSetMode('all'); const remembered = localStorage.data.EE_EXAM_DAILY_PRACTICE_MODE_V1; "
+            "dailyPracticeSetMode('nope'); const invalid = dailyPracticeLoadMode(); "
+            "dailyPracticeSetMode('01'); const subject = dailyPracticeLoadMode(); "
+            "dailyPracticeStart(); const store=JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); "
+            "process.stdout.write(JSON.stringify({remembered, invalid, subject, session: store.activeSession}));"
+        )
+        self.assertEqual(result["remembered"], "all")
+        self.assertEqual(result["invalid"], "weighted")
+        self.assertEqual(result["subject"], "01")
+        self.assertEqual(result["session"]["subjectId"], "01")
+
+    def test_tier_badge_markup_uses_study_tier(self):
+        result = self.run_node(
+            "globalThis.studyTierFor = id => id === 'EE-a' ? 'main' : (id === 'EE-b' ? 'basic' : null); "
+            "process.stdout.write(JSON.stringify({a: dailyPracticeTierBadge('EE-a'), b: dailyPracticeTierBadge('EE-b'), c: dailyPracticeTierBadge('EE-c')}));"
+        )
+        self.assertIn("tier-main", result["a"])
+        self.assertIn("主攻", result["a"])
+        self.assertIn("tier-basic", result["b"])
+        self.assertIn("基本分", result["b"])
+        self.assertEqual(result["c"], "")
+
+    def test_round_completes_through_result_card_and_summarizes_estimates(self):
+        result = self.run_node(
+            "globalThis.latestRecordFor = qid => ({qid, estimate: 7.5, total: 15}); "
+            "savePracticeSession(createPracticeSession('PE','all',['EE-a','EE-b','EE-c'],{now:Date.now()})); initDailyPracticeHome(); "
+            "const refused = dailyPracticeCompleteFromResultCard({qid:'EE-a'}, 3); "
+            "const wrong = dailyPracticeCompleteFromResultCard({qid:'EE-b'}, 4); "
+            "const steps = []; "
+            "for (const qid of ['EE-a','EE-b','EE-c']) { const ok = dailyPracticeCompleteFromResultCard({qid}, 4); "
+            "  const st = JSON.parse(localStorage.data.EE_EXAM_DAILY_PRACTICE_V1); steps.push({ok, index: st.activeSession && st.activeSession.currentIndex, done: Object.keys(st.completionByQuestion)}); } "
+            "process.stdout.write(JSON.stringify({refused, wrong, steps, html:node('daily-practice-container').innerHTML}));"
+        )
+        self.assertFalse(result["refused"])   # stage < 4 never completes
+        self.assertFalse(result["wrong"])     # record for a different qid never completes
+        self.assertEqual([s["ok"] for s in result["steps"]], [True, True, True])
+        self.assertEqual(result["steps"][0]["index"], 1)
+        self.assertEqual(result["steps"][1]["index"], 2)
+        self.assertIsNone(result["steps"][2]["index"])  # third save ends the round
+        self.assertEqual(result["steps"][2]["done"], ["EE-a", "EE-b", "EE-c"])
+        self.assertIn("本輪完成摘要", result["html"])
+        self.assertIn("估計 7.5／15 分", result["html"])
+        self.assertIn("本輪合計：估計 22.5／45 分", result["html"])
+        self.assertIn("再練 3 題", result["html"])
+        self.assertIn('id="daily-practice-mode"', result["html"])
 
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ vm.runInContext({json.dumps(source + chr(10) + 'globalThis.__result = (' + expre
 process.stdout.write(JSON.stringify({{result: context.__result, storage: data}}));
 """
         completed = subprocess.run(
-            ["node", "-e", script], cwd=WORKSPACE, capture_output=True, text=True,
+            ["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True,
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
@@ -239,6 +239,67 @@ process.stdout.write(JSON.stringify({{result: context.__result, storage: data}})
         self.assertEqual(result["session"]["modalByQuestion"]["q1"]["rightScroll"], 640)
         self.assertEqual(result["session"]["modalByQuestion"]["q1"]["revealStep"], 3)
         self.assertEqual(result["session"]["modalByQuestion"]["q2"]["rightScroll"], 0)
+
+
+class TestWeightedPracticeQueue(TestDailyPractice):
+    """WP5a: 依目標分配 = weighted random without replacement, PE only, 7-day avoidance."""
+
+    POOL = [
+        {"id": "EE-w3a", "w": 3}, {"id": "EE-w3b", "w": 3}, {"id": "EE-w1", "w": 1},
+        {"id": "EE-w05", "w": 0.5}, {"id": "EE-w0", "w": 0}, {"id": "GK-x", "w": 3},
+    ]
+
+    def weighted(self, random_expr, extra="", pool=None, count=3):
+        pool = pool if pool is not None else self.POOL
+        expression = (
+            "(() => { const pool = " + json.dumps(pool) + "; const W = {}; pool.forEach(p => W[p.id] = p.w); "
+            "return createWeightedPracticeQueue(pool.map(p => ({id:p.id, subjectId:'01'})), "
+            "{count:" + str(count) + ", now:100 * 86400000, weightOf: id => W[id], random: " + random_expr + extra + "}); })()"
+        )
+        return self._run(expression)["result"]
+
+    def test_deterministic_draw_follows_weights_without_replacement(self):
+        # total weight 7.5 over [3, 3, 1, 0.5]; zero-weight and GK items are never candidates.
+        self.assertEqual(self.weighted("() => 0"), ["EE-w3a", "EE-w3b", "EE-w1"])
+        # 0.5 * 7.5 = 3.75 -> skips w3a(3), lands in w3b; next: 0.5 * 4.5 = 2.25 -> w3a; then 0.5 * 1.5 = 0.75 -> w1
+        self.assertEqual(self.weighted("() => 0.5"), ["EE-w3b", "EE-w3a", "EE-w1"])
+        # highest value picks the last candidate each time
+        self.assertEqual(self.weighted("() => 0.9999"), ["EE-w05", "EE-w1", "EE-w3b"])
+
+    def test_never_returns_duplicates_zero_weight_or_non_pe(self):
+        for value in ("0", "0.13", "0.37", "0.61", "0.99"):
+            ids = self.weighted(f"() => {value}")
+            self.assertEqual(len(ids), 3)
+            self.assertEqual(len(set(ids)), 3)
+            self.assertNotIn("EE-w0", ids)
+            self.assertNotIn("GK-x", ids)
+
+    def test_recent_completions_are_excluded_from_weighted_pool(self):
+        # EE-w3a completed 1 day ago; the other three candidates remain -> exactly the pool of 3.
+        ids = self.weighted("() => 0", extra=", completionByQuestion: {'EE-w3a': 99 * 86400000}")
+        self.assertNotIn("EE-w3a", ids)
+        self.assertEqual(sorted(ids), ["EE-w05", "EE-w1", "EE-w3b"])
+        # completed exactly 7 days ago is eligible again
+        ids = self.weighted("() => 0", extra=", completionByQuestion: {'EE-w3a': 93 * 86400000}")
+        self.assertIn("EE-w3a", ids)
+
+    def test_falls_back_to_plain_random_when_fewer_than_three_weighted_candidates(self):
+        pool = [{"id": "EE-a", "w": 3}, {"id": "EE-b", "w": 0}, {"id": "EE-c", "w": 0}, {"id": "EE-d", "w": 0}]
+        ids = self.weighted("() => 0.3", pool=pool)
+        self.assertEqual(len(ids), 3)
+        self.assertEqual(len(set(ids)), 3)
+        self.assertTrue(set(ids).issubset({"EE-a", "EE-b", "EE-c", "EE-d"}))
+
+    def test_uses_study_plan_weights_by_default(self):
+        expression = (
+            "(() => { const qs = [{id:'EE-114-01-3', subjectId:'01'}, {id:'EE-114-01-1', subjectId:'01'}, "
+            "{id:'EE-114-02-1', subjectId:'02'}, {id:'EE-114-02-2', subjectId:'02'}]; "
+            "globalThis.practiceWeightFor = id => (id.endsWith('-1') ? 3 : 1); "
+            "return createWeightedPracticeQueue(qs, {count:3, now: 1e12, random: () => 0}); })()"
+        )
+        ids = self._run(expression)["result"]
+        # pool weights [1, 3, 3, 1] in input order; random()=0 always takes the first remaining item
+        self.assertEqual(ids, ["EE-114-01-3", "EE-114-01-1", "EE-114-02-1"])
 
 
 if __name__ == "__main__":

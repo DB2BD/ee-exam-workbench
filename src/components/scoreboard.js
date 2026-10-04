@@ -1,1 +1,327 @@
 // src/components/scoreboard.js — WP6 (成績 tab)
+/**
+ * 成績看板：每科「模考實測／練習估計／目標」、距離 360／375、錯因分布＋一行下一步、主攻／基本分得分率。
+ * 純函式（scoreboardCompute 等）＋ renderScoreboard(container)。
+ * Depends on: QUESTION_POINTS, TARGET_ALLOCATION, studyPlan.js, resultCardStore.js (getResultRecords).
+ */
+
+const SCOREBOARD_WINDOW_DAYS = 21;
+const SCOREBOARD_MIN_QUESTIONS = 3;
+const SCOREBOARD_MIN_ERRORS = 3;
+const SCOREBOARD_SUBJECTS = ['01', '02', '03', '04', '05', '06'];
+const SCOREBOARD_ROLE_LABELS = { high: '衝高分', combined: '合併準備', basic: '基本分' };
+const SCOREBOARD_ERROR_CODES = ['R', 'S', 'F', 'C', 'K', 'U', 'T'];
+const SCOREBOARD_ERROR_NAMES = { R: '題型', S: '起手式', F: '公式', C: '計算', K: '觀念', U: '單位方向', T: '時間' };
+// Tie-break priority when several codes share the top count.
+const SCOREBOARD_NEXT_PRIORITY = ['S', 'C', 'F', 'K', 'T', 'U', 'R'];
+const SCOREBOARD_NEXT_STEPS = {
+  S: '卡在起手式：先用四段蓋牌第②段與起手式急救卡',
+  C: '計算錯：每題留 1 分鐘回代驗算',
+  F: '公式或觀念：回到本章主攻題的核心公式',
+  K: '公式或觀念：回到本章主攻題的核心公式',
+  T: '時間不夠：照配分時間帽換題',
+  U: '單位方向：結論前檢查單位、正負與相角',
+  R: '題型判錯：先寫已知、所求、適用章節再動筆'
+};
+const SCOREBOARD_EMPTY_TEXT = '還沒有作答結果。到「今天」或「模考」完成題目後，用作答結果卡保存，分數就會出現在這裡。';
+
+function scoreboardEscape_(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]
+  ));
+}
+
+function scoreboardRound1_(n) { return Math.round(n * 10) / 10; }
+
+function scoreboardSubjectOf_(qid) {
+  const m = /^EE-(\d+)-(\d+)-(\d+)$/.exec(String(qid || ''));
+  return m ? m[2] : null;
+}
+
+function scoreboardYearOf_(qid) {
+  const m = /^EE-(\d+)-(\d+)-(\d+)$/.exec(String(qid || ''));
+  return m ? m[1] : null;
+}
+
+function scoreboardPoints_() {
+  return typeof QUESTION_POINTS !== 'undefined' && QUESTION_POINTS ? QUESTION_POINTS : {};
+}
+
+function scoreboardTierOf_(qid, fallback) {
+  try {
+    if (typeof studyTierFor === 'function') {
+      const t = studyTierFor(qid);
+      if (t === 'main' || t === 'basic') return t;
+    }
+  } catch (_) { /* fall through */ }
+  return fallback === 'basic' ? 'basic' : 'main';
+}
+
+function scoreboardTargetOf_(subjectId) {
+  try { if (typeof targetFor === 'function') return targetFor(subjectId); } catch (_) { /* none */ }
+  return null;
+}
+
+function scoreboardRoleOf_(subjectId) {
+  try { if (typeof studyRoleFor === 'function') return studyRoleFor(subjectId); } catch (_) { /* none */ }
+  return null;
+}
+
+function scoreboardNameOf_(subjectId) {
+  try {
+    if (typeof TARGET_ALLOCATION !== 'undefined' && TARGET_ALLOCATION.subjects[subjectId]) {
+      return TARGET_ALLOCATION.subjects[subjectId].name;
+    }
+  } catch (_) { /* none */ }
+  return '科目' + subjectId;
+}
+
+/** Share of exam points by tier for a subject over all past papers (QUESTION_POINTS + tiers). */
+function scoreboardTierShares(subjectId) {
+  const points = scoreboardPoints_();
+  const sums = { main: 0, basic: 0 };
+  Object.keys(points).forEach(qid => {
+    if (scoreboardSubjectOf_(qid) !== subjectId) return;
+    const total = Number(points[qid] && points[qid].total) || 0;
+    sums[scoreboardTierOf_(qid)] += total;
+  });
+  const all = sums.main + sums.basic;
+  return all > 0 ? { main: sums.main / all, basic: sums.basic / all } : { main: 0, basic: 0 };
+}
+
+function scoreboardLatestPerQuestion_(records) {
+  const latest = {};
+  records.forEach(r => {
+    if (!latest[r.qid] || r.at >= latest[r.qid].at) latest[r.qid] = r;
+  });
+  return latest;
+}
+
+/**
+ * Latest complete mock for one subject. Records of source 'mock' are grouped by mockId; a group counts
+ * for a subject when every scored question of that paper (same year and subject in QUESTION_POINTS)
+ * has a record. Returns { mockId, estimate, at } or null.
+ */
+function scoreboardMockForSubject(records, subjectId) {
+  const points = scoreboardPoints_();
+  const groups = {};
+  records.forEach(r => {
+    if (r.source !== 'mock' || !r.mockId || scoreboardSubjectOf_(r.qid) !== subjectId) return;
+    (groups[r.mockId] = groups[r.mockId] || []).push(r);
+  });
+  let best = null;
+  Object.keys(groups).forEach(mockId => {
+    const list = groups[mockId];
+    const year = scoreboardYearOf_(list[0].qid);
+    const expected = Object.keys(points).filter(q => scoreboardYearOf_(q) === year && scoreboardSubjectOf_(q) === subjectId);
+    if (!expected.length) return;
+    const latest = scoreboardLatestPerQuestion_(list);
+    if (!expected.every(q => latest[q])) return;
+    const estimate = expected.reduce((s, q) => s + (Number(latest[q].estimate) || 0), 0);
+    const at = Math.max.apply(null, expected.map(q => latest[q].at));
+    if (!best || at > best.at) best = { mockId, estimate: scoreboardRound1_(estimate), at };
+  });
+  return best;
+}
+
+/** Practice projection (0–100) from non-mock, non-legacy records of the window; null when < 3 questions. */
+function scoreboardPracticeForSubject(windowRecords, subjectId) {
+  const list = windowRecords.filter(r => r.source !== 'mock' && !r.legacy && scoreboardSubjectOf_(r.qid) === subjectId);
+  const latest = scoreboardLatestPerQuestion_(list);
+  const qids = Object.keys(latest);
+  if (qids.length < SCOREBOARD_MIN_QUESTIONS) return { projection: null, questions: qids.length };
+  const shares = scoreboardTierShares(subjectId);
+  const agg = { main: { sum: 0, n: 0 }, basic: { sum: 0, n: 0 } };
+  qids.forEach(q => {
+    const r = latest[q];
+    const total = Number(r.total) || 0;
+    if (total <= 0) return;
+    const tier = scoreboardTierOf_(q, r.tier);
+    agg[tier].sum += (Number(r.estimate) || 0) / total;
+    agg[tier].n += 1;
+  });
+  // Renormalise over tiers that have data so a missing tier does not drag the projection to 0.
+  let weight = 0;
+  let acc = 0;
+  ['main', 'basic'].forEach(t => {
+    if (!agg[t].n) return;
+    weight += shares[t];
+    acc += shares[t] * (agg[t].sum / agg[t].n);
+  });
+  if (weight <= 0) return { projection: null, questions: qids.length };
+  return { projection: scoreboardRound1_(100 * acc / weight), questions: qids.length };
+}
+
+function scoreboardErrorsForSubject(windowRecords, subjectId) {
+  const counts = {};
+  SCOREBOARD_ERROR_CODES.forEach(c => { counts[c] = 0; });
+  windowRecords.forEach(r => {
+    if (r.legacy || scoreboardSubjectOf_(r.qid) !== subjectId) return;
+    (r.errors || []).forEach(c => { if (c in counts) counts[c] += 1; });
+  });
+  return counts;
+}
+
+/** One 「下一步」 line from the dominant error code, or null when fewer than 3 errors. */
+function scoreboardNextStep(counts) {
+  const total = SCOREBOARD_ERROR_CODES.reduce((s, c) => s + (counts[c] || 0), 0);
+  if (total < SCOREBOARD_MIN_ERRORS) return null;
+  let top = null;
+  SCOREBOARD_NEXT_PRIORITY.forEach(c => {
+    if (counts[c] > 0 && (top === null || counts[c] > counts[top])) top = c;
+  });
+  return top ? SCOREBOARD_NEXT_STEPS[top] : null;
+}
+
+function scoreboardTierRates(windowRecords, subjectId) {
+  const acc = { main: { got: 0, total: 0 }, basic: { got: 0, total: 0 } };
+  windowRecords.forEach(r => {
+    if (r.legacy || scoreboardSubjectOf_(r.qid) !== subjectId) return;
+    const total = Number(r.total) || 0;
+    if (total <= 0) return;
+    const tier = scoreboardTierOf_(r.qid, r.tier);
+    acc[tier].got += Number(r.estimate) || 0;
+    acc[tier].total += total;
+  });
+  const rate = a => (a.total > 0 ? Math.round(100 * a.got / a.total) : null);
+  return { main: rate(acc.main), basic: rate(acc.basic) };
+}
+
+function scoreboardDistanceText(total, line) {
+  const diff = scoreboardRound1_(line - total);
+  return diff > 0 ? `還差 ${diff} 分` : `已超過 ${scoreboardRound1_(-diff)} 分`;
+}
+
+function scoreboardCompute(records, now) {
+  const all = Array.isArray(records) ? records : [];
+  const nowMs = Number.isFinite(now) ? now : Date.now();
+  const since = nowMs - SCOREBOARD_WINDOW_DAYS * 86400000;
+  const windowRecords = all.filter(r => r.at >= since && r.at <= nowMs + 86400000);
+  const subjects = SCOREBOARD_SUBJECTS.map(id => {
+    const mock = scoreboardMockForSubject(all, id);
+    const practice = scoreboardPracticeForSubject(windowRecords, id);
+    const errors = scoreboardErrorsForSubject(windowRecords, id);
+    const role = scoreboardRoleOf_(id);
+    return {
+      id, name: scoreboardNameOf_(id), role, roleLabel: SCOREBOARD_ROLE_LABELS[role] || '',
+      target: scoreboardTargetOf_(id), mock, practice: practice.projection, practiceQuestions: practice.questions,
+      errors, nextStep: scoreboardNextStep(errors), rates: scoreboardTierRates(windowRecords, id)
+    };
+  });
+  const mocked = subjects.filter(s => s.mock);
+  const mockTotal = mocked.length ? scoreboardRound1_(mocked.reduce((s, x) => s + x.mock.estimate, 0)) : null;
+  let estTotal = 0;
+  let estCount = 0;
+  subjects.forEach(s => {
+    const v = s.mock ? s.mock.estimate : s.practice;
+    s.estimate = v;
+    s.estimateFrom = s.mock ? 'mock' : (s.practice !== null ? 'practice' : null);
+    if (v !== null && v !== undefined) { estTotal += v; estCount += 1; }
+  });
+  estTotal = estCount ? scoreboardRound1_(estTotal) : null;
+  const passLine = typeof PASS_LINE !== 'undefined' ? PASS_LINE : 360;
+  const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 375;
+  return {
+    empty: all.length === 0,
+    hasData: estCount > 0,
+    subjects, mockTotal, mockCount: mocked.length,
+    mockDistance: mocked.length === subjects.length ? { pass: scoreboardDistanceText(mockTotal, passLine), goal: scoreboardDistanceText(mockTotal, goal) } : null,
+    estimateTotal: estTotal, estimateCount: estCount,
+    estimateDistance: estCount ? { pass: scoreboardDistanceText(estTotal, passLine), goal: scoreboardDistanceText(estTotal, goal) } : null,
+    passLine, goal
+  };
+}
+
+function scoreboardSummaryFromModel_(model) {
+  if (!model.hasData) return '估計總分：尚無資料';
+  return `估計總分 ${Math.round(model.estimateTotal)}／${model.goal}`;
+}
+
+function scoreboardReadRecords_(options) {
+  if (options && Array.isArray(options.records)) return options.records;
+  try { return typeof getResultRecords === 'function' ? getResultRecords() : []; } catch (_) { return []; }
+}
+
+/** Header one-liner for WP7: 「估計總分 X／375」 or 「估計總分：尚無資料」. */
+function scoreboardSummaryLine(options) {
+  return scoreboardSummaryFromModel_(scoreboardCompute(scoreboardReadRecords_(options), options && options.now));
+}
+
+function scoreboardDate_(at) {
+  const d = new Date(at);
+  return `${d.getMonth() + 1}/${d.getDate()}`;
+}
+
+function scoreboardBarHtml_(s) {
+  const pct = v => Math.max(0, Math.min(100, v));
+  const mockW = s.mock ? pct(s.mock.estimate) : 0;
+  const prW = s.practice !== null ? pct(s.practice) : 0;
+  const tgt = s.target !== null && s.target !== undefined ? pct(s.target) : null;
+  return `<div class="sb-bar" aria-hidden="true">
+    <div class="sb-track"><span class="sb-fill sb-fill--mock" style="width:${mockW}%"></span></div>
+    <div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div>
+    ${tgt !== null ? `<span class="sb-target" style="left:${tgt}%"></span>` : ''}
+  </div>`;
+}
+
+function scoreboardSubjectHtml_(s) {
+  const e = scoreboardEscape_;
+  const mockText = s.mock ? `${s.mock.estimate} 分（${scoreboardDate_(s.mock.at)}）` : '未考';
+  const prText = s.practice !== null ? `${Math.round(s.practice)} 分（偏樂觀）` : `資料不足（${s.practiceQuestions}／${SCOREBOARD_MIN_QUESTIONS} 題）`;
+  const tgtText = s.target !== null && s.target !== undefined ? `${s.target} 分` : '—';
+  const errTotal = SCOREBOARD_ERROR_CODES.reduce((n, c) => n + s.errors[c], 0);
+  const errChips = SCOREBOARD_ERROR_CODES.filter(c => s.errors[c] > 0)
+    .map(c => `<span class="sb-chip">${c} ${e(SCOREBOARD_ERROR_NAMES[c])} ${s.errors[c]}</span>`).join('');
+  const rateText = r => (r === null ? '—' : `${r}%`);
+  return `<article class="sb-subject" data-subject="${e(s.id)}">
+    <div class="sb-subject-head"><h3>${e(s.name)}</h3><span class="sb-role sb-role--${e(s.role || '')}">${e(s.roleLabel)}</span></div>
+    ${scoreboardBarHtml_(s)}
+    <dl class="sb-nums">
+      <div><dt>模考實測</dt><dd>${e(mockText)}</dd></div>
+      <div><dt>練習估計</dt><dd>${e(prText)}</dd></div>
+      <div><dt>目標</dt><dd>${e(tgtText)}</dd></div>
+    </dl>
+    <p class="sb-rates">近 ${SCOREBOARD_WINDOW_DAYS} 天得分率：主攻 ${rateText(s.rates.main)}｜基本分 ${rateText(s.rates.basic)}</p>
+    <p class="sb-errors">${errTotal ? `錯因：${errChips}` : '錯因：近期無記錄'}</p>
+    ${s.nextStep ? `<p class="sb-next"><strong>下一步</strong>　${e(s.nextStep)}</p>` : ''}
+  </article>`;
+}
+
+function scoreboardTotalsHtml_(m) {
+  const e = scoreboardEscape_;
+  const missing = m.subjects.filter(s => s.mock === null).map(s => s.name);
+  const mockLine = m.mockCount
+    ? `${m.mockTotal} 分${m.mockCount < m.subjects.length ? `（${m.mockCount}／${m.subjects.length} 科，未考：${missing.join('、')}）` : ''}`
+    : '尚無整卷模考';
+  const mockDist = m.mockDistance ? `；距 ${m.passLine}：${m.mockDistance.pass}，距 ${m.goal}：${m.mockDistance.goal}` : '';
+  let estLine = '尚無資料';
+  if (m.hasData) {
+    const lacking = m.subjects.filter(s => s.estimate === null).map(s => s.name);
+    estLine = `${m.estimateTotal} 分${lacking.length ? `（未含無資料：${lacking.join('、')}）` : ''}`;
+  }
+  const estDist = m.estimateDistance ? `距 ${m.passLine}：${m.estimateDistance.pass}；距 ${m.goal}：${m.estimateDistance.goal}` : '';
+  return `<section class="sb-totals" aria-label="合計">
+    <div class="sb-total"><span class="sb-total-label">模考實測合計</span><strong>${e(mockLine)}</strong><small>${e(mockDist.replace(/^；/, ''))}</small></div>
+    <div class="sb-total"><span class="sb-total-label">預估總分（有模考用模考，否則用練習估計）</span><strong>${e(estLine)}</strong><small>${e(estDist)}</small></div>
+  </section>`;
+}
+
+function renderScoreboard(container, options) {
+  if (!container) return null;
+  const model = scoreboardCompute(scoreboardReadRecords_(options), options && options.now);
+  const body = model.empty
+    ? `<p class="sb-empty">${scoreboardEscape_(SCOREBOARD_EMPTY_TEXT)}</p>`
+    : `${scoreboardTotalsHtml_(model)}<div class="sb-grid">${model.subjects.map(scoreboardSubjectHtml_).join('')}</div>
+       <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。基本分題 ○ 只計 50%。</p>`;
+  container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
+    <h2 class="sb-title">成績</h2>
+    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${body}</section>`;
+  return model;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    scoreboardCompute, scoreboardSummaryLine, scoreboardTierShares, scoreboardMockForSubject,
+    scoreboardPracticeForSubject, scoreboardNextStep, scoreboardEscape_, renderScoreboard
+  };
+}

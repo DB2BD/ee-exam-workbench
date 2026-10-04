@@ -88,7 +88,6 @@ def build_workbench():
         'src/components/passbookGenerator.js',
         'src/components/resultCard.js',
         'src/components/solutionModal.js',
-        'src/components/mockExamTimer.js',
         'src/components/mockExam.js',
         'src/components/scoreboard.js',
         'src/components/dailyPractice.js',

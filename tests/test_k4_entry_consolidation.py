@@ -27,7 +27,7 @@ def split_details(pane):
 
 
 def run_node(source):
-    out = subprocess.run(["node", "-e", source], capture_output=True, text=True, timeout=30)
+    out = subprocess.run(["node", "-"], input=source, capture_output=True, text=True, timeout=30)
     if out.returncode != 0:
         raise AssertionError(out.stderr)
     return json.loads(out.stdout)

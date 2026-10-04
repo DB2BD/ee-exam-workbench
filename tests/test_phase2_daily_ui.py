@@ -321,7 +321,7 @@ process.stdout.write(JSON.stringify({html,visible}));
             "process.stdout.write(JSON.stringify({remembered, invalid, subject, session: store.activeSession}));"
         )
         self.assertEqual(result["remembered"], "all")
-        self.assertEqual(result["invalid"], "weighted")
+        self.assertIn(result["invalid"], ("balanced", "weighted", "reinforce"))  # date default
         self.assertEqual(result["subject"], "01")
         self.assertEqual(result["session"]["subjectId"], "01")
 

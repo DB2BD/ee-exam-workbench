@@ -1,0 +1,30 @@
+/* v1.3 A: 動態配速 — today's plan, milestone line, auto cuts */
+.today-task-card .today-pacing-rest {
+  margin: 6px 0 0;
+  padding-top: 6px;
+  border-top: 1px dashed var(--line-strong);
+  font-size: .9rem;
+  line-height: 1.5;
+  color: var(--ink-light);
+  overflow-wrap: anywhere;
+}
+.today-pacing-milestone,
+.today-pacing-cut,
+.today-pacing-suggestion {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: .88rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.today-pacing-milestone { background: var(--surface); border: 1px solid var(--line); color: var(--accent-dark); font-weight: 700; }
+.today-pacing-milestone.is-missed { background: var(--review-light); border-color: var(--review); color: var(--review); }
+.today-pacing-cut { background: var(--warn-light); border: 1px solid var(--warn); color: var(--ink); }
+.today-pacing-suggestion { background: var(--success-light); border: 1px solid var(--success); color: var(--ink); }
+.today-task-launch { display: flex; }
+.today-task-launch .today-task-start { width: 100%; }
+@media (max-width: 480px) {
+  .today-pacing-milestone, .today-pacing-cut, .today-pacing-suggestion { font-size: .85rem; }
+}

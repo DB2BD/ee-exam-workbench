@@ -262,6 +262,19 @@ class TestTodayTaskStore(unittest.TestCase):
             f"todayTaskViewModel({{completed: Object.fromEntries(DAILY_SCHEDULE.order.map(c => [c, 'x'])), active:null}}, {local_ms(2026, 10, 3)}).mode]")["result"]
         self.assertEqual(modes, ["exam-check", "stop", "stop", "done"])
 
+    def test_rest_days_show_no_budget_or_milestone_lines(self):
+        # 11/12 and 11/13 have no study hours: the card must not say 「今天預算 2 小時」, and after the
+        # exam no 「已過 10/31 模考截止｜仍剩 N 份卷」 nag either.
+        empty = "{completed:{}, active:null}"
+        html = run_node(
+            f"[{local_ms(2026, 11, 12)}, {local_ms(2026, 11, 13)}, {local_ms(2026, 11, 20)}].map(t => todayTaskCardHtml(todayTaskViewModel({empty}, t)))")["result"]
+        for card in html:
+            self.assertNotIn("預算", card)
+            self.assertNotIn("today-pacing-milestone", card)
+            self.assertNotIn("today-pacing-cut", card)
+        self.assertIn("今天不開新題", html[0])
+        self.assertIn("好好休息", html[2])
+
     def test_store_roundtrip_and_corrupt_storage(self):
         res = run_node(
             "(() => { saveTodayTaskState({completed:{'CORE-01':'2026-09-23T00:00:00.000Z', 'BOGUS':'x'}, active:{code:'CORE-02',phaseIndex:1,phaseStartedAt:5}}); "
@@ -300,6 +313,17 @@ class TestTodayTaskBackup(unittest.TestCase):
         self.assertIn("BACKUP_TODAY_TASK_KEY, JSON.stringify(nextTodayTask)", text)
         # key must be in the rollback snapshot list
         self.assertRegex(text, r"BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY")
+
+    def test_backup_keeps_weekday_mock_hold(self):
+        # A held weekday mock (「先離開，明天核對」) must survive export／import; otherwise the restored
+        # state auto-opens an expired 核對 phase instead of the 接續 card.
+        res = run_node(
+            "(() => { const errors = []; const v = backupValidateTodayTask({completed:{}, active:{code:'MOCK114-01', phaseIndex:1, phaseStartedAt:5, "
+            "mockId:'114-01-5', holdDate:'2026-10-15', heldFrom:'bad'}}, errors); return {errors, active: v.active}; })()",
+            extra_sources=[SM2_JS])["result"]
+        self.assertEqual(res["errors"], [])
+        self.assertEqual(res["active"]["holdDate"], "2026-10-15")
+        self.assertNotIn("heldFrom", res["active"])
 
 
 DONE_ONE_TO_SIX = {f"CORE-0{i}": "2026-10-03T00:00:00.000Z" for i in range(1, 7)}
@@ -403,6 +427,19 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertEqual(res["resumed"]["phaseStartedAt"], 99000)
         self.assertEqual(res["resumed"]["phaseIndex"], 1)
         self.assertTrue(res["noop"])
+
+    def test_resumed_mock_does_not_offer_hold_again(self):
+        # Day 2 (核對＋修復) after 「先離開，明天核對」 must not offer the same split again.
+        now = local_ms(2026, 10, 20, 19)
+        res = run_node(
+            "(() => { let s = todayTaskStartFrom({completed:{}, active:null}, 'MOCK114-04', 1); s = todayTaskStart(s, 1000); "
+            "s = todayTaskAdvance(s, 2000); const fresh = todayTaskOverlayHtml(todayTaskViewModel(s, " + str(now) + ")); "
+            "s = todayTaskHold(s, '2026-10-19'); s = todayTaskNormalizeState(JSON.parse(JSON.stringify(todayTaskResumeHeld(s, " + str(now) + ")))); "
+            "return {fresh, resumed: todayTaskOverlayHtml(todayTaskViewModel(s, " + str(now) + ")), heldFrom: s.active.heldFrom}; })()")["result"]
+        self.assertIn('data-today-act="hold"', res["fresh"])
+        self.assertNotIn('data-today-act="hold"', res["resumed"])
+        self.assertIn('data-today-act="leave"', res["resumed"])
+        self.assertEqual(res["heldFrom"], "2026-10-19")
 
     def test_hold_button_only_for_weekday_mock_after_closed_phase(self):
         def html(now, code, phase):

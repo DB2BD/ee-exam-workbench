@@ -14,7 +14,7 @@ import math
 import cmath
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SOLUTIONS_DIR = os.path.join(WORKSPACE, '📝 個人題解與錯題本')
+SOLUTIONS_DIR = os.path.join(WORKSPACE, '02_題解/技師題解')
 
 def audit_file(filepath):
     rel_path = os.path.relpath(filepath, WORKSPACE)

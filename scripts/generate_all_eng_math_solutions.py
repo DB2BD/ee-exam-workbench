@@ -3,17 +3,17 @@
 generate_all_eng_math_solutions.py
 ==================================
 Generates 11 full-exam dedicated solution markdown files for Engineering Math (104~114)
-in `📝 個人題解與錯題本/03_工程數學/{yr}年_工程數學_全卷完整詳細題解.md`.
+in `02_題解/技師題解/03_工程數學/{yr}年_工程數學_全卷完整詳細題解.md`.
 """
 
 import os
 import re
 
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TARGET_DIR = os.path.join(WORKSPACE, '📝 個人題解與錯題本', '03_工程數學')
+TARGET_DIR = os.path.join(WORKSPACE, '02_題解/技師題解', '03_工程數學')
 os.makedirs(TARGET_DIR, exist_ok=True)
 
-SRC_MD = os.path.join(WORKSPACE, '依考科分類', '03_工程數學.md')
+SRC_MD = os.path.join(WORKSPACE, '01_原始試題/依考科', '03_工程數學.md')
 with open(SRC_MD, 'r', encoding='utf-8') as f:
     text = f.read()
 

@@ -127,7 +127,7 @@ def generate_circuit_svg():
 
 </svg>
 """
-    with open('/Users/a/技師考試/歷屆試題_104-114年/依考科分類/01_電路學/images/108年_電路學_第2題_節點分析標定圖.svg', 'w', encoding='utf-8') as f:
+    with open('/Users/a/技師考試/歷屆試題_104-114年/01_原始試題/依考科/01_電路學/images/108年_電路學_第2題_節點分析標定圖.svg', 'w', encoding='utf-8') as f:
         f.write(svg_content)
     print("✅ Successfully generated 108年_電路學_第2題_節點分析標定圖.svg")
 

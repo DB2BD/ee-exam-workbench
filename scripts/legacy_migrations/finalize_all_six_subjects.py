@@ -3,7 +3,7 @@ import re
 import os
 
 # 1. Polish 04_電機機械.md 112 年
-with open('依考科分類/04_電機機械.md', 'r', encoding='utf-8') as f:
+with open('01_原始試題/依考科/04_電機機械.md', 'r', encoding='utf-8') as f:
     text = f.read()
 
 text = text.replace(
@@ -33,12 +33,12 @@ text = text.replace(
     '#### 五、 一240 V、$60\\text{ Hz}$、4 極電容啟動單相感應馬達'
 )
 
-with open('依考科分類/04_電機機械.md', 'w', encoding='utf-8') as f:
+with open('01_原始試題/依考科/04_電機機械.md', 'w', encoding='utf-8') as f:
     f.write(text)
 print('✅ Fixed 04_電機機械.md')
 
 # 2. Polish 05_電力系統.md 113 & 109
-with open('依考科分類/05_電力系統.md', 'r', encoding='utf-8') as f:
+with open('01_原始試題/依考科/05_電力系統.md', 'r', encoding='utf-8') as f:
     text = f.read()
 
 # 113 年
@@ -85,12 +85,12 @@ text = text.replace(
     '#### 六、 包含二發電機組之單區域，二機組之額定為$500\\text{ MVA}$'
 )
 
-with open('依考科分類/05_電力系統.md', 'w', encoding='utf-8') as f:
+with open('01_原始試題/依考科/05_電力系統.md', 'w', encoding='utf-8') as f:
     f.write(text)
 print('✅ Fixed 05_電力系統.md')
 
 # 3. Polish 06_工業配電.md 113 年
-with open('依考科分類/06_工業配電.md', 'r', encoding='utf-8') as f:
+with open('01_原始試題/依考科/06_工業配電.md', 'r', encoding='utf-8') as f:
     text = f.read()
 
 # Clean duplicate headers in 113
@@ -101,6 +101,6 @@ text = text.replace('#### 五、 某工廠之三相配電系', '#### 四、 某�
 text = text.replace('#### 六、 圖所示，已知電源側', '圖所示，已知電源側')
 text = text.replace('#### 七、 有一配電系統之分路', '#### 五、 有一配電系統之分路')
 
-with open('依考科分類/06_工業配電.md', 'w', encoding='utf-8') as f:
+with open('01_原始試題/依考科/06_工業配電.md', 'w', encoding='utf-8') as f:
     f.write(text)
 print('✅ Fixed 06_工業配電.md')

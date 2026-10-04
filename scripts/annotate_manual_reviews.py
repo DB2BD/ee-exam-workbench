@@ -15,7 +15,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CANONICAL = ROOT / "📝 個人題解與錯題本"
+CANONICAL = ROOT / "02_題解/技師題解"
 
 # Keep this table deliberately explicit.  A new manual-review question must be
 # classified here (and will be caught by the regression test if it is not).

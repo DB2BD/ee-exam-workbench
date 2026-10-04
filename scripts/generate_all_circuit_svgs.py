@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 
-target_dir = "/Users/a/技師考試/歷屆試題_104-114年/依考科分類/01_電路學/images"
+target_dir = "/Users/a/技師考試/歷屆試題_104-114年/01_原始試題/依考科/01_電路學/images"
 os.makedirs(target_dir, exist_ok=True)
 
 # ----------------- 1. 104 年 第 1 題 -----------------

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-file_path = '📝 個人題解與錯題本/01_電路學/104年_電路學_全卷完整詳細題解.md'
+file_path = '02_題解/技師題解/01_電路學/104年_電路學_全卷完整詳細題解.md'
 with open(file_path, 'r', encoding='utf-8') as f:
     lines = f.readlines()
 

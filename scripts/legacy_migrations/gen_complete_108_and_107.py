@@ -171,7 +171,7 @@ $$I_{f,pu} = 3.568\text{ pu},\quad I_{f,actual} = 4.12\text{ kA}$$
 $$P_{e1}(\delta) = 2.75\sin\delta,\quad P_{e2}(\delta) = 0.88\sin\delta,\quad P_{e3}(\delta) = 1.833\sin\delta$$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/108年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/108年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_108)
 
 print('✅ 108年_電力系統_全卷完整詳細題解.md updated with all 5 questions!')
@@ -360,7 +360,7 @@ $$V_N = \frac{\frac{V_a}{Z_a} + \frac{V_b}{Z_b} + \frac{V_c}{Z_c}}{\frac{1}{Z_a}
 * 3Φ3W：$V_N = 273.2\text{ V}, I_{max} = 17.32\text{ A}$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/107年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/107年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_107)
 
 print('✅ 107年_電力系統_全卷完整詳細題解.md updated with all 4 questions!')

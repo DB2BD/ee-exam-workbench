@@ -42,7 +42,7 @@ class BuilderImportSafetyTests(unittest.TestCase):
             )
             self.assertEqual(result.returncode, 0, result.stderr)
             generated = list(
-                (fixture / "依考科分類/🏛️_國考同級參考題庫").glob("*/GK_*年_*.md")
+                (fixture / "04_國考同級題庫").glob("*/GK_*年_*.md")
             )
             self.assertEqual(generated, [], "builder import invoked legacy annual writer")
 

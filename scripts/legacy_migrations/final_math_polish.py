@@ -31,7 +31,7 @@ def polish_file(filepath):
         f.write(text)
 
 # Apply to all subject markdown files
-for root, dirs, files in os.walk('依考科分類'):
+for root, dirs, files in os.walk('01_原始試題/依考科'):
     for file in files:
         if file.endswith('.md'):
             fpath = os.path.join(root, file)

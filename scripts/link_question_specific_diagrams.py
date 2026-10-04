@@ -57,7 +57,7 @@ exact_diagrams = {
     }
 }
 
-sol_dir = '📝 個人題解與錯題本/05_電力系統'
+sol_dir = '02_題解/技師題解/05_電力系統'
 for fname in sorted(os.listdir(sol_dir)):
     if not fname.endswith('.md') or '全卷完整詳細題解' not in fname:
         continue

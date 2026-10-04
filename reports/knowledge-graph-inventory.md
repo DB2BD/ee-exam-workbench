@@ -45,7 +45,7 @@
 - `src/state/sm2Store.js`
 - `dashboard-data.js`
 - `national-exams-data.js`
-- `🧠 核心考點知識庫/`
+- `03_知識庫/核心考點/`
 
 ## Review queue
 

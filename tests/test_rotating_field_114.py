@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTES = ROOT / "📝 個人題解與錯題本/04_電機機械/canonical"
+NOTES = ROOT / "02_題解/技師題解/04_電機機械/canonical"
 
 
 class TestRotatingField114(unittest.TestCase):

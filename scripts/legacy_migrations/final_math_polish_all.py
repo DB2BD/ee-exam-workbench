@@ -68,7 +68,7 @@ def polish_all_files():
          r'假設 $X$ 為隨機變數，且 $X$ 的期望值 $E(X) = 2$，$X(X - 4)$ 的期望值 $E[X(X - 4)] = 5$，試求：\n\n* **(一)** $X^2$ 的期望值 $E(X^2)$。（5 分）\n\n* **(二)** $4X + 10$ 的期望值 $E(4X + 10)$。（5 分）\n\n* **(三)** $4X + 10$ 的變異數與標準差 $\\text{Var}(4X + 10)$ 與 $\\sigma(4X + 10)$。（10 分）')
     ]
 
-    for root, dirs, files in os.walk('依考科分類'):
+    for root, dirs, files in os.walk('01_原始試題/依考科'):
         for file in files:
             if file.endswith('.md'):
                 fpath = os.path.join(root, file)

@@ -24,8 +24,8 @@ class NationalBundleUnverifiedSourceTests(unittest.TestCase):
             shutil.copy2(ROOT / "scripts/compile_national_exams.py", scripts)
             shutil.copy2(ROOT / "scripts/difficulty_evaluator.py", scripts)
 
-            source_root = fixture / "依考科分類/🏛️_國考同級參考題庫/03_工程數學"
-            solution_root = fixture / "📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學"
+            source_root = fixture / "04_國考同級題庫/03_工程數學"
+            solution_root = fixture / "02_題解/國考同級題解/03_工程數學"
             quarantined_source = source_root / "_unverified_pre_moex"
             quarantined_solution = solution_root / "_unverified_pre_moex"
             for directory in (quarantined_source, quarantined_solution):
@@ -83,8 +83,8 @@ class NationalBundleUnverifiedSourceTests(unittest.TestCase):
             bundled_markdown = json.loads(match.group(1))
             image_map = json.loads(match.group(2))
 
-            self.assertIn("依考科分類/🏛️_國考同級參考題庫/03_工程數學/official.md", bundled_markdown)
-            self.assertIn("📝 個人題解與錯題本/🏛️_國考同級題解/03_工程數學/reviewed.md", bundled_markdown)
+            self.assertIn("04_國考同級題庫/03_工程數學/official.md", bundled_markdown)
+            self.assertIn("02_題解/國考同級題解/03_工程數學/reviewed.md", bundled_markdown)
             self.assertIn("official source", bundled_markdown.values())
             self.assertIn("reviewed solution", bundled_markdown.values())
             self.assertIn("official.png", image_map)

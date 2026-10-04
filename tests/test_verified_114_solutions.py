@@ -7,12 +7,12 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-ELECTRONICS_Q3 = ROOT / "📝 個人題解與錯題本/02_電子學_含電力電子/canonical/EE-114-02-3.md"
-MACHINES_Q5 = ROOT / "📝 個人題解與錯題本/04_電機機械/canonical/EE-114-04-5.md"
-ELECTRONICS_ANNUAL = ROOT / "📝 個人題解與錯題本/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md"
-ECONOMIC_DISPATCH_Q2 = ROOT / "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-2.md"
-POWER_112_ANNUAL = ROOT / "📝 個人題解與錯題本/05_電力系統/112年_電力系統_全卷完整詳細題解.md"
-POWER_112_Q4 = ROOT / "📝 個人題解與錯題本/05_電力系統/canonical/EE-112-05-4.md"
+ELECTRONICS_Q3 = ROOT / "02_題解/技師題解/02_電子學_含電力電子/canonical/EE-114-02-3.md"
+MACHINES_Q5 = ROOT / "02_題解/技師題解/04_電機機械/canonical/EE-114-04-5.md"
+ELECTRONICS_ANNUAL = ROOT / "02_題解/技師題解/02_電子學_含電力電子/114年_電子學_全卷完整詳細題解.md"
+ECONOMIC_DISPATCH_Q2 = ROOT / "02_題解/技師題解/05_電力系統/canonical/EE-112-05-2.md"
+POWER_112_ANNUAL = ROOT / "02_題解/技師題解/05_電力系統/112年_電力系統_全卷完整詳細題解.md"
+POWER_112_Q4 = ROOT / "02_題解/技師題解/05_電力系統/canonical/EE-112-05-4.md"
 
 
 class TestEE11402Q3Solution(unittest.TestCase):
@@ -47,7 +47,7 @@ class TestEE11402Q3Solution(unittest.TestCase):
 class TestEE11404Q5Solution(unittest.TestCase):
     def test_official_product_to_sum_typo_is_flagged(self):
         text = MACHINES_Q5.read_text(encoding="utf-8")
-        mock = (ROOT / "docs/上榜被動模考_114年六科執行包.md").read_text(encoding="utf-8")
+        mock = (ROOT / "docs/01_備考計畫/被動模考_114年六科執行包.md").read_text(encoding="utf-8")
         for source in (text, mock):
             self.assertIn("Hint", source)
             self.assertIn("誤植", source)

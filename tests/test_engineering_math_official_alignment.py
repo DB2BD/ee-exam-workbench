@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CANONICAL = ROOT / "📝 個人題解與錯題本" / "03_工程數學" / "canonical"
+CANONICAL = ROOT / "02_題解/技師題解" / "03_工程數學" / "canonical"
 
 
 def dashboard_questions():

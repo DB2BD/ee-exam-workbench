@@ -7,7 +7,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CARD = ROOT / "docs" / "上榜考場120分鐘得分節奏.md"
+CARD = ROOT / "docs" / "02_考場策略" / "考場120分鐘得分節奏.md"
 
 
 class TestExamPacingCard(unittest.TestCase):

@@ -5,12 +5,12 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTE = ROOT / "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-2.md"
+NOTE = ROOT / "02_題解/技師題解/06_工業配電/canonical/EE-114-06-2.md"
 
 
 class TestFurnaceSeriesPath114(unittest.TestCase):
     def test_retired_generator_cannot_overwrite_annual_answers(self):
-        annual = ROOT / "📝 個人題解與錯題本/06_工業配電/114年_工業配電_全卷完整詳細題解.md"
+        annual = ROOT / "02_題解/技師題解/06_工業配電/114年_工業配電_全卷完整詳細題解.md"
         before = annual.read_bytes()
         result = subprocess.run([sys.executable, str(ROOT / "scripts/gen_distribution_114.py")],
                                 cwd=ROOT, capture_output=True, text=True)

@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTE = ROOT / "📝 個人題解與錯題本/01_電路學/canonical/EE-114-01-4.md"
+NOTE = ROOT / "02_題解/技師題解/01_電路學/canonical/EE-114-01-4.md"
 
 
 class TestSuperposition114(unittest.TestCase):

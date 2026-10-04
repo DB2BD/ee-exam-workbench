@@ -7,7 +7,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / "docs" / "上榜倒數節奏_115年電機技師.md"
+PLAN = ROOT / "docs" / "01_備考計畫" / "倒數節奏_115年電機技師.md"
 
 
 class TestExamCountdownPlan(unittest.TestCase):

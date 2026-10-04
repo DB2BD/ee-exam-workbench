@@ -69,4 +69,4 @@ def fix_subject_file(fpath):
     print(f'✅ Processed {fpath}')
 
 for subj in ['02_電子學_含電力電子', '04_電機機械', '05_電力系統', '06_工業配電']:
-    fix_subject_file(f'依考科分類/{subj}.md')
+    fix_subject_file(f'01_原始試題/依考科/{subj}.md')

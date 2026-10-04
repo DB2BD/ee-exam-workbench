@@ -14,8 +14,8 @@ from collections import OrderedDict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-NOTES_GLOB = str(ROOT / "📝 個人題解與錯題本" / "0*" / "canonical" / "EE-*.md")
-CARDS_DOC = ROOT / "docs" / "上榜精確解答邊界_條件題處理.md"
+NOTES_GLOB = str(ROOT / "02_題解/技師題解" / "0*" / "canonical" / "EE-*.md")
+CARDS_DOC = ROOT / "docs" / "02_考場策略" / "精確解答邊界_條件題處理.md"
 AUDIT_DOC = ROOT / "reports" / "題幹稽核_2026-10-03.md"
 OUT = ROOT / "data" / "cheatsheet" / "sources.json"
 QID_RE = re.compile(r"EE-\d{3}-\d{2}-\d+")

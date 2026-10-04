@@ -12,7 +12,7 @@ import glob
 WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 1. GK 110 Circuit
-pgk110 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/🏛️_國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md')
+pgk110 = os.path.join(WORKSPACE, '02_題解/國考同級題解/01_電路學/GK_110年_電路學_全卷完整詳細題解.md')
 if os.path.exists(pgk110):
     with open(pgk110, 'r', encoding='utf-8') as fp:
         c = fp.read()
@@ -28,7 +28,7 @@ if os.path.exists(pgk110):
         fp.write(c)
 
 # 2. 106 Power Systems Ybus matrix
-p106p = os.path.join(WORKSPACE, '📝 個人題解與錯題本/05_電力系統/106年_電力系統_全卷完整詳細題解.md')
+p106p = os.path.join(WORKSPACE, '02_題解/技師題解/05_電力系統/106年_電力系統_全卷完整詳細題解.md')
 if os.path.exists(p106p):
     with open(p106p, 'r', encoding='utf-8') as fp:
         lines = fp.readlines()
@@ -41,7 +41,7 @@ if os.path.exists(p106p):
         fp.write(c)
 
 # 3. 114 Eng Math Q5 underbraces
-p114em5 = os.path.join(WORKSPACE, '📝 個人題解與錯題本/03_工程數學/114年_工程數學_第五題_線性系統完整解與零空間.md')
+p114em5 = os.path.join(WORKSPACE, '02_題解/技師題解/03_工程數學/114年_工程數學_第五題_線性系統完整解與零空間.md')
 if os.path.exists(p114em5):
     with open(p114em5, 'r', encoding='utf-8') as fp:
         c = fp.read()
@@ -54,7 +54,7 @@ if os.path.exists(p114em5):
         fp.write(c)
 
 # 4. Wrap all bare "|\mathbf{E}_f| = \sqrt{...}" and "VR = ..." lines in 04 Machine
-for f in sorted(glob.glob(os.path.join(WORKSPACE, '📝 個人題解與錯題本/04_電機機械/*.md'))):
+for f in sorted(glob.glob(os.path.join(WORKSPACE, '02_題解/技師題解/04_電機機械/*.md'))):
     with open(f, 'r', encoding='utf-8') as fp:
         lines = fp.readlines()
     new_lines = []
@@ -68,7 +68,7 @@ for f in sorted(glob.glob(os.path.join(WORKSPACE, '📝 個人題解與錯題本
         fp.writelines(new_lines)
 
 # 5. Fix bare formulas in 05 Power 110, 112, 114
-for f in sorted(glob.glob(os.path.join(WORKSPACE, '📝 個人題解與錯題本/05_電力系統/*.md'))):
+for f in sorted(glob.glob(os.path.join(WORKSPACE, '02_題解/技師題解/05_電力系統/*.md'))):
     with open(f, 'r', encoding='utf-8') as fp:
         lines = fp.readlines()
     new_lines = []

@@ -72,7 +72,7 @@ def main():
         ("annual canonical alignment", ["python3", "scripts/audit_annual_canonical_alignment.py"]),
         ("canonical graph validator", ["python3", "scripts/validate_knowledge_graph.py", "--graph-dir", "data/knowledge", "--report", "reports/knowledge-graph-validation.json", "--json"]),
         ("canonical graph build", ["python3", "scripts/build_knowledge_graph.py", "--graph-dir", "data/knowledge", "--output", "src/data/knowledge-dag.generated.js", "--report", "reports/knowledge-graph-build.json", "--json"]),
-        ("Obsidian knowledge generation", ["python3", "scripts/generate_obsidian_knowledge.py", "--graph-dir", "data/knowledge", "--output-root", "🧠 問題驅動知識庫", "--personal-root", "📝 個人知識補充", "--report", "reports/obsidian-knowledge-build.json", "--json"]),
+        ("Obsidian knowledge generation", ["python3", "scripts/generate_obsidian_knowledge.py", "--graph-dir", "data/knowledge", "--output-root", "03_知識庫/問題驅動", "--personal-root", "📝 個人知識補充", "--report", "reports/obsidian-knowledge-build.json", "--json"]),
         ("workbench build", ["python3", "scripts/build_workbench.py"]),
         ("HTML and JavaScript syntax", ["python3", "scripts/check_html_js_syntax.py"]),
         ("learning capacity measurement", ["python3", "scripts/measure_learning_data_capacity.py"]),

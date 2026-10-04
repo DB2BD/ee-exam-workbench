@@ -94,7 +94,7 @@ def paper_defaults():
         import fitz
     except ImportError:
         return out
-    for pdf in glob.glob(str(ROOT / "依年度分類" / "*年" / "*.pdf")):
+    for pdf in glob.glob(str(ROOT / "01_原始試題/依年度" / "*年" / "*.pdf")):
         m = re.match(r"(\d+)年_電機工程技師_(.+)\.pdf", Path(pdf).name)
         if not m:
             continue

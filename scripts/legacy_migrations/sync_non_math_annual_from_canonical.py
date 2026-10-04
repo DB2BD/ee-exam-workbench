@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-NOTES = ROOT / "📝 個人題解與錯題本"
+NOTES = ROOT / "02_題解/技師題解"
 SUBJECTS = {
     "01_電路學": "電路學",
     "02_電子學_含電力電子": "電子學（包括電力電子學）",
@@ -45,7 +45,7 @@ def body_without_frontmatter(text: str) -> str:
         raise ValueError("canonical note has no frontmatter")
     body = parts[2].strip()
     body = re.sub(r"^#\s+[^\n]+\n?", "", body, flags=re.M)
-    body = body.replace("../../../依考科分類", "../../依考科分類").strip()
+    body = body.replace("../../../01_原始試題/依考科", "../../01_原始試題/依考科").strip()
     return "\n".join(line.rstrip() for line in body.splitlines()).strip()
 
 

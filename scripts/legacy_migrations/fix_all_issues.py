@@ -15,7 +15,7 @@ fixed_count = 0
 # ════════════════════════════════════════════════════════════════════
 # [A] 修復核心考點知識庫中的裸露 LaTeX（加上 $$ 包裹）
 # ════════════════════════════════════════════════════════════════════
-KNOWLEDGE_ROOT = '🧠 核心考點知識庫'
+KNOWLEDGE_ROOT = '03_知識庫/核心考點'
 
 def fix_bare_latex_in_file(fpath):
     """識別並修復未被 $$ 包裹的獨立公式行"""
@@ -107,10 +107,10 @@ for root, dirs, files in os.walk(KNOWLEDGE_ROOT):
             fix_bare_latex_in_file(os.path.join(root, f))
 
 # ════════════════════════════════════════════════════════════════════
-# [B] 修復圖片路徑（題解檔引用 ./images/ 但圖片在 依考科分類/XX/images/）
+# [B] 修復圖片路徑（題解檔引用 ./images/ 但圖片在 01_原始試題/依考科/XX/images/）
 # ════════════════════════════════════════════════════════════════════
-SOLUTION_ROOT = '📝 個人題解與錯題本'
-EXAM_ROOT = '依考科分類'
+SOLUTION_ROOT = '02_題解/技師題解'
+EXAM_ROOT = '01_原始試題/依考科'
 
 # Build image index: filename -> absolute path
 image_index = {}

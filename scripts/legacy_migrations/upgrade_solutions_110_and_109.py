@@ -231,7 +231,7 @@ $$Q_3 = 4|V_3||V_1|\cos(\theta_3 - \theta_1) + 4|V_3||V_2|\cos(\theta_3 - \theta
 - **最大突加機械功率**：$P_{m,max} = \mathbf{0.750 P_{max}}$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/110年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/110年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_110)
 
 print('✅ 110年_電力系統_全卷完整詳細題解.md upgraded to gold standard!')
@@ -425,7 +425,7 @@ $$P_2^{new} = 500 + \frac{800}{3}\left(\frac{9}{26}\right) = 500 + 92.31 = \math
 - **機組 2 新發電量**：$P_2 = \mathbf{592.31\text{ MW}}$
 '''
 
-with open('📝 個人題解與錯題本/05_電力系統/109年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/05_電力系統/109年_電力系統_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_109)
 
 print('✅ 110 and 109 upgraded to gold standard!')

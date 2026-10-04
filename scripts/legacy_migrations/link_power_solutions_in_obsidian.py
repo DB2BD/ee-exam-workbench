@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-with open('依考科分類/05_電力系統.md', 'r', encoding='utf-8') as f:
+with open('01_原始試題/依考科/05_電力系統.md', 'r', encoding='utf-8') as f:
     text = f.read()
 
 # Update Table of Contents
@@ -33,7 +33,7 @@ for yr in ['114', '113', '112', '111', '110', '109', '108', '107', '106', '105',
 > 👉 **[[{yr}年_電力系統_全卷完整詳細題解|點此開啟 {yr} 年電力系統全卷詳細題解（含物理推導、陷阱提示與計算機按法）]]**'''
     text = text.replace(target, callout)
 
-with open('依考科分類/05_電力系統.md', 'w', encoding='utf-8') as f:
+with open('01_原始試題/依考科/05_電力系統.md', 'w', encoding='utf-8') as f:
     f.write(text)
 
 print('✅ 05_電力系統.md updated with full Obsidian bidirectional solution links!')

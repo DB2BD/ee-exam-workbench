@@ -189,6 +189,6 @@ sol_106 = '''---
 - **(二) 0.8 超前電壓調整率**：$\text{VR} = \mathbf{-0.31\%}$（Ferranti 磁化效應使電壓不跌反升）
 '''
 
-with open('📝 個人題解與錯題本/04_電機機械/106年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
+with open('02_題解/技師題解/04_電機機械/106年_電機機械_全卷完整詳細題解.md', 'w', encoding='utf-8') as f:
     f.write(sol_106)
 print('✅ 106年 電機機械 detailed solution written!')

@@ -2,10 +2,10 @@
 import re
 import os
 
-for fpath in sorted(os.listdir('依考科分類')):
+for fpath in sorted(os.listdir('01_原始試題/依考科')):
     if not fpath.endswith('.md'):
         continue
-    full = os.path.join('依考科分類', fpath)
+    full = os.path.join('01_原始試題/依考科', fpath)
     with open(full, 'r', encoding='utf-8') as fp:
         txt = fp.read()
         

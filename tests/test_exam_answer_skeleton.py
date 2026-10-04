@@ -8,7 +8,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SKELETON = ROOT / "docs" / "上榜考場得分骨架_六科.md"
+SKELETON = ROOT / "docs" / "02_考場策略" / "考場得分骨架_六科.md"
 EXPECTED_BY_SUBJECT = {
     "01": {"EE-114-01-3", "EE-112-01-2"},
     "02": {"EE-110-02-3", "EE-112-02-3"},
@@ -56,7 +56,7 @@ class TestExamAnswerSkeleton(unittest.TestCase):
     def test_every_local_link_resolves(self):
         links = re.findall(r"\[[^]]+\]\(([^)]+)\)", self.text)
         self.assertEqual(len(links), 14)
-        self.assertIn("./上榜考場120分鐘得分節奏.md", links)
+        self.assertIn("./考場120分鐘得分節奏.md", links)
         for raw_target in links:
             target = unquote(raw_target.split("#", 1)[0])
             resolved = (SKELETON.parent / target).resolve()

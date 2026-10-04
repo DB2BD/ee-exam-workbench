@@ -13,8 +13,8 @@ from scripts.question_schema import load_questions_from_bundle
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CANONICAL_ROOT = ROOT / "📝 個人題解與錯題本"
-PATH_DOC = ROOT / "docs" / "上榜預設24時段_核心題路徑.md"
+CANONICAL_ROOT = ROOT / "02_題解/技師題解"
+PATH_DOC = ROOT / "docs" / "01_備考計畫" / "預設24時段_核心題路徑.md"
 
 COMPLETED_QIDS = (
     "EE-114-01-3",

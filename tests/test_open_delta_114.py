@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTE = ROOT / "📝 個人題解與錯題本/06_工業配電/canonical/EE-114-06-1.md"
+NOTE = ROOT / "02_題解/技師題解/06_工業配電/canonical/EE-114-06-1.md"
 
 
 class TestOpenDelta114(unittest.TestCase):

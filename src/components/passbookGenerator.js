@@ -6,14 +6,20 @@
  * and high-yield anchor problems into an A4 printable cram passbook.
  */
 
-function generatePassbookData(questions, progressState = {}, sm2Store = {}, recallStore = {}) {
+function generatePassbookData(questions, progressState = {}, sm2Store = {}, recallStore = {}, options = {}) {
   const readiness = typeof calculateExamReadiness === 'function'
     ? calculateExamReadiness(questions, progressState, sm2Store, recallStore)
     : { projectedAverage: 55, passingProbability: 40, subjectResults: {}, topRoiBoosters: [] };
 
   // Identify Top 15 High-Yield Anchor Questions
   // Priority: 1) In review (wrong), 2) High difficulty in weak subjects, 3) Recent years (>=110)
-  const allQ = (questions || []).slice();
+  // 尚未完成的 114 模考／108 盲測題不進奪榜本，避免提前看到。
+  let locked = new Set();
+  try {
+    if (options && options.lockedQids) locked = new Set(Array.from(options.lockedQids));
+    else if (typeof practiceLockedQids === 'function') locked = practiceLockedQids();
+  } catch (_) { locked = new Set(); }
+  const allQ = (questions || []).filter(q => !locked.has(Array.isArray(q) ? q[0] : q.id));
   const scoredQuestions = allQ.map(q => {
     const qid = Array.isArray(q) ? q[0] : q.id;
     const sid = Array.isArray(q) ? q[1] : q.subjectId;
@@ -65,8 +71,33 @@ function escapePassbookHtml(value) {
 
 // K6: 失分點速查卡. Returns '' when no curated data exists. Plain text only
 // (the passbook does not run KaTeX), every string is HTML-escaped.
-function renderCheatsheetSectionHtml(data) {
+// Keep the 114 模考／108 盲測 lock: QIDs locked by practiceLockedQids are dropped from an item's
+// QID list, and an item whose QIDs are all locked is dropped (its text would reveal the paper).
+function cheatsheetUnlockedQids(qids, locked) {
+  return (qids || []).filter(q => !locked.has(q));
+}
+
+function cheatsheetFilterLocked(data, locked) {
+  const keep = item => !item || !(item.qids || []).length || cheatsheetUnlockedQids(item.qids, locked).length > 0;
+  const clean = item => Object.assign({}, item, { qids: cheatsheetUnlockedQids(item.qids, locked) });
+  const subjects = (data.subjects || []).map(s => Object.assign({}, s, {
+    categories: (s.categories || []).map(c => Object.assign({}, c, {
+      items: (c.items || []).filter(keep).map(clean)
+    })).filter(c => c.items.length)
+  })).filter(s => s.categories.length);
+  const templates = (data.assumption_templates || []).filter(keep).map(clean);
+  return Object.assign({}, data, { subjects, assumption_templates: templates });
+}
+
+function renderCheatsheetSectionHtml(data, options) {
   if (!data) return '';
+  let locked = new Set();
+  try {
+    if (options && options.lockedQids) locked = new Set(Array.from(options.lockedQids));
+    else if (typeof practiceLockedQids === 'function') locked = practiceLockedQids();
+  } catch (_) { locked = new Set(); }
+  if (typeof locked.has !== 'function') locked = new Set();
+  data = cheatsheetFilterLocked(data, locked);
   const subjects = (data.subjects || []).filter(s => s && (s.categories || []).length);
   const templates = data.assumption_templates || [];
   if (!subjects.length && !templates.length) return '';
@@ -90,9 +121,22 @@ function renderCheatsheetSectionHtml(data) {
     </div>` : '';
   return `
         <div class="cheatsheet-section" style="margin-top: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">📌 伍、失分點速查卡</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">📌 肆、失分點速查卡</h4>
           ${subjectsHtml}${templatesHtml}
         </div>`;
+}
+
+// 題幹與其他頁面同一條 Markdown＋KaTeX 管線；管線不存在時退回純文字。
+function passbookTopicHtml(topic) {
+  const raw = String(topic == null ? '' : topic);
+  try {
+    if (typeof processMarkdownWithMath === 'function') return processMarkdownWithMath(raw);
+  } catch (_) { /* fall back to escaped text */ }
+  return escapePassbookHtml(raw);
+}
+
+function passbookKeydown_(event) {
+  if (event.key === 'Escape') closePassbookModal();
 }
 
 function openPassbookModal() {
@@ -108,19 +152,13 @@ function openPassbookModal() {
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'passbook-modal';
-    modal.className = 'modal-backdrop';
+    modal.className = 'passbook-overlay';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'passbook-title');
+    modal.addEventListener('click', event => { if (event.target === modal) closePassbookModal(); });
     document.body.appendChild(modal);
   }
-
-  const subjSummaryHtml = Object.values(passbook.readiness.subjectResults || {}).map(s => `
-    <div style="border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--surface);">
-      <div style="font-weight: 700; color: var(--accent-dark);">${s.icon || ''} ${s.name}</div>
-      <div style="font-size: 1.1rem; font-weight: 800; color: ${s.isDanger ? 'var(--warn)' : 'var(--ink)'}; margin: 4px 0;">
-        預估：${s.estimatedScore} 分
-      </div>
-      <div style="font-size: 0.78rem; color: var(--muted);">掌握率：${Math.round(s.effectiveMasteryRate * 100)}%</div>
-    </div>
-  `).join('');
 
   const anchorQuestionsHtml = passbook.topAnchorQuestions.map((item, idx) => {
     const meta = typeof getSubjectMeta === 'function' ? getSubjectMeta(item.subjectId) : { name: item.subjectId };
@@ -128,13 +166,13 @@ function openPassbookModal() {
       <div class="passbook-item" style="border-bottom: 1px solid var(--line); padding: 12px 0;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
           <span style="font-weight: 800; color: var(--accent-dark); font-family: var(--font-mono);">
-            #${idx + 1} · ${item.qid} (${item.year} 年 ${meta.name} 第 ${item.number} 題)
+            #${idx + 1} · ${item.qid} (${item.year} 年 ${escapePassbookHtml(meta.name)} 第 ${escapePassbookHtml(item.number)} 題)
           </span>
           <span style="font-size: 0.8rem; background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px;">
-            ${(item.tags || []).slice(0, 3).join(' · ')}
+            ${escapePassbookHtml((item.tags || []).slice(0, 3).join(' · '))}
           </span>
         </div>
-        <div style="font-size: 0.86rem; color: var(--ink); line-height: 1.5;">${item.topic}</div>
+        <div class="passbook-topic" style="font-size: 0.86rem; color: var(--ink); line-height: 1.5;">${passbookTopicHtml(item.topic)}</div>
       </div>
     `;
   }).join('');
@@ -142,32 +180,27 @@ function openPassbookModal() {
   const cheatsheetHtml = renderCheatsheetSectionHtml(typeof CHEATSHEET_DATA !== 'undefined' ? CHEATSHEET_DATA : null);
 
   modal.innerHTML = `
-    <div class="modal-content passbook-modal-content" style="max-width: 840px; max-height: 92vh; overflow-y: auto;">
-      <div class="modal-header passbook-hide-print">
-        <h3>📕 個人專屬 15 天考前奪榜衝刺手冊 (Custom Passbook)</h3>
-        <button type="button" class="btn-close" onclick="closePassbookModal()">✕</button>
+    <div class="passbook-dialog passbook-modal-content">
+      <div class="passbook-head passbook-hide-print">
+        <h3 id="passbook-title">📕 考前速查手冊（列印）</h3>
+        <button type="button" class="passbook-close" aria-label="關閉" title="關閉（Esc）" onclick="closePassbookModal()">✕ 關閉</button>
       </div>
       <div class="modal-body passbook-printable-area" style="padding: 24px;">
         <!-- Header Banner -->
         <div style="border-bottom: 2px solid var(--accent); padding-bottom: 14px; margin-bottom: 18px;">
           <h2 style="color: var(--accent-dark); margin: 0 0 6px 0;">專門職業及技術人員高等考試：電機工程技師</h2>
-          <h4 style="color: var(--ink-light); margin: 0; font-weight: 600;">考前 15 天個人化高頻母題與死穴急救衝刺手冊</h4>
+          <h4 style="color: var(--ink-light); margin: 0; font-weight: 600;">考前速查手冊：時間分配、計算機按鍵、高頻母題與失分點</h4>
           <p style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">
             生成時間：${new Date().toLocaleDateString('zh-TW')}
           </p>
         </div>
 
-        <!-- Section 1: Subject Readiness Radar -->
-        <div style="margin-bottom: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">📊 壹、個人六科戰力分佈與及格安全線</h4>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px;">
-            ${subjSummaryHtml}
-          </div>
-        </div>
+        <!-- 戰力與得分估計以「成績」分頁為準，這裡不重複計算 -->
+        <p class="passbook-hide-print" style="margin-bottom: 18px; font-size: 0.85rem; color: var(--muted);">各科得分與距離及格線，請看「成績」分頁；這裡只放考前要帶進考場的速查內容。</p>
 
         <!-- Section 2: Pacing Strategy -->
         <div style="margin-bottom: 24px; background: var(--bg-secondary); padding: 14px; border-radius: var(--radius-sm);">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 貳、考場 120 分鐘得分節奏（5＋90＋17＋8）</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">⏱️ 壹、考場 120 分鐘得分節奏（5＋90＋17＋8）</h4>
           <ul style="font-size: 0.85rem; line-height: 1.8; margin-left: 20px; color: var(--ink);">
             <li><strong>0 ~ 5 分鐘（掃卷）</strong>：看完所有題目與小題，在題號旁標 A／B／C；不開始長算式</li>
             <li><strong>5 ~ 95 分鐘（第一輪 90 分鐘）</strong>：先做 A，再做 B，最後處理 C；每題依配分設時間帽，每配分最多 0.9 分鐘（20 分題 18 分鐘、25 分題 22.5 分鐘）</li>
@@ -179,7 +212,7 @@ function openPassbookModal() {
 
         <!-- Section 3: fx-82 Keystroke Quick Reference -->
         <div style="margin-bottom: 24px;">
-          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">🧮 參、考選部指定計算機（Casio fx-82SOLAR II）必背按鍵流</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 8px;">🧮 貳、考選部指定計算機（Casio fx-82SOLAR II）必背按鍵流</h4>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.82rem;">
             <div style="border: 1px solid var(--line); padding: 10px; border-radius: 4px;">
               <strong>直角轉極座標 (R➔P)</strong><br>
@@ -204,9 +237,9 @@ function openPassbookModal() {
 
         <!-- Section 4: Top 15 Anchor Questions -->
         <div>
-          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">🎯 肆、考前 15 天個人專屬核心必殺母題清單（Top 15）</h4>
+          <h4 style="color: var(--accent-dark); margin-bottom: 10px;">🎯 參、考前個人專屬核心母題清單（Top 15）</h4>
           <div style="font-size: 0.82rem; color: var(--muted); margin-bottom: 10px;">
-            基於您的做題錯誤紀錄、弱項科目與近 5 年高頻考點精選，考前務必在白紙上蓋牌獨立重算一次：
+            依您的做題紀錄、弱項科目與近年高頻考點挑出；尚未完成的 114 模考與 108 盲測題不會出現在這裡。考前在白紙上蓋牌獨立重算一次：
           </div>
           ${anchorQuestionsHtml}
         </div>${cheatsheetHtml}
@@ -223,18 +256,24 @@ function openPassbookModal() {
 
   // The cheat-sheet items carry inline \( \) LaTeX from the canonical notes.
   if (typeof renderMathInElement === 'function') {
-    renderMathInElement(modal, {
-      delimiters: [{ left: '\\(', right: '\\)', display: false }],
-      throwOnError: false
-    });
+    try {
+      renderMathInElement(modal, {
+        delimiters: [{ left: '\\(', right: '\\)', display: false }],
+        throwOnError: false
+      });
+    } catch (_) { /* math is best-effort */ }
   }
 
   modal.classList.add('show');
+  document.addEventListener('keydown', passbookKeydown_);
+  const closeBtn = modal.querySelector('.passbook-close');
+  if (closeBtn) closeBtn.focus();
 }
 
 function closePassbookModal() {
   const modal = document.getElementById('passbook-modal');
   if (modal) modal.classList.remove('show');
+  document.removeEventListener('keydown', passbookKeydown_);
 }
 
 function printPassbook() {
@@ -244,6 +283,7 @@ function printPassbook() {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     generatePassbookData,
+    passbookTopicHtml,
     renderCheatsheetSectionHtml
   };
 }

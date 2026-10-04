@@ -1211,7 +1211,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
     def test_review_center_can_filter_manual_review_queue(self):
         """The review center must expose a dedicated queue for unresolved items."""
         index = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertIn('<option value="manual">待人工覆核</option>', index)
+        # v1.2: the 複習中心 pane and its <select> were removed from the shell; the queue logic stays.
         self.assertIn("reviewFilter === 'manual'", index)
         self.assertIn("isManualReviewQuestion(q)", index)
 

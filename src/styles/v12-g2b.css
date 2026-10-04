@@ -1,0 +1,111 @@
+/* v1.2 QA fixes — g2b */
+
+/* #17 random round summary: tier is a small badge, estimate is plain text (no bar look) */
+.daily-practice-result-list--plain { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.daily-practice-result-list--plain .daily-practice-result-item {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px;
+  padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+.daily-practice-result-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1 1 200px; }
+.daily-practice-result-meta { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.8rem; }
+.daily-practice-result-meta .tier-badge {
+  display: inline-block; flex: 0 0 auto; width: auto; height: auto; min-width: 0;
+  padding: 1px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; line-height: 1.5;
+  border: 1px solid var(--line-strong); background: var(--bg-secondary); color: var(--ink-light);
+}
+.daily-practice-estimate { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.daily-practice-estimate.is-empty { color: var(--muted); font-weight: 400; }
+.daily-practice-total { margin: 12px 0 4px; font-weight: 700; }
+
+/* #5 「繼續上次」 hidden attribute must win over the button row styles */
+.practice-home-secondary[hidden] { display: none !important; }
+
+/* Correction banner: one summary line "舊 → 新"; reason in the details */
+.answer-correction-banner summary { display: block; overflow-wrap: anywhere; }
+
+/* #12 solution window on phones: one compact header row, icon-only controls */
+@media (max-width: 640px) {
+  #solution-modal .modal-header { flex-wrap: nowrap; align-items: center; gap: 6px; padding: 6px 8px; }
+  #solution-modal .modal-title { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  #solution-modal .modal-title > span:nth-child(2) { display: none; }
+  #solution-modal .modal-title > span:first-child { font-size: 0.9rem; }
+  #solution-modal .modal-actions { flex-wrap: nowrap; flex: 0 0 auto; gap: 4px; }
+  #solution-modal .modal-actions button { padding: 0; min-width: 40px; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+  #solution-modal .modal-actions .sm-lbl { display: none; }
+  #solution-modal .modal-actions .sm-ico { font-size: 1.1rem; line-height: 1; }
+  /* duplicate 四段蓋牌 control: the header icon stays, the nav-bar copy goes */
+  #solution-modal #btn-active-recall { display: none; }
+  #solution-modal.sm-recall-entry #btn-modal-active-recall { display: none; }
+
+  #solution-modal .modal-nav-bar { flex-wrap: nowrap; align-items: center; gap: 6px; padding: 4px 8px; }
+  #solution-modal .modal-nav-bar > .modal-nav-group { flex-wrap: nowrap; gap: 6px; min-width: 0; }
+  #solution-modal .modal-nav-bar > .modal-nav-group:first-child { flex: 1 1 auto; }
+  #solution-modal .modal-same-exam-select { flex: 1 1 0; min-width: 0; max-width: 100%; }
+  #solution-modal #btn-modal-prev, #solution-modal #btn-modal-next { font-size: 0; padding: 0; min-width: 40px; min-height: 40px; }
+  #solution-modal #btn-modal-prev::before { content: '←'; font-size: 1rem; }
+  #solution-modal #btn-modal-next::before { content: '→'; font-size: 1rem; }
+  #solution-modal .modal-nav-bar > .modal-nav-group:last-child { flex: 0 0 auto; }
+  #solution-modal .view-layout-toggle { display: inline-flex; flex-wrap: nowrap; }
+  #solution-modal .view-layout-toggle .btn-layout { white-space: nowrap; }
+  #solution-modal .view-layout-toggle .btn-layout { padding: 0 8px; min-width: 40px; }
+  #solution-modal #btn-layout-solution { font-size: 0; }
+  #solution-modal #btn-layout-solution::before { content: '📝'; font-size: 1rem; }
+  #solution-modal #btn-layout-exam .sm-lbl { display: none; }
+  #solution-modal #btn-layout-exam::after { content: '看原題'; font-size: 0.78rem; margin-left: 4px; }
+
+  /* docked 作答結果卡: compact rows; the save row is sticky so it is always fully visible */
+  #solution-modal .result-card--docked { max-height: 45vh; overflow-y: auto; gap: 6px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); }
+  #solution-modal .result-card--docked .result-card-head { gap: 0 8px; }
+  #solution-modal .result-card--docked .result-card-hint { display: none; }
+  #solution-modal .result-card--docked .result-card-rows { gap: 4px; }
+  #solution-modal .result-card--docked .result-card-row { flex-wrap: nowrap; gap: 6px; }
+  #solution-modal .result-card--docked .result-card-row-label { min-width: 0; flex: 0 0 auto; font-size: 0.84rem; }
+  #solution-modal .result-card--docked .result-card-marks { flex: 1 1 auto; flex-wrap: nowrap; gap: 4px; }
+  #solution-modal .result-card--docked .result-card-mark,
+  #solution-modal .result-card--docked .result-card-chip,
+  #solution-modal .result-card--docked .result-card-note-toggle { min-height: 40px; padding: 4px 6px; font-size: 0.84rem; }
+  #solution-modal .result-card--docked .result-card-chip { min-height: 32px; padding: 2px 10px; font-size: 0.8rem; }
+  #solution-modal .result-card--docked .result-card-chips { gap: 4px; }
+  #solution-modal .result-card--docked .result-card-errors { gap: 2px 8px; }
+  #solution-modal .result-card--docked .result-card-note-toggle { min-height: 34px; padding: 2px 8px; font-size: 0.8rem; }
+  #solution-modal .result-card--docked .result-card-title { font-size: 0.86rem; line-height: 1.3; }
+  #solution-modal .result-card--docked .result-card-save { min-height: 44px; }
+  #solution-modal .result-card--docked .result-card-foot {
+    position: sticky; bottom: 0; z-index: 1; background: var(--surface);
+    padding-top: 4px; box-shadow: 0 -4px 6px -4px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Compact question image on the cover (left pane is hidden on narrow screens) */
+.recall-question-peek { display: none; margin: 0 0 12px; text-align: center; }
+.recall-question-peek img { max-width: 100%; max-height: 34vh; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); cursor: zoom-in; }
+.recall-question-peek figcaption { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+@media (max-width: 760px) { .recall-question-peek { display: block; } }
+
+/* Recall entry: one 四段蓋牌 indicator only (header), on every width */
+#solution-modal #btn-active-recall { display: none; }
+/* #12: 「主動回想蓋牌」 appears once (header) at every width; the toolbar copy is gone. */
+
+/* N3: 已記錄 ✓ confirmation where the docked result card was */
+.result-card-saved-notice {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 40;
+  padding: 12px 16px; text-align: center; font-weight: 700;
+  color: #fff; background: var(--success);
+  border-radius: var(--radius) var(--radius) 0 0;
+  animation: result-card-notice-in .18s ease-out;
+}
+.result-card-saved-notice.result-card--viewport { position: fixed; z-index: 10001; }
+@keyframes result-card-notice-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* N1: mock tab notice after a scheduled MOCK/BLIND task was completed from here */
+.mock-sync-notice { margin: 4px 0 8px; padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light); color: var(--accent-dark); font-weight: 600; font-size: 0.9rem; }
+
+/* N6: due-review round summary on 今天 */
+.home-due-summary {
+  max-width: 900px; margin: 0 auto 12px; padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--accent-light); color: var(--accent-dark);
+  border: 1px solid var(--accent); border-radius: var(--radius-sm); font-weight: 700;
+}
+.home-due-summary[hidden] { display: none; }
+.home-due-summary-close { min-width: 40px; min-height: 40px; border: 0; background: transparent; color: inherit; font-size: 1rem; cursor: pointer; }

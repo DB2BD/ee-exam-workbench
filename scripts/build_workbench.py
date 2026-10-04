@@ -43,7 +43,10 @@ def build_workbench():
         'src/styles/layout.css',
         'src/styles/components.css',
         'src/styles/modal.css',
-        'src/styles/dag-graph.css'
+        'src/styles/dag-graph.css',
+        'src/styles/v12-g1.css',
+        'src/styles/v12-g2a.css',
+        'src/styles/v12-g2b.css'
     ]
     bundled_css = "\n\n".join([f"/* === {f} === */\n" + read_file(f) for f in css_files])
 
@@ -57,10 +60,14 @@ def build_workbench():
         'src/data/knowledge-dag.js',
         'src/data/knowledge-dag.generated.js',
         'src/data/dailySchedule.generated.js',
+        'src/data/questionPoints.generated.js',
+        'src/data/targetAllocation.generated.js',
+        'src/domain/studyPlan.js',
         'src/data/answerCorrections.generated.js',
         'src/state/store.js',
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
+        'src/state/resultCardStore.js',
         'src/state/practiceStore.js',
         'src/data/recallHints.generated.js',
         'src/state/recallStore.js',
@@ -82,8 +89,10 @@ def build_workbench():
         'src/components/calculatorGuide.js',
         'src/data/cheatsheet.generated.js',
         'src/components/passbookGenerator.js',
+        'src/components/resultCard.js',
         'src/components/solutionModal.js',
-        'src/components/mockExamTimer.js',
+        'src/components/mockExam.js',
+        'src/components/scoreboard.js',
         'src/components/dailyPractice.js',
         'src/components/todayTask.js',
         'src/components/topTopics.js',
@@ -97,7 +106,7 @@ def build_workbench():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>電機工程技師 & 公務高考三級 歷屆試題全真雙欄工作台 (104-114年)</title>
+<title>電機工程技師 歷屆試題全真雙欄工作台 (104-114年)</title>
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#4a7c8f">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -109,11 +118,10 @@ def build_workbench():
 <script src="./libs/auto-render.min.js"></script>
 <script src="./libs/marked.min.js"></script>
 
-<!-- Embedded Database & Bundled Markdown Data (100% Offline & Zero-Latency) -->
+<!-- Embedded PE Database & Bundled Markdown Data (100% Offline & Zero-Latency).
+     GK data files stay in the repo and are loaded lazily by ensureGkData() only if a GK path is triggered. -->
 <script src="./dashboard-data.js?v={build_version}"></script>
 <script src="./solutions-bundle.js?v={build_version}"></script>
-<script src="./national-exams-data.js?v={build_version}"></script>
-<script src="./national-solutions-bundle.js?v={build_version}"></script>
 
 <style>
 {bundled_css}
@@ -127,169 +135,51 @@ def build_workbench():
   <header>
     <div class="header-top">
       <div class="title-area">
-        <h1>⚡ 電機工程技師 & 公務高考三級 歷屆試題工作台</h1>
-        <p>104 ~ 114 年 6 大考科 · <span id="hero-total-count">484 道題目記錄</span> · 逐題來源可追溯 · 5 大維度難度評級 · 離線使用</p>
+        <h1>⚡ 電機工程技師 歷屆試題工作台</h1>
+        <p>專技高考電機工程技師 · 104 ~ 114 年 6 大考科 · <span id="hero-total-count">323 題</span> · 逐題來源可追溯 · 離線使用</p>
       </div>
       <div class="header-actions">
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn">🌙 暗色模式</button>
-        <button onclick="openBackupModal()" class="pill" title="進度備份與 JSON 匯入還原">💾 備份/還原</button>
       </div>
     </div>
 
-    <!-- Category Switcher Tabs (PE 技師 vs GK 高考三級) -->
-    <div class="category-switcher">
-      <button class="cat-tab on" id="cat-tab-PE" onclick="switchExamCategory('PE')">
-        <span>🏆 專技高考：電機工程技師</span>
-        <span class="cat-badge" id="cat-count-PE">323 題 · 66 卷</span>
-      </button>
-      <button class="cat-tab" id="cat-tab-GK" onclick="switchExamCategory('GK')">
-        <span>🏛️ 公務高考：三級電力/電子</span>
-        <span class="cat-badge" id="cat-count-GK">161 題 · 25 卷</span>
-      </button>
-    </div>
-
-    <!-- Statistics Grid -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="label">📚 收錄試題總數</span>
-        <span class="val" id="stat-total">323</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">🟢 已掌握題數</span>
-        <span class="val" id="stat-mastered" style="color: var(--success);">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">🔴 需二刷 (錯題本)</span>
-        <span class="val" id="stat-review" style="color: var(--review);">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">⚪ 未開始題數</span>
-        <span class="val" id="stat-unstarted" style="color: var(--muted);">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">⭐ 重點收藏題數</span>
-        <span class="val" id="stat-starred" style="color: var(--star);">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="label">📑 考卷總卷數</span>
-        <span class="val" id="stat-exams">66</span>
-      </div>
-      <div class="stat-card stat-due-card" id="stat-due-card" onclick="onDueFlashcardsClick()" style="cursor: pointer;" title="艾賓浩斯遺忘曲線到期題（點擊前往提取訓練）">
-        <span class="label">⚡ 今日待提取 (SM-2)</span>
-        <span class="val" id="stat-due-flashcards" style="color: var(--accent-dark);">0</span>
-      </div>
-    </div>
-
-    <!-- Progress Bar -->
-    <div style="margin-top: 18px;">
-      <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--muted); font-weight: 600; margin-bottom: 6px;">
-        <span>📊 刷題整體掌握度</span>
-        <span id="stat-pct" style="color: var(--accent-dark); font-weight: 700;">0%</span>
-      </div>
-      <div style="height: 10px; background: var(--bg-secondary); border-radius: 9999px; overflow: hidden; display: flex;">
-        <div id="bar-mastered" style="width: 0%; background: var(--success); height: 100%; transition: width 0.3s;"></div>
-        <div id="bar-review" style="width: 0%; background: var(--review); height: 100%; transition: width 0.3s;"></div>
-        <div id="bar-unstarted" style="width: 100%; background: var(--line); height: 100%; transition: width 0.3s;"></div>
-      </div>
-    </div>
+    <!-- One-line summary: 今天 / 到期 / 成績 -->
+    <p class="header-summary" id="header-summary-line" role="status" aria-live="polite">今天：—｜到期 0 題｜估計總分：尚無資料</p>
   </header>
 
-  <!-- Main Navigation Tabs -->
+  <!-- Main Navigation: three entries plus a collapsed 更多 -->
   <div class="main-tabs">
     <button class="main-tab-btn active" id="tab-btn-practice" onclick="switchTab('practice')">
-      <span>🎯 今日練習</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-questions" onclick="switchTab('questions')">
-      <span>📚 歷屆真題雙欄刷題庫</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-review" onclick="switchTab('review')">
-      <span>📝 複習中心</span>
-    </button>
-    <button class="main-tab-btn" id="tab-btn-weakness" onclick="switchTab('weakness')">
-      <span>🧭 我的弱點</span>
+      <span>🎯 今天</span>
     </button>
     <button class="main-tab-btn" id="tab-btn-mock" onclick="switchTab('mock')">
-      <span>⏱️ 120 分鐘計時全真模考</span>
+      <span>📄 模考</span>
+    </button>
+    <button class="main-tab-btn" id="tab-btn-scoreboard" onclick="switchTab('scoreboard')">
+      <span>📊 成績</span>
     </button>
     <details class="more-tools-menu" id="more-tools-menu">
-      <summary>🧰 更多工具</summary>
+      <summary>⋯ 更多</summary>
       <div class="more-tools-panel">
-        <button class="main-tab-btn" id="tab-btn-dag" onclick="switchTab('dag')"><span>🕸️ 知識圖譜</span></button>
-        <button class="main-tab-btn" id="tab-btn-layers" onclick="switchTab('layers')"><span>🪜 七層訓練</span></button>
-        <button class="main-tab-btn" id="tab-btn-stats" onclick="switchTab('stats')"><span>📊 統計</span></button>
-        <button class="main-tab-btn" id="tab-btn-quicksheet" onclick="switchTab('quicksheet')"><span>⚡ 速查</span></button>
-        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 15天奪榜本</span></button>
-        <button class="main-tab-btn" id="tab-btn-calcguide" onclick="openCalculatorGuideModal()"><span>🧮 fx-82 按法</span></button>
+        <button class="main-tab-btn" id="tab-btn-questions" onclick="switchTab('questions')"><span>📚 題庫瀏覽</span></button>
+        <button class="main-tab-btn" id="tab-btn-passbook" onclick="openPassbookModal()"><span>📕 考前速查手冊（列印）</span></button>
+        <button class="main-tab-btn" id="tab-btn-backup" onclick="openBackupModal()"><span>💾 備份／還原</span></button>
       </div>
     </details>
-  </div>
-
-  <!-- TAB 1.5: Review Center -->
-  <div class="tab-pane" id="tab-pane-review" style="display: none;">
-    <div class="review-shell">
-      <div class="review-header">
-        <div>
-          <h2>📝 複習中心 · 備考戰情看板</h2>
-          <p>基於艾賓浩斯遺忘曲線與 SM-2 間隔重複演算法，精準鎖定今日到期與薄弱考點。</p>
-        </div>
-        <div class="review-header-actions">
-          <button class="btn-sol" id="btn-start-review" type="button" onclick="startReviewSession()">🎴 開始今日複習</button>
-          <button class="btn-sol" id="manual-label-open" style="display: none;" type="button" onclick="openManualLabelModal()">🧭 人工覆核題型標注</button>
-        </div>
-      </div>
-
-      <!-- 戰情 Hero 區塊：Progress Ring + 互動統計卡 -->
-      <div id="review-corrections"></div>
-
-      <div class="review-hero">
-        <div class="progress-ring-card" id="review-progress-card"></div>
-        <div class="review-stats" id="review-stats"></div>
-      </div>
-
-      <!-- 考科分段標籤 Segmented Tabs -->
-      <div class="review-subject-segmented" id="review-subject-segmented" role="tablist" aria-label="考科切換"></div>
-
-      <!-- 保留原生 controls 供測試與腳本相容性（CSS 設為 display:none） -->
-      <div class="review-controls" style="display: none;">
-        <label for="review-scope">複習範圍</label>
-        <select id="review-scope" onchange="setReviewFilter(this.value)">
-          <option value="due">今日到期</option>
-          <option value="errors">回想未完成</option>
-          <option value="wrong">錯題本</option>
-          <option value="starred">收藏題目</option>
-          <option value="manual">待人工覆核</option>
-          <option value="all">全部題目</option>
-        </select>
-        <label for="review-subject">考科</label>
-        <select id="review-subject" onchange="setReviewSubjectFilter(this.value)"><option value="all">所有考科</option></select>
-        <span id="review-filter-count"></span>
-      </div>
-
-      <div class="review-type-filter" id="review-type-filter" aria-label="教科書章節篩選"></div>
-      <div id="review-container"></div>
-    </div>
-  </div>
-
-  <!-- TAB 1.6: Explainable weakness projection -->
-  <div class="tab-pane" id="tab-pane-weakness" style="display: none;">
-    <div id="weakness-view"></div>
   </div>
 
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
     <div id="today-task-card"></div>
+    <div id="review-corrections"></div>
     <section class="home-primary-actions" aria-label="首頁主要入口">
+      <button id="home-action-start" class="home-random-button" type="button" onclick="dailyPracticePrepareNewRound()"><span>🎲</span><strong>隨機練習 3 題</strong><small>依目標分配抽題，按一次就開始</small></button>
       <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span>🎴</span><strong>到期複習</strong><small>今天沒有到期題</small></button>
     </section>
-    <details class="more-practice" id="more-practice">
-      <summary>更多練習方式</summary>
-      <section class="practice-home-actions" aria-label="練習首頁主要入口">
-      <button id="home-action-start" type="button" onclick="dailyPracticePrepareNewRound()"><span>▶</span><strong>開始練習</strong><small>選擇考科，建立新的 3 題練習</small></button>
-      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled><span>↩</span><strong>繼續上次</strong><small>接回原題、揭露進度與閱讀位置</small></button>
-      <button id="home-action-find" type="button" onclick="dailyPracticeFindQuestions()"><span>⌕</span><strong>找題</strong><small>依考科、年度、章節或關鍵字搜尋</small></button>
-    </section>
-      <div id="daily-practice-container"></div>
-    </details>
+    <div class="practice-home-secondary">
+      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled>↩ 繼續上次</button>
+    </div>
+    <div id="daily-practice-container"></div>
   </div>
 
   <!-- TAB 1: Questions Explorer -->
@@ -363,89 +253,12 @@ def build_workbench():
     <div id="questions-container" class="qlist"></div>
   </div>
 
-  <!-- TAB 2: Knowledge DAG Graph Visualizer -->
-  <div class="tab-pane" id="tab-pane-dag" style="display: none;">
-    <div class="dag-visualizer-container">
-      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">
-        🕸️ 6 大考科知識相依有向無環圖 (Knowledge Dependency DAG)
-      </h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">
-        全方位梳理電機工程考科的前置觀念流向。每道進階試題皆可沿著拓撲關係逆向溯源，精準擊破前置盲點！
-      </p>
-      <div id="dag-graph-viewer-content"></div>
-    </div>
-  </div>
+  <!-- TAB 2: Mock exam (rendered by src/components/mockExam.js) -->
+  <div class="tab-pane" id="tab-pane-mock" style="display: none;"></div>
 
-  <!-- TAB 3: Mock Exam System -->
-  <div class="tab-pane" id="tab-pane-mock" style="display: none;">
-    <div class="mock-exam-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px;">
-        <div>
-          <h2 style="color: var(--accent-dark); font-weight: 700; font-size: 1.3rem;">⏱️ 國考全真 120 分鐘計時模考系統</h2>
-          <p style="font-size: 0.85rem; color: var(--muted); margin-top: 2px;">白紙蓋牌獨立推導，訓練考場時間分配與作答節奏</p>
-        </div>
-        
-        <!-- Exam Year & Subject Selector -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-          <select id="exam-select-subj" style="font-weight: 600;">
-            <option value="01">⚡ 01. 電路學</option>
-            <option value="02">🔌 02. 電子學（含電力電子）</option>
-            <option value="03">📐 03. 工程數學</option>
-            <option value="04">⚙️ 04. 電機機械</option>
-            <option value="05">🏢 05. 電力系統</option>
-            <option value="06">🏭 06. 工業配電</option>
-          </select>
-          <select id="exam-select-yr" style="font-weight: 600;">
-            <option value="114">114 年全卷</option>
-            <option value="113">113 年全卷</option>
-            <option value="112">112 年全卷</option>
-            <option value="111">111 年全卷</option>
-            <option value="110">110 年全卷</option>
-            <option value="109">109 年全卷</option>
-            <option value="108">108 年全卷</option>
-            <option value="107">107 年全卷</option>
-            <option value="106">106 年全卷</option>
-            <option value="105">105 年全卷</option>
-            <option value="104">104 年全卷</option>
-            <option value="random">🎲 隨機抽 4 題模考</option>
-          </select>
-          <button onclick="loadMockExam()" class="btn-sol">📄 載入試卷</button>
-        </div>
-      </div>
-
-      <!-- Timer Center -->
-      <div class="timer-display" id="exam-timer">120:00</div>
-      
-      <div class="timer-controls">
-        <button onclick="startExamTimer()" class="btn-timer start" id="btn-timer-toggle">▶️ 開始計時</button>
-        <button onclick="resetExamTimer()" class="btn-timer reset">🔄 重設時間</button>
-      </div>
-
-      <div id="mock-exam-questions" style="margin-top: 24px;"></div>
-    </div>
-  </div>
-
-  <!-- TAB 4: Seven Layers -->
-  <div class="tab-pane" id="tab-pane-layers" style="display: none;">
-    <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
-      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">7 種訓練路徑</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">依目前弱點選擇辨識、公式、SOP、錯題、整合、複習或限時輸出；這些是不同訓練方式，不是 L1～L4 的升級階梯：</p>
-      <div id="layers-container"></div>
-    </div>
-  </div>
-
-  <!-- TAB 5: Top Topics -->
-  <div class="tab-pane" id="tab-pane-stats" style="display: none;">
-    <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);">
-      <h2 style="color: var(--accent-dark); font-size: 1.3rem; margin-bottom: 6px;">🔥 歷屆高頻命題考點命中分析</h2>
-      <p style="font-size: 0.86rem; color: var(--muted); margin-bottom: 20px;">目前題庫：<span id="stats-category-label">電機工程技師題庫</span>；年度範圍：<span id="stats-year-range">尚未計算</span>；統計分母：<span id="stats-denominator">0</span> 題（<span id="stats-total-count">0</span>）。題數占比與有出題年度占比是描述性統計，不代表命中率。</p>
-      <div id="top-topics-container"></div>
-    </div>
-  </div>
-
-  <!-- TAB 6: Last 30-Minute High-Yield Cheat Sheet -->
-  <div class="tab-pane" id="tab-pane-quicksheet" style="display: none;">
-    <div id="quicksheet-container"></div>
+  <!-- TAB 3: Scoreboard (rendered by renderScoreboard on switch) -->
+  <div class="tab-pane" id="tab-pane-scoreboard" style="display: none;">
+    <div id="scoreboard-container"></div>
   </div>
 </div>
 
@@ -517,6 +330,8 @@ def build_workbench():
       </div>
     </div>
   </div>
+</div>
+
 <!-- Manual Review Topic Annotation Modal -->
 <div id="manual-label-modal" role="dialog" aria-modal="true" aria-labelledby="manual-label-title" onclick="if (event.target === this) closeManualLabelModal()">
   <div class="manual-label-dialog" onclick="event.stopPropagation()">
@@ -571,11 +386,12 @@ def build_workbench():
 {bundled_js}
 </script>
 <script>
-if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {{
-  window.addEventListener('load', () => {{
-    navigator.serviceWorker.register('./sw.js').catch(() => {{}});
-  }});
-}}
+// 不再註冊 service worker（K12）。解除既有註冊，避免舊快取釘住舊版本。
+try {{
+  if ('serviceWorker' in navigator && navigator.serviceWorker.getRegistrations) {{
+    navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {{}});
+  }}
+}} catch (_) {{}}
 </script>
 </body>
 </html>

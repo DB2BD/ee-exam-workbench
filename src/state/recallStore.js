@@ -124,6 +124,11 @@ function getRecallHintBundle(qid, qRecord) {
   // takes precedence over the chapter template when the modal renders it.
   const own = typeof RECALL_HINTS !== 'undefined' ? RECALL_HINTS[qid] : null;
   if (own && own.activationMd) bundle.activationMd = own.activationMd;
+  // 衝高分科（電路、機械）刻意不給起手式：要練到自己寫得出第一條方程式。
+  const subjectId = Array.isArray(qRecord) ? qRecord[1] : null;
+  if (!bundle.activationMd && typeof studyRoleFor === 'function' && studyRoleFor(subjectId) === 'high') {
+    bundle.activation = '衝高分科不提供起手式：先自己寫出定義、等效電路或第一條方程式，寫完再按 ③ 對照本題失分點。';
+  }
   if (own && own.trapsMd) bundle.trapsMd = own.trapsMd;
   return bundle;
 }

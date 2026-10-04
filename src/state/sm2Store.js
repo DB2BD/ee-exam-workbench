@@ -21,6 +21,7 @@ const USER_BACKUP_SUPPORTED_V2 = ['2.0.0', USER_BACKUP_VERSION];
 const BACKUP_META_STORAGE_KEY = 'EE_EXAM_BACKUP_META_V1';
 const BACKUP_DAILY_PRACTICE_KEY = 'EE_EXAM_DAILY_PRACTICE_V1';
 const BACKUP_TODAY_TASK_KEY = 'EE_EXAM_TODAY_TASK_V1';
+const BACKUP_RESULT_CARD_KEY = 'EE_EXAM_RESULT_CARD_V1';
 const BACKUP_MOCK_EXAM_TIMER_KEY = 'EE_MOCK_EXAM_TIMER_V1';
 const BACKUP_PROGRESS_KEYS = { PE: 'EE_EXAM_PROGRESS_V1', GK: 'GK_EXAM_PROGRESS_V1' };
 const BACKUP_STARRED_KEYS = { PE: 'EE_EXAM_STARRED_V1', GK: 'GK_EXAM_STARRED_V1' };
@@ -310,6 +311,8 @@ function backupValidateTodayTask(value, errors) {
       backupError(errors, 'todayTask.active 資料格式無效。');
     } else {
       active = { code: a.code, phaseIndex: a.phaseIndex, phaseStartedAt: a.phaseStartedAt };
+      if (typeof a.mockId === 'string' && /^\d+-\d+-\d+$/.test(a.mockId)) active.mockId = a.mockId;
+      if (Array.isArray(a.skipped)) active.skipped = a.skipped.filter(q => typeof q === 'string' && q.length <= 40);
     }
   }
   return { completed, active };
@@ -323,6 +326,54 @@ function backupMergeTodayTask(oldState, importedState) {
   }
   if (active && completed[active.code]) active = null;
   return { completed, active: active ? Object.assign({}, active) : null };
+}
+
+function backupEmptyResultCard() {
+  return { version: 1, records: [] };
+}
+
+function backupValidateResultCard(value, errors) {
+  if (!backupIsPlainObject(value) || value.version !== 1 || !Array.isArray(value.records)) {
+    backupError(errors, 'resultCard 資料格式無效。');
+    return backupEmptyResultCard();
+  }
+  const seen = {};
+  const records = [];
+  value.records.forEach(record => {
+    const ok = backupIsPlainObject(record) && typeof record.id === 'string' && record.id
+      && typeof record.qid === 'string' && record.qid
+      && typeof record.at === 'number' && Number.isFinite(record.at)
+      && Array.isArray(record.parts)
+      && record.parts.every(part => backupIsPlainObject(part) && ['o', 'tri', 'x'].includes(part.mark));
+    if (!ok) {
+      backupError(errors, 'resultCard 含有無效的作答結果紀錄。');
+      return;
+    }
+    if (seen[record.id]) return;
+    seen[record.id] = true;
+    records.push(backupClone(record));
+  });
+  const next = { version: 1, records };
+  if (value.migrated === true) next.migrated = true;
+  return next;
+}
+
+function backupReadResultCard(storage) {
+  const raw = backupReadJSON(storage, BACKUP_RESULT_CARD_KEY, null);
+  if (!raw) return backupEmptyResultCard();
+  const errors = [];
+  const state = backupValidateResultCard(raw, errors);
+  return errors.length ? backupEmptyResultCard() : state;
+}
+
+function backupMergeResultCard(oldState, importedState) {
+  const byId = {};
+  (importedState.records || []).forEach(record => { byId[record.id] = record; });
+  (oldState.records || []).forEach(record => { byId[record.id] = record; });
+  const records = Object.keys(byId).map(id => byId[id]).sort((a, b) => a.at - b.at);
+  const next = { version: 1, records };
+  if (oldState.migrated === true || importedState.migrated === true) next.migrated = true;
+  return next;
 }
 
 function backupValidateDailyPractice(value, ids, errors) {
@@ -725,6 +776,8 @@ function validateUserDataBackup(payload, options) {
   const mockExamTimerProvided = Object.prototype.hasOwnProperty.call(payload, 'mockExamTimer');
   const todayTaskProvided = Object.prototype.hasOwnProperty.call(payload, 'todayTask');
   const todayTask = todayTaskProvided ? backupValidateTodayTask(payload.todayTask, errors) : null;
+  const resultCardProvided = Object.prototype.hasOwnProperty.call(payload, 'resultCard');
+  const resultCard = resultCardProvided ? backupValidateResultCard(payload.resultCard, errors) : null;
   if (phase2Required && !dailyPracticeProvided) backupError(errors, '缺少 dailyPractice 每日練習資料。');
   if (phase2Required && !mockExamTimerProvided) backupError(errors, '缺少 mockExamTimer 模考計時資料。');
   const dailyPractice = dailyPracticeProvided
@@ -748,6 +801,8 @@ function validateUserDataBackup(payload, options) {
     mockExamTimer,
     todayTask,
     todayTaskProvided,
+    resultCard,
+    resultCardProvided,
     learningData,
     dailyPracticeProvided,
     mockExamTimerProvided,
@@ -767,6 +822,9 @@ function validateUserDataBackup(payload, options) {
     practiceCompleted: dailyPractice ? Object.keys(dailyPractice.completionByQuestion).length : 0,
     practiceSession: !!(dailyPractice && dailyPractice.activeSession),
     mockTimer: !!mockExamTimer,
+    resultCardRecords: resultCard && resultCard.records ? resultCard.records.length : 0,
+    todayTaskDone: todayTask && todayTask.completed ? Object.keys(todayTask.completed).length : 0,
+    todayTaskActive: !!(todayTask && todayTask.active),
     learningAttempts: Object.keys(learningData.attempts.attempts || {}).length,
     knowledgeIssueEvents: Object.values(learningData.issues).reduce((count, log) => count + (log.events || []).length, 0),
     knowledgeReviews: Object.values(learningData.knowledgeReviews).reduce((count, log) => count + Object.keys(log.reviews || {}).length, 0),
@@ -826,6 +884,7 @@ function buildUserBackupSnapshot() {
     dailyPractice: backupClone(loadedPractice.state),
     mockExamTimer,
     todayTask: backupReadTodayTask(storage),
+    resultCard: backupReadResultCard(storage),
     learningData: backupClone(learningData),
     learningDataCapacity: buildLearningDataCapacityReport(learningData),
   };
@@ -881,6 +940,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   const oldPractice = backupReadJSON(storage, BACKUP_DAILY_PRACTICE_KEY, { version: 1, completionByQuestion: {}, activeSession: null });
   const oldTimer = backupReadJSON(storage, BACKUP_MOCK_EXAM_TIMER_KEY, {});
   const oldTodayTask = backupReadTodayTask(storage);
+  const oldResultCard = backupReadResultCard(storage);
   const oldLearning = backupReadLearningData(storage);
   const nextProgress = backupClone(oldProgress);
   const nextStarred = backupClone(oldStarred);
@@ -915,6 +975,8 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   }
   const nextTodayTask = !validation.normalized.todayTaskProvided ? oldTodayTask
     : (selectedMode === 'merge' ? backupMergeTodayTask(oldTodayTask, validation.normalized.todayTask) : backupClone(validation.normalized.todayTask));
+  const nextResultCard = !validation.normalized.resultCardProvided ? oldResultCard
+    : (selectedMode === 'merge' ? backupMergeResultCard(oldResultCard, validation.normalized.resultCard) : backupClone(validation.normalized.resultCard));
   const nextTimer = validation.normalized.mockExamTimerProvided
     ? backupClone(validation.normalized.mockExamTimer) : oldTimer;
   const nextLearning = selectedMode === 'merge'
@@ -922,7 +984,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     : backupClone(validation.normalized.learningData);
   const metadataKey = BACKUP_META_STORAGE_KEY;
   const oldRaw = {};
-  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].forEach(key => {
+  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY, BACKUP_RESULT_CARD_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].forEach(key => {
     oldRaw[key] = storage.getItem(key);
   });
   const importedAt = new Date().toISOString();
@@ -942,6 +1004,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     ];
     if (validation.normalized.dailyPracticeProvided) writes.splice(writes.length - 1, 0, [BACKUP_DAILY_PRACTICE_KEY, JSON.stringify(nextPractice)]);
     if (validation.normalized.todayTaskProvided) writes.splice(writes.length - 1, 0, [BACKUP_TODAY_TASK_KEY, JSON.stringify(nextTodayTask)]);
+    if (validation.normalized.resultCardProvided) writes.splice(writes.length - 1, 0, [BACKUP_RESULT_CARD_KEY, JSON.stringify(nextResultCard)]);
     if (validation.normalized.mockExamTimerProvided) writes.splice(writes.length - 1, 0, [BACKUP_MOCK_EXAM_TIMER_KEY, JSON.stringify(nextTimer)]);
   } catch (_) {
     return { success: false, error: '匯入失敗：備份資料無法序列化，未修改任何資料。' };
@@ -978,6 +1041,9 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     manualLabels: Object.keys(nextLabels).length,
     practiceCompleted: Object.keys(nextPractice.completionByQuestion || {}).length,
     practiceSession: !!nextPractice.activeSession,
+    resultCardRecords: nextResultCard.records.length,
+    todayTaskDone: Object.keys(nextTodayTask.completed || {}).length,
+    todayTaskActive: !!nextTodayTask.active,
     mockTimer: validation.normalized.mockExamTimerProvided ? !!nextTimer : Object.keys(oldTimer).length > 0,
     learningAttempts: Object.keys(nextLearning.attempts.attempts || {}).length,
     knowledgeIssueEvents: Object.values(nextLearning.issues).reduce((count, log) => count + (log.events || []).length, 0),

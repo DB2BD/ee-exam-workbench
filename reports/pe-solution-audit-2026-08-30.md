@@ -1,6 +1,6 @@
 # 其他考科詳解稽核（2026-08-30；2026-08-31 更新）
 
-> **目前狀態快照（2026-09-27）**：非工程數學 256 題中 `verified=229`、`reference_book_verified=15`、`needs_manual_review=12`、`suspected_error=0`、`not_attempted=0`；工程數學 67 題中 `verified=66`、`needs_manual_review=1`。合計 323 題：`verified=295`、`reference_book_verified=15`、`needs_manual_review=13`、`suspected_error=0`、`not_attempted=0`。人工覆核清單以 [`reports/manual-review-index.md`](manual-review-index.md)、`data/pe-solution-audit.json` 與 `data/engineering-math-audit.json` 為準。
+> **目前狀態快照（2026-10-04）**：非工程數學 256 題中 `verified=219`、`reference_book_verified=10`、`needs_manual_review=27`、`suspected_error=0`、`not_attempted=0`；工程數學 67 題中 `verified=64`、`needs_manual_review=3`。合計 323 題：`verified=283`、`reference_book_verified=10`、`needs_manual_review=30`、`suspected_error=0`、`not_attempted=0`。人工覆核清單以 [`reports/manual-review-index.md`](manual-review-index.md)、`data/pe-solution-audit.json` 與 `data/engineering-math-audit.json` 為準。
 >
 > 本報告下方保留各批次的歷史紀錄；早期段落中的 23、24、25 題統計是當時快照，不代表目前狀態。
 

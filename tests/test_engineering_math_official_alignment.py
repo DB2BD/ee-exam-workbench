@@ -50,7 +50,7 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
         self.assert_stem_and_note(
             "EE-104-03-3",
             ["3x+2", "x(x-4)(x^2+9)"],
-            ["needs_manual_review", "-\\frac{14\\pi}{225}", "普通廣義積分不存在"],
+            ["needs_manual_review", "-\\frac{14\\pi}{75}", "普通廣義積分不存在"],
         )
         self.assert_stem_and_note(
             "EE-104-03-4",
@@ -73,7 +73,7 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
         )
         self.assert_stem_and_note(
             "EE-108-03-5",
-            ["1/(z²−1)", "圓心 (±1,0)"],
+            ["\\frac{dz}{z^2-1}", "圓心位置 $(1,0)$", "圓心位置 $(-1,0)$"],
             ["\\boxed{I_1=2\\pi i", "\\boxed{I_2=2\\pi i\\left(-\\frac12\\right)=-\\pi i}"],
         )
         self.assert_stem_and_note(
@@ -85,7 +85,7 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
     def test_109_and_110_official_question_forms(self):
         self.assert_stem_and_note(
             "EE-109-03-3",
-            ["P(X>Y)"],
+            ["P[X>Y]"],  # official paper uses square brackets
             ["\\boxed{P(X>Y)=0.7}"],
         )
         self.assert_stem_and_note(
@@ -143,9 +143,9 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
         audit = json.loads((ROOT / "data" / "engineering-math-audit.json").read_text(encoding="utf-8"))
         self.assertEqual(audit["summary"], {
             "questions": 67,
-            "verified": 66,
+            "verified": 64,
             "suspected_error": 0,
-            "needs_manual_review": 1,
+            "needs_manual_review": 3,  # 2026-10-02: + EE-112-03-2 (self-contradictory stem); 2026-10-03: + EE-110-03-3 (no expansion interval)
             "not_attempted": 0,
         })
         entry = next(item for item in audit["entries"] if item["qid"] == "EE-104-03-3")

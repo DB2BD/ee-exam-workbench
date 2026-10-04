@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CARDS = ROOT / "docs" / "上榜起手式急救卡_114-108.md"
 REPAIR_INDEX = ROOT / "docs" / "上榜錯因修復索引_114-108.md"
 
+# 2026-10-03: EE-108-02-5 became needs_manual_review (stem conflict); its repair-index code is R, so it has no S/T card.
 EXPECTED = {
     "EE-114-01-1": "S",
     "EE-114-01-3": "S",
@@ -21,7 +22,6 @@ EXPECTED = {
     "EE-114-05-5": "T",
     "EE-108-01-2": "S",
     "EE-108-02-3": "S",
-    "EE-108-02-5": "T",
     "EE-108-03-1": "S",
     "EE-108-04-3": "T",
     "EE-108-05-2": "T",
@@ -40,10 +40,10 @@ class TestFirstMoveRescueCards(unittest.TestCase):
             re.MULTILINE,
         )
 
-    def test_exactly_the_15_s_or_t_repair_questions_have_one_card(self):
-        self.assertEqual(len(self.headings), 15)
+    def test_exactly_the_14_s_or_t_repair_questions_have_one_card(self):
+        self.assertEqual(len(self.headings), 14)
         self.assertEqual(dict(self.headings), EXPECTED)
-        self.assertEqual(len({qid for qid, _ in self.headings}), 15)
+        self.assertEqual(len({qid for qid, _ in self.headings}), 14)
 
         index_st = {
             (qid, code)
@@ -57,7 +57,7 @@ class TestFirstMoveRescueCards(unittest.TestCase):
 
     def test_each_card_has_one_matching_canonical_link(self):
         links = re.findall(r"\[完整題解核對\]\(([^)]+)\)", self.text)
-        self.assertEqual(len(links), 15)
+        self.assertEqual(len(links), 14)
         linked_qids = set()
         for raw_target in links:
             target = unquote(raw_target.split("#", 1)[0])

@@ -29,4 +29,4 @@ class TestOpenDelta114(unittest.TestCase):
                        "227.2727", r"S_{3\phi,\max}", "未給功率因數"):
             self.assertIn(phrase, note)
         self.assertNotIn("(Delta-", note)
-        self.assertEqual(note.count("## 獨立驗算"), 1)
+        self.assertEqual(note.count("## 驗算"), 1)

@@ -37,24 +37,11 @@ CANONICAL_TOPIC_METADATA = {}
 # preference.  Materialize them into the compiled database so an offline
 # consumer sees the same primary chapter that the learner accepted in the UI.
 MANUAL_TOPIC_LABELS = {}
-# Official crop corrections for legacy annual notes whose question statement
-# was copied from a different year/question number.
-ENGINEERING_MATH_TOPIC_OVERRIDES = {
-    'EE-108-03-5': '複變函數線積分：被積函數 1/(z²−1)，圓心 (±1,0)、半徑 1 的圓周。',
-    'EE-109-03-3': '聯合機率密度：矩形區域 0≤x≤5、0≤y≤3，求 P(X>Y)。',
-    'EE-110-03-3': '傅立葉級數：f(x)=x−x²（−π<x<π）的 2π 週期延拓。',
-    'EE-111-03-3': '複變留數定理：C 為 |z|=2.5 的逆時針圓周，計算兩個留數積分。',
-    'EE-114-03-5': (
-        '假設矩陣 A = [[0, -1, 0, 1], [0, 1, -1, 0]] 與 b = [0, 1]^T；'
-        '求 Ax=b 的完整解與矩陣 A 的零空間 N(A)。'
-    ),
-}
-PE_TOPIC_OVERRIDES = {
-    'EE-109-02-1': '如圖一 BJT 開關電路，已知 R_C=11 Ω、V_CC=200 V、V_B=10 V、V_CE(sat)=1.0 V、V_BE(sat)=1.5 V、β_F∈[8,40]。求 ODF=6 時的 R_B 與電晶體總功率損耗 P_T。（25 分）',
-    'EE-109-02-2': '如圖二理想 Boost 轉換器，V_s=15 V、V_o=30 V、I_o=3 A、f=25 kHz、L=100 μH、C=200 μF。求導通率 D、電感漣波與峰值電流、電容漣波及臨界 L_c、C_c。（25 分）',
-    'EE-109-02-3': '如圖三返馳式（Flyback）轉換器，N_p/N_s=4、R_L=0.8 Ω、V_o=24 V、V_d=0.7 V、V_t=1.2 V、f=1.5 kHz、D=0.75。求 Q 的平均／峰值電流、L_p 與效率 η。（25 分）',
-    'EE-109-02-4': '增強型 n 通道 NMOS 於 V_GS=V_DS=12 V 時 I_D=6 mA，於 V_GS=V_DS=8 V 時 I_D=1.5 mA。求臨界電壓 V_t 與製程參數 β。（25 分）',
-}
+# Stem overrides are no longer needed: the 2026-10-03 stem audit corrected every
+# question block in 依考科分類/*.md against the official crops.  Keep the hooks
+# for future one-off corrections.
+ENGINEERING_MATH_TOPIC_OVERRIDES = {}
+PE_TOPIC_OVERRIDES = {}
 # A few OCR-heavy annual sections contain terms from neighbouring chapters
 # (for example「功率」in a BJT loss question).  Keep their textbook chapter
 # tags deterministic at the question boundary so the review DAG does not let
@@ -321,6 +308,9 @@ CANONICAL_TAXONOMY_OVERRIDES = {
     'EE-105-03-1': 'em-second-order-ode-homogeneous',
     'EE-108-03-1': 'em-second-order-ode-nonhomogeneous',
     'EE-113-03-4': 'em-matrix-det-inv',
+    # 2026-10-03: the official 109 Q2 crop is a double integral with order
+    # swap (重積分), which the DAG files under multivariable/vector calculus.
+    'EE-109-03-2': 'em-vector-analysis',
     # Electric machinery notes without frontmatter.
     'EE-104-04-1': 'emach-magnetic-circuits',
     'EE-104-04-3': 'emach-dc-motor-generator',

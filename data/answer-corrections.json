@@ -1,0 +1,463 @@
+{
+  "schema_version": 1,
+  "generated_from": [
+    "reports/題解精確化_wave-1.md",
+    "reports/題解精確化_wave-2.md",
+    "reports/題解精確化_wave-3.md",
+    "reports/題解精確化_wave-4.md"
+  ],
+  "corrections": [
+    {
+      "qid": "EE-114-02-1",
+      "wave": 1,
+      "old_answer": "I_C≈I_E 近似",
+      "new_answer": "依題給 β=40、I_C=αI_E 精確計算（差約 2.5%）",
+      "reason": "舊解混用兩種口徑，自相矛盾",
+      "decided_at": "2026-10-02"
+    },
+    {
+      "qid": "EE-114-02-3",
+      "wave": 1,
+      "old_answer": "精確值 −15.025／−14.975 A",
+      "new_answer": "依題幹指定近似 i_L=−15+100t A 等",
+      "reason": "題幹明令使用近似；精確值改列驗算（差 0.17%）",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-114-04-1",
+      "wave": 1,
+      "old_answer": "L=5.027 H",
+      "new_answer": "L=2.011 H",
+      "reason": "160000/79577 算錯",
+      "decided_at": "2026-10-02"
+    },
+    {
+      "qid": "EE-113-03-1",
+      "wave": 1,
+      "old_answer": "解 y''+4y'+5y=e^{-2x}csc x",
+      "new_answer": "解 y''−4y'+5y=e^{2x}csc x",
+      "reason": "舊題解抄錯題幹",
+      "decided_at": "2026-10-02"
+    },
+    {
+      "qid": "EE-113-03-4",
+      "wave": 1,
+      "old_answer": "缺子題㈡",
+      "new_answer": "特徵值 (6±√26)/10",
+      "reason": "漏答",
+      "decided_at": "2026-10-02"
+    },
+    {
+      "qid": "EE-113-03-5",
+      "wave": 1,
+      "old_answer": "r(t)=(3t²,4t,8t⁴)",
+      "new_answer": "r(t)=[3t,4t²,8t⁴]（通量 324π 不變）",
+      "reason": "舊題解抄錯題幹",
+      "decided_at": "2026-10-02"
+    },
+    {
+      "qid": "EE-113-06-1",
+      "wave": 1,
+      "old_answer": "1196.8 kVA、負載因數 55.56%",
+      "new_answer": "1250 kVA、53.19%",
+      "reason": "負載圖 8 h 總量應為 2800 kWh、尖峰 1175 kW",
+      "decided_at": "2026-10-02"
+    },
+    {
+      "qid": "EE-113-06-5",
+      "wave": 1,
+      "old_answer": "CT 1500/5",
+      "new_answer": "CT 600/5",
+      "reason": "讀錯 TD 曲線：TD5 在 1.0 s 對應約 15 倍分接",
+      "decided_at": "2026-10-02"
+    },
+    {
+      "qid": "EE-112-01-2",
+      "wave": 1,
+      "old_answer": "100 Ω 平均功率 373.5 W",
+      "new_answer": "612.5 W",
+      "reason": "互感同名端判讀錯誤（應為 +jωM），左網目 KVL 漏互感項；Reviewer 以時域 RK4 積分獨立得 612.50 W",
+      "decided_at": "2026-10-02"
+    },
+    {
+      "qid": "EE-111-02-4",
+      "wave": 2,
+      "old_answer": "參考書 R_F∥r_π1",
+      "new_answer": "嚴格二埠，β_f=−1",
+      "reason": "參考書輸入負載假設與其 β_f 矛盾，R_of 差 3.5 倍",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-111-03-1",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "整題依官方裁切圖重解",
+      "reason": "舊題解解的是別題",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-111-03-2",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "整題依官方裁切圖重解",
+      "reason": "舊題解解的是別題",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-111-03-4",
+      "wave": 2,
+      "old_answer": "奇異值 √(2±√2)",
+      "new_answer": "2±√2",
+      "reason": "計算錯誤",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-111-03-5",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "整題依官方裁切圖重解",
+      "reason": "舊題解解的是別題",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-111-04-4",
+      "wave": 2,
+      "old_answer": "VR 68.87%",
+      "new_answer": "68.64%；I_f 186 → 118.6 A／110.3 A",
+      "reason": "參考書把滿載場電流當成無載額定場電流",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-110-01-1",
+      "wave": 2,
+      "old_answer": "5.726∠−13.24°",
+      "new_answer": "依圖 −(20/7)cos t V",
+      "reason": "舊節點矩陣不對稱，任何讀法皆錯",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-110-01-2",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "傳輸矩陣 C=Y₂+(1+sLY₂)/R₃",
+      "reason": "漏 Y₂",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-110-03-6",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "補子題（一）行列式 −8",
+      "reason": "漏答 5 分",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-110-04-1",
+      "wave": 2,
+      "old_answer": "差動",
+      "new_answer": "和動串聯，B 0.0760 → 0.9377 T，W 0.47 → 71.56 mJ",
+      "reason": "線圈接線判讀錯誤（PDF 向量座標確認）",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-110-05-3",
+      "wave": 2,
+      "old_answer": "X₀ 0.1333",
+      "new_answer": "0.20 pu，V₁=V₂=0.30 pu",
+      "reason": "舊解假設未給的 X₂，且違反 V_b=V_c",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-110-06-3",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "「不可行」→ Q_c=420.04 kvar（註明 kW 仍超載）",
+      "reason": "原答無計算分",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-110-06-5",
+      "wave": 2,
+      "old_answer": "1 HP=0.746 kW",
+      "new_answer": "1 HP≈1 kVA",
+      "reason": "短路計算慣例，原寫法不保守",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-109-01-4",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "補脈衝項 4δ(t)",
+      "reason": "漏項",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-109-02-2",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "臨界電容「無唯一值」→ C_c=D/(2fR)=1 μF",
+      "reason": "採教材 ΔV_C=2V_o 定義",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-109-03-2",
+      "wave": 2,
+      "old_answer": "",
+      "new_answer": "整題依官方裁切圖重解",
+      "reason": "舊題解解的是別題",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-109-05-4",
+      "wave": 2,
+      "old_answer": "三相故障 6.667",
+      "new_answer": "3.472 pu；b-c 故障 5.774 → 3.007 pu",
+      "reason": "舊阻抗值不在題圖中",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-108-02-2",
+      "wave": 3,
+      "old_answer": "Vdc 120",
+      "new_answer": "100 V",
+      "reason": "題圖整流橋缺 b 相上臂二極體",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-108-02-4",
+      "wave": 3,
+      "old_answer": "Zin 2sR²C",
+      "new_answer": "sR²C/2；T(s)=5sRC/(s²R²C²+sRC+2)",
+      "reason": "GIC 元件位置誤讀",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-108-05-5",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "改採發電機端電壓讀法",
+      "reason": "舊稿改寫題幹",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-107-01-2",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "i₁=1.6−9.6e^{−2t}、i₃=5.76e^{−2t} A",
+      "reason": "電流方向與支路誤讀",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-107-03-1",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "補 y 因子；特解 y=2(1−7t²)^(−1/3)",
+      "reason": "推導錯誤",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-107-03-2",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "依官方題目重解",
+      "reason": "舊題解依錯誤題幹",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-107-04-5",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "60.31 N·m；−0.357%",
+      "reason": "捨入",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-107-05-3",
+      "wave": 3,
+      "old_answer": "高壓側 S 804.4",
+      "new_answer": "837.9 MVA（未過載）",
+      "reason": "漏算變壓器吸收無效功率",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-107-05-4",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "補（二）序電流",
+      "reason": "漏答",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-107-06-3",
+      "wave": 3,
+      "old_answer": "5.8539",
+      "new_answer": "5.848 A；比值 1.398",
+      "reason": "2025.79 A 誤植",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-106-02-2",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "含負載 A；R_out,f 與參考書差 28%",
+      "reason": "參考書忽略負載",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-106-03-1",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "依官方題目重解",
+      "reason": "舊題解依錯誤題幹",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-106-03-2",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "依官方題目重解",
+      "reason": "舊題解依錯誤題幹",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-106-03-4",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "依官方題目重解",
+      "reason": "舊題解依錯誤題幹",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-106-04-5",
+      "wave": 3,
+      "old_answer": "",
+      "new_answer": "60.31 N·m；−0.357%",
+      "reason": "捨入",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-106-05-2",
+      "wave": 3,
+      "old_answer": "If 4.000",
+      "new_answer": "3.704 pu",
+      "reason": "舊阻抗值不在題圖中",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-106-06-2",
+      "wave": 3,
+      "old_answer": "5.98",
+      "new_answer": "7.956 kA（非對稱 9.946 kA）",
+      "reason": "參考書值無法由題目數據重建",
+      "decided_at": "2026-10-03"
+    },
+    {
+      "qid": "EE-105-02-3",
+      "wave": 4,
+      "old_answer": "v_O(5 V)=−4.625 V",
+      "new_answer": "−4.877 V",
+      "reason": "−4.625 V 只是膝點；R_F 與二極體支路並聯，導通後仍在迴路中，KCL 得 −4.87705 V",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-105-03-1",
+      "wave": 4,
+      "old_answer": "y''−6y'+13y=0",
+      "new_answer": "y''−6y'+10y=2e^{3x}",
+      "reason": "舊題解依錯誤題幹（裁切圖為 2+c₁sin x+c₂cos x，虛部 1 且有常數項）；整族代入殘差恰為 2e^{3x}",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-105-03-2",
+      "wave": 4,
+      "old_answer": "L{sin ωt}=ω/(s²+ω²)",
+      "new_answer": "ω/(s²+ω²)·coth(πs/(2ω))，Re s>0",
+      "reason": "舊題解依錯誤題幹；裁切圖有絕對值，週期 π/ω",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-105-05-3",
+      "wave": 4,
+      "old_answer": "12.03 kA",
+      "new_answer": "12.55 kA（X0=0.08 pu → 0.05 pu，I_f=4.3478 pu）",
+      "reason": "舊解把中性點電抗 0.08 pu 誤當發電機 X0；Z=0.20+0.20+0.05+0.24=0.69",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-105-06-1",
+      "wave": 4,
+      "old_answer": "V_AN=183.482 V、V_BN=−36.5185 V",
+      "new_answer": "V_AN=+183.186 V、V_BN=−36.8143 V",
+      "reason": "舊解 KCL 中 R_g 電流項反號；Rg→∞ 極限為 183.33 V，舊值超過極限",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-02-2",
+      "wave": 4,
+      "old_answer": "A_v=14.3479",
+      "new_answer": "14.275（I_C=0.5 mA → I_E=I_CC=0.5 mA）",
+      "reason": "I_CC 注入集極節點，KCL 為 I_CC=I_C+I_B=I_E；舊解令 I_C=I_CC 違反 KCL",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-03-1",
+      "wave": 4,
+      "old_answer": "y=7/(4√2)(e^{(−2−2√2)t}−e^{(−2+2√2)t})",
+      "new_answer": "y(t)=−7t",
+      "reason": "舊題解漏掉係數 4t 的因子 t；代回殘差 0",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-03-3",
+      "wave": 4,
+      "old_answer": "PV=−14π/225",
+      "new_answer": "PV=−14π/75≈−0.58643",
+      "reason": "係數 −126/225 約分為 −14/25，乘 π/3 得分母 75；SymPy 與 mpmath 皆得 −14π/75（普通廣義積分發散，仍為條件題）",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-04-1",
+      "wave": 4,
+      "old_answer": "φ₁=(2F₁−F₂)/(3R)，φ₂=(2F₂−F₁)/(3R)",
+      "new_answer": "φ₁=N₁i₁/(2R)，φ₂=N₂i₂/(2R)",
+      "reason": "圖為完全圖 K4、六段磁阻均為 R，N₁、N₂ 在對邊，電橋平衡故兩線圈互不耦合；舊三柱模型誤讀圖形",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-04-4",
+      "wave": 4,
+      "old_answer": "11.006 A",
+      "new_answer": "10.60 A",
+      "reason": "轉子支路為 jx_r、r_r、(1−s)r_r/s 串聯，舊解令 Z_r=j0.15 漏掉 r_r；網目法與功率平衡一致",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-04-5",
+      "wave": 4,
+      "old_answer": "求滿載電流與 E_f、δ",
+      "new_answer": "輸出線電壓約 370 V",
+      "reason": "舊題解解別題；本題為激磁與轉速固定後改接 6.6 kVA、0.8 滯後負載求端電壓（E_f=219.62 V，三種負載模型差 0.16%）",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-05-1",
+      "wave": 4,
+      "old_answer": "V_t=19.555 kV（忽略負載 B）、零序電壓未算出",
+      "new_answer": "V_t=19.74 kV（計入負載 B）、V0=59.4／69.1 kV",
+      "reason": "圖文依據將負載 B 計入 MT_R 潮流；舊解漏答零序電壓；故障電流 37.43／34.84 kA 不變",
+      "decided_at": "2026-10-04"
+    },
+    {
+      "qid": "EE-104-06-2",
+      "wave": 4,
+      "old_answer": "406.84 kVA",
+      "new_answer": "177.45 kVA",
+      "reason": "舊解漏用表內參差因數 3、2（以 350 kW 直接計算）；群內參差後複數和 175.67，÷1.1 ÷0.9 得 177.45",
+      "decided_at": "2026-10-04"
+    }
+  ],
+  "unreported": [
+    "EE-106-05-3",
+    "EE-104-02-1"
+  ]
+}

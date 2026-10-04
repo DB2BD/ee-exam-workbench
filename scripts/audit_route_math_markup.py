@@ -39,12 +39,19 @@ def visible_lines(source: str):
             yield line_number, line
 
 
+# 2026-10-02: EE-114-06-4 left the 114 mock scoring set (needs_manual_review), 94 -> 93.
+# 2026-10-03: EE-108-02-5 left the 108 retest scoring set (needs_manual_review), 93 -> 92.
+EXPECTED_ROUTE_QIDS = 92
+
+
 def audit() -> list[str]:
     entries = load_entries()
     errors: list[str] = []
     qids = route_qids()
-    if len(qids) != 94:
-        errors.append(f"passive route expected 94 unique qids, found {len(qids)}")
+    if len(qids) != EXPECTED_ROUTE_QIDS:
+        errors.append(
+            f"passive route expected {EXPECTED_ROUTE_QIDS} unique qids, found {len(qids)}"
+        )
 
     for qid in sorted(qids):
         entry = entries.get(qid)
@@ -70,7 +77,10 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print("Passive-route math markup audit: 94/94 routed canonical notes are clean")
+    print(
+        "Passive-route math markup audit: "
+        f"{EXPECTED_ROUTE_QIDS}/{EXPECTED_ROUTE_QIDS} routed canonical notes are clean"
+    )
     return 0
 
 

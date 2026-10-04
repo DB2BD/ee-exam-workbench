@@ -12,7 +12,7 @@ NOTES = ROOT / "📝 個人題解與錯題本/04_電機機械/canonical"
 class TestRotatingField114(unittest.TestCase):
     def test_official_odd_tick_samples_are_diagonal_not_axis_aligned(self):
         note = (NOTES / "EE-114-04-3.md").read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("![官方題目裁切圖]", note)
         for angle in (45, 135, 225, 315):
             self.assertIn(f"{angle}^\\circ", standard)

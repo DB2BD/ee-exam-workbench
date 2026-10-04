@@ -12,7 +12,7 @@ NOTE = ROOT / "📝 個人題解與錯題本/02_電子學_含電力電子/canoni
 class TestBuckBCM113(unittest.TestCase):
     def test_solution_matches_the_series_switch_and_freewheel_diode(self):
         note = NOTE.read_text(encoding="utf-8")
-        standard = note.split("## 考場標準作答", 1)[1].split("## 得分點拆解", 1)[0]
+        standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("chapter: 降壓型轉換器的邊界導通模式", note)
         self.assertIn("![官方題目裁切圖]", note)
         self.assertIn("降壓型Buck轉換器二操作狀態等效電路圖.svg", note)

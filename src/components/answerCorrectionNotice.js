@@ -31,10 +31,9 @@ function answerCorrectionBannerHtml(qid) {
   const c = answerCorrectionFor(qid);
   if (!c) return '';
   return `<details class="answer-correction-banner" data-answer-correction="${answerCorrectionEscape(qid)}">`
-    + `<summary>⚠ 本題答案已於 ${answerCorrectionEscape(c.decided_at)} 更正</summary>`
+    + `<summary>⚠ 本題答案已更正　舊：${answerCorrectionEscape(c.old_answer)} → 新：${answerCorrectionEscape(c.new_answer)}</summary>`
     + `<div class="answer-correction-detail">`
-    + `<div>舊：${answerCorrectionEscape(c.old_answer)} → 新：${answerCorrectionEscape(c.new_answer)}</div>`
-    + `<div class="answer-correction-reason">原因：${answerCorrectionEscape(c.reason)}</div>`
+    + `<div class="answer-correction-reason">原因：${answerCorrectionEscape(c.reason)}（${answerCorrectionEscape(c.decided_at)} 更正）</div>`
     + `</div></details>`;
 }
 

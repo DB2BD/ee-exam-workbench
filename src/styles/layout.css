@@ -47,80 +47,17 @@ header {
   flex-wrap: wrap;
 }
 
-/* Category Switcher Tabs */
-.category-switcher {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 14px;
-}
-
-.cat-tab {
-  padding: 8px 18px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  background: var(--bg-secondary);
-  color: var(--muted);
-  border: 1px solid var(--line);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
-}
-
-.cat-tab:hover {
-  color: var(--ink);
-  background: var(--surface);
-  border-color: var(--line-strong);
-}
-
-.cat-tab.on {
-  background: var(--accent);
-  color: #ffffff;
-  border-color: var(--accent-dark);
-  box-shadow: 0 2px 8px rgba(74, 124, 143, 0.25);
-}
-
-.cat-badge {
-  font-size: 0.75rem;
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.2);
-  font-weight: 700;
-}
-
-/* Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 14px;
-  margin-top: 18px;
-}
-
-.stat-card {
+/* One-line header summary: 今天｜到期｜成績 */
+.header-summary {
+  margin: 0;
+  padding: 10px 14px;
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.stat-card .label {
-  font-size: 0.8rem;
-  color: var(--muted);
+  font-size: 0.95rem;
   font-weight: 600;
-}
-
-.stat-card .val {
-  font-size: 1.55rem;
-  font-weight: 700;
   color: var(--ink);
-  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
 }
 
 /* Main Tab Navigation */

@@ -31,7 +31,7 @@ vm.runInContext({json.dumps(source, ensure_ascii=False)}, context);
 const result = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify(result));
 """
-        completed = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True)
+        completed = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
 
@@ -70,6 +70,17 @@ globalThis.getRecallState = () => ({{level:1,lastAchieved:1}});
 globalThis.CANONICAL_KNOWLEDGE_GRAPH = {{graphRevision:'kg-v1-test'}};
 globalThis.progressState = {{}};
 globalThis.starredState = {{}};
+// WP5a: submitSM2Rating no longer renders the 作答後診斷卡 by default.  Tests that exercise the
+// (still shipped) card handlers open it explicitly the way the old flow did.
+globalThis.legacySubmit = rating => {{
+  const result = submitLearningAttempt();
+  currentLearningAttemptSubmitted = true;
+  currentLearningAttemptResult = result;
+  currentLearningAttemptRating = rating;
+  currentKnowledgeDiagnosis = diagnose();
+  if (shouldRequireKnowledgeDiagnosis(currentKnowledgeDiagnosis)) renderKnowledgeDiagnosisCard(currentKnowledgeDiagnosis);
+  else {{ currentLearningAttemptResult = null; currentLearningAttemptRating = null; finishCommittedLearningAttempt(result, currentModalQid, rating, currentLearningAttemptId); }}
+}};
 """
 
     def test_committed_candidate_stops_auto_advance_and_exposes_four_outcomes(self):
@@ -78,7 +89,7 @@ globalThis.starredState = {{}};
 (() => {
   currentModalQid='EE-114-01-2'; currentSolutionSourceMode='due-review'; currentSolutionRecallEntry=true;
   currentRecallAchievedLevel=4; currentLearningAttemptId='attempt-1';
-  submitSM2Rating(3);
+  legacySubmit(3);
   return {html:globalThis.__diagnosisHtml || '',scheduled:Boolean(globalThis.__scheduled)};
 })()
 """, setup)
@@ -135,7 +146,7 @@ globalThis.window = {addEventListener(){}};
 (() => {
   currentModalQid='EE-114-01-2'; currentSolutionSourceMode='due-review'; currentSolutionRecallEntry=true;
   currentRecallAchievedLevel=4; currentLearningAttemptId='attempt-1';
-  submitSM2Rating(3);
+  legacySubmit(3);
   const saved = resolveKnowledgeDiagnosis('skip');
   return {saved, event:globalThis.__event, scheduled:Boolean(globalThis.__scheduled)};
 })()
@@ -158,7 +169,7 @@ globalThis.ack = () => ({ok:true});
 (() => {
   currentModalQid='EE-114-01-2'; currentSolutionSourceMode='due-review'; currentSolutionRecallEntry=true;
   currentRecallAchievedLevel=4; currentLearningAttemptId='attempt-1';
-  submitSM2Rating(3);
+  legacySubmit(3);
   document.getElementById('diagnosis-custom-text').value='我卡在邊界條件';
   const saved = resolveKnowledgeDiagnosis('confirm');
   const log = JSON.parse(localStorage.getItem('EE_KNOWLEDGE_ISSUES_PE_V1'));
@@ -175,7 +186,7 @@ globalThis.ack = () => ({ok:true});
 (() => {
   currentModalQid='EE-114-01-2'; currentSolutionSourceMode='due-review'; currentSolutionRecallEntry=true;
   currentRecallAchievedLevel=4; currentLearningAttemptId='attempt-1';
-  submitSM2Rating(3);
+  legacySubmit(3);
   document.getElementById('diagnosis-custom-text').value='我卡在邊界條件';
   const saved = resolveKnowledgeDiagnosis('confirm');
   return {saved, scheduled:Boolean(globalThis.__scheduled), toast:globalThis.__toast};
@@ -184,6 +195,23 @@ globalThis.ack = () => ({ok:true});
         self.assertFalse(result["saved"])
         self.assertFalse(result["scheduled"])
         self.assertIn("診斷保存功能尚未載入", result["toast"])
+
+    def test_default_flow_no_longer_renders_the_diagnosis_card(self):
+        # WP5a: even with a candidate diagnosis available, rating at stage 4 saves and advances
+        # without showing the 作答後診斷卡 / textarea.
+        setup = self._setup("candidate")
+        result = self._run(r"""
+(() => {
+  currentModalQid='EE-114-01-2'; currentSolutionSourceMode='due-review'; currentSolutionRecallEntry=true;
+  currentRecallAchievedLevel=4; currentLearningAttemptId='attempt-1';
+  submitSM2Rating(3);
+  return {html:globalThis.__diagnosisHtml || '',scheduled:Boolean(globalThis.__scheduled),
+    pending: currentKnowledgeDiagnosis};
+})()
+""", setup)
+        self.assertEqual(result["html"], "")
+        self.assertIsNone(result["pending"])
+        self.assertTrue(result["scheduled"])
 
     def test_commit_failure_never_renders_diagnosis_card(self):
         setup = self._setup("candidate").replace(

@@ -23,6 +23,7 @@ const BACKUP_DAILY_PRACTICE_KEY = 'EE_EXAM_DAILY_PRACTICE_V1';
 const BACKUP_TODAY_TASK_KEY = 'EE_EXAM_TODAY_TASK_V1';
 const BACKUP_RESULT_CARD_KEY = 'EE_EXAM_RESULT_CARD_V1';
 const BACKUP_MOCK_EXAM_TIMER_KEY = 'EE_MOCK_EXAM_TIMER_V1';
+const BACKUP_CORRECTION_SEEN_KEY = 'EE_EXAM_ANSWER_CORRECTION_SEEN_V1';
 const BACKUP_PROGRESS_KEYS = { PE: 'EE_EXAM_PROGRESS_V1', GK: 'GK_EXAM_PROGRESS_V1' };
 const BACKUP_STARRED_KEYS = { PE: 'EE_EXAM_STARRED_V1', GK: 'GK_EXAM_STARRED_V1' };
 const BACKUP_CATEGORIES = ['PE', 'GK'];
@@ -368,6 +369,33 @@ function backupReadResultCard(storage) {
   const errors = [];
   const state = backupValidateResultCard(raw, errors);
   return errors.length ? backupEmptyResultCard() : state;
+}
+
+// 答案更正「已看過新答案」: { qid: ms }.  Invalid entries are dropped, not fatal.
+function backupValidateCorrectionSeen(value, errors) {
+  if (!backupIsPlainObject(value)) {
+    backupError(errors, 'answerCorrectionSeen 資料格式無效。');
+    return {};
+  }
+  const out = {};
+  Object.keys(value).forEach(qid => {
+    const at = value[qid];
+    if (qid && typeof at === 'number' && Number.isFinite(at)) out[qid] = at;
+  });
+  return out;
+}
+
+function backupReadCorrectionSeen(storage) {
+  const raw = backupReadJSON(storage, BACKUP_CORRECTION_SEEN_KEY, null);
+  return raw ? backupValidateCorrectionSeen(raw, []) : {};
+}
+
+function backupMergeCorrectionSeen(oldState, importedState) {
+  const out = backupClone(oldState || {});
+  Object.keys(importedState || {}).forEach(qid => {
+    if (!(out[qid] >= importedState[qid])) out[qid] = importedState[qid];
+  });
+  return out;
 }
 
 function backupMergeResultCard(oldState, importedState) {
@@ -782,6 +810,8 @@ function validateUserDataBackup(payload, options) {
   const todayTask = todayTaskProvided ? backupValidateTodayTask(payload.todayTask, errors) : null;
   const resultCardProvided = Object.prototype.hasOwnProperty.call(payload, 'resultCard');
   const resultCard = resultCardProvided ? backupValidateResultCard(payload.resultCard, errors) : null;
+  const correctionSeenProvided = Object.prototype.hasOwnProperty.call(payload, 'answerCorrectionSeen');
+  const correctionSeen = correctionSeenProvided ? backupValidateCorrectionSeen(payload.answerCorrectionSeen, errors) : null;
   if (phase2Required && !dailyPracticeProvided) backupError(errors, '缺少 dailyPractice 每日練習資料。');
   if (phase2Required && !mockExamTimerProvided) backupError(errors, '缺少 mockExamTimer 模考計時資料。');
   const dailyPractice = dailyPracticeProvided
@@ -807,6 +837,8 @@ function validateUserDataBackup(payload, options) {
     todayTaskProvided,
     resultCard,
     resultCardProvided,
+    correctionSeen,
+    correctionSeenProvided,
     learningData,
     dailyPracticeProvided,
     mockExamTimerProvided,
@@ -889,6 +921,7 @@ function buildUserBackupSnapshot() {
     mockExamTimer,
     todayTask: backupReadTodayTask(storage),
     resultCard: backupReadResultCard(storage),
+    answerCorrectionSeen: backupReadCorrectionSeen(storage),
     learningData: backupClone(learningData),
     learningDataCapacity: buildLearningDataCapacityReport(learningData),
   };
@@ -945,6 +978,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
   const oldTimer = backupReadJSON(storage, BACKUP_MOCK_EXAM_TIMER_KEY, {});
   const oldTodayTask = backupReadTodayTask(storage);
   const oldResultCard = backupReadResultCard(storage);
+  const oldCorrectionSeen = backupReadCorrectionSeen(storage);
   const oldLearning = backupReadLearningData(storage);
   const nextProgress = backupClone(oldProgress);
   const nextStarred = backupClone(oldStarred);
@@ -981,6 +1015,8 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     : (selectedMode === 'merge' ? backupMergeTodayTask(oldTodayTask, validation.normalized.todayTask) : backupClone(validation.normalized.todayTask));
   const nextResultCard = !validation.normalized.resultCardProvided ? oldResultCard
     : (selectedMode === 'merge' ? backupMergeResultCard(oldResultCard, validation.normalized.resultCard) : backupClone(validation.normalized.resultCard));
+  const nextCorrectionSeen = !validation.normalized.correctionSeenProvided ? oldCorrectionSeen
+    : (selectedMode === 'merge' ? backupMergeCorrectionSeen(oldCorrectionSeen, validation.normalized.correctionSeen) : backupClone(validation.normalized.correctionSeen));
   const nextTimer = validation.normalized.mockExamTimerProvided
     ? backupClone(validation.normalized.mockExamTimer) : oldTimer;
   const nextLearning = selectedMode === 'merge'
@@ -988,7 +1024,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     : backupClone(validation.normalized.learningData);
   const metadataKey = BACKUP_META_STORAGE_KEY;
   const oldRaw = {};
-  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY, BACKUP_RESULT_CARD_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].forEach(key => {
+  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY, BACKUP_RESULT_CARD_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_CORRECTION_SEEN_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].forEach(key => {
     oldRaw[key] = storage.getItem(key);
   });
   const importedAt = new Date().toISOString();
@@ -1009,6 +1045,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     if (validation.normalized.dailyPracticeProvided) writes.splice(writes.length - 1, 0, [BACKUP_DAILY_PRACTICE_KEY, JSON.stringify(nextPractice)]);
     if (validation.normalized.todayTaskProvided) writes.splice(writes.length - 1, 0, [BACKUP_TODAY_TASK_KEY, JSON.stringify(nextTodayTask)]);
     if (validation.normalized.resultCardProvided) writes.splice(writes.length - 1, 0, [BACKUP_RESULT_CARD_KEY, JSON.stringify(nextResultCard)]);
+    if (validation.normalized.correctionSeenProvided) writes.splice(writes.length - 1, 0, [BACKUP_CORRECTION_SEEN_KEY, JSON.stringify(nextCorrectionSeen)]);
     if (validation.normalized.mockExamTimerProvided) writes.splice(writes.length - 1, 0, [BACKUP_MOCK_EXAM_TIMER_KEY, JSON.stringify(nextTimer)]);
   } catch (_) {
     return { success: false, error: '匯入失敗：備份資料無法序列化，未修改任何資料。' };

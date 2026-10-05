@@ -14,6 +14,7 @@ const ANSWER_CORRECTION_KEYS = {
   practice: 'EE_EXAM_DAILY_PRACTICE_V1',
   progress: ['EE_EXAM_PROGRESS_V1', 'GK_EXAM_PROGRESS_V1'],
   todayTask: 'EE_EXAM_TODAY_TASK_V1',
+  seen: 'EE_EXAM_ANSWER_CORRECTION_SEEN_V1',
 };
 
 function answerCorrectionEscape(value) {
@@ -157,17 +158,40 @@ function answerCorrectionCollectRecords(storage) {
   return records;
 }
 
+// Seen = the solution was shown with the correction banner (the learner has read the new answer).
+// qid -> ms of the latest viewing.
+function answerCorrectionSeenMap(storage) {
+  const map = answerCorrectionReadJson(storage, ANSWER_CORRECTION_KEYS.seen);
+  return answerCorrectionIsObject(map) ? map : {};
+}
+
+function answerCorrectionMarkSeen(qid, now, storage) {
+  const s = answerCorrectionStorage(storage);
+  if (!s || typeof s.setItem !== 'function' || !answerCorrectionFor(qid)) return false;
+  try {
+    const map = answerCorrectionSeenMap(s);
+    map[qid] = typeof now === 'number' ? now : Date.now();
+    s.setItem(ANSWER_CORRECTION_KEYS.seen, JSON.stringify(map));
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
 function answerCorrectionsAttempted(storage) {
   const s = answerCorrectionStorage(storage);
   if (!s || typeof s.getItem !== 'function' || typeof ANSWER_CORRECTIONS === 'undefined') return [];
   let records;
   try { records = answerCorrectionCollectRecords(s); } catch (_) { return []; }
+  const seen = answerCorrectionSeenMap(s);
   const out = [];
   records.forEach((r, qid) => {
     const c = answerCorrectionFor(qid);
     const boundary = answerCorrectionDayEnd(c.decided_at);
     const latest = r.times.length ? Math.max.apply(null, r.times) : null;
     if (latest !== null && boundary !== null && latest >= boundary) return; // saw the new answer already
+    const seenAt = answerCorrectionTimestamp(seen[qid]);
+    if (seenAt !== null && boundary !== null && seenAt >= boundary) return; // re-read the solution after the correction
     out.push({
       qid,
       decided_at: c.decided_at,
@@ -186,7 +210,10 @@ function insertAnswerCorrectionBanner(container, qid) {
     const old = container.querySelector && container.querySelector('.answer-correction-banner');
     if (old) old.remove();
     const html = answerCorrectionBannerHtml(qid);
-    if (html) container.insertAdjacentHTML('afterbegin', html);
+    if (!html) return;
+    container.insertAdjacentHTML('afterbegin', html);
+    // Showing the banner means the new answer is on screen: drop the qid from 「答案已更正、而你做過的題」.
+    if (answerCorrectionMarkSeen(qid)) renderAnswerCorrectionReviewSection();
   } catch (_) { /* decorative */ }
 }
 

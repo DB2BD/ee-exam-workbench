@@ -3,7 +3,10 @@
 // (DAILY_SCHEDULE), the completed map and today's local date into today's plan,
 // the next milestone, an hours-vs-budget check and, when behind, an automatic cut list.
 //
-//   pacingPlan({ schedule, completed, today:'YYYY-MM-DD', budget?, partial? })
+//   pacingPlan({ schedule, completed, today:'YYYY-MM-DD', budget?, partial?, spentToday? })
+//
+// `spentToday` = hours of tasks already completed today (they use up today's budget,
+// so finishing a task does not pull a fresh 2 h of work into the same day).
 //
 // `partial` = { code, phaseIndex } of a started task (a weekday mock whose closed
 // phase is already done counts only its remaining 核對＋修復 hours).
@@ -127,6 +130,8 @@ function pacingPlan(input) {
   const row = days.find(d => d.date === today) || null;
   const weekend = pacingIsWeekend(today);
   const dayBudget = pacingBudgetFor(today, budget);
+  const spent = Math.max(0, Number(input.spentToday) || 0);
+  const roomToday = Math.max(0, dayBudget - spent);
   const milestones = (schedule.milestones || []).slice();
   const uncompleted = order.filter(c => !completed[c]);
   const remainingOf = c => pacingRemainingHours(tasks[c], partial);
@@ -142,7 +147,7 @@ function pacingPlan(input) {
   const binding = upcoming.filter(m => !hardRaw0 || m.hard || pacingDaysBetween(hardRaw0.date, m.date) > 0);
   const hoursFor = (m, skipCut) => uncompleted.filter(c => m.codes.indexOf(c) >= 0 && !(skipCut && cutSet.has(c))).reduce((n, c) => n + remainingOf(c), 0);
   binding.forEach(m => {
-    const available = pacingAvailableHours(today, m.date, budget, first);
+    const available = pacingAvailableHours(today, m.date, budget, first) - spent;
     let required = hoursFor(m, true);
     const candidates = pacingCutCandidates(m.codes, schedule, completed, partial, cutSet);
     let k = 0;
@@ -160,7 +165,7 @@ function pacingPlan(input) {
   });
   const perMilestone = {};
   upcoming.forEach(m => {
-    perMilestone[m.date] = { required: hoursFor(m, true), available: pacingAvailableHours(today, m.date, budget, first) };
+    perMilestone[m.date] = { required: hoursFor(m, true), available: pacingAvailableHours(today, m.date, budget, first) - spent };
   });
   const cut = order.filter(c => cutSet.has(c));
 
@@ -174,11 +179,13 @@ function pacingPlan(input) {
       const task = tasks[effective[i]];
       if (task.notBefore && pacingDaysBetween(task.notBefore, today) < 0) break;
       const cost = pacingCost(task, partial, weekend);
-      if (plan.length) {
-        const room = dayBudget - used;
+      const inFlight = !!partial && partial.code === task.code;
+      // A task in flight is always shown; otherwise stop once today's budget (after what is already done) is used up.
+      if (plan.length || (spent > 0 && !inFlight)) {
+        const room = roomToday - used;
         if (!(room > PACING_MIN_ROOM - 1e-9 && cost.hours <= room + PACING_DAY_TOLERANCE + 1e-9)) break;
       }
-      plan.push({ code: task.code, part: cost.part, hours: cost.hours, phaseIndex: cost.phaseIndex, partial: !!partial && partial.code === task.code });
+      plan.push({ code: task.code, part: cost.part, hours: cost.hours, phaseIndex: cost.phaseIndex, partial: inFlight });
       used += cost.hours;
     }
   }
@@ -220,7 +227,7 @@ function pacingPlan(input) {
     ? '12 份模考卷已全部完成，可加做 113 年整卷（選做，不影響日程）。' : '';
 
   return {
-    today, weekend, budgetHours: dayBudget, planHours: used,
+    today, weekend, budgetHours: dayBudget, spentHours: spent, planHours: used,
     plan, nonWork: nonWorkToday, beforeStart: pacingDaysBetween(first, today) < 0, afterEnd: pacingDaysBetween(last, today) > 0,
     nextMilestone: next, hardMilestone: hard,
     daysLeft: next ? next.daysLeft : null,

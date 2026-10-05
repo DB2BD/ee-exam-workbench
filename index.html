@@ -39351,7 +39351,10 @@ function homeStartDueReview() {
 // (DAILY_SCHEDULE), the completed map and today's local date into today's plan,
 // the next milestone, an hours-vs-budget check and, when behind, an automatic cut list.
 //
-//   pacingPlan({ schedule, completed, today:'YYYY-MM-DD', budget?, partial? })
+//   pacingPlan({ schedule, completed, today:'YYYY-MM-DD', budget?, partial?, spentToday? })
+//
+// `spentToday` = hours of tasks already completed today (they use up today's budget,
+// so finishing a task does not pull a fresh 2 h of work into the same day).
 //
 // `partial` = { code, phaseIndex } of a started task (a weekday mock whose closed
 // phase is already done counts only its remaining 核對＋修復 hours).
@@ -39475,6 +39478,8 @@ function pacingPlan(input) {
   const row = days.find(d => d.date === today) || null;
   const weekend = pacingIsWeekend(today);
   const dayBudget = pacingBudgetFor(today, budget);
+  const spent = Math.max(0, Number(input.spentToday) || 0);
+  const roomToday = Math.max(0, dayBudget - spent);
   const milestones = (schedule.milestones || []).slice();
   const uncompleted = order.filter(c => !completed[c]);
   const remainingOf = c => pacingRemainingHours(tasks[c], partial);
@@ -39490,7 +39495,7 @@ function pacingPlan(input) {
   const binding = upcoming.filter(m => !hardRaw0 || m.hard || pacingDaysBetween(hardRaw0.date, m.date) > 0);
   const hoursFor = (m, skipCut) => uncompleted.filter(c => m.codes.indexOf(c) >= 0 && !(skipCut && cutSet.has(c))).reduce((n, c) => n + remainingOf(c), 0);
   binding.forEach(m => {
-    const available = pacingAvailableHours(today, m.date, budget, first);
+    const available = pacingAvailableHours(today, m.date, budget, first) - spent;
     let required = hoursFor(m, true);
     const candidates = pacingCutCandidates(m.codes, schedule, completed, partial, cutSet);
     let k = 0;
@@ -39508,7 +39513,7 @@ function pacingPlan(input) {
   });
   const perMilestone = {};
   upcoming.forEach(m => {
-    perMilestone[m.date] = { required: hoursFor(m, true), available: pacingAvailableHours(today, m.date, budget, first) };
+    perMilestone[m.date] = { required: hoursFor(m, true), available: pacingAvailableHours(today, m.date, budget, first) - spent };
   });
   const cut = order.filter(c => cutSet.has(c));
 
@@ -39522,11 +39527,13 @@ function pacingPlan(input) {
       const task = tasks[effective[i]];
       if (task.notBefore && pacingDaysBetween(task.notBefore, today) < 0) break;
       const cost = pacingCost(task, partial, weekend);
-      if (plan.length) {
-        const room = dayBudget - used;
+      const inFlight = !!partial && partial.code === task.code;
+      // A task in flight is always shown; otherwise stop once today's budget (after what is already done) is used up.
+      if (plan.length || (spent > 0 && !inFlight)) {
+        const room = roomToday - used;
         if (!(room > PACING_MIN_ROOM - 1e-9 && cost.hours <= room + PACING_DAY_TOLERANCE + 1e-9)) break;
       }
-      plan.push({ code: task.code, part: cost.part, hours: cost.hours, phaseIndex: cost.phaseIndex, partial: !!partial && partial.code === task.code });
+      plan.push({ code: task.code, part: cost.part, hours: cost.hours, phaseIndex: cost.phaseIndex, partial: inFlight });
       used += cost.hours;
     }
   }
@@ -39568,7 +39575,7 @@ function pacingPlan(input) {
     ? '12 份模考卷已全部完成，可加做 113 年整卷（選做，不影響日程）。' : '';
 
   return {
-    today, weekend, budgetHours: dayBudget, planHours: used,
+    today, weekend, budgetHours: dayBudget, spentHours: spent, planHours: used,
     plan, nonWork: nonWorkToday, beforeStart: pacingDaysBetween(first, today) < 0, afterEnd: pacingDaysBetween(last, today) > 0,
     nextMilestone: next, hardMilestone: hard,
     daysLeft: next ? next.daysLeft : null,
@@ -39771,7 +39778,9 @@ function todayTaskStartFrom(state, code, now) {
   const index = order.indexOf(code);
   if (index < 0) return state;
   const completed = Object.assign({}, state.completed);
-  const stamp = new Date(now).toISOString();
+  // Done on paper before today: stamp the end of yesterday (local) so they do not count as today's hours.
+  const d = new Date(now);
+  const stamp = new Date(new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime() - 1).toISOString();
   order.slice(0, index).forEach(c => { if (!completed[c]) completed[c] = stamp; });
   delete completed[code];
   return { completed, active: null };
@@ -39785,12 +39794,25 @@ function todayTaskLocalDate(now) {
   return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
 }
 
+// Hours of tasks completed on `todayIso` (local date).  A weekday paper is split over two days, so
+// finishing it on a weekday counts only its 核對＋修復 phases (the closed phase was the day before).
+function todayTaskSpentToday(state, todayIso) {
+  const tasks = DAILY_SCHEDULE.tasks;
+  const weekend = pacingIsWeekend(todayIso);
+  return Object.keys(state.completed).reduce((n, code) => {
+    const t = tasks[code];
+    if (!t || todayTaskLocalDate(Date.parse(state.completed[code])) !== todayIso) return n;
+    return n + pacingMinutesFrom(t, pacingIsPaper(t) && !weekend ? 1 : 0) / 60;
+  }, 0);
+}
+
 // Today's pacing result (pure): plan, milestones, cuts.  `partial` lets a started weekday mock count its remaining hours only.
 function todayTaskPacing(state, todayIso) {
   const a = state.active;
   return pacingPlan({
     schedule: DAILY_SCHEDULE, completed: state.completed, today: todayIso,
     partial: a ? { code: a.code, phaseIndex: a.phaseIndex } : null,
+    spentToday: todayTaskSpentToday(state, todayIso),
   });
 }
 
@@ -39881,7 +39903,8 @@ function todayTaskCutHtml(vm) {
 }
 
 function todayTaskPlanLine(pacing, hasDoneToday) {
-  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜';
+  const spent = pacing.spentHours ? '已做約 ' + todayTaskFormatHours(pacing.spentHours) + ' 小時｜' : '';
+  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜' + spent;
   if (!pacing.planHours && hasDoneToday) return '今天的份量已完成';
   return head + '還要做約 ' + todayTaskFormatHours(pacing.planHours) + ' 小時';
 }
@@ -39954,12 +39977,16 @@ function todayTaskViewModel(state, now) {
   if (rowCodes.indexOf('EXAM-CHECK') >= 0) mode = 'exam-check';
   else if (rowCodes.indexOf('STOP') >= 0 || pacing.afterEnd) mode = 'stop';
   else if (pacing.allDone && !view) mode = 'done';
+  else if (!items.length && !view && pacing.spentHours > 0) mode = 'day-done';
   else if (!items.length && !view) mode = 'idle';
   else mode = 'task';
-  // The card's primary task: the one in flight, else today's first planned task.
+  // Today's budget is used up: the next task stays available as optional extra work.
+  const extraCode = mode === 'day-done' ? (DAILY_SCHEDULE.order.find(c => !state.completed[c] && pacing.cut.indexOf(c) < 0 &&
+    !(tasks[c].notBefore && tasks[c].notBefore > todayIso)) || null) : null;
+  // The card's primary task: the one in flight, else today's first planned task (or the optional extra one).
   const primary = view
     ? todayTaskPlanItem({ code: state.active.code, part: state.active.phaseIndex > 0 && todayTaskIsMockKind(activeTask) ? 'review' : 'full', hours: pacingRemainingHours(activeTask, { code: state.active.code, phaseIndex: state.active.phaseIndex }) })
-    : (items[0] || null);
+    : (items[0] || (extraCode ? todayTaskPlanItem(Object.assign({ code: extraCode }, pacingCost(tasks[extraCode], null, pacing.weekend))) : null));
   const rest = view ? items.filter(i => i.code !== state.active.code) : items.slice(1);
   const held = state.active && state.active.holdDate ? {
     date: state.active.holdDate, sameDay: state.active.holdDate >= todayIso,
@@ -40048,6 +40075,11 @@ function todayTaskCardHtml(vm) {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">停止新增練習</span><strong>好好休息</strong><p class="today-task-note">只整理睡眠、交通與已備妥的用品；不再開新題。</p></div>';
   } else if (vm.mode === 'done') {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">全部完成</span><strong>日程的 ' + vm.total + ' 個任務都完成了</strong><p class="today-task-note">可改用下方「隨機練習 3 題」或到期複習，維持手感即可。</p></div>';
+  } else if (vm.mode === 'day-done') {
+    const extra = vm.code
+      ? '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' 選做下一個：' + esc(vm.code) + '</button></div>' : '';
+    body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天的份量已完成，可以收工</strong>' +
+      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '。還有餘力可選做下一個（' + esc(vm.code ? vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
   } else if (vm.mode === 'idle') {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可用下方「隨機練習 3 題」維持手感。</p></div>';
   } else {

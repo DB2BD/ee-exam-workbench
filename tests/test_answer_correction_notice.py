@@ -24,6 +24,7 @@ const vm = require('vm');
 const data = {json.dumps(storage or {}, ensure_ascii=False)};
 const localStorage = {{
   getItem: k => {"{ throw new Error('blocked'); }" if broken else "Object.prototype.hasOwnProperty.call(data, k) ? data[k] : null"},
+  setItem: (k, v) => {{ data[k] = String(v); }},
 }};
 const context = {{ console, localStorage }};
 vm.createContext(context);
@@ -158,6 +159,19 @@ class TestAttempted(unittest.TestCase):
         for value, expected in ((1, 1), (2, 1), (0, 0)):
             storage = {"EE_EXAM_PROGRESS_V1": json.dumps({self.QID: value})}
             self.assertEqual(len(self.attempted(storage)), expected, value)
+
+    def test_seen_after_correction_removes_untimed_progress_entry(self):
+        y, m, d = self.date_parts()
+        progress = {"EE_EXAM_PROGRESS_V1": json.dumps({self.QID: 1})}
+        seen_same_day = dict(progress, EE_EXAM_ANSWER_CORRECTION_SEEN_V1=json.dumps({self.QID: local_ms(y, m, d, 23)}))
+        self.assertEqual([r["qid"] for r in self.attempted(seen_same_day)], [self.QID])
+        seen_after = dict(progress, EE_EXAM_ANSWER_CORRECTION_SEEN_V1=json.dumps({self.QID: local_ms(y, m, d + 1, 9)}))
+        self.assertEqual(self.attempted(seen_after), [])
+
+    def test_mark_seen_writes_only_corrected_qids(self):
+        out = run_node("[answerCorrectionMarkSeen('EE-112-01-2', 5, localStorage), answerCorrectionMarkSeen('NOPE', 5, localStorage), "
+                       "JSON.parse(localStorage.getItem('EE_EXAM_ANSWER_CORRECTION_SEEN_V1'))]")
+        self.assertEqual(out, [True, False, {"EE-112-01-2": 5}])
 
     def test_today_task_completed_codes(self):
         task = run_node("Object.values(DAILY_SCHEDULE.tasks).find(t => t.qids.some(q => ANSWER_CORRECTIONS[q]))")

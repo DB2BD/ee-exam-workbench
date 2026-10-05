@@ -212,6 +212,19 @@ class TestBackup(unittest.TestCase):
         self.assertIn("[BACKUP_RESULT_CARD_KEY, JSON.stringify(nextResultCard)]", text)
         self.assertRegex(text, r"BACKUP_TODAY_TASK_KEY, BACKUP_RESULT_CARD_KEY, BACKUP_MOCK_EXAM_TIMER_KEY")
 
+    def test_correction_seen_roundtrip_and_merge_keeps_latest(self):
+        seen = "EE_EXAM_ANSWER_CORRECTION_SEEN_V1"
+        out = run_node("""(() => {
+          const snap = JSON.parse(JSON.stringify(buildUserBackupSnapshot()));
+          const exported = snap.answerCorrectionSeen;
+          snap.answerCorrectionSeen = {'EE-112-01-2': 50, 'EE-113-02-1': 7, bad: 'x'};
+          const applied = applyUserDataBackup(snap, 'merge');
+          return {exported, ok: applied.success, error: applied.error || null, stored: JSON.parse(localStorage.getItem('%s'))};
+        })()""" % seen, storage={seen: json.dumps({"EE-112-01-2": 9, "EE-113-02-1": 99})})["result"]
+        self.assertEqual(out["exported"], {"EE-112-01-2": 9, "EE-113-02-1": 99})
+        self.assertTrue(out["ok"], out["error"])
+        self.assertEqual(out["stored"], {"EE-112-01-2": 50, "EE-113-02-1": 99})
+
     def test_restore_roundtrip_merge(self):
         rec = {"id": "b", "qid": "EE-114-01-3", "at": 5, "source": "today", "tier": "main", "parts": parts("x"), "errors": [], "note": "", "total": 20, "estimate": 0}
         old = {"id": "a", "qid": "EE-114-01-2", "at": 1, "source": "today", "tier": "main", "parts": parts("o"), "errors": [], "note": "", "total": 20, "estimate": 20}

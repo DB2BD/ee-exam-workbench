@@ -419,6 +419,8 @@ function todayTaskViewModel(state, now) {
 let todayTaskState = null;
 let todayTaskTimerHandle = null;
 let todayTaskAutoResumed = false;
+let todayTaskRenderedDate = null;
+let todayTaskDayWatchInstalled = false;
 
 function todayTaskRefresh() {
   todayTaskState = loadTodayTaskState();
@@ -484,8 +486,30 @@ function renderTodayTaskCard() {
   const host = document.getElementById('today-task-card');
   if (!host) return;
   const state = todayTaskState || todayTaskRefresh();
-  host.innerHTML = todayTaskCardHtml(todayTaskViewModel(state, Date.now()));
+  const now = Date.now();
+  todayTaskRenderedDate = todayTaskLocalDate(now);
+  host.innerHTML = todayTaskCardHtml(todayTaskViewModel(state, now));
   if (typeof updateHeaderSummary === 'function') updateHeaderSummary();
+}
+
+// A page left open past midnight still shows yesterday's budget and countdown: re-render once the local date moves on.
+// Returns true when it re-rendered.
+function todayTaskCheckDayChange(now) {
+  if (!todayTaskRenderedDate || todayTaskLocalDate(now) === todayTaskRenderedDate) return false;
+  todayTaskRefresh();
+  renderTodayTaskCard();
+  if (typeof updateStatsAndBar === 'function') updateStatsAndBar();
+  return true;
+}
+
+function todayTaskWatchDayChange() {
+  if (todayTaskDayWatchInstalled || typeof document === 'undefined') return;
+  todayTaskDayWatchInstalled = true;
+  const check = () => { if (document.visibilityState !== 'hidden') todayTaskCheckDayChange(Date.now()); };
+  document.addEventListener('visibilitychange', check);
+  window.addEventListener('focus', check);
+  window.addEventListener('pageshow', check);
+  setInterval(check, 60000);
 }
 
 // 「已在紙本做過前面的任務？」 lists the current codes; the default is CORE-07 while CORE-01 is still open (CORE-01～06 were done on paper), else today's task.
@@ -909,6 +933,7 @@ function todayTaskZoomImage(img) {
 function initTodayTask() {
   todayTaskRefresh();
   renderTodayTaskCard();
+  todayTaskWatchDayChange();
   if (!todayTaskAutoResumed) {
     todayTaskAutoResumed = true;
     // A held weekday mock waits for the learner (next-day card says 接續); do not pop the overlay open.

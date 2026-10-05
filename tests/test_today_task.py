@@ -701,5 +701,29 @@ class TestG2aFixes(unittest.TestCase):
         self.assertNotIn("先設定已在紙本做過的任務", set_up)
 
 
+class TestDayChangeRerender(unittest.TestCase):
+    def test_rerenders_only_when_local_date_moves_on(self):
+        oct5 = local_ms(2026, 10, 5, 23, 59)
+        oct6 = local_ms(2026, 10, 6, 0, 1)
+        expr = f"""(() => {{
+          const host = {{ innerHTML: '' }};
+          globalThis.document = {{ getElementById: id => id === 'today-task-card' ? host : null }};
+          let stats = 0;
+          globalThis.updateStatsAndBar = () => {{ stats += 1; }};
+          const before = todayTaskCheckDayChange({oct5});
+          todayTaskRenderedDate = '2026-10-05';
+          const same = todayTaskCheckDayChange({oct5});
+          const next = todayTaskCheckDayChange({oct6});
+          return {{ before, same, next, stats, rendered: host.innerHTML.length > 0, date: todayTaskRenderedDate }};
+        }})()"""
+        r = run_node(expr)["result"]
+        self.assertFalse(r["before"])
+        self.assertFalse(r["same"])
+        self.assertTrue(r["next"])
+        self.assertEqual(r["stats"], 1)
+        self.assertTrue(r["rendered"])
+        self.assertRegex(r["date"], r"^\d{4}-\d{2}-\d{2}$")
+
+
 if __name__ == "__main__":
     unittest.main()

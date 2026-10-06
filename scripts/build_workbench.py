@@ -176,6 +176,7 @@ def build_workbench():
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">
     <div id="today-task-card"></div>
+    <div id="backup-nudge"></div>
     <div id="review-corrections"></div>
     <section class="home-primary-actions" aria-label="首頁主要入口">
       <button id="home-action-start" class="home-random-button" type="button" onclick="dailyPracticePrepareNewRound()"><span class="ui-ico" data-ui-icon="shuffle"></span><strong>隨機練習 3 題</strong><small>依目標分配抽題，按一次就開始</small></button>

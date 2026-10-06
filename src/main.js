@@ -163,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
   if (typeof initTodayTask === 'function') initTodayTask();
+  if (typeof renderBackupNudge === 'function') renderBackupNudge();
   initPaneResizer();
   handleUrlHashRouting();
 });

@@ -1367,6 +1367,30 @@ select:focus {
   }
 }
 
+/* ===== Backup nudge ===== */
+.backup-nudge {
+  max-width: 900px;
+  margin: 0 auto 12px;
+  padding: 8px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border, #d0d7de);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.backup-nudge-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border, #d0d7de);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.backup-nudge-later { opacity: 0.75; }
+
 /* ===== K3 一鍵開始今天 ===== */
 .today-task-card {
   max-width: 900px;
@@ -1433,6 +1457,10 @@ select:focus {
   border-width: 0 0 1px;
 }
 .today-task-foot { border-width: 1px 0 0; justify-content: flex-start; }
+/* 放棄本次: low-emphasis, pushed to the far right, away from 停筆／先離開. */
+.today-task-foot .today-task-abandon { margin-left: auto; font-size: .82rem; color: var(--ink-light); background: transparent; border-color: transparent; }
+.today-task-foot .today-task-abandon:hover, .today-task-foot .today-task-abandon[data-confirming] { color: #b42318; border-color: currentColor; }
+.today-task-foot [data-confirming] { font-weight: 600; }
 .today-task-head > div:first-child { display: grid; gap: 2px; min-width: 0; }
 .today-task-head strong { color: var(--accent-dark); }
 .today-task-timer {
@@ -1683,6 +1711,7 @@ select:focus {
 .mock-summary { border: 2px solid var(--accent); border-radius: var(--radius); padding: 16px; margin-top: 8px; background: var(--accent-light); }
 .mock-summary h3 { margin: 0 0 8px; color: var(--accent-dark); }
 .mock-summary-list { margin: 0 0 10px; padding-left: 20px; }
+.mock-summary-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
 .mock-weak { color: var(--review); font-weight: 700; }
 .mock-ok { color: var(--success); font-weight: 700; }
 .mock-fixfirst { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; padding: 12px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--warn); margin: 10px 0; }

@@ -202,6 +202,10 @@ function openResultCard(options) {
     root.remove();
   }
   root.__resultCardClose = close;
+  // Hooks for the solution modal Escape handling.
+  root.__resultCardDirty = () => marks.some(Boolean) || errors.length > 0 || String(note).trim().length > 0;
+  root.__resultCardCollapse = () => { collapsed = true; sync(); };
+  root.__resultCardIsCollapsed = () => collapsed;
 
   root.addEventListener('click', event => {
     const target = event.target.closest ? event.target.closest('button') : null;

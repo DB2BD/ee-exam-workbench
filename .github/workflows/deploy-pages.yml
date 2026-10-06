@@ -44,6 +44,11 @@ jobs:
         with:
           node-version: '22'
 
+      - name: 📄 Install PDF text utilities (pdftotext for scripts/build_year_readmes.py)
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes poppler-utils
+
       - name: 📦 Install Python dependencies
         run: |
           python -m pip install --upgrade pip

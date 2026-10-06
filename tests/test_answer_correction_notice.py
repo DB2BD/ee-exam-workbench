@@ -31,7 +31,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(code, ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify(context.__result === undefined ? null : context.__result));
 """
-    done = subprocess.run(["node", "-e", script], cwd=WORKSPACE, capture_output=True, text=True)
+    done = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 

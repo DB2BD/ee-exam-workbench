@@ -673,6 +673,12 @@ function todayTaskNextPendingIndex(vm, flow, from) {
 
 const TODAY_TASK_STATUS_TEXT = { saved: '已記錄', skipped: '已略過', pending: '未處理' };
 
+// Closed-book stop asks for a second tap while more than 5 minutes remain.
+const TODAY_TASK_STOP_CONFIRM_MS = 5 * 60000;
+function todayTaskStopNeedsConfirm(view) {
+  return !!(view && view.closed && !view.expired && view.remainingMs > TODAY_TASK_STOP_CONFIRM_MS);
+}
+
 function todayTaskOverlayHtml(vm) {
   const v = vm.active;
   const figures = v.questionQids.map((qid, i) => {
@@ -707,7 +713,7 @@ function todayTaskOverlayHtml(vm) {
   const timerText = v.expired ? '時間到' : todayTaskFormatClock(v.remainingMs);
   let controls;
   if (v.closed && !v.expired) {
-    controls = '<button type="button" class="today-task-start" data-today-act="next">停筆</button>';
+    controls = '<button type="button" class="today-task-start" data-today-act="next">停筆，開始核對</button>';
   } else if (progress) {
     controls = '<button type="button" class="today-task-start" id="today-task-finish" data-today-act="next"' + (progress.canFinish ? '' : ' disabled') + '>' + (v.isLast ? '完成核對並結束' : '完成核對 →') + '</button>' +
       '<span class="today-task-reason" id="today-task-reason" role="status">' + todayTaskEscape(progress.reason) + '</span>';
@@ -718,7 +724,7 @@ function todayTaskOverlayHtml(vm) {
     (v.canHold
       ? '<button type="button" class="btn-pdf" data-today-act="hold" title="閉卷已完成；明天打開時直接接續核對＋修復">' + TODAY_TASK_HOLD_TEXT + '</button>'
       : '<button type="button" class="btn-pdf" data-today-act="leave">先離開</button>') +
-    '<button type="button" class="btn-pdf" data-today-act="abandon">放棄本次</button></footer>';
+    '<button type="button" class="btn-pdf today-task-abandon" data-today-act="abandon">放棄本次</button></footer>';
   return '<div class="today-task-panel' + (progress ? ' today-task-panel--review' : '') + '" role="dialog" aria-modal="true" aria-label="今天的任務">' +
     '<header class="today-task-head"><div><span class="today-task-eyebrow">' + todayTaskEscape(v.code) + '｜' + todayTaskEscape(vm.activeTitle) + '</span>' +
     '<strong>' + (v.phaseIndex + 1) + '／' + v.phaseCount + ' ' + todayTaskEscape(v.label) + (v.closed ? '（閉卷）' : '') + ' · ' + v.minutes + ' 分鐘</strong></div>' +
@@ -763,10 +769,14 @@ function todayTaskMountResultCard(vm) {
   const nextButton = document.querySelector('[data-today-result-next]');
   const progress = todayTaskUpdateReviewUi(vm);
   if (flow.index >= qids.length) {
-    const savedCount = progress.items.filter(i => i.status === 'saved').length;
-    if (title) title.textContent = '作答結果：已處理完 ' + qids.length + ' 題（記錄 ' + savedCount + ' 題）';
+    if (title) title.textContent = '全部記錄完成，按「完成核對」結束';
     if (nextButton) nextButton.hidden = true;
     mount.innerHTML = '';
+    const finish = document.getElementById('today-task-finish');
+    if (finish && !finish.disabled) {
+      if (typeof finish.scrollIntoView === 'function') finish.scrollIntoView({ block: 'center' });
+      if (typeof finish.focus === 'function') finish.focus();
+    }
     return;
   }
   const qid = qids[flow.index];
@@ -858,9 +868,12 @@ function openTodayTaskOverlay() {
   renderTodayTaskOverlay();
   todayTaskStopTimer();
   todayTaskTimerHandle = setInterval(todayTaskTick, 1000);
+  const primary = overlay.querySelector('.today-task-start:not([disabled])');
+  if (primary && typeof primary.focus === 'function') primary.focus();
 }
 
 function closeTodayTaskOverlay() {
+  if (todayTaskConfirmState) todayTaskDisarmConfirm();
   todayTaskStopTimer();
   todayTaskCloseResultCard();
   if (typeof document === 'undefined') return;
@@ -869,7 +882,39 @@ function closeTodayTaskOverlay() {
   renderTodayTaskCard();
 }
 
+// Two-step inline confirm: the button turns into a confirm label plus 取消 and reverts by itself.
+let todayTaskConfirmState = null;
+function todayTaskDisarmConfirm() {
+  const st = todayTaskConfirmState;
+  if (!st) return;
+  todayTaskConfirmState = null;
+  clearTimeout(st.timer);
+  if (st.cancel && st.cancel.remove) st.cancel.remove();
+  if (st.button) { st.button.textContent = st.label; st.button.removeAttribute('data-confirming'); }
+}
+
+function todayTaskArmConfirm(button, text, ms) {
+  todayTaskDisarmConfirm();
+  const cancel = document.createElement('button');
+  cancel.type = 'button';
+  cancel.className = 'btn-pdf today-task-confirm-cancel';
+  cancel.setAttribute('data-today-act', 'cancel-confirm');
+  cancel.textContent = '取消';
+  const st = { button, cancel, label: button.textContent, timer: setTimeout(todayTaskDisarmConfirm, ms) };
+  button.setAttribute('data-confirming', '1');
+  button.textContent = text;
+  button.insertAdjacentElement('afterend', cancel);
+  todayTaskConfirmState = st;
+}
+
 function todayTaskOverlayKey(event) {
+  if (event.key === 'Escape') {
+    // Same as 先離開: close only, never change task state.
+    event.preventDefault();
+    event.stopPropagation();
+    closeTodayTaskOverlay();
+    return;
+  }
   if (event.key !== 'Enter' && event.key !== ' ') return;
   const zoom = event.target && event.target.closest ? event.target.closest('[data-today-zoom]') : null;
   if (zoom) { event.preventDefault(); todayTaskZoomImage(zoom); }
@@ -887,10 +932,22 @@ function todayTaskOverlayClick(event) {
   const launch = target.getAttribute('data-today-launch');
   if (launch) { todayTaskLaunchPractice(launch); return; }
   const act = target.getAttribute('data-today-act');
+  if (act === 'cancel-confirm') { todayTaskDisarmConfirm(); return; }
+  const confirming = target.getAttribute('data-confirming') === '1';
+  if (!confirming) todayTaskDisarmConfirm();
+  if (act === 'abandon' && !confirming) {
+    todayTaskArmConfirm(target, '確定放棄？會清掉這次進度', 3000);
+    return;
+  }
+  todayTaskDisarmConfirm();
   if (act === 'next') {
     const cur = todayTaskState || todayTaskRefresh();
     if (cur.active) {
       const cvm = todayTaskViewModel(cur, Date.now());
+      if (!confirming && todayTaskStopNeedsConfirm(cvm.active)) {
+        todayTaskArmConfirm(target, '還有 ' + Math.ceil(cvm.active.remainingMs / 60000) + ' 分鐘，確定停筆並開始核對？', 4000);
+        return;
+      }
       if (cvm.active.isReview && cvm.active.resultQids.length) {
         const prog = todayTaskReviewProgress(cvm.active.resultQids, todayTaskResultFlowFor(cvm), cvm.active.phaseStartedAt);
         if (!prog.canFinish) return;

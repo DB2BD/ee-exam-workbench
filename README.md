@@ -3,7 +3,7 @@
 民國 104～114 年電機工程技師考試六科歷屆試題、官方原卷對照、逐題詳解與離線練習工作台。
 
 - 線上版：<https://db2bd.github.io/ee-exam-workbench/>
-- 目前版本：**v1.3.4**（2026-10-05），變更內容見 [發版紀錄](./docs/03_發版紀錄/發版紀錄_v1.3.4.md)。
+- 目前版本：**v1.3.5**（2026-10-06），變更內容見 [發版紀錄](./docs/03_發版紀錄/發版紀錄_v1.3.5.md)。
 
 ## 1. 概述
 
@@ -109,6 +109,11 @@ pip install -r requirements.txt
 python3 scripts/build_workbench.py        # 由 src/ 與資料檔建置 index.html
 python3 scripts/run_all_tests.py          # 單元測試與 323 支獨立驗算腳本
 python3 scripts/check_html_js_syntax.py
+
+npm run check:fast                        # 開發迴圈：建置＋語法＋測試（平行）
+npm run check:fast -- -k pacing           # 只跑名稱含 pacing 的測試
+npm run check                             # 完整閘門（生成器、建置、測試、語法、連結、圖片）
+npm run stage                             # 另外組出 _site（qa:browser 需要）
 ```
 
 推送到 `main` 後，GitHub Actions 會先建置並跑完整測試，再以 `scripts/stage_pages_artifact.py` 組出發布內容並部署到 GitHub Pages。`dashboard-data.js`、`solutions-bundle.js` 等為生成檔，請修改來源與編譯腳本，不要直接編輯。

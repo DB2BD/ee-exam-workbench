@@ -134,7 +134,8 @@ class MockExamTests(unittest.TestCase):
 
     def test_no_timer_anywhere(self):
         text = (ROOT / "src/components/mockExam.js").read_text(encoding="utf-8")
-        for token in ["setInterval", "setTimeout", "startExamTimer", "pauseExamTimer", "resetExamTimer", "getMockExamPacingInfo", "countdown"]:
+        # setTimeout is allowed only for the 4 s inline submit-confirm revert (no exam timer).
+        for token in ["setInterval", "startExamTimer", "pauseExamTimer", "resetExamTimer", "getMockExamPacingInfo", "countdown"]:
             self.assertNotIn(token, text)
         self.assertFalse((ROOT / "src/components/mockExamTimer.js").exists())
         build = (ROOT / "scripts/build_workbench.py").read_text(encoding="utf-8")
@@ -174,6 +175,100 @@ class G2aTests(unittest.TestCase):
         opts = body.split("openResultCard({")[1].split("});")[0]
         self.assertNotIn("mount", opts)
         self.assertIn("source: 'mock'", opts)
+
+
+class MockSessionAndNextTests(unittest.TestCase):
+    def test_session_round_trip_and_bad_data(self):
+        out = run_node("""(function () {
+          var good = { year: '114', sid: '03', phase: 'grading', mockId: '114-03-1788000000000', loaded: true, syncedCode: 'MOCK114-03', savedAt: 5 };
+          var paper = { year: 113, sid: '01', phase: 'paper', mockId: null, loaded: true, syncedCode: '', savedAt: 1 };
+          return [
+            mockExamRestoreSession(JSON.stringify(good)),
+            mockExamRestoreSession(paper),
+            mockExamRestoreSession('{bad json'),
+            mockExamRestoreSession(null),
+            mockExamRestoreSession(Object.assign({}, good, { phase: 'pick' })),
+            mockExamRestoreSession(Object.assign({}, good, { year: '90' })),
+            mockExamRestoreSession(Object.assign({}, good, { sid: '99' })),
+            mockExamRestoreSession(Object.assign({}, good, { mockId: 'nope' })),
+            mockExamRestoreSession(Object.assign({}, good, { mockId: '113-03-1' })),
+            mockExamRestoreSession(Object.assign({}, good, { loaded: false })),
+            mockExamRestoreSession([])
+          ];
+        })()""")
+        self.assertEqual(out[0]["mockId"], "114-03-1788000000000")
+        self.assertEqual(out[0]["syncedCode"], "MOCK114-03")
+        self.assertEqual(out[0]["phase"], "grading")
+        self.assertEqual((out[1]["year"], out[1]["sid"], out[1]["phase"], out[1]["mockId"]), ("113", "01", "paper", None))
+        self.assertEqual(out[2:], [None] * 9)
+
+    def test_submit_needs_two_clicks(self):
+        out = run_node("""(function () {
+          var a = mockExamSubmitStep(false), b = mockExamSubmitStep(a.armed);
+          return [a, b, mockExamSubmitStep(b.armed)];
+        })()""")
+        self.assertEqual(out[0], {"armed": True, "submit": False})
+        self.assertEqual(out[1], {"armed": False, "submit": True})
+        self.assertEqual(out[2], {"armed": True, "submit": False})
+        src = (ROOT / "src/components/mockExam.js").read_text(encoding="utf-8")
+        self.assertIn("確定交卷？會顯示全部答案", src)
+        self.assertIn("data-mock-submit-cancel", src)
+        self.assertNotIn("window.confirm", src)
+        self.assertNotIn("alert(", src)
+
+    def test_next_scheduled(self):
+        out = run_node("""(function () {
+          var sched = { order: ['MOCK114-01', 'MOCK114-02', 'MOCK114-03'], tasks: {
+            'MOCK114-03': { kind: 'mock114', subject: '工數', qids: ['EE-114-03-1'] },
+            'MOCK114-01': { kind: 'mock114', subject: '電路學', qids: ['EE-114-01-1'] },
+            'MOCK114-02': { kind: 'mock114', subject: '電子學', qids: ['EE-114-02-1'] } } };
+          var all = { 'MOCK114-01': 1, 'MOCK114-02': 1, 'MOCK114-03': 1 };
+          return [
+            mockExamNextScheduled(sched, { 'MOCK114-01': 1 }, 'MOCK114-02'),
+            mockExamNextScheduled(sched, all, ''),
+            mockExamNextScheduled(sched, { 'MOCK114-01': 1, 'MOCK114-02': 1 }, 'MOCK114-03'),
+            mockExamNextScheduled(null, {}, ''),
+            mockExamNextScheduled({}, {}, '')
+          ];
+        })()""")
+        self.assertEqual(out[0], {"code": "MOCK114-03", "year": "114", "sid": "03", "title": "工數"})
+        self.assertEqual(out[1:], [None] * 4)
+
+    def test_summary_html_next_and_backup_button(self):
+        out = run_node("""(function () {
+          globalThis.DAILY_SCHEDULE = { order: ['MOCK114-01', 'MOCK114-02'], tasks: {
+            'MOCK114-01': { kind: 'mock114', subject: '電路學', qids: ['EE-114-01-1'] },
+            'MOCK114-02': { kind: 'mock114', subject: '電子學', qids: ['EE-114-02-1'] } } };
+          mockExamState = { year: '114', sid: '01', phase: 'grading', mockId: '114-01-1', loaded: true, syncedCode: 'MOCK114-01' };
+          var paper = mockExamPaper(ROWS, 114, '01');
+          var sum = mockExamSummary([rec('EE-114-01-1', ['o'], 1, 'm')]);
+          var before = mockExamSummaryHtml(paper, sum);
+          globalThis.backupDownloadNow = function () {};
+          var withBackup = mockExamSummaryHtml(paper, sum);
+          globalThis.loadTodayTaskState = function () { return { completed: { 'MOCK114-02': 1 } }; };
+          var done = mockExamSummaryHtml(paper, sum);
+          return [before, withBackup, done];
+        })()""")
+        before, with_backup, done = out
+        self.assertIn("下一份：MOCK114-02 電子學", before)
+        self.assertIn('data-mock-pick="114:02"', before)
+        self.assertNotIn("下載備份", before)
+        self.assertIn("下載備份", with_backup)
+        self.assertIn("backupDownloadNow()", with_backup)
+        self.assertNotIn("下一份", done)
+        self.assertIn("2 份模考卷已完成", done)
+        self.assertIn("data-mock-reset", done)
+
+    def test_cap_hidden_in_grading_phase(self):
+        out = run_node("""(function () {
+          mockExamState = { year: '114', sid: '01', phase: 'paper', mockId: null, loaded: true };
+          var paper = mockExamPaper(ROWS, 114, '01');
+          var a = mockExamPaperHtml(paper);
+          mockExamState.phase = 'grading';
+          var b = mockExamPaperHtml(paper);
+          return [a.indexOf('mock-q-cap') >= 0, b.indexOf('mock-q-cap') >= 0];
+        })()""")
+        self.assertEqual(out, [True, False])
 
 
 if __name__ == "__main__":

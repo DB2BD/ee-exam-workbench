@@ -19,7 +19,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(source + chr(10) + 'globalThis.__result = (' + expression + ');', ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify(context.__result));
 """
-        result = subprocess.run(["node", "-e", script], cwd=WORKSPACE, capture_output=True, text=True)
+        result = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         return json.loads(result.stdout)
 

@@ -41,7 +41,7 @@ firstContext.reload = code => vm.runInContext(code, makeContext());
 const result = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, firstContext);
 process.stdout.write(JSON.stringify({{result, data}}));
 """
-        completed = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True)
+        completed = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
 

@@ -450,7 +450,7 @@ vm.runInContext("backupDownloadNow()", ctx);
 const after = vm.runInContext("getBackupMetadata().lastBackupAt || null", ctx);
 process.stdout.write(JSON.stringify({ type: vm.runInContext("typeof backupDownloadNow", ctx), before, after, clicked }));
 '''
-        completed = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True)
+        completed = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         result = json.loads(completed.stdout.splitlines()[-1])
         self.assertEqual(result["type"], "function")

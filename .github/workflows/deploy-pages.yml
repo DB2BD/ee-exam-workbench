@@ -5,6 +5,10 @@ on:
     branches:
       - main
       - master
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+      - 'reports/**'
   workflow_dispatch:
 
 permissions:
@@ -33,16 +37,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: pip
 
       - name: 🟩 Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: 📄 Install PDF text utilities
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes poppler-utils
 
       - name: 📦 Install Python dependencies
         run: |

@@ -232,8 +232,26 @@ class TestTodayTaskStore(unittest.TestCase):
             f"(() => {{ const s = todayTaskStart({{completed:{{}}, active:null}}, {t0}); "
             f"return todayTaskOverlayHtml(todayTaskViewModel(s, {t0})); }})()")["result"]
         self.assertNotIn("data-today-check", res)
-        self.assertNotIn("核對", res)
-        self.assertIn("停筆", res)
+        self.assertNotIn("核對", res.replace("停筆，開始核對", ""))
+        self.assertIn("停筆，開始核對", res)
+        self.assertIn('class="btn-pdf today-task-abandon" data-today-act="abandon">放棄本次', res)
+        self.assertLess(res.index('data-today-act="leave"'), res.index("today-task-abandon"))
+
+    def test_stop_needs_confirm_only_with_more_than_five_minutes(self):
+        res = run_node(
+            "[todayTaskStopNeedsConfirm({closed:true,expired:false,remainingMs:5*60000+1}),"
+            "todayTaskStopNeedsConfirm({closed:true,expired:false,remainingMs:5*60000}),"
+            "todayTaskStopNeedsConfirm({closed:true,expired:true,remainingMs:0}),"
+            "todayTaskStopNeedsConfirm({closed:false,expired:false,remainingMs:3600000}),"
+            "todayTaskStopNeedsConfirm(null)]")["result"]
+        self.assertEqual(res, [True, False, False, False, False])
+
+    def test_overlay_source_wires_escape_focus_and_finish_focus(self):
+        src = TODAY_JS.read_text(encoding="utf-8")
+        self.assertIn("event.key === 'Escape'", src)
+        self.assertIn("全部記錄完成，按「完成核對」結束", src)
+        self.assertIn("scrollIntoView({ block: 'center' })", src)
+        self.assertNotIn("window.confirm", src)
 
     def test_paper_task_shows_pdf_only_in_closed_phase(self):
         t0 = local_ms(2026, 10, 17, 9, 0)

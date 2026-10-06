@@ -10,6 +10,8 @@ const MOCK_EXAM_YEARS = [114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104];
 const MOCK_EXAM_TIME_CAP_PER_POINT = 0.9;
 const MOCK_EXAM_REMINDER = '5 分鐘掃卷＋90 分鐘第一輪＋17 分鐘搶分＋8 分鐘收尾';
 const MOCK_EXAM_LEGACY_HISTORY_KEY = 'EE_MOCK_EXAM_HISTORY_V1';
+const MOCK_EXAM_SESSION_KEY = 'EE_EXAM_MOCK_SESSION_V1';
+const MOCK_EXAM_CONFIRM_MS = 4000;
 const MOCK_EXAM_FALLBACK_SUBJECTS = [
   { id: '01', name: '電路學' },
   { id: '02', name: '電子學（含電力電子）' },
@@ -231,6 +233,57 @@ function mockExamShortcuts(schedule) {
   return [make('mock114', '114 年模考', 114), make('blind108', '108 年盲測', 108)];
 }
 
+/**
+ * Validate a persisted session (JSON string or object). Returns a clean state or null.
+ * paper phase needs loaded and no mockId; grading phase needs a mockId matching year/sid.
+ */
+function mockExamRestoreSession(raw, subjects) {
+  let o = raw;
+  if (typeof raw === 'string') {
+    try { o = JSON.parse(raw); } catch (_) { return null; }
+  }
+  if (!o || typeof o !== 'object' || Array.isArray(o)) return null;
+  const year = String(o.year == null ? '' : o.year);
+  const sid = String(o.sid == null ? '' : o.sid);
+  if (MOCK_EXAM_YEARS.map(String).indexOf(year) < 0) return null;
+  const list = Array.isArray(subjects) && subjects.length ? subjects : mockExamSubjects();
+  if (!list.some(x => String(x.id) === sid)) return null;
+  if (o.phase !== 'paper' && o.phase !== 'grading') return null;
+  if (o.loaded !== true) return null;
+  let mockId = null;
+  if (o.phase === 'grading') {
+    const parsed = mockExamParseId(o.mockId);
+    if (!parsed || parsed.year !== year || parsed.subjectId !== sid) return null;
+    mockId = String(o.mockId);
+  }
+  return {
+    year, sid, phase: o.phase, mockId, loaded: true,
+    syncedCode: typeof o.syncedCode === 'string' ? o.syncedCode : '',
+    savedAt: Number.isFinite(Number(o.savedAt)) ? Number(o.savedAt) : 0
+  };
+}
+
+/** Two-step confirm: first click arms, second click submits; cancel/timeout disarms. */
+function mockExamSubmitStep(armed) {
+  return armed ? { armed: false, submit: true } : { armed: true, submit: false };
+}
+
+/**
+ * Next unfinished scheduled mock paper (schedule.order first, then listing order),
+ * skipping completed codes and currentCode. Returns { code, year, sid, title } or null.
+ */
+function mockExamNextScheduled(schedule, completedCodes, currentCode) {
+  if (!schedule || !schedule.tasks) return null;
+  const done = completedCodes || {};
+  const items = [];
+  mockExamShortcuts(schedule).forEach(s => s.items.forEach(it => items.push(it)));
+  const order = Array.isArray(schedule.order) ? schedule.order : [];
+  const rank = code => { const i = order.indexOf(code); return i < 0 ? order.length : i; };
+  const sorted = items.map((it, i) => ({ it, i })).sort((a, b) => rank(a.it.code) - rank(b.it.code) || a.i - b.i).map(x => x.it);
+  const next = sorted.find(it => it.sid && !done[it.code] && it.code !== currentCode);
+  return next ? { code: next.code, year: next.year, sid: next.sid, title: next.title } : null;
+}
+
 function mockExamCropUrl(qid) {
   const crop = typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] || '' : '';
   if (!crop) return '';
@@ -269,6 +322,26 @@ function mockExamDateText(ms) {
 
 function mockExamHost() {
   return typeof document !== 'undefined' ? document.getElementById('tab-pane-mock') : null;
+}
+
+function mockExamSaveSession() {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    const st = mockExamState;
+    if (!st || !st.loaded) { localStorage.removeItem(MOCK_EXAM_SESSION_KEY); return; }
+    localStorage.setItem(MOCK_EXAM_SESSION_KEY, JSON.stringify({
+      year: st.year, sid: st.sid, phase: st.phase, mockId: st.mockId, loaded: true,
+      syncedCode: st.syncedCode || '', savedAt: Date.now()
+    }));
+  } catch (_) { /* best-effort */ }
+}
+
+function mockExamLoadSession() {
+  try {
+    if (typeof localStorage === 'undefined') return null;
+    const raw = localStorage.getItem(MOCK_EXAM_SESSION_KEY);
+    return raw ? mockExamRestoreSession(raw) : null;
+  } catch (_) { return null; }
 }
 
 function mockExamRecords() {
@@ -402,7 +475,7 @@ function mockExamPaperHtml(paper) {
       <div class="mock-q-head">
         <span class="mock-q-title">第 ${it.num} 題 <small>${mockExamEscape(it.qid)}</small></span>
         <span class="mock-q-points">${it.scored ? `${mockExamFormat(it.points)} 分` : '不計分（邊界練習）'}</span>
-        <span class="mock-q-cap">${mockExamEscape(cap)}</span>
+        ${graded ? '' : `<span class="mock-q-cap">${mockExamEscape(cap)}</span>`}
       </div>
       ${crop ? `<img class="mock-q-crop" src="${mockExamEscape(crop)}" alt="${mockExamEscape(it.qid)} 本題裁切圖" loading="lazy">` : '<p class="mock-empty">尚未建立本題裁切圖，請看官方 PDF。</p>'}
       ${graded ? `<div class="mock-q-after">${mockExamSolutionButton(it)}<span class="mock-q-state" data-mock-state="${mockExamEscape(it.qid)}"></span></div><div class="mock-q-card" data-mock-card="${mockExamEscape(it.qid)}"></div>` : ''}
@@ -443,6 +516,7 @@ function mockExamRender() {
   const st = mockExamState;
   const paper = st.loaded ? mockExamPaperNow() : null;
   mockExamInlineHandles = {};
+  mockExamDisarmSubmit();
   host.innerHTML = `
     <div class="mock-exam-box" id="mock-exam-root">
       <h2 class="mock-title">模考</h2>
@@ -476,6 +550,7 @@ function mockExamUpdateProgress(paper) {
   if (done && paper.scoredQids.length && mockExamState && mockExamState.mockId && !mockExamState.syncedCode
       && typeof todayTaskSyncMockCompletion === 'function') {
     try { mockExamState.syncedCode = todayTaskSyncMockCompletion(paper.year, paper.subjectId, Date.now()) || ''; } catch (_) { /* best-effort */ }
+    mockExamSaveSession();
   }
   const box = document.getElementById('mock-summary');
   if (box) box.innerHTML = done ? mockExamSummaryHtml(paper, sum) : '';
@@ -487,6 +562,12 @@ function mockExamSummaryHtml(paper, sum) {
   const tally = Object.keys(sum.errorTally).sort((a, b) => sum.errorTally[b] - sum.errorTally[a] || a.localeCompare(b));
   const labels = typeof RESULT_CARD_ERROR_LABELS !== 'undefined' ? RESULT_CARD_ERROR_LABELS : {};
   const fix = sum.fixFirst;
+  const sched = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null;
+  const completed = mockExamCompletedCodes();
+  const synced = mockExamState && mockExamState.syncedCode;
+  const next = mockExamNextScheduled(sched, completed, synced);
+  const total = mockExamShortcuts(sched).reduce((n, s) => n + s.items.length, 0);
+  const allDone = !next && total > 0;
   return `
     <section class="mock-summary" aria-label="本卷總結">
       <h3>本卷估計 ${mockExamFormat(sum.estimate)}／${mockExamFormat(paper.scoredTotal)}</h3>
@@ -494,7 +575,11 @@ function mockExamSummaryHtml(paper, sum) {
       <ul class="mock-summary-list">${sum.perQuestion.map(q => `<li>第 ${q.num} 題：${mockExamFormat(q.estimate)}／${mockExamFormat(q.total)} 分 <span class="${q.weak ? 'mock-weak' : 'mock-ok'}">${mockExamMarksHtml(q)}</span></li>`).join('')}</ul>
       <p class="mock-tally"><strong>錯因統計：</strong>${tally.length ? tally.map(c => `${mockExamEscape(c)} ${mockExamEscape(labels[c] || '')} ×${sum.errorTally[c]}`).join('、') : '未選錯因'}</p>
       ${fix ? `<div class="mock-fixfirst"><strong>先修這題：第 ${fix.num} 題（${mockExamEscape(fix.qid)}，${mockExamFormat(fix.total)} 分）</strong><span>△／× 中配分最高；同分取題號最早。</span>${mockExamSolutionButton({ qid: fix.qid }, '開啟這題題解')}</div>` : '<p class="mock-fixfirst mock-fixfirst-none">沒有 △／× 的題目；仍請從最不確定的一題重寫一次。</p>'}
-      <button type="button" class="mock-btn" data-mock-reset>換一份試卷</button>
+      <div class="mock-summary-actions">
+        ${next ? `<button type="button" class="mock-btn mock-btn-primary" data-mock-pick="${mockExamEscape(next.year)}:${mockExamEscape(next.sid)}">下一份：${mockExamEscape(next.code)} ${mockExamEscape(next.title)}</button>` : (allDone ? `<p class="mock-all-done" role="status">${total} 份模考卷已完成</p>` : '')}
+        ${typeof backupDownloadNow === 'function' ? '<button type="button" class="mock-btn" onclick="backupDownloadNow()">下載備份</button>' : ''}
+        <button type="button" class="mock-btn" data-mock-reset>換一份試卷</button>
+      </div>
     </section>`;
 }
 
@@ -522,6 +607,7 @@ function mockExamSubmit() {
   st.phase = 'grading';
   st.syncedCode = '';
   st.mockId = mockExamNewId(st.year, st.sid, Date.now());
+  mockExamSaveSession();
   mockExamRender();
 }
 
@@ -531,7 +617,40 @@ function mockExamLoad(year, sid) {
   mockExamState.phase = 'paper';
   mockExamState.loaded = true;
   mockExamState.mockId = null;
+  mockExamState.syncedCode = '';
+  mockExamSaveSession();
   mockExamRender();
+}
+
+let mockExamSubmitTimer = null;
+let mockExamSubmitArmed = false;
+
+function mockExamDisarmSubmit() {
+  mockExamSubmitArmed = false;
+  if (mockExamSubmitTimer) { clearTimeout(mockExamSubmitTimer); mockExamSubmitTimer = null; }
+  if (typeof document === 'undefined') return;
+  const btn = document.querySelector('[data-mock-submit]');
+  if (btn) btn.textContent = '交卷';
+  const cancel = document.querySelector('[data-mock-submit-cancel]');
+  if (cancel) cancel.remove();
+}
+
+/** Inline two-step submit: button turns into a confirm prompt for 4 s. */
+function mockExamSubmitClick(btn) {
+  const step = mockExamSubmitStep(mockExamSubmitArmed);
+  if (step.submit) { mockExamDisarmSubmit(); mockExamSubmit(); return; }
+  mockExamSubmitArmed = true;
+  btn.textContent = '確定交卷？會顯示全部答案';
+  if (!document.querySelector('[data-mock-submit-cancel]')) {
+    const cancel = document.createElement('button');
+    cancel.type = 'button';
+    cancel.className = 'mock-btn';
+    cancel.setAttribute('data-mock-submit-cancel', '');
+    cancel.textContent = '取消';
+    btn.insertAdjacentElement('afterend', cancel);
+  }
+  if (mockExamSubmitTimer) clearTimeout(mockExamSubmitTimer);
+  mockExamSubmitTimer = setTimeout(mockExamDisarmSubmit, MOCK_EXAM_CONFIRM_MS);
 }
 
 function mockExamOnClick(event) {
@@ -546,12 +665,17 @@ function mockExamOnClick(event) {
     const [y, s] = t.getAttribute('data-mock-pick').split(':');
     mockExamLoad(y, s);
   } else if (t.hasAttribute('data-mock-submit')) {
-    mockExamSubmit();
+    mockExamSubmitClick(t);
+  } else if (t.hasAttribute('data-mock-submit-cancel')) {
+    mockExamDisarmSubmit();
   } else if (t.hasAttribute('data-mock-solution')) {
     mockExamOpenSolution(t.getAttribute('data-mock-solution'));
   } else if (t.hasAttribute('data-mock-reset')) {
     mockExamState.loaded = false;
     mockExamState.phase = 'pick';
+    mockExamState.mockId = null;
+    mockExamState.syncedCode = '';
+    mockExamSaveSession();
     mockExamRender();
     host.scrollIntoView && host.scrollIntoView({ block: 'start' });
   }
@@ -562,6 +686,8 @@ function initMockExam() {
   if (!host || host.__mockExamReady) return;
   host.__mockExamReady = true;
   host.addEventListener('click', mockExamOnClick);
+  const restored = mockExamLoadSession();
+  if (restored) mockExamState = restored;
   mockExamRender();
   // Records can be added elsewhere (scheduled MOCK/BLIND tasks): refresh the history whenever the tab is shown.
   if (typeof MutationObserver !== 'undefined') {
@@ -582,6 +708,6 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     MOCK_EXAM_YEARS, MOCK_EXAM_REMINDER, MOCK_EXAM_SCORED_SUBSETS,
     mockExamTimeCap, mockExamPdfUrl, mockExamPaper, mockExamNewId, mockExamParseId,
-    mockExamSummary, mockExamMarksText, mockExamHistory, latestMockScoreBySubject, mockExamShortcuts, initMockExam
+    mockExamSummary, mockExamMarksText, mockExamHistory, latestMockScoreBySubject, mockExamShortcuts, mockExamRestoreSession, mockExamNextScheduled, mockExamSubmitStep, initMockExam
   };
 }

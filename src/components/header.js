@@ -75,6 +75,47 @@ function exportProgressJSON() {
   showToast("備考與 SM-2 排程進度已成功匯出備份！");
 }
 
+function backupDownloadNow() {
+  exportProgressJSON();
+  renderBackupNudge();
+}
+
+function renderBackupNudge() {
+  const host = typeof document !== 'undefined' ? document.getElementById('backup-nudge') : null;
+  if (!host) return;
+  let state = { show: false };
+  try {
+    const meta = typeof getBackupMetadata === 'function' ? getBackupMetadata() : {};
+    let snoozedUntil = 0;
+    try { snoozedUntil = Number(JSON.parse(localStorage.getItem(BACKUP_NUDGE_KEY) || '{}').snoozedUntil) || 0; } catch (_) { /* no snooze */ }
+    state = backupNudgeState({
+      lastBackupAt: meta.lastBackupAt,
+      now: Date.now(),
+      hasData: backupNudgeHasData(),
+      snoozedUntil,
+    });
+  } catch (_) { /* keep hidden */ }
+  if (!state.show) { host.innerHTML = ''; return; }
+  host.innerHTML = '<div class="backup-nudge" role="status"><span>' + state.text + '</span>'
+    + '<span class="backup-nudge-sep">｜</span>'
+    + '<button type="button" class="backup-nudge-btn" onclick="backupDownloadNow()">下載備份</button>'
+    + '<button type="button" class="backup-nudge-btn backup-nudge-later" onclick="backupNudgeSnooze()">明天再說</button></div>';
+}
+
+function backupNudgeSnooze() {
+  try {
+    localStorage.setItem(BACKUP_NUDGE_KEY, JSON.stringify({ snoozedUntil: backupNudgeSnoozeUntil(Date.now()) }));
+  } catch (_) { /* snooze is best effort */ }
+  renderBackupNudge();
+}
+
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  window.addEventListener('focus', renderBackupNudge);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') renderBackupNudge();
+  });
+}
+
 function openBackupModal() {
   const modal = document.getElementById('backup-modal');
   const textarea = document.getElementById('backup-json-textarea');

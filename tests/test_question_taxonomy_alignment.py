@@ -225,7 +225,7 @@ const result = vm.runInContext(`DB_DATA.questions.map(q => ({
 process.stdout.write(JSON.stringify(result));
 '''
         completed = subprocess.run(
-            ["node", "-e", script],
+            ["node", "-"], input=script,
             cwd=ROOT,
             check=True,
             capture_output=True,

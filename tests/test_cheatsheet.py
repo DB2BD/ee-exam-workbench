@@ -107,7 +107,7 @@ class TestPassbookSection(unittest.TestCase):
         const {{ renderCheatsheetSectionHtml }} = require({json.dumps(str(ROOT / 'src/components/passbookGenerator.js'))});
         console.log(JSON.stringify(renderCheatsheetSectionHtml({data_expr})));
         """
-        proc = subprocess.run(["node", "-e", script], capture_output=True, text=True)
+        proc = subprocess.run(["node", "-"], input=script, capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         return json.loads(proc.stdout)
 
@@ -134,7 +134,7 @@ class TestPassbookSection(unittest.TestCase):
         vm.runInContext(fs.readFileSync({json.dumps(str(bc.OUT_JS))}, 'utf8') + '; this.n = CHEATSHEET_DATA.subjects.length;', ctx);
         console.log(ctx.n);
         """
-        proc = subprocess.run(["node", "-e", script], capture_output=True, text=True)
+        proc = subprocess.run(["node", "-"], input=script, capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertGreaterEqual(int(proc.stdout.strip()), 0)
 

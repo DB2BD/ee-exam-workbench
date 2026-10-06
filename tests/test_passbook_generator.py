@@ -42,7 +42,7 @@ class TestPassbookGenerator(unittest.TestCase):
 
         console.log(JSON.stringify({{ success: true, count: result.topAnchorQuestions.length }}));
         """
-        proc = subprocess.run(['node', '-e', script], capture_output=True, text=True)
+        proc = subprocess.run(['node', '-'], input=script, capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, f"Node script failed:\n{proc.stderr}")
         data = json.loads(proc.stdout.strip())
         self.assertTrue(data.get('success'))

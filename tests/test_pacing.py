@@ -51,6 +51,20 @@ class TestPacingPrimitives(unittest.TestCase):
 
 
 class TestPacingPlan(unittest.TestCase):
+    def test_spent_today_shrinks_todays_plan(self):
+        res = js("""
+          const c = done('CORE-07');
+          const r = s => pacingPlan({ schedule: S, completed: c, today: '2026-10-05', spentToday: s });
+          const inFlight = pacingPlan({ schedule: S, completed: c, today: '2026-10-05', spentToday: 2, partial: {code: 'CORE-07', phaseIndex: 1} });
+          return {none: codes(r(0)), half: codes(r(1)), full: codes(r(2)), spent: r(1).spentHours, planHours: r(1).planHours, inFlight: codes(inFlight)};
+        """)
+        self.assertEqual(res["none"], ["CORE-07", "CORE-08"])
+        self.assertEqual(res["half"], ["CORE-07"])
+        self.assertEqual(res["full"], [])
+        self.assertEqual(res["spent"], 1)
+        self.assertEqual(res["planHours"], 1)
+        self.assertEqual(res["inFlight"], ["CORE-07:rest"])  # a started task is always shown
+
     def test_on_track_every_day_follows_the_dated_table(self):
         """A learner who does exactly the table each day always gets that day's table back, status 'on', no cuts."""
         res = js("""

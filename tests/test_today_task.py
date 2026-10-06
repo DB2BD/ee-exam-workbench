@@ -176,6 +176,22 @@ class TestTodayTaskStore(unittest.TestCase):
         text = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 5, 14)}).planText")["result"]
         self.assertEqual(text, "今天的份量已完成")
 
+    def test_tasks_done_today_use_up_todays_budget(self):
+        # Finishing a task must lower 「還要做」 instead of pulling a fresh 2 h of work into the same day.
+        done = {f"CORE-0{i}": "x" for i in range(1, 7)}
+        at = local_ms(2026, 10, 5, 10)
+        now = local_ms(2026, 10, 5, 14)
+        expr = ("(() => { const c = Object.assign(%s, {'CORE-07': new Date(%d).toISOString()}); const one = todayTaskViewModel({completed:c, active:null}, %d);"
+                " const c2 = Object.assign({}, c, {'CORE-08': new Date(%d).toISOString()}); const two = todayTaskViewModel({completed:c2, active:null}, %d);"
+                " return {one: one.planText, oneCode: one.code, two: two.planText, mode: two.mode, extra: two.code, html: todayTaskCardHtml(two)}; })()") % (json.dumps(done), at, now, at, now)
+        res = run_node(expr)["result"]
+        self.assertEqual(res["one"], "今天預算 2 小時（平日）｜已做約 1 小時｜還要做約 1 小時")
+        self.assertEqual(res["oneCode"], "CORE-08")
+        self.assertEqual(res["two"], "今天的份量已完成")
+        self.assertEqual(res["mode"], "day-done")
+        self.assertEqual(res["extra"], "CORE-09")  # optional extra work stays one click away
+        self.assertIn("選做下一個：CORE-09", res["html"])
+
     def test_resume_computes_remaining_time(self):
         started = local_ms(2026, 10, 3, 9, 0)
         now = started + 10 * 60000
@@ -699,6 +715,13 @@ class TestG2aFixes(unittest.TestCase):
             f"(() => {{ const s = todayTaskStartFrom({{completed:{{}}, active:null}}, 'CORE-07', {t}); "
             f"return todayTaskCardHtml(todayTaskViewModel(s, {t})); }})()")["result"]
         self.assertNotIn("先設定已在紙本做過的任務", set_up)
+
+    def test_start_from_does_not_count_as_todays_hours(self):
+        t = local_ms(2026, 10, 5, 9, 0)
+        res = run_node(
+            f"(() => {{ const s = todayTaskStartFrom({{completed:{{}}, active:null}}, 'CORE-10', {t}); const v = todayTaskViewModel(s, {t}); "
+            f"return {{plan: v.planText, code: v.code, mode: v.mode}}; }})()")["result"]
+        self.assertEqual(res, {"plan": "今天預算 2 小時（平日）｜還要做約 2.25 小時", "code": "CORE-10", "mode": "task"})
 
 
 class TestDayChangeRerender(unittest.TestCase):

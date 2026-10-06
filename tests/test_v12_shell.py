@@ -93,7 +93,7 @@ class TestV12Shell(unittest.TestCase):
         self.assertNotIn("serviceWorker.register", BUILD)
         self.assertIn("navigator.serviceWorker.getRegistrations()", INDEX)
         self.assertIn("r.unregister()", INDEX)
-        self.assertTrue((ROOT / "sw.js").exists())
+        self.assertFalse((ROOT / "sw.js").exists())
 
     def test_switch_tab_routes_scoreboard_and_ignores_missing_panes(self):
         self.assertIn("renderScoreboard(document.getElementById('scoreboard-container'))", MAIN_JS)

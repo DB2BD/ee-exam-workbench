@@ -15,9 +15,11 @@ Usage::
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,8 +64,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.qids:
         scripts = [script for script in scripts if script.stem in set(args.qids)]
     failures = []
-    for script in scripts:
-        ok, tail = run(script)
+    with ThreadPoolExecutor(max_workers=os.cpu_count() or 1) as pool:
+        outcomes = list(pool.map(run, scripts))  # scripts are independent; order preserved
+    for script, (ok, tail) in zip(scripts, outcomes):
         print(f"{'PASS' if ok else 'FAIL'} {script.stem}: {tail}")
         if not ok:
             failures.append(script.stem)

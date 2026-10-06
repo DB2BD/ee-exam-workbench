@@ -109,6 +109,11 @@ pip install -r requirements.txt
 python3 scripts/build_workbench.py        # 由 src/ 與資料檔建置 index.html
 python3 scripts/run_all_tests.py          # 單元測試與 323 支獨立驗算腳本
 python3 scripts/check_html_js_syntax.py
+
+npm run check:fast                        # 開發迴圈：建置＋語法＋測試（平行）
+npm run check:fast -- -k pacing           # 只跑名稱含 pacing 的測試
+npm run check                             # 完整閘門（生成器、建置、測試、語法、連結、圖片）
+npm run stage                             # 另外組出 _site（qa:browser 需要）
 ```
 
 推送到 `main` 後，GitHub Actions 會先建置並跑完整測試，再以 `scripts/stage_pages_artifact.py` 組出發布內容並部署到 GitHub Pages。`dashboard-data.js`、`solutions-bundle.js` 等為生成檔，請修改來源與編譯腳本，不要直接編輯。

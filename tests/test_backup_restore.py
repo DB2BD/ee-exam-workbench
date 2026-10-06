@@ -398,6 +398,66 @@ process.stdout.write(JSON.stringify(result));
         self.assertEqual(result["pe"], {"EE-pe": 2})
         self.assertEqual(result["gk"], {"GK-gk": 1})
 
+    def test_backup_nudge_state_five_cases(self):
+        day = 86400000
+        now = 10 * day
+        cases = {
+            "none": {"lastBackupAt": None, "now": now, "hasData": False, "snoozedUntil": 0},
+            "never": {"lastBackupAt": None, "now": now, "hasData": True, "snoozedUntil": 0},
+            "two": {"lastBackupAt": now - 2 * day - 1000, "now": now, "hasData": True, "snoozedUntil": 0},
+            "three": {"lastBackupAt": now - 3 * day, "now": now, "hasData": True, "snoozedUntil": 0},
+            "snoozed": {"lastBackupAt": None, "now": now, "hasData": True, "snoozedUntil": now + 1},
+        }
+        result = self.run_js("(() => { const c=" + json.dumps(cases) + "; const o={}; for (const k in c) o[k]=backupNudgeState(c[k]); return o; })()")
+        self.assertFalse(result["none"]["show"])
+        self.assertTrue(result["never"]["show"])
+        self.assertEqual(result["never"]["text"], "還沒備份過")
+        self.assertFalse(result["two"]["show"])
+        self.assertTrue(result["three"]["show"])
+        self.assertEqual(result["three"]["days"], 3)
+        self.assertEqual(result["three"]["text"], "已 3 天沒備份")
+        self.assertFalse(result["snoozed"]["show"])
+
+    def test_backup_nudge_has_data_and_snooze_until(self):
+        result = self.run_js(
+            "(() => { const a=backupNudgeHasData();"
+            " localStorage.setItem('EE_EXAM_RESULT_CARD_V1', JSON.stringify({records:[{}]}));"
+            " const b=backupNudgeHasData();"
+            " const n=new Date(2026,9,6,15,0).getTime(); const u=new Date(backupNudgeSnoozeUntil(n));"
+            " return {a,b,y:u.getFullYear(),m:u.getMonth(),d:u.getDate(),h:u.getHours()}; })()"
+        )
+        self.assertFalse(result["a"])
+        self.assertTrue(result["b"])
+        self.assertEqual((result["m"], result["d"], result["h"]), (9, 7, 0))
+
+    def test_backup_download_now_updates_last_backup_and_rerenders(self):
+        script = r'''
+const fs = require('fs'), vm = require('vm');
+const data = {};
+const localStorage = { getItem: k => k in data ? data[k] : null, setItem: (k, v) => { data[k] = String(v); }, removeItem: k => { delete data[k]; } };
+let rendered = 0, clicked = 0;
+const ctx = { console, localStorage, currentExamCategory: 'PE', progressState: {}, starredState: {}, recallState: {},
+  getManualTopicLabels: () => ({}), showToast: () => {}, Blob: function () {},
+  URL: { createObjectURL: () => 'blob:x', revokeObjectURL: () => {} },
+  document: { getElementById: () => null, createElement: () => ({ click: () => { clicked++; } }), addEventListener: () => {} } };
+ctx.window = { addEventListener: () => {} };
+vm.createContext(ctx);
+for (const f of ['dashboard-data.js','national-exams-data.js','src/data/knowledge-dag.js','src/state/practiceStore.js','src/state/sm2Store.js','src/components/header.js']) {
+  vm.runInContext(fs.readFileSync(f, 'utf8'), ctx, { filename: f });
+}
+const before = vm.runInContext("getBackupMetadata().lastBackupAt || null", ctx);
+vm.runInContext("backupDownloadNow()", ctx);
+const after = vm.runInContext("getBackupMetadata().lastBackupAt || null", ctx);
+process.stdout.write(JSON.stringify({ type: vm.runInContext("typeof backupDownloadNow", ctx), before, after, clicked }));
+'''
+        completed = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        result = json.loads(completed.stdout.splitlines()[-1])
+        self.assertEqual(result["type"], "function")
+        self.assertIsNone(result["before"])
+        self.assertTrue(result["after"])
+        self.assertEqual(result["clicked"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

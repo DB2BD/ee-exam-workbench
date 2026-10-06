@@ -26,6 +26,8 @@ const BACKUP_MOCK_EXAM_TIMER_KEY = 'EE_MOCK_EXAM_TIMER_V1';
 const BACKUP_CORRECTION_SEEN_KEY = 'EE_EXAM_ANSWER_CORRECTION_SEEN_V1';
 const BACKUP_PROGRESS_KEYS = { PE: 'EE_EXAM_PROGRESS_V1', GK: 'GK_EXAM_PROGRESS_V1' };
 const BACKUP_STARRED_KEYS = { PE: 'EE_EXAM_STARRED_V1', GK: 'GK_EXAM_STARRED_V1' };
+const BACKUP_NUDGE_KEY = 'EE_EXAM_BACKUP_NUDGE_V1';
+const BACKUP_NUDGE_DAYS = 3;
 const BACKUP_CATEGORIES = ['PE', 'GK'];
 const BACKUP_RECALL_ERROR_TYPES = ['題型辨識錯', '起手式不會', '公式忘記', '計算錯', '觀念混淆'];
 const BACKUP_LEARNING_KEYS = {
@@ -871,6 +873,41 @@ function validateUserDataBackup(payload, options) {
 
 function getBackupMetadata() {
   return backupReadJSON(typeof localStorage !== 'undefined' ? localStorage : null, BACKUP_META_STORAGE_KEY, {});
+}
+
+// Cheap check (no snapshot rebuild): any result card, finished today task or SM-2 entry.
+function backupNudgeHasData(storage) {
+  const store = storage === undefined ? (typeof localStorage !== 'undefined' ? localStorage : null) : storage;
+  try {
+    const card = backupReadJSON(store, BACKUP_RESULT_CARD_KEY, {});
+    if (Array.isArray(card.records) && card.records.length > 0) return true;
+    const task = backupReadJSON(store, BACKUP_TODAY_TASK_KEY, {});
+    if (backupIsPlainObject(task.completed) && Object.keys(task.completed).length > 0) return true;
+    const sm2 = backupReadJSON(store, SM2_STORAGE_KEY, {});
+    if (Object.keys(sm2).length > 0) return true;
+    if (backupIsPlainObject(sm2Schedule) && Object.keys(sm2Schedule).length > 0) return true;
+  } catch (_) { /* treat as no data */ }
+  return false;
+}
+
+// Pure: decide whether the home page should nag about a backup.
+function backupNudgeState(input) {
+  const opts = input || {};
+  const hidden = { show: false, days: null, text: '' };
+  if (!opts.hasData) return hidden;
+  const now = Number(opts.now);
+  if (Number.isFinite(now) && Number(opts.snoozedUntil) > now) return hidden;
+  const last = typeof opts.lastBackupAt === 'string' ? Date.parse(opts.lastBackupAt) : Number(opts.lastBackupAt);
+  if (!Number.isFinite(last) || last <= 0) return { show: true, days: null, text: '還沒備份過' };
+  const days = Math.floor((now - last) / 86400000);
+  if (days >= BACKUP_NUDGE_DAYS) return { show: true, days, text: `已 ${days} 天沒備份` };
+  return { show: false, days: Math.max(0, days), text: '' };
+}
+
+// Start of the next local day (snooze target for "明天再說").
+function backupNudgeSnoozeUntil(nowMs) {
+  const d = new Date(nowMs);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1).getTime();
 }
 
 function backupWriteMetadata(next) {

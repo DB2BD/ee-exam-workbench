@@ -298,5 +298,29 @@ class TestDockedCollapse(unittest.TestCase):
         self.assertIn("做完了？記錄作答結果", src)
 
 
+class TestResultCardEscapeHooks(unittest.TestCase):
+    def test_modal_escape_action_cases(self):
+        import re
+        src = (ROOT / "src/components/solutionModal.js").read_text(encoding="utf-8")
+        fn = re.search(r"function solutionModalEscapeAction\(.*?\n}\n", src, re.S).group(0)
+        cases = [
+            "{editable:true, hasDockedCard:true, dirty:true, collapsed:false}",
+            "{editable:false, hasDockedCard:true, dirty:true, collapsed:false}",
+            "{editable:false, hasDockedCard:true, dirty:true, collapsed:true}",
+            "{editable:false, hasDockedCard:true, dirty:false, collapsed:false}",
+            "{editable:false, hasDockedCard:false, dirty:true, collapsed:false}",
+        ]
+        script = fn + "\nprocess.stdout.write(JSON.stringify([" + ",".join("solutionModalEscapeAction(%s)" % c for c in cases) + "]));"
+        done = subprocess.run(["node", "-"], input=script, capture_output=True, text=True)
+        self.assertEqual(done.returncode, 0, done.stderr)
+        self.assertEqual(json.loads(done.stdout), ["ignore", "collapse", "close", "close", "close"])
+
+    def test_result_card_exposes_dirty_and_collapse_hooks(self):
+        src = (ROOT / "src/components/resultCard.js").read_text(encoding="utf-8")
+        for name in ("__resultCardDirty", "__resultCardCollapse", "__resultCardIsCollapsed"):
+            self.assertIn("root." + name, src)
+        self.assertIn("marks.some(Boolean) || errors.length > 0", src)
+
+
 if __name__ == "__main__":
     unittest.main()

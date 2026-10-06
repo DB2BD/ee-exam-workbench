@@ -1652,6 +1652,14 @@ function toggleStemDescription() {
   }
 }
 
+// Escape in the solution modal: never lose a half-marked docked result card.
+function solutionModalEscapeAction(ctx) {
+  const c = ctx || {};
+  if (c.editable) return 'ignore';
+  if (c.hasDockedCard && c.dirty && !c.collapsed) return 'collapse';
+  return 'close';
+}
+
 // Global Keyboard Navigation
 window.addEventListener('keydown', (e) => {
   const modal = document.getElementById('solution-modal');
@@ -1670,7 +1678,16 @@ window.addEventListener('keydown', (e) => {
       else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
     }
   } else if (e.key === 'Escape') {
-    closeModal();
+    const card = modal.querySelector ? modal.querySelector('[data-result-card-docked]') : null;
+    const live = card || document.querySelector('[data-result-card-docked]');
+    const action = solutionModalEscapeAction({
+      editable: !!editable,
+      hasDockedCard: !!live,
+      dirty: !!(live && typeof live.__resultCardDirty === 'function' && live.__resultCardDirty()),
+      collapsed: !!(live && typeof live.__resultCardIsCollapsed === 'function' && live.__resultCardIsCollapsed())
+    });
+    if (action === 'collapse') { e.preventDefault(); live.__resultCardCollapse(); }
+    else if (action === 'close') closeModal();
   } else if (!editable && e.key === 'ArrowLeft') {
     navModalQuestion(-1);
   } else if (!editable && e.key === 'ArrowRight') {

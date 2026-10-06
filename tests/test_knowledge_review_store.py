@@ -29,7 +29,7 @@ vm.runInContext({json.dumps(setup, ensure_ascii=False)}, context);
 const result = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify({{result,data}}));
 """
-        completed = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True)
+        completed = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
 
@@ -95,7 +95,7 @@ const r = vm.runInContext("calculateKnowledgeReviewItem(null, 4, new Date('2026-
 process.stdout.write(JSON.stringify(r));
 """
         env = dict(os.environ, TZ="Asia/Taipei")
-        done = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True, env=env)
+        done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True, env=env)
         self.assertEqual(done.returncode, 0, done.stderr)
         item = json.loads(done.stdout)
         self.assertEqual(item["lastReviewed"], "2026-10-05")

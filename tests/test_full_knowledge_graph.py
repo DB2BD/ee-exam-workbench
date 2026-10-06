@@ -54,7 +54,7 @@ const mapped = module.exports.mapQuestionToDagNodes('01', '', '', 'GK-112-01-3')
 const otherSubject = module.exports.mapQuestionToDagNodes('02', '', '', 'GK-112-01-3');
 process.stdout.write(JSON.stringify({ mapped, otherSubject, enabled: sandbox.CANONICAL_GRAPH_ENABLED }));
 """
-        result = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True, check=True)
+        result = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True, check=True)
         payload = json.loads(result.stdout)
         self.assertEqual(payload["mapped"], ["gk-ct-divider-equiv"])
         self.assertEqual(payload["otherSubject"], [])

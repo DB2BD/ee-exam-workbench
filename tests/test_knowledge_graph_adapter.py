@@ -28,7 +28,7 @@ const sandbox = {{ console, module,
 vm.runInNewContext(fs.readFileSync('src/data/knowledge-dag.js', 'utf8'), sandbox);
 process.stdout.write(JSON.stringify({expression}));
 """
-        result = subprocess.run(["node", "-e", script], cwd=ROOT, check=True, capture_output=True, text=True)
+        result = subprocess.run(["node", "-"], input=script, cwd=ROOT, check=True, capture_output=True, text=True)
         return json.loads(result.stdout)
 
     def test_known_qid_uses_canonical_link(self):

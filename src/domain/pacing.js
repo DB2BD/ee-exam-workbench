@@ -218,6 +218,8 @@ function pacingPlan(input) {
   // --- status ---------------------------------------------------------------------------------
   const due = schedule.due || {};
   const behindCodes = order.filter(c => !completed[c] && due[c] && due[c] < today);
+  const behindHours = behindCodes.reduce((n, c) => n + remainingOf(c), 0);
+  const aheadHours = order.filter(c => completed[c] && due[c] && due[c] > today).reduce((n, c) => n + pacingMinutesFrom(tasks[c], 0) / 60, 0);
   const aheadCodes = order.filter(c => completed[c] && due[c] && due[c] > today);
   const allPapersDone = papers.length > 0 && papers.every(c => completed[c]);
   let status = 'on';
@@ -234,7 +236,7 @@ function pacingPlan(input) {
     requiredHours: next && next.requiredHours != null ? next.requiredHours : 0,
     availableHours: next && next.availableHours != null ? next.availableHours : 0,
     remainingHours: uncompleted.filter(c => !cutSet.has(c)).reduce((n, c) => n + remainingOf(c), 0),
-    status, behindCount: behindCodes.length, aheadCount: aheadCodes.length,
+    status, behindCount: behindCodes.length, aheadCount: aheadCodes.length, behindHours, aheadHours,
     behindCodes, cut, cutDetail, overload, shortHours,
     suggestion, allDone: uncompleted.length === 0, allPapersDone,
   };

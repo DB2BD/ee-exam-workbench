@@ -233,7 +233,7 @@ process.stdout.write(JSON.stringify({html,visible}));
         self.assertNotIn('data-daily-completion-action', result["html"])
         self.assertNotIn("完成本題", result["html"])
         self.assertIn("開始四段蓋牌", result["html"])
-        self.assertIn("暫存本題進度", result["html"])
+        self.assertNotIn("暫存本題進度", result["html"])
         self.assertIn('data-daily-open-solution="recall"', result["html"])
         self.assertEqual(result["before"]["activeSession"]["currentIndex"], 0)
         self.assertEqual(result["before"]["completionByQuestion"], {})

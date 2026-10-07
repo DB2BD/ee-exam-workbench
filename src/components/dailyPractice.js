@@ -601,7 +601,7 @@ function renderDailyPractice(container, error) {
   }
   if (!question || dailyPracticeHomeMode === 'start') {
     const activeNote = session
-      ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
+      ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代。</p>'
       : '';
     container.innerHTML = '<section class="daily-practice-shell">' +
       '<div class="daily-practice-heading"><div><span class="eyebrow">隨機練習</span><h2>隨機練習 3 題</h2><p>目前選題方式：' + dailyPracticeEscape(dailyPracticeModeLabel()) + '；避開 7 天內已完成與尚未模考的題目。</p></div></div>' +
@@ -631,7 +631,7 @@ function renderDailyPractice(container, error) {
       (dailyPracticeView === 'question'
         ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「' + startLabel + '」。</p>' + (solutionUnlocked ? '<div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">其他詳解選項</button></div>' : '') + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton()) +
-    '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
+    '</div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
   if (scroll) scroll.scrollTop = scrollTop;
   if (typeof container.querySelectorAll === 'function') container.querySelectorAll('[data-daily-open-solution]').forEach(button => button.addEventListener('click', event => {
@@ -641,8 +641,6 @@ function renderDailyPractice(container, error) {
     });
   }));
   if (typeof container.querySelector === 'function') {
-    const deferButton = container.querySelector('[data-daily-defer]');
-    if (deferButton) deferButton.addEventListener('click', dailyPracticeDefer);
   }
   const image = typeof container.querySelector === 'function' ? container.querySelector('[data-daily-zoom-image]') : null;
   if (image) {

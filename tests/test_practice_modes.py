@@ -119,6 +119,29 @@ class TestReinforce(unittest.TestCase):
         # third pick is same chapter as a miss, main tier first: ch-01-b has 01-4 only -> 01-4 (b chapter) or 02-2
         self.assertIn(ids[2], {"EE-114-01-4", "EE-114-02-2"})
 
+    def test_sm2_due_items_come_first_worst_mark_first(self):
+        ids = self.reinforce([
+            "rec('EE-114-04-3', 'x')",
+            "rec('EE-114-05-3', 'tri')",
+            "rec('EE-114-06-3', 'x', {source: 'mock'})",
+        ], dueQids=["EE-114-05-3", "EE-114-04-3", "EE-114-01-1"])
+        self.assertEqual(ids[:2], ["EE-114-04-3", "EE-114-05-3"])  # x before tri
+        self.assertEqual(len(ids), 3)
+        self.assertEqual(len(set(ids)), 3)
+        self.assertIn("EE-114-01-1", ids)  # unrecorded due item still ranks before stage a/b/c
+
+    def test_sm2_due_respects_locked_and_recent_rules(self):
+        ids = self.reinforce(["rec('EE-114-06-3', 'x', {source: 'mock'})"],
+                             dueQids=["EE-114-01-1", "EE-114-02-1"], lockedQids=["EE-114-01-1"])
+        self.assertNotIn("EE-114-01-1", ids)
+        self.assertEqual(ids[0], "EE-114-02-1")
+
+    def test_sm2_due_empty_keeps_old_behaviour(self):
+        recs = ["rec('EE-114-01-3', 'x', {source: 'mock', mockId: 'm1'})"]
+        ids = self.reinforce(recs, random=0, dueQids=[])
+        self.assertEqual(ids[:2], ["EE-114-01-3", "EE-114-01-4"])
+        self.assertEqual(len(ids), 3)
+
     def test_same_chapter_main_first(self):
         ids = self.reinforce(["rec('EE-114-03-3', 'x', {source: 'mock'})"], random=0)
         # chapters of the miss: ch-03-b (03-3, 03-4); the main-tier 'same chapter' pool is empty there,

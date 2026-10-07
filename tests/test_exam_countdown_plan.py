@@ -29,7 +29,7 @@ class TestExamCountdownPlan(unittest.TestCase):
     def test_route_budget_is_complete_and_noninteractive(self):
         for phrase in (
             "18 × 60 分鐘",
-            "14 × 75 分鐘",
+            "11 × 75 分鐘",
             "6 × 180 分鐘",
             "不需要回填日期、分數或錯因",
             "不等待個人化分析",

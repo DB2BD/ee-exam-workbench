@@ -484,17 +484,42 @@ function mockExamPaperHtml(paper) {
   return head + `<div class="mock-q-list">${cards}</div>` + (graded ? '<div id="mock-summary"></div>' : '');
 }
 
+/** Pure: { [mockId]: delta } vs the previous complete paper of the same subject (0–100 scaled, 1 decimal). */
+function mockExamHistoryDeltas(hist) {
+  const out = {};
+  const bySubject = {};
+  (hist || []).filter(h => h.complete && h.summary && h.summary.total).forEach(h => {
+    (bySubject[h.subjectId] = bySubject[h.subjectId] || []).push(h);
+  });
+  const sc = h => h.summary.estimate / h.summary.total * 100;
+  Object.keys(bySubject).forEach(sid => {
+    const list = bySubject[sid].slice().sort((a, b) => a.at - b.at);
+    for (let i = 1; i < list.length; i++) {
+      out[list[i].mockId] = Math.round((sc(list[i]) - sc(list[i - 1])) * 10) / 10;
+    }
+  });
+  return out;
+}
+
+function mockExamDeltaCell(delta) {
+  if (delta === undefined || delta === null) return '<span class="mock-delta">—</span>';
+  const cls = delta > 0 ? 'mock-delta--up' : (delta < 0 ? 'mock-delta--down' : '');
+  return `<span class="mock-delta ${cls}">${delta > 0 ? '+' : (delta < 0 ? '−' : '±')}${Math.abs(delta)}</span>`;
+}
+
 function mockExamHistoryHtml() {
   const rows = mockExamActiveRows();
   const hist = mockExamHistory(mockExamRecords(), rows);
   const legacy = mockExamLegacyHistory();
+  const deltas = mockExamHistoryDeltas(hist);
   let body = '';
   if (!hist.length) body += '<p class="mock-empty">尚無模考紀錄。交卷並評完所有題目後會出現在這裡。</p>';
   else {
-    body += '<table class="mock-history-table"><thead><tr><th>日期</th><th>試卷</th><th>本卷估計</th></tr></thead><tbody>' + hist.map(h => `
+    body += '<table class="mock-history-table"><thead><tr><th>日期</th><th>試卷</th><th>本卷估計</th><th>較前次同科</th></tr></thead><tbody>' + hist.map(h => `
       <tr><td>${mockExamEscape(mockExamDateText(h.at))}</td>
       <td>${mockExamEscape(h.year)} 年 ${mockExamEscape(mockExamSubjectName(h.subjectId))}</td>
-      <td>${h.complete ? `<strong>${mockExamFormat(h.summary.estimate)}／${mockExamFormat(h.summary.total)}</strong>` : `<span class="mock-incomplete">未評完（${h.summary.questionCount}／${h.expectedCount} 題）</span>`}</td></tr>`).join('') + '</tbody></table>';
+      <td>${h.complete ? `<strong>${mockExamFormat(h.summary.estimate)}／${mockExamFormat(h.summary.total)}</strong>` : `<span class="mock-incomplete">未評完（${h.summary.questionCount}／${h.expectedCount} 題）</span>`}</td>
+      <td>${h.complete ? mockExamDeltaCell(deltas[h.mockId]) : '<span class="mock-delta">—</span>'}</td></tr>`).join('') + '</tbody></table>';
   }
   if (legacy.length) {
     body += '<h4 class="mock-legacy-title">舊版紀錄（唯讀）</h4><table class="mock-history-table mock-legacy"><thead><tr><th>日期</th><th>試卷</th><th>當時自評</th></tr></thead><tbody>' + legacy.slice(0, 20).map(item => `
@@ -708,6 +733,6 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     MOCK_EXAM_YEARS, MOCK_EXAM_REMINDER, MOCK_EXAM_SCORED_SUBSETS,
     mockExamTimeCap, mockExamPdfUrl, mockExamPaper, mockExamNewId, mockExamParseId,
-    mockExamSummary, mockExamMarksText, mockExamHistory, latestMockScoreBySubject, mockExamShortcuts, mockExamRestoreSession, mockExamNextScheduled, mockExamSubmitStep, initMockExam
+    mockExamSummary, mockExamMarksText, mockExamHistory, mockExamHistoryDeltas, latestMockScoreBySubject, mockExamShortcuts, mockExamRestoreSession, mockExamNextScheduled, mockExamSubmitStep, initMockExam
   };
 }

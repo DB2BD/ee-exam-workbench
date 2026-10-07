@@ -3363,9 +3363,6 @@ select:focus {
       <button id="home-action-start" class="home-random-button" type="button" onclick="dailyPracticePrepareNewRound()"><span class="ui-ico" data-ui-icon="shuffle"></span><strong>隨機練習 3 題</strong><small>依目標分配抽題，按一次就開始</small></button>
       <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span class="ui-ico" data-ui-icon="rotate-ccw"></span><strong>到期複習</strong><small>今天沒有到期題</small></button>
     </section>
-    <div class="practice-home-secondary">
-      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled>↩ 繼續上次</button>
-    </div>
     <div id="daily-practice-container"></div>
   </div>
 
@@ -28291,7 +28288,16 @@ function createBalancedPracticeQueue(questions, options = {}) {
   return practiceTopUp(chosen, questions, options, count, random, now);
 }
 
-// 補強: (a) mock questions whose latest mock record is △／×, (b) same-chapter questions,
+// SM-2 due question ids: `options.dueQids` (array, for tests) or the live schedule via getDueQuestionsList().
+function practiceDueQids(options) {
+  if (Array.isArray(options.dueQids)) return options.dueQids.map(String);
+  if (typeof getDueQuestionsList === 'function') {
+    try { return getDueQuestionsList(options.now).map(String); } catch (e) { return []; }
+  }
+  return [];
+}
+
+// 補強: stage 0 SM-2 due items, then (a) mock questions whose latest mock record is △／×, (b) same-chapter questions,
 // (c) chapters with the most error codes in the last 21 days.  A question whose latest
 // record is all ○ is never repeated.  Empty -> 各科輪流.
 function createReinforcePracticeQueue(questions, options = {}) {
@@ -28313,10 +28319,23 @@ function createReinforcePracticeQueue(questions, options = {}) {
   };
   const isUsed = c => chosen.indexOf(c.id) >= 0;
 
+  // (0) SM-2 due questions (due today or earlier), worst latest mark first.  Same pool rules as the other stages
+  // (locked papers, 7-day repeat window, tier), but a due question stays eligible even if its latest mark is ○.
+  const dueRank = { x: 0, tri: 1, o: 3 };
+  const dueIds = new Set(practiceDueQids(options));
+  if (dueIds.size) {
+    const duePool = practicePool(questions, options, now).filter(c => dueIds.has(c.id));
+    const rankOf = c => { const l = latestAny[c.id]; const m = l ? practiceRecordMark(l) : ''; return m in dueRank ? dueRank[m] : 2; };
+    [0, 1, 2, 3].forEach(rank => {
+      const group = duePool.filter(c => rankOf(c) === rank && chosen.indexOf(c.id) < 0);
+      take(group.filter(c => c.tier === 'main'));
+      take(group.filter(c => chosen.indexOf(c.id) < 0));
+    });
+  }
   // (a) mock misses, × before △.
   const seedAll = Object.keys(latestMock).filter(qid => ['x', 'tri'].indexOf(practiceRecordMark(latestMock[qid])) >= 0);
   ['x', 'tri'].forEach(mark => {
-    take(seedAll.filter(qid => practiceRecordMark(latestMock[qid]) === mark && byId[qid]).map(qid => byId[qid]));
+    take(seedAll.filter(qid => practiceRecordMark(latestMock[qid]) === mark && byId[qid] && chosen.indexOf(qid) < 0).map(qid => byId[qid]));
   });
   // (b) same chapter as any mock miss (main tier first).
   const chapterOfId = {};
@@ -39478,7 +39497,7 @@ function renderDailyPractice(container, error) {
   }
   if (!question || dailyPracticeHomeMode === 'start') {
     const activeNote = session
-      ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
+      ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代。</p>'
       : '';
     container.innerHTML = '<section class="daily-practice-shell">' +
       '<div class="daily-practice-heading"><div><span class="eyebrow">隨機練習</span><h2>隨機練習 3 題</h2><p>目前選題方式：' + dailyPracticeEscape(dailyPracticeModeLabel()) + '；避開 7 天內已完成與尚未模考的題目。</p></div></div>' +
@@ -39508,7 +39527,7 @@ function renderDailyPractice(container, error) {
       (dailyPracticeView === 'question'
         ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「' + startLabel + '」。</p>' + (solutionUnlocked ? '<div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">其他詳解選項</button></div>' : '') + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton()) +
-    '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
+    '</div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
   if (scroll) scroll.scrollTop = scrollTop;
   if (typeof container.querySelectorAll === 'function') container.querySelectorAll('[data-daily-open-solution]').forEach(button => button.addEventListener('click', event => {
@@ -39518,8 +39537,6 @@ function renderDailyPractice(container, error) {
     });
   }));
   if (typeof container.querySelector === 'function') {
-    const deferButton = container.querySelector('[data-daily-defer]');
-    if (deferButton) deferButton.addEventListener('click', dailyPracticeDefer);
   }
   const image = typeof container.querySelector === 'function' ? container.querySelector('[data-daily-zoom-image]') : null;
   if (image) {
@@ -39821,6 +39838,8 @@ function pacingPlan(input) {
   // --- status ---------------------------------------------------------------------------------
   const due = schedule.due || {};
   const behindCodes = order.filter(c => !completed[c] && due[c] && due[c] < today);
+  const behindHours = behindCodes.reduce((n, c) => n + remainingOf(c), 0);
+  const aheadHours = order.filter(c => completed[c] && due[c] && due[c] > today).reduce((n, c) => n + pacingMinutesFrom(tasks[c], 0) / 60, 0);
   const aheadCodes = order.filter(c => completed[c] && due[c] && due[c] > today);
   const allPapersDone = papers.length > 0 && papers.every(c => completed[c]);
   let status = 'on';
@@ -39837,7 +39856,7 @@ function pacingPlan(input) {
     requiredHours: next && next.requiredHours != null ? next.requiredHours : 0,
     availableHours: next && next.availableHours != null ? next.availableHours : 0,
     remainingHours: uncompleted.filter(c => !cutSet.has(c)).reduce((n, c) => n + remainingOf(c), 0),
-    status, behindCount: behindCodes.length, aheadCount: aheadCodes.length,
+    status, behindCount: behindCodes.length, aheadCount: aheadCodes.length, behindHours, aheadHours,
     behindCodes, cut, cutDetail, overload, shortHours,
     suggestion, allDone: uncompleted.length === 0, allPapersDone,
   };
@@ -40134,6 +40153,33 @@ function todayTaskMilestoneText(pacing) {
   return next.atRisk ? tail + '｜彈性關卡：做不完就順延，不影響模考' : tail;
 }
 
+// One-line schedule position: 「落後約 N 小時（M 項未按日程完成）」／「照日程」／「超前約 N 小時」.
+// Behind = tasks due before today and not done (pacing.behindHours); ahead = done tasks that were due after today.
+function todayTaskPaceLine(pacing) {
+  if (!pacing) return '';
+  if (pacing.behindCount > 0) {
+    return '落後約 ' + todayTaskFormatHours(pacing.behindHours || 0) + ' 小時（' + pacing.behindCount + ' 項未按日程完成）';
+  }
+  if (pacing.aheadCount > 0 && pacing.aheadHours > 0) return '超前約 ' + todayTaskFormatHours(pacing.aheadHours) + ' 小時';
+  return '照日程';
+}
+
+// SM-2 due questions today; 0 when the store is not loaded.
+function todayTaskDueCount(now) {
+  if (typeof getDueQuestionsList !== 'function') return 0;
+  try { return getDueQuestionsList(now).length; } catch (e) { return 0; }
+}
+
+// The single status line: 已完成 N／總數｜milestone｜pace｜到期複習 N 題 (empty parts are skipped).
+function todayTaskStatusLine(vm) {
+  const parts = [];
+  if (vm.total) parts.push('已完成 ' + vm.doneCount + '／' + vm.total);
+  if (vm.milestoneText) parts.push(vm.milestoneText);
+  if (vm.paceText) parts.push(vm.paceText);
+  if (vm.dueCount > 0) parts.push('到期複習 ' + vm.dueCount + ' 題');
+  return parts.join('｜');
+}
+
 function todayTaskCutNote(pacing) {
   return pacing.overload
     ? '時數仍短缺約 ' + todayTaskFormatHours(pacing.shortHours) + ' 小時：模考卷照順序做，做不完的排到 11/01 緩衝日補考' : '';
@@ -40214,7 +40260,7 @@ function todayTaskPhaseView(task, a, now) {
   };
 }
 
-function todayTaskViewModel(state, now) {
+function todayTaskViewModel(state, now, options) {
   const todayIso = todayTaskLocalDate(now);
   const pacing = todayTaskPacing(state, todayIso);
   const tasks = DAILY_SCHEDULE.tasks;
@@ -40260,6 +40306,8 @@ function todayTaskViewModel(state, now) {
     rest,
     restText,
     milestoneText: todayTaskMilestoneText(pacing),
+    paceText: freshStart ? '' : todayTaskPaceLine(pacing),
+    dueCount: options && Number.isInteger(options.dueCount) ? options.dueCount : todayTaskDueCount(now),
     freshStart,
     cutText: freshStart ? '' : todayTaskCutText(pacing),
     suggestion: pacing.suggestion,
@@ -40320,7 +40368,7 @@ function todayTaskCardHtml(vm) {
   const restDay = vm.mode === 'exam-check' || vm.mode === 'stop';
   const plan = restDay ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
   const pacingLines = restDay ? '' :
-    (vm.milestoneText ? '<p class="today-pacing-milestone' + (vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(vm.milestoneText) + '</p>' : '') +
+    (todayTaskStatusLine(vm) ? '<p class="today-pacing-milestone' + (vm.pacing && vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(todayTaskStatusLine(vm)) + '</p>' : '') +
     todayTaskCutHtml(vm) +
     (vm.suggestion ? '<p class="today-pacing-suggestion">' + esc(vm.suggestion) + '</p>' : '');
   let body;
@@ -40334,7 +40382,7 @@ function todayTaskCardHtml(vm) {
     const extra = vm.code
       ? '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' 選做下一個：' + esc(vm.code) + '</button></div>' : '';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天的份量已完成，可以收工</strong>' +
-      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '。還有餘力可選做下一個（' + esc(vm.code ? vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
+      '<p class="today-task-note">還有餘力可選做下一個（' + esc(vm.code ? vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
   } else if (vm.mode === 'idle') {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可用下方「隨機練習 3 題」維持手感。</p></div>';
   } else {
@@ -40347,7 +40395,7 @@ function todayTaskCardHtml(vm) {
     const rest = vm.restText ? '<p class="today-pacing-rest">' + esc(vm.restText) + '</p>' : '';
     const buttonText = resume ? (vm.held ? (vm.held.sameDay ? '現在就核對' : '開始核對') : '繼續') : '開始';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">一鍵開始今天</span><strong>' + esc(label) + '</strong>' +
-      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + rest + '</div>' +
+      rest + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' ' + buttonText + '</button></div>';
   }
   const dropped = restDay && vm.active ? '<p class="today-task-note">先前未完成的任務（' + esc(vm.active.code) + '）不再繼續，也不會開新題。</p>' : '';

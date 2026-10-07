@@ -399,7 +399,16 @@ function createBalancedPracticeQueue(questions, options = {}) {
   return practiceTopUp(chosen, questions, options, count, random, now);
 }
 
-// 補強: (a) mock questions whose latest mock record is △／×, (b) same-chapter questions,
+// SM-2 due question ids: `options.dueQids` (array, for tests) or the live schedule via getDueQuestionsList().
+function practiceDueQids(options) {
+  if (Array.isArray(options.dueQids)) return options.dueQids.map(String);
+  if (typeof getDueQuestionsList === 'function') {
+    try { return getDueQuestionsList(options.now).map(String); } catch (e) { return []; }
+  }
+  return [];
+}
+
+// 補強: stage 0 SM-2 due items, then (a) mock questions whose latest mock record is △／×, (b) same-chapter questions,
 // (c) chapters with the most error codes in the last 21 days.  A question whose latest
 // record is all ○ is never repeated.  Empty -> 各科輪流.
 function createReinforcePracticeQueue(questions, options = {}) {
@@ -421,10 +430,23 @@ function createReinforcePracticeQueue(questions, options = {}) {
   };
   const isUsed = c => chosen.indexOf(c.id) >= 0;
 
+  // (0) SM-2 due questions (due today or earlier), worst latest mark first.  Same pool rules as the other stages
+  // (locked papers, 7-day repeat window, tier), but a due question stays eligible even if its latest mark is ○.
+  const dueRank = { x: 0, tri: 1, o: 3 };
+  const dueIds = new Set(practiceDueQids(options));
+  if (dueIds.size) {
+    const duePool = practicePool(questions, options, now).filter(c => dueIds.has(c.id));
+    const rankOf = c => { const l = latestAny[c.id]; const m = l ? practiceRecordMark(l) : ''; return m in dueRank ? dueRank[m] : 2; };
+    [0, 1, 2, 3].forEach(rank => {
+      const group = duePool.filter(c => rankOf(c) === rank && chosen.indexOf(c.id) < 0);
+      take(group.filter(c => c.tier === 'main'));
+      take(group.filter(c => chosen.indexOf(c.id) < 0));
+    });
+  }
   // (a) mock misses, × before △.
   const seedAll = Object.keys(latestMock).filter(qid => ['x', 'tri'].indexOf(practiceRecordMark(latestMock[qid])) >= 0);
   ['x', 'tri'].forEach(mark => {
-    take(seedAll.filter(qid => practiceRecordMark(latestMock[qid]) === mark && byId[qid]).map(qid => byId[qid]));
+    take(seedAll.filter(qid => practiceRecordMark(latestMock[qid]) === mark && byId[qid] && chosen.indexOf(qid) < 0).map(qid => byId[qid]));
   });
   // (b) same chapter as any mock miss (main tier first).
   const chapterOfId = {};

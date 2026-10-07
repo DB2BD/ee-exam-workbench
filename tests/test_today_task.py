@@ -404,6 +404,37 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertEqual(res["milestone"], "距 10/31 模考截止還有 13 天｜剩 10 份卷")
         self.assertIn('class="today-pacing-milestone"', res["html"])
 
+    def test_pace_line_helper(self):
+        res = run_node(
+            "[todayTaskPaceLine({behindCount:3, behindHours:5.25, aheadCount:0, aheadHours:0}), "
+            "todayTaskPaceLine({behindCount:0, aheadCount:0}), "
+            "todayTaskPaceLine({behindCount:0, aheadCount:2, aheadHours:4}), "
+            "todayTaskPaceLine(null)]")["result"]
+        self.assertEqual(res, ["落後約 5.25 小時（3 項未按日程完成）", "照日程", "超前約 4 小時", ""])
+
+    def test_pacing_exposes_behind_hours(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("CORE-16")]}
+        res = run_node(
+            "(() => { const p = pacingPlan({schedule: DAILY_SCHEDULE, completed:"
+            f"{json.dumps(done)}, today:'2026-10-16'}}); "
+            "return {n: p.behindCount, h: p.behindHours, sum: p.behindCodes.reduce((n, c) => n + pacingRemainingHours(DAILY_SCHEDULE.tasks[c], null), 0)}; })()")["result"]
+        self.assertGreater(res["h"], 0)
+        self.assertAlmostEqual(res["h"], res["sum"])
+
+    def test_card_has_one_merged_status_line_with_due_count(self):
+        res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 5))
+        card = run_node(
+            f"todayTaskCardHtml(todayTaskViewModel({{completed:{json.dumps(DONE_ONE_TO_SIX)}, active:null}}, {local_ms(2026, 10, 5)}, {{dueCount: 4}}))")["result"]
+        self.assertEqual(card.count("已完成 "), 1)
+        self.assertIn("到期複習 4 題", card)
+        self.assertRegex(card, r'class="today-pacing-milestone">已完成 6／\d+｜距 10/17')
+        self.assertTrue(re.search(r"(照日程|落後約|超前約)", card))
+        none = run_node(
+            f"todayTaskCardHtml(todayTaskViewModel({{completed:{json.dumps(DONE_ONE_TO_SIX)}, active:null}}, {local_ms(2026, 10, 5)}, {{dueCount: 0}}))")["result"]
+        self.assertNotIn("到期複習", none)
+        self.assertIn("</svg> 開始<", res["html"])
+
     def test_behind_shows_cut_line_and_keeps_papers(self):
         order = run_node("DAILY_SCHEDULE.order")["result"]
         done = {c: "x" for c in order[:order.index("CORE-16")]}

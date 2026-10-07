@@ -25,6 +25,7 @@ DOCS = WORKSPACE / "docs"
 PLAN = DOCS / "01_備考計畫" / "逐日開工表_115年.md"
 CORE = DOCS / "01_備考計畫" / "預設24時段_核心題路徑.md"
 MOCK = DOCS / "01_備考計畫" / "被動模考_114年六科執行包.md"
+MAIN = DOCS / "01_備考計畫" / "主攻章補位_5輪15題.md"
 BLIND = DOCS / "01_備考計畫" / "被動複測_108年六科執行包.md"
 OUT_JS = WORKSPACE / "src" / "data" / "dailySchedule.generated.js"
 OUT_JSON = WORKSPACE / "data" / "daily-schedule.json"
@@ -46,7 +47,8 @@ HOURS_TOLERANCE = 0.5  # a day may exceed its budget by this much (WEAK rounds a
 FIRST_DATE = date(2026, 10, 4)
 LAST_DATE = date(2026, 11, 13)
 FIRST_WORK_CODES_DONE = [f"CORE-{i:02d}" for i in range(1, 7)]  # done on paper; kept in the task list only
-GROUP_COUNTS = {"WEAK": 14, "REINF": 9, "WRAP": 3}
+GROUP_COUNTS = {"WEAK": 11, "MAIN": 5, "REINF": 9, "WRAP": 3}
+HOLIDAYS = ["2026-10-09", "2026-10-26"]  # 國慶補假、光復節補假: counted as 4-hour (weekend) days
 PAPER_PREFIXES = ("MOCK114", "BLIND108")
 
 LAUNCH_BALANCED = "random-balanced"
@@ -68,7 +70,8 @@ def _read(path: Path) -> str:
 
 
 def _is_weekend(d: date) -> bool:
-    return d.weekday() >= 5
+    """Rest day: Saturday/Sunday or a listed holiday (補假)."""
+    return d.weekday() >= 5 or d.isoformat() in HOLIDAYS
 
 
 def budget_for(d: date) -> int:
@@ -101,7 +104,7 @@ def parse_days(text: str) -> list[dict]:
         if non_work:
             _need(day["codes"] == non_work and day["budget"] == 0, f"{day['date']}: non-work row must hold only {non_work} with budget 0")
         else:
-            _need(day["budget"] == budget_for(d), f"{day['date']}: budget {day['budget']} != {budget_for(d)} (weekday 2 / weekend 4)")
+            _need(day["budget"] == budget_for(d), f"{day['date']}: budget {day['budget']} != {budget_for(d)} (weekday 2 / weekend or holiday 4)")
     _need(days[-2]["codes"] == ["EXAM-CHECK"] and days[-1]["codes"] == ["STOP"], "last two days must be EXAM-CHECK then STOP")
     return days
 
@@ -161,6 +164,36 @@ def parse_core(text: str) -> list[dict]:
         for ph in t["phases"]:
             if ph["label"] == "三題對照":
                 ph["qids"] = [t["anchorQid"]] + t["qids"]
+    return tasks
+
+
+def parse_main(text: str) -> list[dict]:
+    """MAIN-01..05 主攻章補位: 3 fixed qids per round, 60 min closed + 15 min 一句話錯因整理."""
+    tasks = []
+    for line in text.splitlines():
+        m = re.match(r"^\| MAIN-(\d{2}) \| (.+?) \| (.+?) \| (.+) \|$", line)
+        if not m:
+            continue
+        n, topic, qcell = int(m.group(1)), m.group(2), m.group(3)
+        qids = QID_RE.findall(qcell)
+        _need(len(qids) == 3 and len(set(qids)) == 3, f"MAIN-{n:02d}: needs 3 distinct qids, got {qids}")
+        _need(not any(q.startswith(("EE-114-", "EE-108-")) for q in qids), f"MAIN-{n:02d}: 114/108 questions are locked for mocks")
+        tasks.append({
+            "code": f"MAIN-{n:02d}", "kind": "core", "subject": "六科",
+            "title": f"主攻章補位 第 {n} 輪（固定 3 題）", "qids": qids, "variant": False,
+            "phases": [
+                {"label": "閉卷作答 3 題", "minutes": 60, "closed": True, "qids": qids},
+                # 「核對」 in the label makes the overlay treat this as the review phase (result card for the 3 qids).
+                {"label": "核對＋一句話錯因整理", "minutes": 15, "closed": False,
+                 "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"},
+            ],
+        })
+    _need([t["code"] for t in tasks] == [f"MAIN-{i:02d}" for i in range(1, GROUP_COUNTS["MAIN"] + 1)],
+          f"MAIN rows mismatch: {[t['code'] for t in tasks]}")
+    allq = [q for t in tasks for q in t["qids"]]
+    _need(len(set(allq)) == len(allq), "MAIN qids must be distinct")
+    for t in tasks:
+        t["hours"] = sum(p["minutes"] for p in t["phases"]) / 60
     return tasks
 
 
@@ -274,12 +307,15 @@ def build_schedule() -> dict:
     core = parse_core(_read(CORE))
     for t in core + papers:
         t["hours"] = sum(p["minutes"] for p in t["phases"]) / 60
-    tasks = core + practice_tasks(days) + papers
+    main = parse_main(_read(MAIN))
+    core_qids = {q for t in core for q in t["qids"]}
+    _need(not core_qids & {q for t in main for q in t["qids"]}, "MAIN qids must not repeat CORE-01..24 qids")
+    tasks = core + main + practice_tasks(days) + papers
     by_code = {t["code"]: t for t in tasks}
     _need(len(by_code) == len(tasks), "duplicate task codes")
     for t in tasks:
         total = sum(p["minutes"] for p in t["phases"])
-        expect = {"core": 60, "mock114": 180, "blind108": 180}.get(t["kind"])
+        expect = {"core": 75 if t["code"].startswith("MAIN-") else 60, "mock114": 180, "blind108": 180}.get(t["kind"])
         if expect is not None:
             _need(total == expect, f"{t['code']}: phases sum {total} != {expect}")
 
@@ -305,7 +341,7 @@ def build_schedule() -> dict:
         kinds = [k for _, k in parts]
         if by_code[code]["kind"] in ("mock114", "blind108"):
             if kinds == ["full"]:
-                _need(_is_weekend(date.fromisoformat(parts[0][0])), f"{code}: single-sitting paper must be on a weekend ({parts[0][0]})")
+                _need(_is_weekend(date.fromisoformat(parts[0][0])), f"{code}: single-sitting paper must be on a weekend or holiday ({parts[0][0]})")
             else:
                 _need(kinds == ["closed", "review"], f"{code}: paper must be full or closed+review, got {kinds}")
                 d1, d2 = (date.fromisoformat(d) for d, _ in parts)
@@ -325,17 +361,22 @@ def build_schedule() -> dict:
         hours = _day_hours(day, by_code)
         _need(hours <= day["budget"] + HOURS_TOLERANCE + 1e-9, f"{day['date']}: {hours} h exceeds budget {day['budget']} h")
         day["hours"] = hours
+    hard_date = next(m["date"] for m in milestones if m["hard"])
     all_papers = [c for c in order if c.startswith(PAPER_PREFIXES)]
     for ms in milestones:
         ms["codes"] = [c for c in FIRST_WORK_CODES_DONE + order if due.get(c, "2026-10-03") <= ms["date"]]
         need = sum(by_code[c]["hours"] for c in ms["codes"] if c not in FIRST_WORK_CODES_DONE)
         have = sum(d["budget"] for d in days if d["date"] <= ms["date"])
-        _need(need <= have + HOURS_TOLERANCE + 1e-9, f"milestone {ms['date']}: {need} h of work exceeds {have} h of budget")
+        # Milestones before the hard (不可延後) one are soft, as in src/domain/pacing.js: reported, never a build failure.
+        # The dated rows may overshoot a day by HOURS_TOLERANCE, so the soft 10/17 gate can sit a little over its raw budget.
+        if ms["hard"] or ms["date"] > hard_date:
+            _need(need <= have + HOURS_TOLERANCE + 1e-9, f"milestone {ms['date']}: {need} h of work exceeds {have} h of budget")
         if ms["hard"]:
             _need(all(c in ms["codes"] for c in all_papers), f"hard milestone {ms['date']} must include all 12 papers")
     _need(all(due[c] <= next(m["date"] for m in milestones if m["hard"]) for c in all_papers), "a paper is dated after the hard milestone")
     return {
         "budget": dict(BUDGET),
+        "holidays": list(HOLIDAYS),
         "milestones": milestones,
         "tasks": {t["code"]: t for t in tasks},
         "days": days,

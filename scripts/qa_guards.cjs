@@ -99,8 +99,15 @@ async function main() {
     // --- mock exam: two-step submit, session restore, summary ----------------------------
     await step('mock: 交卷 two-step with 取消 and session persisted', async () => {
       await page.evaluate(() => switchTab('mock'));
+      // A scheduled paper now opens the timed 今天 overlay; check that, then use the untimed fallback path for the 交卷 flow.
+      await page.evaluate(() => { todayTaskCommit(todayTaskAbandon(todayTaskRefresh())); });
       await page.click('[data-mock-pick="114:01"]');
+      await page.waitForSelector('#today-task-overlay[style*="flex"]');
+      assert.equal(JSON.parse(await ls('EE_EXAM_TODAY_TASK_V1')).active.code, 'MOCK114-01');
+      await page.evaluate(() => { todayTaskCommit(todayTaskAbandon(todayTaskRefresh())); closeTodayTaskOverlay(); });
+      await page.evaluate(() => mockExamLoad('114', '01'));
       await page.waitForSelector('[data-mock-submit]');
+      assert.match(await page.textContent('.mock-reminder'), /無計時/);
       assert.ok(await page.$('.mock-q-cap'), 'time cap visible before submit');
       await page.click('[data-mock-submit]');
       assert.equal(await page.textContent('[data-mock-submit]'), '確定交卷？會顯示全部答案');

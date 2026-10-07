@@ -627,6 +627,12 @@ function getReviewSessionSummary() {
   return { rated: rated.size, skipped: skipped.size, remaining: Math.max(0, total - rated.size - skipped.size), total };
 }
 
+/** The single primary action on the review page: start the due round, else nothing (cards stay secondary). */
+function reviewPrimaryAction(dueCount) {
+  const n = Number(dueCount) || 0;
+  return n > 0 ? { label: `開始複習 ${n} 題`, action: 'start' } : { label: '', action: 'none' };
+}
+
 function startReviewSession() {
   // A full due-review round always uses the same subject scope shown on the
   // entry card; a stale chapter chip must not silently shrink the queue.
@@ -800,6 +806,7 @@ function renderReviewPage() {
       <div class="progress-health-label">
         ${dueCount > 0 ? `<span>今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">今日沒有到期題</span>'}
         <small>本輪作答結果記錄 ${practiceRoundCompleted} 題・提取能力 L1／L2／L3／L4：${recallLevels.join('／')}</small>
+        ${reviewPrimaryAction(dueCount).action === 'start' ? `<button type="button" class="btn-review-primary" data-review-start onclick="startReviewSession()">${reviewHtmlEscape(reviewPrimaryAction(dueCount).label)}</button>` : ''}
       </div>
     `;
   }

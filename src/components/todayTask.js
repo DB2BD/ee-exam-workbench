@@ -576,6 +576,26 @@ function todayTaskOnStart() {
   openTodayTaskOverlay();
 }
 
+// 模考分頁 entry: start `code` now (unless already done) and show the timed overlay.
+// Returns true when the overlay was opened; false leaves the caller to fall back.
+function todayTaskStartCodeNow(code) {
+  if (typeof document === 'undefined' || !DAILY_SCHEDULE.tasks[code]) return false;
+  let state = todayTaskRefresh();
+  if (state.active) {
+    if (state.active.code !== code) return false;
+    if (state.active.holdDate) todayTaskCommit(todayTaskResumeHeld(state, Date.now()));
+  } else {
+    // A finished paper is never silently un-completed: the caller falls back to the untimed paper.
+    if (state.completed && state.completed[code]) return false;
+    const next = todayTaskStart({ completed: Object.assign({}, state.completed), active: null }, Date.now(), code);
+    if (!next.active) return false;
+    todayTaskCommit(next);
+  }
+  renderTodayTaskCard();
+  openTodayTaskOverlay();
+  return true;
+}
+
 // 開啟隨機練習 for WEAK／REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
 function todayTaskLaunchPractice(launch) {
   const mode = launch === 'random-reinforce' ? 'reinforce' : 'balanced';

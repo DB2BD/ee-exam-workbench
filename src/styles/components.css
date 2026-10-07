@@ -1761,3 +1761,34 @@ select:focus {
 /* v1.2 today pane: compact idle mode selector under the primary buttons */
 .daily-practice-idle { max-width: 900px; margin: 0 auto 16px; font-size: .9rem; color: var(--muted); }
 .daily-practice-idle select { margin-left: 8px; min-height: 36px; }
+
+/* v1.3.6: review page has one primary action; per-card and skip buttons are secondary */
+.btn-review-primary {
+  margin-top: 8px;
+  padding: 9px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-review-primary:hover { background: var(--accent-dark); }
+[data-theme="dark"] .btn-review-primary { color: #14181b; }
+.review-card .btn-recall-primary,
+.btn-session-next {
+  background: transparent;
+  color: var(--accent-dark);
+  border: 1px solid var(--accent);
+  box-shadow: none;
+}
+.review-card .btn-recall-primary:hover,
+.btn-session-next:hover {
+  background: var(--bg-secondary);
+  color: var(--accent-dark);
+  transform: none;
+  box-shadow: none;
+}
+[data-theme="dark"] .review-card .btn-recall-primary,
+[data-theme="dark"] .btn-session-next { color: var(--accent) !important; }

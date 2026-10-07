@@ -278,6 +278,28 @@ class MockSessionAndNextTests(unittest.TestCase):
         })()""")
         self.assertEqual(out, [True, False])
 
+    def test_pick_route_and_timing_note(self):
+        out = run_node("""(function () {
+          var sched = { tasks: {
+            'MOCK114-01': { kind: 'mock114', subject: 'A', qids: ['EE-114-01-1'] },
+            'BLIND108-02': { kind: 'blind108', subject: 'B', qids: ['EE-108-02-1'] } } };
+          return [
+            mockExamPickRoute(sched, 114, '01', ''),
+            mockExamPickRoute(sched, '108', '02', 'BLIND108-02'),
+            mockExamPickRoute(sched, '114', '01', 'BLIND108-02'),
+            mockExamPickRoute(sched, '112', '05', ''),
+            mockExamPickRoute(null, '114', '01', ''),
+            mockExamTimingNote('閉卷')
+          ];
+        })()""")
+        self.assertEqual(out[0], {"route": "today", "code": "MOCK114-01"})
+        self.assertEqual(out[1], {"route": "today", "code": "BLIND108-02"})
+        self.assertEqual(out[2], {"route": "busy", "code": "MOCK114-01"})
+        self.assertEqual(out[3], {"route": "untimed", "code": ""})
+        self.assertEqual(out[4], {"route": "untimed", "code": ""})
+        self.assertIn("無計時", out[5])
+        self.assertNotIn("請自行計時", out[5])
+
 
 if __name__ == "__main__":
     unittest.main()

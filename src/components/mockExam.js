@@ -1,4 +1,4 @@
-// src/components/mockExam.js — WP5b (模考分頁；無任何計時器，使用者自行手動計時)
+// src/components/mockExam.js — WP5b (模考分頁；本檔不含計時器；限時由「今天」視窗負責，不在排程的卷為無計時)
 /**
  * 流程：選卷（年度 × 科目，或 114 模考／108 盲測捷徑）→ 試卷（官方 PDF、每題裁切圖、配分、
  * 第一輪時間帽）→ 交卷 → 逐題題解連結與結果卡 → 全部保存後出總結與「先修這題」。
@@ -284,6 +284,29 @@ function mockExamNextScheduled(schedule, completedCodes, currentCode) {
   return next ? { code: next.code, year: next.year, sid: next.sid, title: next.title } : null;
 }
 
+/**
+ * Decide how picking a paper starts. A paper with a schedule code (MOCK114-0n / BLIND108-0n) goes through
+ * the 今天 overlay (the one 120-minute closed-book timer); others fall back to the untimed paper.
+ * activeCode = code of the task currently running in the overlay ('' if none).
+ * Returns { route: 'today'|'busy'|'untimed', code }.
+ */
+function mockExamPickRoute(schedule, year, sid, activeCode) {
+  const y = String(year), s = String(sid);
+  let code = '';
+  mockExamShortcuts(schedule).some(g => g.items.some(it => {
+    if (it.sid && it.year === y && it.sid === s) { code = it.code; return true; }
+    return false;
+  }));
+  if (!code) return { route: 'untimed', code: '' };
+  if (activeCode && activeCode !== code) return { route: 'busy', code };
+  return { route: 'today', code };
+}
+
+/** Banner text under the paper header: fallback (no schedule code) papers are explicitly untimed. */
+function mockExamTimingNote(reminder) {
+  return `${reminder}（無計時：這條路徑沒有倒數，限時 120 分鐘請自備計時器；排程內未完成的卷請改從「今天」或排程按鈕開始）`;
+}
+
 function mockExamCropUrl(qid) {
   const crop = typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] || '' : '';
   if (!crop) return '';
@@ -460,7 +483,7 @@ function mockExamPaperHtml(paper) {
     <div class="mock-paper-head">
       <h3>${mockExamEscape(paper.year)} 年 ${mockExamEscape(mockExamSubjectName(paper.subjectId))}</h3>
       <p class="mock-meta">共 ${paper.items.length} 題 · ${scoreText}</p>
-      <p class="mock-reminder">${mockExamEscape(paper.reminder)}（共 120 分鐘；請自行計時）</p>
+      <p class="mock-reminder">${mockExamEscape(mockExamTimingNote(paper.reminder))}</p>
       ${paper.scoringNote ? `<p class="mock-scoring-note" role="note">${mockExamEscape(paper.scoringNote)}</p>` : ''}
       <div class="mock-paper-actions">
         ${paper.pdfUrl ? `<a class="mock-btn" href="${mockExamEscape(paper.pdfUrl)}" target="_blank" rel="noopener">開啟官方試卷 PDF</a>` : ''}
@@ -484,17 +507,42 @@ function mockExamPaperHtml(paper) {
   return head + `<div class="mock-q-list">${cards}</div>` + (graded ? '<div id="mock-summary"></div>' : '');
 }
 
+/** Pure: { [mockId]: delta } vs the previous complete paper of the same subject (0–100 scaled, 1 decimal). */
+function mockExamHistoryDeltas(hist) {
+  const out = {};
+  const bySubject = {};
+  (hist || []).filter(h => h.complete && h.summary && h.summary.total).forEach(h => {
+    (bySubject[h.subjectId] = bySubject[h.subjectId] || []).push(h);
+  });
+  const sc = h => h.summary.estimate / h.summary.total * 100;
+  Object.keys(bySubject).forEach(sid => {
+    const list = bySubject[sid].slice().sort((a, b) => a.at - b.at);
+    for (let i = 1; i < list.length; i++) {
+      out[list[i].mockId] = Math.round((sc(list[i]) - sc(list[i - 1])) * 10) / 10;
+    }
+  });
+  return out;
+}
+
+function mockExamDeltaCell(delta) {
+  if (delta === undefined || delta === null) return '<span class="mock-delta">—</span>';
+  const cls = delta > 0 ? 'mock-delta--up' : (delta < 0 ? 'mock-delta--down' : '');
+  return `<span class="mock-delta ${cls}">${delta > 0 ? '+' : (delta < 0 ? '−' : '±')}${Math.abs(delta)}</span>`;
+}
+
 function mockExamHistoryHtml() {
   const rows = mockExamActiveRows();
   const hist = mockExamHistory(mockExamRecords(), rows);
   const legacy = mockExamLegacyHistory();
+  const deltas = mockExamHistoryDeltas(hist);
   let body = '';
   if (!hist.length) body += '<p class="mock-empty">尚無模考紀錄。交卷並評完所有題目後會出現在這裡。</p>';
   else {
-    body += '<table class="mock-history-table"><thead><tr><th>日期</th><th>試卷</th><th>本卷估計</th></tr></thead><tbody>' + hist.map(h => `
+    body += '<table class="mock-history-table"><thead><tr><th>日期</th><th>試卷</th><th>本卷估計</th><th>較前次同科</th></tr></thead><tbody>' + hist.map(h => `
       <tr><td>${mockExamEscape(mockExamDateText(h.at))}</td>
       <td>${mockExamEscape(h.year)} 年 ${mockExamEscape(mockExamSubjectName(h.subjectId))}</td>
-      <td>${h.complete ? `<strong>${mockExamFormat(h.summary.estimate)}／${mockExamFormat(h.summary.total)}</strong>` : `<span class="mock-incomplete">未評完（${h.summary.questionCount}／${h.expectedCount} 題）</span>`}</td></tr>`).join('') + '</tbody></table>';
+      <td>${h.complete ? `<strong>${mockExamFormat(h.summary.estimate)}／${mockExamFormat(h.summary.total)}</strong>` : `<span class="mock-incomplete">未評完（${h.summary.questionCount}／${h.expectedCount} 題）</span>`}</td>
+      <td>${h.complete ? mockExamDeltaCell(deltas[h.mockId]) : '<span class="mock-delta">—</span>'}</td></tr>`).join('') + '</tbody></table>';
   }
   if (legacy.length) {
     body += '<h4 class="mock-legacy-title">舊版紀錄（唯讀）</h4><table class="mock-history-table mock-legacy"><thead><tr><th>日期</th><th>試卷</th><th>當時自評</th></tr></thead><tbody>' + legacy.slice(0, 20).map(item => `
@@ -520,7 +568,7 @@ function mockExamRender() {
   host.innerHTML = `
     <div class="mock-exam-box" id="mock-exam-root">
       <h2 class="mock-title">模考</h2>
-      <p class="mock-sub">整卷閉卷、自己手動計時；交卷後逐題標 ○△×，系統只估分、標出先修題。</p>
+      <p class="mock-sub">整卷閉卷、120 分鐘倒數計時（在「今天」視窗進行）；交卷後逐題標 ○△×，系統只估分、標出先修題。</p>
       ${mockExamPickerHtml()}
       <div id="mock-paper">${paper ? mockExamPaperHtml(paper) : ''}</div>
       <div id="mock-history">${mockExamHistoryHtml()}</div>
@@ -653,6 +701,23 @@ function mockExamSubmitClick(btn) {
   mockExamSubmitTimer = setTimeout(mockExamDisarmSubmit, MOCK_EXAM_CONFIRM_MS);
 }
 
+/** Start the picked paper: timed via the 今天 overlay when scheduled, else the untimed fallback. */
+function mockExamStartPicked(year, sid) {
+  const sched = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null;
+  let active = '';
+  try {
+    const st = typeof loadTodayTaskState === 'function' ? loadTodayTaskState() : null;
+    active = st && st.active ? st.active.code : '';
+  } catch (_) { active = ''; }
+  const route = typeof todayTaskStartCodeNow === 'function' ? mockExamPickRoute(sched, year, sid, active) : { route: 'untimed', code: '' };
+  if (route.route === 'busy') {
+    if (typeof showToast === 'function') showToast('今天的任務（' + active + '）進行中，請先完成或放棄再開始新的模考');
+    return;
+  }
+  if (route.route === 'today' && todayTaskStartCodeNow(route.code)) return;
+  mockExamLoad(year, sid);
+}
+
 function mockExamOnClick(event) {
   const t = event.target && event.target.closest ? event.target.closest('button') : null;
   const host = mockExamHost();
@@ -660,10 +725,10 @@ function mockExamOnClick(event) {
   if (t.hasAttribute('data-mock-load')) {
     const y = document.getElementById('mock-year');
     const s = document.getElementById('mock-subject');
-    mockExamLoad(y && y.value, s && s.value);
+    mockExamStartPicked(y && y.value, s && s.value);
   } else if (t.hasAttribute('data-mock-pick')) {
     const [y, s] = t.getAttribute('data-mock-pick').split(':');
-    mockExamLoad(y, s);
+    mockExamStartPicked(y, s);
   } else if (t.hasAttribute('data-mock-submit')) {
     mockExamSubmitClick(t);
   } else if (t.hasAttribute('data-mock-submit-cancel')) {
@@ -708,6 +773,6 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     MOCK_EXAM_YEARS, MOCK_EXAM_REMINDER, MOCK_EXAM_SCORED_SUBSETS,
     mockExamTimeCap, mockExamPdfUrl, mockExamPaper, mockExamNewId, mockExamParseId,
-    mockExamSummary, mockExamMarksText, mockExamHistory, latestMockScoreBySubject, mockExamShortcuts, mockExamRestoreSession, mockExamNextScheduled, mockExamSubmitStep, initMockExam
+    mockExamSummary, mockExamMarksText, mockExamHistory, mockExamHistoryDeltas, latestMockScoreBySubject, mockExamShortcuts, mockExamRestoreSession, mockExamNextScheduled, mockExamSubmitStep, mockExamPickRoute, mockExamTimingNote, initMockExam
   };
 }

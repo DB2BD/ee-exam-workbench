@@ -118,6 +118,14 @@ class MockExamTests(unittest.TestCase):
         out = run_node("""mockExamHistory([rec('EE-114-03-1', ['o'], 3000, '114-03-3000')], ROWS).map(function (h) { return [h.mockId, h.complete, h.expectedCount]; })""")
         self.assertEqual(out, [["114-03-3000", False, 5]])
 
+    def test_history_deltas_vs_previous_same_subject(self):
+        out = run_node("""mockExamHistoryDeltas([
+          {mockId: 'c', subjectId: '01', at: 30, complete: true, summary: {estimate: 70, total: 100}},
+          {mockId: 'x', subjectId: '02', at: 25, complete: true, summary: {estimate: 50, total: 100}},
+          {mockId: 'b', subjectId: '01', at: 20, complete: false, summary: {estimate: 10, total: 100}},
+          {mockId: 'a', subjectId: '01', at: 10, complete: true, summary: {estimate: 55, total: 100}}])""")
+        self.assertEqual(out, {"c": 15})
+
     def test_shortcuts_from_schedule_codes(self):
         out = run_node("""(function () {
           var sched = { tasks: {
@@ -269,6 +277,28 @@ class MockSessionAndNextTests(unittest.TestCase):
           return [a.indexOf('mock-q-cap') >= 0, b.indexOf('mock-q-cap') >= 0];
         })()""")
         self.assertEqual(out, [True, False])
+
+    def test_pick_route_and_timing_note(self):
+        out = run_node("""(function () {
+          var sched = { tasks: {
+            'MOCK114-01': { kind: 'mock114', subject: 'A', qids: ['EE-114-01-1'] },
+            'BLIND108-02': { kind: 'blind108', subject: 'B', qids: ['EE-108-02-1'] } } };
+          return [
+            mockExamPickRoute(sched, 114, '01', ''),
+            mockExamPickRoute(sched, '108', '02', 'BLIND108-02'),
+            mockExamPickRoute(sched, '114', '01', 'BLIND108-02'),
+            mockExamPickRoute(sched, '112', '05', ''),
+            mockExamPickRoute(null, '114', '01', ''),
+            mockExamTimingNote('閉卷')
+          ];
+        })()""")
+        self.assertEqual(out[0], {"route": "today", "code": "MOCK114-01"})
+        self.assertEqual(out[1], {"route": "today", "code": "BLIND108-02"})
+        self.assertEqual(out[2], {"route": "busy", "code": "MOCK114-01"})
+        self.assertEqual(out[3], {"route": "untimed", "code": ""})
+        self.assertEqual(out[4], {"route": "untimed", "code": ""})
+        self.assertIn("無計時", out[5])
+        self.assertNotIn("請自行計時", out[5])
 
 
 if __name__ == "__main__":

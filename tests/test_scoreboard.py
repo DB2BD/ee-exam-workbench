@@ -107,7 +107,7 @@ class TestScoreboard(unittest.TestCase):
         self.assertIsNone(r["md"])
         self.assertIsNone(r["un"])
         self.assertRegex(r["line"], r"^估計總分 80／\d+（1／6 科）$")
-        self.assertNotIn("／375", r["line"])
+        self.assertNotIn("／380", r["line"])
 
     def test_all_six_subjects_show_distance(self):
         r = run_node("""(() => {
@@ -136,8 +136,8 @@ class TestScoreboard(unittest.TestCase):
         self.assertIn("（1／6 科）", r["line"])
 
     def test_distance_exceeded(self):
-        r = run_node("scoreboardCompute([], NOW) && [scoreboardDistanceText(370, 360), scoreboardDistanceText(370, 375)]")
-        self.assertEqual(r, ["已超過 10 分", "還差 5 分"])
+        r = run_node("scoreboardCompute([], NOW) && [scoreboardDistanceText(370, 360), scoreboardDistanceText(370, 380)]")
+        self.assertEqual(r, ["已超過 10 分", "還差 10 分"])
 
     def test_dominant_error_next_step(self):
         r = run_node("""[scoreboardNextStep({R:0,S:3,F:1,C:0,K:0,U:0,T:0}),
@@ -177,6 +177,7 @@ class TestScoreboard(unittest.TestCase):
         self.assertIn("sb-empty", r["html"])
         self.assertNotIn("sb-subject", r["html"])
         self.assertEqual(r["line"], "估計總分：尚無資料")
+        self.assertIn("16%", r["html"])
 
     def test_render_with_data_and_escaping(self):
         r = run_node("""(() => { const q = qidsOf('114','01');
@@ -191,6 +192,49 @@ class TestScoreboard(unittest.TestCase):
         self.assertIn("未考", r["html"])
         self.assertNotIn("<img", r["html"])
         self.assertEqual(r["esc"], "&lt;a href=&quot;x&quot;&gt;&amp;&#39;")
+
+    def test_risk_flag(self):
+        r = run_node("[scoreboardRisk(75), scoreboardRisk(60), scoreboardRisk(55), scoreboardRisk(39.5), scoreboardRisk(null)]")
+        self.assertIsNone(r[0])
+        self.assertIsNone(r[1])
+        self.assertEqual(r[2], {"level": "low", "gap": 5})
+        self.assertEqual(r[3], {"level": "zero", "gap": 20.5})
+        self.assertIsNone(r[4])
+
+    def test_risk_rendered(self):
+        r = run_node("""(() => { const c = {innerHTML: ''};
+          renderScoreboard(c, {records: mockRecs('m','114','01',NOW-DAY,0.3), now: NOW}); return c.innerHTML; })()""")
+        self.assertIn("&lt;60", r)
+        self.assertIn("零分風險", r)
+        self.assertIn("差 30 分到 60", r)
+
+    def test_drag_subject(self):
+        r = run_node("""[scoreboardDragSubject([{id:'01',name:'A',target:70,estimate:60},{id:'02',name:'B',target:65,estimate:50},{id:'03',name:'C',target:60,estimate:null}]),
+          scoreboardDragSubject([{id:'01',name:'A',target:70,estimate:80}]), scoreboardDragSubject([]),
+          scoreboardDragText(null)]""")
+        self.assertEqual(r[0], {"id": "02", "name": "B", "shortfall": 15})
+        self.assertIsNone(r[1])
+        self.assertIsNone(r[2])
+        self.assertEqual(r[3], "各科都在目標之上")
+
+    def test_trend(self):
+        r = run_node("""[scoreboardTrend([{at:1,scaled:50}]), scoreboardTrend([]),
+          scoreboardTrend([{at:3,scaled:70},{at:1,scaled:40},{at:2,scaled:55}]),
+          scoreboardTrendText(scoreboardTrend([{at:1,scaled:70},{at:2,scaled:60}])), scoreboardTrendText(null)]""")
+        self.assertIsNone(r[0])
+        self.assertIsNone(r[1])
+        self.assertEqual(r[2], {"prev": 55, "cur": 70, "delta": 15})
+        self.assertEqual(r[3], "前次 70 → 本次 60（−10）")
+        self.assertEqual(r[4], "")
+
+    def test_mock_phase_hides_practice(self):
+        r = run_node("""[scoreboardShowPractice(true, new Date(2026, 9, 14, 23).getTime()),
+          scoreboardShowPractice(true, new Date(2026, 9, 15, 0, 1).getTime()),
+          scoreboardShowPractice(false, new Date(2026, 9, 20).getTime()),
+          (() => { const c = {innerHTML: ''}; const t = new Date(2026, 9, 16).getTime();
+            renderScoreboard(c, {records: mockRecs('m','114','01',t-DAY,0.8), now: t}); return c.innerHTML.split('data-subject="02"')[0].indexOf('sb-val--practice'); })()]""")
+        self.assertEqual(r[:3], [True, False, True])
+        self.assertEqual(r[3], -1)
 
 
 if __name__ == "__main__":

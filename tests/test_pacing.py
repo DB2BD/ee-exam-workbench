@@ -50,6 +50,31 @@ class TestPacingPrimitives(unittest.TestCase):
         self.assertEqual(res, [4, 2, 3])
 
 
+class TestPacingHolidays(unittest.TestCase):
+    def test_schedule_lists_the_two_holidays(self):
+        self.assertEqual(js("return S.holidays;"), ["2026-10-09", "2026-10-26"])
+
+    def test_rest_day_primitive_is_holiday_aware_and_backward_compatible(self):
+        res = run_node("({fri: pacingIsRestDay('2026-10-09', S), fri2: pacingIsRestDay('2026-10-09', S.holidays), plain: pacingIsRestDay('2026-10-09'), "
+                       "sat: pacingIsRestDay('2026-10-10'), tue: pacingIsRestDay('2026-10-13', S), weekendOnly: pacingIsWeekend('2026-10-09'), "
+                       "b1: pacingBudgetFor('2026-10-26', S.budget, S.holidays), b2: pacingBudgetFor('2026-10-26', S.budget), b3: pacingBudgetFor('2026-10-27', S.budget, S.holidays)})")
+        self.assertEqual(res, {"fri": True, "fri2": True, "plain": False, "sat": True, "tue": False, "weekendOnly": False, "b1": 4, "b2": 2, "b3": 2})
+
+    def test_holiday_plan_uses_the_four_hour_budget(self):
+        r = js("const r = plan('2026-10-09', done('CORE-14')); return {codes: codes(r), budget: r.budgetHours, weekend: r.weekend, holiday: r.holiday};")
+        self.assertEqual((r["budget"], r["weekend"], r["holiday"]), (4, True, True))
+        self.assertEqual(r["codes"], ["CORE-14", "CORE-15", "CORE-16", "WEAK-06"])
+
+    def test_holiday_paper_is_a_single_sitting(self):
+        r = js("const r = plan('2026-10-26', done('BLIND108-03')); return {codes: codes(r), mock: r.plan[0].hours, budget: r.budgetHours};")
+        self.assertEqual(r["codes"], ["BLIND108-03"])
+        self.assertEqual((r["mock"], r["budget"]), (3, 4))
+
+    def test_without_holidays_the_same_day_is_a_weekday(self):
+        r = js("const s = Object.assign({}, S, {holidays: undefined}); const r = pacingPlan({schedule: s, completed: done('BLIND108-03'), today: '2026-10-26'}); return {budget: r.budgetHours, weekend: r.weekend, part: r.plan[0].part};")
+        self.assertEqual((r["budget"], r["weekend"], r["part"]), (2, False, "closed"))
+
+
 class TestPacingPlan(unittest.TestCase):
     def test_spent_today_shrinks_todays_plan(self):
         res = js("""
@@ -124,14 +149,14 @@ class TestPacingPlan(unittest.TestCase):
           return {day1: codes(day1), h1: day1.planHours, day2: codes(day2), h2: day2.planHours, wk: codes(weekend), hw: weekend.planHours};""")
         self.assertEqual(r["day1"], ["MOCK114-04:closed"])
         self.assertEqual(r["h1"], 2)
-        self.assertEqual(r["day2"], ["MOCK114-04:review", "WEAK-11"])  # 1 h check+fix, then the 1 h of other work
+        self.assertEqual(r["day2"], ["MOCK114-04:review", "WEAK-10"])  # 1 h check+fix, then the 1 h of other work
         self.assertEqual(r["h2"], 2.25)
         self.assertEqual(r["wk"], ["MOCK114-06:review", "BLIND108-01"])  # Saturday: check (1 h) + next paper in one sitting (3 h)
         self.assertEqual(r["hw"], 4)
 
     def test_weekend_paper_is_one_sitting_plus_one_hour_of_other_work(self):
         r = js("const r = plan('2026-10-18', done('MOCK114-03')); return {codes: codes(r), hours: r.planHours, mockHours: r.plan[0].hours};")
-        self.assertEqual(r["codes"], ["MOCK114-03", "WEAK-10"])
+        self.assertEqual(r["codes"], ["MOCK114-03", "MAIN-05"])
         self.assertEqual(r["mockHours"], 3)
         self.assertEqual(r["hours"], 4.25)
 
@@ -177,7 +202,7 @@ class TestPacingMilestones(unittest.TestCase):
                   hardDays: r.hardMilestone.daysLeft, hardPapers: r.hardMilestone.remainingPapers, daysLeft: r.daysLeft};""")
         self.assertEqual((r["label"], r["hard"], r["days"], r["papers"]), ("模考截止", True, 10, 8))
         self.assertEqual((r["hardDays"], r["hardPapers"], r["daysLeft"]), (10, 8, 10))
-        self.assertEqual(r["hours"], 27.75)
+        self.assertEqual(r["hours"], 25.25)
 
     def test_milestone_dates_and_hard_flag(self):
         r = js("return S.milestones.map(m => [m.date, m.hard, m.codes.length]);")
@@ -187,7 +212,8 @@ class TestPacingMilestones(unittest.TestCase):
 
     def test_hours_check_compares_required_with_available(self):
         r = js("const r = plan('2026-10-04', done('CORE-07')); return {req: r.requiredHours, avail: r.availableHours, days: r.daysLeft};")
-        self.assertEqual((r["req"], r["avail"], r["days"]), (35.25, 36, 13))
+        self.assertEqual((r["req"], r["avail"], r["days"]), (40.25, 38, 13))  # 10/09 (補假) counts as a 4 h day: 38 h = 16 weekend + 4 holiday + 18 weekday
+        self.assertTrue(js("return plan('2026-10-04', done('CORE-07')).nextMilestone.atRisk;"))  # soft gate: reported, never cuts by itself
 
     def test_after_the_hard_milestone_missing_papers_are_reported_and_never_cut(self):
         r = js("""

@@ -182,9 +182,6 @@ def build_workbench():
       <button id="home-action-start" class="home-random-button" type="button" onclick="dailyPracticePrepareNewRound()"><span class="ui-ico" data-ui-icon="shuffle"></span><strong>隨機練習 3 題</strong><small>依目標分配抽題，按一次就開始</small></button>
       <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span class="ui-ico" data-ui-icon="rotate-ccw"></span><strong>到期複習</strong><small>今天沒有到期題</small></button>
     </section>
-    <div class="practice-home-secondary">
-      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled>↩ 繼續上次</button>
-    </div>
     <div id="daily-practice-container"></div>
   </div>
 

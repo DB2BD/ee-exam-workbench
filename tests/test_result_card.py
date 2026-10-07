@@ -322,5 +322,38 @@ class TestResultCardEscapeHooks(unittest.TestCase):
         self.assertIn("marks.some(Boolean) || errors.length > 0", src)
 
 
+class TestRubricAndKeys(unittest.TestCase):
+    def test_rubric_in_view_model(self):
+        r = run_node("""(() => {
+          const out = {};
+          for (const qid of Object.keys(QUESTION_POINTS)) {
+            const t = studyTierFor(qid);
+            if (t === 'basic' && !out.basic) out.basic = resultCardViewModel(qid, [], [], 'today');
+            if (t !== 'basic' && !out.main) out.main = resultCardViewModel(qid, [], [], 'mock');
+          }
+          return out;
+        })()""")["result"]
+        base = "○ 數值與單位都對｜△ 列式、等效電路或方程式正確但數值錯或未算完｜× 沒有起手式或空白"
+        self.assertEqual(r["basic"]["rubric"], base + "（基本分題：骨架寫完即 ○）")
+        self.assertEqual(r["main"]["rubric"], "模考 100／50／0：" + base)
+        self.assertIn("Enter 儲存", r["main"]["keyHint"])
+
+    def test_key_action(self):
+        def act(key, **st):
+            base = dict(partCount=2, activeIndex=-1, marks=[None, None], canSave=False, collapsed=False, editable=False)
+            base.update(st)
+            return run_node("resultCardKeyAction(%s, %s)" % (json.dumps(key), json.dumps(base)))["result"]
+        self.assertEqual(act("1"), {"type": "mark", "row": 0, "mark": "o"})
+        self.assertEqual(act("2", marks=["o", None]), {"type": "mark", "row": 1, "mark": "tri"})
+        self.assertEqual(act("3", activeIndex=0, marks=["o", None]), {"type": "mark", "row": 0, "mark": "x"})
+        self.assertEqual(act("1", partCount=1, marks=[None]), {"type": "mark", "row": 0, "mark": "o"})
+        self.assertEqual(act("0"), {"type": "markAll"})
+        self.assertIsNone(act("Enter"))
+        self.assertEqual(act("Enter", canSave=True), {"type": "save"})
+        self.assertIsNone(act("1", editable=True))
+        self.assertIsNone(act("1", collapsed=True))
+        self.assertIsNone(act("a"))
+
+
 if __name__ == "__main__":
     unittest.main()

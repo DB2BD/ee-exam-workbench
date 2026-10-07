@@ -1800,6 +1800,8 @@ select:focus {
 .result-card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
 .result-card-title { font-weight: 700; }
 .result-card-hint { color: var(--muted); font-size: 0.82rem; }
+.result-card-guide { color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
+.result-card-allo { font-size: 0.78rem; padding: 1px 8px; border: 1px solid var(--border, #bbb); border-radius: 999px; background: transparent; color: inherit; cursor: pointer; }
 .result-card-rows { display: flex; flex-direction: column; gap: 8px; }
 .result-card-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
 .result-card-row-label { flex: 0 0 auto; min-width: 7em; font-weight: 600; }
@@ -1871,6 +1873,14 @@ select:focus {
 .sb-total-label { font-size: 0.8rem; color: var(--muted); }
 .sb-total strong { font-size: 1.05rem; }
 .sb-total small { color: var(--ink-light); font-size: 0.84rem; min-height: 1em; }
+.sb-drag { grid-column: 1 / -1; margin: 0; font-size: 0.9rem; font-weight: 600; color: var(--warn); }
+.sb-riskline { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; font-size: 0.82rem; }
+.sb-risk { padding: 1px 8px; border-radius: var(--radius-pill); background: var(--warn-light); color: var(--warn); border: 1px solid var(--warn); font-weight: 700; }
+.sb-risk--zero { background: var(--warn); color: var(--surface); }
+.sb-gap { color: var(--warn); }
+.sb-trend { margin: 0; font-size: 0.86rem; color: var(--ink-light); }
+.mock-delta--up { color: var(--accent-dark); }
+.mock-delta--down { color: var(--warn); }
 .sb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
 .sb-subject { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
 .sb-subject-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -1977,6 +1987,37 @@ select:focus {
 /* v1.2 today pane: compact idle mode selector under the primary buttons */
 .daily-practice-idle { max-width: 900px; margin: 0 auto 16px; font-size: .9rem; color: var(--muted); }
 .daily-practice-idle select { margin-left: 8px; min-height: 36px; }
+
+/* v1.3.6: review page has one primary action; per-card and skip buttons are secondary */
+.btn-review-primary {
+  margin-top: 8px;
+  padding: 9px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-review-primary:hover { background: var(--accent-dark); }
+[data-theme="dark"] .btn-review-primary { color: #14181b; }
+.review-card .btn-recall-primary,
+.btn-session-next {
+  background: transparent;
+  color: var(--accent-dark);
+  border: 1px solid var(--accent);
+  box-shadow: none;
+}
+.review-card .btn-recall-primary:hover,
+.btn-session-next:hover {
+  background: var(--bg-secondary);
+  color: var(--accent-dark);
+  transform: none;
+  box-shadow: none;
+}
+[data-theme="dark"] .review-card .btn-recall-primary,
+[data-theme="dark"] .btn-session-next { color: var(--accent) !important; }
 
 
 /* === src/styles/modal.css === */
@@ -3363,9 +3404,6 @@ select:focus {
       <button id="home-action-start" class="home-random-button" type="button" onclick="dailyPracticePrepareNewRound()"><span class="ui-ico" data-ui-icon="shuffle"></span><strong>隨機練習 3 題</strong><small>依目標分配抽題，按一次就開始</small></button>
       <button id="home-action-due" class="home-due-button" type="button" onclick="homeStartDueReview()" disabled><span class="ui-ico" data-ui-icon="rotate-ccw"></span><strong>到期複習</strong><small>今天沒有到期題</small></button>
     </section>
-    <div class="practice-home-secondary">
-      <button id="home-action-continue" type="button" onclick="switchTab('practice'); dailyPracticeContinue()" disabled>↩ 繼續上次</button>
-    </div>
     <div id="daily-practice-container"></div>
   </div>
 
@@ -17489,6 +17527,10 @@ const DAILY_SCHEDULE = {
     "weekday": 2,
     "weekend": 4
   },
+  "holidays": [
+    "2026-10-09",
+    "2026-10-26"
+  ],
   "milestones": [
     {
       "date": "2026-10-17",
@@ -17514,22 +17556,26 @@ const DAILY_SCHEDULE = {
         "CORE-13",
         "WEAK-05",
         "CORE-14",
-        "WEAK-06",
         "CORE-15",
         "CORE-16",
+        "WEAK-06",
         "CORE-17",
-        "WEAK-07",
         "CORE-18",
         "CORE-19",
+        "WEAK-07",
         "CORE-20",
-        "WEAK-08",
         "CORE-21",
-        "WEAK-09",
         "CORE-22",
+        "WEAK-08",
         "CORE-23",
+        "WEAK-09",
         "CORE-24",
+        "MAIN-01",
+        "MAIN-02",
         "MOCK114-01",
-        "MOCK114-02"
+        "MAIN-03",
+        "MOCK114-02",
+        "MAIN-04"
       ]
     },
     {
@@ -17556,34 +17602,36 @@ const DAILY_SCHEDULE = {
         "CORE-13",
         "WEAK-05",
         "CORE-14",
-        "WEAK-06",
         "CORE-15",
         "CORE-16",
+        "WEAK-06",
         "CORE-17",
-        "WEAK-07",
         "CORE-18",
         "CORE-19",
+        "WEAK-07",
         "CORE-20",
-        "WEAK-08",
         "CORE-21",
-        "WEAK-09",
         "CORE-22",
+        "WEAK-08",
         "CORE-23",
+        "WEAK-09",
         "CORE-24",
+        "MAIN-01",
+        "MAIN-02",
         "MOCK114-01",
+        "MAIN-03",
         "MOCK114-02",
+        "MAIN-04",
         "MOCK114-03",
-        "WEAK-10",
+        "MAIN-05",
         "MOCK114-04",
-        "WEAK-11",
+        "WEAK-10",
         "MOCK114-05",
-        "WEAK-12",
+        "WEAK-11",
         "MOCK114-06",
         "BLIND108-01",
         "BLIND108-02",
-        "WEAK-13",
         "BLIND108-03",
-        "WEAK-14",
         "BLIND108-04",
         "BLIND108-05",
         "BLIND108-06"
@@ -17613,34 +17661,36 @@ const DAILY_SCHEDULE = {
         "CORE-13",
         "WEAK-05",
         "CORE-14",
-        "WEAK-06",
         "CORE-15",
         "CORE-16",
+        "WEAK-06",
         "CORE-17",
-        "WEAK-07",
         "CORE-18",
         "CORE-19",
+        "WEAK-07",
         "CORE-20",
-        "WEAK-08",
         "CORE-21",
-        "WEAK-09",
         "CORE-22",
+        "WEAK-08",
         "CORE-23",
+        "WEAK-09",
         "CORE-24",
+        "MAIN-01",
+        "MAIN-02",
         "MOCK114-01",
+        "MAIN-03",
         "MOCK114-02",
+        "MAIN-04",
         "MOCK114-03",
-        "WEAK-10",
+        "MAIN-05",
         "MOCK114-04",
-        "WEAK-11",
+        "WEAK-10",
         "MOCK114-05",
-        "WEAK-12",
+        "WEAK-11",
         "MOCK114-06",
         "BLIND108-01",
         "BLIND108-02",
-        "WEAK-13",
         "BLIND108-03",
-        "WEAK-14",
         "BLIND108-04",
         "BLIND108-05",
         "BLIND108-06",
@@ -18645,6 +18695,161 @@ const DAILY_SCHEDULE = {
       "anchorQid": "EE-110-06-4",
       "hours": 1.0
     },
+    "MAIN-01": {
+      "code": "MAIN-01",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 1 輪（固定 3 題）",
+      "qids": [
+        "EE-109-01-1",
+        "EE-113-04-5",
+        "EE-107-05-4"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-109-01-1",
+            "EE-113-04-5",
+            "EE-107-05-4"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
+    "MAIN-02": {
+      "code": "MAIN-02",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 2 輪（固定 3 題）",
+      "qids": [
+        "EE-110-02-1",
+        "EE-113-03-5",
+        "EE-110-06-1"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-110-02-1",
+            "EE-113-03-5",
+            "EE-110-06-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
+    "MAIN-03": {
+      "code": "MAIN-03",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 3 輪（固定 3 題）",
+      "qids": [
+        "EE-110-01-4",
+        "EE-112-04-1",
+        "EE-113-06-5"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-110-01-4",
+            "EE-112-04-1",
+            "EE-113-06-5"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
+    "MAIN-04": {
+      "code": "MAIN-04",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 4 輪（固定 3 題）",
+      "qids": [
+        "EE-109-02-4",
+        "EE-113-03-2",
+        "EE-113-04-1"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-109-02-4",
+            "EE-113-03-2",
+            "EE-113-04-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
+    "MAIN-05": {
+      "code": "MAIN-05",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 5 輪（固定 3 題）",
+      "qids": [
+        "EE-112-01-3",
+        "EE-111-04-2",
+        "EE-113-05-1"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-112-01-3",
+            "EE-111-04-2",
+            "EE-113-05-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
     "WEAK-01": {
       "code": "WEAK-01",
       "kind": "practice",
@@ -18880,75 +19085,6 @@ const DAILY_SCHEDULE = {
       "kind": "practice",
       "launch": "random-balanced",
       "title": "弱題分析｜隨機練習 第 11 輪（各科輪流）",
-      "qids": [],
-      "phases": [
-        {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
-          "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
-        },
-        {
-          "label": "一句話錯因整理",
-          "minutes": 15,
-          "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
-        }
-      ],
-      "hours": 1.25
-    },
-    "WEAK-12": {
-      "code": "WEAK-12",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 12 輪（各科輪流）",
-      "qids": [],
-      "phases": [
-        {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
-          "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
-        },
-        {
-          "label": "一句話錯因整理",
-          "minutes": 15,
-          "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
-        }
-      ],
-      "hours": 1.25
-    },
-    "WEAK-13": {
-      "code": "WEAK-13",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 13 輪（各科輪流）",
-      "qids": [],
-      "phases": [
-        {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
-          "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
-        },
-        {
-          "label": "一句話錯因整理",
-          "minutes": 15,
-          "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
-        }
-      ],
-      "hours": 1.25
-    },
-    "WEAK-14": {
-      "code": "WEAK-14",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 14 輪（各科輪流）",
       "qids": [],
       "phases": [
         {
@@ -19848,9 +19984,11 @@ const DAILY_SCHEDULE = {
     {
       "date": "2026-10-09",
       "dow": 5,
-      "budget": 2.0,
+      "budget": 4.0,
       "codes": [
         "CORE-14",
+        "CORE-15",
+        "CORE-16",
         "WEAK-06"
       ],
       "items": [
@@ -19858,24 +19996,6 @@ const DAILY_SCHEDULE = {
           "code": "CORE-14",
           "part": "full"
         },
-        {
-          "code": "WEAK-06",
-          "part": "full"
-        }
-      ],
-      "hours": 2.25
-    },
-    {
-      "date": "2026-10-10",
-      "dow": 6,
-      "budget": 4.0,
-      "codes": [
-        "CORE-15",
-        "CORE-16",
-        "CORE-17",
-        "WEAK-07"
-      ],
-      "items": [
         {
           "code": "CORE-15",
           "part": "full"
@@ -19885,7 +20005,33 @@ const DAILY_SCHEDULE = {
           "part": "full"
         },
         {
+          "code": "WEAK-06",
+          "part": "full"
+        }
+      ],
+      "hours": 4.25
+    },
+    {
+      "date": "2026-10-10",
+      "dow": 6,
+      "budget": 4.0,
+      "codes": [
+        "CORE-17",
+        "CORE-18",
+        "CORE-19",
+        "WEAK-07"
+      ],
+      "items": [
+        {
           "code": "CORE-17",
+          "part": "full"
+        },
+        {
+          "code": "CORE-18",
+          "part": "full"
+        },
+        {
+          "code": "CORE-19",
           "part": "full"
         },
         {
@@ -19900,22 +20046,22 @@ const DAILY_SCHEDULE = {
       "dow": 0,
       "budget": 4.0,
       "codes": [
-        "CORE-18",
-        "CORE-19",
         "CORE-20",
+        "CORE-21",
+        "CORE-22",
         "WEAK-08"
       ],
       "items": [
         {
-          "code": "CORE-18",
-          "part": "full"
-        },
-        {
-          "code": "CORE-19",
-          "part": "full"
-        },
-        {
           "code": "CORE-20",
+          "part": "full"
+        },
+        {
+          "code": "CORE-21",
+          "part": "full"
+        },
+        {
+          "code": "CORE-22",
           "part": "full"
         },
         {
@@ -19930,12 +20076,12 @@ const DAILY_SCHEDULE = {
       "dow": 1,
       "budget": 2.0,
       "codes": [
-        "CORE-21",
+        "CORE-23",
         "WEAK-09"
       ],
       "items": [
         {
-          "code": "CORE-21",
+          "code": "CORE-23",
           "part": "full"
         },
         {
@@ -19950,35 +20096,35 @@ const DAILY_SCHEDULE = {
       "dow": 2,
       "budget": 2.0,
       "codes": [
-        "CORE-22",
-        "CORE-23"
+        "CORE-24",
+        "MAIN-01"
       ],
       "items": [
         {
-          "code": "CORE-22",
+          "code": "CORE-24",
           "part": "full"
         },
         {
-          "code": "CORE-23",
+          "code": "MAIN-01",
           "part": "full"
         }
       ],
-      "hours": 2.0
+      "hours": 2.25
     },
     {
       "date": "2026-10-14",
       "dow": 3,
       "budget": 2.0,
       "codes": [
-        "CORE-24"
+        "MAIN-02"
       ],
       "items": [
         {
-          "code": "CORE-24",
+          "code": "MAIN-02",
           "part": "full"
         }
       ],
-      "hours": 1.0
+      "hours": 1.25
     },
     {
       "date": "2026-10-15",
@@ -20000,30 +20146,40 @@ const DAILY_SCHEDULE = {
       "dow": 5,
       "budget": 2.0,
       "codes": [
-        "MOCK114-01"
+        "MOCK114-01",
+        "MAIN-03"
       ],
       "items": [
         {
           "code": "MOCK114-01",
           "part": "review"
+        },
+        {
+          "code": "MAIN-03",
+          "part": "full"
         }
       ],
-      "hours": 1.0
+      "hours": 2.25
     },
     {
       "date": "2026-10-17",
       "dow": 6,
       "budget": 4.0,
       "codes": [
-        "MOCK114-02"
+        "MOCK114-02",
+        "MAIN-04"
       ],
       "items": [
         {
           "code": "MOCK114-02",
           "part": "full"
+        },
+        {
+          "code": "MAIN-04",
+          "part": "full"
         }
       ],
-      "hours": 3.0
+      "hours": 4.25
     },
     {
       "date": "2026-10-18",
@@ -20031,7 +20187,7 @@ const DAILY_SCHEDULE = {
       "budget": 4.0,
       "codes": [
         "MOCK114-03",
-        "WEAK-10"
+        "MAIN-05"
       ],
       "items": [
         {
@@ -20039,7 +20195,7 @@ const DAILY_SCHEDULE = {
           "part": "full"
         },
         {
-          "code": "WEAK-10",
+          "code": "MAIN-05",
           "part": "full"
         }
       ],
@@ -20066,7 +20222,7 @@ const DAILY_SCHEDULE = {
       "budget": 2.0,
       "codes": [
         "MOCK114-04",
-        "WEAK-11"
+        "WEAK-10"
       ],
       "items": [
         {
@@ -20074,7 +20230,7 @@ const DAILY_SCHEDULE = {
           "part": "review"
         },
         {
-          "code": "WEAK-11",
+          "code": "WEAK-10",
           "part": "full"
         }
       ],
@@ -20101,7 +20257,7 @@ const DAILY_SCHEDULE = {
       "budget": 2.0,
       "codes": [
         "MOCK114-05",
-        "WEAK-12"
+        "WEAK-11"
       ],
       "items": [
         {
@@ -20109,7 +20265,7 @@ const DAILY_SCHEDULE = {
           "part": "review"
         },
         {
-          "code": "WEAK-12",
+          "code": "WEAK-11",
           "part": "full"
         }
       ],
@@ -20155,59 +20311,34 @@ const DAILY_SCHEDULE = {
       "dow": 0,
       "budget": 4.0,
       "codes": [
-        "BLIND108-02",
-        "WEAK-13"
+        "BLIND108-02"
       ],
       "items": [
         {
           "code": "BLIND108-02",
           "part": "full"
-        },
-        {
-          "code": "WEAK-13",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 3.0
     },
     {
       "date": "2026-10-26",
       "dow": 1,
-      "budget": 2.0,
+      "budget": 4.0,
       "codes": [
         "BLIND108-03"
       ],
       "items": [
         {
           "code": "BLIND108-03",
-          "part": "closed"
+          "part": "full"
         }
       ],
-      "hours": 2.0
+      "hours": 3.0
     },
     {
       "date": "2026-10-27",
       "dow": 2,
-      "budget": 2.0,
-      "codes": [
-        "BLIND108-03",
-        "WEAK-14"
-      ],
-      "items": [
-        {
-          "code": "BLIND108-03",
-          "part": "review"
-        },
-        {
-          "code": "WEAK-14",
-          "part": "full"
-        }
-      ],
-      "hours": 2.25
-    },
-    {
-      "date": "2026-10-28",
-      "dow": 3,
       "budget": 2.0,
       "codes": [
         "BLIND108-04"
@@ -20221,8 +20352,8 @@ const DAILY_SCHEDULE = {
       "hours": 2.0
     },
     {
-      "date": "2026-10-29",
-      "dow": 4,
+      "date": "2026-10-28",
+      "dow": 3,
       "budget": 2.0,
       "codes": [
         "BLIND108-04"
@@ -20236,8 +20367,8 @@ const DAILY_SCHEDULE = {
       "hours": 1.0
     },
     {
-      "date": "2026-10-30",
-      "dow": 5,
+      "date": "2026-10-29",
+      "dow": 4,
       "budget": 2.0,
       "codes": [
         "BLIND108-05"
@@ -20251,24 +20382,34 @@ const DAILY_SCHEDULE = {
       "hours": 2.0
     },
     {
-      "date": "2026-10-31",
-      "dow": 6,
-      "budget": 4.0,
+      "date": "2026-10-30",
+      "dow": 5,
+      "budget": 2.0,
       "codes": [
-        "BLIND108-05",
-        "BLIND108-06"
+        "BLIND108-05"
       ],
       "items": [
         {
           "code": "BLIND108-05",
           "part": "review"
-        },
+        }
+      ],
+      "hours": 1.0
+    },
+    {
+      "date": "2026-10-31",
+      "dow": 6,
+      "budget": 4.0,
+      "codes": [
+        "BLIND108-06"
+      ],
+      "items": [
         {
           "code": "BLIND108-06",
           "part": "full"
         }
       ],
-      "hours": 4.0
+      "hours": 3.0
     },
     {
       "date": "2026-11-01",
@@ -20496,34 +20637,36 @@ const DAILY_SCHEDULE = {
     "CORE-13",
     "WEAK-05",
     "CORE-14",
-    "WEAK-06",
     "CORE-15",
     "CORE-16",
+    "WEAK-06",
     "CORE-17",
-    "WEAK-07",
     "CORE-18",
     "CORE-19",
+    "WEAK-07",
     "CORE-20",
-    "WEAK-08",
     "CORE-21",
-    "WEAK-09",
     "CORE-22",
+    "WEAK-08",
     "CORE-23",
+    "WEAK-09",
     "CORE-24",
+    "MAIN-01",
+    "MAIN-02",
     "MOCK114-01",
+    "MAIN-03",
     "MOCK114-02",
+    "MAIN-04",
     "MOCK114-03",
-    "WEAK-10",
+    "MAIN-05",
     "MOCK114-04",
-    "WEAK-11",
+    "WEAK-10",
     "MOCK114-05",
-    "WEAK-12",
+    "WEAK-11",
     "MOCK114-06",
     "BLIND108-01",
     "BLIND108-02",
-    "WEAK-13",
     "BLIND108-03",
-    "WEAK-14",
     "BLIND108-04",
     "BLIND108-05",
     "BLIND108-06",
@@ -20561,36 +20704,38 @@ const DAILY_SCHEDULE = {
     "CORE-13": "2026-10-08",
     "WEAK-05": "2026-10-08",
     "CORE-14": "2026-10-09",
+    "CORE-15": "2026-10-09",
+    "CORE-16": "2026-10-09",
     "WEAK-06": "2026-10-09",
-    "CORE-15": "2026-10-10",
-    "CORE-16": "2026-10-10",
     "CORE-17": "2026-10-10",
+    "CORE-18": "2026-10-10",
+    "CORE-19": "2026-10-10",
     "WEAK-07": "2026-10-10",
-    "CORE-18": "2026-10-11",
-    "CORE-19": "2026-10-11",
     "CORE-20": "2026-10-11",
+    "CORE-21": "2026-10-11",
+    "CORE-22": "2026-10-11",
     "WEAK-08": "2026-10-11",
-    "CORE-21": "2026-10-12",
+    "CORE-23": "2026-10-12",
     "WEAK-09": "2026-10-12",
-    "CORE-22": "2026-10-13",
-    "CORE-23": "2026-10-13",
-    "CORE-24": "2026-10-14",
+    "CORE-24": "2026-10-13",
+    "MAIN-01": "2026-10-13",
+    "MAIN-02": "2026-10-14",
     "MOCK114-01": "2026-10-16",
+    "MAIN-03": "2026-10-16",
     "MOCK114-02": "2026-10-17",
+    "MAIN-04": "2026-10-17",
     "MOCK114-03": "2026-10-18",
-    "WEAK-10": "2026-10-18",
+    "MAIN-05": "2026-10-18",
     "MOCK114-04": "2026-10-20",
-    "WEAK-11": "2026-10-20",
+    "WEAK-10": "2026-10-20",
     "MOCK114-05": "2026-10-22",
-    "WEAK-12": "2026-10-22",
+    "WEAK-11": "2026-10-22",
     "MOCK114-06": "2026-10-24",
     "BLIND108-01": "2026-10-24",
     "BLIND108-02": "2026-10-25",
-    "WEAK-13": "2026-10-25",
-    "BLIND108-03": "2026-10-27",
-    "WEAK-14": "2026-10-27",
-    "BLIND108-04": "2026-10-29",
-    "BLIND108-05": "2026-10-31",
+    "BLIND108-03": "2026-10-26",
+    "BLIND108-04": "2026-10-28",
+    "BLIND108-05": "2026-10-30",
     "BLIND108-06": "2026-10-31",
     "BUFFER": "2026-11-01",
     "REINF-01": "2026-11-02",
@@ -23318,13 +23463,13 @@ const QUESTION_POINTS = {
 // Generated by scripts/build_target_allocation.py. Do not edit.
 // Source: data/study-plan/target-allocation.json + QUESTION_TAXONOMY_MAP.
 const TARGET_ALLOCATION = {
-  "totalTarget": 375,
+  "totalTarget": 380,
   "passLine": 360,
   "subjects": {
     "01": {
       "name": "電路學",
       "role": "high",
-      "target": 80,
+      "target": 75,
       "mainChapters": [
         "ct-second-order-rlc",
         "ct-mutual-inductance",
@@ -23348,18 +23493,18 @@ const TARGET_ALLOCATION = {
     "02": {
       "name": "電子學",
       "role": "basic",
-      "target": 45,
+      "target": 55,
       "mainChapters": [
         "el-diode-rectifier",
-        "el-pe-buck-boost"
+        "el-pe-buck-boost",
+        "el-bjt-bias-small-signal",
+        "el-mosfet-bias-small-signal"
       ],
       "sharedChapters": [],
       "basicChapters": [
         "el-active-filter",
-        "el-bjt-bias-small-signal",
         "el-diff-amp",
         "el-feedback-stability",
-        "el-mosfet-bias-small-signal",
         "el-opamp-ideal",
         "el-pe-inverter-spwm",
         "el-pe-thyristor-rectifier"
@@ -23368,9 +23513,11 @@ const TARGET_ALLOCATION = {
     "03": {
       "name": "工程數學",
       "role": "basic",
-      "target": 55,
+      "target": 60,
       "mainChapters": [
-        "em-probability-statistics"
+        "em-probability-statistics",
+        "em-vector-analysis",
+        "em-laplace-transform"
       ],
       "sharedChapters": [],
       "basicChapters": [
@@ -23378,18 +23525,16 @@ const TARGET_ALLOCATION = {
         "em-eigen-diagonal",
         "em-first-order-ode",
         "em-fourier-series",
-        "em-laplace-transform",
         "em-matrix-det-inv",
         "em-second-order-ode-homogeneous",
         "em-second-order-ode-nonhomogeneous",
-        "em-svd-linear-systems",
-        "em-vector-analysis"
+        "em-svd-linear-systems"
       ]
     },
     "04": {
       "name": "電機機械",
       "role": "high",
-      "target": 80,
+      "target": 75,
       "mainChapters": [
         "emach-synchronous-generator-round",
         "emach-dc-motor-generator",
@@ -23539,12 +23684,17 @@ const TARGET_ALLOCATION = {
       "tier": "main",
       "shared": false
     },
-    "el-active-filter": {
+    "el-bjt-bias-small-signal": {
       "subject": "02",
-      "tier": "basic",
+      "tier": "main",
       "shared": false
     },
-    "el-bjt-bias-small-signal": {
+    "el-mosfet-bias-small-signal": {
+      "subject": "02",
+      "tier": "main",
+      "shared": false
+    },
+    "el-active-filter": {
       "subject": "02",
       "tier": "basic",
       "shared": false
@@ -23555,11 +23705,6 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "el-feedback-stability": {
-      "subject": "02",
-      "tier": "basic",
-      "shared": false
-    },
-    "el-mosfet-bias-small-signal": {
       "subject": "02",
       "tier": "basic",
       "shared": false
@@ -23584,6 +23729,16 @@ const TARGET_ALLOCATION = {
       "tier": "main",
       "shared": false
     },
+    "em-vector-analysis": {
+      "subject": "03",
+      "tier": "main",
+      "shared": false
+    },
+    "em-laplace-transform": {
+      "subject": "03",
+      "tier": "main",
+      "shared": false
+    },
     "em-complex-cauchy-residue": {
       "subject": "03",
       "tier": "basic",
@@ -23604,11 +23759,6 @@ const TARGET_ALLOCATION = {
       "tier": "basic",
       "shared": false
     },
-    "em-laplace-transform": {
-      "subject": "03",
-      "tier": "basic",
-      "shared": false
-    },
     "em-matrix-det-inv": {
       "subject": "03",
       "tier": "basic",
@@ -23625,11 +23775,6 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "em-svd-linear-systems": {
-      "subject": "03",
-      "tier": "basic",
-      "shared": false
-    },
-    "em-vector-analysis": {
       "subject": "03",
       "tier": "basic",
       "shared": false
@@ -23822,13 +23967,13 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-104-02-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-mosfet-bias-small-signal",
       "shared": false
     },
     "EE-104-02-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-bjt-bias-small-signal",
       "shared": false
@@ -23852,7 +23997,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-104-03-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-laplace-transform",
       "shared": false
@@ -23876,7 +24021,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-104-03-5": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
@@ -24033,7 +24178,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-105-03-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-laplace-transform",
       "shared": false
@@ -24201,7 +24346,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-106-02-3": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-bjt-bias-small-signal",
       "shared": false
@@ -24237,7 +24382,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-106-03-4": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-laplace-transform",
       "shared": false
@@ -24387,7 +24532,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-107-02-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-mosfet-bias-small-signal",
       "shared": false
@@ -24417,7 +24562,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-107-03-3": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
@@ -24585,13 +24730,13 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-108-03-3": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
     },
     "EE-108-03-4": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
@@ -24724,7 +24869,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-109-02-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-bjt-bias-small-signal",
       "shared": false
@@ -24742,7 +24887,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-109-02-4": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-mosfet-bias-small-signal",
       "shared": false
@@ -24754,7 +24899,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-109-03-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
@@ -24898,7 +25043,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-110-02-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-bjt-bias-small-signal",
       "shared": false
@@ -24922,7 +25067,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-110-03-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-laplace-transform",
       "shared": false
@@ -24940,13 +25085,13 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-110-03-4": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
     },
     "EE-110-03-5": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
@@ -25091,7 +25236,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-111-02-3": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-mosfet-bias-small-signal",
       "shared": false
@@ -25109,7 +25254,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-111-03-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-laplace-transform",
       "shared": false
@@ -25127,7 +25272,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-111-03-5": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
@@ -25247,7 +25392,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-112-02-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-bjt-bias-small-signal",
       "shared": false
@@ -25271,7 +25416,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-112-03-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-laplace-transform",
       "shared": false
@@ -25295,7 +25440,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-112-03-5": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
@@ -25421,7 +25566,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-113-02-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-bjt-bias-small-signal",
       "shared": false
@@ -25445,7 +25590,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-113-03-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-laplace-transform",
       "shared": false
@@ -25463,7 +25608,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-113-03-5": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "03",
       "chapter": "em-vector-analysis",
       "shared": false
@@ -25596,7 +25741,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-114-02-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
       "chapter": "el-mosfet-bias-small-signal",
       "shared": false
@@ -25746,7 +25891,7 @@ const TARGET_ALLOCATION = {
  * (src/data/targetAllocation.generated.js must load first).
  */
 
-const TOTAL_TARGET = 375;
+const TOTAL_TARGET = 380;
 const PASS_LINE = 360;
 
 function studyAllocation_() {
@@ -28291,7 +28436,16 @@ function createBalancedPracticeQueue(questions, options = {}) {
   return practiceTopUp(chosen, questions, options, count, random, now);
 }
 
-// 補強: (a) mock questions whose latest mock record is △／×, (b) same-chapter questions,
+// SM-2 due question ids: `options.dueQids` (array, for tests) or the live schedule via getDueQuestionsList().
+function practiceDueQids(options) {
+  if (Array.isArray(options.dueQids)) return options.dueQids.map(String);
+  if (typeof getDueQuestionsList === 'function') {
+    try { return getDueQuestionsList(options.now).map(String); } catch (e) { return []; }
+  }
+  return [];
+}
+
+// 補強: stage 0 SM-2 due items, then (a) mock questions whose latest mock record is △／×, (b) same-chapter questions,
 // (c) chapters with the most error codes in the last 21 days.  A question whose latest
 // record is all ○ is never repeated.  Empty -> 各科輪流.
 function createReinforcePracticeQueue(questions, options = {}) {
@@ -28313,10 +28467,23 @@ function createReinforcePracticeQueue(questions, options = {}) {
   };
   const isUsed = c => chosen.indexOf(c.id) >= 0;
 
+  // (0) SM-2 due questions (due today or earlier), worst latest mark first.  Same pool rules as the other stages
+  // (locked papers, 7-day repeat window, tier), but a due question stays eligible even if its latest mark is ○.
+  const dueRank = { x: 0, tri: 1, o: 3 };
+  const dueIds = new Set(practiceDueQids(options));
+  if (dueIds.size) {
+    const duePool = practicePool(questions, options, now).filter(c => dueIds.has(c.id));
+    const rankOf = c => { const l = latestAny[c.id]; const m = l ? practiceRecordMark(l) : ''; return m in dueRank ? dueRank[m] : 2; };
+    [0, 1, 2, 3].forEach(rank => {
+      const group = duePool.filter(c => rankOf(c) === rank && chosen.indexOf(c.id) < 0);
+      take(group.filter(c => c.tier === 'main'));
+      take(group.filter(c => chosen.indexOf(c.id) < 0));
+    });
+  }
   // (a) mock misses, × before △.
   const seedAll = Object.keys(latestMock).filter(qid => ['x', 'tri'].indexOf(practiceRecordMark(latestMock[qid])) >= 0);
   ['x', 'tri'].forEach(mark => {
-    take(seedAll.filter(qid => practiceRecordMark(latestMock[qid]) === mark && byId[qid]).map(qid => byId[qid]));
+    take(seedAll.filter(qid => practiceRecordMark(latestMock[qid]) === mark && byId[qid] && chosen.indexOf(qid) < 0).map(qid => byId[qid]));
   });
   // (b) same chapter as any mock miss (main tier first).
   const chapterOfId = {};
@@ -32139,6 +32306,12 @@ function getReviewSessionSummary() {
   return { rated: rated.size, skipped: skipped.size, remaining: Math.max(0, total - rated.size - skipped.size), total };
 }
 
+/** The single primary action on the review page: start the due round, else nothing (cards stay secondary). */
+function reviewPrimaryAction(dueCount) {
+  const n = Number(dueCount) || 0;
+  return n > 0 ? { label: `開始複習 ${n} 題`, action: 'start' } : { label: '', action: 'none' };
+}
+
 function startReviewSession() {
   // A full due-review round always uses the same subject scope shown on the
   // entry card; a stale chapter chip must not silently shrink the queue.
@@ -32312,6 +32485,7 @@ function renderReviewPage() {
       <div class="progress-health-label">
         ${dueCount > 0 ? `<span>今日待提取 ${dueCount} 題</span>` : '<span style="color: var(--success); font-weight: 700;">今日沒有到期題</span>'}
         <small>本輪作答結果記錄 ${practiceRoundCompleted} 題・提取能力 L1／L2／L3／L4：${recallLevels.join('／')}</small>
+        ${reviewPrimaryAction(dueCount).action === 'start' ? `<button type="button" class="btn-review-primary" data-review-start onclick="startReviewSession()">${reviewHtmlEscape(reviewPrimaryAction(dueCount).label)}</button>` : ''}
       </div>
     `;
   }
@@ -35864,6 +36038,35 @@ function resultCardMarkButtons(tier, source) {
   }));
 }
 
+const RESULT_CARD_RUBRIC = '○ 數值與單位都對｜△ 列式、等效電路或方程式正確但數值錯或未算完｜× 沒有起手式或空白';
+const RESULT_CARD_KEY_HINT = '鍵盤 1／2／3、0 全部○、Enter 儲存';
+
+function resultCardRubric(tier, source) {
+  return (source === 'mock' ? '模考 100／50／0：' : '') + RESULT_CARD_RUBRIC + (tier === 'basic' ? '（基本分題：骨架寫完即 ○）' : '');
+}
+
+// Pure key mapping. state: { partCount, activeIndex, marks, canSave, collapsed, editable }
+// Returns { type: 'mark', row, mark } | { type: 'markAll' } | { type: 'save' } | null.
+function resultCardKeyAction(key, state) {
+  const st = state || {};
+  if (st.collapsed || st.editable) return null;
+  const n = Number(st.partCount) || 0;
+  if (n < 1) return null;
+  const markOf = { '1': 'o', '2': 'tri', '3': 'x' };
+  if (markOf[key]) {
+    const marks = Array.isArray(st.marks) ? st.marks : [];
+    let row = Number.isInteger(st.activeIndex) && st.activeIndex >= 0 && st.activeIndex < n ? st.activeIndex : -1;
+    if (row < 0) {
+      row = 0;
+      for (let i = 0; i < n; i++) { if (!marks[i]) { row = i; break; } }
+    }
+    return { type: 'mark', row, mark: markOf[key] };
+  }
+  if (key === '0') return { type: 'markAll' };
+  if (key === 'Enter') return st.canSave ? { type: 'save' } : null;
+  return null;
+}
+
 function resultCardViewModel(qid, marks, errors, source) {
   const model = buildResultModel(qid);
   const list = Array.isArray(marks) ? marks : [];
@@ -35879,6 +36082,8 @@ function resultCardViewModel(qid, marks, errors, source) {
     chapter,
     header: [qid, chapter, tierLabel].filter(Boolean).join('｜'),
     markButtons: resultCardMarkButtons(model.tier, source),
+    rubric: resultCardRubric(model.tier, source),
+    keyHint: RESULT_CARD_KEY_HINT,
     hint: source === 'mock' ? '模考按 100／50／0 計分' : (model.tier === 'basic' ? '○＝骨架寫完' : ''),
     rows: model.parts.map((part, i) => ({
       index: i,
@@ -35960,6 +36165,7 @@ function openResultCard(options) {
   root.innerHTML = `
     <button type="button" class="result-card-expand">做完了？記錄作答結果 ▲</button>
     <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span>${docked ? '<button type="button" class="result-card-collapse" aria-label="收合作答結果卡">▼ 收合</button>' : ''}</div>
+    <div class="result-card-guide"><span class="result-card-rubric"></span> <span class="result-card-keyhint"></span> <button type="button" class="result-card-allo">全部○</button></div>
     <div class="result-card-rows">${rowsHtml}</div>
     <div class="result-card-errors" hidden>
       <span class="result-card-errors-label">錯在哪（可多選，可不選）</span>
@@ -35993,6 +36199,8 @@ function openResultCard(options) {
     const vm = resultCardViewModel(qid, marks, errors, source);
     q('.result-card-title').textContent = vm.header;
     q('.result-card-hint').textContent = vm.hint;
+    q('.result-card-rubric').textContent = vm.rubric;
+    q('.result-card-keyhint').textContent = vm.keyHint;
     vm.markButtons.forEach(b => {
       Array.prototype.forEach.call(root.querySelectorAll(`.result-card-mark[data-mark="${b.mark}"]`), btn => { btn.textContent = `${b.symbol} ${b.text}`; });
     });
@@ -36012,7 +36220,57 @@ function openResultCard(options) {
     syncPadding();
   }
 
+  function doSave() {
+      const vm = resultCardViewModel(qid, marks, errors, source);
+      if (!vm.canSave || saving) return;
+      saving = true;
+      const record = {
+        qid, at: Date.now(), source, tier: model.tier,
+        parts: model.parts.map((p, i) => ({ label: p.label, points: p.points, mark: marks[i] })),
+        errors: vm.showErrors ? errors.slice() : [], note, total: model.total
+      };
+      if (opts.mockId) record.mockId = opts.mockId;
+      const result = saveResultRecord(record);
+      saving = false;
+      if (!result.ok) {
+        q('.result-card-msg').textContent = '無法保存，請稍後再試（本機儲存空間不可用或資料損壞）。';
+        sync();
+        return;
+      }
+      close();
+      // Docked card: no next question to move to, so confirm briefly where the card was and keep the solution open.
+      if (docked && typeof document !== 'undefined') resultCardShowSavedNotice(host);
+      if (typeof opts.onSaved === 'function') opts.onSaved(result.record, result);
+  }
+
+  function markAll() {
+    for (let i = 0; i < marks.length; i++) marks[i] = 'o';
+    sync();
+  }
+
+  let activeRow = -1;
+  root.addEventListener('focusin', event => {
+    const row = event.target && event.target.closest ? event.target.closest('.result-card-row') : null;
+    activeRow = row ? Number(row.getAttribute('data-row')) : -1;
+  });
+  function onKey(event) {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+    const t = event.target;
+    const editable = !!(t && t.matches && t.matches('input, textarea, select, [contenteditable="true"]'));
+    if (event.key === 'Enter' && t && t.matches && t.matches('button, a')) return;
+    const action = resultCardKeyAction(event.key, {
+      partCount: model.parts.length, activeIndex: activeRow, marks, canSave: !saving && resultCardViewModel(qid, marks, errors, source).canSave,
+      collapsed, editable
+    });
+    if (!action) return;
+    event.preventDefault();
+    if (action.type === 'mark') { marks[action.row] = action.mark; activeRow = -1; sync(); }
+    else if (action.type === 'markAll') markAll();
+    else if (action.type === 'save') doSave();
+  }
+
   function close() {
+    if (typeof document !== 'undefined') document.removeEventListener('keydown', onKey);
     if (observer) observer.disconnect();
     baseline.forEach((value, id) => {
       const el = document.getElementById(id);
@@ -36049,32 +36307,16 @@ function openResultCard(options) {
       target.setAttribute('aria-expanded', noteOpen ? 'true' : 'false');
       target.textContent = noteOpen ? '－ 收合加註' : '＋ 加註（選用）';
       syncPadding();
+    } else if (target.classList.contains('result-card-allo')) {
+      markAll();
     } else if (target.classList.contains('result-card-save')) {
-      const vm = resultCardViewModel(qid, marks, errors, source);
-      if (!vm.canSave || saving) return;
-      saving = true;
-      const record = {
-        qid, at: Date.now(), source, tier: model.tier,
-        parts: model.parts.map((p, i) => ({ label: p.label, points: p.points, mark: marks[i] })),
-        errors: vm.showErrors ? errors.slice() : [], note, total: model.total
-      };
-      if (opts.mockId) record.mockId = opts.mockId;
-      const result = saveResultRecord(record);
-      saving = false;
-      if (!result.ok) {
-        q('.result-card-msg').textContent = '無法保存，請稍後再試（本機儲存空間不可用或資料損壞）。';
-        sync();
-        return;
-      }
-      close();
-      // Docked card: no next question to move to, so confirm briefly where the card was and keep the solution open.
-      if (docked && typeof document !== 'undefined') resultCardShowSavedNotice(host);
-      if (typeof opts.onSaved === 'function') opts.onSaved(result.record, result);
+      doSave();
     }
   });
   q('.result-card-note-input').addEventListener('input', event => { note = event.target.value; });
 
   host.appendChild(root);
+  if (typeof document !== 'undefined') document.addEventListener('keydown', onKey);
   let observer = null;
   if (docked && typeof MutationObserver !== 'undefined') {
     const modal = document.getElementById('solution-modal');
@@ -36088,7 +36330,7 @@ function openResultCard(options) {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { resultCardViewModel, resultCardMarkButtons, resultCardEscape, openResultCard, resultCardStartsCollapsed };
+  module.exports = { resultCardViewModel, resultCardKeyAction, resultCardRubric, resultCardMarkButtons, resultCardEscape, openResultCard, resultCardStartsCollapsed };
 }
 
 
@@ -37793,7 +38035,7 @@ window.addEventListener('pagehide', () => persistSolutionModalReadingState(Boole
 
 
 // === src/components/mockExam.js ===
-// src/components/mockExam.js — WP5b (模考分頁；無任何計時器，使用者自行手動計時)
+// src/components/mockExam.js — WP5b (模考分頁；本檔不含計時器；限時由「今天」視窗負責，不在排程的卷為無計時)
 /**
  * 流程：選卷（年度 × 科目，或 114 模考／108 盲測捷徑）→ 試卷（官方 PDF、每題裁切圖、配分、
  * 第一輪時間帽）→ 交卷 → 逐題題解連結與結果卡 → 全部保存後出總結與「先修這題」。
@@ -38079,6 +38321,29 @@ function mockExamNextScheduled(schedule, completedCodes, currentCode) {
   return next ? { code: next.code, year: next.year, sid: next.sid, title: next.title } : null;
 }
 
+/**
+ * Decide how picking a paper starts. A paper with a schedule code (MOCK114-0n / BLIND108-0n) goes through
+ * the 今天 overlay (the one 120-minute closed-book timer); others fall back to the untimed paper.
+ * activeCode = code of the task currently running in the overlay ('' if none).
+ * Returns { route: 'today'|'busy'|'untimed', code }.
+ */
+function mockExamPickRoute(schedule, year, sid, activeCode) {
+  const y = String(year), s = String(sid);
+  let code = '';
+  mockExamShortcuts(schedule).some(g => g.items.some(it => {
+    if (it.sid && it.year === y && it.sid === s) { code = it.code; return true; }
+    return false;
+  }));
+  if (!code) return { route: 'untimed', code: '' };
+  if (activeCode && activeCode !== code) return { route: 'busy', code };
+  return { route: 'today', code };
+}
+
+/** Banner text under the paper header: fallback (no schedule code) papers are explicitly untimed. */
+function mockExamTimingNote(reminder) {
+  return `${reminder}（無計時：這條路徑沒有倒數，限時 120 分鐘請自備計時器；排程內未完成的卷請改從「今天」或排程按鈕開始）`;
+}
+
 function mockExamCropUrl(qid) {
   const crop = typeof QUESTION_CROP_MAP !== 'undefined' ? QUESTION_CROP_MAP[qid] || '' : '';
   if (!crop) return '';
@@ -38255,7 +38520,7 @@ function mockExamPaperHtml(paper) {
     <div class="mock-paper-head">
       <h3>${mockExamEscape(paper.year)} 年 ${mockExamEscape(mockExamSubjectName(paper.subjectId))}</h3>
       <p class="mock-meta">共 ${paper.items.length} 題 · ${scoreText}</p>
-      <p class="mock-reminder">${mockExamEscape(paper.reminder)}（共 120 分鐘；請自行計時）</p>
+      <p class="mock-reminder">${mockExamEscape(mockExamTimingNote(paper.reminder))}</p>
       ${paper.scoringNote ? `<p class="mock-scoring-note" role="note">${mockExamEscape(paper.scoringNote)}</p>` : ''}
       <div class="mock-paper-actions">
         ${paper.pdfUrl ? `<a class="mock-btn" href="${mockExamEscape(paper.pdfUrl)}" target="_blank" rel="noopener">開啟官方試卷 PDF</a>` : ''}
@@ -38279,17 +38544,42 @@ function mockExamPaperHtml(paper) {
   return head + `<div class="mock-q-list">${cards}</div>` + (graded ? '<div id="mock-summary"></div>' : '');
 }
 
+/** Pure: { [mockId]: delta } vs the previous complete paper of the same subject (0–100 scaled, 1 decimal). */
+function mockExamHistoryDeltas(hist) {
+  const out = {};
+  const bySubject = {};
+  (hist || []).filter(h => h.complete && h.summary && h.summary.total).forEach(h => {
+    (bySubject[h.subjectId] = bySubject[h.subjectId] || []).push(h);
+  });
+  const sc = h => h.summary.estimate / h.summary.total * 100;
+  Object.keys(bySubject).forEach(sid => {
+    const list = bySubject[sid].slice().sort((a, b) => a.at - b.at);
+    for (let i = 1; i < list.length; i++) {
+      out[list[i].mockId] = Math.round((sc(list[i]) - sc(list[i - 1])) * 10) / 10;
+    }
+  });
+  return out;
+}
+
+function mockExamDeltaCell(delta) {
+  if (delta === undefined || delta === null) return '<span class="mock-delta">—</span>';
+  const cls = delta > 0 ? 'mock-delta--up' : (delta < 0 ? 'mock-delta--down' : '');
+  return `<span class="mock-delta ${cls}">${delta > 0 ? '+' : (delta < 0 ? '−' : '±')}${Math.abs(delta)}</span>`;
+}
+
 function mockExamHistoryHtml() {
   const rows = mockExamActiveRows();
   const hist = mockExamHistory(mockExamRecords(), rows);
   const legacy = mockExamLegacyHistory();
+  const deltas = mockExamHistoryDeltas(hist);
   let body = '';
   if (!hist.length) body += '<p class="mock-empty">尚無模考紀錄。交卷並評完所有題目後會出現在這裡。</p>';
   else {
-    body += '<table class="mock-history-table"><thead><tr><th>日期</th><th>試卷</th><th>本卷估計</th></tr></thead><tbody>' + hist.map(h => `
+    body += '<table class="mock-history-table"><thead><tr><th>日期</th><th>試卷</th><th>本卷估計</th><th>較前次同科</th></tr></thead><tbody>' + hist.map(h => `
       <tr><td>${mockExamEscape(mockExamDateText(h.at))}</td>
       <td>${mockExamEscape(h.year)} 年 ${mockExamEscape(mockExamSubjectName(h.subjectId))}</td>
-      <td>${h.complete ? `<strong>${mockExamFormat(h.summary.estimate)}／${mockExamFormat(h.summary.total)}</strong>` : `<span class="mock-incomplete">未評完（${h.summary.questionCount}／${h.expectedCount} 題）</span>`}</td></tr>`).join('') + '</tbody></table>';
+      <td>${h.complete ? `<strong>${mockExamFormat(h.summary.estimate)}／${mockExamFormat(h.summary.total)}</strong>` : `<span class="mock-incomplete">未評完（${h.summary.questionCount}／${h.expectedCount} 題）</span>`}</td>
+      <td>${h.complete ? mockExamDeltaCell(deltas[h.mockId]) : '<span class="mock-delta">—</span>'}</td></tr>`).join('') + '</tbody></table>';
   }
   if (legacy.length) {
     body += '<h4 class="mock-legacy-title">舊版紀錄（唯讀）</h4><table class="mock-history-table mock-legacy"><thead><tr><th>日期</th><th>試卷</th><th>當時自評</th></tr></thead><tbody>' + legacy.slice(0, 20).map(item => `
@@ -38315,7 +38605,7 @@ function mockExamRender() {
   host.innerHTML = `
     <div class="mock-exam-box" id="mock-exam-root">
       <h2 class="mock-title">模考</h2>
-      <p class="mock-sub">整卷閉卷、自己手動計時；交卷後逐題標 ○△×，系統只估分、標出先修題。</p>
+      <p class="mock-sub">整卷閉卷、120 分鐘倒數計時（在「今天」視窗進行）；交卷後逐題標 ○△×，系統只估分、標出先修題。</p>
       ${mockExamPickerHtml()}
       <div id="mock-paper">${paper ? mockExamPaperHtml(paper) : ''}</div>
       <div id="mock-history">${mockExamHistoryHtml()}</div>
@@ -38448,6 +38738,23 @@ function mockExamSubmitClick(btn) {
   mockExamSubmitTimer = setTimeout(mockExamDisarmSubmit, MOCK_EXAM_CONFIRM_MS);
 }
 
+/** Start the picked paper: timed via the 今天 overlay when scheduled, else the untimed fallback. */
+function mockExamStartPicked(year, sid) {
+  const sched = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null;
+  let active = '';
+  try {
+    const st = typeof loadTodayTaskState === 'function' ? loadTodayTaskState() : null;
+    active = st && st.active ? st.active.code : '';
+  } catch (_) { active = ''; }
+  const route = typeof todayTaskStartCodeNow === 'function' ? mockExamPickRoute(sched, year, sid, active) : { route: 'untimed', code: '' };
+  if (route.route === 'busy') {
+    if (typeof showToast === 'function') showToast('今天的任務（' + active + '）進行中，請先完成或放棄再開始新的模考');
+    return;
+  }
+  if (route.route === 'today' && todayTaskStartCodeNow(route.code)) return;
+  mockExamLoad(year, sid);
+}
+
 function mockExamOnClick(event) {
   const t = event.target && event.target.closest ? event.target.closest('button') : null;
   const host = mockExamHost();
@@ -38455,10 +38762,10 @@ function mockExamOnClick(event) {
   if (t.hasAttribute('data-mock-load')) {
     const y = document.getElementById('mock-year');
     const s = document.getElementById('mock-subject');
-    mockExamLoad(y && y.value, s && s.value);
+    mockExamStartPicked(y && y.value, s && s.value);
   } else if (t.hasAttribute('data-mock-pick')) {
     const [y, s] = t.getAttribute('data-mock-pick').split(':');
-    mockExamLoad(y, s);
+    mockExamStartPicked(y, s);
   } else if (t.hasAttribute('data-mock-submit')) {
     mockExamSubmitClick(t);
   } else if (t.hasAttribute('data-mock-submit-cancel')) {
@@ -38503,7 +38810,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     MOCK_EXAM_YEARS, MOCK_EXAM_REMINDER, MOCK_EXAM_SCORED_SUBSETS,
     mockExamTimeCap, mockExamPdfUrl, mockExamPaper, mockExamNewId, mockExamParseId,
-    mockExamSummary, mockExamMarksText, mockExamHistory, latestMockScoreBySubject, mockExamShortcuts, mockExamRestoreSession, mockExamNextScheduled, mockExamSubmitStep, initMockExam
+    mockExamSummary, mockExamMarksText, mockExamHistory, mockExamHistoryDeltas, latestMockScoreBySubject, mockExamShortcuts, mockExamRestoreSession, mockExamNextScheduled, mockExamSubmitStep, mockExamPickRoute, mockExamTimingNote, initMockExam
   };
 }
 
@@ -38511,7 +38818,7 @@ if (typeof module !== 'undefined' && module.exports) {
 // === src/components/scoreboard.js ===
 // src/components/scoreboard.js — WP6 (成績 tab)
 /**
- * 成績看板：每科「模考實測／練習估計／目標」、距離 360／375、錯因分布＋一行下一步、主攻／基本分得分率。
+ * 成績看板：每科「模考實測／練習估計／目標」、距離 360／380、錯因分布＋一行下一步、主攻／基本分得分率。
  * 純函式（scoreboardCompute 等）＋ renderScoreboard(container)。
  * Depends on: QUESTION_POINTS, TARGET_ALLOCATION, studyPlan.js, resultCardStore.js (getResultRecords).
  */
@@ -38535,6 +38842,10 @@ const SCOREBOARD_NEXT_STEPS = {
   U: '單位方向：結論前檢查單位、正負與相角',
   R: '題型判錯：先寫已知、所求、適用章節再動筆'
 };
+// Mock phase starts 2026-10-15 (local date); from then a subject with a mock score shows only the mock number.
+const SCOREBOARD_MOCK_PHASE_KEY = 20261015;
+const SCOREBOARD_PASS_SUBJECT = 60;
+const SCOREBOARD_PASS_RULE_TEXT = '及格 360；若當年及格人數不足 16%，前 16% 且平均 ≥50、無零分者亦及格（110／111 年錄取線 57.3／56.8）';
 const SCOREBOARD_EMPTY_TEXT = '還沒有作答結果。到「今天」或「模考」完成題目後，用作答結果卡保存，分數就會出現在這裡。';
 
 function scoreboardEscape_(value) {
@@ -38713,6 +39024,65 @@ function scoreboardTierRates(windowRecords, subjectId) {
   return { main: rate(acc.main), basic: rate(acc.basic) };
 }
 
+function scoreboardDangerThreshold_() {
+  return typeof DANGER_SCORE_THRESHOLD !== 'undefined' ? DANGER_SCORE_THRESHOLD : 40;
+}
+
+/** Pure: should the 練習估計 be shown? Hidden only when the subject has a mock score and `now` is in the mock phase. */
+function scoreboardShowPractice(hasMock, now) {
+  if (!hasMock) return true;
+  const d = new Date(Number.isFinite(now) ? now : Date.now());
+  const key = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  return key < SCOREBOARD_MOCK_PHASE_KEY;
+}
+
+/** Pure: risk flag for a subject estimate. level 'zero' (< 40), 'low' (< 60) or null. */
+function scoreboardRisk(estimate) {
+  if (estimate === null || estimate === undefined || !Number.isFinite(Number(estimate))) return null;
+  const v = Number(estimate);
+  if (v >= SCOREBOARD_PASS_SUBJECT) return null;
+  return { level: v < scoreboardDangerThreshold_() ? 'zero' : 'low', gap: scoreboardRound1_(SCOREBOARD_PASS_SUBJECT - v) };
+}
+
+/** Pure: subject with the largest (target - estimate) shortfall among rows with data; null when none is below target. */
+function scoreboardDragSubject(rows) {
+  let best = null;
+  (rows || []).forEach(r => {
+    if (!r || r.estimate === null || r.estimate === undefined) return;
+    if (r.target === null || r.target === undefined) return;
+    const shortfall = scoreboardRound1_(Number(r.target) - Number(r.estimate));
+    if (shortfall > 0 && (!best || shortfall > best.shortfall)) best = { id: r.id, name: r.name, shortfall };
+  });
+  return best;
+}
+
+/** Pure: papers = [{at, scaled}] (complete mocks of one subject). Two latest by date -> {prev, cur, delta}, else null. */
+function scoreboardTrend(papers) {
+  const list = (papers || []).filter(p => p && Number.isFinite(Number(p.scaled)) && Number.isFinite(Number(p.at)))
+    .slice().sort((a, b) => a.at - b.at);
+  if (list.length < 2) return null;
+  const prev = scoreboardRound1_(Number(list[list.length - 2].scaled));
+  const cur = scoreboardRound1_(Number(list[list.length - 1].scaled));
+  return { prev, cur, delta: scoreboardRound1_(cur - prev) };
+}
+
+function scoreboardSignedText_(n) { return (n > 0 ? '+' : (n < 0 ? '−' : '±')) + Math.abs(n); }
+
+function scoreboardTrendText(trend) {
+  return trend ? `前次 ${trend.prev} → 本次 ${trend.cur}（${scoreboardSignedText_(trend.delta)}）` : '';
+}
+
+/** Complete mock papers of a subject as [{at, scaled}] (needs mockExam.js; otherwise empty). */
+function scoreboardMockPapers_(records, subjectId) {
+  const rows = typeof mockExamActiveRows === 'function' ? mockExamActiveRows() : null;
+  if (typeof mockExamHistory !== 'function' || !rows) return [];
+  try {
+    return mockExamHistory(records.filter(r => r.source === 'mock' && r.mockId), rows)
+      .filter(g => g.subjectId === subjectId && g.complete && g.summary.questionCount && g.summary.total)
+      .map(g => ({ at: g.at, scaled: g.summary.estimate / g.summary.total * 100 }));
+  } catch (_) { return []; }
+}
+
 function scoreboardDistanceText(total, line) {
   const diff = scoreboardRound1_(line - total);
   return diff > 0 ? `還差 ${diff} 分` : `已超過 ${scoreboardRound1_(-diff)} 分`;
@@ -38731,7 +39101,9 @@ function scoreboardCompute(records, now) {
     return {
       id, name: scoreboardNameOf_(id), role, roleLabel: SCOREBOARD_ROLE_LABELS[role] || '',
       target: scoreboardTargetOf_(id), mock, practice: practice.projection, practiceQuestions: practice.questions,
-      errors, nextStep: scoreboardNextStep(errors), rates: scoreboardTierRates(windowRecords, id)
+      errors, nextStep: scoreboardNextStep(errors), rates: scoreboardTierRates(windowRecords, id),
+      trend: scoreboardTrend(scoreboardMockPapers_(all, id)),
+      showPractice: scoreboardShowPractice(!!mock, nowMs)
     };
   });
   const mocked = subjects.filter(s => s.mock);
@@ -38741,6 +39113,7 @@ function scoreboardCompute(records, now) {
   subjects.forEach(s => {
     const v = s.mock ? s.mock.estimate : s.practice;
     s.estimate = v;
+    s.risk = scoreboardRisk(v);
     s.estimateFrom = s.mock ? 'mock' : (s.practice !== null ? 'practice' : null);
     if (v !== null && v !== undefined) { estTotal += v; estCount += 1; }
   });
@@ -38749,7 +39122,7 @@ function scoreboardCompute(records, now) {
   const noData = subjects.filter(s => s.estimate === null || s.estimate === undefined);
   const targetSum = withData.reduce((n, s) => n + (Number(s.target) || 0), 0);
   const passLine = typeof PASS_LINE !== 'undefined' ? PASS_LINE : 360;
-  const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 375;
+  const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 380;
   return {
     empty: all.length === 0,
     hasData: estCount > 0,
@@ -38759,6 +39132,7 @@ function scoreboardCompute(records, now) {
     estimateTargetTotal: targetSum > 0 ? scoreboardRound1_(targetSum) : null,
     missingNames: noData.map(s => s.name), missingCount: noData.length, subjectCount: subjects.length,
     estimateDistance: estCount === subjects.length ? { pass: scoreboardDistanceText(estTotal, passLine), goal: scoreboardDistanceText(estTotal, goal) } : null,
+    drag: scoreboardDragSubject(withData),
     passLine, goal
   };
 }
@@ -38788,6 +39162,7 @@ function scoreboardDate_(at) {
 function scoreboardBarHtml_(s) {
   const pct = v => Math.max(0, Math.min(100, v));
   const mockW = s.mock ? pct(s.mock.estimate) : 0;
+  const showPr = s.showPractice !== false;
   const prW = s.practice !== null ? pct(s.practice) : 0;
   const tgt = s.target !== null && s.target !== undefined ? pct(s.target) : null;
   const mockV = s.mock ? String(Math.round(s.mock.estimate)) : '—';
@@ -38795,10 +39170,10 @@ function scoreboardBarHtml_(s) {
   return `<div class="sb-bar" aria-hidden="true">
     <div class="sb-tracks">
       <div class="sb-row"><div class="sb-track"><span class="sb-fill sb-fill--mock" style="width:${mockW}%"></span></div></div>
-      <div class="sb-row"><div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div></div>
+      ${showPr ? `<div class="sb-row"><div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div></div>` : ''}
       ${tgt !== null ? `<span class="sb-target" style="left:${tgt}%"></span>` : ''}
     </div>
-    <div class="sb-vals"><span class="sb-val sb-val--mock">${mockV}</span><span class="sb-val sb-val--practice">${prV}</span></div>
+    <div class="sb-vals"><span class="sb-val sb-val--mock">${mockV}</span>${showPr ? `<span class="sb-val sb-val--practice">${prV}</span>` : ''}</div>
   </div>`;
 }
 
@@ -38814,19 +39189,34 @@ function scoreboardSubjectHtml_(s) {
   const errTotal = SCOREBOARD_ERROR_CODES.reduce((n, c) => n + s.errors[c], 0);
   const errChips = SCOREBOARD_ERROR_CODES.filter(c => s.errors[c] > 0)
     .map(c => `<span class="sb-chip">${c} ${e(SCOREBOARD_ERROR_NAMES[c])} ${s.errors[c]}</span>`).join('');
+  const showPr = s.showPractice !== false;
+  const risk = s.risk;
+  const riskHtml = risk ? `<span class="sb-risk${risk.level === 'zero' ? ' sb-risk--zero' : ''}">&lt;60</span>${risk.level === 'zero' ? '<span class="sb-risk sb-risk--zero">零分風險</span>' : ''}<span class="sb-gap">差 ${risk.gap} 分到 60</span>` : '';
+  const trendText = scoreboardTrendText(s.trend);
   const rateText = r => (r === null ? '—' : `${r}%`);
   return `<article class="sb-subject" data-subject="${e(s.id)}">
     <div class="sb-subject-head"><h3>${e(s.name)}</h3><span class="sb-role sb-role--${e(s.role || '')}">${e(s.roleLabel)}</span></div>
+    ${riskHtml ? `<p class="sb-riskline">${riskHtml}</p>` : ''}
     ${scoreboardBarHtml_(s)}
     <dl class="sb-nums">
       <div><dt>模考實測</dt><dd>${e(mockText)}</dd></div>
-      <div><dt>練習估計</dt><dd>${e(prText)}</dd></div>
+      ${showPr ? `<div><dt>練習估計</dt><dd>${e(prText)}</dd></div>` : ''}
       <div><dt>目標</dt><dd>${e(tgtText)}</dd></div>
     </dl>
+    ${trendText ? `<p class="sb-trend">${e(trendText)}</p>` : ''}
     <p class="sb-rates">近 ${SCOREBOARD_WINDOW_DAYS} 天得分率：主攻 ${rateText(s.rates.main)}｜基本分 ${rateText(s.rates.basic)}</p>
     <p class="sb-errors">${errTotal ? `錯因：${errChips}` : '錯因：近期無記錄'}</p>
     ${s.nextStep ? `<p class="sb-next"><strong>下一步</strong>　${e(s.nextStep)}</p>` : ''}
   </article>`;
+}
+
+function scoreboardDragText(drag) {
+  return drag ? `最可能拖垮平均的科目：${drag.name}（低於目標 ${drag.shortfall} 分）` : '各科都在目標之上';
+}
+
+function scoreboardDragHtml_(m) {
+  if (!m.hasData) return '';
+  return `<p class="sb-drag">${scoreboardEscape_(scoreboardDragText(m.drag))}</p>`;
 }
 
 function scoreboardTotalsHtml_(m) {
@@ -38850,6 +39240,7 @@ function scoreboardTotalsHtml_(m) {
   return `<section class="sb-totals" aria-label="合計">
     <div class="sb-total"><span class="sb-total-label">模考實測合計</span><strong>${e(mockLine)}</strong><small>${e(mockDist)}</small></div>
     <div class="sb-total"><span class="sb-total-label">預估總分（有模考用模考，否則用練習估計）</span><strong>${e(estLine)}</strong><small>${e(estDist)}</small></div>
+    ${scoreboardDragHtml_(m)}
   </section>`;
 }
 
@@ -38862,14 +39253,15 @@ function renderScoreboard(container, options) {
        <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。練習中的基本分題 ○ 只計 50%；模考一律照真實考試計分（○ 100%）。</p>`;
   container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
     <h2 class="sb-title">成績</h2>
-    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
+    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p><p class="sb-rule"><small>${scoreboardEscape_(SCOREBOARD_PASS_RULE_TEXT)}</small></p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
   return model;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     scoreboardCompute, scoreboardSummaryLine, scoreboardTierShares, scoreboardMockForSubject,
-    scoreboardPracticeForSubject, scoreboardNextStep, scoreboardEscape_, renderScoreboard
+    scoreboardPracticeForSubject, scoreboardNextStep, scoreboardDragSubject, scoreboardDragText,
+    scoreboardTrend, scoreboardTrendText, scoreboardRisk, scoreboardShowPractice, scoreboardEscape_, renderScoreboard
   };
 }
 
@@ -39478,7 +39870,7 @@ function renderDailyPractice(container, error) {
   }
   if (!question || dailyPracticeHomeMode === 'start') {
     const activeNote = session
-      ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代，或使用上方「繼續上次」。</p>'
+      ? '<p class="daily-practice-note">目前另有進行中的練習；按下開始後才會以新題組取代。</p>'
       : '';
     container.innerHTML = '<section class="daily-practice-shell">' +
       '<div class="daily-practice-heading"><div><span class="eyebrow">隨機練習</span><h2>隨機練習 3 題</h2><p>目前選題方式：' + dailyPracticeEscape(dailyPracticeModeLabel()) + '；避開 7 天內已完成與尚未模考的題目。</p></div></div>' +
@@ -39508,7 +39900,7 @@ function renderDailyPractice(container, error) {
       (dailyPracticeView === 'question'
         ? '<div class="daily-practice-question"><span class="qid">' + dailyPracticeEscape(qid) + '</span>' + imageHtml + '<div class="daily-practice-topic"><span class="eyebrow">題幹文字</span>' + (typeof renderQuestionTopic === 'function' ? renderQuestionTopic(topic) : dailyPracticeEscape(topic)) + '</div><p>先自行列式；準備好後可按上方「' + startLabel + '」。</p>' + (solutionUnlocked ? '<div class="daily-practice-solution-actions"><button class="btn-pdf" type="button" onclick="dailyPracticeSetView(\'solution\')">其他詳解選項</button></div>' : '') + (sourceLink ? '<a class="btn-pdf" href="' + dailyPracticeEscape(sourceLink) + '" target="_blank" rel="noopener">開啟官方原題 PDF</a>' : '<p class="daily-practice-muted">本題尚未提供獨立原題連結。</p>') + '</div>'
         : dailyPracticeSolutionButton()) +
-    '</div><div class="daily-practice-actions"><button class="btn-pdf" type="button" data-daily-defer>暫存本題進度</button></div></section>';
+    '</div></section>';
   const scroll = container.querySelector('.daily-practice-scroll');
   if (scroll) scroll.scrollTop = scrollTop;
   if (typeof container.querySelectorAll === 'function') container.querySelectorAll('[data-daily-open-solution]').forEach(button => button.addEventListener('click', event => {
@@ -39518,8 +39910,6 @@ function renderDailyPractice(container, error) {
     });
   }));
   if (typeof container.querySelector === 'function') {
-    const deferButton = container.querySelector('[data-daily-defer]');
-    if (deferButton) deferButton.addEventListener('click', dailyPracticeDefer);
   }
   const image = typeof container.querySelector === 'function' ? container.querySelector('[data-daily-zoom-image]') : null;
   if (image) {
@@ -39646,8 +40036,19 @@ function pacingIsWeekend(iso) {
   return dow === 0 || dow === 6;
 }
 
-function pacingBudgetFor(iso, budget) {
-  return pacingIsWeekend(iso) ? Number(budget.weekend) : Number(budget.weekday);
+// `holidays` = schedule.holidays (array of 'YYYY-MM-DD') or a schedule object; absent -> weekends only.
+function pacingHolidayList(holidays) {
+  if (Array.isArray(holidays)) return holidays;
+  return holidays && Array.isArray(holidays.holidays) ? holidays.holidays : [];
+}
+
+// A rest day = Saturday/Sunday or a listed holiday (補假): gets the weekend budget and one-sitting papers.
+function pacingIsRestDay(iso, holidays) {
+  return pacingIsWeekend(iso) || pacingHolidayList(holidays).indexOf(iso) >= 0;
+}
+
+function pacingBudgetFor(iso, budget, holidays) {
+  return pacingIsRestDay(iso, holidays) ? Number(budget.weekend) : Number(budget.weekday);
 }
 
 function pacingIsPaper(task) {
@@ -39669,7 +40070,7 @@ function pacingRemainingHours(task, partial) {
 }
 
 // What the task costs on a given day.  A weekday paper is split: closed phase on day 1,
-// 核對＋修復 on day 2; on a weekend it is done in one sitting.
+// 核對＋修復 on day 2; on a weekend or holiday (`weekend` = rest day) it is done in one sitting.
 function pacingCost(task, partial, weekend) {
   const started = partial && partial.code === task.code ? partial.phaseIndex : 0;
   if (pacingIsPaper(task)) {
@@ -39680,10 +40081,10 @@ function pacingCost(task, partial, weekend) {
   return { hours: pacingMinutesFrom(task, started) / 60, part: started > 0 ? 'rest' : 'full', phaseIndex: started };
 }
 
-function pacingAvailableHours(fromIso, toIso, budget, firstIso) {
+function pacingAvailableHours(fromIso, toIso, budget, firstIso, holidays) {
   let total = 0;
   const start = pacingDayNumber(fromIso) < pacingDayNumber(firstIso) ? firstIso : fromIso;
-  for (let iso = start; pacingDaysBetween(iso, toIso) >= 0; iso = pacingAddDays(iso, 1)) total += pacingBudgetFor(iso, budget);
+  for (let iso = start; pacingDaysBetween(iso, toIso) >= 0; iso = pacingAddDays(iso, 1)) total += pacingBudgetFor(iso, budget, holidays);
   return total;
 }
 
@@ -39697,17 +40098,17 @@ function pacingCutCandidates(codes, schedule, completed, partial, alreadyCut) {
   const live = codes.filter(c => !completed[c] && !alreadyCut.has(c) && !(partial && partial.code === c));
   const weak = live.filter(c => pacingGroup(c) === 'WEAK').sort((a, b) => idx(a) - idx(b))
     .map(c => ({ code: c, reason: 'weak' }));
-  const core = live.filter(c => tasks[c].kind === 'core');
+  const core = live.filter(c => tasks[c].kind === 'core' && pacingGroup(c) === 'CORE');
   const subjectsWithDoneBase = {};
   Object.keys(tasks).forEach(c => {
     const t = tasks[c];
-    if (t.kind === 'core' && !t.variant && completed[c]) subjectsWithDoneBase[t.subject] = true;
+    if (t.kind === 'core' && pacingGroup(c) === 'CORE' && !t.variant && completed[c]) subjectsWithDoneBase[t.subject] = true;
   });
   const protectedCodes = {};
   const seenSubject = {};
   order.forEach(c => {
     const t = tasks[c];
-    if (!t || t.kind !== 'core' || t.variant || completed[c]) return;
+    if (!t || t.kind !== 'core' || pacingGroup(c) !== 'CORE' || t.variant || completed[c]) return;
     if (subjectsWithDoneBase[t.subject] || seenSubject[t.subject]) return;
     seenSubject[t.subject] = true;
     protectedCodes[c] = true;
@@ -39731,8 +40132,9 @@ function pacingPlan(input) {
   const first = days[0].date;
   const last = days[days.length - 1].date;
   const row = days.find(d => d.date === today) || null;
-  const weekend = pacingIsWeekend(today);
-  const dayBudget = pacingBudgetFor(today, budget);
+  const holidays = schedule.holidays || [];
+  const weekend = pacingIsRestDay(today, holidays);
+  const dayBudget = pacingBudgetFor(today, budget, holidays);
   const spent = Math.max(0, Number(input.spentToday) || 0);
   const roomToday = Math.max(0, dayBudget - spent);
   const milestones = (schedule.milestones || []).slice();
@@ -39750,7 +40152,7 @@ function pacingPlan(input) {
   const binding = upcoming.filter(m => !hardRaw0 || m.hard || pacingDaysBetween(hardRaw0.date, m.date) > 0);
   const hoursFor = (m, skipCut) => uncompleted.filter(c => m.codes.indexOf(c) >= 0 && !(skipCut && cutSet.has(c))).reduce((n, c) => n + remainingOf(c), 0);
   binding.forEach(m => {
-    const available = pacingAvailableHours(today, m.date, budget, first) - spent;
+    const available = pacingAvailableHours(today, m.date, budget, first, holidays) - spent;
     let required = hoursFor(m, true);
     const candidates = pacingCutCandidates(m.codes, schedule, completed, partial, cutSet);
     let k = 0;
@@ -39768,7 +40170,7 @@ function pacingPlan(input) {
   });
   const perMilestone = {};
   upcoming.forEach(m => {
-    perMilestone[m.date] = { required: hoursFor(m, true), available: pacingAvailableHours(today, m.date, budget, first) - spent };
+    perMilestone[m.date] = { required: hoursFor(m, true), available: pacingAvailableHours(today, m.date, budget, first, holidays) - spent };
   });
   const cut = order.filter(c => cutSet.has(c));
 
@@ -39821,6 +40223,8 @@ function pacingPlan(input) {
   // --- status ---------------------------------------------------------------------------------
   const due = schedule.due || {};
   const behindCodes = order.filter(c => !completed[c] && due[c] && due[c] < today);
+  const behindHours = behindCodes.reduce((n, c) => n + remainingOf(c), 0);
+  const aheadHours = order.filter(c => completed[c] && due[c] && due[c] > today).reduce((n, c) => n + pacingMinutesFrom(tasks[c], 0) / 60, 0);
   const aheadCodes = order.filter(c => completed[c] && due[c] && due[c] > today);
   const allPapersDone = papers.length > 0 && papers.every(c => completed[c]);
   let status = 'on';
@@ -39830,14 +40234,14 @@ function pacingPlan(input) {
     ? '12 份模考卷已全部完成，可加做 113 年整卷（選做，不影響日程）。' : '';
 
   return {
-    today, weekend, budgetHours: dayBudget, spentHours: spent, planHours: used,
+    today, weekend, holiday: pacingHolidayList(holidays).indexOf(today) >= 0, budgetHours: dayBudget, spentHours: spent, planHours: used,
     plan, nonWork: nonWorkToday, beforeStart: pacingDaysBetween(first, today) < 0, afterEnd: pacingDaysBetween(last, today) > 0,
     nextMilestone: next, hardMilestone: hard,
     daysLeft: next ? next.daysLeft : null,
     requiredHours: next && next.requiredHours != null ? next.requiredHours : 0,
     availableHours: next && next.availableHours != null ? next.availableHours : 0,
     remainingHours: uncompleted.filter(c => !cutSet.has(c)).reduce((n, c) => n + remainingOf(c), 0),
-    status, behindCount: behindCodes.length, aheadCount: aheadCodes.length,
+    status, behindCount: behindCodes.length, aheadCount: aheadCodes.length, behindHours, aheadHours,
     behindCodes, cut, cutDetail, overload, shortHours,
     suggestion, allDone: uncompleted.length === 0, allPapersDone,
   };
@@ -40053,7 +40457,7 @@ function todayTaskLocalDate(now) {
 // finishing it on a weekday counts only its 核對＋修復 phases (the closed phase was the day before).
 function todayTaskSpentToday(state, todayIso) {
   const tasks = DAILY_SCHEDULE.tasks;
-  const weekend = pacingIsWeekend(todayIso);
+  const weekend = pacingIsRestDay(todayIso, DAILY_SCHEDULE.holidays);
   return Object.keys(state.completed).reduce((n, code) => {
     const t = tasks[code];
     if (!t || todayTaskLocalDate(Date.parse(state.completed[code])) !== todayIso) return n;
@@ -40134,6 +40538,33 @@ function todayTaskMilestoneText(pacing) {
   return next.atRisk ? tail + '｜彈性關卡：做不完就順延，不影響模考' : tail;
 }
 
+// One-line schedule position: 「落後約 N 小時（M 項未按日程完成）」／「照日程」／「超前約 N 小時」.
+// Behind = tasks due before today and not done (pacing.behindHours); ahead = done tasks that were due after today.
+function todayTaskPaceLine(pacing) {
+  if (!pacing) return '';
+  if (pacing.behindCount > 0) {
+    return '落後約 ' + todayTaskFormatHours(pacing.behindHours || 0) + ' 小時（' + pacing.behindCount + ' 項未按日程完成）';
+  }
+  if (pacing.aheadCount > 0 && pacing.aheadHours > 0) return '超前約 ' + todayTaskFormatHours(pacing.aheadHours) + ' 小時';
+  return '照日程';
+}
+
+// SM-2 due questions today; 0 when the store is not loaded.
+function todayTaskDueCount(now) {
+  if (typeof getDueQuestionsList !== 'function') return 0;
+  try { return getDueQuestionsList(now).length; } catch (e) { return 0; }
+}
+
+// The single status line: 已完成 N／總數｜milestone｜pace｜到期複習 N 題 (empty parts are skipped).
+function todayTaskStatusLine(vm) {
+  const parts = [];
+  if (vm.total) parts.push('已完成 ' + vm.doneCount + '／' + vm.total);
+  if (vm.milestoneText) parts.push(vm.milestoneText);
+  if (vm.paceText) parts.push(vm.paceText);
+  if (vm.dueCount > 0) parts.push('到期複習 ' + vm.dueCount + ' 題');
+  return parts.join('｜');
+}
+
 function todayTaskCutNote(pacing) {
   return pacing.overload
     ? '時數仍短缺約 ' + todayTaskFormatHours(pacing.shortHours) + ' 小時：模考卷照順序做，做不完的排到 11/01 緩衝日補考' : '';
@@ -40159,7 +40590,7 @@ function todayTaskCutHtml(vm) {
 
 function todayTaskPlanLine(pacing, hasDoneToday) {
   const spent = pacing.spentHours ? '已做約 ' + todayTaskFormatHours(pacing.spentHours) + ' 小時｜' : '';
-  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜' + spent;
+  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.holiday ? '假日' : pacing.weekend ? '週末' : '平日') + '）｜' + spent;
   if (!pacing.planHours && hasDoneToday) return '今天的份量已完成';
   return head + '還要做約 ' + todayTaskFormatHours(pacing.planHours) + ' 小時';
 }
@@ -40209,12 +40640,12 @@ function todayTaskPhaseView(task, a, now) {
     // 隨機練習 launcher for WEAK／REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
     launch: phase.launch || '',
     // Weekday mock: after the closed phase the learner may stop and continue the next day.
-    canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsWeekend(todayTaskLocalDate(now)),
+    canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsRestDay(todayTaskLocalDate(now), DAILY_SCHEDULE.holidays),
     holdDate: a.holdDate || '',
   };
 }
 
-function todayTaskViewModel(state, now) {
+function todayTaskViewModel(state, now, options) {
   const todayIso = todayTaskLocalDate(now);
   const pacing = todayTaskPacing(state, todayIso);
   const tasks = DAILY_SCHEDULE.tasks;
@@ -40260,6 +40691,8 @@ function todayTaskViewModel(state, now) {
     rest,
     restText,
     milestoneText: todayTaskMilestoneText(pacing),
+    paceText: freshStart ? '' : todayTaskPaceLine(pacing),
+    dueCount: options && Number.isInteger(options.dueCount) ? options.dueCount : todayTaskDueCount(now),
     freshStart,
     cutText: freshStart ? '' : todayTaskCutText(pacing),
     suggestion: pacing.suggestion,
@@ -40320,7 +40753,7 @@ function todayTaskCardHtml(vm) {
   const restDay = vm.mode === 'exam-check' || vm.mode === 'stop';
   const plan = restDay ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
   const pacingLines = restDay ? '' :
-    (vm.milestoneText ? '<p class="today-pacing-milestone' + (vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(vm.milestoneText) + '</p>' : '') +
+    (todayTaskStatusLine(vm) ? '<p class="today-pacing-milestone' + (vm.pacing && vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(todayTaskStatusLine(vm)) + '</p>' : '') +
     todayTaskCutHtml(vm) +
     (vm.suggestion ? '<p class="today-pacing-suggestion">' + esc(vm.suggestion) + '</p>' : '');
   let body;
@@ -40334,7 +40767,7 @@ function todayTaskCardHtml(vm) {
     const extra = vm.code
       ? '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' 選做下一個：' + esc(vm.code) + '</button></div>' : '';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天的份量已完成，可以收工</strong>' +
-      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '。還有餘力可選做下一個（' + esc(vm.code ? vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
+      '<p class="today-task-note">還有餘力可選做下一個（' + esc(vm.code ? vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
   } else if (vm.mode === 'idle') {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可用下方「隨機練習 3 題」維持手感。</p></div>';
   } else {
@@ -40347,7 +40780,7 @@ function todayTaskCardHtml(vm) {
     const rest = vm.restText ? '<p class="today-pacing-rest">' + esc(vm.restText) + '</p>' : '';
     const buttonText = resume ? (vm.held ? (vm.held.sameDay ? '現在就核對' : '開始核對') : '繼續') : '開始';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">一鍵開始今天</span><strong>' + esc(label) + '</strong>' +
-      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + rest + '</div>' +
+      rest + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' ' + buttonText + '</button></div>';
   }
   const dropped = restDay && vm.active ? '<p class="today-task-note">先前未完成的任務（' + esc(vm.active.code) + '）不再繼續，也不會開新題。</p>' : '';
@@ -40421,6 +40854,26 @@ function todayTaskOnStart() {
   }
   renderTodayTaskCard();
   openTodayTaskOverlay();
+}
+
+// 模考分頁 entry: start `code` now (unless already done) and show the timed overlay.
+// Returns true when the overlay was opened; false leaves the caller to fall back.
+function todayTaskStartCodeNow(code) {
+  if (typeof document === 'undefined' || !DAILY_SCHEDULE.tasks[code]) return false;
+  let state = todayTaskRefresh();
+  if (state.active) {
+    if (state.active.code !== code) return false;
+    if (state.active.holdDate) todayTaskCommit(todayTaskResumeHeld(state, Date.now()));
+  } else {
+    // A finished paper is never silently un-completed: the caller falls back to the untimed paper.
+    if (state.completed && state.completed[code]) return false;
+    const next = todayTaskStart({ completed: Object.assign({}, state.completed), active: null }, Date.now(), code);
+    if (!next.active) return false;
+    todayTaskCommit(next);
+  }
+  renderTodayTaskCard();
+  openTodayTaskOverlay();
+  return true;
 }
 
 // 開啟隨機練習 for WEAK／REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.

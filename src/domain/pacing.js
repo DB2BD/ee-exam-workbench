@@ -43,8 +43,19 @@ function pacingIsWeekend(iso) {
   return dow === 0 || dow === 6;
 }
 
-function pacingBudgetFor(iso, budget) {
-  return pacingIsWeekend(iso) ? Number(budget.weekend) : Number(budget.weekday);
+// `holidays` = schedule.holidays (array of 'YYYY-MM-DD') or a schedule object; absent -> weekends only.
+function pacingHolidayList(holidays) {
+  if (Array.isArray(holidays)) return holidays;
+  return holidays && Array.isArray(holidays.holidays) ? holidays.holidays : [];
+}
+
+// A rest day = Saturday/Sunday or a listed holiday (補假): gets the weekend budget and one-sitting papers.
+function pacingIsRestDay(iso, holidays) {
+  return pacingIsWeekend(iso) || pacingHolidayList(holidays).indexOf(iso) >= 0;
+}
+
+function pacingBudgetFor(iso, budget, holidays) {
+  return pacingIsRestDay(iso, holidays) ? Number(budget.weekend) : Number(budget.weekday);
 }
 
 function pacingIsPaper(task) {
@@ -66,7 +77,7 @@ function pacingRemainingHours(task, partial) {
 }
 
 // What the task costs on a given day.  A weekday paper is split: closed phase on day 1,
-// 核對＋修復 on day 2; on a weekend it is done in one sitting.
+// 核對＋修復 on day 2; on a weekend or holiday (`weekend` = rest day) it is done in one sitting.
 function pacingCost(task, partial, weekend) {
   const started = partial && partial.code === task.code ? partial.phaseIndex : 0;
   if (pacingIsPaper(task)) {
@@ -77,10 +88,10 @@ function pacingCost(task, partial, weekend) {
   return { hours: pacingMinutesFrom(task, started) / 60, part: started > 0 ? 'rest' : 'full', phaseIndex: started };
 }
 
-function pacingAvailableHours(fromIso, toIso, budget, firstIso) {
+function pacingAvailableHours(fromIso, toIso, budget, firstIso, holidays) {
   let total = 0;
   const start = pacingDayNumber(fromIso) < pacingDayNumber(firstIso) ? firstIso : fromIso;
-  for (let iso = start; pacingDaysBetween(iso, toIso) >= 0; iso = pacingAddDays(iso, 1)) total += pacingBudgetFor(iso, budget);
+  for (let iso = start; pacingDaysBetween(iso, toIso) >= 0; iso = pacingAddDays(iso, 1)) total += pacingBudgetFor(iso, budget, holidays);
   return total;
 }
 
@@ -94,17 +105,17 @@ function pacingCutCandidates(codes, schedule, completed, partial, alreadyCut) {
   const live = codes.filter(c => !completed[c] && !alreadyCut.has(c) && !(partial && partial.code === c));
   const weak = live.filter(c => pacingGroup(c) === 'WEAK').sort((a, b) => idx(a) - idx(b))
     .map(c => ({ code: c, reason: 'weak' }));
-  const core = live.filter(c => tasks[c].kind === 'core');
+  const core = live.filter(c => tasks[c].kind === 'core' && pacingGroup(c) === 'CORE');
   const subjectsWithDoneBase = {};
   Object.keys(tasks).forEach(c => {
     const t = tasks[c];
-    if (t.kind === 'core' && !t.variant && completed[c]) subjectsWithDoneBase[t.subject] = true;
+    if (t.kind === 'core' && pacingGroup(c) === 'CORE' && !t.variant && completed[c]) subjectsWithDoneBase[t.subject] = true;
   });
   const protectedCodes = {};
   const seenSubject = {};
   order.forEach(c => {
     const t = tasks[c];
-    if (!t || t.kind !== 'core' || t.variant || completed[c]) return;
+    if (!t || t.kind !== 'core' || pacingGroup(c) !== 'CORE' || t.variant || completed[c]) return;
     if (subjectsWithDoneBase[t.subject] || seenSubject[t.subject]) return;
     seenSubject[t.subject] = true;
     protectedCodes[c] = true;
@@ -128,8 +139,9 @@ function pacingPlan(input) {
   const first = days[0].date;
   const last = days[days.length - 1].date;
   const row = days.find(d => d.date === today) || null;
-  const weekend = pacingIsWeekend(today);
-  const dayBudget = pacingBudgetFor(today, budget);
+  const holidays = schedule.holidays || [];
+  const weekend = pacingIsRestDay(today, holidays);
+  const dayBudget = pacingBudgetFor(today, budget, holidays);
   const spent = Math.max(0, Number(input.spentToday) || 0);
   const roomToday = Math.max(0, dayBudget - spent);
   const milestones = (schedule.milestones || []).slice();
@@ -147,7 +159,7 @@ function pacingPlan(input) {
   const binding = upcoming.filter(m => !hardRaw0 || m.hard || pacingDaysBetween(hardRaw0.date, m.date) > 0);
   const hoursFor = (m, skipCut) => uncompleted.filter(c => m.codes.indexOf(c) >= 0 && !(skipCut && cutSet.has(c))).reduce((n, c) => n + remainingOf(c), 0);
   binding.forEach(m => {
-    const available = pacingAvailableHours(today, m.date, budget, first) - spent;
+    const available = pacingAvailableHours(today, m.date, budget, first, holidays) - spent;
     let required = hoursFor(m, true);
     const candidates = pacingCutCandidates(m.codes, schedule, completed, partial, cutSet);
     let k = 0;
@@ -165,7 +177,7 @@ function pacingPlan(input) {
   });
   const perMilestone = {};
   upcoming.forEach(m => {
-    perMilestone[m.date] = { required: hoursFor(m, true), available: pacingAvailableHours(today, m.date, budget, first) - spent };
+    perMilestone[m.date] = { required: hoursFor(m, true), available: pacingAvailableHours(today, m.date, budget, first, holidays) - spent };
   });
   const cut = order.filter(c => cutSet.has(c));
 
@@ -218,6 +230,8 @@ function pacingPlan(input) {
   // --- status ---------------------------------------------------------------------------------
   const due = schedule.due || {};
   const behindCodes = order.filter(c => !completed[c] && due[c] && due[c] < today);
+  const behindHours = behindCodes.reduce((n, c) => n + remainingOf(c), 0);
+  const aheadHours = order.filter(c => completed[c] && due[c] && due[c] > today).reduce((n, c) => n + pacingMinutesFrom(tasks[c], 0) / 60, 0);
   const aheadCodes = order.filter(c => completed[c] && due[c] && due[c] > today);
   const allPapersDone = papers.length > 0 && papers.every(c => completed[c]);
   let status = 'on';
@@ -227,14 +241,14 @@ function pacingPlan(input) {
     ? '12 份模考卷已全部完成，可加做 113 年整卷（選做，不影響日程）。' : '';
 
   return {
-    today, weekend, budgetHours: dayBudget, spentHours: spent, planHours: used,
+    today, weekend, holiday: pacingHolidayList(holidays).indexOf(today) >= 0, budgetHours: dayBudget, spentHours: spent, planHours: used,
     plan, nonWork: nonWorkToday, beforeStart: pacingDaysBetween(first, today) < 0, afterEnd: pacingDaysBetween(last, today) > 0,
     nextMilestone: next, hardMilestone: hard,
     daysLeft: next ? next.daysLeft : null,
     requiredHours: next && next.requiredHours != null ? next.requiredHours : 0,
     availableHours: next && next.availableHours != null ? next.availableHours : 0,
     remainingHours: uncompleted.filter(c => !cutSet.has(c)).reduce((n, c) => n + remainingOf(c), 0),
-    status, behindCount: behindCodes.length, aheadCount: aheadCodes.length,
+    status, behindCount: behindCodes.length, aheadCount: aheadCodes.length, behindHours, aheadHours,
     behindCodes, cut, cutDetail, overload, shortHours,
     suggestion, allDone: uncompleted.length === 0, allPapersDone,
   };

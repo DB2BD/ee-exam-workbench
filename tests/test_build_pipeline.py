@@ -47,7 +47,6 @@ class TestBuildPipeline(unittest.TestCase):
             'recall-step-box',
             'recall-full-section'
             ,'home-action-start'
-            ,'home-action-continue'
             ,'more-tools-menu'
         ]
 

@@ -5,7 +5,7 @@
  * (src/data/targetAllocation.generated.js must load first).
  */
 
-const TOTAL_TARGET = 375;
+const TOTAL_TARGET = 380;
 const PASS_LINE = 360;
 
 function studyAllocation_() {

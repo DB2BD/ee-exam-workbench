@@ -107,7 +107,7 @@ class TestScoreboard(unittest.TestCase):
         self.assertIsNone(r["md"])
         self.assertIsNone(r["un"])
         self.assertRegex(r["line"], r"^估計總分 80／\d+（1／6 科）$")
-        self.assertNotIn("／375", r["line"])
+        self.assertNotIn("／380", r["line"])
 
     def test_all_six_subjects_show_distance(self):
         r = run_node("""(() => {
@@ -136,8 +136,8 @@ class TestScoreboard(unittest.TestCase):
         self.assertIn("（1／6 科）", r["line"])
 
     def test_distance_exceeded(self):
-        r = run_node("scoreboardCompute([], NOW) && [scoreboardDistanceText(370, 360), scoreboardDistanceText(370, 375)]")
-        self.assertEqual(r, ["已超過 10 分", "還差 5 分"])
+        r = run_node("scoreboardCompute([], NOW) && [scoreboardDistanceText(370, 360), scoreboardDistanceText(370, 380)]")
+        self.assertEqual(r, ["已超過 10 分", "還差 10 分"])
 
     def test_dominant_error_next_step(self):
         r = run_node("""[scoreboardNextStep({R:0,S:3,F:1,C:0,K:0,U:0,T:0}),
@@ -177,6 +177,7 @@ class TestScoreboard(unittest.TestCase):
         self.assertIn("sb-empty", r["html"])
         self.assertNotIn("sb-subject", r["html"])
         self.assertEqual(r["line"], "估計總分：尚無資料")
+        self.assertIn("16%", r["html"])
 
     def test_render_with_data_and_escaping(self):
         r = run_node("""(() => { const q = qidsOf('114','01');

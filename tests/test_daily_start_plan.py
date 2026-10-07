@@ -14,6 +14,7 @@ ROW_RE = re.compile(
     re.MULTILINE,
 )
 START, END = date(2026, 10, 4), date(2026, 11, 13)
+HOLIDAYS = {"2026-10-09", "2026-10-26"}  # 國慶補假、光復節補假: 4-hour days like weekends
 
 
 class TestDailyStartPlan(unittest.TestCase):
@@ -35,7 +36,7 @@ class TestDailyStartPlan(unittest.TestCase):
             if row.group("date") >= "2026-11-12":
                 expected = 0  # EXAM-CHECK / STOP
             else:
-                expected = 4 if d.weekday() >= 5 else 2
+                expected = 4 if d.weekday() >= 5 or row.group("date") in HOLIDAYS else 2
             with self.subTest(day=row.group("date")):
                 self.assertEqual(int(row.group("budget")), expected)
 
@@ -43,7 +44,7 @@ class TestDailyStartPlan(unittest.TestCase):
         schedule = "\n".join(row.group("task") for row in self.rows)
         # CORE-01..06 are done on paper: kept as task codes, never dated.
         self.assertEqual(re.findall(r"`CORE-(\d{2})`", schedule), [f"{n:02d}" for n in range(7, 25)])
-        for prefix, count in (("WEAK", 14), ("REINF", 9), ("WRAP", 3)):
+        for prefix, count in (("WEAK", 11), ("MAIN", 5), ("REINF", 9), ("WRAP", 3)):
             with self.subTest(prefix=prefix):
                 self.assertEqual(re.findall(rf"`{prefix}-(\d{{2}})`", schedule), [f"{n:02d}" for n in range(1, count + 1)])
         for prefix in ("MOCK114", "BLIND108"):
@@ -69,11 +70,12 @@ class TestDailyStartPlan(unittest.TestCase):
                     (d1, t1), (d2, t2) = days
                     self.assertEqual(date.fromisoformat(d2) - date.fromisoformat(d1), timedelta(days=1), code)
                     self.assertLess(date.fromisoformat(d1).weekday(), 5, code)
+                    self.assertNotIn(d1, HOLIDAYS, code)
                     self.assertIn(f"`{code}`（第 1 天：閉卷 120 分鐘）", t1)
                     self.assertIn(f"`{code}`（第 2 天：核對＋修復 60 分鐘）", t2)
                 else:
                     self.assertEqual(len(days), 1, code)
-                    self.assertGreaterEqual(date.fromisoformat(days[0][0]).weekday(), 5, code)
+                    self.assertTrue(date.fromisoformat(days[0][0]).weekday() >= 5 or days[0][0] in HOLIDAYS, code)
                     self.assertIn(f"`{code}`（一次做完 180 分鐘）", days[0][1])
 
     def test_twelve_papers_finish_by_the_hard_milestone(self):
@@ -81,11 +83,25 @@ class TestDailyStartPlan(unittest.TestCase):
         self.assertEqual(last, "2026-10-31")
         self.assertEqual(self.by_date["2026-11-01"]["task"], "`BUFFER`")
 
+    def test_holidays_and_main_rounds_are_dated(self):
+        for day in HOLIDAYS:
+            self.assertEqual(self.by_date[day]["budget"], "4", day)
+        self.assertIn("補假", self.text)
+        self.assertEqual(self.by_date["2026-10-09"]["task"], "`CORE-14`＋`CORE-15`＋`CORE-16`＋`WEAK-06`")
+        self.assertEqual(self.by_date["2026-10-26"]["task"], "`BLIND108-03`（一次做完 180 分鐘）")
+        for day, code in (("2026-10-13", "MAIN-01"), ("2026-10-14", "MAIN-02"), ("2026-10-16", "MAIN-03"),
+                          ("2026-10-17", "MAIN-04"), ("2026-10-18", "MAIN-05")):
+            self.assertIn(f"`{code}`", self.by_date[day]["task"], day)
+        # 10/24-10/26: three full papers on three consecutive days
+        for day in ("2026-10-24", "2026-10-25", "2026-10-26"):
+            self.assertIn("一次做完 180 分鐘", self.by_date[day]["task"], day)
+        self.assertIn("10/24–10/26", self.text)
+
     def test_milestones_row(self):
         section = self.text.split("## 關卡", 1)[1].split("\n## ", 1)[0]
         rows = [l for l in section.splitlines() if l.startswith("| 2026-")]
         self.assertEqual(len(rows), 3)
-        self.assertRegex(rows[0], r"2026-10-17.*弱題分析關卡.*否")
+        self.assertRegex(rows[0], r"2026-10-17.*弱題分析關卡.*否.*MAIN-01～04")
         self.assertRegex(rows[1], r"2026-10-31.*模考截止.*是")
         self.assertIn("不可延後", rows[1])
         self.assertRegex(rows[2], r"2026-11-11.*補強完成.*否")

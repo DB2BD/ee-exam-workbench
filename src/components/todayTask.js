@@ -206,7 +206,7 @@ function todayTaskLocalDate(now) {
 // finishing it on a weekday counts only its 核對＋修復 phases (the closed phase was the day before).
 function todayTaskSpentToday(state, todayIso) {
   const tasks = DAILY_SCHEDULE.tasks;
-  const weekend = pacingIsWeekend(todayIso);
+  const weekend = pacingIsRestDay(todayIso, DAILY_SCHEDULE.holidays);
   return Object.keys(state.completed).reduce((n, code) => {
     const t = tasks[code];
     if (!t || todayTaskLocalDate(Date.parse(state.completed[code])) !== todayIso) return n;
@@ -339,7 +339,7 @@ function todayTaskCutHtml(vm) {
 
 function todayTaskPlanLine(pacing, hasDoneToday) {
   const spent = pacing.spentHours ? '已做約 ' + todayTaskFormatHours(pacing.spentHours) + ' 小時｜' : '';
-  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜' + spent;
+  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.holiday ? '假日' : pacing.weekend ? '週末' : '平日') + '）｜' + spent;
   if (!pacing.planHours && hasDoneToday) return '今天的份量已完成';
   return head + '還要做約 ' + todayTaskFormatHours(pacing.planHours) + ' 小時';
 }
@@ -389,7 +389,7 @@ function todayTaskPhaseView(task, a, now) {
     // 隨機練習 launcher for WEAK／REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
     launch: phase.launch || '',
     // Weekday mock: after the closed phase the learner may stop and continue the next day.
-    canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsWeekend(todayTaskLocalDate(now)),
+    canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsRestDay(todayTaskLocalDate(now), DAILY_SCHEDULE.holidays),
     holdDate: a.holdDate || '',
   };
 }

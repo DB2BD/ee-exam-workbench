@@ -44,6 +44,35 @@ function resultCardMarkButtons(tier, source) {
   }));
 }
 
+const RESULT_CARD_RUBRIC = '○ 數值與單位都對｜△ 列式、等效電路或方程式正確但數值錯或未算完｜× 沒有起手式或空白';
+const RESULT_CARD_KEY_HINT = '鍵盤 1／2／3、0 全部○、Enter 儲存';
+
+function resultCardRubric(tier, source) {
+  return (source === 'mock' ? '模考 100／50／0：' : '') + RESULT_CARD_RUBRIC + (tier === 'basic' ? '（基本分題：骨架寫完即 ○）' : '');
+}
+
+// Pure key mapping. state: { partCount, activeIndex, marks, canSave, collapsed, editable }
+// Returns { type: 'mark', row, mark } | { type: 'markAll' } | { type: 'save' } | null.
+function resultCardKeyAction(key, state) {
+  const st = state || {};
+  if (st.collapsed || st.editable) return null;
+  const n = Number(st.partCount) || 0;
+  if (n < 1) return null;
+  const markOf = { '1': 'o', '2': 'tri', '3': 'x' };
+  if (markOf[key]) {
+    const marks = Array.isArray(st.marks) ? st.marks : [];
+    let row = Number.isInteger(st.activeIndex) && st.activeIndex >= 0 && st.activeIndex < n ? st.activeIndex : -1;
+    if (row < 0) {
+      row = 0;
+      for (let i = 0; i < n; i++) { if (!marks[i]) { row = i; break; } }
+    }
+    return { type: 'mark', row, mark: markOf[key] };
+  }
+  if (key === '0') return { type: 'markAll' };
+  if (key === 'Enter') return st.canSave ? { type: 'save' } : null;
+  return null;
+}
+
 function resultCardViewModel(qid, marks, errors, source) {
   const model = buildResultModel(qid);
   const list = Array.isArray(marks) ? marks : [];
@@ -59,6 +88,8 @@ function resultCardViewModel(qid, marks, errors, source) {
     chapter,
     header: [qid, chapter, tierLabel].filter(Boolean).join('｜'),
     markButtons: resultCardMarkButtons(model.tier, source),
+    rubric: resultCardRubric(model.tier, source),
+    keyHint: RESULT_CARD_KEY_HINT,
     hint: source === 'mock' ? '模考按 100／50／0 計分' : (model.tier === 'basic' ? '○＝骨架寫完' : ''),
     rows: model.parts.map((part, i) => ({
       index: i,
@@ -140,6 +171,7 @@ function openResultCard(options) {
   root.innerHTML = `
     <button type="button" class="result-card-expand">做完了？記錄作答結果 ▲</button>
     <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span>${docked ? '<button type="button" class="result-card-collapse" aria-label="收合作答結果卡">▼ 收合</button>' : ''}</div>
+    <div class="result-card-guide"><span class="result-card-rubric"></span> <span class="result-card-keyhint"></span> <button type="button" class="result-card-allo">全部○</button></div>
     <div class="result-card-rows">${rowsHtml}</div>
     <div class="result-card-errors" hidden>
       <span class="result-card-errors-label">錯在哪（可多選，可不選）</span>
@@ -173,6 +205,8 @@ function openResultCard(options) {
     const vm = resultCardViewModel(qid, marks, errors, source);
     q('.result-card-title').textContent = vm.header;
     q('.result-card-hint').textContent = vm.hint;
+    q('.result-card-rubric').textContent = vm.rubric;
+    q('.result-card-keyhint').textContent = vm.keyHint;
     vm.markButtons.forEach(b => {
       Array.prototype.forEach.call(root.querySelectorAll(`.result-card-mark[data-mark="${b.mark}"]`), btn => { btn.textContent = `${b.symbol} ${b.text}`; });
     });
@@ -192,7 +226,57 @@ function openResultCard(options) {
     syncPadding();
   }
 
+  function doSave() {
+      const vm = resultCardViewModel(qid, marks, errors, source);
+      if (!vm.canSave || saving) return;
+      saving = true;
+      const record = {
+        qid, at: Date.now(), source, tier: model.tier,
+        parts: model.parts.map((p, i) => ({ label: p.label, points: p.points, mark: marks[i] })),
+        errors: vm.showErrors ? errors.slice() : [], note, total: model.total
+      };
+      if (opts.mockId) record.mockId = opts.mockId;
+      const result = saveResultRecord(record);
+      saving = false;
+      if (!result.ok) {
+        q('.result-card-msg').textContent = '無法保存，請稍後再試（本機儲存空間不可用或資料損壞）。';
+        sync();
+        return;
+      }
+      close();
+      // Docked card: no next question to move to, so confirm briefly where the card was and keep the solution open.
+      if (docked && typeof document !== 'undefined') resultCardShowSavedNotice(host);
+      if (typeof opts.onSaved === 'function') opts.onSaved(result.record, result);
+  }
+
+  function markAll() {
+    for (let i = 0; i < marks.length; i++) marks[i] = 'o';
+    sync();
+  }
+
+  let activeRow = -1;
+  root.addEventListener('focusin', event => {
+    const row = event.target && event.target.closest ? event.target.closest('.result-card-row') : null;
+    activeRow = row ? Number(row.getAttribute('data-row')) : -1;
+  });
+  function onKey(event) {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+    const t = event.target;
+    const editable = !!(t && t.matches && t.matches('input, textarea, select, [contenteditable="true"]'));
+    if (event.key === 'Enter' && t && t.matches && t.matches('button, a')) return;
+    const action = resultCardKeyAction(event.key, {
+      partCount: model.parts.length, activeIndex: activeRow, marks, canSave: !saving && resultCardViewModel(qid, marks, errors, source).canSave,
+      collapsed, editable
+    });
+    if (!action) return;
+    event.preventDefault();
+    if (action.type === 'mark') { marks[action.row] = action.mark; activeRow = -1; sync(); }
+    else if (action.type === 'markAll') markAll();
+    else if (action.type === 'save') doSave();
+  }
+
   function close() {
+    if (typeof document !== 'undefined') document.removeEventListener('keydown', onKey);
     if (observer) observer.disconnect();
     baseline.forEach((value, id) => {
       const el = document.getElementById(id);
@@ -229,32 +313,16 @@ function openResultCard(options) {
       target.setAttribute('aria-expanded', noteOpen ? 'true' : 'false');
       target.textContent = noteOpen ? '－ 收合加註' : '＋ 加註（選用）';
       syncPadding();
+    } else if (target.classList.contains('result-card-allo')) {
+      markAll();
     } else if (target.classList.contains('result-card-save')) {
-      const vm = resultCardViewModel(qid, marks, errors, source);
-      if (!vm.canSave || saving) return;
-      saving = true;
-      const record = {
-        qid, at: Date.now(), source, tier: model.tier,
-        parts: model.parts.map((p, i) => ({ label: p.label, points: p.points, mark: marks[i] })),
-        errors: vm.showErrors ? errors.slice() : [], note, total: model.total
-      };
-      if (opts.mockId) record.mockId = opts.mockId;
-      const result = saveResultRecord(record);
-      saving = false;
-      if (!result.ok) {
-        q('.result-card-msg').textContent = '無法保存，請稍後再試（本機儲存空間不可用或資料損壞）。';
-        sync();
-        return;
-      }
-      close();
-      // Docked card: no next question to move to, so confirm briefly where the card was and keep the solution open.
-      if (docked && typeof document !== 'undefined') resultCardShowSavedNotice(host);
-      if (typeof opts.onSaved === 'function') opts.onSaved(result.record, result);
+      doSave();
     }
   });
   q('.result-card-note-input').addEventListener('input', event => { note = event.target.value; });
 
   host.appendChild(root);
+  if (typeof document !== 'undefined') document.addEventListener('keydown', onKey);
   let observer = null;
   if (docked && typeof MutationObserver !== 'undefined') {
     const modal = document.getElementById('solution-modal');
@@ -268,5 +336,5 @@ function openResultCard(options) {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { resultCardViewModel, resultCardMarkButtons, resultCardEscape, openResultCard, resultCardStartsCollapsed };
+  module.exports = { resultCardViewModel, resultCardKeyAction, resultCardRubric, resultCardMarkButtons, resultCardEscape, openResultCard, resultCardStartsCollapsed };
 }

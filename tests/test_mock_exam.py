@@ -118,6 +118,14 @@ class MockExamTests(unittest.TestCase):
         out = run_node("""mockExamHistory([rec('EE-114-03-1', ['o'], 3000, '114-03-3000')], ROWS).map(function (h) { return [h.mockId, h.complete, h.expectedCount]; })""")
         self.assertEqual(out, [["114-03-3000", False, 5]])
 
+    def test_history_deltas_vs_previous_same_subject(self):
+        out = run_node("""mockExamHistoryDeltas([
+          {mockId: 'c', subjectId: '01', at: 30, complete: true, summary: {estimate: 70, total: 100}},
+          {mockId: 'x', subjectId: '02', at: 25, complete: true, summary: {estimate: 50, total: 100}},
+          {mockId: 'b', subjectId: '01', at: 20, complete: false, summary: {estimate: 10, total: 100}},
+          {mockId: 'a', subjectId: '01', at: 10, complete: true, summary: {estimate: 55, total: 100}}])""")
+        self.assertEqual(out, {"c": 15})
+
     def test_shortcuts_from_schedule_codes(self):
         out = run_node("""(function () {
           var sched = { tasks: {

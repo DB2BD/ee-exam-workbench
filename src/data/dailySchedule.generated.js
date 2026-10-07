@@ -5,6 +5,10 @@ const DAILY_SCHEDULE = {
     "weekday": 2,
     "weekend": 4
   },
+  "holidays": [
+    "2026-10-09",
+    "2026-10-26"
+  ],
   "milestones": [
     {
       "date": "2026-10-17",
@@ -30,22 +34,26 @@ const DAILY_SCHEDULE = {
         "CORE-13",
         "WEAK-05",
         "CORE-14",
-        "WEAK-06",
         "CORE-15",
         "CORE-16",
+        "WEAK-06",
         "CORE-17",
-        "WEAK-07",
         "CORE-18",
         "CORE-19",
+        "WEAK-07",
         "CORE-20",
-        "WEAK-08",
         "CORE-21",
-        "WEAK-09",
         "CORE-22",
+        "WEAK-08",
         "CORE-23",
+        "WEAK-09",
         "CORE-24",
+        "MAIN-01",
+        "MAIN-02",
         "MOCK114-01",
-        "MOCK114-02"
+        "MAIN-03",
+        "MOCK114-02",
+        "MAIN-04"
       ]
     },
     {
@@ -72,34 +80,36 @@ const DAILY_SCHEDULE = {
         "CORE-13",
         "WEAK-05",
         "CORE-14",
-        "WEAK-06",
         "CORE-15",
         "CORE-16",
+        "WEAK-06",
         "CORE-17",
-        "WEAK-07",
         "CORE-18",
         "CORE-19",
+        "WEAK-07",
         "CORE-20",
-        "WEAK-08",
         "CORE-21",
-        "WEAK-09",
         "CORE-22",
+        "WEAK-08",
         "CORE-23",
+        "WEAK-09",
         "CORE-24",
+        "MAIN-01",
+        "MAIN-02",
         "MOCK114-01",
+        "MAIN-03",
         "MOCK114-02",
+        "MAIN-04",
         "MOCK114-03",
-        "WEAK-10",
+        "MAIN-05",
         "MOCK114-04",
-        "WEAK-11",
+        "WEAK-10",
         "MOCK114-05",
-        "WEAK-12",
+        "WEAK-11",
         "MOCK114-06",
         "BLIND108-01",
         "BLIND108-02",
-        "WEAK-13",
         "BLIND108-03",
-        "WEAK-14",
         "BLIND108-04",
         "BLIND108-05",
         "BLIND108-06"
@@ -129,34 +139,36 @@ const DAILY_SCHEDULE = {
         "CORE-13",
         "WEAK-05",
         "CORE-14",
-        "WEAK-06",
         "CORE-15",
         "CORE-16",
+        "WEAK-06",
         "CORE-17",
-        "WEAK-07",
         "CORE-18",
         "CORE-19",
+        "WEAK-07",
         "CORE-20",
-        "WEAK-08",
         "CORE-21",
-        "WEAK-09",
         "CORE-22",
+        "WEAK-08",
         "CORE-23",
+        "WEAK-09",
         "CORE-24",
+        "MAIN-01",
+        "MAIN-02",
         "MOCK114-01",
+        "MAIN-03",
         "MOCK114-02",
+        "MAIN-04",
         "MOCK114-03",
-        "WEAK-10",
+        "MAIN-05",
         "MOCK114-04",
-        "WEAK-11",
+        "WEAK-10",
         "MOCK114-05",
-        "WEAK-12",
+        "WEAK-11",
         "MOCK114-06",
         "BLIND108-01",
         "BLIND108-02",
-        "WEAK-13",
         "BLIND108-03",
-        "WEAK-14",
         "BLIND108-04",
         "BLIND108-05",
         "BLIND108-06",
@@ -1161,6 +1173,161 @@ const DAILY_SCHEDULE = {
       "anchorQid": "EE-110-06-4",
       "hours": 1.0
     },
+    "MAIN-01": {
+      "code": "MAIN-01",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 1 輪（固定 3 題）",
+      "qids": [
+        "EE-109-01-1",
+        "EE-113-04-5",
+        "EE-107-05-4"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-109-01-1",
+            "EE-113-04-5",
+            "EE-107-05-4"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
+    "MAIN-02": {
+      "code": "MAIN-02",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 2 輪（固定 3 題）",
+      "qids": [
+        "EE-110-02-1",
+        "EE-113-03-5",
+        "EE-110-06-1"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-110-02-1",
+            "EE-113-03-5",
+            "EE-110-06-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
+    "MAIN-03": {
+      "code": "MAIN-03",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 3 輪（固定 3 題）",
+      "qids": [
+        "EE-110-01-4",
+        "EE-112-04-1",
+        "EE-113-06-5"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-110-01-4",
+            "EE-112-04-1",
+            "EE-113-06-5"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
+    "MAIN-04": {
+      "code": "MAIN-04",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 4 輪（固定 3 題）",
+      "qids": [
+        "EE-109-02-4",
+        "EE-113-03-2",
+        "EE-113-04-1"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-109-02-4",
+            "EE-113-03-2",
+            "EE-113-04-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
+    "MAIN-05": {
+      "code": "MAIN-05",
+      "kind": "core",
+      "subject": "六科",
+      "title": "主攻章補位 第 5 輪（固定 3 題）",
+      "qids": [
+        "EE-112-01-3",
+        "EE-111-04-2",
+        "EE-113-05-1"
+      ],
+      "variant": false,
+      "phases": [
+        {
+          "label": "閉卷作答 3 題",
+          "minutes": 60,
+          "closed": true,
+          "qids": [
+            "EE-112-01-3",
+            "EE-111-04-2",
+            "EE-113-05-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 15,
+          "closed": false,
+          "note": "停筆後開題解核對並記錄作答結果，再只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。"
+        }
+      ],
+      "hours": 1.25
+    },
     "WEAK-01": {
       "code": "WEAK-01",
       "kind": "practice",
@@ -1396,75 +1563,6 @@ const DAILY_SCHEDULE = {
       "kind": "practice",
       "launch": "random-balanced",
       "title": "弱題分析｜隨機練習 第 11 輪（各科輪流）",
-      "qids": [],
-      "phases": [
-        {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
-          "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
-        },
-        {
-          "label": "一句話錯因整理",
-          "minutes": 15,
-          "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
-        }
-      ],
-      "hours": 1.25
-    },
-    "WEAK-12": {
-      "code": "WEAK-12",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 12 輪（各科輪流）",
-      "qids": [],
-      "phases": [
-        {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
-          "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
-        },
-        {
-          "label": "一句話錯因整理",
-          "minutes": 15,
-          "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
-        }
-      ],
-      "hours": 1.25
-    },
-    "WEAK-13": {
-      "code": "WEAK-13",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 13 輪（各科輪流）",
-      "qids": [],
-      "phases": [
-        {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
-          "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
-        },
-        {
-          "label": "一句話錯因整理",
-          "minutes": 15,
-          "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
-        }
-      ],
-      "hours": 1.25
-    },
-    "WEAK-14": {
-      "code": "WEAK-14",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 14 輪（各科輪流）",
       "qids": [],
       "phases": [
         {
@@ -2364,9 +2462,11 @@ const DAILY_SCHEDULE = {
     {
       "date": "2026-10-09",
       "dow": 5,
-      "budget": 2.0,
+      "budget": 4.0,
       "codes": [
         "CORE-14",
+        "CORE-15",
+        "CORE-16",
         "WEAK-06"
       ],
       "items": [
@@ -2374,24 +2474,6 @@ const DAILY_SCHEDULE = {
           "code": "CORE-14",
           "part": "full"
         },
-        {
-          "code": "WEAK-06",
-          "part": "full"
-        }
-      ],
-      "hours": 2.25
-    },
-    {
-      "date": "2026-10-10",
-      "dow": 6,
-      "budget": 4.0,
-      "codes": [
-        "CORE-15",
-        "CORE-16",
-        "CORE-17",
-        "WEAK-07"
-      ],
-      "items": [
         {
           "code": "CORE-15",
           "part": "full"
@@ -2401,7 +2483,33 @@ const DAILY_SCHEDULE = {
           "part": "full"
         },
         {
+          "code": "WEAK-06",
+          "part": "full"
+        }
+      ],
+      "hours": 4.25
+    },
+    {
+      "date": "2026-10-10",
+      "dow": 6,
+      "budget": 4.0,
+      "codes": [
+        "CORE-17",
+        "CORE-18",
+        "CORE-19",
+        "WEAK-07"
+      ],
+      "items": [
+        {
           "code": "CORE-17",
+          "part": "full"
+        },
+        {
+          "code": "CORE-18",
+          "part": "full"
+        },
+        {
+          "code": "CORE-19",
           "part": "full"
         },
         {
@@ -2416,22 +2524,22 @@ const DAILY_SCHEDULE = {
       "dow": 0,
       "budget": 4.0,
       "codes": [
-        "CORE-18",
-        "CORE-19",
         "CORE-20",
+        "CORE-21",
+        "CORE-22",
         "WEAK-08"
       ],
       "items": [
         {
-          "code": "CORE-18",
-          "part": "full"
-        },
-        {
-          "code": "CORE-19",
-          "part": "full"
-        },
-        {
           "code": "CORE-20",
+          "part": "full"
+        },
+        {
+          "code": "CORE-21",
+          "part": "full"
+        },
+        {
+          "code": "CORE-22",
           "part": "full"
         },
         {
@@ -2446,12 +2554,12 @@ const DAILY_SCHEDULE = {
       "dow": 1,
       "budget": 2.0,
       "codes": [
-        "CORE-21",
+        "CORE-23",
         "WEAK-09"
       ],
       "items": [
         {
-          "code": "CORE-21",
+          "code": "CORE-23",
           "part": "full"
         },
         {
@@ -2466,35 +2574,35 @@ const DAILY_SCHEDULE = {
       "dow": 2,
       "budget": 2.0,
       "codes": [
-        "CORE-22",
-        "CORE-23"
+        "CORE-24",
+        "MAIN-01"
       ],
       "items": [
         {
-          "code": "CORE-22",
+          "code": "CORE-24",
           "part": "full"
         },
         {
-          "code": "CORE-23",
+          "code": "MAIN-01",
           "part": "full"
         }
       ],
-      "hours": 2.0
+      "hours": 2.25
     },
     {
       "date": "2026-10-14",
       "dow": 3,
       "budget": 2.0,
       "codes": [
-        "CORE-24"
+        "MAIN-02"
       ],
       "items": [
         {
-          "code": "CORE-24",
+          "code": "MAIN-02",
           "part": "full"
         }
       ],
-      "hours": 1.0
+      "hours": 1.25
     },
     {
       "date": "2026-10-15",
@@ -2516,30 +2624,40 @@ const DAILY_SCHEDULE = {
       "dow": 5,
       "budget": 2.0,
       "codes": [
-        "MOCK114-01"
+        "MOCK114-01",
+        "MAIN-03"
       ],
       "items": [
         {
           "code": "MOCK114-01",
           "part": "review"
+        },
+        {
+          "code": "MAIN-03",
+          "part": "full"
         }
       ],
-      "hours": 1.0
+      "hours": 2.25
     },
     {
       "date": "2026-10-17",
       "dow": 6,
       "budget": 4.0,
       "codes": [
-        "MOCK114-02"
+        "MOCK114-02",
+        "MAIN-04"
       ],
       "items": [
         {
           "code": "MOCK114-02",
           "part": "full"
+        },
+        {
+          "code": "MAIN-04",
+          "part": "full"
         }
       ],
-      "hours": 3.0
+      "hours": 4.25
     },
     {
       "date": "2026-10-18",
@@ -2547,7 +2665,7 @@ const DAILY_SCHEDULE = {
       "budget": 4.0,
       "codes": [
         "MOCK114-03",
-        "WEAK-10"
+        "MAIN-05"
       ],
       "items": [
         {
@@ -2555,7 +2673,7 @@ const DAILY_SCHEDULE = {
           "part": "full"
         },
         {
-          "code": "WEAK-10",
+          "code": "MAIN-05",
           "part": "full"
         }
       ],
@@ -2582,7 +2700,7 @@ const DAILY_SCHEDULE = {
       "budget": 2.0,
       "codes": [
         "MOCK114-04",
-        "WEAK-11"
+        "WEAK-10"
       ],
       "items": [
         {
@@ -2590,7 +2708,7 @@ const DAILY_SCHEDULE = {
           "part": "review"
         },
         {
-          "code": "WEAK-11",
+          "code": "WEAK-10",
           "part": "full"
         }
       ],
@@ -2617,7 +2735,7 @@ const DAILY_SCHEDULE = {
       "budget": 2.0,
       "codes": [
         "MOCK114-05",
-        "WEAK-12"
+        "WEAK-11"
       ],
       "items": [
         {
@@ -2625,7 +2743,7 @@ const DAILY_SCHEDULE = {
           "part": "review"
         },
         {
-          "code": "WEAK-12",
+          "code": "WEAK-11",
           "part": "full"
         }
       ],
@@ -2671,59 +2789,34 @@ const DAILY_SCHEDULE = {
       "dow": 0,
       "budget": 4.0,
       "codes": [
-        "BLIND108-02",
-        "WEAK-13"
+        "BLIND108-02"
       ],
       "items": [
         {
           "code": "BLIND108-02",
           "part": "full"
-        },
-        {
-          "code": "WEAK-13",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 3.0
     },
     {
       "date": "2026-10-26",
       "dow": 1,
-      "budget": 2.0,
+      "budget": 4.0,
       "codes": [
         "BLIND108-03"
       ],
       "items": [
         {
           "code": "BLIND108-03",
-          "part": "closed"
+          "part": "full"
         }
       ],
-      "hours": 2.0
+      "hours": 3.0
     },
     {
       "date": "2026-10-27",
       "dow": 2,
-      "budget": 2.0,
-      "codes": [
-        "BLIND108-03",
-        "WEAK-14"
-      ],
-      "items": [
-        {
-          "code": "BLIND108-03",
-          "part": "review"
-        },
-        {
-          "code": "WEAK-14",
-          "part": "full"
-        }
-      ],
-      "hours": 2.25
-    },
-    {
-      "date": "2026-10-28",
-      "dow": 3,
       "budget": 2.0,
       "codes": [
         "BLIND108-04"
@@ -2737,8 +2830,8 @@ const DAILY_SCHEDULE = {
       "hours": 2.0
     },
     {
-      "date": "2026-10-29",
-      "dow": 4,
+      "date": "2026-10-28",
+      "dow": 3,
       "budget": 2.0,
       "codes": [
         "BLIND108-04"
@@ -2752,8 +2845,8 @@ const DAILY_SCHEDULE = {
       "hours": 1.0
     },
     {
-      "date": "2026-10-30",
-      "dow": 5,
+      "date": "2026-10-29",
+      "dow": 4,
       "budget": 2.0,
       "codes": [
         "BLIND108-05"
@@ -2767,24 +2860,34 @@ const DAILY_SCHEDULE = {
       "hours": 2.0
     },
     {
-      "date": "2026-10-31",
-      "dow": 6,
-      "budget": 4.0,
+      "date": "2026-10-30",
+      "dow": 5,
+      "budget": 2.0,
       "codes": [
-        "BLIND108-05",
-        "BLIND108-06"
+        "BLIND108-05"
       ],
       "items": [
         {
           "code": "BLIND108-05",
           "part": "review"
-        },
+        }
+      ],
+      "hours": 1.0
+    },
+    {
+      "date": "2026-10-31",
+      "dow": 6,
+      "budget": 4.0,
+      "codes": [
+        "BLIND108-06"
+      ],
+      "items": [
         {
           "code": "BLIND108-06",
           "part": "full"
         }
       ],
-      "hours": 4.0
+      "hours": 3.0
     },
     {
       "date": "2026-11-01",
@@ -3012,34 +3115,36 @@ const DAILY_SCHEDULE = {
     "CORE-13",
     "WEAK-05",
     "CORE-14",
-    "WEAK-06",
     "CORE-15",
     "CORE-16",
+    "WEAK-06",
     "CORE-17",
-    "WEAK-07",
     "CORE-18",
     "CORE-19",
+    "WEAK-07",
     "CORE-20",
-    "WEAK-08",
     "CORE-21",
-    "WEAK-09",
     "CORE-22",
+    "WEAK-08",
     "CORE-23",
+    "WEAK-09",
     "CORE-24",
+    "MAIN-01",
+    "MAIN-02",
     "MOCK114-01",
+    "MAIN-03",
     "MOCK114-02",
+    "MAIN-04",
     "MOCK114-03",
-    "WEAK-10",
+    "MAIN-05",
     "MOCK114-04",
-    "WEAK-11",
+    "WEAK-10",
     "MOCK114-05",
-    "WEAK-12",
+    "WEAK-11",
     "MOCK114-06",
     "BLIND108-01",
     "BLIND108-02",
-    "WEAK-13",
     "BLIND108-03",
-    "WEAK-14",
     "BLIND108-04",
     "BLIND108-05",
     "BLIND108-06",
@@ -3077,36 +3182,38 @@ const DAILY_SCHEDULE = {
     "CORE-13": "2026-10-08",
     "WEAK-05": "2026-10-08",
     "CORE-14": "2026-10-09",
+    "CORE-15": "2026-10-09",
+    "CORE-16": "2026-10-09",
     "WEAK-06": "2026-10-09",
-    "CORE-15": "2026-10-10",
-    "CORE-16": "2026-10-10",
     "CORE-17": "2026-10-10",
+    "CORE-18": "2026-10-10",
+    "CORE-19": "2026-10-10",
     "WEAK-07": "2026-10-10",
-    "CORE-18": "2026-10-11",
-    "CORE-19": "2026-10-11",
     "CORE-20": "2026-10-11",
+    "CORE-21": "2026-10-11",
+    "CORE-22": "2026-10-11",
     "WEAK-08": "2026-10-11",
-    "CORE-21": "2026-10-12",
+    "CORE-23": "2026-10-12",
     "WEAK-09": "2026-10-12",
-    "CORE-22": "2026-10-13",
-    "CORE-23": "2026-10-13",
-    "CORE-24": "2026-10-14",
+    "CORE-24": "2026-10-13",
+    "MAIN-01": "2026-10-13",
+    "MAIN-02": "2026-10-14",
     "MOCK114-01": "2026-10-16",
+    "MAIN-03": "2026-10-16",
     "MOCK114-02": "2026-10-17",
+    "MAIN-04": "2026-10-17",
     "MOCK114-03": "2026-10-18",
-    "WEAK-10": "2026-10-18",
+    "MAIN-05": "2026-10-18",
     "MOCK114-04": "2026-10-20",
-    "WEAK-11": "2026-10-20",
+    "WEAK-10": "2026-10-20",
     "MOCK114-05": "2026-10-22",
-    "WEAK-12": "2026-10-22",
+    "WEAK-11": "2026-10-22",
     "MOCK114-06": "2026-10-24",
     "BLIND108-01": "2026-10-24",
     "BLIND108-02": "2026-10-25",
-    "WEAK-13": "2026-10-25",
-    "BLIND108-03": "2026-10-27",
-    "WEAK-14": "2026-10-27",
-    "BLIND108-04": "2026-10-29",
-    "BLIND108-05": "2026-10-31",
+    "BLIND108-03": "2026-10-26",
+    "BLIND108-04": "2026-10-28",
+    "BLIND108-05": "2026-10-30",
     "BLIND108-06": "2026-10-31",
     "BUFFER": "2026-11-01",
     "REINF-01": "2026-11-02",

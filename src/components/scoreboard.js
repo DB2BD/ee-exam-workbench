@@ -1,6 +1,6 @@
 // src/components/scoreboard.js — WP6 (成績 tab)
 /**
- * 成績看板：每科「模考實測／練習估計／目標」、距離 360／375、錯因分布＋一行下一步、主攻／基本分得分率。
+ * 成績看板：每科「模考實測／練習估計／目標」、距離 360／380、錯因分布＋一行下一步、主攻／基本分得分率。
  * 純函式（scoreboardCompute 等）＋ renderScoreboard(container)。
  * Depends on: QUESTION_POINTS, TARGET_ALLOCATION, studyPlan.js, resultCardStore.js (getResultRecords).
  */
@@ -24,6 +24,10 @@ const SCOREBOARD_NEXT_STEPS = {
   U: '單位方向：結論前檢查單位、正負與相角',
   R: '題型判錯：先寫已知、所求、適用章節再動筆'
 };
+// Mock phase starts 2026-10-15 (local date); from then a subject with a mock score shows only the mock number.
+const SCOREBOARD_MOCK_PHASE_KEY = 20261015;
+const SCOREBOARD_PASS_SUBJECT = 60;
+const SCOREBOARD_PASS_RULE_TEXT = '及格 360；若當年及格人數不足 16%，前 16% 且平均 ≥50、無零分者亦及格（110／111 年錄取線 57.3／56.8）';
 const SCOREBOARD_EMPTY_TEXT = '還沒有作答結果。到「今天」或「模考」完成題目後，用作答結果卡保存，分數就會出現在這裡。';
 
 function scoreboardEscape_(value) {
@@ -202,6 +206,65 @@ function scoreboardTierRates(windowRecords, subjectId) {
   return { main: rate(acc.main), basic: rate(acc.basic) };
 }
 
+function scoreboardDangerThreshold_() {
+  return typeof DANGER_SCORE_THRESHOLD !== 'undefined' ? DANGER_SCORE_THRESHOLD : 40;
+}
+
+/** Pure: should the 練習估計 be shown? Hidden only when the subject has a mock score and `now` is in the mock phase. */
+function scoreboardShowPractice(hasMock, now) {
+  if (!hasMock) return true;
+  const d = new Date(Number.isFinite(now) ? now : Date.now());
+  const key = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  return key < SCOREBOARD_MOCK_PHASE_KEY;
+}
+
+/** Pure: risk flag for a subject estimate. level 'zero' (< 40), 'low' (< 60) or null. */
+function scoreboardRisk(estimate) {
+  if (estimate === null || estimate === undefined || !Number.isFinite(Number(estimate))) return null;
+  const v = Number(estimate);
+  if (v >= SCOREBOARD_PASS_SUBJECT) return null;
+  return { level: v < scoreboardDangerThreshold_() ? 'zero' : 'low', gap: scoreboardRound1_(SCOREBOARD_PASS_SUBJECT - v) };
+}
+
+/** Pure: subject with the largest (target - estimate) shortfall among rows with data; null when none is below target. */
+function scoreboardDragSubject(rows) {
+  let best = null;
+  (rows || []).forEach(r => {
+    if (!r || r.estimate === null || r.estimate === undefined) return;
+    if (r.target === null || r.target === undefined) return;
+    const shortfall = scoreboardRound1_(Number(r.target) - Number(r.estimate));
+    if (shortfall > 0 && (!best || shortfall > best.shortfall)) best = { id: r.id, name: r.name, shortfall };
+  });
+  return best;
+}
+
+/** Pure: papers = [{at, scaled}] (complete mocks of one subject). Two latest by date -> {prev, cur, delta}, else null. */
+function scoreboardTrend(papers) {
+  const list = (papers || []).filter(p => p && Number.isFinite(Number(p.scaled)) && Number.isFinite(Number(p.at)))
+    .slice().sort((a, b) => a.at - b.at);
+  if (list.length < 2) return null;
+  const prev = scoreboardRound1_(Number(list[list.length - 2].scaled));
+  const cur = scoreboardRound1_(Number(list[list.length - 1].scaled));
+  return { prev, cur, delta: scoreboardRound1_(cur - prev) };
+}
+
+function scoreboardSignedText_(n) { return (n > 0 ? '+' : (n < 0 ? '−' : '±')) + Math.abs(n); }
+
+function scoreboardTrendText(trend) {
+  return trend ? `前次 ${trend.prev} → 本次 ${trend.cur}（${scoreboardSignedText_(trend.delta)}）` : '';
+}
+
+/** Complete mock papers of a subject as [{at, scaled}] (needs mockExam.js; otherwise empty). */
+function scoreboardMockPapers_(records, subjectId) {
+  const rows = typeof mockExamActiveRows === 'function' ? mockExamActiveRows() : null;
+  if (typeof mockExamHistory !== 'function' || !rows) return [];
+  try {
+    return mockExamHistory(records.filter(r => r.source === 'mock' && r.mockId), rows)
+      .filter(g => g.subjectId === subjectId && g.complete && g.summary.questionCount && g.summary.total)
+      .map(g => ({ at: g.at, scaled: g.summary.estimate / g.summary.total * 100 }));
+  } catch (_) { return []; }
+}
+
 function scoreboardDistanceText(total, line) {
   const diff = scoreboardRound1_(line - total);
   return diff > 0 ? `還差 ${diff} 分` : `已超過 ${scoreboardRound1_(-diff)} 分`;
@@ -220,7 +283,9 @@ function scoreboardCompute(records, now) {
     return {
       id, name: scoreboardNameOf_(id), role, roleLabel: SCOREBOARD_ROLE_LABELS[role] || '',
       target: scoreboardTargetOf_(id), mock, practice: practice.projection, practiceQuestions: practice.questions,
-      errors, nextStep: scoreboardNextStep(errors), rates: scoreboardTierRates(windowRecords, id)
+      errors, nextStep: scoreboardNextStep(errors), rates: scoreboardTierRates(windowRecords, id),
+      trend: scoreboardTrend(scoreboardMockPapers_(all, id)),
+      showPractice: scoreboardShowPractice(!!mock, nowMs)
     };
   });
   const mocked = subjects.filter(s => s.mock);
@@ -230,6 +295,7 @@ function scoreboardCompute(records, now) {
   subjects.forEach(s => {
     const v = s.mock ? s.mock.estimate : s.practice;
     s.estimate = v;
+    s.risk = scoreboardRisk(v);
     s.estimateFrom = s.mock ? 'mock' : (s.practice !== null ? 'practice' : null);
     if (v !== null && v !== undefined) { estTotal += v; estCount += 1; }
   });
@@ -238,7 +304,7 @@ function scoreboardCompute(records, now) {
   const noData = subjects.filter(s => s.estimate === null || s.estimate === undefined);
   const targetSum = withData.reduce((n, s) => n + (Number(s.target) || 0), 0);
   const passLine = typeof PASS_LINE !== 'undefined' ? PASS_LINE : 360;
-  const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 375;
+  const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 380;
   return {
     empty: all.length === 0,
     hasData: estCount > 0,
@@ -248,6 +314,7 @@ function scoreboardCompute(records, now) {
     estimateTargetTotal: targetSum > 0 ? scoreboardRound1_(targetSum) : null,
     missingNames: noData.map(s => s.name), missingCount: noData.length, subjectCount: subjects.length,
     estimateDistance: estCount === subjects.length ? { pass: scoreboardDistanceText(estTotal, passLine), goal: scoreboardDistanceText(estTotal, goal) } : null,
+    drag: scoreboardDragSubject(withData),
     passLine, goal
   };
 }
@@ -277,6 +344,7 @@ function scoreboardDate_(at) {
 function scoreboardBarHtml_(s) {
   const pct = v => Math.max(0, Math.min(100, v));
   const mockW = s.mock ? pct(s.mock.estimate) : 0;
+  const showPr = s.showPractice !== false;
   const prW = s.practice !== null ? pct(s.practice) : 0;
   const tgt = s.target !== null && s.target !== undefined ? pct(s.target) : null;
   const mockV = s.mock ? String(Math.round(s.mock.estimate)) : '—';
@@ -284,10 +352,10 @@ function scoreboardBarHtml_(s) {
   return `<div class="sb-bar" aria-hidden="true">
     <div class="sb-tracks">
       <div class="sb-row"><div class="sb-track"><span class="sb-fill sb-fill--mock" style="width:${mockW}%"></span></div></div>
-      <div class="sb-row"><div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div></div>
+      ${showPr ? `<div class="sb-row"><div class="sb-track sb-track--thin"><span class="sb-fill sb-fill--practice" style="width:${prW}%"></span></div></div>` : ''}
       ${tgt !== null ? `<span class="sb-target" style="left:${tgt}%"></span>` : ''}
     </div>
-    <div class="sb-vals"><span class="sb-val sb-val--mock">${mockV}</span><span class="sb-val sb-val--practice">${prV}</span></div>
+    <div class="sb-vals"><span class="sb-val sb-val--mock">${mockV}</span>${showPr ? `<span class="sb-val sb-val--practice">${prV}</span>` : ''}</div>
   </div>`;
 }
 
@@ -303,19 +371,34 @@ function scoreboardSubjectHtml_(s) {
   const errTotal = SCOREBOARD_ERROR_CODES.reduce((n, c) => n + s.errors[c], 0);
   const errChips = SCOREBOARD_ERROR_CODES.filter(c => s.errors[c] > 0)
     .map(c => `<span class="sb-chip">${c} ${e(SCOREBOARD_ERROR_NAMES[c])} ${s.errors[c]}</span>`).join('');
+  const showPr = s.showPractice !== false;
+  const risk = s.risk;
+  const riskHtml = risk ? `<span class="sb-risk${risk.level === 'zero' ? ' sb-risk--zero' : ''}">&lt;60</span>${risk.level === 'zero' ? '<span class="sb-risk sb-risk--zero">零分風險</span>' : ''}<span class="sb-gap">差 ${risk.gap} 分到 60</span>` : '';
+  const trendText = scoreboardTrendText(s.trend);
   const rateText = r => (r === null ? '—' : `${r}%`);
   return `<article class="sb-subject" data-subject="${e(s.id)}">
     <div class="sb-subject-head"><h3>${e(s.name)}</h3><span class="sb-role sb-role--${e(s.role || '')}">${e(s.roleLabel)}</span></div>
+    ${riskHtml ? `<p class="sb-riskline">${riskHtml}</p>` : ''}
     ${scoreboardBarHtml_(s)}
     <dl class="sb-nums">
       <div><dt>模考實測</dt><dd>${e(mockText)}</dd></div>
-      <div><dt>練習估計</dt><dd>${e(prText)}</dd></div>
+      ${showPr ? `<div><dt>練習估計</dt><dd>${e(prText)}</dd></div>` : ''}
       <div><dt>目標</dt><dd>${e(tgtText)}</dd></div>
     </dl>
+    ${trendText ? `<p class="sb-trend">${e(trendText)}</p>` : ''}
     <p class="sb-rates">近 ${SCOREBOARD_WINDOW_DAYS} 天得分率：主攻 ${rateText(s.rates.main)}｜基本分 ${rateText(s.rates.basic)}</p>
     <p class="sb-errors">${errTotal ? `錯因：${errChips}` : '錯因：近期無記錄'}</p>
     ${s.nextStep ? `<p class="sb-next"><strong>下一步</strong>　${e(s.nextStep)}</p>` : ''}
   </article>`;
+}
+
+function scoreboardDragText(drag) {
+  return drag ? `最可能拖垮平均的科目：${drag.name}（低於目標 ${drag.shortfall} 分）` : '各科都在目標之上';
+}
+
+function scoreboardDragHtml_(m) {
+  if (!m.hasData) return '';
+  return `<p class="sb-drag">${scoreboardEscape_(scoreboardDragText(m.drag))}</p>`;
 }
 
 function scoreboardTotalsHtml_(m) {
@@ -339,6 +422,7 @@ function scoreboardTotalsHtml_(m) {
   return `<section class="sb-totals" aria-label="合計">
     <div class="sb-total"><span class="sb-total-label">模考實測合計</span><strong>${e(mockLine)}</strong><small>${e(mockDist)}</small></div>
     <div class="sb-total"><span class="sb-total-label">預估總分（有模考用模考，否則用練習估計）</span><strong>${e(estLine)}</strong><small>${e(estDist)}</small></div>
+    ${scoreboardDragHtml_(m)}
   </section>`;
 }
 
@@ -351,13 +435,14 @@ function renderScoreboard(container, options) {
        <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。練習中的基本分題 ○ 只計 50%；模考一律照真實考試計分（○ 100%）。</p>`;
   container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
     <h2 class="sb-title">成績</h2>
-    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
+    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p><p class="sb-rule"><small>${scoreboardEscape_(SCOREBOARD_PASS_RULE_TEXT)}</small></p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
   return model;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     scoreboardCompute, scoreboardSummaryLine, scoreboardTierShares, scoreboardMockForSubject,
-    scoreboardPracticeForSubject, scoreboardNextStep, scoreboardEscape_, renderScoreboard
+    scoreboardPracticeForSubject, scoreboardNextStep, scoreboardDragSubject, scoreboardDragText,
+    scoreboardTrend, scoreboardTrendText, scoreboardRisk, scoreboardShowPractice, scoreboardEscape_, renderScoreboard
   };
 }

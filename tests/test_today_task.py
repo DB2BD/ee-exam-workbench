@@ -64,7 +64,7 @@ class TestGeneratedSchedule(unittest.TestCase):
 
     def test_task_counts_qids_and_minutes(self):
         tasks = self.schedule["tasks"]
-        for prefix, count, minutes in (("CORE", 24, 60), ("WEAK", 14, 75), ("MOCK114", 6, 180), ("BLIND108", 6, 180),
+        for prefix, count, minutes in (("CORE", 24, 60), ("WEAK", 11, 75), ("MAIN", 5, 75), ("MOCK114", 6, 180), ("BLIND108", 6, 180),
                                        ("REINF", 9, 120), ("WRAP", 3, 120)):
             codes = [c for c in tasks if c.startswith(prefix + "-")]
             self.assertEqual(len(codes), count, prefix)
@@ -72,7 +72,7 @@ class TestGeneratedSchedule(unittest.TestCase):
                 task = tasks[code]
                 self.assertEqual(sum(p["minutes"] for p in task["phases"]), minutes, code)
                 self.assertEqual(task["hours"], minutes / 60, code)
-                if prefix in ("CORE", "MOCK114", "BLIND108"):
+                if prefix in ("CORE", "MAIN", "MOCK114", "BLIND108"):
                     self.assertGreaterEqual(len(task["qids"]), 1, code)
                     for qid in task["qids"]:
                         self.assertIn(f'"{qid}"', self.dashboard, f"{code}: {qid} missing in dashboard-data.js")
@@ -80,8 +80,8 @@ class TestGeneratedSchedule(unittest.TestCase):
                     self.assertEqual(task["qids"], [], f"{code}: practice/review tasks have no fixed qids")
                     self.assertIn(task["kind"], ("practice", "review"), code)
         self.assertEqual(tasks["BUFFER"]["hours"], 4)
-        self.assertEqual(len(tasks), 63)
-        self.assertEqual(len(self.schedule["order"]), 63)
+        self.assertEqual(len(tasks), 65)
+        self.assertEqual(len(self.schedule["order"]), 65)
 
     def test_retired_mix_and_ext_are_not_in_the_schedule(self):
         tasks = self.schedule["tasks"]
@@ -93,7 +93,7 @@ class TestGeneratedSchedule(unittest.TestCase):
 
     def test_practice_tasks_expose_launch_modes_and_gates(self):
         tasks = self.schedule["tasks"]
-        self.assertEqual({tasks[f"WEAK-{i:02d}"]["launch"] for i in range(1, 15)}, {"random-balanced"})
+        self.assertEqual({tasks[f"WEAK-{i:02d}"]["launch"] for i in range(1, 12)}, {"random-balanced"})
         self.assertEqual({tasks[f"REINF-{i:02d}"]["launch"] for i in range(1, 10)}, {"random-reinforce"})
         self.assertEqual(tasks["BUFFER"]["launch"], "random-reinforce")
         self.assertEqual(tasks["BUFFER"]["notBefore"], "2026-11-01")
@@ -168,6 +168,13 @@ class TestTodayTaskStore(unittest.TestCase):
         monday = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 5)}).planText")["result"]
         self.assertEqual(sunday, "今天預算 4 小時（週末）｜還要做約 4.25 小時")  # CORE-07～09 + WEAK-01
         self.assertEqual(monday, "今天預算 2 小時（平日）｜還要做約 2 小時")  # CORE-07, CORE-08 (a 2 h weekday)
+
+    def test_plan_line_says_holiday_on_a_holiday(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("CORE-14")]}
+        plan = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 9)}).planText")["result"]
+        self.assertTrue(plan.startswith("今天預算 4 小時（假日）｜"), plan)
+        self.assertNotIn("週末", plan)
 
     def test_plan_line_when_todays_share_is_done(self):
         order = run_node("DAILY_SCHEDULE.order")["result"]
@@ -396,13 +403,44 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 5))
         # next milestone is the non-hard 10/17: hours plus the hard deadline's paper count
         self.assertTrue(res["milestone"].startswith("距 10/17 弱題分析關卡還有 12 天｜剩 "), res["milestone"])
-        self.assertTrue(res["milestone"].endswith("｜10/31 模考截止剩 12 份卷"), res["milestone"])
+        self.assertIn("｜10/31 模考截止剩 12 份卷", res["milestone"])
         # after 10/17 the hard milestone is next: 「距 10/31 模考截止還有 N 天｜剩 X 份卷」
         order = run_node("DAILY_SCHEDULE.order")["result"]
         done = {c: "x" for c in order[:order.index("MOCK114-03")]}
         res = self.vm(done, local_ms(2026, 10, 18))
         self.assertEqual(res["milestone"], "距 10/31 模考截止還有 13 天｜剩 10 份卷")
         self.assertIn('class="today-pacing-milestone"', res["html"])
+
+    def test_pace_line_helper(self):
+        res = run_node(
+            "[todayTaskPaceLine({behindCount:3, behindHours:5.25, aheadCount:0, aheadHours:0}), "
+            "todayTaskPaceLine({behindCount:0, aheadCount:0}), "
+            "todayTaskPaceLine({behindCount:0, aheadCount:2, aheadHours:4}), "
+            "todayTaskPaceLine(null)]")["result"]
+        self.assertEqual(res, ["落後約 5.25 小時（3 項未按日程完成）", "照日程", "超前約 4 小時", ""])
+
+    def test_pacing_exposes_behind_hours(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("CORE-16")]}
+        res = run_node(
+            "(() => { const p = pacingPlan({schedule: DAILY_SCHEDULE, completed:"
+            f"{json.dumps(done)}, today:'2026-10-16'}}); "
+            "return {n: p.behindCount, h: p.behindHours, sum: p.behindCodes.reduce((n, c) => n + pacingRemainingHours(DAILY_SCHEDULE.tasks[c], null), 0)}; })()")["result"]
+        self.assertGreater(res["h"], 0)
+        self.assertAlmostEqual(res["h"], res["sum"])
+
+    def test_card_has_one_merged_status_line_with_due_count(self):
+        res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 5))
+        card = run_node(
+            f"todayTaskCardHtml(todayTaskViewModel({{completed:{json.dumps(DONE_ONE_TO_SIX)}, active:null}}, {local_ms(2026, 10, 5)}, {{dueCount: 4}}))")["result"]
+        self.assertEqual(card.count("已完成 "), 1)
+        self.assertIn("到期複習 4 題", card)
+        self.assertRegex(card, r'class="today-pacing-milestone">已完成 6／\d+｜距 10/17')
+        self.assertTrue(re.search(r"(照日程|落後約|超前約)", card))
+        none = run_node(
+            f"todayTaskCardHtml(todayTaskViewModel({{completed:{json.dumps(DONE_ONE_TO_SIX)}, active:null}}, {local_ms(2026, 10, 5)}, {{dueCount: 0}}))")["result"]
+        self.assertNotIn("到期複習", none)
+        self.assertIn("</svg> 開始<", res["html"])
 
     def test_behind_shows_cut_line_and_keeps_papers(self):
         order = run_node("DAILY_SCHEDULE.order")["result"]
@@ -422,7 +460,7 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         res = self.vm(done, local_ms(2026, 10, 16))
         self.assertIn("10/17", res["milestone"])
         self.assertTrue(res["milestone"].endswith("｜彈性關卡：做不完就順延，不影響模考"), res["milestone"])
-        ok = self.vm({c: "x" for c in order[:order.index("CORE-07")]}, local_ms(2026, 10, 4))
+        ok = self.vm({c: "x" for c in order[:order.index("MAIN-01")]}, local_ms(2026, 10, 13))
         self.assertNotIn("彈性關卡", ok["milestone"])
 
     def test_long_cut_list_collapses_into_details(self):
@@ -432,7 +470,7 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertIn("<details>", res)
         self.assertNotIn("<details open", res)
         self.assertRegex(res, r"<summary>已自動刪減 \d+ 項（有空再做）</summary>")
-        self.assertIn("WEAK-10～14", res)
+        self.assertIn("WEAK-10～11", res)
         self.assertIn("11/01 緩衝日補考", res)
         short = run_node(
             "todayTaskCardHtml({mode:'task', pacing:{cut:['WEAK-07','WEAK-08','WEAK-09'], overload:false, hardMilestone:null}, cutText:'已自動刪減：WEAK-07～09（有空再做）', planText:'', milestoneText:'', suggestion:'', items:[], rest:[], restText:'', completedMap:{}, doneCount:0, total:1})")["result"]
@@ -532,7 +570,7 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         res = self.vm({}, local_ms(2026, 10, 5))
         self.assertIn('<option value="CORE-07" selected>', res["html"])
         self.assertIn('<option value="CORE-01">', res["html"])
-        self.assertIn('<option value="WEAK-14">', res["html"])
+        self.assertIn('<option value="WEAK-11">', res["html"])
         self.assertIn('<option value="REINF-09">', res["html"])
         self.assertIn('<option value="BUFFER">', res["html"])
         for retired in ("MIX-", "EXT-", "RECOVERY"):

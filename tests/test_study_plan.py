@@ -45,8 +45,8 @@ class TestStudyPlan(unittest.TestCase):
     def test_targets(self):
         s = self.data["subjects"]
         self.assertEqual({k: v["target"] for k, v in s.items()},
-                         {"01": 80, "04": 80, "06": 60, "05": 55, "03": 55, "02": 45})
-        self.assertEqual(sum(v["target"] for v in s.values()), 375)
+                         {"01": 75, "04": 75, "06": 60, "05": 55, "03": 60, "02": 55})
+        self.assertEqual(sum(v["target"] for v in s.values()), 380)
         self.assertEqual({k: v["role"] for k, v in s.items()},
                          {"01": "high", "04": "high", "06": "combined", "05": "combined",
                           "03": "basic", "02": "basic"})
@@ -75,7 +75,9 @@ class TestStudyPlan(unittest.TestCase):
         self.assertEqual(t["EE-114-01-3"]["tier"], "main")
         bjt = [q for q, v in t.items() if v["chapter"] == "el-bjt-bias-small-signal"]
         self.assertTrue(bjt)
-        self.assertTrue(all(t[q]["tier"] == "basic" for q in bjt))
+        self.assertTrue(all(t[q]["tier"] == "main" for q in bjt))
+        promoted = ("el-mosfet-bias-small-signal", "em-vector-analysis", "em-laplace-transform")
+        self.assertTrue(all(v["tier"] == "main" for v in t.values() if v["chapter"] in promoted))
         prob = [q for q, v in t.items() if v["chapter"] == "em-probability-statistics"]
         self.assertTrue(prob)
         self.assertTrue(all(t[q]["tier"] == "main" for q in prob))
@@ -116,8 +118,11 @@ class TestStudyPlan(unittest.TestCase):
             first("05", "ps-economic-dispatch"): ("basic", 1),        # combined non-main
             first("03", "em-probability-statistics"): ("main", 2),    # basic-subject main
             first("02", "el-diode-rectifier"): ("main", 2),
-            first("02", "el-bjt-bias-small-signal"): ("basic", 0.5),  # basic-subject basic
-            first("03", "em-vector-analysis"): ("basic", 0.5),
+            first("02", "el-bjt-bias-small-signal"): ("main", 2),    # v1.3.6 promoted to main
+            first("02", "el-mosfet-bias-small-signal"): ("main", 2),
+            first("03", "em-laplace-transform"): ("main", 2),
+            first("02", "el-active-filter"): ("basic", 0.5),
+            first("03", "em-vector-analysis"): ("main", 2),
         }
         out = run_node(json.dumps(list(cases)) + ".map(q=>[studyTierFor(q),practiceWeightFor(q)])")
         self.assertEqual([tuple(x) for x in out], list(cases.values()))
@@ -129,7 +134,7 @@ class TestStudyPlan(unittest.TestCase):
     def test_roles_targets_constants(self):
         out = run_node("[studyRoleFor('01'),studyRoleFor('05'),studyRoleFor('02'),studyRoleFor('99'),"
                        "targetFor('04'),targetFor('02'),targetFor('99'),TOTAL_TARGET,PASS_LINE]")
-        self.assertEqual(out, ["high", "combined", "basic", None, 80, 45, None, 375, 360])
+        self.assertEqual(out, ["high", "combined", "basic", None, 75, 55, None, 380, 360])
 
     def test_score_factors(self):
         out = run_node("[['main','o'],['main','tri'],['main','x'],['basic','o'],['basic','tri'],['basic','x']]"

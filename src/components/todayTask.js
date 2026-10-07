@@ -206,7 +206,7 @@ function todayTaskLocalDate(now) {
 // finishing it on a weekday counts only its 核對＋修復 phases (the closed phase was the day before).
 function todayTaskSpentToday(state, todayIso) {
   const tasks = DAILY_SCHEDULE.tasks;
-  const weekend = pacingIsWeekend(todayIso);
+  const weekend = pacingIsRestDay(todayIso, DAILY_SCHEDULE.holidays);
   return Object.keys(state.completed).reduce((n, code) => {
     const t = tasks[code];
     if (!t || todayTaskLocalDate(Date.parse(state.completed[code])) !== todayIso) return n;
@@ -287,6 +287,33 @@ function todayTaskMilestoneText(pacing) {
   return next.atRisk ? tail + '｜彈性關卡：做不完就順延，不影響模考' : tail;
 }
 
+// One-line schedule position: 「落後約 N 小時（M 項未按日程完成）」／「照日程」／「超前約 N 小時」.
+// Behind = tasks due before today and not done (pacing.behindHours); ahead = done tasks that were due after today.
+function todayTaskPaceLine(pacing) {
+  if (!pacing) return '';
+  if (pacing.behindCount > 0) {
+    return '落後約 ' + todayTaskFormatHours(pacing.behindHours || 0) + ' 小時（' + pacing.behindCount + ' 項未按日程完成）';
+  }
+  if (pacing.aheadCount > 0 && pacing.aheadHours > 0) return '超前約 ' + todayTaskFormatHours(pacing.aheadHours) + ' 小時';
+  return '照日程';
+}
+
+// SM-2 due questions today; 0 when the store is not loaded.
+function todayTaskDueCount(now) {
+  if (typeof getDueQuestionsList !== 'function') return 0;
+  try { return getDueQuestionsList(now).length; } catch (e) { return 0; }
+}
+
+// The single status line: 已完成 N／總數｜milestone｜pace｜到期複習 N 題 (empty parts are skipped).
+function todayTaskStatusLine(vm) {
+  const parts = [];
+  if (vm.total) parts.push('已完成 ' + vm.doneCount + '／' + vm.total);
+  if (vm.milestoneText) parts.push(vm.milestoneText);
+  if (vm.paceText) parts.push(vm.paceText);
+  if (vm.dueCount > 0) parts.push('到期複習 ' + vm.dueCount + ' 題');
+  return parts.join('｜');
+}
+
 function todayTaskCutNote(pacing) {
   return pacing.overload
     ? '時數仍短缺約 ' + todayTaskFormatHours(pacing.shortHours) + ' 小時：模考卷照順序做，做不完的排到 11/01 緩衝日補考' : '';
@@ -312,7 +339,7 @@ function todayTaskCutHtml(vm) {
 
 function todayTaskPlanLine(pacing, hasDoneToday) {
   const spent = pacing.spentHours ? '已做約 ' + todayTaskFormatHours(pacing.spentHours) + ' 小時｜' : '';
-  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.weekend ? '週末' : '平日') + '）｜' + spent;
+  const head = '今天預算 ' + pacing.budgetHours + ' 小時（' + (pacing.holiday ? '假日' : pacing.weekend ? '週末' : '平日') + '）｜' + spent;
   if (!pacing.planHours && hasDoneToday) return '今天的份量已完成';
   return head + '還要做約 ' + todayTaskFormatHours(pacing.planHours) + ' 小時';
 }
@@ -362,12 +389,12 @@ function todayTaskPhaseView(task, a, now) {
     // 隨機練習 launcher for WEAK／REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
     launch: phase.launch || '',
     // Weekday mock: after the closed phase the learner may stop and continue the next day.
-    canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsWeekend(todayTaskLocalDate(now)),
+    canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsRestDay(todayTaskLocalDate(now), DAILY_SCHEDULE.holidays),
     holdDate: a.holdDate || '',
   };
 }
 
-function todayTaskViewModel(state, now) {
+function todayTaskViewModel(state, now, options) {
   const todayIso = todayTaskLocalDate(now);
   const pacing = todayTaskPacing(state, todayIso);
   const tasks = DAILY_SCHEDULE.tasks;
@@ -413,6 +440,8 @@ function todayTaskViewModel(state, now) {
     rest,
     restText,
     milestoneText: todayTaskMilestoneText(pacing),
+    paceText: freshStart ? '' : todayTaskPaceLine(pacing),
+    dueCount: options && Number.isInteger(options.dueCount) ? options.dueCount : todayTaskDueCount(now),
     freshStart,
     cutText: freshStart ? '' : todayTaskCutText(pacing),
     suggestion: pacing.suggestion,
@@ -473,7 +502,7 @@ function todayTaskCardHtml(vm) {
   const restDay = vm.mode === 'exam-check' || vm.mode === 'stop';
   const plan = restDay ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
   const pacingLines = restDay ? '' :
-    (vm.milestoneText ? '<p class="today-pacing-milestone' + (vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(vm.milestoneText) + '</p>' : '') +
+    (todayTaskStatusLine(vm) ? '<p class="today-pacing-milestone' + (vm.pacing && vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(todayTaskStatusLine(vm)) + '</p>' : '') +
     todayTaskCutHtml(vm) +
     (vm.suggestion ? '<p class="today-pacing-suggestion">' + esc(vm.suggestion) + '</p>' : '');
   let body;
@@ -487,7 +516,7 @@ function todayTaskCardHtml(vm) {
     const extra = vm.code
       ? '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' 選做下一個：' + esc(vm.code) + '</button></div>' : '';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天的份量已完成，可以收工</strong>' +
-      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '。還有餘力可選做下一個（' + esc(vm.code ? vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
+      '<p class="today-task-note">還有餘力可選做下一個（' + esc(vm.code ? vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
   } else if (vm.mode === 'idle') {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可用下方「隨機練習 3 題」維持手感。</p></div>';
   } else {
@@ -500,7 +529,7 @@ function todayTaskCardHtml(vm) {
     const rest = vm.restText ? '<p class="today-pacing-rest">' + esc(vm.restText) + '</p>' : '';
     const buttonText = resume ? (vm.held ? (vm.held.sameDay ? '現在就核對' : '開始核對') : '繼續') : '開始';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">一鍵開始今天</span><strong>' + esc(label) + '</strong>' +
-      '<p class="today-task-note">已完成 ' + vm.doneCount + '／' + vm.total + '</p>' + rest + '</div>' +
+      rest + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' ' + buttonText + '</button></div>';
   }
   const dropped = restDay && vm.active ? '<p class="today-task-note">先前未完成的任務（' + esc(vm.active.code) + '）不再繼續，也不會開新題。</p>' : '';
@@ -574,6 +603,26 @@ function todayTaskOnStart() {
   }
   renderTodayTaskCard();
   openTodayTaskOverlay();
+}
+
+// 模考分頁 entry: start `code` now (unless already done) and show the timed overlay.
+// Returns true when the overlay was opened; false leaves the caller to fall back.
+function todayTaskStartCodeNow(code) {
+  if (typeof document === 'undefined' || !DAILY_SCHEDULE.tasks[code]) return false;
+  let state = todayTaskRefresh();
+  if (state.active) {
+    if (state.active.code !== code) return false;
+    if (state.active.holdDate) todayTaskCommit(todayTaskResumeHeld(state, Date.now()));
+  } else {
+    // A finished paper is never silently un-completed: the caller falls back to the untimed paper.
+    if (state.completed && state.completed[code]) return false;
+    const next = todayTaskStart({ completed: Object.assign({}, state.completed), active: null }, Date.now(), code);
+    if (!next.active) return false;
+    todayTaskCommit(next);
+  }
+  renderTodayTaskCard();
+  openTodayTaskOverlay();
+  return true;
 }
 
 // 開啟隨機練習 for WEAK／REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.

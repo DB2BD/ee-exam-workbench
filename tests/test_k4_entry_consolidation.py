@@ -48,7 +48,7 @@ class TestHomeLayout(unittest.TestCase):
         self.assertEqual(len(re.findall(r"<button", primary)), 2)
         self.assertNotIn('<details class="more-practice"', pane)
         self.assertIn('id="daily-practice-container"', pane)
-        self.assertIn('id="home-action-continue"', pane)
+        self.assertNotIn('id="home-action-continue"', pane)  # v1.3.6: duplicate 「繼續上次」 entry removed
 
     def test_due_button_default_disabled_with_message(self):
         primary = primary_section(practice_pane())

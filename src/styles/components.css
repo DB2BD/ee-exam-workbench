@@ -1574,6 +1574,8 @@ select:focus {
 .result-card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
 .result-card-title { font-weight: 700; }
 .result-card-hint { color: var(--muted); font-size: 0.82rem; }
+.result-card-guide { color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
+.result-card-allo { font-size: 0.78rem; padding: 1px 8px; border: 1px solid var(--border, #bbb); border-radius: 999px; background: transparent; color: inherit; cursor: pointer; }
 .result-card-rows { display: flex; flex-direction: column; gap: 8px; }
 .result-card-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
 .result-card-row-label { flex: 0 0 auto; min-width: 7em; font-weight: 600; }
@@ -1645,6 +1647,14 @@ select:focus {
 .sb-total-label { font-size: 0.8rem; color: var(--muted); }
 .sb-total strong { font-size: 1.05rem; }
 .sb-total small { color: var(--ink-light); font-size: 0.84rem; min-height: 1em; }
+.sb-drag { grid-column: 1 / -1; margin: 0; font-size: 0.9rem; font-weight: 600; color: var(--warn); }
+.sb-riskline { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; font-size: 0.82rem; }
+.sb-risk { padding: 1px 8px; border-radius: var(--radius-pill); background: var(--warn-light); color: var(--warn); border: 1px solid var(--warn); font-weight: 700; }
+.sb-risk--zero { background: var(--warn); color: var(--surface); }
+.sb-gap { color: var(--warn); }
+.sb-trend { margin: 0; font-size: 0.86rem; color: var(--ink-light); }
+.mock-delta--up { color: var(--accent-dark); }
+.mock-delta--down { color: var(--warn); }
 .sb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
 .sb-subject { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
 .sb-subject-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -1751,3 +1761,34 @@ select:focus {
 /* v1.2 today pane: compact idle mode selector under the primary buttons */
 .daily-practice-idle { max-width: 900px; margin: 0 auto 16px; font-size: .9rem; color: var(--muted); }
 .daily-practice-idle select { margin-left: 8px; min-height: 36px; }
+
+/* v1.3.6: review page has one primary action; per-card and skip buttons are secondary */
+.btn-review-primary {
+  margin-top: 8px;
+  padding: 9px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-review-primary:hover { background: var(--accent-dark); }
+[data-theme="dark"] .btn-review-primary { color: #14181b; }
+.review-card .btn-recall-primary,
+.btn-session-next {
+  background: transparent;
+  color: var(--accent-dark);
+  border: 1px solid var(--accent);
+  box-shadow: none;
+}
+.review-card .btn-recall-primary:hover,
+.btn-session-next:hover {
+  background: var(--bg-secondary);
+  color: var(--accent-dark);
+  transform: none;
+  box-shadow: none;
+}
+[data-theme="dark"] .review-card .btn-recall-primary,
+[data-theme="dark"] .btn-session-next { color: var(--accent) !important; }

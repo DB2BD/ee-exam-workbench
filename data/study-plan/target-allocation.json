@@ -1,17 +1,18 @@
 {
   "version": 1,
-  "source": "發版紀錄 v1.2.0 抓大放小目標分配（內部工作紀錄，未公開）",
-  "totalTarget": 375,
+  "source": "v1.3.6 抓大放小修正：拉高地板、降低對兩科 80 分的依賴",
+  "totalTarget": 380,
   "passLine": 360,
   "subjects": {
-    "01": {"name": "電路學", "role": "high", "target": 80, "mainChapters": [
+    "01": {"name": "電路學", "role": "high", "target": 75, "mainChapters": [
       {"id": "ct-second-order-rlc"}, {"id": "ct-mutual-inductance"}, {"id": "ct-node-mesh"},
       {"id": "ct-three-phase"}, {"id": "ct-thevenin-norton"}, {"id": "ct-phasor-ac"}]},
-    "02": {"name": "電子學", "role": "basic", "target": 45, "mainChapters": [
-      {"id": "el-diode-rectifier"}, {"id": "el-pe-buck-boost"}]},
-    "03": {"name": "工程數學", "role": "basic", "target": 55, "mainChapters": [
-      {"id": "em-probability-statistics"}]},
-    "04": {"name": "電機機械", "role": "high", "target": 80, "mainChapters": [
+    "02": {"name": "電子學", "role": "basic", "target": 55, "mainChapters": [
+      {"id": "el-diode-rectifier"}, {"id": "el-pe-buck-boost"},
+      {"id": "el-bjt-bias-small-signal"}, {"id": "el-mosfet-bias-small-signal"}]},
+    "03": {"name": "工程數學", "role": "basic", "target": 60, "mainChapters": [
+      {"id": "em-probability-statistics"}, {"id": "em-vector-analysis"}, {"id": "em-laplace-transform"}]},
+    "04": {"name": "電機機械", "role": "high", "target": 75, "mainChapters": [
       {"id": "emach-synchronous-generator-round"}, {"id": "emach-dc-motor-generator"},
       {"id": "emach-induction-motor-equiv"}, {"id": "emach-magnetic-circuits"},
       {"id": "emach-single-phase-transformer"}, {"id": "emach-induction-motor-torque"}]},

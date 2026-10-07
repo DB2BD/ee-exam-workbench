@@ -1,6 +1,6 @@
 // src/components/scoreboard.js — WP6 (成績 tab)
 /**
- * 成績看板：每科「模考實測／練習估計／目標」、距離 360／375、錯因分布＋一行下一步、主攻／基本分得分率。
+ * 成績看板：每科「模考實測／練習估計／目標」、距離 360／380、錯因分布＋一行下一步、主攻／基本分得分率。
  * 純函式（scoreboardCompute 等）＋ renderScoreboard(container)。
  * Depends on: QUESTION_POINTS, TARGET_ALLOCATION, studyPlan.js, resultCardStore.js (getResultRecords).
  */
@@ -24,6 +24,7 @@ const SCOREBOARD_NEXT_STEPS = {
   U: '單位方向：結論前檢查單位、正負與相角',
   R: '題型判錯：先寫已知、所求、適用章節再動筆'
 };
+const SCOREBOARD_PASS_RULE_TEXT = '及格 360；若當年及格人數不足 16%，前 16% 且平均 ≥50、無零分者亦及格（110／111 年錄取線 57.3／56.8）';
 const SCOREBOARD_EMPTY_TEXT = '還沒有作答結果。到「今天」或「模考」完成題目後，用作答結果卡保存，分數就會出現在這裡。';
 
 function scoreboardEscape_(value) {
@@ -238,7 +239,7 @@ function scoreboardCompute(records, now) {
   const noData = subjects.filter(s => s.estimate === null || s.estimate === undefined);
   const targetSum = withData.reduce((n, s) => n + (Number(s.target) || 0), 0);
   const passLine = typeof PASS_LINE !== 'undefined' ? PASS_LINE : 360;
-  const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 375;
+  const goal = typeof TOTAL_TARGET !== 'undefined' ? TOTAL_TARGET : 380;
   return {
     empty: all.length === 0,
     hasData: estCount > 0,
@@ -351,7 +352,7 @@ function renderScoreboard(container, options) {
        <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。練習中的基本分題 ○ 只計 50%；模考一律照真實考試計分（○ 100%）。</p>`;
   container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
     <h2 class="sb-title">成績</h2>
-    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
+    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p><p class="sb-rule"><small>${scoreboardEscape_(SCOREBOARD_PASS_RULE_TEXT)}</small></p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
   return model;
 }
 

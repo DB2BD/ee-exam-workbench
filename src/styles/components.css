@@ -1574,6 +1574,8 @@ select:focus {
 .result-card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
 .result-card-title { font-weight: 700; }
 .result-card-hint { color: var(--muted); font-size: 0.82rem; }
+.result-card-guide { color: var(--muted); font-size: 0.78rem; line-height: 1.5; }
+.result-card-allo { font-size: 0.78rem; padding: 1px 8px; border: 1px solid var(--border, #bbb); border-radius: 999px; background: transparent; color: inherit; cursor: pointer; }
 .result-card-rows { display: flex; flex-direction: column; gap: 8px; }
 .result-card-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
 .result-card-row-label { flex: 0 0 auto; min-width: 7em; font-weight: 600; }

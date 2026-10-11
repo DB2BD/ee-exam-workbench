@@ -124,6 +124,52 @@ async function main() {
         await context.close();
       }
     }
+    // v1.3.7 作答時間帽: a closed-book phase 6 minutes in shows the notice, the 起手式 toggle survives the tick, 16 minutes turns it firm.
+    {
+      const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => errors.push(String(error)));
+      await context.route('**/*', route => route.request().url().startsWith(url) ? route.continue() : route.abort());
+      page.setDefaultTimeout(15000);
+      try {
+        await page.addInitScript(() => {
+          if (!localStorage.getItem('EE_EXAM_TODAY_TASK_V1')) {
+            localStorage.setItem('EE_EXAM_TODAY_TASK_V1', JSON.stringify({ completed: {}, active: { code: 'CORE-01', phaseIndex: 0, phaseStartedAt: Date.now() - 6 * 60000 } }));
+          }
+        });
+        await page.goto(url);
+        const cap = page.locator('#today-task-timecap');
+        await cap.waitFor();
+        assert(/已經 5 分鐘還沒下第一筆/.test(await cap.innerText()), 'Stage 1 notice text');
+        const starter = cap.locator('[data-today-starter]').first();
+        await starter.click();
+        await page.locator('#today-task-timecap [data-today-starter-panel]').waitFor();
+        await page.waitForTimeout(2300); // survive at least two 1-second ticks
+        assert.equal(await page.locator('#today-task-timecap [data-today-starter-panel]').count(), 1, 'Revealed starter must survive the tick');
+        assert.equal(await page.locator('#today-task-overlay [data-today-check]').count(), 0, 'Closed book must not offer the solution');
+        await page.evaluate(() => { todayTaskState.active.phaseStartedAt -= 10 * 60000; });
+        await page.waitForFunction(() => document.getElementById('today-task-timecap')?.classList.contains('today-task-timecap--stop'));
+        assert(/卡超過 15 分鐘了/.test(await cap.innerText()), 'Stage 2 notice text');
+        assert.equal(await page.locator('#today-task-timecap [data-today-starter-panel]').count(), 1, 'Panel stays open at stage 2');
+        await starter.click();
+        assert.equal(await page.locator('#today-task-timecap [data-today-starter-panel]').count(), 0, 'Second click hides the panel');
+        const stop = page.locator('#today-task-overlay [data-today-act="next"]').first();
+        await stop.click(); // more than 5 minutes remain: first tap arms the confirm
+        await page.locator('#today-task-overlay [data-confirming="1"]').waitFor();
+        await stop.click();
+        assert.equal(await page.locator('#today-task-timecap').count(), 0, 'No notice once the phase moved on');
+        assert.deepEqual(errors, []);
+        results.push({ width: 390, scenario: 'today-task-timecap', passed: true });
+        console.log('PASS today-task time cap 390px: stage 1 notice, 起手式 toggle survives tick, stage 2, cleared after stop');
+      } catch (error) {
+        await page.screenshot({ path: path.join(artifacts, 'failure-timecap.png'), fullPage: true }).catch(() => {});
+        results.push({ scenario: 'today-task-timecap', passed: false, error: String(error), browserErrors: errors });
+        throw error;
+      } finally {
+        await context.close();
+      }
+    }
   } finally {
     if (browser) await browser.close();
     if (server.exitCode === null && server.pid) {

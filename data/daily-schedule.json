@@ -1,7 +1,7 @@
 {
   "budget": {
     "weekday": 2,
-    "weekend": 4
+    "weekend": 5
   },
   "holidays": [
     "2026-10-09",
@@ -10,7 +10,7 @@
   "milestones": [
     {
       "date": "2026-10-17",
-      "label": "弱題分析關卡",
+      "label": "核心收尾關卡",
       "hard": false,
       "codes": [
         "CORE-01",
@@ -22,36 +22,28 @@
         "CORE-07",
         "CORE-08",
         "CORE-09",
-        "WEAK-01",
         "CORE-10",
-        "WEAK-02",
         "CORE-11",
-        "WEAK-03",
         "CORE-12",
-        "WEAK-04",
         "CORE-13",
-        "WEAK-05",
         "CORE-14",
         "CORE-15",
         "CORE-16",
-        "WEAK-06",
         "CORE-17",
         "CORE-18",
         "CORE-19",
-        "WEAK-07",
         "CORE-20",
         "CORE-21",
         "CORE-22",
-        "WEAK-08",
         "CORE-23",
-        "WEAK-09",
+        "FOCUS-01",
+        "FOCUS-02",
         "CORE-24",
-        "MAIN-01",
-        "MAIN-02",
         "MOCK114-01",
-        "MAIN-03",
+        "MAIN-01",
         "MOCK114-02",
-        "MAIN-04"
+        "FOCUS-03",
+        "FOCUS-04"
       ]
     },
     {
@@ -68,49 +60,50 @@
         "CORE-07",
         "CORE-08",
         "CORE-09",
-        "WEAK-01",
         "CORE-10",
-        "WEAK-02",
         "CORE-11",
-        "WEAK-03",
         "CORE-12",
-        "WEAK-04",
         "CORE-13",
-        "WEAK-05",
         "CORE-14",
         "CORE-15",
         "CORE-16",
-        "WEAK-06",
         "CORE-17",
         "CORE-18",
         "CORE-19",
-        "WEAK-07",
         "CORE-20",
         "CORE-21",
         "CORE-22",
-        "WEAK-08",
         "CORE-23",
-        "WEAK-09",
+        "FOCUS-01",
+        "FOCUS-02",
         "CORE-24",
-        "MAIN-01",
-        "MAIN-02",
         "MOCK114-01",
-        "MAIN-03",
+        "MAIN-01",
         "MOCK114-02",
-        "MAIN-04",
+        "FOCUS-03",
+        "FOCUS-04",
         "MOCK114-03",
-        "MAIN-05",
+        "FOCUS-05",
+        "FOCUS-06",
         "MOCK114-04",
-        "WEAK-10",
+        "MAIN-02",
         "MOCK114-05",
-        "WEAK-11",
+        "MAIN-03",
         "MOCK114-06",
         "BLIND108-01",
+        "FOCUS-07",
         "BLIND108-02",
+        "FOCUS-08",
+        "FOCUS-09",
         "BLIND108-03",
+        "MAIN-04",
         "BLIND108-04",
+        "MAIN-05",
         "BLIND108-05",
-        "BLIND108-06"
+        "FOCUS-10",
+        "BLIND108-06",
+        "FOCUS-11",
+        "FOCUS-12"
       ]
     },
     {
@@ -127,50 +120,52 @@
         "CORE-07",
         "CORE-08",
         "CORE-09",
-        "WEAK-01",
         "CORE-10",
-        "WEAK-02",
         "CORE-11",
-        "WEAK-03",
         "CORE-12",
-        "WEAK-04",
         "CORE-13",
-        "WEAK-05",
         "CORE-14",
         "CORE-15",
         "CORE-16",
-        "WEAK-06",
         "CORE-17",
         "CORE-18",
         "CORE-19",
-        "WEAK-07",
         "CORE-20",
         "CORE-21",
         "CORE-22",
-        "WEAK-08",
         "CORE-23",
-        "WEAK-09",
+        "FOCUS-01",
+        "FOCUS-02",
         "CORE-24",
-        "MAIN-01",
-        "MAIN-02",
         "MOCK114-01",
-        "MAIN-03",
+        "MAIN-01",
         "MOCK114-02",
-        "MAIN-04",
+        "FOCUS-03",
+        "FOCUS-04",
         "MOCK114-03",
-        "MAIN-05",
+        "FOCUS-05",
+        "FOCUS-06",
         "MOCK114-04",
-        "WEAK-10",
+        "MAIN-02",
         "MOCK114-05",
-        "WEAK-11",
+        "MAIN-03",
         "MOCK114-06",
         "BLIND108-01",
+        "FOCUS-07",
         "BLIND108-02",
+        "FOCUS-08",
+        "FOCUS-09",
         "BLIND108-03",
+        "MAIN-04",
         "BLIND108-04",
+        "MAIN-05",
         "BLIND108-05",
+        "FOCUS-10",
         "BLIND108-06",
+        "FOCUS-11",
+        "FOCUS-12",
         "BUFFER",
+        "FOCUS-13",
         "REINF-01",
         "REINF-02",
         "REINF-03",
@@ -1177,7 +1172,7 @@
       "subject": "六科",
       "title": "主攻章補位 第 1 輪（固定 3 題）",
       "qids": [
-        "EE-109-01-1",
+        "EE-111-05-2",
         "EE-113-04-5",
         "EE-107-05-4"
       ],
@@ -1188,7 +1183,7 @@
           "minutes": 60,
           "closed": true,
           "qids": [
-            "EE-109-01-1",
+            "EE-111-05-2",
             "EE-113-04-5",
             "EE-107-05-4"
           ]
@@ -1326,258 +1321,655 @@
       ],
       "hours": 1.25
     },
-    "WEAK-01": {
-      "code": "WEAK-01",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 1 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-01": {
+      "code": "FOCUS-01",
+      "kind": "focus",
+      "subject": "工業配電",
+      "title": "弱章專攻｜工業配電／短路容量",
+      "qids": [
+        "EE-112-06-3",
+        "EE-109-06-3"
+      ],
+      "scoredQids": [
+        "EE-109-06-3"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-112-06-3"
+          ],
+          "solutionQids": [
+            "EE-112-06-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-112-06-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-109-06-3"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-02": {
-      "code": "WEAK-02",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 2 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-02": {
+      "code": "FOCUS-02",
+      "kind": "focus",
+      "subject": "電力系統",
+      "title": "弱章專攻｜電力系統／電力潮流",
+      "qids": [
+        "EE-105-05-2",
+        "EE-110-05-2"
+      ],
+      "scoredQids": [
+        "EE-110-05-2"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-105-05-2"
+          ],
+          "solutionQids": [
+            "EE-105-05-2"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-105-05-2"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-110-05-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-03": {
-      "code": "WEAK-03",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 3 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-03": {
+      "code": "FOCUS-03",
+      "kind": "focus",
+      "subject": "電子學",
+      "title": "弱章專攻｜電子學／Buck–Boost 轉換器",
+      "qids": [
+        "EE-112-02-3",
+        "EE-113-02-3"
+      ],
+      "scoredQids": [
+        "EE-113-02-3"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-112-02-3"
+          ],
+          "solutionQids": [
+            "EE-112-02-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-112-02-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-113-02-3"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-04": {
-      "code": "WEAK-04",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 4 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-04": {
+      "code": "FOCUS-04",
+      "kind": "focus",
+      "subject": "工程數學",
+      "title": "弱章專攻｜工程數學／向量分析",
+      "qids": [
+        "EE-107-03-3",
+        "EE-111-03-5"
+      ],
+      "scoredQids": [
+        "EE-111-03-5"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-107-03-3"
+          ],
+          "solutionQids": [
+            "EE-107-03-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-107-03-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-111-03-5"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-05": {
-      "code": "WEAK-05",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 5 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-05": {
+      "code": "FOCUS-05",
+      "kind": "focus",
+      "subject": "電力系統",
+      "title": "弱章專攻｜電力系統／三相短路",
+      "qids": [
+        "EE-107-05-2",
+        "EE-113-05-2"
+      ],
+      "scoredQids": [
+        "EE-113-05-2"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-107-05-2"
+          ],
+          "solutionQids": [
+            "EE-107-05-2"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-107-05-2"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-113-05-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-06": {
-      "code": "WEAK-06",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 6 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-06": {
+      "code": "FOCUS-06",
+      "kind": "focus",
+      "subject": "工業配電",
+      "title": "弱章專攻｜工業配電／保護協調",
+      "qids": [
+        "EE-106-06-4",
+        "EE-112-06-5"
+      ],
+      "scoredQids": [
+        "EE-112-06-5"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-106-06-4"
+          ],
+          "solutionQids": [
+            "EE-106-06-4"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-106-06-4"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-112-06-5"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-07": {
-      "code": "WEAK-07",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 7 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-07": {
+      "code": "FOCUS-07",
+      "kind": "focus",
+      "subject": "電子學",
+      "title": "弱章專攻｜電子學／二極體整流",
+      "qids": [
+        "EE-106-02-4",
+        "EE-113-02-1"
+      ],
+      "scoredQids": [
+        "EE-113-02-1"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-106-02-4"
+          ],
+          "solutionQids": [
+            "EE-106-02-4"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-106-02-4"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-113-02-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-08": {
-      "code": "WEAK-08",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 8 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-08": {
+      "code": "FOCUS-08",
+      "kind": "focus",
+      "subject": "工程數學",
+      "title": "弱章專攻｜工程數學／機率統計",
+      "qids": [
+        "EE-113-03-6",
+        "EE-110-03-7"
+      ],
+      "scoredQids": [
+        "EE-110-03-7"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-113-03-6"
+          ],
+          "solutionQids": [
+            "EE-113-03-6"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-113-03-6"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-110-03-7"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-09": {
-      "code": "WEAK-09",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 9 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-09": {
+      "code": "FOCUS-09",
+      "kind": "focus",
+      "subject": "電力系統",
+      "title": "弱章專攻｜電力系統／電力潮流",
+      "qids": [
+        "EE-109-05-3",
+        "EE-112-05-3"
+      ],
+      "scoredQids": [
+        "EE-112-05-3"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-109-05-3"
+          ],
+          "solutionQids": [
+            "EE-109-05-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-109-05-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-112-05-3"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-10": {
-      "code": "WEAK-10",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 10 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-10": {
+      "code": "FOCUS-10",
+      "kind": "focus",
+      "subject": "工業配電",
+      "title": "弱章專攻｜工業配電／短路容量",
+      "qids": [
+        "EE-105-06-3",
+        "EE-106-06-1"
+      ],
+      "scoredQids": [
+        "EE-106-06-1"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-105-06-3"
+          ],
+          "solutionQids": [
+            "EE-105-06-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-105-06-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-106-06-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-11": {
-      "code": "WEAK-11",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 11 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-11": {
+      "code": "FOCUS-11",
+      "kind": "focus",
+      "subject": "電子學",
+      "title": "弱章專攻｜電子學／Buck–Boost 轉換器",
+      "qids": [
+        "EE-106-02-5",
+        "EE-111-02-2"
+      ],
+      "scoredQids": [
+        "EE-111-02-2"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-106-02-5"
+          ],
+          "solutionQids": [
+            "EE-106-02-5"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-106-02-5"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-111-02-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
+      ]
+    },
+    "FOCUS-12": {
+      "code": "FOCUS-12",
+      "kind": "focus",
+      "subject": "工程數學",
+      "title": "弱章專攻｜工程數學／拉氏轉換",
+      "qids": [
+        "EE-112-03-1",
+        "EE-105-03-2"
       ],
-      "hours": 1.25
+      "scoredQids": [
+        "EE-105-03-2"
+      ],
+      "hours": 1,
+      "phases": [
+        {
+          "label": "看懂例題詳解",
+          "minutes": 10,
+          "closed": false,
+          "qids": [
+            "EE-112-03-1"
+          ],
+          "solutionQids": [
+            "EE-112-03-1"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
+        },
+        {
+          "label": "蓋解重做例題",
+          "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-112-03-1"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-105-03-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
+          "closed": false,
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
+        }
+      ]
+    },
+    "FOCUS-13": {
+      "code": "FOCUS-13",
+      "kind": "focus",
+      "subject": "電力系統",
+      "title": "弱章專攻｜電力系統／三相短路",
+      "qids": [
+        "EE-104-05-3",
+        "EE-106-05-2"
+      ],
+      "scoredQids": [
+        "EE-106-05-2"
+      ],
+      "hours": 1,
+      "phases": [
+        {
+          "label": "看懂例題詳解",
+          "minutes": 10,
+          "closed": false,
+          "qids": [
+            "EE-104-05-3"
+          ],
+          "solutionQids": [
+            "EE-104-05-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
+        },
+        {
+          "label": "蓋解重做例題",
+          "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-104-05-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-106-05-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
+          "closed": false,
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
+        }
+      ]
     },
     "REINF-01": {
       "code": "REINF-01",
@@ -1909,7 +2301,8 @@
             "EE-114-01-3",
             "EE-114-01-4",
             "EE-114-01-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -1946,7 +2339,8 @@
             "EE-114-02-2",
             "EE-114-02-3",
             "EE-114-02-4"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -1985,7 +2379,8 @@
             "EE-114-03-3",
             "EE-114-03-4",
             "EE-114-03-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2024,7 +2419,8 @@
             "EE-114-04-3",
             "EE-114-04-4",
             "EE-114-04-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2063,7 +2459,8 @@
             "EE-114-05-3",
             "EE-114-05-4",
             "EE-114-05-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2096,7 +2493,8 @@
           "qids": [
             "EE-114-06-1",
             "EE-114-06-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2134,7 +2532,8 @@
             "EE-108-01-2",
             "EE-108-01-3",
             "EE-108-01-4"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2171,7 +2570,8 @@
             "EE-108-02-2",
             "EE-108-02-3",
             "EE-108-02-4"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2213,7 +2613,8 @@
             "EE-108-03-4",
             "EE-108-03-5",
             "EE-108-03-6"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2252,7 +2653,8 @@
             "EE-108-04-3",
             "EE-108-04-4",
             "EE-108-04-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2291,7 +2693,8 @@
             "EE-108-05-3",
             "EE-108-05-4",
             "EE-108-05-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2330,7 +2733,8 @@
             "EE-108-06-3",
             "EE-108-06-4",
             "EE-108-06-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -2350,12 +2754,11 @@
     {
       "date": "2026-10-04",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "CORE-07",
         "CORE-08",
-        "CORE-09",
-        "WEAK-01"
+        "CORE-09"
       ],
       "items": [
         {
@@ -2369,103 +2772,78 @@
         {
           "code": "CORE-09",
           "part": "full"
-        },
-        {
-          "code": "WEAK-01",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 3.0
     },
     {
       "date": "2026-10-05",
       "dow": 1,
       "budget": 2.0,
       "codes": [
-        "CORE-10",
-        "WEAK-02"
+        "CORE-10"
       ],
       "items": [
         {
           "code": "CORE-10",
           "part": "full"
-        },
-        {
-          "code": "WEAK-02",
-          "part": "full"
         }
       ],
-      "hours": 2.25
+      "hours": 1.0
     },
     {
       "date": "2026-10-06",
       "dow": 2,
       "budget": 2.0,
       "codes": [
-        "CORE-11",
-        "WEAK-03"
+        "CORE-11"
       ],
       "items": [
         {
           "code": "CORE-11",
           "part": "full"
-        },
-        {
-          "code": "WEAK-03",
-          "part": "full"
         }
       ],
-      "hours": 2.25
+      "hours": 1.0
     },
     {
       "date": "2026-10-07",
       "dow": 3,
       "budget": 2.0,
       "codes": [
-        "CORE-12",
-        "WEAK-04"
+        "CORE-12"
       ],
       "items": [
         {
           "code": "CORE-12",
           "part": "full"
-        },
-        {
-          "code": "WEAK-04",
-          "part": "full"
         }
       ],
-      "hours": 2.25
+      "hours": 1.0
     },
     {
       "date": "2026-10-08",
       "dow": 4,
       "budget": 2.0,
       "codes": [
-        "CORE-13",
-        "WEAK-05"
+        "CORE-13"
       ],
       "items": [
         {
           "code": "CORE-13",
           "part": "full"
-        },
-        {
-          "code": "WEAK-05",
-          "part": "full"
         }
       ],
-      "hours": 2.25
+      "hours": 1.0
     },
     {
       "date": "2026-10-09",
       "dow": 5,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "CORE-14",
         "CORE-15",
-        "CORE-16",
-        "WEAK-06"
+        "CORE-16"
       ],
       "items": [
         {
@@ -2479,23 +2857,18 @@
         {
           "code": "CORE-16",
           "part": "full"
-        },
-        {
-          "code": "WEAK-06",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 3.0
     },
     {
       "date": "2026-10-10",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "CORE-17",
         "CORE-18",
-        "CORE-19",
-        "WEAK-07"
+        "CORE-19"
       ],
       "items": [
         {
@@ -2509,29 +2882,34 @@
         {
           "code": "CORE-19",
           "part": "full"
-        },
-        {
-          "code": "WEAK-07",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 3.0
     },
     {
       "date": "2026-10-11",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "CORE-20",
-        "CORE-21",
-        "CORE-22",
-        "WEAK-08"
+        "CORE-20"
       ],
       "items": [
         {
           "code": "CORE-20",
           "part": "full"
-        },
+        }
+      ],
+      "hours": 1.0
+    },
+    {
+      "date": "2026-10-12",
+      "dow": 1,
+      "budget": 2.0,
+      "codes": [
+        "CORE-21",
+        "CORE-22"
+      ],
+      "items": [
         {
           "code": "CORE-21",
           "part": "full"
@@ -2539,21 +2917,17 @@
         {
           "code": "CORE-22",
           "part": "full"
-        },
-        {
-          "code": "WEAK-08",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 2.0
     },
     {
-      "date": "2026-10-12",
-      "dow": 1,
+      "date": "2026-10-13",
+      "dow": 2,
       "budget": 2.0,
       "codes": [
         "CORE-23",
-        "WEAK-09"
+        "FOCUS-01"
       ],
       "items": [
         {
@@ -2561,46 +2935,31 @@
           "part": "full"
         },
         {
-          "code": "WEAK-09",
+          "code": "FOCUS-01",
           "part": "full"
         }
       ],
-      "hours": 2.25
-    },
-    {
-      "date": "2026-10-13",
-      "dow": 2,
-      "budget": 2.0,
-      "codes": [
-        "CORE-24",
-        "MAIN-01"
-      ],
-      "items": [
-        {
-          "code": "CORE-24",
-          "part": "full"
-        },
-        {
-          "code": "MAIN-01",
-          "part": "full"
-        }
-      ],
-      "hours": 2.25
+      "hours": 2.0
     },
     {
       "date": "2026-10-14",
       "dow": 3,
       "budget": 2.0,
       "codes": [
-        "MAIN-02"
+        "FOCUS-02",
+        "CORE-24"
       ],
       "items": [
         {
-          "code": "MAIN-02",
+          "code": "FOCUS-02",
+          "part": "full"
+        },
+        {
+          "code": "CORE-24",
           "part": "full"
         }
       ],
-      "hours": 1.25
+      "hours": 2.0
     },
     {
       "date": "2026-10-15",
@@ -2623,7 +2982,7 @@
       "budget": 2.0,
       "codes": [
         "MOCK114-01",
-        "MAIN-03"
+        "MAIN-01"
       ],
       "items": [
         {
@@ -2631,7 +2990,7 @@
           "part": "review"
         },
         {
-          "code": "MAIN-03",
+          "code": "MAIN-01",
           "part": "full"
         }
       ],
@@ -2640,10 +2999,11 @@
     {
       "date": "2026-10-17",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "MOCK114-02",
-        "MAIN-04"
+        "FOCUS-03",
+        "FOCUS-04"
       ],
       "items": [
         {
@@ -2651,19 +3011,24 @@
           "part": "full"
         },
         {
-          "code": "MAIN-04",
+          "code": "FOCUS-03",
+          "part": "full"
+        },
+        {
+          "code": "FOCUS-04",
           "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 5.0
     },
     {
       "date": "2026-10-18",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "MOCK114-03",
-        "MAIN-05"
+        "FOCUS-05",
+        "FOCUS-06"
       ],
       "items": [
         {
@@ -2671,11 +3036,15 @@
           "part": "full"
         },
         {
-          "code": "MAIN-05",
+          "code": "FOCUS-05",
+          "part": "full"
+        },
+        {
+          "code": "FOCUS-06",
           "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 5.0
     },
     {
       "date": "2026-10-19",
@@ -2698,7 +3067,7 @@
       "budget": 2.0,
       "codes": [
         "MOCK114-04",
-        "WEAK-10"
+        "MAIN-02"
       ],
       "items": [
         {
@@ -2706,7 +3075,7 @@
           "part": "review"
         },
         {
-          "code": "WEAK-10",
+          "code": "MAIN-02",
           "part": "full"
         }
       ],
@@ -2733,7 +3102,7 @@
       "budget": 2.0,
       "codes": [
         "MOCK114-05",
-        "WEAK-11"
+        "MAIN-03"
       ],
       "items": [
         {
@@ -2741,7 +3110,7 @@
           "part": "review"
         },
         {
-          "code": "WEAK-11",
+          "code": "MAIN-03",
           "part": "full"
         }
       ],
@@ -2765,10 +3134,11 @@
     {
       "date": "2026-10-24",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "MOCK114-06",
-        "BLIND108-01"
+        "BLIND108-01",
+        "FOCUS-07"
       ],
       "items": [
         {
@@ -2778,39 +3148,58 @@
         {
           "code": "BLIND108-01",
           "part": "full"
+        },
+        {
+          "code": "FOCUS-07",
+          "part": "full"
         }
       ],
-      "hours": 4.0
+      "hours": 5.0
     },
     {
       "date": "2026-10-25",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "BLIND108-02"
+        "BLIND108-02",
+        "FOCUS-08",
+        "FOCUS-09"
       ],
       "items": [
         {
           "code": "BLIND108-02",
           "part": "full"
+        },
+        {
+          "code": "FOCUS-08",
+          "part": "full"
+        },
+        {
+          "code": "FOCUS-09",
+          "part": "full"
         }
       ],
-      "hours": 3.0
+      "hours": 5.0
     },
     {
       "date": "2026-10-26",
       "dow": 1,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "BLIND108-03"
+        "BLIND108-03",
+        "MAIN-04"
       ],
       "items": [
         {
           "code": "BLIND108-03",
           "part": "full"
+        },
+        {
+          "code": "MAIN-04",
+          "part": "full"
         }
       ],
-      "hours": 3.0
+      "hours": 4.25
     },
     {
       "date": "2026-10-27",
@@ -2832,15 +3221,20 @@
       "dow": 3,
       "budget": 2.0,
       "codes": [
-        "BLIND108-04"
+        "BLIND108-04",
+        "MAIN-05"
       ],
       "items": [
         {
           "code": "BLIND108-04",
           "part": "review"
+        },
+        {
+          "code": "MAIN-05",
+          "part": "full"
         }
       ],
-      "hours": 1.0
+      "hours": 2.25
     },
     {
       "date": "2026-10-29",
@@ -2862,45 +3256,65 @@
       "dow": 5,
       "budget": 2.0,
       "codes": [
-        "BLIND108-05"
+        "BLIND108-05",
+        "FOCUS-10"
       ],
       "items": [
         {
           "code": "BLIND108-05",
           "part": "review"
+        },
+        {
+          "code": "FOCUS-10",
+          "part": "full"
         }
       ],
-      "hours": 1.0
+      "hours": 2.0
     },
     {
       "date": "2026-10-31",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "BLIND108-06"
+        "BLIND108-06",
+        "FOCUS-11",
+        "FOCUS-12"
       ],
       "items": [
         {
           "code": "BLIND108-06",
           "part": "full"
+        },
+        {
+          "code": "FOCUS-11",
+          "part": "full"
+        },
+        {
+          "code": "FOCUS-12",
+          "part": "full"
         }
       ],
-      "hours": 3.0
+      "hours": 5.0
     },
     {
       "date": "2026-11-01",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "BUFFER"
+        "BUFFER",
+        "FOCUS-13"
       ],
       "items": [
         {
           "code": "BUFFER",
           "part": "full"
+        },
+        {
+          "code": "FOCUS-13",
+          "part": "full"
         }
       ],
-      "hours": 4.0
+      "hours": 5.0
     },
     {
       "date": "2026-11-02",
@@ -2980,7 +3394,7 @@
     {
       "date": "2026-11-07",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "REINF-06",
         "REINF-07"
@@ -3000,7 +3414,7 @@
     {
       "date": "2026-11-08",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "REINF-08",
         "REINF-09"
@@ -3103,50 +3517,52 @@
     "CORE-07",
     "CORE-08",
     "CORE-09",
-    "WEAK-01",
     "CORE-10",
-    "WEAK-02",
     "CORE-11",
-    "WEAK-03",
     "CORE-12",
-    "WEAK-04",
     "CORE-13",
-    "WEAK-05",
     "CORE-14",
     "CORE-15",
     "CORE-16",
-    "WEAK-06",
     "CORE-17",
     "CORE-18",
     "CORE-19",
-    "WEAK-07",
     "CORE-20",
     "CORE-21",
     "CORE-22",
-    "WEAK-08",
     "CORE-23",
-    "WEAK-09",
+    "FOCUS-01",
+    "FOCUS-02",
     "CORE-24",
-    "MAIN-01",
-    "MAIN-02",
     "MOCK114-01",
-    "MAIN-03",
+    "MAIN-01",
     "MOCK114-02",
-    "MAIN-04",
+    "FOCUS-03",
+    "FOCUS-04",
     "MOCK114-03",
-    "MAIN-05",
+    "FOCUS-05",
+    "FOCUS-06",
     "MOCK114-04",
-    "WEAK-10",
+    "MAIN-02",
     "MOCK114-05",
-    "WEAK-11",
+    "MAIN-03",
     "MOCK114-06",
     "BLIND108-01",
+    "FOCUS-07",
     "BLIND108-02",
+    "FOCUS-08",
+    "FOCUS-09",
     "BLIND108-03",
+    "MAIN-04",
     "BLIND108-04",
+    "MAIN-05",
     "BLIND108-05",
+    "FOCUS-10",
     "BLIND108-06",
+    "FOCUS-11",
+    "FOCUS-12",
     "BUFFER",
+    "FOCUS-13",
     "REINF-01",
     "REINF-02",
     "REINF-03",
@@ -3170,50 +3586,52 @@
     "CORE-07": "2026-10-04",
     "CORE-08": "2026-10-04",
     "CORE-09": "2026-10-04",
-    "WEAK-01": "2026-10-04",
     "CORE-10": "2026-10-05",
-    "WEAK-02": "2026-10-05",
     "CORE-11": "2026-10-06",
-    "WEAK-03": "2026-10-06",
     "CORE-12": "2026-10-07",
-    "WEAK-04": "2026-10-07",
     "CORE-13": "2026-10-08",
-    "WEAK-05": "2026-10-08",
     "CORE-14": "2026-10-09",
     "CORE-15": "2026-10-09",
     "CORE-16": "2026-10-09",
-    "WEAK-06": "2026-10-09",
     "CORE-17": "2026-10-10",
     "CORE-18": "2026-10-10",
     "CORE-19": "2026-10-10",
-    "WEAK-07": "2026-10-10",
     "CORE-20": "2026-10-11",
-    "CORE-21": "2026-10-11",
-    "CORE-22": "2026-10-11",
-    "WEAK-08": "2026-10-11",
-    "CORE-23": "2026-10-12",
-    "WEAK-09": "2026-10-12",
-    "CORE-24": "2026-10-13",
-    "MAIN-01": "2026-10-13",
-    "MAIN-02": "2026-10-14",
+    "CORE-21": "2026-10-12",
+    "CORE-22": "2026-10-12",
+    "CORE-23": "2026-10-13",
+    "FOCUS-01": "2026-10-13",
+    "FOCUS-02": "2026-10-14",
+    "CORE-24": "2026-10-14",
     "MOCK114-01": "2026-10-16",
-    "MAIN-03": "2026-10-16",
+    "MAIN-01": "2026-10-16",
     "MOCK114-02": "2026-10-17",
-    "MAIN-04": "2026-10-17",
+    "FOCUS-03": "2026-10-17",
+    "FOCUS-04": "2026-10-17",
     "MOCK114-03": "2026-10-18",
-    "MAIN-05": "2026-10-18",
+    "FOCUS-05": "2026-10-18",
+    "FOCUS-06": "2026-10-18",
     "MOCK114-04": "2026-10-20",
-    "WEAK-10": "2026-10-20",
+    "MAIN-02": "2026-10-20",
     "MOCK114-05": "2026-10-22",
-    "WEAK-11": "2026-10-22",
+    "MAIN-03": "2026-10-22",
     "MOCK114-06": "2026-10-24",
     "BLIND108-01": "2026-10-24",
+    "FOCUS-07": "2026-10-24",
     "BLIND108-02": "2026-10-25",
+    "FOCUS-08": "2026-10-25",
+    "FOCUS-09": "2026-10-25",
     "BLIND108-03": "2026-10-26",
+    "MAIN-04": "2026-10-26",
     "BLIND108-04": "2026-10-28",
+    "MAIN-05": "2026-10-28",
     "BLIND108-05": "2026-10-30",
+    "FOCUS-10": "2026-10-30",
     "BLIND108-06": "2026-10-31",
+    "FOCUS-11": "2026-10-31",
+    "FOCUS-12": "2026-10-31",
     "BUFFER": "2026-11-01",
+    "FOCUS-13": "2026-11-01",
     "REINF-01": "2026-11-02",
     "REINF-02": "2026-11-03",
     "REINF-03": "2026-11-04",

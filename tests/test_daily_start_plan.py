@@ -30,13 +30,13 @@ class TestDailyStartPlan(unittest.TestCase):
         self.assertEqual([row.group("date") for row in self.rows], expected)
         self.assertEqual(START.weekday(), 6, "2026-10-04 is a Sunday")
 
-    def test_daily_budget_is_two_hours_on_weekdays_and_four_on_weekends(self):
+    def test_daily_budget_is_two_hours_on_weekdays_and_five_on_weekends(self):
         for row in self.rows:
             d = date.fromisoformat(row.group("date"))
             if row.group("date") >= "2026-11-12":
                 expected = 0  # EXAM-CHECK / STOP
             else:
-                expected = 4 if d.weekday() >= 5 or row.group("date") in HOLIDAYS else 2
+                expected = 5 if d.weekday() >= 5 or row.group("date") in HOLIDAYS else 2
             with self.subTest(day=row.group("date")):
                 self.assertEqual(int(row.group("budget")), expected)
 
@@ -44,7 +44,7 @@ class TestDailyStartPlan(unittest.TestCase):
         schedule = "\n".join(row.group("task") for row in self.rows)
         # CORE-01..06 are done on paper: kept as task codes, never dated.
         self.assertEqual(re.findall(r"`CORE-(\d{2})`", schedule), [f"{n:02d}" for n in range(7, 25)])
-        for prefix, count in (("WEAK", 11), ("MAIN", 5), ("REINF", 9), ("WRAP", 3)):
+        for prefix, count in (("MAIN", 5), ("FOCUS", 13), ("REINF", 9), ("WRAP", 3)):
             with self.subTest(prefix=prefix):
                 self.assertEqual(re.findall(rf"`{prefix}-(\d{{2}})`", schedule), [f"{n:02d}" for n in range(1, count + 1)])
         for prefix in ("MOCK114", "BLIND108"):
@@ -55,10 +55,10 @@ class TestDailyStartPlan(unittest.TestCase):
 
     def test_retired_codes_are_gone_from_the_dated_table(self):
         schedule = "\n".join(row.group("task") for row in self.rows)
-        for retired in ("MIX-", "EXT-", "RECOVERY"):
+        for retired in ("MIX-", "EXT-", "RECOVERY", "WEAK-"):
             self.assertNotIn(retired, schedule)
         self.assertFalse((ROOT / "docs" / "上榜擴章日_強科與電力配電.md").exists())
-        for phrase in ("`MIX-01`", "`EXT-01`", "已退休"):
+        for phrase in ("`MIX-01`", "`EXT-01`", "`WEAK-01`", "已退休"):
             self.assertIn(phrase, self.text)
 
     def test_weekday_papers_split_over_two_days_and_weekend_papers_are_whole(self):
@@ -81,27 +81,38 @@ class TestDailyStartPlan(unittest.TestCase):
     def test_twelve_papers_finish_by_the_hard_milestone(self):
         last = max(d for d, r in self.by_date.items() if re.search(r"`(MOCK114|BLIND108)-\d{2}`", r["task"]))
         self.assertEqual(last, "2026-10-31")
-        self.assertEqual(self.by_date["2026-11-01"]["task"], "`BUFFER`")
+        self.assertEqual(self.by_date["2026-11-01"]["task"], "`BUFFER`＋`FOCUS-13`")
 
     def test_holidays_and_main_rounds_are_dated(self):
         for day in HOLIDAYS:
-            self.assertEqual(self.by_date[day]["budget"], "4", day)
+            self.assertEqual(self.by_date[day]["budget"], "5", day)
         self.assertIn("補假", self.text)
-        self.assertEqual(self.by_date["2026-10-09"]["task"], "`CORE-14`＋`CORE-15`＋`CORE-16`＋`WEAK-06`")
-        self.assertEqual(self.by_date["2026-10-26"]["task"], "`BLIND108-03`（一次做完 180 分鐘）")
-        for day, code in (("2026-10-13", "MAIN-01"), ("2026-10-14", "MAIN-02"), ("2026-10-16", "MAIN-03"),
-                          ("2026-10-17", "MAIN-04"), ("2026-10-18", "MAIN-05")):
+        self.assertEqual(self.by_date["2026-10-09"]["task"], "`CORE-14`＋`CORE-15`＋`CORE-16`")
+        self.assertEqual(self.by_date["2026-10-26"]["task"], "`BLIND108-03`（一次做完 180 分鐘）＋`MAIN-04`")
+        for day, code in (("2026-10-16", "MAIN-01"), ("2026-10-20", "MAIN-02"), ("2026-10-22", "MAIN-03"),
+                          ("2026-10-26", "MAIN-04"), ("2026-10-28", "MAIN-05")):
             self.assertIn(f"`{code}`", self.by_date[day]["task"], day)
         # 10/24-10/26: three full papers on three consecutive days
         for day in ("2026-10-24", "2026-10-25", "2026-10-26"):
             self.assertIn("一次做完 180 分鐘", self.by_date[day]["task"], day)
         self.assertIn("10/24–10/26", self.text)
+        self.assertNotIn("這三天不再排弱題分析", self.text)
+
+    def test_focus_rounds_are_dated_after_the_core_sessions(self):
+        expected = {
+            "2026-10-13": "`CORE-23`＋`FOCUS-01`", "2026-10-14": "`FOCUS-02`＋`CORE-24`",
+            "2026-10-17": "`MOCK114-02`（一次做完 180 分鐘）＋`FOCUS-03`＋`FOCUS-04`",
+            "2026-10-24": "`MOCK114-06`（第 2 天：核對＋修復 60 分鐘）＋`BLIND108-01`（一次做完 180 分鐘）＋`FOCUS-07`",
+            "2026-11-01": "`BUFFER`＋`FOCUS-13`",
+        }
+        for day, task in expected.items():
+            self.assertEqual(self.by_date[day]["task"], task, day)
 
     def test_milestones_row(self):
         section = self.text.split("## 關卡", 1)[1].split("\n## ", 1)[0]
         rows = [l for l in section.splitlines() if l.startswith("| 2026-")]
         self.assertEqual(len(rows), 3)
-        self.assertRegex(rows[0], r"2026-10-17.*弱題分析關卡.*否.*MAIN-01～04")
+        self.assertRegex(rows[0], r"2026-10-17.*核心收尾關卡.*否.*MAIN-01、FOCUS-01～04")
         self.assertRegex(rows[1], r"2026-10-31.*模考截止.*是")
         self.assertIn("不可延後", rows[1])
         self.assertRegex(rows[2], r"2026-11-11.*補強完成.*否")
@@ -118,7 +129,7 @@ class TestDailyStartPlan(unittest.TestCase):
     def test_plan_is_passive_and_documents_pacing_rules(self):
         for phrase in (
             "不選科、不回填專案",
-            "平日 2 小時、週末 4 小時",
+            "平日 2 小時、週末 5 小時",
             "先離開，明天核對",
             "**每科至少保留 1 個母題核心時段**",
             "**12 份模考卷與 10/31 期限永不刪減**",

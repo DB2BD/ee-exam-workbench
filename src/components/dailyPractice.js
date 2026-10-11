@@ -225,7 +225,7 @@ function dailyPracticeStart() {
   dailyPracticeStartWithMode(dailyPracticeLoadMode());
 }
 
-// Start a round now in the given mode (schedule WEAK／REINF tasks use this). The saved
+// Start a round now in the given mode (schedule REINF／BUFFER tasks use this). The saved
 // selector choice is left alone; the session remembers the mode it was drawn with.
 function dailyPracticeStartWithMode(mode) {
   mode = dailyPracticeValidMode(String(mode)) ? String(mode) : dailyPracticeLoadMode();

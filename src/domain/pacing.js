@@ -96,15 +96,13 @@ function pacingAvailableHours(fromIso, toIso, budget, firstIso, holidays) {
 }
 
 // Cut candidates for one milestone, in the order they are dropped.
-//   1. WEAK quota (earliest first)  2. CORE: 同型＋變式 then 母題, latest first, keeping each
-//   subject's 母題 session  3. REINF (latest first).  Papers, BUFFER and WRAP are never cut.
+//   1. CORE 同型＋變式 (latest first)  2. FOCUS 弱章專攻 (latest first)  3. CORE 母題 (latest first),
+//   keeping each subject's 母題 session  4. REINF (latest first).  Papers, BUFFER, WRAP and MAIN are never cut.
 function pacingCutCandidates(codes, schedule, completed, partial, alreadyCut) {
   const tasks = schedule.tasks;
   const order = schedule.order;
   const idx = c => order.indexOf(c);
   const live = codes.filter(c => !completed[c] && !alreadyCut.has(c) && !(partial && partial.code === c));
-  const weak = live.filter(c => pacingGroup(c) === 'WEAK').sort((a, b) => idx(a) - idx(b))
-    .map(c => ({ code: c, reason: 'weak' }));
   const core = live.filter(c => tasks[c].kind === 'core' && pacingGroup(c) === 'CORE');
   const subjectsWithDoneBase = {};
   Object.keys(tasks).forEach(c => {
@@ -123,8 +121,9 @@ function pacingCutCandidates(codes, schedule, completed, partial, alreadyCut) {
   const byLatest = (a, b) => idx(b) - idx(a);
   const variants = core.filter(c => tasks[c].variant).sort(byLatest).map(c => ({ code: c, reason: 'core-variant' }));
   const bases = core.filter(c => !tasks[c].variant && !protectedCodes[c]).sort(byLatest).map(c => ({ code: c, reason: 'core' }));
+  const focus = live.filter(c => pacingGroup(c) === 'FOCUS').sort(byLatest).map(c => ({ code: c, reason: 'focus' }));
   const reinf = live.filter(c => pacingGroup(c) === 'REINF').sort(byLatest).map(c => ({ code: c, reason: 'reinforce' }));
-  return weak.concat(variants, bases, reinf);
+  return variants.concat(focus, bases, reinf);
 }
 
 function pacingPlan(input) {
@@ -134,7 +133,7 @@ function pacingPlan(input) {
   const days = schedule.days;
   const completed = input.completed || {};
   const today = input.today;
-  const budget = Object.assign({ weekday: 2, weekend: 4 }, schedule.budget || {}, input.budget || {});
+  const budget = Object.assign({ weekday: 2, weekend: 5 }, schedule.budget || {}, input.budget || {});
   const partial = input.partial && tasks[input.partial.code] ? input.partial : null;
   const first = days[0].date;
   const last = days[days.length - 1].date;

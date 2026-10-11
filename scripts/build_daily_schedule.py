@@ -2,9 +2,9 @@
 """Build the K3 "一鍵開始今天" schedule data from the plan Markdown docs.
 
 Sources (docs/): 逐日開工表_115年 (v1.3: 41 天日程、關卡、每日時數預算),
-預設24時段_核心題路徑, 被動模考_114年六科執行包, 被動複測_108年六科執行包.
-WEAK／REINF／WRAP／BUFFER 沒有固定題目，其階段定義在本檔常數（內容說明見日程文件的「任務代碼」表）。
-MIX 與 EXT 已於 v1.3 退休，不再排入。
+預設24時段_核心題路徑, 主攻章補位_5輪15題, 弱章專攻_13輪, 被動模考_114年六科執行包, 被動複測_108年六科執行包.
+REINF／WRAP／BUFFER 沒有固定題目，其階段定義在本檔常數（內容說明見日程文件的「任務代碼」表）。
+MIX 與 EXT 已於 v1.3 退休、WEAK 已於 v1.3.7 退休（由 FOCUS 取代），不再排入。
 Outputs: src/data/dailySchedule.generated.js and data/daily-schedule.json.
 Exits non-zero on any parse mismatch.
 
@@ -26,6 +26,7 @@ PLAN = DOCS / "01_備考計畫" / "逐日開工表_115年.md"
 CORE = DOCS / "01_備考計畫" / "預設24時段_核心題路徑.md"
 MOCK = DOCS / "01_備考計畫" / "被動模考_114年六科執行包.md"
 MAIN = DOCS / "01_備考計畫" / "主攻章補位_5輪15題.md"
+FOCUS = DOCS / "01_備考計畫" / "弱章專攻_13輪.md"
 BLIND = DOCS / "01_備考計畫" / "被動複測_108年六科執行包.md"
 OUT_JS = WORKSPACE / "src" / "data" / "dailySchedule.generated.js"
 OUT_JSON = WORKSPACE / "data" / "daily-schedule.json"
@@ -42,16 +43,15 @@ MILESTONE_RE = re.compile(
 )
 ITEM_RE = re.compile(r"`([A-Z0-9-]+)`(?:（(第 [12] 天|一次做完)[^）]*）)?")
 NON_WORK = {"EXAM-CHECK", "STOP"}
-BUDGET = {"weekday": 2, "weekend": 4}
-HOURS_TOLERANCE = 0.5  # a day may exceed its budget by this much (WEAK rounds are 1.25 h)
+BUDGET = {"weekday": 2, "weekend": 5}
+HOURS_TOLERANCE = 0.5  # a day may exceed its budget by this much (MAIN rounds are 1.25 h)
 FIRST_DATE = date(2026, 10, 4)
 LAST_DATE = date(2026, 11, 13)
 FIRST_WORK_CODES_DONE = [f"CORE-{i:02d}" for i in range(1, 7)]  # done on paper; kept in the task list only
-GROUP_COUNTS = {"WEAK": 11, "MAIN": 5, "REINF": 9, "WRAP": 3}
-HOLIDAYS = ["2026-10-09", "2026-10-26"]  # 國慶補假、光復節補假: counted as 4-hour (weekend) days
+GROUP_COUNTS = {"MAIN": 5, "FOCUS": 13, "REINF": 9, "WRAP": 3}
+HOLIDAYS = ["2026-10-09", "2026-10-26"]  # 國慶補假、光復節補假: counted as 5-hour (weekend) days
 PAPER_PREFIXES = ("MOCK114", "BLIND108")
 
-LAUNCH_BALANCED = "random-balanced"
 LAUNCH_REINFORCE = "random-reinforce"
 
 
@@ -104,7 +104,7 @@ def parse_days(text: str) -> list[dict]:
         if non_work:
             _need(day["codes"] == non_work and day["budget"] == 0, f"{day['date']}: non-work row must hold only {non_work} with budget 0")
         else:
-            _need(day["budget"] == budget_for(d), f"{day['date']}: budget {day['budget']} != {budget_for(d)} (weekday 2 / weekend or holiday 4)")
+            _need(day["budget"] == budget_for(d), f"{day['date']}: budget {day['budget']} != {budget_for(d)} (weekday 2 / weekend or holiday 5)")
     _need(days[-2]["codes"] == ["EXAM-CHECK"] and days[-1]["codes"] == ["STOP"], "last two days must be EXAM-CHECK then STOP")
     return days
 
@@ -197,20 +197,52 @@ def parse_main(text: str) -> list[dict]:
     return tasks
 
 
-def practice_tasks(days: list[dict]) -> list[dict]:
-    """WEAK／REINF／WRAP／BUFFER: no fixed qids.  `launch` tells the UI which 隨機練習 mode to open."""
-    tasks: list[dict] = []
-    for n in range(1, GROUP_COUNTS["WEAK"] + 1):
+FOCUS_PHASE_MINUTES = (10, 15, 25, 10)
+
+
+def parse_focus(text: str, core: list[dict], main: list[dict]) -> list[dict]:
+    """FOCUS-01..13 弱章專攻: 例題 (may be a CORE qid) + 新題 (unseen, scored); 10+15+25+10 = 60 min."""
+    tasks = []
+    for line in text.splitlines():
+        m = re.match(r"^\| FOCUS-(\d{2}) \| (.+?) \| (.+?) \| (.+?) \|$", line)
+        if not m:
+            continue
+        n, topic = int(m.group(1)), m.group(2)
+        ex_ids, new_ids = QID_RE.findall(m.group(3)), QID_RE.findall(m.group(4))
+        _need(len(ex_ids) == 1 and len(new_ids) == 1, f"FOCUS-{n:02d}: needs one 例題 qid and one 新題 qid, got {ex_ids} / {new_ids}")
+        ex, new = ex_ids[0], new_ids[0]
+        _need(ex != new, f"FOCUS-{n:02d}: 例題 and 新題 must be distinct")
+        _need(not any(q.startswith(("EE-114-", "EE-108-")) for q in (ex, new)), f"FOCUS-{n:02d}: 114/108 questions are locked for mocks")
+        subject = topic.split("／", 1)[0]
         tasks.append({
-            "code": f"WEAK-{n:02d}", "kind": "practice", "launch": LAUNCH_BALANCED,
-            "title": f"弱題分析｜隨機練習 第 {n} 輪（各科輪流）", "qids": [],
+            "code": f"FOCUS-{n:02d}", "kind": "focus", "subject": subject,
+            "title": "弱章專攻｜" + topic, "qids": [ex, new], "scoredQids": [new], "hours": 1,
             "phases": [
-                {"label": "隨機練習 3 題（各科輪流）", "minutes": 60, "closed": False, "launch": LAUNCH_BALANCED,
-                 "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"},
-                {"label": "一句話錯因整理", "minutes": 15, "closed": False,
-                 "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"},
+                {"label": "看懂例題詳解", "minutes": FOCUS_PHASE_MINUTES[0], "closed": False, "qids": [ex], "solutionQids": [ex],
+                 "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"},
+                {"label": "蓋解重做例題", "minutes": FOCUS_PHASE_MINUTES[1], "closed": True, "qids": [ex]},
+                {"label": "同章新題", "minutes": FOCUS_PHASE_MINUTES[2], "closed": True, "qids": [new]},
+                # 「核對」 in the label makes the overlay treat this as the review phase (result card for the 新題 only, via scoredQids).
+                {"label": "核對＋一句話錯因整理", "minutes": FOCUS_PHASE_MINUTES[3], "closed": False,
+                 "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"},
             ],
         })
+    _need([t["code"] for t in tasks] == [f"FOCUS-{i:02d}" for i in range(1, GROUP_COUNTS["FOCUS"] + 1)],
+          f"FOCUS rows mismatch: {[t['code'] for t in tasks]}")
+    core_qids = {q for t in core for q in t["qids"]}
+    main_qids = {q for t in main for q in t["qids"]}
+    news = [t["scoredQids"][0] for t in tasks]
+    all_ids = [q for t in tasks for q in t["qids"]]
+    _need(len(set(news)) == len(news), "FOCUS 新題 qids must be distinct")
+    _need(not set(news) & core_qids, f"FOCUS 新題 must not repeat CORE qids: {sorted(set(news) & core_qids)}")
+    _need(not set(news) & main_qids, f"FOCUS 新題 must not repeat MAIN qids: {sorted(set(news) & main_qids)}")
+    _need(len(set(all_ids)) == len(all_ids), "FOCUS qids must not repeat across rounds (例題 and 新題 alike)")
+    return tasks
+
+
+def practice_tasks(days: list[dict]) -> list[dict]:
+    """REINF／WRAP／BUFFER: no fixed qids.  `launch` tells the UI which 隨機練習 mode to open."""
+    tasks: list[dict] = []
     for n in range(1, GROUP_COUNTS["REINF"] + 1):
         tasks.append({
             "code": f"REINF-{n:02d}", "kind": "practice", "launch": LAUNCH_REINFORCE,
@@ -272,7 +304,8 @@ def parse_paper(text: str, prefix: str, kind: str, label: str) -> list[dict]:
             "title": f"{label}{subject}計時演練", "qids": qids,
             "pdf": pdf[6:],
             "phases": [
-                {"label": "閉卷模考", "minutes": 120, "closed": True, "qids": qids},
+                {"label": "閉卷模考", "minutes": 120, "closed": True, "qids": qids,
+                 "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"},
                 {"label": "得分證據核對", "minutes": 30, "closed": False},
                 {"label": "單題修復", "minutes": 30, "closed": False},
             ],
@@ -310,12 +343,13 @@ def build_schedule() -> dict:
     main = parse_main(_read(MAIN))
     core_qids = {q for t in core for q in t["qids"]}
     _need(not core_qids & {q for t in main for q in t["qids"]}, "MAIN qids must not repeat CORE-01..24 qids")
-    tasks = core + main + practice_tasks(days) + papers
+    focus = parse_focus(_read(FOCUS), core, main)
+    tasks = core + main + focus + practice_tasks(days) + papers
     by_code = {t["code"]: t for t in tasks}
     _need(len(by_code) == len(tasks), "duplicate task codes")
     for t in tasks:
         total = sum(p["minutes"] for p in t["phases"])
-        expect = {"core": 75 if t["code"].startswith("MAIN-") else 60, "mock114": 180, "blind108": 180}.get(t["kind"])
+        expect = {"core": 75 if t["code"].startswith("MAIN-") else 60, "focus": 60, "mock114": 180, "blind108": 180}.get(t["kind"])
         if expect is not None:
             _need(total == expect, f"{t['code']}: phases sum {total} != {expect}")
 

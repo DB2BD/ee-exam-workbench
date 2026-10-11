@@ -20,7 +20,7 @@ class TestExamCountdownPlan(unittest.TestCase):
             "2026-10-04",
             "2026-11-14 至 2026-11-15",
             "41 個日曆日",
-            "平日 2 小時、週末 4 小時",
+            "平日 2 小時、週末 5 小時",
             "2026-08-04 至 2026-08-13",
             "https://wwwc.moex.gov.tw/main/exam/wFrmPropertyDetail.aspx?c=115180&m=7975",
         ):
@@ -29,7 +29,8 @@ class TestExamCountdownPlan(unittest.TestCase):
     def test_route_budget_is_complete_and_noninteractive(self):
         for phrase in (
             "18 × 60 分鐘",
-            "11 × 75 分鐘",
+            "13 × 60 分鐘",
+            "5 × 75 分鐘",
             "6 × 180 分鐘",
             "不需要回填日期、分數或錯因",
             "不等待個人化分析",

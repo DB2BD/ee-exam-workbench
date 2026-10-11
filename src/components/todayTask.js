@@ -67,6 +67,8 @@ function todayTaskMockId(task, timestamp) {
 
 // Scored questions of a scheduled mock (same subset rules as mockExam.js).
 function todayTaskScoredQids(task) {
+  // 弱章專攻: only the 新題 counts toward the score estimate.
+  if (Array.isArray(task.scoredQids) && task.scoredQids.length) return task.scoredQids.slice();
   const qids = task.qids.slice();
   const m = /^EE-(\d+)-(\d+)-\d+$/.exec(String(qids[0] || ''));
   if (!m || typeof MOCK_EXAM_SCORED_SUBSETS === 'undefined') return qids;
@@ -235,7 +237,7 @@ function todayTaskCodeRange(codes) {
   return first + '～' + last;
 }
 
-// 'WEAK-03','WEAK-04','WEAK-06' -> 'WEAK-03～04、WEAK-06' (runs of consecutive numbers per prefix, original order).
+// 'FOCUS-03','FOCUS-04','FOCUS-06' -> 'FOCUS-03～04、FOCUS-06' (runs of consecutive numbers per prefix, original order).
 function todayTaskCompressCodes(codes) {
   const out = [];
   let run = [];
@@ -373,7 +375,7 @@ function todayTaskPhaseView(task, a, now) {
     // Optional captions for questionQids (三題對照: 母題／同型／變式).
     questionLabels: Array.isArray(phase.qidLabels) ? phase.qidLabels.slice() : [],
     // Solution entry points. Empty (and never rendered) while a closed-book phase runs.
-    solutionQids: closed ? [] : task.qids.slice(),
+    solutionQids: closed ? [] : (phase.solutionQids || task.qids).slice(),
     isReview,
     // 作答結果卡: one card per QID, recorded right after checking.
     resultQids: isReview ? todayTaskScoredQids(task) : [],
@@ -386,7 +388,7 @@ function todayTaskPhaseView(task, a, now) {
     scoringNote: task.scoringNote || '',
     // One-line instruction for phases that otherwise show nothing (docs/01_備考計畫/預設24時段_核心題路徑.md: 5 分鐘只留一句下次動作).
     instruction: phase.note || (phase.label === '下次動作' ? TODAY_TASK_NEXT_ACTION_TEXT : ''),
-    // 隨機練習 launcher for WEAK／REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
+    // 隨機練習 launcher for REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
     launch: phase.launch || '',
     // Weekday mock: after the closed phase the learner may stop and continue the next day.
     canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsRestDay(todayTaskLocalDate(now), DAILY_SCHEDULE.holidays),
@@ -625,7 +627,7 @@ function todayTaskStartCodeNow(code) {
   return true;
 }
 
-// 開啟隨機練習 for WEAK／REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
+// 開啟隨機練習 for REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
 function todayTaskLaunchPractice(launch) {
   const mode = launch === 'random-reinforce' ? 'reinforce' : 'balanced';
   closeTodayTaskOverlay();

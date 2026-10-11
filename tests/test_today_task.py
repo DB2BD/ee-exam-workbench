@@ -64,7 +64,7 @@ class TestGeneratedSchedule(unittest.TestCase):
 
     def test_task_counts_qids_and_minutes(self):
         tasks = self.schedule["tasks"]
-        for prefix, count, minutes in (("CORE", 24, 60), ("WEAK", 11, 75), ("MAIN", 5, 75), ("MOCK114", 6, 180), ("BLIND108", 6, 180),
+        for prefix, count, minutes in (("CORE", 24, 60), ("FOCUS", 13, 60), ("MAIN", 5, 75), ("MOCK114", 6, 180), ("BLIND108", 6, 180),
                                        ("REINF", 9, 120), ("WRAP", 3, 120)):
             codes = [c for c in tasks if c.startswith(prefix + "-")]
             self.assertEqual(len(codes), count, prefix)
@@ -72,7 +72,7 @@ class TestGeneratedSchedule(unittest.TestCase):
                 task = tasks[code]
                 self.assertEqual(sum(p["minutes"] for p in task["phases"]), minutes, code)
                 self.assertEqual(task["hours"], minutes / 60, code)
-                if prefix in ("CORE", "MAIN", "MOCK114", "BLIND108"):
+                if prefix in ("CORE", "FOCUS", "MAIN", "MOCK114", "BLIND108"):
                     self.assertGreaterEqual(len(task["qids"]), 1, code)
                     for qid in task["qids"]:
                         self.assertIn(f'"{qid}"', self.dashboard, f"{code}: {qid} missing in dashboard-data.js")
@@ -80,8 +80,8 @@ class TestGeneratedSchedule(unittest.TestCase):
                     self.assertEqual(task["qids"], [], f"{code}: practice/review tasks have no fixed qids")
                     self.assertIn(task["kind"], ("practice", "review"), code)
         self.assertEqual(tasks["BUFFER"]["hours"], 4)
-        self.assertEqual(len(tasks), 65)
-        self.assertEqual(len(self.schedule["order"]), 65)
+        self.assertEqual(len(tasks), 67)
+        self.assertEqual(len(self.schedule["order"]), 67)
 
     def test_retired_mix_and_ext_are_not_in_the_schedule(self):
         tasks = self.schedule["tasks"]
@@ -91,25 +91,31 @@ class TestGeneratedSchedule(unittest.TestCase):
         self.assertFalse([t for t in tasks.values() if t.get("optional") or t["kind"] in ("mix", "ext")])
         self.assertNotIn("RECOVERY", bds.NON_WORK)
 
+    def test_retired_weak_is_not_in_the_schedule(self):
+        s = self.schedule
+        self.assertFalse([c for c in s["tasks"] if c.startswith("WEAK")])
+        self.assertFalse([c for c in s["order"] if c.startswith("WEAK")])
+        self.assertNotIn("WEAK", bds.GROUP_COUNTS)
+        self.assertFalse([t for t in s["tasks"].values() if t.get("launch") == "random-balanced"])
+        self.assertFalse([c for d in s["days"] for c in d["codes"] if c.startswith("WEAK")])
+
     def test_practice_tasks_expose_launch_modes_and_gates(self):
         tasks = self.schedule["tasks"]
-        self.assertEqual({tasks[f"WEAK-{i:02d}"]["launch"] for i in range(1, 12)}, {"random-balanced"})
         self.assertEqual({tasks[f"REINF-{i:02d}"]["launch"] for i in range(1, 10)}, {"random-reinforce"})
         self.assertEqual(tasks["BUFFER"]["launch"], "random-reinforce")
         self.assertEqual(tasks["BUFFER"]["notBefore"], "2026-11-01")
         self.assertEqual(tasks["REINF-01"]["notBefore"], "2026-11-02")
         self.assertEqual(tasks["WRAP-03"]["notBefore"], "2026-11-09")
-        self.assertNotIn("notBefore", tasks["WEAK-01"])
+        self.assertNotIn("notBefore", tasks["FOCUS-01"])
         self.assertNotIn("notBefore", tasks["MOCK114-01"])
-        self.assertEqual(tasks["WEAK-01"]["phases"][0]["launch"], "random-balanced")
         self.assertTrue(tasks["CORE-07"]["variant"])
         self.assertFalse(tasks["CORE-01"]["variant"])
 
     def test_milestones_budget_days_and_order(self):
         s = self.schedule
-        self.assertEqual(s["budget"], {"weekday": 2, "weekend": 4})
+        self.assertEqual(s["budget"], {"weekday": 2, "weekend": 5})
         self.assertEqual([(m["date"], m["label"], m["hard"]) for m in s["milestones"]],
-                         [("2026-10-17", "弱題分析關卡", False), ("2026-10-31", "模考截止", True), ("2026-11-11", "補強完成", False)])
+                         [("2026-10-17", "核心收尾關卡", False), ("2026-10-31", "模考截止", True), ("2026-11-11", "補強完成", False)])
         hard = s["milestones"][1]
         papers = [c for c in s["order"] if c.startswith(("MOCK114-", "BLIND108-"))]
         self.assertEqual(len(papers), 12)
@@ -118,7 +124,7 @@ class TestGeneratedSchedule(unittest.TestCase):
         self.assertEqual(len(s["days"]), 41)
         self.assertEqual(s["days"][0]["date"], "2026-10-04")
         self.assertEqual(s["days"][0]["dow"], 0)  # Sunday
-        self.assertEqual(s["days"][0]["budget"], 4)
+        self.assertEqual(s["days"][0]["budget"], 5)
         self.assertEqual(s["order"][:6], [f"CORE-0{i}" for i in range(1, 7)])
         self.assertEqual(s["order"][6], "CORE-07")
         self.assertEqual(s["due"]["CORE-01"], "2026-10-03")
@@ -166,14 +172,14 @@ class TestTodayTaskStore(unittest.TestCase):
         done = {f"CORE-0{i}": "x" for i in range(1, 7)}
         sunday = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 4)}).planText")["result"]
         monday = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 5)}).planText")["result"]
-        self.assertEqual(sunday, "今天預算 4 小時（週末）｜還要做約 4.25 小時")  # CORE-07～09 + WEAK-01
+        self.assertEqual(sunday, "今天預算 5 小時（週末）｜還要做約 5 小時")  # CORE-07～11 (the dated row lists 07～09; spare budget pulls 2 more)
         self.assertEqual(monday, "今天預算 2 小時（平日）｜還要做約 2 小時")  # CORE-07, CORE-08 (a 2 h weekday)
 
     def test_plan_line_says_holiday_on_a_holiday(self):
         order = run_node("DAILY_SCHEDULE.order")["result"]
         done = {c: "x" for c in order[:order.index("CORE-14")]}
         plan = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 9)}).planText")["result"]
-        self.assertTrue(plan.startswith("今天預算 4 小時（假日）｜"), plan)
+        self.assertTrue(plan.startswith("今天預算 5 小時（假日）｜"), plan)
         self.assertNotIn("週末", plan)
 
     def test_plan_line_when_todays_share_is_done(self):
@@ -291,12 +297,12 @@ class TestTodayTaskStore(unittest.TestCase):
         # Learners who already worked on paper set their position once instead
         # of replaying CORE-01..; earlier codes become done, later ones open.
         res = run_node(
-            "(() => { const s = todayTaskStartFrom({completed:{'WEAK-01':'old'}, active:{code:'CORE-01',phaseIndex:0,phaseStartedAt:1}}, 'CORE-14', 0); "
-            "return {next: todayTaskCurrentCode(s), done: Object.keys(s.completed).length, active: s.active, mix: s.completed['WEAK-01'], "
+            "(() => { const s = todayTaskStartFrom({completed:{'FOCUS-01':'old'}, active:{code:'CORE-01',phaseIndex:0,phaseStartedAt:1}}, 'CORE-14', 0); "
+            "return {next: todayTaskCurrentCode(s), done: Object.keys(s.completed).length, active: s.active, mix: s.completed['FOCUS-01'], "
             "back: todayTaskCurrentCode(todayTaskStartFrom(s, 'CORE-05', 0)), bogus: todayTaskStartFrom(s, 'NOPE', 0) === s}; })()")["result"]
         self.assertEqual(res["next"], "CORE-14")
-        # CORE-01..13 plus the interleaved WEAK-01..05 that precede CORE-14 in the order (WEAK-01 was already done and stays 'old')
-        self.assertEqual(res["done"], 18)
+        # CORE-01..13 (everything before CORE-14 in the order) plus the later FOCUS-01 that was already done and stays 'old'
+        self.assertEqual(res["done"], 14)
         self.assertIsNone(res["active"])
         self.assertEqual(res["mix"], "old")
         self.assertEqual(res["back"], "CORE-05")
@@ -392,9 +398,10 @@ class TestTodayTaskPacingCard(unittest.TestCase):
     def test_primary_task_then_rest_of_today(self):
         res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 4))
         self.assertEqual(res["code"], "CORE-07")
-        self.assertEqual(res["items"], ["CORE-07", "CORE-08", "CORE-09", "WEAK-01"])
+        self.assertEqual(res["items"], ["CORE-07", "CORE-08", "CORE-09", "CORE-10", "CORE-11"])  # Sunday: 5 h budget
         self.assertTrue(res["rest"].startswith("今天還有：CORE-08｜"), res["rest"])
-        self.assertIn("WEAK-01｜弱題分析｜隨機練習 第 1 輪（各科輪流）", res["rest"])
+        self.assertIn("CORE-11｜", res["rest"])
+        self.assertNotIn("弱題分析", res["rest"])
         self.assertIn("今天還有：", res["html"])
         self.assertLess(res["html"].index("下一個任務：CORE-07"), res["html"].index("今天還有："))
         self.assertIn("</svg> 開始<", res["html"])
@@ -402,7 +409,7 @@ class TestTodayTaskPacingCard(unittest.TestCase):
     def test_milestone_line_counts_days_and_papers(self):
         res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 5))
         # next milestone is the non-hard 10/17: hours plus the hard deadline's paper count
-        self.assertTrue(res["milestone"].startswith("距 10/17 弱題分析關卡還有 12 天｜剩 "), res["milestone"])
+        self.assertTrue(res["milestone"].startswith("距 10/17 核心收尾關卡還有 12 天｜剩 "), res["milestone"])
         self.assertIn("｜10/31 模考截止剩 12 份卷", res["milestone"])
         # after 10/17 the hard milestone is next: 「距 10/31 模考截止還有 N 天｜剩 X 份卷」
         order = run_node("DAILY_SCHEDULE.order")["result"]
@@ -449,7 +456,9 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertEqual(res["status"], "behind")
         self.assertTrue(res["cut"].startswith("已自動刪減："), res["cut"])
         self.assertTrue(res["cut"].endswith("（有空再做）"), res["cut"])
-        self.assertIn("WEAK-", res["cut"])
+        self.assertIn("FOCUS-", res["cut"])
+        self.assertNotIn("WEAK", res["cut"])
+        self.assertNotIn("MAIN", res["cut"])
         self.assertNotIn("MOCK", res["cut"])
         self.assertNotIn("BLIND", res["cut"])
         self.assertIn('class="today-pacing-cut"', res["html"])
@@ -470,11 +479,11 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertIn("<details>", res)
         self.assertNotIn("<details open", res)
         self.assertRegex(res, r"<summary>已自動刪減 \d+ 項（有空再做）</summary>")
-        self.assertIn("WEAK-10～11", res)
+        self.assertIn("FOCUS-12", res)
         self.assertIn("11/01 緩衝日補考", res)
         short = run_node(
-            "todayTaskCardHtml({mode:'task', pacing:{cut:['WEAK-07','WEAK-08','WEAK-09'], overload:false, hardMilestone:null}, cutText:'已自動刪減：WEAK-07～09（有空再做）', planText:'', milestoneText:'', suggestion:'', items:[], rest:[], restText:'', completedMap:{}, doneCount:0, total:1})")["result"]
-        self.assertIn('<p class="today-pacing-cut">已自動刪減：WEAK-07～09（有空再做）</p>', short)
+            "todayTaskCardHtml({mode:'task', pacing:{cut:['FOCUS-07','FOCUS-08','FOCUS-09'], overload:false, hardMilestone:null}, cutText:'已自動刪減：FOCUS-07～09（有空再做）', planText:'', milestoneText:'', suggestion:'', items:[], rest:[], restText:'', completedMap:{}, doneCount:0, total:1})")["result"]
+        self.assertIn('<p class="today-pacing-cut">已自動刪減：FOCUS-07～09（有空再做）</p>', short)
         self.assertNotIn("<p class=\"today-pacing-cut\"><details", short)
         self.assertNotIn("<summary>已自動刪減", short)
 
@@ -561,19 +570,19 @@ class TestTodayTaskPacingCard(unittest.TestCase):
     def test_start_any_uncompleted_code_but_not_completed_or_unknown(self):
         res = run_node(
             "(() => { const s0 = {completed:{'CORE-02':'x'}, active:null}; "
-            "const a = todayTaskStart(s0, 1000, 'WEAK-03'); const done = todayTaskStart(s0, 1000, 'CORE-02'); const bad = todayTaskStart(s0, 1000, 'MIX-01'); "
+            "const a = todayTaskStart(s0, 1000, 'FOCUS-03'); const done = todayTaskStart(s0, 1000, 'CORE-02'); const bad = todayTaskStart(s0, 1000, 'MIX-01'); "
             "const plain = todayTaskStart(s0, 1000); "
             "return {a: a.active.code, done: done === s0, bad: bad === s0, plain: plain.active.code}; })()")["result"]
-        self.assertEqual(res, {"a": "WEAK-03", "done": True, "bad": True, "plain": "CORE-01"})
+        self.assertEqual(res, {"a": "FOCUS-03", "done": True, "bad": True, "plain": "CORE-01"})
 
     def test_start_from_select_lists_current_codes_and_defaults_to_core_07(self):
         res = self.vm({}, local_ms(2026, 10, 5))
         self.assertIn('<option value="CORE-07" selected>', res["html"])
         self.assertIn('<option value="CORE-01">', res["html"])
-        self.assertIn('<option value="WEAK-11">', res["html"])
+        self.assertIn('<option value="FOCUS-13">', res["html"])
         self.assertIn('<option value="REINF-09">', res["html"])
         self.assertIn('<option value="BUFFER">', res["html"])
-        for retired in ("MIX-", "EXT-", "RECOVERY"):
+        for retired in ("MIX-", "EXT-", "RECOVERY", "WEAK-"):
             self.assertNotIn(retired, res["html"])
         self.assertIn("已在紙本做過前面的任務？", res["html"])
         # once CORE-01..07 are done the default follows today's task
@@ -586,6 +595,21 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertEqual(list(res["completed"]), ["CORE-01"])
         self.assertIsNone(res["active"])
 
+    def test_old_weak_progress_normalizes_cleanly_and_is_ignored(self):
+        # v1.3.7 retired WEAK-01..11: progress saved by an older build must load without errors and simply drop them.
+        res = run_node(
+            "todayTaskNormalizeState({completed:{'WEAK-03':'2026-10-05T04:00:00.000Z','CORE-01':'ok','FOCUS-01':'2026-10-13T04:00:00.000Z'}, "
+            "active:{code:'WEAK-04',phaseIndex:1,phaseStartedAt:5}})")["result"]
+        self.assertEqual(sorted(res["completed"]), ["CORE-01", "FOCUS-01"])
+        self.assertIsNone(res["active"])
+        stored = json.dumps({"completed": {"WEAK-03": "x", "CORE-02": "y"}, "active": {"code": "WEAK-11", "phaseIndex": 0, "phaseStartedAt": 1}})
+        loaded = run_node("loadTodayTaskState()", storage={"EE_EXAM_TODAY_TASK_V1": stored})["result"]
+        self.assertEqual(loaded, {"completed": {"CORE-02": "y"}, "active": None})
+        vm = run_node(f"(() => {{ const s = loadTodayTaskState(); const v = todayTaskViewModel(s, {local_ms(2026, 10, 12)}); return {{code: v.code, done: v.doneCount, mode: v.mode}}; }})()",
+                      storage={"EE_EXAM_TODAY_TASK_V1": stored})["result"]
+        self.assertEqual(vm["done"], 1)
+        self.assertNotIn("WEAK", vm["code"])
+
     def test_reinforcement_day_plan(self):
         order = run_node("DAILY_SCHEDULE.order")["result"]
         done = {c: "x" for c in order[:order.index("REINF-02")]}
@@ -595,17 +619,15 @@ class TestTodayTaskPacingCard(unittest.TestCase):
 
     def test_launch_phase_markup_and_no_empty_check_row(self):
         res = run_node(
-            "(() => { let s = todayTaskStart({completed:{}, active:null}, 1000, 'WEAK-01'); "
+            "(() => { let s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-01'); "
             "const first = todayTaskOverlayHtml(todayTaskViewModel(s, 1000)); "
             "s = todayTaskAdvance(s, 2000); const second = todayTaskOverlayHtml(todayTaskViewModel(s, 2000)); "
             "const r = todayTaskStart({completed:{}, active:null}, 1000, 'REINF-01'); const re = todayTaskOverlayHtml(todayTaskViewModel(r, 1000)); "
             "return {first, second, re}; })()")["result"]
-        self.assertIn('data-today-launch="random-balanced"', res["first"])
-        self.assertIn("開啟隨機練習（各科輪流）", res["first"])
-        self.assertNotIn("data-today-check", res["first"])
-        self.assertNotIn("核對題解", res["first"])
-        self.assertNotIn("today-task-result-mount", res["first"])
+        self.assertNotIn("data-today-launch", res["first"])  # FOCUS phases never launch random practice
         self.assertNotIn("data-today-launch", res["second"])
+        self.assertNotIn("data-today-check", res["second"])  # 蓋解重做例題 is closed-book: no solution buttons
+        self.assertNotIn("today-task-result-mount", res["first"])
         self.assertIn('data-today-launch="random-reinforce"', res["re"])
         self.assertIn("開啟補強練習", res["re"])
 
@@ -640,12 +662,12 @@ class TestTodayTaskReviewResultCard(unittest.TestCase):
             phases = self.phases(code)
             reviews = [p for p in phases if p["review"]]
             if not task["qids"]:
-                # WEAK／REINF／WRAP／BUFFER: no fixed qids, so no result card is ever requested
+                # REINF／WRAP／BUFFER: no fixed qids, so no result card is ever requested
                 for p in phases:
                     self.assertEqual(p["qids"], [], f"{code}: practice phases carry no result-card qids")
                 continue
             self.assertEqual(len(reviews), 1, code)
-            self.assertEqual(reviews[0]["qids"], task["qids"], code)
+            self.assertEqual(reviews[0]["qids"], task.get("scoredQids") or task["qids"], code)
             self.assertFalse(reviews[0]["closed"], code)
             for p in phases:
                 if p["closed"]:
@@ -653,7 +675,7 @@ class TestTodayTaskReviewResultCard(unittest.TestCase):
 
     def test_source_is_today_for_scheduled_tasks_and_mock_for_papers(self):
         self.assertEqual([p["source"] for p in self.phases("CORE-01") if p["review"]], ["today"])
-        self.assertEqual({p["source"] for p in self.phases("WEAK-01")}, {"today"})
+        self.assertEqual({p["source"] for p in self.phases("FOCUS-01")}, {"today"})
         self.assertEqual([p["source"] for p in self.phases("MOCK114-01") if p["review"]], ["mock"])
 
     def test_overlay_markup_mounts_card_only_in_review_phase(self):
@@ -677,10 +699,159 @@ class TestTodayTaskReviewResultCard(unittest.TestCase):
 
     def test_overlay_header_names_the_active_task_even_when_not_the_earliest(self):
         res = run_node(
-            "(() => { const s = todayTaskStart({completed:{}, active:null}, 1000, 'WEAK-01'); "
+            "(() => { const s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-01'); "
             "return todayTaskOverlayHtml(todayTaskViewModel(s, 1000)); })()")["result"]
-        self.assertIn("WEAK-01｜", res)
+        self.assertIn("FOCUS-01｜", res)
         self.assertNotIn("CORE-01｜", res)
+
+
+class TestFocusTasks(unittest.TestCase):
+    """v1.3.7 弱章專攻: FOCUS-01..13 replace the retired WEAK random-practice slots."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.schedule = bds.build_schedule()
+        cls.tasks = {c: t for c, t in cls.schedule["tasks"].items() if c.startswith("FOCUS-")}
+
+    def row(self, n):
+        text = (WORKSPACE / "docs/01_備考計畫/弱章專攻_13輪.md").read_text(encoding="utf-8")
+        line = next(l for l in text.splitlines() if l.startswith(f"| FOCUS-{n:02d} |"))
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        return cells[1], re.findall(r"EE-\d{3}-\d{2}-\d+", cells[2]), re.findall(r"EE-\d{3}-\d{2}-\d+", cells[3])
+
+    def test_thirteen_rounds_match_the_doc_table(self):
+        self.assertEqual(list(self.tasks), [f"FOCUS-{i:02d}" for i in range(1, 14)])
+        for n in range(1, 14):
+            topic, ex, new = self.row(n)
+            t = self.tasks[f"FOCUS-{n:02d}"]
+            self.assertEqual((t["title"], t["subject"]), ("弱章專攻｜" + topic, topic.split("／")[0]))
+            self.assertEqual(t["qids"], ex + new)
+            self.assertEqual(t["scoredQids"], new)
+        self.assertEqual(self.row(1)[1:], (["EE-112-06-3"], ["EE-109-06-3"]))
+        self.assertEqual(self.row(13)[1:], (["EE-104-05-3"], ["EE-106-05-2"]))
+
+    def test_task_shape_and_phases(self):
+        for code, t in self.tasks.items():
+            ex, new = t["qids"]
+            self.assertEqual(t["kind"], "focus", code)
+            self.assertEqual(t["hours"], 1, code)
+            self.assertEqual(t["scoredQids"], [new], code)
+            labels = [p["label"] for p in t["phases"]]
+            self.assertEqual(labels, ["看懂例題詳解", "蓋解重做例題", "同章新題", "核對＋一句話錯因整理"], code)
+            self.assertEqual([p["minutes"] for p in t["phases"]], [10, 15, 25, 10], code)
+            self.assertEqual([p["closed"] for p in t["phases"]], [False, True, True, False], code)
+            self.assertEqual(t["phases"][0]["qids"], [ex], code)
+            self.assertEqual(t["phases"][0]["solutionQids"], [ex], code)
+            self.assertEqual(t["phases"][1]["qids"], [ex], code)
+            self.assertEqual(t["phases"][2]["qids"], [new], code)
+            self.assertNotIn("qids", t["phases"][3], code)
+            self.assertIn("弄懂每一步為什麼這樣做", t["phases"][0]["note"], code)
+            self.assertIn("一句", t["phases"][3]["note"], code)
+            # only the last phase may read as the review phase
+            self.assertFalse(re.search("核對|對照", labels[0]), code)
+            self.assertTrue(re.search("核對", labels[3]), code)
+            self.assertFalse(t.get("launch"), code)
+
+    def test_qid_rules_hold(self):
+        core = {q for c, t in self.schedule["tasks"].items() if c.startswith("CORE-") for q in t["qids"]}
+        main = {q for c, t in self.schedule["tasks"].items() if c.startswith("MAIN-") for q in t["qids"]}
+        news = [t["scoredQids"][0] for t in self.tasks.values()]
+        allq = [q for t in self.tasks.values() for q in t["qids"]]
+        self.assertEqual(len(set(news)), 13)
+        self.assertEqual(len(set(allq)), 26)
+        self.assertFalse(set(news) & (core | main))
+        self.assertFalse([q for q in allq if q.startswith(("EE-114-", "EE-108-"))])
+        self.assertIn("EE-111-05-2", self.schedule["tasks"]["MAIN-01"]["qids"])
+        self.assertNotIn("EE-109-01-1", [q for t in self.schedule["tasks"].values() for q in t["qids"]])
+
+    def test_parse_focus_validations(self):
+        good = (WORKSPACE / "docs/01_備考計畫/弱章專攻_13輪.md").read_text(encoding="utf-8")
+        core = [t for t in self.schedule["tasks"].values() if t["code"].startswith("CORE-")]
+        main = [t for t in self.schedule["tasks"].values() if t["code"].startswith("MAIN-")]
+        self.assertEqual(len(bds.parse_focus(good, core, main)), 13)
+        core_qid = next(q for t in core for q in t["qids"] if not q.startswith(("EE-114-", "EE-108-")))
+        bad_new_core = good.replace("`EE-109-06-3` |", f"`{core_qid}` |", 1)
+        bad_114 = good.replace("`EE-109-06-3` |", "`EE-114-06-3` |", 1)
+        bad_108_example = good.replace("`EE-112-06-3` |", "`EE-108-06-3` |", 1)
+        dup_new = good.replace("`EE-110-05-2` |", "`EE-109-06-3` |", 1)
+        new_repeats_example = good.replace("`EE-110-05-2` |", "`EE-112-06-3` |", 1)
+        same_pair = good.replace("`EE-109-06-3` |", "`EE-112-06-3` |", 1)
+        missing_row = "\n".join(l for l in good.splitlines() if not l.startswith("| FOCUS-07 |"))
+        for name, text in (("new in CORE", bad_new_core), ("114 qid", bad_114), ("108 example", bad_108_example), ("duplicate new", dup_new),
+                           ("repeats another FOCUS qid", new_repeats_example), ("example == new", same_pair), ("missing row", missing_row)):
+            with self.subTest(name):
+                with self.assertRaises(bds.ParseError):
+                    bds.parse_focus(text, core, main)
+        # an example may itself be a CORE qid
+        core_example = good.replace("`EE-112-06-3` |", f"`{core_qid}` |", 1)
+        self.assertEqual(bds.parse_focus(core_example, core, main)[0]["qids"][0], core_qid)
+
+    def phase_views(self, code):
+        return run_node(
+            f"(() => {{ const t = DAILY_SCHEDULE.tasks['{code}']; return t.phases.map((p, i) => todayTaskPhaseView(t, {{code: t.code, phaseIndex: i, phaseStartedAt: 0}}, 0)); }})()")["result"]
+
+    def test_review_phase_result_cards_cover_only_the_new_question(self):
+        views = self.phase_views("FOCUS-01")
+        self.assertEqual([v["isReview"] for v in views], [False, False, False, True])
+        self.assertEqual([v["resultQids"] for v in views], [[], [], [], ["EE-109-06-3"]])
+        self.assertEqual(run_node("todayTaskScoredQids(DAILY_SCHEDULE.tasks['FOCUS-02'])")["result"], ["EE-110-05-2"])
+        # tasks without scoredQids keep scoring every question
+        self.assertEqual(run_node("todayTaskScoredQids(DAILY_SCHEDULE.tasks['CORE-01'])")["result"], run_node("DAILY_SCHEDULE.tasks['CORE-01'].qids")["result"])
+        self.assertEqual(run_node("todayTaskScoredQids(DAILY_SCHEDULE.tasks['MAIN-01'])")["result"], run_node("DAILY_SCHEDULE.tasks['MAIN-01'].qids")["result"])
+
+    def test_phase_one_opens_only_the_example_solution(self):
+        views = self.phase_views("FOCUS-03")
+        self.assertEqual(views[0]["solutionQids"], ["EE-112-02-3"])
+        self.assertEqual(views[0]["questionQids"], ["EE-112-02-3"])
+        self.assertEqual(views[1]["solutionQids"], [])  # closed-book redo: no solutions
+        self.assertEqual(views[2]["solutionQids"], [])
+        self.assertEqual(views[2]["questionQids"], ["EE-113-02-3"])
+        self.assertEqual(views[3]["solutionQids"], ["EE-112-02-3", "EE-113-02-3"])  # checking may open either solution
+        self.assertEqual(views[0]["instruction"], "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。")
+
+    def test_overlay_phase_one_has_one_check_button_and_last_phase_has_result_slot(self):
+        res = run_node(
+            "(() => { let s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-01'); "
+            "const p1 = todayTaskOverlayHtml(todayTaskViewModel(s, 1000)); "
+            "s = todayTaskAdvance(s, 2000); s = todayTaskAdvance(s, 3000); const p3 = todayTaskOverlayHtml(todayTaskViewModel(s, 3000)); "
+            "s = todayTaskAdvance(s, 4000); const p4 = todayTaskOverlayHtml(todayTaskViewModel(s, 4000)); return {p1, p3, p4}; })()")["result"]
+        self.assertEqual(res["p1"].count("data-today-check="), 1)
+        self.assertIn('data-today-check="EE-112-06-3"', res["p1"])
+        self.assertNotIn("data-today-check", res["p3"])
+        self.assertIn("同章新題（閉卷）", res["p3"])
+        self.assertIn('id="today-task-result-mount"', res["p4"])
+        self.assertIn("還有 1 題未處理（EE-109-06-3）", res["p4"])
+
+    def test_focus_task_can_be_completed_end_to_end(self):
+        res = run_node(
+            "(() => { let s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-05'); for (let i = 1; i <= 4; i++) s = todayTaskAdvance(s, 1000 + i * 1000); "
+            "return {done: Object.keys(s.completed), active: s.active}; })()")["result"]
+        self.assertEqual(res, {"done": ["FOCUS-05"], "active": None})
+
+    def test_focus_hours_count_as_one_hour_in_the_plan(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("FOCUS-01")]}
+        plan = run_node(f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {local_ms(2026, 10, 13)}).items.map(i => [i.code, i.minutes])")["result"]
+        self.assertEqual(plan, [["FOCUS-01", 60], ["FOCUS-02", 60]])
+
+
+class TestPaperClosedPhaseNote(unittest.TestCase):
+    NOTE = "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
+
+    def test_every_paper_closed_phase_carries_the_note(self):
+        tasks = bds.build_schedule()["tasks"]
+        for code, t in tasks.items():
+            if code.startswith(("MOCK114", "BLIND108")):
+                self.assertEqual(t["phases"][0]["label"], "閉卷模考", code)
+                self.assertEqual(t["phases"][0]["note"], self.NOTE, code)
+                self.assertNotIn("note", t["phases"][1], code)
+
+    def test_overlay_shows_the_note_as_the_instruction(self):
+        res = run_node(
+            "(() => { const s = todayTaskStart({completed:{}, active:null}, 1000, 'MOCK114-01'); const vm = todayTaskViewModel(s, 1000); "
+            "return {ins: vm.active.instruction, html: todayTaskOverlayHtml(vm)}; })()")["result"]
+        self.assertEqual(res["ins"], self.NOTE)
+        self.assertIn('<p class="today-task-instruction" role="note">' + self.NOTE + "</p>", res["html"])
 
 
 class TestG2aFixes(unittest.TestCase):
@@ -777,7 +948,7 @@ class TestG2aFixes(unittest.TestCase):
         res = run_node(
             f"(() => {{ const s = todayTaskStartFrom({{completed:{{}}, active:null}}, 'CORE-10', {t}); const v = todayTaskViewModel(s, {t}); "
             f"return {{plan: v.planText, code: v.code, mode: v.mode}}; }})()")["result"]
-        self.assertEqual(res, {"plan": "今天預算 2 小時（平日）｜還要做約 2.25 小時", "code": "CORE-10", "mode": "task"})
+        self.assertEqual(res, {"plan": "今天預算 2 小時（平日）｜還要做約 2 小時", "code": "CORE-10", "mode": "task"})
 
 
 class TestDayChangeRerender(unittest.TestCase):

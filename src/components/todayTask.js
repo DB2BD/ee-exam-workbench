@@ -67,6 +67,8 @@ function todayTaskMockId(task, timestamp) {
 
 // Scored questions of a scheduled mock (same subset rules as mockExam.js).
 function todayTaskScoredQids(task) {
+  // 弱章專攻: only the 新題 counts toward the score estimate.
+  if (Array.isArray(task.scoredQids) && task.scoredQids.length) return task.scoredQids.slice();
   const qids = task.qids.slice();
   const m = /^EE-(\d+)-(\d+)-\d+$/.exec(String(qids[0] || ''));
   if (!m || typeof MOCK_EXAM_SCORED_SUBSETS === 'undefined') return qids;
@@ -235,7 +237,7 @@ function todayTaskCodeRange(codes) {
   return first + '～' + last;
 }
 
-// 'WEAK-03','WEAK-04','WEAK-06' -> 'WEAK-03～04、WEAK-06' (runs of consecutive numbers per prefix, original order).
+// 'FOCUS-03','FOCUS-04','FOCUS-06' -> 'FOCUS-03～04、FOCUS-06' (runs of consecutive numbers per prefix, original order).
 function todayTaskCompressCodes(codes) {
   const out = [];
   let run = [];
@@ -373,7 +375,7 @@ function todayTaskPhaseView(task, a, now) {
     // Optional captions for questionQids (三題對照: 母題／同型／變式).
     questionLabels: Array.isArray(phase.qidLabels) ? phase.qidLabels.slice() : [],
     // Solution entry points. Empty (and never rendered) while a closed-book phase runs.
-    solutionQids: closed ? [] : task.qids.slice(),
+    solutionQids: closed ? [] : (phase.solutionQids || task.qids).slice(),
     isReview,
     // 作答結果卡: one card per QID, recorded right after checking.
     resultQids: isReview ? todayTaskScoredQids(task) : [],
@@ -386,7 +388,7 @@ function todayTaskPhaseView(task, a, now) {
     scoringNote: task.scoringNote || '',
     // One-line instruction for phases that otherwise show nothing (docs/01_備考計畫/預設24時段_核心題路徑.md: 5 分鐘只留一句下次動作).
     instruction: phase.note || (phase.label === '下次動作' ? TODAY_TASK_NEXT_ACTION_TEXT : ''),
-    // 隨機練習 launcher for WEAK／REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
+    // 隨機練習 launcher for REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
     launch: phase.launch || '',
     // Weekday mock: after the closed phase the learner may stop and continue the next day.
     canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsRestDay(todayTaskLocalDate(now), DAILY_SCHEDULE.holidays),
@@ -625,7 +627,7 @@ function todayTaskStartCodeNow(code) {
   return true;
 }
 
-// 開啟隨機練習 for WEAK／REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
+// 開啟隨機練習 for REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
 function todayTaskLaunchPractice(launch) {
   const mode = launch === 'random-reinforce' ? 'reinforce' : 'balanced';
   closeTodayTaskOverlay();
@@ -728,6 +730,65 @@ function todayTaskStopNeedsConfirm(view) {
   return !!(view && view.closed && !view.expired && view.remainingMs > TODAY_TASK_STOP_CONFIRM_MS);
 }
 
+// 作答時間帽: closed-book phases of non-paper tasks nudge the learner who has not written anything.
+// 5 分鐘 -> offer the 起手式 only; 15 分鐘 -> stop and check.  Paper tasks (mock114/blind108) are untouched.
+const TODAY_TASK_CAP_HINT_MS = 5 * 60000;
+const TODAY_TASK_CAP_STOP_MS = 15 * 60000;
+const TODAY_TASK_CAP_TEXT = {
+  1: '已經 5 分鐘還沒下第一筆？可以只看起手式（不看完整詳解），寫出第一步後繼續。',
+  2: '卡超過 15 分鐘了：按「停筆，開始核對」看詳解、標 ×，明天再重做這題。卡住的時間不會變成分數。',
+  multi: '有一題卡超過 15 分鐘就先跳下一題，把會的先拿穩；核對時再看詳解、標 ×。',
+};
+
+// Pure: { stage: 0|1|2, multi } for a phase view (todayTaskPhaseView).  `resultSource === 'mock'` marks paper tasks.
+function todayTaskTimeCapStage(view) {
+  const multi = !!(view && Array.isArray(view.questionQids) && view.questionQids.length > 1);
+  if (!view || !view.closed || view.expired || view.resultSource === 'mock') return { stage: 0, multi };
+  const elapsed = view.totalMs - view.remainingMs;
+  const stage = elapsed >= TODAY_TASK_CAP_STOP_MS ? 2 : elapsed >= TODAY_TASK_CAP_HINT_MS ? 1 : 0;
+  return { stage, multi };
+}
+
+// qids whose 起手式 panel is open; reset whenever the phase (code + phaseIndex) changes or the overlay closes.
+let todayTaskCapKey = '';
+const todayTaskCapRevealed = new Set();
+
+function todayTaskCapSync(view) {
+  const key = view ? view.code + '#' + view.phaseIndex : '';
+  if (key !== todayTaskCapKey) { todayTaskCapKey = key; todayTaskCapRevealed.clear(); }
+}
+
+function todayTaskCapReset() {
+  todayTaskCapKey = '';
+  todayTaskCapRevealed.clear();
+}
+
+// 起手式 only (never the full solution): same source and rendering as the solution modal's 起手式 line.
+function todayTaskStarterHtml(qid) {
+  const record = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
+  const hints = typeof getRecallHintBundle === 'function'
+    ? getRecallHintBundle(qid, record)
+    : { activation: '先列出已知量、未知量與要求量，再寫出第一條關係式。' };
+  return hints.activationMd && typeof processMarkdownWithMath === 'function'
+    ? processMarkdownWithMath(hints.activationMd) : todayTaskEscape(hints.activationMd || hints.activation);
+}
+
+// The notice block for a view ('' at stage 0).  `revealed` is a Set/array of qids whose panel is open.
+function todayTaskTimeCapHtml(view, revealed) {
+  const cap = todayTaskTimeCapStage(view);
+  if (!cap.stage) return '';
+  const open = revealed || [];
+  const isOpen = qid => (open.has ? open.has(qid) : open.indexOf(qid) >= 0);
+  const text = cap.stage === 1 ? TODAY_TASK_CAP_TEXT[1] : (cap.multi ? TODAY_TASK_CAP_TEXT.multi : TODAY_TASK_CAP_TEXT[2]);
+  const buttons = view.questionQids.map(qid =>
+    '<button type="button" class="btn-pdf today-task-starter-btn" data-today-starter="' + todayTaskEscape(qid) + '" aria-expanded="' + (isOpen(qid) ? 'true' : 'false') + '">' +
+    '看 ' + todayTaskEscape(qid) + ' 起手式</button>').join('');
+  const panels = view.questionQids.filter(isOpen).map(qid =>
+    '<div class="today-task-starter" data-today-starter-panel="' + todayTaskEscape(qid) + '"><strong>' + todayTaskEscape(qid) + ' 起手式：</strong> ' + todayTaskStarterHtml(qid) + '</div>').join('');
+  return '<div class="today-task-timecap' + (cap.stage === 2 ? ' today-task-timecap--stop' : '') + '" id="today-task-timecap" role="status" data-stage="' + cap.stage + '">' +
+    '<p>' + todayTaskEscape(text) + '</p><div class="today-task-timecap-actions">' + buttons + '</div>' + panels + '</div>';
+}
+
 function todayTaskOverlayHtml(vm) {
   const v = vm.active;
   const figures = v.questionQids.map((qid, i) => {
@@ -742,6 +803,8 @@ function todayTaskOverlayHtml(vm) {
     ? '<a class="btn-pdf" href="' + todayTaskEscape(v.pdfUrl) + '" target="_blank" rel="noopener">官方原卷 PDF</a>' : '';
   const note = v.scoringNote ? '<p class="today-task-note">計分範圍：' + todayTaskEscape(v.scoringNote) + '</p>' : '';
   const instruction = v.instruction ? '<p class="today-task-instruction" role="note">' + todayTaskEscape(v.instruction) + '</p>' : '';
+  todayTaskCapSync(v);
+  const timecap = todayTaskTimeCapHtml(v, todayTaskCapRevealed);
   let check = '';
   if (!v.closed && v.solutionQids.length) {
     check = '<div class="today-task-check"><span>核對題解（開啟後可邊讀邊記錄）：</span>' + v.solutionQids.map(qid =>
@@ -778,7 +841,7 @@ function todayTaskOverlayHtml(vm) {
     '<header class="today-task-head"><div><span class="today-task-eyebrow">' + todayTaskEscape(v.code) + '｜' + todayTaskEscape(vm.activeTitle) + '</span>' +
     '<strong>' + (v.phaseIndex + 1) + '／' + v.phaseCount + ' ' + todayTaskEscape(v.label) + (v.closed ? '（閉卷）' : '') + ' · ' + v.minutes + ' 分鐘</strong></div>' +
     '<div class="' + timerClass + '" id="today-task-timer" role="timer">' + timerText + '</div></header>' +
-    '<div class="today-task-body">' + instruction + note + launch + figures + pdf + check + resultSlot + foot + '</div></div>';
+    '<div class="today-task-body">' + instruction + note + launch + timecap + figures + pdf + check + resultSlot + foot + '</div></div>';
 }
 
 function renderTodayTaskOverlay() {
@@ -898,7 +961,50 @@ function todayTaskTick() {
     else { el.textContent = '時間到'; el.classList.add('is-expired'); }
   } else {
     el.textContent = todayTaskFormatClock(vm.active.remainingMs);
+    todayTaskUpdateTimeCap(vm.active);
   }
+}
+
+// Replace only the #today-task-timecap block when the stage changed (no full re-render: images and zoom stay).
+function todayTaskUpdateTimeCap(view) {
+  todayTaskCapSync(view);
+  const stage = todayTaskTimeCapStage(view).stage;
+  const el = document.getElementById('today-task-timecap');
+  const shown = el ? Number(el.getAttribute('data-stage')) || 0 : 0;
+  if (stage === shown) return;
+  if (!stage) { if (el) el.remove(); return; }
+  const html = todayTaskTimeCapHtml(view, todayTaskCapRevealed);
+  if (el) { el.outerHTML = html; todayTaskTypesetTimeCap(); return; }
+  const body = document.querySelector('#today-task-overlay .today-task-body');
+  if (!body) return;
+  const fig = body.querySelector('.today-task-figure');
+  if (fig) fig.insertAdjacentHTML('beforebegin', html);
+  else body.insertAdjacentHTML('afterbegin', html);
+  todayTaskTypesetTimeCap();
+}
+
+function todayTaskTypesetTimeCap() {
+  const el = document.getElementById('today-task-timecap');
+  if (el && typeof renderMathInElement !== 'undefined') {
+    renderMathInElement(el, { delimiters: [{left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false}], throwOnError: false });
+  }
+}
+
+// 看 EE-xxx 起手式: toggle that question's panel inside the notice block only.
+function todayTaskToggleStarter(qid) {
+  const state = todayTaskState || todayTaskRefresh();
+  if (!state.active) return;
+  const view = todayTaskViewModel(state, Date.now()).active;
+  todayTaskCapSync(view);
+  if (view.questionQids.indexOf(qid) < 0) return;
+  if (todayTaskCapRevealed.has(qid)) todayTaskCapRevealed.delete(qid); else todayTaskCapRevealed.add(qid);
+  const el = document.getElementById('today-task-timecap');
+  const html = todayTaskTimeCapHtml(view, todayTaskCapRevealed);
+  if (!el || !html) return;
+  el.outerHTML = html;
+  todayTaskTypesetTimeCap();
+  const again = Array.prototype.find.call(document.querySelectorAll('#today-task-timecap [data-today-starter]'), b => b.getAttribute('data-today-starter') === qid);
+  if (again && typeof again.focus === 'function') again.focus();
 }
 
 function openTodayTaskOverlay() {
@@ -925,6 +1031,7 @@ function closeTodayTaskOverlay() {
   if (todayTaskConfirmState) todayTaskDisarmConfirm();
   todayTaskStopTimer();
   todayTaskCloseResultCard();
+  todayTaskCapReset();
   if (typeof document === 'undefined') return;
   const overlay = document.getElementById('today-task-overlay');
   if (overlay) { overlay.style.display = 'none'; overlay.innerHTML = ''; }
@@ -976,6 +1083,8 @@ function todayTaskOverlayClick(event) {
   if (!target || target.disabled) return;
   if (target.hasAttribute('data-today-result-next')) { todayTaskResultAdvance(true); return; }
   if (target.hasAttribute('data-today-result-goto')) { todayTaskResultGoto(Number(target.getAttribute('data-today-result-goto'))); return; }
+  const starter = target.getAttribute('data-today-starter');
+  if (starter) { todayTaskToggleStarter(starter); return; }
   const check = target.getAttribute('data-today-check');
   if (check) { todayTaskOpenSolution(check); return; }
   const launch = target.getAttribute('data-today-launch');

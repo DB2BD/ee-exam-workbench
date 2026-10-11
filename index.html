@@ -2913,6 +2913,20 @@ select:focus {
   margin: 0; padding: 12px 14px; font-size: 1.05rem; line-height: 1.6; font-weight: 600;
   background: var(--accent-light); color: var(--ink); border-radius: var(--radius-sm);
 }
+/* 作答時間帽 (v1.3.7): calm notice after 5 min, a firmer one after 15 min */
+.today-task-timecap {
+  display: grid; gap: 8px; padding: 10px 14px; font-size: .95rem; line-height: 1.55;
+  background: var(--accent-light); color: var(--ink); border: 1px solid var(--line); border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+.today-task-timecap--stop { background: var(--warn-light); border-color: var(--warn); border-left-color: var(--warn); font-weight: 600; }
+.today-task-timecap p { margin: 0; }
+.today-task-timecap-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.today-task-starter-btn { min-height: 44px; }
+.today-task-starter {
+  padding: 10px 12px; font-size: .95rem; font-weight: 400; line-height: 1.6;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); overflow-x: auto;
+}
 .today-task-figure img[data-today-zoom] { cursor: zoom-in; }
 .today-task-zoom-hint { margin: 0; font-size: .78rem; color: var(--muted); text-align: center; }
 .today-task-zoom-fallback { position: fixed; inset: 0; z-index: 11000; background: rgba(15, 18, 22, .94); display: flex; flex-direction: column; }
@@ -17525,7 +17539,7 @@ globalThis.CANONICAL_KNOWLEDGE_GRAPH = {
 const DAILY_SCHEDULE = {
   "budget": {
     "weekday": 2,
-    "weekend": 4
+    "weekend": 5
   },
   "holidays": [
     "2026-10-09",
@@ -17534,7 +17548,7 @@ const DAILY_SCHEDULE = {
   "milestones": [
     {
       "date": "2026-10-17",
-      "label": "弱題分析關卡",
+      "label": "核心收尾關卡",
       "hard": false,
       "codes": [
         "CORE-01",
@@ -17546,36 +17560,28 @@ const DAILY_SCHEDULE = {
         "CORE-07",
         "CORE-08",
         "CORE-09",
-        "WEAK-01",
         "CORE-10",
-        "WEAK-02",
         "CORE-11",
-        "WEAK-03",
         "CORE-12",
-        "WEAK-04",
         "CORE-13",
-        "WEAK-05",
         "CORE-14",
         "CORE-15",
         "CORE-16",
-        "WEAK-06",
         "CORE-17",
         "CORE-18",
         "CORE-19",
-        "WEAK-07",
         "CORE-20",
         "CORE-21",
         "CORE-22",
-        "WEAK-08",
         "CORE-23",
-        "WEAK-09",
+        "FOCUS-01",
+        "FOCUS-02",
         "CORE-24",
-        "MAIN-01",
-        "MAIN-02",
         "MOCK114-01",
-        "MAIN-03",
+        "MAIN-01",
         "MOCK114-02",
-        "MAIN-04"
+        "FOCUS-03",
+        "FOCUS-04"
       ]
     },
     {
@@ -17592,49 +17598,50 @@ const DAILY_SCHEDULE = {
         "CORE-07",
         "CORE-08",
         "CORE-09",
-        "WEAK-01",
         "CORE-10",
-        "WEAK-02",
         "CORE-11",
-        "WEAK-03",
         "CORE-12",
-        "WEAK-04",
         "CORE-13",
-        "WEAK-05",
         "CORE-14",
         "CORE-15",
         "CORE-16",
-        "WEAK-06",
         "CORE-17",
         "CORE-18",
         "CORE-19",
-        "WEAK-07",
         "CORE-20",
         "CORE-21",
         "CORE-22",
-        "WEAK-08",
         "CORE-23",
-        "WEAK-09",
+        "FOCUS-01",
+        "FOCUS-02",
         "CORE-24",
-        "MAIN-01",
-        "MAIN-02",
         "MOCK114-01",
-        "MAIN-03",
+        "MAIN-01",
         "MOCK114-02",
-        "MAIN-04",
+        "FOCUS-03",
+        "FOCUS-04",
         "MOCK114-03",
-        "MAIN-05",
+        "FOCUS-05",
+        "FOCUS-06",
         "MOCK114-04",
-        "WEAK-10",
+        "MAIN-02",
         "MOCK114-05",
-        "WEAK-11",
+        "MAIN-03",
         "MOCK114-06",
         "BLIND108-01",
+        "FOCUS-07",
         "BLIND108-02",
+        "FOCUS-08",
+        "FOCUS-09",
         "BLIND108-03",
+        "MAIN-04",
         "BLIND108-04",
+        "MAIN-05",
         "BLIND108-05",
-        "BLIND108-06"
+        "FOCUS-10",
+        "BLIND108-06",
+        "FOCUS-11",
+        "FOCUS-12"
       ]
     },
     {
@@ -17651,50 +17658,52 @@ const DAILY_SCHEDULE = {
         "CORE-07",
         "CORE-08",
         "CORE-09",
-        "WEAK-01",
         "CORE-10",
-        "WEAK-02",
         "CORE-11",
-        "WEAK-03",
         "CORE-12",
-        "WEAK-04",
         "CORE-13",
-        "WEAK-05",
         "CORE-14",
         "CORE-15",
         "CORE-16",
-        "WEAK-06",
         "CORE-17",
         "CORE-18",
         "CORE-19",
-        "WEAK-07",
         "CORE-20",
         "CORE-21",
         "CORE-22",
-        "WEAK-08",
         "CORE-23",
-        "WEAK-09",
+        "FOCUS-01",
+        "FOCUS-02",
         "CORE-24",
-        "MAIN-01",
-        "MAIN-02",
         "MOCK114-01",
-        "MAIN-03",
+        "MAIN-01",
         "MOCK114-02",
-        "MAIN-04",
+        "FOCUS-03",
+        "FOCUS-04",
         "MOCK114-03",
-        "MAIN-05",
+        "FOCUS-05",
+        "FOCUS-06",
         "MOCK114-04",
-        "WEAK-10",
+        "MAIN-02",
         "MOCK114-05",
-        "WEAK-11",
+        "MAIN-03",
         "MOCK114-06",
         "BLIND108-01",
+        "FOCUS-07",
         "BLIND108-02",
+        "FOCUS-08",
+        "FOCUS-09",
         "BLIND108-03",
+        "MAIN-04",
         "BLIND108-04",
+        "MAIN-05",
         "BLIND108-05",
+        "FOCUS-10",
         "BLIND108-06",
+        "FOCUS-11",
+        "FOCUS-12",
         "BUFFER",
+        "FOCUS-13",
         "REINF-01",
         "REINF-02",
         "REINF-03",
@@ -18701,7 +18710,7 @@ const DAILY_SCHEDULE = {
       "subject": "六科",
       "title": "主攻章補位 第 1 輪（固定 3 題）",
       "qids": [
-        "EE-109-01-1",
+        "EE-111-05-2",
         "EE-113-04-5",
         "EE-107-05-4"
       ],
@@ -18712,7 +18721,7 @@ const DAILY_SCHEDULE = {
           "minutes": 60,
           "closed": true,
           "qids": [
-            "EE-109-01-1",
+            "EE-111-05-2",
             "EE-113-04-5",
             "EE-107-05-4"
           ]
@@ -18850,258 +18859,655 @@ const DAILY_SCHEDULE = {
       ],
       "hours": 1.25
     },
-    "WEAK-01": {
-      "code": "WEAK-01",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 1 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-01": {
+      "code": "FOCUS-01",
+      "kind": "focus",
+      "subject": "工業配電",
+      "title": "弱章專攻｜工業配電／短路容量",
+      "qids": [
+        "EE-112-06-3",
+        "EE-109-06-3"
+      ],
+      "scoredQids": [
+        "EE-109-06-3"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-112-06-3"
+          ],
+          "solutionQids": [
+            "EE-112-06-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-112-06-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-109-06-3"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-02": {
-      "code": "WEAK-02",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 2 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-02": {
+      "code": "FOCUS-02",
+      "kind": "focus",
+      "subject": "電力系統",
+      "title": "弱章專攻｜電力系統／電力潮流",
+      "qids": [
+        "EE-105-05-2",
+        "EE-110-05-2"
+      ],
+      "scoredQids": [
+        "EE-110-05-2"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-105-05-2"
+          ],
+          "solutionQids": [
+            "EE-105-05-2"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-105-05-2"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-110-05-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-03": {
-      "code": "WEAK-03",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 3 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-03": {
+      "code": "FOCUS-03",
+      "kind": "focus",
+      "subject": "電子學",
+      "title": "弱章專攻｜電子學／Buck–Boost 轉換器",
+      "qids": [
+        "EE-112-02-3",
+        "EE-113-02-3"
+      ],
+      "scoredQids": [
+        "EE-113-02-3"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-112-02-3"
+          ],
+          "solutionQids": [
+            "EE-112-02-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-112-02-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-113-02-3"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-04": {
-      "code": "WEAK-04",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 4 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-04": {
+      "code": "FOCUS-04",
+      "kind": "focus",
+      "subject": "工程數學",
+      "title": "弱章專攻｜工程數學／向量分析",
+      "qids": [
+        "EE-107-03-3",
+        "EE-111-03-5"
+      ],
+      "scoredQids": [
+        "EE-111-03-5"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-107-03-3"
+          ],
+          "solutionQids": [
+            "EE-107-03-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-107-03-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-111-03-5"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-05": {
-      "code": "WEAK-05",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 5 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-05": {
+      "code": "FOCUS-05",
+      "kind": "focus",
+      "subject": "電力系統",
+      "title": "弱章專攻｜電力系統／三相短路",
+      "qids": [
+        "EE-107-05-2",
+        "EE-113-05-2"
+      ],
+      "scoredQids": [
+        "EE-113-05-2"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-107-05-2"
+          ],
+          "solutionQids": [
+            "EE-107-05-2"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-107-05-2"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-113-05-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-06": {
-      "code": "WEAK-06",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 6 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-06": {
+      "code": "FOCUS-06",
+      "kind": "focus",
+      "subject": "工業配電",
+      "title": "弱章專攻｜工業配電／保護協調",
+      "qids": [
+        "EE-106-06-4",
+        "EE-112-06-5"
+      ],
+      "scoredQids": [
+        "EE-112-06-5"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-106-06-4"
+          ],
+          "solutionQids": [
+            "EE-106-06-4"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-106-06-4"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-112-06-5"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-07": {
-      "code": "WEAK-07",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 7 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-07": {
+      "code": "FOCUS-07",
+      "kind": "focus",
+      "subject": "電子學",
+      "title": "弱章專攻｜電子學／二極體整流",
+      "qids": [
+        "EE-106-02-4",
+        "EE-113-02-1"
+      ],
+      "scoredQids": [
+        "EE-113-02-1"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-106-02-4"
+          ],
+          "solutionQids": [
+            "EE-106-02-4"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-106-02-4"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-113-02-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-08": {
-      "code": "WEAK-08",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 8 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-08": {
+      "code": "FOCUS-08",
+      "kind": "focus",
+      "subject": "工程數學",
+      "title": "弱章專攻｜工程數學／機率統計",
+      "qids": [
+        "EE-113-03-6",
+        "EE-110-03-7"
+      ],
+      "scoredQids": [
+        "EE-110-03-7"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-113-03-6"
+          ],
+          "solutionQids": [
+            "EE-113-03-6"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-113-03-6"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-110-03-7"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-09": {
-      "code": "WEAK-09",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 9 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-09": {
+      "code": "FOCUS-09",
+      "kind": "focus",
+      "subject": "電力系統",
+      "title": "弱章專攻｜電力系統／電力潮流",
+      "qids": [
+        "EE-109-05-3",
+        "EE-112-05-3"
+      ],
+      "scoredQids": [
+        "EE-112-05-3"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-109-05-3"
+          ],
+          "solutionQids": [
+            "EE-109-05-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-109-05-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-112-05-3"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-10": {
-      "code": "WEAK-10",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 10 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-10": {
+      "code": "FOCUS-10",
+      "kind": "focus",
+      "subject": "工業配電",
+      "title": "弱章專攻｜工業配電／短路容量",
+      "qids": [
+        "EE-105-06-3",
+        "EE-106-06-1"
+      ],
+      "scoredQids": [
+        "EE-106-06-1"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-105-06-3"
+          ],
+          "solutionQids": [
+            "EE-105-06-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-105-06-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-106-06-1"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
-      ],
-      "hours": 1.25
+      ]
     },
-    "WEAK-11": {
-      "code": "WEAK-11",
-      "kind": "practice",
-      "launch": "random-balanced",
-      "title": "弱題分析｜隨機練習 第 11 輪（各科輪流）",
-      "qids": [],
+    "FOCUS-11": {
+      "code": "FOCUS-11",
+      "kind": "focus",
+      "subject": "電子學",
+      "title": "弱章專攻｜電子學／Buck–Boost 轉換器",
+      "qids": [
+        "EE-106-02-5",
+        "EE-111-02-2"
+      ],
+      "scoredQids": [
+        "EE-111-02-2"
+      ],
+      "hours": 1,
       "phases": [
         {
-          "label": "隨機練習 3 題（各科輪流）",
-          "minutes": 60,
+          "label": "看懂例題詳解",
+          "minutes": 10,
           "closed": false,
-          "launch": "random-balanced",
-          "note": "按「開啟隨機練習」，用各科輪流模式作答 3 題；每題先閉卷再核對，並記錄作答結果。"
+          "qids": [
+            "EE-106-02-5"
+          ],
+          "solutionQids": [
+            "EE-106-02-5"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
-          "label": "一句話錯因整理",
+          "label": "蓋解重做例題",
           "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-106-02-5"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-111-02-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
           "closed": false,
-          "note": "只寫一句：這 3 題最常錯在哪一步、下次最先要改的動作。不必回填。"
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
         }
+      ]
+    },
+    "FOCUS-12": {
+      "code": "FOCUS-12",
+      "kind": "focus",
+      "subject": "工程數學",
+      "title": "弱章專攻｜工程數學／拉氏轉換",
+      "qids": [
+        "EE-112-03-1",
+        "EE-105-03-2"
       ],
-      "hours": 1.25
+      "scoredQids": [
+        "EE-105-03-2"
+      ],
+      "hours": 1,
+      "phases": [
+        {
+          "label": "看懂例題詳解",
+          "minutes": 10,
+          "closed": false,
+          "qids": [
+            "EE-112-03-1"
+          ],
+          "solutionQids": [
+            "EE-112-03-1"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
+        },
+        {
+          "label": "蓋解重做例題",
+          "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-112-03-1"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-105-03-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
+          "closed": false,
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
+        }
+      ]
+    },
+    "FOCUS-13": {
+      "code": "FOCUS-13",
+      "kind": "focus",
+      "subject": "電力系統",
+      "title": "弱章專攻｜電力系統／三相短路",
+      "qids": [
+        "EE-104-05-3",
+        "EE-106-05-2"
+      ],
+      "scoredQids": [
+        "EE-106-05-2"
+      ],
+      "hours": 1,
+      "phases": [
+        {
+          "label": "看懂例題詳解",
+          "minutes": 10,
+          "closed": false,
+          "qids": [
+            "EE-104-05-3"
+          ],
+          "solutionQids": [
+            "EE-104-05-3"
+          ],
+          "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
+        },
+        {
+          "label": "蓋解重做例題",
+          "minutes": 15,
+          "closed": true,
+          "qids": [
+            "EE-104-05-3"
+          ]
+        },
+        {
+          "label": "同章新題",
+          "minutes": 25,
+          "closed": true,
+          "qids": [
+            "EE-106-05-2"
+          ]
+        },
+        {
+          "label": "核對＋一句話錯因整理",
+          "minutes": 10,
+          "closed": false,
+          "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"
+        }
+      ]
     },
     "REINF-01": {
       "code": "REINF-01",
@@ -19433,7 +19839,8 @@ const DAILY_SCHEDULE = {
             "EE-114-01-3",
             "EE-114-01-4",
             "EE-114-01-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19470,7 +19877,8 @@ const DAILY_SCHEDULE = {
             "EE-114-02-2",
             "EE-114-02-3",
             "EE-114-02-4"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19509,7 +19917,8 @@ const DAILY_SCHEDULE = {
             "EE-114-03-3",
             "EE-114-03-4",
             "EE-114-03-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19548,7 +19957,8 @@ const DAILY_SCHEDULE = {
             "EE-114-04-3",
             "EE-114-04-4",
             "EE-114-04-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19587,7 +19997,8 @@ const DAILY_SCHEDULE = {
             "EE-114-05-3",
             "EE-114-05-4",
             "EE-114-05-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19620,7 +20031,8 @@ const DAILY_SCHEDULE = {
           "qids": [
             "EE-114-06-1",
             "EE-114-06-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19658,7 +20070,8 @@ const DAILY_SCHEDULE = {
             "EE-108-01-2",
             "EE-108-01-3",
             "EE-108-01-4"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19695,7 +20108,8 @@ const DAILY_SCHEDULE = {
             "EE-108-02-2",
             "EE-108-02-3",
             "EE-108-02-4"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19737,7 +20151,8 @@ const DAILY_SCHEDULE = {
             "EE-108-03-4",
             "EE-108-03-5",
             "EE-108-03-6"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19776,7 +20191,8 @@ const DAILY_SCHEDULE = {
             "EE-108-04-3",
             "EE-108-04-4",
             "EE-108-04-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19815,7 +20231,8 @@ const DAILY_SCHEDULE = {
             "EE-108-05-3",
             "EE-108-05-4",
             "EE-108-05-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19854,7 +20271,8 @@ const DAILY_SCHEDULE = {
             "EE-108-06-3",
             "EE-108-06-4",
             "EE-108-06-5"
-          ]
+          ],
+          "note": "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
         },
         {
           "label": "得分證據核對",
@@ -19874,12 +20292,11 @@ const DAILY_SCHEDULE = {
     {
       "date": "2026-10-04",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "CORE-07",
         "CORE-08",
-        "CORE-09",
-        "WEAK-01"
+        "CORE-09"
       ],
       "items": [
         {
@@ -19893,103 +20310,78 @@ const DAILY_SCHEDULE = {
         {
           "code": "CORE-09",
           "part": "full"
-        },
-        {
-          "code": "WEAK-01",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 3.0
     },
     {
       "date": "2026-10-05",
       "dow": 1,
       "budget": 2.0,
       "codes": [
-        "CORE-10",
-        "WEAK-02"
+        "CORE-10"
       ],
       "items": [
         {
           "code": "CORE-10",
           "part": "full"
-        },
-        {
-          "code": "WEAK-02",
-          "part": "full"
         }
       ],
-      "hours": 2.25
+      "hours": 1.0
     },
     {
       "date": "2026-10-06",
       "dow": 2,
       "budget": 2.0,
       "codes": [
-        "CORE-11",
-        "WEAK-03"
+        "CORE-11"
       ],
       "items": [
         {
           "code": "CORE-11",
           "part": "full"
-        },
-        {
-          "code": "WEAK-03",
-          "part": "full"
         }
       ],
-      "hours": 2.25
+      "hours": 1.0
     },
     {
       "date": "2026-10-07",
       "dow": 3,
       "budget": 2.0,
       "codes": [
-        "CORE-12",
-        "WEAK-04"
+        "CORE-12"
       ],
       "items": [
         {
           "code": "CORE-12",
           "part": "full"
-        },
-        {
-          "code": "WEAK-04",
-          "part": "full"
         }
       ],
-      "hours": 2.25
+      "hours": 1.0
     },
     {
       "date": "2026-10-08",
       "dow": 4,
       "budget": 2.0,
       "codes": [
-        "CORE-13",
-        "WEAK-05"
+        "CORE-13"
       ],
       "items": [
         {
           "code": "CORE-13",
           "part": "full"
-        },
-        {
-          "code": "WEAK-05",
-          "part": "full"
         }
       ],
-      "hours": 2.25
+      "hours": 1.0
     },
     {
       "date": "2026-10-09",
       "dow": 5,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "CORE-14",
         "CORE-15",
-        "CORE-16",
-        "WEAK-06"
+        "CORE-16"
       ],
       "items": [
         {
@@ -20003,23 +20395,18 @@ const DAILY_SCHEDULE = {
         {
           "code": "CORE-16",
           "part": "full"
-        },
-        {
-          "code": "WEAK-06",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 3.0
     },
     {
       "date": "2026-10-10",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "CORE-17",
         "CORE-18",
-        "CORE-19",
-        "WEAK-07"
+        "CORE-19"
       ],
       "items": [
         {
@@ -20033,29 +20420,34 @@ const DAILY_SCHEDULE = {
         {
           "code": "CORE-19",
           "part": "full"
-        },
-        {
-          "code": "WEAK-07",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 3.0
     },
     {
       "date": "2026-10-11",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "CORE-20",
-        "CORE-21",
-        "CORE-22",
-        "WEAK-08"
+        "CORE-20"
       ],
       "items": [
         {
           "code": "CORE-20",
           "part": "full"
-        },
+        }
+      ],
+      "hours": 1.0
+    },
+    {
+      "date": "2026-10-12",
+      "dow": 1,
+      "budget": 2.0,
+      "codes": [
+        "CORE-21",
+        "CORE-22"
+      ],
+      "items": [
         {
           "code": "CORE-21",
           "part": "full"
@@ -20063,21 +20455,17 @@ const DAILY_SCHEDULE = {
         {
           "code": "CORE-22",
           "part": "full"
-        },
-        {
-          "code": "WEAK-08",
-          "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 2.0
     },
     {
-      "date": "2026-10-12",
-      "dow": 1,
+      "date": "2026-10-13",
+      "dow": 2,
       "budget": 2.0,
       "codes": [
         "CORE-23",
-        "WEAK-09"
+        "FOCUS-01"
       ],
       "items": [
         {
@@ -20085,46 +20473,31 @@ const DAILY_SCHEDULE = {
           "part": "full"
         },
         {
-          "code": "WEAK-09",
+          "code": "FOCUS-01",
           "part": "full"
         }
       ],
-      "hours": 2.25
-    },
-    {
-      "date": "2026-10-13",
-      "dow": 2,
-      "budget": 2.0,
-      "codes": [
-        "CORE-24",
-        "MAIN-01"
-      ],
-      "items": [
-        {
-          "code": "CORE-24",
-          "part": "full"
-        },
-        {
-          "code": "MAIN-01",
-          "part": "full"
-        }
-      ],
-      "hours": 2.25
+      "hours": 2.0
     },
     {
       "date": "2026-10-14",
       "dow": 3,
       "budget": 2.0,
       "codes": [
-        "MAIN-02"
+        "FOCUS-02",
+        "CORE-24"
       ],
       "items": [
         {
-          "code": "MAIN-02",
+          "code": "FOCUS-02",
+          "part": "full"
+        },
+        {
+          "code": "CORE-24",
           "part": "full"
         }
       ],
-      "hours": 1.25
+      "hours": 2.0
     },
     {
       "date": "2026-10-15",
@@ -20147,7 +20520,7 @@ const DAILY_SCHEDULE = {
       "budget": 2.0,
       "codes": [
         "MOCK114-01",
-        "MAIN-03"
+        "MAIN-01"
       ],
       "items": [
         {
@@ -20155,7 +20528,7 @@ const DAILY_SCHEDULE = {
           "part": "review"
         },
         {
-          "code": "MAIN-03",
+          "code": "MAIN-01",
           "part": "full"
         }
       ],
@@ -20164,10 +20537,11 @@ const DAILY_SCHEDULE = {
     {
       "date": "2026-10-17",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "MOCK114-02",
-        "MAIN-04"
+        "FOCUS-03",
+        "FOCUS-04"
       ],
       "items": [
         {
@@ -20175,19 +20549,24 @@ const DAILY_SCHEDULE = {
           "part": "full"
         },
         {
-          "code": "MAIN-04",
+          "code": "FOCUS-03",
+          "part": "full"
+        },
+        {
+          "code": "FOCUS-04",
           "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 5.0
     },
     {
       "date": "2026-10-18",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "MOCK114-03",
-        "MAIN-05"
+        "FOCUS-05",
+        "FOCUS-06"
       ],
       "items": [
         {
@@ -20195,11 +20574,15 @@ const DAILY_SCHEDULE = {
           "part": "full"
         },
         {
-          "code": "MAIN-05",
+          "code": "FOCUS-05",
+          "part": "full"
+        },
+        {
+          "code": "FOCUS-06",
           "part": "full"
         }
       ],
-      "hours": 4.25
+      "hours": 5.0
     },
     {
       "date": "2026-10-19",
@@ -20222,7 +20605,7 @@ const DAILY_SCHEDULE = {
       "budget": 2.0,
       "codes": [
         "MOCK114-04",
-        "WEAK-10"
+        "MAIN-02"
       ],
       "items": [
         {
@@ -20230,7 +20613,7 @@ const DAILY_SCHEDULE = {
           "part": "review"
         },
         {
-          "code": "WEAK-10",
+          "code": "MAIN-02",
           "part": "full"
         }
       ],
@@ -20257,7 +20640,7 @@ const DAILY_SCHEDULE = {
       "budget": 2.0,
       "codes": [
         "MOCK114-05",
-        "WEAK-11"
+        "MAIN-03"
       ],
       "items": [
         {
@@ -20265,7 +20648,7 @@ const DAILY_SCHEDULE = {
           "part": "review"
         },
         {
-          "code": "WEAK-11",
+          "code": "MAIN-03",
           "part": "full"
         }
       ],
@@ -20289,10 +20672,11 @@ const DAILY_SCHEDULE = {
     {
       "date": "2026-10-24",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "MOCK114-06",
-        "BLIND108-01"
+        "BLIND108-01",
+        "FOCUS-07"
       ],
       "items": [
         {
@@ -20302,39 +20686,58 @@ const DAILY_SCHEDULE = {
         {
           "code": "BLIND108-01",
           "part": "full"
+        },
+        {
+          "code": "FOCUS-07",
+          "part": "full"
         }
       ],
-      "hours": 4.0
+      "hours": 5.0
     },
     {
       "date": "2026-10-25",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "BLIND108-02"
+        "BLIND108-02",
+        "FOCUS-08",
+        "FOCUS-09"
       ],
       "items": [
         {
           "code": "BLIND108-02",
           "part": "full"
+        },
+        {
+          "code": "FOCUS-08",
+          "part": "full"
+        },
+        {
+          "code": "FOCUS-09",
+          "part": "full"
         }
       ],
-      "hours": 3.0
+      "hours": 5.0
     },
     {
       "date": "2026-10-26",
       "dow": 1,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "BLIND108-03"
+        "BLIND108-03",
+        "MAIN-04"
       ],
       "items": [
         {
           "code": "BLIND108-03",
           "part": "full"
+        },
+        {
+          "code": "MAIN-04",
+          "part": "full"
         }
       ],
-      "hours": 3.0
+      "hours": 4.25
     },
     {
       "date": "2026-10-27",
@@ -20356,15 +20759,20 @@ const DAILY_SCHEDULE = {
       "dow": 3,
       "budget": 2.0,
       "codes": [
-        "BLIND108-04"
+        "BLIND108-04",
+        "MAIN-05"
       ],
       "items": [
         {
           "code": "BLIND108-04",
           "part": "review"
+        },
+        {
+          "code": "MAIN-05",
+          "part": "full"
         }
       ],
-      "hours": 1.0
+      "hours": 2.25
     },
     {
       "date": "2026-10-29",
@@ -20386,45 +20794,65 @@ const DAILY_SCHEDULE = {
       "dow": 5,
       "budget": 2.0,
       "codes": [
-        "BLIND108-05"
+        "BLIND108-05",
+        "FOCUS-10"
       ],
       "items": [
         {
           "code": "BLIND108-05",
           "part": "review"
+        },
+        {
+          "code": "FOCUS-10",
+          "part": "full"
         }
       ],
-      "hours": 1.0
+      "hours": 2.0
     },
     {
       "date": "2026-10-31",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "BLIND108-06"
+        "BLIND108-06",
+        "FOCUS-11",
+        "FOCUS-12"
       ],
       "items": [
         {
           "code": "BLIND108-06",
           "part": "full"
+        },
+        {
+          "code": "FOCUS-11",
+          "part": "full"
+        },
+        {
+          "code": "FOCUS-12",
+          "part": "full"
         }
       ],
-      "hours": 3.0
+      "hours": 5.0
     },
     {
       "date": "2026-11-01",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
-        "BUFFER"
+        "BUFFER",
+        "FOCUS-13"
       ],
       "items": [
         {
           "code": "BUFFER",
           "part": "full"
+        },
+        {
+          "code": "FOCUS-13",
+          "part": "full"
         }
       ],
-      "hours": 4.0
+      "hours": 5.0
     },
     {
       "date": "2026-11-02",
@@ -20504,7 +20932,7 @@ const DAILY_SCHEDULE = {
     {
       "date": "2026-11-07",
       "dow": 6,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "REINF-06",
         "REINF-07"
@@ -20524,7 +20952,7 @@ const DAILY_SCHEDULE = {
     {
       "date": "2026-11-08",
       "dow": 0,
-      "budget": 4.0,
+      "budget": 5.0,
       "codes": [
         "REINF-08",
         "REINF-09"
@@ -20627,50 +21055,52 @@ const DAILY_SCHEDULE = {
     "CORE-07",
     "CORE-08",
     "CORE-09",
-    "WEAK-01",
     "CORE-10",
-    "WEAK-02",
     "CORE-11",
-    "WEAK-03",
     "CORE-12",
-    "WEAK-04",
     "CORE-13",
-    "WEAK-05",
     "CORE-14",
     "CORE-15",
     "CORE-16",
-    "WEAK-06",
     "CORE-17",
     "CORE-18",
     "CORE-19",
-    "WEAK-07",
     "CORE-20",
     "CORE-21",
     "CORE-22",
-    "WEAK-08",
     "CORE-23",
-    "WEAK-09",
+    "FOCUS-01",
+    "FOCUS-02",
     "CORE-24",
-    "MAIN-01",
-    "MAIN-02",
     "MOCK114-01",
-    "MAIN-03",
+    "MAIN-01",
     "MOCK114-02",
-    "MAIN-04",
+    "FOCUS-03",
+    "FOCUS-04",
     "MOCK114-03",
-    "MAIN-05",
+    "FOCUS-05",
+    "FOCUS-06",
     "MOCK114-04",
-    "WEAK-10",
+    "MAIN-02",
     "MOCK114-05",
-    "WEAK-11",
+    "MAIN-03",
     "MOCK114-06",
     "BLIND108-01",
+    "FOCUS-07",
     "BLIND108-02",
+    "FOCUS-08",
+    "FOCUS-09",
     "BLIND108-03",
+    "MAIN-04",
     "BLIND108-04",
+    "MAIN-05",
     "BLIND108-05",
+    "FOCUS-10",
     "BLIND108-06",
+    "FOCUS-11",
+    "FOCUS-12",
     "BUFFER",
+    "FOCUS-13",
     "REINF-01",
     "REINF-02",
     "REINF-03",
@@ -20694,50 +21124,52 @@ const DAILY_SCHEDULE = {
     "CORE-07": "2026-10-04",
     "CORE-08": "2026-10-04",
     "CORE-09": "2026-10-04",
-    "WEAK-01": "2026-10-04",
     "CORE-10": "2026-10-05",
-    "WEAK-02": "2026-10-05",
     "CORE-11": "2026-10-06",
-    "WEAK-03": "2026-10-06",
     "CORE-12": "2026-10-07",
-    "WEAK-04": "2026-10-07",
     "CORE-13": "2026-10-08",
-    "WEAK-05": "2026-10-08",
     "CORE-14": "2026-10-09",
     "CORE-15": "2026-10-09",
     "CORE-16": "2026-10-09",
-    "WEAK-06": "2026-10-09",
     "CORE-17": "2026-10-10",
     "CORE-18": "2026-10-10",
     "CORE-19": "2026-10-10",
-    "WEAK-07": "2026-10-10",
     "CORE-20": "2026-10-11",
-    "CORE-21": "2026-10-11",
-    "CORE-22": "2026-10-11",
-    "WEAK-08": "2026-10-11",
-    "CORE-23": "2026-10-12",
-    "WEAK-09": "2026-10-12",
-    "CORE-24": "2026-10-13",
-    "MAIN-01": "2026-10-13",
-    "MAIN-02": "2026-10-14",
+    "CORE-21": "2026-10-12",
+    "CORE-22": "2026-10-12",
+    "CORE-23": "2026-10-13",
+    "FOCUS-01": "2026-10-13",
+    "FOCUS-02": "2026-10-14",
+    "CORE-24": "2026-10-14",
     "MOCK114-01": "2026-10-16",
-    "MAIN-03": "2026-10-16",
+    "MAIN-01": "2026-10-16",
     "MOCK114-02": "2026-10-17",
-    "MAIN-04": "2026-10-17",
+    "FOCUS-03": "2026-10-17",
+    "FOCUS-04": "2026-10-17",
     "MOCK114-03": "2026-10-18",
-    "MAIN-05": "2026-10-18",
+    "FOCUS-05": "2026-10-18",
+    "FOCUS-06": "2026-10-18",
     "MOCK114-04": "2026-10-20",
-    "WEAK-10": "2026-10-20",
+    "MAIN-02": "2026-10-20",
     "MOCK114-05": "2026-10-22",
-    "WEAK-11": "2026-10-22",
+    "MAIN-03": "2026-10-22",
     "MOCK114-06": "2026-10-24",
     "BLIND108-01": "2026-10-24",
+    "FOCUS-07": "2026-10-24",
     "BLIND108-02": "2026-10-25",
+    "FOCUS-08": "2026-10-25",
+    "FOCUS-09": "2026-10-25",
     "BLIND108-03": "2026-10-26",
+    "MAIN-04": "2026-10-26",
     "BLIND108-04": "2026-10-28",
+    "MAIN-05": "2026-10-28",
     "BLIND108-05": "2026-10-30",
+    "FOCUS-10": "2026-10-30",
     "BLIND108-06": "2026-10-31",
+    "FOCUS-11": "2026-10-31",
+    "FOCUS-12": "2026-10-31",
     "BUFFER": "2026-11-01",
+    "FOCUS-13": "2026-11-01",
     "REINF-01": "2026-11-02",
     "REINF-02": "2026-11-03",
     "REINF-03": "2026-11-04",
@@ -39494,7 +39926,7 @@ function dailyPracticeStart() {
   dailyPracticeStartWithMode(dailyPracticeLoadMode());
 }
 
-// Start a round now in the given mode (schedule WEAK／REINF tasks use this). The saved
+// Start a round now in the given mode (schedule REINF／BUFFER tasks use this). The saved
 // selector choice is left alone; the session remembers the mode it was drawn with.
 function dailyPracticeStartWithMode(mode) {
   mode = dailyPracticeValidMode(String(mode)) ? String(mode) : dailyPracticeLoadMode();
@@ -40089,15 +40521,13 @@ function pacingAvailableHours(fromIso, toIso, budget, firstIso, holidays) {
 }
 
 // Cut candidates for one milestone, in the order they are dropped.
-//   1. WEAK quota (earliest first)  2. CORE: 同型＋變式 then 母題, latest first, keeping each
-//   subject's 母題 session  3. REINF (latest first).  Papers, BUFFER and WRAP are never cut.
+//   1. CORE 同型＋變式 (latest first)  2. FOCUS 弱章專攻 (latest first)  3. CORE 母題 (latest first),
+//   keeping each subject's 母題 session  4. REINF (latest first).  Papers, BUFFER, WRAP and MAIN are never cut.
 function pacingCutCandidates(codes, schedule, completed, partial, alreadyCut) {
   const tasks = schedule.tasks;
   const order = schedule.order;
   const idx = c => order.indexOf(c);
   const live = codes.filter(c => !completed[c] && !alreadyCut.has(c) && !(partial && partial.code === c));
-  const weak = live.filter(c => pacingGroup(c) === 'WEAK').sort((a, b) => idx(a) - idx(b))
-    .map(c => ({ code: c, reason: 'weak' }));
   const core = live.filter(c => tasks[c].kind === 'core' && pacingGroup(c) === 'CORE');
   const subjectsWithDoneBase = {};
   Object.keys(tasks).forEach(c => {
@@ -40116,8 +40546,9 @@ function pacingCutCandidates(codes, schedule, completed, partial, alreadyCut) {
   const byLatest = (a, b) => idx(b) - idx(a);
   const variants = core.filter(c => tasks[c].variant).sort(byLatest).map(c => ({ code: c, reason: 'core-variant' }));
   const bases = core.filter(c => !tasks[c].variant && !protectedCodes[c]).sort(byLatest).map(c => ({ code: c, reason: 'core' }));
+  const focus = live.filter(c => pacingGroup(c) === 'FOCUS').sort(byLatest).map(c => ({ code: c, reason: 'focus' }));
   const reinf = live.filter(c => pacingGroup(c) === 'REINF').sort(byLatest).map(c => ({ code: c, reason: 'reinforce' }));
-  return weak.concat(variants, bases, reinf);
+  return variants.concat(focus, bases, reinf);
 }
 
 function pacingPlan(input) {
@@ -40127,7 +40558,7 @@ function pacingPlan(input) {
   const days = schedule.days;
   const completed = input.completed || {};
   const today = input.today;
-  const budget = Object.assign({ weekday: 2, weekend: 4 }, schedule.budget || {}, input.budget || {});
+  const budget = Object.assign({ weekday: 2, weekend: 5 }, schedule.budget || {}, input.budget || {});
   const partial = input.partial && tasks[input.partial.code] ? input.partial : null;
   const first = days[0].date;
   const last = days[days.length - 1].date;
@@ -40318,6 +40749,8 @@ function todayTaskMockId(task, timestamp) {
 
 // Scored questions of a scheduled mock (same subset rules as mockExam.js).
 function todayTaskScoredQids(task) {
+  // 弱章專攻: only the 新題 counts toward the score estimate.
+  if (Array.isArray(task.scoredQids) && task.scoredQids.length) return task.scoredQids.slice();
   const qids = task.qids.slice();
   const m = /^EE-(\d+)-(\d+)-\d+$/.exec(String(qids[0] || ''));
   if (!m || typeof MOCK_EXAM_SCORED_SUBSETS === 'undefined') return qids;
@@ -40486,7 +40919,7 @@ function todayTaskCodeRange(codes) {
   return first + '～' + last;
 }
 
-// 'WEAK-03','WEAK-04','WEAK-06' -> 'WEAK-03～04、WEAK-06' (runs of consecutive numbers per prefix, original order).
+// 'FOCUS-03','FOCUS-04','FOCUS-06' -> 'FOCUS-03～04、FOCUS-06' (runs of consecutive numbers per prefix, original order).
 function todayTaskCompressCodes(codes) {
   const out = [];
   let run = [];
@@ -40624,7 +41057,7 @@ function todayTaskPhaseView(task, a, now) {
     // Optional captions for questionQids (三題對照: 母題／同型／變式).
     questionLabels: Array.isArray(phase.qidLabels) ? phase.qidLabels.slice() : [],
     // Solution entry points. Empty (and never rendered) while a closed-book phase runs.
-    solutionQids: closed ? [] : task.qids.slice(),
+    solutionQids: closed ? [] : (phase.solutionQids || task.qids).slice(),
     isReview,
     // 作答結果卡: one card per QID, recorded right after checking.
     resultQids: isReview ? todayTaskScoredQids(task) : [],
@@ -40637,7 +41070,7 @@ function todayTaskPhaseView(task, a, now) {
     scoringNote: task.scoringNote || '',
     // One-line instruction for phases that otherwise show nothing (docs/01_備考計畫/預設24時段_核心題路徑.md: 5 分鐘只留一句下次動作).
     instruction: phase.note || (phase.label === '下次動作' ? TODAY_TASK_NEXT_ACTION_TEXT : ''),
-    // 隨機練習 launcher for WEAK／REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
+    // 隨機練習 launcher for REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
     launch: phase.launch || '',
     // Weekday mock: after the closed phase the learner may stop and continue the next day.
     canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsRestDay(todayTaskLocalDate(now), DAILY_SCHEDULE.holidays),
@@ -40876,7 +41309,7 @@ function todayTaskStartCodeNow(code) {
   return true;
 }
 
-// 開啟隨機練習 for WEAK／REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
+// 開啟隨機練習 for REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
 function todayTaskLaunchPractice(launch) {
   const mode = launch === 'random-reinforce' ? 'reinforce' : 'balanced';
   closeTodayTaskOverlay();
@@ -40979,6 +41412,65 @@ function todayTaskStopNeedsConfirm(view) {
   return !!(view && view.closed && !view.expired && view.remainingMs > TODAY_TASK_STOP_CONFIRM_MS);
 }
 
+// 作答時間帽: closed-book phases of non-paper tasks nudge the learner who has not written anything.
+// 5 分鐘 -> offer the 起手式 only; 15 分鐘 -> stop and check.  Paper tasks (mock114/blind108) are untouched.
+const TODAY_TASK_CAP_HINT_MS = 5 * 60000;
+const TODAY_TASK_CAP_STOP_MS = 15 * 60000;
+const TODAY_TASK_CAP_TEXT = {
+  1: '已經 5 分鐘還沒下第一筆？可以只看起手式（不看完整詳解），寫出第一步後繼續。',
+  2: '卡超過 15 分鐘了：按「停筆，開始核對」看詳解、標 ×，明天再重做這題。卡住的時間不會變成分數。',
+  multi: '有一題卡超過 15 分鐘就先跳下一題，把會的先拿穩；核對時再看詳解、標 ×。',
+};
+
+// Pure: { stage: 0|1|2, multi } for a phase view (todayTaskPhaseView).  `resultSource === 'mock'` marks paper tasks.
+function todayTaskTimeCapStage(view) {
+  const multi = !!(view && Array.isArray(view.questionQids) && view.questionQids.length > 1);
+  if (!view || !view.closed || view.expired || view.resultSource === 'mock') return { stage: 0, multi };
+  const elapsed = view.totalMs - view.remainingMs;
+  const stage = elapsed >= TODAY_TASK_CAP_STOP_MS ? 2 : elapsed >= TODAY_TASK_CAP_HINT_MS ? 1 : 0;
+  return { stage, multi };
+}
+
+// qids whose 起手式 panel is open; reset whenever the phase (code + phaseIndex) changes or the overlay closes.
+let todayTaskCapKey = '';
+const todayTaskCapRevealed = new Set();
+
+function todayTaskCapSync(view) {
+  const key = view ? view.code + '#' + view.phaseIndex : '';
+  if (key !== todayTaskCapKey) { todayTaskCapKey = key; todayTaskCapRevealed.clear(); }
+}
+
+function todayTaskCapReset() {
+  todayTaskCapKey = '';
+  todayTaskCapRevealed.clear();
+}
+
+// 起手式 only (never the full solution): same source and rendering as the solution modal's 起手式 line.
+function todayTaskStarterHtml(qid) {
+  const record = typeof findQuestionRecord === 'function' ? findQuestionRecord(qid) : null;
+  const hints = typeof getRecallHintBundle === 'function'
+    ? getRecallHintBundle(qid, record)
+    : { activation: '先列出已知量、未知量與要求量，再寫出第一條關係式。' };
+  return hints.activationMd && typeof processMarkdownWithMath === 'function'
+    ? processMarkdownWithMath(hints.activationMd) : todayTaskEscape(hints.activationMd || hints.activation);
+}
+
+// The notice block for a view ('' at stage 0).  `revealed` is a Set/array of qids whose panel is open.
+function todayTaskTimeCapHtml(view, revealed) {
+  const cap = todayTaskTimeCapStage(view);
+  if (!cap.stage) return '';
+  const open = revealed || [];
+  const isOpen = qid => (open.has ? open.has(qid) : open.indexOf(qid) >= 0);
+  const text = cap.stage === 1 ? TODAY_TASK_CAP_TEXT[1] : (cap.multi ? TODAY_TASK_CAP_TEXT.multi : TODAY_TASK_CAP_TEXT[2]);
+  const buttons = view.questionQids.map(qid =>
+    '<button type="button" class="btn-pdf today-task-starter-btn" data-today-starter="' + todayTaskEscape(qid) + '" aria-expanded="' + (isOpen(qid) ? 'true' : 'false') + '">' +
+    '看 ' + todayTaskEscape(qid) + ' 起手式</button>').join('');
+  const panels = view.questionQids.filter(isOpen).map(qid =>
+    '<div class="today-task-starter" data-today-starter-panel="' + todayTaskEscape(qid) + '"><strong>' + todayTaskEscape(qid) + ' 起手式：</strong> ' + todayTaskStarterHtml(qid) + '</div>').join('');
+  return '<div class="today-task-timecap' + (cap.stage === 2 ? ' today-task-timecap--stop' : '') + '" id="today-task-timecap" role="status" data-stage="' + cap.stage + '">' +
+    '<p>' + todayTaskEscape(text) + '</p><div class="today-task-timecap-actions">' + buttons + '</div>' + panels + '</div>';
+}
+
 function todayTaskOverlayHtml(vm) {
   const v = vm.active;
   const figures = v.questionQids.map((qid, i) => {
@@ -40993,6 +41485,8 @@ function todayTaskOverlayHtml(vm) {
     ? '<a class="btn-pdf" href="' + todayTaskEscape(v.pdfUrl) + '" target="_blank" rel="noopener">官方原卷 PDF</a>' : '';
   const note = v.scoringNote ? '<p class="today-task-note">計分範圍：' + todayTaskEscape(v.scoringNote) + '</p>' : '';
   const instruction = v.instruction ? '<p class="today-task-instruction" role="note">' + todayTaskEscape(v.instruction) + '</p>' : '';
+  todayTaskCapSync(v);
+  const timecap = todayTaskTimeCapHtml(v, todayTaskCapRevealed);
   let check = '';
   if (!v.closed && v.solutionQids.length) {
     check = '<div class="today-task-check"><span>核對題解（開啟後可邊讀邊記錄）：</span>' + v.solutionQids.map(qid =>
@@ -41029,7 +41523,7 @@ function todayTaskOverlayHtml(vm) {
     '<header class="today-task-head"><div><span class="today-task-eyebrow">' + todayTaskEscape(v.code) + '｜' + todayTaskEscape(vm.activeTitle) + '</span>' +
     '<strong>' + (v.phaseIndex + 1) + '／' + v.phaseCount + ' ' + todayTaskEscape(v.label) + (v.closed ? '（閉卷）' : '') + ' · ' + v.minutes + ' 分鐘</strong></div>' +
     '<div class="' + timerClass + '" id="today-task-timer" role="timer">' + timerText + '</div></header>' +
-    '<div class="today-task-body">' + instruction + note + launch + figures + pdf + check + resultSlot + foot + '</div></div>';
+    '<div class="today-task-body">' + instruction + note + launch + timecap + figures + pdf + check + resultSlot + foot + '</div></div>';
 }
 
 function renderTodayTaskOverlay() {
@@ -41149,7 +41643,50 @@ function todayTaskTick() {
     else { el.textContent = '時間到'; el.classList.add('is-expired'); }
   } else {
     el.textContent = todayTaskFormatClock(vm.active.remainingMs);
+    todayTaskUpdateTimeCap(vm.active);
   }
+}
+
+// Replace only the #today-task-timecap block when the stage changed (no full re-render: images and zoom stay).
+function todayTaskUpdateTimeCap(view) {
+  todayTaskCapSync(view);
+  const stage = todayTaskTimeCapStage(view).stage;
+  const el = document.getElementById('today-task-timecap');
+  const shown = el ? Number(el.getAttribute('data-stage')) || 0 : 0;
+  if (stage === shown) return;
+  if (!stage) { if (el) el.remove(); return; }
+  const html = todayTaskTimeCapHtml(view, todayTaskCapRevealed);
+  if (el) { el.outerHTML = html; todayTaskTypesetTimeCap(); return; }
+  const body = document.querySelector('#today-task-overlay .today-task-body');
+  if (!body) return;
+  const fig = body.querySelector('.today-task-figure');
+  if (fig) fig.insertAdjacentHTML('beforebegin', html);
+  else body.insertAdjacentHTML('afterbegin', html);
+  todayTaskTypesetTimeCap();
+}
+
+function todayTaskTypesetTimeCap() {
+  const el = document.getElementById('today-task-timecap');
+  if (el && typeof renderMathInElement !== 'undefined') {
+    renderMathInElement(el, { delimiters: [{left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false}], throwOnError: false });
+  }
+}
+
+// 看 EE-xxx 起手式: toggle that question's panel inside the notice block only.
+function todayTaskToggleStarter(qid) {
+  const state = todayTaskState || todayTaskRefresh();
+  if (!state.active) return;
+  const view = todayTaskViewModel(state, Date.now()).active;
+  todayTaskCapSync(view);
+  if (view.questionQids.indexOf(qid) < 0) return;
+  if (todayTaskCapRevealed.has(qid)) todayTaskCapRevealed.delete(qid); else todayTaskCapRevealed.add(qid);
+  const el = document.getElementById('today-task-timecap');
+  const html = todayTaskTimeCapHtml(view, todayTaskCapRevealed);
+  if (!el || !html) return;
+  el.outerHTML = html;
+  todayTaskTypesetTimeCap();
+  const again = Array.prototype.find.call(document.querySelectorAll('#today-task-timecap [data-today-starter]'), b => b.getAttribute('data-today-starter') === qid);
+  if (again && typeof again.focus === 'function') again.focus();
 }
 
 function openTodayTaskOverlay() {
@@ -41176,6 +41713,7 @@ function closeTodayTaskOverlay() {
   if (todayTaskConfirmState) todayTaskDisarmConfirm();
   todayTaskStopTimer();
   todayTaskCloseResultCard();
+  todayTaskCapReset();
   if (typeof document === 'undefined') return;
   const overlay = document.getElementById('today-task-overlay');
   if (overlay) { overlay.style.display = 'none'; overlay.innerHTML = ''; }
@@ -41227,6 +41765,8 @@ function todayTaskOverlayClick(event) {
   if (!target || target.disabled) return;
   if (target.hasAttribute('data-today-result-next')) { todayTaskResultAdvance(true); return; }
   if (target.hasAttribute('data-today-result-goto')) { todayTaskResultGoto(Number(target.getAttribute('data-today-result-goto'))); return; }
+  const starter = target.getAttribute('data-today-starter');
+  if (starter) { todayTaskToggleStarter(starter); return; }
   const check = target.getAttribute('data-today-check');
   if (check) { todayTaskOpenSolution(check); return; }
   const launch = target.getAttribute('data-today-launch');

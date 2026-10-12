@@ -75,18 +75,31 @@ class TestBalanced(unittest.TestCase):
         self.assertEqual({i.split("-")[2] for i in ids}, {"04", "05", "06"})
 
     def test_rotation_evens_out_over_rounds(self):
+        # v1.3.8: still rotates the least-practised subject first, but the questions are now the fixed anchor-queue
+        # heads (independent of random). 4 rounds x 3 = 12 picks use up the 12 anchor questions: 2 per subject.
         script = """(() => {
-const records = []; const counts = {};
-for (let round = 0; round < 12; round++) {
-  const ids = createBalancedPracticeQueue(QS, opts({records, random: seq(0.2, 0.7, 0.4, 0.9, 0.1)}));
+const records = []; const counts = {}; const rounds = [];
+for (let round = 0; round < 4; round++) {
+  const ids = createBalancedPracticeQueue(QS, aopts({records, random: seq(0.2, 0.7, 0.4, 0.9, 0.1)}));
+  rounds.push(ids);
   ids.forEach(id => { records.push(rec(id, 'o', {at: NOW - 1000})); counts[subj(id)] = (counts[subj(id)] || 0) + 1; });
 }
-return counts; })()"""
-        counts = store_eval(script, COMMON)
-        values = list(counts.values())
+const again = [];
+const records2 = [];
+for (let round = 0; round < 4; round++) {
+  const ids = createBalancedPracticeQueue(QS, aopts({records: records2, random: seq(0.9, 0.3)}));
+  again.push(ids);
+  ids.forEach(id => records2.push(rec(id, 'o', {at: NOW - 1000})));
+}
+return {counts, rounds, same: JSON.stringify(rounds) === JSON.stringify(again)}; })()"""
+        out = store_eval(script, COMMON, anchor=True)
+        values = list(out["counts"].values())
         self.assertEqual(len(values), 6)
-        self.assertEqual(sum(values), 36)
-        self.assertLessEqual(max(values) - min(values), 1)
+        self.assertEqual(sum(values), 12)
+        self.assertEqual(values, [2] * 6)
+        self.assertTrue(out["same"])  # different random sequences give the same rounds
+        self.assertEqual([i.split("-")[2] for i in out["rounds"][0]], ["01", "02", "03"])
+        self.assertEqual([i.split("-")[2] for i in out["rounds"][1]], ["04", "05", "06"])
 
     def test_prefers_main_but_includes_basic(self):
         # v1.3.8: no more random 75/25 draw. Balanced takes the anchor (主攻) questions deterministically;

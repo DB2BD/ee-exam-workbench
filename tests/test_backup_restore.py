@@ -204,6 +204,64 @@ process.stdout.write(JSON.stringify(result));
         self.assertEqual(result["exported"], payload["todayTask"])
         self.assertFalse(result["rejected"]["success"])
 
+    def test_dynamic_focus_pick_round_trips_through_export_and_import(self):
+        # v1.3.8: active.qids / scoredQids / chapter (the 例題／新題 picked at start) survive export -> import; schema stays 2.1.0.
+        payload = self.payload_v21()
+        payload["todayTask"] = {
+            "completed": {"CORE-01": "2026-09-23T00:00:00.000Z"},
+            "active": {"code": "FOCUS-01", "phaseIndex": 2, "phaseStartedAt": 1788278400000,
+                       "qids": ["EE-110-06-2", "EE-112-06-2"], "scoredQids": ["EE-112-06-2"], "chapter": "dist-short-circuit-capacity"},
+        }
+        options = self.options()
+        result = self.run_js(
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "
+            "const applied=applyUserDataBackup(payload,'replace',options); "
+            "const stored=JSON.parse(localStorage.getItem('EE_EXAM_TODAY_TASK_V1')); "
+            "const exportedAll=JSON.parse(exportAllUserDataJSON()); "
+            "return {applied,stored,exported:exportedAll.todayTask,version:exportedAll.version}; })()"
+        )
+        self.assertTrue(result["applied"]["success"])
+        self.assertEqual(result["stored"], payload["todayTask"])
+        self.assertEqual(result["exported"], payload["todayTask"])
+        self.assertEqual(result["version"], "2.1.0")
+
+    def test_old_today_task_backup_without_dynamic_fields_imports_unchanged(self):
+        payload = self.payload_v21()
+        payload["todayTask"] = {
+            "completed": {"CORE-01": "2026-09-23T00:00:00.000Z"},
+            "active": {"code": "FOCUS-01", "phaseIndex": 1, "phaseStartedAt": 1788278400000, "skipped": ["EE-112-06-3"]},
+        }
+        options = self.options()
+        result = self.run_js(
+            "(() => { const options = " + json.dumps(options, ensure_ascii=False) + "; const payload=" + json.dumps(payload, ensure_ascii=False) + "; "
+            "const applied=applyUserDataBackup(payload,'replace',options); "
+            "return {applied, stored: JSON.parse(localStorage.getItem('EE_EXAM_TODAY_TASK_V1'))}; })()"
+        )
+        self.assertTrue(result["applied"]["success"])
+        self.assertEqual(result["stored"], payload["todayTask"])
+        for key in ("qids", "scoredQids", "chapter"):
+            self.assertNotIn(key, result["stored"]["active"])
+
+    def test_backup_validation_sanitizes_dynamic_focus_fields(self):
+        result = self.run_js(
+            "(() => { const check = a => { const errors = []; const v = backupValidateTodayTask({completed:{}, active:Object.assign({code:'FOCUS-01', phaseIndex:0, phaseStartedAt:5}, a)}, errors); return {errors, active:v.active}; }; "
+            "return { longer: check({qids:['EE-110-06-2','EE-112-06-2','EE-113-06-2'], scoredQids:['EE-112-06-2'], chapter:'dist-short-circuit-capacity'}), "
+            "junk: check({qids:['EE-110-06-2','nope',7], scoredQids:['x'], chapter:'c'.repeat(65)}), "
+            "notArray: check({qids:'EE-110-06-2', scoredQids:5, chapter:9}), "
+            "orphan: check({scoredQids:['EE-112-06-2'], chapter:'c'}) }; })()"
+        )
+        self.assertEqual(result["longer"]["active"]["qids"], ["EE-110-06-2", "EE-112-06-2"])
+        self.assertEqual(result["longer"]["active"]["scoredQids"], ["EE-112-06-2"])
+        self.assertEqual(result["longer"]["active"]["chapter"], "dist-short-circuit-capacity")
+        self.assertEqual(result["junk"]["active"]["qids"], ["EE-110-06-2"])
+        self.assertNotIn("scoredQids", result["junk"]["active"])
+        self.assertNotIn("chapter", result["junk"]["active"])
+        for name in ("notArray", "orphan"):
+            for key in ("qids", "scoredQids", "chapter"):
+                self.assertNotIn(key, result[name]["active"], name)
+        for item in result.values():
+            self.assertEqual(item["errors"], [])
+
     def test_backup_without_today_task_keeps_local_state(self):
         payload = self.payload_v21()
         options = self.options()

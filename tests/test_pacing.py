@@ -209,6 +209,43 @@ class TestPacingPlan(unittest.TestCase):
         self.assertTrue(js("return plan('2026-11-14', {}).afterEnd;"))
 
 
+class TestPacingDayByDayWalk(unittest.TestCase):
+    """v1.3.8: dynamic FOCUS changes which questions are asked, never the codes or hours; pin the day-by-day plan to the dated table."""
+
+    def test_walk_from_core_20_follows_the_dated_table_with_no_cuts(self):
+        res = js("""
+          const c = done('CORE-21'); let partial = null; const out = [];
+          S.days.filter(d => d.date >= '2026-10-12').forEach(day => {
+            const r = plan(day.date, c, partial);
+            out.push({date: day.date, plan: r.plan.map(p => [p.code, p.part]), table: day.items.filter(i => S.tasks[i.code]).map(i => [i.code, i.part]),
+                      codes: day.codes, cut: r.cut, overload: r.overload, status: r.status, shortHours: r.shortHours});
+            partial = null;
+            r.plan.forEach(p => { if (p.part === 'closed') partial = {code: p.code, phaseIndex: 1}; else c[p.code] = 'x'; });
+          });
+          return {out, left: S.order.filter(k => !c[k])};""")
+        days = res["out"]
+        self.assertEqual([d["date"] for d in days][0], "2026-10-12")
+        self.assertEqual(len(days), 33)  # 10/12 .. 11/13
+        for d in days:
+            with self.subTest(day=d["date"]):
+                work_codes = [c for c in d["codes"] if c not in ("EXAM-CHECK", "STOP")]
+                self.assertEqual([code for code, _ in d["plan"]], work_codes)  # the day's code sequence is the dated row
+                self.assertEqual(d["plan"], d["table"])  # incl. weekday mock day 1 = closed, day 2 = review
+                self.assertEqual(d["cut"], [])
+                self.assertFalse(d["overload"])
+                self.assertEqual(d["shortHours"], 0)
+                self.assertIn(d["status"], ("on", "ahead"))
+        self.assertEqual(days[-2]["codes"], ["EXAM-CHECK"])
+        self.assertEqual(days[-1]["codes"], ["STOP"])
+        self.assertEqual(res["left"], [])  # every dated task got done by 11/13
+        weekday_papers = [(d["date"], d["plan"]) for d in days if any(part == "closed" for _, part in d["plan"])]
+        self.assertTrue(weekday_papers, "the walk must include at least one weekday paper split over two days")
+        for date_iso, plan in weekday_papers:
+            nxt = next(d for d in days if d["date"] > date_iso)
+            closed_code = next(code for code, part in plan if part == "closed")
+            self.assertIn([closed_code, "review"], nxt["plan"], date_iso)  # the 核對 half lands on the next day
+
+
 class TestPacingMilestones(unittest.TestCase):
     def test_next_milestone_days_and_remaining(self):
         r = js("""

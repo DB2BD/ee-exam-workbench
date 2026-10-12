@@ -83,8 +83,8 @@ function dailyPracticeModeSelectHtml() {
 
 function dailyPracticeModeHint(mode) {
   if (mode === 'balanced') return '每輪 3 題來自 3 個不同科目，近 14 天練得少的科目優先。';
-  if (mode === 'reinforce') return '先抽模考標 △／× 的題與同章題，其次是近 21 天錯因最多的章；沒有模考紀錄時改為各科輪流。';
-  if (mode === 'weighted') return '依目標配分抽題，主攻章多抽。';
+  if (mode === 'reinforce') return '先排到期複習與模考 △／× 的題，其次是各科穩拿題型的待補題；題目不足時改為各科輪流。';
+  if (mode === 'weighted') return '弱科與久沒練的科目先排，每科從穩拿題型挑起。';
   if (mode === 'all') return '不分科目與章節，全部隨機。';
   return '只從這一科抽題。';
 }

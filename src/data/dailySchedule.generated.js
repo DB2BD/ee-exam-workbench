@@ -1336,6 +1336,7 @@ const DAILY_SCHEDULE = {
         "EE-109-06-3"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1347,6 +1348,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-112-06-3"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1355,7 +1357,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-112-06-3"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1363,7 +1366,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-109-06-3"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1386,6 +1390,7 @@ const DAILY_SCHEDULE = {
         "EE-110-05-2"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1397,6 +1402,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-105-05-2"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1405,7 +1411,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-105-05-2"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1413,7 +1420,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-110-05-2"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1436,6 +1444,7 @@ const DAILY_SCHEDULE = {
         "EE-113-02-3"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1447,6 +1456,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-112-02-3"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1455,7 +1465,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-112-02-3"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1463,7 +1474,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-113-02-3"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1486,6 +1498,7 @@ const DAILY_SCHEDULE = {
         "EE-111-03-5"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1497,6 +1510,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-107-03-3"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1505,7 +1519,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-107-03-3"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1513,7 +1528,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-111-03-5"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1536,6 +1552,7 @@ const DAILY_SCHEDULE = {
         "EE-113-05-2"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1547,6 +1564,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-107-05-2"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1555,7 +1573,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-107-05-2"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1563,7 +1582,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-113-05-2"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1586,6 +1606,7 @@ const DAILY_SCHEDULE = {
         "EE-112-06-5"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1597,6 +1618,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-106-06-4"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1605,7 +1627,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-106-06-4"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1613,7 +1636,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-112-06-5"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1636,6 +1660,7 @@ const DAILY_SCHEDULE = {
         "EE-113-02-1"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1647,6 +1672,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-106-02-4"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1655,7 +1681,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-106-02-4"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1663,7 +1690,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-113-02-1"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1686,6 +1714,7 @@ const DAILY_SCHEDULE = {
         "EE-110-03-7"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1697,6 +1726,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-113-03-6"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1705,7 +1735,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-113-03-6"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1713,7 +1744,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-110-03-7"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1736,6 +1768,7 @@ const DAILY_SCHEDULE = {
         "EE-112-05-3"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1747,6 +1780,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-109-05-3"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1755,7 +1789,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-109-05-3"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1763,7 +1798,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-112-05-3"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1786,6 +1822,7 @@ const DAILY_SCHEDULE = {
         "EE-106-06-1"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1797,6 +1834,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-105-06-3"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1805,7 +1843,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-105-06-3"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1813,7 +1852,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-106-06-1"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1836,6 +1876,7 @@ const DAILY_SCHEDULE = {
         "EE-111-02-2"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1847,6 +1888,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-106-02-5"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1855,7 +1897,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-106-02-5"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1863,7 +1906,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-111-02-2"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1886,6 +1930,7 @@ const DAILY_SCHEDULE = {
         "EE-105-03-2"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1897,6 +1942,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-112-03-1"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1905,7 +1951,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-112-03-1"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1913,7 +1960,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-105-03-2"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",
@@ -1936,6 +1984,7 @@ const DAILY_SCHEDULE = {
         "EE-106-05-2"
       ],
       "hours": 1,
+      "dynamic": "anchor-focus",
       "phases": [
         {
           "label": "看懂例題詳解",
@@ -1947,6 +1996,7 @@ const DAILY_SCHEDULE = {
           "solutionQids": [
             "EE-104-05-3"
           ],
+          "role": "example",
           "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"
         },
         {
@@ -1955,7 +2005,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-104-05-3"
-          ]
+          ],
+          "role": "example"
         },
         {
           "label": "同章新題",
@@ -1963,7 +2014,8 @@ const DAILY_SCHEDULE = {
           "closed": true,
           "qids": [
             "EE-106-05-2"
-          ]
+          ],
+          "role": "fresh"
         },
         {
           "label": "核對＋一句話錯因整理",

@@ -89,15 +89,24 @@ return counts; })()"""
         self.assertLessEqual(max(values) - min(values), 1)
 
     def test_prefers_main_but_includes_basic(self):
-        script = """(() => { let main = 0, basic = 0; let n = 0;
-const rnd = () => { n += 1; return ((n * 0.6180339887) % 1); };
-for (let i = 0; i < 200; i++) {
-  createBalancedPracticeQueue(QS, opts({random: rnd})).forEach(id => { tierOf(id) === 'main' ? main++ : basic++; });
+        # v1.3.8: no more random 75/25 draw. Balanced takes the anchor (主攻) questions deterministically;
+        # 基本分 questions are only used to fill up once the 12 anchor questions are exhausted.
+        script = """(() => {
+const first = createBalancedPracticeQueue(QS, aopts({random: seq(0.1)}));
+let same = true;
+for (let i = 0; i < 50; i++) {
+  const again = createBalancedPracticeQueue(QS, aopts({random: seq(((i * 0.6180339887) % 1))}));
+  if (JSON.stringify(again) !== JSON.stringify(first)) same = false;
 }
-return {main, basic}; })()"""
-        out = store_eval(script, COMMON)
-        self.assertGreater(out["main"], out["basic"])
-        self.assertGreater(out["basic"], 0)
+const big = createBalancedPracticeQueue(QS, aopts({count: 14}));
+return {first, same, bigMain: big.slice(0, 12).map(id => tierOf(id)), bigTail: big.slice(12).map(id => tierOf(id)), n: big.length}; })()"""
+        out = store_eval(script, COMMON, anchor=True)
+        self.assertTrue(out["same"])
+        self.assertEqual(len(out["first"]), 3)
+        self.assertTrue(all(id.endswith(("-1", "-2")) for id in out["first"]))
+        self.assertEqual(out["bigMain"], ["main"] * 12)
+        self.assertEqual(out["bigTail"], ["basic", "basic"])
+        self.assertEqual(out["n"], 14)
 
     def test_excludes_recent_and_locked(self):
         locked = [q["id"] for q in QUESTIONS if q["subjectId"] != "06"]

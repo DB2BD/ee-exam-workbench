@@ -316,6 +316,15 @@ function backupValidateTodayTask(value, errors) {
       active = { code: a.code, phaseIndex: a.phaseIndex, phaseStartedAt: a.phaseStartedAt };
       if (typeof a.mockId === 'string' && /^\d+-\d+-\d+$/.test(a.mockId)) active.mockId = a.mockId;
       if (Array.isArray(a.skipped)) active.skipped = a.skipped.filter(q => typeof q === 'string' && q.length <= 40);
+      // v1.3.8 dynamic FOCUS: the 例題／新題 picked at start (todayTaskValidDynamic re-validates on load; old backups simply lack these).
+      const eeQids = list => Array.isArray(list) ? list.filter(q => typeof q === 'string' && /^EE-\d{3}-\d{2}-\d+$/.test(q)).slice(0, 2) : [];
+      const pickedQids = eeQids(a.qids);
+      if (pickedQids.length) {
+        active.qids = pickedQids;
+        const scored = eeQids(a.scoredQids);
+        if (scored.length) active.scoredQids = scored;
+        if (typeof a.chapter === 'string' && a.chapter && a.chapter.length <= 64) active.chapter = a.chapter;
+      }
       // v1.3 平日模考分兩天：「先離開，明天核對」 state must survive export／import.
       ['holdDate', 'heldFrom'].forEach(key => {
         if (typeof a[key] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(a[key])) active[key] = a[key];

@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STORE = (ROOT / "src/state/practiceStore.js").read_text(encoding="utf-8")
 UI = (ROOT / "src/components/dailyPractice.js").read_text(encoding="utf-8")
+ANCHOR = (ROOT / "src/domain/anchorSelection.js").read_text(encoding="utf-8")
 DAY = 86400000
 
 # 6 subjects x 4 questions; chapter c<s><k//2>, tier main for k<2 else basic.
@@ -23,10 +24,12 @@ def node(script):
     return json.loads(done.stdout)
 
 
-def store_eval(expression, setup=""):
+def store_eval(expression, setup="", anchor=False):
+    anchor_js = f"vm.runInContext({json.dumps(ANCHOR)}, ctx);" if anchor else ""
     script = f"""
 const vm = require('vm');
 const ctx = {{ console }}; vm.createContext(ctx);
+{anchor_js}
 vm.runInContext({json.dumps(STORE)}, ctx);
 vm.runInContext({json.dumps(setup + "globalThis.__r = (" + expression + ");")}, ctx);
 process.stdout.write(JSON.stringify(ctx.__r));
@@ -45,6 +48,10 @@ function seq(...v) {{ let i = 0; return () => v[i++ % v.length]; }}
 function rec(qid, mark, extra) {{ return Object.assign({{id: qid + Math.random(), qid, at: NOW - DAY, source: 'today',
   parts: [{{label: '整題', points: 10, mark}}], errors: []}}, extra || {{}}); }}
 const opts = extra => Object.assign({{count: 3, now: NOW, random: seq(0.1, 0.6, 0.35, 0.8), tierOf, chapterOf, lockedQids: []}}, extra || {{}});
+// v1.3.8 anchor queues: chapter c<s>-a is the one 主攻 chapter of every subject (2 questions), c<s>-b is 基本分.
+const ABANK = QS.map(q => ({{id: q.id, subject: q.subjectId, year: 114, chapter: chapterOf(q), points: 20}}));
+const AALLOC = {{subjects: Object.fromEntries(['01','02','03','04','05','06'].map(s => [s, {{name: s, target: 60, mainChapters: ['ch-' + s + '-a'], sharedChapters: []}}]))}};
+const aopts = extra => opts(Object.assign({{reservedQids: [], anchorCtx: {{questions: ABANK, allocation: AALLOC, estimates: {{}}, schedule: {{tasks: {{}}}}}}}}, extra || {{}}));
 """
 
 
@@ -68,29 +75,51 @@ class TestBalanced(unittest.TestCase):
         self.assertEqual({i.split("-")[2] for i in ids}, {"04", "05", "06"})
 
     def test_rotation_evens_out_over_rounds(self):
+        # v1.3.8: still rotates the least-practised subject first, but the questions are now the fixed anchor-queue
+        # heads (independent of random). 4 rounds x 3 = 12 picks use up the 12 anchor questions: 2 per subject.
         script = """(() => {
-const records = []; const counts = {};
-for (let round = 0; round < 12; round++) {
-  const ids = createBalancedPracticeQueue(QS, opts({records, random: seq(0.2, 0.7, 0.4, 0.9, 0.1)}));
+const records = []; const counts = {}; const rounds = [];
+for (let round = 0; round < 4; round++) {
+  const ids = createBalancedPracticeQueue(QS, aopts({records, random: seq(0.2, 0.7, 0.4, 0.9, 0.1)}));
+  rounds.push(ids);
   ids.forEach(id => { records.push(rec(id, 'o', {at: NOW - 1000})); counts[subj(id)] = (counts[subj(id)] || 0) + 1; });
 }
-return counts; })()"""
-        counts = store_eval(script, COMMON)
-        values = list(counts.values())
+const again = [];
+const records2 = [];
+for (let round = 0; round < 4; round++) {
+  const ids = createBalancedPracticeQueue(QS, aopts({records: records2, random: seq(0.9, 0.3)}));
+  again.push(ids);
+  ids.forEach(id => records2.push(rec(id, 'o', {at: NOW - 1000})));
+}
+return {counts, rounds, same: JSON.stringify(rounds) === JSON.stringify(again)}; })()"""
+        out = store_eval(script, COMMON, anchor=True)
+        values = list(out["counts"].values())
         self.assertEqual(len(values), 6)
-        self.assertEqual(sum(values), 36)
-        self.assertLessEqual(max(values) - min(values), 1)
+        self.assertEqual(sum(values), 12)
+        self.assertEqual(values, [2] * 6)
+        self.assertTrue(out["same"])  # different random sequences give the same rounds
+        self.assertEqual([i.split("-")[2] for i in out["rounds"][0]], ["01", "02", "03"])
+        self.assertEqual([i.split("-")[2] for i in out["rounds"][1]], ["04", "05", "06"])
 
     def test_prefers_main_but_includes_basic(self):
-        script = """(() => { let main = 0, basic = 0; let n = 0;
-const rnd = () => { n += 1; return ((n * 0.6180339887) % 1); };
-for (let i = 0; i < 200; i++) {
-  createBalancedPracticeQueue(QS, opts({random: rnd})).forEach(id => { tierOf(id) === 'main' ? main++ : basic++; });
+        # v1.3.8: no more random 75/25 draw. Balanced takes the anchor (主攻) questions deterministically;
+        # 基本分 questions are only used to fill up once the 12 anchor questions are exhausted.
+        script = """(() => {
+const first = createBalancedPracticeQueue(QS, aopts({random: seq(0.1)}));
+let same = true;
+for (let i = 0; i < 50; i++) {
+  const again = createBalancedPracticeQueue(QS, aopts({random: seq(((i * 0.6180339887) % 1))}));
+  if (JSON.stringify(again) !== JSON.stringify(first)) same = false;
 }
-return {main, basic}; })()"""
-        out = store_eval(script, COMMON)
-        self.assertGreater(out["main"], out["basic"])
-        self.assertGreater(out["basic"], 0)
+const big = createBalancedPracticeQueue(QS, aopts({count: 14}));
+return {first, same, bigMain: big.slice(0, 12).map(id => tierOf(id)), bigTail: big.slice(12).map(id => tierOf(id)), n: big.length}; })()"""
+        out = store_eval(script, COMMON, anchor=True)
+        self.assertTrue(out["same"])
+        self.assertEqual(len(out["first"]), 3)
+        self.assertTrue(all(id.endswith(("-1", "-2")) for id in out["first"]))
+        self.assertEqual(out["bigMain"], ["main"] * 12)
+        self.assertEqual(out["bigTail"], ["basic", "basic"])
+        self.assertEqual(out["n"], 14)
 
     def test_excludes_recent_and_locked(self):
         locked = [q["id"] for q in QUESTIONS if q["subjectId"] != "06"]
@@ -109,15 +138,21 @@ class TestReinforce(unittest.TestCase):
         return store_eval(f"createReinforcePracticeQueue(QS, opts({{records: [{','.join(records)}]{extra_js}}}))", COMMON)
 
     def test_mock_misses_first_then_same_chapter(self):
-        ids = self.reinforce([
-            "rec('EE-114-01-3', 'x', {source: 'mock', mockId: 'm1'})",
-            "rec('EE-114-02-1', 'tri', {source: 'mock', mockId: 'm2'})",
-        ])
-        self.assertEqual(set(ids[:2]), {"EE-114-01-3", "EE-114-02-1"})
-        self.assertEqual(ids[0], "EE-114-01-3")  # x before tri
-        self.assertEqual(len(ids), 3)
-        # third pick is same chapter as a miss, main tier first: ch-01-b has 01-4 only -> 01-4 (b chapter) or 02-2
-        self.assertIn(ids[2], {"EE-114-01-4", "EE-114-02-2"})
+        # v1.3.8: mock misses inside an anchor chapter (02-1, ch-02-a) go first; the mock miss outside the anchors
+        # (01-3, basic chapter) is stage (c), after the whole anchor queue; no 「同章」 stage any more.
+        recs = [
+            "rec('EE-114-01-3', 'x', {source: 'mock', mockId: 'm1', at: NOW - 3 * " + str(DAY) + "})",
+            "rec('EE-114-02-1', 'tri', {source: 'mock', mockId: 'm2', at: NOW - 3 * " + str(DAY) + "})",
+        ]
+        ids = store_eval(f"createReinforcePracticeQueue(QS, aopts({{records: [{','.join(recs)}], count: 14}}))", COMMON, anchor=True)
+        self.assertEqual(len(ids), 14)
+        self.assertEqual(ids[0], "EE-114-02-1")
+        self.assertEqual(len(set(ids[:13])), 13)
+        self.assertTrue(all(i.endswith(("-1", "-2")) for i in ids[:12]), ids)
+        self.assertEqual(ids[12], "EE-114-01-3")
+        short = store_eval(f"createReinforcePracticeQueue(QS, aopts({{records: [{','.join(recs)}]}}))", COMMON, anchor=True)
+        self.assertEqual(short[0], "EE-114-02-1")
+        self.assertNotIn("EE-114-01-3", short)
 
     def test_sm2_due_items_come_first_worst_mark_first(self):
         ids = self.reinforce([
@@ -150,14 +185,17 @@ class TestReinforce(unittest.TestCase):
         self.assertEqual(ids[1], "EE-114-03-4")
 
     def test_error_chapters_when_no_mock(self):
-        ids = self.reinforce([
-            "rec('EE-114-05-1', 'x', {errors: ['F', 'C']})",
-            "rec('EE-114-05-2', 'x', {errors: ['K']})",
-            "rec('EE-114-02-1', 'tri', {errors: ['S']})",
-        ])
-        # 05-1 / 05-2 latest records are x so they stay eligible; chapter ch-05-a has most errors
-        self.assertIn(ids[0], {"EE-114-05-1", "EE-114-05-2"})
-        self.assertEqual(len(ids), 3)
+        # v1.3.8: the 「錯因最多的章」 stage is now (d), after the anchor queue; only 主攻 anchor chapters (ch-0s-a)
+        # are queued first, then the error chapters (05-b has 2 error codes, 02-b has 1).
+        recs = [
+            "rec('EE-114-05-3', 'x', {errors: ['F', 'C'], at: NOW - 3 * " + str(DAY) + "})",
+            "rec('EE-114-02-3', 'tri', {errors: ['S'], at: NOW - 3 * " + str(DAY) + "})",
+        ]
+        ids = store_eval(f"createReinforcePracticeQueue(QS, aopts({{records: [{','.join(recs)}], count: 15}}))", COMMON, anchor=True)
+        self.assertEqual(len(ids), 15)
+        self.assertEqual(len(set(ids)), 15)
+        self.assertTrue(all(i.endswith(("-1", "-2")) for i in ids[:12]), ids)  # 12 anchor questions first
+        self.assertEqual(ids[12:], ["EE-114-05-3", "EE-114-05-4", "EE-114-02-3"])
 
     def test_latest_circle_is_not_repeated(self):
         ids = self.reinforce([

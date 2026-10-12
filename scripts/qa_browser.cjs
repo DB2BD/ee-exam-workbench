@@ -170,6 +170,93 @@ async function main() {
         await context.close();
       }
     }
+    // v1.3.8 動態 FOCUS: with result-card records in the 配電 anchor chapters, starting FOCUS-01 picks 例題＋新題 by
+    // src/domain/anchorSelection.js; the overlay shows exactly those two and the 核對 phase result card lists only the 新題.
+    {
+      const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => errors.push(String(error)));
+      await context.route('**/*', route => route.request().url().startsWith(url) ? route.continue() : route.abort());
+      page.setDefaultTimeout(15000);
+      try {
+        await page.goto(url);
+        const chapters = ['dist-short-circuit-capacity', 'dist-load-characteristics'];
+        // Seed 2 non-legacy records per anchor chapter (一個 × 觀念錯、一個 △ 計算錯), 3–6 days old (past the 2-day cooldown).
+        const seeded = await page.evaluate(chapters => {
+          const day = 86400000;
+          const now = Date.now();
+          const chapterOf = qid => {
+            const evidence = QUESTION_TAXONOMY_MAP[qid];
+            return typeof evidence === 'string' ? evidence : (evidence && evidence.primaryChapter) || '';
+          };
+          const out = [];
+          chapters.forEach((chapter, c) => {
+            const qids = DB_DATA.questions.map(q => q[0])
+              .filter(q => /^EE-\d{3}-06-\d+$/.test(q) && !/^EE-(114|108)-/.test(q) && chapterOf(q) === chapter).slice(0, 2);
+            qids.forEach((qid, i) => {
+              const mark = i === 0 ? 'x' : 'tri';
+              const parts = buildResultModel(qid).parts.map(p => Object.assign({}, p, { mark }));
+              const saved = saveResultRecord({ qid, at: now - (3 + c * 2 + i) * day, source: 'today', parts, errors: [i === 0 ? 'K' : 'C'] }, { skipSM2: true });
+              if (saved.ok) out.push(qid);
+            });
+          });
+          return out;
+        }, chapters);
+        assert(seeded.length >= 3, 'Seeding must leave at least three result-card records in the anchor chapters');
+        assert.equal(await page.evaluate(() => todayTaskStartCodeNow('FOCUS-01')), true, 'FOCUS-01 must start');
+        const readActive = () => page.evaluate(() => JSON.parse(localStorage.getItem('EE_EXAM_TODAY_TASK_V1')).active);
+        const active = await readActive();
+        assert.equal(active.code, 'FOCUS-01');
+        assert.equal(active.phaseIndex, 0);
+        assert(Array.isArray(active.qids) && active.qids.length === 2 && active.qids[0] !== active.qids[1], 'Dynamic pick must store two distinct qids');
+        assert(active.qids.every(q => /^EE-\d{3}-06-\d+$/.test(q)), '配電 round must pick 配電 questions');
+        assert.deepEqual(active.scoredQids, [active.qids[1]], 'Only the 新題 is scored');
+        assert(chapters.includes(active.chapter), `Picked chapter ${active.chapter} must be one of the seeded anchor chapters`);
+        const meta = await page.evaluate(({ qids, chapter }) => {
+          const chapterOf = qid => { const e = QUESTION_TAXONOMY_MAP[qid]; return typeof e === 'string' ? e : (e && e.primaryChapter) || ''; };
+          return { chapters: qids.map(chapterOf), name: KNOWLEDGE_DAG[chapter].name };
+        }, active);
+        assert.deepEqual(meta.chapters, [active.chapter, active.chapter], '例題 and 新題 belong to the picked chapter');
+        const [example, fresh] = active.qids;
+        await page.locator('#today-task-overlay').waitFor();
+        assert((await page.locator('#today-task-overlay .today-task-eyebrow').first().innerText()).includes(`弱章專攻｜工業配電／${meta.name}`), 'Overlay title names the picked chapter');
+        const checks = page.locator('#today-task-overlay [data-today-check]');
+        assert.equal(await checks.count(), 1, 'Phase 1 opens only the example solution');
+        assert.equal(await checks.first().getAttribute('data-today-check'), example);
+        // A reload keeps the same two questions.
+        await page.reload();
+        await page.locator('#today-task-overlay [data-today-check]').first().waitFor();
+        assert.deepEqual((await readActive()).qids, active.qids, 'Reload keeps the dynamic pick');
+        assert.equal(await page.locator('#today-task-overlay [data-today-check]').first().getAttribute('data-today-check'), example);
+        const nextPhase = async toIndex => {
+          const button = page.locator('#today-task-overlay [data-today-act="next"]').first();
+          await button.click();
+          if (await page.locator('#today-task-overlay [data-confirming="1"]').count()) await page.locator('#today-task-overlay [data-today-act="next"]').first().click();
+          await page.waitForFunction(i => JSON.parse(localStorage.getItem('EE_EXAM_TODAY_TASK_V1')).active.phaseIndex === i, toIndex);
+        };
+        await nextPhase(1);
+        await nextPhase(2);
+        assert.equal(await page.locator('#today-task-overlay [data-today-check]').count(), 0, 'Closed-book phases offer no solution');
+        assert.deepEqual((await readActive()).qids, active.qids, 'The pick survives phase changes');
+        await nextPhase(3);
+        const chips = page.locator('#today-task-result-chips button');
+        await chips.first().waitFor();
+        assert.equal(await chips.count(), 1, '核對 phase result card lists only the 新題');
+        assert((await chips.first().innerText()).includes(fresh), 'The listed result card is the 新題');
+        assert(!(await page.locator('#today-task-overlay').innerText()).includes(`還有 2 題未處理`), 'Example is not asked for a result card');
+        assert((await page.locator('#today-task-result-title').innerText()).includes(fresh), 'Result card title names the 新題');
+        assert.deepEqual(errors, []);
+        results.push({ width: 390, scenario: 'focus-dynamic-pick', passed: true, pick: active });
+        console.log('PASS dynamic FOCUS-01 390px: two picked questions, chapter title, reload keeps pick, result card lists only the new question');
+      } catch (error) {
+        await page.screenshot({ path: path.join(artifacts, 'failure-focus-dynamic.png'), fullPage: true }).catch(() => {});
+        results.push({ scenario: 'focus-dynamic-pick', passed: false, error: String(error), browserErrors: errors });
+        throw error;
+      } finally {
+        await context.close();
+      }
+    }
   } finally {
     if (browser) await browser.close();
     if (server.exitCode === null && server.pid) {

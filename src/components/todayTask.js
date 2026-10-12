@@ -41,12 +41,74 @@ function todayTaskNormalizeState(raw) {
     if (mockId) state.active.mockId = mockId;
     if (typeof a.holdDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(a.holdDate)) state.active.holdDate = a.holdDate;
     if (typeof a.heldFrom === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(a.heldFrom)) state.active.heldFrom = a.heldFrom;
+    // v1.3.8: a dynamic FOCUS task keeps the 例題／新題 picked when it started (invalid -> fixed qids).
+    const dynamic = todayTaskNormalizeDynamic(tasks[a.code], a);
+    if (dynamic) Object.assign(state.active, dynamic);
     if (Array.isArray(a.skipped)) {
-      const own = tasks[a.code].qids;
+      const own = state.active.qids || tasks[a.code].qids;
       state.active.skipped = a.skipped.filter(q => typeof q === 'string' && own.indexOf(q) >= 0);
     }
   }
   return state;
+}
+
+// ---- Dynamic FOCUS (anchor-focus): per-run 例題／新題 stored on the active task ----
+
+const TODAY_TASK_QID_RE = /^EE-\d{3}-\d{2}-\d+$/;
+const TODAY_TASK_CHAPTER_MAX = 64;
+
+// { qids:[例題, 新題], scoredQids:[新題], chapter? } when `value` is a well-formed pick, else null.
+// qids: exactly two distinct EE- strings; scoredQids (if present) must be exactly [qids[1]]; chapter: string <= 64 chars (dropped alone when bad).
+function todayTaskValidDynamic(value) {
+  if (!value || typeof value !== 'object') return null;
+  const q = value.qids;
+  if (!Array.isArray(q) || q.length !== 2 || q[0] === q[1]) return null;
+  if (!q.every(x => typeof x === 'string' && TODAY_TASK_QID_RE.test(x))) return null;
+  if (value.scoredQids !== undefined && value.scoredQids !== null) {
+    if (!Array.isArray(value.scoredQids) || value.scoredQids.length !== 1 || value.scoredQids[0] !== q[1]) return null;
+  }
+  const out = { qids: q.slice(), scoredQids: [q[1]] };
+  if (typeof value.chapter === 'string' && value.chapter && value.chapter.length <= TODAY_TASK_CHAPTER_MAX) out.chapter = value.chapter;
+  return out;
+}
+
+// Only tasks the schedule marks `dynamic` may carry a pick; anything malformed falls back to the fixed table.
+function todayTaskNormalizeDynamic(task, raw) {
+  if (!task || !task.dynamic || !raw) return null;
+  return todayTaskValidDynamic(raw);
+}
+
+// Task as run: a dynamic task with a stored pick gets the picked qids (and chapter title); phases with a
+// `role` swap their qids (example -> 例題, fresh -> 新題).  Tasks/phases without role are returned untouched.
+function todayTaskResolvedTask(task, active) {
+  const pick = task && task.dynamic && active ? todayTaskValidDynamic(active) : null;
+  if (!pick) return task;
+  const [example, fresh] = pick.qids;
+  const swap = phase => {
+    if (phase.role !== 'example' && phase.role !== 'fresh') return phase;
+    const qid = phase.role === 'example' ? example : fresh;
+    const next = Object.assign({}, phase, { qids: [qid] });
+    if (Array.isArray(phase.solutionQids)) next.solutionQids = [qid];
+    return next;
+  };
+  const resolved = Object.assign({}, task, { qids: pick.qids.slice(), scoredQids: pick.scoredQids.slice(), phases: task.phases.map(swap) });
+  if (pick.chapter) {
+    const node = typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG ? KNOWLEDGE_DAG[pick.chapter] : null;
+    const name = node && (node.name || node.title);
+    if (name && task.subject) resolved.title = '弱章專攻｜' + task.subject + '／' + name;
+  }
+  return resolved;
+}
+
+// Ask the anchor algorithm (src/domain/anchorSelection.js) for this run's 例題／新題; null -> fixed task.
+function todayTaskPickDynamic(task, state, now) {
+  if (!task || task.dynamic !== 'anchor-focus' || typeof anchorFocusPick !== 'function') return null;
+  try {
+    const ctx = typeof anchorContext === 'function' ? anchorContext({ now }) : undefined;
+    return todayTaskValidDynamic(anchorFocusPick({ task, state, ctx }));
+  } catch (_) {
+    return null;
+  }
 }
 
 // ---- Scheduled mock / blind tasks are real mocks (source 'mock' + mockId) --
@@ -143,6 +205,8 @@ function todayTaskStart(state, now, code) {
   if (!target) return state;
   const active = { code: target, phaseIndex: 0, phaseStartedAt: now };
   if (todayTaskIsMockKind(tasks[target])) active.mockId = todayTaskMockId(tasks[target], now);
+  const pick = todayTaskPickDynamic(tasks[target], state, now);
+  if (pick) Object.assign(active, pick);
   return { completed: state.completed, active };
 }
 
@@ -169,6 +233,8 @@ function todayTaskAdvance(state, now) {
   if (a.phaseIndex + 1 < task.phases.length) {
     const next = { code: a.code, phaseIndex: a.phaseIndex + 1, phaseStartedAt: now };
     if (a.mockId) next.mockId = a.mockId;
+    const dynamic = todayTaskNormalizeDynamic(task, a);
+    if (dynamic) Object.assign(next, dynamic);
     return { completed: state.completed, active: next };
   }
   const completed = Object.assign({}, state.completed);
@@ -352,7 +418,8 @@ function todayTaskPdfUrl(task) {
   return 'data/official_pdfs/pe/' + encodeURIComponent(name);
 }
 
-function todayTaskPhaseView(task, a, now) {
+function todayTaskPhaseView(baseTask, a, now) {
+  const task = todayTaskResolvedTask(baseTask, a);
   const phase = task.phases[a.phaseIndex];
   const total = phase.minutes * 60000;
   const elapsed = Math.min(Math.max(0, now - a.phaseStartedAt), total);
@@ -459,7 +526,7 @@ function todayTaskViewModel(state, now, options) {
     doneCount,
     total,
     active: view,
-    activeTitle: activeTask ? activeTask.title : '',
+    activeTitle: activeTask ? todayTaskResolvedTask(activeTask, state.active).title : '',
     // 'resume' when a phase is in flight, otherwise 'start'.
     primaryAction: view ? 'resume' : 'start',
   };

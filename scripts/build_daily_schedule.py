@@ -217,11 +217,14 @@ def parse_focus(text: str, core: list[dict], main: list[dict]) -> list[dict]:
         tasks.append({
             "code": f"FOCUS-{n:02d}", "kind": "focus", "subject": subject,
             "title": "弱章專攻｜" + topic, "qids": [ex, new], "scoredQids": [new], "hours": 1,
+            # v1.3.8: the fixed qids above are only the fallback; the app re-picks 例題／新題 by anchor chapter when the task starts
+            # (src/domain/anchorSelection.js) and substitutes them into the phases by `role`.
+            "dynamic": "anchor-focus",
             "phases": [
-                {"label": "看懂例題詳解", "minutes": FOCUS_PHASE_MINUTES[0], "closed": False, "qids": [ex], "solutionQids": [ex],
+                {"label": "看懂例題詳解", "minutes": FOCUS_PHASE_MINUTES[0], "closed": False, "qids": [ex], "solutionQids": [ex], "role": "example",
                  "note": "打開例題題解，弄懂每一步為什麼這樣做（特別是第一步怎麼起手）；不抄寫。"},
-                {"label": "蓋解重做例題", "minutes": FOCUS_PHASE_MINUTES[1], "closed": True, "qids": [ex]},
-                {"label": "同章新題", "minutes": FOCUS_PHASE_MINUTES[2], "closed": True, "qids": [new]},
+                {"label": "蓋解重做例題", "minutes": FOCUS_PHASE_MINUTES[1], "closed": True, "qids": [ex], "role": "example"},
+                {"label": "同章新題", "minutes": FOCUS_PHASE_MINUTES[2], "closed": True, "qids": [new], "role": "fresh"},
                 # 「核對」 in the label makes the overlay treat this as the review phase (result card for the 新題 only, via scoredQids).
                 {"label": "核對＋一句話錯因整理", "minutes": FOCUS_PHASE_MINUTES[3], "closed": False,
                  "note": "核對新題並記錄作答結果，再只寫一句：最常錯在哪一步、下次最先要改的動作。"},

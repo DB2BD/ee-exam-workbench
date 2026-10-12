@@ -835,6 +835,204 @@ class TestFocusTasks(unittest.TestCase):
         self.assertEqual(plan, [["FOCUS-01", 60], ["FOCUS-02", 60]])
 
 
+class TestDynamicFocus(unittest.TestCase):
+    """v1.3.8: FOCUS 例題／新題 are picked when the task starts (src/domain/anchorSelection.js); the fixed table is the fallback.
+    anchorSelection.js is not loaded here: a stub anchorFocusPick is injected as a global."""
+
+    DAG = WORKSPACE / "src/data/knowledge-dag.js"
+    PICK = {"chapter": "dist-short-circuit-capacity", "qids": ["EE-110-06-2", "EE-112-06-2"], "scoredQids": ["EE-112-06-2"]}
+
+    @classmethod
+    def setUpClass(cls):
+        cls.schedule = bds.build_schedule()
+
+    def run_js(self, body, stub="(() => null)"):
+        """Evaluate `body` (statements ending in return) with globalThis.anchorFocusPick = `stub` (a JS expression; 'none' leaves it undefined)."""
+        define = "" if stub == "none" else f"globalThis.anchorFocusPick = {stub}; "
+        return run_node(f"(() => {{ {define}{body} }})()", extra_sources=[self.DAG])["result"]
+
+    def stub_returning(self, pick=None):
+        return ("(({ task, state, ctx }) => { globalThis.__args = { code: task.code, hasState: !!state.completed, ctx: typeof ctx }; return "
+                + json.dumps(pick or self.PICK) + "; })")
+
+    def test_schedule_marks_only_focus_tasks_dynamic_with_roles(self):
+        for code, t in self.schedule["tasks"].items():
+            if code.startswith("FOCUS-"):
+                self.assertEqual(t["dynamic"], "anchor-focus", code)
+                self.assertEqual([p.get("role") for p in t["phases"]], ["example", "example", "fresh", None], code)
+                # fixed qids stay as the fallback
+                self.assertEqual(len(t["qids"]), 2, code)
+                self.assertEqual(t["scoredQids"], [t["qids"][1]], code)
+            else:
+                self.assertNotIn("dynamic", t, code)
+                self.assertTrue(all("role" not in p for p in t["phases"]), code)
+
+    def test_start_stores_the_pick_and_phases_follow_the_roles(self):
+        res = self.run_js(
+            "let s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-01'); const a = s.active; const t = DAILY_SCHEDULE.tasks['FOCUS-01']; "
+            "const views = t.phases.map((p, i) => todayTaskPhaseView(t, Object.assign({}, a, {phaseIndex: i}), 1000)); "
+            "return {a, args: globalThis.__args, views: views.map(v => ({q: v.questionQids, sol: v.solutionQids, res: v.resultQids, review: v.isReview})), "
+            "title: todayTaskViewModel(s, 1000).activeTitle, scored: todayTaskScoredQids(todayTaskResolvedTask(t, a))}; ",
+            self.stub_returning())
+        ex, fresh = self.PICK["qids"]
+        self.assertEqual(res["a"]["qids"], [ex, fresh])
+        self.assertEqual(res["a"]["scoredQids"], [fresh])
+        self.assertEqual(res["a"]["chapter"], "dist-short-circuit-capacity")
+        self.assertEqual(res["args"], {"code": "FOCUS-01", "hasState": True, "ctx": "undefined"})
+        v = res["views"]
+        self.assertEqual([x["q"] for x in v[:3]], [[ex], [ex], [fresh]])
+        self.assertEqual(v[0]["sol"], [ex])          # phase 0 opens only the example's solution
+        self.assertEqual(v[1]["sol"], [])            # closed phases never expose solutions
+        self.assertEqual(v[2]["sol"], [])
+        self.assertEqual([x["res"] for x in v], [[], [], [], [fresh]])  # result card lists only the fresh question
+        self.assertTrue(v[3]["review"])
+        self.assertEqual(res["scored"], [fresh])
+        self.assertEqual(res["title"], "弱章專攻｜工業配電／短路容量計算 (MVA 法)")
+
+    def test_ctx_comes_from_anchor_context_when_available(self):
+        res = self.run_js(
+            "globalThis.anchorContext = o => ({ now: o.now, marker: 'ctx' }); "
+            "const s = todayTaskStart({completed:{}, active:null}, 4321, 'FOCUS-02'); return {args: globalThis.__args, a: s.active}; ",
+            "(({ task, ctx }) => { globalThis.__args = { code: task.code, ctx }; return { chapter: 'power-3ph-short', qids: ['EE-107-05-2', 'EE-113-05-2'], scoredQids: ['EE-113-05-2'] }; })")
+        self.assertEqual(res["args"], {"code": "FOCUS-02", "ctx": {"now": 4321, "marker": "ctx"}})
+        self.assertEqual(res["a"]["qids"], ["EE-107-05-2", "EE-113-05-2"])
+
+    def test_null_throwing_malformed_or_missing_pick_falls_back_to_the_fixed_task(self):
+        fixed = self.schedule["tasks"]["FOCUS-03"]
+        bad_picks = {
+            "null": "(() => null)",
+            "throws": "(() => { throw new Error('boom'); })",
+            "same": "(() => ({ chapter: 'c', qids: ['EE-110-06-2', 'EE-110-06-2'], scoredQids: ['EE-110-06-2'] }))",
+            "format": "(() => ({ chapter: 'c', qids: ['EE-110-06-2', 'bad'], scoredQids: ['bad'] }))",
+            "scored-not-fresh": "(() => ({ chapter: 'c', qids: ['EE-110-06-2', 'EE-112-06-2'], scoredQids: ['EE-110-06-2'] }))",
+            "length": "(() => ({ chapter: 'c', qids: ['EE-110-06-2'], scoredQids: [] }))",
+            "no-function": "none",
+        }
+        for name, stub in bad_picks.items():
+            res = self.run_js(
+                "let s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-03'); const a = s.active; const t = DAILY_SCHEDULE.tasks['FOCUS-03']; "
+                "const v = todayTaskPhaseView(t, Object.assign({}, a, {phaseIndex: 3}), 1000); "
+                "return {a, resultQids: v.resultQids, q0: todayTaskPhaseView(t, a, 1000).questionQids, title: todayTaskViewModel(s, 1000).activeTitle}; ", stub)
+            self.assertEqual(res["a"], {"code": "FOCUS-03", "phaseIndex": 0, "phaseStartedAt": 1000}, name)
+            self.assertEqual(res["resultQids"], fixed["scoredQids"], name)
+            self.assertEqual(res["q0"], [fixed["qids"][0]], name)
+            self.assertEqual(res["title"], fixed["title"], name)
+
+    def test_only_focus_tasks_ask_for_a_pick(self):
+        res = self.run_js(
+            "const s = todayTaskStart({completed:{}, active:null}, 1000, 'CORE-07'); return {a: s.active, called: globalThis.__args !== undefined}; ",
+            self.stub_returning())
+        self.assertEqual(res["a"], {"code": "CORE-07", "phaseIndex": 0, "phaseStartedAt": 1000})
+        self.assertFalse(res["called"])
+
+    def test_pick_survives_advancing_every_phase_and_completion_clears_it(self):
+        res = self.run_js(
+            "let s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-01'); const seen = []; "
+            "for (let i = 1; i <= 3; i++) { s = todayTaskAdvance(s, 1000 + i * 1000); seen.push({idx: s.active.phaseIndex, qids: s.active.qids, scored: s.active.scoredQids, chapter: s.active.chapter}); } "
+            "s = todayTaskAdvance(s, 9000); return {seen, active: s.active, done: Object.keys(s.completed)}; ",
+            self.stub_returning())
+        self.assertEqual([i["idx"] for i in res["seen"]], [1, 2, 3])
+        for item in res["seen"]:
+            self.assertEqual(item["qids"], self.PICK["qids"])
+            self.assertEqual(item["scored"], ["EE-112-06-2"])
+            self.assertEqual(item["chapter"], "dist-short-circuit-capacity")
+        self.assertEqual(res["done"], ["FOCUS-01"])
+        self.assertIsNone(res["active"])
+
+    def test_pick_survives_a_storage_roundtrip(self):
+        res = self.run_js(
+            "let s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-01'); "
+            "const store = {}; const st = { getItem: k => store[k] || null, setItem: (k, v) => { store[k] = v; } }; "
+            "saveTodayTaskState(s, st); return loadTodayTaskState(st).active; ",
+            self.stub_returning())
+        self.assertEqual(res["qids"], self.PICK["qids"])
+        self.assertEqual(res["scoredQids"], ["EE-112-06-2"])
+        self.assertEqual(res["chapter"], "dist-short-circuit-capacity")
+
+    def test_normalize_keeps_a_valid_pick_and_validates_skipped_against_it(self):
+        raw = {"completed": {}, "active": {"code": "FOCUS-01", "phaseIndex": 3, "phaseStartedAt": 5, "chapter": "dist-short-circuit-capacity",
+                                           "qids": ["EE-110-06-2", "EE-112-06-2"], "scoredQids": ["EE-112-06-2"],
+                                           "skipped": ["EE-112-06-2", "EE-109-06-3", "EE-112-06-3"]}}
+        a = run_node(f"todayTaskNormalizeState({json.dumps(raw)})")["result"]["active"]
+        self.assertEqual(a["qids"], ["EE-110-06-2", "EE-112-06-2"])
+        self.assertEqual(a["scoredQids"], ["EE-112-06-2"])
+        self.assertEqual(a["chapter"], "dist-short-circuit-capacity")
+        self.assertEqual(a["skipped"], ["EE-112-06-2"])  # fixed table qids no longer count
+        # scoredQids may be omitted: it is derived from the 新題
+        del raw["active"]["scoredQids"]
+        a = run_node(f"todayTaskNormalizeState({json.dumps(raw)})")["result"]["active"]
+        self.assertEqual(a["scoredQids"], ["EE-112-06-2"])
+
+    def test_normalize_drops_malformed_picks_so_the_fixed_task_is_used(self):
+        base = {"code": "FOCUS-01", "phaseIndex": 1, "phaseStartedAt": 5, "skipped": ["EE-112-06-3", "EE-110-06-2"]}
+        fixed_ex = self.schedule["tasks"]["FOCUS-01"]["qids"][0]
+        bad = [
+            {"qids": ["EE-110-06-2"]},
+            {"qids": ["EE-110-06-2", "EE-112-06-2", "EE-113-06-2"]},
+            {"qids": ["EE-110-06-2", "EE-110-06-2"]},
+            {"qids": ["EE-110-06-2", "GK-112-06-2"]},
+            {"qids": ["EE-110-06-2", 5]},
+            {"qids": "EE-110-06-2,EE-112-06-2"},
+            {"qids": ["EE-110-06-2", "EE-112-06-2"], "scoredQids": ["EE-110-06-2"]},
+            {"qids": ["EE-110-06-2", "EE-112-06-2"], "scoredQids": ["EE-112-06-2", "EE-110-06-2"]},
+            {"scoredQids": ["EE-112-06-2"], "chapter": "x"},
+        ]
+        for extra in bad:
+            raw = {"completed": {}, "active": dict(base, **extra)}
+            a = run_node(f"todayTaskNormalizeState({json.dumps(raw)})")["result"]["active"]
+            self.assertIsNotNone(a, extra)
+            for key in ("qids", "scoredQids", "chapter"):
+                self.assertNotIn(key, a, f"{key} should be dropped for {extra}")
+            self.assertEqual(a["skipped"], [fixed_ex], extra)  # validated against the fixed table
+        # a bad chapter alone only costs the chapter
+        raw = {"completed": {}, "active": dict(base, qids=["EE-110-06-2", "EE-112-06-2"], chapter="x" * 65)}
+        a = run_node(f"todayTaskNormalizeState({json.dumps(raw)})")["result"]["active"]
+        self.assertEqual(a["qids"], ["EE-110-06-2", "EE-112-06-2"])
+        self.assertNotIn("chapter", a)
+
+    def test_normalize_ignores_picks_on_non_dynamic_tasks(self):
+        raw = {"completed": {}, "active": {"code": "CORE-07", "phaseIndex": 0, "phaseStartedAt": 5,
+                                           "qids": ["EE-110-06-2", "EE-112-06-2"], "scoredQids": ["EE-112-06-2"], "chapter": "c"}}
+        a = run_node(f"todayTaskNormalizeState({json.dumps(raw)})")["result"]["active"]
+        self.assertEqual(a, {"code": "CORE-07", "phaseIndex": 0, "phaseStartedAt": 5})
+        same = run_node("(() => { const t = DAILY_SCHEDULE.tasks['CORE-07']; return todayTaskResolvedTask(t, " + json.dumps(raw["active"]) + ") === t; })()")["result"]
+        self.assertTrue(same)
+
+    def test_resolved_task_without_a_pick_is_the_same_object(self):
+        res = run_node("(() => { const t = DAILY_SCHEDULE.tasks['FOCUS-01']; return [todayTaskResolvedTask(t, null) === t, "
+                       "todayTaskResolvedTask(t, {code:'FOCUS-01', phaseIndex:0, phaseStartedAt:1}) === t]; })()")["result"]
+        self.assertEqual(res, [True, True])
+
+    def test_unknown_chapter_keeps_the_fixed_title(self):
+        res = self.run_js(
+            "const s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-01'); return todayTaskViewModel(s, 1000).activeTitle; ",
+            self.stub_returning(dict(self.PICK, chapter="no-such-chapter")))
+        self.assertEqual(res, self.schedule["tasks"]["FOCUS-01"]["title"])
+
+    def test_overlay_markup_shows_dynamic_title_and_qids(self):
+        res = self.run_js(
+            "let s = todayTaskStart({completed:{}, active:null}, 1000, 'FOCUS-01'); const p1 = todayTaskOverlayHtml(todayTaskViewModel(s, 1000)); "
+            "s = todayTaskAdvance(s, 2000); s = todayTaskAdvance(s, 3000); s = todayTaskAdvance(s, 4000); const p4 = todayTaskOverlayHtml(todayTaskViewModel(s, 4000)); return {p1, p4}; ",
+            self.stub_returning())
+        self.assertIn("FOCUS-01｜弱章專攻｜工業配電／短路容量計算 (MVA 法)", res["p1"])
+        self.assertEqual(res["p1"].count("data-today-check="), 1)
+        self.assertIn('data-today-check="EE-110-06-2"', res["p1"])
+        self.assertIn("還有 1 題未處理（EE-112-06-2）", res["p4"])
+
+    def test_pick_does_not_change_pacing(self):
+        order = run_node("DAILY_SCHEDULE.order")["result"]
+        done = {c: "x" for c in order[:order.index("FOCUS-01")]}
+        now = local_ms(2026, 10, 13)
+        expr = f"todayTaskViewModel({{completed:{json.dumps(done)}, active:null}}, {now}).items.map(i => [i.code, i.minutes])"
+        before = run_node(expr)["result"]
+        started = self.run_js(
+            f"const s = todayTaskStart({{completed:{json.dumps(done)}, active:null}}, {now}, 'FOCUS-01'); "
+            f"return todayTaskViewModel(s, {now}).items.map(i => [i.code, i.minutes]); ",
+            self.stub_returning())
+        self.assertEqual(before, [["FOCUS-01", 60], ["FOCUS-02", 60]])
+        self.assertEqual(started[0], ["FOCUS-01", 60])
+
+
 class TestPaperClosedPhaseNote(unittest.TestCase):
     NOTE = "5 分鐘沒頭緒就先跳下一題；最後回來寫已知、圖、適用公式，拿步驟分。"
 

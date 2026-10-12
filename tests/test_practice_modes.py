@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STORE = (ROOT / "src/state/practiceStore.js").read_text(encoding="utf-8")
 UI = (ROOT / "src/components/dailyPractice.js").read_text(encoding="utf-8")
+ANCHOR = (ROOT / "src/domain/anchorSelection.js").read_text(encoding="utf-8")
 DAY = 86400000
 
 # 6 subjects x 4 questions; chapter c<s><k//2>, tier main for k<2 else basic.
@@ -23,10 +24,12 @@ def node(script):
     return json.loads(done.stdout)
 
 
-def store_eval(expression, setup=""):
+def store_eval(expression, setup="", anchor=False):
+    anchor_js = f"vm.runInContext({json.dumps(ANCHOR)}, ctx);" if anchor else ""
     script = f"""
 const vm = require('vm');
 const ctx = {{ console }}; vm.createContext(ctx);
+{anchor_js}
 vm.runInContext({json.dumps(STORE)}, ctx);
 vm.runInContext({json.dumps(setup + "globalThis.__r = (" + expression + ");")}, ctx);
 process.stdout.write(JSON.stringify(ctx.__r));
@@ -45,6 +48,10 @@ function seq(...v) {{ let i = 0; return () => v[i++ % v.length]; }}
 function rec(qid, mark, extra) {{ return Object.assign({{id: qid + Math.random(), qid, at: NOW - DAY, source: 'today',
   parts: [{{label: '整題', points: 10, mark}}], errors: []}}, extra || {{}}); }}
 const opts = extra => Object.assign({{count: 3, now: NOW, random: seq(0.1, 0.6, 0.35, 0.8), tierOf, chapterOf, lockedQids: []}}, extra || {{}});
+// v1.3.8 anchor queues: chapter c<s>-a is the one 主攻 chapter of every subject (2 questions), c<s>-b is 基本分.
+const ABANK = QS.map(q => ({{id: q.id, subject: q.subjectId, year: 114, chapter: chapterOf(q), points: 20}}));
+const AALLOC = {{subjects: Object.fromEntries(['01','02','03','04','05','06'].map(s => [s, {{name: s, target: 60, mainChapters: ['ch-' + s + '-a'], sharedChapters: []}}]))}};
+const aopts = extra => opts(Object.assign({{reservedQids: [], anchorCtx: {{questions: ABANK, allocation: AALLOC, estimates: {{}}, schedule: {{tasks: {{}}}}}}}}, extra || {{}}));
 """
 
 
@@ -150,14 +157,17 @@ class TestReinforce(unittest.TestCase):
         self.assertEqual(ids[1], "EE-114-03-4")
 
     def test_error_chapters_when_no_mock(self):
-        ids = self.reinforce([
-            "rec('EE-114-05-1', 'x', {errors: ['F', 'C']})",
-            "rec('EE-114-05-2', 'x', {errors: ['K']})",
-            "rec('EE-114-02-1', 'tri', {errors: ['S']})",
-        ])
-        # 05-1 / 05-2 latest records are x so they stay eligible; chapter ch-05-a has most errors
-        self.assertIn(ids[0], {"EE-114-05-1", "EE-114-05-2"})
-        self.assertEqual(len(ids), 3)
+        # v1.3.8: the 「錯因最多的章」 stage is now (d), after the anchor queue; only 主攻 anchor chapters (ch-0s-a)
+        # are queued first, then the error chapters (05-b has 2 error codes, 02-b has 1).
+        recs = [
+            "rec('EE-114-05-3', 'x', {errors: ['F', 'C'], at: NOW - 3 * " + str(DAY) + "})",
+            "rec('EE-114-02-3', 'tri', {errors: ['S'], at: NOW - 3 * " + str(DAY) + "})",
+        ]
+        ids = store_eval(f"createReinforcePracticeQueue(QS, aopts({{records: [{','.join(recs)}], count: 15}}))", COMMON, anchor=True)
+        self.assertEqual(len(ids), 15)
+        self.assertEqual(len(set(ids)), 15)
+        self.assertTrue(all(i.endswith(("-1", "-2")) for i in ids[:12]), ids)  # 12 anchor questions first
+        self.assertEqual(ids[12:], ["EE-114-05-3", "EE-114-05-4", "EE-114-02-3"])
 
     def test_latest_circle_is_not_repeated(self):
         ids = self.reinforce([

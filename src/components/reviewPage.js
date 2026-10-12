@@ -363,7 +363,7 @@ function getReviewQuestionsForScope(questions, options = {}) {
   const selectedSubject = options.subjectId || 'all';
   const selectedType = options.typeFilter || 'all';
   const scope = options.reviewFilter || reviewFilter;
-  return (questions || []).filter(q => {
+  const filtered = (questions || []).filter(q => {
     const record = getReviewRecord(q);
     const qid = record.id;
     const status = typeof progressState !== 'undefined' ? (progressState[qid] || 0) : 0;
@@ -379,6 +379,24 @@ function getReviewQuestionsForScope(questions, options = {}) {
       && (selectedSubject === 'all' || record.subjectId === selectedSubject)
       && (selectedType === 'all' || getReviewTypeLabel(q) === selectedType);
   });
+  return scope === 'due' ? reviewSortDueByAnchor(filtered, options) : filtered;
+}
+
+// v1.3.8: same due questions, new order (anchor chapters first, × before △ before ○, earlier due date, qid).
+// options.anchorCtx overrides the anchor context (tests); without anchorSelection.js the order is unchanged.
+function reviewSortDueByAnchor(list, options = {}) {
+  if (list.length < 2 || typeof anchorSortDue !== 'function' || typeof anchorContext !== 'function') return list;
+  try {
+    const ids = list.map(q => getReviewRecord(q).id);
+    const ctx = options.anchorCtx || anchorContext({ dueQids: options.dueIds });
+    const sorted = anchorSortDue(ids, ctx);
+    const rank = {};
+    sorted.forEach((qid, i) => { rank[qid] = i; });
+    return list.map((q, i) => ({ q, i, r: rank[ids[i]] }))
+      .sort((a, b) => (a.r - b.r) || (a.i - b.i)).map(item => item.q);
+  } catch (error) {
+    return list;
+  }
 }
 
 function getReviewQuestions() {

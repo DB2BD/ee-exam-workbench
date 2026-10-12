@@ -22,7 +22,8 @@
       {"id": "ps-transient-stability-equal-area"}, {"id": "ps-load-flow-admittance"}]},
     "06": {"name": "工業配電", "role": "combined", "target": 60, "mainChapters": [
       {"id": "dist-short-circuit-capacity", "shared": true}, {"id": "dist-grounding-system", "shared": true},
-      {"id": "dist-power-factor-correction", "shared": true}, {"id": "dist-protection-coordination", "shared": true}]}
+      {"id": "dist-power-factor-correction", "shared": true}, {"id": "dist-protection-coordination", "shared": true},
+      {"id": "dist-load-characteristics"}]}
   },
   "questionOverrides": {
     "EE-104-06-3": "main",

@@ -160,6 +160,33 @@ function practiceLockedQids(options) {
   return locked;
 }
 
+// v1.3.8: fixed questions of CORE／MAIN tasks that are not completed yet.  The anchor queues
+// never draw them, so the fixed task does not lose its questions to a random round.
+// options.reservedQids (Set 或陣列) can override; otherwise DAILY_SCHEDULE + EE_EXAM_TODAY_TASK_V1.completed.
+function practiceReservedQids(options) {
+  if (options && options.reservedQids) return new Set(Array.from(options.reservedQids));
+  const reserved = new Set();
+  let schedule = options && options.schedule;
+  if (!schedule) {
+    try { schedule = typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null; } catch (error) { schedule = null; }
+  }
+  const tasks = schedule && practiceIsPlainObject(schedule.tasks) ? schedule.tasks : null;
+  if (!tasks) return reserved;
+  let completed = {};
+  try {
+    const storage = practiceStorageFrom(options);
+    const raw = storage ? storage.getItem(PRACTICE_TODAY_TASK_KEY) : null;
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (parsed && practiceIsPlainObject(parsed.completed)) completed = parsed.completed;
+  } catch (error) { completed = {}; }
+  Object.keys(tasks).forEach(code => {
+    const task = tasks[code];
+    if (!task || PRACTICE_PRACTISED_KINDS.indexOf(task.kind) < 0 || completed[code]) return;
+    (task.qids || []).forEach(q => reserved.add(q));
+  });
+  return reserved;
+}
+
 function practiceSelectDiverse(candidates, count, random) {
   const remaining = candidates.map(candidate => Object.assign({}, candidate, {
     tie: practiceRandomValue(random),
@@ -241,6 +268,11 @@ function createWeightedPracticeQueue(questions, options = {}) {
   const count = Number.isInteger(options.count) && options.count > 0 ? options.count : 3;
   const now = practiceResolveNow(options.now);
   const random = typeof options.random === 'function' ? options.random : Math.random;
+  // v1.3.8: anchor-chapter queue (deterministic); the random draw below only runs when
+  // anchorSelection.js is not loaded or the anchor queue is shorter than `count`.
+  if (practiceAnchorReady()) {
+    return practiceTopUp(practiceAnchorWeighted(options, count, now), questions, options, count, random, now);
+  }
   const weightOf = typeof options.weightOf === 'function'
     ? options.weightOf
     : (typeof practiceWeightFor === 'function' ? practiceWeightFor : () => 0);
@@ -373,6 +405,9 @@ function createBalancedPracticeQueue(questions, options = {}) {
   const count = Number.isInteger(options.count) && options.count > 0 ? options.count : 3;
   const now = practiceResolveNow(options.now);
   const random = typeof options.random === 'function' ? options.random : Math.random;
+  if (practiceAnchorReady()) {
+    return practiceTopUp(practiceAnchorBalanced(questions, options, count, now), questions, options, count, random, now);
+  }
   const pool = practicePool(questions, options, now);
   const bySubject = {};
   pool.forEach(c => { (bySubject[c.subjectId] = bySubject[c.subjectId] || []).push(c); });
@@ -399,6 +434,122 @@ function createBalancedPracticeQueue(questions, options = {}) {
   return practiceTopUp(chosen, questions, options, count, random, now);
 }
 
+// ---- v1.3.8: 錨章佇列（決定性，不用 Math.random）----------------------------------------------
+// weighted／balanced／reinforce 都改從 anchorSelection.js 的錨章佇列取題；題目不足 count 時才由
+// createDailyPracticeQueue（保留 random 參數）補滿。anchorSelection.js 未載入時維持原本的亂數抽題。
+function practiceAnchorReady() {
+  return typeof anchorContext === 'function' && typeof anchorQueue === 'function'
+    && typeof anchorSubjectQueue === 'function' && typeof anchorPool === 'function';
+}
+
+// options.anchorCtx（可選）整包覆寫 anchorContext 的欄位，供測試使用。
+function practiceAnchorContext(options, now) {
+  const overrides = {
+    now,
+    records: practiceRecordList(options),
+    dueQids: practiceDueQids(Object.assign({}, options, { now })),
+    locked: practiceLockedQids(options),
+    reserved: practiceReservedQids(options),
+    completionByQuestion: options.completionByQuestion || {},
+  };
+  return anchorContext(Object.assign(overrides, options.anchorCtx || {}));
+}
+
+function practiceAnchorWeighted(options, count, now) {
+  const ctx = practiceAnchorContext(options, now);
+  return anchorQueue({ subjects: anchorSubjectPriority(ctx).map(s => s.id), count, ctx });
+}
+
+function practiceAnchorBalanced(questions, options, count, now) {
+  const ctx = practiceAnchorContext(options, now);
+  const stats = anchorChapterStats(ctx);
+  const subjectOfQid = {};
+  (Array.isArray(questions) ? questions : []).forEach(q => { subjectOfQid[practiceQuestionId(q)] = practiceSubjectId(q); });
+  const counts = {};
+  ctx.records.forEach(record => {
+    if (!record || record.legacy || (Number(record.at) || 0) < now - PRACTICE_BALANCED_WINDOW_MS) return;
+    const subject = subjectOfQid[record.qid] || (/^EE-\d+-(\d+)-\d+$/.exec(String(record.qid)) || [])[1];
+    if (subject) counts[subject] = (counts[subject] || 0) + 1;
+  });
+  const queues = {};
+  anchorSubjectIds(ctx).forEach(id => { queues[id] = anchorSubjectQueue(id, ctx, stats); });
+  const chosen = [];
+  while (chosen.length < count) {
+    const subjects = Object.keys(queues).filter(id => queues[id].length)
+      .map(id => ({ id, n: counts[id] || 0 }))
+      .sort((a, b) => a.n - b.n || (a.id < b.id ? -1 : (a.id > b.id ? 1 : 0)));
+    if (!subjects.length) break;
+    for (const subject of subjects) {
+      if (chosen.length >= count) break;
+      chosen.push(queues[subject.id].shift());
+      counts[subject.id] = (counts[subject.id] || 0) + 1;
+    }
+  }
+  return chosen;
+}
+
+// 補強: (0) SM-2 到期 ∩ 錨章 → (a) 模考 △／× ∩ 錨章 → (b) 錨章佇列 → (c) 模考 △／× 非錨章
+// → (d) 近 21 天錯因最多的章。每段內 × 先於 △，再依科目優先值、年度新→舊、配分、qid。
+function practiceAnchorReinforce(questions, options, count, now) {
+  const ctx = practiceAnchorContext(options, now);
+  const stats = anchorChapterStats(ctx);
+  const pool = anchorPool(ctx);
+  const priority = anchorSubjectPriority(ctx);
+  const prioRank = {};
+  priority.forEach((s, i) => { prioRank[s.id] = i; });
+  const anchors = new Set();
+  anchorSubjectIds(ctx).forEach(id => anchorChaptersFor(id, stats).forEach(ch => anchors.add(ch)));
+  const poolById = {};
+  pool.forEach(e => { poolById[e.qid] = e; });
+  const records = practiceRecordList(options).filter(r => r && !r.legacy);
+  const latestMock = practiceLatestByQid(records, r => r.source === 'mock');
+  const dueIds = new Set(ctx.dueQids);
+  const markRank = { x: 0, tri: 1, o: 3 };
+  const chosen = [];
+  const add = list => {
+    list.forEach(item => {
+      const qid = typeof item === 'string' ? item : item.qid;
+      if (chosen.length < count && chosen.indexOf(qid) < 0) chosen.push(qid);
+    });
+  };
+  const order = rankOf => (a, b) => (rankOf(a) - rankOf(b)) || (subjectRank(a.subject) - subjectRank(b.subject))
+    || (b.year - a.year) || (b.points - a.points) || (a.qid < b.qid ? -1 : (a.qid > b.qid ? 1 : 0));
+  const subjectRank = id => (id in prioRank ? prioRank[id] : 99);
+  const worstRank = e => (e.worst in markRank ? markRank[e.worst] : 2);
+
+  // (0) due ∩ anchor chapters.
+  add(pool.filter(e => dueIds.has(e.qid) && anchors.has(e.chapter)).sort(order(worstRank)));
+  // (a) mock misses ∩ anchor chapters, × before △.
+  const mockMiss = Object.keys(latestMock).filter(qid => ['x', 'tri'].indexOf(practiceRecordMark(latestMock[qid])) >= 0 && poolById[qid]);
+  const mockRank = e => markRank[practiceRecordMark(latestMock[e.qid])];
+  add(mockMiss.map(qid => poolById[qid]).filter(e => anchors.has(e.chapter)).sort(order(mockRank)));
+  // (b) anchor queue.
+  if (chosen.length < count) {
+    add(anchorQueue({ subjects: priority.map(s => s.id), count: Infinity, ctx }));
+  }
+  // (c) remaining mock misses outside the anchors.
+  add(mockMiss.map(qid => poolById[qid]).filter(e => !anchors.has(e.chapter)).sort(order(mockRank)));
+  // (d) chapters with the most error codes in the last 21 days (主攻 first).
+  if (chosen.length < count) {
+    const chapterOf = {};
+    anchorBank(ctx).forEach(q => { chapterOf[q.id] = q.chapter; });
+    const errorCount = {};
+    records.forEach(r => {
+      if ((Number(r.at) || 0) < now - PRACTICE_ERROR_WINDOW_MS || !Array.isArray(r.errors) || !r.errors.length) return;
+      const chapter = chapterOf[r.qid];
+      if (chapter) errorCount[chapter] = (errorCount[chapter] || 0) + r.errors.length;
+    });
+    Object.keys(errorCount).sort((a, b) => (errorCount[b] - errorCount[a]) || (a < b ? -1 : (a > b ? 1 : 0))).forEach(chapter => {
+      if (chosen.length >= count) return;
+      const list = pool.filter(e => e.chapter === chapter && chosen.indexOf(e.qid) < 0);
+      const main = list.filter(e => practiceTierOf(options, e.qid) === 'main');
+      add(main);
+      add(list);
+    });
+  }
+  return chosen;
+}
+
 // SM-2 due question ids: `options.dueQids` (array, for tests) or the live schedule via getDueQuestionsList().
 function practiceDueQids(options) {
   if (Array.isArray(options.dueQids)) return options.dueQids.map(String);
@@ -415,6 +566,11 @@ function createReinforcePracticeQueue(questions, options = {}) {
   const count = Number.isInteger(options.count) && options.count > 0 ? options.count : 3;
   const now = practiceResolveNow(options.now);
   const random = typeof options.random === 'function' ? options.random : Math.random;
+  if (practiceAnchorReady()) {
+    const anchored = practiceAnchorReinforce(questions, options, count, now);
+    if (!anchored.length) return createBalancedPracticeQueue(questions, Object.assign({}, options, { count, random, now }));
+    return practiceTopUpBalanced(anchored, questions, options, count, random, now);
+  }
   const records = practiceRecordList(options).filter(r => r && !r.legacy);
   const latestAny = practiceLatestByQid(records);
   const latestMock = practiceLatestByQid(records, r => r.source === 'mock');
@@ -712,6 +868,7 @@ if (typeof module !== 'undefined' && module.exports) {
     DAILY_PRACTICE_STORE_VERSION,
     DAILY_PRACTICE_RECENT_WINDOW_MS,
     practiceLockedQids,
+    practiceReservedQids,
     createDailyPracticeQueue,
     createWeightedPracticeQueue,
     createBalancedPracticeQueue,

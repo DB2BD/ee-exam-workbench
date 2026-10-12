@@ -123,7 +123,8 @@ const TARGET_ALLOCATION = {
         "dist-short-circuit-capacity",
         "dist-grounding-system",
         "dist-power-factor-correction",
-        "dist-protection-coordination"
+        "dist-protection-coordination",
+        "dist-load-characteristics"
       ],
       "sharedChapters": [
         "dist-short-circuit-capacity",
@@ -135,7 +136,6 @@ const TARGET_ALLOCATION = {
         "dist-distribution-equipment",
         "dist-harmonics-mitigation",
         "dist-lighting-design",
-        "dist-load-characteristics",
         "dist-motor-installation",
         "dist-voltage-drop"
       ]
@@ -442,6 +442,11 @@ const TARGET_ALLOCATION = {
       "tier": "main",
       "shared": true
     },
+    "dist-load-characteristics": {
+      "subject": "06",
+      "tier": "main",
+      "shared": false
+    },
     "dist-distribution-equipment": {
       "subject": "06",
       "tier": "basic",
@@ -453,11 +458,6 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "dist-lighting-design": {
-      "subject": "06",
-      "tier": "basic",
-      "shared": false
-    },
-    "dist-load-characteristics": {
       "subject": "06",
       "tier": "basic",
       "shared": false
@@ -625,7 +625,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-104-06-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "06",
       "chapter": "dist-load-characteristics",
       "shared": false
@@ -1172,7 +1172,7 @@ const TARGET_ALLOCATION = {
       "shared": true
     },
     "EE-107-06-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "06",
       "chapter": "dist-load-characteristics",
       "shared": false
@@ -1527,7 +1527,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-109-06-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "06",
       "chapter": "dist-load-characteristics",
       "shared": false
@@ -1713,7 +1713,7 @@ const TARGET_ALLOCATION = {
       "shared": true
     },
     "EE-110-06-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "06",
       "chapter": "dist-load-characteristics",
       "shared": false
@@ -2050,7 +2050,7 @@ const TARGET_ALLOCATION = {
       "shared": true
     },
     "EE-112-06-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "06",
       "chapter": "dist-load-characteristics",
       "shared": false
@@ -2212,7 +2212,7 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-113-06-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "06",
       "chapter": "dist-load-characteristics",
       "shared": false

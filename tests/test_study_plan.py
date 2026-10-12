@@ -82,6 +82,21 @@ class TestStudyPlan(unittest.TestCase):
         self.assertTrue(prob)
         self.assertTrue(all(t[q]["tier"] == "main" for q in prob))
 
+    def test_load_characteristics_promoted_to_main(self):
+        """v1.3.8: 配電「負載特性」升為主攻章（不標共通）。"""
+        sub = self.data["subjects"]["06"]
+        self.assertIn("dist-load-characteristics", sub["mainChapters"])
+        self.assertNotIn("dist-load-characteristics", sub["basicChapters"])
+        self.assertNotIn("dist-load-characteristics", sub["sharedChapters"])
+        t = self.data["questionTiers"]
+        qs = [q for q, v in t.items() if v.get("chapter") == "dist-load-characteristics" and q.startswith("EE-")]
+        self.assertEqual(len(qs), 6)
+        for q in qs:
+            self.assertEqual(t[q]["tier"], "main", q)
+            self.assertFalse(t[q]["shared"], q)
+        out = run_node("[studyTierFor('EE-112-06-2'), practiceWeightFor('EE-112-06-2')]")
+        self.assertEqual(out, ["main", 3])
+
     def test_overrides(self):
         t = self.data["questionTiers"]
         for q in ("EE-104-06-3", "EE-108-06-2", "EE-110-06-4", "EE-113-06-3", "EE-114-06-2"):

@@ -116,15 +116,21 @@ class TestReinforce(unittest.TestCase):
         return store_eval(f"createReinforcePracticeQueue(QS, opts({{records: [{','.join(records)}]{extra_js}}}))", COMMON)
 
     def test_mock_misses_first_then_same_chapter(self):
-        ids = self.reinforce([
-            "rec('EE-114-01-3', 'x', {source: 'mock', mockId: 'm1'})",
-            "rec('EE-114-02-1', 'tri', {source: 'mock', mockId: 'm2'})",
-        ])
-        self.assertEqual(set(ids[:2]), {"EE-114-01-3", "EE-114-02-1"})
-        self.assertEqual(ids[0], "EE-114-01-3")  # x before tri
-        self.assertEqual(len(ids), 3)
-        # third pick is same chapter as a miss, main tier first: ch-01-b has 01-4 only -> 01-4 (b chapter) or 02-2
-        self.assertIn(ids[2], {"EE-114-01-4", "EE-114-02-2"})
+        # v1.3.8: mock misses inside an anchor chapter (02-1, ch-02-a) go first; the mock miss outside the anchors
+        # (01-3, basic chapter) is stage (c), after the whole anchor queue; no 「同章」 stage any more.
+        recs = [
+            "rec('EE-114-01-3', 'x', {source: 'mock', mockId: 'm1', at: NOW - 3 * " + str(DAY) + "})",
+            "rec('EE-114-02-1', 'tri', {source: 'mock', mockId: 'm2', at: NOW - 3 * " + str(DAY) + "})",
+        ]
+        ids = store_eval(f"createReinforcePracticeQueue(QS, aopts({{records: [{','.join(recs)}], count: 14}}))", COMMON, anchor=True)
+        self.assertEqual(len(ids), 14)
+        self.assertEqual(ids[0], "EE-114-02-1")
+        self.assertEqual(len(set(ids[:13])), 13)
+        self.assertTrue(all(i.endswith(("-1", "-2")) for i in ids[:12]), ids)
+        self.assertEqual(ids[12], "EE-114-01-3")
+        short = store_eval(f"createReinforcePracticeQueue(QS, aopts({{records: [{','.join(recs)}]}}))", COMMON, anchor=True)
+        self.assertEqual(short[0], "EE-114-02-1")
+        self.assertNotIn("EE-114-01-3", short)
 
     def test_sm2_due_items_come_first_worst_mark_first(self):
         ids = self.reinforce([

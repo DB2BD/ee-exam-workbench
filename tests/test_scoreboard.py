@@ -33,8 +33,18 @@ function mockRecs(mockId, year, subj, at, ratio, skip) {
 """
 
 
-def run_node(expression, mock=False):
+PACE_SOURCES = [
+    ROOT / "src" / "components" / "icons.js",
+    ROOT / "src" / "data" / "dailySchedule.generated.js",
+    ROOT / "src" / "domain" / "pacing.js",
+    ROOT / "src" / "components" / "todayTask.js",
+]
+
+
+def run_node(expression, mock=False, pace=False):
     sources = SOURCES[:-1] + [ROOT / "src" / "components" / "mockExam.js"] + SOURCES[-1:] if mock else SOURCES
+    if pace:
+        sources = PACE_SOURCES + list(sources)
     script = (
         "const vm = require('vm');\nconst context = {};\ncontext.globalThis = context;\nvm.createContext(context);\n"
         + "".join(
@@ -235,6 +245,134 @@ class TestScoreboard(unittest.TestCase):
             renderScoreboard(c, {records: mockRecs('m','114','01',t-DAY,0.8), now: t}); return c.innerHTML.split('data-subject="02"')[0].indexOf('sb-val--practice'); })()]""")
         self.assertEqual(r[:3], [True, False, True])
         self.assertEqual(r[3], -1)
+
+
+PACE_PRELUDE = """(() => {
+  const S = DAILY_SCHEDULE;
+  const nextMs = { date: '2026-10-17', label: '核心收尾關卡', remainingTasks: 9, requiredHours: 14.5, availableHours: 12, atRisk: true };
+  const base = { behindCodes: [], cutDetail: [], behindCount: 0, behindHours: 0, aheadCount: 0, aheadHours: 0, nextMilestone: null };
+"""
+
+
+class TestScoreboardPace(unittest.TestCase):
+    def test_model_behind_and_cut(self):
+        r = run_node(PACE_PRELUDE + """
+          const cut = [{ code: 'REINF-09', title: S.tasks['REINF-09'].title, hours: 1, reason: 'reinforce', milestone: '2026-10-31' }];
+          const p = Object.assign({}, base, { behindCodes: ['CORE-21', 'CORE-22', 'FOCUS-01'], behindCount: 3, behindHours: 3, cutDetail: cut, nextMilestone: nextMs });
+          return { m: scoreboardPaceModel(p, S, null), line: todayTaskPaceLine(p), titles: ['CORE-21', 'CORE-22', 'FOCUS-01', 'REINF-09'].map(c => S.tasks[c].title) };
+        })()""", pace=True)
+        m = r["m"]
+        self.assertEqual(m["line"], r["line"])
+        self.assertTrue(m["line"].startswith("落後約 "))
+        self.assertEqual([x["code"] for x in m["behind"]], ["CORE-21", "CORE-22", "FOCUS-01"])
+        self.assertEqual([x["title"] for x in m["behind"]], r["titles"][:3])
+        self.assertEqual([x["due"] for x in m["behind"]], ["10/12", "10/12", "10/13"])
+        self.assertTrue(all(x["hours"] > 0 for x in m["behind"]))
+        self.assertEqual(m["more"], 0)
+        self.assertEqual(m["rest"], [])
+        self.assertEqual(m["next"], {"date": "10/17", "label": "核心收尾關卡", "remainingTasks": 9,
+                                      "requiredHours": 14.5, "availableHours": 12, "atRisk": True})
+        self.assertEqual(m["cut"], [{"code": "REINF-09", "title": r["titles"][3], "hours": 1}])
+
+    def test_model_on_schedule_without_cut(self):
+        r = run_node(PACE_PRELUDE + """
+          const m = scoreboardPaceModel(Object.assign({}, base, { nextMilestone: Object.assign({}, nextMs, { atRisk: false }) }), S, null);
+          return { m, html: scoreboardPaceHtml_(m) };
+        })()""", pace=True)
+        m = r["m"]
+        self.assertEqual(m["line"], "照日程")
+        self.assertEqual((m["behind"], m["rest"], m["more"], m["cut"]), ([], [], 0, []))
+        self.assertFalse(m["next"]["atRisk"])
+        html = r["html"]
+        self.assertIn('class="sb-pace"', html)
+        self.assertIn("下一關卡 10/17 核心收尾關卡：剩 9 項，需 14.5 小時／可用 12 小時", html)
+        self.assertNotIn("<table", html)
+        self.assertNotIn("<details", html)
+        self.assertNotIn("sb-gap", html)
+
+    def test_model_ten_behind_rows_cap_at_eight(self):
+        r = run_node(PACE_PRELUDE + """
+          const codes = S.order.slice(0, 10);
+          const m = scoreboardPaceModel(Object.assign({}, base, { behindCodes: codes, behindCount: 10 }), S, null);
+          return { m, html: scoreboardPaceHtml_(m), codes };
+        })()""", pace=True)
+        m = r["m"]
+        self.assertEqual([x["code"] for x in m["behind"]], r["codes"][:8])
+        self.assertEqual([x["code"] for x in m["rest"]], r["codes"][8:])
+        self.assertEqual(m["more"], 2)
+        html = r["html"]
+        self.assertIn("<summary>另有 2 項</summary>", html)
+        self.assertEqual(html.count("<details"), 1)
+        self.assertEqual(html.count("<tr>"), 2 + 10)  # two header rows + ten data rows
+        for code in r["codes"]:
+            self.assertIn(code, html)
+
+    def test_html_at_risk_class_cut_details_and_escaping(self):
+        r = run_node(PACE_PRELUDE + """
+          const p = Object.assign({}, base, { cutDetail: [{ code: 'X<1>', title: '<img onerror=x>', hours: 0.5 }], nextMilestone: nextMs });
+          return scoreboardPaceHtml_(scoreboardPaceModel(p, S, null));
+        })()""", pace=True)
+        self.assertIn('class="sb-pace-next sb-gap"', r)
+        self.assertIn('<details class="sb-pace-cut"><summary>已自動刪減</summary>', r)
+        self.assertNotIn("<details open", r)
+        self.assertNotIn("<img", r)
+        self.assertIn("&lt;img onerror=x&gt;", r)
+        self.assertIn("X&lt;1&gt;", r)
+
+    def test_render_lists_behind_rows_from_real_state(self):
+        r = run_node("""(() => {
+          const day = 86400000;
+          const completed = {};
+          DAILY_SCHEDULE.order.slice(0, 20).forEach(c => { completed[c] = new Date(2026, 9, 12, 20).toISOString(); });
+          const c = { innerHTML: '' };
+          const now = new Date(2026, 9, 14, 9).getTime();
+          renderScoreboard(c, { records: [], now, todayState: { completed, active: null } });
+          const pacing = todayTaskPacing({ completed, active: null }, '2026-10-14');
+          return { html: c.innerHTML, behind: pacing.behindCodes, line: todayTaskPaceLine(pacing) };
+        })()""", pace=True)
+        self.assertEqual(r["behind"], ["CORE-21", "CORE-22", "CORE-23", "FOCUS-01"])
+        html = r["html"]
+        self.assertIn("日程進度", html)
+        self.assertIn("sb-pace", html)
+        self.assertIn(r["line"], html)
+        for code in r["behind"]:
+            self.assertIn(code, html)
+        # Four behind rows in the open table; the same four are also in the (collapsed) 已自動刪減 list.
+        self.assertEqual(html.split("<details")[0].count('class="sb-pace-code"'), 4)
+        self.assertIn('<details class="sb-pace-cut">', html)
+        self.assertIn("下一關卡 10/17 核心收尾關卡", html)
+        # The empty-records notice is still there and the section comes before it.
+        self.assertIn("sb-empty", html)
+        self.assertLess(html.index("sb-pace"), html.index("sb-empty"))
+
+    def test_render_pace_section_with_empty_records(self):
+        r = run_node("""(() => { const c = { innerHTML: '' };
+          const model = renderScoreboard(c, { records: [], now: new Date(2026, 9, 14, 9).getTime() });
+          return { empty: model.empty, html: c.innerHTML }; })()""", pace=True)
+        self.assertTrue(r["empty"])
+        self.assertIn('<section class="sb-pace" aria-label="日程進度">', r["html"])
+
+    def test_render_pace_section_before_totals(self):
+        r = run_node("""(() => { const c = { innerHTML: '' };
+          renderScoreboard(c, { records: mockRecs('m','114','01',NOW-DAY,0.8), now: NOW });
+          return c.innerHTML; })()""", pace=True)
+        self.assertIn("sb-pace", r)
+        self.assertLess(r.index("sb-pace"), r.index('class="sb-totals"'))
+
+    def test_render_without_pacing_code_omits_section(self):
+        r = run_node("""(() => { const out = []; [[], [{ qid: 1 }]].forEach(recs => { const c = { innerHTML: '' };
+          renderScoreboard(c, { records: recs.length ? mockRecs('m','114','01',NOW-DAY,0.8) : recs, now: NOW }); out.push(c.innerHTML); });
+          return { typeofPacing: typeof todayTaskPacing, html: out }; })()""")
+        self.assertEqual(r["typeofPacing"], "undefined")
+        for html in r["html"]:
+            self.assertNotIn("sb-pace", html)
+            self.assertIn("成績看板", html)
+
+    def test_model_without_pace_line_helper_is_safe(self):
+        r = run_node("scoreboardPaceModel({ behindCodes: ['CORE-01'] }, { tasks: {}, due: {} }, null)")
+        self.assertEqual(r["line"], "")
+        self.assertEqual(r["behind"], [{"code": "CORE-01", "title": "", "due": "", "hours": 0}])
+        self.assertIsNone(r["next"])
 
 
 if __name__ == "__main__":

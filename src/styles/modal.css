@@ -230,26 +230,33 @@
   font-weight: 700;
 }
 
-/* Split Pane Body */
+/* Split Pane Body.  A grid, so the result-card dock is a layout row of its own:
+   solution content shrinks and scrolls inside its cell instead of being covered. */
 .modal-split-body {
-  display: flex;
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, var(--modal-left, 45%)) 6px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
   overflow: hidden;
   position: relative;
 }
 
 .modal-pane-left {
-  flex: 0 0 45%;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  min-width: 0;
+  min-height: 0;
   border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
   background: var(--bg);
   overflow-y: auto;
-  transition: flex 0.2s ease;
 }
 
 .modal-resizer {
-  width: 6px;
+  grid-column: 2;
+  grid-row: 1 / span 2;
   background: var(--line);
   cursor: col-resize;
   transition: background 0.2s;
@@ -261,14 +268,30 @@
 }
 
 .modal-pane-right {
-  flex: 1;
+  grid-column: 3;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   background: var(--surface);
   overflow-y: auto;
   padding: 24px 32px;
-  transition: flex 0.2s ease;
 }
+
+.modal-result-dock {
+  grid-column: 3;
+  grid-row: 2;
+  min-width: 0;
+}
+
+/* 純詳解 / 原題考卷: one full-width column; the dock sits under whichever pane is showing */
+.modal-split-body[data-layout="solution-only"],
+.modal-split-body[data-layout="exam-only"] { grid-template-columns: minmax(0, 1fr); }
+.modal-split-body[data-layout="solution-only"] .modal-pane-right,
+.modal-split-body[data-layout="solution-only"] .modal-result-dock,
+.modal-split-body[data-layout="exam-only"] .modal-result-dock { grid-column: 1; }
+.modal-split-body[data-layout="exam-only"] .modal-pane-left { grid-column: 1; grid-row: 1; }
 
 /* Sub Question Navigation Pills */
 .sub-q-pills-bar {
@@ -567,12 +590,19 @@
 @media (max-width: 760px) {
   #solution-modal { padding: 0; }
   .modal-container { width: 100vw; height: 100dvh; border-radius: 0; }
-  .modal-header, .modal-nav-bar, .modal-actions, .modal-nav-group { flex-wrap: wrap; }
-  .modal-header { padding: 8px 10px; gap: 8px; }
-  .modal-nav-bar { padding: 6px 8px; }
   .modal-pane-right { padding: 16px; }
-  .modal-resizer, #btn-layout-split { display: none !important; }
   .view-layout-toggle button, .btn-layout, .btn-session-next,
   .btn-reveal-hint, .btn-reveal-full, .btn-sm2 { min-height: 44px; }
   .solution-content .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+
+  /* One pane at a time on a phone, whatever the inline state says (e.g. the window was narrowed while open):
+     the 題目／詳解 switch picks the pane, the dock stays a row under it. */
+  .modal-split-body,
+  .modal-split-body[data-layout] { grid-template-columns: minmax(0, 1fr); }
+  .modal-pane-left, .modal-pane-right { grid-column: 1; grid-row: 1; }
+  .modal-result-dock { grid-column: 1; }
+  .modal-resizer { display: none !important; }
+  .modal-split-body:not([data-layout="exam-only"]) .modal-pane-left { display: none !important; }
+  .modal-split-body[data-layout="split"] .modal-pane-right { display: flex !important; }
+  .modal-pane-left { border-right: 0; }
 }

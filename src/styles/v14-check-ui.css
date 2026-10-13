@@ -1,0 +1,185 @@
+/* src/styles/v14-check-ui.css — v1.4.0 核對題解＋作答結果卡介面重整.
+   One layout for every entry (今日任務核對、隨機練習第④步、模考批改、瀏覽):
+   - the result card lives in #modal-result-dock, a row of the split-body grid (see modal.css), so it never covers the solution;
+   - >760px: the dock sits under the 詳解 column (left 題目 column keeps its full height);
+   - <=760px: one pane at a time (題目／詳解 switch), the dock is a bottom sheet that reserves its own height.
+   Loaded before v13-icons.css (which must stay last). */
+
+/* ---- 題目／詳解 switch: long labels on desktop, icon + short label on phones ---- */
+.btn-layout .seg-ico, .btn-layout .seg-short { display: none; }
+.btn-layout { white-space: nowrap; }
+
+/* daily practice: no prev / next / exam picker, so the bar is just the view switch */
+#solution-modal.sm-no-nav .modal-nav-bar > .modal-nav-group:first-child { display: none; }
+#solution-modal.sm-no-nav .modal-nav-bar { justify-content: flex-end; }
+
+/* ---- Result card dock (desktop) ---- */
+.modal-result-dock {
+  position: relative;
+  z-index: 2;
+  max-height: min(46vh, 380px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  container-type: inline-size;
+  background: var(--surface);
+  border-top: 1px solid var(--line-strong);
+  box-shadow: 0 -10px 18px -14px rgba(44, 51, 56, 0.4);
+}
+.modal-result-dock:empty { display: none; }
+[data-theme="dark"] .modal-result-dock { box-shadow: 0 -10px 18px -14px rgba(0, 0, 0, 0.7); }
+
+.modal-result-dock .result-card--docked {
+  position: static;
+  max-height: none;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 10px 20px 14px;
+  gap: 8px;
+  outline: none;
+}
+.modal-result-dock .result-card-guide { font-size: 0.8125rem; line-height: 1.5; }
+.modal-result-dock .result-card-head { align-items: center; }
+.modal-result-dock .result-card-mark { min-height: 40px; }
+.modal-result-dock .result-card-chip { min-height: 32px; padding: 2px 12px; }
+.modal-result-dock .result-card-note-toggle { min-height: 34px; padding: 2px 10px; }
+.modal-result-dock .result-card-save { min-height: 42px; }
+
+/* collapsed: a single quiet bar */
+.modal-result-dock .result-card--docked.is-collapsed { padding-top: 2px; padding-bottom: 2px; }
+.result-card-handle { display: none; }
+.result-card-expand { display: none; }
+.result-card.is-collapsed { padding-top: 0; padding-bottom: 0; gap: 0; }
+.result-card.is-collapsed .result-card-expand { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.result-card.is-collapsed > :not(.result-card-expand):not(.result-card-handle) { display: none !important; }
+.modal-result-dock .result-card-expand {
+  width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent;
+  color: var(--accent-dark); font: inherit; font-weight: 700; cursor: pointer; text-align: left;
+}
+.result-card-expand .result-card-ico { transform: rotate(180deg); display: inline-flex; }
+.result-card-head .result-card-allo {
+  margin-left: auto; min-height: 30px; padding: 2px 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
+  background: var(--bg); color: var(--ink-light); font-size: 0.8125rem; font-weight: 600; cursor: pointer;
+}
+.result-card-head .result-card-allo:hover { background: var(--accent-light); color: var(--ink); }
+.result-card-collapse { display: inline-flex; align-items: center; gap: 4px; margin-left: 0; }
+.result-card-ico { display: inline-flex; align-items: center; }
+.result-card-expand:focus-visible, .result-card-collapse:focus-visible, .result-card-handle:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-sm);
+}
+
+/* expanding is an answer to a tap: the body fades in once */
+@keyframes result-card-body-in { from { opacity: 0; } to { opacity: 1; } }
+.result-card--docked:not(.is-collapsed) > :not(.result-card-expand):not(.result-card-handle) { animation: result-card-body-in .16s ease-out; }
+
+/* wide dock: marks on the left, estimate + save on the right */
+@container (min-width: 600px) {
+  .result-card--docked:not(.is-collapsed) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 28px;
+    row-gap: 8px;
+    align-items: start;
+  }
+  .result-card--docked > .result-card-head { grid-column: 1 / -1; grid-row: 1; }
+  .result-card--docked > .result-card-guide { grid-column: 1 / -1; grid-row: 2; }
+  .result-card--docked > .result-card-rows { grid-column: 1; grid-row: 3; }
+  .result-card--docked > .result-card-foot {
+    grid-column: 2; grid-row: 3; align-self: end;
+    flex-direction: column; align-items: stretch; gap: 6px; min-width: 190px;
+  }
+  .result-card--docked > .result-card-foot .result-card-save { margin-left: 0; }
+  .result-card--docked > .result-card-foot .result-card-estimate { text-align: right; }
+  .result-card--docked > .result-card-errors { grid-column: 1 / -1; grid-row: 4; }
+  .result-card--docked > .result-card-note { grid-column: 1 / -1; grid-row: 5; }
+}
+
+/* ---- 「已記錄」: where the card was, in the same row ---- */
+.result-card-saved-notice {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 16px; text-align: center; font-weight: 700;
+  color: #fff; background: #4a7650;
+  animation: result-card-notice-in .18s ease-out;
+}
+[data-theme="dark"] .result-card-saved-notice { color: #14181b; background: var(--success); }
+.result-card-saved-notice.result-card--viewport { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10001; }
+@keyframes result-card-notice-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .result-card--docked:not(.is-collapsed) > :not(.result-card-expand):not(.result-card-handle),
+  .result-card-saved-notice { animation: none; }
+}
+
+/* ---- Phones and narrow windows (<= 760px) ---- */
+@media (max-width: 760px) {
+  /* top bar: one compact row of icon buttons, then arrows + exam select + 題目／詳解 switch; never vertical text */
+  #solution-modal .modal-header { flex-wrap: nowrap; align-items: center; gap: 6px; padding: 6px 8px; }
+  #solution-modal .modal-title { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  #solution-modal .modal-title > span:nth-child(2) { display: none; }
+  #solution-modal .modal-title > span:first-child { font-size: 0.9rem; }
+  #solution-modal .modal-actions { flex-wrap: nowrap; flex: 0 0 auto; gap: 4px; }
+  #solution-modal .modal-actions button { padding: 0; min-width: 40px; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
+  #solution-modal .modal-actions .sm-lbl { display: none; }
+  #solution-modal .modal-actions .sm-ico { font-size: 1.1rem; line-height: 1; }
+  #solution-modal #btn-active-recall { display: none; }
+  #solution-modal.sm-recall-entry #btn-modal-active-recall { display: none; }
+
+  #solution-modal .modal-nav-bar { flex-wrap: nowrap; align-items: center; gap: 6px; padding: 4px 8px; }
+  #solution-modal .modal-nav-bar > .modal-nav-group { flex-wrap: nowrap; gap: 6px; min-width: 0; }
+  #solution-modal .modal-nav-bar > .modal-nav-group:first-child { flex: 1 1 auto; }
+  #solution-modal .modal-nav-bar > .modal-nav-group:last-child { flex: 0 0 auto; }
+  #solution-modal .modal-same-exam-select { flex: 1 1 0; min-width: 0; max-width: 100%; min-height: 40px; }
+  #solution-modal #btn-modal-prev, #solution-modal #btn-modal-next { font-size: 0; padding: 0; min-width: 40px; min-height: 40px; justify-content: center; white-space: nowrap; }
+  #solution-modal #btn-modal-prev::before { content: '←'; font-size: 1rem; }
+  #solution-modal #btn-modal-next::before { content: '→'; font-size: 1rem; }
+
+  #solution-modal .view-layout-toggle { display: inline-flex; flex-wrap: nowrap; gap: 2px; padding: 3px; border-radius: 10px; background: var(--bg); }
+  #solution-modal #btn-layout-split { display: none; }
+  #solution-modal .btn-layout {
+    display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+    min-width: 60px; min-height: 38px; padding: 0 10px; border-radius: 8px;
+    font-size: 0.875rem; white-space: nowrap; writing-mode: horizontal-tb;
+  }
+  #solution-modal #btn-layout-exam { order: 1; }
+  #solution-modal #btn-layout-solution { order: 2; }
+  #solution-modal.sm-no-nav .modal-nav-bar > .modal-nav-group:last-child,
+  #solution-modal.sm-no-nav .view-layout-toggle { flex: 1 1 auto; }
+  #solution-modal.sm-no-nav .btn-layout { flex: 1 1 0; }
+  #solution-modal .btn-layout .seg-long { display: none; }
+  #solution-modal .btn-layout .seg-ico, #solution-modal .btn-layout .seg-short { display: inline-flex; }
+
+  /* bottom sheet: grabber + bar when collapsed, scrolls inside itself when tall, save row always reachable */
+  .modal-result-dock {
+    max-height: min(54dvh, 460px);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -12px 28px -12px rgba(0, 0, 0, 0.3);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .modal-result-dock .result-card--docked { padding: 0 12px 10px; gap: 6px; }
+  .result-card-handle {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; min-height: 28px; padding: 0; border: 0; background: transparent;
+    cursor: grab; touch-action: none;
+  }
+  .result-card-handle-bar { width: 40px; height: 4px; border-radius: 2px; background: var(--line-strong); }
+  .modal-result-dock .result-card-expand { min-height: 40px; padding-bottom: 6px; }
+  .modal-result-dock .result-card--docked.is-collapsed { padding-top: 0; padding-bottom: 0; }
+  .modal-result-dock .result-card-head .result-card-allo { min-height: 36px; padding: 2px 14px; }
+  .modal-result-dock .result-card-collapse, .modal-result-dock .result-card-hint, .modal-result-dock .result-card-keyhint { display: none; }
+  .modal-result-dock .result-card-title { flex: 1 1 0; min-width: 0; font-size: 0.875rem; line-height: 1.3; }
+  .modal-result-dock .result-card-head { flex-wrap: nowrap; gap: 8px; }
+  .modal-result-dock .result-card-rows { gap: 4px; }
+  .modal-result-dock .result-card-row { flex-wrap: nowrap; gap: 6px; }
+  .modal-result-dock .result-card-row-label { min-width: 0; flex: 0 0 auto; font-size: 0.875rem; }
+  .modal-result-dock .result-card-marks { flex: 1 1 auto; flex-wrap: nowrap; gap: 4px; }
+  .modal-result-dock .result-card-mark { flex: 1 1 0; min-height: 44px; padding: 4px 6px; font-size: 0.875rem; }
+  .modal-result-dock .result-card-chips, .modal-result-dock .result-card-errors { gap: 4px 8px; }
+  .modal-result-dock .result-card-save { min-height: 44px; flex: 1 1 100%; }
+  .modal-result-dock .result-card-foot {
+    position: sticky; bottom: 0; z-index: 1; background: var(--surface);
+    padding-top: 6px; box-shadow: 0 -6px 8px -6px rgba(0, 0, 0, 0.14);
+  }
+}

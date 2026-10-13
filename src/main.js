@@ -166,7 +166,43 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof renderBackupNudge === 'function') renderBackupNudge();
   initPaneResizer();
   handleUrlHashRouting();
+
+  // 5. v1.3.10: ask the browser to keep our storage, and take today's automatic snapshot (async, never blocks).
+  if (typeof snapshotInitAuto === 'function') {
+    try { snapshotInitAuto(); } catch (_) { /* snapshots never break startup */ }
+  }
 });
+
+// Another tab changed shared data: reload the in-memory copy so this tab never writes stale state back over it.
+// key === null means the storage was cleared, so every store is reloaded.
+function syncStoresFromStorageEvent(event) {
+  try {
+    if (event && event.storageArea && typeof localStorage !== 'undefined' && event.storageArea !== localStorage) return;
+    const key = event ? event.key : null;
+    const all = key === null || key === undefined;
+    let touched = false;
+    if ((all || key === 'EE_EXAM_TODAY_TASK_V1') && typeof todayTaskRefresh === 'function') {
+      todayTaskRefresh();
+      if (typeof renderTodayTaskCard === 'function') renderTodayTaskCard();
+      touched = true;
+    }
+    if ((all || key === 'EE_EXAM_RECALL_V1') && typeof initRecallStore === 'function') {
+      initRecallStore();
+    }
+    if ((all || key === SM2_STORAGE_KEY) && typeof initSM2Store === 'function') {
+      initSM2Store();
+      touched = true;
+    }
+    if ((all || key === STORAGE_KEY || key === STARRED_KEY || /_EXAM_(PROGRESS|STARRED)_V1$/.test(String(key)))
+      && typeof reloadProgressState === 'function') {
+      reloadProgressState();
+      touched = true;
+    }
+    if (touched && typeof updateStatsAndBar === 'function') updateStatsAndBar();
+  } catch (_) { /* cross-tab sync is best effort */ }
+}
+
+window.addEventListener('storage', syncStoresFromStorageEvent);
 
 window.addEventListener('hashchange', handleUrlHashRouting);
 

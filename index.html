@@ -1027,6 +1027,8 @@ select:focus {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-height: 100%;
+  overflow-y: auto;
 }
 .backup-textarea {
   width: 100%;
@@ -1065,6 +1067,76 @@ select:focus {
 .backup-history {
   color: var(--muted);
   padding: 0;
+}
+
+/* 自動快照 (v1.3.10) */
+.snapshot-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.snapshot-title {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.snapshot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.snapshot-empty {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+.snapshot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 8px 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+}
+.snapshot-when {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.snapshot-kind {
+  padding: 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+.snapshot-counts {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--muted);
+}
+.snapshot-restore {
+  min-height: 36px;
+  padding: 4px 14px;
+  background: var(--surface);
+  color: var(--accent-dark);
+  border: 1px solid var(--accent-dark);
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+.snapshot-restore.is-armed {
+  background: var(--danger, #b85d58);
+  border-color: var(--danger, #b85d58);
+  color: #fff;
+}
+.snapshot-restore:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 /* Facet Tag Filter Pills */
@@ -3611,6 +3683,10 @@ select:focus {
       </h3>
       <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;" aria-label="關閉"><span class="ui-ico" data-ui-icon="x"></span></button>
     </div>
+    <section class="snapshot-section" aria-label="自動快照">
+      <h4 class="snapshot-title">自動快照</h4>
+      <div id="snapshot-list" class="snapshot-list"></div>
+    </section>
     <p style="font-size: 0.86rem; color: var(--muted);">
       備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。載入或貼上後請先驗證，再選擇合併或取代還原：
     </p>
@@ -28649,7 +28725,9 @@ function backupWriteMetadata(next) {
   localStorage.setItem(BACKUP_META_STORAGE_KEY, JSON.stringify(next));
 }
 
-function buildUserBackupSnapshot() {
+// options.skipMetadata: auto snapshots read the same data but must not count as a downloaded backup
+// (lastBackupAt drives the backup nudge).
+function buildUserBackupSnapshot(options) {
   const storage = typeof localStorage !== 'undefined' ? localStorage : null;
   const progressByCategory = {};
   const starredByCategory = {};
@@ -28696,9 +28774,11 @@ function buildUserBackupSnapshot() {
     learningData: backupClone(learningData),
     learningDataCapacity: buildLearningDataCapacityReport(learningData),
   };
-  try {
-    backupWriteMetadata(Object.assign({}, metadata, { lastBackupAt: exportedAt, lastBackupVersion: USER_BACKUP_VERSION }));
-  } catch (_) { /* Export remains usable if metadata cannot be written. */ }
+  if (!(options && options.skipMetadata)) {
+    try {
+      backupWriteMetadata(Object.assign({}, metadata, { lastBackupAt: exportedAt, lastBackupVersion: USER_BACKUP_VERSION }));
+    } catch (_) { /* Export remains usable if metadata cannot be written. */ }
+  }
   return snapshot;
 }
 
@@ -28880,6 +28960,436 @@ function importUserDataJSON(jsonStr) {
 
 // Auto-initialize on load
 initSM2Store();
+
+
+// === src/state/snapshotStore.js ===
+// -*- coding: utf-8 -*-
+/**
+ * snapshotStore.js
+ * ================
+ * Automatic in-browser snapshots of the user's learning data (v1.3.10).
+ *
+ * A snapshot is the full result of buildUserBackupSnapshot() (same format and schema as 「下載備份」)
+ * plus metadata { id, takenAt, day, reason, counts }. Snapshots live in IndexedDB
+ * (DB ee-exam-snapshots, store snapshots) and fall back to localStorage key
+ * EE_EXAM_SNAPSHOTS_V1 (at most 2) when IndexedDB is unavailable or fails.
+ *
+ * Rules:
+ * - Snapshots are never part of a backup file (buildUserBackupSnapshot does not read them).
+ * - Every storage access is wrapped; a failing snapshot must never break the app.
+ * - Pure functions (snapshotRetain, snapshotNeedsDaily, snapshotCounts, ...) are exported for node tests.
+ */
+
+const SNAPSHOT_DB_NAME = 'ee-exam-snapshots';
+const SNAPSHOT_STORE_NAME = 'snapshots';
+const SNAPSHOT_LS_KEY = 'EE_EXAM_SNAPSHOTS_V1';
+const SNAPSHOT_LS_MAX = 2;
+// A localStorage copy larger than this is skipped so two fallback snapshots can never fill the ~5 MB quota.
+const SNAPSHOT_LS_MAX_CHARS = 1200000;
+const SNAPSHOT_DAILY_KEEP_DAYS = 7;
+const SNAPSHOT_EVENT_KEEP = 3;
+const SNAPSHOT_REASONS = ['daily', 'before-import', 'before-restore'];
+const SNAPSHOT_EVENT_REASONS = ['before-import', 'before-restore'];
+const SNAPSHOT_KIND_LABELS = { 'daily': '每日', 'before-import': '匯入前', 'before-restore': '還原前' };
+const SNAPSHOT_DAILY_DELAY_MS = 300;
+
+// ---- Pure helpers ---------------------------------------------------------
+
+function snapshotPad2(n) {
+  return String(n).padStart(2, '0');
+}
+
+/** Local calendar date YYYY-MM-DD of a Date / timestamp / ISO string ('' when invalid). */
+function snapshotLocalDay(value) {
+  const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return '';
+  return `${d.getFullYear()}-${snapshotPad2(d.getMonth() + 1)}-${snapshotPad2(d.getDate())}`;
+}
+
+/** Local 'YYYY-MM-DD HH:mm' for the snapshot list. */
+function snapshotFormatWhen(value) {
+  const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return '';
+  return `${snapshotLocalDay(d)} ${snapshotPad2(d.getHours())}:${snapshotPad2(d.getMinutes())}`;
+}
+
+function snapshotKindLabel(reason) {
+  return SNAPSHOT_KIND_LABELS[reason] || '';
+}
+
+function snapshotDayOf(meta) {
+  if (meta && typeof meta.day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(meta.day)) return meta.day;
+  return snapshotLocalDay(meta && meta.takenAt);
+}
+
+function snapshotScore(meta) {
+  const c = (meta && meta.counts) || {};
+  return (Number(c.records) || 0) + (Number(c.completed) || 0);
+}
+
+// Sort comparator: newest first (takenAt, then id for a stable order).
+function snapshotNewestFirst(a, b) {
+  const ta = String(a.takenAt || ''), tb = String(b.takenAt || '');
+  if (ta !== tb) return ta < tb ? 1 : -1;
+  const ia = String(a.id || ''), ib = String(b.id || '');
+  if (ia === ib) return 0;
+  return ia < ib ? 1 : -1;
+}
+
+/**
+ * Counts of a backup snapshot: result-card records, completed scheduled tasks (only codes in
+ * DAILY_SCHEDULE.tasks), SM-2 entries and recall entries.
+ */
+function snapshotCounts(data, schedule) {
+  const d = data && typeof data === 'object' ? data : {};
+  const sched = schedule !== undefined ? schedule : (typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null);
+  const records = d.resultCard && Array.isArray(d.resultCard.records) ? d.resultCard.records.length : 0;
+  const completedMap = d.todayTask && d.todayTask.completed && typeof d.todayTask.completed === 'object' ? d.todayTask.completed : {};
+  const tasks = sched && sched.tasks && typeof sched.tasks === 'object' ? sched.tasks : null;
+  const completed = Object.keys(completedMap).filter(code => !tasks || Object.prototype.hasOwnProperty.call(tasks, code)).length;
+  const sm2 = d.sm2Schedule && typeof d.sm2Schedule === 'object' ? Object.keys(d.sm2Schedule).length : 0;
+  const recall = d.recallState && typeof d.recallState === 'object' ? Object.keys(d.recallState).length : 0;
+  return { records, completed, sm2, recall };
+}
+
+/** Nothing worth saving: no result cards, no completed tasks and no SM-2 entries. */
+function snapshotIsEmpty(counts) {
+  const c = counts || {};
+  return !(Number(c.records) > 0) && !(Number(c.completed) > 0) && !(Number(c.sm2) > 0);
+}
+
+/**
+ * Which snapshot ids to keep.
+ * 1. daily: one per local date (newest of the day), the latest 7 distinct dates.
+ * 2. before-import / before-restore: newest 3 (together).
+ * 3. Always the snapshot with the most records (counts.records + counts.completed; ties: newer).
+ * Everything else is dropped.
+ */
+function snapshotRetain(list) {
+  const items = (Array.isArray(list) ? list : []).filter(r => r && typeof r.id === 'string');
+  const keep = new Set();
+  const dailyByDay = new Map();
+  items.filter(r => r.reason === 'daily').forEach(r => {
+    const day = snapshotDayOf(r);
+    const current = dailyByDay.get(day);
+    if (!current || snapshotNewestFirst(r, current) < 0) dailyByDay.set(day, r);
+  });
+  Array.from(dailyByDay.keys()).sort().reverse().slice(0, SNAPSHOT_DAILY_KEEP_DAYS).forEach(day => keep.add(dailyByDay.get(day).id));
+  items.filter(r => SNAPSHOT_EVENT_REASONS.indexOf(r.reason) >= 0)
+    .sort(snapshotNewestFirst).slice(0, SNAPSHOT_EVENT_KEEP).forEach(r => keep.add(r.id));
+  const best = snapshotBest(items);
+  if (best) keep.add(best.id);
+  return items.filter(r => keep.has(r.id)).map(r => r.id);
+}
+
+/** The snapshot with the most records (ties: newer), or null. */
+function snapshotBest(list) {
+  let best = null;
+  (Array.isArray(list) ? list : []).forEach(r => {
+    if (!r) return;
+    if (!best) { best = r; return; }
+    const a = snapshotScore(r), b = snapshotScore(best);
+    if (a > b || (a === b && snapshotNewestFirst(r, best) < 0)) best = r;
+  });
+  return best;
+}
+
+/** Retention for the localStorage fallback: apply the normal rules, then cap to `max` (best first, then newest). */
+function snapshotCapLocal(list, max) {
+  const limit = Number.isInteger(max) && max >= 0 ? max : SNAPSHOT_LS_MAX;
+  const kept = new Set(snapshotRetain(list));
+  const pool = (Array.isArray(list) ? list : []).filter(r => r && kept.has(r.id));
+  if (pool.length <= limit) return pool.map(r => r.id);
+  const best = snapshotBest(pool);
+  const rest = pool.filter(r => r !== best).sort(snapshotNewestFirst);
+  return [best].concat(rest).slice(0, limit).map(r => r.id);
+}
+
+/** True when no daily snapshot exists for today (todayIso: 'YYYY-MM-DD' or an ISO timestamp). */
+function snapshotNeedsDaily(list, todayIso) {
+  const today = /^\d{4}-\d{2}-\d{2}$/.test(String(todayIso)) ? String(todayIso) : snapshotLocalDay(todayIso);
+  if (!today) return false;
+  return !(Array.isArray(list) ? list : []).some(r => r && r.reason === 'daily' && snapshotDayOf(r) === today);
+}
+
+/** Two-tap confirm for the 還原 button: first tap arms that row, second tap on the same row runs. */
+function snapshotConfirmStep(armedId, clickedId) {
+  if (armedId && armedId === clickedId) return { armed: null, run: true };
+  return { armed: clickedId || null, run: false };
+}
+
+/** Row text for the backup modal: '<日期 時間>', kind, counts. */
+function snapshotRowParts(meta) {
+  const c = (meta && meta.counts) || {};
+  return {
+    when: snapshotFormatWhen(meta && meta.takenAt),
+    kind: snapshotKindLabel(meta && meta.reason),
+    counts: `結果卡 ${Number(c.records) || 0} 筆・已完成 ${Number(c.completed) || 0} 項`,
+  };
+}
+
+function snapshotRecordOk(r) {
+  return !!r && typeof r === 'object' && typeof r.id === 'string' && r.id.length > 0
+    && typeof r.takenAt === 'string' && !Number.isNaN(Date.parse(r.takenAt))
+    && SNAPSHOT_REASONS.indexOf(r.reason) >= 0
+    && !!r.counts && typeof r.counts === 'object'
+    && !!r.data && typeof r.data === 'object' && !Array.isArray(r.data);
+}
+
+function snapshotMeta(r) {
+  return { id: r.id, takenAt: r.takenAt, day: snapshotDayOf(r), reason: r.reason, counts: r.counts };
+}
+
+// ---- Capture --------------------------------------------------------------
+
+/**
+ * Builds a snapshot record synchronously from the current data (so it reflects the state at the call,
+ * even when persisting finishes later). Returns null when nothing should be taken or building fails.
+ * options: { now, skipIfEmpty }
+ */
+function snapshotCapture(reason, options) {
+  try {
+    if (SNAPSHOT_REASONS.indexOf(reason) < 0 || typeof buildUserBackupSnapshot !== 'function') return null;
+    const opts = options || {};
+    const data = buildUserBackupSnapshot({ skipMetadata: true });
+    const counts = snapshotCounts(data);
+    if (opts.skipIfEmpty && snapshotIsEmpty(counts)) return null;
+    const now = new Date(Number.isFinite(opts.now) ? opts.now : Date.now());
+    return {
+      id: `snap-${now.getTime().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+      takenAt: now.toISOString(),
+      day: snapshotLocalDay(now),
+      reason,
+      counts,
+      data,
+    };
+  } catch (_) {
+    return null;
+  }
+}
+
+// ---- Storage backends -----------------------------------------------------
+
+let snapshotDbPromise = null;
+let snapshotChain = Promise.resolve();
+
+function snapshotOpenDb() {
+  if (snapshotDbPromise) return snapshotDbPromise;
+  snapshotDbPromise = new Promise(resolve => {
+    try {
+      if (typeof indexedDB === 'undefined' || !indexedDB) { resolve(null); return; }
+      const request = indexedDB.open(SNAPSHOT_DB_NAME, 1);
+      request.onupgradeneeded = () => {
+        try {
+          const db = request.result;
+          if (!db.objectStoreNames.contains(SNAPSHOT_STORE_NAME)) db.createObjectStore(SNAPSHOT_STORE_NAME, { keyPath: 'id' });
+        } catch (_) { /* open will fail below */ }
+      };
+      request.onsuccess = () => {
+        const db = request.result;
+        db.onversionchange = () => { try { db.close(); } catch (_) { /* ignore */ } snapshotDbPromise = null; };
+        resolve(db);
+      };
+      request.onerror = () => resolve(null);
+      request.onblocked = () => resolve(null);
+    } catch (_) {
+      resolve(null);
+    }
+  });
+  return snapshotDbPromise;
+}
+
+// Runs work(store) in one transaction; resolves with the last request's result. Rejects on any failure.
+function snapshotIdbTx(mode, work) {
+  return snapshotOpenDb().then(db => new Promise((resolve, reject) => {
+    if (!db) { reject(new Error('indexedDB unavailable')); return; }
+    try {
+      const tx = db.transaction(SNAPSHOT_STORE_NAME, mode);
+      let result;
+      const request = work(tx.objectStore(SNAPSHOT_STORE_NAME));
+      if (request) request.onsuccess = () => { result = request.result; };
+      tx.oncomplete = () => resolve(result);
+      tx.onerror = () => reject(tx.error || new Error('indexedDB error'));
+      tx.onabort = () => reject(tx.error || new Error('indexedDB aborted'));
+    } catch (e) {
+      reject(e);
+    }
+  }));
+}
+
+function snapshotLsRead() {
+  try {
+    if (typeof localStorage === 'undefined') return [];
+    const raw = localStorage.getItem(SNAPSHOT_LS_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed.filter(snapshotRecordOk) : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function snapshotLsWrite(list) {
+  try {
+    if (typeof localStorage === 'undefined') return false;
+    if (!list.length) localStorage.removeItem(SNAPSHOT_LS_KEY);
+    else localStorage.setItem(SNAPSHOT_LS_KEY, JSON.stringify(list));
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+/** All stored snapshots as [{ src: 'idb'|'ls', rec }]. Never rejects. */
+async function snapshotReadEntries() {
+  const out = [];
+  try {
+    const rows = await snapshotIdbTx('readonly', store => store.getAll());
+    (Array.isArray(rows) ? rows : []).forEach(r => { if (snapshotRecordOk(r)) out.push({ src: 'idb', rec: r }); });
+  } catch (_) { /* fall back to localStorage only */ }
+  snapshotLsRead().forEach(r => { if (!out.some(e => e.rec.id === r.id)) out.push({ src: 'ls', rec: r }); });
+  return out;
+}
+
+/** Stores one record: IndexedDB first, localStorage (max 2, size-guarded) when that fails. */
+async function snapshotStoreRecord(rec) {
+  try {
+    await snapshotIdbTx('readwrite', store => store.put(rec));
+    return 'idb';
+  } catch (_) { /* fall through to localStorage */ }
+  try {
+    const raw = JSON.stringify(rec);
+    if (raw.length > SNAPSHOT_LS_MAX_CHARS) return null;
+    const list = snapshotLsRead().filter(r => r.id !== rec.id);
+    list.push(rec);
+    const keepIds = new Set(snapshotCapLocal(list, SNAPSHOT_LS_MAX));
+    return snapshotLsWrite(list.filter(r => keepIds.has(r.id))) ? 'ls' : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+/** Applies the retention rules to everything stored. Never rejects. */
+async function snapshotPrune() {
+  try {
+    const entries = await snapshotReadEntries();
+    const keep = new Set(snapshotRetain(entries.map(e => e.rec)));
+    const dropIdb = entries.filter(e => e.src === 'idb' && !keep.has(e.rec.id)).map(e => e.rec.id);
+    if (dropIdb.length) {
+      try { await snapshotIdbTx('readwrite', store => { let last; dropIdb.forEach(id => { last = store.delete(id); }); return last; }); } catch (_) { /* leave extras */ }
+    }
+    const lsAll = entries.filter(e => e.src === 'ls').map(e => e.rec);
+    if (lsAll.length) {
+      const lsKeep = new Set(snapshotCapLocal(lsAll.filter(r => keep.has(r.id)), SNAPSHOT_LS_MAX));
+      if (lsKeep.size !== lsAll.length) snapshotLsWrite(lsAll.filter(r => lsKeep.has(r.id)));
+    }
+  } catch (_) { /* pruning is best effort */ }
+}
+
+function snapshotEnqueue(task) {
+  const run = () => Promise.resolve().then(task).catch(() => ({ ok: false }));
+  snapshotChain = snapshotChain.then(run, run);
+  return snapshotChain;
+}
+
+// ---- Public API -----------------------------------------------------------
+
+/**
+ * Persists a record built by snapshotCapture() (storage + retention). Resolves with { ok, id?, store? }; never rejects.
+ */
+function snapshotSaveCaptured(rec) {
+  if (!rec) return Promise.resolve({ ok: false, skipped: true });
+  return snapshotEnqueue(async () => {
+    const where = await snapshotStoreRecord(rec);
+    if (!where) return { ok: false };
+    await snapshotPrune();
+    return { ok: true, id: rec.id, store: where };
+  });
+}
+
+/**
+ * Takes a snapshot now. The data is read synchronously at the call; persisting is asynchronous.
+ * Resolves with { ok, id?, skipped? } and never rejects.
+ */
+function snapshotTake(reason, options) {
+  return snapshotSaveCaptured(snapshotCapture(reason, options));
+}
+
+/** Takes today's daily snapshot when none exists yet (and the data is not empty). */
+function snapshotRunDaily(options) {
+  const opts = options || {};
+  const now = Number.isFinite(opts.now) ? opts.now : Date.now();
+  return snapshotEnqueue(async () => {
+    const entries = await snapshotReadEntries();
+    if (!snapshotNeedsDaily(entries.map(e => e.rec), snapshotLocalDay(now))) return { ok: false, skipped: true };
+    const rec = snapshotCapture('daily', { now, skipIfEmpty: true });
+    if (!rec) return { ok: false, skipped: true };
+    const where = await snapshotStoreRecord(rec);
+    if (!where) return { ok: false };
+    await snapshotPrune();
+    return { ok: true, id: rec.id, store: where };
+  });
+}
+
+/** Snapshot metadata, newest first. Never rejects. */
+async function snapshotListMeta() {
+  try {
+    const entries = await snapshotReadEntries();
+    return entries.map(e => snapshotMeta(e.rec)).sort(snapshotNewestFirst);
+  } catch (_) {
+    return [];
+  }
+}
+
+/** One full record by id, or null. */
+async function snapshotLoad(id) {
+  const entries = await snapshotReadEntries();
+  const hit = entries.find(e => e.rec.id === id);
+  return hit ? hit.rec : null;
+}
+
+/**
+ * Restores a snapshot (replace mode): takes a before-restore snapshot first, then applies the data
+ * through the normal backup validation. Resolves with applyUserDataBackup's result; never rejects.
+ */
+async function snapshotRestore(id) {
+  try {
+    const rec = await snapshotLoad(id);
+    if (!rec) return { success: false, error: '匯入失敗：JSON 格式無效，未修改任何資料。' };
+    await snapshotTake('before-restore');
+    if (typeof applyUserDataBackup !== 'function') return { success: false, error: '備份還原功能尚未載入。' };
+    return applyUserDataBackup(JSON.stringify(rec.data), 'replace');
+  } catch (_) {
+    return { success: false, error: '匯入失敗：寫入本機儲存空間時發生錯誤，已回復原資料。' };
+  }
+}
+
+/** Asks the browser not to evict our storage. Result is ignored. */
+function snapshotRequestPersistence() {
+  try {
+    if (typeof navigator !== 'undefined' && navigator.storage && typeof navigator.storage.persist === 'function') {
+      const pending = navigator.storage.persist();
+      if (pending && typeof pending.catch === 'function') pending.catch(() => {});
+    }
+  } catch (_) { /* ignore */ }
+}
+
+/** Startup hook: ask for persistence and take today's snapshot without blocking rendering. */
+function snapshotInitAuto() {
+  snapshotRequestPersistence();
+  try {
+    setTimeout(() => { snapshotRunDaily().catch(() => {}); }, SNAPSHOT_DAILY_DELAY_MS);
+  } catch (_) { /* ignore */ }
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    SNAPSHOT_LS_KEY, SNAPSHOT_LS_MAX, SNAPSHOT_DB_NAME, SNAPSHOT_STORE_NAME,
+    snapshotLocalDay, snapshotFormatWhen, snapshotKindLabel, snapshotCounts, snapshotIsEmpty,
+    snapshotRetain, snapshotBest, snapshotCapLocal, snapshotNeedsDaily, snapshotConfirmStep, snapshotRowParts,
+    snapshotRecordOk, snapshotCapture, snapshotSaveCaptured, snapshotTake, snapshotRunDaily, snapshotListMeta, snapshotLoad,
+    snapshotRestore, snapshotInitAuto, snapshotRequestPersistence,
+  };
+}
 
 
 // === src/state/resultCardStore.js ===
@@ -34983,6 +35493,7 @@ function openBackupModal() {
   if (textarea) textarea.value = jsonStr;
   modal.classList.add('show');
   previewImportedBackupJSON();
+  renderSnapshotList();
 }
 
 function closeBackupModal() {
@@ -35077,6 +35588,81 @@ function previewImportedBackupJSON() {
   return result;
 }
 
+// The 成績 tab is built when it is opened; after an import it must be redrawn if it is the visible one.
+function renderScoreboardIfVisible() {
+  try {
+    const pane = document.getElementById('tab-pane-scoreboard');
+    const host = document.getElementById('scoreboard-container');
+    if (!pane || !host || typeof renderScoreboard !== 'function') return;
+    if (pane.style.display === 'none') return;
+    renderScoreboard(host);
+  } catch (_) { /* optional refresh */ }
+}
+
+// ---- 自動快照 (v1.3.10) ---------------------------------------------------
+
+const SNAPSHOT_CONFIRM_MS = 3000;
+let snapshotArmedId = null;
+let snapshotArmTimer = null;
+
+function snapshotDisarm() {
+  snapshotArmedId = null;
+  if (snapshotArmTimer) { clearTimeout(snapshotArmTimer); snapshotArmTimer = null; }
+  if (typeof document === 'undefined') return;
+  document.querySelectorAll('.snapshot-restore.is-armed').forEach(btn => {
+    btn.classList.remove('is-armed');
+    btn.textContent = '還原';
+  });
+}
+
+function snapshotListHtml(metas) {
+  const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  if (!metas.length) return '<p class="snapshot-empty">尚無快照</p>';
+  return metas.map(meta => {
+    const row = snapshotRowParts(meta);
+    return '<div class="snapshot-row" data-snapshot-row="' + esc(meta.id) + '">'
+      + '<span class="snapshot-when">' + esc(row.when) + '</span>'
+      + '<span class="snapshot-kind snapshot-kind--' + esc(meta.reason) + '">' + esc(row.kind) + '</span>'
+      + '<span class="snapshot-counts">' + esc(row.counts) + '</span>'
+      + '<button type="button" class="snapshot-restore" data-snapshot-id="' + esc(meta.id) + '" onclick="snapshotRestoreClick(this)">還原</button>'
+      + '</div>';
+  }).join('');
+}
+
+function renderSnapshotList() {
+  const host = typeof document !== 'undefined' ? document.getElementById('snapshot-list') : null;
+  if (!host || typeof snapshotListMeta !== 'function') return Promise.resolve();
+  snapshotDisarm();
+  return snapshotListMeta().then(metas => { host.innerHTML = snapshotListHtml(metas); }).catch(() => { host.innerHTML = snapshotListHtml([]); });
+}
+
+function snapshotRestoreClick(btn) {
+  if (!btn || btn.disabled) return;
+  const id = btn.getAttribute('data-snapshot-id');
+  const step = snapshotConfirmStep(snapshotArmedId, id);
+  if (!step.run) {
+    snapshotDisarm();
+    snapshotArmedId = step.armed;
+    btn.classList.add('is-armed');
+    btn.textContent = '再按一次確認還原';
+    snapshotArmTimer = setTimeout(snapshotDisarm, SNAPSHOT_CONFIRM_MS);
+    return;
+  }
+  snapshotDisarm();
+  btn.disabled = true;
+  const fail = res => { btn.disabled = false; renderBackupPreview(res); };
+  // Validation checks PE and GK ids, so the lazily loaded GK data must be present first.
+  const gkReady = typeof gkDataLoaded === 'function' && typeof ensureGkData === 'function' && !gkDataLoaded()
+    ? ensureGkData() : Promise.resolve(true);
+  gkReady
+    .then(ok => ok ? snapshotRestore(id) : { success: false, error: '無法載入 GK 題庫資料，暫時無法驗證備份。' })
+    .then(res => {
+      if (res && res.success) { location.reload(); return; }
+      fail(res || { success: false, error: '匯入失敗：JSON 格式無效，未修改任何資料。' });
+    })
+    .catch(() => fail({ success: false, error: '匯入失敗：寫入本機儲存空間時發生錯誤，已回復原資料。' }));
+}
+
 function applyImportedBackupJSON(mode) {
   const textarea = document.getElementById('backup-json-textarea');
   if (!textarea || !textarea.value.trim()) {
@@ -35085,13 +35671,19 @@ function applyImportedBackupJSON(mode) {
   }
   const selectedMode = mode === 'merge' || mode === 'replace' ? mode : 'replace';
   if (backupDeferUntilGkLoaded(() => applyImportedBackupJSON(selectedMode))) return { success: false, pending: true };
+  // v1.3.10: read the current data into a before-import snapshot now (synchronously, before anything is
+  // written); it is only saved once the import succeeds.
+  let preImport = null;
+  try { if (typeof snapshotCapture === 'function') preImport = snapshotCapture('before-import'); } catch (_) { preImport = null; }
   const res = typeof applyUserDataBackup === 'function'
     ? applyUserDataBackup(textarea.value.trim(), selectedMode)
     : { success: false, error: '備份還原功能尚未載入。' };
   if (res.success) {
+    try { if (preImport && typeof snapshotSaveCaptured === 'function') snapshotSaveCaptured(preImport).catch(() => {}); } catch (_) { /* snapshots never block an import */ }
     if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
     updateStatsAndBar();
     renderQuestions();
+    renderScoreboardIfVisible();
     if (typeof renderReviewPage === 'function') renderReviewPage();
     if (typeof renderAnswerCorrectionReviewSection === 'function') renderAnswerCorrectionReviewSection();
     renderBackupHistory();
@@ -43301,7 +43893,43 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof renderBackupNudge === 'function') renderBackupNudge();
   initPaneResizer();
   handleUrlHashRouting();
+
+  // 5. v1.3.10: ask the browser to keep our storage, and take today's automatic snapshot (async, never blocks).
+  if (typeof snapshotInitAuto === 'function') {
+    try { snapshotInitAuto(); } catch (_) { /* snapshots never break startup */ }
+  }
 });
+
+// Another tab changed shared data: reload the in-memory copy so this tab never writes stale state back over it.
+// key === null means the storage was cleared, so every store is reloaded.
+function syncStoresFromStorageEvent(event) {
+  try {
+    if (event && event.storageArea && typeof localStorage !== 'undefined' && event.storageArea !== localStorage) return;
+    const key = event ? event.key : null;
+    const all = key === null || key === undefined;
+    let touched = false;
+    if ((all || key === 'EE_EXAM_TODAY_TASK_V1') && typeof todayTaskRefresh === 'function') {
+      todayTaskRefresh();
+      if (typeof renderTodayTaskCard === 'function') renderTodayTaskCard();
+      touched = true;
+    }
+    if ((all || key === 'EE_EXAM_RECALL_V1') && typeof initRecallStore === 'function') {
+      initRecallStore();
+    }
+    if ((all || key === SM2_STORAGE_KEY) && typeof initSM2Store === 'function') {
+      initSM2Store();
+      touched = true;
+    }
+    if ((all || key === STORAGE_KEY || key === STARRED_KEY || /_EXAM_(PROGRESS|STARRED)_V1$/.test(String(key)))
+      && typeof reloadProgressState === 'function') {
+      reloadProgressState();
+      touched = true;
+    }
+    if (touched && typeof updateStatsAndBar === 'function') updateStatsAndBar();
+  } catch (_) { /* cross-tab sync is best effort */ }
+}
+
+window.addEventListener('storage', syncStoresFromStorageEvent);
 
 window.addEventListener('hashchange', handleUrlHashRouting);
 

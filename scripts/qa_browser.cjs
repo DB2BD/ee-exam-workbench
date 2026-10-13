@@ -299,6 +299,161 @@ async function main() {
         await context.close();
       }
     }
+    // v1.3.10 自動快照: seeded data -> one 每日 snapshot -> import (scoreboard redraws, 匯入前 snapshot) -> two-tap 還原 brings the data back.
+    {
+      const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => errors.push(String(error)));
+      await context.route('**/*', route => route.request().url().startsWith(url) ? route.continue() : route.abort());
+      page.setDefaultTimeout(15000);
+      try {
+        const openModal = async () => {
+          await page.evaluate(() => openBackupModal());
+          await page.locator('#snapshot-list').waitFor();
+        };
+        const rowCount = () => page.locator('#snapshot-list .snapshot-row').count();
+        const closeModal = () => page.evaluate(() => closeBackupModal());
+        const snapshotTotal = () => page.evaluate(() => snapshotListMeta().then(list => list.length));
+        const waitForSnapshots = async count => {
+          const deadline = Date.now() + 15000;
+          while (Date.now() < deadline) {
+            if (await snapshotTotal() === count) return;
+            await page.waitForTimeout(150);
+          }
+          throw new Error(`Expected ${count} snapshots, found ${await snapshotTotal()}`);
+        };
+        const resultCardCount = () => page.evaluate(() => JSON.parse(localStorage.getItem('EE_EXAM_RESULT_CARD_V1')).records.length);
+        // 1. Brand-new browser: empty data takes no snapshot.
+        await page.goto(url);
+        await page.waitForTimeout(1200);
+        await openModal();
+        assert.equal((await page.locator('#snapshot-list').innerText()).trim(), '尚無快照', 'Empty data must not create a snapshot');
+        await closeModal();
+        // 2. Seed result cards and two scheduled completions, reload: exactly one 每日 snapshot appears.
+        const seeded = await page.evaluate(() => {
+          const qids = DB_DATA.questions.map(q => q[0]).filter(q => /^EE-\d{3}-01-\d+$/.test(q)).slice(0, 4);
+          qids.forEach(qid => {
+            const parts = buildResultModel(qid).parts.map(p => Object.assign({}, p, { mark: 'o' }));
+            saveResultRecord({ qid, at: Date.now() - 86400000, source: 'today', parts, errors: [] }, { skipSM2: true });
+          });
+          const completed = {};
+          ['CORE-01', 'CORE-02'].forEach(code => { completed[code] = new Date().toISOString(); });
+          localStorage.setItem('EE_EXAM_TODAY_TASK_V1', JSON.stringify({ completed, active: null }));
+          return qids.length;
+        });
+        assert.equal(seeded, 4);
+        await page.reload();
+        await waitForSnapshots(1);
+        await openModal();
+        await page.locator('#snapshot-list .snapshot-row').first().waitFor();
+        assert.equal(await rowCount(), 1, 'One snapshot after the reload');
+        const first = (await page.locator('#snapshot-list .snapshot-row').first().innerText()).replace(/\s+/g, ' ');
+        assert(first.includes('每日') && first.includes('結果卡 4 筆・已完成 2 項') && first.includes('還原'), `Row text: ${first}`);
+        await closeModal();
+        // Opening the app again the same day does not add another 每日 snapshot.
+        await page.reload();
+        await page.waitForTimeout(1200);
+        await openModal();
+        assert.equal(await rowCount(), 1, 'Only one daily snapshot per day');
+        await closeModal();
+        // 3. Import a backup with no result cards while the 成績 tab is open: the scoreboard redraws and a 匯入前 snapshot appears.
+        await page.locator('#tab-btn-scoreboard').click();
+        const emptyText = await page.evaluate(() => SCOREBOARD_EMPTY_TEXT);
+        assert(!(await page.locator('#scoreboard-container').innerText()).includes(emptyText), 'Scoreboard shows data before the import');
+        await openModal();
+        await page.evaluate(() => {
+          const backup = JSON.parse(exportAllUserDataJSON());
+          backup.resultCard = { version: 1, records: [] };
+          document.getElementById('backup-json-textarea').value = JSON.stringify(backup);
+        });
+        await page.evaluate(() => applyImportedBackupJSON('replace'));
+        await page.waitForFunction(text => document.getElementById('scoreboard-container').innerText.includes(text), emptyText);
+        await waitForSnapshots(2);
+        // 4. The 還原 button is two-tap and disarms by itself after 3 seconds.
+        await openModal();
+        await page.waitForFunction(() => document.querySelectorAll('#snapshot-list .snapshot-row').length === 2);
+        const dailyRow = page.locator('#snapshot-list .snapshot-row', { hasText: '每日' });
+        const importRow = page.locator('#snapshot-list .snapshot-row', { hasText: '匯入前' });
+        assert((await importRow.innerText()).includes('結果卡 4 筆・已完成 2 項'), '匯入前 snapshot holds the pre-import data');
+        assert((await dailyRow.innerText()).includes('結果卡 4 筆'), 'Daily snapshot keeps its counts');
+        assert.equal(await resultCardCount(), 0, 'Result cards are gone after the import');
+        const restoreBtn = dailyRow.locator('.snapshot-restore');
+        await restoreBtn.click();
+        assert.equal((await restoreBtn.innerText()).trim(), '再按一次確認還原');
+        await page.waitForTimeout(3300);
+        assert.equal((await restoreBtn.innerText()).trim(), '還原', 'Auto-disarmed after 3 seconds');
+        assert.equal(await resultCardCount(), 0, 'One tap alone restores nothing');
+        await page.screenshot({ path: path.join(artifacts, 'snapshot-390.png') });
+        // 5. Two taps restore, then the page reloads with the result cards back and a 還原前 snapshot kept.
+        await restoreBtn.click();
+        await Promise.all([page.waitForNavigation({ waitUntil: 'load' }), restoreBtn.click()]);
+        assert.equal(await resultCardCount(), 4, 'Result cards restored');
+        assert.deepEqual(await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('EE_EXAM_TODAY_TASK_V1')).completed).sort()), ['CORE-01', 'CORE-02']);
+        await page.waitForTimeout(800);
+        await openModal();
+        await page.waitForFunction(() => document.querySelectorAll('#snapshot-list .snapshot-row').length === 3);
+        const kinds = (await page.locator('#snapshot-list .snapshot-kind').allInnerTexts()).sort();
+        assert.deepEqual(kinds, ['每日', '匯入前', '還原前'].sort());
+        const overflow = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+        assert(overflow.scroll <= overflow.client, `No horizontal scroll at 390px (${overflow.scroll} > ${overflow.client})`);
+        assert.deepEqual(errors, []);
+        results.push({ width: 390, scenario: 'auto-snapshot', passed: true, kinds });
+        console.log('PASS auto snapshot 390px: empty data skipped, one daily snapshot, import redraws scoreboard, two-tap restore brings data back');
+      } catch (error) {
+        await page.screenshot({ path: path.join(artifacts, 'failure-auto-snapshot.png'), fullPage: true }).catch(() => {});
+        results.push({ scenario: 'auto-snapshot', passed: false, error: String(error), browserErrors: errors });
+        throw error;
+      } finally {
+        await context.close();
+      }
+    }
+    // v1.3.10 多分頁同步: a change saved in tab A reaches tab B through the storage event (today task card, SM-2, recall).
+    {
+      const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
+      const pageA = await context.newPage();
+      const pageB = await context.newPage();
+      const errors = [];
+      [pageA, pageB].forEach(p => p.on('pageerror', error => errors.push(String(error))));
+      await context.route('**/*', route => route.request().url().startsWith(url) ? route.continue() : route.abort());
+      [pageA, pageB].forEach(p => p.setDefaultTimeout(15000));
+      try {
+        await pageA.goto(url);
+        await pageB.goto(url);
+        await pageA.locator('#today-task-card .today-task-card').waitFor();
+        await pageB.locator('#today-task-card .today-task-card').waitFor();
+        const cardText = p => p.locator('#today-task-card').innerText();
+        const before = await cardText(pageB);
+        // Tab A finishes the current task through the app's own state functions (saved to storage + card redrawn).
+        await pageA.evaluate(() => {
+          const next = todayTaskStart(todayTaskState, Date.now());
+          const done = Object.assign({}, next.completed);
+          done[next.active.code] = new Date().toISOString();
+          todayTaskCommit({ completed: done, active: null });
+          renderTodayTaskCard();
+        });
+        const expected = await cardText(pageA);
+        assert.notEqual(expected, before, 'Tab A card changes after completing the task');
+        await pageB.waitForFunction(text => document.getElementById('today-task-card').innerText === text, expected);
+        assert.equal(await pageB.evaluate(() => Object.keys(todayTaskState.completed).length), 1, 'Tab B holds the completion in memory too');
+        // SM-2 and recall: written by tab A, reloaded into tab B's memory.
+        const qid = await pageA.evaluate(() => DB_DATA.questions[0][0]);
+        await pageA.evaluate(qid => {
+          localStorage.setItem('EE_EXAM_SM2_SCHEDULE_V1', JSON.stringify({ [qid]: { repetitions: 1, interval: 4, easeFactor: 2.5, lastReviewed: '2026-10-12', nextReviewDate: '2026-10-16' } }));
+          localStorage.setItem('EE_EXAM_RECALL_V1', JSON.stringify({ [qid]: { level: 2, streak: 1, attempts: 2, lastAchieved: 2, lastErrorType: null, lastReviewed: '2026-10-12T00:00:00.000Z' } }));
+        }, qid);
+        await pageB.waitForFunction(q => !!sm2Schedule[q] && !!recallState[q], qid);
+        assert.deepEqual(errors, []);
+        results.push({ width: 390, scenario: 'cross-tab-sync', passed: true });
+        console.log('PASS cross-tab sync: today task card, SM-2 and recall follow the other tab');
+      } catch (error) {
+        await pageB.screenshot({ path: path.join(artifacts, 'failure-cross-tab.png'), fullPage: true }).catch(() => {});
+        results.push({ scenario: 'cross-tab-sync', passed: false, error: String(error), browserErrors: errors });
+        throw error;
+      } finally {
+        await context.close();
+      }
+    }
   } finally {
     if (browser) await browser.close();
     if (server.exitCode === null && server.pid) {

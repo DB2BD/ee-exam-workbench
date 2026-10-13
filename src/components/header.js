@@ -125,6 +125,7 @@ function openBackupModal() {
   if (textarea) textarea.value = jsonStr;
   modal.classList.add('show');
   previewImportedBackupJSON();
+  renderSnapshotList();
 }
 
 function closeBackupModal() {
@@ -219,6 +220,81 @@ function previewImportedBackupJSON() {
   return result;
 }
 
+// The 成績 tab is built when it is opened; after an import it must be redrawn if it is the visible one.
+function renderScoreboardIfVisible() {
+  try {
+    const pane = document.getElementById('tab-pane-scoreboard');
+    const host = document.getElementById('scoreboard-container');
+    if (!pane || !host || typeof renderScoreboard !== 'function') return;
+    if (pane.style.display === 'none') return;
+    renderScoreboard(host);
+  } catch (_) { /* optional refresh */ }
+}
+
+// ---- 自動快照 (v1.3.10) ---------------------------------------------------
+
+const SNAPSHOT_CONFIRM_MS = 3000;
+let snapshotArmedId = null;
+let snapshotArmTimer = null;
+
+function snapshotDisarm() {
+  snapshotArmedId = null;
+  if (snapshotArmTimer) { clearTimeout(snapshotArmTimer); snapshotArmTimer = null; }
+  if (typeof document === 'undefined') return;
+  document.querySelectorAll('.snapshot-restore.is-armed').forEach(btn => {
+    btn.classList.remove('is-armed');
+    btn.textContent = '還原';
+  });
+}
+
+function snapshotListHtml(metas) {
+  const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  if (!metas.length) return '<p class="snapshot-empty">尚無快照</p>';
+  return metas.map(meta => {
+    const row = snapshotRowParts(meta);
+    return '<div class="snapshot-row" data-snapshot-row="' + esc(meta.id) + '">'
+      + '<span class="snapshot-when">' + esc(row.when) + '</span>'
+      + '<span class="snapshot-kind snapshot-kind--' + esc(meta.reason) + '">' + esc(row.kind) + '</span>'
+      + '<span class="snapshot-counts">' + esc(row.counts) + '</span>'
+      + '<button type="button" class="snapshot-restore" data-snapshot-id="' + esc(meta.id) + '" onclick="snapshotRestoreClick(this)">還原</button>'
+      + '</div>';
+  }).join('');
+}
+
+function renderSnapshotList() {
+  const host = typeof document !== 'undefined' ? document.getElementById('snapshot-list') : null;
+  if (!host || typeof snapshotListMeta !== 'function') return Promise.resolve();
+  snapshotDisarm();
+  return snapshotListMeta().then(metas => { host.innerHTML = snapshotListHtml(metas); }).catch(() => { host.innerHTML = snapshotListHtml([]); });
+}
+
+function snapshotRestoreClick(btn) {
+  if (!btn || btn.disabled) return;
+  const id = btn.getAttribute('data-snapshot-id');
+  const step = snapshotConfirmStep(snapshotArmedId, id);
+  if (!step.run) {
+    snapshotDisarm();
+    snapshotArmedId = step.armed;
+    btn.classList.add('is-armed');
+    btn.textContent = '再按一次確認還原';
+    snapshotArmTimer = setTimeout(snapshotDisarm, SNAPSHOT_CONFIRM_MS);
+    return;
+  }
+  snapshotDisarm();
+  btn.disabled = true;
+  const fail = res => { btn.disabled = false; renderBackupPreview(res); };
+  // Validation checks PE and GK ids, so the lazily loaded GK data must be present first.
+  const gkReady = typeof gkDataLoaded === 'function' && typeof ensureGkData === 'function' && !gkDataLoaded()
+    ? ensureGkData() : Promise.resolve(true);
+  gkReady
+    .then(ok => ok ? snapshotRestore(id) : { success: false, error: '無法載入 GK 題庫資料，暫時無法驗證備份。' })
+    .then(res => {
+      if (res && res.success) { location.reload(); return; }
+      fail(res || { success: false, error: '匯入失敗：JSON 格式無效，未修改任何資料。' });
+    })
+    .catch(() => fail({ success: false, error: '匯入失敗：寫入本機儲存空間時發生錯誤，已回復原資料。' }));
+}
+
 function applyImportedBackupJSON(mode) {
   const textarea = document.getElementById('backup-json-textarea');
   if (!textarea || !textarea.value.trim()) {
@@ -227,13 +303,19 @@ function applyImportedBackupJSON(mode) {
   }
   const selectedMode = mode === 'merge' || mode === 'replace' ? mode : 'replace';
   if (backupDeferUntilGkLoaded(() => applyImportedBackupJSON(selectedMode))) return { success: false, pending: true };
+  // v1.3.10: read the current data into a before-import snapshot now (synchronously, before anything is
+  // written); it is only saved once the import succeeds.
+  let preImport = null;
+  try { if (typeof snapshotCapture === 'function') preImport = snapshotCapture('before-import'); } catch (_) { preImport = null; }
   const res = typeof applyUserDataBackup === 'function'
     ? applyUserDataBackup(textarea.value.trim(), selectedMode)
     : { success: false, error: '備份還原功能尚未載入。' };
   if (res.success) {
+    try { if (preImport && typeof snapshotSaveCaptured === 'function') snapshotSaveCaptured(preImport).catch(() => {}); } catch (_) { /* snapshots never block an import */ }
     if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
     updateStatsAndBar();
     renderQuestions();
+    renderScoreboardIfVisible();
     if (typeof renderReviewPage === 'function') renderReviewPage();
     if (typeof renderAnswerCorrectionReviewSection === 'function') renderAnswerCorrectionReviewSection();
     renderBackupHistory();

@@ -836,6 +836,8 @@ function solutionModalCompactHeader() {
     close.innerHTML = solutionModalIconLabel(uiIcon('x'), '關閉');
     solutionModalSetAria(close, '關閉詳解');
   }
+  // The 題目／詳解 segmented switch ships its icons and labels in the static shell (build_workbench.py);
+  // only a hand-built shell without them gets the legacy icon + label.
   const exam = document.getElementById('btn-layout-exam');
   if (exam && !exam.querySelector('.sm-ico')) {
     exam.innerHTML = solutionModalIconLabel(uiIcon('image'), '原題考卷');
@@ -1129,6 +1131,10 @@ function updateModalNavButtons(qid) {
   const btnNext = document.getElementById('btn-modal-next');
   if (!btnPrev || !btnNext) return;
 
+  // Daily practice has no previous / next / exam picker: the bar keeps only the 題目／詳解 switch (see v14-check-ui.css).
+  const navModal = document.getElementById('solution-modal');
+  if (navModal && navModal.classList) navModal.classList[currentSolutionSourceMode === 'daily-practice' ? 'add' : 'remove']('sm-no-nav');
+
   if (currentSolutionSourceMode === 'daily-practice') {
     btnPrev.style.display = 'none';
     btnNext.style.display = 'none';
@@ -1170,6 +1176,9 @@ function setModalLayout(mode) {
   if (!leftPane || !rightPane) return;
 
   document.querySelectorAll('.view-layout-toggle .btn-layout').forEach(b => b.classList.remove('active'));
+  // The split body's grid placement (solution / question / dock cells) follows data-layout; see modal.css.
+  const splitBody = document.getElementById('modal-split-body');
+  if (splitBody && typeof splitBody.setAttribute === 'function') splitBody.setAttribute('data-layout', mode === 'solution-only' || mode === 'exam-only' ? mode : 'split');
   if (mode === 'solution-only') currentModalPaneMode = 'solution';
   else if (mode === 'exam-only') currentModalPaneMode = 'question';
 
@@ -1197,6 +1206,7 @@ function setModalLayout(mode) {
     const btn = document.getElementById('btn-layout-split');
     if (btn) btn.classList.add('active');
   }
+  document.querySelectorAll('.view-layout-toggle .btn-layout').forEach(b => b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false'));
   scheduleSolutionModalReadingSave();
 }
 
@@ -1587,7 +1597,7 @@ function closeModal() {
   const modal = document.getElementById('solution-modal');
   if (modal) modal.classList.remove('show');
   document.body.style.overflow = '';
-  if (modal) modal.classList.remove('sm-recall-entry');
+  if (modal) { modal.classList.remove('sm-recall-entry'); modal.classList.remove('sm-no-nav'); }
   currentModalQid = null;
   currentModalSolLink = null;
   currentModalQNum = null;
@@ -1695,3 +1705,16 @@ window.addEventListener('keydown', (e) => {
   }
 });
 window.addEventListener('pagehide', () => persistSolutionModalReadingState(Boolean(currentModalQid)));
+
+// A window narrowed below 760px (rotation, split view) while the modal is open: the two-column split would
+// squeeze both panes, so fall back to the single-pane 詳解 view; 題目／詳解 stays one tap away.
+if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+  const narrowQuery = window.matchMedia('(max-width: 760px)');
+  const onNarrowChange = event => {
+    const modal = document.getElementById('solution-modal');
+    const body = document.getElementById('modal-split-body');
+    if (!event.matches || !modal || !modal.classList.contains('show') || !body) return;
+    if (body.getAttribute('data-layout') === 'split') setModalLayout('solution-only');
+  };
+  if (narrowQuery && typeof narrowQuery.addEventListener === 'function') narrowQuery.addEventListener('change', onNarrowChange);
+}

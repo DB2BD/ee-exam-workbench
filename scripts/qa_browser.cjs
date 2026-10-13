@@ -454,6 +454,160 @@ async function main() {
         await context.close();
       }
     }
+    // v1.4.0 核對題解＋作答結果卡: the expanded result card is a row of the solution window (desktop: under the 詳解 column;
+    // phone: bottom sheet), never an overlay. Bounding boxes: card and solution/question panes do not intersect, the pane
+    // scrolls to its very end above the card, and the phone top bar has no vertical text.
+    for (const width of [1440, 390]) {
+      const context = await browser.newContext({ viewport: { width, height: width > 800 ? 900 : 844 } });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => errors.push(String(error)));
+      await context.route('**/*', route => route.request().url().startsWith(url) ? route.continue() : route.abort());
+      page.setDefaultTimeout(15000);
+      try {
+        await page.clock.setFixedTime(new Date(2026, 9, 14, 9, 0, 0));
+        await page.addInitScript(() => {
+          const completed = {};
+          for (let n = 1; n <= 20; n++) completed['CORE-' + String(n).padStart(2, '0')] = new Date(2026, 9, 12, 20, n).toISOString();
+          localStorage.setItem('EE_EXAM_TODAY_TASK_V1', JSON.stringify({ completed, active: null }));
+        });
+        await page.goto(url);
+        assert.equal(await page.evaluate(() => todayTaskStartCodeNow('CORE-21')), true, 'CORE-21 must start');
+        for (let step = 0; step < 8; step++) {
+          if (await page.evaluate(() => todayTaskViewModel(todayTaskState || todayTaskRefresh(), Date.now()).active.isReview)) break;
+          await page.evaluate(() => todayTaskCommit(todayTaskAdvance(todayTaskState || todayTaskRefresh(), Date.now())));
+        }
+        const reviewQids = await page.evaluate(() => {
+          const vm = todayTaskViewModel(todayTaskState || todayTaskRefresh(), Date.now());
+          return vm.active.isReview ? vm.active.resultQids : [];
+        });
+        assert(reviewQids.length >= 1, 'CORE-21 must reach the 核對 phase with a scored question');
+        const qid = reviewQids[0];
+        await page.evaluate(q => todayTaskOpenSolution(q), qid);
+        const card = page.locator('#modal-result-dock [data-result-card-docked]');
+        await card.waitFor();
+        await page.locator('#solution-modal #modal-right-content .solution-content').first().waitFor();
+        const rect = selector => page.evaluate(sel => {
+          const el = document.querySelector(sel);
+          if (!el) return null;
+          const b = el.getBoundingClientRect();
+          return { left: b.left, right: b.right, top: b.top, bottom: b.bottom, width: b.width, height: b.height };
+        }, selector);
+        const overlap = (a, b) => a.left < b.right - 0.5 && b.left < a.right - 0.5 && a.top < b.bottom - 0.5 && b.top < a.bottom - 0.5;
+        const dockSel = '#modal-result-dock';
+        const paneSel = '#modal-pane-right';
+
+        // Collapsed bar first: slim, inside the window, the solution pane keeps nearly the whole height.
+        assert.match(await card.getAttribute('class'), /is-collapsed/, 'The docked card starts collapsed');
+        const collapsedDock = await rect(dockSel);
+        const collapsedPane = await rect(paneSel);
+        assert(collapsedDock.height <= 96, `Collapsed bar stays slim (${collapsedDock.height}px)`);
+        assert(!overlap(collapsedDock, collapsedPane), 'Collapsed bar does not overlap the solution pane');
+
+        await card.locator('.result-card-expand').click();
+        await page.waitForFunction(() => !document.querySelector('[data-result-card-docked]').classList.contains('is-collapsed'));
+        const container = await rect('#solution-modal .modal-container');
+        const dock = await rect(dockSel);
+        const cardBox = await rect('[data-result-card-docked]');
+        const pane = await rect(paneSel);
+        assert(dock.height > collapsedDock.height + 60, 'Expanding the card grows its dock row');
+        assert(!overlap(cardBox, pane), `Expanded card must not overlap the solution pane: card ${JSON.stringify(cardBox)} pane ${JSON.stringify(pane)}`);
+        assert(!overlap(dock, pane), 'The dock row does not overlap the solution pane');
+        assert(pane.bottom <= dock.top + 0.5, 'The solution pane ends where the dock begins');
+        assert(cardBox.left >= container.left - 0.5 && cardBox.right <= container.right + 0.5 && cardBox.bottom <= container.bottom + 0.5, 'Card stays inside the solution window');
+        assert(pane.height >= 200, `The solution pane keeps a usable height (${pane.height}px)`);
+        // Content scrolls to its very end above the card.
+        const tail = await page.evaluate(() => {
+          const paneEl = document.getElementById('modal-pane-right');
+          const content = document.getElementById('modal-right-content');
+          paneEl.scrollTop = paneEl.scrollHeight;
+          const dockTop = document.getElementById('modal-result-dock').getBoundingClientRect().top;
+          const last = content.lastElementChild.getBoundingClientRect();
+          return { atEnd: paneEl.scrollTop + paneEl.clientHeight >= paneEl.scrollHeight - 1, lastBottom: last.bottom, dockTop, scrollable: paneEl.scrollHeight > paneEl.clientHeight };
+        });
+        assert(tail.scrollable, 'The solution is longer than its pane at this size');
+        assert(tail.atEnd, 'The solution pane scrolls to its end');
+        assert(tail.lastBottom <= tail.dockTop + 1, `The last solution line (${tail.lastBottom}) ends above the card (${tail.dockTop})`);
+        const overflow = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+        assert(overflow.scroll <= overflow.client, `No horizontal page scroll at ${width}px`);
+
+        if (width > 800) {
+          // Desktop: the 題目 column keeps its full height beside the card.
+          const left = await rect('#modal-pane-left');
+          assert(left.width > 300 && left.bottom >= dock.bottom - 1, 'Desktop keeps the 題目 column full height');
+          assert(!overlap(cardBox, left), 'Card does not overlap the 題目 column');
+          assert(cardBox.left >= left.right - 1, 'Card sits under the 詳解 column');
+        } else {
+          // Phone: one pane, segmented 題目／詳解 switch, compact top bar, no vertical text.
+          assert.equal((await page.locator('#btn-layout-exam').innerText()).trim(), '題目');
+          assert.equal((await page.locator('#btn-layout-solution').innerText()).trim(), '詳解');
+          assert.equal(await page.locator('#btn-layout-split').isVisible(), false, 'No 雙欄對照 on a phone');
+          assert.equal(await page.locator('#modal-pane-left').isVisible(), false, 'Phone shows one pane at a time');
+          for (const sel of ['#btn-modal-prev', '#btn-modal-next', '#btn-layout-exam', '#btn-layout-solution', '#modal-star-btn', '#solution-modal .modal-actions button[onclick="closeModal()"]']) {
+            const box = await rect(sel);
+            assert(box && box.width >= 36 && box.height >= 32 && box.height <= 56, `${sel} stays a compact horizontal button (${box && box.width}x${box && box.height})`);
+          }
+          const bars = await page.evaluate(() => ['.modal-header', '.modal-nav-bar'].map(s => document.querySelector('#solution-modal ' + s).getBoundingClientRect().height));
+          assert(bars[0] <= 64 && bars[1] <= 64, `Top bar rows stay compact (${bars.join('／')}px)`);
+          // 題目 pane: the card is still a separate row beneath it.
+          await page.locator('#btn-layout-exam').click();
+          await page.waitForFunction(() => document.getElementById('modal-pane-left').getBoundingClientRect().width > 0);
+          const leftPhone = await rect('#modal-pane-left');
+          const dockPhone = await rect(dockSel);
+          assert(!overlap(leftPhone, dockPhone) && leftPhone.bottom <= dockPhone.top + 0.5, 'Card does not overlap the 題目 pane');
+          assert.equal(await page.locator('#modal-pane-right').isVisible(), false);
+          await page.locator('#btn-layout-solution').click();
+          await page.waitForFunction(() => document.getElementById('modal-pane-right').getBoundingClientRect().width > 0);
+          // Bottom-sheet handle collapses and expands; the pane takes the height back.
+          const handle = card.locator('.result-card-handle');
+          await handle.click();
+          await page.waitForFunction(() => document.querySelector('[data-result-card-docked]').classList.contains('is-collapsed'));
+          const paneCollapsed = await rect(paneSel);
+          assert(paneCollapsed.height > pane.height + 100, 'Collapsing the sheet gives the height back to the solution');
+          await handle.click();
+          await page.waitForFunction(() => !document.querySelector('[data-result-card-docked]').classList.contains('is-collapsed'));
+        }
+
+        // Existing behaviour: marks, error chips, 全部○, save with the 「已記錄」 notice and a stored record.
+        const rows = await card.locator('.result-card-row').count();
+        assert(rows > 0, 'The card lists at least one part');
+        await card.locator('.result-card-mark[data-row="0"][data-mark="x"]').click();
+        await card.locator('.result-card-errors').waitFor({ state: 'visible' });
+        const withErrors = await rect(dockSel);
+        const paneWithErrors = await rect(paneSel);
+        assert(!overlap(withErrors, paneWithErrors) && paneWithErrors.height >= 150, 'Error chips grow the dock row without covering the solution');
+        await page.waitForTimeout(400); // let the 0.25s colour transitions settle before the evidence shot
+        await page.screenshot({ path: path.join(artifacts, `check-ui-${width}.png`) });
+        if (process.env.QA_CHECK_UI_DIR) await page.screenshot({ path: path.join(process.env.QA_CHECK_UI_DIR, `check-ui-${width}.png`) });
+        await card.locator('.result-card-allo').click();
+        await card.locator('.result-card-save').click();
+        await page.locator('#modal-result-dock .result-card-saved-notice').waitFor();
+        assert.equal(await page.locator('[data-result-card-docked]').count(), 0, 'Saving closes the card');
+        const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('EE_EXAM_RESULT_CARD_V1')).records.length);
+        assert(stored >= 1, 'The result card record is stored');
+        await page.locator('#modal-result-dock .result-card-saved-notice').waitFor({ state: 'detached' });
+        assert.equal(await page.evaluate(() => document.getElementById('modal-result-dock').childElementCount), 0, 'The dock row disappears once empty');
+
+        if (width > 800) {
+          // A desktop window narrowed to phone width while open falls back to one pane (no squeezed two-column).
+          await page.evaluate(q => todayTaskOpenSolution(q), reviewQids[1] || qid);
+          await page.locator('#modal-result-dock [data-result-card-docked]').waitFor();
+          await page.setViewportSize({ width: 375, height: 812 });
+          await page.waitForFunction(() => document.getElementById('modal-pane-left').getBoundingClientRect().width === 0);
+          const narrowed = await rect(paneSel);
+          assert(narrowed.width >= 340, `Narrowed window shows one full-width solution pane (${narrowed.width}px)`);
+        }
+        assert.deepEqual(errors, []);
+        results.push({ width, scenario: 'check-ui', passed: true });
+        console.log(`PASS 核對題解＋結果卡 ${width}px: card is a layout row (no overlap), solution scrolls to its end${width > 800 ? ', narrowing falls back to one pane' : ', 題目／詳解 switch, sheet handle, compact top bar'}`);
+      } catch (error) {
+        await page.screenshot({ path: path.join(artifacts, `failure-check-ui-${width}.png`), fullPage: true }).catch(() => {});
+        results.push({ width, scenario: 'check-ui', passed: false, error: String(error), browserErrors: errors });
+        throw error;
+      } finally {
+        await context.close();
+      }
+    }
   } finally {
     if (browser) await browser.close();
     if (server.exitCode === null && server.pid) {

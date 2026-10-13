@@ -193,6 +193,11 @@ function syncStoresFromStorageEvent(event) {
       initSM2Store();
       touched = true;
     }
+    if ((all || key === STORAGE_KEY || key === STARRED_KEY || /_EXAM_(PROGRESS|STARRED)_V1$/.test(String(key)))
+      && typeof reloadProgressState === 'function') {
+      reloadProgressState();
+      touched = true;
+    }
     if (touched && typeof updateStatsAndBar === 'function') updateStatsAndBar();
   } catch (_) { /* cross-tab sync is best effort */ }
 }

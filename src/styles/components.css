@@ -1677,6 +1677,16 @@ select:focus {
 .sb-chip { display: inline-block; margin: 0 4px 2px 0; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--review-light); color: var(--review); font-size: 0.78rem; }
 .sb-next { margin: 0; padding: 6px 10px; border-left: 3px solid var(--accent); background: var(--accent-light); border-radius: 4px; font-size: 0.86rem; }
 .sb-note { margin: 12px 0 0; font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+/* v1.3.9 日程進度 */
+.sb-pace { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.sb-pace-title { font-size: 1rem; margin: 0; }
+.sb-pace-line, .sb-pace-next { margin: 0; font-size: 0.9rem; font-weight: 600; overflow-wrap: anywhere; }
+.sb-pace-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.sb-pace-table th { text-align: left; font-size: 0.74rem; font-weight: 400; color: var(--muted); padding: 2px 6px 4px 0; }
+.sb-pace-table td { padding: 4px 6px 4px 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; vertical-align: top; }
+.sb-pace-code { white-space: nowrap; font-weight: 600; }
+.sb-pace-table .sb-pace-num { white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
+.sb-pace-more summary, .sb-pace-cut summary { cursor: pointer; font-size: 0.86rem; color: var(--ink-light); margin-bottom: 6px; }
 @media (max-width: 640px) {
   .sb-grid { grid-template-columns: 1fr; }
   .sb-nums { grid-template-columns: 1fr 1fr 1fr; }

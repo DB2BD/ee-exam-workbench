@@ -426,6 +426,106 @@ function scoreboardTotalsHtml_(m) {
   </section>`;
 }
 
+// ---- 日程進度 (v1.3.9): same pacing result as the 今日任務 card, shown as a detail list ----------------
+
+const SCOREBOARD_PACE_MAX_ROWS = 8;
+
+function scoreboardMonthDay_(iso) {
+  const m = /^\d{4}-(\d{2})-(\d{2})$/.exec(String(iso == null ? '' : iso));
+  return m ? Number(m[1]) + '/' + Number(m[2]) : String(iso == null ? '' : iso);
+}
+
+function scoreboardPaceHours_(h) {
+  const n = Number(h) || 0;
+  return typeof todayTaskFormatHours === 'function' ? todayTaskFormatHours(n) : String(Math.round(n * 10) / 10);
+}
+
+function scoreboardTaskHours_(task, active) {
+  if (!task || !Array.isArray(task.phases)) return 0;
+  if (typeof pacingRemainingHours === 'function') {
+    return pacingRemainingHours(task, active && active.code === task.code ? { code: active.code, phaseIndex: active.phaseIndex } : null);
+  }
+  return task.phases.reduce((n, p) => n + (Number(p.minutes) || 0), 0) / 60;
+}
+
+/**
+ * Pure: pacingPlan result + DAILY_SCHEDULE -> display model for the 日程進度 section.
+ * `behind` holds the first 8 rows, `rest` the remaining ones (`more` = rest.length); dates are shown as M/D.
+ * `active` (optional) = the started task { code, phaseIndex } so its remaining hours match pacing.behindHours.
+ */
+function scoreboardPaceModel(pacing, schedule, active) {
+  const p = pacing || {};
+  const tasks = (schedule && schedule.tasks) || {};
+  const due = (schedule && schedule.due) || {};
+  const titleOf = code => (tasks[code] && tasks[code].title) || '';
+  const rows = (Array.isArray(p.behindCodes) ? p.behindCodes : []).map(code => ({
+    code, title: titleOf(code), due: scoreboardMonthDay_(due[code]), hours: scoreboardTaskHours_(tasks[code], active)
+  }));
+  const n = p.nextMilestone;
+  return {
+    line: typeof todayTaskPaceLine === 'function' ? todayTaskPaceLine(p) : '',
+    behind: rows.slice(0, SCOREBOARD_PACE_MAX_ROWS),
+    rest: rows.slice(SCOREBOARD_PACE_MAX_ROWS),
+    more: Math.max(0, rows.length - SCOREBOARD_PACE_MAX_ROWS),
+    next: n ? {
+      date: scoreboardMonthDay_(n.date), label: n.label || '', remainingTasks: Number(n.remainingTasks) || 0,
+      requiredHours: Number(n.requiredHours) || 0, availableHours: Number(n.availableHours) || 0, atRisk: !!n.atRisk
+    } : null,
+    cut: (Array.isArray(p.cutDetail) ? p.cutDetail : []).map(c => ({ code: c.code, title: c.title || titleOf(c.code), hours: Number(c.hours) || 0 }))
+  };
+}
+
+function scoreboardPaceTableHtml_(rows, kind) {
+  const e = scoreboardEscape_;
+  const head = kind === 'cut'
+    ? '<th scope="col">代碼</th><th scope="col">標題</th><th scope="col" class="sb-pace-num">時數</th>'
+    : '<th scope="col">代碼</th><th scope="col">標題</th><th scope="col" class="sb-pace-num">原排日期</th><th scope="col" class="sb-pace-num">剩餘時數</th>';
+  const body = rows.map(r => (kind === 'cut'
+    ? `<tr><td class="sb-pace-code">${e(r.code)}</td><td>${e(r.title)}</td><td class="sb-pace-num">${e(scoreboardPaceHours_(r.hours))}</td></tr>`
+    : `<tr><td class="sb-pace-code">${e(r.code)}</td><td>${e(r.title)}</td><td class="sb-pace-num">${e(r.due)}</td><td class="sb-pace-num">${e(scoreboardPaceHours_(r.hours))}</td></tr>`)).join('');
+  return `<table class="sb-pace-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+function scoreboardPaceHtml_(model) {
+  const e = scoreboardEscape_;
+  const m = model || {};
+  const parts = [`<h3 class="sb-pace-title">日程進度</h3>`];
+  if (m.line) parts.push(`<p class="sb-pace-line">${e(m.line)}</p>`);
+  if (m.behind && m.behind.length) {
+    parts.push(scoreboardPaceTableHtml_(m.behind, 'behind'));
+    if (m.more > 0 && m.rest && m.rest.length) {
+      parts.push(`<details class="sb-pace-more"><summary>另有 ${e(m.more)} 項</summary>${scoreboardPaceTableHtml_(m.rest, 'behind')}</details>`);
+    }
+  }
+  if (m.next) {
+    const n = m.next;
+    const text = `下一關卡 ${n.date} ${n.label}：剩 ${n.remainingTasks} 項，需 ${scoreboardPaceHours_(n.requiredHours)} 小時／可用 ${scoreboardPaceHours_(n.availableHours)} 小時`;
+    parts.push(`<p class="sb-pace-next${n.atRisk ? ' sb-gap' : ''}">${e(text)}</p>`);
+  }
+  if (m.cut && m.cut.length) {
+    parts.push(`<details class="sb-pace-cut"><summary>已自動刪減</summary>${scoreboardPaceTableHtml_(m.cut, 'cut')}</details>`);
+  }
+  return `<section class="sb-pace" aria-label="日程進度">${parts.join('')}</section>`;
+}
+
+function scoreboardTodayState_(options) {
+  if (options && options.todayState) return options.todayState;
+  if (typeof loadTodayTaskState === 'function') return loadTodayTaskState();
+  return todayTaskNormalizeState(JSON.parse(localStorage.getItem('EE_EXAM_TODAY_TASK_V1')));
+}
+
+/** The section's html, or '' when the pacing code / schedule is not loaded (or anything throws). */
+function scoreboardPaceSection_(options) {
+  try {
+    if (typeof todayTaskPacing !== 'function' || typeof DAILY_SCHEDULE === 'undefined' || !DAILY_SCHEDULE) return '';
+    const state = scoreboardTodayState_(options);
+    const now = options && Number.isFinite(options.now) ? options.now : Date.now();
+    const todayIso = typeof todayTaskLocalDate === 'function' ? todayTaskLocalDate(now) : '';
+    if (!todayIso) return '';
+    return scoreboardPaceHtml_(scoreboardPaceModel(todayTaskPacing(state, todayIso), DAILY_SCHEDULE, state.active));
+  } catch (_) { return ''; }
+}
+
 function renderScoreboard(container, options) {
   if (!container) return null;
   const model = scoreboardCompute(scoreboardReadRecords_(options), options && options.now);
@@ -435,7 +535,7 @@ function renderScoreboard(container, options) {
        <p class="sb-note">模考實測為準；練習估計來自近 ${SCOREBOARD_WINDOW_DAYS} 天、自己挑的章節且無時間壓力，偏樂觀。練習中的基本分題 ○ 只計 50%；模考一律照真實考試計分（○ 100%）。</p>`;
   container.innerHTML = `<section class="scoreboard" aria-label="成績看板">
     <h2 class="sb-title">成績</h2>
-    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p><p class="sb-rule"><small>${scoreboardEscape_(SCOREBOARD_PASS_RULE_TEXT)}</small></p>${model.empty ? '' : scoreboardLegendHtml_()}${body}</section>`;
+    <p class="sb-summary">${scoreboardEscape_(scoreboardSummaryFromModel_(model))}</p><p class="sb-rule"><small>${scoreboardEscape_(SCOREBOARD_PASS_RULE_TEXT)}</small></p>${model.empty ? '' : scoreboardLegendHtml_()}${scoreboardPaceSection_(options)}${body}</section>`;
   return model;
 }
 
@@ -443,6 +543,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     scoreboardCompute, scoreboardSummaryLine, scoreboardTierShares, scoreboardMockForSubject,
     scoreboardPracticeForSubject, scoreboardNextStep, scoreboardDragSubject, scoreboardDragText,
-    scoreboardTrend, scoreboardTrendText, scoreboardRisk, scoreboardShowPractice, scoreboardEscape_, renderScoreboard
+    scoreboardTrend, scoreboardTrendText, scoreboardRisk, scoreboardShowPractice, scoreboardEscape_, renderScoreboard,
+    scoreboardPaceModel, scoreboardPaceHtml_
   };
 }

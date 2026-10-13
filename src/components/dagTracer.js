@@ -4,6 +4,19 @@
  * Analyzes question prerequisites and renders actionable weakness tracing cards.
  */
 
+function dagTracerEscape(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+
+// keyTrap is Markdown with inline LaTeX; render it with the shared pipeline.
+function dagTracerInlineMath(markdown) {
+  return typeof renderInlineMarkdownWithMath === 'function'
+    ? renderInlineMarkdownWithMath(markdown)
+    : dagTracerEscape(markdown);
+}
+
 function renderDagTracerCard(qid, sid, topic) {
   if (typeof KNOWLEDGE_DAG === 'undefined' || typeof mapQuestionToDagNodes !== 'function') {
     return '';
@@ -56,7 +69,7 @@ function renderDagTracerCard(qid, sid, topic) {
           const isTarget = nodeId === targetNodeId;
           const arrow = idx < prereqChain.length - 1 ? '<span class="dag-arrow">➔</span>' : '';
           return `
-            <div class="dag-node-chip ${isTarget ? 'target' : 'prereq'}" title="核心公式：${node.coreFormula || '請先回想定義與適用條件'}">
+            <div class="dag-node-chip ${isTarget ? 'target' : 'prereq'}" title="${dagTracerEscape(nodeName)}">
               <span>${nodeName}</span>
               <span style="font-size: 0.8125rem; opacity: 0.8;">L${node.level || 0}</span>
             </div>
@@ -67,7 +80,7 @@ function renderDagTracerCard(qid, sid, topic) {
 
       ${targetNode.keyTrap ? `
         <div class="dag-trap-alert">
-          <strong>${uiIcon('alert-triangle',{class:'warn-ico'})} 考場易錯陷阱提點：</strong> ${targetNode.keyTrap}
+          <strong>${uiIcon('alert-triangle',{class:'warn-ico'})} 考場易錯陷阱提點：</strong> ${dagTracerInlineMath(targetNode.keyTrap)}
         </div>
       ` : ''}
     </div>

@@ -924,7 +924,9 @@ function backupWriteMetadata(next) {
   localStorage.setItem(BACKUP_META_STORAGE_KEY, JSON.stringify(next));
 }
 
-function buildUserBackupSnapshot() {
+// options.skipMetadata: auto snapshots read the same data but must not count as a downloaded backup
+// (lastBackupAt drives the backup nudge).
+function buildUserBackupSnapshot(options) {
   const storage = typeof localStorage !== 'undefined' ? localStorage : null;
   const progressByCategory = {};
   const starredByCategory = {};
@@ -971,9 +973,11 @@ function buildUserBackupSnapshot() {
     learningData: backupClone(learningData),
     learningDataCapacity: buildLearningDataCapacityReport(learningData),
   };
-  try {
-    backupWriteMetadata(Object.assign({}, metadata, { lastBackupAt: exportedAt, lastBackupVersion: USER_BACKUP_VERSION }));
-  } catch (_) { /* Export remains usable if metadata cannot be written. */ }
+  if (!(options && options.skipMetadata)) {
+    try {
+      backupWriteMetadata(Object.assign({}, metadata, { lastBackupAt: exportedAt, lastBackupVersion: USER_BACKUP_VERSION }));
+    } catch (_) { /* Export remains usable if metadata cannot be written. */ }
+  }
   return snapshot;
 }
 

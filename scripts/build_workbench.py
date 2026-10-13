@@ -73,6 +73,7 @@ def build_workbench():
         'src/state/store.js',
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
+        'src/state/snapshotStore.js',
         'src/state/resultCardStore.js',
         'src/state/practiceStore.js',
         'src/data/recallHints.generated.js',
@@ -366,6 +367,10 @@ def build_workbench():
       </h3>
       <button onclick="closeBackupModal()" class="btn-pdf" style="padding: 2px 8px;" aria-label="關閉"><span class="ui-ico" data-ui-icon="x"></span></button>
     </div>
+    <section class="snapshot-section" aria-label="自動快照">
+      <h4 class="snapshot-title">自動快照</h4>
+      <div id="snapshot-list" class="snapshot-list"></div>
+    </section>
     <p style="font-size: 0.86rem; color: var(--muted);">
       備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。載入或貼上後請先驗證，再選擇合併或取代還原：
     </p>

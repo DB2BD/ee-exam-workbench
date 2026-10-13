@@ -133,7 +133,7 @@ function renderDagGraphVisualizer() {
               考別：${n.examFamily} · 考科：${nodeSubject}
             </div>
             <div class="dag-vis-card-formula">
-              <code>${nodeFormula ? `$${nodeFormula}$` : '先回想定義、適用條件與一個反例'}</code>
+              <span class="dag-vis-card-formula-body">${nodeFormula ? (typeof renderCoreFormulaHtml === 'function' ? renderCoreFormulaHtml(nodeFormula, false) : nodeFormula) : '先回想定義、適用條件與一個反例'}</span>
             </div>
             ${prereqNames.length > 0 ? `
               <div class="dag-vis-card-prereqs">

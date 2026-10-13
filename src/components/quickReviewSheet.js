@@ -64,8 +64,8 @@ function renderQuickReviewSheet() {
 
     const cardsHtml = nodes.map(n => {
       const levelBadge = `<span class="qsheet-lvl-badge lvl-${n.level || 1}">L${n.level || 1} 核心</span>`;
-      const formulaMath = n.coreFormula ? `<div class="qsheet-formula">$$${n.coreFormula}$$</div>` : '<div class="qsheet-no-formula">定性分析 / 概念題型</div>';
-      const trapText = n.keyTrap ? `<div class="qsheet-trap">${uiIcon('alert-triangle',{class:'warn-ico'})} <strong>常考陷阱與防坑突破：</strong>${n.keyTrap}</div>` : '';
+      const formulaMath = n.coreFormula ? `<div class="qsheet-formula">${typeof renderCoreFormulaHtml === 'function' ? renderCoreFormulaHtml(n.coreFormula, true) : n.coreFormula}</div>` : '<div class="qsheet-no-formula">定性分析 / 概念題型</div>';
+      const trapText = n.keyTrap ? `<div class="qsheet-trap">${uiIcon('alert-triangle',{class:'warn-ico'})} <strong>常考陷阱與防坑突破：</strong>${typeof renderInlineMarkdownWithMath === 'function' ? renderInlineMarkdownWithMath(n.keyTrap) : n.keyTrap}</div>` : '';
 
       return `
         <div class="qsheet-card" id="qsheet-node-${n.id}">

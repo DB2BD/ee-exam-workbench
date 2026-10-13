@@ -374,3 +374,52 @@ function processMarkdownWithMath(rawMarkdown) {
 
   return html;
 }
+
+/**
+ * Display helpers for single data fields (KNOWLEDGE_DAG coreFormula / keyTrap,
+ * recall fallbacks).  They share the Markdown+KaTeX pipeline above so a field
+ * never shows raw LaTeX source or a `$`-wrapped Chinese sentence.
+ */
+function escapeFormulaFieldText(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/**
+ * True when a "core formula" field is an ordinary sentence rather than math:
+ * it has no LaTeX markup at all (`\cmd`, `_`, `^`, braces, `=`), or it is a
+ * Chinese sentence (a run of 4+ CJK characters outside `\text{}` groups) that
+ * contains no LaTeX command.
+ */
+function isPlainTextFormula(text) {
+  const source = String(text == null ? '' : text).trim();
+  if (!source) return true;
+  const outsideText = source.replace(/\\(?:text|mathrm|operatorname|mbox)\s*\{[^{}]*\}/g, '');
+  if (/\\[A-Za-z]+/.test(outsideText)) return false;
+  if (/[㐀-鿿]{4,}/.test(outsideText)) return true;
+  return !/[_^{}=]/.test(outsideText);
+}
+
+/**
+ * Render a core-formula field: KaTeX for LaTeX, escaped plain text for
+ * sentences.  Never wraps text in `$`.
+ */
+function renderCoreFormulaHtml(formula, displayMode) {
+  const source = String(formula == null ? '' : formula).trim();
+  if (!source) return '';
+  if (isPlainTextFormula(source)) return `<span class="formula-plain">${escapeFormulaFieldText(source)}</span>`;
+  return renderLatexDirect(source, !!displayMode);
+}
+
+/**
+ * Markdown+math for a short inline field (keyTrap): same pipeline as the
+ * solutions, with a lone wrapping `<p>` removed so it can sit inside a label.
+ */
+function renderInlineMarkdownWithMath(markdown) {
+  const html = processMarkdownWithMath(markdown == null ? '' : String(markdown)).trim();
+  const single = html.match(/^<p>([\s\S]*)<\/p>$/);
+  return single && !/<p[\s>]/.test(single[1]) ? single[1] : html;
+}

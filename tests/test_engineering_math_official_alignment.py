@@ -86,7 +86,7 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
         self.assert_stem_and_note(
             "EE-109-03-3",
             ["P[X>Y]"],  # official paper uses square brackets
-            ["\\boxed{P(X>Y)=0.7}"],
+            ["\\boxed{P(X>Y)=0.70}"],
         )
         self.assert_stem_and_note(
             "EE-109-03-4",

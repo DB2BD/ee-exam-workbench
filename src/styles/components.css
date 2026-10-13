@@ -1303,7 +1303,7 @@ select:focus {
 .diagnosis-steps { margin: 2px 0 0 20px; padding: 0; }
 .diagnosis-steps li { margin: 3px 0; }
 .diagnosis-reference, .diagnosis-trap { padding: 7px 9px; border-radius: 6px; background: var(--surface); font-size: .82rem; }
-.diagnosis-reference code { display: block; margin-top: 3px; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); }
+.diagnosis-reference .diagnosis-formula { display: block; margin-top: 3px; overflow-x: auto; overflow-wrap: anywhere; color: var(--ink); }
 .diagnosis-trap { border-left: 3px solid var(--warn); }
 .diagnosis-primary-action { justify-self: start; }
 .weakness-shell {

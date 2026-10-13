@@ -176,9 +176,9 @@ function renderKnowledgeDiagnosisCard(diagnosis) {
   const actionSteps = Array.isArray(learningPlan.steps) && learningPlan.steps.length
     ? `<ol class="diagnosis-steps">${learningPlan.steps.map(step => `<li>${solutionModalEscape(step)}</li>`).join('')}</ol>` : '';
   const formula = learningPlan.coreFormula
-    ? `<div class="diagnosis-reference"><strong>這次要回想的核心：</strong><code>${solutionModalEscape(learningPlan.coreFormula)}</code></div>` : '';
+    ? `<div class="diagnosis-reference"><strong>這次要回想的核心：</strong><span class="diagnosis-formula">${solutionModalFormulaHtml(learningPlan.coreFormula)}</span></div>` : '';
   const trap = learningPlan.keyTrap
-    ? `<div class="diagnosis-trap"><strong>本題最容易再錯：</strong>${solutionModalEscape(learningPlan.keyTrap)}</div>` : '';
+    ? `<div class="diagnosis-trap"><strong>本題最容易再錯：</strong>${solutionModalInlineMathHtml(learningPlan.keyTrap)}</div>` : '';
   const directAction = actionTarget
     ? `<button type="button" class="pill diagnosis-primary-action" onclick="openDiagnosisPrimary()">開始補強「${solutionModalEscape(actionTarget.title)}」</button>` : '';
   const primary = candidates.length > 0 ? `
@@ -433,6 +433,20 @@ function solutionModalEscape(value) {
   return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[ch]));
+}
+
+// Core formula / key trap fields: KaTeX (or plain text for sentences) via the
+// shared renderer; escaped text when the renderer is not loaded.
+function solutionModalFormulaHtml(formula) {
+  return typeof renderCoreFormulaHtml === 'function'
+    ? renderCoreFormulaHtml(formula, false)
+    : solutionModalEscape(formula);
+}
+
+function solutionModalInlineMathHtml(markdown) {
+  return typeof renderInlineMarkdownWithMath === 'function'
+    ? renderInlineMarkdownWithMath(markdown)
+    : solutionModalEscape(markdown);
 }
 
 function closeImageLightbox() {
@@ -1496,7 +1510,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
           <strong>起手式：</strong> ${recallHints.activationMd ? processMarkdownWithMath(recallHints.activationMd) : reviewHtmlEscape(recallHints.activation)}
         </div>
         <div id="recall-layer-3" style="display: none; margin: 16px 0; padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
-          <strong>核心公式：</strong> <span class="math-inline">$${recallHints.formula}$</span><br><strong>${recallHints.trapsMd ? '本題失分點' : '常見陷阱'}：</strong> ${recallHints.trapsMd ? processMarkdownWithMath(recallHints.trapsMd) : reviewHtmlEscape(recallHints.trap)}
+          <strong>核心公式：</strong> <span class="math-inline">${solutionModalFormulaHtml(recallHints.formula)}</span><br><strong>${recallHints.trapsMd ? '本題失分點' : '常見陷阱'}：</strong> ${recallHints.trapsMd ? processMarkdownWithMath(recallHints.trapsMd) : reviewHtmlEscape(recallHints.trap)}
         </div>
 
         <div id="recall-full-section" style="display: none;">

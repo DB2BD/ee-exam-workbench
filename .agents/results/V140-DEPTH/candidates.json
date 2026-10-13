@@ -1,0 +1,6556 @@
+[
+  {
+    "qid": "EE-106-05-2",
+    "subject": "電力系統",
+    "severity": 11.05,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "no-substitution",
+        "jump",
+        "too-short"
+      ],
+      "（三）": [
+        "missing-concept",
+        "no-substitution",
+        "jump",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）Bus 3 電壓：缺觀念句；缺代入式；跳步（1 個 boxed 直接接符號式）；過短（67 字，7.4 字/分）",
+      "（三）Bus 1 電壓：缺觀念句；缺代入式；跳步（1 個 boxed 直接接符號式）；過短（58 字，7.2 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 11,
+      "computed_decimals": 19,
+      "numbers": [
+        "3.704",
+        "0.5556",
+        "0.4074",
+        "0.7037"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-02-3",
+    "subject": "電子學",
+    "severity": 10.81,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（三）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）平均負載電流：缺觀念句；過短（72 字，8.6 字/分）",
+      "（二）負載平均功率：缺觀念句；過短（95 字，11.4 字/分）",
+      "（三）功率因數：過短（166 字，6.6 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 10,
+      "numbers": [
+        "4.952",
+        "7.778",
+        "0.7071",
+        "49.517",
+        "77.782",
+        "245.2",
+        "302.5",
+        "57.3"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-02-2",
+    "subject": "電子學",
+    "severity": 9.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（三）": [
+        "missing-concept"
+      ],
+      "（四）": [
+        "missing-concept"
+      ],
+      "（五）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）共模增益：缺觀念句",
+      "（二）CMRR（dB）：缺觀念句；過短（46 字，9.2 字/分）",
+      "（三）單端輸入：缺觀念句",
+      "（四）等幅反相輸入：缺觀念句",
+      "（五）輸出干擾：過短（103 字，4.1 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 12,
+      "numbers": [
+        "0.075",
+        "0.0000188",
+        "1.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-05-4",
+    "subject": "電力系統",
+    "severity": 8.75,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "no-intermediate"
+      ],
+      "（二）": [
+        "missing-concept",
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（一）滿載：缺觀念句；缺中間結果（3 個運算一步到位）",
+      "（二）無載：缺觀念句；缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 24,
+      "numbers": [
+        "199.186",
+        "444.7",
+        "0.9998",
+        "669.4",
+        "337.7"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-05-1",
+    "subject": "電力系統",
+    "severity": 8.75,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept",
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句；缺中間結果（6 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 12,
+      "computed_decimals": 13,
+      "numbers": [
+        "18.899",
+        "0.014173",
+        "0.22373",
+        "0.0175515",
+        "0.23601",
+        "0.8873",
+        "0.01269",
+        "0.3345"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-05-4",
+    "subject": "電力系統",
+    "severity": 8.75,
+    "points": 25,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句；過短（256 字，10.2 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 3,
+      "numbers": [
+        "0.3333",
+        "166.7"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-02-1",
+    "subject": "電子學",
+    "severity": 8.72,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "no-substitution",
+        "jump"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（四）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）直流輸出電壓：缺觀念句；缺代入式；跳步（1 個 boxed 直接接符號式）",
+      "（二）最初兩個交流項電流（振幅）：缺觀念句",
+      "（四）功率因數：過短（142 字，5.7 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 19,
+      "computed_decimals": 22,
+      "numbers": [
+        "63.662",
+        "6.3662",
+        "42.441",
+        "9.0478",
+        "13.486",
+        "3.147",
+        "8.4883",
+        "18.096",
+        "20.675",
+        "0.4106"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-02-2",
+    "subject": "電子學",
+    "severity": 8.5,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-substitution",
+        "jump",
+        "too-short"
+      ],
+      "（三）": [
+        "missing-concept",
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（二）輸入電阻：缺代入式；跳步（1 個 boxed 直接接符號式）；過短（53 字，5.3 字/分）",
+      "（三）電壓增益：缺觀念句；缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 5,
+      "numbers": [
+        "0.4",
+        "118.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-01-3",
+    "subject": "電路學",
+    "severity": 7.5,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "no-substitution",
+        "jump"
+      ]
+    },
+    "notes": [
+      "全文節點電壓方程式：缺代入式；跳步（1 個 boxed 直接接符號式）"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "0.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-02-3",
+    "subject": "電子學",
+    "severity": 7.49,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）偏壓量 / （一）$g_m$：缺觀念句",
+      "（二）$W/L$：缺觀念句",
+      "（三）$R_1,R_2$：過短（200 字，8.0 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 23,
+      "computed_decimals": 23,
+      "numbers": [
+        "0.0951",
+        "0.5902",
+        "1.0709",
+        "0.1",
+        "0.0666667",
+        "4.444444",
+        "1.902",
+        "5257.624",
+        "3505.082",
+        "7.244"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-06-3",
+    "subject": "工業配電",
+    "severity": 7.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）CB1 閉合、CB2 開路：缺觀念句；過短（71 字，7.1 字/分）",
+      "（二）CB1、CB2 皆閉合：缺觀念句；過短（128 字，12.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 26,
+      "numbers": [
+        "14.2857",
+        "0.0643678",
+        "15.5357",
+        "2.40563",
+        "3.007"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-03-3",
+    "subject": "工程數學",
+    "severity": 7.0,
+    "points": 20,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句；過短（203 字，10.2 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 3,
+      "numbers": [
+        "0.7",
+        "4.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-05-1",
+    "subject": "電力系統",
+    "severity": 7.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句；過短（242 字，12.1 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "866.0"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-02-2",
+    "subject": "電子學",
+    "severity": 6.88,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）工作點 / （一）電感：缺觀念句",
+      "（二）電容：過短（204 字，8.2 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 15,
+      "numbers": [
+        "1.2",
+        "17.143",
+        "0.4",
+        "3.429"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-03-6",
+    "subject": "工程數學",
+    "severity": 6.75,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept",
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（一）所有解：缺觀念句",
+      "（二）特徵值與單位特徵向量：缺觀念句；缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-02-3",
+    "subject": "電子學",
+    "severity": 6.75,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "too-short"
+      ],
+      "（四）": [
+        "missing-concept"
+      ],
+      "（五）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）輸出電壓：過短（51 字，10.2 字/分）",
+      "（四）最小電感：缺觀念句",
+      "（五）漣波比：過短（188 字，7.5 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 10,
+      "numbers": [
+        "0.4",
+        "4.8",
+        "7.2",
+        "0.6",
+        "0.048"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-02-2",
+    "subject": "電子學",
+    "severity": 6.25,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）$V_{GS}=2\\ \\mathrm：缺觀念句",
+      "（二）$I_D=2\\ \\mathrm{mA：缺觀念句；過短（137 字，11.0 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 17,
+      "numbers": [
+        "0.8",
+        "0.256",
+        "390.6",
+        "1.789",
+        "2.236",
+        "89.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-03-7",
+    "subject": "工程數學",
+    "severity": 5.69,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）正規化：缺觀念句；過短（67 字，10.0 字/分）",
+      "（二）期望值：缺觀念句；過短（86 字，12.9 字/分）",
+      "（三）變異數：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-03-5",
+    "subject": "工程數學",
+    "severity": 5.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "no-intermediate"
+      ],
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）切線向量：缺觀念句；缺中間結果（7 個運算一步到位）",
+      "（二）球面通量：過短（113 字，11.3 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-03-5",
+    "subject": "工程數學",
+    "severity": 5.5,
+    "points": 30,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）完整解：過短（279 字，13.9 字/分）",
+      "（二）零空間：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-03-5",
+    "subject": "工程數學",
+    "severity": 5.25,
+    "points": 15,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句；過短（160 字，10.7 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-04-4",
+    "subject": "電機機械",
+    "severity": 5.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）機械輸出功率：缺觀念句",
+      "（二）效率：缺觀念句；過短（71 字，7.1 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-03-3",
+    "subject": "工程數學",
+    "severity": 5.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）梯度：缺觀念句；過短（111 字，11.1 字/分）",
+      "（二）方向導數：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-02-4",
+    "subject": "電子學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（五）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（五）閉迴路輸出阻抗：過短（215 字，8.6 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-01-1",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（334 字，13.4 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "0.5",
+        "0.3"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-01-4",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（342 字，13.7 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-06-4",
+    "subject": "工業配電",
+    "severity": 4.6,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）標么阻抗圖（\\(S_b=20\\,\\m：缺觀念句",
+      "（二）對稱故障電流：缺觀念句",
+      "（三）非對稱故障電流：缺觀念句；過短（67 字，8.4 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 22,
+      "computed_decimals": 30,
+      "numbers": [
+        "0.055",
+        "0.220",
+        "6.6667",
+        "7.8867",
+        "1.03128",
+        "0.96967",
+        "24.056",
+        "23.327",
+        "29.158",
+        "0.01152"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-02-1",
+    "subject": "電子學",
+    "severity": 4.38,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）總功率損耗：缺觀念句；過短（87 字，7.0 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 19,
+      "numbers": [
+        "18.091",
+        "2.2614",
+        "13.568",
+        "8.5",
+        "0.6265"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-02-2",
+    "subject": "電子學",
+    "severity": 4.38,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）頻率與責任週期：缺觀念句；過短（121 字，9.7 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 7,
+      "numbers": [
+        "0.8",
+        "0.554518",
+        "1.109035",
+        "901.684",
+        "1.6",
+        "1.109"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-04-3",
+    "subject": "電機機械",
+    "severity": 4.36,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-substitution",
+        "jump",
+        "too-short"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）電樞電流：缺代入式；跳步（1 個 boxed 直接接符號式）；過短（72 字，10.8 字/分）",
+      "（三）效率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 7,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-04-5",
+    "subject": "電機機械",
+    "severity": 4.36,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept",
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（一）有效磁場電流：缺觀念句",
+      "（二）轉速：缺觀念句",
+      "（三）轉矩：缺觀念句；缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 9,
+      "numbers": [
+        "3.5",
+        "232.6",
+        "1.592",
+        "230.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-04-2",
+    "subject": "電機機械",
+    "severity": 4.25,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）100 N·m 時的轉速：缺觀念句",
+      "（三）降速至 1700 rpm：缺觀念句；過短（118 字，11.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 20,
+      "computed_decimals": 20,
+      "numbers": [
+        "1.9838",
+        "0.019447",
+        "1.9644",
+        "0.038893",
+        "1730.0",
+        "0.055556",
+        "2.857",
+        "4.0377",
+        "0.040377",
+        "0.195"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-06-2",
+    "subject": "工業配電",
+    "severity": 4.25,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "no-intermediate"
+      ],
+      "（四）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）各設備最高需量：缺觀念句",
+      "（二）各變壓器最小容量：缺觀念句",
+      "（三）總平均功率：缺中間結果（3 個運算一步到位）",
+      "（四）全月用電度數：缺觀念句；過短（65 字，13.0 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 23,
+      "numbers": [
+        "127.5",
+        "122.5",
+        "159.6",
+        "76.5",
+        "9056.4",
+        "0.824"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-02-1",
+    "subject": "電子學",
+    "severity": 4.15,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）（2）$v_2=v_1$：缺觀念句；過短（112 字，13.4 字/分）",
+      "（三）（3）$v_2=-3v_1$：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 15,
+      "numbers": [
+        "0.975610",
+        "0.0390244",
+        "2.0125",
+        "78.0488",
+        "156.098",
+        "0.0125",
+        "165.025",
+        "1.993789",
+        "514.097",
+        "312.195"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-01-5",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（162 字，8.1 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "1051.2",
+        "951.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-04-3",
+    "subject": "電機機械",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ],
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）電樞電流：過短（88 字，8.8 字/分）",
+      "（二）轉速：過短（96 字，9.6 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 16,
+      "numbers": [
+        "1.8907607",
+        "7.563",
+        "866.4",
+        "107.563"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-06-2",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ],
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）百分壓降：過短（125 字，12.5 字/分）",
+      "（二）最大容許長度：過短（108 字，10.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 11,
+      "computed_decimals": 18,
+      "numbers": [
+        "0.10908",
+        "0.52678",
+        "0.22321",
+        "0.120",
+        "12.175",
+        "12.176"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-03-1",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（207 字，10.3 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-03-2",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（260 字，13.0 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-06-4",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ],
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）A 點閃爍：過短（89 字，8.9 字/分）",
+      "（二）串聯電抗器：過短（111 字，11.1 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 20,
+      "numbers": [
+        "0.008333",
+        "0.010502",
+        "0.518835",
+        "1.606",
+        "0.03672",
+        "1.8",
+        "0.9850"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-06-2",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ],
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）變壓器二次側：過短（77 字，7.7 字/分）",
+      "（二）69 kV 側：過短（112 字，11.2 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 21,
+      "numbers": [
+        "0.2833",
+        "0.3433",
+        "2.913",
+        "0.283",
+        "0.8252",
+        "0.9709"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-04-4",
+    "subject": "電機機械",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept",
+        "no-intermediate"
+      ],
+      "（四）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）（1）啟動電流：缺觀念句",
+      "（二）（2）滿載：缺觀念句",
+      "（三）（3）最大扭矩：缺觀念句；缺中間結果（5 個運算一步到位）",
+      "（四）（4）計入激磁阻抗的啟動電流：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 22,
+      "computed_decimals": 38,
+      "numbers": [
+        "0.3",
+        "0.6708",
+        "3.1",
+        "3.1575",
+        "0.982",
+        "2.8",
+        "115.9",
+        "0.6",
+        "0.3288",
+        "0.6083"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-01-1",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ],
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）電流 \\(I\\)：過短（43 字，8.6 字/分）",
+      "（二）節點電壓：過短（143 字，9.5 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 14,
+      "numbers": [
+        "3.8043",
+        "7.6087",
+        "17.3913",
+        "1.6304"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-03-3",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（233 字，11.7 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-05-3",
+    "subject": "電力系統",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（240 字，12.0 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 1,
+      "numbers": [
+        "0.008"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-06-2",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-intermediate",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）閃爍電壓變動率：缺中間結果（3 個運算一步到位）；過短（104 字，10.4 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 9,
+      "computed_decimals": 13,
+      "numbers": [
+        "0.0125",
+        "0.0825",
+        "0.84507",
+        "1.87793",
+        "1.0000"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-02-3",
+    "subject": "電子學",
+    "severity": 3.75,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）判別導通模式：缺觀念句",
+      "（二）DCM 導通率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 16,
+      "numbers": [
+        "8.333",
+        "0.4",
+        "0.6",
+        "0.3266",
+        "0.4899",
+        "0.8165",
+        "4.899",
+        "1.200",
+        "1.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-05-1",
+    "subject": "電力系統",
+    "severity": 3.75,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept"
+      ],
+      "（四）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）線路電流與損失：缺觀念句",
+      "（二）送電端電壓：缺觀念句",
+      "（三）電容器組阻抗：缺觀念句",
+      "（四）送電端功率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 12,
+      "computed_decimals": 13,
+      "numbers": [
+        "0.0512",
+        "1.032",
+        "1.0805",
+        "1.6512",
+        "0.5120",
+        "0.512"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-05-2",
+    "subject": "電力系統",
+    "severity": 3.75,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 4,
+      "numbers": [
+        "0.53651",
+        "0.532667",
+        "0.534973",
+        "0.0023059"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-03-6",
+    "subject": "工程數學",
+    "severity": 3.75,
+    "points": 15,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept",
+        "no-substitution",
+        "jump"
+      ]
+    },
+    "notes": [
+      "（一）\\(k\\)：缺觀念句",
+      "（二）\\(E\\{Y\\}\\)：缺觀念句",
+      "（三）\\(E\\{X^3Y^2\\}\\)：缺觀念句；缺代入式；跳步（1 個 boxed 直接接符號式）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-04-3",
+    "subject": "電機機械",
+    "severity": 3.69,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "no-intermediate",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）轉速：缺觀念句",
+      "（三）效率：缺中間結果（3 個運算一步到位）；過短（90 字，13.5 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 3,
+      "numbers": [
+        "1762.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-06-2",
+    "subject": "工業配電",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）480 V 側：缺觀念句；過短（137 字，13.7 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 26,
+      "computed_decimals": 39,
+      "numbers": [
+        "0.746",
+        "3.68768",
+        "0.006",
+        "0.977985",
+        "0.977987",
+        "2.2013",
+        "0.794525",
+        "0.794794",
+        "20.5206",
+        "0.99499"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-04-1",
+    "subject": "電機機械",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）磁場儲能：缺觀念句；過短（98 字，9.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 11,
+      "numbers": [
+        "0.5258",
+        "2.092",
+        "0.550",
+        "0.2513"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-04-4",
+    "subject": "電機機械",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）滿載效率：缺觀念句；過短（108 字，10.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 19,
+      "numbers": [
+        "15.193",
+        "9.116",
+        "12.155",
+        "80.0"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-06-5",
+    "subject": "工業配電",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）電容器容量：缺觀念句",
+      "（二）Δ 接每相電容：過短（136 字，13.6 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 13,
+      "numbers": [
+        "0.84045",
+        "655.547",
+        "0.3287"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-02-4",
+    "subject": "電子學",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）類型與階數：缺觀念句；過短（125 字，12.5 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-06-5",
+    "subject": "工業配電",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）電阻器額定：過短（121 字，12.1 字/分）",
+      "（二）低電阻接地判定：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 17,
+      "numbers": [
+        "19052.6",
+        "1749.5",
+        "4.959",
+        "4.974"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-06-1",
+    "subject": "工業配電",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）接線作法：缺觀念句；過短（61 字，6.1 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-02-1",
+    "subject": "電子學",
+    "severity": 3.5,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）輸出電壓：缺觀念句；過短（61 字，6.1 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 10,
+      "numbers": [
+        "1.2",
+        "2.4",
+        "1.6",
+        "4.0"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-06-1",
+    "subject": "工業配電",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）總和日負載因數：缺觀念句；過短（70 字，7.0 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-04-1",
+    "subject": "電機機械",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）線圈電感：缺觀念句；過短（85 字，8.5 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 11,
+      "computed_decimals": 11,
+      "numbers": [
+        "3.979",
+        "7.958",
+        "2.011",
+        "0.5027",
+        "0.004"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-05-4",
+    "subject": "電力系統",
+    "severity": 3.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "jump"
+      ]
+    },
+    "notes": [
+      "（一）戴維寧阻抗與故障電流：缺觀念句",
+      "（二）匯流排電壓與線路電流：跳步（1 個 boxed 直接接符號式）"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 11,
+      "numbers": [
+        "0.0625",
+        "0.8125",
+        "0.6875",
+        "0.625",
+        "0.9375"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-03-6",
+    "subject": "工程數學",
+    "severity": 3.25,
+    "points": 15,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept",
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（一）平均值：缺觀念句",
+      "（二）變異數：缺觀念句",
+      "（三）三階動差：缺觀念句；缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-02-2",
+    "subject": "電子學",
+    "severity": 3.1,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "jump"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）導通率與電感電流：缺觀念句；跳步（1 個 boxed 直接接符號式）",
+      "（三）臨界電感：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 13,
+      "numbers": [
+        "0.5",
+        "7.5",
+        "0.3",
+        "4.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-01-4",
+    "subject": "電路學",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 17,
+      "numbers": [
+        "0.3629",
+        "6.794"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-05-2",
+    "subject": "電力系統",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文1. 導納與注入 / 2. 第一次疊：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 18,
+      "numbers": [
+        "0.958333",
+        "0.959637",
+        "2.987",
+        "0.951000",
+        "0.953953",
+        "4.509",
+        "0.59724",
+        "0.904925",
+        "0.913486",
+        "7.8504"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-06-1",
+    "subject": "工業配電",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-intermediate",
+        "too-short"
+      ],
+      "（四）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）總和平均負載：缺中間結果（3 個運算一步到位）；過短（66 字，13.2 字/分）",
+      "（四）每日用電量：過短（49 字，9.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 18,
+      "computed_decimals": 42,
+      "numbers": [
+        "19.125",
+        "10.560",
+        "39.600",
+        "15.120",
+        "127.533",
+        "84.405",
+        "0.6618",
+        "459.0",
+        "950.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-02-1",
+    "subject": "電子學",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）極點頻率 $f_b$：缺觀念句",
+      "（二）0 dB 頻率 $f_t$：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "100.005",
+        "1.00005"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-05-3",
+    "subject": "電力系統",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 25,
+      "computed_decimals": 34,
+      "numbers": [
+        "0.5",
+        "0.2",
+        "9.5",
+        "1.88736",
+        "9.025",
+        "0.28564",
+        "0.11264",
+        "0.21436",
+        "9.31063",
+        "1.98669"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-06-3",
+    "subject": "工業配電",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）標么阻抗圖：缺觀念句",
+      "（二）三相短路電流：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 18,
+      "computed_decimals": 22,
+      "numbers": [
+        "0.0484",
+        "0.113636",
+        "0.225088",
+        "2.62432",
+        "11.659",
+        "0.0055",
+        "0.000484",
+        "0.00242",
+        "0.0065",
+        "0.010894"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-06-5",
+    "subject": "工業配電",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）電容器容量：缺觀念句",
+      "（二）輕載功因：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 19,
+      "computed_decimals": 23,
+      "numbers": [
+        "914.523",
+        "685.892",
+        "442.924",
+        "242.968",
+        "342.946",
+        "457.261",
+        "214.293",
+        "0.84805",
+        "0.848"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-03-2",
+    "subject": "工程數學",
+    "severity": 3.0,
+    "points": 15,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（188 字，12.5 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-05-1",
+    "subject": "電力系統",
+    "severity": 3.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）串聯補償：過短（207 字，13.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 6,
+      "numbers": [
+        "0.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-06-4",
+    "subject": "工業配電",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）1. 額定電流（1 HP≈1 kVA：缺觀念句",
+      "（二）3. 幹線：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 17,
+      "numbers": [
+        "5.5",
+        "165.3",
+        "194.2",
+        "0.746",
+        "0.878"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-04-1",
+    "subject": "電機機械",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）電感：缺觀念句",
+      "（二）磁通最大值：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 11,
+      "computed_decimals": 17,
+      "numbers": [
+        "1.340",
+        "0.03656",
+        "3.574",
+        "1.4142",
+        "2.640",
+        "1.320"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-04-2",
+    "subject": "電機機械",
+    "severity": 3.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 13,
+      "numbers": [
+        "29.4",
+        "0.0680",
+        "0.06803"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-03-1",
+    "subject": "工程數學",
+    "severity": 3.0,
+    "points": 15,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "全文：過短（200 字，13.3 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 12,
+      "numbers": [
+        "0.007",
+        "0.004",
+        "0.005",
+        "0.016",
+        "1.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-03-6",
+    "subject": "工程數學",
+    "severity": 2.75,
+    "points": 15,
+    "compact": true,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）常數 \\(k\\)：過短（87 字，8.7 字/分）",
+      "（二）機率分布函數：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-02-2",
+    "subject": "電子學",
+    "severity": 2.65,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）輸出電壓：缺觀念句；過短（59 字，11.8 字/分）",
+      "（三）與 $A_o\\to\\infty$ 比：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 13,
+      "numbers": [
+        "1.000405",
+        "79.9676",
+        "7.9967613",
+        "3.2387",
+        "0.0405",
+        "0.1",
+        "0.00004",
+        "9.9960",
+        "7.99676"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-02-4",
+    "subject": "電子學",
+    "severity": 2.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept"
+      ],
+      "（四）": [
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（二）功率因數：缺觀念句",
+      "（三）失真因數：缺觀念句",
+      "（四）總諧波失真：缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 21,
+      "numbers": [
+        "8.485",
+        "3.536",
+        "133.5",
+        "11.554",
+        "70.711",
+        "817.0",
+        "0.6360",
+        "0.7344",
+        "0.9242",
+        "0.5393"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-03-5",
+    "subject": "工程數學",
+    "severity": 2.5,
+    "points": 10,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）：缺觀念句",
+      "（二）：缺觀念句；過短（69 字，13.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-04-1",
+    "subject": "電機機械",
+    "severity": 2.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（四）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）接線圖：缺觀念句；過短（64 字，12.8 字/分）",
+      "（四）缺點：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 10,
+      "numbers": [
+        "10.4167",
+        "41.6667",
+        "52.0833",
+        "25.0"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-04-2",
+    "subject": "電機機械",
+    "severity": 2.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（三）": [
+        "missing-concept",
+        "too-short"
+      ],
+      "（四）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（三）電磁功率：缺觀念句；過短（52 字，10.4 字/分）",
+      "（四）電磁轉矩：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 10,
+      "numbers": [
+        "12.8",
+        "12.5",
+        "314.159",
+        "0.3",
+        "0.3979"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-02-3",
+    "subject": "電子學",
+    "severity": 2.5,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）電容值：過短（159 字，12.7 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 14,
+      "computed_decimals": 16,
+      "numbers": [
+        "0.6",
+        "3.6",
+        "10.8",
+        "0.005",
+        "129.6",
+        "5.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-02-1",
+    "subject": "電子學",
+    "severity": 2.49,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）內建電壓：缺觀念句",
+      "（三）兩側延伸：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 18,
+      "numbers": [
+        "0.02585",
+        "2.5",
+        "0.738",
+        "1.293",
+        "2.585",
+        "0.259",
+        "0.074",
+        "0.185",
+        "1.846"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-04-2",
+    "subject": "電機機械",
+    "severity": 2.49,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）馬達電樞電流：缺觀念句",
+      "（三）輸出轉矩：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 21,
+      "numbers": [
+        "166.667",
+        "131.061",
+        "101.914",
+        "5063.1",
+        "0.39789"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-02-2",
+    "subject": "電子學",
+    "severity": 2.49,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-substitution",
+        "jump"
+      ]
+    },
+    "notes": [
+      "（二）$\\omega_z$：缺代入式；跳步（1 個 boxed 直接接符號式）"
+    ],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 11,
+      "numbers": [
+        "2.5",
+        "37.5",
+        "1.5",
+        "8.0077",
+        "8.3253"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-05-1",
+    "subject": "電力系統",
+    "severity": 2.4,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（三）": [
+        "no-intermediate"
+      ],
+      "（四）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（三）電壓調整率：缺中間結果（3 個運算一步到位）",
+      "（四）傳輸效率：過短（81 字，13.5 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 29,
+      "numbers": [
+        "19.604",
+        "1075.8",
+        "860.6",
+        "0.6",
+        "92.952"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-02-4",
+    "subject": "電子學",
+    "severity": 2.25,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（三）": [
+        "no-substitution",
+        "jump"
+      ],
+      "（四）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（三）輸入電流 rms：缺代入式；跳步（1 個 boxed 直接接符號式）",
+      "（四）功率因數：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 5,
+      "numbers": [
+        "240.4",
+        "0.6366"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-04-4",
+    "subject": "電機機械",
+    "severity": 2.25,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept"
+      ],
+      "（四）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）最大功率：缺觀念句",
+      "（三）最大轉矩：缺觀念句",
+      "（四）相量圖：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 12,
+      "computed_decimals": 29,
+      "numbers": [
+        "1.5",
+        "2.628",
+        "3.0999",
+        "3099.9",
+        "25.133",
+        "1.2334",
+        "1327.9",
+        "376.5",
+        "734.2",
+        "1517.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-01-3",
+    "subject": "電路學",
+    "severity": 2.25,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）頻寬與截止頻率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 18,
+      "numbers": [
+        "2.5",
+        "0.4",
+        "2.1482",
+        "3.518",
+        "0.2828"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-03-4",
+    "subject": "工程數學",
+    "severity": 2.25,
+    "points": 15,
+    "compact": false,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-02-1",
+    "subject": "電子學",
+    "severity": 2.1,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（三）": [
+        "missing-concept",
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（三）帶通電壓增益：缺觀念句；缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 16,
+      "numbers": [
+        "1591.5",
+        "159.2",
+        "1750.7",
+        "1.751",
+        "1.6",
+        "391.6",
+        "1300.1",
+        "1314.1",
+        "121.1",
+        "0.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-02-1",
+    "subject": "電子學",
+    "severity": 2.1,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）：缺觀念句；過短（65 字，10.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-02-5",
+    "subject": "電子學",
+    "severity": 2.01,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-substitution",
+        "jump"
+      ]
+    },
+    "notes": [
+      "（二）漣波頻率：缺代入式；跳步（1 個 boxed 直接接符號式）"
+    ],
+    "rounding": {
+      "not_two_decimals": 11,
+      "computed_decimals": 17,
+      "numbers": [
+        "3.375",
+        "2.625",
+        "1.5",
+        "4.5",
+        "2.5",
+        "7.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-06-5",
+    "subject": "工業配電",
+    "severity": 2.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "too-short"
+      ],
+      "（三）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）電源幹線電流：過短（68 字，13.6 字/分）",
+      "（三）A 組分路電流：過短（61 字，12.2 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 26,
+      "computed_decimals": 33,
+      "numbers": [
+        "0.008",
+        "0.061",
+        "0.069",
+        "0.3",
+        "1.5",
+        "0.6",
+        "0.345",
+        "0.5",
+        "0.169533",
+        "0.0084767"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-02-5",
+    "subject": "電子學",
+    "severity": 2.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（二）$Q_1$ 電流 rms：缺中間結果（7 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 5,
+      "numbers": [
+        "0.4",
+        "1.333",
+        "0.913",
+        "0.843"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-06-2",
+    "subject": "工業配電",
+    "severity": 2.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）380 V：過短（114 字，11.4 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 22,
+      "numbers": [
+        "0.005",
+        "0.010",
+        "0.4359",
+        "0.008859",
+        "4.027",
+        "1.830",
+        "2.331",
+        "0.6135",
+        "127.017"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-06-2",
+    "subject": "工業配電",
+    "severity": 2.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）日用電量：過短（126 字，12.6 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 25,
+      "numbers": [
+        "70.5",
+        "99.7875",
+        "16.185",
+        "10.5625",
+        "5.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-06-3",
+    "subject": "工業配電",
+    "severity": 2.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）F 點：過短（134 字，13.4 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 11,
+      "computed_decimals": 23,
+      "numbers": [
+        "4373.9",
+        "0.625",
+        "9.8",
+        "21.8693",
+        "4.8",
+        "0.10204",
+        "1.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-04-2",
+    "subject": "電機機械",
+    "severity": 2.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）匝數比：過短（128 字，12.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 8,
+      "numbers": [
+        "0.4",
+        "0.6325",
+        "173.925",
+        "0.3",
+        "1.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-02-4",
+    "subject": "電子學",
+    "severity": 1.88,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）電流 THD：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 25,
+      "numbers": [
+        "1885.0",
+        "18.850",
+        "22.345",
+        "1.1107",
+        "0.7731",
+        "0.2822",
+        "132.5",
+        "0.1446",
+        "0.8451",
+        "0.8356"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-02-3",
+    "subject": "電子學",
+    "severity": 1.86,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（三）": [
+        "missing-concept"
+      ],
+      "（四）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（三）激磁電感：缺觀念句",
+      "（四）效率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 13,
+      "numbers": [
+        "24.7",
+        "32.933",
+        "34.133",
+        "22.5",
+        "274.4",
+        "98.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-05-4",
+    "subject": "電力系統",
+    "severity": 1.8,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）三相四線（負載中性點接電源中性點）：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 21,
+      "computed_decimals": 24,
+      "numbers": [
+        "7.333",
+        "5.368",
+        "20.035",
+        "60.105",
+        "0.1",
+        "601.051",
+        "38.105",
+        "19.053",
+        "73.613",
+        "22.0"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-06-4",
+    "subject": "工業配電",
+    "severity": 1.75,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept",
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（一）87 的意義：缺觀念句；過短（68 字，13.6 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 6,
+      "numbers": [
+        "1519.3",
+        "251.0",
+        "4.184",
+        "4.385",
+        "4.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-05-2",
+    "subject": "電力系統",
+    "severity": 1.75,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（二）二次側電流：缺觀念句",
+      "（三）電壓調整率：缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 34,
+      "computed_decimals": 47,
+      "numbers": [
+        "0.0225",
+        "0.5824",
+        "0.79158",
+        "0.88971",
+        "0.169",
+        "21.264",
+        "0.89919",
+        "0.99087",
+        "1.00336",
+        "1.01473"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-03-3",
+    "subject": "工程數學",
+    "severity": 1.6,
+    "points": 15,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "too-short"
+      ]
+    },
+    "notes": [
+      "（二）命中子彈為乙所射：過短（110 字，13.8 字/分）"
+    ],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 16,
+      "numbers": [
+        "0.7218"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-02-5",
+    "subject": "電子學",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）振盪頻率與 $C$：缺觀念句",
+      "（三）$R_f$：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "2.166",
+        "3.141"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-03-2",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）特徵值：缺觀念句",
+      "（二）特徵向量：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-03-3",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 10,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-06-4",
+    "subject": "工業配電",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）初始總流明與燈具數：缺觀念句",
+      "（三）實際照度：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 7,
+      "numbers": [
+        "219.8",
+        "1501.5",
+        "1.5",
+        "0.455",
+        "1494.7"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-03-7",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 10,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 1,
+      "numbers": [
+        "3.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-03-8",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 10,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-03-1",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）特解：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-03-3",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）面積分（側面）：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-04-3",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）\\(s=5\\%\\)：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 21,
+      "numbers": [
+        "18.068",
+        "11.623",
+        "0.0999",
+        "8.0025",
+        "8.2025",
+        "11.457"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-06-4",
+    "subject": "工業配電",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）幹線：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 6,
+      "numbers": [
+        "40.5",
+        "97.5",
+        "124.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-02-3",
+    "subject": "電子學",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）完整放大器：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 7,
+      "numbers": [
+        "3.205",
+        "0.641",
+        "3.846",
+        "0.718",
+        "0.077"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-04-3",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）轉速：缺觀念句",
+      "（三）輸出機械轉矩：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 19,
+      "computed_decimals": 29,
+      "numbers": [
+        "127.017",
+        "7.2",
+        "5.4248",
+        "5.7148",
+        "18.793",
+        "16.3125",
+        "5.748",
+        "5632.8",
+        "5229.8",
+        "0.8637"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-05-1",
+    "subject": "電力系統",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）內部電壓與 \\(P\\)、\\(Q\\)：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 25,
+      "numbers": [
+        "1.6012",
+        "2.026",
+        "0.720",
+        "0.3487",
+        "1.2",
+        "2.431",
+        "0.5106",
+        "0.8598",
+        "0.6325",
+        "2.0905"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-04-1",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）一次側漏磁電抗：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 8,
+      "numbers": [
+        "0.2083",
+        "2.5",
+        "0.9425",
+        "0.754",
+        "75.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-03-4",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 10,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-5",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 10,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-6",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）特徵值與特徵向量：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-04-4",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）轉速與轉矩：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 21,
+      "numbers": [
+        "3500.3",
+        "6.106",
+        "0.40926",
+        "2685.6",
+        "447.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-04-5",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）直接啟動（\\(s=1\\)）：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 12,
+      "computed_decimals": 27,
+      "numbers": [
+        "0.06715",
+        "0.16715",
+        "0.44845",
+        "267.8",
+        "0.77674",
+        "0.41614",
+        "0.75855",
+        "0.3424"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-05-2",
+    "subject": "電力系統",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）\\(P_2\\)：缺觀念句",
+      "（二）\\(Q_3\\)：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 24,
+      "numbers": [
+        "0.57143",
+        "299.2",
+        "0.06211",
+        "5.7143",
+        "0.18123",
+        "0.02402",
+        "0.9760",
+        "0.5714",
+        "0.9753",
+        "0.0007"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-03-5",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）散度與旋度：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-04-4",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（三）SCC 上額定電流的場電流：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 31,
+      "numbers": [
+        "68.6414",
+        "118.595",
+        "0.92975",
+        "1.0756",
+        "110.264",
+        "5904.7",
+        "5019.0"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-03-2",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 10,
+    "compact": true,
+    "flags_by_subquestion": {
+      "全文": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "全文：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-03-4",
+    "subject": "工程數學",
+    "severity": 1.5,
+    "points": 15,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）對稱矩陣 \\(P\\)：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 9,
+      "computed_decimals": 9,
+      "numbers": [
+        "0.0901",
+        "0.1",
+        "1.1",
+        "0.6",
+        "0.5",
+        "0.2",
+        "1.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-04-5",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）啟動電容：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 20,
+      "numbers": [
+        "8.8645",
+        "299.2",
+        "7.120",
+        "8.653",
+        "8.268",
+        "2.316",
+        "8.864516"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-04-4",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）原動機轉矩：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 9,
+      "computed_decimals": 20,
+      "numbers": [
+        "180.422",
+        "2045.7",
+        "9.766",
+        "938.766",
+        "188.496",
+        "4.980",
+        "9.765625"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-04-5",
+    "subject": "電機機械",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）最大轉矩與最大機械功率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 5,
+      "numbers": [
+        "8.2530",
+        "3.4055",
+        "641.9"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-06-3",
+    "subject": "工業配電",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）69 kV 側短路電流：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 33,
+      "computed_decimals": 38,
+      "numbers": [
+        "0.5",
+        "0.8333",
+        "0.1",
+        "0.3125",
+        "0.4125",
+        "0.94203",
+        "2.2837",
+        "1.3333",
+        "3745.7",
+        "2247.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-06-5",
+    "subject": "工業配電",
+    "severity": 1.5,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）需補償無效功率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 24,
+      "numbers": [
+        "0.32868",
+        "0.61974",
+        "1.02020",
+        "0.9929",
+        "0.9694",
+        "0.9379",
+        "0.9220"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-04-2",
+    "subject": "電機機械",
+    "severity": 1.34,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（一）鐵心磁通：缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 5,
+      "numbers": [
+        "1.2",
+        "166.7",
+        "83.3"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-05-4",
+    "subject": "電力系統",
+    "severity": 1.25,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）1. 電路模型與 \\(Y_{bus}：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 28,
+      "computed_decimals": 28,
+      "numbers": [
+        "0.245614",
+        "0.228070",
+        "0.192982",
+        "0.290351",
+        "0.214912",
+        "0.258772",
+        "0.983257",
+        "0.919032",
+        "0.828653",
+        "0.938127"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-02-1",
+    "subject": "電子學",
+    "severity": 1.2,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（四）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）、（二）偏壓：缺觀念句",
+      "（四）轉角頻率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 24,
+      "computed_decimals": 24,
+      "numbers": [
+        "2.8",
+        "5.5",
+        "1.2",
+        "9.5",
+        "1.1875",
+        "3.2",
+        "3.8",
+        "1.675",
+        "1.053",
+        "0.125"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-05-3",
+    "subject": "電力系統",
+    "severity": 1.2,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）潮流方程式：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 11,
+      "numbers": [
+        "13.930",
+        "10.092",
+        "0.6991",
+        "17.299",
+        "22.009",
+        "0.6283",
+        "0.8460",
+        "0.9682",
+        "0.9142",
+        "2.5261"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-04-2",
+    "subject": "電機機械",
+    "severity": 1.2,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）電壓調整率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 14,
+      "computed_decimals": 21,
+      "numbers": [
+        "38.088",
+        "0.3809",
+        "1.904",
+        "688.4",
+        "14324.4",
+        "14332.1",
+        "1.038",
+        "1.03856",
+        "4.768",
+        "1.4527"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-05-3",
+    "subject": "電力系統",
+    "severity": 0.93,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（三）3. 端電壓與無效功率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 27,
+      "computed_decimals": 35,
+      "numbers": [
+        "0.920413",
+        "1.086468",
+        "1.303762",
+        "0.4",
+        "0.095685",
+        "0.659702",
+        "17.1295",
+        "14.2081",
+        "1.01435",
+        "1.09896"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-02-3",
+    "subject": "電子學",
+    "severity": 0.9,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）負向限幅位準：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 29,
+      "computed_decimals": 33,
+      "numbers": [
+        "15.7",
+        "4.625",
+        "1.156",
+        "0.3333",
+        "3.925",
+        "1.01667",
+        "4.877",
+        "0.0656",
+        "0.252",
+        "0.0813"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-03-6",
+    "subject": "工程數學",
+    "severity": 0.9,
+    "points": 10,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ],
+      "（二）": [
+        "no-intermediate"
+      ]
+    },
+    "notes": [
+      "（一）不放回，兩顆白球：缺觀念句",
+      "（二）不放回，第二顆紅球：缺中間結果（3 個運算一步到位）"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-06-2",
+    "subject": "工業配電",
+    "severity": 0.9,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）系統阻抗圖：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 34,
+      "computed_decimals": 45,
+      "numbers": [
+        "158.7",
+        "4.332",
+        "0.012",
+        "0.002552",
+        "0.192",
+        "0.384552",
+        "0.396552",
+        "3.0261",
+        "0.015",
+        "0.403448"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-02-3",
+    "subject": "電子學",
+    "severity": 0.75,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）Miller 電容：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 20,
+      "numbers": [
+        "4.3",
+        "0.835",
+        "33.4",
+        "2.994",
+        "1.667",
+        "55.7",
+        "0.909",
+        "0.843",
+        "0.784",
+        "0.084"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-03-6",
+    "subject": "工程數學",
+    "severity": 0.75,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）**（一）** \\(E[X^2]-4：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-04-5",
+    "subject": "電機機械",
+    "severity": 0.75,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）步進電動機：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-04-4",
+    "subject": "電機機械",
+    "severity": 0.75,
+    "points": 15,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）\\(\\omega_et=60^\\ci：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 5,
+      "numbers": [
+        "1.5",
+        "1.299"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-05-4",
+    "subject": "電力系統",
+    "severity": 0.75,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（三）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（三）母線 1 增量成本：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 18,
+      "numbers": [
+        "0.52293",
+        "0.26147",
+        "9.96195",
+        "0.05115",
+        "0.011416",
+        "0.871557",
+        "0.86014",
+        "2.13986",
+        "5.498",
+        "0.88297"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-05-5",
+    "subject": "電力系統",
+    "severity": 0.75,
+    "points": 5,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）電壓調整率：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 14,
+      "computed_decimals": 26,
+      "numbers": [
+        "0.17453",
+        "0.89015",
+        "0.7772",
+        "0.77717",
+        "2.07691",
+        "1.6141",
+        "0.98481",
+        "0.62930",
+        "0.995",
+        "1.005"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-05-1",
+    "subject": "電力系統",
+    "severity": 0.6,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（一）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（一）圓型轉子：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 24,
+      "computed_decimals": 24,
+      "numbers": [
+        "0.3",
+        "0.5",
+        "0.95238",
+        "0.86315",
+        "0.40250",
+        "0.44375",
+        "0.5141",
+        "0.44838",
+        "1.1140",
+        "1.9451"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-04-5",
+    "subject": "電機機械",
+    "severity": 0.6,
+    "points": 14,
+    "compact": false,
+    "flags_by_subquestion": {
+      "（二）": [
+        "missing-concept"
+      ]
+    },
+    "notes": [
+      "（二）電纜線電流：缺觀念句"
+    ],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 20,
+      "numbers": [
+        "0.61974",
+        "1859.2",
+        "132.9",
+        "2074.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-01-1",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 3,
+      "numbers": [
+        "0.1",
+        "0.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-01-2",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 8,
+      "numbers": [
+        "6.634"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-01-3",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 12,
+      "numbers": [
+        "4.912",
+        "3.650"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-01-4",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 4,
+      "numbers": [
+        "0.005"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-01-5",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 5,
+      "numbers": [
+        "0.002",
+        "1.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-02-2",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 19,
+      "numbers": [
+        "0.495",
+        "1.2",
+        "1.695",
+        "0.49505",
+        "19.802",
+        "1.4778",
+        "0.48780",
+        "14.275",
+        "0.4878",
+        "0.00495"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-02-3",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 9,
+      "computed_decimals": 15,
+      "numbers": [
+        "17.121",
+        "9.885",
+        "13.979",
+        "0.9558"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-02-4",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 7,
+      "numbers": [
+        "8.483",
+        "18.483"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-03-3",
+    "subject": "工程數學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 3,
+      "numbers": [
+        "0.5864",
+        "0.586431"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-04-1",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "1.5",
+        "2.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-04-4",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 18,
+      "numbers": [
+        "19.2",
+        "0.05029",
+        "0.10029",
+        "0.31537",
+        "3.171",
+        "3.3426",
+        "3.154",
+        "1.0083",
+        "0.5027",
+        "0.4973"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-04-5",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 22,
+      "numbers": [
+        "10.028",
+        "9.765",
+        "5.859",
+        "219.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-05-1",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 25,
+      "computed_decimals": 35,
+      "numbers": [
+        "0.0708",
+        "0.7908",
+        "1.0903",
+        "1.0968",
+        "0.648",
+        "0.0346",
+        "144.5",
+        "0.3809",
+        "0.025",
+        "0.023529"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-05-2",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 26,
+      "computed_decimals": 29,
+      "numbers": [
+        "0.005",
+        "0.006",
+        "0.007",
+        "1.6",
+        "0.39252",
+        "0.32710",
+        "0.28037",
+        "0.001963",
+        "1.05024",
+        "1.05198"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-06-1",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 4,
+      "numbers": [
+        "11.4",
+        "0.9",
+        "22.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-06-2",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 18,
+      "numbers": [
+        "1.0",
+        "16.434",
+        "0.9",
+        "91.434",
+        "179.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-06-3",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 26,
+      "computed_decimals": 30,
+      "numbers": [
+        "317.4",
+        "8.664",
+        "0.067",
+        "0.0001775",
+        "0.061",
+        "0.6012",
+        "0.882892",
+        "1.154201",
+        "1.154379",
+        "1.30139"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-06-4",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 13,
+      "numbers": [
+        "3.31813",
+        "1.16036",
+        "0.223214",
+        "0.191869",
+        "5.1984",
+        "0.99741"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-01-1",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 4,
+      "numbers": [
+        "1.333"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-01-2",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 3,
+      "numbers": [
+        "0.7",
+        "1.4286"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-01-3",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 13,
+      "numbers": [
+        "57.6",
+        "93.6",
+        "46.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-03-4",
+    "subject": "工程數學",
+    "severity": 0.0,
+    "points": 10,
+    "compact": true,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 1,
+      "numbers": [
+        "6.2832"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-04-1",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 8,
+      "numbers": [
+        "0.5",
+        "2.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-04-2",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": true,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 6,
+      "numbers": [
+        "5.5",
+        "45.8",
+        "0.4583"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-04-3",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 15,
+      "numbers": [
+        "0.3",
+        "0.2",
+        "0.5",
+        "0.160",
+        "0.894",
+        "1.044",
+        "1.344",
+        "0.372",
+        "2.806",
+        "0.597"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-04-4",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 4,
+      "numbers": [
+        "1.6",
+        "1.789",
+        "1.281"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-04-5",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 7,
+      "numbers": [
+        "0.5",
+        "859.4",
+        "1718.9"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-05-1",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "0.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-05-3",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 22,
+      "numbers": [
+        "2.8868",
+        "4.3478",
+        "0.8",
+        "0.2",
+        "11.547"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-05-4",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 3,
+      "numbers": [
+        "0.707",
+        "0.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-06-1",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 14,
+      "computed_decimals": 20,
+      "numbers": [
+        "12.1",
+        "73.186",
+        "183.186",
+        "36.8143",
+        "15.139",
+        "36.814",
+        "15.213",
+        "0.0731",
+        "73.1"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-06-5",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 18,
+      "computed_decimals": 23,
+      "numbers": [
+        "0.1152",
+        "0.007428",
+        "0.018570",
+        "0.000856",
+        "0.00905",
+        "0.6",
+        "0.384",
+        "0.0090512",
+        "6.5135",
+        "390.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-01-1",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 10,
+      "numbers": [
+        "4.0404",
+        "7.4807",
+        "0.04045",
+        "0.00855",
+        "0.0404",
+        "0.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-01-3",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 7,
+      "numbers": [
+        "2.5",
+        "0.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-01-4",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 20,
+      "numbers": [
+        "922.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-02-2",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "7.681",
+        "7.692"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-04-2",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 11,
+      "numbers": [
+        "550.0",
+        "1.0204"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-04-5",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 14,
+      "computed_decimals": 32,
+      "numbers": [
+        "19.985",
+        "119.660",
+        "0.357",
+        "4.807",
+        "0.0208",
+        "1.7156",
+        "1.9465",
+        "0.3177",
+        "0.9964"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-05-4",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 5,
+      "numbers": [
+        "0.5",
+        "0.4",
+        "0.1"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-06-2",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 22,
+      "computed_decimals": 23,
+      "numbers": [
+        "340.9",
+        "1.925",
+        "0.012",
+        "0.0009",
+        "0.005142",
+        "0.02408",
+        "0.04285",
+        "7.956",
+        "9.946",
+        "0.6453"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-06-5",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": true,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 3,
+      "numbers": [
+        "0.320"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-01-1",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 6,
+      "numbers": [
+        "3.6",
+        "1.6",
+        "64.8",
+        "51.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-01-2",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 9,
+      "computed_decimals": 9,
+      "numbers": [
+        "0.5",
+        "9.6",
+        "1.6",
+        "6.4",
+        "25.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-01-3",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 19,
+      "computed_decimals": 25,
+      "numbers": [
+        "73.2",
+        "0.2065",
+        "0.0119",
+        "8.6226",
+        "20.0119",
+        "108.467",
+        "0.6667",
+        "1.7333",
+        "3.333",
+        "0.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-01-5",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 9,
+      "computed_decimals": 16,
+      "numbers": [
+        "39.5",
+        "28.6",
+        "2.4",
+        "1.386"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-02-4",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 12,
+      "numbers": [
+        "2.5",
+        "0.5",
+        "12.5",
+        "0.03125",
+        "0.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-04-1",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 9,
+      "numbers": [
+        "219.4",
+        "8.724",
+        "0.8333",
+        "364.0",
+        "261.7"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-04-2",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 14,
+      "numbers": [
+        "49.5",
+        "3.183",
+        "76.394"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-04-5",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 13,
+      "numbers": [
+        "9.0",
+        "9473.7"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-05-3",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 33,
+      "computed_decimals": 35,
+      "numbers": [
+        "331.2",
+        "0.21701",
+        "1.04167",
+        "1.0",
+        "0.94118",
+        "0.19608",
+        "11.308",
+        "0.98058",
+        "0.09882",
+        "84.0"
+      ]
+    }
+  },
+  {
+    "qid": "EE-107-06-3",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 14,
+      "numbers": [
+        "4.184",
+        "5.848",
+        "1.398",
+        "0.715",
+        "1.664",
+        "0.13333",
+        "6.0526"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-01-4",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 11,
+      "computed_decimals": 11,
+      "numbers": [
+        "0.2",
+        "2.5",
+        "3.5",
+        "32.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-05-2",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 30,
+      "computed_decimals": 30,
+      "numbers": [
+        "0.69307",
+        "0.031889",
+        "0.025866",
+        "0.25706",
+        "0.54294",
+        "0.027147",
+        "0.97285",
+        "0.68062",
+        "0.88594",
+        "0.019189"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-05-3",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 32,
+      "computed_decimals": 48,
+      "numbers": [
+        "0.175",
+        "0.275",
+        "0.1875",
+        "0.3875",
+        "0.16085",
+        "0.26085",
+        "3.9486",
+        "2.3096",
+        "28.868",
+        "0.5217"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-05-4",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 1,
+      "numbers": [
+        "0.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-05-5",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 22,
+      "computed_decimals": 37,
+      "numbers": [
+        "0.9371",
+        "1.0353",
+        "1.8824",
+        "0.3",
+        "1.8",
+        "0.5752",
+        "1.2941",
+        "0.5556"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-06-3",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 1,
+      "numbers": [
+        "190.526"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-06-5",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 21,
+      "numbers": [
+        "0.6",
+        "0.8716",
+        "40.516",
+        "37.189",
+        "3.327",
+        "44.912",
+        "37.333",
+        "7.579",
+        "1280.4",
+        "1078.7"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-02-4",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 4,
+      "numbers": [
+        "0.1875",
+        "187.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-04-3",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 25,
+      "numbers": [
+        "0.9",
+        "1.0296",
+        "20.3",
+        "6.2509",
+        "2344.4",
+        "2320.9"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-04-5",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 8,
+      "computed_decimals": 8,
+      "numbers": [
+        "0.025",
+        "0.018",
+        "0.006",
+        "1.3572",
+        "0.2714",
+        "0.7106"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-05-2",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 12,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 19,
+      "numbers": [
+        "12.599",
+        "0.01268",
+        "0.07122",
+        "0.015975",
+        "0.07994",
+        "1.0351",
+        "1.0994",
+        "724.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-05-4",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 10,
+      "numbers": [
+        "0.8",
+        "3.007",
+        "3.472",
+        "0.866"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-05-5",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 20,
+      "numbers": [
+        "0.001",
+        "0.0004",
+        "11.888",
+        "268.9957",
+        "399.0284",
+        "0.26900",
+        "1.36798",
+        "0.15961",
+        "1.18992",
+        "8.6900"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-05-6",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 25,
+      "numbers": [
+        "0.3462",
+        "59.654",
+        "0.1",
+        "0.0625",
+        "0.0057692"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-06-1",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "0.6",
+        "1.3"
+      ]
+    }
+  },
+  {
+    "qid": "EE-109-06-4",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 9,
+      "numbers": [
+        "7.5",
+        "40.9",
+        "0.2704"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-01-1",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 10,
+      "numbers": [
+        "0.4",
+        "1.4",
+        "1.4286",
+        "2.857",
+        "10.204",
+        "2.041"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-01-3",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 12,
+      "numbers": [
+        "7.874",
+        "8.128",
+        "0.7958",
+        "0.4974",
+        "403.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-01-4",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 14,
+      "computed_decimals": 23,
+      "numbers": [
+        "6137.2",
+        "15.011",
+        "30.022",
+        "20.015",
+        "6.928",
+        "2.571",
+        "5.638",
+        "1561.2",
+        "2317.5",
+        "2258.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-02-1",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 23,
+      "computed_decimals": 25,
+      "numbers": [
+        "11.3",
+        "10.180",
+        "1.0180",
+        "1.7180",
+        "11.5",
+        "7.1429",
+        "1.0714",
+        "0.7143",
+        "1.2143",
+        "0.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-04-1",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 19,
+      "numbers": [
+        "1.5",
+        "7.2343",
+        "1.4065",
+        "0.9377",
+        "4.1469",
+        "0.4731",
+        "226.1"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-04-2",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 17,
+      "numbers": [
+        "187.5",
+        "0.5789"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-04-3",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 35,
+      "numbers": [
+        "0.8219",
+        "0.8379",
+        "0.7397",
+        "159.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-05-3",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 12,
+      "computed_decimals": 12,
+      "numbers": [
+        "0.3005",
+        "0.6009",
+        "0.2003",
+        "0.901"
+      ]
+    }
+  },
+  {
+    "qid": "EE-110-06-5",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 11,
+      "computed_decimals": 19,
+      "numbers": [
+        "16.735",
+        "0.0575",
+        "1.5",
+        "0.9139",
+        "0.07333",
+        "0.05471",
+        "0.8367"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-01-1",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 4,
+      "numbers": [
+        "3.946",
+        "1.973"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-01-2",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 8,
+      "numbers": [
+        "4.207",
+        "4.254",
+        "1.387",
+        "1.564",
+        "4.891",
+        "5.548"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-01-4",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 20,
+      "computed_decimals": 20,
+      "numbers": [
+        "3.8",
+        "0.4",
+        "3.6",
+        "0.2",
+        "5.8",
+        "2.6",
+        "7.6",
+        "4.8",
+        "2.4",
+        "1.4"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-04-3",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 17,
+      "numbers": [
+        "1.4782",
+        "1.2540",
+        "3.018",
+        "1.2542"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-05-3",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 19,
+      "computed_decimals": 19,
+      "numbers": [
+        "23.578",
+        "0.41152",
+        "156.422",
+        "0.4",
+        "2.31856",
+        "0.91652",
+        "0.010908",
+        "89.375",
+        "1.55989",
+        "1.14837"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-06-1",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 6,
+      "computed_decimals": 7,
+      "numbers": [
+        "7.056",
+        "0.4",
+        "24.656",
+        "78.9"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-01-1",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 7,
+      "numbers": [
+        "1.2",
+        "7.222",
+        "2.778",
+        "6.667",
+        "0.556"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-01-2",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 13,
+      "numbers": [
+        "0.7",
+        "2.5",
+        "3.5",
+        "612.5",
+        "212.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-01-3",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "0.2667",
+        "4.286"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-01-4",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "2.566",
+        "97.434"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-02-1",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 18,
+      "computed_decimals": 20,
+      "numbers": [
+        "0.4950495",
+        "19.80198",
+        "23.810",
+        "668.451",
+        "990.099",
+        "160.746",
+        "45.4545",
+        "0.476190",
+        "9.336153",
+        "1.445"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-02-4",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 15,
+      "computed_decimals": 23,
+      "numbers": [
+        "54.113",
+        "3.011268",
+        "0.4962",
+        "0.4538",
+        "0.0964",
+        "0.0096",
+        "72.2704",
+        "9.06774",
+        "0.10295",
+        "0.00465"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-04-3",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 17,
+      "numbers": [
+        "144.3",
+        "62.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-04-4",
+    "subject": "電機機械",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 17,
+      "numbers": [
+        "3.744",
+        "708.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-05-2",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 19,
+      "computed_decimals": 23,
+      "numbers": [
+        "0.004",
+        "6.3",
+        "0.003",
+        "6.4667",
+        "9.667",
+        "0.00090909",
+        "8.4545"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-05-3",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 3,
+      "numbers": [
+        "1.5625"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-05-4",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 23,
+      "computed_decimals": 24,
+      "numbers": [
+        "0.5",
+        "1.037",
+        "1.11147",
+        "2.22294",
+        "21.093",
+        "0.36814",
+        "0.4",
+        "0.1",
+        "4.5",
+        "0.24699"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-06-3",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 19,
+      "numbers": [
+        "9.5238",
+        "11.5238",
+        "1.6529",
+        "10.129",
+        "14.470",
+        "2.511",
+        "0.000722",
+        "0.1",
+        "0.01444",
+        "0.087362"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-06-4",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 20,
+      "computed_decimals": 27,
+      "numbers": [
+        "0.057",
+        "0.0585",
+        "1139.507",
+        "478.754",
+        "649.292",
+        "37.9836",
+        "51.2778",
+        "12.6622349",
+        "159.3321923",
+        "0.4827765"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-01-2",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 23,
+      "numbers": [
+        "0.2",
+        "0.1",
+        "2.236",
+        "4.472",
+        "0.8",
+        "0.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-01-3",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 1,
+      "numbers": [
+        "190.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-02-4",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 2,
+      "numbers": [
+        "0.2",
+        "0.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-05-1",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 17,
+      "computed_decimals": 20,
+      "numbers": [
+        "7.8118",
+        "8.8118",
+        "8.8738",
+        "6.776",
+        "13.663",
+        "4935.0",
+        "586.4",
+        "4969.7",
+        "0.9930",
+        "4374.9"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-05-2",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 16,
+      "computed_decimals": 26,
+      "numbers": [
+        "0.8333",
+        "0.5",
+        "0.6",
+        "0.6758",
+        "0.9233",
+        "2.8308",
+        "0.4",
+        "3.1037",
+        "5.7978",
+        "2405.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-05-3",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 4,
+      "numbers": [
+        "0.002",
+        "7.6",
+        "0.004"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-06-2",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 21,
+      "computed_decimals": 31,
+      "numbers": [
+        "0.130",
+        "0.12558",
+        "1.8056",
+        "2.1",
+        "209.5238",
+        "79.8186",
+        "10.4762",
+        "0.028158",
+        "0.131250",
+        "0.2014"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-06-3",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 22,
+      "computed_decimals": 27,
+      "numbers": [
+        "0.002",
+        "0.025714",
+        "0.027714",
+        "0.487714",
+        "5.6825",
+        "0.0045",
+        "5.6710",
+        "982.7",
+        "0.16237",
+        "0.00450"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-06-4",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 23,
+      "computed_decimals": 36,
+      "numbers": [
+        "0.012",
+        "0.410021",
+        "0.035",
+        "0.5",
+        "0.062",
+        "0.193856",
+        "15.475381",
+        "18.613991",
+        "2.405626",
+        "17.475381"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-01-3",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 13,
+      "numbers": [
+        "4.8",
+        "19.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-01-4",
+    "subject": "電路學",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 19,
+      "computed_decimals": 24,
+      "numbers": [
+        "11.5783",
+        "81.1193",
+        "0.206861",
+        "3.15108",
+        "86.23597",
+        "3.76403",
+        "11.578",
+        "0.52632",
+        "0.277",
+        "0.52518"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-02-3",
+    "subject": "電子學",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 10,
+      "computed_decimals": 17,
+      "numbers": [
+        "0.3",
+        "15.0005",
+        "7.5",
+        "0.025",
+        "2.5",
+        "15.025000",
+        "14.975000"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-05-2",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 13,
+      "computed_decimals": 18,
+      "numbers": [
+        "1.5",
+        "8.627",
+        "0.11314",
+        "8.594",
+        "0.2263"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-05-5",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 5,
+      "computed_decimals": 6,
+      "numbers": [
+        "10.472",
+        "0.2",
+        "3619.9"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-06-1",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 6,
+      "numbers": [
+        "227.2727",
+        "57.7",
+        "86.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-06-4",
+    "subject": "工業配電",
+    "severity": 0.0,
+    "points": 20,
+    "compact": false,
+    "flags_by_subquestion": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 9,
+      "computed_decimals": 11,
+      "numbers": [
+        "236.2",
+        "261.9",
+        "78.7",
+        "87.3",
+        "67.5",
+        "95.5"
+      ]
+    }
+  }
+]

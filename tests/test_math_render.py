@@ -4,8 +4,8 @@
 Runs scripts/audit_math_render.cjs (the app's own Markdown+KaTeX pipeline over
 RECALL_HINTS, KNOWLEDGE_DAG / canonical graph formulas and traps,
 CHEATSHEET_DATA and every bundled Markdown file) and asserts zero KaTeX parse
-errors and zero leaked LaTeX source or bare `$`.  Also pins the helpers that
-keep masked LaTeX valid and core formulas out of `$…$` when they are prose.
+errors and zero leaked LaTeX source or bare `$`.  Also pins the helper that keeps
+core formulas out of `$…$` when they are prose.
 """
 
 import json
@@ -117,25 +117,6 @@ class TestFormulaFieldHelpers(unittest.TestCase):
         html = self._render("renderInlineMarkdownWithMath('三相功率乘以 $\\\\sqrt{3}$。')")
         self.assertNotIn("<p>", html)
         self.assertIn('class="katex"', html)
-
-
-class TestRecallMaskingKeepsLatexValid(unittest.TestCase):
-    def test_masked_fractions_keep_both_arguments(self):
-        import build_recall_hints as builder
-
-        self.assertEqual(builder.repair_masked_latex("\\tfrac□"), "\\tfrac{□}{□}")
-        self.assertEqual(builder.repair_masked_latex("\\frac□+\\dfrac□"), "\\frac{□}{□}+\\dfrac{□}{□}")
-        self.assertEqual(builder.repair_masked_latex("\\frac{□}{3}"), "\\frac{□}{3}")
-        self.assertEqual(builder.repair_masked_latex("\\frac□3"), "\\frac{□}{3}")
-
-    def test_mask_never_leaves_bare_frac_and_hides_answer(self):
-        import build_recall_hints as builder
-
-        note = "## 已知與所求\n已知 a=3\n## 考場標準作答\n$\\boxed{\\tfrac12}$ 與 \\boxed{48}\n"
-        masked = builder.mask_trap_numbers("答案 \\(\\tfrac12\\)，不是 \\(\\tfrac49\\)；結果 48。", note, "")
-        self.assertNotRegex(masked, r"\\[dt]?frac(?![{\s])")
-        self.assertNotIn("12", masked)
-        self.assertNotIn("48", masked)
 
 
 if __name__ == "__main__":

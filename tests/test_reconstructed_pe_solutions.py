@@ -173,8 +173,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIsNone(entry["verified_at"])
         self.assertIn("review_blocker: 官方逐題裁切圖未提供系統頻率", note)
         self.assertIn("P_{\\max}=2.5", section)
-        self.assertIn(r"\boxed{\delta_{cr}=89.375^\circ", section)
-        self.assertIn("0.2704\\sqrt{60/f}", section)
+        self.assertIn(r"\boxed{\delta_{cr}=89.38^\circ", section)
+        self.assertIn("0.27\\sqrt{60/f}", section)
         self.assertNotIn("P_{e1}(\\delta) = 2.0", section)
         self.assertNotIn("P_{e3}(\\delta) = 1.5", section)
         self.assertNotIn("\\delta_{cr} = 59.10", section)
@@ -912,7 +912,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")
         self.assertIn("official_source_url: https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=111180&q=1&s=0611&t=Q", note)
         self.assertIn("交流電頻率定為 $f=60", note)
-        self.assertIn("t_{cr}=0.2704\\sqrt", note)
+        self.assertIn("t_{cr}=0.27\\sqrt", note)
 
     def test_equal_area_missing_frequency_stays_manual(self):
         note = (CANONICAL / "05_電力系統" / "canonical" / "EE-111-05-3.md").read_text(encoding="utf-8")

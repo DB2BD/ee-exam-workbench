@@ -1,0 +1,219 @@
+[
+  {
+    "qid": "EE-109-05-5",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 15,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-109-05-6",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 6,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-110-05-3",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 12,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-111-05-3",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 19,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [
+      {
+        "file": "tests/test_reconstructed_pe_solutions.py",
+        "old": "\\boxed{\\delta_{cr}=89.375^\\circ",
+        "new": "\\boxed{\\delta_{cr}=89.38^\\circ"
+      },
+      {
+        "file": "tests/test_reconstructed_pe_solutions.py",
+        "old": "0.2704\\sqrt{60/f}",
+        "new": "0.27\\sqrt{60/f}"
+      },
+      {
+        "file": "tests/test_reconstructed_pe_solutions.py",
+        "old": "t_{cr}=0.2704\\sqrt",
+        "new": "t_{cr}=0.27\\sqrt"
+      }
+    ],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-112-05-2",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 19,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [
+      {
+        "file": "tests/test_verified_114_solutions.py",
+        "old": "\\gamma=\\frac{1}{1100}=0.00090909",
+        "new": "\\gamma=\\frac{1}{1100}=9.09\\times10^{-4}"
+      },
+      {
+        "file": "tests/test_verified_114_solutions.py",
+        "old": "6.4667",
+        "new": "6.47"
+      },
+      {
+        "file": "tests/test_verified_114_solutions.py",
+        "old": "0.00090909",
+        "new": "9.09\\times10^{-4}"
+      }
+    ],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-112-05-3",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 2,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-112-05-4",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 23,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [
+      {
+        "file": "tests/test_verified_114_solutions.py",
+        "old": "\\boxed{\\delta_{cr}=1.764417\\ \\mathrm{rad}=101.0936492^\\circ}",
+        "new": "\\boxed{\\delta_{cr}=1.76\\ \\mathrm{rad}=101.09^\\circ}"
+      },
+      {
+        "file": "tests/test_verified_114_solutions.py",
+        "old": "102.0837294",
+        "new": "102.08"
+      }
+    ],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-113-05-1",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 17,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-113-05-2",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 16,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-113-05-3",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 4,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-114-05-2",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 13,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [
+      {
+        "file": "tests/test_score_oriented_core_path.py",
+        "old": "Q_{g2}=0.11314",
+        "new": "Q_{g2}=1.13\\times10^{-1}"
+      }
+    ],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  },
+  {
+    "qid": "EE-114-05-5",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 5,
+    "concept_added": true,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "概念句與中間步驟一併補強；題幹未指定小數位數（rule 5 不適用）；規則 4 超過 0.5% 者改科學記號/mHz"
+  }
+]

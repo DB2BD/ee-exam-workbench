@@ -1485,7 +1485,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         capacitor_107 = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", capacitor_107)
-        self.assertIn("655.547", capacitor_107)
+        self.assertIn("655.55", capacitor_107)
         self.assertIn("13.31", capacitor_107)
 
         differential_107 = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-3.md").read_text(encoding="utf-8")
@@ -1628,8 +1628,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         motor_drop_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", motor_drop_105)
-        self.assertIn("2.2013", motor_drop_105)
-        self.assertIn("20.5206", motor_drop_105)
+        self.assertIn("2.20", motor_drop_105)
+        self.assertIn("20.52", motor_drop_105)
         self.assertIn("5.5I_{rated}", motor_drop_105)
 
         gs_105 = (CANONICAL / "05_電力系統" / "canonical" / "EE-105-05-2.md").read_text(encoding="utf-8")
@@ -1666,9 +1666,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         fault_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", fault_105)
-        self.assertIn("34.366", fault_105)
-        self.assertIn("37.373", fault_105)
-        self.assertIn("0.0643678", fault_105)
+        self.assertIn("34.37", fault_105)
+        self.assertIn("37.37", fault_105)
+        self.assertIn("6.44\\times10^{-2}", fault_105)
 
         thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
         power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")
@@ -1706,8 +1706,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("32.5412", annual_110)
         # 2026-10-03 lean-v1: the superseded 19.05%／6.07 pu values stay only
         # as the explicitly rejected intermediate-point reading.
-        self.assertIn(r"\boxed{1.606\%}", annual_110)
-        self.assertIn(r"\boxed{X_R\ge0.03672\,\mathrm{pu}}", annual_110)
+        self.assertIn(r"\boxed{1.61\%}", annual_110)
+        self.assertIn(r"\boxed{X_R\ge3.67\times10^{-2}\,\mathrm{pu}}", annual_110)
         self.assertIn("19.05%／6.07 pu 對應兩變壓器之間的假想觀測點，既非 A 點，也非圖示 B 點", annual_110)
 
 

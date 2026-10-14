@@ -1,0 +1,211 @@
+[
+ {
+  "qid": "EE-109-03-3",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "too-short"
+  ],
+  "numbers_rounded": 3,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_engineering_math_official_alignment.py",
+    "old": "\\boxed{P(X>Y)=0.7}",
+    "new": "\\boxed{P(X>Y)=0.70}"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact（20 分且超過 700 字），新增已知與所求、失分點；0.7→0.70、4.5→4.50"
+ },
+ {
+  "qid": "EE-112-03-6",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "no-intermediate"
+  ],
+  "numbers_rounded": 8,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "（二）特徵向量逐步推導；特徵值與單位向量補兩位小數"
+ },
+ {
+  "qid": "EE-110-03-7",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "too-short"
+  ],
+  "numbers_rounded": 5,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "每小題補觀念句與逐步積分；結果附兩位小數"
+ },
+ {
+  "qid": "EE-113-03-5",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "no-intermediate",
+   "too-short"
+  ],
+  "numbers_rounded": 3,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補逐分量微分、範數平方、球體積；324π≈1017.88"
+ },
+ {
+  "qid": "EE-114-03-5",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "too-short"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補列運算過程與觀念句"
+ },
+ {
+  "qid": "EE-106-03-5",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "too-short"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact，新增已知與所求；補模長、輻角、De Moivre 步驟"
+ },
+ {
+  "qid": "EE-108-03-3",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "too-short"
+  ],
+  "numbers_rounded": 1,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補偏導數與單位向量步驟；-2/5 附 -0.40，boxed 保留原字串"
+ },
+ {
+  "qid": "EE-109-03-1",
+  "full_enrich": true,
+  "flags_fixed": [
+   "too-short"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact，新增已知與所求、失分點；補代入與係數比較"
+ },
+ {
+  "qid": "EE-109-03-2",
+  "full_enrich": true,
+  "flags_fixed": [
+   "too-short"
+  ],
+  "numbers_rounded": 1,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact；補換序理由、內層積分、變數代換；新增已知與所求"
+ },
+ {
+  "qid": "EE-114-03-3",
+  "full_enrich": true,
+  "flags_fixed": [
+   "too-short"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact；補微分與初值代入步驟"
+ },
+ {
+  "qid": "EE-113-03-6",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "no-substitution",
+   "jump"
+  ],
+  "numbers_rounded": 2,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "三小題補觀念句；（三）補 E[X^3]、E[Y^2] 代入；boxed 保留 k=\\frac12 與 \\boxed{48}"
+ },
+ {
+  "qid": "EE-111-03-6",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "no-intermediate"
+  ],
+  "numbers_rounded": 8,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "三小題補觀念句與分段積分中間結果；結果附兩位小數"
+ }
+]

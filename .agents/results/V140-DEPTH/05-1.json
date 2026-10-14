@@ -1,0 +1,271 @@
+[
+ {
+  "qid": "EE-106-05-2",
+  "full_enrich": true,
+  "flags_fixed": [
+   "jump",
+   "missing-concept",
+   "no-substitution",
+   "too-short"
+  ],
+  "numbers_rounded": 19,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-111-05-4",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "no-intermediate"
+  ],
+  "numbers_rounded": 24,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "驗算反矩陣回代值改為實際 199.15∠-0.06° kV、669.27∠-36.93° A（ABCD 常數有效位數造成差異）。"
+ },
+ {
+  "qid": "EE-112-05-1",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "no-intermediate"
+  ],
+  "numbers_rounded": 13,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_verified_114_solutions.py",
+    "old": "assertIn(\"0.8873\", q1)",
+    "new": "assertIn(\"887.28\", q1)"
+   },
+   {
+    "file": "tests/test_verified_114_solutions.py",
+    "old": "assertIn(\"0.01269\", q1)",
+    "new": "assertIn(\"12.69\", q1)"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "長度改以 cm 計算以避免小數過小；L 以 µH/km、C 以 nF/km 顯示。 測試字串因 SI 字首改寫（0.8873 mH/km → 887.28 µH/km；0.01269 µF/km → 12.69 nF/km）。"
+ },
+ {
+  "qid": "EE-113-05-4",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "too-short"
+  ],
+  "numbers_rounded": 3,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact（配分 25 分且擴充後超過 700 字，lint 不允許），新增已知與所求與失分點。"
+ },
+ {
+  "qid": "EE-114-05-1",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "too-short"
+  ],
+  "numbers_rounded": 2,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-114-05-3",
+  "full_enrich": true,
+  "flags_fixed": [
+   "too-short"
+  ],
+  "numbers_rounded": 1,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "0.008/0.004 等導數係數改為科學記號兩位小數。"
+ },
+ {
+  "qid": "EE-107-05-1",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 13,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "assertIn(\"1.0805\", transmission_107)",
+    "new": "assertIn(\"1.08\", transmission_107)"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "assertIn(\"1.6512\", transmission_107)",
+    "new": "assertIn(\"1.65\", transmission_107)"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-111-05-2",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 4,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-114-05-4",
+  "full_enrich": true,
+  "flags_fixed": [
+   "jump",
+   "missing-concept"
+  ],
+  "numbers_rounded": 11,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_verified_power_system_solution.py",
+    "old": "j0.1875",
+    "new": "j0.19"
+   },
+   {
+    "file": "tests/test_verified_power_system_solution.py",
+    "old": "-j1.875",
+    "new": "-j1.88"
+   },
+   {
+    "file": "tests/test_verified_power_system_solution.py",
+    "old": "-j3.125",
+    "new": "-j3.13"
+   },
+   {
+    "file": "tests/test_verified_power_system_solution.py",
+    "old": "0.0625",
+    "new": "6.25\\times10^{-2}"
+   },
+   {
+    "file": "tests/test_verified_power_system_solution.py",
+    "old": "0.6875",
+    "new": "0.69"
+   },
+   {
+    "file": "tests/test_verified_power_system_solution.py",
+    "old": "0.8125",
+    "new": "0.81"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "4 位小數的標么值改用分數附兩位小數。"
+ },
+ {
+  "qid": "EE-105-05-2",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 18,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "0.913486",
+    "new": "0.91"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "0.921111",
+    "new": "0.92"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "0.904925-j0.124770",
+    "new": "0.90-j0.12"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-109-05-3",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 34,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-111-05-1",
+  "full_enrich": true,
+  "flags_fixed": [
+   "too-short"
+  ],
+  "numbers_rounded": 6,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ }
+]

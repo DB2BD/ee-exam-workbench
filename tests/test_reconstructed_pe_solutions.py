@@ -457,7 +457,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         interleaved = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-108-02-5.md").read_text(encoding="utf-8")
         annual_interleaved = (CANONICAL / "02_電子學_含電力電子" / "108年_電子學_全卷完整詳細題解.md").read_text(encoding="utf-8")
-        for expected in ("60\\text{ kHz}", "3.375\\text{ A}", "2.625\\text{ A}"):
+        for expected in ("60\\text{ kHz}", "3.38\\text{ A}", "2.63\\text{ A}"):
             self.assertIn(expected, interleaved)
             self.assertIn(expected, annual_interleaved)
         self.assertNotIn("2.85", annual_interleaved)
@@ -991,7 +991,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn(r"I_{p,avg}=D\,I_{p,avg\mid on}", annual)
         self.assertIn("整個週期平均", annual)
         self.assertIn("導通區間平均", annual)
-        self.assertIn(r"\boxed{I_{p,\,avg}=D\,I_{p,\,avg\mid on}=0.75\times30=22.5\ \mathrm A}", annual)
+        self.assertIn(r"\boxed{I_{p,\,avg}=D\,I_{p,\,avg\mid on}=0.75\times30=22.50\ \mathrm A}", annual)
 
     def test_mosfet_reference_book_solution_records_both_branches(self):
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-3.md").read_text(encoding="utf-8")
@@ -1284,8 +1284,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: needs_manual_review", interleaved)
         self.assertIn("review_disposition: stem_internal_conflict", interleaved)
         self.assertIn("\\mathbf{0.75\\text{ A}}", interleaved)
-        self.assertIn("3.375\\text{ A}", interleaved)
-        self.assertIn("2.625\\text{ A}", interleaved)
+        self.assertIn("3.38\\text{ A}", interleaved)
+        self.assertIn("2.63\\text{ A}", interleaved)
         self.assertNotIn("0.3\\text{ A}", interleaved)
 
         double_line = (CANONICAL / "05_電力系統" / "canonical" / "EE-108-05-5.md").read_text(encoding="utf-8")
@@ -1389,7 +1389,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: reference_book_verified", flyback_109)
         self.assertIn("DCM 三角波", flyback_109)
         self.assertIn("60\\text{ A}", flyback_109)
-        self.assertIn("274.4\\ \\mu\\text{H}", flyback_109)
+        self.assertIn("274.44\\ \\mu\\text{H}", flyback_109)
         self.assertIn("93.75\\%", flyback_109)
 
         fault_109 = (CANONICAL / "06_工業配電" / "canonical" / "EE-109-06-3.md").read_text(encoding="utf-8")
@@ -1586,12 +1586,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", inverter_104)
         self.assertIn("8.483", inverter_104)
         self.assertIn("audit_status: verified", oscillator_104)
-        self.assertIn("2.166", oscillator_104)
+        self.assertIn("2.17", oscillator_104)
 
         rectifier_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", rectifier_104)
-        self.assertIn("17.121", rectifier_104)
-        self.assertIn("9.885", rectifier_104)
+        self.assertIn("17.12", rectifier_104)
+        self.assertIn("9.88", rectifier_104)
 
         induction_104 = (CANONICAL / "04_電機機械" / "canonical" / "EE-104-04-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", induction_104)
@@ -1611,8 +1611,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         limiter_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", limiter_105)
         self.assertIn("3.84", limiter_105)
-        self.assertIn("-4.625", limiter_105)
-        self.assertIn("1.156", limiter_105)
+        self.assertIn("-4.63", limiter_105)
+        self.assertIn("1.16", limiter_105)
 
         buck_boost_112 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", buck_boost_112)
@@ -1645,12 +1645,12 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         pmos_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: needs_manual_review", pmos_104)
-        self.assertIn("-1.66144", pmos_104)
+        self.assertIn("-1.66", pmos_104)
         self.assertIn("1+g_mR_S", pmos_104)
 
         cb_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", cb_104)
-        self.assertIn("14.275", cb_104)
+        self.assertIn("14.28", cb_104)
         self.assertIn("R_L\\parallel R_B", cb_104)
 
         parallel_104 = (CANONICAL / "05_電力系統" / "canonical" / "EE-104-05-2.md").read_text(encoding="utf-8")

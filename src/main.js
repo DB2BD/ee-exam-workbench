@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 4. Render initial components
   updateStatsAndBar();
+  if (typeof homeStatusInit === 'function') homeStatusInit();
   renderQuestions();
   if (typeof renderAnswerCorrectionReviewSection === 'function') {
     try { renderAnswerCorrectionReviewSection(); } catch (_) { /* optional section */ }

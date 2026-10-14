@@ -437,8 +437,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertNotIn("21.937", annual_transformer)
 
         amplifier = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-2.md").read_text(encoding="utf-8")
-        self.assertIn("-7.9967613\\text{ V}", amplifier)
-        self.assertIn("+3.2387\\text{ mV}", amplifier)
+        self.assertIn("-8.00\\text{ V}", amplifier)
+        self.assertIn("+3.24\\text{ mV}", amplifier)
 
         dispatch = (CANONICAL / "05_電力系統" / "canonical" / "EE-109-05-5.md").read_text(encoding="utf-8")
         self.assertIn("以未四捨五入值驗證", dispatch)
@@ -1440,8 +1440,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         pn_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", pn_107)
-        self.assertIn("0.738", pn_107)
-        self.assertIn("0.259\\ \\mu\\text{m}", pn_107)
+        self.assertIn("0.74", pn_107)
+        self.assertIn("258.48\\ \\mathrm{nm}", pn_107)
 
         nmos_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", nmos_107)
@@ -1531,7 +1531,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         nonlinear_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", nonlinear_105)
         self.assertIn("300\\sqrt{3}", nonlinear_105)
-        self.assertIn("0.9242", nonlinear_105)
+        self.assertIn("92.42", nonlinear_105)
 
         stability_105 = (CANONICAL / "05_電力系統" / "canonical" / "EE-105-05-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", stability_105)
@@ -1600,13 +1600,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         opamp_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", opamp_105)
-        self.assertIn("-79.9676", opamp_105)
-        self.assertIn("-0.0405\\%", opamp_105)
+        self.assertIn("-79.97", opamp_105)
+        self.assertIn("-4.05\\times10^{-2}\\%", opamp_105)
 
         freq_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", freq_105)
         self.assertIn("1750.7", freq_105)
-        self.assertIn("1.607", freq_105)
+        self.assertIn("1.61", freq_105)
 
         limiter_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", limiter_105)

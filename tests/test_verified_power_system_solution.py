@@ -15,13 +15,13 @@ class TestEE11405Q4Solution(unittest.TestCase):
         expected = (
             "j0.4",
             "j0.5",
-            "j0.1875",
+            "j0.19",
             "-j5.0",
-            "-j1.875",
-            "-j3.125",
-            "0.0625",
-            "0.6875",
-            "0.8125",
+            "-j1.88",
+            "-j3.13",
+            "6.25\\times10^{-2}",
+            "0.69",
+            "0.81",
         )
         for value in expected:
             self.assertIn(value, text, value)

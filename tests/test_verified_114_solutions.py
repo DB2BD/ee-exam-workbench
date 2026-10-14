@@ -123,8 +123,8 @@ class TestAnnualPowerNotesFollowCanonicalPrimaryAnswers(unittest.TestCase):
         # Official horizontal spacing 15 m / 15 m / 30 m, in any LaTeX spacing form.
         self.assertRegex(q1, r"D_\{ab\}=(?:D_\{bc\}=)?15")
         self.assertRegex(q1, r"D_\{(?:ac|ca)\}=30")
-        self.assertIn("0.8873", q1)
-        self.assertIn("0.01269", q1)
+        self.assertIn("887.28", q1)
+        self.assertIn("12.69", q1)
         self.assertNotIn("0.8061", q1)
         self.assertNotIn("故障前與復閉後的轉移電抗", q1)
 

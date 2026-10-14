@@ -1,0 +1,239 @@
+[
+ {
+  "qid": "EE-107-06-1",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（二）no-intermediate",
+   "（二）too-short",
+   "（四）too-short"
+  ],
+  "numbers_rounded": 23,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "127.533",
+    "new": "127.53"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "逐戶日電量改用 24·Pmax·LF 避免用捨入值累積誤差"
+ },
+ {
+  "qid": "EE-109-06-3",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（一）missing-concept",
+   "（二）missing-concept"
+  ],
+  "numbers_rounded": 20,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "11.659\\,\\mathrm{kA}",
+    "new": "11.66\\,\\mathrm{kA}"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "Zb 48.40 mΩ、Z3/Zth 以 ×10^{-1} 科學記號表示（0.11/0.13/0.23 超過 0.5% 偏差）"
+ },
+ {
+  "qid": "EE-109-06-5",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（一）missing-concept",
+   "（二）missing-concept"
+  ],
+  "numbers_rounded": 16,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "242.968\\,\\mathrm{kvar}",
+    "new": "242.97\\,\\mathrm{kvar}"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "0.84805",
+    "new": "0.85"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "tan(cos^-1 0.9)=0.4843 改 4.84×10^{-1}；輕載功因 0.84805 顯示為 0.85"
+ },
+ {
+  "qid": "EE-111-06-4",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（一）missing-concept",
+   "（二）3.幹線 missing-concept"
+  ],
+  "numbers_rounded": 12,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "0.746/0.878 改以 74.60%/87.76% 表示；表內 1.25I、1.8I 改兩位小數；新增各步 boxed 的 1. 額定電流"
+ },
+ {
+  "qid": "EE-104-06-5",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（二）too-short",
+   "（三）too-short"
+  ],
+  "numbers_rounded": 20,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "8.00e-3、6.10e-2、3.45e-1、8.48e-3 等小量改科學記號；每子題補觀念句、pu 中間式；條件與疑義段未動以保留測試字串"
+ },
+ {
+  "qid": "EE-109-06-2",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（二）too-short"
+  ],
+  "numbers_rounded": 14,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "Z 改 mΩ；sinφ 4.36e-1；0.6135% 改 6.13×10^{-1}%（0.61 偏差 0.57%）；失分點 0.610% 數值重算為 1.06%（相電流誤用）；舊失分點「Δ 接誤用相電流 151.5 A 得 0.610%」數值不自洽（實際約 1.06%），已修正，非答案問題"
+ },
+ {
+  "qid": "EE-110-06-2",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（二）too-short"
+  ],
+  "numbers_rounded": 12,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "逐裝置平均 kVA 表列；boxed 不含 24 以避免 recall-hints 洩漏檢查"
+ },
+ {
+  "qid": "EE-111-06-3",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（一）too-short"
+  ],
+  "numbers_rounded": 9,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "X_M'' 0.625 改 6.25×10^{-1}；Zth 0.10204 改 1.02×10^{-1}；21.8693 僅留於條件表（測試字串保留）"
+ },
+ {
+  "qid": "EE-106-06-4",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（一）missing-concept",
+   "（一）too-short"
+  ],
+  "numbers_rounded": 10,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "r1 4.385 實為 4.39（舊值四捨五入錯誤）；N≥2631.58；匹配差 4.83%、57.25%"
+ },
+ {
+  "qid": "EE-105-06-4",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（一）missing-concept",
+   "（三）missing-concept"
+  ],
+  "numbers_rounded": 8,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "間距/高度 0.46 改 0.45（20/11/4=0.4545）；0.455 以 0.7×0.65 呈現"
+ },
+ {
+  "qid": "EE-107-06-4",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（二）missing-concept"
+  ],
+  "numbers_rounded": 6,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "40.5/97.5/124.5 改 40.50/97.50/124.50"
+ },
+ {
+  "qid": "EE-114-06-3",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（一）missing-concept"
+  ],
+  "numbers_rounded": 20,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "0.8333/0.3125/0.4125 改 ×10^{-1} 科學記號；分流比用 5/8、3/8；I_G1=3745.73、I_G2=2247.44（原 3745.7/2247.4 為一位小數）"
+ },
+ {
+  "qid": "EE-105-06-2",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 1,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "（chunk 1 複查補修）chunk 1 複查 12 題：無任何顯示值兩位小數偏差 >0.5%；僅修 EE-105-06-2 的 j(Xsys+XT)I 實部 2.06e-1 → 2.05e-1（鏈式捨入 0.056×3.67 所致，完整值 0.2055）。EE-112-06-2 的 0.82（完整值 0.8241，偏差 0.495%）在門檻內，保留"
+ }
+]

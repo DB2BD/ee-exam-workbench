@@ -219,7 +219,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("低功角分支", standard)
         self.assertIn(r"|\delta_2|<90^\circ", standard)
-        self.assertLess(standard.index("低功角分支"), standard.index(r"Q_{g2}=0.11314"))
+        self.assertLess(standard.index("低功角分支"), standard.index(r"Q_{g2}=1.13\times10^{-1}"))
         self.assertIn("不能宣稱這是數學上的唯一根", standard)
 
     def test_short_circuit_mother_separates_fault_total_from_breaker_branch(self):

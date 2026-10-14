@@ -223,14 +223,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
         note = (CANONICAL / "01_電路學" / "canonical" / "EE-114-01-1.md").read_text(encoding="utf-8")
         self.assertIn("6 Ω 連接 \\(v_1\\) 與 \\(v_3\\)，屬超節點內部支路", note)
         self.assertIn(r"\frac{v_1}{2}+\frac{v_2}{4}+\frac{v_3}{3}=0", note)
-        self.assertIn(r"\boxed{v_1=\frac{175}{23}=7.6087\text{ V}}", note)
-        self.assertIn(r"\boxed{v_2=-\frac{400}{23}=-17.3913\text{ V}}", note)
-        self.assertIn(r"\boxed{v_3=\frac{75}{46}=1.6304\text{ V}}", note)
-        self.assertIn(r"\boxed{I=\frac{175}{46}=3.8043\text{ A}}", note)
+        self.assertIn(r"\boxed{v_1=\frac{175}{23}=7.61\text{ V}}", note)
+        self.assertIn(r"\boxed{v_2=-\frac{400}{23}=-17.39\text{ V}}", note)
+        self.assertIn(r"\boxed{v_3=\frac{75}{46}=1.63\text{ V}}", note)
+        self.assertIn(r"\boxed{I=\frac{175}{46}=3.80\text{ A}}", note)
         self.assertNotIn(r"\frac{v_1-v_3}{6}=0", note)
         annual = (CANONICAL / "01_電路學" / "114年_電路學_全卷完整詳細題解.md").read_text(encoding="utf-8")
-        self.assertIn(r"\boxed{v_1=\frac{175}{23}=7.6087\text{ V}}", annual)
-        self.assertIn(r"\boxed{I=\frac{175}{46}=3.8043\text{ A}}", annual)
+        self.assertIn(r"\boxed{v_1=\frac{175}{23}=7.61\text{ V}}", annual)
+        self.assertIn(r"\boxed{I=\frac{175}{46}=3.80\text{ A}}", annual)
         self.assertNotIn(r"\mathbf{v_1 = -\frac{400}{23}\text{ V}", annual)
 
     def test_engineering_math_annual_notes_use_canonical_bodies(self):
@@ -1425,7 +1425,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         inductors_107 = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", inductors_107)
-        self.assertIn("-4.8-3.2e^{-2t}", inductors_107)
+        self.assertIn("-4.80-3.20e^{-2t}", inductors_107)
         self.assertIn("1.28e^{-2t}", inductors_107)
 
         transformer_107_circuit = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-4.md").read_text(encoding="utf-8")
@@ -1435,8 +1435,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         three_phase_107 = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", three_phase_107)
-        self.assertIn("39.5 + j28.6", three_phase_107)
-        self.assertIn("2.4\\angle -36.87", three_phase_107)
+        self.assertIn("39.50 + j28.60", three_phase_107)
+        self.assertIn("2.40\\angle -36.87", three_phase_107)
 
         pn_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", pn_107)
@@ -1569,7 +1569,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("-\\frac{4}{3}", circuit_105_1)
         self.assertIn("10000}{7}", circuit_105_2)
         self.assertIn("93.6", circuit_105_3)
-        self.assertIn("48.62", circuit_105_4)
+        self.assertIn("48.61", circuit_105_4)
         self.assertIn("1\\text{ H}", circuit_105_5)
 
         mutual_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-2.md").read_text(encoding="utf-8")
@@ -1577,7 +1577,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         gparam_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-5.md").read_text(encoding="utf-8")
         for note in (mutual_104, transient_104, gparam_104):
             self.assertIn("audit_status: verified", note)
-        self.assertIn("0.6634", mutual_104)
+        self.assertIn("6.63\\times10^{-1}", mutual_104)
         self.assertIn("(s+100)^2", transient_104)
         self.assertIn("0.04 - j0.02", gparam_104)
 

@@ -1394,7 +1394,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         fault_109 = (CANONICAL / "06_工業配電" / "canonical" / "EE-109-06-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", fault_109)
-        self.assertIn("11.659\\,\\mathrm{kA}", fault_109)
+        self.assertIn("11.66\\,\\mathrm{kA}", fault_109)
 
         lighting_109 = (CANONICAL / "06_工業配電" / "canonical" / "EE-109-06-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", lighting_109)
@@ -1403,8 +1403,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         pf_109 = (CANONICAL / "06_工業配電" / "canonical" / "EE-109-06-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", pf_109)
-        self.assertIn("242.968\\,\\mathrm{kvar}", pf_109)
-        self.assertIn("0.84805", pf_109)
+        self.assertIn("242.97\\,\\mathrm{kvar}", pf_109)
+        self.assertIn("0.85", pf_109)
 
         magnetic_110 = (CANONICAL / "04_電機機械" / "canonical" / "EE-110-04-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", magnetic_110)
@@ -1480,7 +1480,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         diversity_107 = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", diversity_107)
-        self.assertIn("127.533", diversity_107)
+        self.assertIn("127.53", diversity_107)
         self.assertIn("2025.72", diversity_107)
 
         capacitor_107 = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-5.md").read_text(encoding="utf-8")

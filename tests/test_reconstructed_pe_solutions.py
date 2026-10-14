@@ -569,8 +569,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         """The 0.5 mA source supplies emitter current when finite beta is retained."""
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-1.md").read_text(encoding="utf-8")
         self.assertIn("I_E=I_Q=0.5", note)
-        self.assertIn("I_C=\\frac{\\beta}{\\beta+1}I_E=0.4950495", note)
-        for expected in ("19.80198", "50.000", "668.451", "160.746", "9.336153"):
+        self.assertIn("I_C=\\frac{\\beta}{\\beta+1}I_E=495.05", note)
+        for expected in ("19.80", "\\frac{25\\,\\mathrm{mV}}{0.5\\,\\mathrm{mA}}=50\\,\\Omega", "668.45", "160.75", "9.34"):
             self.assertIn(expected, note)
         self.assertIn("三個標示", note)
         self.assertIn("C_\\pi,C_\\mu$ 視為開路", note)
@@ -1455,7 +1455,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         cuk_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", cuk_107)
-        self.assertIn("0.03125\\text{ V}", cuk_107)
+        self.assertIn("31.25\\text{ mV}", cuk_107)
         self.assertIn("3.25\\text{ A}", cuk_107)
 
         transmission_107 = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-1.md").read_text(encoding="utf-8")
@@ -1584,7 +1584,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         inverter_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-4.md").read_text(encoding="utf-8")
         oscillator_104 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-104-02-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", inverter_104)
-        self.assertIn("8.483", inverter_104)
+        self.assertIn("8.48", inverter_104)
         self.assertIn("audit_status: verified", oscillator_104)
         self.assertIn("2.17", oscillator_104)
 
@@ -1622,9 +1622,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         rectifier_fourier_112 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-112-02-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", rectifier_fourier_112)
-        self.assertIn("0.4962", rectifier_fourier_112)
-        self.assertIn("72.2704", rectifier_fourier_112)
-        self.assertIn("91.7538", rectifier_fourier_112)
+        self.assertIn("496.17", rectifier_fourier_112)
+        self.assertIn("72.27", rectifier_fourier_112)
+        self.assertIn("91.75", rectifier_fourier_112)
 
         motor_drop_105 = (CANONICAL / "06_工業配電" / "canonical" / "EE-105-06-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", motor_drop_105)

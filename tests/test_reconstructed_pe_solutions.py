@@ -1275,8 +1275,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertNotIn("二階帶阻（陷波）", gic)
 
         fault = (CANONICAL / "06_工業配電" / "canonical" / "EE-112-06-4.md").read_text(encoding="utf-8")
-        self.assertIn("19\\,478.754", fault)
-        self.assertIn("0.4827765", fault)
+        self.assertIn("19\\,478.75", fault)
+        self.assertIn("4.83\\times10^{-1}", fault)
         self.assertIn("\\boxed{0.48}", fault)
 
         interleaved = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-108-02-5.md").read_text(encoding="utf-8")

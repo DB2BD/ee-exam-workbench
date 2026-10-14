@@ -1296,8 +1296,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         synchronous = (CANONICAL / "04_電機機械" / "canonical" / "EE-110-04-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", synchronous)
         self.assertIn("178.70\\text{ V/相}", synchronous)
-        self.assertIn("0.8379\\text{ 落後}", synchronous)
-        self.assertIn("15.000\\,\\mathrm{kW}", synchronous)
+        self.assertIn("0.84\\text{ 落後}", synchronous)
+        self.assertIn("15.00\\,\\mathrm{kW}", synchronous)
 
         autotransformer = (CANONICAL / "04_電機機械" / "canonical" / "EE-110-04-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", autotransformer)

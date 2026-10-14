@@ -904,7 +904,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         # 2026-10-02: the reference-book mixture violates power balance, so the
         # note is manual-review with the diagram branch as main answer.
         self.assertIn("audit_status: needs_manual_review", note)
-        self.assertIn(r"\boxed{T=\frac{13593}{117.29}=115.9\ \mathrm{N\cdot m}}", note)
+        self.assertIn(r"\boxed{T=\frac{13\,592.78}{117.29}=115.89\ \mathrm{N\cdot m}}", note)
         self.assertIn("57.67", note)
         self.assertIn("功率平衡", note)
 

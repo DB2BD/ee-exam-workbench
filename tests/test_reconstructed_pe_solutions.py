@@ -1425,7 +1425,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         inductors_107 = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", inductors_107)
-        self.assertIn("-4.8-3.2e^{-2t}", inductors_107)
+        self.assertIn("-4.80-3.20e^{-2t}", inductors_107)
         self.assertIn("1.28e^{-2t}", inductors_107)
 
         transformer_107_circuit = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-4.md").read_text(encoding="utf-8")
@@ -1435,8 +1435,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         three_phase_107 = (CANONICAL / "01_電路學" / "canonical" / "EE-107-01-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", three_phase_107)
-        self.assertIn("39.5 + j28.6", three_phase_107)
-        self.assertIn("2.4\\angle -36.87", three_phase_107)
+        self.assertIn("39.50 + j28.60", three_phase_107)
+        self.assertIn("2.40\\angle -36.87", three_phase_107)
 
         pn_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", pn_107)

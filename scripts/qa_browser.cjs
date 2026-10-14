@@ -454,6 +454,178 @@ async function main() {
         await context.close();
       }
     }
+    // v1.4.0 首頁像素風狀態視窗: seeded stores -> window numbers match the stores, collapsible, never covers 今日任務, no horizontal scroll,
+    // light and dark readable, reduced motion shows the final state; screenshots at 1440 and 390 (QA_HOME_STATUS_SHOT_DIR overrides the folder).
+    for (const width of [1440, 390]) {
+      const context = await browser.newContext({ viewport: { width, height: width > 600 ? 900 : 844 } });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => errors.push(String(error)));
+      await context.route('**/*', route => route.request().url().startsWith(url) ? route.continue() : route.abort());
+      page.setDefaultTimeout(15000);
+      try {
+        await page.clock.setFixedTime(new Date(2026, 9, 14, 9, 0, 0));
+        await page.addInitScript(() => {
+          if (localStorage.getItem('EE_EXAM_TODAY_TASK_V1')) return;
+          const completed = {};
+          for (let n = 1; n <= 21; n++) completed['CORE-' + String(n).padStart(2, '0')] = new Date(2026, 9, 14 - Math.floor((21 - n) / 4), 20, n).toISOString();
+          localStorage.setItem('EE_EXAM_TODAY_TASK_V1', JSON.stringify({ completed, active: null }));
+        });
+        await page.goto(url);
+        const seeded = await page.evaluate(() => {
+          const qids = DB_DATA.questions.map(q => q[0]);
+          let count = 0;
+          ['01', '02', '04', '05', '06'].forEach((sub, si) => {
+            qids.filter(q => q.split('-')[2] === sub).slice(0, 14).forEach((qid, i) => {
+              const mark = (i + si) % 4 === 0 ? 'x' : ((i + si) % 3 === 0 ? 'tri' : 'o');
+              const parts = buildResultModel(qid).parts.map(p => Object.assign({}, p, { mark }));
+              if (saveResultRecord({ qid, at: Date.now() - (i % 9) * 86400000 - 3600000, source: 'today', parts, errors: [] }, { skipSM2: true }).ok) count += 1;
+            });
+          });
+          return count;
+        });
+        assert.equal(seeded, 70, 'Seeded result cards');
+        await page.reload();
+        const host = page.locator('#home-status');
+        await host.locator('.hs-frame').waitFor();
+        assert(await host.evaluate(el => el.classList.contains('hs--intro')), 'The first draw plays the typing intro');
+        await page.waitForFunction(() => !document.getElementById('home-status').classList.contains('hs--intro'), null, { timeout: 12000 });
+        const label = sel => host.locator(sel + ' .hs-num').first().getAttribute('aria-label');
+        // numbers come from the stores
+        const expected = await page.evaluate(() => {
+          const m = homeStatusModel(homeStatusInputs(Date.now()));
+          const cardExp = getResultRecords().reduce((n, r) => n + homeStatusCardExp(r), 0);
+          return { level: m.level, title: m.title, exp: m.exp, cardExp, streak: m.streak.days, cards: JSON.parse(localStorage.getItem('EE_EXAM_RESULT_CARD_V1')).records.length, score: m.score };
+        });
+        assert.equal(expected.cards, 70);
+        assert.equal(await label('[data-hs="level"]'), String(expected.level));
+        assert.equal(await label('[data-hs="exam"]'), '31', '2026-10-14 -> 2026-11-14 is 31 days');
+        assert.equal(await label('[data-hs="tasks"]'), '21／67');
+        assert.equal(await label('[data-hs="cards"]'), '70');
+        assert.equal(await label('[data-hs="streak"]'), String(expected.streak));
+        assert(expected.streak >= 1, 'Streak counts today');
+        assert.equal(expected.exp.total, 21 * 100 + expected.cardExp, 'EXP = 100 per task + card EXP');
+        assert.equal((await host.locator('[data-hs="title"]').innerText()).trim(), expected.title);
+        assert(expected.score.hasData, 'Seeded result cards give a score estimate');
+        assert.equal(await label('[data-hs="score"]'), `${expected.score.total}／${expected.score.target}`);
+        assert.equal(await host.locator('.hs-attr').count(), 6, 'Six subject attributes');
+        assert.deepEqual(await host.locator('.hs-attr-k').allInnerTexts(), ['電路', '電子', '工數', '電機', '電力', '配電']);
+        // the header one-liner and the window agree
+        assert((await page.locator('#header-summary-line').innerText()).includes(`估計總分 ${expected.score.total}／${expected.score.target}`));
+        // collapsible: phones start collapsed, desktop expanded; the toggle flips it and keeps aria in sync
+        const toggle = page.locator('#hs-toggle');
+        const startsCollapsed = width < 641;
+        assert.equal(await toggle.getAttribute('aria-expanded'), startsCollapsed ? 'false' : 'true');
+        const bodyVisible = () => page.locator('#hs-body').isVisible();
+        assert.equal(await bodyVisible(), !startsCollapsed);
+        const noOverflow = async what => {
+          const o = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+          assert(o.scroll <= o.client, `No horizontal scroll ${what} at ${width}px (${o.scroll} > ${o.client})`);
+        };
+        await noOverflow('(initial)');
+        await toggle.click();
+        assert.equal(await toggle.getAttribute('aria-expanded'), startsCollapsed ? 'true' : 'false');
+        assert.equal(await bodyVisible(), startsCollapsed);
+        await noOverflow('(toggled)');
+        if (!startsCollapsed) await toggle.click(); // desktop: back to expanded
+        assert.equal(await bodyVisible(), true);
+        // 今日任務 card and the three tabs are outside the window and stay visible, below the header
+        const header = await page.locator('header.hs-header').boundingBox();
+        const taskCard = page.locator('#today-task-card .today-task-card');
+        await taskCard.waitFor();
+        const taskBox = await taskCard.boundingBox();
+        assert(taskBox.y >= header.y + header.height - 1, '今日任務 card sits below the header, not under the window');
+        assert(taskBox.y < (width > 600 ? 900 : 844), '今日任務 card is on the first screen');
+        for (const id of ['practice', 'mock', 'scoreboard']) assert(await page.locator('#tab-btn-' + id).isVisible(), `Tab ${id} stays visible`);
+        assert.equal(await page.locator('#home-action-start').count(), 1, 'Random-practice entry stays');
+        // the window follows new data: one more result card raises the count
+        const before = await label('[data-hs="cards"]');
+        await page.evaluate(() => {
+          const qid = DB_DATA.questions.map(q => q[0]).filter(q => /^EE-\d{3}-03-\d+$/.test(q))[0];
+          const parts = buildResultModel(qid).parts.map(p => Object.assign({}, p, { mark: 'o' }));
+          saveResultRecord({ qid, at: Date.now(), source: 'today', parts, errors: [] }, { skipSM2: true });
+        });
+        await page.waitForFunction(n => document.querySelector('#home-status [data-hs="cards"] .hs-num').getAttribute('aria-label') === String(Number(n) + 1), before);
+        // light and dark: the label text keeps >= 4.5:1 against the panel
+        const contrast = () => page.evaluate(() => {
+          const parse = c => { const m = c.match(/[\d.]+/g).map(Number); return { r: m[0], g: m[1], b: m[2], a: m.length > 3 ? m[3] : 1 }; };
+          const lum = ({ r, g, b }) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+          const panel = parse(getComputedStyle(document.querySelector('.hs-inner')).backgroundColor);
+          const base = { r: 20, g: 28, b: 52 }; // worst-case scene colour under the 0.9 panel
+          const bg = { r: panel.r * panel.a + base.r * (1 - panel.a), g: panel.g * panel.a + base.g * (1 - panel.a), b: panel.b * panel.a + base.b * (1 - panel.a) };
+          const out = {};
+          ['.hs-k', '.hs-attr-k', '.hs-title', '.hs-exp-num', '.hs-toggle', '.hs-v small'].forEach(sel => {
+            const el = document.querySelector('#home-status ' + sel);
+            const fg = parse(getComputedStyle(el).color);
+            const [hi, lo] = [lum(fg), lum(bg)].sort((a, b) => b - a);
+            out[sel] = (hi + 0.05) / (lo + 0.05);
+          });
+          return out;
+        });
+        for (const theme of ['dark', 'light']) {
+          await page.evaluate(t => document.documentElement.setAttribute('data-theme', t), theme);
+          const ratios = await contrast();
+          Object.keys(ratios).forEach(sel => assert(ratios[sel] >= 4.5, `${sel} contrast ${ratios[sel].toFixed(2)} in ${theme}`));
+          await noOverflow(`(${theme})`);
+        }
+        await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+        // screenshots: the window expanded under the scene (390 shows the strip above it)
+        if ((await toggle.getAttribute('aria-expanded')) === 'false') await toggle.click();
+        await page.waitForFunction(() => document.querySelector('#home-status .hs-body') && !document.querySelector('#home-status .hs-body').hidden);
+        await page.locator('#hs-scene.hs-scene--ready').waitFor();
+        await page.waitForTimeout(600);
+        const shotDir = process.env.QA_HOME_STATUS_SHOT_DIR || artifacts;
+        fs.mkdirSync(shotDir, { recursive: true });
+        await page.screenshot({ path: path.join(shotDir, `home-status-${width}.png`) });
+        if (shotDir !== artifacts) await page.screenshot({ path: path.join(artifacts, `home-status-${width}.png`) });
+        assert.deepEqual(errors, []);
+        results.push({ width, scenario: 'home-status', passed: true, level: expected.level, exp: expected.exp.total });
+        console.log(`PASS home status window ${width}px: store-derived numbers, collapsible, 今日任務 stays visible, no horizontal scroll, contrast in both themes`);
+      } catch (error) {
+        await page.screenshot({ path: path.join(artifacts, `failure-home-status-${width}.png`), fullPage: true }).catch(() => {});
+        results.push({ width, scenario: 'home-status', passed: false, error: String(error), browserErrors: errors });
+        throw error;
+      } finally {
+        await context.close();
+      }
+    }
+    // v1.4.0 reduced motion: no animation on the window or the scene, everything already in its final state.
+    {
+      const context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => errors.push(String(error)));
+      await context.route('**/*', route => route.request().url().startsWith(url) ? route.continue() : route.abort());
+      page.setDefaultTimeout(15000);
+      try {
+        await page.goto(url);
+        await page.locator('#home-status .hs-frame').waitFor();
+        await page.locator('#hs-scene.hs-scene--ready').waitFor();
+        const state = await page.evaluate(() => {
+          const names = sel => Array.from(document.querySelectorAll(sel)).map(el => getComputedStyle(el).animationName);
+          const rows = Array.from(document.querySelectorAll('#home-status .hs-row'));
+          return {
+            window: names('#home-status .hs-row, #home-status .hs-bar i, #home-status .hs-lv'),
+            scene: names('.hs-hero-body, .hs-stars, .hs-lamp, .hs-beacon, .hs-screen'),
+            rowOpacity: rows.map(el => getComputedStyle(el).opacity),
+            sparkDisplay: getComputedStyle(document.querySelector('.hs-spark')).display
+          };
+        });
+        assert(state.window.length > 0 && state.window.every(n => n === 'none'), 'No window animation: ' + state.window.join());
+        assert(state.scene.length > 0 && state.scene.every(n => n === 'none'), 'No scene animation: ' + state.scene.join());
+        assert(state.rowOpacity.every(o => o === '1'), 'Rows are fully shown immediately');
+        assert.equal(state.sparkDisplay, 'none');
+        assert.deepEqual(errors, []);
+        results.push({ width: 390, scenario: 'home-status-reduced-motion', passed: true });
+        console.log('PASS home status reduced motion 390px: no animation, final state shown');
+      } catch (error) {
+        await page.screenshot({ path: path.join(artifacts, 'failure-home-status-reduced.png'), fullPage: true }).catch(() => {});
+        results.push({ scenario: 'home-status-reduced-motion', passed: false, error: String(error), browserErrors: errors });
+        throw error;
+      } finally {
+        await context.close();
+      }
+    }
   } finally {
     if (browser) await browser.close();
     if (server.exitCode === null && server.pid) {

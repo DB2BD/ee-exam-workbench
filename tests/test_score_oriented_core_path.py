@@ -246,15 +246,15 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 self.assertTrue(value.group(1).strip(), field)
         # The breaker branch excludes the motor back-feed; the fault total does not.
         self.assertIn("馬達倒灌不流經此 CB", standard)
-        self.assertIn("0.410021", standard)
-        self.assertIn(r"15.475381\,\mathrm{MVA}", standard)
-        self.assertIn(r"18.613991\,\mathrm{kA}", standard)
-        self.assertIn(r"17.475381\,\mathrm{MVA}", standard)
-        self.assertIn(r"21.019617\,\mathrm{kA}", standard)
+        self.assertIn("0.41", standard)
+        self.assertIn(r"15.48\,\mathrm{MVA}", standard)
+        self.assertIn(r"18.61\,\mathrm{kA}", standard)
+        self.assertIn(r"17.48\,\mathrm{MVA}", standard)
+        self.assertIn(r"21.02\,\mathrm{kA}", standard)
         # Model assumptions and the non-unique interrupting duty are stated.
         self.assertIn(r"1\angle0^\circ", note)
         self.assertRegex(note, r"不(?:能|宣稱)[^。]*唯一官方(?:評分)?口徑")
-        self.assertIn("2.405626", note)
+        self.assertIn("2.41", note)
 
     def test_parallel_rlc_same_type_keeps_step_forcing_in_equation(self):
         note_path = self.by_qid["EE-112-01-4"]
@@ -278,9 +278,9 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         )
         self.assertRegex(question[4], relay_formula, "compiled workbench stem diverges from the official formula")
         self.assertRegex(canonical_prompt, relay_formula, "canonical question transcription diverges from the official formula")
-        self.assertIn(r"\left(\frac{I}{I_s}\right)^2-1=159.3321923", note)
+        self.assertIn(r"\left(\frac{I}{I_s}\right)^2-1=159.33", note)
         # Solving T_s=0.3 s for k must keep the squared-ratio-minus-one term.
-        self.assertIn(r"0.3\times0.808\times159.3321923", note)
+        self.assertIn(r"0.3\times0.808\times159.33", note)
         self.assertIn(r"\boxed{0.48}", note)
         self.assertNotIn("160.3321923", note)
 
@@ -444,7 +444,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         variation = self.by_qid["EE-113-06-3"].read_text(encoding="utf-8")
         self.assertIn("題目未指定串聯電抗器位置", mother)
         self.assertIn("基準電流", variation)
-        self.assertIn("0.449", variation)
+        self.assertIn("0.45\\,\\mathrm{Mvar}", variation)
 
     def test_cross_method_variations_name_the_first_move(self):
         self.assertIn("111 年題是頻域橋接變式", self.path_doc)

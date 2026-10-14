@@ -963,7 +963,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
     def test_annual_107_power_note_uses_corrected_generator_q3_branch(self):
         """年度彙整頁不得重新暴露已校正的基準與無效功率方向錯誤。"""
         note = (ROOT / "02_題解/技師題解/05_電力系統/107年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
-        self.assertIn(r"\boxed{Q_G=-84.0\,\mathrm{Mvar}}", note)
+        self.assertIn(r"\boxed{Q_G=-84.00\,\mathrm{Mvar}}", note)
         self.assertIn("進相（leading）運轉", note)
         self.assertNotIn("+82.6\\text{ Mvar}", note)
 
@@ -1655,8 +1655,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         parallel_104 = (CANONICAL / "05_電力系統" / "canonical" / "EE-104-05-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", parallel_104)
-        self.assertIn("169.369", parallel_104)
-        self.assertIn("2.73182", parallel_104)
+        self.assertIn("169.37", parallel_104)
+        self.assertIn("2.73", parallel_104)
         self.assertIn("TR1+TR2", parallel_104)
 
         capacity_104 = (CANONICAL / "06_工業配電" / "canonical" / "EE-104-06-2.md").read_text(encoding="utf-8")

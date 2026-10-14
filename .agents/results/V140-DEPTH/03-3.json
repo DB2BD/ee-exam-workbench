@@ -1,0 +1,159 @@
+[
+ {
+  "qid": "EE-110-03-4",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 1,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補觀念句、數值中間行與驗算兩位小數；保持 compact"
+ },
+ {
+  "qid": "EE-110-03-5",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 1,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補內積觀念、代入式；-√6 加兩位小數值（置於框外）；保持 compact"
+ },
+ {
+  "qid": "EE-110-03-6",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-111-03-5",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補散度／旋度觀念句與各偏導數中間行"
+ },
+ {
+  "qid": "EE-113-03-2",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "保持 compact"
+ },
+ {
+  "qid": "EE-113-03-4",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 9,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "p 值改 0.10／1.10；特徵值 1.11、0.09（誤差 ≤0.1%）"
+ },
+ {
+  "qid": "EE-105-03-6",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept",
+   "no-intermediate"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "（二）拆出全機率兩項與通分步驟；精確分數保留，不加不合規小數近似"
+ },
+ {
+  "qid": "EE-108-03-6",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-104-03-3",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 2,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "-0.5864 取兩位小數誤差 0.6%，改 -5.86×10^{-1}；boxed 精確式不變；needs_manual_review 狀態不變"
+ },
+ {
+  "qid": "EE-105-03-4",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 2,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "驗算 -6.28-12.57i；保持 compact"
+ }
+]

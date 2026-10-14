@@ -1,0 +1,215 @@
+[
+ {
+  "qid": "EE-105-04-3",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 13,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-105-04-4",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 3,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-105-04-5",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 6,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-106-04-2",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 3,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "550.0\\text{ kVA}",
+    "new": "550\\text{ kVA}"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-106-04-5",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 14,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "VR(lead) -0.357% and p.u. values with >0.5% display error written in scientific notation; 8.00 A (not 8.01) for EE-107-04-1 constant-impedance branch since full precision is 8.0045."
+ },
+ {
+  "qid": "EE-107-04-1",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 7,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "8.724\\ \\mathrm A",
+    "new": "8.72\\ \\mathrm A"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "Frontmatter review_* text still quotes old precision (metadata, untouched)."
+ },
+ {
+  "qid": "EE-107-04-2",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 7,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "n=1200\\frac{49.5}{40}=1485",
+    "new": "n=1200\\frac{49.50}{40}=1485"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "76.394\\,\\mathrm{N\\cdot m}",
+    "new": "76.39\\,\\mathrm{N\\cdot m}"
+   },
+   {
+    "file": "tests/test_score_oriented_core_path.py",
+    "old": "shown_torque 3.183 / 76.394 (string and numeric)",
+    "new": "shown_torque 3.18 / 76.39 for the string; numeric check keeps exact 3.183 / 76.394 (places=3)"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-107-04-5",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 3,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-109-04-3",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 10,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-109-04-5",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 8,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "1.3572 \\times 10^{-3}",
+    "new": "1.36 \\times 10^{-3}"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "0.2714\\text{ N}\\cdot\\text{m}",
+    "new": "2.71\\times10^{-1}\\text{ N}\\cdot\\text{m}"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "Stem-converted lengths rewritten as 2.50e-2/1.80e-2/6.00e-3; T shown as 2.71e-1 (0.27 would be 0.53% off)."
+ },
+ {
+  "qid": "EE-110-04-1",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 10,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "\\boxed{B=\\frac{\\Phi}{A_c}=0.9377\\ \\mathrm T}",
+    "new": "\\boxed{B=\\frac{\\Phi}{A_c}=0.94\\ \\mathrm T}"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "Frontmatter/trap values 0.07603 and 0.4704 in 失分點 kept (test requires them); Wm shown with unrounded Phi noted."
+ },
+ {
+  "qid": "EE-110-04-2",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 7,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ }
+]

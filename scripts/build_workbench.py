@@ -50,6 +50,8 @@ def build_workbench():
         'src/styles/v122-design.css',
         'src/styles/v13-practice.css',
         'src/styles/v13-pacing.css',
+        'src/styles/v14-check-ui.css',
+        'src/styles/v14-home-status.css',
         'src/styles/v13-icons.css'
     ]
     bundled_css = "\n\n".join([f"/* === {f} === */\n" + read_file(f) for f in css_files])
@@ -102,6 +104,7 @@ def build_workbench():
         'src/components/dailyPractice.js',
         'src/domain/pacing.js',
         'src/components/todayTask.js',
+        'src/components/homeStatus.js',
         'src/components/topTopics.js',
         'src/main.js'
     ]
@@ -139,7 +142,9 @@ def build_workbench():
 <div class="container">
 
   <!-- Header Dashboard -->
-  <header>
+  <header class="hs-header">
+    <!-- v1.4.0 pixel-art scene (drawn by src/components/homeStatus.js after the first frame) -->
+    <div class="hs-scene" id="hs-scene" aria-hidden="true"></div>
     <div class="header-top">
       <div class="title-area">
         <h1><span class="title-full">電機工程技師 歷屆試題工作台</span><span class="title-short">電機技師工作台</span></h1>
@@ -149,6 +154,9 @@ def build_workbench():
         <button onclick="toggleTheme()" class="pill" id="theme-toggle-btn" aria-label="切換暗色／亮色模式"><span class="theme-ico" aria-hidden="true"><span class="ui-ico" data-ui-icon="moon"></span></span><span class="theme-label"> 暗色模式</span></button>
       </div>
     </div>
+
+    <!-- v1.4.0 status window: level, EXP, streak, exam countdown, tasks, result cards, score, six subject attributes -->
+    <section class="hs" id="home-status" aria-label="狀態視窗"></section>
 
     <!-- One-line summary: 今天 / 到期 / 成績 -->
     <p class="header-summary" id="header-summary-line" role="status" aria-live="polite">今天：—｜到期 0 題｜估計總分：尚無資料</p>
@@ -302,15 +310,15 @@ def build_workbench():
       </div>
 
       <div class="modal-nav-group">
-        <div class="view-layout-toggle">
-          <button class="btn-layout active" id="btn-layout-split" onclick="setModalLayout('split')" title="雙欄對照檢視 (預設)">
-            雙欄對照
+        <div class="view-layout-toggle" role="group" aria-label="檢視切換">
+          <button class="btn-layout active" id="btn-layout-split" onclick="setModalLayout('split')" title="雙欄對照檢視 (預設)" aria-pressed="true">
+            <span class="seg-long">雙欄對照</span>
           </button>
-          <button class="btn-layout" id="btn-layout-solution" onclick="setModalLayout('solution-only')" title="純詳解全寬檢視">
-            純詳解
+          <button class="btn-layout" id="btn-layout-solution" onclick="setModalLayout('solution-only')" title="純詳解全寬檢視" aria-pressed="false">
+            <span class="sm-ico seg-ico" aria-hidden="true"><span class="ui-ico" data-ui-icon="file-text"></span></span><span class="seg-long">純詳解</span><span class="seg-short">詳解</span>
           </button>
-          <button class="btn-layout" id="btn-layout-exam" onclick="setModalLayout('exam-only')" title="原題優先全寬檢視">
-            原題考卷
+          <button class="btn-layout" id="btn-layout-exam" onclick="setModalLayout('exam-only')" title="原題優先全寬檢視" aria-pressed="false">
+            <span class="sm-ico seg-ico" aria-hidden="true"><span class="ui-ico" data-ui-icon="image"></span></span><span class="seg-long">原題考卷</span><span class="seg-short">題目</span>
           </button>
         </div>
       </div>
@@ -320,7 +328,7 @@ def build_workbench():
     <div class="sub-q-pills-bar" id="modal-sub-q-pills" style="display: none;"></div>
 
     <!-- Modal Split Body -->
-    <div class="modal-split-body">
+    <div class="modal-split-body" id="modal-split-body" data-layout="split">
       <!-- Left Pane: Raw Question + PDF -->
       <div class="modal-pane-left" id="modal-pane-left">
         <div id="modal-left-content"></div>
@@ -333,6 +341,9 @@ def build_workbench():
       <div class="modal-pane-right" id="modal-pane-right">
         <div id="modal-right-content"></div>
       </div>
+
+      <!-- 作答結果卡停靠區：版面內的固定區，不覆蓋題解（電腦版在詳解欄下方，手機版為底部抽屜） -->
+      <div class="modal-result-dock" id="modal-result-dock"></div>
     </div>
   </div>
 </div>

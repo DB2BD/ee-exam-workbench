@@ -211,7 +211,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         match = re.search(r"!\[官方題目(?:裁切圖|與 1200 rpm 磁化曲線)\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
-        self.assertIn("1396", note)  # speed rises above 1200 rpm because E_A > 200 V
+        self.assertIn("1395.60", note)  # speed rises above 1200 rpm because E_A > 200 V
         self.assertIn("232.6", note)
 
     def test_power_flow_mother_states_angle_branch_before_q_limit(self):
@@ -219,7 +219,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("低功角分支", standard)
         self.assertIn(r"|\delta_2|<90^\circ", standard)
-        self.assertLess(standard.index("低功角分支"), standard.index(r"Q_{g2}=0.11314"))
+        self.assertLess(standard.index("低功角分支"), standard.index(r"Q_{g2}=1.13\times10^{-1}"))
         self.assertIn("不能宣稱這是數學上的唯一根", standard)
 
     def test_short_circuit_mother_separates_fault_total_from_breaker_branch(self):
@@ -246,15 +246,15 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 self.assertTrue(value.group(1).strip(), field)
         # The breaker branch excludes the motor back-feed; the fault total does not.
         self.assertIn("馬達倒灌不流經此 CB", standard)
-        self.assertIn("0.410021", standard)
-        self.assertIn(r"15.475381\,\mathrm{MVA}", standard)
-        self.assertIn(r"18.613991\,\mathrm{kA}", standard)
-        self.assertIn(r"17.475381\,\mathrm{MVA}", standard)
-        self.assertIn(r"21.019617\,\mathrm{kA}", standard)
+        self.assertIn("0.41", standard)
+        self.assertIn(r"15.48\,\mathrm{MVA}", standard)
+        self.assertIn(r"18.61\,\mathrm{kA}", standard)
+        self.assertIn(r"17.48\,\mathrm{MVA}", standard)
+        self.assertIn(r"21.02\,\mathrm{kA}", standard)
         # Model assumptions and the non-unique interrupting duty are stated.
         self.assertIn(r"1\angle0^\circ", note)
         self.assertRegex(note, r"不(?:能|宣稱)[^。]*唯一官方(?:評分)?口徑")
-        self.assertIn("2.405626", note)
+        self.assertIn("2.41", note)
 
     def test_parallel_rlc_same_type_keeps_step_forcing_in_equation(self):
         note_path = self.by_qid["EE-112-01-4"]
@@ -278,9 +278,9 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         )
         self.assertRegex(question[4], relay_formula, "compiled workbench stem diverges from the official formula")
         self.assertRegex(canonical_prompt, relay_formula, "canonical question transcription diverges from the official formula")
-        self.assertIn(r"\left(\frac{I}{I_s}\right)^2-1=159.3321923", note)
+        self.assertIn(r"\left(\frac{I}{I_s}\right)^2-1=159.33", note)
         # Solving T_s=0.3 s for k must keep the squared-ratio-minus-one term.
-        self.assertIn(r"0.3\times0.808\times159.3321923", note)
+        self.assertIn(r"0.3\times0.808\times159.33", note)
         self.assertIn(r"\boxed{0.48}", note)
         self.assertNotIn("160.3321923", note)
 
@@ -310,8 +310,8 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("外接軸負載轉矩", note)
         self.assertIn("空載損失轉矩近似不變", note)
-        self.assertIn(r"I_a=4+\frac{100}{1.8907607}=56.89", standard)
-        self.assertIn(r"n=1000\frac{171.56}{198}=866.4", standard)
+        self.assertIn(r"I_a=4+\frac{100}{1.89}=56.89", standard)
+        self.assertIn(r"n=1000\frac{171.56}{198}=866.44", standard)
         self.assertIn("52.89", standard)
         self.assertIn("不能單獨推出其在所有轉速的函數", note)
         self.assertIn("原 106 年外接軸負載題因缺旋轉損失模型", self.path_doc)
@@ -327,9 +327,9 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("[題目 EE-107-04-2]", self.path_doc)
         # Fixed inputs transcribed from the official crop, not parsed from the solution.
-        for current, reference_emf, shown_speed, shown_torque in (
-            (10, 40, "1485", "3.183"),
-            (200, 48, "1000", "76.394"),
+        for current, reference_emf, shown_speed, shown_torque, exact_torque in (
+            (10, 40, "1485", "3.18", 3.183),
+            (200, 48, "1000", "76.39", 76.394),
         ):
             with self.subTest(current=current):
                 operating_emf = 50 - current * 0.05
@@ -338,7 +338,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 self.assertIn(rf"{shown_speed}\,\mathrm{{rpm}}", standard)
                 self.assertIn(rf"{shown_torque}\,\mathrm{{N\cdot m}}", standard)
                 self.assertAlmostEqual(speed, float(shown_speed), places=6)
-                self.assertAlmostEqual(torque, float(shown_torque), places=3)
+                self.assertAlmostEqual(torque, exact_torque, places=3)
         self.assertIn("題目問感應轉矩", standard)
 
     def test_dc_dc_route_uses_real_converter_topologies_and_checks_dcm(self):
@@ -355,7 +355,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = same_topology.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"L_B=", standard)
         self.assertIn(r"\boxed{\mathrm{DCM}}", standard)
-        self.assertIn(r"D+D_2=0.8165<1", standard)
+        self.assertIn(r"D+D_2=81.65\%<100\%", standard)
         load = 10**2 / 12
         candidate_duty = 10 / (15 + 10)
         boundary_l = (1 - candidate_duty) ** 2 * load / (2 * 25_000)
@@ -444,7 +444,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         variation = self.by_qid["EE-113-06-3"].read_text(encoding="utf-8")
         self.assertIn("題目未指定串聯電抗器位置", mother)
         self.assertIn("基準電流", variation)
-        self.assertIn("0.449", variation)
+        self.assertIn("0.45\\,\\mathrm{Mvar}", variation)
 
     def test_cross_method_variations_name_the_first_move(self):
         self.assertIn("111 年題是頻域橋接變式", self.path_doc)

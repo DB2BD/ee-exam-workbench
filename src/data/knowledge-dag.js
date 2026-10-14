@@ -83,7 +83,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: ['ct-thevenin-norton'],
     coreFormula: 'x(t) = x(\\infty) + [x(0^+) - x(\\infty)] e^{-t/\\tau}, \\tau_{RC} = R_{th}C, \\tau_{RL} = \\frac{L}{R_{th}}',
-    keyTrap: '電感電流與電容電壓在換位瞬間連續：i_L(0^+) = i_L(0^-), v_C(0^+) = v_C(0^-)。'
+    keyTrap: '電感電流與電容電壓在換位瞬間連續：$i_L(0^+) = i_L(0^-)$，$v_C(0^+) = v_C(0^-)$。'
   },
   'ct-phasor-ac': {
     id: 'ct-phasor-ac',
@@ -93,7 +93,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: ['ct-node-mesh'],
     coreFormula: 'Z_L = j\\omega L, Z_C = \\frac{1}{j\\omega C} = -j \\frac{1}{\\omega C}, \\mathbf{V} = \\mathbf{I} \\mathbf{Z}',
-    keyTrap: '相量運算需注意角頻率 \\omega (rad/s) 與頻率 f (Hz) 轉換 (\\omega = 2\\pi f)。'
+    keyTrap: '相量運算需注意角頻率 $\\omega$ (rad/s) 與頻率 $f$ (Hz) 轉換 ($\\omega = 2\\pi f$)。'
   },
   'ct-complex-power': {
     id: 'ct-complex-power',
@@ -143,7 +143,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['ct-first-order-rc-rl'],
     coreFormula: 's^2 + 2\\alpha s + \\omega_0^2 = 0 \\implies \\alpha > \\omega_0 \\text{ (過阻尼)}, \\alpha = \\omega_0 \\text{ (臨界)}, \\alpha < \\omega_0 \\text{ (欠阻尼)}',
-    keyTrap: '串聯 \\alpha = R/(2L)，並聯 \\alpha = 1/(2RC)，兩者公式完全相反！'
+    keyTrap: '串聯 $\\alpha = R/(2L)$，並聯 $\\alpha = 1/(2RC)$，兩者公式完全相反！'
   },
   'ct-laplace-circuit': {
     id: 'ct-laplace-circuit',
@@ -153,7 +153,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['ct-second-order-rlc', 'ct-first-order-rc-rl'],
     coreFormula: 'L \\to sL - L i(0^-), C \\to \\frac{1}{sC} + \\frac{v(0^-)}{s}',
-    keyTrap: '包含初始儲能時，電感初始電流源為 i(0^-)/s（並聯），電容初始電壓源為 v(0^-)/s（串聯）。'
+    keyTrap: '包含初始儲能時，電感初始電流源為 $i(0^-)/s$（並聯），電容初始電壓源為 $v(0^-)/s$（串聯）。'
   },
 
   // -------------------------------------------------------------
@@ -167,7 +167,7 @@ const KNOWLEDGE_DAG = {
     level: 1,
     prereqs: [],
     coreFormula: 'V_{dc} = \\frac{2 V_m}{\\pi}, V_{r(p-p)} = \\frac{V_m}{2 f R_L C}',
-    keyTrap: '全波橋式整流二極體 PIV = V_m，中點抽頭 PIV = 2V_m。'
+    keyTrap: '全波橋式整流二極體 PIV = $V_m$，中點抽頭 PIV = $2V_m$。'
   },
   'el-zener-regulator': {
     id: 'el-zener-regulator',
@@ -177,7 +177,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: ['el-diode-rectifier'],
     coreFormula: 'V_L = V_Z, I_Z = I_S - I_L \\ge I_{ZK}',
-    keyTrap: '檢驗最小輸入電壓或最大負載電流時，齊納電流不得小於膝點電流 I_ZK。'
+    keyTrap: '檢驗最小輸入電壓或最大負載電流時，齊納電流不得小於膝點電流 $I_{ZK}$。'
   },
   'el-bjt-bias-small-signal': {
     id: 'el-bjt-bias-small-signal',
@@ -187,7 +187,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: [],
     coreFormula: 'I_C = \\beta I_B = I_S e^{V_{BE}/V_T}, g_m = \\frac{I_C}{V_T}, r_\\pi = \\frac{\\beta}{g_m}, r_o = \\frac{V_A}{I_C}',
-    keyTrap: '工作在主動區必須滿足：V_BE = 0.7V 且 V_CE > V_CE(sat) ~ 0.2V。'
+    keyTrap: '工作在主動區必須滿足：$V_{BE} = 0.7\\text{ V}$ 且 $V_{CE} > V_{CE(\\text{sat})} \\approx 0.2\\text{ V}$。'
   },
   'el-mosfet-bias-small-signal': {
     id: 'el-mosfet-bias-small-signal',
@@ -197,7 +197,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: [],
     coreFormula: 'I_D = \\frac{1}{2} k_n\' \\frac{W}{L} (V_{GS} - V_{th})^2 (1 + \\lambda V_{DS}), g_m = \\sqrt{2 k_n I_D}',
-    keyTrap: '飽和區夾止條件：V_DS >= V_GS - V_th 且 V_GS > V_th。'
+    keyTrap: '飽和區夾止條件：$V_{DS} \\ge V_{GS} - V_{th}$ 且 $V_{GS} > V_{th}$。'
   },
   'el-opamp-ideal': {
     id: 'el-opamp-ideal',
@@ -227,7 +227,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['el-opamp-ideal'],
     coreFormula: 'H(s) = \\frac{\\omega_0^2}{s^2 + \\frac{\\omega_0}{Q} s + \\omega_0^2}, \\omega_c = \\frac{1}{R C}',
-    keyTrap: '高頻極點透過米勒效應 (Miller Effect) 將 C_gd 放大為 C_in = C_gd(1 + |Av|)。'
+    keyTrap: '高頻極點透過米勒效應 (Miller Effect) 將 $C_{gd}$ 放大為 $C_{in} = C_{gd}(1 + |A_v|)$。'
   },
   'el-feedback-stability': {
     id: 'el-feedback-stability',
@@ -237,7 +237,7 @@ const KNOWLEDGE_DAG = {
     level: 4,
     prereqs: ['el-diff-amp', 'el-active-filter'],
     coreFormula: 'A_f = \\frac{A}{1 + A\\beta}, \\text{PM} = 180^\\circ + \\angle A\\beta(\\omega_{0\\text{dB}})',
-    keyTrap: '閉迴路穩定條件為環路增益 |A\\beta| = 1 時，相位延遲不得達到 180 度 (PM > 0)。'
+    keyTrap: '閉迴路穩定條件為環路增益 $|A\\beta| = 1$ 時，相位延遲不得達到 180 度 (PM > 0)。'
   },
   'el-pe-buck-boost': {
     id: 'el-pe-buck-boost',
@@ -257,7 +257,7 @@ const KNOWLEDGE_DAG = {
     level: 4,
     prereqs: ['el-pe-buck-boost'],
     coreFormula: 'm_a = \\frac{V_{\\text{control}}}{V_{\\text{tri}}}, V_{o1} = m_a V_d',
-    keyTrap: 'SPWM 調變指標 m_a <= 1.0 為線性區；上下臂切換需設置死區時間 (Dead-time)。'
+    keyTrap: 'SPWM 調變指標 $m_a \\le 1.0$ 為線性區；上下臂切換需設置死區時間 (Dead-time)。'
   },
   'el-pe-thyristor-rectifier': {
     id: 'el-pe-thyristor-rectifier',
@@ -291,7 +291,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: ['em-first-order-ode'],
     coreFormula: 'a r^2 + b r + c = 0 \\implies y_h = c_1 e^{r_1 x} + c_2 e^{r_2 x} \\text{ 或 } e^{\\alpha x}(c_1 \\cos\\beta x + c_2 \\sin\\beta x)',
-    keyTrap: '重根 r 時，第二特解必須乘以 x：c_2 x e^{r x}。'
+    keyTrap: '重根 $r$ 時，第二特解必須乘以 $x$：$c_2 x e^{rx}$。'
   },
   'em-second-order-ode-nonhomogeneous': {
     id: 'em-second-order-ode-nonhomogeneous',
@@ -311,7 +311,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['em-first-order-ode'],
     coreFormula: '\\mathcal{L}\\{f(t)\\} = \\int_0^\\infty e^{-st} f(t) dt, \\mathcal{L}\\{y\'\'\\} = s^2 Y(s) - s y(0) - y\'(0)',
-    keyTrap: '位移定理 \\mathcal{L}\\{e^{at} f(t)\\} = F(s-a)；t-位移需乘階梯函數 u(t-a)。'
+    keyTrap: '位移定理 $\\mathcal{L}\\{e^{at} f(t)\\} = F(s-a)$；$t$-位移需乘階梯函數 $u(t-a)$。'
   },
   'em-fourier-series': {
     id: 'em-fourier-series',
@@ -321,7 +321,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: [],
     coreFormula: 'f(x) = a_0 + \\sum (a_n \\cos\\frac{n\\pi x}{L} + b_n \\sin\\frac{n\\pi x}{L}), a_n = \\frac{1}{L}\\int_{-L}^L f(x)\\cos\\frac{n\\pi x}{L} dx',
-    keyTrap: '偶函數 b_n = 0，奇函數 a_0 = a_n = 0；利用對稱性可節省一半積分時間。'
+    keyTrap: '偶函數 $b_n = 0$，奇函數 $a_0 = a_n = 0$；利用對稱性可節省一半積分時間。'
   },
   'em-matrix-det-inv': {
     id: 'em-matrix-det-inv',
@@ -331,7 +331,7 @@ const KNOWLEDGE_DAG = {
     level: 1,
     prereqs: [],
     coreFormula: 'A^{-1} = \\frac{1}{\\det(A)} \\text{adj}(A)',
-    keyTrap: '克拉瑪法則 (Cramer\'s Rule) 僅適用於 det(A) != 0 之非奇異方陣。'
+    keyTrap: '克拉瑪法則 (Cramer\'s Rule) 僅適用於 $\\det(A) \\ne 0$ 之非奇異方陣。'
   },
   'em-eigen-diagonal': {
     id: 'em-eigen-diagonal',
@@ -361,7 +361,7 @@ const KNOWLEDGE_DAG = {
     level: 4,
     prereqs: ['em-second-order-ode-nonhomogeneous', 'em-fourier-series'],
     coreFormula: 'u(x,t) = X(x) T(t) \\implies \\frac{X\'\'}{X} = \\frac{\\dot{T}}{c^2 T} = -\\lambda^2',
-    keyTrap: '邊界條件決定特徵值 \\lambda_n 與特徵函數 X_n(x)；初始條件決定傅立葉級數係數。'
+    keyTrap: '邊界條件決定特徵值 $\\lambda_n$ 與特徵函數 $X_n(x)$；初始條件決定傅立葉級數係數。'
   },
   'em-svd-linear-systems': {
     id: 'em-svd-linear-systems',
@@ -371,7 +371,7 @@ const KNOWLEDGE_DAG = {
     level: 5,
     prereqs: ['em-eigen-diagonal'],
     coreFormula: 'A = U \\Sigma V^T, \\sigma_i = \\sqrt{\\lambda_i(A^T A)}, A^+ = V \\Sigma^+ U^T',
-    keyTrap: '奇異值依大小降序排列 \\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge 0；右奇異向量 V 為 A^T A 之特徵向量。'
+    keyTrap: '奇異值依大小降序排列 $\\sigma_1 \\ge \\sigma_2 \\ge \\dots \\ge 0$；右奇異向量 $V$ 為 $A^T A$ 之特徵向量。'
   },
   'em-probability-statistics': {
     id: 'em-probability-statistics',
@@ -415,7 +415,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: ['emach-magnetic-circuits'],
     coreFormula: 'a = \\frac{N_1}{N_2} = \\frac{V_1}{V_2}, R_{eq1} = R_1 + a^2 R_2, X_{eq1} = X_1 + a^2 X_2, \\text{VR} = \\frac{V_{NL} - V_{FL}}{V_{FL}}',
-    keyTrap: '開路試驗（低壓側加額定電壓）測激磁支路 R_c, X_m；短路試驗（高壓側加額定電流）測等效阻抗 R_eq, X_eq。'
+    keyTrap: '開路試驗（低壓側加額定電壓）測激磁支路 $R_c, X_m$；短路試驗（高壓側加額定電流）測等效阻抗 $R_{eq}, X_{eq}$。'
   },
   'emach-autotransformer': {
     id: 'emach-autotransformer',
@@ -425,7 +425,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['emach-single-phase-transformer'],
     coreFormula: 'S_{\\text{auto}} = \\frac{V_H}{V_H - V_X} S_{\\text{2-wnd}} = (1 + a) S_{\\text{2-wnd}}',
-    keyTrap: '共用繞組電流為高壓側與低壓側電流之差值 (I_X - I_H)；注意共用端接線極性。'
+    keyTrap: '共用繞組電流為高壓側與低壓側電流之差值 $(I_X - I_H)$；注意共用端接線極性。'
   },
   'emach-three-phase-transformer': {
     id: 'emach-three-phase-transformer',
@@ -465,7 +465,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: ['emach-magnetic-circuits'],
     coreFormula: '\\boldsymbol{\\Phi}=\\Phi_m(\\cos\\omega t\\,\\hat x+\\sin\\omega t\\,\\hat y)',
-    keyTrap: '圖上兩繞組電流同時為峰值的 1/\\sqrt2 時，合成磁通在 45° 斜向，不在單一繞組軸上。'
+    keyTrap: '圖上兩繞組電流同時為峰值的 $1/\\sqrt{2}$ 時，合成磁通在 45° 斜向，不在單一繞組軸上。'
   },
   'emach-induction-motor-torque': {
     id: 'emach-induction-motor-torque',
@@ -475,7 +475,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['emach-induction-motor-equiv'],
     coreFormula: 's_{\\max} = \\frac{R_2\'}{\\sqrt{R_{th}^2 + (X_{th} + X_2\')^2}}, T_{\\max} = \\frac{3 V_{th}^2}{2 \\omega_s [R_{th} + \\sqrt{R_{th}^2 + (X_{th} + X_2\')^2}]}',
-    keyTrap: '最大轉矩 T_max 與轉子電阻 R2 無關！增大轉子電阻只會讓產生最大轉矩的轉差率 s_max 變大。'
+    keyTrap: '最大轉矩 $T_{\\max}$ 與轉子電阻 $R_2$ 無關！增大轉子電阻只會讓產生最大轉矩的轉差率 $s_{\\max}$ 變大。'
   },
   'emach-synchronous-generator-round': {
     id: 'emach-synchronous-generator-round',
@@ -485,7 +485,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['emach-single-phase-transformer'],
     coreFormula: '\\mathbf{E}_f = \\mathbf{V}_t + j I_a X_s, P = \\frac{E_f V_t}{X_s} \\sin\\delta',
-    keyTrap: '滯後功因時 E_f > V_t (過激發提供虛功)；超前功因時 E_f < V_t (欠激發吸收虛功)。'
+    keyTrap: '滯後功因時 $E_f > V_t$ (過激發提供虛功)；超前功因時 $E_f < V_t$ (欠激發吸收虛功)。'
   },
   'emach-synchronous-salient-pole': {
     id: 'emach-synchronous-salient-pole',
@@ -539,7 +539,7 @@ const KNOWLEDGE_DAG = {
     level: 1,
     prereqs: ['ps-per-unit'],
     coreFormula: 'S = P + jQ = \\sqrt{3}V_L I_L^*, \\quad \\cos\\phi = P/|S|',
-    keyTrap: '三相功率使用線電壓與線電流時才乘以 \\sqrt{3}，相量角度需保持一致。'
+    keyTrap: '三相功率使用線電壓與線電流時才乘以 $\\sqrt{3}$，相量角度需保持一致。'
   },
   'ps-economic-dispatch': {
     id: 'ps-economic-dispatch',
@@ -559,7 +559,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: [],
     coreFormula: 'L = 2 \\times 10^{-7} \\ln\\frac{\\text{GMD}}{\\text{GMR}_L} \\text{ (H/m)}, C = \\frac{2\\pi\\epsilon}{\\ln(\\text{GMD}/\\text{GMR}_C)} \\text{ (F/m)}',
-    keyTrap: '電感 GMR 包含導體內部磁鏈因子 r\' = r e^{-1/4} = 0.7788r；電容 GMR 直接使用外半徑 r。'
+    keyTrap: '電感 GMR 包含導體內部磁鏈因子 $r^{\\prime} = r e^{-1/4} = 0.7788r$；電容 GMR 直接使用外半徑 $r$。'
   },
   'ps-transmission-line-models': {
     id: 'ps-transmission-line-models',
@@ -579,7 +579,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: ['ps-per-unit'],
     coreFormula: 'I_f = \\frac{V_f}{Z_1} \\text{ (pu)}, S_{sc} = \\frac{S_{\\text{base}}}{Z_1} = \\sqrt{3} V_L I_f',
-    keyTrap: '計算斷路器容量時，需明確區分次暫態電抗 X"d（瞬間）與暫態電抗 X\'d（啟斷）。'
+    keyTrap: '計算斷路器容量時，需明確區分次暫態電抗 $X_d^{\\prime\\prime}$（瞬間）與暫態電抗 $X_d^{\\prime}$（啟斷）。'
   },
   'ps-symmetrical-components': {
     id: 'ps-symmetrical-components',
@@ -589,7 +589,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['ps-per-unit'],
     coreFormula: '\\begin{bmatrix} I_{a0} \\\\ I_{a1} \\\\ I_{a2} \\end{bmatrix} = \\frac{1}{3} \\begin{bmatrix} 1 & 1 & 1 \\\\ 1 & a & a^2 \\\\ 1 & a^2 & a \\end{bmatrix} \\begin{bmatrix} I_a \\\\ I_b \\\\ I_c \\end{bmatrix}, a = e^{j 120^\\circ}',
-    keyTrap: '整個系統中只有「正序網絡」含有發電機內部感應電動勢 E_a！'
+    keyTrap: '整個系統中只有「正序網絡」含有發電機內部感應電動勢 $E_a$！'
   },
   'ps-unsymmetrical-faults': {
     id: 'ps-unsymmetrical-faults',
@@ -599,7 +599,7 @@ const KNOWLEDGE_DAG = {
     level: 4,
     prereqs: ['ps-symmetrical-components'],
     coreFormula: 'I_f = \\frac{3 V_f}{Z_1 + Z_2 + Z_0 + 3 Z_n} \\text{ (SLG: 三序串聯)}, I_f = \\frac{\\sqrt{3} V_f}{Z_1 + Z_2} \\text{ (L-L: 正負反向並聯)}',
-    keyTrap: '單相接地故障中性點接地阻抗需乘以 3 (即 3Z_n) 加入零序網。'
+    keyTrap: '單相接地故障中性點接地阻抗需乘以 3 (即 $3Z_n$) 加入零序網。'
   },
   'ps-transient-stability-equal-area': {
     id: 'ps-transient-stability-equal-area',
@@ -609,7 +609,7 @@ const KNOWLEDGE_DAG = {
     level: 3,
     prereqs: ['ps-transmission-line-models'],
     coreFormula: 'M \\frac{d^2\\delta}{dt^2} = P_m - P_e, \\int_{\\delta_0}^{\\delta_{cr}} (P_m - P_{e\\text{, fault}}) d\\delta = \\int_{\\delta_{cr}}^{\\delta_{\\max}} (P_{e\\text{, post}} - P_m) d\\delta',
-    keyTrap: '臨界清除角 \\delta_cr 滿足加速面積 A1 等於最大可減速面積 A2。'
+    keyTrap: '臨界清除角 $\\delta_{cr}$ 滿足加速面積 $A_1$ 等於最大可減速面積 $A_2$。'
   },
   'ps-system-protection-relay': {
     id: 'ps-system-protection-relay',
@@ -693,7 +693,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: ['dist-load-characteristics'],
     coreFormula: '\\Delta V_{3\\phi} = \\sqrt{3} I (R \\cos\\theta + X \\sin\\theta), \\%\\Delta V = \\frac{\\Delta V}{V_n} \\times 100\\%',
-    keyTrap: '超前功因時 \\sin\\theta 為負值，線路電壓降可能為負（即受電端電壓升高）。'
+    keyTrap: '超前功因時 $\\sin\\theta$ 為負值，線路電壓降可能為負（即受電端電壓升高）。'
   },
   'dist-power-factor-correction': {
     id: 'dist-power-factor-correction',
@@ -703,7 +703,7 @@ const KNOWLEDGE_DAG = {
     level: 2,
     prereqs: [],
     coreFormula: 'Q_C = P (\\tan\\theta_1 - \\tan\\theta_2), I_{\\text{line, new}} = I_{\\text{line, old}} \\frac{\\cos\\theta_1}{\\cos\\theta_2}',
-    keyTrap: '改善功因可釋放變壓器容量與減少線路損失：\\Delta P_{\\text{loss}} \\propto (1/\\cos\\theta)^2。'
+    keyTrap: '改善功因可釋放變壓器容量與減少線路損失：$\\Delta P_{\\text{loss}} \\propto (1/\\cos\\theta)^2$。'
   },
   'dist-short-circuit-capacity': {
     id: 'dist-short-circuit-capacity',
@@ -743,7 +743,7 @@ const KNOWLEDGE_DAG = {
     level: 5,
     prereqs: ['dist-short-circuit-capacity'],
     coreFormula: 'E_{\\text{touch}} = (1000 + 1.5 C_s \\rho_s) \\frac{0.116}{\\sqrt{t_s}}, E_{\\text{step}} = (1000 + 6.0 C_s \\rho_s) \\frac{0.116}{\\sqrt{t_s}}',
-    keyTrap: '地表鋪設高電阻率碎石層 (\\rho_s ~ 3000 \\Omega\\cdot\\text{m}) 可大幅提升人體安全耐受電壓。'
+    keyTrap: '地表鋪設高電阻率碎石層 ($\\rho_s \\sim 3000\\ \\Omega\\cdot\\text{m}$) 可大幅提升人體安全耐受電壓。'
   }
 };
 

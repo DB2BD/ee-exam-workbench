@@ -74,6 +74,9 @@ function initPaneResizer() {
     const offsetLeft = e.clientX - rect.left;
     const pct = Math.max(25, Math.min(75, (offsetLeft / rect.width) * 100));
     leftPane.style.flex = `0 0 ${pct}%`;
+    // The split body is a grid: its left column width follows --modal-left (see modal.css).
+    const splitBody = document.getElementById('modal-split-body');
+    if (splitBody) splitBody.style.setProperty('--modal-left', `${pct}%`);
   });
 
   window.addEventListener('mouseup', () => {
@@ -157,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 4. Render initial components
   updateStatsAndBar();
+  if (typeof homeStatusInit === 'function') homeStatusInit();
   renderQuestions();
   if (typeof renderAnswerCorrectionReviewSection === 'function') {
     try { renderAnswerCorrectionReviewSection(); } catch (_) { /* optional section */ }

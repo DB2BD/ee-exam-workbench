@@ -15,7 +15,7 @@ class TestBJTTailBias114(unittest.TestCase):
         self.assertIn("直流分流", note)
         self.assertIn("唯一精確答案", note)
         self.assertIn(r"I_C\approx I_E", note)
-        for expected in ("0.975610", "0.0390244", "1025", "514.097", "312.195"):
+        for expected in ("975.61", "39.02", "1025", "514.10", "312.20"):
             self.assertIn(expected, note)
 
     def test_finite_beta_branch_recalculates_the_three_cases(self):

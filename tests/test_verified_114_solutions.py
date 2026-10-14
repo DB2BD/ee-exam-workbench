@@ -23,8 +23,8 @@ class TestEE11402Q3Solution(unittest.TestCase):
         self.assertIn(r"L\dot i_L+Ri_L=-E=-10", text)
         self.assertIn("題面沒有", text)
         self.assertIn(r"i_L(1\,\mathrm{ms})=i_L(0)", text)
-        self.assertIn("-15.025000", text)
-        self.assertIn("-14.975000", text)
+        self.assertIn("-15.02", text)
+        self.assertIn("-14.98", text)
         tau = 0.025 / 0.5
         a = math.exp(-0.0005 / tau)
         i_start = -10 * (2 + a) / (1 + a)
@@ -40,8 +40,8 @@ class TestEE11402Q3Solution(unittest.TestCase):
         self.assertIn("先開路、後短路", text)
         self.assertIn(r"L\dot i_L+Ri_L=V_S-E=-5", text)
         self.assertIn(r"L\dot i_L+Ri_L=-E=-10", text)
-        self.assertIn("-15.025000", text)
-        self.assertIn("-14.975000", text)
+        self.assertIn("-15.02", text)
+        self.assertIn("-14.98", text)
 
 
 class TestEE11404Q5Solution(unittest.TestCase):

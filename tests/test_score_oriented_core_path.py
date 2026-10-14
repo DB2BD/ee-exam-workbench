@@ -211,7 +211,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         match = re.search(r"!\[官方題目(?:裁切圖|與 1200 rpm 磁化曲線)\]\(([^)]+\.png)\)", note)
         self.assertIsNotNone(match)
         self.assertTrue((note_path.parent / unquote(match.group(1))).resolve().is_file())
-        self.assertIn("1396", note)  # speed rises above 1200 rpm because E_A > 200 V
+        self.assertIn("1395.60", note)  # speed rises above 1200 rpm because E_A > 200 V
         self.assertIn("232.6", note)
 
     def test_power_flow_mother_states_angle_branch_before_q_limit(self):
@@ -310,8 +310,8 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("外接軸負載轉矩", note)
         self.assertIn("空載損失轉矩近似不變", note)
-        self.assertIn(r"I_a=4+\frac{100}{1.8907607}=56.89", standard)
-        self.assertIn(r"n=1000\frac{171.56}{198}=866.4", standard)
+        self.assertIn(r"I_a=4+\frac{100}{1.89}=56.89", standard)
+        self.assertIn(r"n=1000\frac{171.56}{198}=866.44", standard)
         self.assertIn("52.89", standard)
         self.assertIn("不能單獨推出其在所有轉速的函數", note)
         self.assertIn("原 106 年外接軸負載題因缺旋轉損失模型", self.path_doc)
@@ -327,9 +327,9 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("[題目 EE-107-04-2]", self.path_doc)
         # Fixed inputs transcribed from the official crop, not parsed from the solution.
-        for current, reference_emf, shown_speed, shown_torque in (
-            (10, 40, "1485", "3.183"),
-            (200, 48, "1000", "76.394"),
+        for current, reference_emf, shown_speed, shown_torque, exact_torque in (
+            (10, 40, "1485", "3.18", 3.183),
+            (200, 48, "1000", "76.39", 76.394),
         ):
             with self.subTest(current=current):
                 operating_emf = 50 - current * 0.05
@@ -338,7 +338,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
                 self.assertIn(rf"{shown_speed}\,\mathrm{{rpm}}", standard)
                 self.assertIn(rf"{shown_torque}\,\mathrm{{N\cdot m}}", standard)
                 self.assertAlmostEqual(speed, float(shown_speed), places=6)
-                self.assertAlmostEqual(torque, float(shown_torque), places=3)
+                self.assertAlmostEqual(torque, exact_torque, places=3)
         self.assertIn("題目問感應轉矩", standard)
 
     def test_dc_dc_route_uses_real_converter_topologies_and_checks_dcm(self):

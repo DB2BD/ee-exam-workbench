@@ -65,5 +65,70 @@
   "lint_passed": true,
   "verify_passed": true,
   "notes": "無 flag；3.744→3.74（以完整精度代入）、708.5→708.53（原值為 708.53）、377→2π·60、1227→1227.21、1579→1579.46"
+ },
+ {
+  "qid": "EE-108-04-4",
+  "full_enrich": false,
+  "flags_fixed": [
+   "no-substitution",
+   "jump"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "二次提交（章節外補修）：（四）相量圖補代入式與中間結果"
+ },
+ {
+  "qid": "EE-114-04-4",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 2,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "909.765625",
+    "new": "909.77"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "二次提交（章節外補修）：909.765625→909.77、9.765625→9.77"
+ },
+ {
+  "qid": "EE-114-04-2",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 2,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "二次提交（章節外補修）：0.4→0.40（a²、√0.40）"
+ },
+ {
+  "qid": "EE-105-04-2",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 2,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "二次提交（章節外補修）：5.5 kVA→5.50 kVA、5.5/12→5.50/12"
  }
 ]

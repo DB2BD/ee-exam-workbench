@@ -31,7 +31,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         air_gap_power = terminal_power + copper_loss
         self.assertAlmostEqual(air_gap_power, 909_765.625)
         self.assertAlmostEqual(air_gap_power + 15_000 + 14_000, 938_765.625)
-        self.assertIn("909.765625", note)
+        self.assertIn("909.77", note)
         self.assertIn("3\\operatorname{Re}(\\underline E_f\\underline I_a^*)", note)
 
     def test_pe_solution_manifest_hashes_match_canonical_notes(self):

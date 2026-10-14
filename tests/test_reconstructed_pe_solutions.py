@@ -1446,7 +1446,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         nmos_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", nmos_107)
         self.assertIn("0.64\\text{ mA/V}", nmos_107)
-        self.assertIn("390.6\\text{ k}\\Omega", nmos_107)
+        self.assertIn("390.63\\text{ k}\\Omega", nmos_107)
 
         boost_107 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-107-02-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", boost_107)

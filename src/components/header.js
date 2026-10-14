@@ -46,6 +46,8 @@ function headerSummaryText() {
 function updateHeaderSummary() {
   const line = document.getElementById('header-summary-line');
   if (line) line.innerText = headerSummaryText();
+  // v1.4.0: the status window follows the same triggers (task card renders, saved result cards, imports, tab switches).
+  if (typeof homeStatusRefresh === 'function') homeStatusRefresh();
 }
 
 // Kept under its old name: many callers refresh the header after progress changes.

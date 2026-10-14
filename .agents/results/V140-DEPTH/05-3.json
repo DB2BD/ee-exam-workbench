@@ -1,0 +1,187 @@
+[
+  {
+    "qid": "EE-104-05-2",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 26,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [
+      {
+        "file": "tests/test_reconstructed_pe_solutions.py",
+        "old": "169.369",
+        "new": "169.37"
+      },
+      {
+        "file": "tests/test_reconstructed_pe_solutions.py",
+        "old": "2.73182",
+        "new": "2.73"
+      }
+    ],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  },
+  {
+    "qid": "EE-105-05-1",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 2,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  },
+  {
+    "qid": "EE-105-05-3",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 8,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  },
+  {
+    "qid": "EE-105-05-4",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 3,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  },
+  {
+    "qid": "EE-106-05-4",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 5,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  },
+  {
+    "qid": "EE-107-05-3",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 33,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [
+      {
+        "file": "tests/test_reconstructed_pe_solutions.py",
+        "old": "\\boxed{Q_G=-84.0\\,\\mathrm{Mvar}}",
+        "new": "\\boxed{Q_G=-84.00\\,\\mathrm{Mvar}}"
+      }
+    ],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "X_T=0.21701、sinδ=0.19608、Q_G=-0.09882 等因捨入誤差 >0.5%，改用科學記號；分子差額以未捨入值計並於文中註明。"
+  },
+  {
+    "qid": "EE-108-05-2",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 30,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  },
+  {
+    "qid": "EE-108-05-3",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 32,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  },
+  {
+    "qid": "EE-108-05-4",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 1,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  },
+  {
+    "qid": "EE-108-05-5",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 22,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "「條件與疑義」段（替代讀法的 1.9127045 等係數）未動，因測試斷言原字串且該段不屬 考場標準作答／驗算；主解 P_e2 係數 0.5752 因四捨五入誤差 >0.5%，改寫為 5.75\\times10^{-1}。"
+  },
+  {
+    "qid": "EE-109-05-2",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 15,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": "X、P 以 ω=377 未捨入值計算（78.05 Ω、724.38 MW）；括號內 L 等捨入值僅為顯示。"
+  },
+  {
+    "qid": "EE-109-05-4",
+    "full_enrich": false,
+    "flags_fixed": [],
+    "numbers_rounded": 7,
+    "concept_added": false,
+    "verify_changed": false,
+    "test_string_updates": [],
+    "needs_test_change": "",
+    "suspected_answer_issue": "",
+    "lint_passed": true,
+    "verify_passed": true,
+    "notes": ""
+  }
+]

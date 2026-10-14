@@ -31,6 +31,10 @@ function resultCardChapterTitle(qid) {
   return '';
 }
 
+function resultCardIcon(name) {
+  return typeof uiIcon === 'function' ? '<span class="result-card-ico" aria-hidden="true">' + uiIcon(name) + '</span>' : '';
+}
+
 function resultCardFormatNumber(value) {
   return String(Math.round(value * 100) / 100);
 }
@@ -151,7 +155,9 @@ function openResultCard(options) {
 
   const docked = !opts.mount;
   if (docked) resultCardRemoveExisting();
-  const host = opts.mount || (document.querySelector('#solution-modal .modal-container')) || document.body;
+  // The docked card lives in the solution window's own dock region (a layout row, never an overlay);
+  // without that region it still flows as the last row of the window.
+  const host = opts.mount || document.getElementById('modal-result-dock') || (document.querySelector('#solution-modal .modal-container')) || document.body;
   const root = document.createElement('section');
   root.className = 'result-card' + (docked ? ' result-card--docked' : '');
   root.setAttribute('role', 'group');
@@ -169,9 +175,10 @@ function openResultCard(options) {
     </div>`).join('');
 
   root.innerHTML = `
-    <button type="button" class="result-card-expand">做完了？記錄作答結果 ▲</button>
-    <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span>${docked ? '<button type="button" class="result-card-collapse" aria-label="收合作答結果卡">▼ 收合</button>' : ''}</div>
-    <div class="result-card-guide"><span class="result-card-rubric"></span> <span class="result-card-keyhint"></span> <button type="button" class="result-card-allo">全部○</button></div>
+    ${docked ? '<button type="button" class="result-card-handle" aria-expanded="true" aria-label="收合作答結果卡"><span class="result-card-handle-bar" aria-hidden="true"></span></button>' : ''}
+    <button type="button" class="result-card-expand"><span>做完了？記錄作答結果</span>${resultCardIcon('chevron-down')}</button>
+    <div class="result-card-head"><span class="result-card-title"></span><span class="result-card-hint"></span><button type="button" class="result-card-allo">全部○</button>${docked ? '<button type="button" class="result-card-collapse" aria-label="收合作答結果卡"><span>收合</span>' + resultCardIcon('chevron-down') + '</button>' : ''}</div>
+    <div class="result-card-guide"><span class="result-card-rubric"></span> <span class="result-card-keyhint"></span></div>
     <div class="result-card-rows">${rowsHtml}</div>
     <div class="result-card-errors" hidden>
       <span class="result-card-errors-label">錯在哪（可多選，可不選）</span>
@@ -188,18 +195,6 @@ function openResultCard(options) {
     </div>`;
 
   const q = sel => root.querySelector(sel);
-  const baseline = new Map();
-
-  function syncPadding() {
-    if (!docked) return;
-    ['modal-pane-right', 'modal-pane-left'].forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (!baseline.has(id)) baseline.set(id, el.style.paddingBottom);
-      el.style.paddingBottom = `${root.offsetHeight + 16}px`;
-    });
-  }
-
   function sync() {
     root.classList.toggle('is-collapsed', collapsed);
     const vm = resultCardViewModel(qid, marks, errors, source);
@@ -223,7 +218,20 @@ function openResultCard(options) {
     q('.result-card-chips').innerHTML = vm.errorChips.map(c => `<button type="button" class="result-card-chip${c.selected ? ' on' : ''}" data-code="${resultCardEscape(c.code)}" aria-pressed="${c.selected}">${resultCardEscape(c.code)} ${resultCardEscape(c.label)}</button>`).join('');
     q('.result-card-estimate').textContent = vm.estimateText;
     q('.result-card-save').disabled = !vm.canSave || saving;
-    syncPadding();
+    const handle = q('.result-card-handle');
+    if (handle) {
+      handle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      handle.setAttribute('aria-label', collapsed ? '展開作答結果卡' : '收合作答結果卡');
+    }
+  }
+
+  // Expanding / collapsing by hand moves focus along so keyboard users do not land on a hidden control.
+  function setCollapsed(next, moveFocus) {
+    collapsed = next;
+    sync();
+    if (!moveFocus) return;
+    const target = collapsed ? q('.result-card-expand') : root;
+    if (target && typeof target.focus === 'function') target.focus({ preventScroll: true });
   }
 
   function doSave() {
@@ -278,25 +286,25 @@ function openResultCard(options) {
   function close() {
     if (typeof document !== 'undefined') document.removeEventListener('keydown', onKey);
     if (observer) observer.disconnect();
-    baseline.forEach((value, id) => {
-      const el = document.getElementById(id);
-      if (el) el.style.paddingBottom = value;
-    });
-    baseline.clear();
     root.remove();
   }
   root.__resultCardClose = close;
   // Hooks for the solution modal Escape handling.
   root.__resultCardDirty = () => marks.some(Boolean) || errors.length > 0 || String(note).trim().length > 0;
   root.__resultCardCollapse = () => { collapsed = true; sync(); };
+  root.tabIndex = -1;
   root.__resultCardIsCollapsed = () => collapsed;
 
   root.addEventListener('click', event => {
     const target = event.target.closest ? event.target.closest('button') : null;
     if (!target || !root.contains(target)) return;
+    if (target.classList.contains('result-card-handle')) {
+      if (handleSwiped) { handleSwiped = false; return; }
+      setCollapsed(!collapsed, true);
+      return;
+    }
     if (target.classList.contains('result-card-expand') || target.classList.contains('result-card-collapse')) {
-      collapsed = target.classList.contains('result-card-collapse');
-      sync();
+      setCollapsed(target.classList.contains('result-card-collapse'), true);
       return;
     }
     if (target.classList.contains('result-card-mark')) {
@@ -312,7 +320,6 @@ function openResultCard(options) {
       input.hidden = !noteOpen;
       target.setAttribute('aria-expanded', noteOpen ? 'true' : 'false');
       target.textContent = noteOpen ? '－ 收合加註' : '＋ 加註（選用）';
-      syncPadding();
     } else if (target.classList.contains('result-card-allo')) {
       markAll();
     } else if (target.classList.contains('result-card-save')) {
@@ -320,6 +327,24 @@ function openResultCard(options) {
     }
   });
   q('.result-card-note-input').addEventListener('input', event => { note = event.target.value; });
+
+  // Bottom-sheet handle: drag down to collapse, up to expand (a plain tap toggles through the click handler).
+  let handleSwiped = false;
+  const handleEl = q('.result-card-handle');
+  if (handleEl) {
+    let startY = null;
+    handleEl.addEventListener('pointerdown', event => { startY = event.clientY; });
+    handleEl.addEventListener('pointerup', event => {
+      if (startY === null) return;
+      const dy = event.clientY - startY;
+      startY = null;
+      if (Math.abs(dy) < 24) return;
+      handleSwiped = true;
+      setTimeout(() => { handleSwiped = false; }, 60); // the click that follows a drag must not toggle again
+      setCollapsed(dy > 0, true);
+    });
+    handleEl.addEventListener('pointercancel', () => { startY = null; });
+  }
 
   host.appendChild(root);
   if (typeof document !== 'undefined') document.addEventListener('keydown', onKey);

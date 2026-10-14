@@ -176,9 +176,9 @@ function renderKnowledgeDiagnosisCard(diagnosis) {
   const actionSteps = Array.isArray(learningPlan.steps) && learningPlan.steps.length
     ? `<ol class="diagnosis-steps">${learningPlan.steps.map(step => `<li>${solutionModalEscape(step)}</li>`).join('')}</ol>` : '';
   const formula = learningPlan.coreFormula
-    ? `<div class="diagnosis-reference"><strong>這次要回想的核心：</strong><code>${solutionModalEscape(learningPlan.coreFormula)}</code></div>` : '';
+    ? `<div class="diagnosis-reference"><strong>這次要回想的核心：</strong><span class="diagnosis-formula">${solutionModalFormulaHtml(learningPlan.coreFormula)}</span></div>` : '';
   const trap = learningPlan.keyTrap
-    ? `<div class="diagnosis-trap"><strong>本題最容易再錯：</strong>${solutionModalEscape(learningPlan.keyTrap)}</div>` : '';
+    ? `<div class="diagnosis-trap"><strong>本題最容易再錯：</strong>${solutionModalInlineMathHtml(learningPlan.keyTrap)}</div>` : '';
   const directAction = actionTarget
     ? `<button type="button" class="pill diagnosis-primary-action" onclick="openDiagnosisPrimary()">開始補強「${solutionModalEscape(actionTarget.title)}」</button>` : '';
   const primary = candidates.length > 0 ? `
@@ -433,6 +433,20 @@ function solutionModalEscape(value) {
   return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[ch]));
+}
+
+// Core formula / key trap fields: KaTeX (or plain text for sentences) via the
+// shared renderer; escaped text when the renderer is not loaded.
+function solutionModalFormulaHtml(formula) {
+  return typeof renderCoreFormulaHtml === 'function'
+    ? renderCoreFormulaHtml(formula, false)
+    : solutionModalEscape(formula);
+}
+
+function solutionModalInlineMathHtml(markdown) {
+  return typeof renderInlineMarkdownWithMath === 'function'
+    ? renderInlineMarkdownWithMath(markdown)
+    : solutionModalEscape(markdown);
 }
 
 function closeImageLightbox() {
@@ -836,6 +850,8 @@ function solutionModalCompactHeader() {
     close.innerHTML = solutionModalIconLabel(uiIcon('x'), '關閉');
     solutionModalSetAria(close, '關閉詳解');
   }
+  // The 題目／詳解 segmented switch ships its icons and labels in the static shell (build_workbench.py);
+  // only a hand-built shell without them gets the legacy icon + label.
   const exam = document.getElementById('btn-layout-exam');
   if (exam && !exam.querySelector('.sm-ico')) {
     exam.innerHTML = solutionModalIconLabel(uiIcon('image'), '原題考卷');
@@ -1129,6 +1145,10 @@ function updateModalNavButtons(qid) {
   const btnNext = document.getElementById('btn-modal-next');
   if (!btnPrev || !btnNext) return;
 
+  // Daily practice has no previous / next / exam picker: the bar keeps only the 題目／詳解 switch (see v14-check-ui.css).
+  const navModal = document.getElementById('solution-modal');
+  if (navModal && navModal.classList) navModal.classList[currentSolutionSourceMode === 'daily-practice' ? 'add' : 'remove']('sm-no-nav');
+
   if (currentSolutionSourceMode === 'daily-practice') {
     btnPrev.style.display = 'none';
     btnNext.style.display = 'none';
@@ -1170,6 +1190,9 @@ function setModalLayout(mode) {
   if (!leftPane || !rightPane) return;
 
   document.querySelectorAll('.view-layout-toggle .btn-layout').forEach(b => b.classList.remove('active'));
+  // The split body's grid placement (solution / question / dock cells) follows data-layout; see modal.css.
+  const splitBody = document.getElementById('modal-split-body');
+  if (splitBody && typeof splitBody.setAttribute === 'function') splitBody.setAttribute('data-layout', mode === 'solution-only' || mode === 'exam-only' ? mode : 'split');
   if (mode === 'solution-only') currentModalPaneMode = 'solution';
   else if (mode === 'exam-only') currentModalPaneMode = 'question';
 
@@ -1197,6 +1220,7 @@ function setModalLayout(mode) {
     const btn = document.getElementById('btn-layout-split');
     if (btn) btn.classList.add('active');
   }
+  document.querySelectorAll('.view-layout-toggle .btn-layout').forEach(b => b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false'));
   scheduleSolutionModalReadingSave();
 }
 
@@ -1496,7 +1520,7 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
           <strong>起手式：</strong> ${recallHints.activationMd ? processMarkdownWithMath(recallHints.activationMd) : reviewHtmlEscape(recallHints.activation)}
         </div>
         <div id="recall-layer-3" style="display: none; margin: 16px 0; padding: 12px; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--warn);">
-          <strong>核心公式：</strong> <span class="math-inline">$${recallHints.formula}$</span><br><strong>${recallHints.trapsMd ? '本題失分點' : '常見陷阱'}：</strong> ${recallHints.trapsMd ? processMarkdownWithMath(recallHints.trapsMd) : reviewHtmlEscape(recallHints.trap)}
+          <strong>核心公式：</strong> <span class="math-inline">${solutionModalFormulaHtml(recallHints.formula)}</span><br><strong>${recallHints.trapsMd ? '本題失分點' : '常見陷阱'}：</strong> ${recallHints.trapsMd ? processMarkdownWithMath(recallHints.trapsMd) : reviewHtmlEscape(recallHints.trap)}
         </div>
 
         <div id="recall-full-section" style="display: none;">
@@ -1587,7 +1611,7 @@ function closeModal() {
   const modal = document.getElementById('solution-modal');
   if (modal) modal.classList.remove('show');
   document.body.style.overflow = '';
-  if (modal) modal.classList.remove('sm-recall-entry');
+  if (modal) { modal.classList.remove('sm-recall-entry'); modal.classList.remove('sm-no-nav'); }
   currentModalQid = null;
   currentModalSolLink = null;
   currentModalQNum = null;
@@ -1695,3 +1719,16 @@ window.addEventListener('keydown', (e) => {
   }
 });
 window.addEventListener('pagehide', () => persistSolutionModalReadingState(Boolean(currentModalQid)));
+
+// A window narrowed below 760px (rotation, split view) while the modal is open: the two-column split would
+// squeeze both panes, so fall back to the single-pane 詳解 view; 題目／詳解 stays one tap away.
+if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+  const narrowQuery = window.matchMedia('(max-width: 760px)');
+  const onNarrowChange = event => {
+    const modal = document.getElementById('solution-modal');
+    const body = document.getElementById('modal-split-body');
+    if (!event.matches || !modal || !modal.classList.contains('show') || !body) return;
+    if (body.getAttribute('data-layout') === 'split') setModalLayout('solution-only');
+  };
+  if (narrowQuery && typeof narrowQuery.addEventListener === 'function') narrowQuery.addEventListener('change', onNarrowChange);
+}

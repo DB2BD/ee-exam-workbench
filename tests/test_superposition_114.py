@@ -20,8 +20,8 @@ class TestSuperposition114(unittest.TestCase):
         self.assertAlmostEqual(abs(voltage), 3.1510827553, places=8)
         self.assertAlmostEqual(math.degrees(cmath.phase(voltage)) + 90, 3.7640348649, places=8)
         self.assertIn(r"\frac6{1/8+j1.9}", text)
-        self.assertIn("3.15108", text)
-        self.assertIn("3.76403", text)
+        self.assertIn("3.15", text)
+        self.assertIn("3.76", text)
         self.assertNotIn(r"V_{o,10}=\frac6{j1.9}=-j3.1579", text)
 
     def test_five_radian_voltage_divider_is_independent(self):
@@ -30,8 +30,8 @@ class TestSuperposition114(unittest.TestCase):
         voltage = 75 / (1 + 8 * admittance)
         self.assertAlmostEqual(abs(voltage), 11.5782660205, places=8)
         self.assertAlmostEqual(math.degrees(cmath.phase(voltage)), -81.1193408495, places=8)
-        self.assertIn("11.5783", text)
-        self.assertIn("81.1193", text)
+        self.assertIn("11.58", text)
+        self.assertIn("81.12", text)
 
 
 if __name__ == "__main__":

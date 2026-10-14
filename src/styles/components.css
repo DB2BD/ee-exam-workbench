@@ -1303,7 +1303,7 @@ select:focus {
 .diagnosis-steps { margin: 2px 0 0 20px; padding: 0; }
 .diagnosis-steps li { margin: 3px 0; }
 .diagnosis-reference, .diagnosis-trap { padding: 7px 9px; border-radius: 6px; background: var(--surface); font-size: .82rem; }
-.diagnosis-reference code { display: block; margin-top: 3px; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); }
+.diagnosis-reference .diagnosis-formula { display: block; margin-top: 3px; overflow-x: auto; overflow-wrap: anywhere; color: var(--ink); }
 .diagnosis-trap { border-left: 3px solid var(--warn); }
 .diagnosis-primary-action { justify-self: start; }
 .weakness-shell {
@@ -1620,7 +1620,6 @@ select:focus {
 #recall-layer-2 p, #recall-layer-3 p { margin: 6px 0; }
 
 /* result card */
-#solution-modal .modal-container { position: relative; }
 .result-card {
   background: var(--surface);
   color: var(--ink);
@@ -1631,16 +1630,6 @@ select:focus {
   flex-direction: column;
   gap: 10px;
   font-size: 0.92rem;
-}
-.result-card--docked {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  z-index: 40;
-  border-radius: var(--radius) var(--radius) 0 0;
-  border-width: 1px 0 0 0;
-  box-shadow: 0 -6px 20px rgba(44, 51, 56, 0.14);
-  max-height: 60%;
-  overflow-y: auto;
 }
 .result-card--viewport { position: fixed; z-index: 10001; }
 .result-card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
@@ -1697,18 +1686,6 @@ select:focus {
   font-weight: 700;
 }
 .result-card-save:disabled { opacity: 0.45; cursor: not-allowed; }
-@media (max-width: 640px) {
-  .result-card--docked {
-    max-height: 70%;
-    border-radius: 16px 16px 0 0;
-    padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px));
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.22);
-  }
-  .result-card-marks { flex: 1 1 100%; }
-  .result-card-mark { flex: 1 1 0; padding: 6px 8px; }
-  .result-card-save { flex: 1 1 100%; margin-left: 0; }
-}
-
 /* WP6 */
 .scoreboard { max-width: 1100px; margin: 0 auto; padding: 4px 0 24px; color: var(--ink); }
 .sb-title { font-size: 1.2rem; margin: 0 0 4px; }

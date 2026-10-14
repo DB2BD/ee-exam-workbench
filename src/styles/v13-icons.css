@@ -24,12 +24,3 @@
 .status-dot { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; background: currentColor; border: 1.5px solid currentColor; box-sizing: border-box; }
 .status-dot.s-dot-0 { background: transparent; opacity: .7; }
 .sm-ico .status-dot { width: 0.6em; height: 0.6em; }
-
-/* phone: icon-only 純詳解 button shows the file-text glyph (CSS mask, same geometry as uiIcon('file-text')) */
-@media (max-width: 640px) {
-  #solution-modal #btn-layout-solution::before {
-    display: inline-block; width: 1.1rem; height: 1.1rem; vertical-align: middle; background: currentColor;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8'/%3E%3C/svg%3E") center / contain no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8'/%3E%3C/svg%3E") center / contain no-repeat;
-  }
-}

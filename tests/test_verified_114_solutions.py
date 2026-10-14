@@ -23,8 +23,8 @@ class TestEE11402Q3Solution(unittest.TestCase):
         self.assertIn(r"L\dot i_L+Ri_L=-E=-10", text)
         self.assertIn("題面沒有", text)
         self.assertIn(r"i_L(1\,\mathrm{ms})=i_L(0)", text)
-        self.assertIn("-15.025000", text)
-        self.assertIn("-14.975000", text)
+        self.assertIn("-15.02", text)
+        self.assertIn("-14.98", text)
         tau = 0.025 / 0.5
         a = math.exp(-0.0005 / tau)
         i_start = -10 * (2 + a) / (1 + a)
@@ -40,8 +40,8 @@ class TestEE11402Q3Solution(unittest.TestCase):
         self.assertIn("先開路、後短路", text)
         self.assertIn(r"L\dot i_L+Ri_L=V_S-E=-5", text)
         self.assertIn(r"L\dot i_L+Ri_L=-E=-10", text)
-        self.assertIn("-15.025000", text)
-        self.assertIn("-14.975000", text)
+        self.assertIn("-15.02", text)
+        self.assertIn("-14.98", text)
 
 
 class TestEE11404Q5Solution(unittest.TestCase):
@@ -65,8 +65,8 @@ class TestEE11404Q5Solution(unittest.TestCase):
         self.assertIn(r"T(t)=+2\mathcal R_1\Phi_m^2\cos^2(\omega t)\sin(4\omega_mt+4\delta)", standard)
         self.assertIn(r"T_{avg}=\tfrac12\mathcal R_1\Phi_m^2\sin4\delta", standard)
         self.assertIn(r"T_{avg}=+\frac{1}{2}\mathcal R_1\Phi_m^2\sin(4\delta)", text)
-        self.assertIn(r"|T_{avg,max}|=\frac{1}{2}\mathcal R_1\Phi_m^2=3.4055", text)
-        self.assertIn(r"0.642\;\mathrm{kW}", text)
+        self.assertIn(r"|T_{avg,max}|=\frac{1}{2}\mathcal R_1\Phi_m^2=3.41", text)
+        self.assertIn(r"0.64\;\mathrm{kW}", text)
         self.assertNotIn(r"T(t)=-2\mathcal R_1", standard)
         self.assertNotIn(r"T_{avg}=-\frac{1}{2}\mathcal R_1", text)
         self.assertNotIn(r"|T_{avg,max}|=\mathcal R_1\Phi_m^2=6.811", text)
@@ -98,7 +98,7 @@ class TestEE11205Q2AuditDisposition(unittest.TestCase):
         self.assertIn(r"P_{1b}=800", text)
         self.assertIn("不得把其中一組當成唯一答案", text)
         self.assertIn(r"\beta=8", text)
-        self.assertIn(r"\gamma=\frac{1}{1100}=0.00090909", text)
+        self.assertIn(r"\gamma=\frac{1}{1100}=9.09\times10^{-4}", text)
         self.assertNotIn("6.8667", text)
         self.assertNotIn("0.001875", text)
 
@@ -123,24 +123,24 @@ class TestAnnualPowerNotesFollowCanonicalPrimaryAnswers(unittest.TestCase):
         # Official horizontal spacing 15 m / 15 m / 30 m, in any LaTeX spacing form.
         self.assertRegex(q1, r"D_\{ab\}=(?:D_\{bc\}=)?15")
         self.assertRegex(q1, r"D_\{(?:ac|ca)\}=30")
-        self.assertIn("0.8873", q1)
-        self.assertIn("0.01269", q1)
+        self.assertIn("887.28", q1)
+        self.assertIn("12.69", q1)
         self.assertNotIn("0.8061", q1)
         self.assertNotIn("故障前與復閉後的轉移電抗", q1)
 
     def test_112_q4_annual_note_does_not_promote_the_sensitivity_branch(self):
         annual = POWER_112_ANNUAL.read_text(encoding="utf-8")
         canonical = POWER_112_Q4.read_text(encoding="utf-8")
-        self.assertIn(r"\boxed{\delta_{cr}=1.764417\ \mathrm{rad}=101.0936492^\circ}", annual)
-        self.assertIn("102.0837294", annual)
+        self.assertIn(r"\boxed{\delta_{cr}=1.76\ \mathrm{rad}=101.09^\circ}", annual)
+        self.assertIn("102.08", annual)
         self.assertIn("僅作敏感度對照", annual)
         self.assertIn("主解：等效接地電抗", canonical)
         self.assertNotIn("主分支取 $Z_f=0.01$ pu", annual)
 
     def test_112_q2_annual_note_keeps_all_capacity_branches_manual(self):
         annual = POWER_112_ANNUAL.read_text(encoding="utf-8")
-        self.assertIn("6.4667", annual)
-        self.assertIn("0.00090909", annual)
+        self.assertIn("6.47", annual)
+        self.assertIn(r"9.09\times10^{-4}", annual)
         self.assertIn(r"\beta=8", annual)
         self.assertIn("本題仍有官方資料缺口", annual)
         self.assertIn("不得把其中一組當成唯一答案", annual)

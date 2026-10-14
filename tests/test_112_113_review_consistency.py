@@ -91,7 +91,7 @@ class Test112113ReviewConsistency(unittest.TestCase):
                 self.assertRegex(stem, Q112_FORMULA)
                 self.assertNotRegex(stem, Q112_WRONG_FORMULA)
 
-        self.assertIn(r"\left(\frac{I}{I_s}\right)^2-1=159.3321923", note)
+        self.assertIn(r"\left(\frac{I}{I_s}\right)^2-1=159.33", note)
         self.assertIn(r"\boxed{0.48}", note)
 
     def test_113_manual_review_status_values_and_dashboard_metadata_stay_aligned(self):
@@ -109,10 +109,10 @@ class Test112113ReviewConsistency(unittest.TestCase):
 
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         for exact_value_and_unit in (
-            r"15.475381\,\mathrm{MVA}",
-            r"18.613991\,\mathrm{kA}",
-            r"17.475381\,\mathrm{MVA}",
-            r"21.019617\,\mathrm{kA}",
+            r"15.48\,\mathrm{MVA}",
+            r"18.61\,\mathrm{kA}",
+            r"17.48\,\mathrm{MVA}",
+            r"21.02\,\mathrm{kA}",
         ):
             with self.subTest(value=exact_value_and_unit):
                 self.assertIn(exact_value_and_unit, standard)

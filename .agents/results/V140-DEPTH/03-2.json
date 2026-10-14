@@ -1,0 +1,198 @@
+[
+ {
+  "qid": "EE-111-03-2",
+  "full_enrich": true,
+  "flags_fixed": [
+   "too-short"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact（15 分），新增已知與所求；補觀念句與 F' 逐項反轉換步驟"
+ },
+ {
+  "qid": "EE-114-03-1",
+  "full_enrich": true,
+  "flags_fixed": [
+   "too-short"
+  ],
+  "numbers_rounded": 6,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact；0.007/0.004/0.005/0.016/1.6% 改為 7.00e-3、4.00e-3、5.00e-3、1.60e-2、1.60%；補已知所求、觀念句、逐項乘積；失分點增 1 條"
+ },
+ {
+  "qid": "EE-106-03-6",
+  "full_enrich": true,
+  "flags_fixed": [
+   "too-short",
+   "missing-concept"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "移除 compact；新增已知與所求；（一）補 Gamma 函數步驟、（二）補觀念與分段、分部積分代入限"
+ },
+ {
+  "qid": "EE-105-03-5",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept",
+   "too-short",
+   "no-substitution",
+   "jump"
+  ],
+  "numbers_rounded": 4,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "（一）（二）補觀念句與 F 左極限、跳躍計算；分數答案後附 0.58、0.25；boxed 字串不變"
+ },
+ {
+  "qid": "EE-112-03-4",
+  "full_enrich": true,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補 C-R 觀念句與 u_x、u_y、v_y 積分、g'(x)=0 的逐步結果"
+ },
+ {
+  "qid": "EE-112-03-3",
+  "full_enrich": false,
+  "flags_fixed": [
+   "too-short"
+  ],
+  "numbers_rounded": 4,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "（一）（二）補觀念句與逐步；0.7218→0.72、0.3243→0.32、0.7233→0.72；boxed 分數與 test 斷言字串 5883}{8150、12}{37、(1-p_A)^{50} 保留"
+ },
+ {
+  "qid": "EE-104-03-2",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "（一）（二）補觀念句與 A-λI 矩陣"
+ },
+ {
+  "qid": "EE-105-03-3",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 2,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補觀念句（Im z 非解析須參數化）與逐項積分；3/4+i/2 後附 0.75+0.50i"
+ },
+ {
+  "qid": "EE-106-03-7",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 5,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補觀念句與動差步驟；3.5→3.50、2.917→2.92、15.17、12.25；verify 以 0.5% 容許 2.9167 不受影響"
+ },
+ {
+  "qid": "EE-106-03-8",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 3,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "補觀念句與 385、38.50π 中間結果；120.95 原已兩位"
+ },
+ {
+  "qid": "EE-107-03-1",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 2,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "（二）補觀念句與 C、y^3 代入步驟；C=7/8≈0.88、1/√7≈0.38"
+ },
+ {
+  "qid": "EE-107-03-3",
+  "full_enrich": false,
+  "flags_fixed": [
+   "missing-concept"
+  ],
+  "numbers_rounded": 5,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "（一）補觀念句與曲面上 F、θ 積分步驟；（二）補觀念句與 z、r 積分；16π≈50.27、V≈8.38、z̄=1.50"
+ }
+]

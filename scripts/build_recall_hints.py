@@ -72,7 +72,24 @@ def mask_trap_numbers(bullet, note_text, stem_text=""):
     masked = re.sub(r"(?<![\d.])(?<!_\{)(?<!\^\{)(?<!_)(?<!\^)(\d+\.\d+|\d{2,})(?![\d])", lambda m: m.group(0) if m.group(0) in given else "□", masked)
     for value in answer_numbers(note_text):
         masked = re.sub(rf"(?<![\d.]){re.escape(value)}(?![\d])", "□", masked)
-    return masked
+    return repair_masked_latex(masked)
+
+
+# Shorthand fractions (\tfrac12, \frac53) take two single-digit arguments.  The
+# masking above replaces the pair "12" with one 「□」, which leaves the command
+# without enough arguments and KaTeX shows a red parse error.  Re-expand them
+# to braced arguments: both digits hidden -> {□}{□}; one hidden -> keep the other.
+SHORTHAND_FRAC_RE = re.compile(r"(\\[dt]?frac)\s*(□|\d)(□|\d)?(?![\d{])")
+
+
+def repair_masked_latex(text):
+    def fix(match):
+        command, first, second = match.group(1), match.group(2), match.group(3)
+        if second is None:
+            # 「\frac□」: one placeholder stood for both digits.
+            return f"{command}{{□}}{{□}}" if first == "□" else match.group(0)
+        return f"{command}{{{first}}}{{{second}}}"
+    return SHORTHAND_FRAC_RE.sub(fix, text)
 
 
 def traps_from_note(text, stem_text=""):

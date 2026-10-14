@@ -1,0 +1,257 @@
+[
+ {
+  "qid": "EE-106-02-1",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（一）:missing-concept",
+   "（一）:too-short"
+  ],
+  "numbers_rounded": 0,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-108-02-5",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（二）:no-substitution",
+   "（二）:jump"
+  ],
+  "numbers_rounded": 11,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "3.375\\text{ A}",
+    "new": "3.38\\text{ A}"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "2.625\\text{ A}",
+    "new": "2.63\\text{ A}"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "audit_status needs_manual_review kept (stem conflict V_L=3 V vs D*V_S=1.5 V, unchanged). Docs 被動複測_108年六科執行包.md and 精確解答邊界_條件題處理.md (and their tests test_passive_retest_pack/test_passive_route_status) still quote 3.375/2.625 A; left untouched (not canonical notes)."
+ },
+ {
+  "qid": "EE-106-02-5",
+  "full_enrich": true,
+  "flags_fixed": [
+   "（二）:no-intermediate"
+  ],
+  "numbers_rounded": 4,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "Kept test-asserted phrase 三角形電感電流 (test_score_oriented_core_path) and (\\Delta I_L)^2}{12}."
+ },
+ {
+  "qid": "EE-110-02-4",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（二）:missing-concept"
+  ],
+  "numbers_rounded": 16,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "Sub-0.5%-rule applied: harmonic currents shown in mA (0.28/0.14 A would be >0.5% off); tanh(1) used in 驗算 to avoid chained rounding."
+ },
+ {
+  "qid": "EE-109-02-3",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（三）:missing-concept",
+   "（四）:missing-concept"
+  ],
+  "numbers_rounded": 10,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "0.75\\times30=22.5\\ \\mathrm A}",
+    "new": "0.75\\times30=22.50\\ \\mathrm A}"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "274.4\\ \\mu\\text{H}",
+    "new": "274.44\\ \\mu\\text{H}"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-104-02-5",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（二）:missing-concept",
+   "（三）:missing-concept"
+  ],
+  "numbers_rounded": 2,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "2.166",
+    "new": "2.17"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-108-02-3",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（二）:missing-concept"
+  ],
+  "numbers_rounded": 7,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-104-02-1",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（一）:missing-concept",
+   "（四）:missing-concept"
+  ],
+  "numbers_rounded": 24,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "-1.66144",
+    "new": "-1.66"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "audit_status needs_manual_review kept (convention_inferred, unchanged)."
+ },
+ {
+  "qid": "EE-105-02-3",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（二）:missing-concept"
+  ],
+  "numbers_rounded": 29,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "-4.625",
+    "new": "-4.63"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "1.156",
+    "new": "1.16"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-106-02-3",
+  "full_enrich": false,
+  "flags_fixed": [
+   "（二）:missing-concept"
+  ],
+  "numbers_rounded": 15,
+  "concept_added": true,
+  "verify_changed": false,
+  "test_string_updates": [],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": "Displayed R_in' corrected from 698 to 697.36 ohm (full-precision value; answer f_H=1.17 MHz unchanged). I_CQ shown as 834.95 uA (0.83 mA would be 0.6% off)."
+ },
+ {
+  "qid": "EE-104-02-2",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 15,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "14.275",
+    "new": "14.28"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ },
+ {
+  "qid": "EE-104-02-3",
+  "full_enrich": false,
+  "flags_fixed": [],
+  "numbers_rounded": 9,
+  "concept_added": false,
+  "verify_changed": false,
+  "test_string_updates": [
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "17.121",
+    "new": "17.12"
+   },
+   {
+    "file": "tests/test_reconstructed_pe_solutions.py",
+    "old": "9.885",
+    "new": "9.88"
+   }
+  ],
+  "needs_test_change": "",
+  "suspected_answer_issue": "",
+  "lint_passed": true,
+  "verify_passed": true,
+  "notes": ""
+ }
+]

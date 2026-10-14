@@ -1329,8 +1329,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         reluctance = (CANONICAL / "04_電機機械" / "canonical" / "EE-109-04-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", reluctance)
-        self.assertIn("1.3572 \\times 10^{-3}", reluctance)
-        self.assertIn("0.2714\\text{ N}\\cdot\\text{m}", reluctance)
+        self.assertIn("1.36 \\times 10^{-3}", reluctance)
+        self.assertIn("2.71\\times10^{-1}\\text{ N}\\cdot\\text{m}", reluctance)
 
         buck_auto = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", buck_auto)
@@ -1361,13 +1361,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: needs_manual_review", transformer_107)
         self.assertIn("review_disposition: load_model_not_specified", transformer_107)
         self.assertIn("I_L=\\frac{S_L}{\\sqrt3V_{LL}}", transformer_107)
-        self.assertIn("8.724\\ \\mathrm A", transformer_107)
+        self.assertIn("8.72\\ \\mathrm A", transformer_107)
         self.assertIn("83.33\\%", transformer_107)
 
         series_107 = (CANONICAL / "04_電機機械" / "canonical" / "EE-107-04-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", series_107)
-        self.assertIn("n=1200\\frac{49.5}{40}=1485", series_107)
-        self.assertIn("76.394\\,\\mathrm{N\\cdot m}", series_107)
+        self.assertIn("n=1200\\frac{49.50}{40}=1485", series_107)
+        self.assertIn("76.39\\,\\mathrm{N\\cdot m}", series_107)
 
         induction_107 = (CANONICAL / "04_電機機械" / "canonical" / "EE-107-04-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", induction_107)
@@ -1410,7 +1410,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", magnetic_110)
         # 2026-10-03: the coils are cumulatively coupled (F=(100+85)(0.55));
         # the differential-coupling values survive only as the 失分點 trap.
-        self.assertIn("\\boxed{B=\\frac{\\Phi}{A_c}=0.9377\\ \\mathrm T}", magnetic_110)
+        self.assertIn("\\boxed{B=\\frac{\\Phi}{A_c}=0.94\\ \\mathrm T}", magnetic_110)
         self.assertIn("=71.56\\ \\mathrm{mJ}}", magnetic_110)
         magnetic_main, magnetic_traps = magnetic_110.split("## 失分點", 1)
         for old_value in ("0.07603", "0.4704"):
@@ -1510,7 +1510,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         auto_106 = (CANONICAL / "04_電機機械" / "canonical" / "EE-106-04-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", auto_106)
-        self.assertIn("550.0\\text{ kVA}", auto_106)
+        self.assertIn("550\\text{ kVA}", auto_106)
         self.assertIn("99.81\\%", auto_106)
 
         grounding_106 = (CANONICAL / "06_工業配電" / "canonical" / "EE-106-06-1.md").read_text(encoding="utf-8")

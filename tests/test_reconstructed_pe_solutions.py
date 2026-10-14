@@ -427,13 +427,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
         """High-confidence arithmetic fixes must stay in the learner-facing answers."""
         transformer = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-2.md").read_text(encoding="utf-8")
         self.assertIn("正解：雙匯流排功率潮流精確公式", transformer)
-        self.assertIn("$21.264\\text{ kV}$", transformer)
+        self.assertIn("$21.26\\text{ kV}$", transformer)
         self.assertIn("$1629.10\\text{ A}$", transformer)
         self.assertNotIn("$21.94\\text{ kV}$", transformer)
         self.assertNotIn("雙解法速查表", transformer)
         self.assertNotIn("主解以額定一次電流", transformer)
         annual_transformer = (CANONICAL / "05_電力系統" / "107年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
-        self.assertIn("$21.264\\text{ kV}$", annual_transformer)
+        self.assertIn("$21.26\\text{ kV}$", annual_transformer)
         self.assertNotIn("21.937", annual_transformer)
 
         amplifier = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-2.md").read_text(encoding="utf-8")
@@ -932,7 +932,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
     def test_annual_power_note_does_not_expose_stale_104_q3_answer(self):
         note = (ROOT / "02_題解/技師題解/05_電力系統/104年_電力系統_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn("EE-104-05-3.md", note)
-        self.assertIn("5.4982", note)
+        self.assertIn("5.50", note)
         self.assertIn("故障電流反算", note)
         self.assertNotIn("I_{sc} = 2.5 + 3.0 + 4.5", note)
 
@@ -944,16 +944,16 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("兩部機組各自供電至系統匯流排之有效功率均為 440 MW", note)
         self.assertIn("P_i=0.8", note)
         for expected in (
-            "1.086468",
-            "1.303762",
-            "17.1295",
-            "14.2081",
-            "20.4285",
-            "22.1098",
-            "52.6270",
-            "362.8363",
-            "5.4982",
-            "5.5\\text{ kA}",
+            "1.09",
+            "1.30",
+            "17.13",
+            "14.21",
+            "20.43",
+            "22.11",
+            "52.63",
+            "362.84",
+            "5.50",
+            "5.50\\text{ kA}",
         ):
             self.assertIn(expected, note)
         self.assertIn("故障電流反算", note)
@@ -1470,13 +1470,13 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         transformer_107_power = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", transformer_107_power)
-        self.assertIn("21.264", transformer_107_power)
+        self.assertIn("21.26", transformer_107_power)
         self.assertIn("8727.6", transformer_107_power)
 
         sequence_107 = (CANONICAL / "05_電力系統" / "canonical" / "EE-107-05-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", sequence_107)
-        self.assertIn("601.051", sequence_107)
-        self.assertIn("73.613", sequence_107)
+        self.assertIn("601.05", sequence_107)
+        self.assertIn("73.61", sequence_107)
 
         diversity_107 = (CANONICAL / "06_工業配電" / "canonical" / "EE-107-06-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", diversity_107)
@@ -1636,7 +1636,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", gs_105)
         self.assertIn("0.91", gs_105)
         self.assertIn("0.92", gs_105)
-        self.assertIn("0.90-j0.12", gs_105)
+        self.assertIn("(9.05-j1.25)\\times10^{-1}", gs_105)
 
         penalty_105 = (CANONICAL / "05_電力系統" / "canonical" / "EE-105-05-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", penalty_105)

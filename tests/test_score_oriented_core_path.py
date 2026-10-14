@@ -355,7 +355,7 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = same_topology.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn(r"L_B=", standard)
         self.assertIn(r"\boxed{\mathrm{DCM}}", standard)
-        self.assertIn(r"D+D_2=0.8165<1", standard)
+        self.assertIn(r"D+D_2=81.65\%<100\%", standard)
         load = 10**2 / 12
         candidate_duty = 10 / (15 + 10)
         boundary_l = (1 - candidate_duty) ** 2 * load / (2 * 25_000)

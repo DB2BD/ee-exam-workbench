@@ -55,5 +55,28 @@
   ],
   "suspected_answer_issue": "",
   "notes": "框內改為精確式 13/(8√6)≈0.66（原 6.63×10^-1）；M=6.634 mH 移到驗算；失分點漏 −j20 之值改 1639.06 Ω²、k=1.01。"
+ },
+ {
+  "qid": "EE-111-01-3",
+  "logic_added": true,
+  "steps_added": "必修：圖1 虛線框加寬使 1/(sC) 完全在框內；選做：除以 0.40／平方／交叉相乘分三行，BW 減法結果 2400.00 rad/s 單列、框內只留 BW=2400 rad/s (=α)，圖2 ω1、ω2 補 rad/s 並於圖說註明橫軸只畫 ω0 附近，圖1 加 Z_LC 範圍括弧",
+  "figures": [
+   "EE-111-01-3-s-domain.svg",
+   "EE-111-01-3-notch.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-108-01-4",
+  "logic_added": true,
+  "steps_added": "必修：Z_L 補「分子分母同乘 j2」一行與有理化分行；選做：(1+j2)(0.20+j1.60) 實虛部合併單列並統一為 −3+j2、−2+j2，驗算極式改精確式 5/√2·(−1+j)/√2，圖源標籤加「=」、標題 cos 改 class n、Z_C 標籤改兩行避免貼右緣",
+  "figures": [
+   "EE-108-01-4-phasor-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
  }
 ]

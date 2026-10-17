@@ -1,27 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 370" font-family="Helvetica, Arial, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="15">
-  <rect x="0" y="0" width="560" height="370" rx="12" fill="#ffffff"/>
-  <rect x="120" y="50" width="400" height="250" fill="#e6e6e6"/>
-  <rect x="120" y="170" width="390" height="22" fill="#f6d5d1" stroke="#c0392b" stroke-width="2"/>
-  <g stroke="#111" stroke-width="2" fill="none">
-    <line x1="30" y1="300" x2="530" y2="300"/>
-    <line x1="120" y1="350" x2="120" y2="40"/>
-  </g>
-  <g fill="#111">
-    <polygon points="530,294 530,306 542,300"/>
-    <polygon points="114,40 126,40 120,28"/>
-    <text x="536" y="324">x</text>
-    <text x="130" y="34">y</text>
-    <text x="100" y="320">0</text>
-    <text x="100" y="187">y</text>
-    <text x="180" y="92">p(x,y) = k·e^(−x − y/2)</text>
-    <text x="180" y="116">支撐區：x ≥ 0 且 y ≥ 0（第一象限）</text>
-    <text x="180" y="250">x、y 上下限皆為 0 → ∞</text>
-    <text x="34" y="120">p = 0</text>
-    <text x="230" y="340">p = 0（x &lt; 0 或 y &lt; 0）</text>
-  </g>
-  <g stroke="#c0392b" stroke-width="2" fill="#c0392b">
-    <line x1="134" y1="181" x2="480" y2="181"/>
-    <polygon points="478,175 478,187 492,181" stroke="none"/>
-  </g>
-  <text x="180" y="214" fill="#c0392b">固定 y，對 x 由 0 積到 ∞ → p_Y(y)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 370" width="560" height="370">
+<rect width="560" height="370" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="120" y="50" width="400" height="250" fill="#e3eefa" stroke="none"/>
+<rect x="120" y="170" width="390" height="22" fill="#fde2e0" stroke="#c0392b" stroke-width="1.5"/>
+<path d="M30.0 300.0 L542.0 300.0"/>
+<path d="M542.0 300.0 L534.0 296.0 L534.0 304.0 Z" fill="#000"/>
+<path d="M120.0 350.0 L120.0 30.0"/>
+<path d="M120.0 30.0 L116.0 38.0 L124.0 38.0 Z" fill="#000"/>
+<path d="M116.0 181.0 L120.0 181.0"/>
+</g>
+<g stroke="#c0392b"><path d="M132.0 181.0 L492.0 181.0"/>
+<path d="M492.0 181.0 L484.0 177.0 L484.0 185.0 Z" fill="#c0392b"/>
+</g>
+<text x="538" y="324" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan></text>
+<text x="132" y="36" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan></text>
+<text x="108" y="320" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0</tspan></text>
+<text x="108" y="187" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan></text>
+<text x="180" y="92" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">p</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">,</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">) = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">k</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">e</tspan><tspan class="n sup" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="super">−</tspan><tspan class="v sup" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="super">x</tspan><tspan class="n sup" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="super"> − </tspan><tspan class="v sup" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="super">y</tspan><tspan class="n sup" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="super">/2</tspan></text>
+<text x="180" y="118" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">支撐區：</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> ≥ 0</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 且 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> ≥ 0</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（第一象限）</tspan></text>
+<text x="180" y="216" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">固定 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">，對 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 由 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 積到 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">∞</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> → </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">p</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">Y</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">)</tspan></text>
+<text x="180" y="254" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">、</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 上下限皆為 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0 → ∞</tspan></text>
+<text x="34" y="120" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">p</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 0</tspan></text>
+<text x="230" y="344" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">p</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 0</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> &lt; 0</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 或 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> &lt; 0</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
 </svg>

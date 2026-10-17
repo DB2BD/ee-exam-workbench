@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" width="640" height="420">
+<rect width="640" height="420" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M40.0 190.0 L610.0 190.0" stroke="#000"/>
+<path d="M610.0 190.0 L602.0 186.0 L602.0 194.0 Z" fill="#000" stroke="#000"/>
+<path d="M70.0 405.0 L70.0 42.0" stroke="#000"/>
+<path d="M70.0 42.0 L66.0 50.0 L74.0 50.0 Z" fill="#000" stroke="#000"/>
+<path d="M70.0 190.0 L162.9 66.1" stroke="#000"/>
+<path d="M162.9 66.1 L154.9 70.1 L161.3 74.9 Z" fill="#000" stroke="#000"/>
+<path d="M162.9 66.1 L534.6 344.9" stroke="#000"/>
+<path d="M534.6 344.9 L530.6 336.9 L525.8 343.3 Z" fill="#000" stroke="#000"/>
+<path d="M70.0 190.0 L534.6 344.9" stroke="#1f5fa8"/>
+<path d="M534.6 344.9 L528.3 338.6 L525.8 346.1 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<path d="M534.6 190.0 L534.6 344.9" stroke-width="1" stroke-dasharray="4 3"/>
+</g>
+<text x="626" y="180" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> (W)</tspan></text>
+<text x="62" y="56" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> (var)</tspan></text>
+<text x="172.928" y="70.096" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">Y</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 2904 + </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">3872 VA</tspan></text>
+<text x="380" y="150" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">Δ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 11616 − </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">8712 VA</tspan></text>
+<text x="270" y="320" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">T</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 14520 − </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">4840 VA</tspan></text>
+<text x="540.64" y="210" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">14520</tspan></text>
+<text x="20" y="22" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">複數功率相加（按比例）：感性 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">Y</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 向上、容性 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">Δ</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 向下</tspan></text>
+</svg>

@@ -15,7 +15,7 @@ for v in (1, 2, 3):
 # component legs of P1 - P0: dx = -3 along x, then dz = +2 along z
 s += dashed(X(1), Z(1), X(-2), Z(1)) + dashed(X(-2), Z(1), X(-2), Z(3))
 s += end_group()
-s += f'<g fill="none" stroke="{BLUE}" stroke-width="2">' + arrow(X(1), Z(1), X(-2) + 7, Z(3) - 4.7, color=BLUE) + '</g>\n'
+s += f'<g fill="none" stroke="{BLUE}" stroke-width="2">' + arrow(X(1), Z(1), X(-2) + 7, Z(3) + 4.7, color=BLUE) + '</g>\n'
 s += dot(X(1), Z(1)) + dot(X(-2), Z(3))
 s += text(608, oy + 6, [("v", "x")])
 s += text(ox + 10, 34, [("v", "z")])
@@ -24,7 +24,7 @@ for v in (-2, -1, 1):
     s += text(X(v), oy + 22, [("n", str(v).replace("-", "−"))], anchor="middle")
 for v in (2, 3):
     s += text(ox - 10, Z(v) + 5, [("n", str(v))], anchor="end")
-s += text(ox - 8, Z(1) + 18, [("n", "1")], anchor="end")
+s += text(ox - 8, Z(1) - 6, [("n", "1")], anchor="end")
 s += text(X(1) + 12, Z(1) + 22, [("t", "起點 "), ("n", "(1, 1, 1)"), ("t", "，"), ("v", "u"), ("n", " = 0")])
 s += text(X(-2) - 10, Z(3) - 10, [("t", "終點 "), ("n", "(−2, 1, 3)"), ("t", "，"), ("v", "u"), ("n", " = 1")], anchor="middle")
 s += text(X(-1), Z(1) + 22, [("n", "Δ"), ("v", "x"), ("n", " = −3")], anchor="middle")

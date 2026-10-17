@@ -52,5 +52,34 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "25 分未分配子題配分，子題標題不標分數。"
+ },
+ {
+  "qid": "EE-108-05-2",
+  "logic_added": true,
+  "steps_added": "審查必修：20×0.94644296=18.928859（照字面成立，後續不變）；−0.025275 rad=−1.4482°；選修：驗算代回值改精確結果 0.698603/−0.898984/−0.799041",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-108-05-4",
+  "logic_added": true,
+  "steps_added": "審查必修：圖 1 CT 二次繞組改畫在一次導線下方、無電氣接點，刪除 4 個節點圓點，補二次側極性點；正文補極性說明；選修：環流路徑補線圈 3、跳脫改為出口斷路器＋磁場斷路器（滅磁）＋停原動機並說明滅磁理由",
+  "figures": [
+   "EE-108-05-4-scheme.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-105-05-4",
+  "logic_added": true,
+  "steps_added": "審查選修：第 3 點加「以每部同步機自身基準（P_m 不變）」與圖 1 一致，並把 P_max 降低連到第 4 點變流器故障電流受限；第 4 點註明為第 3 點主因",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
  }
 ]

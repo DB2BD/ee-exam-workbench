@@ -1,0 +1,22 @@
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from svgkit import *
+def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"')
+W, H = 640, 220; Y = 90
+s = header(W, H)
+s += arrow(40, Y, 600, Y)
+s += arrow(170, Y, 170, 150) + arrow(430, Y, 430, 150)
+s += f'<path d="M300 {Y-14} L300 {Y+14}" stroke="{BLUE}" stroke-width="2"/>\n'
+s += end_group()
+s += text(40, Y - 16, [("v", "P"), ("vsub", "in")])
+s += text(40, Y - 38, [("t", "原動機軸輸入")])
+s += ctext(BLUE, 300, Y - 38, [("t", "氣隙（電磁）功率")], anchor="middle")
+s += ctext(BLUE, 300, Y - 16, [("v", "P"), ("vsub", "em"), ("n", " = 580.82 kW")], anchor="middle")
+s += ctext(BLUE, 300, Y + 36, [("v", "T"), ("vsub", "em"), ("n", " = "), ("v", "P"), ("vsub", "em"), ("n", "/"), ("v", "ω"), ("vsub", "m")], anchor="middle")
+s += text(600, Y - 38, [("t", "電輸出")], anchor="end")
+s += text(600, Y - 16, [("v", "P"), ("vsub", "o"), ("n", " = 540 kW")], anchor="end")
+s += text(170, 172, [("t", "鐵損＋機械損")], anchor="middle")
+s += text(170, 194, [("t", "（題目未分列）")], anchor="middle")
+s += text(430, 172, [("t", "定子銅損 "), ("v", "P"), ("vsub", "cu"), ("n", " = 40.82 kW")], anchor="middle")
+s += footer()
+open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/04_電機機械/figures/EE-113-04-2-power-flow.svg'), 'w').write(s)
+print(len(s))

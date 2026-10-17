@@ -1,7 +1,10 @@
 """Tiny helpers for textbook-style circuit SVGs (black line art, KaTeX font classes)."""
 import math
+import re
 FONT_V = "KaTeX_Math, 'Times New Roman', serif"
 FONT_N = "KaTeX_Main, 'Times New Roman', serif"
+FONT_CAL = "KaTeX_Caligraphic, 'Times New Roman', serif"
+CAL = {"ℛ": "R", "ℱ": "F"}
 FONT_T = "-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"
 
 def header(w, h):
@@ -66,6 +69,14 @@ def text(x, y, parts, anchor="start", color="#000"):
             cls, fam = ("v", FONT_V) if kind == "vsub" else ("n", FONT_N)
             style = ' font-style="italic"' if kind == "vsub" else ''
             out.append(f'<tspan class="{cls} sub" font-family="{fam}"{style} font-size="12" baseline-shift="sub">{s}</tspan>')
+        elif kind == "v" and any(c in CAL for c in s):
+            for k, run in enumerate(re.split(r"([ℛℱ])", s)):
+                if not run:
+                    continue
+                if run in CAL:      # \mathcal R / \mathcal F: KaTeX_Caligraphic (inline style beats the .v rule)
+                    out.append(f'<tspan class="v" font-family="{FONT_CAL}" style="font-family: {FONT_CAL}; font-style: normal">{CAL[run]}</tspan>')
+                else:
+                    out.append(f'<tspan class="v" font-family="{FONT_V}" font-style="italic">{run}</tspan>')
         else:
             fam = {"v": FONT_V, "n": FONT_N, "t": FONT_T}[kind]
             style = ' font-style="italic"' if kind == "v" else ''

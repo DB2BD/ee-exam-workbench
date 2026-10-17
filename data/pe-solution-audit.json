@@ -401,7 +401,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "balanced_delta_l_minus_m_with_full_coupled_matrix_numpy",
-      "solution_hash": "e4717d7e7bb117db168bbc0ca24af219487ab14f8beaa707297877f1e6b4d417",
+      "solution_hash": "21cdbfdca2f7a0ba79860104327838d89ce0c63b67790fa7571696a029dc3136",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/01_電路學/images/questions/PE_113年_電路學_Q03.png"
     },
@@ -793,7 +793,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "volt_second_and_charge_balance_sympy_with_fall_and_valley_checks",
-      "solution_hash": "ebc06d5e84ea2a5fa3d0ed77bbdbd098ec0d9ebd4526c14acca80fb87a7053bf",
+      "solution_hash": "0873350d512cf3770ec13afe0fd0175660a9c20b2e51470415c088e697c4a88c",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/02_電子學_含電力電子/images/questions/PE_112年_電子學（包括電力電子學）_Q03.png"
     },
@@ -981,7 +981,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "mva_method_series_combination_with_ohmic_cross_check",
-      "solution_hash": "750bf5a8bc426349ecdbe30ef1ee1401e30a641a245ded5ef52dc15a1778c08a",
+      "solution_hash": "c5590f3359983bed72a5c1952bcd3c7823c56b4895f36ff30b376a55d99a2e4c",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/06_工業配電/images/questions/PE_112年_工業配電_Q03.png"
     },
@@ -2571,7 +2571,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-03",
       "method": "synchronous_generator_phasor_with_power_angle_and_scalar_quadrature_cross_check_numpy",
-      "solution_hash": "b3a5b9d67cf876e14b9b40ed1571697c5cd1a47333ff10bb4eb48047f53d7d5d",
+      "solution_hash": "89ebdfbfed9a0653b39e00429516768c1ecf433222d469b2f93ddc1911750ad9",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/04_電機機械/images/questions/PE_107年_電機機械_Q04.png"
     },

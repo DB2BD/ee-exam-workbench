@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" width="600" height="380">
 <rect width="600" height="380" fill="#fff"/>
 <g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-<g stroke="#1f5fa8"><path d="M200.0 330.0 L464.2 330.0" stroke="#000"/>
-<path d="M464.2 330.0 L456.2 326.0 L456.2 334.0 Z" fill="#1f5fa8" stroke="#000"/>
+<g stroke="#1f5fa8"><path d="M200.0 330.0 L464.2 330.0" stroke="#1f5fa8"/>
+<path d="M464.2 330.0 L456.2 326.0 L456.2 334.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
 </g>
-<g stroke="#1f5fa8"><path d="M200.0 330.0 L283.9 80.5" stroke="#000"/>
-<path d="M283.9 80.5 L277.6 86.8 L285.2 89.3 Z" fill="#1f5fa8" stroke="#000"/>
+<g stroke="#1f5fa8"><path d="M200.0 330.0 L283.9 80.5" stroke="#1f5fa8"/>
+<path d="M283.9 80.5 L277.6 86.8 L285.2 89.3 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
 </g>
-<g stroke="#1f5fa8"><path d="M464.2 330.0 L283.9 80.5" stroke="#000"/>
-<path d="M283.9 80.5 L285.4 89.3 L291.9 84.6 Z" fill="#1f5fa8" stroke="#000"/>
+<g stroke="#1f5fa8"><path d="M464.2 330.0 L283.9 80.5" stroke="#1f5fa8"/>
+<path d="M283.9 80.5 L285.4 89.3 L291.9 84.6 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
 </g>
-<g stroke="#c0392b"><path d="M200.0 330.0 L299.9 255.1" stroke="#000"/>
-<path d="M299.9 255.1 L291.1 256.7 L295.9 263.1 Z" fill="#c0392b" stroke="#000"/>
+<g stroke="#c0392b"><path d="M200.0 330.0 L299.9 255.1" stroke="#c0392b"/>
+<path d="M299.9 255.1 L291.1 256.7 L295.9 263.1 Z" fill="#c0392b" stroke="#c0392b"/>
 </g>
 <path d="M240 330 A40 40 0 0 0 232.0 306.0"/>
-<path d="M320 330 A120 120 0 0 0 238.3 216.3"/>
+<path d="M365 330 A165 165 0 0 0 252.6 173.6"/>
 <circle cx="200" cy="330" r="2.6" fill="#000" stroke="none"/>
 </g>
 <text x="20" y="24" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電壓 1 V = 2.2 px；</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 另用電流比例</tspan></text>
@@ -22,7 +22,8 @@
 <text x="400" y="356" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 120.0889∠0° V</tspan></text>
 <text x="295.92912" y="86.48479999999998" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">E</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 119.6603∠71.41° V</tspan></text>
 <text x="386.06235000000004" y="203.24239999999998" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">s</tspan></text>
-<text x="279.4878896349807" y="202.79278557653612" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">δ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 71.41°</tspan></text>
-<text x="246" y="322" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">36.87°</tspan></text>
+<text x="305.8937737560132" y="194.46215037964382" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">δ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 71.41°</tspan></text>
+<text x="246" y="322" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">θ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 36.87°</tspan></text>
 <text x="305.9258661177098" y="253.05532149061196" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan></text>
+<text x="20" y="372" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 24.9815∠36.87° A</tspan></text>
 </svg>

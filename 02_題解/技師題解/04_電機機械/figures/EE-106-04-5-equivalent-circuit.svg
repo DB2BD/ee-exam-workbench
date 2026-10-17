@@ -9,10 +9,9 @@
 <path d="M230.0 70.0 L250.0 70.0"/>
 <path transform="translate(250.0 70.0) rotate(0.00)" d="M0 0 L17.5 0 A6.5 6.5 0 0 1 30.5 0 A6.5 6.5 0 0 1 43.5 0 A6.5 6.5 0 0 1 56.5 0 A6.5 6.5 0 0 1 69.5 0 A6.5 6.5 0 0 1 82.5 0 L100.0 0"/>
 <path d="M350.0 70.0 L520.0 70.0"/>
-<path d="M520.0 70.0 L520.0 82.0"/>
-<path transform="translate(520.0 82.0) rotate(90.00)" d="M0.0 0.0 L8.0 0.0 L10.8 -6.0 L16.5 6.0 L22.2 -6.0 L27.8 6.0 L33.5 -6.0 L39.2 6.0 L42.0 0.0 L50.0 0.0"/>
-<path transform="translate(520.0 132.0) rotate(90.00)" d="M0 0 L8.0 0 A6.0 6.0 0 0 1 20.0 0 A6.0 6.0 0 0 1 32.0 0 A6.0 6.0 0 0 1 44.0 0 A6.0 6.0 0 0 1 56.0 0 L64.0 0"/>
-<path d="M520.0 196.0 L520.0 210.0"/>
+<path d="M520.0 70.0 L520.0 110.0"/>
+<rect x="502" y="110" width="36" height="60"/>
+<path d="M520.0 170.0 L520.0 210.0"/>
 <path d="M100.0 162.0 L100.0 210.0"/>
 <path d="M100.0 210.0 L520.0 210.0"/>
 <circle cx="420" cy="70" r="2.6" fill="#000" stroke="none"/>
@@ -29,8 +28,9 @@
 <text x="432" y="108" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
 <text x="432" y="146" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ϕ</tspan></text>
 <text x="432" y="186" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
-<text x="538" y="132" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">負載</tspan></text>
-<text x="538" y="154" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PF 0.8</tspan></text>
-<text x="538" y="174" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">落後／超前</tspan></text>
+<text x="520" y="146" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan></text>
+<text x="546" y="132" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">負載</tspan></text>
+<text x="546" y="154" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PF 0.8</tspan></text>
+<text x="546" y="174" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">落後／超前</tspan></text>
 <text x="310" y="246" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">每相（Y 接）：</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 208/√3 = 120.0889 V</tspan></text>
 </svg>

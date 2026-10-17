@@ -1,0 +1,9575 @@
+[
+  {
+    "qid": "EE-113-02-3",
+    "subject": "電子學",
+    "severity": 19.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ],
+      "（五）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（五）": [
+        "8"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）兩個操作狀態：缺邏輯句",
+      "（二）輸出電壓：缺邏輯句",
+      "（三）電感電流最大值：缺邏輯句",
+      "（四）最小電感：缺邏輯句",
+      "（五）漣波比：來源不明數字：8；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 10,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-05-1",
+    "subject": "電力系統",
+    "severity": 15.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.6",
+        "0.10",
+        "7",
+        "0.15"
+      ],
+      "（二）": [
+        "0.40"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）發電機端電壓：來源不明數字：0.6、0.10、7、0.15；缺邏輯句",
+      "（二）序網路與故障計算：來源不明數字：0.40；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 28,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-05-2",
+    "subject": "電力系統",
+    "severity": 15.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "1.05",
+        "6.04"
+      ],
+      "（二）": [
+        "174.55",
+        "130.91",
+        "145.45",
+        "109.09"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 三台並聯：來源不明數字：1.05、6.04；缺邏輯句",
+      "（二）2. 兩台並聯：來源不明數字：174.55、130.91、145.45、109.09；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 29,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-05-4",
+    "subject": "電力系統",
+    "severity": 15.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "90",
+        "210",
+        "150",
+        "0.73"
+      ],
+      "（二）": [
+        "45",
+        "165",
+        "195"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）三相四線（負載中性點接電源中性點）：來源不明數字：90、210、150、0.73；缺邏輯句",
+      "（二）三相三線（負載中性點浮接）：來源不明數字：45、165、195；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 59,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-02-1",
+    "subject": "電子學",
+    "severity": 15.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "101",
+        "1018.02",
+        "700",
+        "151",
+        "714.29",
+        "500"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文電路 / 工作點通式 / $25^\\：來源不明數字：101、1018.02、700、151、714.29、500；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 27,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-02-2",
+    "subject": "電子學",
+    "severity": 15.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "2.86"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）工作點 / （一）電感：來源不明數字：2.86；缺邏輯句",
+      "（二）電容：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 24,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-02-4",
+    "subject": "電子學",
+    "severity": 15.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "4"
+      ],
+      "（二）": [
+        "9.07",
+        "1.03",
+        "4.65"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）負載電壓的傅立葉級數 / 電感值：來源不明數字：4；缺邏輯句",
+      "（二）功率：來源不明數字：9.07、1.03、4.65；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 28,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-05-1",
+    "subject": "電力系統",
+    "severity": 15.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "4.44"
+      ],
+      "（二）": [
+        "8.854",
+        "12.69"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 相間等效距離 / 2. 束線等：來源不明數字：4.44；缺邏輯句",
+      "（二）4. 每相每公里電容：來源不明數字：8.854、12.69；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 24,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-02-3",
+    "subject": "電子學",
+    "severity": 14.98,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "4"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）平均負載電流：缺邏輯句",
+      "（二）負載平均功率：來源不明數字：4；缺邏輯句",
+      "（三）功率因數：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 14,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-02-3",
+    "subject": "電子學",
+    "severity": 14.98,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "1.81",
+        "6.34"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）偏壓量 / （一）$g_m$：缺邏輯句",
+      "（二）$W/L$：來源不明數字：1.81、6.34；缺邏輯句",
+      "（三）$R_1,R_2$：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 37,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-04-2",
+    "subject": "電機機械",
+    "severity": 14.96,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "21",
+        "500",
+        "4"
+      ],
+      "（二）": [
+        "21500"
+      ],
+      "（三）": [
+        "530.20"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）發電機 4000 rpm：來源不明數字：21、500、4；缺邏輯句",
+      "（二）馬達電樞電流：來源不明數字：21500；缺邏輯句",
+      "（三）輸出轉矩：來源不明數字：530.20；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 23,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-02-1",
+    "subject": "電子學",
+    "severity": 14.96,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "376.99"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）直流輸出電壓：缺邏輯句",
+      "（二）最初兩個交流項電流（振幅）：來源不明數字：376.99；缺邏輯句",
+      "（三）負載消耗功率：缺邏輯句",
+      "（四）功率因數：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 42,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-02-2",
+    "subject": "電子學",
+    "severity": 14.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ],
+      "（五）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）共模增益：缺邏輯句",
+      "（二）CMRR（dB）：缺邏輯句",
+      "（三）單端輸入：缺邏輯句",
+      "（四）等幅反相輸入：缺邏輯句",
+      "（五）輸出干擾：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-02-4",
+    "subject": "電子學",
+    "severity": 14.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ],
+      "（五）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）回授因素：缺邏輯句",
+      "（二）開路增益：缺邏輯句",
+      "（三）閉路增益：缺邏輯句",
+      "（四）閉迴路輸入阻抗：缺邏輯句",
+      "（五）閉迴路輸出阻抗：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-05-4",
+    "subject": "電力系統",
+    "severity": 13.3,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "0.92",
+        "2.24"
+      ],
+      "（三）": [
+        "1.30",
+        "1.26"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 電路模型與 \\(Y_{bus}：缺邏輯句",
+      "（二）2. Bus 2 接 \\(Z_L=0：來源不明數字：0.92、2.24；缺邏輯句",
+      "（三）3. 再並接 \\(-j0.3\\) 電：來源不明數字：1.30、1.26；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 28,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-02-1",
+    "subject": "電子學",
+    "severity": 13.3,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "2000"
+      ],
+      "（二）": [
+        "1.25"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）小訊號參數 / 射極節點與通式 / ：來源不明數字：2000；缺邏輯句",
+      "（二）（2）$v_2=v_1$：來源不明數字：1.25；缺邏輯句",
+      "（三）（3）$v_2=-3v_1$：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-05-2",
+    "subject": "電力系統",
+    "severity": 13.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.82",
+        "2.25",
+        "0.99",
+        "1.35",
+        "1.52"
+      ],
+      "（三）": [
+        "1.25"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）二次側電壓與電源電壓：來源不明數字：0.82、2.25、0.99、1.35、1.52；缺邏輯句",
+      "（二）二次側電流：缺邏輯句",
+      "（三）電壓調整率：來源不明數字：1.25；缺邏輯句",
+      "（四）二次側三相短路電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 48,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-01-3",
+    "subject": "電路學",
+    "severity": 13.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "0.40"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）轉移函數：缺邏輯句",
+      "（二）頻寬與截止頻率：來源不明數字：0.40；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 23,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-02-3",
+    "subject": "電子學",
+    "severity": 12.5,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "3.27"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）判別導通模式：缺邏輯句",
+      "（二）DCM 導通率：來源不明數字：3.27；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 21,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-05-2",
+    "subject": "電力系統",
+    "severity": 12.5,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "4.63",
+        "4.67",
+        "4.65"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 故障電流 / 2. 各匯流排故：來源不明數字：4.63、4.67、4.65；缺邏輯句",
+      "（二）3. 線路 2→1 故障電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 8,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-02-2",
+    "subject": "電子學",
+    "severity": 12.5,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "1.60"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）臨界電壓與時間常數 / $v_X(t：缺邏輯句",
+      "（二）頻率與責任週期：來源不明數字：1.60；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-04-5",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "36.87",
+        "17.50",
+        "14.13"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文步驟一：由電阻負載決定 \\(E_f\\：來源不明數字：36.87、17.50、14.13；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 22,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-06-3",
+    "subject": "工業配電",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "1.77",
+        "5.49",
+        "1.22",
+        "0.061",
+        "0.44",
+        "6.81"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文基準與上游阻抗 / 匯流排電壓與電壓：來源不明數字：1.77、5.49、1.22、0.061、0.44、6.81；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 3,
+      "computed_decimals": 41,
+      "numbers": [
+        "0.067",
+        "0.061"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-06-2",
+    "subject": "工業配電",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "3.69",
+        "6.00",
+        "9.78"
+      ],
+      "（二）": [
+        "7.95"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）啟動電流（標么） / 上游電抗 / ：來源不明數字：3.69、6.00、9.78；缺邏輯句",
+      "（二）480 V 側：來源不明數字：7.95；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 34,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-04-2",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "155.51"
+      ],
+      "（二）": [
+        "104.72"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）輕載 \\(I_a=10\\ \\math：來源不明數字：155.51；缺邏輯句",
+      "（二）重載 \\(I_a=200\\ \\mat：來源不明數字：104.72；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 14,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-06-3",
+    "subject": "工業配電",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "11",
+        "7.15"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文接線（CT 接法與變壓器相反） / ：來源不明數字：11、7.15；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 16,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-05-2",
+    "subject": "電力系統",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "2.71"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文1. 指定注入與矩陣 / 2. 第 ：來源不明數字：2.71；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 29,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-04-3",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.90"
+      ],
+      "（二）": [
+        "20.30"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）起動轉矩（\\(s=1\\)）：來源不明數字：0.90；缺邏輯句",
+      "（二）1188 rpm 負載轉矩：來源不明數字：20.30；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-04-5",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "14",
+        "400",
+        "6.00"
+      ],
+      "（二）": [
+        "12"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電感：來源不明數字：14、400、6.00；缺邏輯句",
+      "（二）扭力：來源不明數字：12；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 6,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-04-3",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "28.49",
+        "36.87",
+        "178.70",
+        "47.71"
+      ],
+      "（二）": [
+        "55.27"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）額定運轉：來源不明數字：28.49、36.87、178.70、47.71；缺邏輯句",
+      "（二）電壓降至 342 V：來源不明數字：55.27；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 35,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-04-4",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "2238",
+        "4"
+      ],
+      "（二）": [
+        "366.55"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）等效電路、\\(E_a\\) 與 \\(I：來源不明數字：2238、4；缺邏輯句",
+      "（二）轉速與轉矩：來源不明數字：366.55；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 28,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-06-3",
+    "subject": "工業配電",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "600"
+      ],
+      "（二）": [
+        "900"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）發電機：來源不明數字：600；缺邏輯句",
+      "（二）變壓器：來源不明數字：900；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 12,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-04-3",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（三）": [
+        "2.54",
+        "101"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）無載最大端電壓：缺邏輯句",
+      "（二）滿載的等效總激磁電流：缺邏輯句",
+      "（三）平複激的串激匝數：來源不明數字：2.54、101；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-05-1",
+    "subject": "電力系統",
+    "severity": 12.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "90"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）串聯補償：缺邏輯句",
+      "（二）提高最大傳送功率的原因：來源不明數字：90；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 12,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-04-1",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.32",
+        "4"
+      ],
+      "（二）": [
+        "13.78"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電感：來源不明數字：0.32、4；缺邏輯句",
+      "（二）磁通最大值：來源不明數字：13.78；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 24,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-04-2",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "13800",
+        "90800",
+        "276.66"
+      ],
+      "（二）": [
+        "362.32",
+        "14324.40"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）低壓側等效電路：來源不明數字：13800、90800、276.66；缺邏輯句",
+      "（二）電壓調整率：來源不明數字：362.32、14324.40；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 31,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-02-1",
+    "subject": "電子學",
+    "severity": 12.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "8"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）操作狀態：缺邏輯句",
+      "（二）輸出電壓：來源不明數字：8；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-02-2",
+    "subject": "電子學",
+    "severity": 12.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（三）": [
+        "7.92",
+        "6000"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）T 模型等效電路：缺邏輯句",
+      "（二）輸入電阻：缺邏輯句",
+      "（三）電壓增益：來源不明數字：7.92、6000；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 6,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-04-4",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（四）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.30",
+        "0.60"
+      ],
+      "（二）": [
+        "3.10",
+        "2.80",
+        "117.29"
+      ],
+      "（三）": [
+        "9.28"
+      ],
+      "（四）": [
+        "3.53",
+        "14.12",
+        "6.61"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）（1）啟動電流：來源不明數字：0.30、0.60；缺邏輯句",
+      "（二）（2）滿載：來源不明數字：3.10、2.80、117.29；缺邏輯句",
+      "（三）（3）最大扭矩：來源不明數字：9.28；缺邏輯句",
+      "（四）（4）計入激磁阻抗的啟動電流：來源不明數字：3.53、14.12、6.61；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 58,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-03-5",
+    "subject": "工程數學",
+    "severity": 12.0,
+    "points": 30,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）完整解：缺邏輯句",
+      "（二）零空間：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-04-4",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "3200"
+      ],
+      "（二）": [
+        "188.50"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）內生電壓與功率角：來源不明數字：3200；缺邏輯句",
+      "（二）原動機轉矩：來源不明數字：188.50；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 28,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-04-5",
+    "subject": "電機機械",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "8.25"
+      ],
+      "（二）": [
+        "6.81"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）瞬時轉矩：來源不明數字：8.25；缺邏輯句",
+      "（二）最大轉矩與最大機械功率：來源不明數字：6.81；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 9,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-05-3",
+    "subject": "電力系統",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "12.00",
+        "250"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文1. 增量成本與功率平衡 / 2. ：來源不明數字：12.00、250；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 14,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-06-3",
+    "subject": "工業配電",
+    "severity": 12.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "8.33",
+        "0.10"
+      ],
+      "（二）": [
+        "6.25",
+        "3.75"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）69 kV 側短路電流：來源不明數字：8.33、0.10；缺邏輯句",
+      "（二）各發電機電流：來源不明數字：6.25、3.75；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 35,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-02-1",
+    "subject": "電子學",
+    "severity": 11.64,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "2.50"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）內建電壓：來源不明數字：2.50；缺邏輯句",
+      "（二）空乏區寬度：缺邏輯句",
+      "（三）兩側延伸：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 21,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-02-4",
+    "subject": "電子學",
+    "severity": 11.64,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（三）": [
+        "0.25"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）$\\Delta v_{C1}$：缺邏輯句",
+      "（二）$\\Delta v_{C2}$：缺邏輯句",
+      "（三）峰值電流 $I_p$：來源不明數字：0.25；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 19,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-02-2",
+    "subject": "電子學",
+    "severity": 11.64,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "18"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）$A_{vo}$：來源不明數字：18；缺邏輯句",
+      "（二）$\\omega_z$：缺邏輯句",
+      "（三）$\\omega_H$（開路時間常數）：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 16,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-7",
+    "subject": "工程數學",
+    "severity": 11.37,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-substitution",
+        "jump",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "83"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）正規化：缺代入式；跳步（1 個 boxed 直接接符號式）；缺邏輯句",
+      "（二）期望值：來源不明數字：83；缺邏輯句",
+      "（三）變異數：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-05-3",
+    "subject": "電力系統",
+    "severity": 11.2,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "9.57"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 故障電流反算 \\(E''\\)：缺邏輯句",
+      "（二）2. 預故障電流與功率平衡：來源不明數字：9.57；缺邏輯句",
+      "（三）3. 端電壓與無效功率：缺邏輯句",
+      "（四）4. 匯流排三相故障電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 40,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-05-1",
+    "subject": "電力系統",
+    "severity": 11.2,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "4.02"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）圓型轉子：缺邏輯句",
+      "（二）凸極機：來源不明數字：4.02；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 21,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-05-3",
+    "subject": "電力系統",
+    "severity": 11.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.20",
+        "11.31",
+        "2.14"
+      ],
+      "（三）": [
+        "6.36"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電路模型 / （二）發電機輸出無效功：來源不明數字：0.20、11.31、2.14；缺邏輯句",
+      "（三）變壓器輸出至無限匯流排的無效功率與負：來源不明數字：6.36；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 41,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-03-3",
+    "subject": "工程數學",
+    "severity": 11.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-substitution",
+        "jump",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）梯度：缺邏輯句",
+      "（二）方向導數：缺代入式；跳步（1 個 boxed 直接接符號式）；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-04-3",
+    "subject": "電機機械",
+    "severity": 11.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（四）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "13.46"
+      ],
+      "（三）": [
+        "123.15"
+      ],
+      "（四）": [
+        "32.27"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）轉速：缺邏輯句",
+      "（二）氣隙功率：來源不明數字：13.46；缺邏輯句",
+      "（三）輸出機械轉矩：來源不明數字：123.15；缺邏輯句",
+      "（四）效率：來源不明數字：32.27；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 34,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-04-2",
+    "subject": "電機機械",
+    "severity": 11.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "198.38",
+        "3.82",
+        "200"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）100 N·m 時的轉速：來源不明數字：198.38、3.82、200；缺邏輯句",
+      "（二）\\(R_2\\) 加倍：缺邏輯句",
+      "（三）降速至 1700 rpm：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 29,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-02-3",
+    "subject": "電子學",
+    "severity": 10.8,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "56"
+      ],
+      "（二）": [
+        "45"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）正向限幅位準：來源不明數字：56；缺邏輯句",
+      "（二）負向限幅位準：來源不明數字：45；缺邏輯句",
+      "（三）$v_S=5\\text{ V}$：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 40,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-06-2",
+    "subject": "工業配電",
+    "severity": 10.8,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "1.20",
+        "2.55",
+        "1.92"
+      ],
+      "（三）": [
+        "0.015"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）系統阻抗圖：來源不明數字：1.20、2.55、1.92；缺邏輯句",
+      "（二）電壓突降：缺邏輯句",
+      "（三）11.4 kV 側串聯電抗器：來源不明數字：0.015；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 52,
+      "numbers": [
+        "0.015"
+      ]
+    }
+  },
+  {
+    "qid": "EE-112-04-5",
+    "subject": "電機機械",
+    "severity": 10.7,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "5"
+      ],
+      "（三）": [
+        "146.15"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）有效磁場電流：來源不明數字：5；缺邏輯句",
+      "（二）轉速：缺邏輯句",
+      "（三）轉矩：來源不明數字：146.15；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 15,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-01-1",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.20"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）開路電壓 $V_{th}$：來源不明數字：0.20；缺邏輯句",
+      "（二）等效電阻 $R_{th}$：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-06-1",
+    "subject": "工業配電",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "8.26",
+        "4.13",
+        "4.97"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）\\(R_g=0\\)：缺邏輯句",
+      "（二）\\(R_g=1000\\,\\Omega：來源不明數字：8.26、4.13、4.97；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 28,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-01-1",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "36",
+        "213",
+        "270",
+        "5266",
+        "85108",
+        "105305"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：36、213、270、5266、85108、105305"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-04-1",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "4"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電源電壓：來源不明數字：4；缺邏輯句",
+      "（二）磁場儲能：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 14,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-04-2",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "0.98"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）額定容量：缺邏輯句",
+      "（二）效率：來源不明數字：0.98；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 10,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-04-3",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "104.72",
+        "1.89"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電樞電流：來源不明數字：104.72、1.89；缺邏輯句",
+      "（二）轉速：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 19,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-05-1",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 線路參數與受電端量 / （一）：缺邏輯句",
+      "（二）送電端三相功率：缺邏輯句",
+      "（三）電壓調整率：缺邏輯句",
+      "（四）傳輸效率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 53,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-05-3",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）導納矩陣：缺邏輯句",
+      "（二）潮流方程式：缺邏輯句",
+      "（三）Bus 1 有功輸出：缺邏輯句",
+      "（四）Bus 2–3 線路無效功率流向：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 12,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-05-4",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）差動電流：缺邏輯句",
+      "（二）CT 匝比設定：缺邏輯句",
+      "（三）內部無故障時：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 6,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-02-2",
+    "subject": "電子學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）$V_{GS}=2\\ \\mathrm：缺邏輯句",
+      "（二）$I_D=2\\ \\mathrm{mA：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 21,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-03-1",
+    "subject": "工程數學",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "18",
+        "8",
+        "7"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）通解：缺邏輯句",
+      "（二）特解：來源不明數字：18、8、7；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-04-3",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "188.50",
+        "16",
+        "8.0"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）\\(s=5\\%\\)：來源不明數字：188.50、16、8.0；缺邏輯句",
+      "（二）最大負載轉矩：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 23,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-04-4",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "151.93",
+        "228.51"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）無載端電壓：來源不明數字：151.93、228.51；缺邏輯句",
+      "（二）滿載效率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-04-5",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "149.23"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）額定頻率：來源不明數字：149.23；缺邏輯句",
+      "（二）30 Hz：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 12,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-05-1",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 受電端淨功率 / （一）線路電：缺邏輯句",
+      "（二）送電端電壓：缺邏輯句",
+      "（三）電容器組阻抗：缺邏輯句",
+      "（四）送電端功率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 23,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-06-2",
+    "subject": "工業配電",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.12"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）百分壓降：來源不明數字：0.12；缺邏輯句",
+      "（二）最大容許長度：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 19,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-06-5",
+    "subject": "工業配電",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "376.99"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電容器容量：缺邏輯句",
+      "（二）Δ 接每相電容：來源不明數字：376.99；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 23,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-01-2",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "20",
+        "1.25"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：20、1.25"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-01-4",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.20",
+        "0.40",
+        "1.60"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.20、0.40、1.60"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-04-4",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "1.5"
+      ],
+      "（三）": [
+        "25.13"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）反電勢：來源不明數字：1.5；缺邏輯句",
+      "（二）最大功率：缺邏輯句",
+      "（三）最大轉矩：來源不明數字：25.13；缺邏輯句",
+      "（四）相量圖：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 39,
+      "numbers": [
+        "1.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-108-05-1",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "25.84"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）內部電壓與 \\(P\\)、\\(Q\\)：來源不明數字：25.84；缺邏輯句",
+      "（二）激磁增加 20%：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 33,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-05-3",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.15",
+        "0.16",
+        "0.10"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 標么值與正序戴維寧阻抗 / 2：來源不明數字：0.15、0.16、0.10；缺邏輯句",
+      "（二）3. \\(B\\)-\\(C\\) 線間故：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 50,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-01-3",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）節點電壓方程式：缺邏輯句",
+      "（二）對偶方程式：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-02-1",
+    "subject": "電子學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）基極電阻：缺邏輯句",
+      "（二）總功率損耗：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 21,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-04-1",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "376.99"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）激磁電流：缺邏輯句",
+      "（二）一次側漏磁電抗：來源不明數字：376.99；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-05-3",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "1.79"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 潮流方程與 Jacobian ：缺邏輯句",
+      "（二）3. 第 2 次疊代：來源不明數字：1.79；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 56,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-01-1",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.40",
+        "2.80",
+        "1.40",
+        "20"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.40、2.80、1.40、20"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 10,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-02-4",
+    "subject": "電子學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）所需直流電源：缺邏輯句",
+      "（二）電流 THD：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 24,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-04-5",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "125.66",
+        "10.21",
+        "210"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）直接啟動（\\(s=1\\)）：來源不明數字：125.66、10.21、210；缺邏輯句",
+      "（二）啟動電抗器：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 34,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-01-1",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "4",
+        "6",
+        "72",
+        "12",
+        "37",
+        "144",
+        "24"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：4、6、72、12、37、144、24"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-01-2",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "7"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：7"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 8,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-05-3",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "156.42",
+        "0.40"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：156.42、0.40"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 24,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-05-4",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）滿載：缺邏輯句",
+      "（二）無載：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 59,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-01-2",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "230",
+        "5"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：230、5"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-01-4",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "250"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：250"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-02-3",
+    "subject": "電子學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）責任週期與平均電感電流 / 電感值：缺邏輯句",
+      "（二）電容值：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 22,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-03-6",
+    "subject": "工程數學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）所有解：缺邏輯句",
+      "（二）特徵值與單位特徵向量：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-04-3",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "80"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）內部生成電壓與轉矩角：來源不明數字：80；缺邏輯句",
+      "（二）新的激磁電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-05-2",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "250",
+        "500"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：250、500"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 31,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-05-4",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "2.47"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：2.47"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 42,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-01-1",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.30"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.30"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 9,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-01-2",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.20"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.20"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 23,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-01-3",
+    "subject": "電路學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "45"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：45"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-02-4",
+    "subject": "電子學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）開關耐壓：缺邏輯句",
+      "（二）電壓轉換比：缺邏輯句",
+      "（三）BCM 電感：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-03-5",
+    "subject": "工程數學",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "43"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）切線向量：缺邏輯句",
+      "（二）球面通量：來源不明數字：43；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-04-2",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "4200"
+      ],
+      "（四）": [
+        "188.50"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）極數：缺邏輯句",
+      "（二）同步阻抗標么值：來源不明數字：4200；缺邏輯句",
+      "（三）定子銅損：缺邏輯句",
+      "（四）電機轉矩：來源不明數字：188.50；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 16,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-04-5",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "29.45"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）啟動電容：來源不明數字：29.45；缺邏輯句",
+      "（二）啟動扭力比較：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 26,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-05-2",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.83",
+        "3.75",
+        "0.60",
+        "0.45"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.83、3.75、0.60、0.45"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 31,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-05-3",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "1200",
+        "2200"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：1200、2200"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 6,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-05-4",
+    "subject": "電力系統",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 功率增加量：缺邏輯句",
+      "（二）2. 無載至滿載的頻率範圍：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-06-3",
+    "subject": "工業配電",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "2.57"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）閃爍變動率：來源不明數字：2.57；缺邏輯句",
+      "（二）串聯電抗器：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-02-3",
+    "subject": "電子學",
+    "severity": 10.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "20"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：20"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 16,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-04-1",
+    "subject": "電機機械",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "7.96",
+        "1600"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）等效磁路與氣隙磁通密度：來源不明數字：7.96、1600；缺邏輯句",
+      "（二）線圈電感：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-06-2",
+    "subject": "工業配電",
+    "severity": 10.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "1.25"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）百分壓降：來源不明數字：1.25；缺邏輯句",
+      "（二）閃爍電壓變動率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-02-1",
+    "subject": "電子學",
+    "severity": 9.98,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）偏壓與小訊號參數 / $C_\\pi$：缺邏輯句",
+      "（二）$C_\\mu$ 對應的 $f_{H\\：缺邏輯句",
+      "（三）中頻帶電壓增益：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-02-4",
+    "subject": "電子學",
+    "severity": 9.98,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）（1）損毀原因：缺邏輯句",
+      "（二）（2）RC 緩衝器（snubber）：缺邏輯句",
+      "（三）（3）另兩種方法：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-02-2",
+    "subject": "電子學",
+    "severity": 9.96,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）導通率與電感電流：缺邏輯句",
+      "（二）電容漣波：缺邏輯句",
+      "（三）臨界電感：缺邏輯句",
+      "（四）臨界電容：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 18,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-02-3",
+    "subject": "電子學",
+    "severity": 9.96,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）負載與輸入電壓 / 峰值電流：缺邏輯句",
+      "（二）平均電流：缺邏輯句",
+      "（三）激磁電感：缺邏輯句",
+      "（四）效率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 12,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-02-2",
+    "subject": "電子學",
+    "severity": 9.8,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "81"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）閉迴路增益：來源不明數字：81；缺邏輯句",
+      "（二）輸出電壓：缺邏輯句",
+      "（三）與 $A_o\\to\\infty$ 比：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 20,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-06-4",
+    "subject": "工業配電",
+    "severity": 9.6,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "1.50"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）對稱故障電流：來源不明數字：1.50；缺邏輯句",
+      "（二）\\(k\\) 值：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 33,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-04-2",
+    "subject": "電機機械",
+    "severity": 9.36,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "3.33",
+        "4.00"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）鐵心磁通：來源不明數字：3.33、4.00；缺邏輯句",
+      "（二）負載電流：缺邏輯句",
+      "（三）損耗與漏抗 / 結論：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 10,
+      "numbers": [
+        "1.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-04-3",
+    "subject": "電機機械",
+    "severity": 9.36,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "62.83",
+        "4.62"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）輸出功率：缺邏輯句",
+      "（二）電樞電流：來源不明數字：62.83、4.62；缺邏輯句",
+      "（三）效率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 19,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-03-2",
+    "subject": "工程數學",
+    "severity": 9.36,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "26"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）特徵值：來源不明數字：26；缺邏輯句",
+      "（二）特徵向量：缺邏輯句",
+      "（三）對角化：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-05-5",
+    "subject": "電力系統",
+    "severity": 9.36,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.96",
+        "0.28",
+        "0.94",
+        "0.44"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 故障前與內部電勢 \\(E'\\)：來源不明數字：0.96、0.28、0.94、0.44；缺邏輯句",
+      "（二）2. 故障中：缺邏輯句",
+      "（三）3. 故障清除後：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 34,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-04-3",
+    "subject": "電機機械",
+    "severity": 9.36,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "0.05"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電樞電流：缺邏輯句",
+      "（二）轉速：來源不明數字：0.05；缺邏輯句",
+      "（三）效率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-02-2",
+    "subject": "電子學",
+    "severity": 9.2,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（三）": [
+        "29.26"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）直流電位：缺邏輯句",
+      "（二）輸入電阻：缺邏輯句",
+      "（三）電壓增益：來源不明數字：29.26；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 24,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-02-5",
+    "subject": "電子學",
+    "severity": 9.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "461.72"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）迴路增益：缺邏輯句",
+      "（二）振盪頻率與 $C$：來源不明數字：461.72；缺邏輯句",
+      "（三）$R_f$：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-06-5",
+    "subject": "工業配電",
+    "severity": 9.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "8.48"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）匯流排第 5 次諧波電壓：來源不明數字：8.48；缺邏輯句",
+      "（二）電源幹線電流：缺邏輯句",
+      "（三）A 組分路電流：缺邏輯句",
+      "（四）B 組分路電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 47,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-06-4",
+    "subject": "工業配電",
+    "severity": 9.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "600"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）初始總流明與燈具數：來源不明數字：600；缺邏輯句",
+      "（二）配置圖與實際燈具數：缺邏輯句",
+      "（三）實際照度：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 8,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-06-4",
+    "subject": "工業配電",
+    "severity": 9.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（三）": [
+        "11",
+        "400"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）87 的意義：缺邏輯句",
+      "（二）三相接線圖：缺邏輯句",
+      "（三）CT 變流比：來源不明數字：11、400；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 9,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-04-2",
+    "subject": "電機機械",
+    "severity": 9.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（四）": [
+        "314.16"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電樞電流：缺邏輯句",
+      "（二）輸入功率：缺邏輯句",
+      "（三）電磁功率：缺邏輯句",
+      "（四）電磁轉矩：來源不明數字：314.16；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-04-4",
+    "subject": "電機機械",
+    "severity": 9.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "53.55"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電壓調整率：缺邏輯句",
+      "（二）OCC 上額定電壓的場電流：來源不明數字：53.55；缺邏輯句",
+      "（三）SCC 上額定電流的場電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 35,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-01-1",
+    "subject": "電路學",
+    "severity": 9.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "75",
+        "14"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電流 \\(I\\)：來源不明數字：75、14；缺邏輯句",
+      "（二）節點電壓：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-02-5",
+    "subject": "電子學",
+    "severity": 8.02,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電感：缺邏輯句",
+      "（二）漣波頻率：缺邏輯句",
+      "（三）最高、最低值：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 33,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-06-4",
+    "subject": "工業配電",
+    "severity": 8.02,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 額定電流（1 HP≈1 kVA：缺邏輯句",
+      "（二）2. 分路（每台一分路）：缺邏輯句",
+      "（三）3. 幹線：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 31,
+      "numbers": [
+        "5.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-01-3",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "1637.41",
+        "1216.67"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：1637.41、1216.67"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 12,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-01-4",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "200"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：200"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-02-1",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（四）": [
+        "1.05"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）、（二）偏壓：缺邏輯句",
+      "（三）轉移函數：缺邏輯句",
+      "（四）轉角頻率：來源不明數字：1.05；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 27,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-03-2",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）特徵值：缺邏輯句",
+      "（二）特徵向量：缺邏輯句",
+      "（三）對角化：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-04-4",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "1200",
+        "5.03",
+        "1.49",
+        "3.00",
+        "3.15"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：1200、5.03、1.49、3.00、3.15"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）供電方式與決定因素：缺邏輯句",
+      "（二）責任分界點：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 5,
+      "numbers": [
+        "11.4",
+        "22.8"
+      ]
+    }
+  },
+  {
+    "qid": "EE-104-06-2",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "50"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：50"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 20,
+      "numbers": [
+        "1.0"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-01-2",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.50",
+        "0.20"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.50、0.20"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-01-4",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "376.99"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：376.99"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 23,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-02-1",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）低 3 dB 頻率（短路時間常數法）：缺邏輯句",
+      "（二）高 3 dB 頻率（零值時間常數法）：缺邏輯句",
+      "（三）帶通電壓增益：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 23,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-02-4",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）吸收功率：缺邏輯句",
+      "（二）功率因數：缺邏輯句",
+      "（三）失真因數：缺邏輯句",
+      "（四）總諧波失真：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-02-5",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）半波與全波：缺邏輯句",
+      "（二）半橋與全橋：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-04-3",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（二）等效電路與起動條件 / （一）降低起：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 15,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-05-1",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 串聯補償（電容串入線路）：缺邏輯句",
+      "（二）2. 並聯補償（電容器或電抗器接在匯：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-05-2",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "全文1. 導納與注入 / 2. 第一次疊：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 22,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-05-4",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "全文1. 判定：乙案（50% 再生能源）：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-06-3",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）CB1 閉合、CB2 開路：缺邏輯句",
+      "（二）CB1、CB2 皆閉合：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 30,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-06-5",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "0.48",
+        "7.43",
+        "1.86",
+        "0.6",
+        "60",
+        "3.84"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）等效電路 / （二）並聯共振：來源不明數字：0.48、7.43、1.86、0.6、60、3.84；缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 29,
+      "numbers": [
+        "0.6"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-02-1",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）：缺邏輯句",
+      "（二）：缺邏輯句",
+      "（三）：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-02-2",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）回授的影響：缺邏輯句",
+      "（二）閉迴路增益：缺邏輯句",
+      "（三）閉迴路輸出阻抗：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-02-3",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）$I_{CQ}$：缺邏輯句",
+      "（二）Miller 電容：缺邏輯句",
+      "（三）上 3-dB 頻率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 26,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-02-4",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）波形：缺邏輯句",
+      "（二）平均值：缺邏輯句",
+      "（三）輸入電流 rms：缺邏輯句",
+      "（四）功率因數：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-02-5",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電壓比：缺邏輯句",
+      "（二）$Q_1$ 電流 rms：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 8,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-04-4",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）機械輸出功率：缺邏輯句",
+      "（二）效率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 18,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-04-5",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）PF 0.8 落後：缺邏輯句",
+      "（二）PF 0.8 超前：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 32,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）計算短路電流的目的：缺邏輯句",
+      "（二）設備接地的目的與重要性：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-06-2",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.012",
+        "0.049",
+        "0.03",
+        "6.04",
+        "6.22",
+        "1.21",
+        "1.24",
+        "2.41",
+        "3.54",
+        "4.28"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.012、0.049、0.03、6.04、6.22、1.21、1.24、2.41、3.54、4.28"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 23,
+      "numbers": [
+        "0.012"
+      ]
+    }
+  },
+  {
+    "qid": "EE-106-06-3",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）Δ–Y 接線：缺邏輯句",
+      "（二）代用機分接頭：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-01-3",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "18",
+        "24"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：18、24"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 26,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-01-5",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）單相等效：缺邏輯句",
+      "（二）線電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-03-3",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）面積分（側面）：缺邏輯句",
+      "（二）散度定理：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-03-5",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）取出後放回：缺邏輯句",
+      "（二）取出後不放回：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-04-1",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）接線圖：缺邏輯句",
+      "（二）線電流與利用率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 7,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）總和最大負載：缺邏輯句",
+      "（二）總和平均負載：缺邏輯句",
+      "（三）綜合負載因數：缺邏輯句",
+      "（四）每日用電量：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 63,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-06-4",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）分路：缺邏輯句",
+      "（二）幹線：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 8,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-02-1",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）極點頻率 $f_b$：缺邏輯句",
+      "（二）0 dB 頻率 $f_t$：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-02-2",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "全文導通判斷 / 波形 / 平均值：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-02-3",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）回授型態 / $A$、$\\beta$：缺邏輯句",
+      "（二）完整放大器：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 5,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-02-4",
+    "subject": "電子學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）GIC 由 $X$ 看入的阻抗 / ：缺邏輯句",
+      "（二）類型與階數：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-04-1",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）額定容量：缺邏輯句",
+      "（二）接線圖：缺邏輯句",
+      "（三）優點：缺邏輯句",
+      "（四）缺點：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 12,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-04-5",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）SRM 結構：缺邏輯句",
+      "（二）步進電動機：缺邏輯句",
+      "（三）電樞反應：缺邏輯句",
+      "（四）SPMSM 結構：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-05-4",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "全文1. 保護區與接線 / 2. 正常運：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-06-4",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）標么阻抗圖（\\(S_b=20\\,\\m：缺邏輯句",
+      "（二）對稱故障電流：缺邏輯句",
+      "（三）非對稱故障電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 32,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-06-5",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）線路電流：缺邏輯句",
+      "（二）線路壓降：缺邏輯句",
+      "（三）線路損失：缺邏輯句",
+      "（四）可增加的系統供電容量：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 37,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-03-2",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "14"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：14"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-03-5",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "4",
+        "14",
+        "26",
+        "56",
+        "16"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：4、14、26、56、16"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-05-4",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "5.76",
+        "1.74"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：5.76、1.74"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 10,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-05-5",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.01",
+        "4.00",
+        "11.89"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.01、4.00、11.89"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 36,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-05-6",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "166.67",
+        "266.67",
+        "346.15"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：166.67、266.67、346.15"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 35,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）變壓器裝置容量：缺邏輯句",
+      "（二）契約容量（二段式時間電價）：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-06-2",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）220 V：缺邏輯句",
+      "（二）380 V：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 28,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-06-3",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）標么阻抗圖：缺邏輯句",
+      "（二）三相短路電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 39,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-06-4",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "1800",
+        "46000"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：1800、46000"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 8,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-06-5",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電容器容量：缺邏輯句",
+      "（二）輕載功因：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 26,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-3",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "4"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：4"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-6",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）行列式：缺邏輯句",
+      "（二）特徵值與特徵向量：缺邏輯句",
+      "（三）對角化矩陣：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-04-1",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.45",
+        "4",
+        "1.50",
+        "1.41"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.45、4、1.50、1.41"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-04-2",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）單相自耦接線：缺邏輯句",
+      "（二）單相自耦容量：缺邏輯句",
+      "（三）三相 V–V（開放三角）自耦接線：缺邏輯句",
+      "（四）三相組容量：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 14,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-05-2",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）\\(P_2\\)：缺邏輯句",
+      "（二）\\(Q_3\\)：缺邏輯句",
+      "（三）快速解耦一次疊代：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 30,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-05-3",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）正序與零序電流：缺邏輯句",
+      "（二）負序故障電壓：缺邏輯句",
+      "（三）饋線零序感抗：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 15,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-05-4",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）實功損耗：缺邏輯句",
+      "（二）母線 2 增量損失：缺邏輯句",
+      "（三）母線 1 增量成本：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 21,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）效益與電價規定：缺邏輯句",
+      "（二）R-L 短路電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-06-2",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）變壓器容量：缺邏輯句",
+      "（二）日用電量：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 50,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-06-4",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）A 點閃爍：缺邏輯句",
+      "（二）串聯電抗器：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 20,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-06-5",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.07",
+        "5",
+        "1.50"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.07、5、1.50"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 33,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-03-3",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）一階極點：缺邏輯句",
+      "（二）二階極點：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-03-5",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）散度與旋度：缺邏輯句",
+      "（二）線積分：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）\\(Z_B=0.8\\,\\Omega\\：缺邏輯句",
+      "（二）\\(Z_B=3\\,\\Omega\\)：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 7,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-06-2",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）變壓器二次側：缺邏輯句",
+      "（二）69 kV 側：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 30,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-06-3",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）F 點：缺邏輯句",
+      "（二）斷路器 A 點：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 31,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-06-5",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電阻器額定：缺邏輯句",
+      "（二）低電阻接地判定：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 26,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-03-1",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "12",
+        "14",
+        "4"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：12、14、4"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-04-4",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.8602",
+        "108.05"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.8602、108.05"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 16,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）方法與目的：缺邏輯句",
+      "（二）接線作法：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-06-2",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ],
+      "（四）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）各設備最高需量：缺邏輯句",
+      "（二）各變壓器最小容量：缺邏輯句",
+      "（三）總平均功率：缺邏輯句",
+      "（四）全月用電度數：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 34,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-06-3",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "0.38",
+        "9.52"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：0.38、9.52"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 20,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-03-3",
+    "subject": "工程數學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "14"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：14"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-04-1",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "全文磁路 / 等效電路與電感：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）主變壓器容量：缺邏輯句",
+      "（二）總和日負載因數：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-06-2",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "209.52",
+        "4.41",
+        "1.31"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：209.52、4.41、1.31"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 35,
+      "numbers": [
+        "0.9803"
+      ]
+    }
+  },
+  {
+    "qid": "EE-113-06-4",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "1.20",
+        "0.15",
+        "31",
+        "6.20"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：1.20、0.15、31、6.20"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 47,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-01-2",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "全文開路電壓 / 短路電流 / 諾頓等效：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-01-3",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）開關打開瞬間：缺邏輯句",
+      "（二）\\(v(t>0)\\)：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-01-4",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "18",
+        "1.9"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：18、1.9"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 28,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-01-5",
+    "subject": "電路學",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "25",
+        "4",
+        "125"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：25、4、125"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-04-2",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）匝數比：缺邏輯句",
+      "（二）負載電壓：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 2,
+      "computed_decimals": 9,
+      "numbers": [
+        "0.3",
+        "1.2"
+      ]
+    }
+  },
+  {
+    "qid": "EE-114-04-3",
+    "subject": "電機機械",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）合成磁通與轉向：缺邏輯句",
+      "（二）對調輔助繞組頭尾：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-05-1",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）1. 電流有效值：缺邏輯句",
+      "（二）2. 電壓相角：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-05-2",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）功角與發電虛功率：缺邏輯句",
+      "（二）超限判斷與一次疊代：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 21,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-05-4",
+    "subject": "電力系統",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）戴維寧阻抗與故障電流：缺邏輯句",
+      "（二）匯流排電壓與線路電流：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-06-1",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）開三角接線：缺邏輯句",
+      "（二）最大負載：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-06-4",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）Y-Δ 起動：缺邏輯句",
+      "（二）線路設計：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-06-5",
+    "subject": "工業配電",
+    "severity": 8.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）需補償無效功率：缺邏輯句",
+      "（二）實際投入與 PF：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 31,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-03-6",
+    "subject": "工程數學",
+    "severity": 7.5,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-substitution",
+        "jump",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）\\(k\\)：缺代入式；跳步（1 個 boxed 直接接符號式）；缺邏輯句",
+      "（二）\\(E\\{Y\\}\\)：缺邏輯句",
+      "（三）\\(E\\{X^3Y^2\\}\\)：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-04-4",
+    "subject": "電機機械",
+    "severity": 7.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（二）": [
+        "0.25",
+        "0.43",
+        "0.87"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）\\(t=0\\)：缺邏輯句",
+      "（二）\\(\\omega_et=60^\\ci：來源不明數字：0.25、0.43、0.87；缺邏輯句",
+      "（三）旋轉頻率：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 4,
+      "computed_decimals": 8,
+      "numbers": [
+        "1.5",
+        "0.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-111-03-4",
+    "subject": "工程數學",
+    "severity": 7.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "12",
+        "4"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）奇異值：來源不明數字：12、4；缺邏輯句",
+      "（二）Rayleigh 商極值：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-03-6",
+    "subject": "工程數學",
+    "severity": 7.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "4",
+        "83",
+        "13"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）平均值：來源不明數字：4、83、13；缺邏輯句",
+      "（二）變異數：缺邏輯句",
+      "（三）三階動差：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 5,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-03-2",
+    "subject": "工程數學",
+    "severity": 6.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "17"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：17"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-03-5",
+    "subject": "工程數學",
+    "severity": 6.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "4096"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：4096"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-03-6",
+    "subject": "工程數學",
+    "severity": 6.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）常數 \\(k\\)：缺邏輯句",
+      "（二）機率分布函數：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-03-3",
+    "subject": "工程數學",
+    "severity": 6.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）一發子彈命中的機率：缺邏輯句",
+      "（二）命中子彈為乙所射：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 22,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-03-4",
+    "subject": "工程數學",
+    "severity": 6.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）對稱矩陣 \\(P\\)：缺邏輯句",
+      "（二）特徵值：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 15,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-03-1",
+    "subject": "工程數學",
+    "severity": 6.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "7.00",
+        "4.00"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：7.00、4.00"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 20,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-04-5",
+    "subject": "電機機械",
+    "severity": 5.6,
+    "points": 14,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）同步機額定容量：缺邏輯句",
+      "（二）電纜線電流：缺邏輯句",
+      "（三）電樞電壓：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-01-2",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-01-3",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 7,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-01-4",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 20,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-01-1",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-01-3",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-03-6",
+    "subject": "工程數學",
+    "severity": 5.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（二）**（二）** \\(\\boxed{E：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-01-1",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-01-2",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-01-4",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-02-4",
+    "subject": "電子學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-01-2",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-01-3",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-01-4",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 25,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-01-4",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 20,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-01-1",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 7,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-01-3",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-05-3",
+    "subject": "電力系統",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-01-4",
+    "subject": "電路學",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-05-1",
+    "subject": "電力系統",
+    "severity": 5.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 24,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-05-2",
+    "subject": "電力系統",
+    "severity": 4.8,
+    "points": 12,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "377",
+        "1.04",
+        "8.29"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "全文：來源不明數字：377、1.04、8.29"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 17,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-01-2",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 9,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-01-5",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-02-3",
+    "subject": "電子學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 15,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-02-4",
+    "subject": "電子學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-03-1",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-03-3",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-03-4",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-03-5",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": true,
+    "note_flags": [],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "6"
+      ]
+    },
+    "notes": [
+      "全文：來源不明數字：6"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-04-1",
+    "subject": "電機機械",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-104-06-4",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 16,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-01-1",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 5,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-01-3",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 13,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-01-5",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 6,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-03-2",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-03-5",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 10,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）：缺邏輯句",
+      "（二）：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-03-6",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 10,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ],
+      "（三）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）不放回，兩顆白球：缺邏輯句",
+      "（二）不放回，第二顆紅球：缺邏輯句",
+      "（三）放回：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-03-8",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-04-1",
+    "subject": "電機機械",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 7,
+      "computed_decimals": 8,
+      "numbers": [
+        "0.5"
+      ]
+    }
+  },
+  {
+    "qid": "EE-105-04-4",
+    "subject": "電機機械",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-04-5",
+    "subject": "電機機械",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 7,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-05-3",
+    "subject": "電力系統",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 22,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-05-5",
+    "subject": "電力系統",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-06-5",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 3,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-01-1",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 7,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-01-2",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 9,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-01-4",
+    "subject": "電路學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 8,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-107-03-4",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-03-1",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-03-5",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-06-1",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-108-06-3",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 1,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-03-1",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-109-03-3",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 6,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-06-5",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-03-1",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-113-06-5",
+    "subject": "工業配電",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 5,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-03-3",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-03-4",
+    "subject": "工程數學",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-114-05-5",
+    "subject": "電力系統",
+    "severity": 4.0,
+    "points": 20,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 8,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-05-5",
+    "subject": "電力系統",
+    "severity": 3.5,
+    "points": 5,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {
+      "（一）": [
+        "orphan-number",
+        "no-logic"
+      ],
+      "（二）": [
+        "no-logic"
+      ]
+    },
+    "orphan_numbers": {
+      "（一）": [
+        "174.95",
+        "131.22"
+      ]
+    },
+    "notes": [
+      "整題缺解題邏輯",
+      "（一）電壓調整率：來源不明數字：174.95、131.22；缺邏輯句",
+      "（二）突增機械功率上限：缺邏輯句"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 31,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-04-1",
+    "subject": "電機機械",
+    "severity": 3.2,
+    "points": 16,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-03-4",
+    "subject": "工程數學",
+    "severity": 3.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-111-03-2",
+    "subject": "工程數學",
+    "severity": 3.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-03-2",
+    "subject": "工程數學",
+    "severity": 3.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-112-03-4",
+    "subject": "工程數學",
+    "severity": 3.0,
+    "points": 15,
+    "compact": false,
+    "note_flags": [
+      "no-logic"
+    ],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [
+      "整題缺解題邏輯"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-03-1",
+    "subject": "工程數學",
+    "severity": 2.0,
+    "points": 10,
+    "compact": true,
+    "note_flags": [],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "6",
+        "9",
+        "18"
+      ]
+    },
+    "notes": [
+      "全文：來源不明數字：6、9、18"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-105-03-3",
+    "subject": "工程數學",
+    "severity": 2.0,
+    "points": 10,
+    "compact": true,
+    "note_flags": [],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "34"
+      ]
+    },
+    "notes": [
+      "全文：來源不明數字：34"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-03-7",
+    "subject": "工程數學",
+    "severity": 2.0,
+    "points": 10,
+    "compact": true,
+    "note_flags": [],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "4",
+        "5",
+        "9",
+        "16",
+        "25",
+        "36",
+        "49"
+      ]
+    },
+    "notes": [
+      "全文：來源不明數字：4、5、9、16、25、36、49"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 4,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-1",
+    "subject": "工程數學",
+    "severity": 2.0,
+    "points": 10,
+    "compact": true,
+    "note_flags": [],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "4"
+      ]
+    },
+    "notes": [
+      "全文：來源不明數字：4"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-2",
+    "subject": "工程數學",
+    "severity": 2.0,
+    "points": 10,
+    "compact": true,
+    "note_flags": [],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "12"
+      ]
+    },
+    "notes": [
+      "全文：來源不明數字：12"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 0,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-4",
+    "subject": "工程數學",
+    "severity": 2.0,
+    "points": 10,
+    "compact": true,
+    "note_flags": [],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "4"
+      ]
+    },
+    "notes": [
+      "全文：來源不明數字：4"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 11,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-110-03-5",
+    "subject": "工程數學",
+    "severity": 2.0,
+    "points": 10,
+    "compact": true,
+    "note_flags": [],
+    "flags_by_subquestion": {
+      "全文": [
+        "orphan-number"
+      ]
+    },
+    "orphan_numbers": {
+      "全文": [
+        "4"
+      ]
+    },
+    "notes": [
+      "全文：來源不明數字：4"
+    ],
+    "rounding": {
+      "not_two_decimals": 0,
+      "computed_decimals": 2,
+      "numbers": []
+    }
+  },
+  {
+    "qid": "EE-106-05-2",
+    "subject": "電力系統",
+    "severity": 0.0,
+    "points": 25,
+    "compact": false,
+    "note_flags": [],
+    "flags_by_subquestion": {},
+    "orphan_numbers": {},
+    "notes": [],
+    "rounding": {
+      "not_two_decimals": 1,
+      "computed_decimals": 30,
+      "numbers": [
+        "0.4074"
+      ]
+    }
+  }
+]

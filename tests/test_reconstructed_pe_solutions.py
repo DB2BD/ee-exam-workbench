@@ -1276,7 +1276,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         fault = (CANONICAL / "06_工業配電" / "canonical" / "EE-112-06-4.md").read_text(encoding="utf-8")
         self.assertIn("19\\,478.75", fault)
-        self.assertIn("4.83\\times10^{-1}", fault)
+        self.assertIn("=0.4828", fault)
         self.assertIn("\\boxed{0.48}", fault)
 
         interleaved = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-108-02-5.md").read_text(encoding="utf-8")
@@ -1707,7 +1707,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         # 2026-10-03 lean-v1: the superseded 19.05%／6.07 pu values stay only
         # as the explicitly rejected intermediate-point reading.
         self.assertIn(r"\boxed{1.61\%}", annual_110)
-        self.assertIn(r"\boxed{X_R\ge3.67\times10^{-2}\,\mathrm{pu}}", annual_110)
+        self.assertIn(r"\boxed{X_R\ge0.0367\,\mathrm{pu}}", annual_110)
         self.assertIn("19.05%／6.07 pu 對應兩變壓器之間的假想觀測點，既非 A 點，也非圖示 B 點", annual_110)
 
 

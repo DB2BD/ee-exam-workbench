@@ -802,7 +802,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("5.98 kA", note)
         self.assertIn(r"7.96\ \mathrm{kA}", note)
         self.assertIn(r"9.95\ \mathrm{kA}", note)
-        self.assertIn("4.28\\times10^{-2}", note)
+        self.assertIn("|Z_f|=\\sqrt{0.024084^2+0.035438^2}", note)
+        self.assertIn("0.042847", note)
         self.assertIn("I_{sym,LL}=9.93", note)
         self.assertIn(r"11.32\,\mathrm{kA}", note)
         for removed in ("I_{peak,exact,LL}", "16.5404", "19.36", "19.1841", "22.49", "四分之一週期近似"):
@@ -818,7 +819,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         z_f = z_t2 + 2 * (z_sys + z_t1 + z_line)
         i_base = 75000 / 220
         i_sym_ka = i_base / abs(z_f) / 1000
-        self.assertIn(f"{abs(z_f) * 100:.2f}\\times10^{{-2}}", note)
+        self.assertIn(f"{abs(z_f):.6f}", note)
         self.assertIn(f"{i_sym_ka:.2f}", note)
         self.assertIn("9.95", note)  # 1.25 x the rounded 7.96 kA
         self.assertAlmostEqual(1.25 * i_sym_ka, 9.946, delta=0.002)
@@ -1668,7 +1669,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", fault_105)
         self.assertIn("34.37", fault_105)
         self.assertIn("37.37", fault_105)
-        self.assertIn("6.44\\times10^{-2}", fault_105)
+        self.assertIn("0.06437", fault_105)
 
         thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
         power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+<rect width="640" height="360" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path transform="translate(150.0 80.0) rotate(90.00)" d="M0 0 L7.5 0 A6.5 6.5 0 0 1 20.5 0 A6.5 6.5 0 0 1 33.5 0 A6.5 6.5 0 0 1 46.5 0 A6.5 6.5 0 0 1 59.5 0 A6.5 6.5 0 0 1 72.5 0 L80.0 0"/>
+<path d="M150.0 70.0 L150.0 80.0"/>
+<path d="M150.0 160.0 L150.0 180.0"/>
+<path transform="translate(150.0 180.0) rotate(90.00)" d="M0.0 0.0 L12.0 0.0 L15.0 -6.0 L21.0 6.0 L27.0 -6.0 L33.0 6.0 L39.0 -6.0 L45.0 6.0 L48.0 0.0 L60.0 0.0"/>
+<path d="M150.0 240.0 L150.0 250.0"/>
+<path d="M138.0 250.0 L162.0 250.0"/>
+<path d="M142.0 254.0 L158.0 254.0"/>
+<path d="M146.0 258.0 L154.0 258.0"/>
+<path d="M150.0 70.0 L440.0 70.0"/>
+<path d="M440.0 70.0 L440.0 130.0"/>
+<circle cx="440" cy="130" r="2.6" fill="#000" stroke="none"/>
+<rect x="380" y="100" width="120" height="90"/>
+<path d="M440 132 L432 150 L446 158 L440 188" stroke="#c0392b"/>
+<path d="M440.0 190.0 L440.0 200.0"/>
+<path transform="translate(440.0 200.0) rotate(90.00)" d="M0.0 0.0 L12.0 0.0 L13.3 -6.0 L16.0 6.0 L18.7 -6.0 L21.3 6.0 L24.0 -6.0 L26.7 6.0 L28.0 0.0 L40.0 0.0"/>
+<path d="M440.0 240.0 L440.0 250.0"/>
+<path d="M428.0 250.0 L452.0 250.0"/>
+<path d="M432.0 254.0 L448.0 254.0"/>
+<path d="M436.0 258.0 L444.0 258.0"/>
+<path d="M150 278 L440 278" stroke-width="1" stroke-dasharray="5 4"/>
+<path d="M250.0 58.0 L320.0 58.0" stroke="#c0392b"/>
+<path d="M320.0 58.0 L312.0 54.0 L312.0 62.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M424.0 204.0 L424.0 238.0" stroke="#c0392b"/>
+<path d="M424.0 238.0 L428.0 230.0 L420.0 230.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M340.0 292.0 L260.0 292.0" stroke="#c0392b"/>
+<path d="M260.0 292.0 L268.0 296.0 L268.0 288.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<circle cx="570" cy="112" r="10"/>
+<path d="M570.0 122.0 L570.0 190.0"/>
+<path d="M570.0 142.0 L500.0 142.0"/>
+<path d="M570.0 190.0 L556.0 248.0"/>
+<path d="M570.0 190.0 L584.0 248.0"/>
+<path d="M540.0 250.0 L610.0 250.0"/>
+</g>
+<text x="136" y="125" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">變壓器二次</tspan></text>
+<text x="164" y="215" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">n</tspan></text>
+<text x="440" y="92" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">設備外殼</tspan></text>
+<text x="372" y="160" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">絕緣破壞</tspan></text>
+<text x="416" y="225" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="454" y="210" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="454" y="246" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+<text x="468" y="232" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="285" y="50" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="300" y="314" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（經大地回中性點）</tspan></text>
+<text x="570" y="280" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">人體接觸外殼</tspan></text>
+<text x="320" y="340" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">降低 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 限制接觸電壓；迴路阻抗低則 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 大、保護快速動作</tspan></text>
+</svg>

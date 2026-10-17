@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "PE 非工程數學 104-114",
-  "generated_at": "2026-10-14",
+  "generated_at": "2026-10-17",
   "status_policy": [
     "verified",
     "reference_book_verified",
@@ -2957,7 +2957,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-03",
       "method": "network_reduction_zbus_thevenin_checked_by_nodal_kcl",
-      "solution_hash": "395ee96c84b012a674b407e60eb3aa0d67ebd036ec34a27d1e52855d4c2968fa",
+      "solution_hash": "a9079203be3febe8ef4817b6cf596d1eb9942980f79f9378448429fb8d6381e3",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_106年_電力系統_Q02.png"
     },

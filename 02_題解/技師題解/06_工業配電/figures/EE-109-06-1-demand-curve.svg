@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 344" width="680" height="344">
+<rect width="680" height="344" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="280.0" y="50" width="303.3" height="210" fill="#e3eefa" stroke="none"/>
+<path d="M70.0 260.0 L650.0 260.0" stroke="#000"/>
+<path d="M650.0 260.0 L642.0 256.0 L642.0 264.0 Z" fill="#000" stroke="#000"/>
+<path d="M70.0 260.0 L70.0 30.0" stroke="#000"/>
+<path d="M70.0 30.0 L66.0 38.0 L74.0 38.0 Z" fill="#000" stroke="#000"/>
+<path d="M70.0 159.2 L93.3 159.2 L93.3 142.4 L116.7 142.4 L116.7 134.0 L140.0 134.0 L140.0 138.2 L163.3 138.2 L163.3 155.0 L186.7 155.0 L186.7 176.0 L210.0 176.0 L210.0 188.6 L233.3 188.6 L233.3 180.2 L256.7 180.2 L256.7 144.5 L280.0 144.5 L280.0 121.4 L303.3 121.4 L303.3 108.8 L326.7 108.8 L326.7 102.5 L350.0 102.5 L350.0 134.0 L373.3 134.0 L373.3 113.0 L396.7 113.0 L396.7 87.8 L420.0 87.8 L420.0 96.2 L443.3 96.2 L443.3 108.8 L466.7 108.8 L466.7 117.2 L490.0 117.2 L490.0 129.8 L513.3 129.8 L513.3 138.2 L536.7 138.2 L536.7 155.0 L560.0 155.0 L560.0 167.6 L583.3 167.6 L583.3 155.0 L606.7 155.0 L606.7 150.8 L630.0 150.8 "/>
+<path d="M70 87.8 L630 87.8" stroke="#1f5fa8" stroke-dasharray="6 4"/>
+<path d="M70 134.0 L630 134.0" stroke-dasharray="2 3"/>
+<circle cx="408.3333333333333" cy="87.80000000000001" r="2.6" fill="#000" stroke="none"/>
+<circle cx="128.33333333333334" cy="134.0" r="2.6" fill="#000" stroke="none"/>
+</g>
+<text x="62" y="26" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">t</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">) kW</tspan></text>
+<text x="652" y="266" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">t</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> h</tspan></text>
+<text x="70.0" y="282" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0</tspan></text>
+<text x="210.0" y="282" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">6</tspan></text>
+<text x="350.0" y="282" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">12</tspan></text>
+<text x="490.0" y="282" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">18</tspan></text>
+<text x="630.0" y="282" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">24</tspan></text>
+<text x="431.6666666666667" y="68" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">尖峰時段</tspan></text>
+<text x="140.0" y="68" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">離峰</tspan></text>
+<text x="606.6666666666666" y="68" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">離峰</tspan></text>
+<text x="64" y="92.80000000000001" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">D</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">經常</tspan></text>
+<text x="64" y="139.0" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">D</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">離峰</tspan></text>
+<text x="350" y="306" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">階梯代表 15 分鐘平均需量（示意）；各時段取最大值訂該時段契約容量</tspan></text>
+<text x="350" y="330" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">藍底：尖峰時段（時段範圍依當期台電費率表）</tspan></text>
+</svg>

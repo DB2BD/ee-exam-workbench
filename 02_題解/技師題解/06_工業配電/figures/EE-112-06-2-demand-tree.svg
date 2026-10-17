@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 330" width="700" height="330">
+<rect width="700" height="330" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="30" y="30" width="150" height="44"/>
+<rect x="30" y="92" width="150" height="44"/>
+<rect x="30" y="178" width="150" height="44"/>
+<rect x="30" y="240" width="150" height="44"/>
+<rect x="290" y="61" width="150" height="44"/>
+<rect x="290" y="209" width="150" height="44"/>
+<rect x="530" y="135" width="150" height="44"/>
+<path d="M180.0 52.0 L230.0 52.0"/>
+<path d="M230.0 52.0 L230.0 83.0"/>
+<path d="M180.0 114.0 L230.0 114.0"/>
+<path d="M230.0 114.0 L230.0 83.0"/>
+<path d="M180.0 200.0 L230.0 200.0"/>
+<path d="M230.0 200.0 L230.0 231.0"/>
+<path d="M180.0 262.0 L230.0 262.0"/>
+<path d="M230.0 262.0 L230.0 231.0"/>
+<path d="M230.0 83.0 L288.0 83.0" stroke="#000"/>
+<path d="M288.0 83.0 L280.0 79.0 L280.0 87.0 Z" fill="#000" stroke="#000"/>
+<path d="M230.0 231.0 L288.0 231.0" stroke="#000"/>
+<path d="M288.0 231.0 L280.0 227.0 L280.0 235.0 Z" fill="#000" stroke="#000"/>
+<path d="M440.0 83.0 L480.0 83.0"/>
+<path d="M440.0 231.0 L480.0 231.0"/>
+<path d="M480.0 83.0 L480.0 231.0"/>
+<path d="M480.0 157.0 L528.0 157.0" stroke="#000"/>
+<path d="M528.0 157.0 L520.0 153.0 L520.0 161.0 Z" fill="#000" stroke="#000"/>
+</g>
+<text x="105" y="58" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">設備 1：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">228 kW</tspan></text>
+<text x="105" y="120" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">設備 2：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">127.50 kW</tspan></text>
+<text x="105" y="206" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">設備 3：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">200 kW</tspan></text>
+<text x="105" y="268" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">設備 4：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">122.50 kW</tspan></text>
+<text x="365" y="89" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">A：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">296.25 kW</tspan></text>
+<text x="365" y="237" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">B：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">230.36 kW</tspan></text>
+<text x="605" y="163" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">主：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">457.92 kW</tspan></text>
+<text x="259" y="55" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">÷ 1.2</tspan></text>
+<text x="259" y="203" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">÷ 1.4</tspan></text>
+<text x="505" y="127" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">÷ 1.15</tspan></text>
+<text x="350" y="318" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">尖峰需量逐層相加後除以該層參差因數；平均功率與電能不除參差因數</tspan></text>
+</svg>

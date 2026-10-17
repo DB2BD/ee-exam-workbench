@@ -64,5 +64,27 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "相量圖中電流相量整體平移以免與 V、E 重疊（文中已註明）；jX_dI_d 與 q 軸共線，平行偏移繪出。"
+ },
+ {
+  "qid": "EE-105-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯改寫（系統基準明示）；步驟1 加 P_m,A=P_L、P_m,B=0.5P_L；（一）RoCoF 加倍量化、H/P_m 相消說明、δcr−δ0 變小定性、變流器 LVRT/PLL；框改為乙案結論；驗算改為 t_cr 相同裕度下相等",
+  "figures": [
+   "EE-105-05-4-power-angle.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "user-approved: removed 0.71× t_cr claim。圖 EE-105-05-4-swing.svg（及產生器）刪除，改為功角曲線示意圖（P_max 降低→δ0 增大、δcr 減小）。tests 無 0.71 斷言。verification/pe/EE-105-05-4.py 仍斷言『同 P_m 下 t_cr 比 √0.5』（數學本身成立、PASS），依規範 8 未改，請主 session 決定是否同步調整前提。"
+ },
+ {
+  "qid": "EE-104-05-1",
+  "logic_added": true,
+  "steps_added": "frontmatter review_blocker/review_action 19.56→19.55 kV；選修：解題邏輯補略去 AT_R/ST_R 的等價理由、（二）邏輯改為 Δ–Y 接地寫法、條件與疑義第 2 點補 3.96／1.37 kA 分流式、圖 3 V_f = 1∠0° 同列",
+  "figures": [
+   "EE-104-05-1-slg.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "main-session decision: 19.56→19.55 kV（精算 19.5549）。未做選修：圖 2(a) 元件名、解題邏輯縮短。驗算腳本常數 34.83 未改（規範 8）。"
  }
 ]

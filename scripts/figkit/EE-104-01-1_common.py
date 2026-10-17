@@ -37,13 +37,13 @@ def circuit(mode):
     s += text(XA + 16, 236, [("n", "60 Ω")])
     s += text(380, YB - 14, [("n", "10 Ω")], anchor="middle")
     if rth:
-        s += text(20, 28, [("t", "求 "), ("v", "R"), ("vsub", "th"), ("t", "：9 V 短路、1.8 A 開路；5 Ω、25 Ω 與 "), ("v", "a"), ("t", "–"), ("v", "b"), ("t", " 間無通路")])
-        s += text(X0 - 12, 236, [("t", "9 V 短路")], anchor="end")
+        s += text(20, 28, [("t", "求 "), ("v", "R"), ("vsub", "th"), ("t", "："), ("n", "9 V"), ("t", " 短路、"), ("n", "1.8 A"), ("t", " 開路；"), ("n", "5 Ω、25 Ω"), ("t", " 與 "), ("v", "a"), ("t", "–"), ("v", "b"), ("t", " 間無通路")])
+        s += text(X0 - 12, 236, [("n", "9 V"), ("t", " 短路")], anchor="end")
         s += text(380, YM - 22, [("t", "1.8 A 開路")], anchor="middle")
         s += ttext(XT + 34, 236, [("v", "R"), ("vsub", "th")], anchor="middle", color=BLUE)
         s += f'<g fill="none" stroke="{BLUE}" stroke-width="1.5">' + arrow(XT + 34, 214, XT + 34, YM + 8, BLUE) + arrow(XT + 34, 244, XT + 34, YB - 8, BLUE) + '</g>\n'
     else:
-        s += text(20, 28, [("t", "開路（"), ("v", "a"), ("t", "、"), ("v", "b"), ("t", " 無外接）；9 V 負端為參考地")])
+        s += text(20, 28, [("t", "開路（"), ("v", "a"), ("t", "、"), ("v", "b"), ("t", " 無外接）；"), ("n", "9 V"), ("t", " 負端為參考地")])
         s += text(X0 - 24, 236, [("n", "9 V")], anchor="end")
         s += text(380, YM - 26, [("n", "1.8 A")], anchor="middle")
         s += ttext(XC + 8, YM + 24, [("v", "V"), ("vsub", "c")], color=BLUE)

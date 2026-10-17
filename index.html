@@ -2459,6 +2459,39 @@ select:focus {
   background: var(--bg);
 }
 
+/* Hand-drawn solution figures (v1.5.0): inline SVG, always black ink on white
+   (both themes), fonts shared with the KaTeX formulas and the solution text. */
+.solution-content img[src$=".svg"] {
+  max-width: min(100%, 720px);
+  background: #fff;
+}
+
+.sol-figure {
+  margin: 14px auto;
+  max-width: 720px;
+  text-align: center;
+}
+
+.sol-figure svg {
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  color: #000;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.sol-figure svg .v { font-family: KaTeX_Math, "Times New Roman", serif; font-style: italic; }
+.sol-figure svg .n { font-family: KaTeX_Main, "Times New Roman", serif; }
+.sol-figure svg .t { font-family: var(--font-main); }
+.sol-figure svg .sub { font-size: 75%; }
+
+.sol-figure figcaption {
+  margin-top: 6px;
+  font-size: .9rem;
+  color: var(--muted, var(--ink));
+}
+
 .image-load-fallback,
 .solution-image-fallback,
 .question-topic-image-fallback,
@@ -32077,7 +32110,7 @@ const RECALL_HINTS = {
   "activationMd": "先寫定義：各設備最高需量 \\(P_{max}=S\\times\\mathrm{PF}\\times f_D\\)；變壓器最小容量 \\(=\\dfrac{\\sum P_{max}}{\\text{設備間參差因數}}\\)，主變壓器再把兩台變壓器需量相加除以變壓器間參差因數。平均功率 \\(P_{avg}=P_{max}\\times f_L\\) 逐台相加（參差因數只用於尖峰）；題幹未給全月日數，先寫所取日數，再乘每日小時數與日數。"
  },
  "EE-112-06-3": {
-  "trapsMd": "- 串聯元件 MVA 直接相加；MVA 法串聯取倒數和。\n- F2、F3 用 11.4 kV 換算電流；應用故障點所在 380 V。\n- 線路 \\(0.0722\\,\\Omega\\) 未換成 \\(V^2/Z=2\\,\\mathrm{MVA}\\) 就與其他 MVA 合成。",
+  "trapsMd": "- 串聯元件 MVA 直接相加；MVA 法串聯取倒數和，且只串故障點上游元件（F1 只有電源 \\(200\\,\\mathrm{MVA}\\)，不含下游 T、L）。\n- F2、F3 用 11.4 kV 換算電流；應用故障點所在 380 V。\n- 線路 \\(0.0722\\,\\Omega\\) 未換成 \\(V^2/Z=2\\,\\mathrm{MVA}\\) 就與其他 MVA 合成。",
   "activationMd": "MVA 法：電源 \\(\\mathrm{MVA}_{src}=200\\)，變壓器 \\(\\mathrm{MVA}_T=\\dfrac{S_T}{Z\\%}\\)，串聯用 \\(\\dfrac{1}{\\mathrm{MVA}_{eq}}=\\sum\\dfrac{1}{\\mathrm{MVA}_i}\\)；線路 \\(0.0722\\,\\Omega\\) 先換成 \\(\\mathrm{MVA}_L=\\dfrac{V^2}{Z}\\)（380 V），斷路器電流 \\(I=\\dfrac{\\mathrm{MVA}_{sc}}{\\sqrt3V_{LL}}\\)，F1、F2、F3 各取對應電壓。"
  },
  "EE-112-06-4": {
@@ -35663,9 +35696,32 @@ function resolveImageMapUrl(src, isGK, qid) {
   return `${preferred || fallback || nationalFallback || path}${suffix}`;
 }
 
+/**
+ * v1.5.0: hand-drawn solution figures (`![圖 N：…](../figures/<name>.svg)`) are drawn
+ * inline so their <text> uses the same KaTeX / UI fonts as the solution text.
+ * FIGURE_SVG ({ basename: sanitized svg text }) comes from solutions-bundle.js; an
+ * image without an entry stays a normal <img>.
+ */
+function inlineSolutionFigures(html) {
+  if (!html || typeof html !== 'string' || typeof FIGURE_SVG === 'undefined' || !FIGURE_SVG) return html;
+  return html.replace(/(<p>\s*)?(<img\b[^>]*>)(\s*<\/p>)?/gi, (match, open, tag) => {
+    const srcMatch = /\bsrc\s*=\s*["']([^"']+)["']/i.exec(tag);
+    const figure = srcMatch && /(?:^|\/)figures\/([^\/?#]+\.svg)(?:[?#].*)?$/i.exec(srcMatch[1]);
+    if (!figure) return match;
+    let name = figure[1];
+    try { name = decodeURIComponent(name); } catch (_) { /* keep raw name */ }
+    const svg = Object.prototype.hasOwnProperty.call(FIGURE_SVG, name) ? FIGURE_SVG[name] : '';
+    if (!svg) return match;
+    const altMatch = /\balt\s*=\s*"([^"]*)"/i.exec(tag);
+    const caption = altMatch ? altMatch[1] : '';
+    return `<figure class="sol-figure">${svg}${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`;
+  });
+}
+
 /** Resolve every image emitted by marked.js, including images in card topics. */
 function resolveRenderedImageSources(html, isGK, qid) {
   if (!html || typeof html !== 'string') return html;
+  html = inlineSolutionFigures(html);
   return html.replace(/(\bsrc\s*=\s*["'])([^"']+)(["'])/gi, (match, prefix, src, suffix) => {
     return `${prefix}${resolveImageMapUrl(src, isGK, qid)}${suffix}`;
   });

@@ -967,7 +967,7 @@ const RECALL_HINTS = {
   "activationMd": "先寫定義：各設備最高需量 \\(P_{max}=S\\times\\mathrm{PF}\\times f_D\\)；變壓器最小容量 \\(=\\dfrac{\\sum P_{max}}{\\text{設備間參差因數}}\\)，主變壓器再把兩台變壓器需量相加除以變壓器間參差因數。平均功率 \\(P_{avg}=P_{max}\\times f_L\\) 逐台相加（參差因數只用於尖峰）；題幹未給全月日數，先寫所取日數，再乘每日小時數與日數。"
  },
  "EE-112-06-3": {
-  "trapsMd": "- 串聯元件 MVA 直接相加；MVA 法串聯取倒數和。\n- F2、F3 用 11.4 kV 換算電流；應用故障點所在 380 V。\n- 線路 \\(0.0722\\,\\Omega\\) 未換成 \\(V^2/Z=2\\,\\mathrm{MVA}\\) 就與其他 MVA 合成。",
+  "trapsMd": "- 串聯元件 MVA 直接相加；MVA 法串聯取倒數和，且只串故障點上游元件（F1 只有電源 \\(200\\,\\mathrm{MVA}\\)，不含下游 T、L）。\n- F2、F3 用 11.4 kV 換算電流；應用故障點所在 380 V。\n- 線路 \\(0.0722\\,\\Omega\\) 未換成 \\(V^2/Z=2\\,\\mathrm{MVA}\\) 就與其他 MVA 合成。",
   "activationMd": "MVA 法：電源 \\(\\mathrm{MVA}_{src}=200\\)，變壓器 \\(\\mathrm{MVA}_T=\\dfrac{S_T}{Z\\%}\\)，串聯用 \\(\\dfrac{1}{\\mathrm{MVA}_{eq}}=\\sum\\dfrac{1}{\\mathrm{MVA}_i}\\)；線路 \\(0.0722\\,\\Omega\\) 先換成 \\(\\mathrm{MVA}_L=\\dfrac{V^2}{Z}\\)（380 V），斷路器電流 \\(I=\\dfrac{\\mathrm{MVA}_{sc}}{\\sqrt3V_{LL}}\\)，F1、F2、F3 各取對應電壓。"
  },
  "EE-112-06-4": {

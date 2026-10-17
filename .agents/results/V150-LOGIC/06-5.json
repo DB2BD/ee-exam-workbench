@@ -1,0 +1,46 @@
+[
+ {
+  "qid": "EE-105-06-2",
+  "logic_added": true,
+  "steps_added": "步驟1 P_out=1492、S_rated=1492/0.774=1927.65、I_rated=1927.65/0.79674=2419.42、I_start=13306.81、I_b=3608.44、|I_pu|=3.6877、θ=-84.26°、0.36877-j3.6692；步驟2 X_sys=0.006、X_T=0.05＋等效電路；(一) jX_sysI=0.022015+j0.0022126、V=0.977985-j0.0022126、|V|=0.97799、∠-0.13°；(二) 0.20548+j0.020651、|V|=0.79479、∠-1.49°",
+  "figures": [
+   "EE-105-06-2-reactance.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "移除 ≥0.01 的科學記號；前提補 E=1∠0°、純電抗、CB/MS 阻抗忽略、定電流"
+ },
+ {
+  "qid": "EE-105-06-1",
+  "logic_added": true,
+  "steps_added": "步驟1 R_A=12.1、R_B=2.42；步驟2 M 點 KCL＋畫法；(一) V_M=0；(二) 電導 0.082645+0.41322+0.001=0.49687、右側 9.0909-45.455=-36.364、V_M=-73.186、V_AN=183.186、V_BN=-36.814",
+  "figures": [
+   "EE-105-06-1-open-neutral.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "驗算 KCL 改用實際方向 I_A+I_g=I_B"
+ },
+ {
+  "qid": "EE-104-06-4",
+  "logic_added": true,
+  "steps_added": "步驟1 S3φ=V²/Z1、S1φ=3V²/(Z1+Z2+Z0) 推導＋序網路圖；X1=519.84/448=1.1604；ΣX=1559.52/470=3.3181；X0=3.3181-2.3208=0.9973",
+  "figures": [
+   "EE-104-06-4-sequence.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "驗算改以 I_a0=3.9673 kA、I_f=11.902 kA 反推 470.02 MVA；標么交叉檢查改 4 位有效"
+ },
+ {
+  "qid": "EE-104-06-2",
+  "logic_added": true,
+  "steps_added": "步驟1 P_L=50、tan=0.32868、Q_L=16.434、P_M=100、Q_M=75；步驟2 P=150、Q=91.434、|S|=175.671、θ=31.36°；S_coin=159.701、S_sub=177.446",
+  "figures": [
+   "EE-104-06-2-demand-tree.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "needs_manual_review 與損失分母疑義原樣保留；保留 6 位有效（159.70/0.9 會得 177.44）；驗算／失分點的算術和上限 179.40 更正為 179.43（(52.632+125)/0.99），非答案值"
+ }
+]

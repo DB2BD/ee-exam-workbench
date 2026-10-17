@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360">
+<rect width="720" height="360" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="20" y="40" width="140" height="60"/>
+<rect x="240" y="40" width="180" height="60"/>
+<path d="M160.0 70.0 L238.0 70.0" stroke="#000"/>
+<path d="M238.0 70.0 L230.0 66.0 L230.0 74.0 Z" fill="#000" stroke="#000"/>
+<rect x="20" y="160" width="140" height="60"/>
+<rect x="240" y="160" width="180" height="60"/>
+<path d="M160.0 190.0 L238.0 190.0" stroke="#000"/>
+<path d="M238.0 190.0 L230.0 186.0 L230.0 194.0 Z" fill="#000" stroke="#000"/>
+<rect x="490" y="100" width="210" height="44"/>
+<rect x="490" y="200" width="210" height="44"/>
+<rect x="490" y="290" width="210" height="44"/>
+<path d="M420.0 70.0 L455.0 70.0"/>
+<path d="M420.0 190.0 L455.0 190.0"/>
+<path d="M455.0 70.0 L455.0 190.0"/>
+<path d="M455.0 122.0 L488.0 122.0" stroke="#000"/>
+<path d="M488.0 122.0 L480.0 118.0 L480.0 126.0 Z" fill="#000" stroke="#000"/>
+<path d="M595.0 144.0 L595.0 198.0" stroke="#000"/>
+<path d="M595.0 198.0 L599.0 190.0 L591.0 190.0 Z" fill="#000" stroke="#000"/>
+<path d="M595.0 244.0 L595.0 288.0" stroke="#000"/>
+<path d="M595.0 288.0 L599.0 280.0 L591.0 280.0 Z" fill="#000" stroke="#000"/>
+</g>
+<text x="90" y="64" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電燈</tspan></text>
+<text x="90" y="88" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">150 kW, PF 0.95</tspan></text>
+<text x="90" y="184" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">馬達</tspan></text>
+<text x="90" y="208" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">200 kW, PF 0.80</tspan></text>
+<text x="200" y="62" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">÷ </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">d</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 3</tspan></text>
+<text x="200" y="182" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">÷ </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">d</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 2</tspan></text>
+<text x="330" y="64" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 50 kW</tspan></text>
+<text x="330" y="88" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 16.434 kvar</tspan></text>
+<text x="330" y="184" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">M</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 100 kW</tspan></text>
+<text x="330" y="208" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">M</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 75 kvar</tspan></text>
+<text x="446" y="136" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">複數和</tspan></text>
+<text x="595" y="128" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">sum</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 175.671 kVA</tspan></text>
+<text x="595" y="228" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">coin</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 159.701 kVA</tspan></text>
+<text x="595" y="318" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">sub</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 177.45 kVA</tspan></text>
+<text x="605" y="176" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">÷ </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">d,LM</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1.1</tspan></text>
+<text x="605" y="272" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">÷ (1 − 0.10)</tspan></text>
+<text x="250" y="270" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">sum</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 150 kW</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">，</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">sum</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 91.434 kvar</tspan></text>
+<text x="250" y="296" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">功因不同：kW、kvar 分別相加後取 |</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">|</tspan></text>
+<text x="250" y="322" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">需量因數皆 100%</tspan></text>
+</svg>

@@ -1,0 +1,36 @@
+[
+ {
+  "qid": "EE-105-02-4",
+  "logic_added": true,
+  "steps_added": "步驟 1 各分量 rms 與總 rms；（一）～（四）各加邏輯，P 分頻率配對逐行、S 精確根式、DF/THD 平方比逐行",
+  "figures": [
+   "EE-105-02-4-spectrum.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "PF 框值由 6.36×10^{-1} 改寫為 0.64（數值同 0.6360，僅格式）；THD 含直流 92.42% 為答，IEEE 不含直流 41.67% 列為附註"
+ },
+ {
+  "qid": "EE-105-02-3",
+  "logic_added": true,
+  "steps_added": "步驟 1 線性增益與 V_x/V_y 分壓式；（一）（二）膝點逐行（-19.625 精確）；（三）兩節點 KCL 乘 60 kΩ 化整數式 61v_O=-297.5",
+  "figures": [
+   "EE-105-02-3-states.svg",
+   "EE-105-02-3-transfer.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "R_x=R1||RF 為偏壓補償電阻，於解題邏輯說明不影響計算；保留條件與疑義（硬箝位讀法 -4.63）"
+ },
+ {
+  "qid": "EE-104-02-3",
+  "logic_added": true,
+  "steps_added": "步驟 1 導通表與波形；步驟 2 V_m 與單一脈波；步驟 3 I_o,rms 脈波積分逐行；（一）～（六）各加邏輯與逐行代入",
+  "figures": [
+   "EE-104-02-3-waveforms.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "驗算段修正原文「不能僅憑導通時間比例」語意（I_o 與 I_o,rms 數值碰巧接近）"
+ }
+]

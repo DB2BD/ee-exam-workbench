@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 346" width="560" height="346">
+<rect width="560" height="346" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M60.0 260.0 L231.6 260.0"/>
+<path d="M231.6 260.0 L231.6 59.4"/>
+<path d="M60.0 260.0 L231.6 59.4"/>
+<path d="M60 260 L231.6 203.6" stroke="#1f5fa8" stroke-dasharray="6 4"/>
+<path d="M239.6 59.4 L239.6 203.6" stroke="#1f5fa8"/>
+<path d="M239.6 203.6 L243.6 195.6 L235.6 195.6 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<circle cx="231.6" cy="203.5986" r="2.6" fill="#000" stroke="none"/>
+<circle cx="231.6" cy="59.3776" r="2.6" fill="#000" stroke="none"/>
+</g>
+<text x="145.8" y="282" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 780 kW</tspan></text>
+<text x="247.6" y="65.3776" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 911.92 kvar</tspan></text>
+<text x="247.6" y="137.4881" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">c</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 655.55 kvar</tspan></text>
+<text x="247.6" y="209.5986" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 256.37 kvar</tspan></text>
+<text x="106" y="252" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan></text>
+<text x="90" y="230" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan></text>
+<text x="280" y="310" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">cos </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 0.65 → cos </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 0.95</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（落後）</tspan></text>
+<text x="280" y="334" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">黑：原負載；藍虛線：並聯電容器後</tspan></text>
+</svg>

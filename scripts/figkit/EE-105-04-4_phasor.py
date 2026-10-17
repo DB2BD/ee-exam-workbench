@@ -14,8 +14,10 @@ i1 = (ox + ki * 0.8, oy - ki * 0.6)        # I_a1 = 1 /+36.87
 i2 = (ox + ki * 0.8, oy)                   # I_a2 = 0.8 /0
 s = header(W, H)
 s += col(arrow(ox, oy, vx, oy), BLUE)
-s += col(arrow(vx, oy, *e1), BLUE) + col(arrow(ox, oy, *e1), BLUE)
-s += col(dashed(arrow(vx, oy, *e2)), BLUE) + col(dashed(arrow(ox, oy, *e2)), BLUE)
+def short(p, q, d=4):                       # stop an arrow a few px before a shared tip so heads do not merge
+    L = math.hypot(q[0] - p[0], q[1] - p[1]); return (q[0] - d * (q[0] - p[0]) / L, q[1] - d * (q[1] - p[1]) / L)
+s += col(arrow(vx, oy, *short((vx, oy), e1, 10)), BLUE) + col(arrow(ox, oy, *e1), BLUE)
+s += col(dashed(arrow(vx, oy, *short((vx, oy), e2, 10))), BLUE) + col(dashed(arrow(ox, oy, *e2)), BLUE)
 s += col(arrow(ox, oy, *i1), RED)
 s += col(arrow(ox, oy - 5, i2[0], oy - 5), RED)
 # loci
@@ -25,12 +27,12 @@ s += f'<path d="M{i1[0]} {i1[1] - 25} L{i1[0]} {oy + 20}" stroke-dasharray="2 4"
 phi = math.atan2(0.6, 0.8)
 s += f'<path d="M{ox + 45} {oy} A45 45 0 0 0 {ox + 45 * math.cos(phi):.1f} {oy - 45 * math.sin(phi):.1f}"/>\n'
 d1 = math.atan2(0.8, 1.6); d2 = math.atan2(0.8, 1.0)
-R1, R2 = 115, 70
+R1, R2 = 115, 58
 s += f'<path d="M{ox + R1} {oy} A{R1} {R1} 0 0 1 {ox + R1 * math.cos(d1):.1f} {oy + R1 * math.sin(d1):.1f}"/>\n'
 s += f'<path d="M{ox + R2} {oy} A{R2} {R2} 0 0 1 {ox + R2 * math.cos(d2):.1f} {oy + R2 * math.sin(d2):.1f}"/>\n'
 s += dot(ox, oy)
 s += end_group()
-s += text(20, 26, [("t", "實線：PF 0.8 超前（原狀態）；虛線：PF 1（減小 "), ("v", "I"), ("vsub", "f"), ("t", " 後）")])
+s += text(20, 26, [("t", "實線：PF 0.8 超前（原狀態）；虛線：PF 1（調整 "), ("v", "I"), ("vsub", "f"), ("t", " 後）")])
 s += text(ox - 8, oy + 6, [("v", "O")], anchor="end")
 s += ctext(BLUE, vx + 10, oy - 8, [("v", "V"), ("vsub", "ϕ"), ("t", "（參考）")])
 s += ctext(RED, i1[0] - 12, i1[1] - 6, [("v", "I"), ("vsub", "a"), ("sub", "1")], anchor="end")

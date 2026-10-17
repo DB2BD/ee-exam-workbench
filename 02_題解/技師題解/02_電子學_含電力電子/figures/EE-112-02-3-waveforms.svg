@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="Helvetica, Arial, sans-serif" font-size="15">
+  <rect x="0" y="0" width="720" height="480" rx="12" fill="#ffffff"/>
+  <!-- time markers -->
+  <g stroke="#999" stroke-width="1" stroke-dasharray="5 4">
+    <line x1="434" y1="40" x2="434" y2="440"/>
+    <line x1="650" y1="40" x2="650" y2="440"/>
+  </g>
+  <!-- axes -->
+  <g stroke="#111" stroke-width="1.5" fill="none">
+    <line x1="110" y1="30" x2="110" y2="150"/>
+    <line x1="110" y1="95" x2="680" y2="95"/>
+    <line x1="110" y1="170" x2="110" y2="310"/>
+    <line x1="110" y1="300" x2="680" y2="300"/>
+    <line x1="110" y1="340" x2="110" y2="440"/>
+    <line x1="110" y1="410" x2="680" y2="410"/>
+  </g>
+  <!-- vL -->
+  <polyline points="110,65 434,65 434,140 650,140" stroke="#111" stroke-width="2.5" fill="none"/>
+  <!-- iL -->
+  <line x1="110" y1="228" x2="650" y2="228" stroke="#555" stroke-width="1.5" stroke-dasharray="7 4"/>
+  <polyline points="110,271.2 434,184.8 650,271.2" stroke="#111" stroke-width="2.5" fill="none"/>
+  <!-- iC -->
+  <rect x="110" y="410" width="324" height="18" fill="#f2c4bf"/>
+  <polyline points="110,428 434,428 434,356 650,410" stroke="#111" stroke-width="2.5" fill="none"/>
+  <!-- ripple arrow -->
+  <g stroke="#c0392b" stroke-width="2" fill="#c0392b">
+    <line x1="700" y1="196" x2="700" y2="260"/>
+    <polygon points="694,198 706,198 700,186" stroke="none"/>
+    <polygon points="694,258 706,258 700,270" stroke="none"/>
+  </g>
+  <g stroke="#555" stroke-width="1" stroke-dasharray="3 3">
+    <line x1="434" y1="184.8" x2="708" y2="184.8"/>
+    <line x1="650" y1="271.2" x2="708" y2="271.2"/>
+  </g>
+  <g fill="#111">
+    <text x="20" y="100" font-weight="bold">vL</text>
+    <text x="104" y="70" text-anchor="end">24 V</text>
+    <text x="104" y="145" text-anchor="end">−36 V</text>
+    <text x="104" y="100" text-anchor="end">0</text>
+    <text x="200" y="58">+Vs（Q 導通）</text>
+    <text x="480" y="133">−Vo（D 導通）</text>
+
+    <text x="20" y="232" font-weight="bold">iL</text>
+    <text x="104" y="190" text-anchor="end">14.40 A</text>
+    <text x="104" y="233" text-anchor="end">9 A</text>
+    <text x="104" y="276" text-anchor="end">3.60 A</text>
+    <text x="104" y="305" text-anchor="end">0</text>
+    <text x="180" y="221">平均 IL = 9 A</text>
+    <text x="470" y="292">谷值 0.4IL = 3.60 A</text>
+
+    <text x="20" y="400" font-weight="bold">iC</text>
+    <text x="104" y="361" text-anchor="end">10.80 A</text>
+    <text x="104" y="415" text-anchor="end">0</text>
+    <text x="104" y="434" text-anchor="end">−3.60 A</text>
+    <text x="170" y="400">放電 Q = Io·DTs</text>
+    <text x="560" y="358">iL − Io</text>
+
+    <text x="110" y="462" text-anchor="middle">0</text>
+    <text x="434" y="462" text-anchor="middle">DTs = 6 μs</text>
+    <text x="650" y="462" text-anchor="middle">Ts = 10 μs</text>
+  </g>
+  <text x="708" y="176" text-anchor="end" fill="#c0392b">ΔiL = 10.80 A</text>
+</svg>

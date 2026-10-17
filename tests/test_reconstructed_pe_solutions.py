@@ -1578,7 +1578,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         gparam_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-5.md").read_text(encoding="utf-8")
         for note in (mutual_104, transient_104, gparam_104):
             self.assertIn("audit_status: verified", note)
-        self.assertIn("6.63\\times10^{-1}", mutual_104)
+        self.assertIn("k=\\frac{13}{8\\sqrt6}\\approx0.66", mutual_104)
         self.assertIn("(s+100)^2", transient_104)
         self.assertIn("0.04 - j0.02", gparam_104)
 

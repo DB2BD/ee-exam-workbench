@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" font-family="Helvetica, Arial, sans-serif" font-size="15">
+  <rect x="0" y="0" width="640" height="360" rx="12" fill="#ffffff"/>
+  <defs>
+    <g id="zb">
+      <line x1="0" y1="0" x2="85" y2="0"/>
+      <rect x="85" y="-12" width="90" height="24" fill="#fff"/>
+      <line x1="175" y1="0" x2="260" y2="0"/>
+    </g>
+  </defs>
+  <g stroke="#111" stroke-width="2" fill="none">
+    <use href="#zb" transform="translate(420,60) rotate(120)"/>
+    <use href="#zb" transform="translate(290,285)"/>
+    <use href="#zb" transform="translate(550,285) rotate(-120)"/>
+    <line x1="64" y1="60" x2="420" y2="60"/>
+    <line x1="64" y1="285" x2="290" y2="285"/>
+    <line x1="550" y1="285" x2="550" y2="330"/>
+    <line x1="550" y1="330" x2="64" y2="330"/>
+    <circle cx="60" cy="60" r="4" fill="#fff"/>
+    <circle cx="60" cy="285" r="4" fill="#fff"/>
+    <circle cx="60" cy="330" r="4" fill="#fff"/>
+  </g>
+  <g fill="#111">
+    <circle cx="420" cy="60" r="4"/>
+    <circle cx="290" cy="285" r="4"/>
+    <circle cx="550" cy="285" r="4"/>
+    <text x="36" y="65">a</text>
+    <text x="36" y="290">b</text>
+    <text x="36" y="335">c</text>
+    <text x="318" y="160" text-anchor="end">Z_φ =</text>
+    <text x="318" y="180" text-anchor="end">1 + j1 Ω</text>
+    <text x="420" y="314" text-anchor="middle">Z_φ = 1 + j1 Ω</text>
+    <text x="522" y="160">Z_φ =</text>
+    <text x="522" y="180">1 + j1 Ω</text>
+    <text x="420" y="214" text-anchor="middle" font-size="14">Z_φ = R + jω(L − M)</text>
+    <text x="420" y="234" text-anchor="middle" font-size="14">= √2∠45° Ω</text>
+    <text x="78" y="180">無互感等效 Δ</text>
+  </g>
+  <g fill="#c0392b">
+    <polygon points="0,-6 0,6 12,0" transform="translate(420,60) rotate(120) translate(236,0)"/>
+    <polygon points="0,-6 0,6 12,0" transform="translate(290,285) translate(236,0)"/>
+    <polygon points="0,-6 0,6 12,0" transform="translate(550,285) rotate(-120) translate(236,0)"/>
+    <line x1="200" y1="60" x2="236" y2="60" stroke="#c0392b" stroke-width="2"/>
+    <polygon points="232,54 232,66 244,60"/>
+    <text x="214" y="48">I_a</text>
+    <text x="282" y="256" text-anchor="end">I_ab</text>
+    <text x="528" y="306" text-anchor="middle">I_bc</text>
+    <text x="452" y="76">I_ca</text>
+  </g>
+</svg>

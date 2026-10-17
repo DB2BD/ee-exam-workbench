@@ -1,0 +1,8 @@
+[
+  {"qid": "EE-108-03-6", "logic_added": true, "steps_added": "解題邏輯（分布未知、只用線性性質）；（一）展開 X(X-4)、拆期望值、代入、移項各一行；（二）E[aX+b] 公式→代入→結果；（三）Var(X)=E[X^2]-E[X]^2 兩行、(-4)^2=16、16×9=144、開根號", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": "子題標題補配分；保留測試字串 Var(-4X+10)=(-4)^2Var(X)=144 為總結行；框內改寫為 σ_{-4X+10}=12（值不變）"},
+  {"qid": "EE-108-03-4", "logic_added": true, "steps_added": "移除 compact（10 分）；補已知與所求；解題邏輯（散度定理條件）；步驟 1 散度；球體積、常數提出、3·4π/3 各一行", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": "常數散度×球體積，不需圖"},
+  {"qid": "EE-108-03-3", "logic_added": true, "steps_added": "解題邏輯；（一）三個偏導數各一行（其餘變數視為常數）、組梯度、代點；（二）方向向量、長度、單位化、內積逐項、相減各一行", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": "觀念段改為 **邏輯**；子題標題補配分"},
+  {"qid": "EE-107-03-5", "logic_added": true, "steps_added": "解題邏輯（隨機抽取前提、放回獨立→二項、不放回→超幾何）；步驟 1 N/K/n、p、q、x 範圍；放回：單一順序乘法律→C(3,x) 排法相加；不放回：C(20,3)=6840/6=1140、乘法原理有利組合", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": "保留全部測試字串（任意 x、驗算示例、x∉{0,1,2,3} 時均為 0）"},
+  {"qid": "EE-107-03-3", "logic_added": true, "steps_added": "解題邏輯（封閉面讀法、補頂蓋）；步驟 1 幾何與外法向（圖 1）；步驟 2 頂蓋通量共用；（一）參數化、r_r/r_θ、外積三分量各一行、取外向反序、F 三分量、內積、三個 θ 積分各一行、對 r 積分；（二）散度三項、柱座標、cosθ 項為 0、z/r/θ 三層各一行、扣頂蓋", "figures": ["EE-107-03-3-cone.svg"], "test_string_updates": [], "suspected_answer_issue": "", "notes": "（二）框內寫 16π-0=16π 以避開 boxed-duplicate；（一）標題由「面積分（側面）」改為「面積分」，無錨點依賴"},
+  {"qid": "EE-106-03-8", "logic_added": true, "steps_added": "移除 compact（10 分）；補已知與所求；解題邏輯（等機率前提、先平方再平均）；步驟 1 分布；平方和公式→代入→2310/6=385→38.5π→38.5×3.1416=120.95", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": ""}
+]

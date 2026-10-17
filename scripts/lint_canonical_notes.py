@@ -6,10 +6,18 @@ Notes migrated to the lean template (frontmatter ``template: lean-v1``) are
 additionally held to the section, metadata and redundancy rules of
 the lean-v1 題解版型 (internal work record, unpublished).
 
+v1.5.0 solution-logic rules (switchable, ``--require-logic``): a non-compact
+note needs a ``**解題邏輯**：`` paragraph before its first ### heading in
+「考場標準作答」, every scored sub-question heading（（一）… with 「N 分」）needs a
+``**邏輯**：`` line, and ``compact: true`` is allowed only when the total marks
+are <= 5 (this replaces the legacy 700-character rule).  The default is
+``REQUIRE_LOGIC_DEFAULT``; flip it once every note has been rewritten.
+
 Usage::
 
     python3 scripts/lint_canonical_notes.py              # summary of all notes
     python3 scripts/lint_canonical_notes.py --strict     # fail on any lean-v1 violation
+    python3 scripts/lint_canonical_notes.py EE-106-05-2 --strict --require-logic
     python3 scripts/lint_canonical_notes.py EE-114-05-3 --json
 """
 
@@ -32,6 +40,12 @@ REQUIRED_SECTIONS = ("已知與所求", "考場標準作答", "驗算", "失分�
 COMPACT_SECTIONS = ("考場標準作答", "驗算")
 COMPACT_MAX_POINTS = 10
 COMPACT_MAX_CHARS = 700
+# v1.5.0: with --require-logic compact is only for questions worth <= 5 marks.
+COMPACT_LOGIC_MAX_POINTS = 5
+REQUIRE_LOGIC_DEFAULT = False
+LOGIC_OVERALL = "**解題邏輯**："
+LOGIC_SUB = "**邏輯**："
+SCORED_HEADING = re.compile(r"^(#{3,4})\s+(\*{0,2}\s*[（(]\s*([一二三四五六七八九十])\s*[）)][^\n]*?[（(]\s*\d+\s*分\s*[）)][^\n]*)$", re.M)
 OPTIONAL_SECTIONS = ("條件與疑義", "計算機按法")
 REQUIRED_FRONTMATTER = ("qid", "year", "subject", "audit_status", "verified_at", "method", "source_crop")
 # Audit history belongs to frontmatter / data/pe-solution-audit.json, not the
@@ -97,7 +111,37 @@ def sections(body: str) -> list[str]:
     return [heading.strip() for heading in re.findall(r"^##\s+(.+?)\s*$", body, re.M)]
 
 
-def lint(path: Path, stem: str) -> dict:
+def standard_answer(body: str) -> str:
+    match = re.search(r"^##\s+考場標準作答\s*$(.*?)(?=^##\s|\Z)", body, re.M | re.S)
+    return match.group(1) if match else ""
+
+
+def logic_errors(body: str) -> list[str]:
+    """v1.5.0 rules for a non-compact note: overall 解題邏輯 and per-sub-question 邏輯."""
+
+    section = strip_code(standard_answer(body))
+    errors: list[str] = []
+    first_heading = re.search(r"^#{3,4}\s", section, re.M)
+    lead = section[:first_heading.start()] if first_heading else section
+    if LOGIC_OVERALL not in lead:
+        errors.append("no-logic:解題邏輯")
+    heads = list(re.finditer(r"^(#{3,4})\s+(.+?)\s*$", section, re.M))
+    for index, match in enumerate(heads):
+        scored = SCORED_HEADING.match(match.group(0))
+        if not scored:
+            continue
+        level = len(match.group(1))
+        end = len(section)
+        for later in heads[index + 1:]:
+            if len(later.group(1)) <= level:
+                end = later.start()
+                break
+        if LOGIC_SUB not in section[match.end():end]:
+            errors.append(f"no-logic:（{scored.group(3)}）")
+    return errors
+
+
+def lint(path: Path, stem: str, require_logic: bool = REQUIRE_LOGIC_DEFAULT) -> dict:
     text = path.read_text(encoding="utf-8")
     fields, body = frontmatter(text)
     prose = strip_code(body)
@@ -138,8 +182,13 @@ def lint(path: Path, stem: str) -> dict:
         compact = fields.get("compact") == "true"
         if compact:
             points = total_points(stem)
-            if points > COMPACT_MAX_POINTS and len(body.strip()) > COMPACT_MAX_CHARS:
+            if require_logic:
+                if points > COMPACT_LOGIC_MAX_POINTS:
+                    errors.append(f"compact-not-allowed:{points}分")
+            elif points > COMPACT_MAX_POINTS and len(body.strip()) > COMPACT_MAX_CHARS:
                 errors.append(f"compact-not-allowed:{points}分")
+        if require_logic and not compact:
+            errors.extend(logic_errors(body))
         for heading in COMPACT_SECTIONS if compact else REQUIRED_SECTIONS:
             if heading not in found:
                 errors.append(f"section-missing:{heading}")
@@ -189,10 +238,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("qids", nargs="*", help="limit to these QIDs")
     parser.add_argument("--strict", action="store_true", help="exit 1 when any checked note has an error")
     parser.add_argument("--json", action="store_true", help="print per-note results as JSON")
+    parser.add_argument("--require-logic", dest="require_logic", action="store_true", default=REQUIRE_LOGIC_DEFAULT,
+                        help="enforce the v1.5.0 解題邏輯／邏輯 rules and the <=5 mark compact limit")
+    parser.add_argument("--no-require-logic", dest="require_logic", action="store_false",
+                        help="disable the v1.5.0 solution-logic rules")
     args = parser.parse_args(argv)
 
     stem_map = stems()
-    results = [lint(path, stem_map.get(path.stem, "")) for path in canonical_paths(args.qids)]
+    results = [lint(path, stem_map.get(path.stem, ""), args.require_logic) for path in canonical_paths(args.qids)]
     if args.json:
         print(json.dumps(results, ensure_ascii=False, indent=2))
     else:

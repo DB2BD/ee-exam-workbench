@@ -1636,7 +1636,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", gs_105)
         self.assertIn("0.91", gs_105)
         self.assertIn("0.92", gs_105)
-        self.assertIn("(9.05-j1.25)\\times10^{-1}", gs_105)
+        self.assertIn("0.90493-j0.12477", gs_105)
 
         penalty_105 = (CANONICAL / "05_電力系統" / "canonical" / "EE-105-05-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", penalty_105)

@@ -1,0 +1,35 @@
+"""EE-108-04-3 fig 1: exact per-phase equivalent circuit (stator side), s = 0.02; Z_p = Z_2' || jX_phi."""
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from svgkit import *
+def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"')
+W, H = 700, 330; YT, YB = 70, 270; XS, XN, XR = 80, 350, 590
+s = header(W, H)
+s += line(XS, YT, XS, 152) + ac_source(XS, 170, r=18) + line(XS, 188, XS, YB)
+s += line(XS, YT, 120, YT) + resistor(120, YT, 190, YT) + line(190, YT, 205, YT) + coil(205, YT, 285, YT, turns=4) + line(285, YT, XN, YT)
+s += line(XN, YT, 420, YT) + coil(420, YT, 490, YT, turns=4) + line(490, YT, XR, YT)
+s += line(XN, YT, XN, 135) + coil(XN, 135, XN, 205, turns=4) + line(XN, 205, XN, YB)       # jX_phi
+s += line(XR, YT, XR, 130) + resistor(XR, 130, XR, 210) + line(XR, 210, XR, YB)            # R2'/s
+s += line(XS, YB, XR, YB)
+s += dot(XN, YT) + dot(XN, YB)
+s += f'<rect x="{XN - 14}" y="{YT - 50}" width="{XR - XN + 109}" height="{YB - YT + 66}" stroke-dasharray="6 4" stroke-width="1"/>\n'
+s += arrow(130, YT + 22, 180, YT + 22, color=RED)
+s += arrow(510, YT + 22, 560, YT + 22, color=RED)
+s += end_group()
+s += text(XS - 26, 158, [("n", "+")], anchor="middle")
+s += text(XS - 26, 198, [("n", "−")], anchor="middle")
+s += ctext(BLUE, XS + 26, 164, [("v", "V"), ("vsub", "ϕ")])
+s += ctext(BLUE, XS + 26, 186, [("n", "= 127.0171 V")])
+s += text(155, 44, [("v", "R"), ("sub", "1"), ("n", " = 0.29 Ω")], anchor="middle")
+s += text(260, 44, [("v", "jX"), ("sub", "1"), ("n", " = "), ("v", "j"), ("n", "0.5 Ω")], anchor="middle")
+s += text(455, 44, [("v", "jX"), ("sub", "2"), ("n", "′ = "), ("v", "j"), ("n", "0.21 Ω")], anchor="middle")
+s += ctext(RED, 155, YT + 46, [("v", "I"), ("sub", "1")], anchor="middle")
+s += ctext(RED, 535, YT + 46, [("v", "I"), ("sub", "2"), ("n", "′")], anchor="middle")
+s += text(XN + 16, 166, [("v", "jX"), ("vsub", "ϕ")])
+s += text(XN + 16, 188, [("n", "= "), ("v", "j"), ("n", "13.25 Ω")])
+s += text(XR + 16, 164, [("v", "R"), ("sub", "2"), ("n", "′/"), ("v", "s")])
+s += text(XR + 16, 186, [("n", "= 7.20 Ω")])
+s += text(XN - 22, YB + 34, [("t", "虛線框："), ("v", "Z"), ("vsub", "p"), ("t", "（"), ("v", "Z"), ("sub", "2"), ("n", "′"), ("t", " 與 "), ("v", "jX"), ("vsub", "ϕ"), ("t", " 並聯）")])
+s += text(XS + 120, YB + 34, [("v", "s"), ("n", " = 0.02")], anchor="middle")
+s += footer()
+open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/04_電機機械/figures/EE-108-04-3-equivalent-circuit.svg'), 'w').write(s)
+print(len(s))

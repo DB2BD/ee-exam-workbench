@@ -310,8 +310,8 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("外接軸負載轉矩", note)
         self.assertIn("空載損失轉矩近似不變", note)
-        self.assertIn(r"I_a=4+\frac{100}{1.89}=56.89", standard)
-        self.assertIn(r"n=1000\frac{171.56}{198}=866.44", standard)
+        self.assertIn(r"I_a=\frac{T_e}{K\Phi}=\frac{107.56304}{1.89076}=56.8888", standard)
+        self.assertIn(r"n=n_0\frac{E_a}{E_{a0}}=1000\frac{171.5556}{198}=866.44", standard)
         self.assertIn("52.89", standard)
         self.assertIn("不能單獨推出其在所有轉速的函數", note)
         self.assertIn("原 106 年外接軸負載題因缺旋轉損失模型", self.path_doc)

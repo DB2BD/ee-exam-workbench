@@ -18,13 +18,13 @@ ph = math.atan2(-I[1], I[0]); r2 = 70
 s += f'<path d="M{ox + r2} {oy} A{r2} {r2} 0 0 1 {ox + r2 * math.cos(ph):.1f} {oy + r2 * math.sin(ph):.1f}"/>\n'
 s += end_group()
 s += text(ox - 6, oy - 8, [("v", "O")], anchor="end")
-s += ctext(BLUE, v[0], oy - 12, [("v", "V"), ("vsub", "ϕ"), ("n", " = 219.39∠0° V")], anchor="middle")
+s += ctext(BLUE, v[0], oy - 12, [("v", "V"), ("vsub", "ϕ"), ("n", " = 219.3931∠0° V")], anchor="middle")
 s += ctext(BLUE, e[0] - 14, e[1] + 28, [("v", "E"), ("vsub", "a"), ("n", " = 178.70∠−47.71° V")], anchor="middle")
 mx, my = (e[0] + v[0]) / 2, (e[1] + v[1]) / 2
 s += ctext(BLUE, mx + 18, my + 10, [("v", "jX"), ("vsub", "s"), ("v", "I"), ("vsub", "a"), ("n", " = 165.23∠53.13° V")])
 s += ctext(RED, i[0] + 8, i[1] + 4, [("v", "I"), ("vsub", "a"), ("n", " = 28.49")])
 s += ctext(RED, i[0] + 8, i[1] + 24, [("n", "∠−36.87° A")])
-s += text(ox + r2 + 4, oy + 22, [("n", "36.87°")])
+s += text(ox + r2 + 4, oy + 22, [("v", "φ"), ("n", " = 36.87°")])
 s += text(ox + 152, oy + 58, [("v", "δ"), ("n", " = −47.71°")])
 s += text(W / 2, H - 14, [("t", "電動機："), ("v", "V"), ("vsub", "ϕ"), ("n", " = "), ("v", "E"), ("vsub", "a"), ("n", " + "), ("v", "jX"), ("vsub", "s"), ("v", "I"), ("vsub", "a"), ("t", "（電壓、電流各自依比例）")], anchor="middle")
 s += footer()

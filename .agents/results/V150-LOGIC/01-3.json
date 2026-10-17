@@ -78,5 +78,27 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "review fix"
+ },
+ {
+  "qid": "EE-104-01-2",
+  "logic_added": true,
+  "steps_added": "必修：反射阻抗乘開 (ωM)²(5−j12)/169=5(ωM)²/169−j12(ωM)²/169 一行，再寫「加上 20+j50」合併；選做：圖耦合標籤改 M 並註明互阻抗取 −jωM、jωL 標籤移到線圈旁、電容標籤改 −j/(ωC)=−j20 Ω 且 viewBox 加寬到 700",
+  "figures": [
+   "EE-104-01-2-coupled.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix (01-3-review)"
+ },
+ {
+  "qid": "EE-105-01-4",
+  "logic_added": true,
+  "steps_added": "選做：步驟 1、2 定義 φ（原負載功因角）、θ（目標功因角）；圖斜邊標 S = 24 MVA",
+  "figures": [
+   "EE-105-01-4-power-triangle.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix (01-3-review)；驗算腳本斷言常數 48.62e-6 未改（規則 8，容差內 PASS）"
  }
 ]

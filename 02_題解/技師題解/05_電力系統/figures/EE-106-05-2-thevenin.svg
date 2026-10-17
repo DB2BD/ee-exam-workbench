@@ -1,33 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 210" font-family="Helvetica, Arial, sans-serif" font-size="15">
-  <rect x="0" y="0" width="520" height="210" rx="12" fill="#ffffff"/>
-  <g stroke="#111" stroke-width="2" fill="none">
-    <circle cx="80" cy="110" r="26"/>
-    <line x1="80" y1="84" x2="80" y2="50"/>
-    <line x1="80" y1="50" x2="170" y2="50"/>
-    <rect x="170" y="38" width="90" height="24" fill="#fff"/>
-    <line x1="260" y1="50" x2="340" y2="50"/>
-    <line x1="340" y1="50" x2="400" y2="50"/>
-    <line x1="400" y1="50" x2="400" y2="75"/>
-    <rect x="388" y="75" width="24" height="60" fill="#fff"/>
-    <line x1="400" y1="135" x2="400" y2="170"/>
-    <line x1="80" y1="136" x2="80" y2="170"/>
-    <line x1="80" y1="170" x2="400" y2="170"/>
-  </g>
-  <circle cx="340" cy="50" r="4" fill="#111"/>
-  <g fill="#111">
-    <text x="68" y="106">+</text>
-    <text x="70" y="124">−</text>
-    <text x="18" y="104">V(0)</text>
-    <text x="18" y="122">1∠0°</text>
-    <text x="180" y="32">Z11 = j0.16</text>
-    <text x="324" y="34">Bus 1</text>
-    <text x="420" y="102">Z_f</text>
-    <text x="420" y="120">j0.11</text>
-  </g>
-  <g stroke="#c0392b" stroke-width="2" fill="#c0392b">
-    <line x1="290" y1="66" x2="330" y2="66"/>
-    <polygon points="326,60 326,72 338,66" stroke="none"/>
-  </g>
-  <text x="292" y="88" fill="#c0392b">I_f</text>
-  <text x="150" y="196" fill="#111">I_f = V(0) / (Z11 + Z_f)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 240" width="520" height="240">
+<rect width="520" height="240" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="90" cy="120" r="20"/>
+<path d="M85.0 111.0 L95.0 111.0"/>
+<path d="M90.0 106.0 L90.0 116.0"/>
+<path d="M85.0 129.0 L95.0 129.0"/>
+<path d="M90.0 100.0 L90.0 60.0"/>
+<path d="M90.0 60.0 L170.0 60.0"/>
+<path transform="translate(170.0 60.0) rotate(0.00)" d="M0 0 L27.5 0 A6.5 6.5 0 0 1 40.5 0 A6.5 6.5 0 0 1 53.5 0 A6.5 6.5 0 0 1 66.5 0 A6.5 6.5 0 0 1 79.5 0 A6.5 6.5 0 0 1 92.5 0 L120.0 0"/>
+<path d="M290.0 60.0 L420.0 60.0"/>
+<path d="M420.0 60.0 L420.0 85.0"/>
+<path transform="translate(420.0 85.0) rotate(90.00)" d="M0 0 L9.0 0 A6.5 6.5 0 0 1 22.0 0 A6.5 6.5 0 0 1 35.0 0 A6.5 6.5 0 0 1 48.0 0 A6.5 6.5 0 0 1 61.0 0 L70.0 0"/>
+<path d="M420.0 155.0 L420.0 180.0"/>
+<path d="M420.0 180.0 L90.0 180.0"/>
+<path d="M90.0 180.0 L90.0 140.0"/>
+<circle cx="360" cy="60" r="2.6" fill="#000" stroke="none"/>
+<g stroke="#c0392b"><path d="M298.0 60.0 L334.0 60.0"/>
+<path d="M334.0 60.0 L326.0 56.0 L326.0 64.0 Z" fill="#c0392b"/>
+</g>
+</g>
+<text x="60" y="116" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(0)</tspan></text>
+<text x="60" y="136" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1∠0°</tspan></text>
+<text x="230" y="44" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">11</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.16</tspan></text>
+<text x="360" y="46" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Bus 1</tspan></text>
+<text x="316" y="84" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="446" y="110" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="446" y="138" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.11</tspan></text>
+<text x="255" y="216" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">  = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(0) / (</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">11</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> + </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> )</tspan></text>
 </svg>

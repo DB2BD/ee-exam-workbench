@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" width="680" height="420">
+<rect width="680" height="420" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M350 205 A150 150 0 1 0 50 205 A150 150 0 1 0 350 205 Z M215.0 77.9 L215.0 106.1 A100 100 0 0 0 185.0 106.1 L185.0 77.9 A128 128 0 0 0 149.4 87.4 L149.4 87.4 L163.6 111.9 A100 100 0 0 0 137.6 126.9 L123.5 102.4 A128 128 0 0 0 97.4 128.5 L97.4 128.5 L121.9 142.6 A100 100 0 0 0 106.9 168.6 L82.4 154.4 A128 128 0 0 0 72.9 190.0 L72.9 190.0 L101.1 190.0 A100 100 0 0 0 101.1 220.0 L72.9 220.0 A128 128 0 0 0 82.4 255.6 L82.4 255.6 L106.9 241.4 A100 100 0 0 0 121.9 267.4 L97.4 281.5 A128 128 0 0 0 123.5 307.6 L123.5 307.6 L137.6 283.1 A100 100 0 0 0 163.6 298.1 L149.4 322.6 A128 128 0 0 0 185.0 332.1 L185.0 332.1 L185.0 303.9 A100 100 0 0 0 215.0 303.9 L215.0 332.1 A128 128 0 0 0 250.6 322.6 L250.6 322.6 L236.4 298.1 A100 100 0 0 0 262.4 283.1 L276.5 307.6 A128 128 0 0 0 302.6 281.5 L302.6 281.5 L278.1 267.4 A100 100 0 0 0 293.1 241.4 L317.6 255.6 A128 128 0 0 0 327.1 220.0 L327.1 220.0 L298.9 220.0 A100 100 0 0 0 298.9 190.0 L327.1 190.0 A128 128 0 0 0 317.6 154.4 L317.6 154.4 L293.1 168.6 A100 100 0 0 0 278.1 142.6 L302.6 128.5 A128 128 0 0 0 276.5 102.4 L276.5 102.4 L262.4 126.9 A100 100 0 0 0 236.4 111.9 L250.6 87.4 A128 128 0 0 0 215.0 77.9 Z" fill-rule="evenodd"/>
+<path d="M251.4 143.7 A80 80 0 0 0 148.6 143.7 L140.9 134.5 A92 92 0 0 1 259.1 134.5 Z" fill="#e3eefa"/>
+<path d="M138.7 153.6 A80 80 0 0 0 138.7 256.4 L129.5 264.1 A92 92 0 0 1 129.5 145.9 Z" fill="#e3eefa"/>
+<path d="M148.6 266.3 A80 80 0 0 0 251.4 266.3 L259.1 275.5 A92 92 0 0 1 140.9 275.5 Z" fill="#e3eefa"/>
+<path d="M261.3 256.4 A80 80 0 0 0 261.3 153.6 L270.5 145.9 A92 92 0 0 1 270.5 264.1 Z" fill="#e3eefa"/>
+<circle cx="200" cy="205" r="80"/>
+<circle cx="200" cy="205" r="14"/>
+<path d="M307.2 115.0 L400.0 92.0"/>
+<path d="M320.8 188.0 L400.0 150.0"/>
+<path d="M295.1 218.4 L400.0 214.0"/>
+<path d="M277.9 241.3 L400.0 270.0"/>
+<path d="M242.4 247.4 L400.0 334.0"/>
+</g>
+<text x="169.97699076810758" y="98.95260415046808" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">A</tspan></text>
+<text x="117.97561338236049" y="128.97561338236048" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">C′</tspan></text>
+<text x="87.95260415046809" y="180.97699076810756" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">B</tspan></text>
+<text x="87.95260415046808" y="241.02300923189242" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">A′</tspan></text>
+<text x="117.97561338236046" y="293.0243866176395" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">C</tspan></text>
+<text x="169.9769907681076" y="323.04739584953194" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">B′</tspan></text>
+<text x="230.02300923189236" y="323.04739584953194" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">A</tspan></text>
+<text x="282.0243866176395" y="293.02438661763955" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">C′</tspan></text>
+<text x="312.04739584953194" y="241.0230092318924" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">B</tspan></text>
+<text x="312.04739584953194" y="180.97699076810764" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">A′</tspan></text>
+<text x="282.02438661763955" y="128.9756133823605" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">C</tspan></text>
+<text x="230.02300923189242" y="98.95260415046808" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">B′</tspan></text>
+<text x="200.0" y="145.0" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">N</tspan></text>
+<text x="134.0" y="211.0" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">S</tspan></text>
+<text x="200.0" y="277.0" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">N</tspan></text>
+<text x="266.0" y="211.00000000000003" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">S</tspan></text>
+<text x="406" y="88" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">定子：疊片鐵心（12 槽）</tspan></text>
+<text x="406" y="146" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">三相分布繞組，嵌於定子槽內</tspan></text>
+<text x="406" y="166" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（每極每相 1 槽，相序 A–C′–B–A′…）</tspan></text>
+<text x="406" y="210" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">氣隙：均勻（磁鐵外徑為圓）</tspan></text>
+<text x="406" y="266" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">永磁體：黏貼在轉子表面，</tspan></text>
+<text x="406" y="286" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">N、S 交替（4 極）</tspan></text>
+<text x="406" y="330" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">轉子鐵心：無繞組，</tspan></text>
+<text x="406" y="350" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">無電刷、無滑環</tspan></text>
+<text x="340.0" y="408" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">表面黏著式永磁同步電動機剖面（</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">L</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">d</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> ≈ </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">L</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">q</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
+</svg>

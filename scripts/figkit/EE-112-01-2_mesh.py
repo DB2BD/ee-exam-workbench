@@ -17,11 +17,11 @@ s += mesh_arrow(285, 180, 34)
 s += mesh_arrow(530, 180, 34)
 s += tint_arrow(382, 150, 382, 192)                                         # I1 - I2 down through L2
 s += end_group()
-s += text(20, 28, [("t", "峰值相量，"), ("v", "ω"), ("n", " = 5000 rad/s；● 同名端（"), ("v", "L"), ("sub", "1"), ("t", " 右端、"),
+s += text(20, 28, [("t", "峰值相量，"), ("v", "ω"), ("n", " = 5000 rad/s"), ("t", "；● 同名端（"), ("v", "L"), ("sub", "1"), ("t", " 右端、"),
                    ("v", "L"), ("sub", "2"), ("t", " 下端）")])
 s += ttext(XS + 18, 152, [("n", "+")], color=BLUE) + ttext(XS + 18, 206, [("n", "−")], color=BLUE)
 s += text(XS - 22, 172, [("v", "V"), ("vsub", "g")], anchor="end")
-s += text(XS - 22, 194, [("n", "660∠0° V")], anchor="end")
+s += text(XS - 22, 194, [("n", "= 660∠0° V")], anchor="end")
 s += text(190, YT - 16, [("n", "34 Ω")], anchor="middle")
 s += text(295, YT - 18, [("v", "jωL"), ("sub", "1"), ("n", " = "), ("v", "j"), ("n", "50 Ω")], anchor="middle")
 s += text(XN + 18, 170, [("v", "jωL"), ("sub", "2")])

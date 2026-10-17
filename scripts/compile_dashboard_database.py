@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import glob
 import os
 import re
 import json
@@ -782,10 +783,21 @@ for root, dirs, files in os.walk('.'):
                 img_map[urllib.parse.quote(sub_img)] = rel_path
                 img_map[urllib.parse.quote('images/' + sub_img)] = rel_path
 
+# v1.5.0 hand-drawn solution figures: embedded as sanitized inline SVG text so the
+# app can render them in the page (KaTeX fonts, theme-independent) instead of <img>.
+from check_solution_figures import sanitize_svg  # noqa: E402
+
+
+figure_svg = {}
+for _svg in sorted(glob.glob('02_題解/技師題解/0*/figures/*.svg')):
+    with open(_svg, 'r', encoding='utf-8') as _fp:
+        figure_svg[os.path.basename(_svg)] = sanitize_svg(_fp.read())
+
 bundle_js = 'const BUNDLED_MD = ' + json.dumps(bundle, ensure_ascii=False) + ';\n'
 bundle_js += 'const IMAGE_MAP = ' + json.dumps(img_map, ensure_ascii=False) + ';\n'
+bundle_js += 'const FIGURE_SVG = ' + json.dumps(figure_svg, ensure_ascii=False) + ';\n'
 
 with open('solutions-bundle.js', 'w', encoding='utf-8') as out:
     out.write(bundle_js)
 
-print(f'✅ solutions-bundle.js refreshed with {len(bundle)} markdown files and {len(img_map)} image mappings.')
+print(f'✅ solutions-bundle.js refreshed with {len(bundle)} markdown files, {len(img_map)} image mappings and {len(figure_svg)} inline figures.')

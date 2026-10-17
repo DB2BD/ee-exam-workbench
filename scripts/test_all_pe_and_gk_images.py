@@ -69,6 +69,12 @@ def audit_bundle(label, bundle, preferred_map, fallback_map):
             resolved = lookup_image(image_ref, preferred_map, fallback_map)
             if not resolved or not os.path.exists(resolved):
                 broken.append((md_path, image_ref, resolved))
+            elif '/canonical/' in md_path and re.search(r'(^|/)figures/[^/]+\.svg$', image_ref.replace('\\', '/'), re.I):
+                # hand-drawn solution figure: must resolve to the sibling figures/ file itself,
+                # not to another asset sharing the basename
+                expected = os.path.normpath(os.path.join(os.path.dirname(md_path), unquote(image_ref))).replace(os.sep, '/')
+                if resolved != expected:
+                    broken.append((md_path, image_ref, f'{resolved} (expected {expected})'))
 
     missing_targets = [
         (key, value) for key, value in preferred_map.items()

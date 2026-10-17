@@ -16,6 +16,15 @@ a concept-sentence heuristic and body characters per mark, and raises flags:
                       lies between the substitution and the answer
     too-short         body characters per mark below the corpus threshold
 
+v1.5.0 solution-logic flags (WORKPLAN_v1.5.0):
+
+    no-logic          non-compact note without ``**解題邏輯**：`` (flag on the
+                      first sub-question) or a sub-question without ``**邏輯**：``
+    orphan-number     a number (integers <= 3, subscripts, exponents and unit
+                      scalers ignored) in the first substitution of a display
+                      equation that appears neither earlier in the note nor in the
+                      question stem / 「已知與所求」 -- a "where did this come from?" number
+
 Notes are ranked by ``severity = sum(flag weight x sub-question marks / 10)``.
 
 Usage::
@@ -41,8 +50,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import lint_canonical_notes as lint  # noqa: E402
 
 ROOT = lint.ROOT
-DEFAULT_REPORT = ROOT / "reports/題解深度稽核_2026-10-14.md"
-DEFAULT_JSON = ROOT / ".agents/results/V140-DEPTH/candidates.json"
+DEFAULT_REPORT = ROOT / "reports/題解深度稽核_2026-10-14.md"   # only written with an explicit --report
+DEFAULT_JSON = ROOT / ".agents/results/V150-LOGIC/candidates.json"
 
 # --------------------------------------------------------------------------
 # Tunable parameters (calibrated on the 323-note corpus, see the report).
@@ -54,6 +63,12 @@ WEIGHTS = {
     "missing-concept": 1.5,
     "too-short": 2.0,
 }
+# v1.5.0 flags are scored on top of the v1.4.0 weights.
+LOGIC_WEIGHTS = {
+    "no-logic": 2.0,
+    "orphan-number": 2.0,
+}
+ORPHAN_IGNORED = {"10", "100", "1000", "180", "360"}   # unit scalers / half and full turns
 TOO_SHORT_CPP = 14.0      # body characters (non-whitespace, math source included) per mark
 INTERMEDIATE_OPS = 3      # a numeric expression with this many operations should show a step
 CUT_SEVERITY = 3.0        # severity at or above this value is on the recommended rewrite list
@@ -433,6 +448,8 @@ def describe(flag: str, metrics: dict) -> str:
         "jump": f"跳步（{metrics['jump_windows']} 個 boxed 直接接符號式）",
         "no-intermediate": f"缺中間結果（{metrics['worst_ops']} 個運算一步到位）",
         "too-short": f"過短（{metrics['chars']} 字，{metrics['chars_per_mark']} 字/分）",
+        "no-logic": "缺邏輯句",
+        "orphan-number": "來源不明數字：" + "、".join(metrics.get("orphan_numbers", [])),
     }[flag]
 
 
@@ -486,6 +503,81 @@ def rounding_audit(body: str, stem: str) -> dict:
     return {"computed_decimals": total, "not_two_decimals": bad, "numbers": offending[:10]}
 
 
+NUMBER_TOKEN = re.compile(r"(?<![A-Za-z\\\d.])(\d+(?:\.\d+)?)")
+
+
+IMAGINARY_J = re.compile(r"(?<![A-Za-z\\])j(?=\d|\.\d)")
+THOUSANDS = re.compile(r"(?<=\d),(?=\d{3}(?!\d))")
+
+
+# commands that may be written flush against a number (``\times12``)
+LATEX_NUMBER_GLUE = {"\\times", "\\cdot", "\\div", "\\parallel", "\\pm", "\\angle", "\\approx", "\\Rightarrow", "\\quad", "\\qquad",
+                     "\\left", "\\right", "\\sqrt", "\\frac", "\\mathrm", "\\Omega", "\\text", "\\boxed", "\\circ"}
+
+
+class _Normalizer:
+    """``IMAGINARY.sub(" ", text)``: drop the imaginary unit j and thousands separators."""
+
+    @staticmethod
+    def sub(_replacement: str, text: str) -> str:
+        text = re.sub(r"\\[A-Za-z]+", lambda m: " " if m.group(0) in LATEX_NUMBER_GLUE else m.group(0), text)
+        return IMAGINARY_J.sub(" ", THOUSANDS.sub("", text))
+
+
+IMAGINARY = _Normalizer()
+
+
+def numbers_in(text: str) -> set[str]:
+    """Every number written in ``text`` (any position), normalised."""
+
+    text = IMAGINARY.sub(" ", text)
+    return {number_key(m.group(1)) for m in NUMBER_TOKEN.finditer(text)}
+
+
+def piece_numbers(piece: str) -> list[str]:
+    """Candidate 'new' numbers of one expression: no subscripts, exponents, units, small integers."""
+
+    piece = strip_noise(IMAGINARY.sub(" ", piece))
+    piece = re.sub(r"\\times\s*10\s*(?=\^)", " ", piece)
+    piece = re.sub(r"\^\s*\{[^{}]*\}|\^\s*[-+]?\d+(?:\.\d+)?", " ", piece)
+    piece = re.sub(r"\\sqrt\s*\[[^\]]*\]", " ", piece)
+    found = []
+    for match in NUMBER_TOKEN.finditer(piece):
+        token = match.group(1)
+        if "." not in token and (int(token) <= 3 or token in ORPHAN_IGNORED):
+            continue
+        found.append(token)
+    return found
+
+
+def orphan_numbers(text: str, seen: set[str]) -> list[str]:
+    """Walk ``text`` in order; return numbers of display substitutions never seen before.
+
+    ``seen`` is updated in place with every number of the text, so later
+    sub-questions may rely on earlier ones.
+    """
+
+    orphans: list[str] = []
+    position = 0
+    for match in MATH_TOKEN.finditer(text):
+        seen |= numbers_in(re.sub(r"```.*?```", "", text[position:match.start()], flags=re.S))
+        position = match.end()
+        math = match.group("dd") or match.group("db") or match.group("i1") or match.group("i2")
+        if match.group("dd") or match.group("db"):
+            for segment in math_segments(math, True):
+                if segment.boxed:
+                    continue
+                for piece in segment.pieces:
+                    if piece_numbers(piece) and operation_count(IMAGINARY.sub(" ", piece)) >= 1:
+                        for token in piece_numbers(piece):
+                            if number_key(token) not in seen and token not in orphans:
+                                orphans.append(token)
+                        break                      # later pieces are derived from this substitution
+        seen |= numbers_in(math)
+    seen |= numbers_in(text[position:])
+    return orphans
+
+
 def audit_note(path: Path, stem: str, subject: str) -> dict:
     fields, body = lint.frontmatter(path.read_text(encoding="utf-8"))
     rounding = rounding_audit(body, stem)
@@ -493,6 +585,13 @@ def audit_note(path: Path, stem: str, subject: str) -> dict:
     preamble, chunks = split_subquestions(standard_section(body))
     chunks = merge_boxless(chunks)
     preamble_concept = has_concept(prose_of(preamble))
+    compact = fields.get("compact") == "true"
+    section = standard_section(body)
+    lead = section[:HEADING.search(section).start()] if HEADING.search(section) else section
+    note_flags = []
+    if not compact and lint.LOGIC_OVERALL not in lead:
+        note_flags.append("no-logic")
+    seen = given_numbers(stem, section_text(body, "已知與所求")) | numbers_in(preamble)
     unlabeled = [c for c in chunks if c["label"] not in per_label]
     rest = total - sum(per_label[c["label"]] for c in chunks if c["label"] in per_label)
     subs = []
@@ -509,20 +608,28 @@ def audit_note(path: Path, stem: str, subject: str) -> dict:
             "chars_per_mark": round(metrics["chars"] / marks, 1) if marks else 0,
         })
         metrics["flags"] = subquestion_flags(metrics, marks)
+        orphans = orphan_numbers(chunk["text"], seen)
+        metrics["orphan_numbers"] = orphans[:10]
+        if orphans:
+            metrics["flags"].append("orphan-number")
+        if not compact and chunk["heading"] and lint.LOGIC_SUB not in chunk["text"]:
+            metrics["flags"].append("no-logic")
         subs.append(metrics)
     severity = 0.0
     for sub in subs:
         active = set(sub["flags"])
         if "no-substitution" in active:
             active.discard("jump")       # same defect, count once
-        severity += sum(WEIGHTS[f] for f in active) * sub["marks"] / 10.0
+        severity += sum({**WEIGHTS, **LOGIC_WEIGHTS}[f] for f in active) * sub["marks"] / 10.0
+    severity += LOGIC_WEIGHTS["no-logic"] * len(note_flags) * total / 10.0
     chars = sum(s["chars"] for s in subs)
     return {
         "qid": fields.get("qid", path.stem),
         "subject": subject,
         "severity": round(severity, 2),
         "points": total,
-        "compact": fields.get("compact") == "true",
+        "compact": compact,
+        "note_flags": note_flags,
         "chars": chars,
         "chars_per_point": round(chars / total, 1) if total else 0,
         "rounding": rounding,
@@ -568,13 +675,18 @@ def candidate_record(note: dict) -> dict:
         flags_by_sub[key] = sub["flags"]
         title = re.sub(r"^\s*[（(][一二三四五六七八九十][）)]\s*", "", sub["heading"])[:18]
         notes.append(f"{key}{title}：" + "；".join(describe(f, sub) for f in sub["flags"]))
+    if note["note_flags"]:
+        notes.insert(0, "整題缺解題邏輯")
     return {
         "qid": note["qid"],
         "subject": subject_key(note["subject"]),
         "severity": note["severity"],
         "points": note["points"],
         "compact": note["compact"],
+        "note_flags": note["note_flags"],
         "flags_by_subquestion": flags_by_sub,
+        "orphan_numbers": {(f"（{sub['label']}）" if sub["label"] else "全文"): sub["orphan_numbers"]
+                           for sub in note["subs"] if sub["orphan_numbers"]},
         "notes": notes,
         "rounding": {
             "not_two_decimals": note["rounding"]["not_two_decimals"],
@@ -715,8 +827,10 @@ def build_report(results: list[dict]) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
-    parser.add_argument("--json", type=Path, default=DEFAULT_JSON)
+    parser.add_argument("--report", type=Path, nargs="?", const=DEFAULT_REPORT, default=None,
+                        help="also write the Markdown report (legacy 2026-10-14 path when no value is given)")
+    parser.add_argument("--json", type=Path, default=DEFAULT_JSON,
+                        help="candidate list JSON path (default .agents/results/V150-LOGIC/candidates.json); '-' prints to stdout")
     parser.add_argument("--show", nargs="*", help="print metrics for these QIDs and exit")
     parser.add_argument("--stats", action="store_true", help="print the summary and exit without writing files")
     args = parser.parse_args(argv)
@@ -731,6 +845,8 @@ def main(argv: list[str] | None = None) -> int:
     ranked = sorted(results, key=lambda n: (-n["severity"], n["qid"]))
     cut = [n for n in results if n["severity"] >= CUT_SEVERITY]
     cpps = [s["chars_per_mark"] for n in results for s in n["subs"]]
+    out = sys.stderr if str(args.json) == "-" else sys.stdout
+    sys.stdout, saved = out, sys.stdout
     print(f"notes={len(results)} subs={len(cpps)} chars/mark P5/P15/P50 = "
           f"{percentile(cpps, .05):.1f}/{percentile(cpps, .15):.1f}/{percentile(cpps, .5):.1f}")
     print("sub-question flags:", dict(Counter(f for n in results for s in n["subs"] for f in s["flags"])))
@@ -743,14 +859,21 @@ def main(argv: list[str] | None = None) -> int:
                       f"/{sum(n['rounding']['computed_decimals'] for n in results if subject_key(n['subject']) == s)}"
                       for s in SUBJECT_ORDER)
           + f"; notes affected {sum(1 for n in results if n['rounding']['not_two_decimals'])}")
+    sys.stdout = saved
     if args.stats:
         return 0
-    args.report.parent.mkdir(parents=True, exist_ok=True)
-    args.report.write_text(build_report(results), encoding="utf-8")
-    args.json.parent.mkdir(parents=True, exist_ok=True)
     payload = [candidate_record(n) for n in ranked if n["severity"] > 0 or n["rounding"]["not_two_decimals"]]
-    args.json.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {args.report} and {args.json} ({len(payload)} candidates)")
+    text = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    if str(args.json) == "-":
+        sys.stdout.write(text)
+    else:
+        args.json.parent.mkdir(parents=True, exist_ok=True)
+        args.json.write_text(text, encoding="utf-8")
+        print(f"wrote {args.json} ({len(payload)} candidates)")
+    if args.report:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(build_report(results), encoding="utf-8")
+        print(f"wrote {args.report}")
     return 0
 
 

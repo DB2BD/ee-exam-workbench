@@ -1,33 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" font-family="Helvetica, Arial, sans-serif" font-size="15">
-  <rect x="0" y="0" width="520" height="340" rx="12" fill="#ffffff"/>
-  <g stroke="#111" stroke-width="1" stroke-dasharray="4 4" fill="none">
-    <line x1="60" y1="150" x2="460" y2="150"/>
-    <line x1="200" y1="20" x2="200" y2="320"/>
-  </g>
-  <g stroke="#111" stroke-width="2" stroke-dasharray="6 5" fill="none">
-    <line x1="313" y1="191" x2="334" y2="309"/>
-    <line x1="221" y1="268" x2="334" y2="309"/>
-  </g>
-  <g stroke="#111" stroke-width="2" fill="none">
-    <line x1="200" y1="150" x2="327" y2="91"/>
-    <line x1="200" y1="150" x2="313" y2="191"/>
-    <line x1="200" y1="150" x2="179" y2="32"/>
-    <line x1="200" y1="150" x2="221" y2="268"/>
-  </g>
-  <g fill="#111">
-    <polygon points="0,-6 0,6 12,0" transform="translate(327,91) rotate(-25) translate(-12,0)"/>
-    <polygon points="0,-6 0,6 12,0" transform="translate(313,191) rotate(20) translate(-12,0)"/>
-    <polygon points="0,-6 0,6 12,0" transform="translate(179,32) rotate(-100) translate(-12,0)"/>
-    <polygon points="0,-6 0,6 12,0" transform="translate(221,268) rotate(80) translate(-12,0)"/>
-    <text x="334" y="88">V_ab ∠25°</text>
-    <text x="322" y="186">I_ab = 110∠−20°</text>
-    <text x="34" y="36">I_ca = 110∠100°</text>
-    <text x="28" y="276">−I_ca = 110∠−80°</text>
-    <text x="466" y="155">實軸</text>
-  </g>
-  <g stroke="#c0392b" stroke-width="3" fill="#c0392b">
-    <line x1="200" y1="150" x2="325" y2="298"/>
-    <polygon points="0,-7 0,7 14,0" stroke="none" transform="translate(334,309) rotate(50) translate(-14,0)"/>
-  </g>
-  <text x="246" y="330" fill="#c0392b">I_a = I_ab − I_ca = 110√3∠−50°</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 350" width="620" height="350">
+<rect width="620" height="350" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M60.0 160.0 L540.0 160.0" stroke-width="0.8" stroke-dasharray="3 4"/>
+<path d="M230.0 20.0 L230.0 335.0" stroke-width="0.8" stroke-dasharray="3 4"/>
+<path d="M338.1 199.3 L358.0 312.6" stroke-width="1.0" stroke-dasharray="5 4"/>
+<path d="M250.0 273.3 L358.0 312.6" stroke-width="1.0" stroke-dasharray="5 4"/>
+<path d="M230.0 160.0 L338.1 199.3"/>
+<path d="M338.1 199.3 L331.9 192.8 L329.2 200.4 Z" fill="#000"/>
+<path d="M230.0 160.0 L210.0 46.7"/>
+<path d="M210.0 46.7 L207.5 55.3 L215.4 53.9 Z" fill="#000"/>
+<path d="M230.0 160.0 L250.0 273.3"/>
+<path d="M250.0 273.3 L252.5 264.7 L244.6 266.1 Z" fill="#000"/>
+<g stroke="#1f5fa8"><path d="M230.0 160.0 L365.9 96.6"/>
+<path d="M365.9 96.6 L357.0 96.4 L360.4 103.6 Z" fill="#1f5fa8"/>
+</g>
+<g stroke="#c0392b" stroke-width="2.4"><path d="M230.0 160.0 L358.0 312.6"/>
+<path d="M358.0 312.6 L356.0 303.9 L349.8 309.0 Z" fill="#c0392b"/>
+</g>
+<circle cx="230" cy="160" r="2.6" fill="#000" stroke="none"/>
+</g>
+<text x="548" y="165" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">實軸</tspan></text>
+<text x="374" y="99" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ab</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">∠25°</tspan></text>
+<text x="348" y="201" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ab</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 110∠−20°</tspan></text>
+<text x="200" y="51" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ca</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 110∠100°</tspan></text>
+<text x="222" y="277" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ca</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 110∠−80°</tspan></text>
+<text x="370" y="319" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ab</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> − </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ca</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 110√3∠−50°</tspan></text>
 </svg>

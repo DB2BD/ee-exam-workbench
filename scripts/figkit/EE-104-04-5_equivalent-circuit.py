@@ -25,7 +25,7 @@ s += text(462, 132, [("t", "（"), ("v", "I"), ("vsub", "a"), ("t", " 與 "), ("
 s += text(462, 168, [("t", "情況 2：6.6 kVA")])
 s += text(462, 190, [("n", "PF 0.8 "), ("t", "滯後")])
 s += text(320, 250, [("t", "每相（Y 接）："), ("v", "E"), ("vsub", "f"), ("n", " = "), ("v", "V"), ("vsub", "ϕ"), ("n", " + "), ("v", "jX"), ("vsub", "s"), ("v", "I"), ("vsub", "a")], anchor="middle")
-s += text(320, 276, [("t", "激磁與轉速不變 → 兩種情況 "), ("n", "|"), ("v", "E"), ("vsub", "f"), ("n", "|"), ("t", " 相同")], anchor="middle")
+s += text(320, 276, [("t", "激磁與轉速不變 → 兩種情況 "), ("n", "|"), ("v", "E"), ("vsub", "f"), ("n", " |"), ("t", " 相同")], anchor="middle")
 s += footer()
 open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/04_電機機械/figures/EE-104-04-5-equivalent-circuit.svg'), 'w').write(s)
 print(len(s))

@@ -1,0 +1,76 @@
+[
+  {
+    "qid": "EE-110-02-1",
+    "logic_added": true,
+    "steps_added": "步驟 1 電路圖（題目要求繪出）＋回授機制；步驟 2 兩迴路 KVL 消去 V_CE 逐行；步驟 3/4 兩溫度 Q 點（分母、I_B、I_C、I_BR_B、V_CE 各一行，5 位有效）；變化率 Δ 與比值分行＋主動區檢查",
+    "figures": [
+      "EE-110-02-1-circuit.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "4 位有效（1.071/1.018）會使 ΔI_C/I_C 得 5.21%，此鏈保留 5 位有效；前提：主動區、忽略 I_CBO；β=β_dc 記號說明"
+  },
+  {
+    "qid": "EE-111-02-3",
+    "logic_added": true,
+    "steps_added": "步驟 1 V_OV/V_GS/V_G＋V_DS=1.0709 V 飽和檢查；（一）源極退化增益由小訊號圖逐行推導、雙分支 g_m、40/9 回代；（二）μnCoxV_OV=19.02 μA/V、V_OV²=0.00904401、1.808802 μA 精確值；（三）V_R1=1.2098 V、R_1/R_2 先 Ω 再框 kΩ",
+    "figures": [
+      "EE-111-02-3-dc.svg",
+      "EE-111-02-3-small-signal.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "原 1.90×10^{-5}、1.81×10^{-6}、1.21 V 為四捨五入後再除，照字面不成立，改用精確值；雙分支與參考書疑義段保留不動；新增 figkit nmos() 共用元件"
+  },
+  {
+    "qid": "EE-112-02-1",
+    "logic_added": true,
+    "steps_added": "步驟 1 I_E/I_C、V_CB>0 主動區檢查移入正文、g_m/r_π/r_e；步驟 2 混合 π 圖＋射極看入 r_π/(β+1)=r_e；f_Hπ：R_π=500/21、2πRC=1.4960 ns 分行；f_Hμ 同；A_v：10/21 精確分壓、g_mR'=19.604、196.04/21",
+    "figures": [
+      "EE-112-02-1-hybrid-pi.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "移除 4.76×10^{-1} 寫法；兩極點為精確（單向耦合）說明；V_T=25 mV 假設保留"
+  },
+  {
+    "qid": "EE-113-02-2",
+    "logic_added": true,
+    "steps_added": "（一）r_e＋T 模型圖與畫法條列；（二）v_e=−i_e r_e 推 R_in；（三）R_L'、輸入迴路 KVL 求 i_e（負值說明）、集極 KCL v_o=−αi_eR_L'、5940/125",
+    "figures": [
+      "EE-113-02-2-t-model.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "原文「經 R_L' 由集極往下流」與 v_o=−αi_eR_L' 參考方向矛盾，改為集極節點 KCL；移除 7.92×10^{-3} S 寫法；框內只框結果"
+  },
+  {
+    "qid": "EE-114-02-2",
+    "logic_added": true,
+    "steps_added": "A_vo 分壓→v_o→代入分行；ω_z 輸出 KCL 兩行＋令 v_o=0；ω_H：R'、測試源圖、v_a 節點、v_o 節點 KCL、V_x、G_mR'R_L=37.50 kΩ、τ_a、τ_L、合成各一行",
+    "figures": [
+      "EE-114-02-2-octc-ca.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "框內只框結果（原 ω_z、ω_H 框內含推導式）；前提 ω_z≫ω_H、主極點寫入解題邏輯"
+  },
+  {
+    "qid": "EE-106-02-3",
+    "logic_added": true,
+    "steps_added": "review fix：（二）補 v_π=v_b 與集極節點 v_c=−g_m v_π R_L'=−g_mR_L'v_b；選修：I_B 分母另拆一行、4.3 V 精確值、（一）末主動區檢查 V_CE=3.6961 V、R_in' 改 kΩ 計算",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix"
+  },
+  {
+    "qid": "EE-104-02-2",
+    "logic_added": true,
+    "steps_added": "review fix（選修）：（三）邏輯句改為依參考方向敘述並註明實際電流方向；失分點 505 μA 不補零",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix"
+  }
+]

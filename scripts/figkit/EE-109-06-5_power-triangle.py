@@ -16,7 +16,7 @@ for x0, P, Qo, Qn, (a, bname), title in cases:
     labels += text(xe + 16, yo + 6, [("v", "Q"), ("sub", a), ("n", f" = {Qo:.2f} kvar")])
     labels += ctext(BLUE, xe + 16, (yo + yn) / 2 + 6, [("v", "Q"), ("vsub", "c"), ("n", " = 242.97 kvar")])
     if bname == "target":
-        labels += text(xe + 16, yn + 6, [("v", "Q"), ("vsub", "target"), ("n", f" = {Qn:.2f} kvar")])
+        labels += text(xe + 16, yn + 6, [("v", "Q"), ("sub", "target"), ("n", f" = {Qn:.2f} kvar")])
     else:
         labels += text(xe + 16, yn + 6, [("v", "Q"), ("sub", "2"), ("n", f"′ = {Qn:.2f} kvar")])
     labels += text(x0, 40, title, anchor="start")

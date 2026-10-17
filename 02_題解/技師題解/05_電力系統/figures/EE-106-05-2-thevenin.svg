@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 210" font-family="Helvetica, Arial, sans-serif" font-size="15">
+  <rect x="0" y="0" width="520" height="210" rx="12" fill="#ffffff"/>
+  <g stroke="#111" stroke-width="2" fill="none">
+    <circle cx="80" cy="110" r="26"/>
+    <line x1="80" y1="84" x2="80" y2="50"/>
+    <line x1="80" y1="50" x2="170" y2="50"/>
+    <rect x="170" y="38" width="90" height="24" fill="#fff"/>
+    <line x1="260" y1="50" x2="340" y2="50"/>
+    <line x1="340" y1="50" x2="400" y2="50"/>
+    <line x1="400" y1="50" x2="400" y2="75"/>
+    <rect x="388" y="75" width="24" height="60" fill="#fff"/>
+    <line x1="400" y1="135" x2="400" y2="170"/>
+    <line x1="80" y1="136" x2="80" y2="170"/>
+    <line x1="80" y1="170" x2="400" y2="170"/>
+  </g>
+  <circle cx="340" cy="50" r="4" fill="#111"/>
+  <g fill="#111">
+    <text x="68" y="106">+</text>
+    <text x="70" y="124">−</text>
+    <text x="18" y="104">V(0)</text>
+    <text x="18" y="122">1∠0°</text>
+    <text x="180" y="32">Z11 = j0.16</text>
+    <text x="324" y="34">Bus 1</text>
+    <text x="420" y="102">Z_f</text>
+    <text x="420" y="120">j0.11</text>
+  </g>
+  <g stroke="#c0392b" stroke-width="2" fill="#c0392b">
+    <line x1="290" y1="66" x2="330" y2="66"/>
+    <polygon points="326,60 326,72 338,66" stroke="none"/>
+  </g>
+  <text x="292" y="88" fill="#c0392b">I_f</text>
+  <text x="150" y="196" fill="#111">I_f = V(0) / (Z11 + Z_f)</text>
+</svg>

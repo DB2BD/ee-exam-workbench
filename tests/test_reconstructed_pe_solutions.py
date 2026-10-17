@@ -1707,7 +1707,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         # 2026-10-03 lean-v1: the superseded 19.05%／6.07 pu values stay only
         # as the explicitly rejected intermediate-point reading.
         self.assertIn(r"\boxed{1.61\%}", annual_110)
-        self.assertIn(r"\boxed{X_R\ge3.67\times10^{-2}\,\mathrm{pu}}", annual_110)
+        self.assertIn(r"\boxed{X_R\ge0.0367\,\mathrm{pu}}", annual_110)
         self.assertIn("19.05%／6.07 pu 對應兩變壓器之間的假想觀測點，既非 A 點，也非圖示 B 點", annual_110)
 
 

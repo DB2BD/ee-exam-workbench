@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360">
+<rect width="720" height="360" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M50 90 L660 90" stroke-width="5"/>
+<circle cx="70" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="70" cy="240" r="14"/>
+<path d="M63 240 C66 233 69 233 70 240 S74 247 77 240"/>
+<path d="M70.0 254.0 L70.0 290.0"/>
+<circle cx="220" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="220" cy="240" r="14"/>
+<path d="M213 240 C216 233 219 233 220 240 S224 247 227 240"/>
+<path d="M220.0 254.0 L220.0 290.0"/>
+<circle cx="370" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="370" cy="240" r="14"/>
+<path d="M363 240 C366 233 369 233 370 240 S374 247 377 240"/>
+<path d="M370.0 254.0 L370.0 290.0"/>
+<circle cx="520" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="520" cy="240" r="14"/>
+<path d="M513 240 C516 233 519 233 520 240 S524 247 527 240"/>
+<path d="M520.0 254.0 L520.0 290.0"/>
+<path transform="translate(70.0 90.0) rotate(90.00)" d="M0 0 L42.0 0 A6.5 6.5 0 0 1 55.0 0 A6.5 6.5 0 0 1 68.0 0 A6.5 6.5 0 0 1 81.0 0 A6.5 6.5 0 0 1 94.0 0 L136.0 0"/>
+<path transform="translate(220.0 90.0) rotate(90.00)" d="M0 0 L42.0 0 A6.5 6.5 0 0 1 55.0 0 A6.5 6.5 0 0 1 68.0 0 A6.5 6.5 0 0 1 81.0 0 A6.5 6.5 0 0 1 94.0 0 L136.0 0"/>
+<path transform="translate(370.0 90.0) rotate(90.00)" d="M0 0 L42.0 0 A6.5 6.5 0 0 1 55.0 0 A6.5 6.5 0 0 1 68.0 0 A6.5 6.5 0 0 1 81.0 0 A6.5 6.5 0 0 1 94.0 0 L136.0 0"/>
+<path transform="translate(520.0 90.0) rotate(90.00)" d="M0 0 L14.5 0 A6.5 6.5 0 0 1 27.5 0 A6.5 6.5 0 0 1 40.5 0 A6.5 6.5 0 0 1 53.5 0 L68.0 0"/>
+<path transform="translate(520.0 158.0) rotate(90.00)" d="M0 0 L14.5 0 A6.5 6.5 0 0 1 27.5 0 A6.5 6.5 0 0 1 40.5 0 A6.5 6.5 0 0 1 53.5 0 L68.0 0"/>
+<path d="M640 90 L640 290" stroke="#c0392b" stroke-dasharray="6 4"/>
+<path d="M50.0 290.0 L660.0 290.0"/>
+<path d="M56.0 200.0 L56.0 120.0" stroke="#c0392b"/>
+<path d="M56.0 120.0 L52.0 128.0 L60.0 128.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M206.0 200.0 L206.0 120.0" stroke="#c0392b"/>
+<path d="M206.0 120.0 L202.0 128.0 L210.0 128.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M356.0 200.0 L356.0 120.0" stroke="#c0392b"/>
+<path d="M356.0 120.0 L352.0 128.0 L360.0 128.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M506.0 200.0 L506.0 120.0" stroke="#c0392b"/>
+<path d="M506.0 120.0 L502.0 128.0 L510.0 128.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M652.0 140.0 L652.0 230.0" stroke="#c0392b"/>
+<path d="M652.0 230.0 L656.0 222.0 L648.0 222.0 Z" fill="#c0392b" stroke="#c0392b"/>
+</g>
+<text x="70" y="72" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">3.45 kV </tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">母線</tspan></text>
+<text x="640" y="72" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">F1</tspan></text>
+<text x="84" y="150" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">src</tspan></text>
+<text x="84" y="170" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1.467</tspan></text>
+<text x="50" y="120" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.6818</tspan></text>
+<text x="234" y="150" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">SM</tspan></text>
+<text x="234" y="170" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">7.50</tspan></text>
+<text x="200" y="120" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.1333</tspan></text>
+<text x="384" y="150" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">IM</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan></text>
+<text x="384" y="170" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">20</tspan></text>
+<text x="350" y="120" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.05</tspan></text>
+<text x="534" y="128" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">T</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">3.833</tspan></text>
+<text x="534" y="196" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">IM</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">″ = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">16.67</tspan></text>
+<text x="500" y="120" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.04878</tspan></text>
+<text x="664" y="200" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.9139</tspan></text>
+<text x="70" y="312" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電力公司＋T1</tspan></text>
+<text x="220" y="312" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">S/M</tspan></text>
+<text x="370" y="312" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">I/M1</tspan></text>
+<text x="520" y="312" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">T2＋I/M2</tspan></text>
+<text x="88" y="264" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1∠0°</tspan></text>
+<text x="238" y="264" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1∠0°</tspan></text>
+<text x="388" y="264" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1∠0°</tspan></text>
+<text x="538" y="264" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1∠0°</tspan></text>
+<text x="360" y="342" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">支路電流 1/</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（pu）相加：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.6818 + 0.1333 + 0.05 + 0.04878 = 0.9139</tspan></text>
+</svg>

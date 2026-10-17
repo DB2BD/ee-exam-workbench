@@ -1,0 +1,65 @@
+[
+  {
+    "qid": "EE-104-02-1",
+    "logic_added": true,
+    "steps_added": "步驟 1 V_SG 與 V_S（飽和區平方律、取正根）；（一）（二）歐姆定律＋飽和區檢查；（三）源極節點 KCL 消去 v_s 逐行、Z_D(s)；（四）ω_c、0.5969 μs 行",
+    "figures": [
+      "EE-104-02-1-small-signal.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "needs_manual_review 不變（K_P 慣例）；驗算段 6.88×10^{-1} 類寫法改為小數；½K_P 分支補 V_SG=3.628 等中間值"
+  },
+  {
+    "qid": "EE-104-02-2",
+    "logic_added": true,
+    "steps_added": "（一）集極節點 KCL→I_E=I_CC，I_B/I_C 5 位有效、主動區檢查；步驟 2 r_e、g_m＋交流等效圖；（二）R_E∥r_e；（三）R_i/(R_s+R_i)=20/41 精確分數、g_mR_{L,ac}=29.264（4 位會使框值差末位）",
+    "figures": [
+      "EE-104-02-2-dc.svg",
+      "EE-104-02-2-ac.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "V_BE=0.7 V、V_T=25 mV 為假設（題未給），沿用原解"
+  },
+  {
+    "qid": "EE-106-02-3",
+    "logic_added": true,
+    "steps_added": "（一）戴維寧＋KVL 逐行；步驟 2 g_m、r_π＋混合 π／Miller 圖；（二）R_L'、K、C_M；（三）R_s∥R_TH、R_in'、C_in、τ、2πτ 逐行；輸出極點主導性檢查",
+    "figures": [
+      "EE-106-02-3-hybrid-pi.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "r_π 取 2.9942 kΩ（5 位）使 R_in'=697.36 Ω 照字面成立；題目配分（10/5/5）補入已知與所求"
+  },
+  {
+    "qid": "EE-107-02-2",
+    "logic_added": true,
+    "steps_added": "步驟 1 k_n；（一）V_OV→I_D→g_m→λI_D→r_o；（二）消去 V_OV 推 g_m=√(2k_nI_D)、√3.20=1.7889",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "純公式題不需圖；驗算 g_m r_o 改為 40√5 精確式（原 1.79×50=89.44 照字面不成立）"
+  },
+  {
+    "qid": "EE-109-02-1",
+    "logic_added": true,
+    "steps_added": "步驟 1 飽和等效電路＋集極 KVL；R_B：I_BS=199/88、I_B=597/44、R_B=374/597 精確分數；P_T 兩項逐行",
+    "figures": [
+      "EE-109-02-1-saturated.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "4 位有效的 13.57 A 會使 R_B 得 626.38 mΩ，改用精確分數使框內 626.47 mΩ 照字面成立"
+  },
+  {
+    "qid": "EE-109-02-4",
+    "logic_added": true,
+    "steps_added": "飽和區判斷前提；V_t：兩式相除、±2 兩根逐行與篩選；β：代入式→框值",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "純代數題不需圖"
+  }
+]

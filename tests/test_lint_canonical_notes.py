@@ -170,5 +170,43 @@ class RequireLogicTests(unittest.TestCase):
         self.assertEqual(self.run_lint(body, stem="求 P。（6 分）", front=front, require=False), [])
 
 
+class RegistryEnforcementTests(unittest.TestCase):
+    def lint_with_registry(self, body, registered, **kwargs):
+        original = lint.registered_qids
+        lint.registered_qids = lambda: {"EE-999-05-1"} if registered else set()
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                path = Path(tmp) / "EE-999-05-1.md"
+                path.write_text(FRONT + body, encoding="utf-8")
+                return lint.lint(path, "（一）求 P。（二）求 λ。", **kwargs)["errors"]
+        finally:
+            lint.registered_qids = original
+
+    def test_registered_note_missing_logic_is_an_error(self):
+        errors = self.lint_with_registry(LEAN_BODY, True)
+        self.assertIn("no-logic:解題邏輯", errors)
+
+    def test_unregistered_note_missing_logic_is_ignored(self):
+        self.assertEqual(self.lint_with_registry(LEAN_BODY, False), [])
+
+    def test_explicit_flags_override_registry(self):
+        self.assertEqual(self.lint_with_registry(LEAN_BODY, True, require_logic=False), [])
+        self.assertIn("no-logic:解題邏輯", self.lint_with_registry(LEAN_BODY, False, require_logic=True))
+
+    def test_all_registered_notes_pass_lint(self):
+        qids = sorted(lint.registered_qids())
+        self.assertTrue(qids)
+        stem_map = lint.stems()
+        by_qid = {p.stem: p for p in lint.canonical_paths(qids)}
+        self.assertEqual(sorted(by_qid), qids)
+        bad = {q: r["errors"] for q, p in by_qid.items()
+               if (r := lint.lint(p, stem_map.get(q, ""))) and r["errors"]}
+        self.assertEqual(bad, {})
+
+    def test_registry_is_up_to_date(self):
+        import update_solution_logic_registry as reg
+        self.assertEqual(reg.main(["--check"]), 0)
+
+
 if __name__ == "__main__":
     unittest.main()

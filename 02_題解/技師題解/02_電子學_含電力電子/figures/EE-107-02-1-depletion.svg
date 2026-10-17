@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 430" width="720" height="430">
+<rect width="720" height="430" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="226.6" y="40" width="103.4" height="50" fill="#e3eefa" stroke="none"/>
+<rect x="330" y="40" width="258.5" height="50" fill="#fde2e0" stroke="none"/>
+<rect x="50" y="40" width="640" height="50"/>
+<path d="M330.0 40.0 L330.0 90.0"/>
+<path d="M226.6 40.0 L226.6 156.0" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M588.5 40.0 L588.5 156.0" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M278.3 122.0 L226.6 122.0" stroke="#000"/>
+<path d="M226.6 122.0 L234.6 126.0 L234.6 118.0 Z" fill="#000" stroke="#000"/>
+<path d="M278.3 122.0 L330.0 122.0" stroke="#000"/>
+<path d="M330.0 122.0 L322.0 118.0 L322.0 126.0 Z" fill="#000" stroke="#000"/>
+<path d="M459.2 122.0 L330.0 122.0" stroke="#000"/>
+<path d="M330.0 122.0 L338.0 126.0 L338.0 118.0 Z" fill="#000" stroke="#000"/>
+<path d="M459.2 122.0 L588.5 122.0" stroke="#000"/>
+<path d="M588.5 122.0 L580.5 118.0 L580.5 126.0 Z" fill="#000" stroke="#000"/>
+<path d="M407.5 150.0 L226.6 150.0" stroke="#000"/>
+<path d="M226.6 150.0 L234.6 154.0 L234.6 146.0 Z" fill="#000" stroke="#000"/>
+<path d="M407.5 150.0 L588.5 150.0" stroke="#000"/>
+<path d="M588.5 150.0 L580.5 146.0 L580.5 154.0 Z" fill="#000" stroke="#000"/>
+<path d="M50.0 232.0 L690.0 232.0" stroke="#000"/>
+<path d="M690.0 232.0 L682.0 228.0 L682.0 236.0 Z" fill="#000" stroke="#000"/>
+<path d="M226.6 232 L226.6 282 L330 282 L330 212 L588.5 212 L588.5 232" stroke-width="2.2"/>
+<path d="M50.0 330.0 L690.0 330.0" stroke="#000"/>
+<path d="M690.0 330.0 L682.0 326.0 L682.0 334.0 Z" fill="#000" stroke="#000"/>
+<path d="M226.6 330 L330 400 L588.5 330" stroke-width="2.2"/>
+<path d="M330.0 330.0 L330.0 400.0" stroke-width="1" stroke-dasharray="4 3"/>
+</g>
+<text x="70" y="30" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">p 型 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">N</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">A</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 5×10</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"><tspan class="n" baseline-shift="super" font-size="11">16</tspan></tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> cm</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"><tspan class="n" baseline-shift="super" font-size="11">−3</tspan></tspan></text>
+<text x="690" y="30" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">n 型 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">N</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">D</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 2×10</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"><tspan class="n" baseline-shift="super" font-size="11">16</tspan></tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> cm</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"><tspan class="n" baseline-shift="super" font-size="11">−3</tspan></tspan></text>
+<text x="278.305" y="72" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">− − −</tspan></text>
+<text x="459.241" y="72" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+ + + + +</tspan></text>
+<text x="120" y="72" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">中性 p 區</tspan></text>
+<text x="645" y="72" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">中性 n 區</tspan></text>
+<text x="278.305" y="106" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">p</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 73.85 nm</tspan></text>
+<text x="459.241" y="106" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">n</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 184.63 nm</tspan></text>
+<text x="407.546" y="172" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">W</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">dep</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 258.48 nm</tspan></text>
+<text x="54" y="212" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ρ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">)</tspan></text>
+<text x="220.61" y="280" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">qN</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">A</tspan></text>
+<text x="594.482" y="216" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">qN</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">D</tspan></text>
+<text x="350" y="262" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">面積相等：</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">N</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">A</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">p</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">N</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">D</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">n</tspan></text>
+<text x="686" y="252" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan></text>
+<text x="54" y="318" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">E</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">)</tspan></text>
+<text x="322" y="412" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">E</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">max</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（接面處）</tspan></text>
+<text x="360" y="412" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">三角形面積 = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">0</tspan></text>
+<text x="686" y="350" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan></text>
+</svg>

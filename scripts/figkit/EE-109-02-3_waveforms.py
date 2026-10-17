@@ -2,14 +2,14 @@
 import pathlib, sys; sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from power_parts import *
 
-W, H = 680, 480
+W, H = 680, 520
 X0, XT = 120, 600          # t = 0 and t = T
 XD = X0 + 0.75 * (XT - X0)  # t = DT
 s = header(W, H)
 # axes: (y_zero, top)
-Yv, Yi, Ys = 95, 255, 420
-for y, top in ((Yv, 30), (Yi, 165), (Ys, 300)):
-    s += arrow(X0, y, XT + 30, y) + arrow(X0, y + (60 if y == Yv else 8), X0, top)
+Yv, Yi, Ys = 95, 295, 460
+for y, top in ((Yv, 30), (Yi, 205), (Ys, 340)):
+    s += arrow(X0, y, XT + 30, y) + arrow(X0, y + (84 if y == Yv else 8), X0, top)
 # v_p: +32.93 -> 24 px, -98.80 -> 72 px
 s += poly([(X0, Yv), (X0, Yv - 24), (XD, Yv - 24), (XD, Yv + 72), (XT, Yv + 72), (XT, Yv)], color=BLUE)
 # i_p: 0 -> 60 A (75 px)
@@ -25,8 +25,8 @@ s += arrow((XD + XT) / 2, Ys + 36, XD, Ys + 36) + arrow((XD + XT) / 2, Ys + 36, 
 s += end_group()
 t = []
 t.append(text(X0 + 10, 40, [("v", "v"), ("vsub", "p")]))
-t.append(text(X0 + 10, 172, [("v", "i"), ("vsub", "p")]))
-t.append(text(X0 + 10, 307, [("v", "i"), ("vsub", "s")]))
+t.append(text(X0 + 10, 212, [("v", "i"), ("vsub", "p")]))
+t.append(text(X0 + 10, 347, [("v", "i"), ("vsub", "s")]))
 t.append(text(X0 + 40, Yv - 32, [("v", "V"), ("vsub", "s"), ("n", " − "), ("v", "V"), ("vsub", "t"), ("n", " = 32.93 V")]).replace('fill="#000"', f'fill="{BLUE}"', 1))
 t.append(text(XD - 8, Yv + 70, [("n", "−("), ("v", "N"), ("vsub", "p"), ("n", "/"), ("v", "N"), ("vsub", "s"), ("n", ")("), ("v", "V"), ("vsub", "o"), ("n", " + "), ("v", "V"), ("vsub", "d"), ("n", ") = −98.80 V")], anchor="end").replace('fill="#000"', f'fill="{BLUE}"', 1))
 t.append(text(X0 - 10, Yi - 70, [("v", "I"), ("vsub", "p(max)"), ("n", " = 60 A")], anchor="end"))

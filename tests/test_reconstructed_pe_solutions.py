@@ -202,9 +202,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: reference_book_verified", flyback)
         self.assertIn("DCM／臨界導通模式（CrCM）邊界", flyback)
         self.assertIn("題圖未明示 CCM/DCM", flyback)
-        self.assertIn("I_{p,\\,avg\\mid on}=", flyback)
+        self.assertIn("I_{p,on}=", flyback)
         self.assertIn("30\\,\\mathrm A", flyback)
-        self.assertIn("I_{p,\\,avg}=D\\,I_{p,\\,avg\\mid on}", flyback)
+        self.assertIn("I_{p(avg)}=D\\,I_{p,on}", flyback)
 
         cb = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-113-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: reference_book_verified", cb)
@@ -541,14 +541,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
         emf = abs(v_phase + 1j * 4.5 * current)
         regulation = (emf - v_phase) / v_phase * 100
         self.assertIn(f"{regulation:.2f}", note)
-        self.assertIn("118.60", note)
+        self.assertIn("118.59", note)
         self.assertIn("110.26", note)
         # 2026-10-03: 200 A is the full-load field current, so the book's
         # OCC reading conflicts with the stem; manual review with the
         # independent linear-OCC answer as primary.
         self.assertIn("audit_status: needs_manual_review", note)
         self.assertIn(r"\boxed{68.64\%}", note)
-        self.assertIn(r"\boxed{118.60\ \mathrm A}", note)
+        self.assertIn(r"\boxed{118.59\ \mathrm A}", note)
         self.assertIn(r"\boxed{110.26\ \mathrm A}", note)
 
     def test_synchronous_generator_reference_book_keeps_curve_boundary_explicit(self):
@@ -802,7 +802,8 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("5.98 kA", note)
         self.assertIn(r"7.96\ \mathrm{kA}", note)
         self.assertIn(r"9.95\ \mathrm{kA}", note)
-        self.assertIn("4.28\\times10^{-2}", note)
+        self.assertIn("|Z_f|=\\sqrt{0.024084^2+0.035438^2}", note)
+        self.assertIn("0.042847", note)
         self.assertIn("I_{sym,LL}=9.93", note)
         self.assertIn(r"11.32\,\mathrm{kA}", note)
         for removed in ("I_{peak,exact,LL}", "16.5404", "19.36", "19.1841", "22.49", "四分之一週期近似"):
@@ -818,7 +819,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         z_f = z_t2 + 2 * (z_sys + z_t1 + z_line)
         i_base = 75000 / 220
         i_sym_ka = i_base / abs(z_f) / 1000
-        self.assertIn(f"{abs(z_f) * 100:.2f}\\times10^{{-2}}", note)
+        self.assertIn(f"{abs(z_f):.6f}", note)
         self.assertIn(f"{i_sym_ka:.2f}", note)
         self.assertIn("9.95", note)  # 1.25 x the rounded 7.96 kA
         self.assertAlmostEqual(1.25 * i_sym_ka, 9.946, delta=0.002)
@@ -987,11 +988,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
     def test_flyback_annual_note_defines_both_average_current_conventions(self):
         """Annual pages must not leave the 22.5 A average-current convention ambiguous."""
         annual = (CANONICAL / "02_電子學_含電力電子" / "109年_電子學_全卷完整詳細題解.md").read_text(encoding="utf-8")
-        self.assertIn(r"I_{p,\,avg\mid on}=\frac{I_{p(max)}}2=30\,\mathrm A", annual)
-        self.assertIn(r"I_{p,avg}=D\,I_{p,avg\mid on}", annual)
+        self.assertIn(r"I_{p,on}=\dfrac{I_{p(max)}}{2}=\dfrac{60}{2}=30\ \mathrm A", annual)
+        self.assertIn(r"I_{p(avg)}=D\,I_{p,on}", annual)
         self.assertIn("整個週期平均", annual)
         self.assertIn("導通區間平均", annual)
-        self.assertIn(r"\boxed{I_{p,\,avg}=D\,I_{p,\,avg\mid on}=0.75\times30=22.50\ \mathrm A}", annual)
+        self.assertIn(r"\boxed{I_{p(avg)}=D\,I_{p,on}=0.75\times30=22.50\ \mathrm A}", annual)
 
     def test_mosfet_reference_book_solution_records_both_branches(self):
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-3.md").read_text(encoding="utf-8")
@@ -1276,14 +1277,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         fault = (CANONICAL / "06_工業配電" / "canonical" / "EE-112-06-4.md").read_text(encoding="utf-8")
         self.assertIn("19\\,478.75", fault)
-        self.assertIn("4.83\\times10^{-1}", fault)
+        self.assertIn("=0.4828", fault)
         self.assertIn("\\boxed{0.48}", fault)
 
         interleaved = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-108-02-5.md").read_text(encoding="utf-8")
         # 2026-10-03: stem is internally inconsistent (V_L=3 V vs D*V_S=1.5 V) -> needs_manual_review.
         self.assertIn("audit_status: needs_manual_review", interleaved)
         self.assertIn("review_disposition: stem_internal_conflict", interleaved)
-        self.assertIn("\\mathbf{0.75\\text{ A}}", interleaved)
+        self.assertIn("=0.75\\text{ A}", interleaved)
         self.assertIn("3.38\\text{ A}", interleaved)
         self.assertIn("2.63\\text{ A}", interleaved)
         self.assertNotIn("0.3\\text{ A}", interleaved)
@@ -1346,7 +1347,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         induction_108 = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", induction_108)
-        self.assertIn("P_{ag}=3|I_2'|^2\\frac{R_2'}s=5747.72", induction_108)
+        self.assertIn("P_{ag}=3(266.0977)(7.20)=5747.7", induction_108)
         self.assertIn("42.47\\,\\mathrm{N\\cdot m}", induction_108)
         self.assertIn("86.37", induction_108)
 
@@ -1577,7 +1578,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         gparam_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-5.md").read_text(encoding="utf-8")
         for note in (mutual_104, transient_104, gparam_104):
             self.assertIn("audit_status: verified", note)
-        self.assertIn("6.63\\times10^{-1}", mutual_104)
+        self.assertIn("k=\\frac{13}{8\\sqrt6}\\approx0.66", mutual_104)
         self.assertIn("(s+100)^2", transient_104)
         self.assertIn("0.04 - j0.02", gparam_104)
 
@@ -1636,7 +1637,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", gs_105)
         self.assertIn("0.91", gs_105)
         self.assertIn("0.92", gs_105)
-        self.assertIn("(9.05-j1.25)\\times10^{-1}", gs_105)
+        self.assertIn("0.90493-j0.12477", gs_105)
 
         penalty_105 = (CANONICAL / "05_電力系統" / "canonical" / "EE-105-05-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", penalty_105)
@@ -1668,7 +1669,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", fault_105)
         self.assertIn("34.37", fault_105)
         self.assertIn("37.37", fault_105)
-        self.assertIn("6.44\\times10^{-2}", fault_105)
+        self.assertIn("0.06437", fault_105)
 
         thevenin_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-1.md").read_text(encoding="utf-8")
         power_104 = (CANONICAL / "01_電路學" / "canonical" / "EE-104-01-3.md").read_text(encoding="utf-8")
@@ -1707,7 +1708,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         # 2026-10-03 lean-v1: the superseded 19.05%／6.07 pu values stay only
         # as the explicitly rejected intermediate-point reading.
         self.assertIn(r"\boxed{1.61\%}", annual_110)
-        self.assertIn(r"\boxed{X_R\ge3.67\times10^{-2}\,\mathrm{pu}}", annual_110)
+        self.assertIn(r"\boxed{X_R\ge0.0367\,\mathrm{pu}}", annual_110)
         self.assertIn("19.05%／6.07 pu 對應兩變壓器之間的假想觀測點，既非 A 點，也非圖示 B 點", annual_110)
 
 

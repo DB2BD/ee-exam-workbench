@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 370" width="720" height="370">
+<rect width="720" height="370" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M180.0 300.0 L600.0 300.0" stroke="#000"/>
+<path d="M600.0 300.0 L592.0 296.0 L592.0 304.0 Z" fill="#000" stroke="#000"/>
+<path d="M420.0 326.0 L420.0 26.0" stroke="#000"/>
+<path d="M420.0 26.0 L416.0 34.0 L424.0 34.0 Z" fill="#000" stroke="#000"/>
+<path d="M288.0 295.0 L288.0 305.0"/>
+<path d="M354.0 295.0 L354.0 305.0"/>
+<path d="M486.0 295.0 L486.0 305.0"/>
+<path d="M415.0 234.0 L425.0 234.0"/>
+<path d="M415.0 168.0 L425.0 168.0"/>
+<path d="M415.0 102.0 L425.0 102.0"/>
+<path d="M486.0 234.0 L288.0 234.0" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M288.0 234.0 L288.0 102.0" stroke="#000" stroke-dasharray="5 4"/>
+</g>
+<g fill="none" stroke="#1f5fa8" stroke-width="2"><path d="M486.0 234.0 L295.0 106.7" stroke="#1f5fa8"/>
+<path d="M295.0 106.7 L299.4 114.5 L303.9 107.8 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+</g>
+<circle cx="486" cy="234" r="2.6" fill="#000" stroke="none"/>
+<circle cx="288" cy="102" r="2.6" fill="#000" stroke="none"/>
+<text x="608" y="306" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan></text>
+<text x="430" y="34" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">z</tspan></text>
+<text x="428" y="322" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0</tspan></text>
+<text x="288" y="322" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−2</tspan></text>
+<text x="354" y="322" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−1</tspan></text>
+<text x="486" y="322" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1</tspan></text>
+<text x="410" y="173" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">2</tspan></text>
+<text x="410" y="107" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">3</tspan></text>
+<text x="412" y="228" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1</tspan></text>
+<text x="498" y="256" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">起點 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(1, 1, 1)</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">，</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">u</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 0</tspan></text>
+<text x="278" y="92" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">終點 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(−2, 1, 3)</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">，</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">u</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1</tspan></text>
+<text x="354" y="256" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Δ</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = −3</tspan></text>
+<text x="278" y="173" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Δ</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">z</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 2</tspan></text>
+<text x="360.6" y="177.89999999999998" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">路徑 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">C</tspan></text>
+<text x="360.0" y="356" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">整段在平面 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">y</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 上（</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">dy</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 0</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">），畫在 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">xz</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 平面</tspan></text>
+</svg>

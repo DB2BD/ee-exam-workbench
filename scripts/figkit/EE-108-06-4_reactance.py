@@ -1,0 +1,25 @@
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from svgkit import *
+def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"')
+W, H = 680, 320; s = header(W, H); y, g, xa, xf, xb = 100, 250, 70, 400, 610
+for x in (xa, xb):
+    s += line(x, g, x, 189) + ac_source(x, 175) + line(x, 161, x, y)
+s += line(xa, y, 110, y) + coil(110, y, 190, y) + line(190, y, 220, y) + coil(220, y, 300, y) + line(300, y, xf, y)
+s += line(xf, y, 470, y) + coil(470, y, 550, y) + line(550, y, xb, y)
+s += dot(xf, y) + f'<path d="M{xf} {y} L{xf} {g}" stroke="{RED}" stroke-dasharray="6 4"/>\n' + dot(xf, g)
+s += line(xa, g, xb, g)
+s += arrow(322, y - 14, 382, y - 14, RED) + arrow(588, y - 14, 420, y - 14, RED) + arrow(xf + 14, 140, xf + 14, 210, RED)
+s += end_group()
+s += text(150, 70, [("v", "jX"), ("vsub", "S")], anchor="middle") + text(150, 132, [("v", "j"), ("n", "1.00")], anchor="middle")
+s += text(260, 70, [("v", "jX"), ("vsub", "T")], anchor="middle") + text(260, 132, [("v", "j"), ("n", "0.22")], anchor="middle")
+s += text(510, 132, [("v", "j"), ("n", "6.6667")], anchor="middle") + text(510, 70, [("v", "jX"), ("vsub", "M")], anchor="middle")
+s += text(xf, 44, [("n", "F"), ("t", "（480 V 母線）")], anchor="middle")
+s += ctext(RED, 352, 76, [("v", "I"), ("vsub", "S")], anchor="middle")
+s += ctext(RED, 600, 74, [("v", "I"), ("vsub", "M")], anchor="start")
+s += ctext(RED, xf + 22, 180, [("v", "I"), ("vsub", "f,pu"), ("n", " = "), ("v", "I"), ("vsub", "S"), ("n", " + "), ("v", "I"), ("vsub", "M")])
+for x, nm, dx, an in ((xa, "電源", 20, "start"), (xb, "電機 M", -20, "end")):
+    s += text(x + dx, 180 if dx > 0 else 226, [("v", "E"), ("n", "″ = 1∠0°")], anchor=an) + text(x, 284, [("t", nm)], anchor="middle")
+s += text(340, 306, [("v", "S"), ("vsub", "b"), ("n", " = 20 MVA"), ("t", "；電抗為標么值，電流數值於（二）求出")], anchor="middle")
+s += footer()
+open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/06_工業配電/figures/EE-108-06-4-reactance.svg'), 'w').write(s)
+print(len(s))

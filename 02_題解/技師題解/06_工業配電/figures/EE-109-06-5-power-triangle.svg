@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 356" width="720" height="356">
+<rect width="720" height="356" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M20.0 268.0 L276.1 268.0"/>
+<path d="M276.1 268.0 L276.1 76.0"/>
+<path d="M20.0 268.0 L276.1 76.0"/>
+<path d="M20 268 L276.1 144.0" stroke="#1f5fa8" stroke-dasharray="6 4"/>
+<path d="M284.1 76.0 L284.1 144.0" stroke="#1f5fa8"/>
+<path d="M284.1 144.0 L288.1 136.0 L280.1 136.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<circle cx="276.0656" cy="143.98239999999998" r="2.6" fill="#000" stroke="none"/>
+<circle cx="276.0656" cy="75.95079999999999" r="2.6" fill="#000" stroke="none"/>
+<path d="M470.0 268.0 L566.0 268.0"/>
+<path d="M566.0 268.0 L566.0 140.0"/>
+<path d="M470.0 268.0 L566.0 140.0"/>
+<path d="M470 268 L566.0 208.0" stroke="#1f5fa8" stroke-dasharray="6 4"/>
+<path d="M574.0 140.0 L574.0 208.0" stroke="#1f5fa8"/>
+<path d="M574.0 208.0 L578.0 200.0 L570.0 200.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<circle cx="566.0260000000001" cy="207.9988" r="2.6" fill="#000" stroke="none"/>
+<circle cx="566.0260000000001" cy="139.9672" r="2.6" fill="#000" stroke="none"/>
+</g>
+<text x="148.0328" y="292" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 914.52 kW</tspan></text>
+<text x="292.0656" y="81.95079999999999" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 685.89 kvar</tspan></text>
+<text x="292.0656" y="115.96659999999999" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">c</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 242.97 kvar</tspan></text>
+<text x="292.0656" y="149.98239999999998" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">target</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 442.92 kvar</tspan></text>
+<text x="20" y="40" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">滿載（200 A）</tspan></text>
+<text x="518.013" y="292" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 342.95 kW</tspan></text>
+<text x="582.0260000000001" y="145.9672" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 457.26 kvar</tspan></text>
+<text x="582.0260000000001" y="179.983" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">c</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 242.97 kvar</tspan></text>
+<text x="582.0260000000001" y="213.9988" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">′ = 214.29 kvar</tspan></text>
+<text x="470" y="40" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">輕載（100 A）</tspan></text>
+<text x="148" y="316" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PF 0.8 → 0.9</tspan></text>
+<text x="518" y="316" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PF 0.6 → </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PF</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">′ = 0.8481</tspan></text>
+<text x="360" y="346" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">黑：原負載功率三角形；藍虛線：並聯電容器後（只減 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">、不改 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
+</svg>

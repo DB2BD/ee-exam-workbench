@@ -1,0 +1,33 @@
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from svgkit import *
+def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"')
+W, H = 660, 300
+YT, YB = 80, 220
+XE, XT, XI = 70, 330, 590           # internal EMF, generator terminal, infinite bus
+s = header(W, H)
+s += line(XE, YT, XE, 136) + ac_source(XE, 150) + line(XE, 164, XE, YB)
+s += line(XI, YT, XI, 136) + ac_source(XI, 150) + line(XI, 164, XI, YB)
+s += line(XE, YT, 140, YT) + coil(140, YT, 260, YT, turns=5) + line(260, YT, XT, YT)
+s += line(XT, YT, 400, YT) + coil(400, YT, 520, YT, turns=5) + line(520, YT, XI, YT)
+s += line(XE, YB, XI, YB)
+s += line(XT, YB, XT, YB + 8) + ground(XT, YB + 8)
+s += dot(XT, YT) + dot(XT, YB)
+s += arrow(XT, YB - 6, XT, YT + 14, color=BLUE)          # V_t: reference -> terminal node (+)
+s += arrow(532, YT + 14, 574, YT + 14, color=RED)        # I toward infinite bus
+s += end_group()
+s += ctext(BLUE, XE + 24, 146, [("v", "E"), ("n", "∠"), ("v", "δ"), ("vsub", "g")])
+s += text(XE + 24, 168, [("t", "內部電勢")])
+s += text(200, YT - 16, [("v", "jX"), ("vsub", "s"), ("n", " = "), ("v", "j"), ("n", "1.00")], anchor="middle")
+s += text(200, YT + 30, [("t", "發電機")], anchor="middle")
+s += text(460, YT - 16, [("v", "jX"), ("vsub", "T"), ("n", " = "), ("v", "j"), ("n", "0.217014")], anchor="middle")
+s += text(460, YT + 30, [("t", "升壓變壓器")], anchor="middle")
+s += text(XT, YT - 16, [("t", "發電機端")], anchor="middle")
+s += ctext(BLUE, XT + 10, 146, [("v", "V"), ("vsub", "t"), ("n", " = 1∠0°")])
+s += ctext(RED, 553, YT + 36, [("v", "I")], anchor="middle")
+s += ctext(BLUE, XI - 24, 146, [("v", "V"), ("sub", "∞"), ("n", " = 1.041667")], anchor="end")
+s += ctext(BLUE, XI - 24, 168, [("n", "∠−11.31°")], anchor="end")
+s += text(XI, YT - 16, [("t", "無限匯流排")], anchor="middle")
+s += text(330, 282, [("t", "基準 850 MVA、24 kV（高壓側 331.2 kV）")], anchor="middle")
+s += footer()
+open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/05_電力系統/figures/EE-107-05-3-circuit.svg'), 'w').write(s)
+print(len(s))

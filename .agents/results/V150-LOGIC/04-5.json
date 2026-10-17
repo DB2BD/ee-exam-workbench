@@ -1,0 +1,92 @@
+[
+ {
+  "qid": "EE-105-04-5",
+  "logic_added": true,
+  "steps_added": "解題邏輯（外激、線性未飽和前提）；步驟 1 電樞 KVL 求 E_a1=240 V；步驟 2 磁通比 r=0.50；求 n2：T∝ΦIa → Ia2=300/r，KVL → Ea2，Ea∝Φn → n2=800/r−100/r^2，再代 r=0.50 逐行得 1200 rpm",
+  "figures": [
+   "EE-105-04-5-armature-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "needs_manual_review 保留；條件與疑義表與測試字串（\\frac{300}{r}\\ \\mathrm{A}、800/r−100/r^2、0.45、1283.951）不動"
+ },
+ {
+  "qid": "EE-105-04-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（P、Vφ 不變 → Ia cosφ 與 Ef sinδ 固定）；步驟 1 電動機 KVL；步驟 2 功率不變兩條限制；主題：兩狀態 Ef 實部/虛部展開、|Ef| 比較、結論框；ASCII 圖改為 SVG 相量圖",
+  "figures": [
+   "EE-105-04-4-equivalent-circuit.svg",
+   "EE-105-04-4-phasor.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "論述題；相量圖只標符號，比例取驗算示範值；\\mathbf 改為 \\underline 與同科一致；review fix 2（選修）：共用尖端的箭頭錯開、δ2 弧半徑 58、−jXsIa 改稱「電抗壓降取負號」、圖例改「調整 I_f 後」"
+ },
+ {
+  "qid": "EE-104-04-5",
+  "logic_added": true,
+  "steps_added": "解題邏輯（固定 |Ef|、定阻抗讀法前提）；步驟 1 等效電路；步驟 2 情況 1 求 |Ef|=219.6221 V；主題：|Z_L|、R_L/X_L、|Z_L+jXs|、Ia'、Vφ'=213.6246 V、jXsIa' 相量，框 V_L'=370.01 V",
+  "figures": [
+   "EE-104-04-5-equivalent-circuit.svg",
+   "EE-104-04-5-phasor.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "此鏈 |Ef| 與 Vφ 差約 0.1%，保留 4 位小數使 √3(213.6246)=370.01 照字面成立；原框內 √3(213.62) 會得 370.00，已改為只框結果（值不變）；框內符號 V_L→V_L'（與 380 V 區分）；review fix 2：圖 2 |E_f| 圓弧延長過兩尖端（range 0–86、線寬 1.5、兩尖端加小圓圈）；|E_f| 細空格；正文補 =370.0087 V、38.91° 註明用途、情況 1 改 cosθ=1"
+ },
+ {
+  "qid": "EE-104-04-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（s=1、Y 接 I_b 前提）；步驟 1 Zs、Zr、Zm 各一行（Zm 共軛有理化）；步驟 2 Zr∥Zm 分子分母展開；主題：Z_in、|Z_in| 與角度分行、i_s,pu、I_b、i_s=10.60 A",
+  "figures": [
+   "EE-104-04-4-start-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "移除 5.03\\times10^{-2} 類寫法；保留 $(1-s)r_r/s$ 與 10.60"
+ },
+ {
+  "qid": "EE-104-04-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（永磁 Kφ 固定、以轉矩不變為準）；步驟 1 電樞等效電路與兩工作點；（一）KVL→Pout；（二）ω1、Kφ=0.04616、T1=0.09232、Ia2=2.000；（三）Ea2、Pin、Pout、η",
+  "figures": [
+   "EE-104-04-3-armature-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "needs_manual_review 保留（612 rpm 題幹矛盾，條件與疑義不變，2.96→2.958 V 4 位有效）；移除 \\times10^{-2} 寫法"
+ },
+ {
+  "qid": "EE-107-04-3",
+  "logic_added": true,
+  "steps_added": "",
+  "figures": [
+   "EE-107-04-3-torque-slip.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix：圖 2「穩定／運轉區」移到曲線右下淡藍區；ind/max 下標改斜體；s_max ≈ 0.10"
+ },
+ {
+  "qid": "EE-106-04-5",
+  "logic_added": true,
+  "steps_added": "",
+  "figures": [
+   "EE-106-04-5-equivalent-circuit.svg",
+   "EE-106-04-5-phasor-lag.svg",
+   "EE-106-04-5-phasor-lead.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix：圖 1 負載改一般阻抗方塊 Z_L；圖 2 分量標 Re(IaZs)=85.9364 V、Im(IaZs)=110.4182 V；兩圖角度標 θ = 36.87°；圖 3 δ 弧半徑 165 不再穿過 Ia，Ia 值另列；箭桿整支上色；已知與所求補「題未指明負載」；刪重複四位有效行；review fix 2：超前圖 δ 弧旁只標 δ，δ = 71.41° 移到左下圖例"
+ },
+ {
+  "qid": "EE-111-04-4",
+  "logic_added": true,
+  "steps_added": "",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix（選修）：（三）框前補結果 =110.2638 A"
+ }
+]

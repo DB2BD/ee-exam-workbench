@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" width="680" height="380">
+<rect width="680" height="380" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="200.0" y="314" width="220.0" height="12" fill="#e3eefa" stroke="none"/>
+<path d="M30.0 320.0 L650.0 320.0" stroke="#000"/>
+<path d="M650.0 320.0 L642.0 316.0 L642.0 324.0 Z" fill="#000" stroke="#000"/>
+<path d="M90.0 350.0 L90.0 28.0" stroke="#000"/>
+<path d="M90.0 28.0 L86.0 36.0 L94.0 36.0 Z" fill="#000" stroke="#000"/>
+<path d="M40 320 L90 320 L310 233.33333333333334" stroke-width="2"/>
+<path d="M310 190.0 L530 60 L630 60" stroke-width="2"/>
+<path d="M200.0 320.0 L200.0 276.7" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M90.0 276.7 L200.0 276.7" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M420.0 320.0 L420.0 125.0" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M90.0 125.0 L420.0 125.0" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M90.0 60.0 L530.0 60.0" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M530.0 320.0 L530.0 60.0" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M310.0 320.0 L310.0 233.3" stroke="#000" stroke-dasharray="5 4"/>
+</g>
+<path d="M310 229.33333333333334 L310 194.0" stroke="#1f5fa8" stroke-width="2.5"/>
+<circle cx="310" cy="233.33333333333334" r="4" fill="#fff" stroke="#000" stroke-width="1.5"/>
+<circle cx="310" cy="190.0" r="4" fill="#000" stroke="none"/>
+<text x="640" y="344" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan></text>
+<text x="100" y="40" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">)</tspan></text>
+<text x="82" y="342" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0</tspan></text>
+<text x="200.0" y="344" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1/2</tspan></text>
+<text x="310" y="344" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1</tspan></text>
+<text x="420.0" y="344" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">3/2</tspan></text>
+<text x="530" y="344" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">2</tspan></text>
+<text x="80" y="281.6666666666667" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1/6</tspan></text>
+<text x="80" y="130.0" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">3/4</tspan></text>
+<text x="80" y="65" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1</tspan></text>
+<text x="182.39999999999998" y="249.8" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">/3</tspan></text>
+<text x="455.2" y="134.20000000000002" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">/2</tspan></text>
+<text x="320" y="251.33333333333334" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(1</tspan><tspan class="n sup" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="super">−</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">) = 1/3</tspan></text>
+<text x="300" y="182.0" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(1) = 1/2</tspan></text>
+<text x="300" y="214.8" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">跳躍 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1) = 1/6</tspan></text>
+<text x="208.0" y="298.6666666666667" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(1/2) = 1/6</tspan></text>
+<text x="412.0" y="115.0" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(3/2) = 3/4</tspan></text>
+<text x="310" y="370" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">所求事件 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1/2 ≤ </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> ≤ 3/2</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（含跳躍點 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
+</svg>

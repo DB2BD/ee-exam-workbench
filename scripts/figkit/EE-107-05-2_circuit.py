@@ -1,0 +1,36 @@
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from svgkit import *
+def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"')
+W, H = 720, 300
+YT, YB = 80, 230
+XE, X1, X2 = 70, 300, 540           # source, primary terminal, secondary terminal
+s = header(W, H)
+s += line(XE, YT, XE, 141) + ac_source(XE, 155) + line(XE, 169, XE, YB)
+s += line(XE, YT, 120, YT) + coil(120, YT, 230, YT, turns=4) + line(230, YT, X1, YT)
+s += line(X1, YT, 360, YT) + coil(360, YT, 470, YT, turns=4) + line(470, YT, 600, YT)
+s += line(600, YT, 600, 125) + f'<path d="M588 125 L612 125 L612 185 L588 185 Z"/>\n' + line(600, 185, 600, YB)   # constant-power load
+s += line(XE, YB, 600, YB)
+s += line(330, YB, 330, YB + 8) + ground(330, YB + 8)
+for X in (X1, X2):
+    s += dot(X, YT) + dot(X, YB)
+    s += arrow(X, YB - 6, X, YT + 14, color=BLUE)          # node voltage: reference -> node (+)
+s += arrow(482, YT + 14, 524, YT + 14, color=RED)
+s += end_group()
+s += ctext(BLUE, XE + 24, 150, [("v", "E"), ("vsub", "s")])
+s += ctext(BLUE, XE + 24, 172, [("n", "|"), ("v", "E"), ("vsub", "s"), ("n", "| = 1.014727")])
+s += text(175, YT - 16, [("v", "jZ"), ("vsub", "s"), ("n", " = "), ("v", "j"), ("n", "0.0185178")], anchor="middle")
+s += text(175, YT + 30, [("t", "電源阻抗 "), ("v", "j"), ("n", "8 Ω")], anchor="middle")
+s += text(415, YT + 30, [("v", "jX"), ("vsub", "T"), ("n", " = "), ("v", "j"), ("n", "0.15")], anchor="middle")
+s += text(415, YT - 16, [("t", "變壓器")], anchor="middle")
+s += text(X1, YT - 16, [("t", "一次端")], anchor="middle")
+s += ctext(BLUE, X1 + 10, 160, [("n", "|"), ("v", "V"), ("sub", "1"), ("n", "| = 1")])
+s += ctext(RED, 503, YT + 38, [("v", "I")], anchor="middle")
+s += text(X2 + 6, YT - 16, [("t", "二次端")], anchor="middle")
+s += ctext(BLUE, X2 - 10, 150, [("v", "V"), ("sub", "2"), ("n", " = 0.889705")], anchor="end")
+s += ctext(BLUE, X2 - 10, 172, [("n", "∠0°（參考）")], anchor="end")
+s += text(622, 150, [("v", "S")])
+s += text(622, 172, [("n", "= 0.8 + "), ("v", "j"), ("n", "0.6")])
+s += text(360, 284, [("t", "基準 60 MVA、161/23.9 kV；負載為恆功率")], anchor="middle")
+s += footer()
+open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/05_電力系統/figures/EE-107-05-2-circuit.svg'), 'w').write(s)
+print(len(s))

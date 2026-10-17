@@ -1,0 +1,56 @@
+[
+ {
+  "qid": "EE-110-05-2",
+  "logic_added": true,
+  "steps_added": "解題邏輯（基準、G=0、平坦起始、一次疊代 ΔP/ΔQ 同用起始點、rad）；步驟1 符號與 P−jQ=V*ΣYV 通式；（一）（二）各附邏輯與 G=0 展開；步驟2 指定值、P/Q 起始值、不平衡量逐行；步驟3 B′、B″；（三）右端、det、克拉瑪 D2/D3、Δθ、rad→度、ΔV、新值",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "未畫圖：題圖已是單線圖，得分步驟為矩陣運算。移除 ×10^-n 寫法；條件與疑義補：若 Q 半步改用更新角度（序列式）|V3|=0.96（主解 0.98 依驗算腳本口徑不變）。"
+ },
+ {
+  "qid": "EE-111-05-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（古典模型、發電機額定基準、相對轉速 0、7 位有效理由）；步驟1 δ0/δmax/cosδ0；（一）A1/A2 積分式→cosδcr 式→代入逐行；（二）擺動方程積分兩次→t_cr 式→代入逐行、60 Hz 通式",
+  "figures": [
+   "EE-111-05-3-equal-area.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "δcr 完整精度 89.37498°，兩位小數應為 89.37°；框內 89.38° 為 89.375→89.38 兩次進位。框值與測試斷言（年度頁 \\boxed{\\delta_{cr}=89.38^\\circ）未改，已記於條件與疑義。",
+  "notes": "仍 needs_manual_review（頻率缺口）；保留全部測試字串。"
+ },
+ {
+  "qid": "EE-112-05-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（共同基準、實數抽頭、抽頭側依題圖）；步驟1 支路導納；步驟2 由理想變壓器推 I_i、I_k 蓋印式；步驟3 T1／3–4 線／T2 逐元素蓋印；Y_bus 彙整逐項",
+  "figures": [
+   "EE-112-05-3-tap-model.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": ""
+ },
+ {
+  "qid": "EE-112-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（古典模型、共同基準、F 視為 Bus1、Zf=j0.01 主解、6–7 位有效理由）；步驟1 X1；步驟2 I、jX1I、E′、|E′|、δ0、Pmax；步驟3 Y→Δ 求 X2、P2max；（一）A1/A2→cosδcr 式→分子三項、分母、δcr 逐行",
+  "figures": [
+   "EE-112-05-4-fault-network.svg",
+   "EE-112-05-4-equal-area.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "保留測試字串 Z_f=j0.01、101.0936492（frontmatter）、主解：等效接地電抗、102.08、僅作敏感度對照、框內 101.09。"
+ },
+ {
+  "qid": "EE-113-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（500 MW 基準、f0=60、直線下垂無二次控制）；（一）Δf/f0→代入→ΔP_M 逐行；（二）Δf=−RΔP_M f0；下垂圖",
+  "figures": [
+   "EE-113-05-4-droop.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "25 分未分配子題配分，子題標題不標分數。"
+ }
+]

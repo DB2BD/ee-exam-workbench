@@ -1,0 +1,31 @@
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from svgkit import *
+def col(frag, c): return f'<g stroke="{c}">' + frag.replace('fill="#000"', f'fill="{c}"') + '</g>\n'
+def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"')
+W, H = 640, 270; YT, YB = 60, 210; XS, XT, XL = 110, 430, 520
+s = header(W, H)
+s += ac_source(XS, 135, r=22)
+s += line(XS, 113, XS, YT) + line(XS, YT, 150, YT)
+s += resistor(150, YT, 220, YT)                         # Ra
+s += line(220, YT, 240, YT) + coil(240, YT, 340, YT, turns=5)   # jXs
+s += line(340, YT, XL, YT)
+s += line(XL, YT, XL, 95) + f'<rect x="{XL-22}" y="95" width="44" height="80"/>\n' + line(XL, 175, XL, YB)
+s += line(XS, 157, XS, YB) + line(XS, YB, XL, YB)
+s += dot(XT, YT) + dot(XT, YB)
+s += arrow(352, YT - 14, 410, YT - 14, color=RED)
+s += end_group()
+s += text(92, 110, [("n", "+")], anchor="middle")
+s += text(92, 172, [("n", "−")], anchor="middle")
+s += text(70, 140, [("v", "E"), ("vsub", "f")], anchor="end")
+s += text(185, 36, [("v", "R"), ("vsub", "a"), ("n", " = 0.1 Ω")], anchor="middle")
+s += text(290, 92, [("v", "jX"), ("vsub", "s"), ("n", " = "), ("v", "j"), ("n", "2.0 Ω")], anchor="middle")
+s += ctext(RED, 352, 30, [("v", "I"), ("vsub", "a"), ("n", " = 180.42∠−25.84° A")])
+s += ctext(BLUE, XT - 10, YT + 30, [("n", "+")], anchor="middle")
+s += ctext(BLUE, XT - 10, 142, [("v", "V"), ("vsub", "ϕ")], anchor="middle")
+s += ctext(BLUE, XT - 10, YB - 14, [("n", "−")], anchor="middle")
+s += text(XL + 32, 128, [("t", "負載")])
+s += text(XL + 32, 150, [("n", "PF 0.9 "), ("t", "落後")])
+s += text(320, 252, [("t", "每相（Y 接）："), ("v", "V"), ("vsub", "ϕ"), ("n", " = 3200/√3 = 1847.52∠0° V")], anchor="middle")
+s += footer()
+open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/04_電機機械/figures/EE-114-04-4-equivalent-circuit.svg'), 'w').write(s)
+print(len(s))

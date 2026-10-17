@@ -23,7 +23,7 @@
 <path d="M440.0 222.0 L440.0 236.0"/>
 <path d="M440.0 236.0 L440.0 250.0"/>
 <circle cx="440" cy="250" r="2.6" fill="#000" stroke="none"/>
-<path d="M440.0 250.0 L454.0 268.0"/>
+<path d="M440.0 250.0 L440.0 272.0"/>
 <circle cx="440" cy="272" r="2.6" fill="#000" stroke="none"/>
 <path d="M440.0 272.0 L440.0 290.0"/>
 <circle cx="260" cy="50" r="2.6" fill="#000" stroke="none"/>
@@ -44,7 +44,8 @@
 <text x="456" y="110" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">7.2 Ω</tspan></text>
 <text x="456" y="168" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">4.8 Ω</tspan></text>
 <text x="462" y="222" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">C</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">（−</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">jX</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">C</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">）</tspan></text>
-<text x="462" y="268" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">離心開關</tspan></text>
+<text x="462" y="262" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">離心開關</tspan></text>
+<text x="462" y="282" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（啟動時閉合）</tspan></text>
 <text x="456" y="70" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">輔助繞組 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan></text>
 <text x="418" y="86" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan></text>
 <text x="300" y="318" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">轉子靜止（啟動瞬間），兩繞組並聯接同一電源</tspan></text>

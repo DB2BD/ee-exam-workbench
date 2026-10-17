@@ -35,7 +35,7 @@ def panel(oy, on):
         t.append(text(8, Y(20), [("t", "(a) "), ("v", "Q"), ("t", " 導通："), ("n", "0 &lt; "), ("v", "t"), ("n", " &lt; "), ("v", "DT"), ("n", " = 10 μs")]))
     else:
         t.append(text(8, Y(20), [("t", "(b) "), ("v", "Q"), ("t", " 截止："), ("v", "DT"), ("n", " &lt; "), ("v", "t"), ("n", " &lt; "), ("v", "T"), ("n", " = 50 μs")]))
-    t.append(text(XS - 22, Y(126), [("v", "V"), ("sub", "s")], anchor="end"))
+    t.append(text(XS - 22, Y(126), [("v", "V"), ("vsub", "s")], anchor="end"))
     t.append(text(120, Y(92), [("v", "L"), ("sub", "1")], anchor="middle"))
     t.append(ctext(140, Y(36), [("v", "i"), ("vsub", "L"), ("sub", "1")]))
     t.append(text(XA + 12, Y(126), [("v", "Q")]))
@@ -47,16 +47,19 @@ def panel(oy, on):
     t.append(ctext(370, Y(36), [("v", "i"), ("vsub", "L"), ("sub", "2")], anchor="end"))
     t.append(text(XO - 20, Y(126), [("v", "C"), ("sub", "2")], anchor="end"))
     t.append(text(XR + 14, Y(126), [("t", "負載")]))
+    t.append(text(XR + 14, Y(150), [("v", "V"), ("vsub", "o")]))
+    t.append(text(XR - 12, Y(92), [("n", "−")], anchor="end"))
+    t.append(text(XR - 12, Y(170), [("n", "+")], anchor="end"))
     if on:
-        t.append(ctext(260, Y(28), [("v", "i"), ("vsub", "C"), ("sub", "1"), ("n", " = −"), ("v", "i"), ("vsub", "L"), ("sub", "2")], anchor="middle"))
+        t.append(ctext(260, Y(28), [("v", "i"), ("vsub", "L"), ("sub", "2"), ("t", "（放電）")], anchor="middle"))
         t.append(ctext(176, Y(126), [("v", "i"), ("vsub", "L"), ("sub", "1"), ("n", "+"), ("v", "i"), ("vsub", "L"), ("sub", "2")], anchor="end"))
-        t.append(text(8, Y(210), [("v", "v"), ("vsub", "L"), ("sub", "1"), ("n", " = "), ("v", "V"), ("sub", "s"), ("n", " = 10 V"), ("t", "，"),
+        t.append(text(8, Y(210), [("v", "v"), ("vsub", "L"), ("sub", "1"), ("n", " = "), ("v", "V"), ("vsub", "s"), ("n", " = 10 V"), ("t", "，"),
                                   ("v", "v"), ("vsub", "L"), ("sub", "2"), ("n", " = "), ("v", "V"), ("vsub", "C"), ("sub", "1"), ("n", " − "), ("v", "V"), ("vsub", "o"), ("n", " = 10 V"), ("t", "：兩電感電流皆上升")]))
         t.append(text(8, Y(234), [("v", "C"), ("sub", "1"), ("t", " 由 "), ("v", "i"), ("vsub", "L"), ("sub", "2"), ("t", " 放電，"), ("v", "Q"), ("t", " 承載 "), ("v", "i"), ("vsub", "L"), ("sub", "1"), ("n", " + "), ("v", "i"), ("vsub", "L"), ("sub", "2")]))
     else:
         t.append(ctext(260, Y(28), [("v", "i"), ("vsub", "C"), ("sub", "1"), ("n", " = "), ("v", "i"), ("vsub", "L"), ("sub", "1")], anchor="middle"))
         t.append(ctext(292, Y(126), [("v", "i"), ("vsub", "L"), ("sub", "1"), ("n", "+"), ("v", "i"), ("vsub", "L"), ("sub", "2")], anchor="end"))
-        t.append(text(8, Y(210), [("v", "v"), ("vsub", "L"), ("sub", "1"), ("n", " = "), ("v", "V"), ("sub", "s"), ("n", " − "), ("v", "V"), ("vsub", "C"), ("sub", "1"), ("n", " = −2.50 V"), ("t", "，"),
+        t.append(text(8, Y(210), [("v", "v"), ("vsub", "L"), ("sub", "1"), ("n", " = "), ("v", "V"), ("vsub", "s"), ("n", " − "), ("v", "V"), ("vsub", "C"), ("sub", "1"), ("n", " = −2.50 V"), ("t", "，"),
                                   ("v", "v"), ("vsub", "L"), ("sub", "2"), ("n", " = −"), ("v", "V"), ("vsub", "o"), ("n", " = −2.50 V"), ("t", "：兩電感電流皆下降")]))
         t.append(text(8, Y(234), [("v", "C"), ("sub", "1"), ("t", " 由 "), ("v", "i"), ("vsub", "L"), ("sub", "1"), ("t", " 充電，"), ("v", "D"), ("vsub", "m"), ("t", " 承載 "), ("v", "i"), ("vsub", "L"), ("sub", "1"), ("n", " + "), ("v", "i"), ("vsub", "L"), ("sub", "2")]))
     return s, ''.join(t)

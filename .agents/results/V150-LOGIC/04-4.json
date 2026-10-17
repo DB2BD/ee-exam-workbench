@@ -1,0 +1,87 @@
+[
+ {
+  "qid": "EE-108-04-3",
+  "logic_added": true,
+  "steps_added": "步驟1 每相精確等效電路與 Z_in（並聯乘共軛逐行）；步驟2 I_1 極座標、分流求 |I_2'|；(一)-(四) 各有邏輯行，P_ag 框 5.75 kW（題問 kW）",
+  "figures": [
+   "EE-108-04-3-equivalent-circuit.svg"
+  ],
+  "test_string_updates": [
+   "test_reconstructed_pe_solutions: 'P_{ag}=3|I_2'|^2\\frac{R_2'}s=5747.72' -> 'P_{ag}=3(266.0977)(7.20)=5747.7'（中間值照字面可驗；5747.72 需 8 位以上有效數字才能照字面重現）"
+  ],
+  "suspected_answer_issue": "",
+  "notes": "P_conv 由顯示值重算為 5632.7 W（原 5632.76 與 0.98×5747.72 不符）；403 W 含鐵損整筆自 P_conv 扣除已寫入前提。"
+ },
+ {
+  "qid": "EE-108-04-2",
+  "logic_added": true,
+  "steps_added": "步驟1 電樞迴路（電動機慣例）；(一) 先算 R_a 壓降再求 I_a；(四) ω_m=100π",
+  "figures": [
+   "EE-108-04-2-armature-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "銘牌 25 kW/125 V 不參與計算、場電路未給數據，已在解題邏輯說明。"
+ },
+ {
+  "qid": "EE-107-04-3",
+  "logic_added": true,
+  "steps_added": "步驟1 戴維寧迴路與 ω_s；(一) |Z|、I_2'、P_ag、T 逐行；(二) 穩定區論證、s_max、T_max 分子分母逐行",
+  "figures": [
+   "EE-107-04-3-thevenin-circuit.svg",
+   "EE-107-04-3-torque-slip.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "1755 rpm 銘牌不用已說明；起動轉矩 8.64 N·m 只在驗算，不入圖。"
+ },
+ {
+  "qid": "EE-107-04-2",
+  "logic_added": true,
+  "steps_added": "步驟1 串激等效電路與 E_a∝n、T=E_aI_a/ω_m；輕載／重載各自壓降→E_a→轉速比→ω_m→功率→轉矩",
+  "figures": [
+   "EE-107-04-2-series-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "N_p=25 不需使用已說明；重載轉速比用精確分數 5/6。"
+ },
+ {
+  "qid": "EE-106-04-5",
+  "logic_added": true,
+  "steps_added": "步驟1 每相量與電流分量；(一)(二) 相量乘法實虛部逐行、|E_f| 與 δ 分行；超前 VR 框 −0.36% 並附四位有效 −0.3569%",
+  "figures": [
+   "EE-106-04-5-equivalent-circuit.svg",
+   "EE-106-04-5-phasor-lag.svg",
+   "EE-106-04-5-phasor-lead.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "原框 −3.57×10^{-1}% 改為 −0.36%（同一答案，依位數規則；未四捨五入 −0.35689%，驗算腳本容差內）；滿載前提寫入解題邏輯。"
+ },
+ {
+  "qid": "EE-106-04-3",
+  "logic_added": true,
+  "steps_added": "步驟1 並激電路、E_a0、ω_0、KΦ（6 位有效）；(一) T_loss→T_e→I_a；(二) 壓降→E_a→比例求 n",
+  "figures": [
+   "EE-106-04-3-shunt-circuit.svg"
+  ],
+  "test_string_updates": [
+   "test_score_oriented_core_path: r'I_a=4+\\frac{100}{1.89}=56.89' -> r'I_a=\\frac{T_e}{K\\Phi}=\\frac{107.56304}{1.89076}=56.8888'",
+   "test_score_oriented_core_path: r'n=1000\\frac{171.56}{198}=866.44' -> r'n=n_0\\frac{E_a}{E_{a0}}=1000\\frac{171.5556}{198}=866.44'（舊字串照字面不成立：4+100/1.89=56.91、1000×171.56/198=866.46）"
+  ],
+  "suspected_answer_issue": "",
+  "notes": "needs_manual_review 維持；條件與疑義表不變。"
+ },
+ {
+  "qid": "EE-111-04-4",
+  "logic_added": true,
+  "steps_added": "（二）框值 118.60 A → 118.59 A；刪除位數疑義條目；條件與疑義改為 118.59 A",
+  "figures": [],
+  "test_string_updates": [
+   "test_reconstructed_pe_solutions: '118.60' -> '118.59'；r'\\boxed{118.60\\ \\mathrm A}' -> r'\\boxed{118.59\\ \\mathrm A}'"
+  ],
+  "suspected_answer_issue": "",
+  "notes": "user-approved answer correction 118.60→118.59"
+ }
+]

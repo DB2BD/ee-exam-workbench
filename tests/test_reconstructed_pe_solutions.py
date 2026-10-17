@@ -541,14 +541,14 @@ class TestReconstructedPESolutions(unittest.TestCase):
         emf = abs(v_phase + 1j * 4.5 * current)
         regulation = (emf - v_phase) / v_phase * 100
         self.assertIn(f"{regulation:.2f}", note)
-        self.assertIn("118.60", note)
+        self.assertIn("118.59", note)
         self.assertIn("110.26", note)
         # 2026-10-03: 200 A is the full-load field current, so the book's
         # OCC reading conflicts with the stem; manual review with the
         # independent linear-OCC answer as primary.
         self.assertIn("audit_status: needs_manual_review", note)
         self.assertIn(r"\boxed{68.64\%}", note)
-        self.assertIn(r"\boxed{118.60\ \mathrm A}", note)
+        self.assertIn(r"\boxed{118.59\ \mathrm A}", note)
         self.assertIn(r"\boxed{110.26\ \mathrm A}", note)
 
     def test_synchronous_generator_reference_book_keeps_curve_boundary_explicit(self):
@@ -1347,7 +1347,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
 
         induction_108 = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-3.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", induction_108)
-        self.assertIn("P_{ag}=3|I_2'|^2\\frac{R_2'}s=5747.72", induction_108)
+        self.assertIn("P_{ag}=3(266.0977)(7.20)=5747.7", induction_108)
         self.assertIn("42.47\\,\\mathrm{N\\cdot m}", induction_108)
         self.assertIn("86.37", induction_108)
 

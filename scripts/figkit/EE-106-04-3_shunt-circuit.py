@@ -1,0 +1,31 @@
+"""EE-106-04-3 fig 1: shunt dc motor; field branch across V_t (I_f = 1 A fixed), armature loop V_t = E_a + I_a R_a."""
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from svgkit import *
+def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"')
+W, H = 620, 300; YT, YB = 80, 250; XT, XF, XA = 90, 250, 480
+s = header(W, H)
+s += f'<circle cx="{XT}" cy="{YT}" r="4" fill="#fff"/>\n' + f'<circle cx="{XT}" cy="{YB}" r="4" fill="#fff"/>\n'
+s += line(XT + 4, YT, 340, YT) + resistor(340, YT, 420, YT) + line(420, YT, XA, YT) + line(XA, YT, XA, 139)
+s += f'<circle cx="{XA}" cy="165" r="26"/>\n'
+s += line(XA, 191, XA, YB) + line(XT + 4, YB, XA, YB)
+s += line(XF, YT, XF, 100) + resistor(XF, 100, XF, 160) + line(XF, 160, XF, 172) + coil(XF, 172, XF, 232, turns=4) + line(XF, 232, XF, YB)
+s += dot(XF, YT) + dot(XF, YB)
+s += arrow(XF + 24, 140, XF + 24, 190, color=RED)
+s += arrow(290, YT - 16, 335, YT - 16, color=RED)
+s += end_group()
+s += ctext(BLUE, XT, YT + 32, [("n", "+")], anchor="middle")
+s += ctext(BLUE, XT, 170, [("v", "V"), ("vsub", "t")], anchor="middle")
+s += ctext(BLUE, XT, 190, [("n", "= 200 V")], anchor="middle")
+s += ctext(BLUE, XT, YB - 18, [("n", "−")], anchor="middle")
+s += text(XF - 22, 136, [("v", "R"), ("vsub", "f"), ("n", " = 200 Ω")], anchor="end")
+s += text(XF - 16, 208, [("t", "並激場")], anchor="end")
+s += ctext(RED, XF + 36, 170, [("v", "I"), ("vsub", "f"), ("n", " = 1 A")])
+s += ctext(RED, 312, YT - 26, [("v", "I"), ("vsub", "a")], anchor="middle")
+s += text(380, YT + 30, [("v", "R"), ("vsub", "a"), ("n", " = 0.5 Ω")], anchor="middle")
+s += text(XA - 12, 158, [("n", "+")], anchor="end") 
+s += text(XA - 12, 186, [("n", "−")], anchor="end")
+s += ctext(BLUE, XA + 36, 170, [("v", "E"), ("vsub", "a")])
+s += text(XA - 36, 282, [("v", "V"), ("vsub", "t"), ("n", " = "), ("v", "E"), ("vsub", "a"), ("n", " + "), ("v", "I"), ("vsub", "a"), ("v", "R"), ("vsub", "a"), ("t", "（電動機慣例）")], anchor="middle")
+s += footer()
+open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/04_電機機械/figures/EE-106-04-3-shunt-circuit.svg'), 'w').write(s)
+print(len(s))

@@ -42,5 +42,36 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "needs_manual_review 與損失分母疑義原樣保留；保留 6 位有效（159.70/0.9 會得 177.44）；驗算／失分點的算術和上限 179.40 更正為 179.43（(52.632+125)/0.99），非答案值"
+ },
+ {
+  "qid": "EE-106-06-4",
+  "logic_added": true,
+  "steps_added": "review fix: 圖 1 重畫為實際差動接線（主變壓器 Y 繞組中性點接地／Δ 互接、CT1 二次 Δ 互接引至 87A/B/C、CT2 二次 Y 接 N、各 CT 極性端、R1/R2/OP，交叉處跨線）；畫法補 CT1 Δ 與主變壓器 Δ 同組合（反接差 60°）；(二) 邏輯與失分點補 Δ 接濾零序、防區外接地故障誤跳；圖中「側」改中文字型",
+  "figures": [
+   "EE-106-06-4-wiring.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-107-06-2",
+  "logic_added": true,
+  "steps_added": "review fix: 步驟 2 補 θ=cos⁻¹0.85=31.79°；失分點 K 改 0.16575+0.0909×0.5268=0.21364；前提補線徑／管材只決定題給阻抗",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix；條件與疑義表格百分比未改（tests 斷言 5.4407）"
+ },
+ {
+  "qid": "EE-108-06-4",
+  "logic_added": true,
+  "steps_added": "review fix: 圖 1 電流只留名稱與方向（I_S、I_M、I_f,pu=I_S+I_M），移除（二）與驗算才求出的數值與 I_b",
+  "figures": [
+   "EE-108-06-4-reactance.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
  }
 ]

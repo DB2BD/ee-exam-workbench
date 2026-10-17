@@ -1411,7 +1411,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", magnetic_110)
         # 2026-10-03: the coils are cumulatively coupled (F=(100+85)(0.55));
         # the differential-coupling values survive only as the 失分點 trap.
-        self.assertIn("\\boxed{B=\\frac{\\Phi}{A_c}=0.94\\ \\mathrm T}", magnetic_110)
+        self.assertIn("\\boxed{B=0.94\\ \\mathrm T}", magnetic_110)
         self.assertIn("=71.56\\ \\mathrm{mJ}}", magnetic_110)
         magnetic_main, magnetic_traps = magnetic_110.split("## 失分點", 1)
         for old_value in ("0.07603", "0.4704"):

@@ -63,7 +63,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "移除 2.01×10^{-2}、5.03×10^{-1} 寫法；框內值 0.50 T／2.01 H 與先前 5.03×10^{-1}／2.01 數值相同（只改表示法），4 位有效另列"
+  "notes": "移除 2.01×10^{-2}、5.03×10^{-1} 寫法；B 依兩位小數規則框 0.50 T（原框 5.03×10^{-1} T，同一數值 0.50265 T 的不同位數），下方另列 4 位有效 0.5027 T；L 框 2.01 H 附 2.011 H"
  },
  {
   "qid": "EE-114-04-2",
@@ -75,5 +75,29 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "保留條件與疑義（RMS／峰值、173.925、122.984）"
+ },
+ {
+  "qid": "EE-109-04-4",
+  "logic_added": true,
+  "steps_added": "（三）一般式改為逐行：F_x、F_y 分量式→i_b+i_c=−i_a→F_x=3/2·NI cos ω_e t→和差化積 i_b−i_c=√3 I sin ω_e t→F_y→|F|=1.5NI→θ=ω_e t；（一）作圖註明 F 由 O 起算、與 F_a 重疊；（二）作圖補首尾相接順序 F_a→F_c→F_b",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-110-04-1",
+  "logic_added": true,
+  "steps_added": "框內只留結果 \\boxed{B=0.94\\ \\mathrm T}；刪除重複的 0.9377 行；步驟 2 補 I=550 mA=0.55 A 換算；圖中 ℛ/ℱ 改用 KaTeX_Caligraphic（同時重生 EE-104-04-1、EE-106-04-1 的磁路圖，只改字形）",
+  "figures": [
+   "EE-110-04-1-magnetic-circuit.svg",
+   "EE-104-04-1-reluctance-network.svg",
+   "EE-106-04-1-magnetic-circuit.svg"
+  ],
+  "test_string_updates": [
+   "tests/test_reconstructed_pe_solutions.py: \\boxed{B=\\frac{\\Phi}{A_c}=0.94\\ \\mathrm T} -> \\boxed{B=0.94\\ \\mathrm T}"
+  ],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
  }
 ]

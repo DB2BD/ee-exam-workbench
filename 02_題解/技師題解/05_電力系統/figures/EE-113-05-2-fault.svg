@@ -19,7 +19,7 @@
 <path d="M60.0 250.0 L620.0 250.0"/>
 <circle cx="230" cy="90" r="2.6" fill="#000" stroke="none"/>
 <circle cx="450" cy="90" r="2.6" fill="#000" stroke="none"/>
-<path d="M230 90 L230 250" stroke="#c0392b" stroke-width="2.5"/>
+<path d="M230 90 L230 250" stroke="#c0392b"/>
 <circle cx="230" cy="250" r="2.6" fill="#000" stroke="none"/>
 <path d="M192.0 108.0 L222.0 108.0" stroke="#c0392b"/>
 <path d="M222.0 108.0 L214.0 104.0 L214.0 112.0 Z" fill="#c0392b" stroke="#c0392b"/>

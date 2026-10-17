@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" font-family="Helvetica, Arial, sans-serif" font-size="15">
+  <rect x="0" y="0" width="520" height="340" rx="12" fill="#ffffff"/>
+  <g stroke="#111" stroke-width="1" stroke-dasharray="4 4" fill="none">
+    <line x1="60" y1="150" x2="460" y2="150"/>
+    <line x1="200" y1="20" x2="200" y2="320"/>
+  </g>
+  <g stroke="#111" stroke-width="2" stroke-dasharray="6 5" fill="none">
+    <line x1="313" y1="191" x2="334" y2="309"/>
+    <line x1="221" y1="268" x2="334" y2="309"/>
+  </g>
+  <g stroke="#111" stroke-width="2" fill="none">
+    <line x1="200" y1="150" x2="327" y2="91"/>
+    <line x1="200" y1="150" x2="313" y2="191"/>
+    <line x1="200" y1="150" x2="179" y2="32"/>
+    <line x1="200" y1="150" x2="221" y2="268"/>
+  </g>
+  <g fill="#111">
+    <polygon points="0,-6 0,6 12,0" transform="translate(327,91) rotate(-25) translate(-12,0)"/>
+    <polygon points="0,-6 0,6 12,0" transform="translate(313,191) rotate(20) translate(-12,0)"/>
+    <polygon points="0,-6 0,6 12,0" transform="translate(179,32) rotate(-100) translate(-12,0)"/>
+    <polygon points="0,-6 0,6 12,0" transform="translate(221,268) rotate(80) translate(-12,0)"/>
+    <text x="334" y="88">V_ab ∠25°</text>
+    <text x="322" y="186">I_ab = 110∠−20°</text>
+    <text x="34" y="36">I_ca = 110∠100°</text>
+    <text x="28" y="276">−I_ca = 110∠−80°</text>
+    <text x="466" y="155">實軸</text>
+  </g>
+  <g stroke="#c0392b" stroke-width="3" fill="#c0392b">
+    <line x1="200" y1="150" x2="325" y2="298"/>
+    <polygon points="0,-7 0,7 14,0" stroke="none" transform="translate(334,309) rotate(50) translate(-14,0)"/>
+  </g>
+  <text x="246" y="330" fill="#c0392b">I_a = I_ab − I_ca = 110√3∠−50°</text>
+</svg>

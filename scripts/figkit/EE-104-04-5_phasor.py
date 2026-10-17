@@ -28,8 +28,10 @@ s += col(arrow(X(V2), by, X(V2 + dre), Y(dim)), BLUE)                      # jX_
 s += col(arrow(X(V2 + dre) - 150, Y(dim) + 150 * dim / (V2 + dre), X(V2 + dre), Y(dim)), BLUE)   # E_f (case 2)
 s += col(dashed(arrow(X(V2), by, X(V1), by)), BLUE)                        # case 1 V_phi extends to 219.3931
 s += col(dashed(arrow(X(V1), by, X(V1), Y(I1))), BLUE)                     # case 1 jX_s I_a (vertical)
-arc = ' L'.join(f'{X(Ef * math.cos(t)):.1f} {Y(Ef * math.sin(t)):.1f}' for t in [i * 0.0006 for i in range(0, 56)])
-s += f'<path d="M{arc}" stroke-dasharray="2 4" stroke-width="1"/>\n'
+arc = ' L'.join(f'{X(Ef * math.cos(t)):.1f} {Y(Ef * math.sin(t)):.1f}' for t in [i * 0.0006 for i in range(0, 86)])
+s += f'<path d="M{arc}" stroke-dasharray="3 3" stroke-width="1.5"/>\n'
+for tx, ty in ((X(V2 + dre), Y(dim)), (X(V1), Y(I1))):                  # both tips sit on the |E_f| arc
+    s += f'<circle cx="{tx:.1f}" cy="{ty:.1f}" r="4.5" stroke-width="1.2"/>\n'
 s += f'<path d="M{X(V2) + 26} {by} A26 26 0 0 0 {X(V2) + 26 * 0.6:.1f} {by - 26 * 0.8:.1f}"/>\n'
 s += end_group()
 s += text(20, 26, [("t", "左：情況 2 依比例（1 V = 1.5 px）；右：尖端放大（1 V = 16 px）")])
@@ -46,8 +48,8 @@ s += text(X(V2) + 30, by - 8, [("n", "53.13°")])
 s += ctext(BLUE, 412, 70, [("t", "虛線：情況 1（電阻負載）")])
 s += ctext(BLUE, 412, 92, [("v", "V"), ("vsub", "ϕ"), ("n", " = 219.3931 V")])
 s += ctext(BLUE, 412, 114, [("v", "jX"), ("vsub", "s"), ("v", "I"), ("vsub", "a"), ("n", " = "), ("v", "j"), ("n", "10.0277 V")])
-s += text(412, 142, [("t", "點線：半徑 "), ("n", "|"), ("v", "E"), ("vsub", "f"), ("n", "| = 219.6221 V")])
-s += text(412, 162, [("t", "的圓弧（兩種情況尖端皆在其上）")])
+s += text(412, 142, [("t", "點線：半徑 "), ("n", "|"), ("v", "E"), ("vsub", "f"), ("n", " | = 219.6221 V")])
+s += text(412, 162, [("t", "的圓弧；兩個小圓圈＝兩種情況的尖端")])
 s += footer()
 open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/04_電機機械/figures/EE-104-04-5-phasor.svg'), 'w').write(s)
 print(len(s))

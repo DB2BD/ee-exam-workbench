@@ -69,5 +69,28 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "移除 4.03×10^{-3}、2.54×10^{-1} 寫法；驗算補無載自洽（1.0025 A）與滿載回代 200.01 V；測試斷言字串（第（二）題本身未給場控電阻、附加條件下的精細近似、\\approx1.25）保留。"
+ },
+ {
+  "qid": "EE-114-04-4",
+  "logic_added": true,
+  "steps_added": "review fix: I_aR_a 虛部 7.86→7.864 及 Im E_f 行（316.90 不變）",
+  "figures": [
+   "EE-114-04-4-phasor.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix（04-1-review.md 必修 1；選修 2–4：圖 1 移到 I_a 求出之後、相量圖說明去掉 px、前提補雜散負載損失不計）"
+ },
+ {
+  "qid": "EE-113-04-5",
+  "logic_added": true,
+  "steps_added": "review fix: C=1/3341.83=2.9924×10^{-4} F 補單位與換算行",
+  "figures": [
+   "EE-113-04-5-circuit.svg",
+   "EE-113-04-5-phasor.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix（必修 1：圖 1 離心開關畫成閉合並標「啟動時閉合」；必修 2：C 換算行；選修 3：60.55° 改標 ∠I_m=−60.55°、相量圖說明去掉 px；選修 4：解題邏輯補 4 極不影響）"
  }
 ]

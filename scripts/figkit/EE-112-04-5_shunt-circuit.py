@@ -11,6 +11,7 @@ s += line(280, YT, XT - 4, YT)
 s += f'<circle cx="{XT}" cy="{YT}" r="4" fill="#fff"/>\n'
 s += line(XN, YT, XN, 100) + resistor(XN, 100, XN, 160)       # Rf
 s += line(XN, 160, XN, 172) + coil(XN, 172, XN, 236, turns=4)  # Lf
+s += arrow(XN - 16, 152, XN + 16, 108)                          # adjustable Rf (slanted arrow)
 s += line(XN, 236, XN, YB)
 s += line(XA, 196, XA, YB) + line(XA, YB, XT - 4, YB)
 s += f'<circle cx="{XT}" cy="{YB}" r="4" fill="#fff"/>\n'
@@ -23,7 +24,7 @@ s += text(XA - 34, 160, [("n", "+")], anchor="middle")
 s += text(XA - 34, 196, [("n", "−")], anchor="middle")
 s += text(XA - 46, 176, [("v", "E"), ("vsub", "A")], anchor="end")
 s += text(240, YT + 30, [("v", "R"), ("vsub", "a"), ("n", " = 0.12 Ω")], anchor="middle")
-s += text(XN - 16, 136, [("v", "R"), ("vsub", "f"), ("n", " = 50 Ω")], anchor="end")
+s += text(XN - 26, 136, [("v", "R"), ("vsub", "f"), ("n", " = 50 Ω")], anchor="end")
 s += text(XN - 16, 210, [("v", "L"), ("vsub", "f")], anchor="end")
 s += ctext(RED, 480, YT - 28, [("v", "I"), ("vsub", "L"), ("n", " = 150 A")], anchor="middle")
 s += ctext(RED, 315, YT - 28, [("v", "I"), ("vsub", "a"), ("n", " = 145 A")], anchor="middle")

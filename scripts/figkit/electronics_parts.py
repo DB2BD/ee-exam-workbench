@@ -74,3 +74,18 @@ def polarity(x, ytop, ybot, parts, color=BLUE, anchor="start"):
     return (ctext(x, ytop + 14, [("n", "+")], anchor="middle", color=color)
             + ctext(x, ybot - 4, [("n", "−")], anchor="middle", color=color)
             + ctext(xm + (6 if anchor == "start" else -6), (ytop + ybot) / 2 + 5, parts, anchor=anchor, color=color))
+
+
+def nmos(gx, gy, lead=20):
+    """Enhancement NMOS: gate plate at x = gx centred on y = gy (gate wire arrives from the left);
+    drain lead up-right, source lead down-right with the arrow pointing out of the channel.
+    Returns (svg, (xd, yd), (xs, ys)) with the drain / source lead end points."""
+    xch = gx + 8
+    s = line(gx, gy - 16, gx, gy + 16)
+    s += f'<path d="M{xch:.1f} {gy - 20:.1f} L{xch:.1f} {gy + 20:.1f}" stroke-width="3"/>\n'
+    xd = xs = xch + 22
+    s += line(xch, gy - 14, xd, gy - 14) + line(xd, gy - 14, xd, gy - 14 - lead)
+    s += line(xch, gy + 14, xs, gy + 14) + line(xs, gy + 14, xs, gy + 14 + lead)
+    hx = xch + 17
+    s += f'<path d="M{hx:.1f} {gy + 14:.1f} L{hx - 8:.1f} {gy + 10:.1f} L{hx - 8:.1f} {gy + 18:.1f} Z" fill="#000"/>\n'
+    return s, (xd, gy - 14 - lead), (xs, gy + 14 + lead)

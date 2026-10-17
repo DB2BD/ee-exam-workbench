@@ -56,7 +56,7 @@ for p, x in ct2.items():
     P2[p] = x - 12
     s += vhop(x + 12, y + 12, yN, cross)
     s += vhop(x - 12, y + 12, R[p], cross + ([yN] if x - 12 > ct2["A"] + 12 else []))
-s += line(ct2["A"] + 12, yN, 666, yN) + dot(ct2["A"] + 12, yN) + dot(ct2["B"] + 12, yN) + dot(666, yN)
+s += line(ct2["A"] + 12, yN, 666, yN) + dot(ct2["A"] + 12, yN) + dot(ct2["B"] + 12, yN) + dot(ct2["C"] + 12, yN) + dot(666, yN)
 s += line(666, yN, 690, yN) + line(690, yN, 690, yN + 12) + ground(690, yN + 12)
 # ---- 87 elements: R1 – (OP to N) – R2 per phase ----
 xr = 470
@@ -65,7 +65,7 @@ for p, y in R.items():
     s += line(xl, y, 270, y) + coil(270, y, 330, y, turns=3) + line(330, y, 390, y) + coil(390, y, 450, y, turns=3)
     s += line(450, y, P2[p], y) + dot(360, y)
     s += coil(360, y, 360, y + 40, turns=3, r=5) + line(360, y + 40, xr, y + 40) + dot(xr, y + 40)
-    lab += text(300, y - 12, [("v", "R"), ("sub", "1")], anchor="middle") + text(420, y - 12, [("v", "R"), ("sub", "2")], anchor="middle")
+    lab += text(300, y - 16, [("v", "R"), ("sub", "1")], anchor="middle") + text(420, y - 16, [("v", "R"), ("sub", "2")], anchor="middle")
     lab += text(360, y - 12, [("n", f"87{p}")], anchor="middle") + text(352, y + 28, [("n", "OP")], anchor="end")
 s += vhop(xr, R["A"] + 40, 600, [R["B"], R["C"]]) + line(xr, 600, 666, 600) + line(666, 600, 666, yN)
 s += arrow(xJA + 20, R["A"], xJA + 56, R["A"], RED) + arrow(P2["A"] - 40, R["A"], P2["A"] - 4, R["A"], RED)

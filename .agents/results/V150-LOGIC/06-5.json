@@ -73,5 +73,49 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "review fix"
+ },
+ {
+  "qid": "EE-105-06-1",
+  "logic_added": true,
+  "steps_added": "review fix: 圖 1 改為符號參考圖（只留 R_A=12.1、R_B=2.42 與 R_g、V_M、V_AN、V_BN、I_A、I_B、I_g 名稱），電流箭頭改 KCL 參考方向 A→M、B→M、M→地；(一) 說明補不平衡電流 36.364 A 改走大地",
+  "figures": [
+   "EE-105-06-1-open-neutral.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-104-06-4",
+  "logic_added": true,
+  "steps_added": "review fix: 圖 1 只留符號（jX_1、jX_2、jX_0、V_ϕ、I_3ϕ、I_a0），移除數值與含 ² 的公式列；步驟 1 補 Z_k=jX_k，推導統一用 X_k",
+  "figures": [
+   "EE-104-06-4-sequence.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-106-06-4",
+  "logic_added": true,
+  "steps_added": "review optional: CT2 C 相 T 形接點補實心點；R_1/R_2 標籤上移",
+  "figures": [
+   "EE-106-06-4-wiring.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-108-06-4",
+  "logic_added": true,
+  "steps_added": "review optional: X_M 標籤改為名稱在上、數值在下，I_M 標籤移到箭頭尾端",
+  "figures": [
+   "EE-108-06-4-reactance.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
  }
 ]

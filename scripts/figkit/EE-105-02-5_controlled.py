@@ -1,4 +1,4 @@
-"""EE-105-02-5 (2b): half-controlled bridge (2 SCR + 2 diodes) vs fully-controlled bridge (4 SCR), R-L load with continuous current."""
+"""EE-105-02-5 (2b): asymmetric half-controlled bridge (SCR arm + diode arm, freewheeling through D3-D4) vs fully-controlled bridge (4 SCR), R-L load with continuous current."""
 import pathlib, sys; sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from power_parts import *
 
@@ -29,32 +29,33 @@ def skeleton(ox):
 W, H = 720, 344
 s = header(W, H)
 s += skeleton(0)
-s += scr(X1, YM, X1, YP) + scr(X2, YM, X2, YP, gate_left=False)
-s += diode(X1, YN, X1, YM) + diode(X2, YN, X2, YM)
+s += scr(X1, YM, X1, YP) + scr(X1, YN, X1, YM)                  # SCR arm: SCR1 top, SCR2 bottom
+s += diode(X2, YM, X2, YP) + diode(X2, YN, X2, YM)                # diode arm: D3 top, D4 bottom
 s += skeleton(345)
 s += scr(345 + X1, YM, 345 + X1, YP) + scr(345 + X2, YM, 345 + X2, YP, gate_left=False)
 s += scr(345 + X1, YN, 345 + X1, YM) + scr(345 + X2, YN, 345 + X2, YM, gate_left=False)
 s += end_group()
-for ox, title in ((0, "(a) 半控橋：2 SCR + 2 二極體"), (345, "(b) 全控橋：4 SCR")):
+for ox, title in ((0, "(a) 半控橋（SCR 臂＋二極體臂）"), (345, "(b) 全控橋：4 SCR")):
     s += text(ox + 6, 24, [("t", title)])
     s += text(ox + X1 - 8, YM + 24, [("t", "AC1")], anchor="end")
     s += text(ox + X2 + 8, YM + 24, [("t", "AC2")])
     s += text(ox + (X1 + X2) / 2, YM - 22, [("v", "v"), ("vsub", "s")], anchor="middle")
+    s += text(ox + (X1 + X2) / 2 - 22, YM - 8, [("n", "+")], anchor="end")
     s += text(ox + XL + 12, 108, [("v", "R")])
     s += text(ox + XL + 12, 200, [("v", "L")])
     s += text(ox + XL - 22, YP + 26, [("n", "(+)")], anchor="end")
     s += text(ox + XL - 22, YN - 12, [("n", "(−)")], anchor="end")
 s += text(X1 - 34, 112, [("t", "SCR1")], anchor="end")
-s += text(X2 + 34, 112, [("t", "SCR2")])
-s += text(X1 - 18, 204, [("v", "D"), ("sub", "3")], anchor="end")
+s += text(X1 - 34, 214, [("t", "SCR2")], anchor="end")
+s += text(X2 + 18, 112, [("v", "D"), ("sub", "3")])
 s += text(X2 + 18, 204, [("v", "D"), ("sub", "4")])
 s += text(345 + X1 - 34, 112, [("t", "SCR1")], anchor="end")
 s += text(345 + X2 + 34, 112, [("t", "SCR2")])
 s += text(345 + X1 - 34, 214, [("t", "SCR3")], anchor="end")
 s += text(345 + X2 + 34, 214, [("t", "SCR4")])
-s += ctext(6, 284, [("v", "V"), ("sub", "DC"), ("n", " = ("), ("v", "V"), ("vsub", "m"), ("n", "/π)(1 + cos "), ("v", "α"), ("n", ")")], color=BLUE)
-s += text(6, 310, [("t", "不為負；"), ("v", "D"), ("sub", "3"), ("t", "、"), ("v", "D"), ("sub", "4"), ("t", " 提供自然續流")])
-s += ctext(351, 284, [("v", "V"), ("sub", "DC"), ("n", " = (2"), ("v", "V"), ("vsub", "m"), ("n", "/π) cos "), ("v", "α")], color=BLUE)
+s += ctext(6, 284, [("v", "V"), ("sub", "DC"), ("n", " = ("), ("v", "V"), ("vsub", "m"), ("n", "/"), ("v", "π"), ("n", ")(1 + cos "), ("v", "α"), ("n", ")")], color=BLUE)
+s += text(6, 310, [("t", "不為負；"), ("v", "D"), ("sub", "3"), ("t", "、"), ("v", "D"), ("sub", "4"), ("t", " 二極體臂自然續流")])
+s += ctext(351, 284, [("v", "V"), ("sub", "DC"), ("n", " = (2"), ("v", "V"), ("vsub", "m"), ("n", "/"), ("v", "π"), ("n", ") cos "), ("v", "α")], color=BLUE)
 s += text(351, 310, [("v", "α"), ("n", " &gt; 90°"), ("t", " 時為負（逆變），無續流路徑")])
 s += footer()
 write('EE-105-02-5-controlled.svg', s)

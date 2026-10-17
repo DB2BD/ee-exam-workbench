@@ -13,6 +13,15 @@ note needs a ``**解題邏輯**：`` paragraph before its first ### heading in
 are <= 5 (this replaces the legacy 700-character rule).  The default is
 ``REQUIRE_LOGIC_DEFAULT``; flip it once every note has been rewritten.
 
+Permanent enforcement: when ``require_logic`` is not given explicitly, the
+logic rules apply automatically to every QID listed in
+``data/solution-logic-registry.json`` (notes already rewritten); other notes
+keep ``REQUIRE_LOGIC_DEFAULT``.  ``--require-logic`` forces the rules for any
+QID, ``--no-require-logic`` disables them.  After rewriting notes run
+``python3 scripts/update_solution_logic_registry.py`` so they get registered
+(``--check`` fails when the registry is stale; tests/test_lint_canonical_notes.py
+lints every registered note).
+
 Usage::
 
     python3 scripts/lint_canonical_notes.py              # summary of all notes
@@ -43,6 +52,7 @@ COMPACT_MAX_CHARS = 700
 # v1.5.0: with --require-logic compact is only for questions worth <= 5 marks.
 COMPACT_LOGIC_MAX_POINTS = 5
 REQUIRE_LOGIC_DEFAULT = False
+REGISTRY = ROOT / "data/solution-logic-registry.json"
 LOGIC_OVERALL = "**解題邏輯**："
 LOGIC_SUB = "**邏輯**："
 SCORED_HEADING = re.compile(r"^(#{3,4})\s+(\*{0,2}\s*[（(]\s*([一二三四五六七八九十])\s*[）)][^\n]*?[（(]\s*\d+\s*分\s*[）)][^\n]*)$", re.M)
@@ -141,9 +151,18 @@ def logic_errors(body: str) -> list[str]:
     return errors
 
 
-def lint(path: Path, stem: str, require_logic: bool = REQUIRE_LOGIC_DEFAULT) -> dict:
+def registered_qids() -> set[str]:
+    """QIDs whose notes were rewritten to the v1.5.0 logic standard."""
+    if not REGISTRY.exists():
+        return set()
+    return set(json.loads(REGISTRY.read_text(encoding="utf-8")).get("qids", []))
+
+
+def lint(path: Path, stem: str, require_logic: bool | None = None) -> dict:
     text = path.read_text(encoding="utf-8")
     fields, body = frontmatter(text)
+    if require_logic is None:
+        require_logic = REQUIRE_LOGIC_DEFAULT or fields.get("qid", path.stem) in registered_qids() or path.stem in registered_qids()
     prose = strip_code(body)
     errors: list[str] = []
     warnings: list[str] = []
@@ -238,7 +257,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("qids", nargs="*", help="limit to these QIDs")
     parser.add_argument("--strict", action="store_true", help="exit 1 when any checked note has an error")
     parser.add_argument("--json", action="store_true", help="print per-note results as JSON")
-    parser.add_argument("--require-logic", dest="require_logic", action="store_true", default=REQUIRE_LOGIC_DEFAULT,
+    parser.add_argument("--require-logic", dest="require_logic", action="store_true", default=None,
                         help="enforce the v1.5.0 解題邏輯／邏輯 rules and the <=5 mark compact limit")
     parser.add_argument("--no-require-logic", dest="require_logic", action="store_false",
                         help="disable the v1.5.0 solution-logic rules")

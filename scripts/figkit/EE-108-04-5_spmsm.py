@@ -34,13 +34,13 @@ s += line(*P(60, -45), 400, 334)                           # rotor core
 s += end_group()
 for k, lab in enumerate(("A", "C′", "B", "A′", "C", "B′") * 2):
     x, y = P(116, 105 + 30 * k)
-    s += ctext(RED, x, y + 6, [("t", lab)], anchor="middle")
+    s += text(x, y + 6, [("t", lab)], anchor="middle")
 for k, lab in enumerate(("N", "S", "N", "S")):
     x, y = P(66, 90 + 90 * k)
     s += text(x, y + 6, [("t", lab)], anchor="middle")
 X = 406
 s += text(X, 88, [("t", "定子：疊片鐵心（12 槽）")])
-s += ctext(RED, X, 146, [("t", "三相分布繞組，嵌於定子槽內")])
+s += text(X, 146, [("t", "三相分布繞組，嵌於定子槽內")])
 s += text(X, 166, [("t", "（每極每相 1 槽，相序 A–C′–B–A′…）")])
 s += text(X, 210, [("t", "氣隙：均勻（磁鐵外徑為圓）")])
 s += text(X, 266, [("t", "永磁體：黏貼在轉子表面，")])

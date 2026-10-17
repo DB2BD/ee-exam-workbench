@@ -83,5 +83,28 @@
   ],
   "suspected_answer_issue": "",
   "notes": "user-approved answer correction 118.60→118.59"
+ },
+ {
+  "qid": "EE-110-04-3",
+  "logic_added": true,
+  "steps_added": "必修：圖1、圖2 V_φ 改 219.3931；圖2 角度標籤改 φ = 36.87°。選修：δ' 取 |δ'|<90° 穩定解（捨 124.73°）；驗算補 n_s=120(60)/8=900 rpm、ω_s=94.25 rad/s",
+  "figures": [
+   "EE-110-04-3-equivalent-circuit.svg",
+   "EE-110-04-3-phasor.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-108-04-5",
+  "logic_added": true,
+  "steps_added": "必修：圖3 相帶標籤與標題改黑色；受力改寫為 F=iℓ×B（佛來明左手定則）。選修：F_r=F_f+F_a 磁勢合成、合成磁通沿 F_r；定義 p、ψ_f、i_q；電刷逆旋轉方向移到磁中性面",
+  "figures": [
+   "EE-108-04-5-spmsm.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
  }
 ]

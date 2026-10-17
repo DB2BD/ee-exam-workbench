@@ -32,7 +32,12 @@ s += text(ox - 10, Y(yy) + 5, [("v", "y")], anchor="end")
 s += text(X(3.45) + 6, Y(3.45) + 4, [("v", "y"), ("n", " = "), ("v", "x")])
 s += text(X(0.95), Y(2.25), [("v", "x"), ("n", " ≤ "), ("v", "y")], anchor="middle")
 s += text(X(4.1), Y(2.35), [("v", "x"), ("n", " &gt; "), ("v", "y")], anchor="middle")
-s += text(X(4.1), Y(2.35) + 24, [("v", "f"), ("vsub", "X,Y"), ("n", " = 1/15")], anchor="middle")
+# density holds on the whole support rectangle -> label outside, to the right
+s += text(X(5) + 12, Y(1.9), [("t", "整個矩形：")])
+s += text(X(5) + 12, Y(1.9) + 24, [("v", "f"), ("vsub", "X"), ("sub", ","), ("vsub", "Y"), ("n", " = 1/15")])
+# intersection of y = x with the top edge y = 3
+s += f'<circle cx="{X(3)}" cy="{Y(3)}" r="3" fill="#000" stroke="none"/>\n'
+s += text(X(3) - 8, Y(3) - 10, [("n", "(3, 3)")], anchor="end")
 s += ctext(X(3.15), Y(yy) - 10, [("t", "固定 "), ("v", "y"), ("t", "："), ("v", "x"), ("t", " 由 "), ("v", "y"), ("t", " 積到 "), ("n", "5")], anchor="middle")
 s += footer()
 write('EE-109-03-3-region.svg', s)

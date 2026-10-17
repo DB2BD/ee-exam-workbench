@@ -377,6 +377,39 @@
   background: var(--bg);
 }
 
+/* Hand-drawn solution figures (v1.5.0): inline SVG, always black ink on white
+   (both themes), fonts shared with the KaTeX formulas and the solution text. */
+.solution-content img[src$=".svg"] {
+  max-width: min(100%, 720px);
+  background: #fff;
+}
+
+.sol-figure {
+  margin: 14px auto;
+  max-width: 720px;
+  text-align: center;
+}
+
+.sol-figure svg {
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  color: #000;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.sol-figure svg .v { font-family: KaTeX_Math, "Times New Roman", serif; font-style: italic; }
+.sol-figure svg .n { font-family: KaTeX_Main, "Times New Roman", serif; }
+.sol-figure svg .t { font-family: var(--font-main); }
+.sol-figure svg .sub { font-size: 75%; }
+
+.sol-figure figcaption {
+  margin-top: 6px;
+  font-size: .9rem;
+  color: var(--muted, var(--ink));
+}
+
 .image-load-fallback,
 .solution-image-fallback,
 .question-topic-image-fallback,

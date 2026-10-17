@@ -40,6 +40,8 @@ NOTES = ROOT / "02_題解/技師題解"
 
 MAX_BYTES = 30 * 1024
 VIEWBOX_WIDTH = (480, 720)
+INK = {"none", "#000", "#000000", "black", "#111", "#111111", "#fff", "#ffffff", "white", "#c0392b", "#1f5fa8", "#fde2e0", "#e3eefa"}   # fixed palette (user decision 2026-10-17)
+TEXT_CLASSES = {"v", "n", "t"}
 WHITE = {"#fff", "#ffffff", "white", "#FFF", "#FFFFFF", "rgb(255,255,255)"}
 NAME = re.compile(r"^EE-\d{3}-\d{2}-\d+-[^/]+\.svg$")
 IMAGE = re.compile(r"!\[([^\]]*)\]\(([^)\n]+)\)")
@@ -47,6 +49,17 @@ FIGURE_REF = re.compile(r"^\.\./figures/([^/]+\.svg)$")
 CAPTION = re.compile(r"^\s*圖\s*\d+\s*[:：]")
 EXTERNAL_URL = re.compile(r"url\(\s*['\"]?\s*(?!#)", re.I)
 FORBIDDEN_TAGS = {"image", "script", "foreignobject", "iframe", "object", "embed", "audio", "video"}
+
+
+def sanitize_svg(text: str) -> str:
+    """Strip anything executable or external from an SVG before it is inlined into the page."""
+
+    text = re.sub(r"<\?xml[^>]*\?>|<!DOCTYPE[^>]*>|<!--.*?-->", "", text, flags=re.S)
+    text = re.sub(r"<script\b.*?</script\s*>|<script\b[^>]*/>", "", text, flags=re.S | re.I)
+    text = re.sub(r"<foreignObject\b.*?</foreignObject\s*>", "", text, flags=re.S | re.I)
+    text = re.sub(r"\s+on[a-zA-Z]+\s*=\s*(\"[^\"]*\"|'[^']*')", "", text)
+    text = re.sub(r"\s+(?:xlink:)?href\s*=\s*(\"(?!#)[^\"]*\"|'(?!#)[^']*')", "", text)
+    return text.strip()
 
 
 def local(tag: str) -> str:
@@ -73,6 +86,38 @@ def fill_of(element: ET.Element) -> str:
     style = element.get("style", "")
     match = re.search(r"(?:^|;)\s*fill\s*:\s*([^;]+)", style)
     return (match.group(1) if match else fill).strip()
+
+
+def fill_value(element: ET.Element, name: str) -> str:
+    match = re.search(r"(?:^|;)\s*" + name + r"\s*:\s*([^;]+)", element.get("style", ""))
+    return (match.group(1) if match else element.get(name, "")).strip()
+
+
+def classes(element: ET.Element) -> set[str]:
+    return set(element.get("class", "").split())
+
+
+def check_text(root: ET.Element) -> list[str]:
+    """Every <text> glyph run needs class v / n / t (on the text or its tspan); no '_' subscripts."""
+
+    problems = []
+    for text in root.iter():
+        if local(text.tag) != "text":
+            continue
+        runs = [(text.text or "", classes(text))]
+        for child in text.iter():
+            if child is text:
+                continue
+            runs.append((child.text or "", classes(child) or classes(text)))
+            if child.tail and child.tail.strip():
+                runs.append((child.tail, classes(text)))           # tail text belongs to the <text>
+        full = "".join(text.itertext())
+        if "_" in full:
+            problems.append(f"text:underscore subscript in '{full[:30]}' (use <tspan class=\"sub\">)")
+        for content, own in runs:
+            if content.strip() and not (own & TEXT_CLASSES):
+                problems.append(f"text:'{content.strip()[:20]}' lacks class v/n/t")
+    return problems
 
 
 def check_svg(path: Path) -> list[str]:
@@ -108,6 +153,10 @@ def check_svg(path: Path) -> list[str]:
 
     white = False
     for element in root.iter():
+        for paint in ("fill", "stroke"):
+            value = fill_value(element, paint)
+            if value and value.lower().replace(" ", "") not in INK and not value.startswith("url(#"):
+                problems.append(f"color:{paint}={value} (allowed palette: none, #000, #111, #fff, #c0392b, #1f5fa8, #fde2e0, #e3eefa)")
         tag = local(element.tag)
         if tag in FORBIDDEN_TAGS:
             problems.append(f"external:<{tag}>")
@@ -123,6 +172,7 @@ def check_svg(path: Path) -> list[str]:
             problems.append("external:style-url")
         if box and tag == "rect" and not white and fill_of(element).replace(" ", "") in WHITE and covers_viewbox(element, box):
             white = True
+    problems.extend(check_text(root))
     if not white:
         problems.append("background:no white <rect> covering the viewBox")
     return sorted(set(problems))
@@ -143,6 +193,8 @@ def collect(notes_root: Path = NOTES) -> dict:
         for alt, target in IMAGE.findall(text):
             target = unquote(target.strip())
             if not target.lower().split("?", 1)[0].split("#", 1)[0].endswith(".svg"):
+                continue
+            if "01_原始試題" in target:        # official-paper SVG crops are not hand-drawn figures
                 continue
             refs += 1
             label = str(note.relative_to(notes_root))

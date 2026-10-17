@@ -83,9 +83,32 @@ function resolveImageMapUrl(src, isGK, qid) {
   return `${preferred || fallback || nationalFallback || path}${suffix}`;
 }
 
+/**
+ * v1.5.0: hand-drawn solution figures (`![圖 N：…](../figures/<name>.svg)`) are drawn
+ * inline so their <text> uses the same KaTeX / UI fonts as the solution text.
+ * FIGURE_SVG ({ basename: sanitized svg text }) comes from solutions-bundle.js; an
+ * image without an entry stays a normal <img>.
+ */
+function inlineSolutionFigures(html) {
+  if (!html || typeof html !== 'string' || typeof FIGURE_SVG === 'undefined' || !FIGURE_SVG) return html;
+  return html.replace(/(<p>\s*)?(<img\b[^>]*>)(\s*<\/p>)?/gi, (match, open, tag) => {
+    const srcMatch = /\bsrc\s*=\s*["']([^"']+)["']/i.exec(tag);
+    const figure = srcMatch && /(?:^|\/)figures\/([^\/?#]+\.svg)(?:[?#].*)?$/i.exec(srcMatch[1]);
+    if (!figure) return match;
+    let name = figure[1];
+    try { name = decodeURIComponent(name); } catch (_) { /* keep raw name */ }
+    const svg = Object.prototype.hasOwnProperty.call(FIGURE_SVG, name) ? FIGURE_SVG[name] : '';
+    if (!svg) return match;
+    const altMatch = /\balt\s*=\s*"([^"]*)"/i.exec(tag);
+    const caption = altMatch ? altMatch[1] : '';
+    return `<figure class="sol-figure">${svg}${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`;
+  });
+}
+
 /** Resolve every image emitted by marked.js, including images in card topics. */
 function resolveRenderedImageSources(html, isGK, qid) {
   if (!html || typeof html !== 'string') return html;
+  html = inlineSolutionFigures(html);
   return html.replace(/(\bsrc\s*=\s*["'])([^"']+)(["'])/gi, (match, prefix, src, suffix) => {
     return `${prefix}${resolveImageMapUrl(src, isGK, qid)}${suffix}`;
   });

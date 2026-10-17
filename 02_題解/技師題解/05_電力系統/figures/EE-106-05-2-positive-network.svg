@@ -1,55 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" font-family="Helvetica, Arial, sans-serif" font-size="15">
-  <rect x="0" y="0" width="640" height="330" rx="12" fill="#ffffff"/>
-  <g stroke="#111" stroke-width="2" fill="none">
-    <!-- buses -->
-    <line x1="110" y1="80" x2="190" y2="80" stroke-width="5"/>
-    <line x1="450" y1="80" x2="530" y2="80" stroke-width="5"/>
-    <line x1="280" y1="230" x2="360" y2="230" stroke-width="5"/>
-    <!-- line 1-2 j0.8 -->
-    <line x1="190" y1="80" x2="270" y2="80"/>
-    <rect x="270" y="68" width="100" height="24" fill="#fff"/>
-    <line x1="370" y1="80" x2="450" y2="80"/>
-    <!-- line 1-3 j0.4 -->
-    <line x1="160" y1="80" x2="300" y2="230"/>
-    <rect x="195" y="143" width="70" height="24" transform="rotate(47 230 155)" fill="#fff"/>
-    <!-- line 3-2 j0.4 -->
-    <line x1="480" y1="80" x2="340" y2="230"/>
-    <rect x="375" y="143" width="70" height="24" transform="rotate(-47 410 155)" fill="#fff"/>
-    <!-- gen branch bus1 j0.2 to ground -->
-    <line x1="125" y1="80" x2="125" y2="110"/>
-    <rect x="113" y="110" width="24" height="60" fill="#fff"/>
-    <line x1="125" y1="170" x2="125" y2="270"/>
-    <!-- gen branch bus2 j0.4 -->
-    <line x1="515" y1="80" x2="515" y2="110"/>
-    <rect x="503" y="110" width="24" height="60" fill="#fff"/>
-    <line x1="515" y1="170" x2="515" y2="270"/>
-    <!-- fault Zf at bus1 -->
-    <line x1="175" y1="80" x2="175" y2="40"/>
-    <line x1="175" y1="40" x2="60" y2="40"/>
-    <line x1="60" y1="40" x2="60" y2="110"/>
-    <rect x="48" y="110" width="24" height="60" fill="#fff"/>
-    <line x1="60" y1="170" x2="60" y2="270"/>
-    <!-- reference -->
-    <line x1="40" y1="270" x2="540" y2="270" stroke-dasharray="6 5"/>
-  </g>
-  <g fill="#111">
-    <text x="128" y="70">Bus 1</text>
-    <text x="462" y="70">Bus 2</text>
-    <text x="296" y="252">Bus 3</text>
-    <text x="294" y="64">j0.8</text>
-    <text x="200" y="172" text-anchor="end">j0.4</text>
-    <text x="440" y="172">j0.4</text>
-    <text x="141" y="146">j0.2</text>
-    <text x="141" y="164" font-size="12">(G1+T1)</text>
-    <text x="531" y="146">j0.4</text>
-    <text x="531" y="164" font-size="12">(G2+T2)</text>
-    <text x="8" y="146">Z_f</text>
-    <text x="8" y="164">j0.11</text>
-    <text x="250" y="292">參考點（EMF 短路接地）</text>
-  </g>
-  <g stroke="#c0392b" stroke-width="2" fill="#c0392b">
-    <line x1="85" y1="200" x2="85" y2="240"/>
-    <polygon points="79,236 91,236 85,248" stroke="none"/>
-  </g>
-  <text x="92" y="228" fill="#c0392b">I_f</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" width="680" height="360">
+<rect width="680" height="360" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M115 100 L205 100" stroke-width="5"/>
+<path d="M470 100 L560 100" stroke-width="5"/>
+<path d="M300 262 L380 262" stroke-width="5"/>
+<path transform="translate(205.0 100.0) rotate(0.00)" d="M0 0 L93.5 0 A6.5 6.5 0 0 1 106.5 0 A6.5 6.5 0 0 1 119.5 0 A6.5 6.5 0 0 1 132.5 0 A6.5 6.5 0 0 1 145.5 0 A6.5 6.5 0 0 1 158.5 0 A6.5 6.5 0 0 1 171.5 0 L265.0 0"/>
+<path transform="translate(185.0 100.0) rotate(51.25)" d="M0 0 L77.9 0 A6.5 6.5 0 0 1 90.9 0 A6.5 6.5 0 0 1 103.9 0 A6.5 6.5 0 0 1 116.9 0 A6.5 6.5 0 0 1 129.9 0 L207.7 0"/>
+<path transform="translate(495.0 100.0) rotate(128.75)" d="M0 0 L77.9 0 A6.5 6.5 0 0 1 90.9 0 A6.5 6.5 0 0 1 103.9 0 A6.5 6.5 0 0 1 116.9 0 A6.5 6.5 0 0 1 129.9 0 L207.7 0"/>
+<path transform="translate(150.0 100.0) rotate(90.00)" d="M0 0 L22.0 0 A6.5 6.5 0 0 1 35.0 0 A6.5 6.5 0 0 1 48.0 0 A6.5 6.5 0 0 1 61.0 0 A6.5 6.5 0 0 1 74.0 0 L96.0 0"/>
+<path d="M150.0 196.0 L150.0 214.0"/>
+<circle cx="150" cy="228" r="14"/>
+<path d="M143 228 C146 221 149 221 150 228 S154 235 157 228"/>
+<path d="M150.0 242.0 L150.0 310.0"/>
+<path transform="translate(535.0 100.0) rotate(90.00)" d="M0 0 L22.0 0 A6.5 6.5 0 0 1 35.0 0 A6.5 6.5 0 0 1 48.0 0 A6.5 6.5 0 0 1 61.0 0 A6.5 6.5 0 0 1 74.0 0 L96.0 0"/>
+<path d="M535.0 196.0 L535.0 214.0"/>
+<circle cx="535" cy="228" r="14"/>
+<path d="M528 228 C531 221 534 221 535 228 S539 235 542 228"/>
+<path d="M535.0 242.0 L535.0 310.0"/>
+<path d="M115.0 100.0 L70.0 100.0"/>
+<path transform="translate(70.0 100.0) rotate(90.00)" d="M0 0 L29.0 0 A6.5 6.5 0 0 1 42.0 0 A6.5 6.5 0 0 1 55.0 0 A6.5 6.5 0 0 1 68.0 0 A6.5 6.5 0 0 1 81.0 0 L110.0 0"/>
+<path d="M70.0 210.0 L70.0 310.0"/>
+<path d="M40.0 310.0 L600.0 310.0"/>
+<path d="M88.0 228.0 L88.0 268.0"/>
+<path d="M88.0 268.0 L92.0 260.0 L84.0 260.0 Z" fill="#000"/>
+</g>
+<text x="160" y="88" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Bus 1</tspan></text>
+<text x="515" y="88" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Bus 2</tspan></text>
+<text x="340" y="288" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Bus 3</tspan></text>
+<text x="338" y="82" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.8</tspan></text>
+<text x="270" y="196" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.4</tspan></text>
+<text x="410" y="196" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.4</tspan></text>
+<text x="160" y="152" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.2</tspan></text>
+<text x="160" y="172" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">G</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">＋</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">T</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
+<text x="523" y="152" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.4</tspan></text>
+<text x="523" y="172" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">G</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">＋</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">T</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
+<text x="56" y="150" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="56" y="170" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.11</tspan></text>
+<text x="96" y="254" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="320" y="336" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">參考點（各發電機 EMF 短路接地）</tspan></text>
 </svg>

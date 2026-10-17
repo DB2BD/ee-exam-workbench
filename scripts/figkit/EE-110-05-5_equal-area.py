@@ -16,7 +16,7 @@ A2 = curve(d1, dm)
 s += f'<path d="M{pts(A2)} Z" fill="{FILL_BLUE}" stroke="none"/>\n'
 s += arrow(ox, oy, ox + 500, oy) + arrow(ox, oy, ox, oy - 260)
 s += f'<path d="M{pts(curve(0, math.pi, 120))}"/>\n'
-s += f'<path d="M{ox} {Y(pm):.1f} L{X(math.pi) + 10:.1f} {Y(pm):.1f}" stroke="{RED}"/>\n'
+s += f'<path d="M{ox} {Y(pm):.1f} L{X(math.pi) + 10:.1f} {Y(pm):.1f}" stroke="{BLUE}"/>\n'
 s += f'<path d="M{ox} {Y(p0):.1f} L{X(d0) + 30:.1f} {Y(p0):.1f}" stroke-dasharray="4 3" stroke-width="1"/>\n'
 for d in (d0, d1, dm):
     top = Y(math.sin(d)) if d != d0 else Y(pm)
@@ -26,9 +26,9 @@ s += end_group()
 s += text(ox + 506, oy + 5, [("v", "δ")])
 s += text(ox - 6, oy - 266, [("v", "P")], anchor="end")
 s += text(X(1.0) - 6, Y(0.97), [("v", "P"), ("vsub", "e"), ("n", " = "), ("v", "P"), ("sub", "max"), ("n", " sin "), ("v", "δ")], anchor="end")
-s += text(X(math.pi) + 10, Y(pm) - 10, [("v", "P"), ("vsub", "m"), ("n", " = "), ("v", "P"), ("sub", "max"), ("n", " sin "), ("v", "δ"), ("sub", "1")], anchor="end", color=RED)
+s += text(X(math.pi) + 10, Y(pm) - 10, [("v", "P"), ("vsub", "m"), ("n", " = "), ("v", "P"), ("sub", "max"), ("n", " sin "), ("v", "δ"), ("sub", "1")], anchor="end", color=BLUE)
 s += text(ox - 6, Y(p0) + 5, [("n", "0.1736")], anchor="end")
-s += text(ox - 6, Y(pm) + 5, [("n", "0.7772")], anchor="end")
+s += text(ox - 6, Y(pm) + 5, [("n", "0.7771")], anchor="end")
 s += text(X(d0), oy + 20, [("v", "δ"), ("sub", "0")], anchor="middle")
 s += text(X(d1), oy + 20, [("v", "δ"), ("sub", "1")], anchor="middle")
 s += text(X(dm), oy + 20, [("v", "π"), ("n", " − "), ("v", "δ"), ("sub", "1")], anchor="middle")

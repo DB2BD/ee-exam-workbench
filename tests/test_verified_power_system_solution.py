@@ -19,7 +19,7 @@ class TestEE11405Q4Solution(unittest.TestCase):
             "-j5.0",
             "-j1.88",
             "-j3.13",
-            "6.25\\times10^{-2}",
+            "0.0625",
             "0.69",
             "0.81",
         )

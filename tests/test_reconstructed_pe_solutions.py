@@ -202,9 +202,9 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: reference_book_verified", flyback)
         self.assertIn("DCM／臨界導通模式（CrCM）邊界", flyback)
         self.assertIn("題圖未明示 CCM/DCM", flyback)
-        self.assertIn("I_{p,\\,avg\\mid on}=", flyback)
+        self.assertIn("I_{p,on}=", flyback)
         self.assertIn("30\\,\\mathrm A", flyback)
-        self.assertIn("I_{p,\\,avg}=D\\,I_{p,\\,avg\\mid on}", flyback)
+        self.assertIn("I_{p(avg)}=D\\,I_{p,on}", flyback)
 
         cb = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-113-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: reference_book_verified", cb)
@@ -987,11 +987,11 @@ class TestReconstructedPESolutions(unittest.TestCase):
     def test_flyback_annual_note_defines_both_average_current_conventions(self):
         """Annual pages must not leave the 22.5 A average-current convention ambiguous."""
         annual = (CANONICAL / "02_電子學_含電力電子" / "109年_電子學_全卷完整詳細題解.md").read_text(encoding="utf-8")
-        self.assertIn(r"I_{p,\,avg\mid on}=\frac{I_{p(max)}}2=30\,\mathrm A", annual)
-        self.assertIn(r"I_{p,avg}=D\,I_{p,avg\mid on}", annual)
+        self.assertIn(r"I_{p,on}=\dfrac{I_{p(max)}}{2}=\dfrac{60}{2}=30\ \mathrm A", annual)
+        self.assertIn(r"I_{p(avg)}=D\,I_{p,on}", annual)
         self.assertIn("整個週期平均", annual)
         self.assertIn("導通區間平均", annual)
-        self.assertIn(r"\boxed{I_{p,\,avg}=D\,I_{p,\,avg\mid on}=0.75\times30=22.50\ \mathrm A}", annual)
+        self.assertIn(r"\boxed{I_{p(avg)}=D\,I_{p,on}=0.75\times30=22.50\ \mathrm A}", annual)
 
     def test_mosfet_reference_book_solution_records_both_branches(self):
         note = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-111-02-3.md").read_text(encoding="utf-8")
@@ -1283,7 +1283,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         # 2026-10-03: stem is internally inconsistent (V_L=3 V vs D*V_S=1.5 V) -> needs_manual_review.
         self.assertIn("audit_status: needs_manual_review", interleaved)
         self.assertIn("review_disposition: stem_internal_conflict", interleaved)
-        self.assertIn("\\mathbf{0.75\\text{ A}}", interleaved)
+        self.assertIn("=0.75\\text{ A}", interleaved)
         self.assertIn("3.38\\text{ A}", interleaved)
         self.assertIn("2.63\\text{ A}", interleaved)
         self.assertNotIn("0.3\\text{ A}", interleaved)

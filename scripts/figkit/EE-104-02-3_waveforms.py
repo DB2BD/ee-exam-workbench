@@ -40,9 +40,9 @@ for th in (30, 90, 150, 210, 270, 330):
 # panel 2: conduction table
 top = [("1", 30, 150), ("3", 150, 270), ("5", 270, 360), ("5", 0, 30)]
 bot = [("6", 0, 90), ("2", 90, 210), ("4", 210, 330), ("6", 330, 360)]
-for row, y in ((top, 186), (bot, 212)):
+for row, y in ((top, 184), (bot, 210)):
     for d, a, b in row:
-        s += f'<rect x="{X(a):.1f}" y="{y}" width="{X(b) - X(a):.1f}" height="20" stroke-width="1"/>\n'
+        s += f'<rect x="{X(a):.1f}" y="{y}" width="{X(b) - X(a):.1f}" height="22" stroke-width="1"/>\n'
 # panel 3: i_a
 s += arrow(X(0), Y3, X(372), Y3) + arrow(X(0), Y3 + A3 + 10, X(0), Y3 - A3 - 14)
 ia = []
@@ -56,8 +56,8 @@ s += poly(ia, w=2.2, color=RED)
 s += end_group()
 # labels
 names = [("ab", 60), ("ac", 120), ("bc", 180), ("ba", 240), ("ca", 300), ("cb", 360)]
-for n, c in names:
-    if c < 360:
+for n, c in names[:-1] + [("cb", 15)]:
+    if True:
         s += text(X(c), Y1 - A1 - 8, [("v", "v"), ("vsub", n)], anchor="middle")
 s += ctext(X(364), Y1 - A1 - 2, [("v", "v"), ("vsub", "o")], color=BLUE)
 s += text(X(364), Y1 - A1 * avg + 14, [("v", "V"), ("vsub", "o")])
@@ -66,12 +66,11 @@ s += text(X(0) - 6, Y1 + 5, [("n", "0")], anchor="end")
 for th in (0, 30, 90, 150, 210, 270, 330, 360):
     s += text(X(th), Y3 + A3 + 44, [("n", f"{th}°")], anchor="middle")
 s += text(X(372), Y1 + 20, [("v", "θ")], anchor="end")
-for row, y in ((top, 186), (bot, 212)):
+for row, y in ((top, 184), (bot, 210)):
     for d, a, b in row:
-        if b - a >= 60:
-            s += text((X(a) + X(b)) / 2, y + 15, [("v", "D"), ("sub", d)], anchor="middle")
-s += text(X(0) - 6, 201, [("t", "上臂")], anchor="end")
-s += text(X(0) - 6, 227, [("t", "下臂")], anchor="end")
+        s += text((X(a) + X(b)) / 2, y + 14, [("v", "D"), ("sub", d)], anchor="middle")
+s += text(X(0) - 6, 200, [("t", "上臂")], anchor="end")
+s += text(X(0) - 6, 226, [("t", "下臂")], anchor="end")
 s += ctext(X(0) - 6, Y3 - A3 + 8, [("v", "i"), ("vsub", "a")], anchor="end")
 s += ctext(X(90), Y3 - A3 - 8, [("t", "經 "), ("v", "D"), ("sub", "1"), ("n", "：+"), ("v", "i"), ("vsub", "o")], anchor="middle")
 s += ctext(X(270), Y3 + A3 + 22, [("t", "經 "), ("v", "D"), ("sub", "4"), ("n", "：−"), ("v", "i"), ("vsub", "o")], anchor="middle")

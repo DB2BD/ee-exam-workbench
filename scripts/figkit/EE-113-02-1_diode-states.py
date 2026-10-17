@@ -40,8 +40,9 @@ def panel(ox, both_on):
     t.append(text(ox + XR - 6, 206, [("v", "D"), ("sub", "2"), ("t", "：短路")], anchor="end"))
     if both_on:
         t.append(text(ox + XL - 10, 184, [("v", "D"), ("sub", "1"), ("t", "：短路")], anchor="end"))
-        t.append(ctext(ox + XM + 28, 88, [("n", "1.20 mA")]))
-        t.append(ctext(ox + XR + 28, 180, [("n", "2.40 mA")]))
+        t.append(ctext(ox + XM + 28, 88, [("v", "I"), ("sub", "10"), ("vsub", "k"), ("n", " = 1.20 mA")]))
+        t.append(ctext(ox + XR + 28, 172, [("v", "I"), ("vsub", "D"), ("sub", "2")]))
+        t.append(ctext(ox + XR + 28, 192, [("n", "= 2.40 mA")]))
         t.append(ctext(ox + 30, 246, [("v", "I"), ("vsub", "D"), ("sub", "1"), ("n", " = −1.20 mA")], anchor="start"))
         t.append(text(ox + XM + 8, YX - 8, [("v", "V"), ("vsub", "x"), ("n", " = 0")], anchor="start", color=BLUE).replace('fill="#000"', f'fill="{BLUE}"', 1))
         t.append(text(ox + 6, 350, [("v", "I"), ("vsub", "D"), ("sub", "1"), ("n", " &lt; 0"), ("t", "：與導通矛盾")]))

@@ -22,10 +22,10 @@ def panel(ox, on):
     s += end_group()
     t = []
     if on:
-        t.append(text(ox + 6, 24, [("t", "(a) "), ("v", "S"), ("t", " 導通："), ("n", "0 ≤ "), ("v", "t"), ("n", " &lt; "), ("v", "DT"), ("sub", "s")]))
+        t.append(text(ox + 6, 24, [("t", "(a) "), ("v", "S"), ("t", " 導通："), ("n", "0 ≤ "), ("v", "t"), ("n", " &lt; "), ("v", "DT"), ("vsub", "s")]))
     else:
-        t.append(text(ox + 6, 24, [("t", "(b) "), ("v", "S"), ("t", " 截止："), ("v", "DT"), ("sub", "s"), ("n", " ≤ "), ("v", "t"), ("n", " &lt; "), ("v", "T"), ("sub", "s")]))
-    t.append(text(ox + 18, 155, [("v", "V"), ("sub", "s")], anchor="end"))
+        t.append(text(ox + 6, 24, [("t", "(b) "), ("v", "S"), ("t", " 截止："), ("v", "DT"), ("vsub", "s"), ("n", " ≤ "), ("v", "t"), ("n", " &lt; "), ("v", "T"), ("vsub", "s")]))
+    t.append(text(ox + 18, 155, [("v", "V"), ("vsub", "s")], anchor="end"))
     t.append(text(ox + 85, 58 if on else 44, [("v", "S")], anchor="middle"))
     t.append(text(ox + 144, 156, [("v", "D"), ("sub", "1")]))
     t.append(text(ox + 144, 176, [("t", "截止" if on else "導通")]))
@@ -34,13 +34,13 @@ def panel(ox, on):
     t.append(text(ox + 146, 92, [("n", "+")]))
     t.append(text(ox + 226, 92, [("n", "−")], anchor="end"))
     t.append(text(ox + 222, 160, [("v", "C")], anchor="end"))
-    t.append(text(ox + 328, 156, [("v", "R")]))
+    t.append(text(ox + 302, 156, [("v", "R")], anchor="end"))
     t.append(text(ox + 326, 92, [("n", "+")]))
     t.append(text(ox + 326, 222, [("n", "−")]))
-    t.append(text(ox + 268, 156, [("v", "V"), ("vsub", "o")]))
+    t.append(text(ox + 328, 160, [("v", "V"), ("vsub", "o")]))
     if on:
-        t.append(text(ox + 6, 262, [("v", "v"), ("vsub", "L"), ("n", " = "), ("v", "V"), ("sub", "s"), ("n", " − "), ("v", "V"), ("vsub", "o"), ("t", "，"), ("v", "i"), ("vsub", "L"), ("t", " 由 0 上升")]))
-        t.append(text(ox + 6, 286, [("v", "D"), ("sub", "1"), ("t", " 陰極接 "), ("v", "V"), ("sub", "s"), ("t", "，逆偏")]))
+        t.append(text(ox + 6, 262, [("v", "v"), ("vsub", "L"), ("n", " = "), ("v", "V"), ("vsub", "s"), ("n", " − "), ("v", "V"), ("vsub", "o"), ("t", "，"), ("v", "i"), ("vsub", "L"), ("t", " 由 0 上升")]))
+        t.append(text(ox + 6, 286, [("v", "D"), ("sub", "1"), ("t", " 陰極接 "), ("v", "V"), ("vsub", "s"), ("t", "，逆偏")]))
     else:
         t.append(ctext(ox + 100, 156, [("v", "i"), ("vsub", "L")], anchor="end"))
         t.append(text(ox + 6, 262, [("v", "v"), ("vsub", "L"), ("n", " = −"), ("v", "V"), ("vsub", "o"), ("t", "，"), ("v", "i"), ("vsub", "L"), ("t", " 降回 0")]))

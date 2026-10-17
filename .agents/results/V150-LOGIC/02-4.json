@@ -32,5 +32,29 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "驗算段修正原文「不能僅憑導通時間比例」語意（I_o 與 I_o,rms 數值碰巧接近）"
+ },
+ {
+  "qid": "EE-107-02-4",
+  "logic_added": true,
+  "steps_added": "審查修正：步驟 1 補 i_C1 參考方向（與原圖 i_c1 相反）與 V_o 實際極性；(1-D)T、Δi_L2/2、8f_sC_2=32 補代入；I_p 段補谷值 1.75 A；ΔQ_1 精確理由",
+  "figures": [
+   "EE-107-02-4-on-off.svg",
+   "EE-107-02-4-ripple.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix：圖 1 V_s 下標改斜體、(a) C1 箭頭改標實際電流 i_L2（放電）、負載旁標 V_o 上負下正；圖 2 時間標籤改黑、ΔQ→ΔQ_2"
+ },
+ {
+  "qid": "EE-105-02-5",
+  "logic_added": true,
+  "steps_added": "審查修正：（一）表補二極體數與 PIV 列及 rms／PIV 推導；積分補 [-cos]、cos(π+α)=-cosα；匝比 1:1 前提；V_{\\mathrm{DC}}、f_{\\mathrm{ripple}} 直立下標",
+  "figures": [
+   "EE-105-02-5-controlled.svg",
+   "EE-105-02-5-half-full-wave.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix：圖 3(a) 重畫為非對稱半控橋（SCR 臂＋二極體臂），D3、D4 續流與邏輯句一致；圖 1、3 π 改斜體、圖 3 電源標 +"
  }
 ]

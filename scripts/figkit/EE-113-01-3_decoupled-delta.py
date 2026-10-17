@@ -17,7 +17,7 @@ ZP = [("v", "Z"), ("vsub", "φ")]
 for P, Q, nm in dc.BRANCHES:
     x, y, nx = at(P, Q, sum(dc.T_R) / 2, 22); s += text(round(x), round(y + 5), [("n", "1 Ω")], anchor=anchor(nx))
     x, y, nx = at(P, Q, sum(dc.T_L) / 2, 22); s += text(round(x), round(y + 5), [("v", "j"), ("n", "1 Ω")], anchor=anchor(nx))
-    x, y, nx = at(P, Q, 0.47, 18); s += dc.tint(text(round(x), round(y + 5), [("v", "I"), ("vsub", nm)], anchor=anchor(nx)), dc.RED)
+    x, y, nx = at(P, Q, 0.47, 26); s += dc.tint(text(round(x), round(y + 5), [("v", "I"), ("vsub", nm)], anchor=anchor(nx)), dc.RED)
 cx, cy = dc.CEN
 s += text(round(cx), round(cy + 8), ZP + [("n", " = "), ("v", "R"), ("n", " + "), ("v", "jω"), ("n", "("), ("v", "L"), ("n", " − "), ("v", "M"), ("n", ")")], anchor="middle")
 s += text(round(cx), round(cy + 30), [("n", "= 1 + "), ("v", "j"), ("n", "1 = √2∠45° Ω")], anchor="middle")

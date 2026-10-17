@@ -23,7 +23,7 @@ s += dc.tint(text(212, A[1] - 12, [("v", "I"), ("vsub", "a")], anchor="middle"),
 for P, Q, nm in dc.BRANCHES:
     x, y, nx = at(P, Q, sum(dc.T_R) / 2, 22); s += text(round(x), round(y + 5), [("v", "R"), ("n", " = 1 Ω")], anchor=anchor(nx))
     x, y, nx = at(P, Q, sum(dc.T_L) / 2, 22); s += text(round(x), round(y + 5), [("v", "L"), ("n", " = 2 H")], anchor=anchor(nx))
-    x, y, nx = at(P, Q, 0.47, 18); s += dc.tint(text(round(x), round(y + 5), [("v", "I"), ("vsub", nm)], anchor=anchor(nx)), dc.RED)
+    x, y, nx = at(P, Q, 0.47, 26); s += dc.tint(text(round(x), round(y + 5), [("v", "I"), ("vsub", nm)], anchor=anchor(nx)), dc.RED)
 cx, cy = dc.CEN
 s += text(round(cx), round(cy + 8), [("t", "每對 "), ("v", "M"), ("n", " = 1 H")], anchor="middle")
 s += text(round(cx), round(cy + 30), [("n", "● "), ("t", "同名端")], anchor="middle")

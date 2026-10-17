@@ -32,10 +32,10 @@ def branch(P, Q):
     s += line(l1[0], l1[1], Q[0], Q[1])
     return s
 
-def head(P, Q, t):
-    """Solid triangle head on the wire at fraction t, pointing P→Q."""
-    x, y, _ = at(P, Q, t); ux, uy = (Q[0] - P[0]), (Q[1] - P[1]); L = math.hypot(ux, uy); ux, uy = ux / L, uy / L
-    return arrow(x - ux * 2, y - uy * 2, x + ux * 5, y + uy * 5)
+def head(P, Q, t, span=0.13, d=11):
+    """Branch-current arrow drawn beside the wire (outside, offset d), centred at fraction t, pointing P→Q."""
+    x0, y0, _ = at(P, Q, t - span / 2, d); x1, y1, _ = at(P, Q, t + span / 2, d)
+    return arrow(x0, y0, x1, y1)
 
 def frame(ylc):
     """Terminals a, b, c and the connecting wires; ylc = y of the c-terminal wire."""

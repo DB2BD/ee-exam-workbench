@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "PE 非工程數學 104-114",
-  "generated_at": "2026-10-17",
+  "generated_at": "2026-10-18",
   "status_policy": [
     "verified",
     "reference_book_verified",
@@ -3270,7 +3270,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-04",
       "method": "motor_phasor_equation_per_unit_example_numeric_check",
-      "solution_hash": "d15dc79841bf53707c8bec2da1d0a0c4a9890170d07ed33dafaf2aea54908795",
+      "solution_hash": "e0a592a7bd88cc4bf9542d12d0d03603a8b415336c7fb3d8d91bc4efcbd23d25",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/04_電機機械/images/questions/PE_105年_電機機械_Q04.png"
     },
@@ -3649,7 +3649,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-04",
       "method": "fixed_excitation_phasor_solution_three_load_models_numeric_bisection",
-      "solution_hash": "7ea7b1ed409f1d58ac04d668eb5390eb6a1b385b58ed78284aff49c1f834763e",
+      "solution_hash": "f6296cb17224ada0488d82c0e25ecb87178e2b2388ae20549ad0e3aae1b9f2d9",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/04_電機機械/images/questions/PE_104年_電機機械_Q05.png"
     },

@@ -115,5 +115,60 @@ class LintCanonicalNotesTests(unittest.TestCase):
         self.assertEqual(self.run_lint(body, front=front), [])
 
 
+LOGIC_BODY = LEAN_BODY.replace(
+    "## 考場標準作答\n",
+    "## 考場標準作答\n\n**解題邏輯**：等增量成本加功率平衡，先求 \\(P_1\\) 再求 \\(\\lambda\\)。\n",
+).replace(
+    "### （一）\n", "### （一）出力（10 分）\n\n**邏輯**：等增量成本法。\n"
+).replace(
+    "### （二）\n", "### （二）增量成本（10 分）\n\n**邏輯**：代回任一機組。\n"
+)
+
+
+class RequireLogicTests(unittest.TestCase):
+    def run_lint(self, body, stem="（一）求 P。（二）求 λ。", front=FRONT, require=True):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "EE-999-05-1.md"
+            path.write_text(front + body, encoding="utf-8")
+            return lint.lint(path, stem, require)["errors"]
+
+    def test_default_is_off_so_legacy_notes_still_pass(self):
+        self.assertFalse(lint.REQUIRE_LOGIC_DEFAULT)
+        self.assertEqual(self.run_lint(LEAN_BODY, require=False), [])
+
+    def test_complete_logic_note_passes(self):
+        self.assertEqual(self.run_lint(LOGIC_BODY), [])
+
+    def test_missing_overall_logic_is_an_error(self):
+        body = LOGIC_BODY.replace("**解題邏輯**：", "")
+        self.assertIn("no-logic:解題邏輯", self.run_lint(body))
+
+    def test_overall_logic_must_precede_first_subheading(self):
+        body = LOGIC_BODY.replace("**解題邏輯**：", "").replace("## 驗算", "**解題邏輯**：太晚。\n\n## 驗算")
+        self.assertIn("no-logic:解題邏輯", self.run_lint(body))
+
+    def test_scored_subquestion_needs_its_own_logic_line(self):
+        body = LOGIC_BODY.replace("**邏輯**：代回任一機組。", "")
+        errors = self.run_lint(body)
+        self.assertIn("no-logic:（二）", errors)
+        self.assertNotIn("no-logic:（一）", errors)
+
+    def test_unscored_headings_do_not_need_logic(self):
+        self.assertEqual(self.run_lint(LOGIC_BODY.replace("（10 分）", "")), [])
+
+    def test_legacy_note_fails_with_both_codes(self):
+        errors = self.run_lint(LEAN_BODY.replace("### （一）", "### （一）出力（10 分）"))
+        self.assertIn("no-logic:解題邏輯", errors)
+        self.assertIn("no-logic:（一）", errors)
+
+    def test_compact_limit_is_five_marks_and_ignores_length(self):
+        front = FRONT.replace("template: lean-v1\n", "template: lean-v1\ncompact: true\n")
+        body = re.sub(r"## 已知與所求.*?(?=## 考場標準作答)", "", LEAN_BODY, flags=re.S).split("## 失分點")[0]
+        self.assertEqual(self.run_lint(body, stem="求 P。（5 分）", front=front), [])
+        self.assertIn("compact-not-allowed:6分", self.run_lint(body, stem="求 P。（6 分）", front=front))
+        # Without the flag the legacy 700-character rule still governs.
+        self.assertEqual(self.run_lint(body, stem="求 P。（6 分）", front=front, require=False), [])
+
+
 if __name__ == "__main__":
     unittest.main()

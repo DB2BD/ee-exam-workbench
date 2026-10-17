@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" width="700" height="420">
+<rect width="700" height="420" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M145.7 128.4 A100 100 0 0 0 145.7 281.6 L130.3 300.0 A124 124 0 0 1 130.3 110.0 Z"/>
+<path d="M40.0 171 L92.0 171 L92.0 239 L40.0 239 Z" fill="#fff"/>
+<path d="M274.3 281.6 A100 100 0 0 0 274.3 128.4 L289.7 110.0 A124 124 0 0 1 289.7 300.0 Z"/>
+<path d="M328.0 171 L380.0 171 L380.0 239 L328.0 239 Z" fill="#fff"/>
+<circle cx="210" cy="205" r="90"/>
+<circle cx="236.0" cy="276.4" r="6" stroke="#c0392b"/>
+<circle cx="236.0" cy="276.4" r="1.8" fill="#c0392b" stroke="none"/>
+<circle cx="258.9" cy="263.2" r="6" stroke="#c0392b"/>
+<circle cx="258.9" cy="263.2" r="1.8" fill="#c0392b" stroke="none"/>
+<circle cx="275.8" cy="243.0" r="6" stroke="#c0392b"/>
+<circle cx="275.8" cy="243.0" r="1.8" fill="#c0392b" stroke="none"/>
+<circle cx="284.8" cy="218.2" r="6" stroke="#c0392b"/>
+<circle cx="284.8" cy="218.2" r="1.8" fill="#c0392b" stroke="none"/>
+<circle cx="284.8" cy="191.8" r="6" stroke="#c0392b"/>
+<circle cx="284.8" cy="191.8" r="1.8" fill="#c0392b" stroke="none"/>
+<circle cx="275.8" cy="167.0" r="6" stroke="#c0392b"/>
+<circle cx="275.8" cy="167.0" r="1.8" fill="#c0392b" stroke="none"/>
+<circle cx="258.9" cy="146.8" r="6" stroke="#c0392b"/>
+<circle cx="258.9" cy="146.8" r="1.8" fill="#c0392b" stroke="none"/>
+<circle cx="236.0" cy="133.6" r="6" stroke="#c0392b"/>
+<circle cx="236.0" cy="133.6" r="1.8" fill="#c0392b" stroke="none"/>
+<circle cx="184.0" cy="133.6" r="6" stroke="#c0392b"/>
+<path d="M180.0 129.6 L188.0 137.6 M180.0 137.6 L188.0 129.6" stroke="#c0392b"/>
+<circle cx="161.1" cy="146.8" r="6" stroke="#c0392b"/>
+<path d="M157.1 142.8 L165.1 150.8 M157.1 150.8 L165.1 142.8" stroke="#c0392b"/>
+<circle cx="144.2" cy="167.0" r="6" stroke="#c0392b"/>
+<path d="M140.2 163.0 L148.2 171.0 M140.2 171.0 L148.2 163.0" stroke="#c0392b"/>
+<circle cx="135.2" cy="191.8" r="6" stroke="#c0392b"/>
+<path d="M131.2 187.8 L139.2 195.8 M131.2 195.8 L139.2 187.8" stroke="#c0392b"/>
+<circle cx="135.2" cy="218.2" r="6" stroke="#c0392b"/>
+<path d="M131.2 214.2 L139.2 222.2 M131.2 222.2 L139.2 214.2" stroke="#c0392b"/>
+<circle cx="144.2" cy="243.0" r="6" stroke="#c0392b"/>
+<path d="M140.2 239.0 L148.2 247.0 M140.2 247.0 L148.2 239.0" stroke="#c0392b"/>
+<circle cx="161.1" cy="263.2" r="6" stroke="#c0392b"/>
+<path d="M157.1 259.2 L165.1 267.2 M157.1 267.2 L165.1 259.2" stroke="#c0392b"/>
+<circle cx="184.0" cy="276.4" r="6" stroke="#c0392b"/>
+<path d="M180.0 272.4 L188.0 280.4 M180.0 280.4 L188.0 272.4" stroke="#c0392b"/>
+<rect x="203.0" y="101.0" width="14" height="14" fill="#fff"/>
+<rect x="203.0" y="295.0" width="14" height="14" fill="#fff"/>
+<path d="M210 55 L210 355" stroke-dasharray="6 5" stroke-width="1"/>
+<path d="M261.3 64.0 L158.7 346.0" stroke="#1f5fa8" stroke-dasharray="8 5"/>
+<path d="M158.0 205.0 L262.0 205.0" stroke="#000"/>
+<path d="M262.0 205.0 L254.0 201.0 L254.0 209.0 Z" fill="#000" stroke="#000"/>
+<path d="M210.0 175.0 L210.0 245.0" stroke="#000"/>
+<path d="M210.0 245.0 L214.0 237.0 L206.0 237.0 Z" fill="#000" stroke="#000"/>
+<path d="M157.4 185.8 L257.0 222.1" stroke-dasharray="4 3"/>
+<path d="M253.2 220.7 L264.5 224.8" stroke="#000"/>
+<path d="M264.5 224.8 L258.4 218.3 L255.6 225.9 Z" fill="#000" stroke="#000"/>
+<path d="M194.4 94.1 A112 112 0 0 0 160.9 104.3"/>
+<path d="M160.9 104.3 L150.6 110.0" stroke="#000"/>
+<path d="M150.6 110.0 L159.6 109.6 L155.7 102.6 Z" fill="#000" stroke="#000"/>
+</g>
+<text x="66" y="211" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">N</tspan></text>
+<text x="354" y="211" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">S</tspan></text>
+<text x="102.7537779633431" y="115.00973464388447" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">增強</tspan></text>
+<text x="105.95972443316481" y="298.67828489024015" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">減弱</tspan></text>
+<text x="317.24622203665695" y="115.0097346438845" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">減弱</tspan></text>
+<text x="318.49914451969954" y="302.69306852839327" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">增強</tspan></text>
+<text x="232" y="197" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Φ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="218" y="263" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan></text>
+<text x="238" y="239" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Φ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">r</tspan></text>
+<text x="173.61586903215613" y="78.1134561361419" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">旋轉</tspan></text>
+<text x="214" y="49" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">幾何中性面</tspan></text>
+<text x="154" y="371" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">磁中性面</tspan></text>
+<text x="400" y="70" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Φ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">：主磁極磁通（直軸）</tspan></text>
+<text x="400" y="96" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">：電樞磁勢（交軸，與 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Φ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 垂直）</tspan></text>
+<text x="400" y="122" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Φ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">r</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">：合成磁通，向下偏轉</tspan></text>
+<text x="400" y="158" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">⊗ 流入紙面　⊙ 流出紙面（電樞電流）</tspan></text>
+<text x="400" y="194" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">N 極上緣、S 極下緣磁通增強；</tspan></text>
+<text x="400" y="218" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">另一緣減弱 → 磁通畸變</tspan></text>
+<text x="400" y="254" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">磁中性面逆旋轉方向偏移</tspan></text>
+<text x="400" y="278" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（電動機）；電刷仍在幾何中性面</tspan></text>
+<text x="400" y="302" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">→ 換向線圈有殘餘電勢、火花</tspan></text>
+<text x="400" y="338" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">鐵心飽和時增強側增不上去，</tspan></text>
+<text x="400" y="362" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">總磁通略減（去磁效應）</tspan></text>
+</svg>

@@ -64,7 +64,9 @@ def answer_numbers(note_text):
 
 
 def leaked_numbers(hint, note_text):
-    return sorted(n for n in answer_numbers(note_text) if re.search(rf"(?<![\d.]){re.escape(n)}(?![\d])", hint))
+    # Subscripts and exponents (Z_{11}, 10^{-3}) are labels, not answer values.
+    return sorted(n for n in answer_numbers(note_text)
+                  if re.search(rf"(?<![\d.])(?<!_\{{)(?<!_)(?<!\^\{{)(?<!\^){re.escape(n)}(?![\d])", hint))
 
 
 def written_hints():

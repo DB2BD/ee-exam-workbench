@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 240" width="520" height="240">
+<rect width="520" height="240" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="90" cy="120" r="20"/>
+<path d="M85.0 111.0 L95.0 111.0"/>
+<path d="M90.0 106.0 L90.0 116.0"/>
+<path d="M85.0 129.0 L95.0 129.0"/>
+<path d="M90.0 100.0 L90.0 60.0"/>
+<path d="M90.0 60.0 L170.0 60.0"/>
+<path transform="translate(170.0 60.0) rotate(0.00)" d="M0 0 L27.5 0 A6.5 6.5 0 0 1 40.5 0 A6.5 6.5 0 0 1 53.5 0 A6.5 6.5 0 0 1 66.5 0 A6.5 6.5 0 0 1 79.5 0 A6.5 6.5 0 0 1 92.5 0 L120.0 0"/>
+<path d="M290.0 60.0 L420.0 60.0"/>
+<path d="M420.0 60.0 L420.0 85.0"/>
+<path transform="translate(420.0 85.0) rotate(90.00)" d="M0 0 L9.0 0 A6.5 6.5 0 0 1 22.0 0 A6.5 6.5 0 0 1 35.0 0 A6.5 6.5 0 0 1 48.0 0 A6.5 6.5 0 0 1 61.0 0 L70.0 0"/>
+<path d="M420.0 155.0 L420.0 180.0"/>
+<path d="M420.0 180.0 L90.0 180.0"/>
+<path d="M90.0 180.0 L90.0 140.0"/>
+<circle cx="360" cy="60" r="2.6" fill="#000" stroke="none"/>
+<g stroke="#c0392b"><path d="M298.0 60.0 L334.0 60.0"/>
+<path d="M334.0 60.0 L326.0 56.0 L326.0 64.0 Z" fill="#c0392b"/>
+</g>
+</g>
+<text x="60" y="116" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(0)</tspan></text>
+<text x="60" y="136" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1∠0°</tspan></text>
+<text x="230" y="44" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">11</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.16</tspan></text>
+<text x="360" y="46" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Bus 1</tspan></text>
+<text x="316" y="84" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="446" y="110" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="446" y="138" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.11</tspan></text>
+<text x="255" y="216" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">  = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(0) / (</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">11</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> + </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> )</tspan></text>
+</svg>

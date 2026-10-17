@@ -149,6 +149,25 @@ for root, _dirs, names in os.walk('02_題解/技師題解'):
             canonical_missing_crop.append((qid, path))
         if re.search(r'_p[12]\.png', text):
             canonical_full_page.append((qid, path))
+# v1.5.0 hand-drawn figures: every ../figures/*.svg reference of a canonical note
+# must exist on disk next to the note and be present in the bundled IMAGE_MAP.
+pe_image_map = parse_json_assignment(raw_bundle, 'const IMAGE_MAP = ')
+figure_refs = 0
+figure_problems = []
+for qid_paths in canonical_qids.values():
+    for note_path in qid_paths:
+        note_text = open(note_path, encoding='utf-8').read()
+        for ref in re.findall(r'!\[[^\]]*\]\((\.\./figures/[^)\s]+\.svg)\)', note_text):
+            figure_refs += 1
+            target = os.path.normpath(os.path.join(os.path.dirname(note_path), ref)).replace(os.sep, '/')
+            if not os.path.isfile(target):
+                figure_problems.append((note_path, ref, 'file missing'))
+            elif pe_image_map.get(os.path.basename(target)) != target:
+                figure_problems.append((note_path, ref, 'not in IMAGE_MAP (regenerate solutions-bundle.js)'))
+print(f"PE solution figures: {figure_refs} reference(s) | problems={len(figure_problems)}")
+for item in figure_problems[:5]:
+    print("  figure problem:", item)
+
 dashboard_qids = {q[0] for q in pe_questions}
 canonical_duplicates = sorted(qid for qid, paths in canonical_qids.items() if len(paths) > 1)
 canonical_missing = sorted(dashboard_qids - set(canonical_qids))
@@ -220,6 +239,7 @@ all_issues = (
     + len(canonical_extra)
     + len(canonical_missing_crop)
     + len(canonical_full_page)
+    + len(figure_problems)
     + len(nat_slicing_failures)
     + len(nat_pdf_issues)
 )

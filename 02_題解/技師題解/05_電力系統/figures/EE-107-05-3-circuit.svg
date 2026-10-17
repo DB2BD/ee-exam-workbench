@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" width="660" height="300">
+<rect width="660" height="300" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M70.0 80.0 L70.0 136.0"/>
+<circle cx="70" cy="150" r="14"/>
+<path d="M63 150 C66 143 69 143 70 150 S74 157 77 150"/>
+<path d="M70.0 164.0 L70.0 220.0"/>
+<path d="M590.0 80.0 L590.0 136.0"/>
+<circle cx="590" cy="150" r="14"/>
+<path d="M583 150 C586 143 589 143 590 150 S594 157 597 150"/>
+<path d="M590.0 164.0 L590.0 220.0"/>
+<path d="M70.0 80.0 L140.0 80.0"/>
+<path transform="translate(140.0 80.0) rotate(0.00)" d="M0 0 L27.5 0 A6.5 6.5 0 0 1 40.5 0 A6.5 6.5 0 0 1 53.5 0 A6.5 6.5 0 0 1 66.5 0 A6.5 6.5 0 0 1 79.5 0 A6.5 6.5 0 0 1 92.5 0 L120.0 0"/>
+<path d="M260.0 80.0 L330.0 80.0"/>
+<path d="M330.0 80.0 L400.0 80.0"/>
+<path transform="translate(400.0 80.0) rotate(0.00)" d="M0 0 L27.5 0 A6.5 6.5 0 0 1 40.5 0 A6.5 6.5 0 0 1 53.5 0 A6.5 6.5 0 0 1 66.5 0 A6.5 6.5 0 0 1 79.5 0 A6.5 6.5 0 0 1 92.5 0 L120.0 0"/>
+<path d="M520.0 80.0 L590.0 80.0"/>
+<path d="M70.0 220.0 L590.0 220.0"/>
+<path d="M330.0 220.0 L330.0 228.0"/>
+<path d="M318.0 228.0 L342.0 228.0"/>
+<path d="M322.0 232.0 L338.0 232.0"/>
+<path d="M326.0 236.0 L334.0 236.0"/>
+<circle cx="330" cy="80" r="2.6" fill="#000" stroke="none"/>
+<circle cx="330" cy="220" r="2.6" fill="#000" stroke="none"/>
+<path d="M330.0 214.0 L330.0 94.0" stroke="#1f5fa8"/>
+<path d="M330.0 94.0 L326.0 102.0 L334.0 102.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<path d="M532.0 94.0 L574.0 94.0" stroke="#c0392b"/>
+<path d="M574.0 94.0 L566.0 90.0 L566.0 98.0 Z" fill="#c0392b" stroke="#c0392b"/>
+</g>
+<text x="94" y="146" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">E</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">∠</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">δ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="94" y="168" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">內部電勢</tspan></text>
+<text x="200" y="64" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">jX</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">s</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1.00</tspan></text>
+<text x="200" y="110" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">發電機</tspan></text>
+<text x="460" y="64" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">jX</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">T</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.217014</tspan></text>
+<text x="460" y="110" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">升壓變壓器</tspan></text>
+<text x="330" y="64" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">發電機端</tspan></text>
+<text x="340" y="146" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">t</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1∠0°</tspan></text>
+<text x="553" y="116" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan></text>
+<text x="566" y="146" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">∞</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1.041667</tspan></text>
+<text x="566" y="168" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">∠−11.31°</tspan></text>
+<text x="590" y="64" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">無限匯流排</tspan></text>
+<text x="330" y="282" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">基準 850 MVA、24 kV（高壓側 331.2 kV）</tspan></text>
+</svg>

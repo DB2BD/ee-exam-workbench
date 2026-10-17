@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 350" width="560" height="350">
+<rect width="560" height="350" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M40.0 50.0 L520.0 50.0"/>
+<path d="M40.0 80.0 L520.0 80.0"/>
+<path d="M40.0 110.0 L520.0 110.0"/>
+<path d="M280.0 50.0 L280.0 150.0"/>
+<circle cx="280" cy="50" r="2.6" fill="#000" stroke="none"/>
+<path d="M110.0 80.0 L110.0 290.0"/>
+<path d="M110.0 290.0 L180.0 290.0"/>
+<circle cx="110" cy="80" r="2.6" fill="#000" stroke="none"/>
+<path d="M480.0 110.0 L480.0 290.0"/>
+<path d="M480.0 290.0 L380.0 290.0"/>
+<circle cx="480" cy="110" r="2.6" fill="#000" stroke="none"/>
+<path d="M280.0 150.0 L233.5 215.1"/>
+<path d="M226.5 224.9 L180.0 290.0"/>
+<path d="M243.3 222.1 L223.7 208.1"/>
+<path d="M236.3 231.9 L216.7 217.9"/>
+<path d="M280.0 150.0 L326.5 215.1"/>
+<path d="M333.5 224.9 L380.0 290.0"/>
+<path d="M336.3 208.1 L316.7 222.1"/>
+<path d="M343.3 217.9 L323.7 231.9"/>
+<path d="M180.0 290.0 L274.0 290.0"/>
+<path d="M286.0 290.0 L380.0 290.0"/>
+<path d="M274.0 278.0 L274.0 302.0"/>
+<path d="M286.0 278.0 L286.0 302.0"/>
+<circle cx="280" cy="150" r="2.6" fill="#000" stroke="none"/>
+<circle cx="180" cy="290" r="2.6" fill="#000" stroke="none"/>
+<circle cx="380" cy="290" r="2.6" fill="#000" stroke="none"/>
+<path d="M150.0 38.0 L200.0 38.0" stroke="#c0392b"/>
+<path d="M200.0 38.0 L192.0 34.0 L192.0 42.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M230.0 312.0 L330.0 312.0" stroke="#c0392b"/>
+<path d="M330.0 312.0 L322.0 308.0 L322.0 316.0 Z" fill="#c0392b" stroke="#c0392b"/>
+</g>
+<text x="28" y="55" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">a</tspan></text>
+<text x="28" y="85" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">b</tspan></text>
+<text x="28" y="115" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">c</tspan></text>
+<text x="210" y="30" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 57.35 A</tspan></text>
+<text x="280" y="336" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 33.11 A</tspan></text>
+<text x="252" y="234" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">C</tspan></text>
+<text x="308" y="234" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">C</tspan></text>
+<text x="280" y="266" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">C</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 13.31 μF</tspan></text>
+<text x="352" y="214" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">LL</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 6600 V</tspan></text>
+<text x="290" y="148" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="384" y="280" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+</svg>

@@ -40,7 +40,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "I_Δ 保留 7 位使 C 照字面得 708.53（4 位會得 708.54）"
+  "notes": "I_Δ 保留 7 位使 C 照字面得 708.53（4 位會得 708.54）；review fix (p1-04-3-review)：圖 1 底部說明補變數名 I_Q=283.857 A → I_Q′=108.051 A；I_P 標籤移到 O 與投影點中點；V_ϕ 下標改用 ϕ（U+03D5）與正文 \\phi 一致"
  },
  {
   "qid": "EE-113-04-1",
@@ -52,7 +52,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "原 ASCII 磁路與 T 型電路改為 SVG；等效電路畫成 R1–jωL_l1–(Rc∥jωL_m)–理想 N1:N2–jωL_l2–R2，另說明折算到一次側的 T 型"
+  "notes": "原 ASCII 磁路與 T 型電路改為 SVG；等效電路畫成 R1–jωL_l1–(Rc∥jωL_m)–理想 N1:N2–jωL_l2–R2，另說明折算到一次側的 T 型；review fix (p1-04-3-review)：λ2 代入與提出 N1²/ℛ_M 分兩行；步驟 1 開頭說明改用瞬時值 i（相量 I、d/dt→jω）；e1 補 =N1²/ℛ_M·d(i1+i2′)/dt"
  },
  {
   "qid": "EE-114-04-1",

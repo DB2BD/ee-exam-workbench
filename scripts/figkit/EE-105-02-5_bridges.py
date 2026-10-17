@@ -30,6 +30,7 @@ for ox, title in ((0, "(a) 半橋：2 二極體 + 2 電容"), (360, "(b) 全橋�
     s += text(ox + 6, 24, [("t", title)])
     s += text(ox + X1 - 8, YM + 22, [("t", "AC1")], anchor="end")
     s += text(ox + (X1 + X2) / 2, YM - 22, [("v", "v"), ("vsub", "s")], anchor="middle")
+    s += text(ox + (X1 + X2) / 2 - 22, YM - 8, [("n", "+")], anchor="end")
     s += text(ox + XL + 14, YM + 6, [("v", "R"), ("vsub", "L")])
     s += text(ox + XL - 10, YP + 26, [("n", "(+)")], anchor="end")
     s += text(ox + XL - 10, YN - 12, [("n", "(−)")], anchor="end")

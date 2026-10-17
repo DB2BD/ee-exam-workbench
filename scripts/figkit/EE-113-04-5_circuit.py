@@ -1,0 +1,37 @@
+import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from svgkit import *
+def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"')
+def cap_v(x, y1, y2):
+    m = (y1 + y2) / 2
+    return line(x, y1, x, m - 4) + line(x - 13, m - 4, x + 13, m - 4) + line(x - 13, m + 4, x + 13, m + 4) + line(x, m + 4, x, y2)
+W, H = 600, 330; YT, YB = 50, 290; XS, XM, XA = 80, 260, 440
+s = header(W, H)
+s += line(XS, YT, XS, 156) + ac_source(XS, 170) + line(XS, 184, XS, YB)
+s += line(XS, YT, XA, YT) + line(XS, YB, XA, YB)
+# main winding
+s += line(XM, YT, XM, 90) + resistor(XM, 90, XM, 150) + coil(XM, 160, XM, 230, turns=4) + line(XM, 150, XM, 160) + line(XM, 230, XM, YB)
+# aux winding + C + switch
+s += line(XA, YT, XA, 80) + resistor(XA, 80, XA, 130) + coil(XA, 138, XA, 190, turns=3) + line(XA, 130, XA, 138)
+s += line(XA, 190, XA, 200) + cap_v(XA, 200, 236) + line(XA, 236, XA, 250)
+s += dot(XA, 250) + line(XA, 250, XA + 14, 268) + dot(XA, 272) + line(XA, 272, XA, YB)   # centrifugal switch (closed at start)
+s += dot(XM, YT) + dot(XM, YB)
+s += arrow(XM - 16, 62, XM - 16, 100, color=RED) + arrow(XA - 16, 58, XA - 16, 96, color=RED)
+s += end_group()
+s += text(XS - 22, 150, [("n", "+")], anchor="middle")
+s += text(XS - 22, 200, [("n", "−")], anchor="middle")
+s += ctext(BLUE, XS - 30, 176, [("v", "V")], anchor="end")
+s += ctext(BLUE, XS + 22, 176, [("n", "240∠0° V")])
+s += text(XM + 16, 124, [("n", "3.5 Ω")])
+s += text(XM + 16, 200, [("v", "j"), ("n", "6.2 Ω")])
+s += text(XM + 16, 254, [("t", "主繞組 "), ("v", "Z"), ("vsub", "m")])
+s += ctext(RED, XM - 22, 86, [("v", "I"), ("vsub", "m")], anchor="end")
+s += text(XA + 16, 110, [("n", "7.2 Ω")])
+s += text(XA + 16, 168, [("v", "j"), ("n", "4.8 Ω")])
+s += text(XA + 22, 222, [("v", "C"), ("n", "（−"), ("v", "jX"), ("vsub", "C"), ("n", "）")])
+s += text(XA + 22, 268, [("t", "離心開關")])
+s += text(XA + 16, 70, [("t", "輔助繞組 "), ("v", "Z"), ("vsub", "a")])
+s += ctext(RED, XA - 22, 86, [("v", "I"), ("vsub", "a")], anchor="end")
+s += text(300, 318, [("t", "轉子靜止（啟動瞬間），兩繞組並聯接同一電源")], anchor="middle")
+s += footer()
+open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/04_電機機械/figures/EE-113-04-5-circuit.svg'), 'w').write(s)
+print(len(s))

@@ -475,7 +475,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         mixed_source = (CANONICAL / "01_電路學" / "canonical" / "EE-108-01-1.md").read_text(encoding="utf-8")
         annual_mixed_source = (CANONICAL / "01_電路學" / "108年_電路學_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn(r"i(t)=-4+2\sqrt2\cos(5t-45^\circ)\ \mathrm A", mixed_source)
-        self.assertIn(r"P_{1\Omega}=P_\mathrm{dc}+P_\mathrm{ac}=20\ \mathrm W", mixed_source)
+        self.assertIn(r"\boxed{P_{1\Omega}=20\ \mathrm W}", mixed_source)
         self.assertIn(r"i(t)=-4+2\sqrt2\cos(5t-45^\circ)\ \mathrm A", annual_mixed_source)
         self.assertNotIn("8.485\\cos", annual_mixed_source)
         self.assertNotIn("36\\ \mathrm W", annual_mixed_source)

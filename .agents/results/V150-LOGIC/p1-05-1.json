@@ -1,0 +1,71 @@
+[
+ {
+  "qid": "EE-104-05-1",
+  "logic_added": true,
+  "steps_added": "解題邏輯（含 X_d 不用、AT/ST 忽略、故障前 1.0 pu 前提）；步驟1 基準換算（電抗、定阻抗負載、中性點電阻）；（一）I_sys/I_B/I_MT/V_t 逐行含大小與角度；（二）三序網路畫法條列；步驟2 Z1/Z2/Z0(ES on/off)；步驟3 基準電流/相電壓；（三）ES 投入/切離逐行；驗算改分流法",
+  "figures": [
+   "EE-104-05-1-positive.svg",
+   "EE-104-05-1-neg-zero.svg",
+   "EE-104-05-1-slg.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "移除 ASCII 序網圖與 ×10^-1 寫法；中性點電阻標么值更正 AT_R 144.51→144.46（5Ω/(4.16²/500)），ST_R 零序支路 3×26.25=78.75，AT_R 零序支路改為 Δ–Yg 正確畫法（4.16 kV 節點經 j1.6+433.38 接參考點，與其他網路隔離）；基準電流改記 I_base 以免與 b 相電流 I_b 混淆。答案與 needs_manual_review 狀態未動。"
+ },
+ {
+  "qid": "EE-104-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯；（一）支路導納、Y 對角/非對角逐項、det 與 6 個餘因子求 Z_bus（框精確分數 j/570[...]）；（二）I_L 分母有理化、V_k=V0−Z_k2 I_L 三匯流排逐行含大小與角度；（三）Z_L∥C 逐步合成、0.3−Z22 用精確分數 5.5/570、I_LC 有理化、三匯流排逐行",
+  "figures": [
+   "EE-104-05-4-model.svg",
+   "EE-104-05-4-thevenin.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "移除 j×10^-1 矩陣寫法；驗算加 V2=I_L Z_L 回代。"
+ },
+ {
+  "qid": "EE-105-05-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（無載 V_f=E''、次暫態用 X_d''）；步驟1 Z_b/X_n/I_base；步驟2 三序串聯畫法；求解段公式→代入→I_a1→I_a=3/(j0.69)→kA",
+  "figures": [
+   "EE-105-05-3-slg.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "20 分單題，保留四段式。"
+ },
+ {
+  "qid": "EE-105-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯與前提；步驟1 H_sys 加權（H_B=0.5H）；步驟2 由搖擺方程式推 RoCoF=f0ΔP/2H 與 t_cr 公式（積分兩次）；（一）比例計算與判定；（二）方法對症說明；驗算代入假設數值",
+  "figures": [
+   "EE-105-05-4-swing.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "保留測試字串 同步調相機／虛擬慣性。"
+ },
+ {
+  "qid": "EE-106-05-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（匯流排型態、發電機電抗不入 Y_bus）；步驟1 網路圖；（一）Y 逐元素；（二）P_i/Q_i 一般式由 S_i 推導並逐項代入；（三）P1 一般式與 P1+P2+P3 兩兩相消；（四）線路潮流 Q23/P23 公式，高/低根逐行計算；驗算 P2、Q3 回代",
+  "figures": [
+   "EE-106-05-3-network.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "表格 |V3| 改 4 位有效（0.6869／0.3967），移除 ×10^-1；已確認平坦起始 Newton 收斂至高電壓根；Jacobian 診斷段與所有測試字串保留。"
+ },
+ {
+  "qid": "EE-106-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯與前提（理想變壓器/CT、題圖參考方向）；（一）CT 二次電流＋接點 KCL；（二）安匝平衡代入、令係數為 0；（三）代回得 0，並推一般式 I'=(N1I1−N2I2)/(n1N1)；驗算數值與一般式雙檢",
+  "figures": [
+   "EE-106-05-4-ct-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": ""
+ }
+]

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 250" width="700" height="250">
+<rect width="700" height="250" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M40.0 96.0 L660.0 96.0" stroke="#1f5fa8"/>
+<path d="M660.0 96.0 L652.0 92.0 L652.0 100.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<path d="M250 84 L250 108" stroke="#1f5fa8" stroke-width="2"/>
+<path d="M440 84 L440 108" stroke="#1f5fa8" stroke-width="2"/>
+<path d="M145.0 96.0 L145.0 156.0" stroke="#000"/>
+<path d="M145.0 156.0 L149.0 148.0 L141.0 148.0 Z" fill="#000" stroke="#000"/>
+<path d="M345.0 96.0 L345.0 156.0" stroke="#000"/>
+<path d="M345.0 156.0 L349.0 148.0 L341.0 148.0 Z" fill="#000" stroke="#000"/>
+<path d="M550.0 96.0 L550.0 156.0" stroke="#000"/>
+<path d="M550.0 156.0 L554.0 148.0 L546.0 148.0 Z" fill="#000" stroke="#000"/>
+</g>
+<text x="40" y="56" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電源輸入</tspan></text>
+<text x="40" y="80" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">in</tspan></text>
+<text x="250" y="56" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">氣隙功率</tspan></text>
+<text x="250" y="80" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ag</tspan></text>
+<text x="440" y="56" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電磁轉換功率</tspan></text>
+<text x="440" y="80" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">conv</tspan></text>
+<text x="660" y="56" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">軸輸出</tspan></text>
+<text x="660" y="80" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">out</tspan></text>
+<text x="145" y="178" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">定子銅損 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">cu</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 850 W</tspan></text>
+<text x="145" y="202" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">鐵損 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">core</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 450 W</tspan></text>
+<text x="345" y="178" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">轉子銅損</tspan></text>
+<text x="345" y="202" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">cu</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1050 W</tspan></text>
+<text x="560" y="178" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">旋轉損</tspan></text>
+<text x="560" y="202" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">rot</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 500 W</tspan></text>
+</svg>

@@ -21,8 +21,8 @@
 <path transform="translate(70.0 100.0) rotate(90.00)" d="M0 0 L29.0 0 A6.5 6.5 0 0 1 42.0 0 A6.5 6.5 0 0 1 55.0 0 A6.5 6.5 0 0 1 68.0 0 A6.5 6.5 0 0 1 81.0 0 L110.0 0"/>
 <path d="M70.0 210.0 L70.0 310.0"/>
 <path d="M40.0 310.0 L600.0 310.0"/>
-<path d="M88.0 228.0 L88.0 268.0"/>
-<path d="M88.0 268.0 L92.0 260.0 L84.0 260.0 Z" fill="#000"/>
+<path d="M88.0 228.0 L88.0 268.0" stroke="#c0392b"/>
+<path d="M88.0 268.0 L92.0 260.0 L84.0 260.0 Z" fill="#c0392b" stroke="#c0392b"/>
 </g>
 <text x="160" y="88" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Bus 1</tspan></text>
 <text x="515" y="88" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Bus 2</tspan></text>
@@ -36,6 +36,6 @@
 <text x="523" y="172" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">G</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">＋</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">T</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
 <text x="56" y="150" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
 <text x="56" y="170" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.11</tspan></text>
-<text x="96" y="254" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="96" y="254" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
 <text x="320" y="336" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">參考點（各發電機 EMF 短路接地）</tspan></text>
 </svg>

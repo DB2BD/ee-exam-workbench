@@ -45,19 +45,22 @@ def busbar(x1, x2, y):
 def dot(x, y):
     return f'<circle cx="{x}" cy="{y}" r="2.6" fill="#000" stroke="none"/>\n'
 
-def arrow(x1, y1, x2, y2):
+RED = "#c0392b"; BLUE = "#1f5fa8"; FILL_RED = "#fde2e0"; FILL_BLUE = "#e3eefa"
+
+def arrow(x1, y1, x2, y2, color="#000"):
     """Current arrow: shaft + solid triangle head at (x2, y2)."""
     ang = math.atan2(y2 - y1, x2 - x1); s = 8
     p1 = (x2 - s * math.cos(ang) + 4 * math.sin(ang), y2 - s * math.sin(ang) - 4 * math.cos(ang))
     p2 = (x2 - s * math.cos(ang) - 4 * math.sin(ang), y2 - s * math.sin(ang) + 4 * math.cos(ang))
-    return line(x1, y1, x2, y2) + f'<path d="M{x2:.1f} {y2:.1f} L{p1[0]:.1f} {p1[1]:.1f} L{p2[0]:.1f} {p2[1]:.1f} Z" fill="#000"/>\n'
+    return (f'<path d="M{x1:.1f} {y1:.1f} L{x2:.1f} {y2:.1f}" stroke="{color}"/>\n'
+            f'<path d="M{x2:.1f} {y2:.1f} L{p1[0]:.1f} {p1[1]:.1f} L{p2[0]:.1f} {p2[1]:.1f} Z" fill="{color}" stroke="{color}"/>\n')
 
 def end_group():
     return '</g>\n'
 
-def text(x, y, parts, anchor="start"):
+def text(x, y, parts, anchor="start", color="#000"):
     """parts: list of (kind, s) with kind in v (italic var), n (upright number/unit), t (Chinese text), sub (subscript upright), vsub (italic subscript)."""
-    out = [f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="16" fill="#000">']
+    out = [f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="16" fill="{color}">']
     for kind, s in parts:
         if kind in ("sub", "vsub"):
             cls, fam = ("v", FONT_V) if kind == "vsub" else ("n", FONT_N)

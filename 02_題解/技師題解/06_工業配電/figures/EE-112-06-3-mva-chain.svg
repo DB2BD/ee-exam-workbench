@@ -1,50 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 270" font-family="Helvetica, Arial, sans-serif" font-size="15">
-  <rect x="0" y="0" width="680" height="270" rx="12" fill="#ffffff"/>
-  <g stroke="#111" stroke-width="2" fill="none">
-    <line x1="36" y1="56" x2="36" y2="104" stroke-width="5"/>
-    <line x1="36" y1="80" x2="70" y2="80"/>
-    <rect x="70" y="62" width="100" height="36" fill="#fff"/>
-    <line x1="170" y1="80" x2="270" y2="80"/>
-    <rect x="270" y="62" width="100" height="36" fill="#fff"/>
-    <line x1="370" y1="80" x2="470" y2="80"/>
-    <rect x="470" y="62" width="100" height="36" fill="#fff"/>
-    <line x1="570" y1="80" x2="620" y2="80"/>
-  </g>
-  <g fill="#111">
-    <circle cx="220" cy="80" r="4"/>
-    <circle cx="420" cy="80" r="4"/>
-    <circle cx="620" cy="80" r="4"/>
-  </g>
-  <g fill="#111" text-anchor="middle">
-    <text x="36" y="42">∞ 母線</text>
-    <text x="120" y="50">電源 S</text>
-    <text x="320" y="50">變壓器 T</text>
-    <text x="520" y="50">線路 L</text>
-    <text x="120" y="86">200 MVA</text>
-    <text x="320" y="86">10 MVA</text>
-    <text x="520" y="86">2 MVA</text>
-    <text x="220" y="62" font-weight="bold">F1</text>
-    <text x="420" y="62" font-weight="bold">F2</text>
-    <text x="620" y="62" font-weight="bold">F3</text>
-    <text x="220" y="162">200 MVA</text>
-    <text x="220" y="182">11.4 kV</text>
-    <text x="420" y="162">9.52 MVA</text>
-    <text x="420" y="182">0.38 kV</text>
-    <text x="620" y="162">1.65 MVA</text>
-    <text x="620" y="182">0.38 kV</text>
-  </g>
-  <g stroke="#c0392b" stroke-width="2" fill="#c0392b">
-    <line x1="220" y1="90" x2="220" y2="130"/>
-    <polygon points="214,126 226,126 220,138" stroke="none"/>
-    <line x1="420" y1="90" x2="420" y2="130"/>
-    <polygon points="414,126 426,126 420,138" stroke="none"/>
-    <line x1="620" y1="90" x2="620" y2="130"/>
-    <polygon points="614,126 626,126 620,138" stroke="none"/>
-  </g>
-  <g fill="#c0392b" text-anchor="middle">
-    <text x="220" y="204">10.13 kA</text>
-    <text x="420" y="204">14.47 kA</text>
-    <text x="620" y="204">2.51 kA</text>
-  </g>
-  <text x="340" y="246" fill="#111" text-anchor="middle">串聯合成：1/MVA_F = Σ 1/MVA_i；I = MVA_F / (√3 kV)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 290" width="700" height="290">
+<rect width="700" height="290" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M40 62 L40 130" stroke-width="5"/>
+<path d="M40.0 96.0 L70.0 96.0"/>
+<path transform="translate(70.0 96.0) rotate(0.00)" d="M0 0 L27.5 0 A6.5 6.5 0 0 1 40.5 0 A6.5 6.5 0 0 1 53.5 0 A6.5 6.5 0 0 1 66.5 0 A6.5 6.5 0 0 1 79.5 0 A6.5 6.5 0 0 1 92.5 0 L120.0 0"/>
+<path d="M190.0 96.0 L304.0 96.0"/>
+<circle cx="320" cy="96" r="16"/>
+<circle cx="342" cy="96" r="16"/>
+<path d="M358.0 96.0 L470.0 96.0"/>
+<path transform="translate(470.0 96.0) rotate(0.00)" d="M0 0 L27.5 0 A6.5 6.5 0 0 1 40.5 0 A6.5 6.5 0 0 1 53.5 0 A6.5 6.5 0 0 1 66.5 0 A6.5 6.5 0 0 1 79.5 0 A6.5 6.5 0 0 1 92.5 0 L120.0 0"/>
+<path d="M590.0 96.0 L640.0 96.0"/>
+<circle cx="240" cy="96" r="2.6" fill="#000" stroke="none"/>
+<g stroke="#c0392b"><path d="M240.0 104.0 L240.0 144.0"/>
+<path d="M240.0 144.0 L244.0 136.0 L236.0 136.0 Z" fill="#c0392b"/>
+</g>
+<circle cx="430" cy="96" r="2.6" fill="#000" stroke="none"/>
+<g stroke="#c0392b"><path d="M430.0 104.0 L430.0 144.0"/>
+<path d="M430.0 144.0 L434.0 136.0 L426.0 136.0 Z" fill="#c0392b"/>
+</g>
+<circle cx="640" cy="96" r="2.6" fill="#000" stroke="none"/>
+<g stroke="#c0392b"><path d="M640.0 104.0 L640.0 144.0"/>
+<path d="M640.0 144.0 L644.0 136.0 L636.0 136.0 Z" fill="#c0392b"/>
+</g>
+</g>
+<text x="40" y="42" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">∞ 母線</tspan></text>
+<text x="130" y="48" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電源 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan></text>
+<text x="130" y="70" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">200 MVA</tspan></text>
+<text x="331" y="48" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">變壓器 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">T</tspan></text>
+<text x="331" y="70" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">10 MVA</tspan></text>
+<text x="530" y="48" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">線路 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">L</tspan></text>
+<text x="530" y="70" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">2 MVA</tspan></text>
+<text x="331" y="128" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">11.4/0.38 kV</tspan></text>
+<text x="240" y="78" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan></text>
+<text x="240" y="174" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">200 MVA</tspan></text>
+<text x="240" y="194" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">11.4 kV</tspan></text>
+<text x="240" y="214" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">10.13 kA</tspan></text>
+<text x="430" y="78" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan></text>
+<text x="430" y="174" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">9.52 MVA</tspan></text>
+<text x="430" y="194" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.38 kV</tspan></text>
+<text x="430" y="214" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">14.47 kA</tspan></text>
+<text x="640" y="78" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">3</tspan></text>
+<text x="640" y="174" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1.65 MVA</tspan></text>
+<text x="640" y="194" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.38 kV</tspan></text>
+<text x="640" y="214" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">2.51 kA</tspan></text>
+<text x="350" y="262" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">串聯合成：</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1/MVA</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = Σ 1/MVA</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">i</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">；</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = MVA</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> / (√3 kV)</tspan></text>
 </svg>

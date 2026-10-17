@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" width="720" height="320">
+<rect width="720" height="320" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="12" y="30" width="114" height="34"/>
+<path d="M69.0 64.0 L69.0 94.0"/>
+<rect x="132" y="30" width="114" height="34"/>
+<path d="M189.0 64.0 L189.0 94.0"/>
+<rect x="252" y="30" width="114" height="34"/>
+<path d="M309.0 64.0 L309.0 94.0"/>
+<rect x="372" y="30" width="114" height="34"/>
+<path d="M429.0 64.0 L429.0 94.0"/>
+<path d="M69.0 94.0 L488.0 94.0"/>
+<path d="M488.0 94.0 L560.0 94.0" stroke="#1f5fa8"/>
+<path d="M560.0 94.0 L552.0 90.0 L552.0 98.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<rect x="565" y="74" width="145" height="40" stroke="#1f5fa8"/>
+<rect x="12" y="170" width="114" height="34"/>
+<path d="M69.0 204.0 L69.0 234.0"/>
+<rect x="132" y="170" width="114" height="34"/>
+<path d="M189.0 204.0 L189.0 234.0"/>
+<rect x="252" y="170" width="114" height="34"/>
+<path d="M309.0 204.0 L309.0 234.0"/>
+<rect x="372" y="170" width="114" height="34"/>
+<path d="M429.0 204.0 L429.0 234.0"/>
+<path d="M69.0 234.0 L488.0 234.0"/>
+<path d="M488.0 234.0 L560.0 234.0" stroke="#1f5fa8"/>
+<path d="M560.0 234.0 L552.0 230.0 L552.0 238.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<rect x="565" y="214" width="145" height="40" stroke="#1f5fa8"/>
+</g>
+<text x="69.0" y="53" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">max,A</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 42.50</tspan></text>
+<text x="189.0" y="53" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">max,B</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 26.40</tspan></text>
+<text x="309.0" y="53" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">max,C</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 79.20</tspan></text>
+<text x="429.0" y="53" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">max,D</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 43.20</tspan></text>
+<text x="245" y="116" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Σ</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">max,i</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 191.30 kW</tspan></text>
+<text x="520" y="84" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">÷ </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">F</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">d</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1.5</tspan></text>
+<text x="637" y="100" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">max</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 127.53 kW</tspan></text>
+<text x="69.0" y="193" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">avg,A</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 19.125</tspan></text>
+<text x="189.0" y="193" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">avg,B</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 10.56</tspan></text>
+<text x="309.0" y="193" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">avg,C</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 39.60</tspan></text>
+<text x="429.0" y="193" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">avg,D</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 15.12</tspan></text>
+<text x="245" y="256" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Σ</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">avg,i</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 84.405 kW</tspan></text>
+<text x="520" y="224" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">直接相加</tspan></text>
+<text x="637" y="240" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">avg</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 84.405 kW</tspan></text>
+<text x="360" y="300" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">LF</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">avg</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> / </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">max</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 84.405 / 127.53 = 0.6618</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">；</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">E</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 84.405 × 24 = 2025.72 kWh</tspan></text>
+</svg>

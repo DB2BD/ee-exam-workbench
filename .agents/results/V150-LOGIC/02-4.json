@@ -20,7 +20,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "R_x=R1||RF 為偏壓補償電阻，於解題邏輯說明不影響計算；保留條件與疑義（硬箝位讀法 -4.63）"
+  "notes": "R_x=R1||RF 為偏壓補償電阻，於解題邏輯說明不影響計算；保留條件與疑義（硬箝位讀法 -4.63）；review fix 2：（一）末補左段斜率 -(R_F||R_5)/R_1 出處；圖 1 圖說註明未畫的截止支路"
  },
  {
   "qid": "EE-104-02-3",
@@ -31,7 +31,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "驗算段修正原文「不能僅憑導通時間比例」語意（I_o 與 I_o,rms 數值碰巧接近）"
+  "notes": "驗算段修正原文「不能僅憑導通時間比例」語意（I_o 與 I_o,rms 數值碰巧接近）；review fix 2：圖 1 導通條標籤移入框內、補 0–30° D5 與 330–360° D6、補 v_cb；步驟 3 開根號拆行"
  },
  {
   "qid": "EE-107-02-4",
@@ -43,7 +43,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "review fix：圖 1 V_s 下標改斜體、(a) C1 箭頭改標實際電流 i_L2（放電）、負載旁標 V_o 上負下正；圖 2 時間標籤改黑、ΔQ→ΔQ_2"
+  "notes": "review fix：圖 1 V_s 下標改斜體、(a) C1 箭頭改標實際電流 i_L2（放電）、負載旁標 V_o 上負下正；圖 2 時間標籤改黑、ΔQ→ΔQ_2；review fix 2：圖 2 ΔQ_2 標籤改黑"
  },
  {
   "qid": "EE-105-02-5",
@@ -55,6 +55,6 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "review fix：圖 3(a) 重畫為非對稱半控橋（SCR 臂＋二極體臂），D3、D4 續流與邏輯句一致；圖 1、3 π 改斜體、圖 3 電源標 +"
+  "notes": "review fix：圖 3(a) 重畫為非對稱半控橋（SCR 臂＋二極體臂），D3、D4 續流與邏輯句一致；圖 1、3 π 改斜體、圖 3 電源標 +；review fix 2：圖 2 v_s 補 +；解題邏輯（一）（二）指標口徑分開；補對稱式半控橋續流說明"
  }
 ]

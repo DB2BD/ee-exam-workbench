@@ -9,5 +9,29 @@
     "test_string_updates": [],
     "suspected_answer_issue": "",
     "notes": "原題 25 分未分子題，依所求編為（一）（二）；驗算的 7.86e-2 改為 0.0786；T_R1+T_R3 損失 2.933333 MW 在失分點列出算式"
+  },
+  {
+    "qid": "EE-108-05-1",
+    "logic_added": true,
+    "steps_added": "sinφ=0.43589；cosδ'=√(1−0.51059²)=0.8598 由已顯示 sinδ' 求",
+    "figures": [
+      "EE-108-05-1-phasor.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix: 必修 1–2；選修：圖說改「依比例」、PX_d/V 標籤右上移、（二）邏輯改引題幹「輸出實功率保持固定」"
+  },
+  {
+    "qid": "EE-104-05-3",
+    "logic_added": true,
+    "steps_added": "解題邏輯補「E'' 故障瞬間不變（磁鏈守恆）」前提；6 位有效說明移到步驟 1；δ1/δ2 去框",
+    "figures": [
+      "EE-104-05-3-subtransient.svg",
+      "EE-104-05-3-subtransient-values.svg",
+      "EE-104-05-3-one-line.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix: 圖 2 改只標符號，數值版另為圖 3 放在（四）之後（同一 generator 產生兩檔）；圖 1 改標 P_1、P_2。未做選修「故障前 P_i、I_i 標在模型圖」"
   }
 ]

@@ -15,7 +15,7 @@ class TestBuckBCM113(unittest.TestCase):
         standard = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
         self.assertIn("chapter: 降壓型轉換器的邊界導通模式", note)
         self.assertIn("![官方題目裁切圖]", note)
-        self.assertIn("降壓型Buck轉換器二操作狀態等效電路圖.svg", note)
+        self.assertIn("../figures/EE-113-02-3-on-off.svg", note)
         for expression in (r"v_L=V_s-V_o", r"v_L=-V_o", r"\boxed{V_o=DV_s}",
                            r"\boxed{L_{\min}=\frac{(1-D)R}{2f_s}}", r"\frac{1}{4RCf_s}"):
             with self.subTest(expression=expression):

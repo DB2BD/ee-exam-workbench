@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 372" width="680" height="372">
+<rect width="680" height="372" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M50.0 200.0 L440.0 200.0" stroke="#1f5fa8"/>
+<path d="M440.0 200.0 L432.0 196.0 L432.0 204.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<path d="M50.0 200.0 L591.3 139.9" stroke="#1f5fa8"/>
+<path d="M591.3 139.9 L582.9 136.9 L583.8 144.8 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<path d="M440.0 200.0 L539.0 247.9" stroke="#000"/>
+<path d="M539.0 247.9 L533.5 240.9 L530.1 248.1 Z" fill="#000" stroke="#000"/>
+<path d="M539.0 247.9 L591.3 139.9" stroke="#000"/>
+<path d="M591.3 139.9 L584.2 145.4 L591.4 148.9 Z" fill="#000" stroke="#000"/>
+<path d="M50.0 200.0 L203.0 274.1" stroke="#c0392b"/>
+<path d="M203.0 274.1 L197.5 267.0 L194.1 274.2 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M120 200 A70 70 0 0 1 113.0 230.5" stroke-width="1"/>
+<path d="M440.0 196.0 L440.0 104" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M591.3 135.9 L591.3 104" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M448.0 112.0 L590.8 112.0" stroke="#000"/>
+<path d="M590.8 112.0 L582.8 108.0 L582.8 116.0 Z" fill="#000" stroke="#000"/>
+<path d="M583.3 112.0 L440.5 112.0" stroke="#000"/>
+<path d="M440.5 112.0 L448.5 116.0 L448.5 108.0 Z" fill="#000" stroke="#000"/>
+<circle cx="50" cy="200" r="2.6" fill="#000" stroke="none"/>
+</g>
+<text x="300" y="224" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V̇</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">r</tspan></text>
+<text x="320" y="158" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V̇</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">s</tspan></text>
+<text x="197.0" y="298.10128204019145" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">İ</tspan></text>
+<text x="132" y="226" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan></text>
+<text x="473.5" y="253.97394418947368" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">İR</tspan></text>
+<text x="591.0" y="227.9478883789474" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">jİX</tspan></text>
+<text x="515.6533936612441" y="94" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> cos </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> + </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> sin </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">)</tspan></text>
+<text x="340" y="336" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">cos </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 0.9</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（落後），</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 25.84°</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">；相量長度放大示意，未依比例</tspan></text>
+<text x="340" y="360" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">線間壓降 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Δ</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = √3 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> cos </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> + </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> sin </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ϕ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">)</tspan></text>
+</svg>

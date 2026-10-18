@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" width="720" height="320">
+<rect width="720" height="320" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M140.0 90.0 L180.0 90.0"/>
+<path transform="translate(180.0 90.0) rotate(0.00)" d="M0.0 0.0 L12.0 0.0 L18.3 -6.0 L31.0 6.0 L43.7 -6.0 L56.3 6.0 L69.0 -6.0 L81.7 6.0 L88.0 0.0 L100.0 0.0"/>
+<path d="M280.0 90.0 L510.0 90.0"/>
+<path d="M140.0 250.0 L510.0 250.0"/>
+<path d="M140.0 90.0 L140.0 250.0"/>
+<path d="M390.0 90.0 L390.0 150.0"/>
+<g transform="translate(390.0 150.0) rotate(90.00)"><path d="M0.0 0.0 L15.0 0.0"/>
+<path d="M15.0 -14.0 L15.0 14.0"/>
+<path d="M25.0 -14.0 L25.0 14.0"/>
+<path d="M25.0 0.0 L40.0 0.0"/>
+</g>
+<path d="M390.0 190.0 L390.0 250.0"/>
+<path d="M510.0 90.0 L510.0 130.0"/>
+<path transform="translate(510.0 130.0) rotate(90.00)" d="M0 0 L14.0 0 A6.5 6.5 0 0 1 27.0 0 A6.5 6.5 0 0 1 40.0 0 A6.5 6.5 0 0 1 53.0 0 A6.5 6.5 0 0 1 66.0 0 L80.0 0"/>
+<path d="M510.0 210.0 L510.0 250.0"/>
+<path d="M510.0 90.0 L640.0 90.0"/>
+<path d="M510.0 250.0 L640.0 250.0"/>
+<path d="M640.0 250.0 L640.0 188.0"/>
+<path d="M640.0 152.0 L640.0 90.0"/>
+<circle cx="640.0" cy="170.0" r="18"/>
+<path d="M640.0 179.0 L640.0 161.0" stroke="#000"/>
+<path d="M640.0 161.0 L636.0 169.0 L644.0 169.0 Z" fill="#000" stroke="#000"/>
+<circle cx="310" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="310" cy="250" r="2.6" fill="#000" stroke="none"/>
+<circle cx="390" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="390" cy="250" r="2.6" fill="#000" stroke="none"/>
+<circle cx="510" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="510" cy="250" r="2.6" fill="#000" stroke="none"/>
+<path d="M390.0 250.0 L390.0 262.0"/>
+<path d="M378.0 262.0 L402.0 262.0"/>
+<path d="M382.0 266.0 L398.0 266.0"/>
+<path d="M386.0 270.0 L394.0 270.0"/>
+</g>
+<text x="130" y="176" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電壓源短路</tspan></text>
+<text x="330" y="120" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="330" y="176" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-weight="bold" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">,10</tspan></text>
+<text x="330" y="238" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+<text x="230.0" y="74" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">8 Ω</tspan></text>
+<text x="412" y="164" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Y</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">C</tspan></text>
+<text x="412" y="186" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">= j2 S</tspan></text>
+<text x="526" y="164" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Y</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan></text>
+<text x="526" y="186" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">= −j0.1 S</tspan></text>
+<text x="640" y="76" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-weight="bold" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">s</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 6∠0° A</tspan></text>
+<text x="20" y="300" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">ω</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 10 rad/s</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（餘弦基準相量）；8 Ω 仍跨接輸出節點與地</tspan></text>
+</svg>

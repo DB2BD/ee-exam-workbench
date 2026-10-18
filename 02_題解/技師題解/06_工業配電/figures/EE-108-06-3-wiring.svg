@@ -33,11 +33,11 @@
 <circle cx="220.0" cy="334" r="4" fill="#fff"/>
 <circle cx="350.0" cy="334" r="4" fill="#fff"/>
 <circle cx="540" cy="334" r="4" fill="#fff"/>
-<path d="M220.0 290.0 L180.0 290.0"/>
-<path d="M180.0 290.0 L180.0 300.0"/>
-<path d="M168.0 300.0 L192.0 300.0"/>
-<path d="M172.0 304.0 L188.0 304.0"/>
-<path d="M176.0 308.0 L184.0 308.0"/>
+<path d="M220.0 290.0 L260.0 290.0"/>
+<path d="M260.0 290.0 L260.0 300.0"/>
+<path d="M248.0 300.0 L272.0 300.0"/>
+<path d="M252.0 304.0 L268.0 304.0"/>
+<path d="M256.0 308.0 L264.0 308.0"/>
 <circle cx="220.0" cy="290" r="2.6" fill="#000" stroke="none"/>
 <circle cx="168" cy="164" r="3" fill="#000" stroke="none"/>
 <circle cx="168" cy="230" r="3" fill="#000" stroke="none"/>

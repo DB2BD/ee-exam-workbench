@@ -1,0 +1,8 @@
+[
+  {"qid": "EE-105-03-8", "logic_added": true, "steps_added": "解題邏輯（譜定理、Y^T=Y^{-1}）；步驟1 特徵多項式沿第一列逐行展開、試根與長除；步驟2 λ=2 消去法、λ=-1 平面上以正交條件求第三向量、兩兩正交檢查；求 Y：長度、單位化、AY=YΛ ⇒ Y^TAY=Λ；驗算加 Ap_1、Ap_3 逐欄核對", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": "Y 與 Y^TAY 分別框；新增失分點：欄序與對角元順序一致"},
+  {"qid": "EE-106-03-1", "logic_added": true, "steps_added": "移除 compact（10 分）；新增已知與所求；解題邏輯（分塊對角逐塊求逆的理由）；步驟1 分塊與 2×2 反矩陣公式；行列式、伴隨、-1 乘入各一行", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": ""},
+  {"qid": "EE-106-03-2", "logic_added": true, "steps_added": "解題邏輯（殘差正交 ⇒ 正規方程、A 兩行獨立）；步驟1 A^TA、A^Tb 各元素以行內積逐行；求 x：行列式、反矩陣、矩陣乘向量逐行；框內精確分數附近似值 1.06／-0.47；驗算補 Ax", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": ""},
+  {"qid": "EE-106-03-3", "logic_added": true, "steps_added": "移除 compact（10 分）；新增已知與所求；解題邏輯（待定係數不適用、降階 y=e^{-2x}v、x>0）；步驟1 特徵方程；y'、y'' 乘積法則、代入、去括號、合併同類項、兩次積分各一行；驗算補 W 計算", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": ""},
+  {"qid": "EE-106-03-5", "logic_added": true, "steps_added": "解題邏輯取代「觀念」段；步驟1 模長、輻角（象限判斷、參考角）；De Moivre 模長與輻角分行；Euler 公式；驗算補 z^2、z^3 展開", "figures": ["EE-106-03-5-argand.svg"], "test_string_updates": [], "suspected_answer_issue": "", "notes": ""},
+  {"qid": "EE-107-03-1", "logic_added": true, "steps_added": "解題邏輯（可分離、除以 y(y^3-1) 的前提與補回常數解）；（一）部分分式通分核對、兩個 u-代換積分、乘 3、對數律、取指數、拆分各一行；（二）代入、通分、取倒數、開立方根、定義域各一行；框內只留結果", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": "（一）（二）題幹未分配分（合計 20 分），標題不加配分"}
+]

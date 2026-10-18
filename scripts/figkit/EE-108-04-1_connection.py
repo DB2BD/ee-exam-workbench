@@ -6,8 +6,8 @@ from auto_parts import stepdown
 stepdown(
     'EE-108-04-1-connection.svg',
     v_in=[("v", "V"), ("vsub", "in"), ("n", " = 600 V")],
-    v_se=[("n", "120 V")],
-    v_c=[("n", "480 V")],
+    v_se=[("v", "V"), ("vsub", "se"), ("n", " = 120 V")],
+    v_c=[("v", "V"), ("vsub", "c"), ("n", " = 480 V")],
     v_out=([("v", "V"), ("vsub", "load")], [("n", "= 480 V")]),
     i_in=[("v", "I"), ("vsub", "in")],
     i_out=[("v", "I"), ("vsub", "out")],

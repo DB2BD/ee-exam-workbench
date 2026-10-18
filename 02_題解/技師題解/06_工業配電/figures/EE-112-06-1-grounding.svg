@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" width="700" height="420">
+<rect width="700" height="420" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M90.0 90.0 L98.0 90.0"/>
+<path transform="translate(98.0 90.0) rotate(0.00)" d="M0 0 L11.0 0 A5.0 5.0 0 0 1 21.0 0 A5.0 5.0 0 0 1 31.0 0 A5.0 5.0 0 0 1 41.0 0 L52.0 0"/>
+<path d="M150.0 90.0 L500.0 90.0"/>
+<path d="M500.0 90.0 L549.0 90.0"/>
+<path d="M90.0 130.0 L98.0 130.0"/>
+<path transform="translate(98.0 130.0) rotate(0.00)" d="M0 0 L11.0 0 A5.0 5.0 0 0 1 21.0 0 A5.0 5.0 0 0 1 31.0 0 A5.0 5.0 0 0 1 41.0 0 L52.0 0"/>
+<path d="M150.0 130.0 L500.0 130.0"/>
+<path d="M500.0 130.0 L549.0 130.0"/>
+<path d="M90.0 170.0 L98.0 170.0"/>
+<path transform="translate(98.0 170.0) rotate(0.00)" d="M0 0 L11.0 0 A5.0 5.0 0 0 1 21.0 0 A5.0 5.0 0 0 1 31.0 0 A5.0 5.0 0 0 1 41.0 0 L52.0 0"/>
+<path d="M150.0 170.0 L500.0 170.0"/>
+<path d="M500.0 170.0 L549.0 170.0"/>
+<path d="M90.0 90.0 L90.0 222.0"/>
+<circle cx="90" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="90" cy="130" r="2.6" fill="#000" stroke="none"/>
+<circle cx="90" cy="170" r="2.6" fill="#000" stroke="none"/>
+<circle cx="90" cy="222" r="2.6" fill="#000" stroke="none"/>
+<path d="M90.0 222.0 L440.0 222.0"/>
+<circle cx="444" cy="222" r="4" fill="#fff"/>
+<path transform="translate(90.0 232.0) rotate(90.00)" d="M0.0 0.0 L12.0 0.0 L14.2 -6.0 L18.5 6.0 L22.8 -6.0 L27.2 6.0 L31.5 -6.0 L35.8 6.0 L38.0 0.0 L50.0 0.0"/>
+<path d="M90.0 222.0 L90.0 232.0"/>
+<path d="M90.0 282.0 L90.0 310.0"/>
+<circle cx="90" cy="310" r="2.6" fill="#000" stroke="none"/>
+<path d="M90.0 310.0 L90.0 330.0"/>
+<path d="M78.0 330.0 L102.0 330.0"/>
+<path d="M82.0 334.0 L98.0 334.0"/>
+<path d="M86.0 338.0 L94.0 338.0"/>
+<rect x="500" y="66" width="120" height="130" stroke-width="2.2"/>
+<circle cx="575" cy="130" r="26"/>
+<path d="M549.0 90.0 L556.0 112.0"/>
+<path d="M549.0 170.0 L556.0 148.0"/>
+<path d="M560.0 196.0 L560.0 310.0"/>
+<circle cx="560" cy="196" r="2.6" fill="#000" stroke="none"/>
+<circle cx="560" cy="310" r="2.6" fill="#000" stroke="none"/>
+<path d="M90.0 310.0 L650.0 310.0"/>
+<path d="M650.0 310.0 L650.0 330.0"/>
+<path d="M638.0 330.0 L662.0 330.0"/>
+<path d="M642.0 334.0 L658.0 334.0"/>
+<path d="M646.0 338.0 L654.0 338.0"/>
+<path d="M520 170 L527 178 L517 184 L524 196" stroke="#c0392b" stroke-width="1.8"/>
+<path d="M250.0 158.0 L320.0 158.0" stroke="#c0392b"/>
+<path d="M320.0 158.0 L312.0 154.0 L312.0 162.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M574.0 222.0 L574.0 278.0" stroke="#c0392b"/>
+<path d="M574.0 278.0 L578.0 270.0 L570.0 270.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M420.0 324.0 L340.0 324.0" stroke="#c0392b"/>
+<path d="M340.0 324.0 L348.0 328.0 L348.0 320.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M76.0 276.0 L76.0 240.0" stroke="#c0392b"/>
+<path d="M76.0 240.0 L72.0 248.0 L80.0 248.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M40 216 L210 216 L210 352 L40 352 Z" stroke="#1f5fa8" stroke-width="1" stroke-dasharray="5 4"/>
+<path d="M480 48 L680 48 L680 352 L480 352 Z" stroke="#1f5fa8" stroke-width="1" stroke-dasharray="5 4"/>
+</g>
+<text x="176" y="82" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">L1</tspan></text>
+<text x="176" y="122" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">L2</tspan></text>
+<text x="176" y="162" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">L3</tspan></text>
+<text x="80" y="60" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">變壓器二次 Y 接</tspan></text>
+<text x="80" y="226" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">N</tspan></text>
+<text x="300" y="214" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">N</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 中性線（至單相負載）</tspan></text>
+<text x="104" y="263" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">N</tspan></text>
+<text x="102" y="302" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">G</tspan></text>
+<text x="118" y="345" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">系統接地極</tspan></text>
+<text x="150" y="240" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">系統接地</tspan></text>
+<text x="575" y="136" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">M</tspan></text>
+<text x="552" y="214" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">外殼</tspan></text>
+<text x="330" y="302" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PE</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（設備接地導線）</tspan></text>
+<text x="610" y="345" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">設備接地極</tspan></text>
+<text x="580" y="42" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">設備接地</tspan></text>
+<text x="494" y="190" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">碰殼</tspan></text>
+<text x="285" y="150" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="590" y="256" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="380" y="344" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="70" y="262" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="350.0" y="400" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">N</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 與 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PE</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 只在電源端接地母排 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">G</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 單點相連；碰殼電流沿紅箭頭回到中性點</tspan></text>
+</svg>

@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 650" width="720" height="650">
+<rect width="720" height="650" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M40 34 L40 86" stroke-width="5"/>
+<path d="M40.0 60.0 L300.0 60.0"/>
+<rect x="300" y="47" width="60" height="26" fill="#fff"/>
+<path d="M360.0 60.0 L680.0 60.0"/>
+<path d="M640.0 60.0 L690.0 60.0" stroke="#000"/>
+<path d="M690.0 60.0 L682.0 56.0 L682.0 64.0 Z" fill="#000" stroke="#000"/>
+<circle cx="150" cy="60" r="2.6" fill="#000" stroke="none"/>
+<path d="M150.0 60.0 L150.0 76.0"/>
+<rect x="144" y="76" width="12" height="20" fill="#fff"/>
+<path d="M150.0 96.0 L150.0 104.0"/>
+<circle cx="150" cy="114" r="10"/>
+<circle cx="150" cy="128" r="10"/>
+<path d="M150 138 L150 150" stroke-width="1" stroke-dasharray="3 3"/>
+<path transform="translate(478.0 70.0) rotate(0.00)" d="M0 0 L2.0 0 A5.0 5.0 0 0 1 12.0 0 A5.0 5.0 0 0 1 22.0 0 L24.0 0"/>
+<path d="M490 76 L490 100" stroke-width="1" stroke-dasharray="3 3"/>
+<circle cx="110" cy="160" r="3" fill="#fff"/>
+<path d="M110.0 163.0 L110.0 168.0"/>
+<rect x="105" y="168" width="10" height="18" fill="#fff"/>
+<path d="M110.0 186.0 L110.0 260.0"/>
+<path d="M110.0 260.0 L378.0 260.0"/>
+<circle cx="150" cy="160" r="3" fill="#fff"/>
+<path d="M150.0 163.0 L150.0 168.0"/>
+<rect x="145" y="168" width="10" height="18" fill="#fff"/>
+<path d="M150.0 186.0 L150.0 235.0"/>
+<path d="M150.0 235.0 L378.0 235.0"/>
+<circle cx="190" cy="160" r="3" fill="#fff"/>
+<path d="M190.0 163.0 L190.0 168.0"/>
+<rect x="185" y="168" width="10" height="18" fill="#fff"/>
+<path d="M190.0 186.0 L190.0 210.0"/>
+<path d="M190.0 210.0 L378.0 210.0"/>
+<path d="M378.0 235.0 L392.0 235.0"/>
+<path d="M392.0 235.0 L392.0 276.0"/>
+<path d="M380.0 276.0 L404.0 276.0"/>
+<path d="M384.0 280.0 L400.0 280.0"/>
+<path d="M388.0 284.0 L396.0 284.0"/>
+<circle cx="378" cy="235" r="2.6" fill="#000" stroke="none"/>
+<circle cx="220" cy="210" r="2.6" fill="#000" stroke="none"/>
+<path d="M220.0 210.0 L220.0 300.0"/>
+<circle cx="235" cy="235" r="2.6" fill="#000" stroke="none"/>
+<path d="M235.0 235.0 L235.0 300.0"/>
+<circle cx="250" cy="260" r="2.6" fill="#000" stroke="none"/>
+<path d="M250.0 260.0 L250.0 300.0"/>
+<rect x="210" y="300" width="50" height="30" fill="#fff"/>
+<circle cx="285" cy="210" r="2.6" fill="#000" stroke="none"/>
+<path d="M285.0 210.0 L285.0 300.0"/>
+<circle cx="300" cy="235" r="2.6" fill="#000" stroke="none"/>
+<path d="M300.0 235.0 L300.0 300.0"/>
+<circle cx="315" cy="260" r="2.6" fill="#000" stroke="none"/>
+<path d="M315.0 260.0 L315.0 300.0"/>
+<rect x="275" y="300" width="50" height="30" fill="#fff"/>
+<circle cx="350" cy="210" r="2.6" fill="#000" stroke="none"/>
+<path d="M350.0 210.0 L350.0 300.0"/>
+<circle cx="365" cy="235" r="2.6" fill="#000" stroke="none"/>
+<path d="M365.0 235.0 L365.0 300.0"/>
+<circle cx="380" cy="260" r="2.6" fill="#000" stroke="none"/>
+<path d="M380.0 260.0 L380.0 300.0"/>
+<rect x="340" y="300" width="50" height="30" fill="#fff"/>
+<path d="M228.0 330.0 L228.0 356.0"/>
+<path d="M242.0 330.0 L242.0 356.0"/>
+<circle cx="235" cy="370" r="14"/>
+<circle cx="430" cy="110" r="3" fill="#fff"/>
+<path d="M430.0 113.0 L430.0 310.0"/>
+<circle cx="490" cy="110" r="3" fill="#fff"/>
+<path d="M490.0 113.0 L490.0 310.0"/>
+<circle cx="550" cy="110" r="3" fill="#fff"/>
+<path d="M550.0 113.0 L550.0 310.0"/>
+<circle cx="650" cy="110" r="3" fill="#fff"/>
+<path d="M650.0 113.0 L650.0 420.0"/>
+<circle cx="650" cy="420" r="2.6" fill="#000" stroke="none"/>
+<path d="M650.0 420.0 L650.0 432.0"/>
+<path d="M638.0 432.0 L662.0 432.0"/>
+<path d="M642.0 436.0 L658.0 436.0"/>
+<path d="M646.0 440.0 L654.0 440.0"/>
+<rect x="415" y="132" width="150" height="30" fill="#fff"/>
+<path d="M565.0 142.0 L588.0 142.0"/>
+<path d="M565.0 152.0 L588.0 152.0"/>
+<circle cx="602" cy="147" r="14"/>
+<rect x="406" y="186" width="48" height="30" fill="#fff"/>
+<rect x="466" y="186" width="48" height="30" fill="#fff"/>
+<rect x="526" y="186" width="48" height="30" fill="#fff"/>
+<rect x="410" y="240" width="40" height="30" fill="#fff"/>
+<rect x="530" y="240" width="40" height="30" fill="#fff"/>
+<path d="M430.0 310.0 L550.0 310.0"/>
+<circle cx="430" cy="310" r="2.6" fill="#000" stroke="none"/>
+<circle cx="490" cy="310" r="2.6" fill="#000" stroke="none"/>
+<circle cx="550" cy="310" r="2.6" fill="#000" stroke="none"/>
+<path d="M490.0 310.0 L490.0 340.0"/>
+<rect x="466" y="340" width="48" height="30" fill="#fff"/>
+<path d="M490.0 370.0 L490.0 420.0"/>
+<path d="M490.0 420.0 L650.0 420.0"/>
+<path d="M474.0 378.0 L474.0 412.0" stroke="#c0392b"/>
+<path d="M474.0 412.0 L478.0 404.0 L470.0 404.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M60.0 540.0 L120.0 540.0"/>
+<path d="M120.0 500.0 L120.0 580.0"/>
+<path d="M320.0 500.0 L320.0 580.0"/>
+<path d="M120.0 500.0 L180.0 500.0"/>
+<path d="M180.0 500.0 L194.0 500.0"/>
+<path d="M236.0 500.0 L250.0 500.0"/>
+<path d="M194.0 500.0 L232.0 488.0"/>
+<path d="M250.0 500.0 L320.0 500.0"/>
+<circle cx="120" cy="500" r="2.6" fill="#000" stroke="none"/>
+<circle cx="320" cy="500" r="2.6" fill="#000" stroke="none"/>
+<path d="M120.0 540.0 L180.0 540.0"/>
+<path d="M180.0 540.0 L194.0 540.0"/>
+<path d="M236.0 540.0 L250.0 540.0"/>
+<path d="M194.0 540.0 L232.0 528.0"/>
+<path d="M250.0 540.0 L320.0 540.0"/>
+<circle cx="120" cy="540" r="2.6" fill="#000" stroke="none"/>
+<circle cx="320" cy="540" r="2.6" fill="#000" stroke="none"/>
+<path d="M120.0 580.0 L180.0 580.0"/>
+<path d="M180.0 580.0 L194.0 580.0"/>
+<path d="M236.0 580.0 L250.0 580.0"/>
+<path d="M194.0 580.0 L232.0 568.0"/>
+<path d="M250.0 580.0 L320.0 580.0"/>
+<circle cx="120" cy="580" r="2.6" fill="#000" stroke="none"/>
+<circle cx="320" cy="580" r="2.6" fill="#000" stroke="none"/>
+<path d="M320.0 540.0 L360.0 540.0"/>
+<path d="M360.0 540.0 L374.0 540.0"/>
+<path d="M416.0 540.0 L430.0 540.0"/>
+<path d="M374.0 540.0 L412.0 528.0"/>
+<path d="M430.0 540.0 L470.0 540.0"/>
+<rect x="470" y="525" width="60" height="30" fill="#fff"/>
+<path d="M530.0 540.0 L600.0 540.0"/>
+</g>
+<text x="330" y="66" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">CB</tspan></text>
+<text x="166" y="92" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PF</tspan></text>
+<text x="168" y="126" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">PT</tspan></text>
+<text x="510" y="90" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">CT ×3</tspan></text>
+<text x="690" y="48" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">負載</tspan></text>
+<text x="40" y="24" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">母線</tspan></text>
+<text x="103" y="165" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">c</tspan></text>
+<text x="143" y="165" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">b</tspan></text>
+<text x="183" y="165" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">a</tspan></text>
+<text x="96" y="182" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">熔絲</tspan></text>
+<text x="235" y="321" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">VS</tspan></text>
+<text x="300" y="321" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">27</tspan></text>
+<text x="365" y="321" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">kW</tspan></text>
+<text x="235" y="376" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">V</tspan></text>
+<text x="365" y="350" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電壓線圈</tspan></text>
+<text x="250" y="400" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">PT 二次 110 V：全部並聯</tspan></text>
+<text x="422" y="106" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">a</tspan></text>
+<text x="482" y="106" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">b</tspan></text>
+<text x="542" y="106" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">c</tspan></text>
+<text x="658" y="106" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">n</tspan></text>
+<text x="490" y="153" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">AS</tspan></text>
+<text x="602" y="153" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">A</tspan></text>
+<text x="430" y="207" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">50/51</tspan></text>
+<text x="490" y="207" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">50/51</tspan></text>
+<text x="550" y="207" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">50/51</tspan></text>
+<text x="430" y="261" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">kW</tspan></text>
+<text x="550" y="261" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">kW</tspan></text>
+<text x="490" y="361" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">51N</tspan></text>
+<text x="575" y="261" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電流線圈</tspan></text>
+<text x="466" y="400" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">a</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">b</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">c</tspan></text>
+<text x="560" y="455" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">CT 二次 5 A：全部串聯、</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">n</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 單點接地</tspan></text>
+<text x="258" y="494" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">50/51</tspan></text>
+<text x="258" y="534" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">51N</tspan></text>
+<text x="258" y="574" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">27</tspan></text>
+<text x="52" y="546" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="610" y="546" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+<text x="395" y="522" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">52a</tspan></text>
+<text x="500" y="546" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">TC</tspan></text>
+<text x="500" y="576" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">CB 跳脫線圈</tspan></text>
+<text x="220" y="606" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">保護電驛接點並聯</tspan></text>
+<text x="360.0" y="636" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">PT 在 CB 電源側、CT 在負載側；51N 接三相 CT 星形點的殘流路徑</tspan></text>
+</svg>

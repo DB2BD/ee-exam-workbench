@@ -1,0 +1,67 @@
+[
+ {
+  "qid": "EE-104-01-5",
+  "logic_added": true,
+  "steps_added": "步驟1 節點P/Q與參考方向（V_P=100I_2）；g參數(a)輸入迴路KVL→g11,g12（有理化逐行）；(b)節點Q KCL→g21=0,g22（逐項化簡、有理化）",
+  "figures": [
+   "EE-104-01-5-nodes.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "保留斷言字串 0.04 - j0.02；驗算補代回 KCL 檢查"
+ },
+ {
+  "qid": "EE-105-01-3",
+  "logic_added": true,
+  "steps_added": "步驟1 兩支路電流（Z2 極座標模與角分行）；（一）吸收功率逐元件；（二）Y_in→S=|V|^2Y*；峰值讀法並列",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "維持 needs_manual_review（rms/峰值未標示），條件與疑義保留；簡單並聯電路與題圖相同，未加圖"
+ },
+ {
+  "qid": "EE-106-01-1",
+  "logic_added": true,
+  "steps_added": "步驟1 s域等效電路；(a)節點a KCL逐行；(b)部分分式（s=j6 代入求A,B，比較係數求C,D並核對s^2項）；(c)配方與逐項反轉換",
+  "figures": [
+   "EE-106-01-1-s-domain.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "數值不變；強迫響應係數改寫為 0.0404、0.00855（原 4.04×10^-2、8.55×10^-3 記法，依不用科學記號規則），另列精確分數式；零初始狀態理由改為 t<0 無激勵"
+ },
+ {
+  "qid": "EE-106-01-2",
+  "logic_added": true,
+  "steps_added": "步驟1 參考節點與狀態量方向；步驟2 BL節點KCL求V_BL；步驟3 右側超節點KCL求V_BR（取代原 i_C2 跳步寫法）；BM節點KCL代入逐項化簡",
+  "figures": [
+   "EE-106-01-2-nodes.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "框內狀態方程式不變；失分點改為超節點提醒"
+ },
+ {
+  "qid": "EE-106-01-4",
+  "logic_added": true,
+  "steps_added": "步驟1 激勵分解；步驟2 對稱激勵單一迴路；步驟3 反對稱激勵 T2/B2 KCL＋右源KVL（修正原文「相加」為「相減」）；疊加",
+  "figures": [
+   "EE-106-01-4-symmetric.svg",
+   "EE-106-01-4-antisymmetric.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": ""
+ },
+ {
+  "qid": "EE-107-01-2",
+  "logic_added": true,
+  "steps_added": "步驟1 初始值與t≥0電路；步驟2 R_eq/L_eq/τ逐行；步驟3 i_Σ與v(t)；（一）i1積分逐行；（二）i_4Ω→v_6Ω→i3",
+  "figures": [
+   "EE-107-01-2-after-open.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "保留斷言字串 -4.80-3.20e^{-2t}、1.28e^{-2t}（失分點）；i1 初期為負已註明實際方向向上"
+ }
+]

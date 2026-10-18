@@ -81,5 +81,25 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "review fix"
+ },
+ {
+  "qid": "EE-111-05-3",
+  "logic_added": true,
+  "steps_added": "使用者核定改答案：框內 δcr 89.38°→89.37°（完整 89.37498°，原為兩次進位）；正文中間值改 89.37498°、驗算 89.37°、刪除條件與疑義的待確認句；審查必修 27.56090/(2π)=4.386453、√(4.386453/60)=√0.07310755=0.2704 s；選修：6–7 位有效",
+  "figures": [],
+  "test_string_updates": [
+   "tests/test_reconstructed_pe_solutions.py: \\boxed{\\delta_{cr}=89.38^\\circ → \\boxed{\\delta_{cr}=89.37^\\circ"
+  ],
+  "suspected_answer_issue": "",
+  "notes": "user-approved answer correction"
+ },
+ {
+  "qid": "EE-110-05-2",
+  "logic_added": true,
+  "steps_added": "使用者核定改答案：（三）改採標準序列式 FDLF（先以 B′ 更新角度，再以新角度算 Q3）：Q3^(1)=−0.2820、ΔQ3=−0.7180、Δ|V3|=−0.03594、框內 |V3|=0.96 pu（θ3=−10.38° 不變）；同時式 0.98 列於條件與疑義；驗算腳本改為序列式並斷言 0.96405／0.98（同時式對照）；審查必修：驗算 Δθ2=−0.0621084、Δθ3=−0.181235 六位有效逐列重算、解題邏輯改為「題目未指定，本解採序列式」；選修：XB 版 B′ 差 0.02°、負載與注入同名變號提醒",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "user-approved answer correction"
  }
 ]

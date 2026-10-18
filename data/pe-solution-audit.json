@@ -230,7 +230,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "nodal_injection_bisection_and_numerical_jacobian_nr_step",
-      "solution_hash": "51aac3aa518f9e74e4c3bb0ad7c2277da0a092fa38c210e6de0527f7b281547d",
+      "solution_hash": "6f7e898d93b227001aea7b9c1845111f6f77d702fee5f2f9e9f2ae721d10ae29",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_114年_電力系統_Q02.png"
     },
@@ -891,7 +891,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "bundle_gmr_gmd_formula_vs_all_strand_pair_numpy",
-      "solution_hash": "0a0f954f8b03b1847791447e9e6fa684d68d3b2f684408db147c7bcb48791b75",
+      "solution_hash": "98db395754a425c050fea23e006a61fc9d79c6c22ebec4399741c75b43116461",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_112年_電力系統_Q01.png"
     },
@@ -981,7 +981,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "mva_method_series_combination_with_ohmic_cross_check",
-      "solution_hash": "c5590f3359983bed72a5c1952bcd3c7823c56b4895f36ff30b376a55d99a2e4c",
+      "solution_hash": "383dcac2b30c2a0bcd03de76cddd46d9926403bd773eb95cc039380d28676050",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/06_工業配電/images/questions/PE_112年_工業配電_Q03.png"
     },
@@ -1272,7 +1272,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "abcd_forward_phasor_numpy_with_inverse_abcd_back_substitution",
-      "solution_hash": "2bad93933b8b6ed651554e398797fe340af8a6cbb00d565bbb0632eefe0e0132",
+      "solution_hash": "f298489d1902d233a5cdc00569f914a190c3fd91d1f93f719c8922f92e99f082",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_111年_電力系統_Q04.png"
     },
@@ -1603,7 +1603,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "symbolic_chain_rule_incremental_loss_sympy_with_numeric_perturbation_check",
-      "solution_hash": "273b80eb4d57cc28c3045d24527a91e9e4bdb01903368e333d32dd9c73c4ff06",
+      "solution_hash": "3a4d1491333aaecc1a805e692074bdb9073c89a044504316e3538bcf3abd1fe6",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_110年_電力系統_Q04.png"
     },
@@ -1930,7 +1930,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "sympy_jacobian_newton_two_steps_with_closed_form_exact_solution",
-      "solution_hash": "4594b80dc301dc975b41662e4d3e0116c79cbb67f35cc9dbd1dcee428b7172fd",
+      "solution_hash": "20cb0ba19b296c6430c6b9255078b4dfadcb525110444e7eecfec1f726e51f67",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_109年_電力系統_Q03.png"
     },
@@ -2014,7 +2014,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "per_unit_impedance_diagram_fault_current_with_ohmic_cross_check",
-      "solution_hash": "51b5aafc06dbbc994dd0ed78c9e2355ef0dc3a6e29e903fc2b262cde0a51e984",
+      "solution_hash": "c68f1b6869ef278788f0739cd826b35f1792569ae9a0f080c9118fbed6bfb6c1",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/06_工業配電/images/questions/PE_109年_工業配電_Q03.png"
     },
@@ -2028,7 +2028,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "lumen_method_fixture_count_with_per_fixture_area_illuminance_check",
-      "solution_hash": "87a39a80f5231967461584715dcf2461164860bcea911c5d167f924df06f33a4",
+      "solution_hash": "87e7f62d4d60bd971a3424fd06edb2c3f10e29091eb92b7cfaf3c227e6873ff0",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/06_工業配電/images/questions/PE_109年_工業配電_Q04.png"
     },
@@ -2257,7 +2257,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-03",
       "method": "phasor_emf_then_power_angle_and_current_phasor_cross_check",
-      "solution_hash": "ba205e3db383f8963629300faa8ae842c3bf91247cefd27bece1762c007df594",
+      "solution_hash": "55bda3346b02e9006594e5fea4bb5b5617e85ff8339a39532972f15e52fc843a",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_108年_電力系統_Q01.png"
     },
@@ -2313,7 +2313,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-03",
       "method": "terminal_voltage_phasor_internal_emf_then_ydelta_and_kron_reduction_checked",
-      "solution_hash": "11789420b7eb81c31e63ec98106ebafe9e90d50ecf82c439dbcfd60baec4c78d",
+      "solution_hash": "a802dfc672177593eb4586a4a14b83198f80f3d952c3287dbf7d2bafa5837188",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_108年_電力系統_Q05.png"
     },
@@ -3228,7 +3228,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-04",
       "method": "piecewise_integral_of_square_wave_on_inductor_numeric_cumulative_check",
-      "solution_hash": "6170234569e175a625ba9e0d70779d337f0b534e925dd53f927d26364e85c95a",
+      "solution_hash": "ccedd60aabd9f61f3eb41acff4ee28c55bbf681ec04f8f877cc9e6a661e20d35",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/04_電機機械/images/questions/PE_105年_電機機械_Q01.png"
     },
@@ -3696,7 +3696,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-04",
       "method": "official_crop_subtransient_emf_reverse_solution_with_phasor_power_balance",
-      "solution_hash": "a6d18f82352967e422bac5f93003fefcbfb9b0c6a501cbf85a84f12cd812a8b5",
+      "solution_hash": "80fc358aac83cabee863a4cb7d8d671355508546d7fd9a9ed1dc7c58691f7811",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_104年_電力系統_Q03.png",
       "official_source_url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=011&code=104170&q=1&s=0611&t=Q"
@@ -3711,7 +3711,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-04",
       "method": "three_bus_ybus_zbus_thevenin_vs_nodal_norton_solution",
-      "solution_hash": "6c6f70b2c0e1fda0d4a15f711bac71379ccbf0fc4d9daeb449939afa27c0653d",
+      "solution_hash": "4651ba0cca52525f7b3930bd78311c2c285490143bb9a22ef04013010bfde562",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_104年_電力系統_Q04.png"
     },

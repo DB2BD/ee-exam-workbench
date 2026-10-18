@@ -362,11 +362,18 @@ async function main() {
         const emptyText = await page.evaluate(() => SCOREBOARD_EMPTY_TEXT);
         assert(!(await page.locator('#scoreboard-container').innerText()).includes(emptyText), 'Scoreboard shows data before the import');
         await openModal();
-        await page.evaluate(() => {
+        // 選擇檔案匯入 loads the chosen .json into the textarea and validates it without writing anything.
+        const fileBackup = await page.evaluate(() => {
           const backup = JSON.parse(exportAllUserDataJSON());
           backup.resultCard = { version: 1, records: [] };
-          document.getElementById('backup-json-textarea').value = JSON.stringify(backup);
+          document.getElementById('backup-json-textarea').value = '';
+          return JSON.stringify(backup);
         });
+        await page.locator('#backup-file-input').setInputFiles({ name: 'ee-backup.json', mimeType: 'application/json', buffer: Buffer.from(fileBackup) });
+        await page.waitForFunction(() => document.getElementById('backup-preview').classList.contains('is-valid'));
+        assert.equal(await page.inputValue('#backup-json-textarea'), fileBackup, 'File contents loaded into the textarea');
+        assert((await page.locator('#backup-file-name').innerText()).includes('ee-backup.json'), 'File name shown');
+        assert.equal(await resultCardCount(), 4, 'Loading a file alone changes nothing');
         await page.evaluate(() => applyImportedBackupJSON('replace'));
         await page.waitForFunction(text => document.getElementById('scoreboard-container').innerText.includes(text), emptyText);
         await waitForSnapshots(2);

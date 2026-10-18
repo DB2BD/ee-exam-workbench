@@ -63,5 +63,23 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "needs_manual_review 與條件與疑義未動；所有斷言字串保留於正確區段"
+ },
+ {
+  "qid": "EE-105-02-1",
+  "logic_added": true,
+  "steps_added": "驗算：b1=1.314112 µs 與 τ_H=1314.112 ns 同精度；主極點 7.611×10^5 rad/s=121.13 kHz，121.11 kHz 標為零值法 1/(2πb1)；選修：f_H 改 121.11×10^3 Hz、f_L1/f_L2 補代入式、C_o 補受控源為零說明",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-106-02-2",
+  "logic_added": true,
+  "steps_added": "步驟1 r_o/2 改為 ≈ 並補機制（M2 源極非交流接地；經 M2→M1 的 ≈v_x/(2r_o) 由鏡射加倍，加 r_o4 的 v_x/r_o），附精確式 r_o(2g_mP r_o+3)/[4(g_mP r_o+1)]（sympy 已驗）；選修：V_out=i_sc R_o 行、忽略基體效應前提、圖說諾頓電流=i_sc、已知與所求去 metadata 用語",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix；主解與 audit_status 不變；R_o vs r_o 改名（選修 6）未做"
  }
 ]

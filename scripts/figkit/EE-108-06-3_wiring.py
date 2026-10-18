@@ -38,7 +38,7 @@ s += line(t1b, ys, t1b, 260) + line(t2a, ys, t2a, 260) + line(t1b, 260, t2a, 260
 s += line(t2b, ys, tz, yo)
 for x in (tx, tn, ty, tz):
     s += f'<circle cx="{x}" cy="{yo + 4}" r="4" fill="#fff"/>\n'
-s += line(tn, 290, tn - 40, 290) + line(tn - 40, 290, tn - 40, 300) + ground(tn - 40, 300)
+s += line(tn, 290, tn + 40, 290) + line(tn + 40, 290, tn + 40, 300) + ground(tn + 40, 300)
 s += dot(tn, 290)
 # polarity dots H1 / X1
 for x in (t1a, t2a):

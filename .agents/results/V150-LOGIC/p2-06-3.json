@@ -3,7 +3,9 @@
   "qid": "EE-111-06-4",
   "logic_added": true,
   "steps_added": "解題邏輯（1 HP≈1 kVA、連續運轉、1.8 倍題定、表值見條件與疑義）; 步驟1 三台電流各一行（分母 381.051，中間值 6 位有效使 1.8I=47.24 等照字面成立）; 分路 1.25I／1.8I 各一行＋區間檢核; 幹線 ΣI其他、導線需求、保護上限、max(165.33,175)、225 AF; 驗算 η·pf=0.746 約分",
-  "figures": ["EE-111-06-4-one-line.svg"],
+  "figures": [
+   "EE-111-06-4-one-line.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "原表 1.8(26.24)=47.24 照字面不成立，改以 26.2432 等 6 位有效計算；條件與疑義與測試斷言字串原樣保留"
@@ -12,7 +14,9 @@
   "qid": "EE-113-06-2",
   "logic_added": true,
   "steps_added": "解題邏輯（定阻抗、理想電容、近似式前提、題幹 4 位小數）; 步驟1 等效電路與 Z_l 精確值; 步驟2 未校正壓降 |Z+Z_l|、V_L、5.62%; 步驟3 V_L 下限與 ΔV; 步驟4 I_Z、cosφ_Z、I cosφ; 主題 ΔV/(I cosφ)=0.05|Z|²/R=0.13125 精確、tanφ=0.2014、PF 各一行; 驗算 B 改小數 0.2090 S",
-  "figures": ["EE-113-06-2-equivalent.svg"],
+  "figures": [
+   "EE-113-06-2-equivalent.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "比值 0.13125 為精確值（V_L 約去）；若用四捨五入的 10.4762/79.8186 取 4 位會得 0.1313 並使 PF 偏差，已在正文註明"
@@ -21,7 +25,10 @@
   "qid": "EE-114-06-1",
   "logic_added": true,
   "steps_added": "解題邏輯（理想、正相序、平衡）; (一) 接線條列＋三線圖、V_ab/V_bc 相量、KVL、直角座標加法、|V_ca| 與 ∠V_ca 各一行＋相量圖; (二) I_2N、KCL 節點 a/c、I_L≤I_2N、S 以分數代入約去 220、57.74%/86.60% 以 1/√3、√3/2 精確式",
-  "figures": ["EE-114-06-1-open-delta.svg", "EE-114-06-1-phasor.svg"],
+  "figures": [
+   "EE-114-06-1-open-delta.svg",
+   "EE-114-06-1-phasor.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "ASCII 接線改 SVG 三線圖（T3 拆除虛框、同名端、線電流參考方向）"
@@ -30,9 +37,36 @@
   "qid": "EE-114-06-4",
   "logic_added": true,
   "steps_added": "解題邏輯（起動 kVA 為全壓堵轉值、表值見條件與疑義）; (一) 起動器畫法條列＋主電路圖、Y/Δ 對照圖、I_w,Δ/I_L,Δ/I_L,Y 公式與比值 1/3、381.05 分母、I_st,Δ、I_st,Y; (二) 導線 3 行、斷路器 2 行、幹線上限 153→150 AT、協調檢核、OL 負責過載故 AT 可大於安培容量",
-  "figures": ["EE-114-06-4-starter.svg", "EE-114-06-4-star-delta.svg", "EE-114-06-4-one-line.svg"],
+  "figures": [
+   "EE-114-06-4-starter.svg",
+   "EE-114-06-4-star-delta.svg",
+   "EE-114-06-4-one-line.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "needs_manual_review 與條件與疑義保留；ASCII 起動器改 SVG 主電路（MC、MC-Y、MC-Δ、OL，含跳線）"
+ },
+ {
+  "qid": "EE-108-06-3",
+  "logic_added": true,
+  "steps_added": "雙下標約定與 \\widetilde V（相量）/V（大小）說明；第 37、45 行改 \\widetilde V_AB、\\widetilde V_BC；V_ZX 拆成兩行（先加再取負）",
+  "figures": [
+   "EE-108-06-3-phasor.svg",
+   "EE-108-06-3-wiring.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix：圖 1 相量標籤一律 Ṽ 且一律大小∠角度（V_XN 110∠0°、V_YN 110∠180°、V_ZN 190.53∠90°），放大避免重疊，圖說註明箭頭指向第一下標；圖 2 接地支線移到 N 右側"
+ },
+ {
+  "qid": "EE-108-06-1",
+  "logic_added": true,
+  "steps_added": "Z_th 乘積與和分兩行再相除；補償條件 L 不加框",
+  "figures": [
+   "EE-108-06-1-thevenin.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix（選做）：圖右 Z_th 改 1/[s(C1+C2)]；「負載」統一為「負擔」"
  }
 ]

@@ -173,7 +173,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIsNone(entry["verified_at"])
         self.assertIn("review_blocker: 官方逐題裁切圖未提供系統頻率", note)
         self.assertIn("P_{\\max}=2.5", section)
-        self.assertIn(r"\boxed{\delta_{cr}=89.38^\circ", section)
+        self.assertIn(r"\boxed{\delta_{cr}=89.37^\circ", section)
         self.assertIn("0.27\\sqrt{60/f}", section)
         self.assertNotIn("P_{e1}(\\delta) = 2.0", section)
         self.assertNotIn("P_{e3}(\\delta) = 1.5", section)

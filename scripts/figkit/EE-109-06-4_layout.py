@@ -31,7 +31,7 @@ lab += ctext(BLUE, (ax1 + ax2) / 2 - 2, y0 - 32, [("n", "2.73 m")], anchor="end"
 lab += ctext(BLUE, (ax2 + ax3) / 2 + 6, y0 - 32, [("v", "s"), ("vsub", "x"), ("n", " = 5.45 m")])
 lab += ctext(BLUE, x0 - 32, (by1 + by2) / 2 + 5, [("n", "3.75 m")], anchor="end")
 lab += ctext(BLUE, x0 - 32, (by2 + by3) / 2 - 4, [("v", "s"), ("vsub", "y"), ("n", " =")], anchor="end")
-lab += ctext(BLUE, x0 - 32, (by2 + by3) / 2 + 16, [("n", "7.5 m")], anchor="end")
+lab += ctext(BLUE, x0 - 32, (by2 + by3) / 2 + 16, [("n", "7.50 m")], anchor="end")
 lab += text(x0 + Wr / 2, y0 + Hr + 48, [("n", "60 m"), ("t", "（每列 11 具）")], anchor="middle")
 lab += text(x0 + Wr + 32, y0 + Hr / 2 - 8, [("n", "30 m")]) + text(x0 + Wr + 32, y0 + Hr / 2 + 14, [("t", "（4 列）")])
 lab += text(W / 2, y0 + Hr + 80, [("v", "N"), ("n", " = 4 × 11 = 44"), ("t", " 具（每具 2 燈，"), ("v", "F"), ("n", " = 46000 lm"), ("t", "）；牆邊取半間距")], anchor="middle")

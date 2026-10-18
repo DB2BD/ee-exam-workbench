@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" width="680" height="300">
+<rect width="680" height="300" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M244.0 220 L244.0 76.0 L340.0 220 L436.0 76.0 L436.0 220 Z" fill="#e3eefa" stroke="none"/>
+<path d="M30.0 220.0 L660.0 220.0" stroke="#000"/>
+<path d="M660.0 220.0 L652.0 216.0 L652.0 224.0 Z" fill="#000" stroke="#000"/>
+<path d="M340.0 250.0 L340.0 40.0" stroke="#000"/>
+<path d="M340.0 40.0 L336.0 48.0 L344.0 48.0 Z" fill="#000" stroke="#000"/>
+<path d="M32.8 76.0 L647.2 76.0" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M32.8 104.8 L52.0 76.0 L148.0 220.0 L244.0 76.0" stroke-width="2"/>
+<path d="M436.0 76.0 L532.0 220.0 L628.0 76.0 L647.2 104.8" stroke-width="2"/>
+<path d="M52.0 216.0 L52.0 224.0"/>
+<path d="M148.0 216.0 L148.0 224.0"/>
+<path d="M244.0 216.0 L244.0 224.0"/>
+<path d="M436.0 216.0 L436.0 224.0"/>
+<path d="M532.0 216.0 L532.0 224.0"/>
+<path d="M628.0 216.0 L628.0 224.0"/>
+</g>
+<path d="M244.0 76.0 L340.0 220 L436.0 76.0" stroke="#1f5fa8" stroke-width="2.5" fill="none"/>
+<text x="656" y="244" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan></text>
+<text x="350" y="50" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">)</tspan></text>
+<text x="332" y="70" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">4</tspan></text>
+<text x="332" y="240" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0</tspan></text>
+<text x="52" y="242" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−6</tspan></text>
+<text x="148" y="242" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−4</tspan></text>
+<text x="244" y="242" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−2</tspan></text>
+<text x="436" y="242" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">2</tspan></text>
+<text x="532" y="242" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">4</tspan></text>
+<text x="628" y="242" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">6</tspan></text>
+<text x="414.4" y="101.2" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 2</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan></text>
+<text x="265.6" y="101.2" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = −2</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan></text>
+<text x="340" y="284" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">基本區間 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">[−2, 2)</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">：偶函數 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 2|</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">|</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">，週期 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">4</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">L</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 2</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
+</svg>

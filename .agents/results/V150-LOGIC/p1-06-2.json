@@ -3,7 +3,9 @@
     "qid": "EE-112-06-1",
     "logic_added": true,
     "steps_added": "解題邏輯（接地對象區分、以中性點經 R_N 接地為例）；（一）（二）加配分與邏輯；（一）改為方法／目的條列；（二）ASCII 圖改為 SVG 接線圖與畫法條列（N、PE 單點相連、碰殼電流路徑）；驗算改正「缺系統接地」敘述",
-    "figures": ["EE-112-06-1-grounding.svg"],
+    "figures": [
+      "EE-112-06-1-grounding.svg"
+    ],
     "test_string_updates": [],
     "suspected_answer_issue": "",
     "notes": "圖中 I_g 只標符號；直接／電抗接地只換 R_N"
@@ -12,7 +14,9 @@
     "qid": "EE-112-06-5",
     "logic_added": true,
     "steps_added": "解題邏輯（PT 電源側、CT 負載側；CT 二次串聯、PT 二次並聯；前提 三相三線、CT Y、PT V-V）；合理接線（20 分）加邏輯，分一次側／CT 二次／PT 二次／跳脫迴路四項；ASCII 圖改為 SVG 接線圖（含 51N 殘流路徑與跳脫迴路）",
-    "figures": ["EE-112-06-5-wiring.svg"],
+    "figures": [
+      "EE-112-06-5-wiring.svg"
+    ],
     "test_string_updates": [],
     "suspected_answer_issue": "",
     "notes": ""
@@ -21,7 +25,9 @@
     "qid": "EE-113-06-5",
     "logic_added": true,
     "steps_added": "解題邏輯（M=I_relay/I_tap、前提 CT 5 A、無輔助 CT、10.8 kA 全流過 CT_A；CB1/CB2/變壓器不參與計算）；步驟1 讀曲線（含圖）；CT 比：I_relay=90 A → N_p=5I_F/I_relay=54000/90=600 A → CTR=120 → 600/5；補讀值誤差 M=15.2 → 592.1 A 仍取 600/5；驗算條列",
-    "figures": ["EE-113-06-5-td-curve.svg"],
+    "figures": [
+      "EE-113-06-5-td-curve.svg"
+    ],
     "test_string_updates": [],
     "suspected_answer_issue": "",
     "notes": "圖為由官方裁切圖描出的 TD4/TD5/TD6（M 8–20，二次式平滑），描點交點 M≈15.2"
@@ -30,11 +36,31 @@
     "qid": "EE-114-06-2",
     "logic_added": true,
     "steps_added": "步驟1 標么電抗（X_s=0.0125）、步驟2 X_u=0.0825、X_d=0.45、總和 0.5325（含圖）；（一）電流大小／角度分行 1.878∠−90°、上游壓降 0.1549、V_2=0.8451 大小／角度行、斷弧 I=0 分行；（二）0.8451 帶入；原 j0.53、−j1.88、8.45×10^{-1} 等兩位捨入／科學記號全部改為 4 位有效",
-    "figures": ["EE-114-06-2-reactance.svg"],
+    "figures": [
+      "EE-114-06-2-reactance.svg"
+    ],
     "test_string_updates": [
       "tests/test_furnace_series_path_114.py: \\frac1{j0.53} -> \\frac1{j0.5325}（mutation 對應 j0.13 -> j0.1325）、8.45\\times10^{-1} -> 0.8451、\\frac{1-8.45\\times10^{-1}}{1} -> \\frac{1-0.8451}{1}（格式，同一值）"
     ],
     "suspected_answer_issue": "",
     "notes": "needs_manual_review 與條件與疑義未動；主解仍為條件主解 15.49%"
+  },
+  {
+    "qid": "EE-104-06-3",
+    "logic_added": true,
+    "steps_added": "解題邏輯與條件與疑義的「忽略故障前負載電流」改為「忽略電弧爐以外的負載電流」（本題無故障）；步驟2 補 R_up=R_line=1.7747×10^{-4} pu 行",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix"
+  },
+  {
+    "qid": "EE-107-06-3",
+    "logic_added": true,
+    "steps_added": "CT1 接點電流改寫為「接點與 87A 之間的電流為 i_a−i_c」並定義參考方向（由極性端流出；實際方向如圖 1 I_L,r 由 R1 流回接點）；前提補 C400 為準確等級、不進入計算",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix"
   }
 ]

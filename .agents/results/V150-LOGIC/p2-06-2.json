@@ -3,7 +3,9 @@
   "qid": "EE-107-06-4",
   "logic_added": true,
   "steps_added": "解題邏輯（前提：27/78 A 即 I_FL、1.5 倍題定、表值見條件與疑義）; (一) 10/30 HP 導線需求與保護各一行; (二) 導線需求、保護基準、上限 125+27=152 檢核、導線保護配合; 失分點 131→131.25",
-  "figures": ["EE-107-06-4-one-line.svg"],
+  "figures": [
+   "EE-107-06-4-one-line.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "needs_manual_review 與條件與疑義保留；單線圖置於（二）之後（全部值已推出）"
@@ -12,7 +14,9 @@
   "qid": "EE-108-06-1",
   "logic_added": true,
   "steps_added": "步驟1 畫法與 Z1/Z2/Z_L; 步驟2 V_th（同乘 sC1C2）; 步驟3 Z_th; 比壓式：串聯分壓→代入→同乘 s(C1+C2)→約分; 補償 L 條件與化簡行",
-  "figures": ["EE-108-06-1-thevenin.svg"],
+  "figures": [
+   "EE-108-06-1-thevenin.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "圖為原電路＋戴維寧等效兩欄，置於 Z_th 推出之後"
@@ -21,7 +25,10 @@
   "qid": "EE-108-06-3",
   "logic_added": true,
   "steps_added": "步驟1 接線（一次跨 AB/BC、二次首尾串接、N 只取 T1 中點）; 步驟2 一次 V_AB/V_BC 相差 120°、V_YZ 直角座標、V_ZX KVL 含大小與角度行、V_XN/V_YN、高腳相 V_ZN 大小與角度; 複線圖與電壓表",
-  "figures": ["EE-108-06-3-phasor.svg", "EE-108-06-3-wiring.svg"],
+  "figures": [
+   "EE-108-06-3-phasor.svg",
+   "EE-108-06-3-wiring.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "ASCII 接線改 SVG 複線圖（含跳線、同名端、N 接地）"
@@ -30,7 +37,9 @@
   "qid": "EE-109-06-2",
   "logic_added": true,
   "steps_added": "步驟1 R、X; 步驟2 φ、sinφ=0.4359、K=0.008859 Ω; (一)(二) I_L、√3I_L、ΔV、% 各一行; 驗算極座標→直角大小角度行",
-  "figures": ["EE-109-06-2-phasor.svg"],
+  "figures": [
+   "EE-109-06-2-phasor.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "（二）框內 6.13×10^-1% 改 0.61%（0.6135%，數值不變）；去除科學記號"
@@ -39,7 +48,9 @@
   "qid": "EE-109-06-4",
   "logic_added": true,
   "steps_added": "設計步驟（含防爆／耐腐蝕燈具）; 步驟1 A、F; 燈具數 EA、CU·M、F·CU·M、N 各一行; 配置 n_y=√22→4、n_x=11、s_x/s_y/牆邊距、S/H=0.75; 照度回算",
-  "figures": ["EE-109-06-4-layout.svg"],
+  "figures": [
+   "EE-109-06-4-layout.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "驗算每具面積用 40.909 m² 使 304.05 照字面成立"
@@ -48,9 +59,33 @@
   "qid": "EE-111-06-2",
   "logic_added": true,
   "steps_added": "步驟1 X_s、X_T; 步驟2 S_M、S_start、X_M=0.2833; 步驟3 等效電路、X_tot=0.3433、I=2.913; (一)(二) 分壓比各一行; 驗算相量 KVL 逐行",
-  "figures": ["EE-111-06-2-reactance.svg"],
+  "figures": [
+   "EE-111-06-2-reactance.svg"
+  ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "reference_book_verified 與 η·pf=0.85 前提、條件與疑義表保留；去除科學記號"
+ },
+ {
+  "qid": "EE-106-06-3",
+  "logic_added": true,
+  "steps_added": "步驟1 匝比改由銘牌分接頭 a=V_{H,tap}/V_{X,tap}=3300/220 定義，V_H=3300 V 另列；(二) V_{H,tap}=a V_{X,tap}、V_2=V_H V_{X,tap}/V_{H,tap} 同一套符號；圖 1 移到 V_φ、V_LL 推出之後；補代用機 kVA 不檢查一句",
+  "figures": [
+   "EE-106-06-3-delta-wye.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-104-06-5",
+  "logic_added": true,
+  "steps_added": "圖 1 右緣實線導線＋節點改藍色虛線指示（不再短路匯流排）並把 V_5 標籤內移；|I_source,5|→|I_up,5|；補 V_5=3.2211 V 結果行與「線電壓基準→線間值，相電壓 1.86 V」一句；I_5 以精確式 0.2×500/2000=0.05 為主式",
+  "figures": [
+   "EE-104-06-5-harmonic-network.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
  }
 ]

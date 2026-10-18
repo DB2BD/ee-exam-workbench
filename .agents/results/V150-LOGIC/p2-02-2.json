@@ -81,5 +81,27 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "review fix；主解與 audit_status 不變；R_o vs r_o 改名（選修 6）未做"
+ },
+ {
+  "qid": "EE-110-02-4",
+  "logic_added": true,
+  "steps_added": "失分點 105.29→105.30 V；驗算半波對稱改以 I_max=9.45109 A 代入，照字面成立；選修：圖 1 與解題邏輯改「觸發」S1S2/S3S4、θ1 註明不再使用",
+  "figures": [
+   "EE-110-02-4-waveforms.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-108-02-4",
+  "logic_added": true,
+  "steps_added": "節點 Q 改名 N（V_N、I_N），避免與品質因數 Q 衝突：正文、已知與所求、圖 1 及 figkit 同步；選修：運放 A、B 稱呼統一",
+  "figures": [
+   "EE-108-02-4-gic-chain.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix；選修 3（V_i 符號）、4（R² 上標）未做"
  }
 ]

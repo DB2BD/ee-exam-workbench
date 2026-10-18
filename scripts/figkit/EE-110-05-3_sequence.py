@@ -27,7 +27,7 @@ for k, (n, title, sign, val, zlab) in enumerate(panels):
     labels += text(xf + 6, YT - 4, [("v", "F")])
     labels += text(x0 + 112, YB + 30, [("t", title)], anchor="middle")
 s += end_group() + labels
-s += text(360, 296, [("t", "參考方向：序電流由網路流向故障點 "), ("v", "F"), ("t", "；序電壓為 "), ("v", "F"), ("t", " 對參考點")], anchor="middle")
+s += text(360, 296, [("t", "參考方向：序電流由網路流向故障點 "), ("v", "F"), ("t", "；序電壓為 "), ("v", "F"), ("t", " 對參考點（數值皆為 pu）")], anchor="middle")
 s += footer()
 open(pathlib.Path(__file__).resolve().parents[2].joinpath('02_題解/技師題解/05_電力系統/figures/EE-110-05-3-sequence.svg'), 'w').write(s)
 print(len(s))

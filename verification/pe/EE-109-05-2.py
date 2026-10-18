@@ -18,9 +18,9 @@ Y = w * C * l
 assert abs(GMD - 12.599) < 1e-3
 assert abs(L - 1.0351e-6) / 1.0351e-6 < 0.005
 assert abs(C - 1.0994e-11) / 1.0994e-11 < 0.005
-assert abs(X - 78.05) / 78.05 < 0.005
+assert abs(X - 78.047) < 0.0005
 P = 345 * 327.75 * np.sin(np.radians(30)) / X  # MW, 3-phase with line kV
-assert abs(P - 724.4) / 724.4 < 0.005
+assert abs(P - 724.40) < 0.005  # omega = 2*pi*60 per the stem (user-approved 2026-10-18)
 
 # Method 2: per-phase complex power through the nominal pi (shunt halves draw only Q).
 VS = 345e3 / np.sqrt(3) * np.exp(1j * np.radians(30))

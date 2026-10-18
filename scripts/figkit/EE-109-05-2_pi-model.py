@@ -4,7 +4,7 @@ def ctext(c, *a, **k): return text(*a, **k).replace('fill="#000"', f'fill="{c}"'
 def cap_v(x, y1, y2):
     m = (y1 + y2) / 2
     return line(x, y1, x, m - 4) + line(x - 13, m - 4, x + 13, m - 4) + line(x - 13, m + 4, x + 13, m + 4) + line(x, m + 4, x, y2)
-W, H = 720, 300
+W, H = 720, 320
 YT, YB = 80, 220
 XS, X1, X2, XR = 150, 250, 490, 580       # sending source, left shunt node, right shunt node, receiving terminal
 s = header(W, H)
@@ -18,14 +18,14 @@ s += arrow(XR, YB - 6, XR, YT + 14, color=BLUE)          # V_R: reference -> rec
 s += end_group()
 s += ctext(BLUE, XS - 24, 146, [("v", "V"), ("vsub", "S"), ("sub", ","), ("vsub", "ϕ")], anchor="end")
 s += ctext(BLUE, XS - 24, 168, [("n", "199.19∠30° kV")], anchor="end")
-s += text(370, YT - 18, [("v", "j"), ("v", "X"), ("n", " = "), ("v", "j"), ("n", "78.049 Ω")], anchor="middle")
+s += text(370, YT - 18, [("v", "j"), ("v", "X"), ("n", " = "), ("v", "j"), ("n", "78.047 Ω")], anchor="middle")
 s += text(X1 + 18, 146, [("v", "Y"), ("n", "/2")])
 s += text(X2 - 18, 146, [("v", "Y"), ("n", "/2")], anchor="end")
-s += text(370, 162, [("v", "Y"), ("n", "/2 = "), ("v", "j"), ("n", "4.145×10"), ("sub", "")], anchor="middle")
 s += ctext(BLUE, XR + 12, 146, [("v", "V"), ("vsub", "R"), ("sub", ","), ("vsub", "ϕ")])
 s += ctext(BLUE, XR + 12, 168, [("n", "189.23∠0° kV")])
 s += text(XS, YB + 24, [("t", "中性點")], anchor="middle")
 s += text(370, 270, [("t", "每相 π 模型：實功率只經串聯 "), ("v", "j"), ("v", "X"), ("t", "；兩端 "), ("v", "Y"), ("n", "/2"), ("t", " 為純電容")], anchor="middle")
+s += text(370, 300, [("v", "Y"), ("n", "/2 = "), ("v", "j"), ("n", "4.145×10"), ("sub", "")], anchor="middle")
 s += footer()
 s = s.replace('<tspan class="n" font-family="KaTeX_Main, \'Times New Roman\', serif">4.145×10</tspan><tspan class="n sub" font-family="KaTeX_Main, \'Times New Roman\', serif" font-size="12" baseline-shift="sub"></tspan>',
               '<tspan class="n" font-family="KaTeX_Main, \'Times New Roman\', serif">4.145×10</tspan><tspan class="n" font-family="KaTeX_Main, \'Times New Roman\', serif" font-size="12" baseline-shift="super">−4</tspan><tspan class="n" font-family="KaTeX_Main, \'Times New Roman\', serif"> S</tspan>')

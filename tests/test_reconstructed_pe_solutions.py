@@ -127,7 +127,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", note)
         self.assertIn("verified_at: 2026-09-02", note)
         self.assertNotIn("review_disposition:", note)
-        for expected in ("3.0261", "4.03\\times10^{-1}", "1.748"):
+        for expected in ("3.0261", "0.4034", "1.748"):
             self.assertIn(expected, note)
 
         section = re.split(r"^## 三、", re.split(r"^## 二、", annual, maxsplit=1, flags=re.M)[1], maxsplit=1, flags=re.M)[0]

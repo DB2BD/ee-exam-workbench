@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 340" width="620" height="340">
+<rect width="620" height="340" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M60.0 280.0 L380.0 280.0"/>
+<path d="M380.0 280.0 L380.0 40.0"/>
+<path d="M60.0 280.0 L380.0 40.0"/>
+<path d="M60 280 L380.0 100.0" stroke="#1f5fa8" stroke-dasharray="6 4"/>
+<path d="M390.0 40.0 L390.0 100.0" stroke="#1f5fa8"/>
+<path d="M390.0 100.0 L394.0 92.0 L386.0 92.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<circle cx="380.0" cy="40.0" r="2.6" fill="#000" stroke="none"/>
+<circle cx="380.0" cy="100.0" r="2.6" fill="#000" stroke="none"/>
+<circle cx="60" cy="280" r="2.6" fill="#000" stroke="none"/>
+</g>
+<text x="220.0" y="306" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 640 kW</tspan></text>
+<text x="398.0" y="46.0" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 480 kvar</tspan></text>
+<text x="398.0" y="76.0" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">c</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 120 kvar</tspan></text>
+<text x="398.0" y="106.0" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 360 kvar</tspan></text>
+<text x="150" y="128" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">1</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 800 kVA</tspan></text>
+<text x="250" y="214" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 734.3 kVA</tspan></text>
+<text x="310.0" y="330" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">黑：補償前；藍虛線：並聯電容器後（只減 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Q</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">、不改 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">P</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）</tspan></text>
+</svg>

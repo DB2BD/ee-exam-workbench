@@ -43,5 +43,27 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "保留斷言字串 \\dot v_o+4v_o=125、v_c=v_a-2i_x=…、31.25(1-e^{-4t})；失分點補殘值符號"
+ },
+ {
+  "qid": "EE-109-01-3",
+  "logic_added": true,
+  "steps_added": "",
+  "figures": [
+   "EE-109-01-3-supernodes.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix：圖1 V_1、V_4 標籤外移不碰超節點虛線；電阻標 R_1 = 1 Ω…R_4 = 4 Ω；選修：移除參考節點「0」字樣、失分點 0.50→0.5 Ω、補「題目未要求求解，解值供核對」"
+ },
+ {
+  "qid": "EE-112-01-1",
+  "logic_added": true,
+  "steps_added": "",
+  "figures": [
+   "EE-112-01-1-wye.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix：圖1 電源標籤改 V_s = 120 V（s 斜體下標）"
  }
 ]

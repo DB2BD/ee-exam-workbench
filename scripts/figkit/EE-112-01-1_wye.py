@@ -16,7 +16,7 @@ for P in (T, N, L, R, B):
     s += dot(*P)
 s += tint_arrow(250, YT - 14, 290, YT - 14)
 s += end_group()
-s += ttext(XS + 24, 196, [("n", "120 V")], color=BLUE)
+s += ttext(XS + 24, 196, [("v", "V"), ("vsub", "s"), ("n", " = 120 V")], color=BLUE)
 s += text(190, YT - 16, [("n", "5 kΩ")], anchor="middle")
 s += ttext(270, YT - 24, [("v", "I"), ("vsub", "s")], anchor="middle", color=RED)
 s += text(T[0], T[1] - 12, [("v", "T")], anchor="middle")

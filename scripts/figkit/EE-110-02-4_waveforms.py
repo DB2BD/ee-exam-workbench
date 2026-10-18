@@ -53,8 +53,8 @@ t.append(text(XH + 6, YV + 18, [("v", "T"), ("n", "/2")]))
 t.append(text(XT + 6, YV + 18, [("v", "T")]))
 t.append(text(XH + 6, YI + 18, [("v", "T"), ("n", "/2")]))
 t.append(text(XT + 6, YI - 8, [("v", "T")]))
-t.append(text((X0 + XH) / 2, YV - KV + 24, [("v", "S"), ("sub", "1"), ("v", "S"), ("sub", "2"), ("t", " 導通")], anchor="middle"))
-t.append(text((XH + XT) / 2, YV + KV - 10, [("v", "S"), ("sub", "3"), ("v", "S"), ("sub", "4"), ("t", " 導通")], anchor="middle"))
+t.append(text((X0 + XH) / 2, YV - KV + 24, [("v", "S"), ("sub", "1"), ("v", "S"), ("sub", "2"), ("t", " 觸發")], anchor="middle"))
+t.append(text((XH + XT) / 2, YV + KV - 10, [("v", "S"), ("sub", "3"), ("v", "S"), ("sub", "4"), ("t", " 觸發")], anchor="middle"))
 t.append(text(XT - 4, YV - 30, [("t", "虛線：基本波 "), ("v", "v"), ("sub", "1")], anchor="end"))
 t.append(text(X0 + 14, YI + 66, [("t", "前半週 "), ("v", "i"), ("vsub", "o"), ("n", " = "), ("v", "V"), ("vsub", "dc"), ("n", "/"), ("v", "R"),
                                   ("n", " + (−"), ("v", "I"), ("sub", "max"), ("n", " − "), ("v", "V"), ("vsub", "dc"), ("n", "/"), ("v", "R"),

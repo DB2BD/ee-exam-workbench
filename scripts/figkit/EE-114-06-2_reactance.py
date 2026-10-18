@@ -30,6 +30,8 @@ s += line(xs, yb, xe, yb) + dot(xbus, yb)
 # brackets for X_u and X_d
 for a, b in ((100, 330), (420, 570)):
     s += f'<path d="M{a} {yt + 14} L{a} {yt + 20} L{b} {yt + 20} L{b} {yt + 14}" stroke-width="1"/>\n'
+# V_2 measured bus node -> return-line node (thin dashed guide)
+s += f'<path d="M{xbus} {yt + 24} L{xbus} {yb}" stroke-width="1" stroke-dasharray="4 3" stroke="{BLUE}"/>\n'
 # current reference arrow (red)
 s += arrow(60, yt + 14, 92, yt + 14, RED)
 s += end_group()
@@ -39,7 +41,7 @@ lab += text(xbus, yt - 62, [("t", "二次側母線")], anchor="middle")
 lab += text(xs + 22, 160, [("v", "E")]) + text(xs + 22, 182, [("n", "1∠0°")])
 lab += text(xe - 10, 170, [("t", "電極")], anchor="end")
 lab += text(xe + 10, 150, [("t", "短路：閉合")]) + text(xe + 10, 172, [("t", "斷弧：開路")])
-lab += ctext(BLUE, xbus + 10, 140, [("n", "+")]) + ctext(BLUE, xbus + 10, yb - 8, [("n", "−")])
+lab += ctext(BLUE, xbus + 10, yt + 44, [("n", "+")]) + ctext(BLUE, xbus + 10, yb - 8, [("n", "−")])
 lab += ctext(BLUE, xbus + 10, 190, [("v", "V"), ("sub", "2")])
 lab += ctext(RED, 76, yt + 36, [("v", "I"), ("vsub", "sc")], anchor="middle")
 lab += text(W / 2, 290, [("t", "標么電抗（"), ("v", "S"), ("vsub", "b"), ("n", " = 25 MVA"), ("t", "，電阻忽略）；"), ("v", "V"), ("sub", "2"), ("t", " 取母線對回路線")], anchor="middle")

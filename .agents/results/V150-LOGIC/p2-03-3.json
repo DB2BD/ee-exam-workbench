@@ -58,5 +58,14 @@
     "test_string_updates": [],
     "suspected_answer_issue": "",
     "notes": "失分點 0.80 改 0.8（精確值）"
+  },
+  {
+    "qid": "EE-106-03-1",
+    "logic_added": true,
+    "steps_added": "正文兩個行列式後各補 det≠0、區塊可逆；驗算 B_kB_k^{-1} 改逐元素乘積形式",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix（p2-03-2-review.md 選修 1–3：失分點改為 1/det 為負使整個反矩陣變號）"
   }
 ]

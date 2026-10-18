@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" width="560" height="420">
+<rect width="560" height="420" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M40.0 130.0 L520.0 130.0" stroke="#000"/>
+<path d="M520.0 130.0 L512.0 126.0 L512.0 134.0 Z" fill="#000" stroke="#000"/>
+<path d="M180.0 400.0 L180.0 20.0" stroke="#000"/>
+<path d="M180.0 20.0 L176.0 28.0 L184.0 28.0 Z" fill="#000" stroke="#000"/>
+<path d="M310.0 130.0 L310.0 355.2" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M180.0 355.2 L310.0 355.2" stroke="#000" stroke-dasharray="5 4"/>
+<path d="M310.0 125.0 L310.0 135.0"/>
+<path d="M175.0 355.2 L185.0 355.2"/>
+<path d="M180.0 130.0 L310.0 355.2" stroke="#1f5fa8"/>
+<path d="M310.0 355.2 L309.5 346.2 L302.5 350.2 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<circle cx="310" cy="355.166604983954" r="2.6" fill="#000" stroke="none"/>
+<path d="M226 130 A46 46 0 0 1 203.0 169.8" stroke="#1f5fa8"/>
+<path d="M208.3 166.2 L203.0 169.8" stroke="#1f5fa8"/>
+<path d="M203.0 169.8 L211.9 168.7 L207.4 162.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+</g>
+<text x="522" y="154" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Re </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">z</tspan></text>
+<text x="190" y="32" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Im </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">z</tspan></text>
+<text x="172" y="122" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0</tspan></text>
+<text x="310" y="120" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1</tspan></text>
+<text x="170" y="360.166604983954" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−√3</tspan></text>
+<text x="322" y="361.166604983954" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">z</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 1 − √3 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">i</tspan></text>
+<text transform="rotate(60 255.4 236.6)" x="255.39230484541326" y="236.583302491977" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">r</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = |</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">z</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">| = 2</tspan></text>
+<text x="236" y="160" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">θ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = −π/3</tspan></text>
+<text x="400" y="240" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">第四象限</tspan></text>
+</svg>

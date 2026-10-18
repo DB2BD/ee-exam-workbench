@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" width="560" height="300">
+<rect width="560" height="300" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M110.0 70.0 L110.0 134.0"/>
+<path d="M110.0 166.0 L110.0 230.0"/>
+<circle cx="110.0" cy="150.0" r="16"/>
+<path d="M106.0 143.0 L114.0 143.0"/>
+<path d="M110.0 139.0 L110.0 147.0"/>
+<path d="M106.0 157.0 L114.0 157.0"/>
+<path d="M110.0 70.0 L170.0 70.0"/>
+<path transform="translate(170.0 70.0) rotate(0.00)" d="M0.0 0.0 L12.0 0.0 L17.5 -6.0 L28.5 6.0 L39.5 -6.0 L50.5 6.0 L61.5 -6.0 L72.5 6.0 L78.0 0.0 L90.0 0.0"/>
+<path d="M260.0 70.0 L326.0 70.0"/>
+<circle cx="330" cy="70" r="4" fill="#fff"/>
+<path d="M110.0 230.0 L326.0 230.0"/>
+<circle cx="330" cy="230" r="4" fill="#fff"/>
+<path d="M334.0 70.0 L440.0 70.0"/>
+<path transform="translate(440.0 70.0) rotate(90.00)" d="M0.0 0.0 L40.0 0.0 L46.7 -6.0 L60.0 6.0 L73.3 -6.0 L86.7 6.0 L100.0 -6.0 L113.3 6.0 L120.0 0.0 L160.0 0.0"/>
+<path d="M440.0 230.0 L334.0 230.0"/>
+<path d="M424.0 172.0 L458.0 124.0"/>
+<path d="M448.0 138.0 L458.0 124.0" stroke="#000"/>
+<path d="M458.0 124.0 L450.1 128.2 L456.6 132.8 Z" fill="#000" stroke="#000"/>
+</g>
+<text x="86" y="146" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">oc</tspan></text>
+<text x="86" y="168" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">= −210 V</tspan></text>
+<text x="215" y="54" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">th</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 35 Ω</tspan></text>
+<text x="330" y="56" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">a</tspan></text>
+<text x="330" y="254" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">b</tspan></text>
+<text x="464" y="156" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan></text>
+<text x="464" y="178" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">= </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">th</tspan></text>
+<text x="20" y="288" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">負號表示 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">a</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 端實際比 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">b</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 端低 210 V；功率只看 |</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">oc</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">|</tspan></text>
+</svg>

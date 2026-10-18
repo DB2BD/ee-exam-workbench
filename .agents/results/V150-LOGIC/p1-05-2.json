@@ -1,0 +1,90 @@
+[
+ {
+  "qid": "EE-107-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（V_N=0 vs 浮接、a 定義、理想電源前提）；參考方向條列＋序變換式；（一）三相電流逐相、aI_b/a²I_c 旋轉、I_a1/I_a2/I_a0 精確式→數值、I_n=3I_a0；（二）Y_k、ΣY、彌爾曼分子三項、V_N；I_a'/I_b'/I_c' 逐行含大小與角度、KCL 檢查；序電流逐行",
+  "figures": [
+   "EE-107-05-4-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "保留測試字串 601.05、73.61。"
+ },
+ {
+  "qid": "EE-108-05-2",
+  "logic_added": true,
+  "steps_added": "解題邏輯（B'/B'' 取法、半步順序、平坦啟動、6 位小數理由）；步驟1 指定注入/Y_bus/B'/B''/P2,P3,Q3 式/消去解法；步驟2、3 兩次疊代每個 P、Q、差額、Δθ、Δ|V3| 各一行；結果 rad→度",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "未畫圖：題圖已是單線圖，得分步驟為矩陣運算。移除所有 ×10^-n 寫法；驗算殘差重算（0.0014/0.0010/0.0010）。"
+ },
+ {
+  "qid": "EE-108-05-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（次暫態、E''=V_f=1.03、零序不用）；步驟1 1000 MVA 換算逐元件；步驟2 X_a、X_b、並聯、X_1=X_2=0.260849；（一）I_f、分流、I_base,20、kA；（二）邊界條件、I_A1、a²−a=−j√3、I_B、I_base,500",
+  "figures": [
+   "EE-108-05-3-positive.svg",
+   "EE-108-05-3-ll-connection.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "基準電流記 I_base,20／I_base,500；相電流用 A/B/C 依題幹。"
+ },
+ {
+  "qid": "EE-108-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（保護區 KCL、CT 同變比前提）；步驟1 接線與參考方向（依題圖）、中點 KCL 得 I_3=I_1−I_2；正常/區外、區內（單/雙側饋入）、百分比判據各附邏輯",
+  "figures": [
+   "EE-108-05-4-scheme.svg",
+   "EE-108-05-4-characteristic.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "敘述題；接線圖參考方向依題圖（I_1 外側引線向下、I_2 內側引線向下、線圈 3 向上流 I_1−I_2）。驗算表 5.13×10^-2 改 0.0513。"
+ },
+ {
+  "qid": "EE-109-05-6",
+  "logic_added": true,
+  "steps_added": "解題邏輯（一次控制、D=0）；步驟1 由 R 定義推 β_i=S_i/(R_i f0)、β1/β2/β；頻率偏移以精確分數 −9/26；各機 ΔP_i 分數→數值、新出力",
+  "figures": [
+   "EE-109-05-6-droop.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "20 分單題分兩個所求小節（不另設配分）。"
+ },
+ {
+  "qid": "EE-110-05-1",
+  "logic_added": true,
+  "steps_added": "解題邏輯（雙反應、兩方向投影）；（一）X 並聯逐行、sinδ；（二）相量畫法條列、I、I_q、I_d、Vsinδ、X_q、Vcosδ、E−Vcosδ、X_d 各一行（6 位有效）；驗算 P、Q 以 4–5 位重算",
+  "figures": [
+   "EE-110-05-1-phasor.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "相量圖中電流相量整體平移以免與 V、E 重疊（文中已註明）；jX_dI_d 與 q 軸共線，平行偏移繪出。"
+ },
+ {
+  "qid": "EE-105-05-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯改寫（系統基準明示）；步驟1 加 P_m,A=P_L、P_m,B=0.5P_L；（一）RoCoF 加倍量化、H/P_m 相消說明、δcr−δ0 變小定性、變流器 LVRT/PLL；框改為乙案結論；驗算改為 t_cr 相同裕度下相等",
+  "figures": [
+   "EE-105-05-4-power-angle.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "user-approved: removed 0.71× t_cr claim。圖 EE-105-05-4-swing.svg（及產生器）刪除，改為功角曲線示意圖（P_max 降低→δ0 增大、δcr 減小）。tests 無 0.71 斷言。verification/pe/EE-105-05-4.py 仍斷言『同 P_m 下 t_cr 比 √0.5』（數學本身成立、PASS），依規範 8 未改，請主 session 決定是否同步調整前提。"
+ },
+ {
+  "qid": "EE-104-05-1",
+  "logic_added": true,
+  "steps_added": "frontmatter review_blocker/review_action 19.56→19.55 kV；選修：解題邏輯補略去 AT_R/ST_R 的等價理由、（二）邏輯改為 Δ–Y 接地寫法、條件與疑義第 2 點補 3.96／1.37 kA 分流式、圖 3 V_f = 1∠0° 同列",
+  "figures": [
+   "EE-104-05-1-slg.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "main-session decision: 19.56→19.55 kV（精算 19.5549）。未做選修：圖 2(a) 元件名、解題邏輯縮短。驗算腳本常數 34.83 未改（規範 8）。"
+ }
+]

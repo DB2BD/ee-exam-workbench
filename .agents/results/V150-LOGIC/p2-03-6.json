@@ -1,0 +1,56 @@
+[
+  {
+    "qid": "EE-113-03-4",
+    "logic_added": true,
+    "steps_added": "解題邏輯（Lyapunov、P 對稱三未知數、A^TP=(PA)^T）；（一）PA 逐元素、轉置、相加、(1,1)/(2,2)/(1,2) 三條方程各自解出（分數形式）；（二）行列式展開、乘開、乘 10、公式解、化簡；框內只框精確特徵值，4 位有效近似值框外",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "已知與所求補 A^T 與配分；A 特徵值與正定說明移到驗算；失分點補漏減 p2^2"
+  },
+  {
+    "qid": "EE-114-03-2",
+    "logic_added": true,
+    "steps_added": "移除 compact（15 分）；補已知與所求；解題邏輯（留數定理、本性奇點不能用極點公式、逆時針前提）；步驟1 奇點位置與類型；閉路積分（15 分）Maclaurin→代 w=1/z^2→前幾項→-2k=-1 無整數解→Res=0→留數定理各一行",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "唯一奇點在圓心，未加圖（題圖已示）；失分點補誤用二階極點公式"
+  },
+  {
+    "qid": "EE-114-03-3",
+    "logic_added": true,
+    "steps_added": "解題邏輯（重根通解、y^(1)=3 讀為 y'(0)=3 前提）；步驟1 特徵方程、完全平方、重根通解；步驟2 乘積法則、提 e^{-2t}；初始值問題的解（20 分）y(0)、y'(0)、C2 各一行",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "驗算補 L{y''}、L{y'} 公式與部分分式拆法；失分點拆成兩條"
+  },
+  {
+    "qid": "EE-114-03-4",
+    "logic_added": true,
+    "steps_added": "解題邏輯（Euler 公式、非奇非偶、負半週期為 0 只剩 [0,π]、Dirichlet）；步驟1 週期延拓與跳躍點平均 π/2（含圖）；步驟2 係數公式化簡；a0、an、bn 各自分部積分 u/dv、兩項上下限、代回各一行；傅立葉級數（20 分）",
+    "figures": ["EE-114-03-4-extension.svg"],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "test_fourier_endpoint_114 斷言字串（\\boxed{f(x)\\sim、f(\\pi)=\\pi、\\pi/2、不能寫成逐點處處相等、x=\\pi/2、不能**驗證）全保留；圖 alt 不可含 ]（會截斷 markdown 圖語法）"
+  },
+  {
+    "qid": "EE-114-03-5",
+    "logic_added": true,
+    "steps_added": "解題邏輯（完整解=特解+N(A)、同一組列運算）；步驟1 三個列運算各一行、秩與自由變數；（一）兩列方程各一行、參數化、按參數拆開；（二）右端 0 的兩列方程、參數化、基底獨立性",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": ""
+  },
+  {
+    "qid": "EE-110-03-3",
+    "logic_added": true,
+    "steps_added": "metadata polish：frontmatter review_evidence「檢驗 x=0」改為「以數值部分和檢驗內點 x=1」，與 verification/pe/EE-110-03-3.py 一致；audit_status、腳本、正文未動",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "data/engineering-math-audit.json 第 1179 行仍為舊文字「x=0」（手動 manifest，非生成檔，不在提交範圍；dashboard 由 frontmatter 生成，已顯示 x=1）"
+  }
+]

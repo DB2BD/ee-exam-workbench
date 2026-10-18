@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 280" width="540" height="280">
+<rect width="540" height="280" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M120.0 70.0 L120.0 118.0"/>
+<path d="M120.0 162.0 L120.0 210.0"/>
+<circle cx="120.0" cy="140.0" r="22"/>
+<path d="M116.0 133.0 L124.0 133.0"/>
+<path d="M120.0 129.0 L120.0 137.0"/>
+<path d="M116.0 147.0 L124.0 147.0"/>
+<path d="M120.0 70.0 L200.0 70.0"/>
+<path transform="translate(200.0 70.0) rotate(0.00)" d="M0.0 0.0 L12.0 0.0 L18.3 -6.0 L31.0 6.0 L43.7 -6.0 L56.3 6.0 L69.0 -6.0 L81.7 6.0 L88.0 0.0 L100.0 0.0"/>
+<path d="M300.0 70.0 L400.0 70.0"/>
+<path d="M400.0 70.0 L400.0 90.0"/>
+<path transform="translate(400.0 90.0) rotate(90.00)" d="M0.0 0.0 L12.0 0.0 L18.3 -6.0 L31.0 6.0 L43.7 -6.0 L56.3 6.0 L69.0 -6.0 L81.7 6.0 L88.0 0.0 L100.0 0.0"/>
+<path d="M400.0 190.0 L400.0 210.0"/>
+<path d="M400.0 210.0 L120.0 210.0"/>
+<path d="M215.0 52.0 L285.0 52.0" stroke="#c0392b"/>
+<path d="M285.0 52.0 L277.0 48.0 L277.0 56.0 Z" fill="#c0392b" stroke="#c0392b"/>
+</g>
+<text x="90" y="136" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Caligraphic, 'Times New Roman', serif" style="font-family: KaTeX_Caligraphic, 'Times New Roman', serif; font-style: normal">F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">NI</tspan></text>
+<text x="250" y="42" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">Φ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">BA</tspan></text>
+<text x="250" y="104" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Caligraphic, 'Times New Roman', serif" style="font-family: KaTeX_Caligraphic, 'Times New Roman', serif; font-style: normal">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（氣隙 1）</tspan></text>
+<text x="416" y="136" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Caligraphic, 'Times New Roman', serif" style="font-family: KaTeX_Caligraphic, 'Times New Roman', serif; font-style: normal">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan></text>
+<text x="416" y="164" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（氣隙 2）</tspan></text>
+<text x="270" y="252" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Caligraphic, 'Times New Roman', serif" style="font-family: KaTeX_Caligraphic, 'Times New Roman', serif; font-style: normal">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">g</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">g</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> / (</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">μ</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">0</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">A</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">)</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">，鐵心與鐵板磁阻忽略</tspan></text>
+</svg>

@@ -15,11 +15,14 @@ dP = 0.1
 rocof = f0 * dP / (2 * H_sys)
 assert np.isclose(rocof[1] / rocof[0], 2.0)
 
-# Equal-area critical clearing time for a sustained-angle fault with Pe=0 during fault:
-#   t_cr = sqrt(2 H (d_cr - d0) / (pi f0 Pm)) -> proportional to sqrt(H)  (same Pm, d_cr, d0)
-Pm, d0, dcr = 1.0, np.radians(30), np.radians(100)
-tcr = np.sqrt(2 * H_sys * (dcr - d0) / (np.pi * f0 * Pm))
-assert np.isclose(tcr[1] / tcr[0], np.sqrt(0.5))
+# Critical clearing time with Pe=0 during fault: t_cr = sqrt(2 H (d_cr - d0) / (pi f0 Pm)).
+# On the common system base both H and the synchronous units' Pm scale with the thermal share,
+# so H alone does not shorten t_cr (user decision 2026-10-18: no 0.71x claim); plan B is worse
+# through the weaker grid (lower Pmax -> smaller d_cr - d0 margin), argued qualitatively.
+Pm_sys = share_th * 1.0
+d0, dcr = np.radians(30), np.radians(100)
+tcr = np.sqrt(2 * H_sys * (dcr - d0) / (np.pi * f0 * Pm_sys))
+assert np.isclose(tcr[1] / tcr[0], 1.0)
 
 # short-circuit capacity: SCR falls with fewer synchronous machines (generic)
 Ssc_sync = np.array([1.0, 0.5]) * 10.0

@@ -1,0 +1,70 @@
+[
+  {
+    "qid": "EE-104-06-3",
+    "logic_added": true,
+    "steps_added": "步驟1 共同基準、步驟2 上游阻抗 Z_up、步驟3 爐側 X_down 與 R_pu；主題（20 分）加邏輯；計算鏈改 5 位有效（4 位會使 8.81% 末位差 0.01）；R=10 Ω 的分子分母拆出實虛部與大小行；條件與疑義 9.82×10^{-1} 改 0.9821/0.9954",
+    "figures": [
+      "EE-104-06-3-divider.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "說明「其他用戶」不入模型（無負載資料，只影響量測點讀法）"
+  },
+  {
+    "qid": "EE-107-06-3",
+    "logic_added": true,
+    "steps_added": "步驟1 接線圖（由題圖讀主變 Δ：A′=a 極性端＋c 非極性端，I_A′∝I_A−I_C；相量拆大小與角度行驗 −30°）、步驟2 額定線電流；兩側電驛電流、電流比值各加邏輯；中間值 5 位（4.1838、3.3763、5.8479）；比值反向 7.15×10^{-1} 改 0.72",
+    "figures": [
+      "EE-107-06-3-wiring.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "接線圖依 EE-106-06-4 範本改寫：CT1 二次 Δ（J_A=P_a+Q_c 送 i_a−i_c）、CT2 二次 Y；兩側 CT 一次極性朝變壓器，圖上 I_H,r、I_L,r 只標符號"
+  },
+  {
+    "qid": "EE-108-06-2",
+    "logic_added": true,
+    "steps_added": "（一）阻抗基準、各元件換基準逐行；（二）X_down、總電抗、突降分行；（三）條件式→移項→代入→換歐姆；科學記號改小數（0.002552、0.3846、0.4034）；驗算改條列",
+    "figures": [
+      "EE-108-06-2-reactance.svg"
+    ],
+    "test_string_updates": [
+      "tests/test_reconstructed_pe_solutions.py:130 \"4.03\\\\times10^{-1}\" -> \"0.4034\"（格式，同一值）"
+    ],
+    "suspected_answer_issue": "",
+    "notes": "圖中 X_R 以虛線符號標（三）加裝位置，不顯示數值"
+  },
+  {
+    "qid": "EE-108-06-5",
+    "logic_added": true,
+    "steps_added": "步驟1 補償前後 P、Q、S（S_2^2=539200 精確）；（二）改用 (PR+QX)/V_LL 以精確 P、Q 計算，避免 4 位電流捨入使差值變 7.59；（三）用 S^2R/V^2 與精確 S_2^2；驗算三條獨立路線",
+    "figures": [
+      "EE-108-06-5-power-triangle.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": ""
+  },
+  {
+    "qid": "EE-111-06-1",
+    "logic_added": true,
+    "steps_added": "步驟1 兩種負擔的 E′、步驟2 讀 100:5 曲線（含圖）；（一）（二）各加邏輯並把誤差、I_p、判定分行；條件與疑義未動（測試斷言字串保留）",
+    "figures": [
+      "EE-111-06-1-excitation.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "圖為驗算腳本的數位化 100:5 曲線；E′ 取 7.056 V、24.656 V 與正文一致"
+  },
+  {
+    "qid": "EE-111-06-5",
+    "logic_added": true,
+    "steps_added": "（一）（二）加邏輯；I_b 分母 57157.7、I_sc 分行、比值 0.078650；驗算對稱分量拆大小行，並補精確式 V_LL^2(X_s+X_T)/(R S_b)=7.865%",
+    "figures": [
+      "EE-111-06-5-neutral-resistor.svg"
+    ],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "比值精確值恰為 7.865%，框 7.87%（四捨五入，非兩次進位）"
+  }
+]

@@ -383,9 +383,14 @@ def build_workbench():
       <div id="snapshot-list" class="snapshot-list"></div>
     </section>
     <p style="font-size: 0.86rem; color: var(--muted);">
-      備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。載入或貼上後請先驗證，再選擇合併或取代還原：
+      備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。按「選擇檔案匯入」載入先前下載的 .json（或在下方貼上代碼），確認預覽後再選擇合併或取代還原：
     </p>
-    <textarea id="backup-json-textarea" class="backup-textarea" placeholder="在此貼上備份 JSON 代碼..."></textarea>
+    <div class="backup-file-row">
+      <input type="file" id="backup-file-input" accept=".json,application/json" onchange="loadBackupFile(this)" hidden>
+      <button onclick="document.getElementById('backup-file-input').click()" class="btn-sol" id="backup-file-btn"><span class="ui-ico" data-ui-icon="upload"></span> 選擇檔案匯入</button>
+      <span id="backup-file-name" class="backup-file-name">尚未選擇檔案</span>
+    </div>
+    <textarea id="backup-json-textarea" class="backup-textarea" placeholder="或在此貼上備份 JSON 代碼..."></textarea>
     <div id="backup-preview" class="backup-preview" role="status">尚未驗證備份內容。</div>
     <div id="backup-history" class="backup-history"></div>
     <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">

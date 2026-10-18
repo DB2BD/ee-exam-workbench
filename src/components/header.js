@@ -222,6 +222,33 @@ function previewImportedBackupJSON() {
   return result;
 }
 
+// 選擇檔案匯入: load a downloaded backup .json into the textarea and validate it; nothing is written
+// until the user picks 合併還原 or 取代還原.
+function loadBackupFile(input) {
+  const file = input && input.files && input.files[0];
+  if (!file) return Promise.resolve(null);
+  const textarea = document.getElementById('backup-json-textarea');
+  const nameLabel = document.getElementById('backup-file-name');
+  const read = typeof file.text === 'function'
+    ? file.text()
+    : new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result || ''));
+      reader.onerror = () => reject(reader.error);
+      reader.readAsText(file);
+    });
+  return read.then(text => {
+    if (textarea) textarea.value = text;
+    if (nameLabel) nameLabel.innerText = `已載入：${file.name}`;
+    return previewImportedBackupJSON();
+  }).catch(() => {
+    const res = { success: false, error: `無法讀取檔案「${file.name}」，未修改任何資料。` };
+    if (nameLabel) nameLabel.innerText = '檔案讀取失敗';
+    renderBackupPreview(res);
+    return res;
+  }).finally(() => { input.value = ''; });
+}
+
 // The 成績 tab is built when it is opened; after an import it must be redrawn if it is the visible one.
 function renderScoreboardIfVisible() {
   try {

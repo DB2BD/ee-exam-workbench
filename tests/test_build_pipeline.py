@@ -48,6 +48,8 @@ class TestBuildPipeline(unittest.TestCase):
             'recall-full-section'
             ,'home-action-start'
             ,'more-tools-menu'
+            ,'backup-file-input'
+            ,'backup-file-btn'
         ]
 
         for elem_id in required_ids:

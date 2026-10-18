@@ -1030,6 +1030,17 @@ select:focus {
   max-height: 100%;
   overflow-y: auto;
 }
+.backup-file-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.backup-file-name {
+  font-size: 0.82rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
 .backup-textarea {
   width: 100%;
   height: 140px;
@@ -4260,9 +4271,14 @@ header.hs-header .pill { position: relative; z-index: 3; }
       <div id="snapshot-list" class="snapshot-list"></div>
     </section>
     <p style="font-size: 0.86rem; color: var(--muted);">
-      備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。載入或貼上後請先驗證，再選擇合併或取代還原：
+      備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。按「選擇檔案匯入」載入先前下載的 .json（或在下方貼上代碼），確認預覽後再選擇合併或取代還原：
     </p>
-    <textarea id="backup-json-textarea" class="backup-textarea" placeholder="在此貼上備份 JSON 代碼..."></textarea>
+    <div class="backup-file-row">
+      <input type="file" id="backup-file-input" accept=".json,application/json" onchange="loadBackupFile(this)" hidden>
+      <button onclick="document.getElementById('backup-file-input').click()" class="btn-sol" id="backup-file-btn"><span class="ui-ico" data-ui-icon="upload"></span> 選擇檔案匯入</button>
+      <span id="backup-file-name" class="backup-file-name">尚未選擇檔案</span>
+    </div>
+    <textarea id="backup-json-textarea" class="backup-textarea" placeholder="或在此貼上備份 JSON 代碼..."></textarea>
     <div id="backup-preview" class="backup-preview" role="status">尚未驗證備份內容。</div>
     <div id="backup-history" class="backup-history"></div>
     <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
@@ -36256,6 +36272,33 @@ function previewImportedBackupJSON() {
   }
   renderBackupPreview(result);
   return result;
+}
+
+// 選擇檔案匯入: load a downloaded backup .json into the textarea and validate it; nothing is written
+// until the user picks 合併還原 or 取代還原.
+function loadBackupFile(input) {
+  const file = input && input.files && input.files[0];
+  if (!file) return Promise.resolve(null);
+  const textarea = document.getElementById('backup-json-textarea');
+  const nameLabel = document.getElementById('backup-file-name');
+  const read = typeof file.text === 'function'
+    ? file.text()
+    : new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result || ''));
+      reader.onerror = () => reject(reader.error);
+      reader.readAsText(file);
+    });
+  return read.then(text => {
+    if (textarea) textarea.value = text;
+    if (nameLabel) nameLabel.innerText = `已載入：${file.name}`;
+    return previewImportedBackupJSON();
+  }).catch(() => {
+    const res = { success: false, error: `無法讀取檔案「${file.name}」，未修改任何資料。` };
+    if (nameLabel) nameLabel.innerText = '檔案讀取失敗';
+    renderBackupPreview(res);
+    return res;
+  }).finally(() => { input.value = ''; });
 }
 
 // The 成績 tab is built when it is opened; after an import it must be redrawn if it is the visible one.

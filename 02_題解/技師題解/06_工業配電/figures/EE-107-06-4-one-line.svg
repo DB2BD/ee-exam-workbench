@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" width="640" height="470">
+<rect width="640" height="470" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M240 50 L400 50" stroke-width="5"/>
+<path d="M320.0 50.0 L320.0 220.0"/>
+<rect x="310" y="88.0" width="20" height="24" fill="#fff"/>
+<path d="M170 220 L470 220" stroke-width="5"/>
+<path d="M200.0 220.0 L200.0 380.0"/>
+<rect x="190" y="248.0" width="20" height="24" fill="#fff"/>
+<circle cx="200" cy="400" r="20" fill="#fff"/>
+<path d="M440.0 220.0 L440.0 380.0"/>
+<rect x="430" y="248.0" width="20" height="24" fill="#fff"/>
+<circle cx="440" cy="400" r="20" fill="#fff"/>
+</g>
+<text x="410" y="55" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">3φ 220 V</tspan></text>
+<text x="340" y="105" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">幹線保護 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">150 AT</tspan></text>
+<text x="340" y="160" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">幹線 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">60 mm²</tspan></text>
+<text x="340" y="182" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">w,F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 124.50 A</tspan></text>
+<text x="340" y="126" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">OC,F</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 144 A</tspan></text>
+<text x="218" y="258" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">50 AT</tspan></text>
+<text x="218" y="280" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">OC,</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">10</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 40.50 A</tspan></text>
+<text x="218" y="320" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">分路 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">8 mm²</tspan></text>
+<text x="218" y="342" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">w,</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">10</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 33.75 A</tspan></text>
+<text x="200" y="406" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">M</tspan></text>
+<text x="200" y="446" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">10 HP，</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">FL</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 27 A</tspan></text>
+<text x="458" y="258" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">125 AT</tspan></text>
+<text x="458" y="280" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">OC,</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">30</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 117 A</tspan></text>
+<text x="458" y="320" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">分路 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">38 mm²</tspan></text>
+<text x="458" y="342" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">w,</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">30</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 97.50 A</tspan></text>
+<text x="440" y="406" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">M</tspan></text>
+<text x="440" y="446" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">30 HP，</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">FL</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 78 A</tspan></text>
+</svg>

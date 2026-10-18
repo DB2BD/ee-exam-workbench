@@ -1602,7 +1602,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         opamp_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", opamp_105)
         self.assertIn("-79.97", opamp_105)
-        self.assertIn("-4.05\\times10^{-2}\\%", opamp_105)
+        self.assertIn("-4.05\\times10^{-4}=-0.0405\\%", opamp_105)
 
         freq_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", freq_105)

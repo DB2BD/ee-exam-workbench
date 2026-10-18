@@ -1477,7 +1477,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "fourier_fundamental_for_vdc_with_exact_periodic_current_rms_for_thd",
-      "solution_hash": "d8d18472abd779d50d47c8ed630e8ebcccbdf1e37ff7bb19781743346b7e47a7",
+      "solution_hash": "74eb991fd9279c9b1f5c17aecede14385a5bc0a6d75b32306a52832d8cc6e3ba",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/02_電子學_含電力電子/images/questions/PE_110年_電子學（包括電力電子學）_Q04.png"
     },
@@ -2154,7 +2154,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-03",
       "method": "antoniou_gic_nullor_nodal_sympy_with_input_divider",
-      "solution_hash": "a844b1b08157262e375f27baa4b45e02d3d36c592f3c4f46ff23793284808ee2",
+      "solution_hash": "2ed9255e8f7203e21dea25c8a9ce5a69f0214afc2f110c93a0d4482a92a7fda6",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/02_電子學_含電力電子/images/questions/PE_108年_電子學（包括電力電子學）_Q04.png"
     },

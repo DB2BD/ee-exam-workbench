@@ -1106,7 +1106,7 @@
    "chapter": "方波逆變器與 RL 負載諧波分析",
    "audit_status": "verified",
    "pitfalls": [
-    "基本波有效值是 $\\frac{4V_{dc}}{\\sqrt2\\pi}=0.90V_{dc}$，漏 $\\sqrt2$ 會得 $V_{dc}=105.29\\,\\mathrm V$。",
+    "基本波有效值是 $\\frac{4V_{dc}}{\\sqrt2\\pi}=0.90V_{dc}$，漏 $\\sqrt2$ 會得 $V_{dc}=105.30\\,\\mathrm V$。",
     "諧波阻抗要用 $nX_1$，不能沿用 $|Z_1|$；否則 $I_n=I_1/n$，THD 變成電壓的 48.34%。",
     "THD 分母是基本波 $6\\,\\mathrm A$，不是總有效值；只取到 7 次諧波會低估成 13.93%。"
    ],

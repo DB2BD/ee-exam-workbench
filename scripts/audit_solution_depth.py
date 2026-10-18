@@ -482,21 +482,61 @@ def math_numbers(math: str) -> list[str]:
     return re.findall(r"(?<![\w.])\d+\.\d+(?![\w.])|(?<![\w.])\.\d+(?![\w.])", math)
 
 
+def stem_decimals(stem: str) -> int | None:
+    """Decimal places the stem itself demands (e.g. 「小數點請採計至第 4 位」), else None."""
+
+    match = re.search(r"小數(?:點)?[^，。；\n]{0,8}?第\s*(\d)\s*位", stem)
+    return int(match.group(1)) if match else None
+
+
+SCI_SMALL = re.compile(r"(\d+(?:\.\d+)?)\s*\\times\s*10\^(?:\{\s*-([12])\s*\}|-([12])(?!\d))")
+
+
 def rounding_audit(body: str, stem: str) -> dict:
-    """Computed non-integers in 考場標準作答 / 驗算 math not shown with exactly two decimals."""
+    """Number-display rule (AGENT-SOLVE 三之一, 2026-10-17).
+
+    * Boxed final answers: non-integers that are not given in the stem show exactly two
+      decimals, unless the stem demands another precision or |x| < 0.1 (where two decimals
+      would lose the value; more digits are then allowed).
+    * No ``a\\times10^{-1}`` / ``10^{-2}`` notation for values with |x| >= 0.01.
+    * Intermediates are not checked here: rounded ones carry >= 4 significant figures and
+      exact ones are written as they are, which cannot be told apart syntactically.
+
+    Keys keep their historical names: ``computed_decimals`` = boxed non-integers checked,
+    ``not_two_decimals`` = violations of the rule above.
+    """
 
     given = given_numbers(stem, section_text(body, "已知與所求"))
+    want = stem_decimals(stem) or 2
     total = bad = 0
     offending: list[str] = []
     for heading in ("考場標準作答", "驗算"):
         text = re.sub(r"```.*?```", "", section_text(body, heading), flags=re.S)
         for match in MATH_TOKEN.finditer(text):
             math = match.group("dd") or match.group("db") or match.group("i1") or match.group("i2")
-            for token in math_numbers(math):
-                if number_key(token) in given:
-                    continue
-                total += 1
-                if len(token.split(".")[1]) != 2:
+            for sci in SCI_SMALL.finditer(math):
+                value = float(sci.group(1)) * 10 ** -int(sci.group(2) or sci.group(3))
+                if abs(value) >= 0.01:
+                    bad += 1
+                    if sci.group(0) not in offending:
+                        offending.append(sci.group(0))
+            pos = 0
+            while True:
+                k = math.find("\\boxed", pos)
+                if k < 0:
+                    break
+                brace = math.find("{", k)
+                if brace < 0:
+                    break
+                content, end = brace_group(math, brace)
+                pos = end
+                for token in math_numbers(content):
+                    if number_key(token) in given:
+                        continue
+                    total += 1
+                    decimals = len(token.split(".")[1])
+                    if decimals == want or (abs(float(token)) < 0.1 and decimals > want):
+                        continue
                     bad += 1
                     if token not in offending:
                         offending.append(token)
@@ -854,7 +894,7 @@ def main(argv: list[str] | None = None) -> int:
     for subject in SUBJECT_ORDER:
         print(f"  {subject}: {sum(1 for n in cut if subject_key(n['subject']) == subject)}"
               f" / {sum(1 for n in results if subject_key(n['subject']) == subject)}")
-    print("rounding (not two decimals): "
+    print("number rule (boxed answers 2 dp / stem precision; no ×10^-1,-2 for |x|>=0.01) violations: "
           + ", ".join(f"{s} {sum(n['rounding']['not_two_decimals'] for n in results if subject_key(n['subject']) == s)}"
                       f"/{sum(n['rounding']['computed_decimals'] for n in results if subject_key(n['subject']) == s)}"
                       for s in SUBJECT_ORDER)

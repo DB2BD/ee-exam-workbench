@@ -119,3 +119,28 @@ class AuditV150FlagTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NumberRuleTests(unittest.TestCase):
+    """AGENT-SOLVE 三之一 (2026-10-17): boxed answers 2 dp (stem precision wins), no ×10^-1/-2 for |x| >= 0.01."""
+
+    mod = audit
+
+    def note(self, standard):
+        return "## 已知與所求\n\n電源 220 V。\n\n## 考場標準作答\n\n" + standard + "\n\n## 驗算\n\n無。\n"
+
+    def test_intermediate_four_significant_figures_are_allowed(self):
+        r = self.mod.rounding_audit(self.note("\\[V=0.8333\\times1.2=0.9999,\\quad \\boxed{V=1.00\\ \\mathrm{V}}\\]"), "")
+        self.assertEqual(r["not_two_decimals"], 0)
+
+    def test_boxed_answer_needs_two_decimals(self):
+        r = self.mod.rounding_audit(self.note("\\[\\boxed{I=0.24561\\ \\mathrm{A}}\\]"), "")
+        self.assertEqual(r["not_two_decimals"], 1)
+
+    def test_stem_precision_wins(self):
+        r = self.mod.rounding_audit(self.note("\\[\\boxed{\\mathrm{PF}=0.9803}\\]"), "（本題計算過程中，小數點請採計至第 4 位）")
+        self.assertEqual(r["not_two_decimals"], 0)
+
+    def test_scientific_notation_for_large_values_is_flagged_but_not_tiny_constants(self):
+        r = self.mod.rounding_audit(self.note("\\[x=1.44\\times10^{-2},\\quad \\varepsilon_0=8.854\\times10^{-12}\\]"), "")
+        self.assertEqual(r["numbers"], ["1.44\\times10^{-2}"])

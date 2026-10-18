@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 430" width="640" height="430">
+<rect width="640" height="430" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M110.0 40.0 L110.0 340" stroke="#000" stroke-opacity="0.35" stroke-width="1"/>
+<path d="M155.2 40.0 L155.2 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M181.6 40.0 L181.6 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M200.3 40.0 L200.3 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M214.8 40.0 L214.8 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M226.7 40.0 L226.7 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M236.8 40.0 L236.8 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M245.5 40.0 L245.5 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M253.1 40.0 L253.1 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M260.0 40.0 L260.0 340" stroke="#000" stroke-opacity="0.35" stroke-width="1"/>
+<path d="M305.2 40.0 L305.2 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M331.6 40.0 L331.6 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M350.3 40.0 L350.3 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M364.8 40.0 L364.8 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M376.7 40.0 L376.7 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M386.8 40.0 L386.8 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M395.5 40.0 L395.5 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M403.1 40.0 L403.1 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M410.0 40.0 L410.0 340" stroke="#000" stroke-opacity="0.35" stroke-width="1"/>
+<path d="M455.2 40.0 L455.2 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M481.6 40.0 L481.6 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M500.3 40.0 L500.3 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M514.8 40.0 L514.8 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M526.7 40.0 L526.7 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M536.8 40.0 L536.8 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M545.5 40.0 L545.5 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M553.1 40.0 L553.1 340" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 340.0 L560.0 340.0" stroke="#000" stroke-opacity="0.35" stroke-width="1"/>
+<path d="M110 294.8 L560.0 294.8" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 268.4 L560.0 268.4" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 249.7 L560.0 249.7" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 235.2 L560.0 235.2" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 223.3 L560.0 223.3" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 213.2 L560.0 213.2" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 204.5 L560.0 204.5" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 196.9 L560.0 196.9" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 190.0 L560.0 190.0" stroke="#000" stroke-opacity="0.35" stroke-width="1"/>
+<path d="M110 144.8 L560.0 144.8" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 118.4 L560.0 118.4" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 99.7 L560.0 99.7" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 85.2 L560.0 85.2" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 73.3 L560.0 73.3" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 63.2 L560.0 63.2" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 54.5 L560.0 54.5" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<path d="M110 46.9 L560.0 46.9" stroke="#000" stroke-opacity="0.18" stroke-width="0.6"/>
+<rect x="110" y="40.0" width="450" height="300"/>
+<path d="M193.4 218.9 L205.3 200.3 L217.3 186.1 L229.2 175.5 L241.1 166.6 L253.0 157.2 L276.8 151.3 L288.8 149.1 L300.7 147.0 L312.6 146.3 L324.5 146.3 L336.4 145.8 L348.3 144.7 L360.2 144.3 L372.1 143.7 L384.1 143.2 L396.0 142.5 L407.9 142.0 L419.8 141.5 L431.7 141.2 L443.6 140.4 L455.5 139.7 L467.4 139.2 L479.4 138.9" stroke-width="2.2"/>
+<circle cx="479.3596996848434" cy="138.93338277398226" r="2.6" fill="#000" stroke="none"/>
+<path d="M110 212.7 L200.3 212.7" stroke="#1f5fa8" stroke-dasharray="5 4"/>
+<path d="M200.3 212.7 L200.3 340" stroke="#c0392b" stroke-dasharray="5 4"/>
+<path d="M110 131.2 L560.0 131.2" stroke="#1f5fa8" stroke-dasharray="5 4"/>
+<path d="M481.6 138.9 L481.6 340" stroke="#c0392b" stroke-dasharray="5 4"/>
+</g>
+<text x="110.0" y="362" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.1</tspan></text>
+<text x="260.0" y="362" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1</tspan></text>
+<text x="410.0" y="362" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">10</tspan></text>
+<text x="560.0" y="362" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">100</tspan></text>
+<text x="102" y="345.0" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1</tspan></text>
+<text x="102" y="195.0" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">10</tspan></text>
+<text x="102" y="45.0" text-anchor="end" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">100</tspan></text>
+<text x="335.0" y="390" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">激磁電流 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">e</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">（A）</tspan></text>
+<text x="30" y="180.0" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">E</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">′</tspan></text>
+<text x="30" y="202.0" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">（V）</tspan></text>
+<text x="210.30899869919438" y="234.7162141814355" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">E</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">′ = 7.056 V（一）</tspan></text>
+<text x="116" y="123.21160679384838" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">E</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">′ = 24.656 V（二）</tspan></text>
+<text x="206.30899869919438" y="330" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">e</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> ≈ 0.40 A</tspan></text>
+<text x="475.5681882079494" y="330" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">e</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 30 A</tspan></text>
+<text x="473.5681882079494" y="162.93338277398226" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">曲線末端 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">≈ 22 V</tspan></text>
+<text x="277.0915028460255" y="176.63233654043557" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">100:5</tspan></text>
+<text x="320.0" y="420" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">100:5 激磁曲線（由官方圖數位化）；（二）的水平線高於曲線末端，無交點</tspan></text>
+</svg>

@@ -8,7 +8,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "驗算損失比例改 0.1851%（原 0.185% 照字面會得 99.815）"
+  "notes": "驗算損失比例改 0.1851%（原 0.185% 照字面會得 99.815）；review fix (同步)：圖 1 繞組電壓補 V_se、V_c 變數名"
  },
  {
   "qid": "EE-107-04-1",
@@ -30,7 +30,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "ASCII 接線圖改 SVG；缺點補「公共繞組斷線時負載承受近 600 V」"
+  "notes": "ASCII 接線圖改 SVG；缺點補「公共繞組斷線時負載承受近 600 V」；review fix (同步)：共用 auto_parts 的鐵心斷開與 V_se、V_c 標籤，步驟 1 補 V_c=480 V、V_se=120 V 定義"
  },
  {
   "qid": "EE-109-04-5",
@@ -55,7 +55,7 @@
   ],
   "test_string_updates": [],
   "suspected_answer_issue": "",
-  "notes": "兩張 ASCII 接線圖改 SVG；共用 scripts/figkit/auto_parts.py（亦供 EE-108-04-1）"
+  "notes": "兩張 ASCII 接線圖改 SVG；共用 scripts/figkit/auto_parts.py（亦供 EE-108-04-1）；review fix (p2-04-1-review)：圖 1 鐵心於分接列斷開、分接導線不再穿過鐵心；圖 1/2 繞組電壓補 V_se、V_c 變數名；圖 2 線電壓改 V_ab=V_cb=V_ac 與正文一致；圖 1 說明節點字母改斜體；（四）補安匝平衡 160I_A=220(I_a−I_A) 與參考方向"
  },
  {
   "qid": "EE-114-04-5",
@@ -66,6 +66,6 @@
    "tests/test_verified_114_solutions.py: |T_{avg,max}|=\\frac{1}{2}\\mathcal R_1\\Phi_m^2=3.41 -> 同式接代入式 =\\frac12(10^5)(6.8110\\times10^{-5})=3.4055，另斷言 \\boxed{|T_{avg,max}|=3.41\\ \\mathrm{N\\cdot m}}（框內只框結果）"
   ],
   "suspected_answer_issue": "",
-  "notes": "原式 3.41(188.50)≈641.92 照字面為 642.79，改閉合式；條件與疑義補題示轉矩正號與 −∂W/∂θ 差號只影響 δ、不影響最大值；推導題不需圖"
+  "notes": "原式 3.41(188.50)≈641.92 照字面為 642.79，改閉合式；條件與疑義補題示轉矩正號與 −∂W/∂θ 差號只影響 δ、不影響最大值；推導題不需圖；review fix (p2-04-1-review)：驗算 3.4055(188.4956)=641.92 並刪捨入半句；解題邏輯與（二）邏輯改為「轉動時只有 ω_m=±ω/2 有平均轉矩並輸出功率，ω_m=0 有平均轉矩但無功率」；補 ω=2π(60)=376.9911 行"
  }
 ]

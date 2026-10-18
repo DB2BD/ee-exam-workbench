@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" width="680" height="300">
-<rect width="680" height="300" fill="#fff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 265" width="680" height="265">
+<rect width="680" height="265" fill="#fff"/>
 <g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 <path d="M30.0 200.0 L660.0 200.0" stroke="#000"/>
 <path d="M660.0 200.0 L652.0 196.0 L652.0 204.0 Z" fill="#000" stroke="#000"/>
@@ -15,6 +15,7 @@
 <path d="M245.0 200.0 L245.0 58.6" stroke="#000" stroke-dasharray="5 4"/>
 </g>
 <path d="M245.0 200.0 L340.0 200.0 L435.0 58.6" stroke="#1f5fa8" stroke-width="2.5" fill="none"/>
+<circle cx="55.0" cy="58.6" r="4" fill="#000" stroke="none"/>
 <circle cx="245.0" cy="58.6" r="4" fill="#000" stroke="none"/>
 <circle cx="435.0" cy="58.6" r="4" fill="#000" stroke="none"/>
 <circle cx="625.0" cy="58.6" r="4" fill="#000" stroke="none"/>
@@ -39,5 +40,4 @@
 <text x="445" y="63.628330588459306" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">) = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan></text>
 <text x="445" y="134.31416529422967" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">平均 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">/2</tspan></text>
 <text x="443" y="248" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan><tspan class="n sup" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="super">+</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">) = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(−</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan><tspan class="n sup" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="super">+</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">) = 0</tspan></text>
-<text x="340" y="286" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">基本週期 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">(−</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">, </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">]</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（藍）作 </tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">2</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 週期延拓；</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">x</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = ±</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">π</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 為跳躍點</tspan></text>
 </svg>

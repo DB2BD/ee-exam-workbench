@@ -1331,7 +1331,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         reluctance = (CANONICAL / "04_電機機械" / "canonical" / "EE-109-04-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", reluctance)
         self.assertIn("1.36 \\times 10^{-3}", reluctance)
-        self.assertIn("2.71\\times10^{-1}\\text{ N}\\cdot\\text{m}", reluctance)
+        self.assertIn("T=0.27\\text{ N}\\cdot\\text{m}", reluctance)
 
         buck_auto = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", buck_auto)

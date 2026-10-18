@@ -1,5 +1,5 @@
 """EE-114-06-4 one-line diagram (results of (二)): 3φ 220 V source -> feeder breaker 150 AT (limit 153 A),
-feeder 38 mm² (I_w,F = 95.50 A) -> branch 1: 125 AT, 22 mm², 20 HP (54 A); branch 2: 75 AT, 8 mm², 10 HP (28 A).
+feeder 38 mm² (I_c,F = 95.50 A; conductor design current, distinct from winding current I_w) -> branch 1: 125 AT, 22 mm², 20 HP (54 A); branch 2: 75 AT, 8 mm², 10 HP (28 A).
 """
 import sys, pathlib; sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from svgkit import *
@@ -19,11 +19,11 @@ for x in (x1, x2):
 s += end_group()
 lab += text(410, yS + 5, [("n", "3φ 220 V")])
 lab += text(xF + 20, 105, [("t", "幹線保護 "), ("n", "150 AT")])
-lab += text(xF + 20, 160, [("t", "幹線 "), ("n", "38 mm²")]) + text(xF + 20, 182, [("v", "I"), ("vsub", "w,F"), ("n", " = 95.50 A")])
+lab += text(xF + 20, 160, [("t", "幹線 "), ("n", "38 mm²")]) + text(xF + 20, 182, [("v", "I"), ("vsub", "c,F"), ("n", " = 95.50 A")])
 lab += text(xF + 20, 126, [("v", "I"), ("vsub", "OC,F"), ("n", " ≤ 153 A")])
 for x, at, mm, hp, i, sub, iw, ioc in ((x1, "125 AT", "22 mm²", "20 HP", "54 A", "20", "67.50 A", "108 A"), (x2, "75 AT", "8 mm²", "10 HP", "28 A", "10", "35 A", "70 A")):
     lab += text(x + 18, 258, [("n", at)]) + text(x + 18, 280, [("v", "I"), ("vsub", "OC,"), ("sub", sub), ("n", " = " + ioc)])
-    lab += text(x + 18, 320, [("t", "分路 "), ("n", mm)]) + text(x + 18, 342, [("v", "I"), ("vsub", "w,"), ("sub", sub), ("n", " = " + iw)])
+    lab += text(x + 18, 320, [("t", "分路 "), ("n", mm)]) + text(x + 18, 342, [("v", "I"), ("vsub", "c,"), ("sub", sub), ("n", " = " + iw)])
     lab += text(x, 406, [("n", "M")], anchor="middle")
     lab += text(x, 446, [("n", hp + "，"), ("v", "I"), ("sub", sub), ("n", " = " + i)], anchor="middle")
 s += lab + footer()

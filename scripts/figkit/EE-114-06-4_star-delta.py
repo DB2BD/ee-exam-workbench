@@ -28,7 +28,8 @@ for k, (x, y) in v.items():
     s += dot(x, y)
 va = v["a"]
 s += line(va[0], va[1], va[0], va[1] - 50) + arrow(va[0] + 14, va[1] - 46, va[0] + 14, va[1] - 14, RED)
-s += line(*v["b"], v["b"][0] - 40, v["b"][1]) + line(*v["c"], v["c"][0] + 40, v["c"][1])
+# leads leave b, c diagonally downward so they are not read as in series with winding b-c
+s += line(*v["b"], v["b"][0] - 32, v["b"][1] + 32) + line(*v["c"], v["c"][0] + 32, v["c"][1] + 32)
 # winding current along a->b (outside the edge, parallel)
 mx, my = (va[0] + v["b"][0]) / 2, (va[1] + v["b"][1]) / 2
 ux, uy = (v["b"][0] - va[0]) / (2 * Rd * math.sqrt(3) / 2), (v["b"][1] - va[1]) / (2 * Rd * math.sqrt(3) / 2)
@@ -42,6 +43,7 @@ lab += ctext(RED, ta[0] + 24, ta[1] - 28, [("v", "I"), ("vsub", "L,Y"), ("n", " 
 lab += text(nx + 14, ny - 52, [("v", "Z"), ("vsub", "w")])
 lab += ctext(BLUE, nx - 16, ny - 66, [("v", "V"), ("vsub", "w,Y")], anchor="end")
 lab += ctext(BLUE, nx - 16, ny - 44, [("n", "= "), ("v", "V"), ("vsub", "L"), ("n", "/√3")], anchor="end")
+lab += ctext(BLUE, nx - 16, ny - 22, [("t", "（"), ("v", "a"), ("t", "–"), ("v", "N"), ("t", " 間）")], anchor="end")
 lab += text(nx + 4, ny + 26, [("v", "N")])
 lab += text(term["b"][0] - 50, term["b"][1] + 22, [("v", "b")]) + text(term["c"][0] + 44, term["c"][1] + 22, [("v", "c")])
 # labels Delta
@@ -49,9 +51,9 @@ lab += text(cx0, 380, [("t", "運轉：Δ 接")], anchor="middle")
 lab += text(va[0] - 8, va[1] - 30, [("v", "a")], anchor="end")
 lab += ctext(RED, va[0] + 24, va[1] - 24, [("v", "I"), ("vsub", "L,"), ("sub", "Δ"), ("n", " = √3 "), ("v", "I"), ("vsub", "w,"), ("sub", "Δ")])
 lab += ctext(RED, mx + nxo - 14, my + nyo - 8, [("v", "I"), ("vsub", "w,"), ("sub", "Δ")], anchor="end")
-lab += ctext(BLUE, cx0, cy0 + Rd / 2 + 30, [("v", "V"), ("vsub", "w,"), ("sub", "Δ"), ("n", " = "), ("v", "V"), ("vsub", "L")], anchor="middle")
+lab += ctext(BLUE, cx0, cy0 + Rd / 2 + 30, [("v", "V"), ("vsub", "w,"), ("sub", "Δ"), ("n", " = "), ("v", "V"), ("vsub", "L"), ("t", "（"), ("v", "b"), ("t", "–"), ("v", "c"), ("t", " 間）")], anchor="middle")
 lab += text(mx + 36, my + 16, [("v", "Z"), ("vsub", "w")])
-lab += text(v["b"][0] - 40, v["b"][1] + 22, [("v", "b")]) + text(v["c"][0] + 34, v["c"][1] + 22, [("v", "c")])
+lab += text(v["b"][0] - 34, v["b"][1] + 52, [("v", "b")], anchor="middle") + text(v["c"][0] + 34, v["c"][1] + 52, [("v", "c")], anchor="middle")
 s += lab + footer()
 out = pathlib.Path(__file__).resolve().parents[2] / '02_題解/技師題解/06_工業配電/figures/EE-114-06-4-star-delta.svg'
 out.write_text(s); print(out.name, len(s))

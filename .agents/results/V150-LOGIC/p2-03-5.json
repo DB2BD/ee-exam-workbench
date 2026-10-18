@@ -1,0 +1,74 @@
+[
+  {
+    "qid": "EE-111-03-3",
+    "logic_added": true,
+    "steps_added": "解題邏輯（留數定理、逆時針、極點不在圓周上）；步驟1 極點到圓心距離 vs 半徑 2.5 各一行（含圖）；（一）一階留數 lim→約分→代入→留數定理各一行；（二）g=(z-1)^2 f、m=2 公式、商法則分子展開、g'(1)、留數定理各一行；框內只框 I，近似值框外",
+    "figures": ["EE-111-03-3-contour.svg"],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "已知與所求補配分；失分點補商法則符號"
+  },
+  {
+    "qid": "EE-111-03-4",
+    "logic_added": true,
+    "steps_added": "解題邏輯（奇異值定義、對稱矩陣正交對角化→加權平均）；（一）A^TA 逐元素、特徵方程展開、公式解、配方 (2±√2)^2 各一行；（二）特徵方程展開、公式解、加權平均範圍各一行，極值點由第一列推出",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "框外近似值改兩位（3.41、0.59），精確值不變；驗算補 -cos2θ+sin2θ 中間式"
+  },
+  {
+    "qid": "EE-112-03-2",
+    "logic_added": true,
+    "steps_added": "解題邏輯（題幹矛盾→採 [-2,2) 主解、偶函數、半區間、分部積分）；步驟1 L=2、f=2|x|、偶函數（含三角波圖）＋係數公式；步驟2 b_n=0；步驟3 a_0 半區間各一行；步驟4 a_n 分部積分 u/dv、兩項上下限、代回、乘 2、奇偶分流；各階係數與級數（15 分）彙整並代 n=2m+1",
+    "figures": ["EE-112-03-2-triangle.svg"],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "needs_manual_review 與 frontmatter 不變；條件與疑義補 x=-1 例；邊界文件斷言字串仍在"
+  },
+  {
+    "qid": "EE-112-03-4",
+    "logic_added": true,
+    "steps_added": "解題邏輯（C–R 充要條件、偏導連續→整函數）；步驟1 u_x 乘積法則三行；步驟2 u_y 兩行；步驟3 v_y=u_x 積分、∫sin、∫y cos y 分部積分、代回、合併；調和共軛 v（15 分）v_x、-u_y、比較得 g'=0",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "驗算 ize^{-z} 展開補中間乘積；失分點第 3 條改為漏 +cos y"
+  },
+  {
+    "qid": "EE-112-03-6",
+    "logic_added": true,
+    "steps_added": "解題邏輯；（一）R3-R1、R3-R2 各一個矩陣、秩判斷、兩列回代各一行；（二）第1列餘因子展開、兩個 2×2 子行列式、展開、提 λ、公式解；特徵向量各 λ：分母有理化、範數平方展開各一行，單位化數值 4 位有效後框兩位",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "測試斷言字串 x=(1-3t-2s,\\ t,\\ 6-4s,\\ s)^T、t,s\\in\\mathbb R 保留；驗算補第 3 列檢查"
+  },
+  {
+    "qid": "EE-113-03-1",
+    "logic_added": true,
+    "steps_added": "解題邏輯（csc 不可待定係數→參數變異、定義區間）；步驟1 特徵方程公式解、複根→齊次解；步驟2 y1'、y2'、W 展開與相消各一行；步驟3 u1'、u2'（Cramer 公式、約分）、∫cot 代換；步驟4 y_p；通解（20 分）y_h+y_p",
+    "figures": [],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "失分點補 u1' 負號"
+  },
+  {
+    "qid": "EE-109-03-4",
+    "logic_added": true,
+    "steps_added": "p2-03-4-review 必修：圖 1「跳躍點平均 0」移到 -π 左下、不再被 π→3π 線穿過；「f = x/π」移到 y 軸右側藍線下方；選修：-π 刻度改放軸下、y 軸縮短避開說明；步驟1 補 f(π^+)=f(-π^+) 週期性說明",
+    "figures": ["EE-109-03-4-sawtooth.svg"],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix"
+  },
+  {
+    "qid": "EE-110-03-3",
+    "logic_added": true,
+    "steps_added": "p2-03-4-review 選修：圖 1 右極限標籤改為 f(π^+)=f(-π^+)=-π-π² 並移到圓圈下方；f(π^-) 標籤移到跳躍點左側（原位置被延拓曲線穿過）；「平均 -π²」移到左側避開曲線；步驟1 補週期性 f(π^+)=f(-π^+)",
+    "figures": ["EE-110-03-3-extension.svg"],
+    "test_string_updates": [],
+    "suspected_answer_issue": "",
+    "notes": "review fix（選修）；review_evidence x=0/x=1 描述未改（metadata，留待日後）"
+  }
+]

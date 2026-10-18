@@ -1,0 +1,64 @@
+[
+ {
+  "qid": "EE-105-05-1",
+  "logic_added": true,
+  "steps_added": "解題邏輯（P=V_SV_R sinδ/X 與 ΔV≈(RP+XQ)/V 兩主線、前提）；步驟1 兩基本式＋接法；（一）串聯：X_eff=(1−k)X_L、P_max 比值逐行、目的 4 點、實施（位置、MOV／間隙／旁路開關、k 0.25–0.70、SSR、TCSC）；（二）並聯：ΔV 含 Q−Q_c、重載電容 Q_c=V²/X_c、空載費蘭梯＋電抗器、實施（投切、線路電抗器、SVC/STATCOM）",
+  "figures": [
+   "EE-105-05-1-one-line.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "驗算段 8.06×10^-1 改為 0.81 pu（依驗算腳本示例參數）；未分小題配分，已知段註明 20 分。"
+ },
+ {
+  "qid": "EE-105-05-5",
+  "logic_added": true,
+  "steps_added": "解題邏輯（協調方程式、單調性、前提 IC=dF/dP）；步驟1 拉格朗日偏微分→IC·L=λ→L、ITL 表示式；（一）L_i 三式＋比較；（二）ITL_i 三式＋比較、λ>11；結論框；驗算加 λ=12 數值示例",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "排序題無需圖；保留測試字串 IC}_2=9、發電廠 2。"
+ },
+ {
+  "qid": "EE-106-05-1",
+  "logic_added": true,
+  "steps_added": "解題邏輯（每相、V_R 參考、前提）；步驟1 R、Lℓ、X=19.604、V_R、|I|、I 相量逐行；（一）壓降實部／虛部逐項、V_S 直角→極座標（大小、角度各一行）、線電壓；（二）P_R/Q_R、|I|²、P_loss、Q_line、P_S/Q_S；（三）VR 定義→代入→比值；（四）η",
+  "figures": [
+   "EE-106-05-1-per-phase.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "X 保留 19.604 Ω（4 位 19.60 會使 Q_line 成 68.05 與框內 248.07 不符）；I 虛部依顯示值 1075.81×0.6 寫 645.49。"
+ },
+ {
+  "qid": "EE-109-05-2",
+  "logic_added": true,
+  "steps_added": "解題邏輯（π 模型、Y/2 只交換無功、前提 ω≈377、ε0）；步驟1 D_m、D_sL、D_sC；步驟2 ln 比值、L、X=78.049（6 位有效理由）；步驟3 C、Y、Y/2、每相電壓；實功率小題：I_ser→P_φ→三相式→代入逐行",
+  "figures": [
+   "EE-109-05-2-pi-model.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "框內 724.38 MW 依 ω=377 rad/s；若 ω=2π·60=376.99，X=78.047 Ω、P=724.40 MW（末位差，屬 ω 取值；驗算腳本容差 0.5% 兩者皆過）。框值未改，已記於條件與疑義。",
+  "notes": "移除 7.12×10^-2 類寫法；新增條件與疑義段。"
+ },
+ {
+  "qid": "EE-109-05-5",
+  "logic_added": true,
+  "steps_added": "解題邏輯（拉格朗日、方程式組為得分主體、前提）；步驟1 拉格朗日最佳條件；步驟2 dC/dP、∂P_L/∂P 代入；方程式小題（框）；步驟3 P(λ) 推導、λ=11.8/11.9 試值不平衡量逐行、割線內插 11.8877、代回 268.996/399.029 與收斂檢查",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "原寫 λ=11.89 直接代入得 269.00 字面不符，改以 11.8877 代回；×10^-n 改為小數；保留測試字串「以未四捨五入值驗證」。"
+ },
+ {
+  "qid": "EE-110-05-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（相量邊界→序量、前提：金屬性、負載忽略、零序網路只含饋線）；步驟1 邊界條件、I_c、a、a−a²；（一）I_a0、(a−a²)I_b 合併、I_a1、I_a2；步驟2 序網路與參考方向（圖）；（二）V_b−V_c 展開→V_a2=V_a1→V_a1 逐行；（三）V_a0→零序網路 (−j)(−j) 展開→X_0",
+  "figures": [
+   "EE-110-05-3-sequence.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "中間值保留 11.986／6.9953／0.30047（4 位 11.99 會使 I_a2 成 0.9967）；失分點 a²−a 符號敘述改為 a−a²=+j√3。"
+ }
+]

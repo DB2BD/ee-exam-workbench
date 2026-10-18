@@ -74,7 +74,7 @@ class TestEngineeringMathOfficialAlignment(unittest.TestCase):
         self.assert_stem_and_note(
             "EE-108-03-5",
             ["\\frac{dz}{z^2-1}", "圓心位置 $(1,0)$", "圓心位置 $(-1,0)$"],
-            ["\\boxed{I_1=2\\pi i", "\\boxed{I_2=2\\pi i\\left(-\\frac12\\right)=-\\pi i}"],
+            ["\\boxed{I_1=\\pi i}", "\\boxed{I_2=-\\pi i}"],
         )
         self.assert_stem_and_note(
             "EE-108-03-6",

@@ -36,12 +36,12 @@ class TestFurnaceSeriesPath114(unittest.TestCase):
 
     def assert_main_model(self, note):
         main = note.split("## 考場標準作答", 1)[1].split("\n## ", 1)[0]
-        self.assertIn(r"\frac1{j0.53}", main)
-        self.assertIn(r"X_d=0.05+0.4=0.45", main)
-        self.assertIn(r"8.45\times10^{-1}", main)
+        self.assertIn(r"\frac1{j0.5325}", main)
+        self.assertIn(r"X_d=X_{FTr}+X_F=0.05+0.4=0.45", main)
+        self.assertIn(r"0.8451", main)
         self.assertIn(r"\boxed{15.49\%}", main)
         self.assertIn(r"\boxed{0\%}", main)
-        self.assertIn(r"\frac{1-8.45\times10^{-1}}{1}", main)
+        self.assertIn(r"\frac{1-0.8451}{1}", main)
         self.assertNotIn("62.26", main)
 
     def test_main_answer_contains_the_retained_path_equations(self):
@@ -49,7 +49,7 @@ class TestFurnaceSeriesPath114(unittest.TestCase):
 
     def test_main_answer_mutations_are_detected(self):
         note = NOTE.read_text(encoding="utf-8")
-        for before, after in ((r"\frac1{j0.53}", r"\frac1{j0.13}"),
+        for before, after in ((r"\frac1{j0.5325}", r"\frac1{j0.1325}"),
                               (r"\boxed{15.49\%}", r"\boxed{62.26\%}")):
             mutated = note.replace(before, after, 1)
             self.assertNotEqual(note, mutated)
@@ -60,6 +60,6 @@ class TestFurnaceSeriesPath114(unittest.TestCase):
         self.assertAlmostEqual(100 * 0.0825 / (0.0825 + 0.05), 62.2641509434)
         note = NOTE.read_text(encoding="utf-8")
         for phrase in ("15.49", "0.5325", "62.26",
-                       "沒有畫出繞過", "不是取得官方評分答案"):
+                       "沒有畫出繞過", "未經官方評分答案確認"):
             self.assertIn(phrase, note)
         self.assertNotIn("沿用既有 verified", note)

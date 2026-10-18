@@ -1,0 +1,56 @@
+[
+ {
+  "qid": "EE-107-01-4",
+  "logic_added": true,
+  "steps_added": "步驟1 同名端參考方向（V_p、V_s=V_N-V_a、I_c=4I_p）；步驟2 開路 V_oc=-210 V 逐行；步驟3 測試電流 I_t=1 A 求 R_th=35 Ω 逐行；(一) dP/dR_L=0 推 R_L=R_th；(二) P_max 公式→代入→315 W",
+  "figures": ["EE-107-01-4-network.svg", "EE-107-01-4-thevenin.svg"],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "保留斷言字串 R_L = R_{th} = \\mathbf{35 與 315\\text{ W}；框內只留結果；V_oc 負號說明實際極性；驗算補回代自洽"
+ },
+ {
+  "qid": "EE-109-01-2",
+  "logic_added": true,
+  "steps_added": "論述題：步驟1 部分分式→模態 e^{p t}、|e^{pt}|=e^{σt}；步驟2 BIBO 充要條件（卷積不等式、sgn 輸入）＋逐模態積分；步驟3 臨界穩定反例（半週期面積、共振輸出推導）；步驟4 二階極點公式解與 ζ 分類；步驟5 零極點對消；結論表＋框",
+  "figures": ["EE-109-01-2-s-plane.svg"],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "全題 25 分單一論述，結論小節加 **邏輯**"
+ },
+ {
+  "qid": "EE-109-01-3",
+  "logic_added": true,
+  "steps_added": "步驟1 電源命名 I_41/V_12/I_23/V_34 與超節點（圖）；節點方程逐行解（分數鏈）；對偶方程 R'_k=G_k、I'_12/I'_34/V'_41/V'_23；對偶網路畫法條列並以 SVG 取代 ASCII 圖",
+  "figures": ["EE-109-01-3-supernodes.svg", "EE-109-01-3-dual.svg"],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "驗算改以圖 2 節點 T、B 標示，網目電流逐一除以 R' 補單位"
+ },
+ {
+  "qid": "EE-110-01-2",
+  "logic_added": true,
+  "steps_added": "步驟1 切四級＋由定義推串聯 Z／並聯 Y 的 ABCD；步驟2 前兩級、後兩級逐元素相乘；T 逐元素 A–D、框 compact 形式；有理式展開附通分中間式與單位",
+  "figures": ["EE-110-01-2-cascade.svg"],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "Y_2 定義移出框外；展開式另以 sympy 核對與 compact 形式相等"
+ },
+ {
+  "qid": "EE-111-01-4",
+  "logic_added": true,
+  "steps_added": "步驟1 節點 a、b 與通用 KCL（圖）；步驟2 V_2=0 取 I_1=1 A 逐行；步驟3 I_1=0 取 V_2=1 V 逐行（受控源開路）；h 參數定義式除法",
+  "figures": ["EE-111-01-4-nodes.svg"],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "h_21 負號一行說明實際電流方向；驗算補單位"
+ },
+ {
+  "qid": "EE-112-01-1",
+  "logic_added": true,
+  "steps_added": "步驟1 Δ→Y 三臂逐行（圖）；步驟2 串並聯化簡逐行；功率小節 R_in→I_s→P_s",
+  "figures": ["EE-112-01-1-wye.svg"],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "驗算節點方程補聯立式，修正 L–R 支路功率（3.704 mW），功率和 1.20 W"
+ }
+]

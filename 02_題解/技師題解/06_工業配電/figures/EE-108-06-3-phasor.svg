@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 410" width="600" height="410">
+<rect width="600" height="410" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M160.0 350.0 L487.0 350.0" stroke="#1f5fa8"/>
+<path d="M487.0 350.0 L479.0 346.0 L479.0 354.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<path d="M325.0 64.2 L161.5 347.4" stroke="#1f5fa8"/>
+<path d="M161.5 347.4 L169.0 342.5 L162.0 338.5 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<path d="M490.0 350.0 L326.5 66.8" stroke="#1f5fa8"/>
+<path d="M326.5 66.8 L327.0 75.7 L334.0 71.7 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<path d="M325.0 350.0 L325.0 76.2" stroke="#1f5fa8" stroke-dasharray="6 4"/>
+<path d="M325.0 78.2 L325.0 67.2" stroke="#1f5fa8"/>
+<path d="M325.0 67.2 L321.0 75.2 L329.0 75.2 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+<circle cx="490.0" cy="350" r="2.6" fill="#000" stroke="none"/>
+<circle cx="160" cy="350" r="2.6" fill="#000" stroke="none"/>
+<circle cx="325.0" cy="64.21161675113524" r="2.6" fill="#000" stroke="none"/>
+<circle cx="325.0" cy="350" r="2.6" fill="#000" stroke="none"/>
+<path d="M325.0 338.0 L337.0 338.0 L337.0 350.0" stroke-width="1"/>
+</g>
+<text x="500.0" y="356" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan></text>
+<text x="150" y="356" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Y</tspan></text>
+<text x="325.0" y="52.21161675113524" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan></text>
+<text x="325.0" y="374" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">N</tspan></text>
+<text x="242.5" y="376" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Ṽ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">YN</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 110∠180° V</tspan></text>
+<text x="407.5" y="376" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Ṽ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">XN</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 110∠0° V</tspan></text>
+<text x="325.0" y="400" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Ṽ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">XY</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 220∠0° V（</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Y</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">→</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">X</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">）</tspan></text>
+<text x="228.5" y="207.10580837556762" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Ṽ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">YZ</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 220∠−120° V</tspan></text>
+<text x="429.5" y="197.10580837556762" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Ṽ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ZX</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 220∠120° V</tspan></text>
+<text x="333.0" y="262" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Ṽ</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">ZN</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> =</tspan></text>
+<text x="333.0" y="284" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">190.53∠90° V</tspan></text>
+<text x="333.0" y="306" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">高腳相</tspan></text>
+</svg>

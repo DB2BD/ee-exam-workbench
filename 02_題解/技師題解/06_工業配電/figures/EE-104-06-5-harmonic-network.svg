@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" width="720" height="400">
+<rect width="720" height="400" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M60 80 L690 80" stroke-width="5"/>
+<path d="M60.0 330.0 L690.0 330.0"/>
+<path d="M343.0 330.0 L367.0 330.0"/>
+<path d="M347.0 334.0 L363.0 334.0"/>
+<path d="M351.0 338.0 L359.0 338.0"/>
+<path d="M110.0 80.0 L110.0 186.0"/>
+<circle cx="110" cy="205" r="19"/>
+<path d="M110.0 224.0 L110.0 330.0"/>
+<path d="M110.0 216.0 L110.0 192.0" stroke="#000"/>
+<path d="M110.0 192.0 L106.0 200.0 L114.0 200.0 Z" fill="#000" stroke="#000"/>
+<path d="M140.0 160.0 L140.0 110.0" stroke="#c0392b"/>
+<path d="M140.0 110.0 L136.0 118.0 L144.0 118.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M280.0 80.0 L280.0 150.0"/>
+<path transform="translate(280.0 150.0) rotate(90.00)" d="M0 0 L12.5 0 A6.5 6.5 0 0 1 25.5 0 A6.5 6.5 0 0 1 38.5 0 A6.5 6.5 0 0 1 51.5 0 A6.5 6.5 0 0 1 64.5 0 A6.5 6.5 0 0 1 77.5 0 L90.0 0"/>
+<path d="M280.0 240.0 L280.0 330.0"/>
+<path d="M440.0 80.0 L440.0 120.0"/>
+<path transform="translate(440.0 120.0) rotate(90.00)" d="M0 0 L9.0 0 A6.5 6.5 0 0 1 22.0 0 A6.5 6.5 0 0 1 35.0 0 A6.5 6.5 0 0 1 48.0 0 A6.5 6.5 0 0 1 61.0 0 L70.0 0"/>
+<path d="M440.0 190.0 L440.0 230.0"/>
+<g transform="translate(440.0 230.0) rotate(90.00)"><path d="M0.0 0.0 L15.0 0.0"/>
+<path d="M15.0 -14.0 L15.0 14.0"/>
+<path d="M25.0 -14.0 L25.0 14.0"/>
+<path d="M25.0 0.0 L40.0 0.0"/>
+</g>
+<path d="M440.0 270.0 L440.0 330.0"/>
+<path d="M590.0 80.0 L590.0 120.0"/>
+<path transform="translate(590.0 120.0) rotate(90.00)" d="M0 0 L9.0 0 A6.5 6.5 0 0 1 22.0 0 A6.5 6.5 0 0 1 35.0 0 A6.5 6.5 0 0 1 48.0 0 A6.5 6.5 0 0 1 61.0 0 L70.0 0"/>
+<path d="M590.0 190.0 L590.0 230.0"/>
+<g transform="translate(590.0 230.0) rotate(90.00)"><path d="M0.0 0.0 L15.0 0.0"/>
+<path d="M15.0 -14.0 L15.0 14.0"/>
+<path d="M25.0 -14.0 L25.0 14.0"/>
+<path d="M25.0 0.0 L40.0 0.0"/>
+</g>
+<path d="M590.0 270.0 L590.0 330.0"/>
+<path d="M258.0 96.0 L258.0 128.0" stroke="#c0392b"/>
+<path d="M258.0 128.0 L262.0 120.0 L254.0 120.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M418.0 96.0 L418.0 128.0" stroke="#c0392b"/>
+<path d="M418.0 128.0 L422.0 120.0 L414.0 120.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M568.0 96.0 L568.0 128.0" stroke="#c0392b"/>
+<path d="M568.0 128.0 L572.0 120.0 L564.0 120.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<circle cx="110" cy="80" r="2.6" fill="#000" stroke="none"/>
+<circle cx="110" cy="330" r="2.6" fill="#000" stroke="none"/>
+<circle cx="280" cy="80" r="2.6" fill="#000" stroke="none"/>
+<circle cx="280" cy="330" r="2.6" fill="#000" stroke="none"/>
+<circle cx="440" cy="80" r="2.6" fill="#000" stroke="none"/>
+<circle cx="440" cy="330" r="2.6" fill="#000" stroke="none"/>
+<circle cx="590" cy="80" r="2.6" fill="#000" stroke="none"/>
+<circle cx="590" cy="330" r="2.6" fill="#000" stroke="none"/>
+<path d="M684 330 L684 94" stroke="#1f5fa8" stroke-width="1" stroke-dasharray="5 4"/>
+<path d="M684.0 98.0 L684.0 84.0" stroke="#1f5fa8"/>
+<path d="M684.0 84.0 L680.0 92.0 L688.0 92.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
+</g>
+<text x="694" y="102" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="694" y="324" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+<text x="676" y="195.0" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">5</tspan></text>
+<text x="60" y="62" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">380 V</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 匯流排</tspan></text>
+<text x="355" y="372" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">諧波參考點（電源電動勢對諧波短路）</tspan></text>
+<text x="150" y="140" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">5</tspan></text>
+<text x="150" y="160" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">= 0.05 pu</tspan></text>
+<text x="84" y="262" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">整流器</tspan></text>
+<text x="252" y="120" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">up</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">,5</tspan></text>
+<text x="412" y="120" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">A</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">,5</tspan></text>
+<text x="562" y="120" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">B</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">,5</tspan></text>
+<text x="296" y="190" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">up</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">,5</tspan></text>
+<text x="296" y="212" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">= </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.345 pu</tspan></text>
+<text x="296" y="270" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電源＋變壓器</tspan></text>
+<text x="456" y="160" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">6%</tspan></text>
+<text x="462" y="256" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">400 kvar</tspan></text>
+<text x="456" y="296" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">A</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">,5</tspan></text>
+<text x="456" y="316" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">= </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">0.5 pu</tspan></text>
+<text x="606" y="160" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">6%</tspan></text>
+<text x="612" y="256" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">200 kvar</tspan></text>
+<text x="606" y="296" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">Z</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">B</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">,5</tspan></text>
+<text x="606" y="316" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">= </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">j</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">1 pu</tspan></text>
+</svg>

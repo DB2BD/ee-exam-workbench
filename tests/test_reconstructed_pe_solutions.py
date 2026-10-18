@@ -127,7 +127,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", note)
         self.assertIn("verified_at: 2026-09-02", note)
         self.assertNotIn("review_disposition:", note)
-        for expected in ("3.0261", "4.03\\times10^{-1}", "1.748"):
+        for expected in ("3.0261", "0.4034", "1.748"):
             self.assertIn(expected, note)
 
         section = re.split(r"^## 三、", re.split(r"^## 二、", annual, maxsplit=1, flags=re.M)[1], maxsplit=1, flags=re.M)[0]
@@ -173,7 +173,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIsNone(entry["verified_at"])
         self.assertIn("review_blocker: 官方逐題裁切圖未提供系統頻率", note)
         self.assertIn("P_{\\max}=2.5", section)
-        self.assertIn(r"\boxed{\delta_{cr}=89.38^\circ", section)
+        self.assertIn(r"\boxed{\delta_{cr}=89.37^\circ", section)
         self.assertIn("0.27\\sqrt{60/f}", section)
         self.assertNotIn("P_{e1}(\\delta) = 2.0", section)
         self.assertNotIn("P_{e3}(\\delta) = 1.5", section)
@@ -475,7 +475,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         mixed_source = (CANONICAL / "01_電路學" / "canonical" / "EE-108-01-1.md").read_text(encoding="utf-8")
         annual_mixed_source = (CANONICAL / "01_電路學" / "108年_電路學_全卷完整詳細題解.md").read_text(encoding="utf-8")
         self.assertIn(r"i(t)=-4+2\sqrt2\cos(5t-45^\circ)\ \mathrm A", mixed_source)
-        self.assertIn(r"P_{1\Omega}=P_\mathrm{dc}+P_\mathrm{ac}=20\ \mathrm W", mixed_source)
+        self.assertIn(r"\boxed{P_{1\Omega}=20\ \mathrm W}", mixed_source)
         self.assertIn(r"i(t)=-4+2\sqrt2\cos(5t-45^\circ)\ \mathrm A", annual_mixed_source)
         self.assertNotIn("8.485\\cos", annual_mixed_source)
         self.assertNotIn("36\\ \mathrm W", annual_mixed_source)
@@ -1331,7 +1331,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         reluctance = (CANONICAL / "04_電機機械" / "canonical" / "EE-109-04-5.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", reluctance)
         self.assertIn("1.36 \\times 10^{-3}", reluctance)
-        self.assertIn("2.71\\times10^{-1}\\text{ N}\\cdot\\text{m}", reluctance)
+        self.assertIn("T=0.27\\text{ N}\\cdot\\text{m}", reluctance)
 
         buck_auto = (CANONICAL / "04_電機機械" / "canonical" / "EE-108-04-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", buck_auto)
@@ -1411,7 +1411,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         self.assertIn("audit_status: verified", magnetic_110)
         # 2026-10-03: the coils are cumulatively coupled (F=(100+85)(0.55));
         # the differential-coupling values survive only as the 失分點 trap.
-        self.assertIn("\\boxed{B=\\frac{\\Phi}{A_c}=0.94\\ \\mathrm T}", magnetic_110)
+        self.assertIn("\\boxed{B=0.94\\ \\mathrm T}", magnetic_110)
         self.assertIn("=71.56\\ \\mathrm{mJ}}", magnetic_110)
         magnetic_main, magnetic_traps = magnetic_110.split("## 失分點", 1)
         for old_value in ("0.07603", "0.4704"):
@@ -1602,7 +1602,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         opamp_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-2.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", opamp_105)
         self.assertIn("-79.97", opamp_105)
-        self.assertIn("-4.05\\times10^{-2}\\%", opamp_105)
+        self.assertIn("-4.05\\times10^{-4}=-0.0405\\%", opamp_105)
 
         freq_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-1.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", freq_105)

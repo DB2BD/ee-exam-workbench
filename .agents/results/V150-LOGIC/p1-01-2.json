@@ -1,0 +1,114 @@
+[
+ {
+  "qid": "EE-107-01-5",
+  "logic_added": true,
+  "steps_added": "解題邏輯（Δ→Y、中性點同電位、內電壓取每相有效值為參考）；步驟1 Z_Y=Z_Δ/3 逐行；（一）單相等效畫法＋圖；（二）Z_tot、極式大小/角度分列、I_a 大小/角度分列、I_b/I_c 移 ∓120° 各兩行",
+  "figures": [
+   "EE-107-01-5-per-phase.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "保留斷言字串 '39.50 + j28.60'、'2.40\\angle -36.87'；驗算的 Z_s 改記 Z_g+Z_ℓ 統一符號。"
+ },
+ {
+  "qid": "EE-108-01-1",
+  "logic_added": true,
+  "steps_added": "解題邏輯（不同頻率須疊加、交叉項平均為零、L 短路 C 開路、cos 峰值相量）；步驟1 直流等效（含圖）KCL 逐行與負號方向說明；步驟2 Z_L、Z_C、並聯 Z_p、總阻抗極式、I_ac 大小/角度分列（含圖）；i(t) 與功率兩節各有邏輯，功率展開平方說明交叉項",
+  "figures": [
+   "EE-108-01-1-dc.svg",
+   "EE-108-01-1-ac.svg"
+  ],
+  "test_string_updates": [
+   "tests/test_reconstructed_pe_solutions.py: P_{1\\Omega}=P_dc+P_ac=20 W → \\boxed{P_{1\\Omega}=20\\ \\mathrm W}"
+  ],
+  "suspected_answer_issue": "",
+  "notes": "保留 i(t)=-4+2\\sqrt2\\cos(5t-45^\\circ)\\ \\mathrm A 與 P_{1\\Omega}=P_\\mathrm{dc}+P_\\mathrm{ac}=20\\ \\mathrm W；未寫入 '36\\ \\mathrm W'（年度頁斷言不得出現）。驗算腳本約 60 s，已通過。；review fix 2: i(t) 框內改 2.83（框外留精確式與 2√2=2.828）；功率框只放 20 W；驗算 \\mathbf I_\\mathrm{ac} 統一；兩 Z_L 說明；圖中 6 A 改 class n"
+ },
+ {
+  "qid": "EE-108-01-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（並聯功率相加、Y 跨 V_L/√3、Δ 跨 V_L、有理化不靠提示角度）；步驟1 V_L、V_φY²、V_φΔ；步驟2/3 S_Y、S_Δ 有理化逐行；總和、Re/Im 分列；功率相加圖",
+  "figures": [
+   "EE-108-01-3-power-sum.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "框內維持 14.52 kW、-4.84 kvar。"
+ },
+ {
+  "qid": "EE-109-01-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（狀態變數、兩脈衝分別造成 v_C、i_L 跳變、零初值）；步驟1 參考方向（含圖）、v_A、KCL、支路方程；步驟2 0⁻→0⁺ 積分求 v_C(0⁺)=6、i_L(0⁺)=4；步驟3 t>0 狀態方程與穩態；步驟4 偏差方程化二階、特徵根、A/B 係數（含單位）；v_2(t) 有邏輯",
+  "figures": [
+   "EE-109-01-4-states.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "i_L(t) 移至驗算由 y=ẋ+x 推得。"
+ },
+ {
+  "qid": "EE-110-01-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（電抗隨頻率換算、極值不在 f0、正規化 u=f/f0）；步驟1 X_L(f)、X_C(f)；f0/Q0/端電壓一節逐行；f* 一節以 g(x)=x+16(x−1)² 微分求極小、二階導數判定、V_L 以 w=1/u² 同形、g_min=63/64、3200/√63；響應圖",
+  "figures": [
+   "EE-110-01-3-peaks.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "原「平方後微分」跳步已補完整推導；驗算 |Z| 改 10.0803 使 403.16 照字面成立；f0 框內改為只框結果 8 kHz（值不變）。；review fix 2（選做）: 圖中 f* 星號改上標；失分點措辭"
+ },
+ {
+  "qid": "EE-110-01-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（中性線固定相電壓、各相獨立、相角不影響 P）；步驟1 V_φ、V_φ²=43264/3（含四線制圖）；步驟2 P=V_φ²cosθ_Z/|Z| 推導；三相各一行（7 位使照字面成立）＋相加；驗算改為分數 |I|²R 與 V_an−V_bn=V_ab 核對",
+  "figures": [
+   "EE-110-01-4-four-wire.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "框內 6137.22 W 不變。"
+ },
+ {
+  "qid": "EE-111-01-1",
+  "logic_added": true,
+  "steps_added": "解題邏輯（理想運放、20k 回授須聯立、sin 峰值相量）；步驟1 增益 3；步驟2 Z_C1、Z_C2 逐行（含相量電路圖）；步驟3 節點 b 乘 10；步驟4 節點 a 乘 20 展開；v_o 一節代入、(3+j6)(1+j2)、除以 j2、合併、有理化、極式大小/角度分列",
+  "figures": [
+   "EE-111-01-1-phasor.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "框內 3.95 sin(400t−9.46°) 不變。"
+ },
+ {
+  "qid": "EE-113-01-2",
+  "logic_added": true,
+  "steps_added": "解題邏輯（兩節點導納法、並聯先合成、右源流出改注入、cos 峰值）；步驟1 各導納、Z12/Y12、注入 +j0.5（含導納圖）；步驟2 兩節點方程展開；相量一節 Δ 與兩分子乘積各一行、極式大小/角度與象限分列；時域一節",
+  "figures": [
+   "EE-113-01-2-admittance.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix 2: 極式框內補 ≈2.24、≈4.47；Δ 多一行 0.02+0.02；圖中右源標籤移到電源旁"
+ },
+ {
+  "qid": "EE-104-01-1",
+  "logic_added": true,
+  "steps_added": "步驟2 補 I_20=(9−35)/20=−1.30 A 及實際方向與參考箭頭相反說明、a 節點核對；選做：圖中 9 V／1.8 A／5 Ω、25 Ω 改 class n",
+  "figures": [
+   "EE-104-01-1-open.svg",
+   "EE-104-01-1-rth.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ },
+ {
+  "qid": "EE-107-01-3",
+  "logic_added": true,
+  "steps_added": "Z_nbd+Z_ncd 補 Ω、I_0 Z_an 補 V；選做：Z_nbd、Z_ncd 補代入式，I_1 邏輯改為端點電壓與端點電流相同、內部支路電流不同",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "review fix"
+ }
+]

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 370" width="700" height="370">
+<rect width="700" height="370" fill="#fff"/>
+<g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M70.0 90.0 L70.0 179.0"/>
+<path d="M70.0 211.0 L70.0 300.0"/>
+<circle cx="70.0" cy="195.0" r="16"/>
+<path d="M66.0 188.0 L74.0 188.0"/>
+<path d="M70.0 184.0 L70.0 192.0"/>
+<path d="M66.0 202.0 L74.0 202.0"/>
+<path d="M70.0 90.0 L196.5 90.0"/>
+<circle cx="200" cy="90" r="3.5" fill="#fff"/>
+<path d="M70.0 300.0 L200.0 300.0"/>
+<circle cx="200" cy="200" r="3.5" fill="#fff"/>
+<path transform="translate(200.0 203.5) rotate(90.00)" d="M0.0 0.0 L16.0 0.0 L21.4 -6.0 L32.1 6.0 L42.9 -6.0 L53.6 6.0 L64.4 -6.0 L75.1 6.0 L80.5 0.0 L96.5 0.0"/>
+<circle cx="200" cy="300" r="2.6" fill="#000" stroke="none"/>
+<path d="M420.0 90.0 L420.0 128.0"/>
+<path d="M420.0 162.0 L420.0 200.0"/>
+<path d="M403.0 145.0 L420.0 128.0 L437.0 145.0 L420.0 162.0 Z"/>
+<path d="M420.0 136.0 L420.0 154.0" stroke="#000"/>
+<path d="M420.0 154.0 L424.0 146.0 L416.0 146.0 Z" fill="#000" stroke="#000"/>
+<path transform="translate(520.0 90.0) rotate(90.00)" d="M0.0 0.0 L20.0 0.0 L25.8 -6.0 L37.5 6.0 L49.2 -6.0 L60.8 6.0 L72.5 -6.0 L84.2 6.0 L90.0 0.0 L110.0 0.0"/>
+<path d="M420.0 90.0 L630.0 90.0"/>
+<path d="M420.0 200.0 L520.0 200.0"/>
+<circle cx="470" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="520" cy="90" r="2.6" fill="#000" stroke="none"/>
+<circle cx="470" cy="200" r="2.6" fill="#000" stroke="none"/>
+<path transform="translate(470.0 200.0) rotate(90.00)" d="M0.0 0.0 L16.0 0.0 L21.7 -6.0 L33.0 6.0 L44.3 -6.0 L55.7 6.0 L67.0 -6.0 L78.3 6.0 L84.0 0.0 L100.0 0.0"/>
+<path transform="translate(630.0 90.0) rotate(90.00)" d="M0.0 0.0 L50.0 0.0 L56.9 -6.0 L70.6 6.0 L84.4 -6.0 L98.1 6.0 L111.9 -6.0 L125.6 6.0 L139.4 -6.0 L153.1 6.0 L160.0 0.0 L210.0 0.0"/>
+<path d="M470.0 300.0 L630.0 300.0"/>
+<path d="M560.0 300.0 L560.0 308.0"/>
+<path d="M548.0 308.0 L572.0 308.0"/>
+<path d="M552.0 312.0 L568.0 312.0"/>
+<path d="M556.0 316.0 L564.0 316.0"/>
+<path d="M135.0 300.0 L135.0 308.0"/>
+<path d="M123.0 308.0 L147.0 308.0"/>
+<path d="M127.0 312.0 L143.0 312.0"/>
+<path d="M131.0 316.0 L139.0 316.0"/>
+<path d="M600.0 76.0 L560.0 76.0" stroke="#c0392b"/>
+<path d="M560.0 76.0 L568.0 80.0 L568.0 72.0 Z" fill="#c0392b" stroke="#c0392b"/>
+<path d="M612.0 230.0 L612.0 180.0" stroke="#c0392b"/>
+<path d="M612.0 180.0 L608.0 188.0 L616.0 188.0 Z" fill="#c0392b" stroke="#c0392b"/>
+</g>
+<text x="14" y="26" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">(a) 輸入迴路：閘極不取電流</tspan></text>
+<text x="370" y="26" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">(b) 輸出迴路：取樣電流 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">i</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan></text>
+<text x="48" y="200.0" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">i</tspan></text>
+<text x="210" y="95" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">閘極 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">G</tspan></text>
+<text x="210" y="205" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">源極 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan></text>
+<text x="188" y="112" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="188" y="194" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+<text x="186" y="150.0" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">gs</tspan></text>
+<text x="214" y="258" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">S</tspan></text>
+<text x="214" y="280" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（電流 0）</tspan></text>
+<text x="396" y="150.0" text-anchor="end" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">g</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">m</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">gs</tspan></text>
+<text x="532" y="150.0" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">r</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan></text>
+<text x="470" y="68" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">D</tspan></text>
+<text x="486" y="220" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">S</tspan></text>
+<text x="486" y="262" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">S</tspan></text>
+<text x="580" y="68" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">i</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan></text>
+<text x="606" y="210" text-anchor="end" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">i</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan></text>
+<text x="642" y="200" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan></text>
+<text x="670" y="104" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="670" y="296" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+<text x="680" y="200.0" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan></text>
+<text x="430" y="214" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="430" y="296" text-anchor="middle" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+<text x="420" y="255.0" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan></text>
+<text x="14" y="350" text-anchor="start" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">gs</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">i</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">；</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">f</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">S</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">i</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">（回授網路 </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">β</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = </tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">S</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">）；</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">v</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = −</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">i</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">o</tspan><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">R</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">L</tspan></text>
+</svg>

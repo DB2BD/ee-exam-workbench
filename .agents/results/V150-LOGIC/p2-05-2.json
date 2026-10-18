@@ -68,5 +68,27 @@
   "test_string_updates": [],
   "suspected_answer_issue": "",
   "notes": "8.00×10^-3 類寫法改為精確 0.008／0.004／0.012；20 分無小題。"
+ },
+ {
+  "qid": "EE-109-05-2",
+  "logic_added": true,
+  "steps_added": "審查修正：ω=2π·60=376.99 行、X=78.047 Ω、Y=j8.2893×10^-4、P=56536.875/78.047=724.40 MW；P_φ 推導補 V_R I_ser^* 展開與取實部兩行；前提補 cmil／45/7 未用原因；「6 位」改「5–6 位有效」",
+  "figures": [
+   "EE-109-05-2-pi-model.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "user-approved answer correction (2026-10-18): boxed P 724.38 → 724.40 MW（ω=2π·60 依題幹）；條件與疑義改為一行註明 377 rad/s 得 724.38；驗算腳本收緊為 |P−724.40|<0.005、|X−78.047|<0.0005；圖 1 jX 改 78.047 Ω、Y/2 值移到圖說；tests/ 無 724.38 斷言。送電端電壓箭頭（選修）未加：版面無兩節點間空位。"
+ },
+ {
+  "qid": "EE-110-05-3",
+  "logic_added": true,
+  "steps_added": "審查必修：−j3、−j11.986、+j11.986、−j6.9953、0.69953、−0.60094、0.20031 補 pu；圖 1 圖說加「數值皆為 pu」",
+  "figures": [
+   "EE-110-05-3-sequence.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "選修 status: verified 未補（留待全科統一）。"
  }
 ]

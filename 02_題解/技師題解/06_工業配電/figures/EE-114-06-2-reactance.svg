@@ -27,6 +27,7 @@
 <circle cx="380" cy="240" r="2.6" fill="#000" stroke="none"/>
 <path d="M100 104 L100 110 L330 110 L330 104" stroke-width="1"/>
 <path d="M420 104 L420 110 L570 110 L570 104" stroke-width="1"/>
+<path d="M380 114 L380 240" stroke-width="1" stroke-dasharray="4 3" stroke="#1f5fa8"/>
 <path d="M60.0 104.0 L92.0 104.0" stroke="#c0392b"/>
 <path d="M92.0 104.0 L84.0 100.0 L84.0 108.0 Z" fill="#c0392b" stroke="#c0392b"/>
 </g>
@@ -48,7 +49,7 @@
 <text x="590" y="170" text-anchor="end" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">電極</tspan></text>
 <text x="610" y="150" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">短路：閉合</tspan></text>
 <text x="610" y="172" text-anchor="start" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">斷弧：開路</tspan></text>
-<text x="390" y="140" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="390" y="134" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
 <text x="390" y="232" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
 <text x="390" y="190" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">2</tspan></text>
 <text x="76" y="126" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">sc</tspan></text>

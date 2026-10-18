@@ -25,7 +25,7 @@
 <path d="M290.0 46.0 L282.0 42.0 L282.0 50.0 Z" fill="#c0392b" stroke="#c0392b"/>
 </g>
 </g>
-<text x="104" y="196" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">120 V</tspan></text>
+<text x="104" y="196" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">s</tspan><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif"> = 120 V</tspan></text>
 <text x="190" y="44" text-anchor="middle" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">5 kΩ</tspan></text>
 <text x="270" y="36" text-anchor="middle" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="v sub" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic" font-size="12" baseline-shift="sub">s</tspan></text>
 <text x="330" y="48" text-anchor="middle" font-size="16" fill="#000"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">T</tspan></text>

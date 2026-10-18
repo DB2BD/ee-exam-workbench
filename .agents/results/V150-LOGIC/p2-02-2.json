@@ -1,0 +1,67 @@
+[
+ {
+  "qid": "EE-108-02-1",
+  "logic_added": true,
+  "steps_added": "解題邏輯（單極點前提）；步驟1 dB→倍數；f_b、f_t、波德圖各附邏輯；√9999=99.995→f_b=100.005→100.01 Hz；ASCII 圖改為 SVG",
+  "figures": [
+   "EE-108-02-1-bode.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "驗算改為照字面可核對（1+99.995²=10000）"
+ },
+ {
+  "qid": "EE-108-02-3",
+  "logic_added": true,
+  "steps_added": "解題邏輯（飽和區、忽略基體效應、理想源/負載）；回授型態三點判斷；步驟1 A 電路（z11/z22 負載）；A 分流、β=z12；Aβ、1+Aβ、A_f、v_o=-i_oR_L 逐行；R_of 以 R_L=0 的 A_0、R_o",
+  "figures": [
+   "EE-108-02-3-a-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "驗算數值改 5 位有效使 KCL 照字面成立"
+ },
+ {
+  "qid": "EE-108-02-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯；步驟1 GIC 鏈逐節點（I_Z、V_Y、I_Q、V_P、I_in）→Z_in=sR²C/2；T(s) 改由節點 X 的 KCL 逐行；類型/階數與 ω0、Q、H 比對",
+  "figures": [
+   "EE-108-02-4-gic-chain.svg",
+   "EE-108-02-4-equivalent.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "保留 5sRC／二階帶通斷言字串"
+ },
+ {
+  "qid": "EE-110-02-2",
+  "logic_added": true,
+  "steps_added": "解題邏輯（實數增益、雜訊純共模前提）；步驟1 線性模型；（一）–（五）各附邏輯，v_d、v_cm 逐行；A_v(c) 由 7.50×10⁻² 改為 0.075（=3/40）",
+  "figures": [],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "純代數題不需圖；驗算單端疊加補 ±18.75 µV 共模項"
+ },
+ {
+  "qid": "EE-110-02-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（180° 方波、反並聯二極體、穩態）；步驟1 傅立葉基本波、|Z1| 大小與角度；V_dc 鏈保留 7 位；THD 改以時域穩態 i_o 精確解為主：I_max=a·tanh1、I_rms²=a²(1−tanh1) 逐項化簡、(a/I_1)²=(π²/8)(1+π²/4)→THD 14.08%；頻域諧波和移至驗算",
+  "figures": [
+   "EE-110-02-4-waveforms.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "THD 對中間值極敏感（I_rms²−I_1²相消），故以 X1/R=π/2 的比值式避免 V_dc 四捨五入；答案 148.92 V、14.08% 不變"
+ },
+ {
+  "qid": "EE-111-02-4",
+  "logic_added": true,
+  "steps_added": "解題邏輯（r_o=∞、偏壓源交流開路）；步驟1 型態；（一）節點 x KCL；步驟2 A 電路 g11=0、g22=R_F、R_b2；（二）C1 分流與 i_b2 符號；（三）Aβ_f=|A|；（四）；（五）射極看入電阻推導、分母=(1+β_T)R_oA 恆等式",
+  "figures": [
+   "EE-111-02-4-a-circuit.svg"
+  ],
+  "test_string_updates": [],
+  "suspected_answer_issue": "",
+  "notes": "needs_manual_review 與條件與疑義未動；所有斷言字串保留於正確區段"
+ }
+]

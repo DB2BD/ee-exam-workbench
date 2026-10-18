@@ -2,9 +2,9 @@ import sys, pathlib, math; sys.path.insert(0, str(pathlib.Path(__file__).parent)
 from math_parts import *
 
 # EE-114-03-4: f(x) = 0 on (-pi, 0], x on (0, pi], period 2pi.
-# Basic period (-pi, pi] in blue; filled dots = f(+-pi) = pi (defined values), open circles = right limits 0,
+# Basic period (-pi, pi] in blue (stated in the Markdown caption); filled dots = f((2m+1)pi) = pi at -3pi, -pi, pi, 3pi (defined values), open circles = right limits 0,
 # blue dots = Dirichlet average pi/2 at the jumps x = (2m+1)pi.
-W, H = 680, 300
+W, H = 680, 265
 ox, oy, ux, uy = 340, 200, 95, 45     # ux pixels per pi, uy pixels per unit of f
 X = lambda k: ox + ux * k             # k = x / pi
 Y = lambda v: oy - uy * v
@@ -23,7 +23,7 @@ s += end_group()
 # basic period (-pi, pi] in blue
 s += f'<path d="M{X(-1):.1f} {Y(0):.1f} L{X(0):.1f} {Y(0):.1f} L{X(1):.1f} {Y(PI):.1f}" stroke="{BLUE}" stroke-width="2.5" fill="none"/>\n'
 # jump markers
-for k in (-1, 1, 3):
+for k in (-3, -1, 1, 3):
     s += f'<circle cx="{X(k):.1f}" cy="{Y(PI):.1f}" r="4" fill="#000" stroke="none"/>\n'
 for k in (-3, -1, 1):
     s += f'<circle cx="{X(k):.1f}" cy="{Y(0):.1f}" r="4" fill="#fff" stroke="#000" stroke-width="1.5"/>\n'
@@ -47,8 +47,5 @@ s += text(X(1) + 10, Y(PI) + 5, [("v", "f"), ("n", "("), ("v", "π"), ("n", ") =
 s += ctext(X(1) + 10, Y(PI / 2) + 5, [("t", "平均 "), ("v", "π"), ("n", "/2")])
 s += mtext(X(1) + 8, oy + 48, [("v", "f"), ("n", "("), ("v", "π"), ("sup", "+"), ("n", ") = "), ("v", "f"), ("n", "(−"), ("v", "π"),
                                ("sup", "+"), ("n", ") = 0")])
-s += text(ox, 286, [("t", "基本週期 "), ("n", "(−"), ("v", "π"), ("n", ", "), ("v", "π"), ("n", "]"),
-                    ("t", "（藍）作 "), ("n", "2"), ("v", "π"), ("t", " 週期延拓；"), ("v", "x"), ("n", " = ±"), ("v", "π"),
-                    ("t", " 為跳躍點")], anchor="middle")
 s += footer()
 write('EE-114-03-4-extension.svg', s)

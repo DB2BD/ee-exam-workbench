@@ -48,13 +48,13 @@
 <circle cx="440" cy="330" r="2.6" fill="#000" stroke="none"/>
 <circle cx="590" cy="80" r="2.6" fill="#000" stroke="none"/>
 <circle cx="590" cy="330" r="2.6" fill="#000" stroke="none"/>
-<path d="M690.0 80.0 L690.0 330.0"/>
-<circle cx="690" cy="80" r="2.6" fill="#000" stroke="none"/>
-<circle cx="690" cy="330" r="2.6" fill="#000" stroke="none"/>
+<path d="M684 330 L684 94" stroke="#1f5fa8" stroke-width="1" stroke-dasharray="5 4"/>
+<path d="M684.0 98.0 L684.0 84.0" stroke="#1f5fa8"/>
+<path d="M684.0 84.0 L680.0 92.0 L688.0 92.0 Z" fill="#1f5fa8" stroke="#1f5fa8"/>
 </g>
-<text x="700" y="90" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
-<text x="700" y="328" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
-<text x="700" y="211.0" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">5</tspan></text>
+<text x="694" y="102" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">+</tspan></text>
+<text x="694" y="324" text-anchor="start" font-size="16" fill="#1f5fa8"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">−</tspan></text>
+<text x="676" y="195.0" text-anchor="end" font-size="16" fill="#1f5fa8"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">V</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">5</tspan></text>
 <text x="60" y="62" text-anchor="start" font-size="16" fill="#000"><tspan class="n" font-family="KaTeX_Main, 'Times New Roman', serif">380 V</tspan><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif"> 匯流排</tspan></text>
 <text x="355" y="372" text-anchor="middle" font-size="16" fill="#000"><tspan class="t" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Helvetica Neue', sans-serif">諧波參考點（電源電動勢對諧波短路）</tspan></text>
 <text x="150" y="140" text-anchor="start" font-size="16" fill="#c0392b"><tspan class="v" font-family="KaTeX_Math, 'Times New Roman', serif" font-style="italic">I</tspan><tspan class="n sub" font-family="KaTeX_Main, 'Times New Roman', serif" font-size="12" baseline-shift="sub">5</tspan></text>

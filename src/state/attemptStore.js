@@ -260,6 +260,13 @@ function recover(dependencies) {
   };
 }
 
+/** Tells cloud sync that progress changed; only for the real localStorage (injected test storages are not synced). */
+function attemptMarkCloudDirty(storage) {
+  try {
+    if (typeof cloudSyncMarkDirty === 'function' && typeof localStorage !== 'undefined' && storage === localStorage) cloudSyncMarkDirty();
+  } catch (_) { /* sync never breaks a learning commit */ }
+}
+
 function submitLearningAttempt(input, dependencies) {
   const payload = input || {};
   const storage = dependencies && dependencies.storage ? dependencies.storage : (typeof localStorage !== 'undefined' ? localStorage : null);
@@ -419,6 +426,7 @@ function submitLearningAttempt(input, dependencies) {
   try { storage.removeItem(ATTEMPT_RECOVERY_KEY); }
   catch (_) { /* committed marker remains; the next submission may safely clear it */ }
   successfulLearningAttempts.set(payload.attemptId, { fingerprint, result });
+  attemptMarkCloudDirty(storage);
   return result;
 }
 
@@ -461,6 +469,7 @@ function scheduleDailyPracticeFollowUp(qid, dependencies) {
     return learningAttemptFailure(recovered ? 'storage_write_failed' : 'recovery_required', recovered ? '排程寫入失敗，已回復。' : '排程回復失敗，已暫停寫入。');
   }
   sm2Schedule = next;
+  attemptMarkCloudDirty(storage);
   try { storage.removeItem(ATTEMPT_RECOVERY_KEY); } catch (_) { /* committed marker is safe */ }
   return { ok: true, duplicate: false, code: 'ok', message: '已加入到期複習。', nextReviewDate: tomorrow, nextAction: { type: 'refresh-review' } };
 }

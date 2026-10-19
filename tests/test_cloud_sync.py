@@ -50,7 +50,7 @@ function makeServer() {
     if (!server.validTokens.some(t => auth === 'Bearer ' + t)) return respond(401, { message: 'Bad credentials' });
     const body = init.body ? JSON.parse(init.body) : null;
     const etagOf = g => 'W/"' + g.id + '-' + g.version + '"';
-    const listView = g => ({ id: g.id, description: g.description, public: g.public, created_at: g.created_at,
+    const listView = g => ({ id: g.id, description: g.description, public: g.public, created_at: g.created_at, updated_at: g.updated_at || new Date(Date.UTC(2026, 9, 20, 13, 0, g.version)).toISOString(),
       files: Object.fromEntries(Object.keys(g.files).map(n => [n, { filename: n, size: g.files[n].content.length }])) });
     if (u.pathname === '/gists' && method === 'GET') {
       const per = Number(u.searchParams.get('per_page')) || 30, page = Number(u.searchParams.get('page')) || 1;
@@ -129,11 +129,11 @@ const count = (method, device) => server.calls.filter(c => c.method === method &
 '''
 
 
-def run_scenario(body):
+def run_scenario(body, sources=None):
     """Runs `body` (an async JS function body returning JSON) with the harness; returns the parsed result."""
     script = HARNESS + "\n(async () => {\n" + body + "\n})().then(r => process.stdout.write('@@' + JSON.stringify(r)))" \
         ".catch(e => { console.error(e); process.exit(1); });"
-    done = subprocess.run(["node", "-e", script, json.dumps(SOURCES)], cwd=ROOT, capture_output=True, text=True)
+    done = subprocess.run(["node", "-e", script, json.dumps(sources or SOURCES)], cwd=ROOT, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout.split("@@", 1)[1])
 
@@ -775,3 +775,111 @@ return {
 
 if __name__ == "__main__":
     unittest.main()
+
+
+ATTEMPT_SOURCES = [p for p in SOURCES if p != "src/state/cloudSync.js"] + [
+    "src/state/store.js", "src/state/recallStore.js", "src/state/attemptStore.js", "src/state/cloudSync.js"]
+
+
+class TestReReviewFixes(unittest.TestCase):
+    def test_attempt_commit_marks_dirty_and_the_value_survives_a_stale_cloud(self):
+        out = run_scenario(r"""
+await d1.eval("cloudSyncConnect('" + FAKE_TOKEN + "')");
+const before = d1.cloud().dirtySeq;
+const res = d1.eval("submitLearningAttempt({attemptId:'a1',question:{id:'EE-114-01-2',examFamily:'PE'},sourceMode:'due-review',rating:5,revealStep:4,recallEntry:true,errorType:null})");
+const marked = d1.cloud().dirtySeq - before;
+const cloudHas = () => !!JSON.parse(server.gists[0].files['ee-exam-progress.json'].content).recallState['EE-114-01-2'];
+await d1.eval('cloudSyncNow()');
+const pushed = cloudHas();
+const mine = d1.eval("JSON.stringify(recallState['EE-114-01-2'])");
+// another device rewrites the gist with the old value (no entry)
+const old = JSON.parse(server.gists[0].files['ee-exam-progress.json'].content);
+delete old.recallState['EE-114-01-2'];
+server.gists[0].files['ee-exam-progress.json'].content = JSON.stringify(old); server.gists[0].version += 1;
+await d1.eval('cloudSyncNow()');
+return { ok: res.ok, marked, pushed, kept: d1.eval("JSON.stringify(recallState['EE-114-01-2'])") === mine, cloudKept: cloudHas() };
+""", ATTEMPT_SOURCES)
+        self.assertTrue(out["ok"])
+        self.assertGreaterEqual(out["marked"], 1)
+        self.assertTrue(out["pushed"])
+        self.assertTrue(out["kept"])
+        self.assertTrue(out["cloudKept"])
+
+    def test_base_is_kept_when_no_push_happened(self):
+        out = run_scenario(QIDS_JS + RECALL_JS + r"""
+const [q1] = Q;
+d1.eval('recallState = ' + JSON.stringify({ [q1]: R(1) }));
+await d1.eval("cloudSyncConnect('" + FAKE_TOKEN + "')");
+const patches = count('PATCH');
+// local edit without a dirty mark: the next sync gets 304 and must not adopt it as the base
+d1.eval('recallState = ' + JSON.stringify({ [q1]: R(3) }));
+await d1.eval('cloudSyncNow()');
+const base = JSON.parse(d1.data.EE_EXAM_CLOUD_SYNC_BASE_V1).recallState;
+return { base: base[q1] ? base[q1].level : null, noPatch: count('PATCH') === patches };
+""")
+        self.assertEqual(out["base"], 1)
+        self.assertTrue(out["noPatch"])
+
+    def test_merged_duplicate_gist_does_not_resurrect_deleted_data_after_restart(self):
+        out = run_scenario(r"""
+d1.setRecords(['a']);
+await d1.eval("cloudSyncConnect('" + FAKE_TOKEN + "')");
+const content = JSON.parse(server.gists[0].files['ee-exam-progress.json'].content);
+content.resultCard.records = [Object.assign({}, content.resultCard.records[0], { id: 'dup' })];
+server.gists.push({ id: 'gistDup', description: 'ee-exam-workbench-progress-v1', public: false, version: 1, created_at: '2027-01-01T00:00:00.000Z',
+  files: { 'ee-exam-progress.json': { content: JSON.stringify(content) } } });
+d2.setRecords(['b']);
+await d2.eval("cloudSyncConnect('" + FAKE_TOKEN + "')");
+const merged = d2.records();
+// the user deletes 'dup' locally and syncs
+d2.setRecords(['a', 'b']);
+await d2.eval('cloudSyncMarkDirty()');
+await d2.eval('cloudSyncNow()');
+// restart: a fresh runtime on the same storage
+const d3 = makeDevice(server, 'pc');
+Object.assign(d3.data, d2.data);
+await d3.eval('cloudSyncNow()');
+return { merged, after: d3.records(), remote: gistRecords() };
+""")
+        self.assertEqual(out["merged"], ["a", "b", "dup"])
+        self.assertEqual(out["after"], ["a", "b"])
+        self.assertEqual(out["remote"], ["a", "b"])
+
+    def test_self_created_gist_is_recorded_as_merged_after_post_race(self):
+        out = run_scenario(r"""
+d1.setRecords(['a']);
+server.afterPost = () => {
+  server.afterPost = null;
+  const other = JSON.parse(server.gists[0].files['ee-exam-progress.json'].content);
+  server.gists.unshift({ id: 'gistOld', description: 'ee-exam-workbench-progress-v1', public: false, version: 1, created_at: '2026-01-01T00:00:00.000Z',
+    files: { 'ee-exam-progress.json': { content: JSON.stringify(other) } } });
+};
+await d1.eval("cloudSyncConnect('" + FAKE_TOKEN + "')");
+return { merged: Object.keys(d1.cloud().mergedExtras || {}) };
+""")
+        self.assertIn("gist1", out["merged"])
+
+    def test_sm2_without_last_reviewed_compares_next_review_date(self):
+        out = run_scenario(r"""
+const f = d1.eval('cloudSyncPrepareRemote');
+const e = (last, next) => ({ repetitions: 0, interval: 1, easeFactor: 2.5, lastReviewed: last, nextReviewDate: next });
+const run = (mine, theirs) => Object.keys(f({ sm2Schedule: { q: theirs } }, { sm2Schedule: { q: mine } }, null).sm2Schedule);
+return { localLater: run(e(null, '2026-12-05'), e('2026-10-01', '2026-12-01')), remoteLater: run(e(null, '2026-11-01'), e('2026-10-01', '2026-12-01')),
+  tie: run(e(null, '2026-12-01'), e('2026-10-01', '2026-12-01')), remoteNull: run(e('2026-10-01', '2026-11-01'), e(null, '2026-12-01')) };
+""")
+        self.assertEqual(out, {"localLater": [], "remoteLater": ["q"], "tie": [], "remoteNull": ["q"]})
+
+    def test_force_push_set_during_a_round_is_not_cleared(self):
+        out = run_scenario(r"""
+d1.setRecords(['a']);
+await d1.eval("cloudSyncConnect('" + FAKE_TOKEN + "')");
+d1.eval('cloudSyncForcePush()');
+server.afterPatch = () => { server.afterPatch = null; d1.eval('cloudSyncForcePush()'); };
+await d1.eval('cloudSyncNow()');
+const flagAfterFirst = d1.cloud().forcePush;
+await d1.fireTimers();
+await d1.eval('cloudSyncNow()');
+return { flagAfterFirst, final: d1.cloud().forcePush };
+""")
+        self.assertTrue(out["flagAfterFirst"])
+        self.assertFalse(out["final"])

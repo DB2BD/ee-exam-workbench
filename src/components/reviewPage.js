@@ -47,7 +47,9 @@ function saveManualTopicLabels() {
     localStorage.setItem(MANUAL_TOPIC_LABELS_STORAGE_KEY, JSON.stringify(manualTopicLabels));
   } catch (e) {
     console.error('Failed to save manual topic labels', e);
+    return;
   }
+  if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
 }
 
 function getManualTopicLabel(qid) {

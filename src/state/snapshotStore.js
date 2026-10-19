@@ -23,9 +23,10 @@ const SNAPSHOT_LS_MAX = 2;
 const SNAPSHOT_LS_MAX_CHARS = 1200000;
 const SNAPSHOT_DAILY_KEEP_DAYS = 7;
 const SNAPSHOT_EVENT_KEEP = 3;
-const SNAPSHOT_REASONS = ['daily', 'before-import', 'before-restore'];
+const SNAPSHOT_SYNC_KEEP = 2;
+const SNAPSHOT_REASONS = ['daily', 'before-import', 'before-restore', 'before-sync'];
 const SNAPSHOT_EVENT_REASONS = ['before-import', 'before-restore'];
-const SNAPSHOT_KIND_LABELS = { 'daily': '每日', 'before-import': '匯入前', 'before-restore': '還原前' };
+const SNAPSHOT_KIND_LABELS = { 'daily': '每日', 'before-import': '匯入前', 'before-restore': '還原前', 'before-sync': '同步前' };
 const SNAPSHOT_DAILY_DELAY_MS = 300;
 
 // ---- Pure helpers ---------------------------------------------------------
@@ -97,7 +98,8 @@ function snapshotIsEmpty(counts) {
  * Which snapshot ids to keep.
  * 1. daily: one per local date (newest of the day), the latest 7 distinct dates.
  * 2. before-import / before-restore: newest 3 (together).
- * 3. Always the snapshot with the most records (counts.records + counts.completed; ties: newer).
+ * 3. before-sync (v1.6.0 cloud sync): newest 2, kept apart so frequent syncs never push out a before-import snapshot.
+ * 4. Always the snapshot with the most records (counts.records + counts.completed; ties: newer).
  * Everything else is dropped.
  */
 function snapshotRetain(list) {
@@ -112,6 +114,8 @@ function snapshotRetain(list) {
   Array.from(dailyByDay.keys()).sort().reverse().slice(0, SNAPSHOT_DAILY_KEEP_DAYS).forEach(day => keep.add(dailyByDay.get(day).id));
   items.filter(r => SNAPSHOT_EVENT_REASONS.indexOf(r.reason) >= 0)
     .sort(snapshotNewestFirst).slice(0, SNAPSHOT_EVENT_KEEP).forEach(r => keep.add(r.id));
+  items.filter(r => r.reason === 'before-sync')
+    .sort(snapshotNewestFirst).slice(0, SNAPSHOT_SYNC_KEEP).forEach(r => keep.add(r.id));
   const best = snapshotBest(items);
   if (best) keep.add(best.id);
   return items.filter(r => keep.has(r.id)).map(r => r.id);

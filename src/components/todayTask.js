@@ -176,6 +176,7 @@ function saveTodayTaskState(state, storage) {
     const s = todayTaskStorage(storage);
     if (!s) return false;
     s.setItem(TODAY_TASK_STORAGE_KEY, JSON.stringify(state));
+    if (!storage && typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
     return true;
   } catch (_) {
     return false;

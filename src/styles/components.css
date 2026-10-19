@@ -924,6 +924,22 @@ select:focus {
   cursor: default;
 }
 
+/* v1.6.0 cloud sync section */
+.cloud-sync-section { display: flex; flex-direction: column; gap: 8px; }
+.cloud-sync-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.cloud-sync-token {
+  flex: 1 1 200px;
+  min-width: 0;
+  min-height: 36px;
+  padding: 4px 10px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+}
+.cloud-sync-status { margin: 0; font-size: 0.84rem; color: var(--muted); min-height: 1.2em; }
+
 /* Facet Tag Filter Pills */
 .facet-filter-bar {
   display: flex;

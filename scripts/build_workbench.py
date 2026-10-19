@@ -76,6 +76,7 @@ def build_workbench():
         'src/state/filterStore.js',
         'src/state/sm2Store.js',
         'src/state/snapshotStore.js',
+        'src/state/cloudSync.js',
         'src/state/resultCardStore.js',
         'src/state/practiceStore.js',
         'src/data/recallHints.generated.js',
@@ -381,6 +382,10 @@ def build_workbench():
     <section class="snapshot-section" aria-label="自動快照">
       <h4 class="snapshot-title">自動快照</h4>
       <div id="snapshot-list" class="snapshot-list"></div>
+    </section>
+    <section class="cloud-sync-section" aria-label="雲端同步">
+      <h4 class="snapshot-title">雲端同步</h4>
+      <div id="cloud-sync-body" class="cloud-sync-body"></div>
     </section>
     <p style="font-size: 0.86rem; color: var(--muted);">
       備份儲存在此瀏覽器的本機資料，包含 PE／GK 全庫做題狀態、收藏、SM-2 排程、主動回想與人工章節標籤。按「選擇檔案匯入」載入先前下載的 .json（或在下方貼上代碼），確認預覽後再選擇合併或取代還原：

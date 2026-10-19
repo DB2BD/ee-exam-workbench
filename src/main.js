@@ -175,6 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof snapshotInitAuto === 'function') {
     try { snapshotInitAuto(); } catch (_) { /* snapshots never break startup */ }
   }
+
+  // 6. v1.6.0: cloud sync (only when a token was connected on this device): pull on open, debounced push after changes.
+  if (typeof cloudSyncInit === 'function') {
+    try { cloudSyncInit(); } catch (_) { /* sync never breaks startup */ }
+  }
 });
 
 // Another tab changed shared data: reload the in-memory copy so this tab never writes stale state back over it.
@@ -207,6 +212,7 @@ function syncStoresFromStorageEvent(event) {
 }
 
 window.addEventListener('storage', syncStoresFromStorageEvent);
+// (cloudSyncInit registers its own storage listener for the sync key.)
 
 window.addEventListener('hashchange', handleUrlHashRouting);
 

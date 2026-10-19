@@ -894,6 +894,34 @@ async function main() {
         }, fakeToken);
         assert.equal(leak.backup, false, 'Backup file must not contain the token');
         assert.equal(leak.snapshots, false, 'Snapshots must not contain the token');
+        // Three-way merge: device A marks a question and stars one (not synced yet), device B syncs an unrelated card,
+        // then A syncs again -> A's mark and star survive on both devices and in the cloud.
+        const edited = await phone.page.evaluate(() => {
+          const qid = DB_DATA.questions[2][0];
+          progressState[qid] = 1;
+          starredState[qid] = true;
+          saveProgress();
+          return qid;
+        });
+        assert.equal(await phone.page.evaluate(() => cloudSyncPending()), true, 'A progress mark and star are pending upload');
+        const idC = await saveCard(pc.page, 3);
+        await pc.page.locator('#cloud-sync-now').click();
+        await pc.page.waitForFunction(() => !cloudSyncPending() && !cloudSyncStatusNow().running);
+        await phone.page.locator('#cloud-sync-now').click();
+        await phone.page.waitForFunction(() => !cloudSyncPending() && !cloudSyncStatusNow().running);
+        const readProgress = page => page.evaluate(qid => ({
+          mark: (JSON.parse(localStorage.getItem('EE_EXAM_PROGRESS_V1') || '{}'))[qid],
+          star: (JSON.parse(localStorage.getItem('EE_EXAM_STARRED_V1') || '{}'))[qid],
+        }), edited);
+        assert.deepEqual(await readProgress(phone.page), { mark: 1, star: true }, 'Device A keeps its mark and star after B synced');
+        await phone.page.waitForFunction(() => JSON.parse(localStorage.getItem('EE_EXAM_RESULT_CARD_V1')).records.length === 3);
+        const remote3 = JSON.parse(gists[0].files['ee-exam-progress.json'].content);
+        assert.equal(remote3.progressByCategory.PE[edited], 1, 'The cloud holds the mark from device A');
+        assert.equal(remote3.starredByCategory.PE[edited], true, 'The cloud holds the star from device A');
+        assert(remote3.resultCard.records.some(r => r.id === idC), 'The cloud holds the card from device B');
+        await pc.page.locator('#cloud-sync-now').click();
+        await pc.page.waitForFunction(q => (JSON.parse(localStorage.getItem('EE_EXAM_PROGRESS_V1') || '{}'))[q] === 1
+          && (JSON.parse(localStorage.getItem('EE_EXAM_STARRED_V1') || '{}'))[q] === true, edited);
         // 中斷連線 removes the token from this device only.
         await phone.page.locator('#cloud-sync-disconnect').click();
         await phone.page.locator('#cloud-sync-connect').waitFor();

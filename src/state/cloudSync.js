@@ -9,8 +9,11 @@
  *   buildUserBackupSnapshot, so it is in no backup file, no snapshot and no uploaded gist
  *   (an extra guard refuses to upload content that contains the token).
  * - Sync = fetch remote -> before-sync snapshot -> applyUserDataBackup(remote, 'merge') ->
- *   buildUserBackupSnapshot -> PATCH (or POST when no gist exists yet). No separate conflict logic,
- *   except two per-device safeguards applied to the remote copy before merging (see cloudSyncPrepareRemote).
+ *   buildUserBackupSnapshot -> PATCH (or POST when no gist exists yet). applyUserDataBackup keeps its normal
+ *   "imported wins" semantics; cloudSyncPrepareRemote first removes from the remote copy everything this device changed
+ *   since the last sync (three-way merge against a local "last synced base", kept in its own key and never uploaded).
+ * - After a PATCH the gist is read once more; if another device wrote meanwhile, one more merge round runs.
+ * - A restore / replace import sets forcePush: the next sync overwrites the cloud with the local data.
  * - Pushes are debounced (30 s). Offline / failed syncs keep a pending flag and retry later.
  * - One tab syncs at a time (localStorage lock; other tabs follow through the storage event).
  * - Every storage / network access is wrapped; sync problems never break the app and never alert().
@@ -18,12 +21,15 @@
 
 const CLOUD_SYNC_KEY = 'EE_EXAM_CLOUD_SYNC_V1';
 const CLOUD_SYNC_LOCK_KEY = 'EE_EXAM_CLOUD_SYNC_LOCK_V1';
+const CLOUD_SYNC_BASE_KEY = 'EE_EXAM_CLOUD_SYNC_BASE_V1';
 const CLOUD_SYNC_FILE = 'ee-exam-progress.json';
 const CLOUD_SYNC_DESCRIPTION = 'ee-exam-workbench-progress-v1';
 const CLOUD_SYNC_API = 'https://api.github.com';
 const CLOUD_SYNC_DEBOUNCE_MS = 30000;
 const CLOUD_SYNC_OPEN_DELAY_MS = 1200;
 const CLOUD_SYNC_LOCK_MS = 120000;
+const CLOUD_SYNC_LOCK_CONFIRM_MS = 50;
+const CLOUD_SYNC_MAX_SOFT_FAILS = 3;
 const CLOUD_SYNC_LOCKED_RETRY_MS = 15000;
 const CLOUD_SYNC_RETRY_BASE_MS = 60000;
 const CLOUD_SYNC_RETRY_MAX_MS = 600000;
@@ -42,6 +48,7 @@ const CLOUD_SYNC_MESSAGES = {
   remoteInvalid: '雲端進度格式無法讀取，未上傳。',
   mergeFailed: '雲端進度無法合併，未上傳。',
   tooLarge: '進度資料超過雲端同步容量上限。',
+  remoteTooLarge: '雲端進度資料過大，已拒絕讀取。',
   tokenLeak: '同步內容含有權杖，已中止上傳。',
   unavailable: '此瀏覽器不支援雲端同步。',
 };
@@ -91,13 +98,54 @@ function cloudSyncSignature(payload) {
   return cloudSyncStable(copy);
 }
 
+function cloudSyncIsPlain(value) {
+  return !!value && typeof value === 'object' && !Array.isArray(value);
+}
+
+/** The maps that merge as "imported wins": the part of a payload kept as the last synced base. */
+function cloudSyncBaseExtract(payload) {
+  const p = cloudSyncIsPlain(payload) ? payload : {};
+  const pick = v => (cloudSyncIsPlain(v) ? JSON.parse(JSON.stringify(v)) : {});
+  const byCategory = v => {
+    const out = {};
+    if (cloudSyncIsPlain(v)) Object.keys(v).forEach(cat => { out[cat] = pick(v[cat]); });
+    return out;
+  };
+  return {
+    progressByCategory: byCategory(p.progressByCategory),
+    starredByCategory: byCategory(p.starredByCategory),
+    recallState: pick(p.recallState),
+    manualTopicLabels: pick(p.manualTopicLabels),
+    completionByQuestion: pick(cloudSyncIsPlain(p.dailyPractice) ? p.dailyPractice.completionByQuestion : null),
+  };
+}
+
 /**
- * Two safeguards on the remote copy before the normal merge (neither changes applyUserDataBackup):
+ * Three-way step for one map: a key whose local value differs from the base (changed, added or deleted locally)
+ * is removed from the remote copy, so the merge cannot bring the stale cloud value back.
+ */
+function cloudSyncKeepLocalChanges(remoteMap, localMap, baseMap) {
+  if (!cloudSyncIsPlain(remoteMap)) return remoteMap;
+  const mine = cloudSyncIsPlain(localMap) ? localMap : {};
+  const base = cloudSyncIsPlain(baseMap) ? baseMap : {};
+  const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+  const out = Object.assign({}, remoteMap);
+  const keys = new Set(Object.keys(mine).concat(Object.keys(base)));
+  keys.forEach(k => {
+    if (has(mine, k) !== has(base, k) || cloudSyncStable(mine[k]) !== cloudSyncStable(base[k])) delete out[k];
+  });
+  return out;
+}
+
+/**
+ * Safeguards on the remote copy before the normal merge (none changes applyUserDataBackup):
  * - mockExamTimer is per-device state: keep the local one (a stale remote timer must not replace it).
  * - SM-2: the merge lets the imported entry win, so entries the local device reviewed on the same day or
  *   later are removed from the remote copy; the newer review always survives.
+ * - With a last synced base: progress, starred, recall, manual labels and daily-practice completions that this
+ *   device changed (or deleted) since that base are removed from the remote copy, so the local edit survives.
  */
-function cloudSyncPrepareRemote(remote, local) {
+function cloudSyncPrepareRemote(remote, local, base) {
   const out = Object.assign({}, remote);
   if (local && Object.prototype.hasOwnProperty.call(local, 'mockExamTimer')) out.mockExamTimer = local.mockExamTimer;
   const localSm2 = local && local.sm2Schedule && typeof local.sm2Schedule === 'object' ? local.sm2Schedule : {};
@@ -113,11 +161,31 @@ function cloudSyncPrepareRemote(remote, local) {
     });
     out.sm2Schedule = kept;
   }
+  if (cloudSyncIsPlain(base) && cloudSyncIsPlain(local)) {
+    ['progressByCategory', 'starredByCategory'].forEach(field => {
+      if (!cloudSyncIsPlain(out[field])) return;
+      const next = {};
+      Object.keys(out[field]).forEach(cat => {
+        next[cat] = cloudSyncKeepLocalChanges(out[field][cat],
+          cloudSyncIsPlain(local[field]) ? local[field][cat] : {}, cloudSyncIsPlain(base[field]) ? base[field][cat] : {});
+      });
+      out[field] = next;
+    });
+    ['recallState', 'manualTopicLabels'].forEach(field => {
+      if (cloudSyncIsPlain(out[field])) out[field] = cloudSyncKeepLocalChanges(out[field], local[field], base[field]);
+    });
+    if (cloudSyncIsPlain(out.dailyPractice) && cloudSyncIsPlain(out.dailyPractice.completionByQuestion)) {
+      const localDone = cloudSyncIsPlain(local.dailyPractice) ? local.dailyPractice.completionByQuestion : {};
+      out.dailyPractice = Object.assign({}, out.dailyPractice, {
+        completionByQuestion: cloudSyncKeepLocalChanges(out.dailyPractice.completionByQuestion, localDone, base.completionByQuestion),
+      });
+    }
+  }
   return out;
 }
 
-/** Picks the gist to use from a gists listing: right description and file, oldest first (stable across devices). */
-function cloudSyncPickGist(list) {
+/** The gists of a listing with the right description and file, oldest first (stable across devices). */
+function cloudSyncPickGists(list) {
   const hits = (Array.isArray(list) ? list : []).filter(g => g && typeof g.id === 'string'
     && g.description === CLOUD_SYNC_DESCRIPTION && g.files && g.files[CLOUD_SYNC_FILE]);
   hits.sort((a, b) => {
@@ -125,7 +193,16 @@ function cloudSyncPickGist(list) {
     if (ta !== tb) return ta < tb ? -1 : 1;
     return a.id < b.id ? -1 : (a.id > b.id ? 1 : 0);
   });
-  return hits[0] || null;
+  return hits;
+}
+
+/** The gist to use from a gists listing: the oldest match. */
+function cloudSyncPickGist(list) {
+  return cloudSyncPickGists(list)[0] || null;
+}
+
+function cloudSyncTooLargeError() {
+  return { kind: 'remoteTooLarge', text: CLOUD_SYNC_MESSAGES.remoteTooLarge, retry: false };
 }
 
 function cloudSyncErrorForStatus(status) {
@@ -142,7 +219,7 @@ function cloudSyncStorage() {
 }
 
 function cloudSyncLoad() {
-  const empty = { token: '', gistId: '', lastSyncAt: 0, lastRemoteEtag: '', dirtySeq: 0, syncedSeq: 0 };
+  const empty = { token: '', gistId: '', lastSyncAt: 0, lastRemoteEtag: '', dirtySeq: 0, syncedSeq: 0, forcePush: false };
   try {
     const store = cloudSyncStorage();
     const raw = store ? store.getItem(CLOUD_SYNC_KEY) : null;
@@ -155,6 +232,7 @@ function cloudSyncLoad() {
       lastRemoteEtag: typeof parsed.lastRemoteEtag === 'string' ? parsed.lastRemoteEtag : '',
       dirtySeq: Number(parsed.dirtySeq) || 0,
       syncedSeq: Number(parsed.syncedSeq) || 0,
+      forcePush: parsed.forcePush === true,
     };
   } catch (_) {
     return empty;
@@ -188,9 +266,30 @@ function cloudSyncPending(state) {
   return !!st.token && st.dirtySeq > st.syncedSeq;
 }
 
+function cloudSyncBaseLoad() {
+  try {
+    const store = cloudSyncStorage();
+    const raw = store ? store.getItem(CLOUD_SYNC_BASE_KEY) : null;
+    const parsed = raw ? JSON.parse(raw) : null;
+    return cloudSyncIsPlain(parsed) ? parsed : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function cloudSyncBaseSave(payload) {
+  try {
+    const store = cloudSyncStorage();
+    if (store) store.setItem(CLOUD_SYNC_BASE_KEY, JSON.stringify(cloudSyncBaseExtract(payload)));
+  } catch (_) { /* no base: the next sync falls back to the plain merge */ }
+}
+
 // ---- Runtime (timers, status, lock) ---------------------------------------
 
 let cloudSyncError = '';
+let cloudSyncErrorKind = '';
+let cloudSyncSoftFails = 0;
+let cloudSyncDupChecked = false;
 let cloudSyncRunning = false;
 let cloudSyncInFlight = null;
 let cloudSyncRerun = false;
@@ -203,13 +302,14 @@ function cloudSyncNotify() {
   try { if (typeof renderCloudSyncSection === 'function') renderCloudSyncSection(); } catch (_) { /* UI is optional */ }
 }
 
-function cloudSyncSetError(text) {
+function cloudSyncSetError(text, kind) {
   cloudSyncError = text || '';
+  cloudSyncErrorKind = text ? (kind || '') : '';
   cloudSyncNotify();
 }
 
 function cloudSyncStatusNow() {
-  return { running: cloudSyncRunning, error: cloudSyncError, text: cloudSyncStatusText(cloudSyncLoad(), cloudSyncError) };
+  return { running: cloudSyncRunning, error: cloudSyncError, kind: cloudSyncErrorKind, text: cloudSyncStatusText(cloudSyncLoad(), cloudSyncError) };
 }
 
 function cloudSyncClearTimers() {
@@ -220,7 +320,14 @@ function cloudSyncClearTimers() {
   cloudSyncRetryCount = 0;
 }
 
-function cloudSyncAcquireLock() {
+function cloudSyncDelay(ms) {
+  return new Promise(resolve => {
+    try { setTimeout(resolve, ms); } catch (_) { resolve(); }
+  });
+}
+
+/** Writes a random owner stamp, waits briefly, re-reads it and proceeds only when it is still ours. */
+async function cloudSyncAcquireLock() {
   const store = cloudSyncStorage();
   if (!store) return true;
   try {
@@ -228,9 +335,11 @@ function cloudSyncAcquireLock() {
     let held = null;
     try { held = JSON.parse(store.getItem(CLOUD_SYNC_LOCK_KEY) || 'null'); } catch (_) { held = null; }
     if (held && held.owner !== cloudSyncTabId && Number(held.until) > now) return false;
-    store.setItem(CLOUD_SYNC_LOCK_KEY, JSON.stringify({ owner: cloudSyncTabId, until: now + CLOUD_SYNC_LOCK_MS }));
+    const nonce = Math.random().toString(36).slice(2, 12);
+    store.setItem(CLOUD_SYNC_LOCK_KEY, JSON.stringify({ owner: cloudSyncTabId, nonce, until: now + CLOUD_SYNC_LOCK_MS }));
+    await cloudSyncDelay(CLOUD_SYNC_LOCK_CONFIRM_MS);
     const check = JSON.parse(store.getItem(CLOUD_SYNC_LOCK_KEY) || 'null');
-    return !!check && check.owner === cloudSyncTabId;
+    return !!check && check.owner === cloudSyncTabId && check.nonce === nonce;
   } catch (_) {
     return true; // storage trouble: do not block syncing in a single tab
   }
@@ -288,6 +397,8 @@ async function cloudSyncApi(token, method, urlOrPath, body, extraHeaders) {
   const etag = res && res.headers && typeof res.headers.get === 'function' ? (res.headers.get('etag') || '') : '';
   if (status === 304) return { ok: true, status, notModified: true, etag, data: null };
   if (!res.ok) return { ok: false, status, error: cloudSyncErrorForStatus(status) };
+  const declared = res.headers && typeof res.headers.get === 'function' ? Number(res.headers.get('content-length')) : NaN;
+  if (declared > CLOUD_SYNC_MAX_BYTES) return { ok: false, status, error: cloudSyncTooLargeError() };
   let data = null;
   try {
     data = isAbsolute ? await res.text() : await res.json();
@@ -297,57 +408,81 @@ async function cloudSyncApi(token, method, urlOrPath, body, extraHeaders) {
   return { ok: true, status, etag, data };
 }
 
-/** Finds our gist by its fixed description. Resolves { ok, gist|null } or { ok:false, error }. */
-async function cloudSyncFindGist(token) {
+/**
+ * Lists gists (up to CLOUD_SYNC_MAX_PAGES pages) and stops at the first page that has matches by description.
+ * Resolves { ok, hits } (oldest first, possibly empty) or { ok:false, error }.
+ */
+async function cloudSyncFindGists(token) {
   for (let page = 1; page <= CLOUD_SYNC_MAX_PAGES; page += 1) {
     const res = await cloudSyncApi(token, 'GET', `/gists?per_page=100&page=${page}`);
     if (!res.ok) return res;
     const list = Array.isArray(res.data) ? res.data : [];
-    const hit = cloudSyncPickGist(list);
-    if (hit) return { ok: true, gist: hit };
+    const hits = cloudSyncPickGists(list);
+    if (hits.length) return { ok: true, hits };
     if (list.length < 100) break;
   }
-  return { ok: true, gist: null };
+  return { ok: true, hits: [] };
 }
 
-/** The file text of a gist API object; follows raw_url when GitHub truncated a large file. */
+/** The file text of a gist API object; follows raw_url when GitHub truncated a large file. Refuses oversized files. */
 async function cloudSyncReadGistContent(token, gist) {
   const file = gist && gist.files ? gist.files[CLOUD_SYNC_FILE] : null;
   if (!file) return { ok: true, content: null };
+  if (Number(file.size) > CLOUD_SYNC_MAX_BYTES) return { ok: false, status: 200, error: cloudSyncTooLargeError() };
+  let content = null;
   if (file.truncated && typeof file.raw_url === 'string') {
     const raw = await cloudSyncApi(token, 'GET', file.raw_url);
     if (!raw.ok) return raw;
-    return { ok: true, content: String(raw.data) };
+    content = String(raw.data);
+  } else {
+    content = typeof file.content === 'string' ? file.content : null;
   }
-  return { ok: true, content: typeof file.content === 'string' ? file.content : null };
+  if (content !== null && content.length > CLOUD_SYNC_MAX_BYTES) return { ok: false, status: 200, error: cloudSyncTooLargeError() };
+  return { ok: true, content };
+}
+
+async function cloudSyncGetGist(token, gistId, etag) {
+  const res = await cloudSyncApi(token, 'GET', `/gists/${encodeURIComponent(gistId)}`, undefined, etag ? { 'If-None-Match': etag } : undefined);
+  if (!res.ok || res.notModified) return res;
+  const read = await cloudSyncReadGistContent(token, res.data);
+  if (!read.ok) return read;
+  return { ok: true, content: read.content, etag: res.etag || '' };
 }
 
 /**
  * Looks up the remote copy. Resolves
- * { ok, gistId|'', content|null, etag, unchanged } or { ok:false, error }.
+ * { ok, gistId|'', content|null, etag, unchanged, extras:[gistId] } or { ok:false, error }.
+ * The gists listing runs once per app start (and right after a POST): when several gists carry our description the
+ * oldest is used and the newer ones are returned as extras to be merged in (nothing is deleted).
  */
-async function cloudSyncFetchRemote(state) {
-  let gistId = state.gistId;
-  if (gistId) {
-    const res = await cloudSyncApi(state.token, 'GET', `/gists/${encodeURIComponent(gistId)}`, undefined,
-      state.lastRemoteEtag ? { 'If-None-Match': state.lastRemoteEtag } : undefined);
-    if (res.ok && res.notModified) return { ok: true, gistId, content: null, etag: state.lastRemoteEtag, unchanged: true };
-    if (res.ok) {
-      const read = await cloudSyncReadGistContent(state.token, res.data);
-      if (!read.ok) return read;
-      return { ok: true, gistId, content: read.content, etag: res.etag || '', unchanged: false };
-    }
-    if (res.status !== 404) return res;
-    gistId = ''; // the gist was deleted: look for another one, else create a new one
+async function cloudSyncFetchRemote(state, options) {
+  const force = !!(options && options.force);
+  let first = null;
+  if (state.gistId) {
+    const res = await cloudSyncGetGist(state.token, state.gistId, state.lastRemoteEtag);
+    if (res.ok && res.notModified) first = { ok: true, gistId: state.gistId, content: null, etag: state.lastRemoteEtag, unchanged: true, extras: [] };
+    else if (res.ok) first = { ok: true, gistId: state.gistId, content: res.content, etag: res.etag, unchanged: false, extras: [] };
+    else if (res.status !== 404) return res;
+    // 404: the gist was deleted; look for another one, else create a new one
   }
-  const found = await cloudSyncFindGist(state.token);
-  if (!found.ok) return found;
-  if (!found.gist) return { ok: true, gistId: '', content: null, etag: '', unchanged: false };
-  const full = await cloudSyncApi(state.token, 'GET', `/gists/${encodeURIComponent(found.gist.id)}`);
+  if (first && cloudSyncDupChecked) return first;
+  const found = await cloudSyncFindGists(state.token);
+  if (!found.ok) return first || found;
+  cloudSyncDupChecked = true;
+  const hits = found.hits;
+  if (first) {
+    if (!hits.some(h => h.id === state.gistId)) return first; // not in the listing (beyond the page cap): keep the bound one
+    if (hits[0].id === state.gistId) {
+      first.extras = force ? [] : hits.slice(1).map(h => h.id);
+      return first;
+    }
+  }
+  if (!hits.length) return { ok: true, gistId: '', content: null, etag: '', unchanged: false, extras: [] };
+  const chosen = hits[0];
+  const full = await cloudSyncGetGist(state.token, chosen.id, '');
   if (!full.ok) return full;
-  const read = await cloudSyncReadGistContent(state.token, full.data);
-  if (!read.ok) return read;
-  return { ok: true, gistId: found.gist.id, content: read.content, etag: full.etag || '', unchanged: false };
+  return { ok: true, gistId: chosen.id, content: full.content, etag: full.etag, unchanged: false,
+    extras: force ? [] : hits.slice(1).map(h => h.id) };
 }
 
 async function cloudSyncPush(state, gistId, content) {
@@ -370,9 +505,119 @@ function cloudSyncRefreshUi() {
 }
 
 function cloudSyncFail(error, startSeqKept) {
-  cloudSyncSetError(error.text);
+  cloudSyncSetError(error.text, error.kind);
   if (error.retry) cloudSyncScheduleBackoff();
   return { ok: false, error: error.text, kind: error.kind, retry: !!error.retry, keptPending: startSeqKept !== false };
+}
+
+/** Unexpected (programming / merge) failures retry with backoff only CLOUD_SYNC_MAX_SOFT_FAILS times in a row. */
+function cloudSyncSoftFail(kind, text) {
+  cloudSyncSoftFails += 1;
+  return cloudSyncFail({ kind, text, retry: cloudSyncSoftFails < CLOUD_SYNC_MAX_SOFT_FAILS });
+}
+
+/**
+ * One fetch -> merge -> push round. Resolves a failure from cloudSyncFail, or
+ * { ok:true, pushed, merged, again, merged payload, forced, gistId, etag } where `again` asks for one more round.
+ */
+async function cloudSyncRound(state, round) {
+  const allowAgain = round === 0;
+  const force = state.forcePush === true;
+  const remote = await cloudSyncFetchRemote(state, { force });
+  if (!remote.ok) {
+    if (remote.status === 401) cloudSyncClearTimers();
+    return cloudSyncFail(remote.error);
+  }
+
+  let remoteSignature = '';
+  let changedLocally = false;
+  const hasContent = remote.content !== null && remote.content !== undefined && String(remote.content).trim() !== '';
+  const extraContents = [];
+  if (!force) {
+    for (const id of (remote.extras || [])) {
+      const extra = await cloudSyncGetGist(state.token, id, '');
+      if (extra.ok && !extra.notModified && extra.content && String(extra.content).trim() !== '') extraContents.push(extra.content);
+    }
+  }
+  if (!force && (hasContent || extraContents.length)) {
+    let parsed = null;
+    if (hasContent) {
+      try { parsed = JSON.parse(remote.content); } catch (_) { parsed = null; }
+      if (!cloudSyncIsPlain(parsed)) return cloudSyncFail({ kind: 'remoteInvalid', text: CLOUD_SYNC_MESSAGES.remoteInvalid, retry: false });
+      remoteSignature = cloudSyncSignature(parsed);
+    }
+    const before = cloudSyncSignature(buildUserBackupSnapshot({ skipMetadata: true }));
+    if (round === 0 && typeof snapshotTake === 'function') {
+      try { await snapshotTake('before-sync', { skipIfEmpty: true }); } catch (_) { /* snapshots never block syncing */ }
+    }
+    if (typeof gkDataLoaded === 'function' && typeof ensureGkData === 'function' && !gkDataLoaded()) {
+      let ok = false;
+      try { ok = await ensureGkData(); } catch (_) { ok = false; }
+      if (!ok) return cloudSyncSoftFail('mergeFailed', CLOUD_SYNC_MESSAGES.mergeFailed);
+    }
+    const base = cloudSyncBaseLoad();
+    const mergeIn = payload => {
+      const local = buildUserBackupSnapshot({ skipMetadata: true });
+      const result = applyUserDataBackup(cloudSyncPrepareRemote(payload, local, base), 'merge');
+      return !!(result && result.success);
+    };
+    if (parsed && !mergeIn(parsed)) return cloudSyncFail({ kind: 'mergeFailed', text: CLOUD_SYNC_MESSAGES.mergeFailed, retry: false });
+    for (const text of extraContents) {
+      let extraParsed = null;
+      try { extraParsed = JSON.parse(text); } catch (_) { extraParsed = null; }
+      if (cloudSyncIsPlain(extraParsed)) mergeIn(extraParsed); // a duplicate that cannot be read is simply skipped
+    }
+    changedLocally = cloudSyncSignature(buildUserBackupSnapshot({ skipMetadata: true })) !== before;
+  } else if (remote.unchanged) {
+    remoteSignature = null; // 304: the remote is what we last wrote or merged
+  }
+
+  const merged = buildUserBackupSnapshot({ skipMetadata: true });
+  const needsPush = force ? true
+    : (remote.unchanged ? (cloudSyncPending(cloudSyncLoad()) || changedLocally)
+      : (remoteSignature === '' || remoteSignature !== cloudSyncSignature(merged)));
+  let etag = remote.etag;
+  let gistId = remote.gistId;
+  let again = false;
+  if (needsPush) {
+    const content = JSON.stringify(merged);
+    if (content.length > CLOUD_SYNC_MAX_BYTES) return cloudSyncFail({ kind: 'tooLarge', text: CLOUD_SYNC_MESSAGES.tooLarge, retry: false });
+    if (state.token && content.indexOf(state.token) >= 0) return cloudSyncFail({ kind: 'tokenLeak', text: CLOUD_SYNC_MESSAGES.tokenLeak, retry: false });
+    const pushed = await cloudSyncPush(state, gistId, content);
+    if (!pushed.ok) return cloudSyncFail(pushed.error);
+    etag = pushed.etag || '';
+    if (gistId) {
+      if (allowAgain) {
+        // Another device may have written around our PATCH: read once more and compare.
+        const check = await cloudSyncGetGist(state.token, gistId, '');
+        if (check.ok && !check.notModified) {
+          let differs = false;
+          if (check.content !== null && check.content !== undefined) {
+            try { differs = cloudSyncSignature(JSON.parse(check.content)) !== cloudSyncSignature(merged); } catch (_) { differs = true; }
+          } else if (pushed.etag && check.etag && pushed.etag !== check.etag) {
+            differs = true;
+          }
+          if (differs) again = true;
+          else if (check.etag) etag = check.etag;
+        }
+      }
+    } else if (pushed.data && typeof pushed.data.id === 'string') {
+      gistId = pushed.data.id;
+      // Right after a POST: two devices may have created a gist at the same time. Use (and later merge into) the oldest.
+      const found = await cloudSyncFindGists(state.token);
+      cloudSyncDupChecked = true;
+      if (found.ok && found.hits.length && found.hits[0].id !== gistId && allowAgain) {
+        gistId = found.hits[0].id;
+        etag = '';
+        again = true;
+      }
+    }
+  }
+  if (gistId && gistId !== state.gistId) {
+    cloudSyncUpdate(current => Object.assign({}, current, { gistId, lastRemoteEtag: again ? '' : current.lastRemoteEtag }));
+  }
+  if (again) cloudSyncUpdate(current => Object.assign({}, current, { lastRemoteEtag: '' }));
+  return { ok: true, pushed: needsPush, merged: changedLocally, again, payload: merged, forced: force, gistId, etag };
 }
 
 async function cloudSyncRunOnce(reason) {
@@ -381,71 +626,46 @@ async function cloudSyncRunOnce(reason) {
   if (typeof navigator !== 'undefined' && navigator.onLine === false) {
     return cloudSyncFail({ kind: 'offline', text: CLOUD_SYNC_MESSAGES.offline, retry: false });
   }
-  if (!cloudSyncAcquireLock()) {
+  cloudSyncRunning = true;
+  cloudSyncNotify();
+  if (!(await cloudSyncAcquireLock())) {
     // Another tab is syncing; it works on the same shared data. Check back for anything marked meanwhile.
+    cloudSyncRunning = false;
+    cloudSyncNotify();
     cloudSyncScheduleRetry(CLOUD_SYNC_LOCKED_RETRY_MS, 'locked-retry');
     return { ok: false, skipped: 'locked' };
   }
-  cloudSyncRunning = true;
-  cloudSyncNotify();
   try {
     const startSeq = state.dirtySeq;
-    const remote = await cloudSyncFetchRemote(state);
-    if (!remote.ok) {
-      if (remote.status === 401) cloudSyncClearTimers();
-      return cloudSyncFail(remote.error);
-    }
-
-    let remoteSignature = '';
+    let result = null;
     let changedLocally = false;
-    if (remote.content !== null && remote.content !== undefined && String(remote.content).trim() !== '') {
-      let parsed;
-      try { parsed = JSON.parse(remote.content); } catch (_) { parsed = null; }
-      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return cloudSyncFail({ kind: 'remoteInvalid', text: CLOUD_SYNC_MESSAGES.remoteInvalid, retry: false });
-      remoteSignature = cloudSyncSignature(parsed);
-      const local = buildUserBackupSnapshot({ skipMetadata: true });
-      const before = cloudSyncSignature(local);
-      if (typeof snapshotTake === 'function') {
-        try { await snapshotTake('before-sync', { skipIfEmpty: true }); } catch (_) { /* snapshots never block syncing */ }
-      }
-      if (typeof gkDataLoaded === 'function' && typeof ensureGkData === 'function' && !gkDataLoaded()) {
-        let ok = false;
-        try { ok = await ensureGkData(); } catch (_) { ok = false; }
-        if (!ok) return cloudSyncFail({ kind: 'mergeFailed', text: CLOUD_SYNC_MESSAGES.mergeFailed, retry: true });
-      }
-      const result = applyUserDataBackup(cloudSyncPrepareRemote(parsed, local), 'merge');
-      if (!result || !result.success) return cloudSyncFail({ kind: 'mergeFailed', text: CLOUD_SYNC_MESSAGES.mergeFailed, retry: false });
-      changedLocally = cloudSyncSignature(buildUserBackupSnapshot({ skipMetadata: true })) !== before;
-    } else if (remote.unchanged) {
-      remoteSignature = null; // 304: the remote is what we last wrote or merged
+    let pushedAny = false;
+    let forced = false;
+    for (let round = 0; round < 2; round += 1) {
+      const current = cloudSyncLoad();
+      if (!current.token) return { ok: false, skipped: 'disconnected' };
+      result = await cloudSyncRound(current, round);
+      if (!result.ok) return result;
+      changedLocally = changedLocally || result.merged;
+      pushedAny = pushedAny || result.pushed;
+      forced = forced || result.forced;
+      if (!result.again) break;
     }
-
-    const merged = buildUserBackupSnapshot({ skipMetadata: true });
-    const needsPush = remote.unchanged ? cloudSyncPending(cloudSyncLoad())
-      : (remoteSignature === '' || remoteSignature !== cloudSyncSignature(merged));
-    let etag = remote.etag;
-    let gistId = remote.gistId;
-    if (needsPush) {
-      const content = JSON.stringify(merged);
-      if (content.length > CLOUD_SYNC_MAX_BYTES) return cloudSyncFail({ kind: 'tooLarge', text: CLOUD_SYNC_MESSAGES.tooLarge, retry: false });
-      if (state.token && content.indexOf(state.token) >= 0) return cloudSyncFail({ kind: 'tokenLeak', text: CLOUD_SYNC_MESSAGES.tokenLeak, retry: false });
-      const pushed = await cloudSyncPush(state, gistId, content);
-      if (!pushed.ok) return cloudSyncFail(pushed.error);
-      etag = pushed.etag || '';
-      if (pushed.data && typeof pushed.data.id === 'string') gistId = pushed.data.id;
-    }
+    cloudSyncBaseSave(result.payload);
     cloudSyncUpdate(current => Object.assign({}, current, {
-      gistId: gistId || current.gistId,
-      lastRemoteEtag: etag || '',
+      gistId: result.gistId || current.gistId,
+      lastRemoteEtag: result.etag || '',
       lastSyncAt: Date.now(),
       syncedSeq: Math.max(current.syncedSeq, startSeq),
+      forcePush: forced ? false : current.forcePush,
     }));
     cloudSyncRetryCount = 0;
+    cloudSyncSoftFails = 0;
     cloudSyncSetError('');
     if (changedLocally) cloudSyncRefreshUi();
-    return { ok: true, pushed: needsPush, merged: changedLocally, reason };
+    return { ok: true, pushed: pushedAny, merged: changedLocally, reason };
   } catch (_) {
-    return cloudSyncFail({ kind: 'http', text: CLOUD_SYNC_MESSAGES.http, retry: true });
+    return cloudSyncSoftFail('http', CLOUD_SYNC_MESSAGES.http);
   } finally {
     cloudSyncReleaseLock();
     cloudSyncRunning = false;
@@ -498,7 +718,9 @@ async function cloudSyncConnect(rawToken) {
     return { ok: false, error: CLOUD_SYNC_MESSAGES.badToken };
   }
   cloudSyncClearTimers();
-  if (!cloudSyncSave({ token, gistId: '', lastSyncAt: 0, lastRemoteEtag: '', dirtySeq: 0, syncedSeq: 0 })) {
+  cloudSyncDupChecked = false;
+  try { const store = cloudSyncStorage(); if (store) store.removeItem(CLOUD_SYNC_BASE_KEY); } catch (_) { /* ignore */ }
+  if (!cloudSyncSave({ token, gistId: '', lastSyncAt: 0, lastRemoteEtag: '', dirtySeq: 0, syncedSeq: 0, forcePush: false })) {
     cloudSyncSetError(CLOUD_SYNC_MESSAGES.unavailable);
     return { ok: false, error: CLOUD_SYNC_MESSAGES.unavailable };
   }
@@ -513,13 +735,28 @@ function cloudSyncDisconnect(options) {
   cloudSyncClearTimers();
   try {
     const store = cloudSyncStorage();
-    if (store) { store.removeItem(CLOUD_SYNC_KEY); store.removeItem(CLOUD_SYNC_LOCK_KEY); }
+    if (store) { store.removeItem(CLOUD_SYNC_KEY); store.removeItem(CLOUD_SYNC_LOCK_KEY); store.removeItem(CLOUD_SYNC_BASE_KEY); }
   } catch (_) { /* ignore */ }
-  if (!(options && options.keepError)) cloudSyncError = '';
+  cloudSyncDupChecked = false;
+  if (!(options && options.keepError)) { cloudSyncError = ''; cloudSyncErrorKind = ''; }
   cloudSyncNotify();
 }
 
-function cloudSyncNow() {
+/** Sets the force-push flag: the next sync skips merging and overwrites the cloud copy with this device's data. */
+function cloudSyncForcePush() {
+  try {
+    const state = cloudSyncLoad();
+    if (!state.token) return false;
+    cloudSyncSave(Object.assign({}, state, { forcePush: true }));
+    return cloudSyncMarkDirty();
+  } catch (_) {
+    return false;
+  }
+}
+
+/** options.overwrite: overwrite the cloud copy with the local data (used after the user confirmed it). */
+function cloudSyncNow(options) {
+  if (options && options.overwrite) cloudSyncForcePush();
   return cloudSyncRun('manual');
 }
 
@@ -551,6 +788,6 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     CLOUD_SYNC_KEY, CLOUD_SYNC_FILE, CLOUD_SYNC_DESCRIPTION, CLOUD_SYNC_DEBOUNCE_MS,
     cloudSyncFormatWhen, cloudSyncStatusText, cloudSyncSignature, cloudSyncPrepareRemote, cloudSyncPickGist,
-    cloudSyncConnect, cloudSyncDisconnect, cloudSyncNow, cloudSyncMarkDirty, cloudSyncInit, cloudSyncRun,
+    cloudSyncConnect, cloudSyncDisconnect, cloudSyncNow, cloudSyncForcePush, cloudSyncMarkDirty, cloudSyncInit, cloudSyncRun,
   };
 }

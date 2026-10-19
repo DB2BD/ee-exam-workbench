@@ -42,7 +42,9 @@ function saveProgress() {
     localStorage.setItem(stKey, JSON.stringify(starredState));
   } catch (e) {
     console.error('Failed to save progress to localStorage', e);
+    return;
   }
+  if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
 }
 
 function toggleStarred(qid, event) {

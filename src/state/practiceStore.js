@@ -764,6 +764,7 @@ function saveDailyPracticeStore(state, options = {}) {
   if (!normalized || !practiceValidState(normalized)) return { ok: false, error: '每日練習資料不符合目前契約，未寫入。' };
   try {
     storage.setItem(DAILY_PRACTICE_STORAGE_KEY, JSON.stringify(normalized));
+    if (typeof cloudSyncMarkDirty === 'function' && typeof localStorage !== 'undefined' && storage === localStorage) cloudSyncMarkDirty();
     return { ok: true, state: practiceClone(normalized), error: null };
   } catch (error) {
     return { ok: false, error: `寫入每日練習資料失敗：${error.message || error}` };

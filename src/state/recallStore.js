@@ -50,6 +50,7 @@ function saveRecallStore(nextState) {
   const value = nextState || recallState;
   try {
     localStorage.setItem(RECALL_STORAGE_KEY, JSON.stringify(value));
+    if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
     return { ok: true, error: null };
   } catch (error) {
     return { ok: false, error: error.message || String(error) };

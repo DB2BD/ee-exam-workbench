@@ -128,6 +128,7 @@ function openBackupModal() {
   modal.classList.add('show');
   previewImportedBackupJSON();
   renderSnapshotList();
+  renderCloudSyncSection();
 }
 
 function closeBackupModal() {
@@ -318,10 +319,55 @@ function snapshotRestoreClick(btn) {
   gkReady
     .then(ok => ok ? snapshotRestore(id) : { success: false, error: '無法載入 GK 題庫資料，暫時無法驗證備份。' })
     .then(res => {
-      if (res && res.success) { location.reload(); return; }
+      if (res && res.success) { if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty(); location.reload(); return; }
       fail(res || { success: false, error: '匯入失敗：JSON 格式無效，未修改任何資料。' });
     })
     .catch(() => fail({ success: false, error: '匯入失敗：寫入本機儲存空間時發生錯誤，已回復原資料。' }));
+}
+
+// ---- 雲端同步 (v1.6.0) ------------------------------------------------------
+
+function cloudSyncSectionHtml(connected, statusText, running) {
+  const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const status = '<p id="cloud-sync-status" class="cloud-sync-status" role="status">' + esc(statusText || '') + '</p>';
+  if (!connected) {
+    return '<div class="cloud-sync-row">'
+      + '<input type="password" id="cloud-sync-token" class="cloud-sync-token" autocomplete="off" spellcheck="false" aria-label="GitHub 權杖" placeholder="GitHub 權杖">'
+      + '<button type="button" id="cloud-sync-connect" class="btn-sol"' + (running ? ' disabled' : '') + ' onclick="cloudSyncConnectClick()">連線</button>'
+      + '</div>' + status;
+  }
+  return '<div class="cloud-sync-row">'
+    + '<button type="button" id="cloud-sync-now" class="btn-sol"' + (running ? ' disabled' : '') + ' onclick="cloudSyncNowClick()">立即同步</button>'
+    + '<button type="button" id="cloud-sync-disconnect" class="btn-pdf" onclick="cloudSyncDisconnectClick()">中斷連線</button>'
+    + '</div>' + status;
+}
+
+function renderCloudSyncSection() {
+  const host = typeof document !== 'undefined' ? document.getElementById('cloud-sync-body') : null;
+  if (!host || typeof cloudSyncStatusNow !== 'function') return;
+  // Keep what the user is typing when only the status changes.
+  const typing = document.getElementById('cloud-sync-token');
+  const typed = typing ? typing.value : '';
+  const status = cloudSyncStatusNow();
+  host.innerHTML = cloudSyncSectionHtml(cloudSyncConnected(), status.text, status.running);
+  const field = document.getElementById('cloud-sync-token');
+  if (field && typed) field.value = typed;
+}
+
+function cloudSyncConnectClick() {
+  const field = document.getElementById('cloud-sync-token');
+  const token = field ? field.value : '';
+  if (field) field.value = '';
+  return cloudSyncConnect(token).then(res => { renderCloudSyncSection(); return res; });
+}
+
+function cloudSyncNowClick() {
+  return cloudSyncNow().then(res => { renderCloudSyncSection(); return res; });
+}
+
+function cloudSyncDisconnectClick() {
+  cloudSyncDisconnect();
+  renderCloudSyncSection();
 }
 
 function applyImportedBackupJSON(mode) {
@@ -348,6 +394,7 @@ function applyImportedBackupJSON(mode) {
     if (typeof renderReviewPage === 'function') renderReviewPage();
     if (typeof renderAnswerCorrectionReviewSection === 'function') renderAnswerCorrectionReviewSection();
     renderBackupHistory();
+    if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
     closeBackupModal();
     showToast(`已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
   } else {

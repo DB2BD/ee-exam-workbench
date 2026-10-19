@@ -787,6 +787,130 @@ async function main() {
         await context.close();
       }
     }
+    // v1.6.0 雲端同步: two devices (separate browser contexts) share one mocked GitHub gist API. Each saves one result card;
+    // after syncing both devices hold both cards. The token never reaches the gist, backups or snapshots; no real network.
+    {
+      const fakeToken = 'ghp_QAFAKEQAFAKEQAFAKEQAFAKEQAFAKE0001';
+      const gists = [];
+      const apiCalls = [];
+      const cors = { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'GET,POST,PATCH,OPTIONS', 'access-control-expose-headers': 'etag' };
+      const etagOf = g => `W/"${g.id}-${g.version}"`;
+      const apiRoute = async route => {
+        const request = route.request();
+        const u = new URL(request.url());
+        const method = request.method();
+        if (method === 'OPTIONS') return route.fulfill({ status: 204, headers: cors });
+        const json = (status, body, extra) => route.fulfill({ status, headers: Object.assign({ 'content-type': 'application/json' }, cors, extra || {}), body: JSON.stringify(body) });
+        apiCalls.push({ method, path: u.pathname, auth: request.headers().authorization || '' });
+        if (request.headers().authorization !== `Bearer ${fakeToken}`) return json(401, { message: 'Bad credentials' });
+        const body = request.postData() ? JSON.parse(request.postData()) : null;
+        if (u.pathname === '/gists' && method === 'GET') {
+          return json(200, gists.map(g => ({ id: g.id, description: g.description, public: g.public, created_at: g.created_at, files: Object.fromEntries(Object.keys(g.files).map(n => [n, { filename: n }])) })));
+        }
+        if (u.pathname === '/gists' && method === 'POST') {
+          const g = { id: `qagist${gists.length + 1}`, description: body.description, public: body.public, version: 1, created_at: new Date(Date.UTC(2026, 9, 20, 12, 0, gists.length)).toISOString(), files: body.files };
+          gists.push(g);
+          return json(201, g, { etag: etagOf(g) });
+        }
+        const g = gists.find(x => u.pathname === `/gists/${x.id}`);
+        if (!g) return json(404, { message: 'Not Found' });
+        if (method === 'GET') return json(200, g, { etag: etagOf(g) });
+        if (method === 'PATCH') { Object.assign(g.files, body.files); g.version += 1; return json(200, g, { etag: etagOf(g) }); }
+        return json(405, {});
+      };
+      const contexts = [];
+      const openDevice = async () => {
+        const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
+        contexts.push(context);
+        const page = await context.newPage();
+        const errors = [];
+        page.on('pageerror', error => errors.push(String(error)));
+        await context.route('**/*', route => {
+          const target = route.request().url();
+          if (target.startsWith(url)) return route.continue();
+          if (target.startsWith('https://api.github.com/')) return apiRoute(route);
+          return route.abort();
+        });
+        page.setDefaultTimeout(15000);
+        await page.goto(url);
+        return { page, errors };
+      };
+      const saveCard = (page, index) => page.evaluate(i => {
+        const qid = DB_DATA.questions[i][0];
+        const parts = buildResultModel(qid).parts.map(p => Object.assign({}, p, { mark: 'o' }));
+        const saved = saveResultRecord({ qid, at: Date.now(), source: 'today', parts, errors: [] }, { skipSM2: true });
+        return saved.ok ? saved.record.id : null;
+      }, index);
+      const cardIds = page => page.evaluate(() => JSON.parse(localStorage.getItem('EE_EXAM_RESULT_CARD_V1') || '{"records":[]}').records.map(r => r.id).sort());
+      const statusLine = page => page.locator('#cloud-sync-status').innerText();
+      // The button row appears as soon as the token is saved, while the first sync is still running.
+      const idle = page => page.waitForFunction(() => cloudSyncConnected() && !cloudSyncStatusNow().running && !cloudSyncStatusNow().error);
+      let phone;
+      try {
+        phone = await openDevice();
+        const pc = await openDevice();
+        // Device 1: open the backup window, paste the token, 連線 -> the gist is created.
+        await phone.page.evaluate(() => openBackupModal());
+        assert.equal(await phone.page.locator('#cloud-sync-token').getAttribute('type'), 'password', 'Token field must be a password field');
+        await phone.page.locator('#cloud-sync-token').fill(fakeToken);
+        await phone.page.locator('#cloud-sync-connect').click();
+        await phone.page.locator('#cloud-sync-now').waitFor();
+        await idle(phone.page);
+        assert(/^上次同步：\d+\/\d+ \d{2}:\d{2}$/.test(await statusLine(phone.page)), 'Status line shows the last sync time');
+        assert.equal(gists.length, 1, 'First connection creates one gist');
+        assert.equal(gists[0].public, false, 'The gist must be secret');
+        // Saving a result card marks the data dirty (30 s debounce); 立即同步 uploads it right away.
+        const idA = await saveCard(phone.page, 0);
+        assert(idA, 'Device 1 saved its card');
+        assert.equal(await phone.page.evaluate(() => cloudSyncPending()), true, 'A saved card is pending upload');
+        await phone.page.locator('#cloud-sync-now').click();
+        await phone.page.waitForFunction(() => !cloudSyncPending() && !cloudSyncStatusNow().running);
+        // Device 2: connects with the same token, finds the same gist and receives card A, then saves card B.
+        await pc.page.evaluate(() => openBackupModal());
+        await pc.page.locator('#cloud-sync-token').fill(fakeToken);
+        await pc.page.locator('#cloud-sync-connect').click();
+        await pc.page.locator('#cloud-sync-now').waitFor();
+        await idle(pc.page);
+        assert.equal(gists.length, 1, 'The second device must find the existing gist, not create another');
+        assert.deepEqual(await cardIds(pc.page), [idA], 'Device 2 received device 1 card');
+        const idB = await saveCard(pc.page, 1);
+        await pc.page.locator('#cloud-sync-now').click();
+        await pc.page.waitForFunction(() => !cloudSyncPending() && !cloudSyncStatusNow().running);
+        assert.deepEqual(await cardIds(pc.page), [idA, idB].sort(), 'Device 2 holds both cards');
+        // Device 1 syncs again and now also sees both.
+        await phone.page.locator('#cloud-sync-now').click();
+        await phone.page.waitForFunction(() => !cloudSyncStatusNow().running);
+        await phone.page.waitForFunction(() => JSON.parse(localStorage.getItem('EE_EXAM_RESULT_CARD_V1')).records.length === 2);
+        assert.deepEqual(await cardIds(phone.page), [idA, idB].sort(), 'Device 1 holds both cards after syncing');
+        // The remote file has both cards and never the token; every API call carried the fake token only.
+        const remote = JSON.parse(gists[0].files['ee-exam-progress.json'].content);
+        assert.equal(remote.resultCard.records.length, 2);
+        assert(!JSON.stringify(gists).includes(fakeToken), 'The token must not be uploaded');
+        assert(apiCalls.every(c => c.auth === `Bearer ${fakeToken}`));
+        const leak = await phone.page.evaluate(async token => {
+          const snaps = await snapshotListMeta();
+          const full = await Promise.all(snaps.map(s => snapshotLoad(s.id)));
+          return { backup: exportAllUserDataJSON().includes(token), snapshots: JSON.stringify(full).includes(token), kinds: snaps.map(s => s.reason) };
+        }, fakeToken);
+        assert.equal(leak.backup, false, 'Backup file must not contain the token');
+        assert.equal(leak.snapshots, false, 'Snapshots must not contain the token');
+        // 中斷連線 removes the token from this device only.
+        await phone.page.locator('#cloud-sync-disconnect').click();
+        await phone.page.locator('#cloud-sync-connect').waitFor();
+        assert.equal(await phone.page.evaluate(() => localStorage.getItem('EE_EXAM_CLOUD_SYNC_V1')), null);
+        assert.equal(gists.length, 1, 'Disconnecting does not delete the cloud copy');
+        assert.deepEqual(phone.errors, []);
+        assert.deepEqual(pc.errors, []);
+        results.push({ width: 390, scenario: 'cloud-sync-two-devices', passed: true });
+        console.log('PASS cloud sync 390px: two devices, shared secret gist, both see two result cards, token never uploaded or backed up, 中斷連線 clears it');
+      } catch (error) {
+        if (phone) await phone.page.screenshot({ path: path.join(artifacts, 'failure-cloud-sync.png'), fullPage: true }).catch(() => {});
+        results.push({ scenario: 'cloud-sync-two-devices', passed: false, error: String(error) });
+        throw error;
+      } finally {
+        for (const context of contexts) await context.close();
+      }
+    }
   } finally {
     if (browser) await browser.close();
     if (server.exitCode === null && server.pid) {

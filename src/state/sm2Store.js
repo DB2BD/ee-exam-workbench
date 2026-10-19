@@ -123,6 +123,7 @@ function recordSM2Review(qid, rating) {
     else if (rating === 1) progressState[qid] = 2;
     if (typeof saveProgress === 'function') saveProgress();
   }
+  if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
 
   return Object.assign({}, sm2Schedule[qid], { ok: true, error: null });
 }

@@ -319,7 +319,7 @@ function snapshotRestoreClick(btn) {
   gkReady
     .then(ok => ok ? snapshotRestore(id) : { success: false, error: '無法載入 GK 題庫資料，暫時無法驗證備份。' })
     .then(res => {
-      if (res && res.success) { if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty(); location.reload(); return; }
+      if (res && res.success) { if (typeof cloudSyncForcePush === 'function') cloudSyncForcePush(); location.reload(); return; }
       fail(res || { success: false, error: '匯入失敗：JSON 格式無效，未修改任何資料。' });
     })
     .catch(() => fail({ success: false, error: '匯入失敗：寫入本機儲存空間時發生錯誤，已回復原資料。' }));
@@ -362,7 +362,16 @@ function cloudSyncConnectClick() {
 }
 
 function cloudSyncNowClick() {
-  return cloudSyncNow().then(res => { renderCloudSyncSection(); return res; });
+  // A cloud copy that cannot be read is only replaced after an explicit confirmation.
+  let overwrite = false;
+  try {
+    const status = typeof cloudSyncStatusNow === 'function' ? cloudSyncStatusNow() : null;
+    if (status && status.kind === 'remoteInvalid') {
+      if (!confirm('雲端資料格式錯誤，要用本機進度覆寫雲端嗎？')) return Promise.resolve({ ok: false, cancelled: true });
+      overwrite = true;
+    }
+  } catch (_) { overwrite = false; }
+  return cloudSyncNow(overwrite ? { overwrite: true } : undefined).then(res => { renderCloudSyncSection(); return res; });
 }
 
 function cloudSyncDisconnectClick() {
@@ -394,7 +403,9 @@ function applyImportedBackupJSON(mode) {
     if (typeof renderReviewPage === 'function') renderReviewPage();
     if (typeof renderAnswerCorrectionReviewSection === 'function') renderAnswerCorrectionReviewSection();
     renderBackupHistory();
-    if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
+    // A replace import is meant to be the new truth: the next sync overwrites the cloud instead of merging it back.
+    if (selectedMode === 'replace' && typeof cloudSyncForcePush === 'function') cloudSyncForcePush();
+    else if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
     closeBackupModal();
     showToast(`已${selectedMode === 'merge' ? '合併' : '取代'}還原 ${res.summary ? res.summary.progress : 0} 筆做題進度。`);
   } else {

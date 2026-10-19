@@ -156,7 +156,14 @@ function cloudSyncPrepareRemote(remote, local, base) {
       const theirs = out.sm2Schedule[qid];
       const mineDay = mine && typeof mine.lastReviewed === 'string' ? mine.lastReviewed : '';
       const theirDay = theirs && typeof theirs.lastReviewed === 'string' ? theirs.lastReviewed : '';
-      if (mine && mineDay >= theirDay) return;
+      if (mine && mineDay && theirDay) {
+        if (mineDay >= theirDay) return;
+      } else if (mine) {
+        // lastReviewed missing on one side: the later nextReviewDate wins, a tie keeps the local entry
+        const mineNext = typeof mine.nextReviewDate === 'string' ? mine.nextReviewDate : '';
+        const theirNext = theirs && typeof theirs.nextReviewDate === 'string' ? theirs.nextReviewDate : '';
+        if (mineNext >= theirNext) return;
+      }
       kept[qid] = theirs;
     });
     out.sm2Schedule = kept;
@@ -201,6 +208,13 @@ function cloudSyncPickGist(list) {
   return cloudSyncPickGists(list)[0] || null;
 }
 
+/** The extras worth merging: never merged before, or changed since they were last merged (state.mergedExtras). */
+function cloudSyncExtraEntries(state, hits) {
+  const seen = cloudSyncIsPlain(state.mergedExtras) ? state.mergedExtras : {};
+  return hits.map(h => ({ id: h.id, updatedAt: typeof h.updated_at === 'string' ? h.updated_at : '' }))
+    .filter(e => !(Object.prototype.hasOwnProperty.call(seen, e.id) && seen[e.id] === e.updatedAt));
+}
+
 function cloudSyncTooLargeError() {
   return { kind: 'remoteTooLarge', text: CLOUD_SYNC_MESSAGES.remoteTooLarge, retry: false };
 }
@@ -219,7 +233,7 @@ function cloudSyncStorage() {
 }
 
 function cloudSyncLoad() {
-  const empty = { token: '', gistId: '', lastSyncAt: 0, lastRemoteEtag: '', dirtySeq: 0, syncedSeq: 0, forcePush: false };
+  const empty = { token: '', gistId: '', lastSyncAt: 0, lastRemoteEtag: '', dirtySeq: 0, syncedSeq: 0, forcePush: false, forceSeq: 0, mergedExtras: {} };
   try {
     const store = cloudSyncStorage();
     const raw = store ? store.getItem(CLOUD_SYNC_KEY) : null;
@@ -233,6 +247,8 @@ function cloudSyncLoad() {
       dirtySeq: Number(parsed.dirtySeq) || 0,
       syncedSeq: Number(parsed.syncedSeq) || 0,
       forcePush: parsed.forcePush === true,
+      forceSeq: Number(parsed.forceSeq) || 0,
+      mergedExtras: cloudSyncIsPlain(parsed.mergedExtras) ? parsed.mergedExtras : {},
     };
   } catch (_) {
     return empty;
@@ -451,7 +467,7 @@ async function cloudSyncGetGist(token, gistId, etag) {
 
 /**
  * Looks up the remote copy. Resolves
- * { ok, gistId|'', content|null, etag, unchanged, extras:[gistId] } or { ok:false, error }.
+ * { ok, gistId|'', content|null, etag, unchanged, extras:[{id, updatedAt}] } or { ok:false, error }.
  * The gists listing runs once per app start (and right after a POST): when several gists carry our description the
  * oldest is used and the newer ones are returned as extras to be merged in (nothing is deleted).
  */
@@ -473,7 +489,7 @@ async function cloudSyncFetchRemote(state, options) {
   if (first) {
     if (!hits.some(h => h.id === state.gistId)) return first; // not in the listing (beyond the page cap): keep the bound one
     if (hits[0].id === state.gistId) {
-      first.extras = force ? [] : hits.slice(1).map(h => h.id);
+      first.extras = force ? [] : cloudSyncExtraEntries(state, hits.slice(1));
       return first;
     }
   }
@@ -482,13 +498,18 @@ async function cloudSyncFetchRemote(state, options) {
   const full = await cloudSyncGetGist(state.token, chosen.id, '');
   if (!full.ok) return full;
   return { ok: true, gistId: chosen.id, content: full.content, etag: full.etag, unchanged: false,
-    extras: force ? [] : hits.slice(1).map(h => h.id) };
+    extras: force ? [] : cloudSyncExtraEntries(state, hits.slice(1)) };
 }
 
 async function cloudSyncPush(state, gistId, content) {
   const files = { [CLOUD_SYNC_FILE]: { content } };
   if (gistId) return cloudSyncApi(state.token, 'PATCH', `/gists/${encodeURIComponent(gistId)}`, { files });
   return cloudSyncApi(state.token, 'POST', '/gists', { description: CLOUD_SYNC_DESCRIPTION, public: false, files });
+}
+
+/** Remembers which duplicate gists were merged (and at which updated_at) so deleted data is not merged back at every start. */
+function cloudSyncRecordExtras(map) {
+  cloudSyncUpdate(current => Object.assign({}, current, { mergedExtras: Object.assign({}, current.mergedExtras, map) }));
 }
 
 // ---- Sync -----------------------------------------------------------------
@@ -534,9 +555,9 @@ async function cloudSyncRound(state, round) {
   const hasContent = remote.content !== null && remote.content !== undefined && String(remote.content).trim() !== '';
   const extraContents = [];
   if (!force) {
-    for (const id of (remote.extras || [])) {
-      const extra = await cloudSyncGetGist(state.token, id, '');
-      if (extra.ok && !extra.notModified && extra.content && String(extra.content).trim() !== '') extraContents.push(extra.content);
+    for (const entry of (remote.extras || [])) {
+      const extra = await cloudSyncGetGist(state.token, entry.id, '');
+      if (extra.ok && !extra.notModified && extra.content && String(extra.content).trim() !== '') extraContents.push({ entry, text: extra.content });
     }
   }
   if (!force && (hasContent || extraContents.length)) {
@@ -562,11 +583,13 @@ async function cloudSyncRound(state, round) {
       return !!(result && result.success);
     };
     if (parsed && !mergeIn(parsed)) return cloudSyncFail({ kind: 'mergeFailed', text: CLOUD_SYNC_MESSAGES.mergeFailed, retry: false });
-    for (const text of extraContents) {
+    const mergedNow = {};
+    for (const item of extraContents) {
       let extraParsed = null;
-      try { extraParsed = JSON.parse(text); } catch (_) { extraParsed = null; }
-      if (cloudSyncIsPlain(extraParsed)) mergeIn(extraParsed); // a duplicate that cannot be read is simply skipped
+      try { extraParsed = JSON.parse(item.text); } catch (_) { extraParsed = null; }
+      if (cloudSyncIsPlain(extraParsed) && mergeIn(extraParsed)) mergedNow[item.entry.id] = item.entry.updatedAt; // an unreadable duplicate is simply skipped
     }
+    if (Object.keys(mergedNow).length) cloudSyncRecordExtras(mergedNow);
     changedLocally = cloudSyncSignature(buildUserBackupSnapshot({ skipMetadata: true })) !== before;
   } else if (remote.unchanged) {
     remoteSignature = null; // 304: the remote is what we last wrote or merged
@@ -579,6 +602,10 @@ async function cloudSyncRound(state, round) {
   let etag = remote.etag;
   let gistId = remote.gistId;
   let again = false;
+  // The base must be what the cloud holds: only after a push, or when the cloud content already equals the local data.
+  const equalsCloud = !needsPush && ((remoteSignature !== null && remoteSignature !== '' && remoteSignature === cloudSyncSignature(merged))
+    || (remote.unchanged && !cloudSyncBaseLoad()));
+  let baseOk = equalsCloud;
   if (needsPush) {
     const content = JSON.stringify(merged);
     if (content.length > CLOUD_SYNC_MAX_BYTES) return cloudSyncFail({ kind: 'tooLarge', text: CLOUD_SYNC_MESSAGES.tooLarge, retry: false });
@@ -607,17 +634,21 @@ async function cloudSyncRound(state, round) {
       const found = await cloudSyncFindGists(state.token);
       cloudSyncDupChecked = true;
       if (found.ok && found.hits.length && found.hits[0].id !== gistId && allowAgain) {
+        // the gist we just created already holds our merged data: never merge it back later
+        const self = found.hits.find(h => h.id === gistId);
+        cloudSyncRecordExtras({ [gistId]: self && typeof self.updated_at === 'string' ? self.updated_at : (typeof pushed.data.updated_at === 'string' ? pushed.data.updated_at : '') });
         gistId = found.hits[0].id;
         etag = '';
         again = true;
       }
     }
   }
+  if (needsPush) baseOk = !again;
   if (gistId && gistId !== state.gistId) {
     cloudSyncUpdate(current => Object.assign({}, current, { gistId, lastRemoteEtag: again ? '' : current.lastRemoteEtag }));
   }
   if (again) cloudSyncUpdate(current => Object.assign({}, current, { lastRemoteEtag: '' }));
-  return { ok: true, pushed: needsPush, merged: changedLocally, again, payload: merged, forced: force, gistId, etag };
+  return { ok: true, pushed: needsPush, baseOk, merged: changedLocally, again, payload: merged, forced: force, gistId, etag };
 }
 
 async function cloudSyncRunOnce(reason) {
@@ -637,10 +668,12 @@ async function cloudSyncRunOnce(reason) {
   }
   try {
     const startSeq = state.dirtySeq;
+    const startForceSeq = state.forceSeq;
     let result = null;
     let changedLocally = false;
     let pushedAny = false;
     let forced = false;
+    let baseOk = false;
     for (let round = 0; round < 2; round += 1) {
       const current = cloudSyncLoad();
       if (!current.token) return { ok: false, skipped: 'disconnected' };
@@ -649,15 +682,16 @@ async function cloudSyncRunOnce(reason) {
       changedLocally = changedLocally || result.merged;
       pushedAny = pushedAny || result.pushed;
       forced = forced || result.forced;
+      baseOk = result.baseOk;
       if (!result.again) break;
     }
-    cloudSyncBaseSave(result.payload);
+    if (baseOk) cloudSyncBaseSave(result.payload);
     cloudSyncUpdate(current => Object.assign({}, current, {
       gistId: result.gistId || current.gistId,
       lastRemoteEtag: result.etag || '',
       lastSyncAt: Date.now(),
       syncedSeq: Math.max(current.syncedSeq, startSeq),
-      forcePush: forced ? false : current.forcePush,
+      forcePush: forced && current.forceSeq === startForceSeq ? false : current.forcePush,
     }));
     cloudSyncRetryCount = 0;
     cloudSyncSoftFails = 0;
@@ -747,7 +781,7 @@ function cloudSyncForcePush() {
   try {
     const state = cloudSyncLoad();
     if (!state.token) return false;
-    cloudSyncSave(Object.assign({}, state, { forcePush: true }));
+    cloudSyncSave(Object.assign({}, state, { forcePush: true, forceSeq: state.forceSeq + 1 }));
     return cloudSyncMarkDirty();
   } catch (_) {
     return false;

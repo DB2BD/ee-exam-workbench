@@ -8,6 +8,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  /* iOS Safari: 100vh ignores the bottom toolbar, which hid the docked result card (v1.6.0 fix). */
+  height: 100dvh;
   background: rgba(28, 33, 37, 0.75);
   backdrop-filter: blur(6px);
   z-index: 9999;
@@ -622,6 +624,7 @@
 
 @media (max-width: 760px) {
   #solution-modal { padding: 0; }
+  #solution-modal { align-items: stretch; }
   .modal-container { width: 100vw; height: 100dvh; border-radius: 0; }
   .modal-pane-right { padding: 16px; }
   .view-layout-toggle button, .btn-layout, .btn-session-next,

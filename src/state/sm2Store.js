@@ -410,6 +410,29 @@ function backupMergeCorrectionSeen(oldState, importedState) {
   return out;
 }
 
+/**
+ * Optional features (src/features/<name>/) keep their data under their own storage key and add their own top-level
+ * field to the backup by registering here; the core never names a feature.  A backup without the field leaves that
+ * feature's local data untouched.  ext = {
+ *   field, key,                         // backup field name, localStorage key
+ *   read(storage) -> state,             // full local state (may hold per-device parts)
+ *   toBackup(state) -> value,           // what goes into the backup
+ *   validate(value, errors) -> value,   // normalised backup value, or null after backupError(errors, ...)
+ *   merge(localState, value) -> state,  // 合併 import
+ *   replace(localState, value) -> state,// 取代 import
+ *   count(state) -> number              // for the import summary
+ * }
+ */
+const BACKUP_EXTENSIONS = [];
+
+function registerBackupExtension(ext) {
+  const fns = ['read', 'toBackup', 'validate', 'merge', 'replace', 'count'];
+  if (!ext || typeof ext.field !== 'string' || typeof ext.key !== 'string' || fns.some(f => typeof ext[f] !== 'function')) return false;
+  if (BACKUP_EXTENSIONS.some(e => e.field === ext.field)) return false;
+  BACKUP_EXTENSIONS.push(ext);
+  return true;
+}
+
 function backupMergeResultCard(oldState, importedState) {
   const byId = {};
   (importedState.records || []).forEach(record => { byId[record.id] = record; });
@@ -824,6 +847,10 @@ function validateUserDataBackup(payload, options) {
   const resultCard = resultCardProvided ? backupValidateResultCard(payload.resultCard, errors) : null;
   const correctionSeenProvided = Object.prototype.hasOwnProperty.call(payload, 'answerCorrectionSeen');
   const correctionSeen = correctionSeenProvided ? backupValidateCorrectionSeen(payload.answerCorrectionSeen, errors) : null;
+  const extensions = {};
+  BACKUP_EXTENSIONS.forEach(ext => {
+    if (Object.prototype.hasOwnProperty.call(payload, ext.field)) extensions[ext.field] = ext.validate(payload[ext.field], errors);
+  });
   if (phase2Required && !dailyPracticeProvided) backupError(errors, '缺少 dailyPractice 每日練習資料。');
   if (phase2Required && !mockExamTimerProvided) backupError(errors, '缺少 mockExamTimer 模考計時資料。');
   const dailyPractice = dailyPracticeProvided
@@ -851,6 +878,7 @@ function validateUserDataBackup(payload, options) {
     resultCardProvided,
     correctionSeen,
     correctionSeenProvided,
+    extensions,
     learningData,
     dailyPracticeProvided,
     mockExamTimerProvided,
@@ -871,6 +899,7 @@ function validateUserDataBackup(payload, options) {
     practiceSession: !!(dailyPractice && dailyPractice.activeSession),
     mockTimer: !!mockExamTimer,
     resultCardRecords: resultCard && resultCard.records ? resultCard.records.length : 0,
+    extensions: Object.fromEntries(BACKUP_EXTENSIONS.filter(ext => extensions[ext.field]).map(ext => [ext.field, ext.count(extensions[ext.field])])),
     todayTaskDone: todayTask && todayTask.completed ? Object.keys(todayTask.completed).length : 0,
     todayTaskActive: !!(todayTask && todayTask.active),
     learningAttempts: Object.keys(learningData.attempts.attempts || {}).length,
@@ -974,6 +1003,7 @@ function buildUserBackupSnapshot(options) {
     learningData: backupClone(learningData),
     learningDataCapacity: buildLearningDataCapacityReport(learningData),
   };
+  BACKUP_EXTENSIONS.forEach(ext => { snapshot[ext.field] = ext.toBackup(ext.read(storage)); });
   if (!(options && options.skipMetadata)) {
     try {
       backupWriteMetadata(Object.assign({}, metadata, { lastBackupAt: exportedAt, lastBackupVersion: USER_BACKUP_VERSION }));
@@ -1070,12 +1100,17 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     : (selectedMode === 'merge' ? backupMergeCorrectionSeen(oldCorrectionSeen, validation.normalized.correctionSeen) : backupClone(validation.normalized.correctionSeen));
   const nextTimer = validation.normalized.mockExamTimerProvided
     ? backupClone(validation.normalized.mockExamTimer) : oldTimer;
+  const nextExtensions = BACKUP_EXTENSIONS.filter(ext => validation.normalized.extensions[ext.field]).map(ext => {
+    const local = ext.read(storage);
+    const imported = validation.normalized.extensions[ext.field];
+    return { ext, state: selectedMode === 'merge' ? ext.merge(local, imported) : ext.replace(local, imported) };
+  });
   const nextLearning = selectedMode === 'merge'
     ? backupMergeLearningData(oldLearning, validation.normalized.learningData)
     : backupClone(validation.normalized.learningData);
   const metadataKey = BACKUP_META_STORAGE_KEY;
   const oldRaw = {};
-  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY, BACKUP_RESULT_CARD_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_CORRECTION_SEEN_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].forEach(key => {
+  [BACKUP_PROGRESS_KEYS.PE, BACKUP_PROGRESS_KEYS.GK, BACKUP_STARRED_KEYS.PE, BACKUP_STARRED_KEYS.GK, SM2_STORAGE_KEY, 'EE_EXAM_RECALL_V1', 'EE_MANUAL_TOPIC_LABELS_V1', BACKUP_DAILY_PRACTICE_KEY, BACKUP_TODAY_TASK_KEY, BACKUP_RESULT_CARD_KEY, BACKUP_MOCK_EXAM_TIMER_KEY, BACKUP_CORRECTION_SEEN_KEY, BACKUP_LEARNING_KEYS.attempts, BACKUP_LEARNING_KEYS.issues.PE, BACKUP_LEARNING_KEYS.issues.GK, BACKUP_LEARNING_KEYS.knowledgeReviews.PE, BACKUP_LEARNING_KEYS.knowledgeReviews.GK, metadataKey].concat(BACKUP_EXTENSIONS.map(ext => ext.key)).forEach(key => {
     oldRaw[key] = storage.getItem(key);
   });
   const importedAt = new Date().toISOString();
@@ -1098,6 +1133,7 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     if (validation.normalized.resultCardProvided) writes.splice(writes.length - 1, 0, [BACKUP_RESULT_CARD_KEY, JSON.stringify(nextResultCard)]);
     if (validation.normalized.correctionSeenProvided) writes.splice(writes.length - 1, 0, [BACKUP_CORRECTION_SEEN_KEY, JSON.stringify(nextCorrectionSeen)]);
     if (validation.normalized.mockExamTimerProvided) writes.splice(writes.length - 1, 0, [BACKUP_MOCK_EXAM_TIMER_KEY, JSON.stringify(nextTimer)]);
+    nextExtensions.forEach(({ ext, state }) => writes.splice(writes.length - 1, 0, [ext.key, JSON.stringify(state)]));
   } catch (_) {
     return { success: false, error: '匯入失敗：備份資料無法序列化，未修改任何資料。' };
   }
@@ -1134,6 +1170,10 @@ function applyUserDataBackup(payloadOrJson, mode, options) {
     practiceCompleted: Object.keys(nextPractice.completionByQuestion || {}).length,
     practiceSession: !!nextPractice.activeSession,
     resultCardRecords: nextResultCard.records.length,
+    extensions: Object.fromEntries(BACKUP_EXTENSIONS.map(ext => {
+      const next = nextExtensions.find(n => n.ext === ext);
+      return [ext.field, ext.count(next ? next.state : ext.read(storage))];
+    })),
     todayTaskDone: Object.keys(nextTodayTask.completed || {}).length,
     todayTaskActive: !!nextTodayTask.active,
     mockTimer: validation.normalized.mockExamTimerProvided ? !!nextTimer : Object.keys(oldTimer).length > 0,

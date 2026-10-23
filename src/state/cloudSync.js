@@ -522,6 +522,9 @@ function cloudSyncRefreshUi() {
     if (typeof renderQuestions === 'function') renderQuestions();
     if (typeof renderScoreboardIfVisible === 'function') renderScoreboardIfVisible();
     if (typeof renderReviewPage === 'function') renderReviewPage();
+    if (typeof homeStatusRefresh === 'function') homeStatusRefresh();
+    // Optional features (src/features/) refresh themselves on this event.
+    if (typeof document !== 'undefined' && typeof CustomEvent === 'function') document.dispatchEvent(new CustomEvent('ee:data-merged'));
   } catch (_) { /* UI refresh is best-effort */ }
 }
 

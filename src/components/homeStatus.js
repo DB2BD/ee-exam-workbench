@@ -12,17 +12,23 @@
  *   - DAILY_SCHEDULE.order                                   -> total task count
  *
  * ---- Stat formulas (homeStatusModel is pure; the DOM glue is at the bottom) ----
- * EXP
+ * EXP (v1.7.0: effort, not score; every rule only adds, so no stored record ever loses EXP)
  *   task EXP        = 100 per completed schedule task (HOME_STATUS_TASK_EXP)
- *   result-card EXP = 10 per record, plus up to 10 more by score: round(10 * estimate / total)
- *                     (a legacy self-rating record, migrated from the old practice rating, gives a flat 5)
+ *   result-card EXP = 20 per record whatever its score (a legacy self-rating record, migrated from the old
+ *                     practice rating, gives a flat 5)
+ *   bonus EXP       = weak chapter: +10 for a card whose chapter mastery, from the records BEFORE it, was < 0.5
+ *                       (m = (0.2 * 0.5 + sum r) / (0.5 + n), r = estimate / total; legacy cards count toward m
+ *                       but earn no bonus; history is fixed, so a chapter that gets strong later takes nothing back)
+ *                     review: +5 for a card saved from 到期複習 (source 'review')
+ *                     progress: +5 per point a mock / blind test beats the best earlier mock of that subject
+ *   extra EXP       = optional features (src/features/) registered with registerHomeStatusExpSource
  *   totalExp        = sum of the above
  * Level
  *   EXP needed to go from Lv n to Lv n+1 = 150 + 30 * (n - 1)       (Lv1 -> 2: 150, Lv2 -> 3: 180, ...)
  *   cumulative EXP to reach Lv L          = 150 (L-1) + 15 (L-1)(L-2)
  *   level = the largest L whose cumulative EXP <= totalExp (min 1); the bar shows (totalExp - cumulative(L)) / need(L).
  * Title (稱號) by level: 1-4 見習巡線員, 5-8 配電學徒, 9-12 變電值班員, 13-16 保護電驛師, 17-20 系統調度員,
- *   21-24 電網守護者, 25+ 榜上技師.
+ *   21-24 電網守護者, 25+ 榜上技師 — only while the estimated total reaches the pass line, otherwise 準技師.
  * Streak (連續學習)
  *   an "active day" is a local calendar date on which a schedule task was completed, a result card was saved
  *   or an SM-2 review happened.  Streak = number of consecutive active days ending today; if today has no
@@ -37,9 +43,16 @@
 
 const HOME_STATUS_EXAM_DATE = '2026-11-14';
 const HOME_STATUS_TASK_EXP = 100;
-const HOME_STATUS_CARD_EXP = 10;
-const HOME_STATUS_CARD_BONUS_EXP = 10;
+const HOME_STATUS_CARD_EXP = 20;
 const HOME_STATUS_LEGACY_CARD_EXP = 5;
+const HOME_STATUS_WEAK_BONUS_EXP = 10;
+const HOME_STATUS_WEAK_M = 0.5;
+const HOME_STATUS_PRIOR_M0 = 0.2;
+const HOME_STATUS_PRIOR_K = 0.5;
+const HOME_STATUS_REVIEW_BONUS_EXP = 5;
+const HOME_STATUS_PROGRESS_EXP_PER_POINT = 5;
+const HOME_STATUS_TOP_TITLE_LEVEL = 25;
+const HOME_STATUS_TOP_TITLE_PENDING = '準技師';
 const HOME_STATUS_LEVEL_BASE = 150;
 const HOME_STATUS_LEVEL_STEP = 30;
 const HOME_STATUS_PASS_SUBJECT = 60;
@@ -99,9 +112,11 @@ function homeStatusLevelFor(totalExp) {
   return { level, into, need, pct: Math.max(0, Math.min(100, Math.floor(into * 100 / need))) };
 }
 
-function homeStatusTitleFor(level) {
+/** Title for a level; the top title also needs `passed` (estimated total >= pass line). */
+function homeStatusTitleFor(level, passed) {
   let name = HOME_STATUS_TITLES[0].name;
   HOME_STATUS_TITLES.forEach(t => { if (level >= t.min) name = t.name; });
+  if (level >= HOME_STATUS_TOP_TITLE_LEVEL && passed !== true) name = HOME_STATUS_TOP_TITLE_PENDING;
   return name;
 }
 
@@ -109,10 +124,59 @@ function homeStatusTitleFor(level) {
 function homeStatusCardExp(record) {
   if (!record || typeof record !== 'object') return 0;
   if (record.legacy) return HOME_STATUS_LEGACY_CARD_EXP;
+  return HOME_STATUS_CARD_EXP;
+}
+
+function homeStatusRatio_(record) {
   const total = homeStatusNum_(record.total, 0);
   const estimate = homeStatusNum_(record.estimate, 0);
-  const ratio = total > 0 ? Math.max(0, Math.min(1, estimate / total)) : 0;
-  return HOME_STATUS_CARD_EXP + Math.round(HOME_STATUS_CARD_BONUS_EXP * ratio);
+  return total > 0 ? Math.max(0, Math.min(1, estimate / total)) : 0;
+}
+
+/**
+ * Bonus EXP of the result cards: { weak, review, progress }.  `chapters` = { qid: chapterId }
+ * (QUESTION_TAXONOMY_MAP primary chapters); a card without a chapter gets no weak bonus.
+ */
+function homeStatusBonusExp(records, chapters) {
+  const list = (Array.isArray(records) ? records : []).filter(r => r && typeof r === 'object' && typeof r.qid === 'string')
+    .slice().sort((a, b) => (homeStatusNum_(a.at, 0) - homeStatusNum_(b.at, 0)) || (String(a.id || '') < String(b.id || '') ? -1 : 1));
+  const map = chapters && typeof chapters === 'object' ? chapters : {};
+  const seen = {};
+  let weak = 0;
+  let review = 0;
+  list.forEach(r => {
+    const ch = map[r.qid];
+    if (!r.legacy && r.source === 'review') review += HOME_STATUS_REVIEW_BONUS_EXP;
+    if (!ch) return;
+    const st = seen[ch] || { sum: 0, n: 0 };
+    const m = (HOME_STATUS_PRIOR_M0 * HOME_STATUS_PRIOR_K + st.sum) / (HOME_STATUS_PRIOR_K + st.n);
+    if (!r.legacy && m < HOME_STATUS_WEAK_M) weak += HOME_STATUS_WEAK_BONUS_EXP;
+    st.sum += homeStatusRatio_(r);
+    st.n += 1;
+    seen[ch] = st;
+  });
+
+  // Mock / blind-test sittings: score per mockId, compared with the best earlier sitting of the same subject.
+  const sittings = {};
+  list.forEach(r => {
+    if (r.legacy || r.source !== 'mock' || typeof r.mockId !== 'string' || !r.mockId) return;
+    const m = /^EE-\d{3}-(\d{2})-\d+$/.exec(r.qid);
+    if (!m) return;
+    const key = m[1] + '|' + r.mockId;
+    const s = sittings[key] || { subject: m[1], id: r.mockId, at: homeStatusNum_(r.at, 0), score: 0 };
+    s.at = Math.min(s.at, homeStatusNum_(r.at, 0));
+    s.score += Math.max(0, homeStatusNum_(r.estimate, 0));
+    sittings[key] = s;
+  });
+  const best = {};
+  let progress = 0;
+  Object.keys(sittings).map(k => sittings[k]).sort((a, b) => (a.at - b.at) || (a.id < b.id ? -1 : 1)).forEach(s => {
+    if (best[s.subject] !== undefined && s.score > best[s.subject]) {
+      progress += Math.round(HOME_STATUS_PROGRESS_EXP_PER_POINT * (s.score - best[s.subject]));
+    }
+    best[s.subject] = best[s.subject] === undefined ? s.score : Math.max(best[s.subject], s.score);
+  });
+  return { weak, review, progress };
 }
 
 /** Consecutive active days ending today (or yesterday while today is still empty). `days` = Set/array of 'YYYY-MM-DD'. */
@@ -154,6 +218,8 @@ function homeStatusAttrState_(estimate, target) {
  *   totalTasks,             // DAILY_SCHEDULE.order.length
  *   records,                // result-card records
  *   reviewDates,            // ['YYYY-MM-DD'] SM-2 lastReviewed values
+ *   chapters,               // { qid: chapterId } for the weak-chapter bonus (may be omitted)
+ *   extras,                 // [{ id, exp, days: ['YYYY-MM-DD'] }] from optional features (may be omitted)
  *   scoreboard,             // scoreboardCompute(records, now) result (may be omitted)
  *   examDate                // 'YYYY-MM-DD' (default HOME_STATUS_EXAM_DATE)
  * }
@@ -166,12 +232,17 @@ function homeStatusModel(inputs) {
   const records = Array.isArray(input.records) ? input.records : [];
   const taskExp = doneCodes.length * HOME_STATUS_TASK_EXP;
   const cardExp = records.reduce((n, r) => n + homeStatusCardExp(r), 0);
-  const totalExp = taskExp + cardExp;
+  const bonus = homeStatusBonusExp(records, input.chapters);
+  const bonusExp = bonus.weak + bonus.review + bonus.progress;
+  const extras = (Array.isArray(input.extras) ? input.extras : []).filter(x => x && typeof x === 'object');
+  const extraExp = extras.reduce((n, x) => n + Math.max(0, Math.floor(homeStatusNum_(x.exp, 0))), 0);
+  const totalExp = taskExp + cardExp + bonusExp + extraExp;
   const lv = homeStatusLevelFor(totalExp);
 
   const active = new Set();
   doneCodes.forEach(code => { const k = homeStatusDateKey(Date.parse(completed[code])); if (k) active.add(k); });
   records.forEach(r => { const k = r && Number.isFinite(Number(r.at)) ? homeStatusDateKey(Number(r.at)) : ''; if (k) active.add(k); });
+  extras.forEach(x => (Array.isArray(x.days) ? x.days : []).forEach(d => { if (/^\d{4}-\d{2}-\d{2}$/.test(String(d))) active.add(String(d)); }));
   (Array.isArray(input.reviewDates) ? input.reviewDates : []).forEach(d => { if (/^\d{4}-\d{2}-\d{2}$/.test(String(d))) active.add(String(d)); });
   const todayKey = homeStatusDateKey(now);
   active.forEach(k => { if (k > todayKey) active.delete(k); });
@@ -196,10 +267,12 @@ function homeStatusModel(inputs) {
     };
   });
 
+  const passLine = sb && Number.isFinite(Number(sb.passLine)) ? Number(sb.passLine) : 360;
+  const passed = hasScore && Number(sb.estimateTotal) >= passLine;
   return {
     level: lv.level,
-    title: homeStatusTitleFor(lv.level),
-    exp: { total: totalExp, into: lv.into, need: lv.need, pct: lv.pct, fromTasks: taskExp, fromCards: cardExp },
+    title: homeStatusTitleFor(lv.level, passed),
+    exp: { total: totalExp, into: lv.into, need: lv.need, pct: lv.pct, fromTasks: taskExp, fromCards: cardExp, fromBonus: bonusExp, fromExtra: extraExp, bonus },
     streak: homeStatusStreak(active, now),
     exam: Object.assign({ date: input.examDate || HOME_STATUS_EXAM_DATE }, homeStatusDaysUntil(input.examDate || HOME_STATUS_EXAM_DATE, now)),
     tasks: { done: doneCodes.length, total: Math.max(doneCodes.length, Math.floor(homeStatusNum_(input.totalTasks, doneCodes.length))) },
@@ -210,7 +283,7 @@ function homeStatusModel(inputs) {
       target: Math.round(scoreTarget),
       count: sb ? homeStatusNum_(sb.estimateCount, 0) : 0,
       subjectCount: sb ? homeStatusNum_(sb.subjectCount, 6) : 6,
-      passLine: sb && Number.isFinite(Number(sb.passLine)) ? Number(sb.passLine) : 360
+      passLine
     },
     attrs
   };
@@ -667,6 +740,16 @@ let homeStatusSceneBuilt = false;
 let homeStatusIntroTimer = null;
 
 /** Gather the model inputs from the existing stores (every read is guarded). */
+// Optional features (src/features/) add EXP and active days: registerHomeStatusExpSource({ id, read(now) -> { exp, days } }).
+const HOME_STATUS_EXP_SOURCES = [];
+
+function registerHomeStatusExpSource(source) {
+  if (!source || typeof source.id !== 'string' || typeof source.read !== 'function') return false;
+  if (HOME_STATUS_EXP_SOURCES.some(s => s.id === source.id)) return false;
+  HOME_STATUS_EXP_SOURCES.push(source);
+  return true;
+}
+
 function homeStatusInputs(now) {
   const t = Number.isFinite(now) ? now : Date.now();
   let state = null;
@@ -679,7 +762,23 @@ function homeStatusInputs(now) {
   try { reviewDates = typeof sm2Schedule !== 'undefined' && sm2Schedule ? Object.keys(sm2Schedule).map(q => sm2Schedule[q] && sm2Schedule[q].lastReviewed).filter(Boolean) : []; } catch (_) { reviewDates = []; }
   let totalTasks = 0;
   try { totalTasks = typeof DAILY_SCHEDULE !== 'undefined' && DAILY_SCHEDULE.order ? DAILY_SCHEDULE.order.length : 0; } catch (_) { totalTasks = 0; }
-  return { now: t, completed: state && state.completed ? state.completed : {}, totalTasks, records, reviewDates, scoreboard, examDate: HOME_STATUS_EXAM_DATE };
+  const chapters = {};
+  try {
+    if (typeof QUESTION_TAXONOMY_MAP !== 'undefined' && QUESTION_TAXONOMY_MAP) {
+      Object.keys(QUESTION_TAXONOMY_MAP).forEach(q => {
+        const tax = QUESTION_TAXONOMY_MAP[q];
+        if (tax && typeof tax.primaryChapter === 'string' && tax.primaryChapter) chapters[q] = tax.primaryChapter;
+      });
+    }
+  } catch (_) { /* no weak-chapter bonus */ }
+  const extras = [];
+  HOME_STATUS_EXP_SOURCES.forEach(src => {
+    try {
+      const got = src.read(t);
+      if (got && typeof got === 'object') extras.push({ id: src.id, exp: got.exp, days: got.days });
+    } catch (_) { /* a broken feature adds nothing */ }
+  });
+  return { now: t, completed: state && state.completed ? state.completed : {}, totalTasks, records, reviewDates, scoreboard, chapters, extras, examDate: HOME_STATUS_EXAM_DATE };
 }
 
 function homeStatusApplyCollapsed_(host) {
@@ -742,7 +841,7 @@ function homeStatusInit() {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     HOME_STATUS_EXAM_DATE, homeStatusModel, homeStatusLevelFor, homeStatusExpNeed, homeStatusExpToReach,
-    homeStatusTitleFor, homeStatusCardExp, homeStatusStreak, homeStatusDaysUntil, homeStatusHtml,
+    homeStatusTitleFor, homeStatusCardExp, homeStatusBonusExp, homeStatusStreak, homeStatusDaysUntil, homeStatusHtml,
     homeStatusPixelText, homeStatusSceneHtml
   };
 }

@@ -1,0 +1,5 @@
+{
+  "name": "破題訓練",
+  "css": ["style.css"],
+  "js": ["data.generated.js", "store.js", "component.js"]
+}

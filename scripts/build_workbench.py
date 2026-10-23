@@ -7,6 +7,7 @@ Compiles src/ styles, state, renderers, components, and data into
 a single, 100% offline, zero-backend, zero-dependency index.html.
 """
 
+import json
 import os
 import re
 import datetime
@@ -18,6 +19,24 @@ def read_file(rel_path):
     full_path = os.path.join(WORKSPACE, rel_path)
     with open(full_path, 'r', encoding='utf-8') as f:
         return f.read()
+
+def feature_files():
+    """Optional add-on features: every src/features/<name>/feature.json lists its own css and js files (relative to
+    that folder, in load order).  Deleting a feature folder removes the feature; nothing in the core names it."""
+    css, js = [], []
+    root = os.path.join(WORKSPACE, 'src', 'features')
+    if not os.path.isdir(root):
+        return css, js
+    for name in sorted(os.listdir(root)):
+        manifest = os.path.join(root, name, 'feature.json')
+        if not os.path.isfile(manifest):
+            continue
+        with open(manifest, 'r', encoding='utf-8') as f:
+            spec = json.load(f)
+        css += [f'src/features/{name}/{rel}' for rel in spec.get('css', [])]
+        js += [f'src/features/{name}/{rel}' for rel in spec.get('js', [])]
+    return css, js
+
 
 def build_workbench():
     print("Building Workbench from modular src/ components...")
@@ -54,6 +73,8 @@ def build_workbench():
         'src/styles/v14-home-status.css',
         'src/styles/v13-icons.css'
     ]
+    extra_css, extra_js = feature_files()
+    css_files += extra_css
     bundled_css = "\n\n".join([f"/* === {f} === */\n" + read_file(f) for f in css_files])
 
     # 2. Bundle Scripts
@@ -109,6 +130,8 @@ def build_workbench():
         'src/components/topTopics.js',
         'src/main.js'
     ]
+    # Features load after every core file (their registries exist by then) and before main.js starts the app.
+    js_files[-1:-1] = extra_js
     bundled_js = "\n\n".join([f"// === {f} ===\n" + read_file(f) for f in js_files])
 
     # 3. HTML Shell

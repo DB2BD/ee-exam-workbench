@@ -78,10 +78,22 @@ class TestLevelAndTitle(unittest.TestCase):
         self.assertEqual(r, [1, 1, 1, 1])
 
     def test_titles_by_level(self):
-        r = run_node("[1, 4, 5, 8, 9, 12, 13, 16, 17, 20, 21, 24, 25, 60].map(homeStatusTitleFor)")
+        r = run_node("[1, 4, 5, 8, 9, 12, 13, 16, 17, 20, 21, 24, 25, 60].map(lv => homeStatusTitleFor(lv, true))")
         self.assertEqual(r, ["見習巡線員", "見習巡線員", "配電學徒", "配電學徒", "變電值班員", "變電值班員",
                              "保護電驛師", "保護電驛師", "系統調度員", "系統調度員", "電網守護者", "電網守護者",
                              "榜上技師", "榜上技師"])
+
+    def test_top_title_needs_the_pass_line(self):
+        r = run_node("[homeStatusTitleFor(25, false), homeStatusTitleFor(60), homeStatusTitleFor(24, false)]")
+        self.assertEqual(r, ["準技師", "準技師", "電網守護者"])
+        r = run_node("""(() => {
+          const sb = (total) => ({ hasData: true, estimateTotal: total, estimateTargetTotal: 380, estimateCount: 6, subjectCount: 6, goal: 380, passLine: 360, subjects: [] });
+          const completed = {};
+          for (let i = 0; i < 120; i++) completed['T-' + i] = iso(2026, 10, 14);
+          return [homeStatusModel({ now: NOW, completed, scoreboard: sb(359.9) }).title,
+                  homeStatusModel({ now: NOW, completed, scoreboard: sb(360) }).title,
+                  homeStatusModel({ now: NOW, completed }).title]; })()""")
+        self.assertEqual(r, ["準技師", "榜上技師", "準技師"])
 
     def test_card_exp(self):
         r = run_node("""[
@@ -92,7 +104,67 @@ class TestLevelAndTitle(unittest.TestCase):
           homeStatusCardExp({ total: 0, estimate: 5 }),
           homeStatusCardExp({ total: 20, estimate: 20, legacy: true }),
           homeStatusCardExp(null)]""")
-        self.assertEqual(r, [20, 15, 10, 20, 10, 5, 0])
+        # v1.7.0: effort, not score — every card is 20 (never less than the old 10 + score bonus).
+        self.assertEqual(r, [20, 20, 20, 20, 20, 5, 0])
+
+
+class TestBonusExp(unittest.TestCase):
+    def test_weak_chapter_bonus_uses_history_before_the_card(self):
+        r = run_node("""(() => {
+          const ch = { 'EE-110-04-1': 'mag', 'EE-111-04-1': 'mag', 'EE-112-04-1': 'mag', 'EE-113-04-1': 'mag' };
+          const c = (qid, d, ratio, extra) => Object.assign({ id: qid + d, qid, at: at(2026, 10, d), total: 20, estimate: 20 * ratio, source: 'today' }, extra || {});
+          // m before each card: 0.2 -> (0.1+1)/1.5=0.733 -> (0.1+1)/2.5=0.44 -> (0.1+1)/3.5=0.314
+          const recs = [c('EE-110-04-1', 1, 1), c('EE-111-04-1', 2, 0), c('EE-112-04-1', 3, 0), c('EE-113-04-1', 4, 1)];
+          const later = recs.concat([c('EE-110-04-1', 9, 1), c('EE-111-04-1', 10, 1)]);
+          const legacyFirst = [c('EE-110-04-1', 1, 0, { legacy: true })].concat(recs.slice(1));
+          return { base: homeStatusBonusExp(recs, ch), later: homeStatusBonusExp(later, ch), legacyFirst: homeStatusBonusExp(legacyFirst, ch),
+                   noMap: homeStatusBonusExp(recs) }; })()""")
+        self.assertEqual(r["base"]["weak"], 30)  # cards 1, 3, 4
+        # later cards: m = 2.1/4.5 = 0.467 (bonus), then 3.1/5.5 = 0.564 (none); the first four keep theirs
+        self.assertEqual(r["later"]["weak"], 40)
+        self.assertEqual(r["legacyFirst"]["weak"], 30)  # legacy card: no bonus, counts toward m (0.2 -> 0.067 -> 0.04 -> ...)
+        self.assertEqual(r["noMap"]["weak"], 0)
+
+    def test_review_and_progress_bonus(self):
+        r = run_node("""(() => {
+          const q1 = qidsOf(114, '04'), q2 = qidsOf(108, '04');
+          const first = mockRecs('m1', 114, '04', at(2026, 10, 1), 0.25);
+          const second = mockRecs('m2', 108, '04', at(2026, 10, 20), 0.5);
+          const worse = mockRecs('m3', 109, '04', at(2026, 10, 21), 0.1);
+          const s1 = first.reduce((n, x) => n + x.estimate, 0), s2 = second.reduce((n, x) => n + x.estimate, 0);
+          const review = [rec(q1[0], { source: 'review', at: at(2026, 10, 2) }), rec(q1[1], { source: 'review', at: at(2026, 10, 3), legacy: true })];
+          const b = homeStatusBonusExp(first.concat(second, worse, review), {});
+          return { b, expect: Math.round(5 * (s2 - s1)) }; })()""")
+        self.assertEqual(r["b"]["review"], 5)  # legacy review card: no bonus
+        self.assertEqual(r["b"]["progress"], r["expect"])
+        self.assertGreater(r["b"]["progress"], 0)
+
+    def test_new_rules_never_lower_a_stored_records_exp(self):
+        r = run_node("""(() => {
+          const old = x => x.legacy ? 5 : 10 + Math.round(10 * Math.max(0, Math.min(1, (x.total > 0 ? x.estimate / x.total : 0))));
+          const out = [];
+          [0, 0.25, 0.5, 1, 1.5].forEach(f => { const x = rec(qidsOf(110, '01')[0], { ratio: f }); out.push(homeStatusCardExp(x) >= old(x)); });
+          return out; })()""")
+        self.assertTrue(all(r))
+
+    def test_extra_exp_sources_from_optional_features(self):
+        r = run_node("""homeStatusModel({ now: NOW, extras: [
+            { id: 'a', exp: 15, days: ['2026-10-14', '2026-10-13'] }, { id: 'b', exp: -3, days: ['bad'] }, null] })""")
+        self.assertEqual(r["exp"]["fromExtra"], 15)  # negative / garbage adds nothing
+        self.assertEqual(r["exp"]["total"], 15)
+        self.assertEqual(r["streak"], {"days": 2, "activeToday": True})
+
+    def test_exp_source_registry(self):
+        r = run_node("""(() => {
+          const ok = registerHomeStatusExpSource({ id: 'x', read: () => ({ exp: 40, days: [] }) });
+          const dup = registerHomeStatusExpSource({ id: 'x', read: () => ({ exp: 1 }) });
+          const bad = registerHomeStatusExpSource({ id: 'y' });
+          registerHomeStatusExpSource({ id: 'boom', read: () => { throw new Error('x'); } });
+          const inputs = homeStatusInputs(NOW);
+          return { ok, dup, bad, extras: inputs.extras, total: homeStatusModel(inputs).exp.fromExtra }; })()""")
+        self.assertEqual((r["ok"], r["dup"], r["bad"]), (True, False, False))
+        self.assertEqual(r["extras"], [{"id": "x", "exp": 40, "days": []}])  # a throwing source is skipped
+        self.assertEqual(r["total"], 40)
 
 
 class TestModel(unittest.TestCase):
@@ -112,16 +184,17 @@ class TestModel(unittest.TestCase):
           const completed = { 'CORE-01': iso(2026, 10, 13), 'CORE-02': iso(2026, 10, 14), 'CORE-03': iso(2026, 10, 14) };
           const records = [
             { at: at(2026, 10, 14), total: 20, estimate: 20 },              // 20
-            { at: at(2026, 10, 14), total: 20, estimate: 10 },              // 15
-            { at: at(2026, 10, 12), total: 20, estimate: 0 },               // 10
+            { at: at(2026, 10, 14), total: 20, estimate: 10 },              // 20
+            { at: at(2026, 10, 12), total: 20, estimate: 0 },               // 20
             { at: at(2026, 10, 12), total: 20, estimate: 20, legacy: true } // 5
           ];
           return homeStatusModel({ now: NOW, completed, totalTasks: 67, records }); })()""")
         self.assertEqual(r["exp"]["fromTasks"], 300)
-        self.assertEqual(r["exp"]["fromCards"], 50)
-        self.assertEqual(r["exp"]["total"], 350)
-        self.assertEqual(r["level"], 3)  # 330 <= 350 < 540
-        self.assertEqual(r["exp"]["into"], 20)
+        self.assertEqual(r["exp"]["fromCards"], 65)
+        self.assertEqual(r["exp"]["fromBonus"], 0)  # no qid / chapter: no bonus
+        self.assertEqual(r["exp"]["total"], 365)
+        self.assertEqual(r["level"], 3)  # 330 <= 365 < 540
+        self.assertEqual(r["exp"]["into"], 35)
         self.assertEqual(r["exp"]["need"], 210)
         self.assertEqual(r["tasks"], {"done": 3, "total": 67})
         self.assertEqual(r["cards"]["count"], 4)

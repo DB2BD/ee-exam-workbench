@@ -665,7 +665,9 @@ async function main() {
         assert.equal(await label('[data-hs="cards"]'), '70');
         assert.equal(await label('[data-hs="streak"]'), String(expected.streak));
         assert(expected.streak >= 1, 'Streak counts today');
-        assert.equal(expected.exp.total, 21 * 100 + expected.cardExp, 'EXP = 100 per task + card EXP');
+        assert.equal(expected.exp.total, 21 * 100 + expected.cardExp + expected.exp.fromBonus + expected.exp.fromExtra,
+          'EXP = 100 per task + card EXP + bonus (weak chapter / review / progress) + optional features');
+        assert(expected.exp.fromBonus > 0, 'Fresh chapters earn the weak-chapter bonus');
         assert.equal((await host.locator('[data-hs="title"]').innerText()).trim(), expected.title);
         assert(expected.score.hasData, 'Seeded result cards give a score estimate');
         assert.equal(await label('[data-hs="score"]'), `${expected.score.total}／${expected.score.target}`);

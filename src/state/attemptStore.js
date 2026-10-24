@@ -446,7 +446,10 @@ function scheduleDailyPracticeFollowUp(qid, dependencies) {
   if (typeof backupValidateSM2 === 'function' && Object.values(stored).some(item => !backupValidateSM2(item))) {
     return learningAttemptFailure('invalid_sm2', '到期排程內容無效，未寫入。');
   }
-  const tomorrow = calculateSM2ReviewItem(null, 1, now).nextReviewDate;
+  // 「加入到期複習」 always means tomorrow (independent of the SM-2 fail interval).
+  const tomorrowDate = new Date(now.getTime());
+  tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+  const tomorrow = formatLocalCalendarDate(tomorrowDate);
   const existing = stored[qid];
   if (existing && existing.nextReviewDate && existing.nextReviewDate <= tomorrow) {
     return { ok: true, duplicate: true, code: 'already_scheduled', message: '已保留較早的到期日。', nextReviewDate: existing.nextReviewDate, nextAction: { type: 'refresh-review' } };

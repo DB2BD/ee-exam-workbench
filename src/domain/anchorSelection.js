@@ -13,6 +13,8 @@
  *   records              作答結果卡紀錄（含 legacy）
  *   dueQids              SM-2 到期題
  *   dueDates             { qid: 'YYYY-MM-DD' }（SM-2 下次複習日，排序用）
+ *   lastReviewed         { qid: 'YYYY-MM-DD' }（SM-2 上次複習日，每日到期複習的「休息 2 天」用）
+ *   skipped              今天在到期複習按過「略過」的 qid（排到最後）
  *   locked / reserved    未完成模考卷保留題／未完成 CORE、MAIN 的固定題（陣列或具 has() 的物件）
  *   completionByQuestion { qid: 時間戳 }（只用於冷卻，不當作掌握度證據）
  *   estimates            { subjectId: 估計分 }（科目優先值用）
@@ -162,6 +164,19 @@ function anchorDueDatesFromGlobals_() {
   return out;
 }
 
+function anchorLastReviewedFromGlobals_() {
+  const out = {};
+  try {
+    if (typeof sm2Schedule !== 'undefined' && sm2Schedule && typeof sm2Schedule === 'object') {
+      Object.keys(sm2Schedule).forEach(qid => {
+        const item = sm2Schedule[qid];
+        if (item && typeof item.lastReviewed === 'string') out[qid] = item.lastReviewed;
+      });
+    }
+  } catch (_) { /* nothing reviewed */ }
+  return out;
+}
+
 function anchorEstimatesFromGlobals_(records, now) {
   const out = {};
   try {
@@ -193,6 +208,8 @@ function anchorContext(overrides) {
   ctx.estimates = o.estimates && typeof o.estimates === 'object' ? o.estimates
     : anchorEstimatesFromGlobals_(ctx.records, ctx.now);
   ctx.schedule = o.schedule || (typeof DAILY_SCHEDULE !== 'undefined' ? DAILY_SCHEDULE : null);
+  ctx.lastReviewed = o.lastReviewed && typeof o.lastReviewed === 'object' ? o.lastReviewed : anchorLastReviewedFromGlobals_();
+  ctx.skipped = o.skipped !== undefined ? o.skipped : [];
   return ctx;
 }
 
@@ -615,12 +632,118 @@ function anchorSortDue(qids, ctx) {
     || (keyed[a].at === keyed[b].at ? 0 : (keyed[a].at < keyed[b].at ? -1 : 1)) || anchorCompareText_(a, b));
 }
 
+// ---- v1.7.1 每日到期複習：優先分數、休息、同科上限、相鄰不同科 ------------------------------------
+//
+// priority = need × value × overdue
+//   need    = last result worst mark: × 1.0, no record 0.7, △ 0.6, ○ 0.3
+//   value   = chapter tier (anchor 1.0, other main 0.8, other 0.6) × chapter frequency (years seen / 11)
+//   overdue = min(2, 1 + days past the SM-2 due date / 7)
+// Questions reviewed within the last DUE_REST_DAYS days (SM-2 lastReviewed) rest: they go after every other due
+// question, and questions skipped today go last.  The list is cut into daily blocks of DUE_DAILY_QUOTA; inside a
+// block a subject appears at most DUE_SUBJECT_CAP times and neighbours differ in subject whenever possible.
+
+const DUE_DAILY_QUOTA = 15;
+const DUE_SUBJECT_CAP = 4;
+const DUE_REST_DAYS = 2;
+const DUE_NEED = { x: 1.0, none: 0.7, tri: 0.6, o: 0.3 };
+const DUE_TIER = { anchor: 1.0, main: 0.8, other: 0.6 };
+const DUE_OVERDUE_DAYS = 7;
+const DUE_OVERDUE_CAP = 2;
+const DUE_DEFAULT_FREQ = 0.5;
+
+function anchorDayKey_(ms) {
+  const d = new Date(ms);
+  const p = n => String(n).padStart(2, '0');
+  return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+}
+
+function anchorDaysBetween_(fromKey, toKey) {
+  const parse = k => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(k || ''));
+    return m ? Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : null;
+  };
+  const a = parse(fromKey);
+  const b = parse(toKey);
+  return a === null || b === null ? null : Math.round((b - a) / ANCHOR_DAY_MS);
+}
+
+/** [{ qid, subject, score, need, value, overdue, rested, skipped }] for the due qids (input order kept). */
+function anchorDuePriority(qids, ctx) {
+  const context = ctx || anchorContext();
+  const st = anchorChapterStats(context);
+  const bank = anchorBank(context);
+  const chapterOf = {};
+  const subjectOf = {};
+  bank.forEach(q => { chapterOf[q.id] = q.chapter; subjectOf[q.id] = q.subject; });
+  const anchorSet = {};
+  anchorSubjectIds(context).forEach(id => anchorChaptersFor(id, st).forEach(ch => { anchorSet[ch] = true; }));
+  const latest = anchorLatestRecords_(context.records);
+  const now = anchorNow_(context);
+  const today = anchorDayKey_(now);
+  const dates = context.dueDates || {};
+  const reviewed = context.lastReviewed || {};
+  const skipped = anchorMembership_(context.skipped);
+  return (Array.isArray(qids) ? qids : []).map(qid => {
+    const chapter = chapterOf[qid] || '';
+    const subject = subjectOf[qid] || (anchorParseQid_(qid) || {}).subject || '';
+    const info = latest[qid] ? anchorRecordInfo_(latest[qid].rec, now) : null;
+    const need = DUE_NEED[info ? info.worst : 'none'] || DUE_NEED.none;
+    const stat = chapter ? st[chapter] : null;
+    const tier = anchorSet[chapter] ? DUE_TIER.anchor : (stat && stat.main ? DUE_TIER.main : DUE_TIER.other);
+    const value = tier * (stat ? stat.freq : DUE_DEFAULT_FREQ);
+    const late = anchorDaysBetween_(dates[qid], today);
+    const overdue = Math.min(DUE_OVERDUE_CAP, 1 + Math.max(0, late === null ? 0 : late) / DUE_OVERDUE_DAYS);
+    const since = anchorDaysBetween_(reviewed[qid], today);
+    return {
+      qid, subject, need, value, overdue,
+      score: need * value * overdue,
+      rested: since !== null && since >= 0 && since < DUE_REST_DAYS,
+      skipped: skipped(qid),
+      due: typeof dates[qid] === 'string' ? dates[qid] : '9999-99-99'
+    };
+  });
+}
+
+function anchorDueCompare_(a, b) {
+  return (b.score - a.score) || anchorCompareText_(a.due, b.due) || anchorCompareText_(a.qid, b.qid);
+}
+
+/** Greedy daily blocks over entries already sorted by priority (see the header above). */
+function anchorDueBlocks_(entries, quota) {
+  const rest = entries.slice();
+  const out = [];
+  let counts = {};
+  while (rest.length) {
+    if (out.length % quota === 0) counts = {};
+    const prev = out.length && out.length % quota !== 0 ? out[out.length - 1].subject : null;
+    const capOk = e => (counts[e.subject] || 0) < DUE_SUBJECT_CAP;
+    let i = rest.findIndex(e => capOk(e) && e.subject !== prev);
+    if (i < 0) i = rest.findIndex(capOk);
+    if (i < 0) i = 0;
+    const e = rest.splice(i, 1)[0];
+    counts[e.subject] = (counts[e.subject] || 0) + 1;
+    out.push(e);
+  }
+  return out;
+}
+
+/** { order, today, total }: every due qid in daily order; `today` is the first block of `quota` (default 15). */
+function anchorDailyDue(qids, ctx, options) {
+  const quota = Math.max(1, Math.floor(Number(options && options.quota) || DUE_DAILY_QUOTA));
+  const entries = anchorDuePriority(qids, ctx).sort(anchorDueCompare_);
+  const fresh = entries.filter(e => !e.rested && !e.skipped);
+  const rested = entries.filter(e => e.rested && !e.skipped);
+  const skipped = entries.filter(e => e.skipped);
+  const order = anchorDueBlocks_(fresh, quota).concat(anchorDueBlocks_(rested, quota), anchorDueBlocks_(skipped, quota)).map(e => e.qid);
+  return { order, today: order.slice(0, quota), total: order.length };
+}
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     ANCHORS_PER_SUBJECT, PRIOR_M0, PRIOR_K, LEGACY_WEIGHT, HALF_LIFE_DAYS, CF_BONUS, KRS_PENALTY, G,
     SHARED_BONUS, HOLD_M, COOLDOWN_REDO_DAYS, COOLDOWN_SCORED_DAYS, IDLE_WEIGHT, IDLE_CAP_DAYS,
     anchorContext, anchorBank, anchorSubjectIds, anchorChapterStats, anchorPool, anchorChaptersFor,
     anchorFocusOrder, anchorSpillChapter, anchorSubjectQueue, anchorSubjectPriority, anchorQueue,
-    anchorFocusPick, anchorSortDue
+    anchorFocusPick, anchorSortDue, anchorDuePriority, anchorDailyDue, DUE_DAILY_QUOTA, DUE_SUBJECT_CAP
   };
 }

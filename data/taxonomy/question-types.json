@@ -1,0 +1,5237 @@
+{
+ "schemaVersion": "1.0.0",
+ "reviewedAt": "2026-10-24",
+ "description": "題型 layer under the chapter taxonomy: recognition cues, first move, prerequisites (type or chapter ids) and confusable types. Primary type per PE question.",
+ "types": {
+  "ct-3p-parallel-load-power": {
+   "subject": "01",
+   "chapter": "ct-three-phase",
+   "name": "三相並聯負載總功率",
+   "cues": [
+    "平衡三相，兩組負載並聯（Y 與 Δ 或給定某相功率）",
+    "求總複數、有效、無效功率"
+   ],
+   "firstMove": "各負載以 \\(S=3\\dfrac{|V_\\phi|^2}{Z^*}\\) 求後相加；Y 接 \\(V_\\phi=V_L/\\sqrt3\\)，Δ 接 \\(V_\\phi=V_L\\)",
+   "prereqs": [
+    "ct-complex-power",
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "ct-3p-unbalanced-4wire",
+    "ct-cp-average-power"
+   ]
+  },
+  "ct-3p-per-phase-equiv": {
+   "subject": "01",
+   "chapter": "ct-three-phase",
+   "name": "三相單相等效電路",
+   "cues": [
+    "Y 接發電機含內阻抗與線路阻抗",
+    "Δ 接負載",
+    "求單相等效電路與線電流"
+   ],
+   "firstMove": "\\(Z_Y=Z_\\Delta/3\\)，畫 a 相單相等效：\\(\\mathbf I_a=\\dfrac{\\mathbf E_{an}}{Z_g+Z_\\ell+Z_\\Delta/3}\\)，其餘相移 \\(\\mp120^\\circ\\)",
+   "prereqs": [
+    "ct-three-phase",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "ct-3p-parallel-load-power",
+    "ct-ac-delta-y-bridge"
+   ]
+  },
+  "ct-3p-pf-correction": {
+   "subject": "01",
+   "chapter": "ct-three-phase",
+   "name": "三相功因改善電容",
+   "cues": [
+    "給三相負載 MVA 與功率因數",
+    "目標功率因數（領先或落後）",
+    "求每相電容 \\(C\\)"
+   ],
+   "firstMove": "\\(P\\) 不變，\\(Q_C=P(\\tan\\theta_1-\\tan\\theta_2)\\)（領先 \\(\\theta_2<0\\)），Y 接 \\(C=\\dfrac{Q_C}{3\\omega V_{ph}^2}\\)、\\(V_{ph}=V_L/\\sqrt3\\)",
+   "prereqs": [
+    "ct-complex-power"
+   ],
+   "confusers": [
+    "ct-3p-parallel-load-power"
+   ]
+  },
+  "ct-3p-unbalanced-4wire": {
+   "subject": "01",
+   "chapter": "ct-three-phase",
+   "name": "四線制不平衡負載",
+   "cues": [
+    "Y–Y 四線制（有中性線）",
+    "三相負載阻抗不相等",
+    "求總平均功率"
+   ],
+   "firstMove": "中性線固定中性點，每相跨 \\(V_\\phi=V_L/\\sqrt3\\)：\\(P_T=\\sum_k\\dfrac{V_\\phi^2}{|Z_k|}\\cos\\theta_k\\)",
+   "prereqs": [
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "ct-3p-parallel-load-power"
+   ]
+  },
+  "ct-ac-delta-y-bridge": {
+   "subject": "01",
+   "chapter": "ct-phasor-ac",
+   "name": "交流電橋 Δ–Y 轉換",
+   "cues": [
+    "交流阻抗橋式電路",
+    "題目指定 Δ 至 Y 轉換",
+    "求各支路電流相量"
+   ],
+   "firstMove": "把 Δ 三阻抗換成 Y：\\(Z_{an}=\\dfrac{Z_{ab}Z_{ca}}{Z_{ab}+Z_{bc}+Z_{ca}}\\)，電路成「\\(Z_{an}\\) 串兩條並聯路徑」",
+   "prereqs": [
+    "ct-phasor-ac",
+    "ct-eq-delta-y-bridge"
+   ],
+   "confusers": [
+    "ct-eq-delta-y-bridge",
+    "ct-3p-per-phase-equiv"
+   ]
+  },
+  "ct-ac-filter-bandwidth": {
+   "subject": "01",
+   "chapter": "ct-phasor-ac",
+   "name": "濾波器轉移函數與頻寬",
+   "cues": [
+    "求 \\(H(s)=V_o/V_i\\)",
+    "求頻寬 BW 與截止頻率 \\(\\omega_1,\\omega_2\\)",
+    "R 與串聯 LC 並聯（帶拒）"
+   ],
+   "firstMove": "零初值 s 域分壓 \\(H(s)=\\dfrac{Z_p}{R_o+Z_p}\\)，再令 \\(|H(j\\omega)|=\\dfrac{1}{\\sqrt2}|H|_{\\max}\\) 解半功率頻率",
+   "prereqs": [
+    "ct-ac-series-resonance",
+    "ct-laplace-circuit"
+   ],
+   "confusers": [
+    "ct-ac-series-resonance",
+    "ct-lap-pole-stability"
+   ]
+  },
+  "ct-ac-phasor-node": {
+   "subject": "01",
+   "chapter": "ct-phasor-ac",
+   "name": "相量節點分析",
+   "cues": [
+    "給弦波源與 \\(\\omega\\)",
+    "求節點電壓相量與時域式",
+    "可能含運算放大器"
+   ],
+   "firstMove": "元件換成 \\(Z_L=j\\omega L\\)、\\(Z_C=\\frac{1}{j\\omega C}\\)（或導納），列節點方程 \\(\\mathbf Y\\mathbf V=\\mathbf I\\)，克拉瑪解後寫回時域",
+   "prereqs": [
+    "ct-phasor-ac",
+    "ct-nm-nodal"
+   ],
+   "confusers": [
+    "ct-sup-multi-frequency",
+    "ct-mi-mesh-dot"
+   ]
+  },
+  "ct-ac-series-resonance": {
+   "subject": "01",
+   "chapter": "ct-phasor-ac",
+   "name": "串聯 RLC 諧振",
+   "cues": [
+    "串聯 RLC",
+    "給 \\(\\omega_0\\)／頻寬 \\(B\\) 設計元件，或求 \\(f_0\\)、\\(Q_0\\)",
+    "問諧振時元件電壓或 \\(v_C\\)、\\(v_L\\) 最大頻率"
+   ],
+   "firstMove": "令 \\(\\omega_0L=\\dfrac{1}{\\omega_0C}\\) 得 \\(\\omega_0=\\dfrac{1}{\\sqrt{LC}}\\)（給定某頻率電抗時 \\(f_0=f\\sqrt{X_C/X_L}\\)），\\(Q_0=\\dfrac{\\omega_0L}{R}\\)、\\(B=\\dfrac RL=\\dfrac{\\omega_0}{Q_0}\\)",
+   "prereqs": [
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "ct-ac-filter-bandwidth",
+    "ct-rlc-switch-series"
+   ]
+  },
+  "ct-cp-average-power": {
+   "subject": "01",
+   "chapter": "ct-complex-power",
+   "name": "支路平均功率與功率守恆",
+   "cues": [
+    "電壓源直接跨接多條支路",
+    "求負載吸收與電源供應的平均功率"
+   ],
+   "firstMove": "各支路 \\(\\mathbf I_k=\\mathbf V/Z_k\\)，吸收 \\(P=\\sum|\\mathbf I_k|^2R_k\\)，供應 \\(P=\\mathrm{Re}\\{\\mathbf V\\mathbf I^*\\}\\)（峰值相量再乘 \\(\\tfrac12\\)）",
+   "prereqs": [
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "ct-3p-parallel-load-power"
+   ]
+  },
+  "ct-eq-delta-y-bridge": {
+   "subject": "01",
+   "chapter": "ct-divider-equiv",
+   "name": "不平衡電橋 Δ–Y 化簡",
+   "cues": [
+    "直流電橋，對臂比值不相等",
+    "中間跨接電阻",
+    "問電源電流或功率"
+   ],
+   "firstMove": "檢查 \\(R_1R_4\\ne R_2R_3\\)，把三電阻 Δ 換成 Y：\\(R_a=\\dfrac{R_{ab}R_{ca}}{R_{ab}+R_{bc}+R_{ca}}\\)，再串並聯",
+   "prereqs": [
+    "ct-divider-equiv"
+   ],
+   "confusers": [
+    "ct-ac-delta-y-bridge",
+    "ct-tn-independent"
+   ]
+  },
+  "ct-fo-rl-natural": {
+   "subject": "01",
+   "chapter": "ct-first-order-rc-rl",
+   "name": "並聯電感零輸入響應",
+   "cues": [
+    "多個電感並聯且初始電流不同",
+    "開關切換後接純電阻網路",
+    "求個別電感電流"
+   ],
+   "firstMove": "\\(L_{eq}=L_1\\parallel L_2\\)、\\(i(0)=\\sum i_k(0)\\)、\\(\\tau=L_{eq}/R_{eq}\\)；個別電流用 \\(i_k(t)=i_k(0)+\\frac{1}{L_k}\\int_0^t v\\,d\\tau\\)",
+   "prereqs": [
+    "ct-first-order-rc-rl",
+    "ct-divider-equiv"
+   ],
+   "confusers": [
+    "ct-rlc-switch-series"
+   ]
+  },
+  "ct-kcl-single-node": {
+   "subject": "01",
+   "chapter": "ct-ohm-kcl-kvl",
+   "name": "單節點 KCL 與相依源功率",
+   "cues": [
+    "所有元件並接於上下兩導線間",
+    "只有一個未知電壓",
+    "問相依源提供或吸收的功率"
+   ],
+   "firstMove": "以下導線為參考、唯一未知 \\(v_x\\)，控制量寫成 \\(v_x\\) 的式子（如 \\(i_3=v_x/3\\)），列 \\(\\sum \\frac{v_x}{R_k}=\\sum I_{\\text{注入}}\\)",
+   "prereqs": [
+    "ct-ohm-kcl-kvl"
+   ],
+   "confusers": [
+    "ct-nm-nodal"
+   ]
+  },
+  "ct-lap-dependent-source": {
+   "subject": "01",
+   "chapter": "ct-laplace-circuit",
+   "name": "含相依源 s 域暫態",
+   "cues": [
+    "題目指定拉氏轉換",
+    "含相依源與電感／電容，零初值",
+    "步階電源，求 \\(v_o(t>0)\\)"
+   ],
+   "firstMove": "零初值 s 域電路（不加初值源），相依源以 s 域控制量表示，選一個未知量列 KCL 解出，再部分分式反轉換",
+   "prereqs": [
+    "ct-laplace-circuit",
+    "ct-nm-nodal"
+   ],
+   "confusers": [
+    "ct-rlc-parallel-step",
+    "ct-lap-impulse-sources"
+   ]
+  },
+  "ct-lap-impulse-sources": {
+   "subject": "01",
+   "chapter": "ct-laplace-circuit",
+   "name": "含脈衝與弦波源 s 域解",
+   "cues": [
+    "題目指定拉氏轉換",
+    "電源含 \\(\\delta(t)\\)、\\(\\cos\\omega t\\,u(t)\\)",
+    "求端電壓 \\(V_{ab}\\)"
+   ],
+   "firstMove": "零初值下畫 s 域電路：\\(\\mathcal L\\{\\delta\\}=1\\)、\\(\\mathcal L\\{\\cos\\omega t\\}=\\dfrac{s}{s^2+\\omega^2}\\)、\\(L\\to sL\\)、\\(C\\to\\dfrac1{sC}\\)，再 s 域節點分析",
+   "prereqs": [
+    "ct-laplace-circuit"
+   ],
+   "confusers": [
+    "ct-rlc-impulse-init",
+    "ct-lap-dependent-source"
+   ]
+  },
+  "ct-lap-pole-stability": {
+   "subject": "01",
+   "chapter": "ct-laplace-circuit",
+   "name": "極點與穩定度論述",
+   "cues": [
+    "論述題",
+    "轉移函數 \\(H(s)\\) 極點位置",
+    "BIBO 穩定"
+   ],
+   "firstMove": "部分分式 \\(h(t)=\\sum_k r_k e^{p_kt}\\)，每個極點貢獻模態 \\(e^{\\sigma_kt}\\)；\\(\\mathrm{Re}\\,p_k<0\\ \\forall k\\iff\\) BIBO 穩定",
+   "prereqs": [
+    "ct-laplace-circuit"
+   ],
+   "confusers": [
+    "ct-ac-filter-bandwidth"
+   ]
+  },
+  "ct-mi-coupled-delta": {
+   "subject": "01",
+   "chapter": "ct-mutual-inductance",
+   "name": "Δ 接互感耦合負載",
+   "cues": [
+    "Δ 接負載三支路電感兩兩互感",
+    "平衡三相電源，求線電流"
+   ],
+   "firstMove": "依同名端列三支路 KVL，三式相加得 \\(\\mathbf I_{ab}+\\mathbf I_{bc}+\\mathbf I_{ca}=0\\)，代回得 \\(Z_\\phi=R+j\\omega(L-M)\\)",
+   "prereqs": [
+    "ct-mi-mesh-dot",
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "ct-3p-per-phase-equiv",
+    "ct-mi-mesh-dot"
+   ]
+  },
+  "ct-mi-mesh-dot": {
+   "subject": "01",
+   "chapter": "ct-mutual-inductance",
+   "name": "互感網目／節點分析",
+   "cues": [
+    "兩線圈同名端標示與互感 \\(M\\)",
+    "給弦波源，求某支路電流、電壓或功率"
+   ],
+   "firstMove": "換相量後依同名端列網目 KVL：\\(\\mathbf V=Z_{11}\\mathbf I_1\\pm j\\omega M\\mathbf I_2\\)（電流同進同名端取正），克拉瑪解",
+   "prereqs": [
+    "ct-mutual-inductance",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "ct-mi-reflected-impedance",
+    "ct-ac-phasor-node"
+   ]
+  },
+  "ct-mi-reflected-impedance": {
+   "subject": "01",
+   "chapter": "ct-mutual-inductance",
+   "name": "互感反射阻抗",
+   "cues": [
+    "二次側為閉迴路",
+    "求輸入阻抗或使其為實數的耦合係數 \\(k\\)"
+   ],
+   "firstMove": "列兩網目 KVL 消去 \\(\\mathbf I_2\\)：\\(Z_{in}=Z_{11}+\\dfrac{(\\omega M)^2}{Z_{22}}\\)，\\(M=k\\sqrt{L_1L_2}\\)",
+   "prereqs": [
+    "ct-mi-mesh-dot"
+   ],
+   "confusers": [
+    "ct-mi-mesh-dot",
+    "ct-mp-transformer"
+   ]
+  },
+  "ct-mp-transformer": {
+   "subject": "01",
+   "chapter": "ct-max-power",
+   "name": "含理想變壓器最大功率",
+   "cues": [
+    "理想變壓器匝比",
+    "可變負載 \\(R_L\\)",
+    "求 \\(R_L\\) 與最大平均功率"
+   ],
+   "firstMove": "由 a–b 看入求戴維寧等效（理想變壓器 \\(V_1/V_2=N_1/N_2\\)、\\(N_1I_1=N_2I_2\\)），\\(R_L=R_{th}\\)、\\(P_{\\max}=\\dfrac{V_{th}^2}{4R_{th}}\\)",
+   "prereqs": [
+    "ct-tn-voc-isc",
+    "ct-max-power"
+   ],
+   "confusers": [
+    "ct-mi-reflected-impedance",
+    "ct-tn-voc-isc"
+   ]
+  },
+  "ct-nm-dual-network": {
+   "subject": "01",
+   "chapter": "ct-node-mesh",
+   "name": "節點方程與對偶網路",
+   "cues": [
+    "要求寫出節點方程式後轉成對偶方程",
+    "繪出對偶網路",
+    "平面電路含浮接電壓源"
+   ],
+   "firstMove": "先以超節點列節點方程（電壓約束＋超節點 KCL），再依對偶 \\(G\\leftrightarrow R\\)、\\(V_s\\leftrightarrow I_s\\)、節點 \\(\\leftrightarrow\\) 網目、接地節點 \\(\\leftrightarrow\\) 外圍網目改寫",
+   "prereqs": [
+    "ct-nm-nodal"
+   ],
+   "confusers": [
+    "ct-nm-nodal",
+    "ct-sup-symmetry"
+   ]
+  },
+  "ct-nm-nodal": {
+   "subject": "01",
+   "chapter": "ct-node-mesh",
+   "name": "節點分析（超節點與相依源）",
+   "cues": [
+    "題目指定節點電壓法",
+    "電壓源（含相依源）跨接兩非參考節點",
+    "CCVS/VCCS 控制量為支路電流或電壓"
+   ],
+   "firstMove": "選參考節點，電壓源兩端圈成超節點並寫約束 \\(v_i-v_j=V_s\\)，控制量以節點電壓表示，再對其餘節點／超節點列 KCL",
+   "prereqs": [
+    "ct-ohm-kcl-kvl"
+   ],
+   "confusers": [
+    "ct-kcl-single-node",
+    "ct-nm-dual-network"
+   ]
+  },
+  "ct-nm-opamp": {
+   "subject": "01",
+   "chapter": "ct-node-mesh",
+   "name": "理想運放節點分析",
+   "cues": [
+    "多顆理想運算放大器",
+    "求輸入阻抗 \\(Z_{in}\\) 或輸出與輸入關係",
+    "儀表放大器／GIC 架構"
+   ],
+   "firstMove": "理想運放虛短 \\(v_+=v_-\\)、虛斷 \\(i_+=i_-=0\\)；只對非運放輸出節點列 KCL，運放輸出節點以虛短補方程",
+   "prereqs": [
+    "ct-nm-nodal"
+   ],
+   "confusers": [
+    "ct-ac-phasor-node",
+    "ct-nm-nodal"
+   ]
+  },
+  "ct-rlc-impulse-init": {
+   "subject": "01",
+   "chapter": "ct-second-order-rlc",
+   "name": "脈衝源的跳變初值",
+   "cues": [
+    "電路含 \\(\\delta(t)\\) 電壓或電流源",
+    "題目要求時域法",
+    "零初始狀態"
+   ],
+   "firstMove": "對 \\(0^-\\to0^+\\) 積分：\\(v_C(0^+)=v_C(0^-)+\\dfrac1C\\int_{0^-}^{0^+}i_C\\,dt\\)、\\(i_L(0^+)=i_L(0^-)+\\dfrac1L\\int_{0^-}^{0^+}v_L\\,dt\\)，再解 \\(t>0\\) 二階方程",
+   "prereqs": [
+    "ct-second-order-rlc"
+   ],
+   "confusers": [
+    "ct-lap-impulse-sources",
+    "ct-rlc-switch-series"
+   ]
+  },
+  "ct-rlc-parallel-step": {
+   "subject": "01",
+   "chapter": "ct-second-order-rlc",
+   "name": "並聯 RLC 步階響應",
+   "cues": [
+    "R、L、C 與電流源並接於同一對節點",
+    "步階電流源，初值為 0（可能含相依源）",
+    "求 \\(i_L(t)\\)、\\(v(t)\\)"
+   ],
+   "firstMove": "頂節點 KCL：\\(C\\dfrac{dv}{dt}+\\dfrac vR+i_L=I_s\\)，以 \\(v=L\\dfrac{di_L}{dt}\\) 得 \\(s^2+\\dfrac{1}{RC}s+\\dfrac{1}{LC}=0\\) 判斷阻尼（含相依源時先把控制量寫成節點電壓）",
+   "prereqs": [
+    "ct-second-order-rlc",
+    "ct-nm-nodal"
+   ],
+   "confusers": [
+    "ct-rlc-switch-series",
+    "ct-lap-dependent-source"
+   ]
+  },
+  "ct-rlc-switch-series": {
+   "subject": "01",
+   "chapter": "ct-second-order-rlc",
+   "name": "換路後串聯 RLC 暫態",
+   "cues": [
+    "開關在 \\(t=0\\) 切換，\\(t<0\\) 已穩態",
+    "換路後成串聯 RLC",
+    "求 \\(v(0)\\)、\\(i(0)\\) 與 \\(v(t)\\)"
+   ],
+   "firstMove": "\\(t<0\\) 直流穩態（L 短路、C 開路）求 \\(i(0),v(0)\\)；\\(t>0\\) 特徵式 \\(s^2+\\dfrac RLs+\\dfrac1{LC}=0\\)，\\(\\dot v(0)=i(0)/C\\)",
+   "prereqs": [
+    "ct-second-order-rlc",
+    "ct-first-order-rc-rl"
+   ],
+   "confusers": [
+    "ct-rlc-parallel-step",
+    "ct-fo-rl-natural"
+   ]
+  },
+  "ct-state-equation": {
+   "subject": "01",
+   "chapter": "ct-second-order-rlc",
+   "name": "狀態方程式建立",
+   "cues": [
+    "多個電容、電感",
+    "求 \\(dv_C/dt\\) 或 \\(di_L/dt\\) 的狀態方程",
+    "右邊只能含狀態量與電源"
+   ],
+   "firstMove": "電容視為電壓源、電感視為電流源，對電容節點列 KCL \\(C\\dfrac{dv_C}{dt}=\\sum i\\)（電感迴路 KVL \\(L\\dfrac{di_L}{dt}=\\sum v\\)），再以節點／超節點 KCL 消去非狀態量",
+   "prereqs": [
+    "ct-nm-nodal",
+    "ct-second-order-rlc"
+   ],
+   "confusers": [
+    "ct-rlc-impulse-init",
+    "ct-nm-nodal"
+   ]
+  },
+  "ct-sup-multi-frequency": {
+   "subject": "01",
+   "chapter": "ct-superposition",
+   "name": "多頻率電源重疊",
+   "cues": [
+    "兩電源頻率不同（直流＋交流或兩個 ω）",
+    "求穩態 \\(v(t)\\)、\\(i(t)\\) 或功率"
+   ],
+   "firstMove": "每次只留一個電源（電壓源短路、電流源開路），以該電源的 \\(\\omega\\) 求相量，分別回時域後相加 \\(v(t)=\\sum_k v_k(t)\\)；功率按頻率分量相加",
+   "prereqs": [
+    "ct-superposition",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "ct-ac-phasor-node",
+    "ct-sup-symmetry"
+   ]
+  },
+  "ct-sup-symmetry": {
+   "subject": "01",
+   "chapter": "ct-superposition",
+   "name": "對稱與反對稱激勵分解",
+   "cues": [
+    "電路左右鏡像對稱，兩源大小不同",
+    "題目指定對稱／反對稱分析"
+   ],
+   "firstMove": "把兩源拆成對稱分量 \\(\\frac{V_L+V_R}{2}\\) 與反對稱分量 \\(\\frac{V_R-V_L}{2}\\)；對稱時跨軸元件無電流，反對稱時對稱軸電位為 0，各自化簡後疊加",
+   "prereqs": [
+    "ct-superposition"
+   ],
+   "confusers": [
+    "ct-sup-multi-frequency",
+    "ct-nm-dual-network"
+   ]
+  },
+  "ct-tn-independent": {
+   "subject": "01",
+   "chapter": "ct-thevenin-norton",
+   "name": "僅獨立源戴維寧等效",
+   "cues": [
+    "電路只有獨立電壓源與電流源",
+    "求 a–b 戴維寧等效電路",
+    "橋式結構"
+   ],
+   "firstMove": "\\(V_{th}=V_{oc}\\) 以節點分析求 \\(V_a-V_b\\)；\\(R_{th}\\)：電壓源短路、電流源開路後串並聯",
+   "prereqs": [
+    "ct-nm-nodal",
+    "ct-divider-equiv"
+   ],
+   "confusers": [
+    "ct-tn-voc-isc",
+    "ct-eq-delta-y-bridge"
+   ]
+  },
+  "ct-tn-test-source": {
+   "subject": "01",
+   "chapter": "ct-thevenin-norton",
+   "name": "純相依源等效電阻",
+   "cues": [
+    "電路無獨立源，只有相依源",
+    "求端點看入的 \\(R_{TH}\\)"
+   ],
+   "firstMove": "保留相依源，在端點加測試電壓 \\(V_t\\)，控制量寫成節點電壓，求 \\(I_t\\)，\\(R_{TH}=V_t/I_t\\)",
+   "prereqs": [
+    "ct-nm-nodal"
+   ],
+   "confusers": [
+    "ct-tn-voc-isc",
+    "ct-tn-independent"
+   ]
+  },
+  "ct-tn-voc-isc": {
+   "subject": "01",
+   "chapter": "ct-thevenin-norton",
+   "name": "含相依源諾頓／戴維寧",
+   "cues": [
+    "獨立源與相依源並存",
+    "求負載端諾頓或戴維寧等效",
+    "控制量會隨端點開路／短路改變"
+   ],
+   "firstMove": "移除負載，分別開路求 \\(V_{oc}\\)、短路求 \\(I_{sc}\\)（兩種狀態各重算控制量），\\(R_N=V_{oc}/I_{sc}\\)",
+   "prereqs": [
+    "ct-nm-nodal"
+   ],
+   "confusers": [
+    "ct-tn-test-source",
+    "ct-tn-independent"
+   ]
+  },
+  "ct-tp-abcd-cascade": {
+   "subject": "01",
+   "chapter": "ct-two-port",
+   "name": "梯形網路傳輸參數",
+   "cues": [
+    "求傳輸（ABCD）參數",
+    "串聯、並聯元件交替的梯形網路"
+   ],
+   "firstMove": "切成串接單元：串聯阻抗 \\(\\begin{bmatrix}1&Z\\\\0&1\\end{bmatrix}\\)、並聯導納 \\(\\begin{bmatrix}1&0\\\\Y&1\\end{bmatrix}\\)，\\(\\mathbf T=\\mathbf T_1\\mathbf T_2\\cdots\\)",
+   "prereqs": [
+    "ct-two-port"
+   ],
+   "confusers": [
+    "ct-tp-param-definition"
+   ]
+  },
+  "ct-tp-param-definition": {
+   "subject": "01",
+   "chapter": "ct-two-port",
+   "name": "依定義求雙埠參數",
+   "cues": [
+    "指定 g、h 或 y 參數",
+    "網路含相依源",
+    "給埠電流方向定義"
+   ],
+   "firstMove": "依參數定義選自變數（如 h：\\(I_1,V_2\\)），令其一為零或直接列埠節點 KCL／迴路 KVL，把因變數寫成自變數線性式取係數，例 \\(h_{11}=\\left.\\dfrac{V_1}{I_1}\\right|_{V_2=0}\\)",
+   "prereqs": [
+    "ct-two-port",
+    "ct-nm-nodal"
+   ],
+   "confusers": [
+    "ct-tp-abcd-cascade"
+   ]
+  },
+  "dist-eq-3ph-bank-tap": {
+   "subject": "06",
+   "chapter": "dist-distribution-equipment",
+   "name": "單相變壓器三相組接與分接頭",
+   "cues": [
+    "三台單相變壓器組成三相",
+    "銘牌含多個分接頭電壓（如 3450-3300-3150 V）",
+    "一台故障以不同規格代用"
+   ],
+   "firstMove": "由電壓需求定一次 Δ、二次 Y，算原機匝比 \\(a=\\frac{V_{H,tap}}{V_{X,tap}}\\)，代用機選有效匝比相同的分接頭",
+   "prereqs": [
+    "emach-three-phase-transformer"
+   ],
+   "confusers": [
+    "dist-eq-open-delta"
+   ]
+  },
+  "dist-eq-open-delta": {
+   "subject": "06",
+   "chapter": "dist-distribution-equipment",
+   "name": "V-V 開三角接線",
+   "cues": [
+    "兩台單相變壓器",
+    "V-V／開放三角",
+    "三相四線燈力併供或一台故障改接",
+    "問複線圖或最大負載"
+   ],
+   "firstMove": "兩台一次跨不同線電壓、二次首尾串接，第三線電壓由 KVL 補足；容量以線電流＝繞組電流 \\(S=\\sqrt3V_LI_L\\)（約 \\(\\sqrt3S_{1\\phi}\\)）",
+   "prereqs": [
+    "emach-three-phase-transformer",
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "dist-eq-3ph-bank-tap"
+   ]
+  },
+  "dist-eq-supply-regulation": {
+   "subject": "06",
+   "chapter": "dist-distribution-equipment",
+   "name": "台電供電方式說明",
+   "cues": [
+    "高壓／特高壓用戶供電方式",
+    "供電方式依何決定",
+    "責任分界點"
+   ],
+   "firstMove": "先列電壓分類表（高壓 11.4／22.8 kV、特高壓 69／161 kV 與用戶端受電設備），再條列決定因素：契約容量、負載特性、系統條件、可靠度",
+   "prereqs": [
+    "dist-load-characteristics"
+   ],
+   "confusers": [
+    "dist-load-contract-essay",
+    "dist-gnd-essay"
+   ]
+  },
+  "dist-gnd-essay": {
+   "subject": "06",
+   "chapter": "dist-grounding-system",
+   "name": "系統接地與設備接地說明",
+   "cues": [
+    "試述接地之方法與目的",
+    "繪出接地作法",
+    "設備接地之重要性"
+   ],
+   "firstMove": "依接地對象分開：系統接地＝電源中性點（直接／電阻／電抗接地），設備接地＝金屬外殼；以碰殼故障 \\(V=I_gR_g\\) 說明人身安全與保護動作",
+   "prereqs": [
+    "dist-grounding-system"
+   ],
+   "confusers": [
+    "dist-sc-purpose-essay",
+    "dist-gnd-nr-resistor"
+   ]
+  },
+  "dist-gnd-neutral-open": {
+   "subject": "06",
+   "chapter": "dist-grounding-system",
+   "name": "單相三線中性線斷線",
+   "cues": [
+    "單相三線 110／220 V",
+    "中性線開路",
+    "負載中點經 \\(R_g\\) 接地",
+    "求兩負載電壓"
+   ],
+   "firstMove": "負載化為定電阻 \\(R=V^2/P\\)，以接地中心抽頭為參考在負載中點 M 列 KCL 求 \\(V_M\\)，再 \\(V_{AN}=110-V_M\\)",
+   "prereqs": [
+    "ct-node-mesh"
+   ],
+   "confusers": [
+    "dist-gnd-nr-resistor"
+   ]
+  },
+  "dist-gnd-nr-resistor": {
+   "subject": "06",
+   "chapter": "dist-grounding-system",
+   "name": "中性點電阻接地設計",
+   "cues": [
+    "二次側中性點經電阻接地",
+    "電阻器電壓與電流額定",
+    "5%～20% 短路電流判斷低電阻接地"
+   ],
+   "firstMove": "電阻器電壓取相電壓 \\(V_{LL}/\\sqrt3\\)、\\(I_R=V_R/R\\)；另以 \\(I_{sc}=I_b/(X_s+X_T)\\)，\\(X_s=S_b/S_{sc}\\) 求比值",
+   "prereqs": [
+    "dist-sc-pu-radial"
+   ],
+   "confusers": [
+    "dist-gnd-essay",
+    "dist-gnd-neutral-open"
+   ]
+  },
+  "dist-light-lumen-method": {
+   "subject": "06",
+   "chapter": "dist-lighting-design",
+   "name": "流明法照明設計",
+   "cues": [
+    "廠房長×寬、所需照度 lx",
+    "照明率 CU、維護係數 M",
+    "每具燈具流明",
+    "求燈具數與配置"
+   ],
+   "firstMove": "\\(N=\\frac{EA}{F\\cdot CU\\cdot M}\\) 無條件進位，排成行列並檢核間距 ≤ 安裝高度，再回算實際照度",
+   "prereqs": [
+    "dist-lighting-design"
+   ],
+   "confusers": [
+    "dist-load-demand-chain"
+   ]
+  },
+  "dist-load-contract-essay": {
+   "subject": "06",
+   "chapter": "dist-load-characteristics",
+   "name": "裝置容量與契約容量規劃",
+   "cues": [
+    "設廠初期申請時間電價",
+    "如何決定變壓器裝置容量",
+    "如何決定契約容量"
+   ],
+   "firstMove": "由負載清冊：裝置容量（kVA）\\(=\\sum S_if_{D,i}/F_d\\) 加裕度取標準額定；契約容量為 15 分鐘平均最大需量（kW），二段式分尖峰／離峰訂定",
+   "prereqs": [
+    "dist-load-demand-chain"
+   ],
+   "confusers": [
+    "dist-eq-supply-regulation"
+   ]
+  },
+  "dist-load-curve-energy": {
+   "subject": "06",
+   "chapter": "dist-load-characteristics",
+   "name": "累積電能曲線求需量",
+   "cues": [
+    "電錶累積用電量（度）曲線",
+    "多分廠共用主變",
+    "求主變最小容量與日負載因數"
+   ],
+   "firstMove": "相鄰讀值相減除以區間時數 \\(P_k=\\frac{E(t_k)-E(t_{k-1})}{\\Delta t}\\)，先各廠同區間相加再取最大值",
+   "prereqs": [
+    "dist-load-characteristics"
+   ],
+   "confusers": [
+    "dist-load-demand-chain"
+   ]
+  },
+  "dist-load-demand-chain": {
+   "subject": "06",
+   "chapter": "dist-load-characteristics",
+   "name": "需量參差合成容量",
+   "cues": [
+    "設備容量、需量因數、負載因數表",
+    "設備間與變壓器間參差因數",
+    "求變壓器容量、平均負載、日／月用電量"
+   ],
+   "firstMove": "設備最大需量 \\(P_{\\max}=S\\cdot\\mathrm{PF}\\cdot DF\\)，群組需量 \\(=\\sum P_{\\max,i}/F_d\\) 逐層往上；平均負載 \\(P_{\\max}\\cdot LF\\) 直接相加不除參差因數",
+   "prereqs": [
+    "dist-load-characteristics"
+   ],
+   "confusers": [
+    "dist-load-curve-energy",
+    "dist-load-contract-essay"
+   ]
+  },
+  "dist-motor-branch-feeder": {
+   "subject": "06",
+   "chapter": "dist-motor-installation",
+   "name": "電動機分路與幹線設計",
+   "cues": [
+    "多台電動機 HP 與額定電流",
+    "啟動階級、過電流保護倍數",
+    "求分路與幹線線徑及斷路器 AT"
+   ],
+   "firstMove": "分路導線 \\(\\ge1.25I_{FL}\\)、分路保護依倍數取標準 AT；幹線導線 \\(\\ge1.25I_{\\max}+\\sum I_{其餘}\\)、幹線保護 \\(\\le k I_{\\max}+\\sum I_{其餘}\\)",
+   "prereqs": [
+    "dist-motor-installation"
+   ],
+   "confusers": [
+    "dist-motor-start-vdrop",
+    "dist-vd-3ph-approx"
+   ]
+  },
+  "dist-motor-start-vdrop": {
+   "subject": "06",
+   "chapter": "dist-motor-installation",
+   "name": "電動機啟動壓降",
+   "cues": [
+    "電動機全壓啟動",
+    "啟動電流為額定 k 倍、啟動功因",
+    "責任分界點短路容量與主變 Z%",
+    "求各母線電壓降或電壓變動率"
+   ],
+   "firstMove": "同一基準化 \\(X_{sys}=S_b/S_{sc}\\)、\\(X_T\\)，啟動電流（或啟動電抗 \\(X_M\\)）化標么，串聯以 \\(V=1-jXI\\) 逐級求母線電壓",
+   "prereqs": [
+    "ps-per-unit",
+    "dist-short-circuit-capacity"
+   ],
+   "confusers": [
+    "dist-pq-arc-flicker",
+    "dist-motor-branch-feeder"
+   ]
+  },
+  "dist-pfc-benefit": {
+   "subject": "06",
+   "chapter": "dist-power-factor-correction",
+   "name": "功因改善效益",
+   "cues": [
+    "並聯電容器後減少的電流、壓降、損失",
+    "可增加的供電容量",
+    "功率因數電價獎罰"
+   ],
+   "firstMove": "求補償前後 \\(P\\)、\\(Q\\)、\\(S\\)，再由 \\(I=\\frac{S}{\\sqrt3V_{LL}}\\)、\\(\\Delta V=\\frac{PR+QX}{V_{LL}}\\)、損失 \\(\\frac{S^2R}{V_{LL}^2}\\) 比較",
+   "prereqs": [
+    "dist-pfc-kvar-sizing",
+    "dist-vd-3ph-approx"
+   ],
+   "confusers": [
+    "dist-pfc-kvar-sizing",
+    "dist-pfc-capacity-limit"
+   ]
+  },
+  "dist-pfc-capacity-limit": {
+   "subject": "06",
+   "chapter": "dist-power-factor-correction",
+   "name": "設備不超載之電容補償",
+   "cues": [
+    "發電機或變壓器額定 kVA",
+    "加入新負載後",
+    "求使設備不超載的電容 kvar"
+   ],
+   "firstMove": "新舊負載 \\(P\\)、\\(Q\\) 分別相加，\\(Q_{allow}=\\sqrt{S_{rated}^2-P^2}\\)，\\(Q_c=Q-Q_{allow}\\)",
+   "prereqs": [
+    "ct-complex-power"
+   ],
+   "confusers": [
+    "dist-pfc-kvar-sizing"
+   ]
+  },
+  "dist-pfc-kvar-sizing": {
+   "subject": "06",
+   "chapter": "dist-power-factor-correction",
+   "name": "功因改善電容器容量",
+   "cues": [
+    "功因由 \\(\\cos\\phi_1\\) 改善至 \\(\\cos\\phi_2\\)",
+    "求電容器 kvar 或每相電容",
+    "輕載／分時段投切"
+   ],
+   "firstMove": "\\(P\\) 不變，\\(Q_c=P(\\tan\\phi_1-\\tan\\phi_2)\\)；Δ 接每相 \\(C=\\frac{Q_c}{3\\omega V_{LL}^2}\\)",
+   "prereqs": [
+    "ct-complex-power"
+   ],
+   "confusers": [
+    "dist-pfc-capacity-limit",
+    "dist-pfc-benefit"
+   ]
+  },
+  "dist-pq-arc-flicker": {
+   "subject": "06",
+   "chapter": "dist-harmonics-mitigation",
+   "name": "電弧爐電壓閃爍",
+   "cues": [
+    "電弧爐、爐用變壓器",
+    "電極短路／斷弧",
+    "電壓閃爍（突降）變動率",
+    "求串聯電抗器使變動率 ≤ 某 %"
+   ],
+   "firstMove": "全部換到同一基準（\\(X_S=S_b/S_{sc}\\)），以量測點分上游 \\(X_u\\)、下游 \\(X_d\\)，\\(\\Delta V=\\frac{X_u}{X_u+X_d}\\)；串聯電抗器加在下游分母",
+   "prereqs": [
+    "ps-per-unit",
+    "dist-short-circuit-capacity"
+   ],
+   "confusers": [
+    "dist-pq-arc-resistive",
+    "dist-motor-start-vdrop"
+   ]
+  },
+  "dist-pq-arc-resistive": {
+   "subject": "06",
+   "chapter": "dist-harmonics-mitigation",
+   "name": "電弧電阻變動壓降",
+   "cues": [
+    "電弧爐電阻 0～某 Ω 變動",
+    "線路含電阻 \\(R+jX\\)",
+    "熔化期電壓變動百分標么值"
+   ],
+   "firstMove": "同一基準求 \\(Z_{up}\\)、\\(X_{down}\\)、\\(R_{pu}\\)，以複數分壓 \\(|V|=\\left|\\frac{R_{pu}+jX_{down}}{Z_{up}+R_{pu}+jX_{down}}\\right|\\) 求兩端點 \\(|V|\\) 相減",
+   "prereqs": [
+    "ps-per-unit",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "dist-pq-arc-flicker"
+   ]
+  },
+  "dist-pq-harmonic-current-source": {
+   "subject": "06",
+   "chapter": "dist-harmonics-mitigation",
+   "name": "諧波電流源分流計算",
+   "cues": [
+    "六脈波整流器第 5 次諧波電流",
+    "電容器串聯 6% 電抗器",
+    "求匯流排諧波電壓與各分路諧波電流"
+   ],
+   "firstMove": "整流器當電流源 \\(I_5\\)，電源電動勢短路；各支路換第 5 次阻抗（電感 \\(\\times h\\)、電容 \\(\\div h\\)）並聯得 \\(Z_{bus,5}\\)，\\(V_5=I_5Z_{bus,5}\\)",
+   "prereqs": [
+    "ps-per-unit",
+    "el-pe-thyristor-rectifier"
+   ],
+   "confusers": [
+    "dist-pq-parallel-resonance"
+   ]
+  },
+  "dist-pq-parallel-resonance": {
+   "subject": "06",
+   "chapter": "dist-harmonics-mitigation",
+   "name": "電容器並聯諧波共振",
+   "cues": [
+    "功因改善電容器與整流器並存",
+    "變壓器二次側短路容量",
+    "求並聯共振頻率或諧波次數"
+   ],
+   "firstMove": "畫諧波等效電路：系統電感 \\(hX_s\\) 與電容 \\(X_c/h\\) 並聯，令相等得 \\(h_r=\\sqrt{S_{sc}/Q_c}\\)，\\(f_r=h_rf_1\\)",
+   "prereqs": [
+    "dist-short-circuit-capacity",
+    "ct-second-order-rlc"
+   ],
+   "confusers": [
+    "dist-pq-harmonic-current-source"
+   ]
+  },
+  "dist-prot-ct-burden": {
+   "subject": "06",
+   "chapter": "dist-protection-coordination",
+   "name": "比流器負擔與誤差",
+   "cues": [
+    "CT 激磁曲線",
+    "負擔 \\(Z_B\\)、漏阻抗 \\(Z'\\)",
+    "電驛動作電流",
+    "求 CT 誤差或能否偵測故障"
+   ],
+   "firstMove": "激磁電壓 \\(E'=I'(Z'+Z_B)\\)，在激磁曲線讀 \\(I_e\\)，誤差 \\(=\\frac{I_e}{I'+I_e}\\)，一次動作電流 \\(I_p=n(I'+I_e)\\)",
+   "prereqs": [
+    "emach-single-phase-transformer"
+   ],
+   "confusers": [
+    "dist-prot-relay-tcc",
+    "dist-prot-cvt-ratio"
+   ]
+  },
+  "dist-prot-cvt-ratio": {
+   "subject": "06",
+   "chapter": "dist-protection-coordination",
+   "name": "電容式比壓器比壓",
+   "cues": [
+    "電容分壓器 \\(C_1\\)、\\(C_2\\)",
+    "補償電抗器 \\(L\\) 串負擔 \\(Z_B\\)",
+    "求 \\(V_2/V_1\\)"
+   ],
+   "firstMove": "拿掉 \\(L\\)–\\(Z_B\\) 對中點作戴維寧：\\(V_{th}=\\frac{C_1}{C_1+C_2}V_1\\)、\\(Z_{th}=\\frac{1}{j\\omega(C_1+C_2)}\\)，再對 \\(Z_B\\) 分壓",
+   "prereqs": [
+    "ct-thevenin-norton",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "dist-prot-ct-burden"
+   ]
+  },
+  "dist-prot-diff-ct": {
+   "subject": "06",
+   "chapter": "dist-protection-coordination",
+   "name": "變壓器差動保護 CT 補償",
+   "cues": [
+    "Y–Δ 變壓器",
+    "差動電驛 87、制動線圈",
+    "求 CT 接線、變流比或電驛電流"
+   ],
+   "firstMove": "CT 接法與變壓器相反（Y 側 CT 接 Δ、Δ 側 CT 接 Y），各側額定 \\(I=\\frac{S}{\\sqrt3V}\\)，Δ 接 CT 電驛電流乘 \\(\\sqrt3\\)",
+   "prereqs": [
+    "emach-three-phase-transformer"
+   ],
+   "confusers": [
+    "dist-prot-relay-tcc",
+    "dist-prot-metering-wiring"
+   ]
+  },
+  "dist-prot-metering-wiring": {
+   "subject": "06",
+   "chapter": "dist-protection-coordination",
+   "name": "受電保護計量接線",
+   "cues": [
+    "50/51、51N、27、CT、PT、AS、VS",
+    "在虛線範圍繪出接線",
+    "受電盤單線／三線圖"
+   ],
+   "firstMove": "PT 放 CB 電源側、CT 放 CB 負載側；CT 二次電流元件串聯、PT 二次電壓元件並聯，51N 接 CT 星形殘流路徑",
+   "prereqs": [
+    "dist-protection-coordination"
+   ],
+   "confusers": [
+    "dist-prot-diff-ct"
+   ]
+  },
+  "dist-prot-relay-tcc": {
+   "subject": "06",
+   "chapter": "dist-protection-coordination",
+   "name": "過電流電驛時間設定",
+   "cues": [
+    "CO 電驛時間曲線或時間公式",
+    "分接頭 tap、時間設定 TD／k",
+    "故障電流與動作時間",
+    "求 CT 比或 k 值"
+   ],
+   "firstMove": "電流倍數 \\(M=\\frac{I_{relay}}{I_{tap}}\\)（\\(I_{relay}=I_F\\times\\frac{5}{N_p}\\)，同側比較），由曲線或公式對應 TD 與動作時間",
+   "prereqs": [
+    "dist-short-circuit-capacity"
+   ],
+   "confusers": [
+    "dist-prot-ct-burden",
+    "dist-prot-diff-ct"
+   ]
+  },
+  "dist-sc-1ph-ll": {
+   "subject": "06",
+   "chapter": "dist-short-circuit-capacity",
+   "name": "單相變壓器二次線間短路",
+   "cues": [
+    "三相系統經單相三線變壓器",
+    "二次 220 V 線間短路",
+    "阻抗含 R 與 X",
+    "求對稱與非對稱故障電流"
+   ],
+   "firstMove": "以故障側 \\(S_b\\)、\\(V_b\\) 標么化，上游三相部分取 \\(Z_1+Z_2=2Z_1\\)，串饋線與單相變壓器得 \\(Z\\)，\\(I=\\frac{I_b}{|Z|}\\)，非對稱乘 K",
+   "prereqs": [
+    "ps-unsymmetrical-faults",
+    "dist-sc-pu-radial"
+   ],
+   "confusers": [
+    "dist-sc-seq-from-mva",
+    "dist-sc-pu-radial"
+   ]
+  },
+  "dist-sc-gen-parallel": {
+   "subject": "06",
+   "chapter": "dist-short-circuit-capacity",
+   "name": "發電機並聯短路",
+   "cues": [
+    "自備發電機與電網（或兩機）並聯",
+    "\\(X_d''\\)、斷路器開閉兩種狀態",
+    "求故障電流與各機分流"
+   ],
+   "firstMove": "換到同一基準，求故障點戴維寧電抗 \\(X_{th}\\)（發電機與電網支路並聯，CB 開路即拿掉支路），\\(I_F=\\frac{V_F}{X_{th}}\\)，各機依電抗反比分流",
+   "prereqs": [
+    "dist-sc-pu-radial",
+    "emach-synchronous-generator-round"
+   ],
+   "confusers": [
+    "dist-sc-motor-contribution"
+   ]
+  },
+  "dist-sc-motor-contribution": {
+   "subject": "06",
+   "chapter": "dist-short-circuit-capacity",
+   "name": "電動機次暫態短路貢獻",
+   "cues": [
+    "母線上接感應／同步電動機",
+    "\\(X_d''\\)、HP（1 HP≈1 kVA）",
+    "非對稱倍率 K",
+    "求斷路器啟斷／瞬時電流容量"
+   ],
+   "firstMove": "同一基準下每台電機以 \\(E''=1\\) 串 \\(X_d''\\) 為電源，與電網支路在故障點並聯，\\(I_{pu}=\\sum\\frac{1}{X_k}\\)，再乘 \\(I_b\\) 與 K",
+   "prereqs": [
+    "dist-sc-pu-radial",
+    "emach-induction-motor-equiv"
+   ],
+   "confusers": [
+    "dist-sc-gen-parallel",
+    "dist-sc-pu-radial"
+   ]
+  },
+  "dist-sc-mva-method": {
+   "subject": "06",
+   "chapter": "dist-short-circuit-capacity",
+   "name": "MVA 法短路計算",
+   "cues": [
+    "題目指定 MVA 法",
+    "放射狀系統多個故障點",
+    "求斷路器對稱啟斷電流"
+   ],
+   "firstMove": "各元件化為自身短路容量 \\(\\mathrm{MVA}_i\\)（\\(\\mathrm{MVA}_T=\\frac{\\mathrm{MVA}_{rated}}{Z}\\)、線路 \\(\\frac{kV^2}{Z}\\)），串聯 \\(\\frac{1}{\\mathrm{MVA}}=\\sum\\frac{1}{\\mathrm{MVA}_i}\\)，\\(I=\\frac{\\mathrm{MVA}_F}{\\sqrt3\\,kV}\\)",
+   "prereqs": [
+    "ps-three-phase-fault"
+   ],
+   "confusers": [
+    "dist-sc-pu-radial"
+   ]
+  },
+  "dist-sc-pu-radial": {
+   "subject": "06",
+   "chapter": "dist-short-circuit-capacity",
+   "name": "標么法單電源短路",
+   "cues": [
+    "責任分界點短路容量",
+    "主變 Z%、幹線 Ω/km",
+    "給定基準 kVA、V",
+    "求某點對稱三相短路電流"
+   ],
+   "firstMove": "\\(X_s=\\frac{S_b}{S_{sc}}\\)、變壓器換基準、線路 \\(Z/Z_b\\) 串成 \\(Z_{th}\\)，\\(I_F=\\frac{I_b}{|Z_{th}|}\\)，\\(I_b\\) 用故障點電壓",
+   "prereqs": [
+    "ps-per-unit",
+    "ps-three-phase-fault"
+   ],
+   "confusers": [
+    "dist-sc-mva-method",
+    "dist-sc-motor-contribution"
+   ]
+  },
+  "dist-sc-purpose-essay": {
+   "subject": "06",
+   "chapter": "dist-short-circuit-capacity",
+   "name": "短路電流計算目的",
+   "cues": [
+    "試述計算短路電流的目的",
+    "申論、無數據"
+   ],
+   "firstMove": "條列：最大故障電流選遮斷容量與熱／動穩定、最小故障電流整定保護協調、導體耐受、電壓與安全，以 \\(I_{sc}=\\frac{S_{sc}}{\\sqrt3V}\\) 串起",
+   "prereqs": [
+    "dist-short-circuit-capacity"
+   ],
+   "confusers": [
+    "dist-gnd-essay"
+   ]
+  },
+  "dist-sc-rl-dc-offset": {
+   "subject": "06",
+   "chapter": "dist-short-circuit-capacity",
+   "name": "短路 RL 暫態直流成分",
+   "cues": [
+    "R-L 電路以開關閉合模擬短路",
+    "電源 \\(V_m\\sin(\\omega t+\u0007lpha)\\)",
+    "求穩態交流與暫態直流成分"
+   ],
+   "firstMove": "列 KVL \\(Ri+L\\frac{di}{dt}=V_m\\sin(\\omega t+\\alpha)\\)，特解用相量 \\(\\frac{V_m}{|Z|}\\sin(\\omega t+\\alpha-\\theta)\\)，加 \\(Ae^{-Rt/L}\\) 以 \\(i(0)=0\\) 定常數",
+   "prereqs": [
+    "ct-first-order-rc-rl"
+   ],
+   "confusers": [
+    "dist-sc-pu-radial"
+   ]
+  },
+  "dist-sc-seq-from-mva": {
+   "subject": "06",
+   "chapter": "dist-short-circuit-capacity",
+   "name": "由短路容量求序阻抗",
+   "cues": [
+    "三相短路容量與單相接地短路容量",
+    "求正序、負序、零序阻抗"
+   ],
+   "firstMove": "\\(X_1=\\frac{V_{LL}^2}{S_{3\\phi}}\\)、\\(X_2=X_1\\)；單相接地三序串聯 \\(X_1+X_2+X_0=\\frac{3V_{LL}^2}{S_{1\\phi}}\\)，扣除得 \\(X_0\\)",
+   "prereqs": [
+    "ps-symmetrical-components",
+    "ps-unsymmetrical-faults"
+   ],
+   "confusers": [
+    "dist-sc-1ph-ll"
+   ]
+  },
+  "dist-vd-3ph-approx": {
+   "subject": "06",
+   "chapter": "dist-voltage-drop",
+   "name": "線路電壓降近似計算",
+   "cues": [
+    "三相饋線 Ω/km 與長度",
+    "負載 kVA／HP 與功因",
+    "求百分壓降或最大容許長度"
+   ],
+   "firstMove": "\\(\\Delta V\\approx\\sqrt3\\,I(R\\cos\\theta+X\\sin\\theta)\\)，百分壓降除以標稱線電壓；線長與壓降成正比反求",
+   "prereqs": [
+    "dist-voltage-drop"
+   ],
+   "confusers": [
+    "dist-pfc-benefit",
+    "dist-vd-pf-backsolve"
+   ]
+  },
+  "dist-vd-pf-backsolve": {
+   "subject": "06",
+   "chapter": "dist-voltage-drop",
+   "name": "由容許壓降求功因",
+   "cues": [
+    "定阻抗負載、電源電壓固定",
+    "容許壓降百分率",
+    "求至少需校正到的功率因數"
+   ],
+   "firstMove": "並聯電容不改有效電流，由負載電壓下限求 \\(I\\cos\\phi\\)，代入 \\(\\Delta V\\approx I(R_\\ell\\cos\\phi+X_\\ell\\sin\\phi)\\) 反解 \\(\\tan\\phi\\)",
+   "prereqs": [
+    "dist-vd-3ph-approx",
+    "dist-pfc-kvar-sizing"
+   ],
+   "confusers": [
+    "dist-vd-3ph-approx",
+    "dist-pfc-kvar-sizing"
+   ]
+  },
+  "el-af-gic": {
+   "subject": "02",
+   "chapter": "el-active-filter",
+   "name": "GIC 模擬電感濾波器",
+   "cues": [
+    "兩顆運放與五個被動元件成鏈",
+    "要求等效電感或 \\(T(s)\\)",
+    "判斷濾波器類型與階數"
+   ],
+   "firstMove": "沿 GIC 鏈由末端往回推電流與虛短路節點電壓，得 \\(Z_{in}=\\frac{Z_1Z_3Z_5}{Z_2Z_4}=sL_{eq}\\)，再於輸入節點寫 KCL",
+   "prereqs": [
+    "el-opamp-ideal",
+    "ct-laplace-circuit"
+   ],
+   "confusers": [
+    "el-af-state-variable"
+   ]
+  },
+  "el-af-opamp-bode": {
+   "subject": "02",
+   "chapter": "el-active-filter",
+   "name": "單極點放大器波德圖",
+   "cues": [
+    "給低頻增益 dB 與某頻率的增益 dB",
+    "單極點模型",
+    "畫幅頻、相頻圖並標 \\(f_b\\)、\\(f_t\\)"
+   ],
+   "firstMove": "\\(A(f)=\\frac{A_0}{1+jf/f_b}\\)，\\(A_0=10^{80/20}\\)，代入量測點 \\(|A|=\\frac{A_0}{\\sqrt{1+(f/f_b)^2}}\\) 解 \\(f_b\\)",
+   "prereqs": [
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "el-af-time-constant"
+   ]
+  },
+  "el-af-rc-oscillator": {
+   "subject": "02",
+   "chapter": "el-active-filter",
+   "name": "RC 移相振盪器",
+   "cues": [
+    "反相放大器接三節 RC 網路回授",
+    "問迴路增益與振盪頻率",
+    "求 \\(C\\)、\\(R_f\\) 使其振盪"
+   ],
+   "firstMove": "在輸出端斷開迴路，\\(A=-R_f/R\\)、RC 網路由末端往回推得 \\(\\beta(s)\\)，令 \\(A\\beta(j\\omega_0)=1\\)",
+   "prereqs": [
+    "el-opamp-ideal",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "el-op-schmitt-relaxation",
+    "el-af-state-variable"
+   ]
+  },
+  "el-af-state-variable": {
+   "subject": "02",
+   "chapter": "el-active-filter",
+   "name": "狀態變數濾波器",
+   "cues": [
+    "三顆運放，兩級 RC 積分器串接",
+    "輸出回授到加法器",
+    "問 \\(v_X/v_{out}\\)、\\(v_Y/v_{out}\\) 或 \\(T(s)\\)"
+   ],
+   "firstMove": "積分器虛接地節點 KCL：\\(v_X=-\\frac{v_{out}}{sR_1C_1}\\)，級聯得 \\(v_Y\\)，再令加法器 \\(v_M=v_N\\) 解 \\(v_{out}\\)",
+   "prereqs": [
+    "el-opamp-ideal",
+    "ct-laplace-circuit"
+   ],
+   "confusers": [
+    "el-af-gic",
+    "el-af-rc-oscillator"
+   ]
+  },
+  "el-af-time-constant": {
+   "subject": "02",
+   "chapter": "el-active-filter",
+   "name": "時間常數法估頻寬",
+   "cues": [
+    "給受控源模型與多顆電容",
+    "指定短路／開路（零值）時間常數法",
+    "問 \\(f_L\\)、\\(f_H\\)、中頻增益或零點"
+   ],
+   "firstMove": "低頻 \\(\\omega_L\\approx\\sum\\frac{1}{R_kC_k}\\)（他電容短路）、高頻 \\(\\omega_H\\approx\\frac{1}{\\sum R_kC_k}\\)（他電容開路），跨接電容以測試源求所見電阻",
+   "prereqs": [
+    "el-bjt-bias-small-signal",
+    "ct-thevenin-norton"
+   ],
+   "confusers": [
+    "el-bjt-hf-miller",
+    "el-af-opamp-bode"
+   ]
+  },
+  "el-bjt-bias-stability": {
+   "subject": "02",
+   "chapter": "el-bjt-bias-small-signal",
+   "name": "BJT 偏壓與溫度穩定",
+   "cues": [
+    "集極回授或其他偏壓電路",
+    "兩組溫度下的 \\(\\beta\\)、\\(V_{BE}\\)",
+    "問 Q 點與其變化率"
+   ],
+   "firstMove": "集極、基極迴路 KVL 消去 \\(V_{CE}\\)：\\(I_B=\\frac{V_{CC}-V_{BE}}{R_B+(\\beta+1)R_C}\\)，分別代入兩溫度參數",
+   "prereqs": [
+    "ct-ohm-kcl-kvl"
+   ],
+   "confusers": [
+    "el-bjt-sat-switch"
+   ]
+  },
+  "el-bjt-cb-amp": {
+   "subject": "02",
+   "chapter": "el-bjt-bias-small-signal",
+   "name": "共基極放大器",
+   "cues": [
+    "基極經電容交流接地或直接接地",
+    "訊號由射極輸入、集極輸出",
+    "問 \\(R_i\\)、\\(A_v\\)（可含 \\(C_\\pi\\)、\\(C_\\mu\\) 極點）"
+   ],
+   "firstMove": "直流由節點 KCL 求 \\(I_E\\)，\\(r_e=V_T/I_E\\)；由射極看入 \\(R_i=r_e\\parallel R_E\\)，\\(A_v=\\frac{R_i}{R_s+R_i}g_mR_{L,ac}\\)",
+   "prereqs": [
+    "el-bjt-bias-small-signal"
+   ],
+   "confusers": [
+    "el-bjt-hf-miller",
+    "el-diff-bjt-pair"
+   ]
+  },
+  "el-bjt-hf-miller": {
+   "subject": "02",
+   "chapter": "el-bjt-bias-small-signal",
+   "name": "BJT 高頻響應",
+   "cues": [
+    "共射極放大器給 \\(C_\\pi\\)、\\(C_\\mu\\)",
+    "問 Miller 電容或上 3-dB 頻率",
+    "需先求 \\(I_{CQ}\\)"
+   ],
+   "firstMove": "基極戴維寧等效＋KVL 求 \\(I_{CQ}\\)→\\(g_m\\)；以 \\(C_M=C_\\mu(1+g_mR_L')\\) 拆米勒電容，\\(f_H=\\frac{1}{2\\pi R_{in}'(C_\\pi+C_M)}\\)",
+   "prereqs": [
+    "el-bjt-bias-small-signal",
+    "el-af-time-constant"
+   ],
+   "confusers": [
+    "el-af-time-constant",
+    "el-bjt-cb-amp"
+   ]
+  },
+  "el-bjt-sat-switch": {
+   "subject": "02",
+   "chapter": "el-bjt-bias-small-signal",
+   "name": "BJT 飽和開關",
+   "cues": [
+    "給 \\(V_{CE(sat)}\\)、\\(V_{BE(sat)}\\)、\\(\\beta\\) 範圍",
+    "過載係數 ODF",
+    "問 \\(R_B\\) 與電晶體損耗"
+   ],
+   "firstMove": "\\(I_{CS}=\\frac{V_{CC}-V_{CE(sat)}}{R_C}\\)，\\(I_{BS}=I_{CS}/\\beta_{\\min}\\)，\\(I_B=\\mathrm{ODF}\\cdot I_{BS}\\)，再由基極迴路 KVL 求 \\(R_B\\)",
+   "prereqs": [
+    "el-bjt-bias-small-signal"
+   ],
+   "confusers": [
+    "el-bjt-bias-stability"
+   ]
+  },
+  "el-diff-bjt-pair": {
+   "subject": "02",
+   "chapter": "el-diff-amp",
+   "name": "BJT 差動對小訊號",
+   "cues": [
+    "兩顆 BJT 共射極接尾電流源並聯 \\(R_S\\)",
+    "\\(v_2=kv_1\\) 多種輸入組合",
+    "問 \\(R_i\\)、\\(A_v\\)"
+   ],
+   "firstMove": "\\(I_E=I_S/2\\)→\\(r_e=V_T/I_E\\)，畫 T 模型，對共射極節點寫 KCL \\(\\frac{v_1-v_e}{r_e}+\\frac{v_2-v_e}{r_e}=\\frac{v_e}{R_S}\\)",
+   "prereqs": [
+    "el-bjt-bias-small-signal",
+    "el-diff-cmrr"
+   ],
+   "confusers": [
+    "el-diff-cmrr",
+    "el-bjt-cb-amp"
+   ]
+  },
+  "el-diff-cmrr": {
+   "subject": "02",
+   "chapter": "el-diff-amp",
+   "name": "差模共模分解與 CMRR",
+   "cues": [
+    "給 CMRR 與 \\(A_d\\)",
+    "兩輸入端各加訊號或共模雜訊",
+    "問 \\(A_{cm}\\)、dB 值、輸出"
+   ],
+   "firstMove": "\\(v_d=v_1-v_2\\)、\\(v_{cm}=\\frac{v_1+v_2}{2}\\)，\\(v_o=A_dv_d+A_{cm}v_{cm}\\)，\\(A_{cm}=A_d/\\mathrm{CMRR}\\)",
+   "prereqs": [
+    "el-diff-amp"
+   ],
+   "confusers": [
+    "el-diff-bjt-pair"
+   ]
+  },
+  "el-dr-1ph-rectifier": {
+   "subject": "02",
+   "chapter": "el-diode-rectifier",
+   "name": "單相整流波形與功因",
+   "cues": [
+    "單相半波或全波（橋式）二極體整流",
+    "純電阻或 \\(L\\to\\infty\\) 負載、續流二極體",
+    "問平均電流、輸入 rms、功率因數或拓撲比較"
+   ],
+   "firstMove": "依導通區間寫出 \\(v_o(\\theta)\\)、\\(i_s(\\theta)\\)，以 \\(V_{dc}=\\frac{1}{2\\pi}\\int_0^{2\\pi}v_o\\,d\\theta\\) 及 rms 定義積分，\\(\\mathrm{PF}=P/(V_{s,rms}I_{s,rms})\\)",
+   "prereqs": [
+    "el-dr-diode-state",
+    "ct-complex-power"
+   ],
+   "confusers": [
+    "el-dr-fourier-harmonic",
+    "el-dr-3ph-rectifier"
+   ]
+  },
+  "el-dr-3ph-rectifier": {
+   "subject": "02",
+   "chapter": "el-diode-rectifier",
+   "name": "三相二極體橋式整流",
+   "cues": [
+    "三相電源接上下臂二極體",
+    "問各段導通二極體、\\(V_o\\) 波形或平均值",
+    "可能缺臂或非正弦相電壓"
+   ],
+   "firstMove": "上臂接電位最高相、下臂接電位最低相：\\(v_o=\\max(v_a,v_b,v_c)-\\min(v_a,v_b,v_c)\\)，逐 \\(60^\\circ\\) 段積分求平均",
+   "prereqs": [
+    "el-dr-1ph-rectifier",
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "el-dr-1ph-rectifier"
+   ]
+  },
+  "el-dr-diode-state": {
+   "subject": "02",
+   "chapter": "el-diode-rectifier",
+   "name": "理想二極體狀態判斷",
+   "cues": [
+    "多顆理想二極體接在同一節點",
+    "正負電源經電阻供電",
+    "問各二極體導通或截止與輸出電壓"
+   ],
+   "firstMove": "假設一組狀態（導通＝短路、截止＝開路）解電路，驗導通者 \\(I_D\\ge0\\)、截止者 \\(V_D\\le0\\)，矛盾即換組",
+   "prereqs": [
+    "ct-ohm-kcl-kvl"
+   ],
+   "confusers": [
+    "el-dr-opamp-limiter"
+   ]
+  },
+  "el-dr-fourier-harmonic": {
+   "subject": "02",
+   "chapter": "el-diode-rectifier",
+   "name": "整流輸出傅立葉分析",
+   "cues": [
+    "整流器接 R–L（或 R–L–\\(V_{dc}\\)）負載",
+    "題目給或要求傅立葉級數",
+    "問諧波電流、平滑電感、各元件功率"
+   ],
+   "firstMove": "把 \\(v_o\\) 展成傅立葉級數，直流項 \\(I_0=(V_0-V_{dc})/R\\)，各諧波 \\(I_n=\\frac{V_n}{|R+jn\\omega L|}\\)，再以 \\(I_{rms}^2=I_0^2+\\sum I_{n,rms}^2\\) 求功率",
+   "prereqs": [
+    "el-dr-1ph-rectifier",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "el-dr-nonsinusoidal-power",
+    "el-inv-square-harmonic"
+   ]
+  },
+  "el-dr-nonsinusoidal-power": {
+   "subject": "02",
+   "chapter": "el-diode-rectifier",
+   "name": "非正弦波功率與失真",
+   "cues": [
+    "電壓為正弦、電流含直流與諧波",
+    "題目直接給 \\(v(t)\\)、\\(i(t)\\) 展開式",
+    "問功率、功率因數、失真因數、THD"
+   ],
+   "firstMove": "求各分量 rms，\\(I_{rms}=\\sqrt{I_{dc}^2+I_1^2+I_3^2}\\)；實功只取同頻配對 \\(P=V_1I_1\\cos\\theta_1\\)，\\(\\mathrm{PF}=P/(V_{rms}I_{rms})\\)",
+   "prereqs": [
+    "ct-complex-power"
+   ],
+   "confusers": [
+    "el-dr-fourier-harmonic",
+    "el-dr-1ph-rectifier"
+   ]
+  },
+  "el-dr-opamp-limiter": {
+   "subject": "02",
+   "chapter": "el-diode-rectifier",
+   "name": "運放二極體限幅器",
+   "cues": [
+    "反相放大器回授路徑串二極體與分壓電阻",
+    "給 \\(V_D=0.7\\) V 與正負參考電壓",
+    "問 \\(v_{O(\\max)}\\)、\\(v_{O(\\min)}\\) 與對應 \\(v_S\\)"
+   ],
+   "firstMove": "反相端虛接地，二極體皆截止時 \\(v_O=-\\frac{R_F}{R_1}v_S\\)，再以分壓點電位達 \\(V_D\\) 求二極體導通的膝點",
+   "prereqs": [
+    "el-opamp-ideal",
+    "el-dr-diode-state"
+   ],
+   "confusers": [
+    "el-dr-diode-state",
+    "el-op-schmitt-relaxation"
+   ]
+  },
+  "el-dr-pn-junction": {
+   "subject": "02",
+   "chapter": "el-diode-rectifier",
+   "name": "PN 接面空乏區",
+   "cues": [
+    "給 \\(N_A\\)、\\(N_D\\)、\\(n_i\\)、溫度",
+    "平衡、無外加偏壓",
+    "問內建電位與空乏區寬度 \\(x_p\\)、\\(x_n\\)"
+   ],
+   "firstMove": "\\(V_0=V_T\\ln\\frac{N_AN_D}{n_i^2}\\)，再 \\(W_{dep}=\\sqrt{\\frac{2\\varepsilon_{Si}}{q}\\left(\\frac1{N_A}+\\frac1{N_D}\\right)V_0}\\)，以 \\(N_Ax_p=N_Dx_n\\) 分配",
+   "prereqs": [
+    "el-diode-rectifier"
+   ],
+   "confusers": [
+    "el-mos-square-law-param"
+   ]
+  },
+  "el-fb-topology": {
+   "subject": "02",
+   "chapter": "el-feedback-stability",
+   "name": "回授型態與閉迴路增益",
+   "cues": [
+    "電路內有回授電阻網路",
+    "問回授型態、\\(A\\)、\\(\\beta\\)、\\(A_f\\)",
+    "問閉迴路輸入／輸出阻抗"
+   ],
+   "firstMove": "判斷取樣（電壓並接／電流串接）與混合（串聯／並聯），依雙埠負載畫 A 電路，\\(A_f=\\frac{A}{1+A\\beta}\\)，阻抗乘或除 \\((1+A\\beta)\\)",
+   "prereqs": [
+    "el-mos-cs-degeneration",
+    "el-diff-amp"
+   ],
+   "confusers": [
+    "el-mos-cs-degeneration",
+    "el-op-finite-gain"
+   ]
+  },
+  "el-inv-square-harmonic": {
+   "subject": "02",
+   "chapter": "el-pe-inverter-spwm",
+   "name": "方波逆變器諧波分析",
+   "cues": [
+    "全橋方波逆變器 RL 負載",
+    "給基本波電流",
+    "問 \\(V_{dc}\\)、THD"
+   ],
+   "firstMove": "方波基本波 \\(V_1=\\frac{4V_{dc}}{\\sqrt2\\pi}\\)，\\(I_1=\\frac{V_1}{\\sqrt{R^2+(\\omega L)^2}}\\) 反求 \\(V_{dc}\\)；THD 由 \\(I_h=\\sqrt{I_{rms}^2-I_1^2}\\)",
+   "prereqs": [
+    "el-inv-square-transient",
+    "el-dr-nonsinusoidal-power"
+   ],
+   "confusers": [
+    "el-inv-square-transient",
+    "el-dr-fourier-harmonic"
+   ]
+  },
+  "el-inv-square-transient": {
+   "subject": "02",
+   "chapter": "el-pe-inverter-spwm",
+   "name": "方波逆變器電流波形",
+   "cues": [
+    "單相全橋方波 \\(\\pm V_{dc}\\)",
+    "RL 負載",
+    "問週期穩態 \\(i_o(t)\\)"
+   ],
+   "firstMove": "半波對稱：半週期起點 \\(-I_{max}\\)、終點 \\(+I_{max}\\)，\\(i_o=\\frac{V_{dc}}{R}+(-I_{max}-\\frac{V_{dc}}{R})e^{-t/\\tau}\\) 解 \\(I_{max}\\)",
+   "prereqs": [
+    "ct-first-order-rc-rl",
+    "el-pe-inverter-spwm"
+   ],
+   "confusers": [
+    "el-inv-square-harmonic",
+    "el-pe-chopper-rl"
+   ]
+  },
+  "el-mos-cs-degeneration": {
+   "subject": "02",
+   "chapter": "el-mosfet-bias-small-signal",
+   "name": "源極退化共源放大器",
+   "cues": [
+    "共源極、\\(R_S\\) 未旁路",
+    "給 \\(I_D\\) 或增益要求偏壓設計",
+    "問 \\(R_S\\)、\\(R_D\\)、\\(A_v\\)（可含 \\(C_L\\) 極點）"
+   ],
+   "firstMove": "飽和區平方律由 \\(I_D\\) 求 \\(V_{GS}\\)（PMOS 為 \\(V_{SG}\\)）定偏壓，再寫 \\(A_v=-\\frac{g_mR_D}{1+g_mR_S}\\)",
+   "prereqs": [
+    "el-mos-square-law-param"
+   ],
+   "confusers": [
+    "el-fb-topology",
+    "el-mos-square-law-param"
+   ]
+  },
+  "el-mos-square-law-param": {
+   "subject": "02",
+   "chapter": "el-mosfet-bias-small-signal",
+   "name": "MOSFET 平方律參數",
+   "cues": [
+    "給 \\(\\mu_nC_{ox}\\)、\\(W/L\\)、\\(V_t\\)、\\(\\lambda\\) 或兩組量測點",
+    "問 \\(g_m\\)、\\(r_o\\) 或 \\(V_t\\)、\\(\\beta\\)",
+    "無完整電路"
+   ],
+   "firstMove": "確認飽和區，\\(I_D=\\frac12k_n(V_{GS}-V_t)^2\\)；\\(g_m=k_nV_{OV}=\\sqrt{2k_nI_D}\\)、\\(r_o=\\frac{1}{\\lambda I_D}\\)（兩點量測則兩式相除消 \\(\\beta\\)）",
+   "prereqs": [
+    "el-mosfet-bias-small-signal"
+   ],
+   "confusers": [
+    "el-mos-cs-degeneration"
+   ]
+  },
+  "el-op-finite-gain": {
+   "subject": "02",
+   "chapter": "el-opamp-ideal",
+   "name": "有限開路增益運放",
+   "cues": [
+    "給開路增益 \\(A_o\\)（非無限大）",
+    "反相或非反相放大器",
+    "問 \\(A_f\\) 與理想值誤差"
+   ],
+   "firstMove": "運放換成受控源 \\(v_O=-A_ov_n\\)，反相端 KCL \\(\\frac{v_S-v_n}{R_1}=\\frac{v_n-v_O}{R_F}\\)，消去 \\(v_n\\) 得 \\(A_f\\)",
+   "prereqs": [
+    "el-opamp-ideal",
+    "ct-node-mesh"
+   ],
+   "confusers": [
+    "el-fb-topology"
+   ]
+  },
+  "el-op-schmitt-relaxation": {
+   "subject": "02",
+   "chapter": "el-opamp-ideal",
+   "name": "史密特觸發鬆弛振盪器",
+   "cues": [
+    "運放正回授分壓到非反相端",
+    "反相端接 RC 充放電",
+    "問 \\(v_X(t)\\)、振盪頻率、責任週期"
+   ],
+   "firstMove": "\\(V_{TH,TL}=\\frac{R_1}{R_1+R_2}V_{o(\\pm)}\\)，每段 \\(v_X(t)=V_\\infty+(V_0-V_\\infty)e^{-t/\\tau}\\)，\\(\\tau=R_XC_X\\)，到臨界即翻轉",
+   "prereqs": [
+    "el-opamp-ideal",
+    "ct-first-order-rc-rl"
+   ],
+   "confusers": [
+    "el-af-rc-oscillator"
+   ]
+  },
+  "el-pe-ccm-ripple": {
+   "subject": "02",
+   "chapter": "el-pe-buck-boost",
+   "name": "單電感轉換器漣波設計",
+   "cues": [
+    "Boost、Buck-Boost（反相或非反相）CCM 穩態",
+    "給 \\(V_s\\)、\\(V_o\\)、\\(f_s\\)、負載",
+    "問 \\(D\\)、\\(\\Delta I_L\\)、\\(\\Delta V_o\\)、所需 \\(L\\)、\\(C\\) 或開關 rms"
+   ],
+   "firstMove": "畫導通／截止兩段等效電路，電感伏秒平衡求 \\(D\\)，導通段 \\(\\Delta i_L=\\frac{V_{on}DT_s}{L}\\)，電容 \\(\\Delta V_o=\\frac{\\Delta Q}{C}\\)",
+   "prereqs": [
+    "el-pe-buck-boost",
+    "el-diode-rectifier"
+   ],
+   "confusers": [
+    "el-pe-mode-boundary",
+    "el-pe-two-inductor"
+   ]
+  },
+  "el-pe-chopper-rl": {
+   "subject": "02",
+   "chapter": "el-pe-buck-boost",
+   "name": "截波器 RL 負載暫態",
+   "cues": [
+    "開關切換 RL（含反電勢 \\(E\\)）負載",
+    "\\(\\tau=L/R\\) 與切換週期相比",
+    "問一週期的 \\(i_L(t)\\)"
+   ],
+   "firstMove": "判斷兩段節點電壓，各段 \\(i_L(t)=I_\\infty+(I_0-I_\\infty)e^{-t/\\tau}\\)，以週期穩態 \\(i_L(T)=i_L(0)\\) 解邊界值",
+   "prereqs": [
+    "ct-first-order-rc-rl"
+   ],
+   "confusers": [
+    "el-inv-square-transient",
+    "el-pe-ccm-ripple"
+   ]
+  },
+  "el-pe-interleaved": {
+   "subject": "02",
+   "chapter": "el-pe-buck-boost",
+   "name": "交錯式降壓轉換器",
+   "cues": [
+    "多相 Buck 開關彼此相移 \\(T/N\\)",
+    "單相電流漣波限制定 \\(L\\)",
+    "問輸出電流漣波頻率與最高最低值"
+   ],
+   "firstMove": "單相導通段 \\(L=\\frac{(V_S-V_L)DT}{\\Delta i}\\)，再逐段把各相電感電流斜率相加得總電流，漣波頻率 \\(Nf_s\\)",
+   "prereqs": [
+    "el-pe-ccm-ripple"
+   ],
+   "confusers": [
+    "el-pe-ccm-ripple"
+   ]
+  },
+  "el-pe-isolated": {
+   "subject": "02",
+   "chapter": "el-pe-buck-boost",
+   "name": "隔離型轉換器",
+   "cues": [
+    "含變壓器匝比 \\(N_p/N_s\\)",
+    "返馳式或全橋（中心抽頭整流）",
+    "問一次側電流、激磁電感、開關耐壓、\\(V_o/V_s\\)"
+   ],
+   "firstMove": "以匝比反射電壓後對磁化電感或輸出電感伏秒平衡，如返馳 \\((V_s-V_t)D=\\frac{N_p}{N_s}(V_o+V_d)(1-D)\\)、全橋 \\(V_o=2n_hV_sD\\)",
+   "prereqs": [
+    "el-pe-ccm-ripple",
+    "ct-mutual-inductance"
+   ],
+   "confusers": [
+    "el-pe-mode-boundary",
+    "el-pe-ccm-ripple"
+   ]
+  },
+  "el-pe-mode-boundary": {
+   "subject": "02",
+   "chapter": "el-pe-buck-boost",
+   "name": "導通模式邊界判斷",
+   "cues": [
+    "導通模式未知或指定邊界導通（BCM）",
+    "問 \\(L_{\\min}\\)、臨界電感或 DCM 責任週期",
+    "電感電流由零起升"
+   ],
+   "firstMove": "邊界條件 \\(\\Delta I_L=2I_L\\)（谷值為零）求 \\(L_B\\)；模式未知時先假設 CCM 伏秒平衡求 \\(D\\)，再以 \\(L\\) 與 \\(L_B\\) 比較",
+   "prereqs": [
+    "el-pe-ccm-ripple"
+   ],
+   "confusers": [
+    "el-pe-ccm-ripple",
+    "el-pe-isolated"
+   ]
+  },
+  "el-pe-two-inductor": {
+   "subject": "02",
+   "chapter": "el-pe-buck-boost",
+   "name": "Ćuk／SEPIC 轉換器",
+   "cues": [
+    "兩顆電感、耦合電容 \\(C_1\\)",
+    "Ćuk 或 SEPIC",
+    "問兩電感與兩電容漣波、開關峰值電流"
+   ],
+   "firstMove": "兩段等效電路分別對 \\(L_1\\)、\\(L_2\\) 伏秒平衡得 \\(V_{C1}\\) 與 \\(V_o=\\frac{D}{1-D}V_s\\)，\\(C_1\\) 電荷平衡求 \\(I_{L1}\\)",
+   "prereqs": [
+    "el-pe-ccm-ripple"
+   ],
+   "confusers": [
+    "el-pe-ccm-ripple"
+   ]
+  },
+  "el-thy-snubber": {
+   "subject": "02",
+   "chapter": "el-pe-thyristor-rectifier",
+   "name": "閘流體保護電路",
+   "cues": [
+    "直流源經開關接閘流體與負載",
+    "問閉合瞬間損毀原因",
+    "問緩衝器、限 di/dt、過電壓保護"
+   ],
+   "firstMove": "迴路 KVL \\(V_S=V_T+V_L\\)，阻斷態 \\(V_T\\) 由 0 跳至 \\(V_S\\)，\\(dV_T/dt\\) 過大致誤觸發；並 RC 緩衝器以一階 RC 暫態限 \\(dV_T/dt\\)",
+   "prereqs": [
+    "ct-first-order-rc-rl",
+    "el-pe-thyristor-rectifier"
+   ],
+   "confusers": [
+    "el-pe-chopper-rl"
+   ]
+  },
+  "em-cx-cauchy-riemann": {
+   "subject": "03",
+   "chapter": "em-complex-cauchy-residue",
+   "name": "求共軛調和函數",
+   "cues": [
+    "給實部 \\(u(x,y)\\)",
+    "求 \\(v\\) 使 \\(f=u+iv\\) 解析"
+   ],
+   "firstMove": "由 C–R 方程 \\(v_y=u_x\\) 對 \\(y\\) 積分得 \\(v=\\int u_x\\,dy+g(x)\\)，再以 \\(v_x=-u_y\\) 定 \\(g(x)\\)",
+   "prereqs": [
+    "em-vector-analysis"
+   ],
+   "confusers": [
+    "em-cx-line-integral-param"
+   ]
+  },
+  "em-cx-laurent-residue": {
+   "subject": "03",
+   "chapter": "em-complex-cauchy-residue",
+   "name": "本性奇點之留數",
+   "cues": [
+    "被積函數含 \\(e^{1/z^2}\\)、\\(\\sin(1/z)\\) 等",
+    "奇點不是極點",
+    "圍線為單位圓"
+   ],
+   "firstMove": "把 \\(e^w\\) 的 Maclaurin 級數代入 \\(w=1/z^2\\) 得 Laurent 級數，讀 \\(z^{-1}\\) 項係數 \\(a_{-1}\\)，\\(\\oint_C f\\,dz=2\\pi i\\,a_{-1}\\)",
+   "prereqs": [
+    "em-cx-residue-contour"
+   ],
+   "confusers": [
+    "em-cx-residue-contour"
+   ]
+  },
+  "em-cx-line-integral-param": {
+   "subject": "03",
+   "chapter": "em-complex-cauchy-residue",
+   "name": "非解析函數線積分",
+   "cues": [
+    "被積函數含 \\(\\operatorname{Im}z\\)、\\(\\operatorname{Re}z\\)、\\(\\bar z\\)",
+    "給路徑參數式 \\(z(t)\\)",
+    "非封閉路徑"
+   ],
+   "firstMove": "驗 C–R 方程不成立（與路徑有關），參數化 \\(\\int_\\varphi f(z)\\,dz=\\int_a^b f\\bigl(z(t)\\bigr)\\,z'(t)\\,dt\\)，實虛部分開積分",
+   "prereqs": [
+    "em-cx-cauchy-riemann",
+    "em-vec-line-integral"
+   ],
+   "confusers": [
+    "em-cx-residue-contour",
+    "em-vec-line-integral"
+   ]
+  },
+  "em-cx-polar-de-moivre": {
+   "subject": "03",
+   "chapter": "em-complex-cauchy-residue",
+   "name": "複數極式與高次方",
+   "cues": [
+    "給 \\(z=a+bi\\)",
+    "求 \\(z^n\\)（\\(n\\) 很大）"
+   ],
+   "firstMove": "化極式 \\(z=re^{i\\theta}\\)（\\(r=|z|\\)，依象限定 \\(\\theta\\)），\\(z^n=r^ne^{in\\theta}\\)，再以 Euler 公式化回直角式",
+   "prereqs": [
+    "em-complex-cauchy-residue"
+   ],
+   "confusers": [
+    "em-cx-residue-contour"
+   ]
+  },
+  "em-cx-real-integral-residue": {
+   "subject": "03",
+   "chapter": "em-complex-cauchy-residue",
+   "name": "實積分之留數法",
+   "cues": [
+    "\\(\\int_{-\\infty}^{\\infty}\\) 有理函數 \\(dx\\)",
+    "分母次數比分子高 2 以上",
+    "實軸上有一階極點（主值）"
+   ],
+   "firstMove": "取實軸＋上半平面半圓圍道：\\(\\mathrm{PV}\\!\\int_{-\\infty}^{\\infty}f\\,dx=2\\pi i\\sum_{\\operatorname{Im}z_k>0}\\operatorname{Res}+\\pi i\\sum_{\\text{實軸}}\\operatorname{Res}\\)",
+   "prereqs": [
+    "em-cx-residue-contour"
+   ],
+   "confusers": [
+    "em-cx-residue-contour",
+    "em-cx-laurent-residue"
+   ]
+  },
+  "em-cx-residue-contour": {
+   "subject": "03",
+   "chapter": "em-complex-cauchy-residue",
+   "name": "圍線積分留數定理",
+   "cues": [
+    "\\(\\oint_C\\) 有理函數 \\(dz\\)",
+    "給圓形圍線 \\(|z-a|=r\\)",
+    "一階或高階極點"
+   ],
+   "firstMove": "找分母零點並判斷是否在 \\(C\\) 內，\\(\\oint_C f\\,dz=2\\pi i\\sum_{\\text{內}}\\operatorname{Res}\\)，一階極點 \\(\\operatorname{Res}_{z_0}f=\\lim_{z\\to z_0}(z-z_0)f(z)\\)",
+   "prereqs": [
+    "em-cx-polar-de-moivre",
+    "em-complex-cauchy-residue"
+   ],
+   "confusers": [
+    "em-cx-laurent-residue",
+    "em-cx-real-integral-residue",
+    "em-cx-line-integral-param"
+   ]
+  },
+  "em-eig-diagonalize": {
+   "subject": "03",
+   "chapter": "em-eigen-diagonal",
+   "name": "特徵值與對角化",
+   "cues": [
+    "求特徵值、特徵向量",
+    "求 \\(P\\) 使 \\(P^{-1}AP\\) 為對角矩陣",
+    "\\(3\\times3\\) 矩陣含零列／零行"
+   ],
+   "firstMove": "解 \\(\\det(A-\\lambda I)=0\\)（沿零元素多的列或行展開），對每個 \\(\\lambda_i\\) 解 \\((A-\\lambda_iI)\\mathbf x=\\mathbf 0\\)，特徵向量排成 \\(P\\)",
+   "prereqs": [
+    "em-matrix-det-inv"
+   ],
+   "confusers": [
+    "em-eig-symmetric-orthogonal",
+    "em-svd-singular-values"
+   ]
+  },
+  "em-eig-symmetric-orthogonal": {
+   "subject": "03",
+   "chapter": "em-eigen-diagonal",
+   "name": "實對稱矩陣正交對角化",
+   "cues": [
+    "\\(A^T=A\\)",
+    "求 \\(Y\\) 使 \\(Y^TAY\\) 為對角矩陣",
+    "特徵值有重根"
+   ],
+   "firstMove": "解 \\(\\det(A-\\lambda I)=0\\)，重根特徵空間內取互相正交的特徵向量（Gram–Schmidt），單位化後排成 \\(Y\\)，\\(Y^TAY=\\Lambda\\)",
+   "prereqs": [
+    "em-eig-diagonalize"
+   ],
+   "confusers": [
+    "em-eig-diagonalize",
+    "em-mat-lyapunov"
+   ]
+  },
+  "em-fs-general": {
+   "subject": "03",
+   "chapter": "em-fourier-series",
+   "name": "無對稱性傅氏級數",
+   "cues": [
+    "週期 \\(2\\pi\\) 分段函數",
+    "半週期為 0",
+    "非奇非偶"
+   ],
+   "firstMove": "\\(a_n=\\frac1\\pi\\int_{-\\pi}^{\\pi}f\\cos nx\\,dx\\)、\\(b_n=\\frac1\\pi\\int_{-\\pi}^{\\pi}f\\sin nx\\,dx\\)，\\(f=0\\) 段略去只積 \\([0,\\pi]\\)",
+   "prereqs": [
+    "em-fourier-series"
+   ],
+   "confusers": [
+    "em-fs-symmetry",
+    "em-lap-periodic"
+   ]
+  },
+  "em-fs-symmetry": {
+   "subject": "03",
+   "chapter": "em-fourier-series",
+   "name": "奇偶函數傅氏級數",
+   "cues": [
+    "\\(f\\) 為奇函數或偶函數（或可拆奇偶部分）",
+    "週期 \\(2L\\) 未必為 \\(2\\pi\\)",
+    "\\(x/\\pi\\)、\\(2|x|\\)、\\(x-x^2\\)"
+   ],
+   "firstMove": "先判奇偶：偶函數 \\(b_n=0\\)、\\(a_n=\\frac2L\\int_0^L f\\cos\\frac{n\\pi x}{L}dx\\)；奇函數只算 \\(b_n=\\frac2L\\int_0^L f\\sin\\frac{n\\pi x}{L}dx\\)",
+   "prereqs": [
+    "em-fourier-series"
+   ],
+   "confusers": [
+    "em-fs-general"
+   ]
+  },
+  "em-lap-convolution-integral-eq": {
+   "subject": "03",
+   "chapter": "em-laplace-transform",
+   "name": "卷積型積分方程",
+   "cues": [
+    "未知函數在積分號內",
+    "\\(\\int_0^t g(\\tau)\\,y(t-\\tau)\\,d\\tau\\)",
+    "以拉氏轉換求 \\(y(t)\\)"
+   ],
+   "firstMove": "辨識卷積 \\((g*y)(t)\\)，\\(\\mathcal L\\{g*y\\}=G(s)Y(s)\\)，化為 \\(Y(s)\\) 的一次代數方程",
+   "prereqs": [
+    "em-laplace-transform"
+   ],
+   "confusers": [
+    "em-lap-s-differentiation"
+   ]
+  },
+  "em-lap-periodic": {
+   "subject": "03",
+   "chapter": "em-laplace-transform",
+   "name": "週期函數拉氏轉換",
+   "cues": [
+    "\\(|\\sin\\omega t|\\)、方波等週期函數",
+    "\\(f(t+T)=f(t)\\)"
+   ],
+   "firstMove": "\\(\\mathcal L\\{f\\}=\\dfrac{1}{1-e^{-sT}}\\int_0^T e^{-st}f(t)\\,dt\\)",
+   "prereqs": [
+    "em-laplace-transform"
+   ],
+   "confusers": [
+    "em-lap-step-forcing-ode",
+    "em-fs-general"
+   ]
+  },
+  "em-lap-s-differentiation": {
+   "subject": "03",
+   "chapter": "em-laplace-transform",
+   "name": "s 域微分性質",
+   "cues": [
+    "\\(f(t)\\) 含 \\(t\\cos\\beta t\\)、\\(t\\sin\\beta t\\)",
+    "\\(F(s)\\) 為對數型",
+    "ODE 係數含 \\(t\\)"
+   ],
+   "firstMove": "\\(\\mathcal L\\{t\\,g(t)\\}=-G'(s)\\)；反轉換時 \\(f(t)=-\\frac1t\\mathcal L^{-1}\\{F'(s)\\}\\)",
+   "prereqs": [
+    "em-laplace-transform"
+   ],
+   "confusers": [
+    "em-lap-convolution-integral-eq",
+    "em-ode2-euler-cauchy"
+   ]
+  },
+  "em-lap-step-forcing-ode": {
+   "subject": "03",
+   "chapter": "em-laplace-transform",
+   "name": "分段輸入之 ODE",
+   "cues": [
+    "輸入 \\(g(t)\\) 分段定義（矩形脈衝）",
+    "零初值二階 ODE",
+    "以拉氏轉換求 \\(y(t)\\)"
+   ],
+   "firstMove": "\\(g(t)=u(t-5)-u(t-20)\\)，\\(\\mathcal L\\{u(t-a)\\}=\\frac{e^{-as}}{s}\\)，反轉換用第二平移定理 \\(u(t-a)\\Phi(t-a)\\)",
+   "prereqs": [
+    "em-laplace-transform",
+    "em-second-order-ode-homogeneous"
+   ],
+   "confusers": [
+    "em-lap-periodic",
+    "em-ode2-undetermined"
+   ]
+  },
+  "em-mat-inverse": {
+   "subject": "03",
+   "chapter": "em-matrix-det-inv",
+   "name": "反矩陣計算",
+   "cues": [
+    "求 \\(A^{-1}\\)",
+    "\\(3\\times3\\) 一般矩陣或分塊對角矩陣"
+   ],
+   "firstMove": "\\(A^{-1}=\\dfrac{\\operatorname{adj}A}{\\det A}\\)（餘因子 \\(C_{ij}=(-1)^{i+j}M_{ij}\\) 轉置）；分塊對角時 \\(A^{-1}=\\operatorname{diag}(B_1^{-1},B_2^{-1})\\)",
+   "prereqs": [
+    "em-matrix-det-inv"
+   ],
+   "confusers": [
+    "em-svd-least-squares",
+    "em-mat-linear-transform"
+   ]
+  },
+  "em-mat-linear-transform": {
+   "subject": "03",
+   "chapter": "em-matrix-det-inv",
+   "name": "線性轉換求像",
+   "cues": [
+    "\\(\\mathbf T:\\mathbb R^n\\to\\mathbb R^n\\) 為線性轉換",
+    "給基底向量的像",
+    "求某向量的像"
+   ],
+   "firstMove": "把輸入寫成基底線性組合 \\(7\\mathbf e_1+6\\mathbf e_2\\)，由線性性 \\(\\mathbf T(a\\mathbf u+b\\mathbf v)=a\\mathbf T(\\mathbf u)+b\\mathbf T(\\mathbf v)\\)（即標準矩陣 \\([\\mathbf T(\\mathbf e_1)\\ \\mathbf T(\\mathbf e_2)]\\) 乘向量）",
+   "prereqs": [
+    "em-matrix-det-inv"
+   ],
+   "confusers": [
+    "em-mat-inverse",
+    "em-eig-diagonalize"
+   ]
+  },
+  "em-mat-lyapunov": {
+   "subject": "03",
+   "chapter": "em-matrix-det-inv",
+   "name": "Lyapunov 矩陣方程",
+   "cues": [
+    "\\(PA+A^TP=-I\\)",
+    "\\(P\\) 為對稱矩陣",
+    "再求 \\(P\\) 的特徵值"
+   ],
+   "firstMove": "設 \\(P=\\begin{bmatrix}p_1&p_2\\\\p_2&p_3\\end{bmatrix}\\)，算 \\(PA\\) 並用 \\(A^TP=(PA)^T\\)，與 \\(-I\\) 逐元素比較得三條一次方程",
+   "prereqs": [
+    "em-matrix-det-inv"
+   ],
+   "confusers": [
+    "em-eig-symmetric-orthogonal"
+   ]
+  },
+  "em-ode1-separable": {
+   "subject": "03",
+   "chapter": "em-first-order-ode",
+   "name": "可分離變數 ODE",
+   "cues": [
+    "\\(y'=f(x)g(y)\\) 型",
+    "含 \\(y^2\\)、\\(y(y^3-1)\\) 等非線性項",
+    "給初值求特解"
+   ],
+   "firstMove": "分離成 \\(\\int\\frac{dy}{g(y)}=\\int f(x)\\,dx+C\\)，先另行檢查 \\(g(y)=0\\) 的常數解",
+   "prereqs": [
+    "em-first-order-ode"
+   ],
+   "confusers": [
+    "em-ode2-const-homog"
+   ]
+  },
+  "em-ode2-const-homog": {
+   "subject": "03",
+   "chapter": "em-second-order-ode-homogeneous",
+   "name": "常係數齊次 ODE",
+   "cues": [
+    "\\(y''+ay'+by=0\\) 給初值",
+    "特徵根為重根或共軛複根",
+    "由通解反求微分方程"
+   ],
+   "firstMove": "特徵方程 \\(r^2+ar+b=0\\)：重根 \\(y_h=(C_1+C_2x)e^{rx}\\)，複根 \\(e^{\\alpha x}(C_1\\cos\\beta x+C_2\\sin\\beta x)\\)；反求時由根組 \\((r-r_1)(r-r_2)\\)",
+   "prereqs": [
+    "em-first-order-ode"
+   ],
+   "confusers": [
+    "em-ode2-undetermined",
+    "em-ode2-euler-cauchy"
+   ]
+  },
+  "em-ode2-euler-cauchy": {
+   "subject": "03",
+   "chapter": "em-second-order-ode-nonhomogeneous",
+   "name": "柯西–尤拉方程",
+   "cues": [
+    "係數 \\(x^2y''\\) 或 \\((a+x)^2y''\\)",
+    "係數次數與導數階數相同",
+    "右側另含非齊次項"
+   ],
+   "firstMove": "令 \\(u=a+x\\) 化為 \\(u^2y''+\\cdots\\)，試 \\(y=u^m\\) 得指標方程（本型 \\(m(m-1)-2=0\\)）；特解與 \\(u^m\\) 重複時乘 \\(\\ln u\\)",
+   "prereqs": [
+    "em-ode2-const-homog",
+    "em-ode2-undetermined"
+   ],
+   "confusers": [
+    "em-ode2-reduction-order",
+    "em-ode2-const-homog"
+   ]
+  },
+  "em-ode2-reduction-order": {
+   "subject": "03",
+   "chapter": "em-second-order-ode-nonhomogeneous",
+   "name": "降階法",
+   "cues": [
+    "已知一解 \\(y_1\\)",
+    "變係數齊次二階 ODE",
+    "求通解"
+   ],
+   "firstMove": "化標準式 \\(y''+P(x)y'+Q(x)y=0\\) 讀 \\(P\\)，\\(y_2=y_1\\int\\frac{e^{-\\int P\\,dx}}{y_1^2}dx\\)",
+   "prereqs": [
+    "em-first-order-ode",
+    "em-ode2-const-homog"
+   ],
+   "confusers": [
+    "em-ode2-variation-params",
+    "em-ode2-euler-cauchy"
+   ]
+  },
+  "em-ode2-undetermined": {
+   "subject": "03",
+   "chapter": "em-second-order-ode-nonhomogeneous",
+   "name": "未定係數法",
+   "cues": [
+    "常係數非齊次 ODE",
+    "右側為多項式／指數／正餘弦"
+   ],
+   "firstMove": "先求 \\(y_h\\)，依右側形式設 \\(y_p\\)（一次多項式 → \\(Ax+B\\)；與 \\(y_h\\) 重複時乘 \\(x\\)），代入比較係數",
+   "prereqs": [
+    "em-ode2-const-homog"
+   ],
+   "confusers": [
+    "em-ode2-variation-params"
+   ]
+  },
+  "em-ode2-variation-params": {
+   "subject": "03",
+   "chapter": "em-second-order-ode-nonhomogeneous",
+   "name": "參數變異法",
+   "cues": [
+    "常係數非齊次 ODE",
+    "右側含 \\(\\csc x\\)、\\(\\sec x\\)、\\(1/x^n\\) 等",
+    "未定係數法無法猜形式"
+   ],
+   "firstMove": "求 \\(y_1,y_2\\) 與 \\(W=y_1y_2'-y_1'y_2\\)，\\(y_p=-y_1\\int\\frac{y_2g}{W}dx+y_2\\int\\frac{y_1g}{W}dx\\)（\\(y''\\) 係數須為 1）",
+   "prereqs": [
+    "em-ode2-const-homog"
+   ],
+   "confusers": [
+    "em-ode2-undetermined",
+    "em-ode2-reduction-order"
+   ]
+  },
+  "em-prob-cdf": {
+   "subject": "03",
+   "chapter": "em-probability-statistics",
+   "name": "由分布函數求機率",
+   "cues": [
+    "給分段 \\(F(x)\\)（不是密度）",
+    "有跳躍點",
+    "求區間機率"
+   ],
+   "firstMove": "\\(P(a\\le X\\le b)=F(b)-F(a^-)\\)，跳躍點 \\(P(X=x_0)=F(x_0)-F(x_0^-)\\)",
+   "prereqs": [
+    "em-probability-statistics"
+   ],
+   "confusers": [
+    "em-prob-continuous-pdf"
+   ]
+  },
+  "em-prob-continuous-pdf": {
+   "subject": "03",
+   "chapter": "em-probability-statistics",
+   "name": "連續型密度與動差",
+   "cues": [
+    "給含常數 \\(k\\) 或分段的密度 \\(f(x)\\)",
+    "求 \\(k\\)、期望值、變異數",
+    "求分布函數 \\(F(x)\\)"
+   ],
+   "firstMove": "\\(\\int f(x)\\,dx=1\\) 定常數，\\(E[X^k]=\\int x^kf(x)\\,dx\\)（分段則分段積），\\(\\operatorname{Var}(X)=E[X^2]-(E[X])^2\\)",
+   "prereqs": [
+    "em-probability-statistics"
+   ],
+   "confusers": [
+    "em-prob-cdf",
+    "em-prob-discrete-moments"
+   ]
+  },
+  "em-prob-discrete-moments": {
+   "subject": "03",
+   "chapter": "em-probability-statistics",
+   "name": "期望值與變異數運算",
+   "cues": [
+    "骰子、等機率離散分布",
+    "求 \\(E[g(X)]\\)、變異數",
+    "只給 \\(E(X)\\) 與二次式期望值"
+   ],
+   "firstMove": "\\(E[g(X)]=\\sum_x g(x)p(x)\\)，\\(\\operatorname{Var}(X)=E[X^2]-(E[X])^2\\)，\\(\\operatorname{Var}(aX+b)=a^2\\operatorname{Var}(X)\\)",
+   "prereqs": [
+    "em-probability-statistics"
+   ],
+   "confusers": [
+    "em-prob-continuous-pdf",
+    "em-prob-sampling"
+   ]
+  },
+  "em-prob-joint-pdf": {
+   "subject": "03",
+   "chapter": "em-probability-statistics",
+   "name": "聯合密度與期望值",
+   "cues": [
+    "給 \\(f_{X,Y}(x,y)\\) 與支撐區",
+    "求 \\(k\\)、邊際期望或 \\(E[XY]\\)",
+    "求 \\(P(X>Y)\\) 等事件機率"
+   ],
+   "firstMove": "畫支撐區，\\(\\iint f_{X,Y}=1\\) 定常數，邊際 \\(f_X=\\int f_{X,Y}\\,dy\\)；事件機率在「事件∩支撐區」上二重積分；可分離則獨立，\\(E[XY]=E[X]E[Y]\\)",
+   "prereqs": [
+    "em-prob-continuous-pdf",
+    "em-vec-double-integral-order"
+   ],
+   "confusers": [
+    "em-prob-continuous-pdf",
+    "em-vec-double-integral-order"
+   ]
+  },
+  "em-prob-sampling": {
+   "subject": "03",
+   "chapter": "em-probability-statistics",
+   "name": "放回與不放回抽樣",
+   "cues": [
+    "盒中有幾類球／良品不良品",
+    "隨機抽 \\(n\\) 個",
+    "分放回、不放回兩種情形"
+   ],
+   "firstMove": "放回 → 二項 \\(\\binom nx p^xq^{n-x}\\)；不放回 → 超幾何 \\(\\frac{\\binom Kx\\binom{N-K}{n-x}}{\\binom Nn}\\)",
+   "prereqs": [
+    "em-probability-statistics"
+   ],
+   "confusers": [
+    "em-prob-total-bayes",
+    "em-prob-discrete-moments"
+   ]
+  },
+  "em-prob-total-bayes": {
+   "subject": "03",
+   "chapter": "em-probability-statistics",
+   "name": "全機率與貝氏定理",
+   "cues": [
+    "來源分成數類並給各類比例",
+    "各類條件機率（命中率、垃圾率）",
+    "已知結果反推來源"
+   ],
+   "firstMove": "以分割 \\(A_i\\) 列 \\(P(H)=\\sum_iP(A_i)P(H\\mid A_i)\\)；反推用 \\(P(A_k\\mid H)=\\frac{P(A_k)P(H\\mid A_k)}{P(H)}\\)",
+   "prereqs": [
+    "em-probability-statistics"
+   ],
+   "confusers": [
+    "em-prob-sampling"
+   ]
+  },
+  "em-svd-complete-solution": {
+   "subject": "03",
+   "chapter": "em-svd-linear-systems",
+   "name": "完整解與零空間",
+   "cues": [
+    "求 \\(Ax=b\\) 的所有解／完整解",
+    "未知數多於方程",
+    "求零空間 \\(N(A)\\)"
+   ],
+   "firstMove": "增廣矩陣 \\([A\\mid b]\\) 列運算化成列梯形，比較係數秩與增廣秩，自由變數設參數，\\(x=x_p+x_n\\)",
+   "prereqs": [
+    "em-matrix-det-inv"
+   ],
+   "confusers": [
+    "em-svd-least-squares",
+    "em-mat-inverse"
+   ]
+  },
+  "em-svd-least-squares": {
+   "subject": "03",
+   "chapter": "em-svd-linear-systems",
+   "name": "最小平方解",
+   "cues": [
+    "方程數多於未知數（超定系統）",
+    "求 \\(Ax=b\\) 的最小平方解"
+   ],
+   "firstMove": "列正規方程 \\(A^TAx=A^Tb\\)（\\(A\\) 各行獨立時 \\(x=(A^TA)^{-1}A^Tb\\)）",
+   "prereqs": [
+    "em-mat-inverse"
+   ],
+   "confusers": [
+    "em-svd-complete-solution",
+    "em-mat-inverse"
+   ]
+  },
+  "em-svd-singular-values": {
+   "subject": "03",
+   "chapter": "em-svd-linear-systems",
+   "name": "奇異值與二次型極值",
+   "cues": [
+    "求矩陣的奇異值",
+    "\\(x^Tx=1\\) 下求 \\(x^TAx\\) 最大、最小值"
+   ],
+   "firstMove": "\\(\\sigma_i=\\sqrt{\\lambda_i(A^TA)}\\)；對稱 \\(A\\) 在 \\(x^Tx=1\\) 上 \\(x^TAx\\) 的極值為 \\(\\lambda_{\\min}\\)、\\(\\lambda_{\\max}\\)（解 \\(\\det(A-\\lambda I)=0\\)）",
+   "prereqs": [
+    "em-eig-symmetric-orthogonal"
+   ],
+   "confusers": [
+    "em-eig-diagonalize",
+    "em-eig-symmetric-orthogonal"
+   ]
+  },
+  "em-vec-curve-geometry": {
+   "subject": "03",
+   "chapter": "em-vector-analysis",
+   "name": "切線向量與曲率",
+   "cues": [
+    "給位置向量 \\(\\mathbf r(t)\\)",
+    "求單位切線向量",
+    "求曲率 \\(\\kappa\\)"
+   ],
+   "firstMove": "\\(\\mathbf T=\\mathbf r'/\\lVert\\mathbf r'\\rVert\\)，\\(\\kappa=\\lVert\\mathbf T'(t)\\rVert/\\lVert\\mathbf r'(t)\\rVert\\)",
+   "prereqs": [
+    "em-vector-analysis"
+   ],
+   "confusers": [
+    "em-vec-directional-derivative"
+   ]
+  },
+  "em-vec-directional-derivative": {
+   "subject": "03",
+   "chapter": "em-vector-analysis",
+   "name": "梯度與方向導數",
+   "cues": [
+    "純量場 \\(f(x,y,z)\\)",
+    "求某點沿某方向的改變率"
+   ],
+   "firstMove": "\\(\\nabla f=(f_x,f_y,f_z)\\) 代點，方向向量先單位化，\\(D_{\\hat u}f=\\nabla f\\cdot\\hat u\\)",
+   "prereqs": [
+    "em-vector-analysis"
+   ],
+   "confusers": [
+    "em-vec-curve-geometry",
+    "em-vec-line-integral"
+   ]
+  },
+  "em-vec-divergence-theorem": {
+   "subject": "03",
+   "chapter": "em-vector-analysis",
+   "name": "散度定理求通量",
+   "cues": [
+    "\\(\\iint_S\\mathbf F\\cdot\\hat n\\,dA\\)，\\(\\hat n\\) 向外",
+    "球面或圓錐面",
+    "指定用面積分與散度定理兩法"
+   ],
+   "firstMove": "\\(\\oiint_S\\mathbf F\\cdot\\hat n\\,dA=\\iiint_V\\nabla\\cdot\\mathbf F\\,dV\\)；曲面不封閉時補上頂蓋再扣除其通量",
+   "prereqs": [
+    "em-vector-analysis"
+   ],
+   "confusers": [
+    "em-vec-line-integral",
+    "em-vec-double-integral-order"
+   ]
+  },
+  "em-vec-double-integral-order": {
+   "subject": "03",
+   "chapter": "em-vector-analysis",
+   "name": "交換積分次序",
+   "cues": [
+    "被積函數含 \\(e^{y^2}\\) 等無初等反導函數者",
+    "區域由曲線與直線圍成"
+   ],
+   "firstMove": "畫區域並求交點，改成先積可積的變數：\\(\\int_0^4\\!\\int_0^{\\sqrt y}xe^{y^2}\\,dx\\,dy\\)",
+   "prereqs": [
+    "em-vector-analysis"
+   ],
+   "confusers": [
+    "em-prob-joint-pdf",
+    "em-vec-divergence-theorem"
+   ]
+  },
+  "em-vec-line-integral": {
+   "subject": "03",
+   "chapter": "em-vector-analysis",
+   "name": "向量場線積分",
+   "cues": [
+    "\\(\\int_C P\\,dx+Q\\,dy+R\\,dz\\)",
+    "給直線段、參數曲線或只給起終點",
+    "求散度與旋度"
+   ],
+   "firstMove": "先算 \\(\\nabla\\times\\mathbf F\\)：為 0 則求位勢 \\(\\phi\\)，積分 \\(=\\phi(\\text{終點})-\\phi(\\text{起點})\\)；不為 0 則參數化 \\(\\mathbf r(t)\\)，化成 \\(\\int_a^b\\mathbf F\\cdot\\mathbf r'(t)\\,dt\\)",
+   "prereqs": [
+    "em-vector-analysis"
+   ],
+   "confusers": [
+    "em-cx-line-integral-param",
+    "em-vec-divergence-theorem"
+   ]
+  },
+  "emach-1ph-cap-start": {
+   "subject": "04",
+   "chapter": "emach-single-phase-rotating-field",
+   "name": "電容啟動電容設計",
+   "cues": [
+    "單相感應馬達主、輔繞組阻抗",
+    "求使兩電流相差 90° 的電容",
+    "比較有無電容的啟動扭力"
+   ],
+   "firstMove": "\\(\\angle I_m=-\\angle Z_m\\)，令 \\(\\angle I_a=\\angle I_m+90^\\circ\\) 即 \\(\\tan^{-1}\\frac{X_a-X_C}{R_a}=\\angle Z_m-90^\\circ\\) 解 \\(X_C\\)；\\(T_{st}=K|I_m||I_a|\\sin\\alpha\\)",
+   "prereqs": [
+    "emach-single-phase-rotating-field",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "emach-rotating-field-sum",
+    "emach-im-start-capacitor"
+   ]
+  },
+  "emach-3tx-bank": {
+   "subject": "04",
+   "chapter": "emach-three-phase-transformer",
+   "name": "三相變壓器組接線",
+   "cues": [
+    "三台單相變壓器組成三相",
+    "給電源線電壓與負載",
+    "求接線圖、線電流與利用率"
+   ],
+   "firstMove": "依電源與負載線電壓選 Y／Δ 接法使每台繞組電壓符合額定，再以 \\(I_L=\\frac{S_{3\\phi}}{\\sqrt3V_L}\\) 求線電流，利用率＝每台實際 kVA／額定 kVA",
+   "prereqs": [
+    "emach-three-phase-transformer",
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "emach-auto-rating"
+   ]
+  },
+  "emach-auto-rating": {
+   "subject": "04",
+   "chapter": "emach-autotransformer",
+   "name": "雙繞組改接自耦",
+   "cues": [
+    "雙繞組變壓器改接成自耦",
+    "給電源與負載電壓（如 2400→2640）",
+    "求自耦 kVA、效率或接線圖"
+   ],
+   "firstMove": "先定接線（公共繞組／串聯繞組、加減極性），負載電流流過串聯繞組取其額定電流，\\(S_{auto}=V_{out}I_{out}\\)，再以 KCL 檢查公共繞組",
+   "prereqs": [
+    "emach-autotransformer"
+   ],
+   "confusers": [
+    "emach-tx-off-rated",
+    "emach-3tx-bank"
+   ]
+  },
+  "emach-dc-compound-gen": {
+   "subject": "04",
+   "chapter": "emach-dc-motor-generator",
+   "name": "複激發電機磁化曲線",
+   "cues": [
+    "長分路／短分路複激",
+    "給 1800 rpm 磁化表與串激、並激匝數",
+    "求無載電壓、等效激磁電流、串激匝數"
+   ],
+   "firstMove": "列複激 KCL（長分路 \\(I_a=I_L+I_f\\)），等效激磁電流 \\(I_f^*=I_f+\\frac{N_s}{N_f}I_s\\)，以 \\(E_a=V_t+I_a(R_a+R_s)\\) 查磁化表",
+   "prereqs": [
+    "emach-dc-shunt-motor"
+   ],
+   "confusers": [
+    "emach-dc-shunt-motor",
+    "emach-dc-series-motor"
+   ]
+  },
+  "emach-dc-fixed-flux": {
+   "subject": "04",
+   "chapter": "emach-dc-motor-generator",
+   "name": "定磁通直流機工作點",
+   "cues": [
+    "他激（固定激磁）或永磁",
+    "給 R_a 與一個已知工作點（電壓、轉速或 E_a）",
+    "求 I_a、轉速、功率、轉矩"
+   ],
+   "firstMove": "電樞 KVL \\(V_t=E_a+I_aR_a\\)（發電機 \\(V_t=E_a-I_aR_a\\)），\\(E_a=K\\phi\\omega\\)、\\(T=K\\phi I_a\\)，由已知點定 \\(K\\phi\\)",
+   "prereqs": [
+    "emach-dc-motor-generator"
+   ],
+   "confusers": [
+    "emach-dc-shunt-motor",
+    "emach-dc-flux-change"
+   ]
+  },
+  "emach-dc-flux-change": {
+   "subject": "04",
+   "chapter": "emach-dc-motor-generator",
+   "name": "變磁通與電壓調速",
+   "cues": [
+    "他激電動機同時改 V_t 與 I_f",
+    "負載轉矩為額定的某比例",
+    "求新轉速"
+   ],
+   "firstMove": "\\(T\\propto\\Phi I_a\\Rightarrow I_{a2}=\\frac{T_2}{T_1}\\frac{\\Phi_1}{\\Phi_2}I_{a1}\\)，再由 \\(\\frac{E_{a2}}{E_{a1}}=\\frac{\\Phi_2n_2}{\\Phi_1n_1}\\) 求 \\(n_2\\)",
+   "prereqs": [
+    "emach-dc-fixed-flux"
+   ],
+   "confusers": [
+    "emach-dc-fixed-flux",
+    "emach-dc-series-motor"
+   ]
+  },
+  "emach-dc-series-motor": {
+   "subject": "04",
+   "chapter": "emach-dc-motor-generator",
+   "name": "串激電動機轉速轉矩",
+   "cues": [
+    "串激，場電流＝電樞電流（或分流器分流）",
+    "給磁化曲線或磁通隨電流變化",
+    "求不同負載下的轉速與轉矩"
+   ],
+   "firstMove": "\\(E_a=V_t-I_a(R_a+R_s)\\)，場電流 \\(I_f=I_a\\)（並分流電阻則按分流比），\\(n=n_0\\frac{E_a}{E_{a0}(I_f)}\\)，\\(T=\\frac{E_aI_a}{\\omega}\\)",
+   "prereqs": [
+    "emach-dc-motor-generator"
+   ],
+   "confusers": [
+    "emach-dc-shunt-motor",
+    "emach-dc-flux-change"
+   ]
+  },
+  "emach-dc-shunt-motor": {
+   "subject": "04",
+   "chapter": "emach-dc-motor-generator",
+   "name": "並激電動機轉速轉矩",
+   "cues": [
+    "並激、給 R_f 與線電流 I_L",
+    "可能給磁化曲線與電樞反應去磁安匝",
+    "求轉速、轉矩、電樞電流"
+   ],
+   "firstMove": "KCL \\(I_f=V_t/R_f\\)、\\(I_a=I_L-I_f\\)，\\(E_a=V_t-I_aR_a\\)；有電樞反應時 \\(I_f^*=I_f-\\frac{\\mathcal F_{AR}}{N_f}\\) 查曲線，\\(n=n_0\\frac{E_a}{E_{a0}}\\)",
+   "prereqs": [
+    "emach-dc-fixed-flux"
+   ],
+   "confusers": [
+    "emach-dc-fixed-flux",
+    "emach-dc-series-motor"
+   ]
+  },
+  "emach-im-equiv-solve": {
+   "subject": "04",
+   "chapter": "emach-induction-motor-equiv",
+   "name": "感應機等效電路運轉點",
+   "cues": [
+    "給每相 R1、X1、R2、X2、Xm 與滑差或轉速",
+    "含激磁支路",
+    "求電流、功因、氣隙功率、轉矩、效率"
+   ],
+   "firstMove": "\\(s=\\frac{n_s-n}{n_s}\\)，\\(Z_{in}=R_1+jX_1+jX_m\\parallel(\\frac{R_2}{s}+jX_2)\\)，\\(I_1=V_\\phi/Z_{in}\\)，\\(P_{ag}=3I_2^2R_2/s\\)",
+   "prereqs": [
+    "emach-induction-motor-equiv",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "emach-im-loop-torque",
+    "emach-im-power-flow"
+   ]
+  },
+  "emach-im-loop-torque": {
+   "subject": "04",
+   "chapter": "emach-induction-motor-equiv",
+   "name": "單迴路求感應轉矩",
+   "cues": [
+    "已給戴維寧等效或不計鐵心效應（無激磁支路）",
+    "給滑差或轉速",
+    "求感應轉矩、最大負載轉矩"
+   ],
+   "firstMove": "單一串聯迴路 \\(I_2=\\frac{V_{TH}}{|R_{TH}+R_2/s+j(X_{TH}+X_2)|}\\)，\\(T=\\frac{3I_2^2R_2/s}{\\omega_s}\\)",
+   "prereqs": [
+    "emach-induction-motor-equiv"
+   ],
+   "confusers": [
+    "emach-im-equiv-solve",
+    "emach-im-start-modify"
+   ]
+  },
+  "emach-im-power-flow": {
+   "subject": "04",
+   "chapter": "emach-induction-motor-equiv",
+   "name": "感應機功率流",
+   "cues": [
+    "給定子銅損、鐵損、轉子銅損、旋轉損",
+    "給線電壓、線電流、功因",
+    "求機械輸出與效率"
+   ],
+   "firstMove": "\\(P_{in}=\\sqrt3V_LI_L\\cos\\theta\\)，依序扣損：\\(P_{ag}=P_{in}-P_{scl}-P_{core}\\)，\\(P_{conv}=P_{ag}-P_{rcl}\\)，\\(P_{out}=P_{conv}-P_{rot}\\)",
+   "prereqs": [
+    "emach-induction-motor-equiv",
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "emach-im-equiv-solve"
+   ]
+  },
+  "emach-im-rotor-resistance": {
+   "subject": "04",
+   "chapter": "emach-induction-motor-torque",
+   "name": "轉子電阻調速",
+   "cues": [
+    "給 T(s) 轉矩式與負載轉矩",
+    "繞線式轉子、R2 加倍或外加電阻",
+    "求轉速或電阻倍數"
+   ],
+   "firstMove": "令 \\(T(s)=T_L\\) 取穩定區小根；同一轉矩對應同一 \\(R_2/s\\)，故 \\(s\\propto R_2\\)，\\(n=n_s(1-s)\\)",
+   "prereqs": [
+    "emach-induction-motor-torque"
+   ],
+   "confusers": [
+    "emach-im-start-modify",
+    "emach-im-vf-control"
+   ]
+  },
+  "emach-im-start-capacitor": {
+   "subject": "04",
+   "chapter": "emach-induction-motor-equiv",
+   "name": "起動電流電容補償",
+   "cues": [
+    "給全壓起動電流與起動功因",
+    "並聯 Δ 接電容",
+    "線電流降到指定值求電容"
+   ],
+   "firstMove": "起動電流分 \\(I_P=I_{st}\\cos\\varphi\\)、\\(I_Q=I_{st}\\sin\\varphi\\)；電容不改有功分量，\\(I_Q'=\\sqrt{I_{new}^2-I_P^2}\\)，\\(I_C=I_Q-I_Q'\\)",
+   "prereqs": [
+    "ct-complex-power",
+    "emach-im-start-current"
+   ],
+   "confusers": [
+    "emach-im-start-current",
+    "emach-sm-condenser"
+   ]
+  },
+  "emach-im-start-current": {
+   "subject": "04",
+   "chapter": "emach-induction-motor-equiv",
+   "name": "感應機起動電流",
+   "cues": [
+    "起動瞬間轉子靜止",
+    "給標么參數與基準 S_b、V_b",
+    "求起動電流（安培）"
+   ],
+   "firstMove": "\\(s=1\\)，機械負載電阻為零，\\(Z_{in}=Z_s+Z_m\\parallel Z_r\\)，\\(i_{s,pu}=V_s/|Z_{in}|\\)，乘 \\(I_b=\\frac{S_b}{\\sqrt3V_b}\\)",
+   "prereqs": [
+    "emach-induction-motor-equiv"
+   ],
+   "confusers": [
+    "emach-im-start-modify",
+    "emach-im-equiv-solve"
+   ]
+  },
+  "emach-im-start-modify": {
+   "subject": "04",
+   "chapter": "emach-induction-motor-torque",
+   "name": "起動方法與起動轉矩",
+   "cues": [
+    "轉子外接電阻或串聯起動電抗器",
+    "起動電流降為某比例",
+    "比較起動電流與起動轉矩"
+   ],
+   "firstMove": "\\(s=1\\) 等效電路，\\(I_{st}=\\frac{V_\\phi}{|Z(s=1)|}\\)（含外加 \\(R_{ext}\\) 或 \\(jX_{st}\\)），\\(T_{st}=\\frac{3I_2^2R_2}{\\omega_s}\\)",
+   "prereqs": [
+    "emach-im-start-current",
+    "emach-induction-motor-torque"
+   ],
+   "confusers": [
+    "emach-im-start-current",
+    "emach-im-rotor-resistance"
+   ]
+  },
+  "emach-im-vf-control": {
+   "subject": "04",
+   "chapter": "emach-induction-motor-torque",
+   "name": "變頻 V/f 控制",
+   "cues": [
+    "變頻器固定 V/f 供電",
+    "滑差固定",
+    "改頻率求電壓、轉速、扭力"
+   ],
+   "firstMove": "\\(n_s=\\frac{120f}{P}\\)、\\(n=(1-s)n_s\\)；固定 V/f 時 \\(V_2=V_1\\frac{f_2}{f_1}\\)，扭力 \\(T=\\frac{P_{out}}{\\omega_m}\\)",
+   "prereqs": [
+    "emach-induction-motor-torque"
+   ],
+   "confusers": [
+    "emach-im-rotor-resistance"
+   ]
+  },
+  "emach-mc-flux-calc": {
+   "subject": "04",
+   "chapter": "emach-magnetic-circuits",
+   "name": "磁路磁通計算",
+   "cues": [
+    "給鐵心幾何、繞組匝數與電流",
+    "多繞組（串聯或分支）需判定繞向",
+    "求各支路磁通 φ 或磁通密度 B"
+   ],
+   "firstMove": "畫等效磁路：\\(\\mathcal F=Ni\\) 為源、\\(\\mathcal R=\\frac{l}{\\mu A}\\) 為阻，依繞向定磁動勢正負，單迴路 \\(\\phi=\\mathcal F/\\mathcal R\\)，多迴路以疊加或 KCL／KVL 解",
+   "prereqs": [
+    "emach-magnetic-circuits",
+    "ct-node-mesh"
+   ],
+   "confusers": [
+    "emach-mc-inductance",
+    "emach-mc-gap-force-energy"
+   ]
+  },
+  "emach-mc-gap-force-energy": {
+   "subject": "04",
+   "chapter": "emach-magnetic-circuits",
+   "name": "電磁鐵吸力與儲能",
+   "cues": [
+    "氣隙兩側鐵板／電磁鐵",
+    "給所需吸力 F",
+    "求電源電壓與磁場儲能"
+   ],
+   "firstMove": "由每極吸力 \\(F=\\frac{B^2A}{2\\mu_0}\\) 反求 \\(B\\)，再以 \\(NI=\\frac{B}{\\mu_0}\\cdot 2g\\) 求電流，儲能 \\(W=\\frac{B^2}{2\\mu_0}\\cdot\\text{氣隙體積}\\)",
+   "prereqs": [
+    "emach-magnetic-circuits"
+   ],
+   "confusers": [
+    "emach-mc-flux-calc",
+    "emach-vr-inductance-coenergy"
+   ]
+  },
+  "emach-mc-inductance": {
+   "subject": "04",
+   "chapter": "emach-magnetic-circuits",
+   "name": "磁路求電感",
+   "cues": [
+    "給 μ_r、平均長度、截面積或氣隙長度",
+    "求線圈電感 L 或提高電感的方法",
+    "可能再問磁通最大值"
+   ],
+   "firstMove": "先求磁阻 \\(\\mathcal R=\\frac{l}{\\mu_0\\mu_rA}\\)（氣隙 \\(\\mathcal R_g=\\frac{l_g}{\\mu_0A_g}\\)），再 \\(L=\\frac{N^2}{\\mathcal R_{eq}}\\)",
+   "prereqs": [
+    "emach-magnetic-circuits"
+   ],
+   "confusers": [
+    "emach-mc-flux-calc",
+    "emach-tx-reluctance-model"
+   ]
+  },
+  "emach-mc-inductor-vi": {
+   "subject": "04",
+   "chapter": "emach-magnetic-circuits",
+   "name": "電感電壓電流波形",
+   "cues": [
+    "方波電壓源接純電感",
+    "開關切入時刻",
+    "繪電感電流 i_L(t)"
+   ],
+   "firstMove": "\\(i_L(t)=i_L(0)+\\frac1L\\int_0^t v_L\\,d\\tau\\)，每半週電壓定值，電流為斜率 \\(v_L/L\\) 的直線段",
+   "prereqs": [
+    "ct-first-order-rc-rl"
+   ],
+   "confusers": [
+    "emach-mc-inductance"
+   ]
+  },
+  "emach-reluctance-torque-flux": {
+   "subject": "04",
+   "chapter": "emach-reluctance-motor",
+   "name": "磁阻函數求轉矩",
+   "cues": [
+    "給 R(θ) 隨轉角變化",
+    "給電壓源 v(t)（磁通由電壓決定）",
+    "求瞬時轉矩、平均轉矩與機械功率"
+   ],
+   "firstMove": "由 \\(v=N\\frac{d\\phi}{dt}\\) 積分得 \\(\\phi(t)\\)，代入 \\(T=\\frac12\\phi^2\\frac{d\\mathcal R}{d\\theta}\\)，以積化和差找平均值",
+   "prereqs": [
+    "emach-reluctance-motor",
+    "emach-magnetic-circuits"
+   ],
+   "confusers": [
+    "emach-vr-inductance-coenergy"
+   ]
+  },
+  "emach-rotating-field-sum": {
+   "subject": "04",
+   "chapter": "emach-single-phase-rotating-field",
+   "name": "旋轉磁場向量合成",
+   "cues": [
+    "多相繞組空間相隔（90° 或 120°）",
+    "給各相瞬時電流",
+    "求某時刻合成磁動勢／磁通與轉向、轉速"
+   ],
+   "firstMove": "各繞組磁動勢沿相軸、大小 \\(\\propto\\) 瞬時電流（負值反向），化成 \\(x,y\\) 分量相加：\\(\\mathbf F=\\sum_k Ni_k\\angle\\theta_k\\)",
+   "prereqs": [
+    "emach-single-phase-rotating-field",
+    "emach-magnetic-circuits"
+   ],
+   "confusers": [
+    "emach-1ph-cap-start"
+   ]
+  },
+  "emach-sg-ef-regulation": {
+   "subject": "04",
+   "chapter": "emach-synchronous-generator-round",
+   "name": "發電機內電勢與調整率",
+   "cues": [
+    "同步發電機額定 kVA、電壓、功因、X_s（R_a）",
+    "求 E_f、功率角、電壓調整率、無載電壓",
+    "可能再問效率、原動機轉矩或 OCC／SCC 場電流"
+   ],
+   "firstMove": "\\(I_a=\\frac{S}{\\sqrt3V_L}\\angle-\\cos^{-1}\\mathrm{PF}\\)，\\(\\underline E_f=\\underline V_\\phi+(R_a+jX_s)\\underline I_a\\)，\\(\\mathrm{VR}=\\frac{|E_f|-V_\\phi}{V_\\phi}\\)",
+   "prereqs": [
+    "emach-synchronous-generator-round",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "emach-sm-phasor-delta",
+    "emach-sg-fixed-ef-load"
+   ]
+  },
+  "emach-sg-fixed-ef-load": {
+   "subject": "04",
+   "chapter": "emach-synchronous-generator-round",
+   "name": "固定激磁換負載",
+   "cues": [
+    "激磁與轉速不變",
+    "先給一種負載下的額定端電壓",
+    "改接另一負載求端電壓"
+   ],
+   "firstMove": "由第一種負載以 \\(\\underline E_f=\\underline V_\\phi+jX_s\\underline I_a\\) 求 \\(|E_f|\\)，新負載化為每相 \\(Z_L\\)，\\(V=|E_f|\\frac{|Z_L|}{|Z_L+jX_s|}\\)",
+   "prereqs": [
+    "emach-sg-ef-regulation"
+   ],
+   "confusers": [
+    "emach-sg-ef-regulation"
+   ]
+  },
+  "emach-sg-rating-pu": {
+   "subject": "04",
+   "chapter": "emach-synchronous-generator-round",
+   "name": "同步機額定與標么",
+   "cues": [
+    "給 kVA、rpm、kV、頻率、同步阻抗",
+    "求極數、阻抗標么值、銅損、轉矩"
+   ],
+   "firstMove": "\\(P=\\frac{120f}{n_s}\\)；\\(Z_b=\\frac{V_{LL}^2}{S_{3\\phi}}\\)、\\(Z_{pu}=Z_s/Z_b\\)；\\(I_a=\\frac{S}{\\sqrt3V_L}\\)，\\(P_{cu}=3I_a^2R_a\\)",
+   "prereqs": [
+    "emach-synchronous-generator-round"
+   ],
+   "confusers": [
+    "emach-sg-ef-regulation"
+   ]
+  },
+  "emach-sm-condenser": {
+   "subject": "04",
+   "chapter": "emach-synchronous-generator-round",
+   "name": "同步調相機功因改善",
+   "cues": [
+    "工廠負載 kW 與落後功因",
+    "同步機作同步電容器",
+    "求同步機 kVA、線電流、所需內生電壓"
+   ],
+   "firstMove": "\\(Q=P\\tan\\varphi\\) 全由調相機供給（\\(S_{sc}=Q\\)），\\(I_L=\\frac{P}{\\sqrt3V_L\\cos\\varphi}\\)，\\(\\underline E_f=\\underline V_\\phi-jX_s\\underline I_c\\)（\\(I_c\\) 超前 90°）",
+   "prereqs": [
+    "ct-complex-power",
+    "emach-sm-phasor-delta"
+   ],
+   "confusers": [
+    "emach-sm-excitation-pf",
+    "emach-im-start-capacitor"
+   ]
+  },
+  "emach-sm-excitation-pf": {
+   "subject": "04",
+   "chapter": "emach-synchronous-generator-round",
+   "name": "激磁調整功因（V 形曲線）",
+   "cues": [
+    "同步電動機負載不變",
+    "調整激磁電流改變功因",
+    "以相量圖說明（論述題）"
+   ],
+   "firstMove": "固定 \\(P\\) 得兩條限制：\\(I_a\\cos\\theta\\) 定值（電流尖端在垂直線上）、\\(E_f\\sin\\delta\\) 定值（\\(E_f\\) 尖端在水平線上），沿線移動 \\(E_f\\) 看功因",
+   "prereqs": [
+    "emach-sm-phasor-delta"
+   ],
+   "confusers": [
+    "emach-sm-phasor-delta",
+    "emach-sm-condenser"
+   ]
+  },
+  "emach-sm-phasor-delta": {
+   "subject": "04",
+   "chapter": "emach-synchronous-generator-round",
+   "name": "同步電動機相量與轉矩角",
+   "cues": [
+    "同步電動機接無窮匯流排、給 X_s",
+    "給輸出功率或電流與功因",
+    "求 E_f、δ、最大功率／轉矩，或改電壓／功因後的新工作點"
+   ],
+   "firstMove": "電動機慣例 \\(\\underline E_f=\\underline V_\\phi-jX_s\\underline I_a\\)，\\(P=\\frac{3V_\\phi E_f}{X_s}\\sin\\delta\\)，\\(P_{max}\\) 取 \\(\\delta=90^\\circ\\)",
+   "prereqs": [
+    "emach-synchronous-generator-round",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "emach-sg-ef-regulation",
+    "emach-sm-excitation-pf"
+   ]
+  },
+  "emach-special-machine-essay": {
+   "subject": "04",
+   "chapter": "emach-dc-motor-generator",
+   "name": "特殊電機結構論述",
+   "cues": [
+    "繪結構：SRM、步進馬達、永磁同步機",
+    "說明直流機電樞反應與改善",
+    "論述題、無數值"
+   ],
+   "firstMove": "畫剖面圖標定子、轉子、氣隙、繞組；電樞反應由「電樞磁勢在交軸、與主磁通正交」推出磁通畸變、中性面偏移、去磁，對應補償繞組、中間極、移刷",
+   "prereqs": [
+    "emach-dc-motor-generator",
+    "emach-reluctance-motor"
+   ],
+   "confusers": [
+    "emach-dc-shunt-motor",
+    "emach-reluctance-torque-flux"
+   ]
+  },
+  "emach-tx-impedance-match": {
+   "subject": "04",
+   "chapter": "emach-single-phase-transformer",
+   "name": "分接頭阻抗匹配",
+   "cues": [
+    "電源含內阻抗",
+    "調整匝數比 a",
+    "使負載得最大功率"
+   ],
+   "firstMove": "負載折算到一次側 \\(R_L'=a^2R_L\\)，純電阻負載對內阻抗取 \\(R_L'=|Z_s|\\) 解 \\(a\\)",
+   "prereqs": [
+    "ct-max-power",
+    "emach-single-phase-transformer"
+   ],
+   "confusers": [
+    "emach-tx-off-rated"
+   ]
+  },
+  "emach-tx-off-rated": {
+   "subject": "04",
+   "chapter": "emach-single-phase-transformer",
+   "name": "變壓器非額定運轉",
+   "cues": [
+    "電源電壓或頻率與銘牌不同",
+    "問輸出電壓、可用容量或操作情形",
+    "伏赫比、飽和"
+   ],
+   "firstMove": "\\(V_1\\approx4.44fN_1\\Phi_m\\Rightarrow\\Phi_m\\propto V/f\\)；繞組額定電流 \\(I=S_{rated}/V_{rated}\\) 不變，可用容量＝實際電壓×額定電流",
+   "prereqs": [
+    "emach-single-phase-transformer"
+   ],
+   "confusers": [
+    "emach-tx-test-vr",
+    "emach-auto-rating"
+   ]
+  },
+  "emach-tx-reluctance-model": {
+   "subject": "04",
+   "chapter": "emach-single-phase-transformer",
+   "name": "變壓器磁路模型",
+   "cues": [
+    "給主磁路與漏磁路磁阻",
+    "求激磁電流、漏電抗或各電感",
+    "以匝數與磁阻表示"
+   ],
+   "firstMove": "畫含 \\(\\mathcal R_M,\\mathcal R_{l1},\\mathcal R_{l2}\\) 的磁路，電感 \\(L=\\frac{N^2}{\\mathcal R}\\)、電抗 \\(X=\\omega N^2/\\mathcal R\\)；鐵損以 \\(R_c=V^2/P_{core}\\) 並聯",
+   "prereqs": [
+    "emach-mc-inductance",
+    "emach-single-phase-transformer"
+   ],
+   "confusers": [
+    "emach-tx-test-vr",
+    "emach-mc-inductance"
+   ]
+  },
+  "emach-tx-test-vr": {
+   "subject": "04",
+   "chapter": "emach-single-phase-transformer",
+   "name": "開路試驗與電壓調整率",
+   "cues": [
+    "給開路（或短路）試驗 V、I、P",
+    "給標么 R、X",
+    "求等效電路參數與電壓調整率"
+   ],
+   "firstMove": "開路試驗：\\(R_c=\\frac{V_{oc}^2}{P_{oc}}\\)、\\(|Y_\\phi|=\\frac{I_{oc}}{V_{oc}}\\)；串聯 \\(Z=(R_{pu}+jX_{pu})Z_b\\)，\\(Z_b=V^2/S\\)；\\(\\mathrm{VR}=\\frac{|V_s|-V}{V}\\)",
+   "prereqs": [
+    "emach-single-phase-transformer",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "emach-tx-off-rated",
+    "emach-tx-reluctance-model"
+   ]
+  },
+  "emach-vr-inductance-coenergy": {
+   "subject": "04",
+   "chapter": "emach-reluctance-motor",
+   "name": "可變磁阻電感與共能",
+   "cues": [
+    "轉子極面與定子重疊角 θ",
+    "給氣隙、厚度、半徑與電流",
+    "求 L(θ) 與扭力"
+   ],
+   "firstMove": "兩氣隙串聯 \\(\\mathcal R(\\theta)=\\frac{2g}{\\mu_0r_1\\theta h}\\)，\\(L(\\theta)=\\frac{N^2}{\\mathcal R(\\theta)}\\)，扭力 \\(T=\\frac12i^2\\frac{dL}{d\\theta}\\)",
+   "prereqs": [
+    "emach-mc-inductance",
+    "emach-reluctance-motor"
+   ],
+   "confusers": [
+    "emach-reluctance-torque-flux",
+    "emach-mc-gap-force-energy"
+   ]
+  },
+  "ps-ed-loss-coordination": {
+   "subject": "05",
+   "chapter": "ps-economic-dispatch",
+   "name": "含損失協調方程式",
+   "cues": [
+    "考慮輸電損失：\\(B\\) 係數或兩匯流排潮流式",
+    "罰點因數 \\(L\\)／增量損失 ITL、\\(dP_L/dP_G\\)",
+    "列出最佳調度方程組或求增量成本"
+   ],
+   "firstMove": "拉格朗日 \\(\\mathcal L=\\sum F_i+\\lambda(P_D+P_L-\\sum P_i)\\) 得 \\(\\frac{dF_i}{dP_i}L_i=\\lambda\\)，\\(L_i=\\frac{1}{1-\\partial P_L/\\partial P_i}\\)；\\(P_L\\) 由 \\(B\\) 係數或 \\(P_L=\\sum_iP_i\\)（潮流式）表示",
+   "prereqs": [
+    "ps-ed-lossless",
+    "em-vector-analysis"
+   ],
+   "confusers": [
+    "ps-ed-lossless"
+   ]
+  },
+  "ps-ed-lossless": {
+   "subject": "05",
+   "chapter": "ps-economic-dispatch",
+   "name": "無損失經濟調度",
+   "cues": [
+    "給二次成本函數 \\(C_i\\)、忽略耗損",
+    "求各機最佳發電量，或由兩組 \\((P_D,\\lambda)\\) 反求未知係數",
+    "機組容量上限"
+   ],
+   "firstMove": "微分得 \\(\\mathrm{IC}_i=\\frac{dC_i}{dP_i}=\\lambda\\)，聯立 \\(\\sum_iP_i=P_D\\)；反求係數時把兩個運轉點代入 \\(\\mathrm{IC}_i(P_i)=\\lambda\\)，最後檢查上下限（KKT）",
+   "prereqs": [
+    "ps-economic-dispatch"
+   ],
+   "confusers": [
+    "ps-ed-loss-coordination",
+    "ps-lfc-droop"
+   ]
+  },
+  "ps-fault-prefault-emf": {
+   "subject": "05",
+   "chapter": "ps-three-phase-fault",
+   "name": "含預載之短路內電勢",
+   "cues": [
+    "故障前有負載（給 MW、功因或故障電流）",
+    "次暫態／暫態電抗",
+    "求各機故障電流（或反算預載狀態）"
+   ],
+   "firstMove": "由預載電流 \\(I\\) 求內電勢 \\(E''=V_t+jX''I\\)（暫態用 \\(E'=V+jX'I\\)），故障時端電壓為 0，\\(I_f=\\frac{E''}{jX''}\\) 各支路相加",
+   "prereqs": [
+    "ps-fault-thevenin-zbus",
+    "ps-pa-gen-infinite-bus"
+   ],
+   "confusers": [
+    "ps-fault-thevenin-zbus"
+   ]
+  },
+  "ps-fault-thevenin-zbus": {
+   "subject": "05",
+   "chapter": "ps-three-phase-fault",
+   "name": "戴維寧／Zbus 三相短路",
+   "cues": [
+    "單線圖或給 \\(Z_{\\mathrm{bus}}\\)、無載電勢 \\(1\\angle0^\\circ\\)",
+    "某匯流排經 \\(Z_f\\) 三相短路",
+    "求故障電流、各匯流排電壓與線路電流"
+   ],
+   "firstMove": "EMF 短路由故障點看入求 \\(Z_{kk}\\)（\\(Z_{th}\\)），\\(I_f=\\frac{V_k^{(0)}}{Z_{kk}+Z_f}\\)，\\(V_i=V_i^{(0)}-Z_{ik}I_f\\)，\\(I_{ij}=\\frac{V_i-V_j}{z_{ij}}\\)",
+   "prereqs": [
+    "ps-per-unit",
+    "ct-thevenin-norton"
+   ],
+   "confusers": [
+    "ps-fault-prefault-emf",
+    "ps-uf-line-to-line"
+   ]
+  },
+  "ps-fault-xfmr-feeder": {
+   "subject": "05",
+   "chapter": "ps-three-phase-fault",
+   "name": "變壓器饋電壓降與短路",
+   "cues": [
+    "電源串源阻抗與變壓器漏電抗",
+    "恆功率負載、已知一次側電壓",
+    "求二次電壓、過載判斷、調整率、二次短路電流"
+   ],
+   "firstMove": "化成 pu，由 \\(|V_1|=1\\) 與 \\(S_L=V_2I^*\\)、\\(V_1=V_2+jX_TI\\) 解 \\(V_2\\)，再 \\(E_s=V_1+Z_sI\\)；短路 \\(I_{sc}=\\frac{E_s}{Z_s+jX_T}\\)",
+   "prereqs": [
+    "ps-per-unit",
+    "emach-single-phase-transformer"
+   ],
+   "confusers": [
+    "ps-tl-short-line",
+    "ps-fault-thevenin-zbus"
+   ]
+  },
+  "ps-lf-fast-decoupled": {
+   "subject": "05",
+   "chapter": "ps-load-flow-admittance",
+   "name": "快速解耦潮流",
+   "cues": [
+    "題目指定快速解耦法",
+    "給 \\(Y_{\\mathrm{bus}}\\) 或純電納線路",
+    "平坦啟動 \\(\\theta=0,\\ |V|=1\\)，求 \\(\\theta\\) 與 \\(|V_3|\\)"
+   ],
+   "firstMove": "由 \\(-\\mathrm{Im}(Y_{\\mathrm{bus}})\\) 取 \\(B'\\)（PV+PQ 角度）、\\(B''\\)（PQ 電壓），先解 \\(B'\\Delta\\boldsymbol\\theta=\\Delta\\mathbf P/|V|\\)，再以新角度解 \\(B''\\Delta|V|=\\Delta Q/|V|\\)",
+   "prereqs": [
+    "ps-lf-pf-equations",
+    "ps-lf-ybus-build"
+   ],
+   "confusers": [
+    "ps-lf-newton-raphson",
+    "ps-lf-gauss-seidel"
+   ]
+  },
+  "ps-lf-gauss-seidel": {
+   "subject": "05",
+   "chapter": "ps-load-flow-admittance",
+   "name": "高斯–賽德潮流疊代",
+   "cues": [
+    "題目指定 Gauss–Seidel／高斯–賽德",
+    "給負載匯流排 \\(P,Q\\) 與平啟動初值",
+    "問第 k 次疊代的電壓"
+   ],
+   "firstMove": "列 \\(Y_{\\mathrm{bus}}\\)，寫更新式 \\(V_i=\\frac{1}{Y_{ii}}\\Big[\\frac{P_i-jQ_i}{V_i^*}-\\sum_{j\\ne i}Y_{ij}V_j\\Big]\\)，依匯流排順序代入新值",
+   "prereqs": [
+    "ps-lf-ybus-build",
+    "ct-phasor-ac"
+   ],
+   "confusers": [
+    "ps-lf-newton-raphson",
+    "ps-lf-fast-decoupled"
+   ]
+  },
+  "ps-lf-newton-raphson": {
+   "subject": "05",
+   "chapter": "ps-load-flow-admittance",
+   "name": "牛頓–拉弗森潮流",
+   "cues": [
+    "題目指定牛頓－拉弗森／Newton–Raphson",
+    "二匯流排、由 \\(V_2=1\\angle0^\\circ\\) 起疊代",
+    "發電機無效功率超出上限 \\(Q_{g,\\max}\\)，改為 PQ 匯流排"
+   ],
+   "firstMove": "寫 \\(P_2(\\delta_2,|V_2|)\\)、\\(Q_2(\\delta_2,|V_2|)\\) 與 Jacobian，解 \\(J\\begin{bmatrix}\\Delta\\delta\\\\\\Delta|V|\\end{bmatrix}=\\begin{bmatrix}P^{sch}-P\\\\Q^{sch}-Q\\end{bmatrix}\\)；PV 匯流排先算 \\(Q_g\\)，超限則固定 \\(Q_g=Q_{g,\\max}\\) 改 PQ",
+   "prereqs": [
+    "ps-lf-pf-equations",
+    "em-matrix-det-inv"
+   ],
+   "confusers": [
+    "ps-lf-fast-decoupled",
+    "ps-lf-gauss-seidel"
+   ]
+  },
+  "ps-lf-pf-equations": {
+   "subject": "05",
+   "chapter": "ps-load-flow-admittance",
+   "name": "潮流方程式列式求解",
+   "cues": [
+    "Bus 1 搖擺、Bus 2 PV、Bus 3 PQ",
+    "寫出潮流方程式",
+    "求搖擺匯流排出力或某線路無效功率流向",
+    "不指定疊代法"
+   ],
+   "firstMove": "建 \\(Y_{\\mathrm{bus}}\\)，依匯流排型態寫 \\(P_i=\\sum_k|V_i||V_k||Y_{ik}|\\cos(\\theta_{ik}-\\delta_i+\\delta_k)\\)、\\(Q_i=-\\sum_k|V_i||V_k||Y_{ik}|\\sin(\\theta_{ik}-\\delta_i+\\delta_k)\\)（PV 只列 \\(P\\)，PQ 列 \\(P,Q\\)）",
+   "prereqs": [
+    "ps-lf-ybus-build",
+    "ct-complex-power"
+   ],
+   "confusers": [
+    "ps-lf-newton-raphson",
+    "ps-lf-fast-decoupled",
+    "ps-lf-ybus-build"
+   ]
+  },
+  "ps-lf-ybus-build": {
+   "subject": "05",
+   "chapter": "ps-load-flow-admittance",
+   "name": "節點導納矩陣建立",
+   "cues": [
+    "求 \\(Y_{\\mathrm{bus}}\\)（或再求 \\(Z_{\\mathrm{bus}}\\)）",
+    "變壓器非標稱抽頭 \\(a:1\\)",
+    "匯流排接上負載／並聯電容後求各匯流排電壓"
+   ],
+   "firstMove": "逐支路蓋印：線路 \\(Y_{ii}\\mathrel{+}=y,\\ Y_{kk}\\mathrel{+}=y,\\ Y_{ik}\\mathrel{+}=-y\\)；抽頭支路 \\(Y_{ii}\\mathrel{+}=\\frac{y}{a^2},\\ Y_{ik}\\mathrel{+}=-\\frac{y}{a},\\ Y_{kk}\\mathrel{+}=y\\)；電源電抗當接地支路，需要時 \\(Z_{\\mathrm{bus}}=Y_{\\mathrm{bus}}^{-1}\\)",
+   "prereqs": [
+    "ps-per-unit",
+    "ct-node-mesh"
+   ],
+   "confusers": [
+    "ps-lf-pf-equations",
+    "ps-fault-thevenin-zbus"
+   ]
+  },
+  "ps-lfc-droop": {
+   "subject": "05",
+   "chapter": "ps-economic-dispatch",
+   "name": "調速機下垂與頻率偏移",
+   "cues": [
+    "速率（速度）調整率 \\(R\\)",
+    "負載增加 \\(\\Delta P_L\\) 或頻率由 60 Hz 降至某值",
+    "求穩態頻率偏移與各機新出力"
+   ],
+   "firstMove": "\\(\\beta_i=\\frac{S_i}{R_if_0}\\)（以自身額定），\\(\\Delta f=-\\frac{\\Delta P_L}{\\sum\\beta_i+D}\\)，\\(\\Delta P_i=-\\beta_i\\Delta f\\)；單機用 \\(\\frac{\\Delta f}{f_0}=-R\\,\\Delta P_M\\)",
+   "prereqs": [
+    "ps-per-unit"
+   ],
+   "confusers": [
+    "ps-ts-swing-equation",
+    "ps-ed-lossless"
+   ]
+  },
+  "ps-pa-complex-power": {
+   "subject": "05",
+   "chapter": "ps-power-analysis",
+   "name": "複數功率計算",
+   "cues": [
+    "給 \\(v(t)\\)、\\(i(t)\\) 或相量，求 \\(P,Q\\)、瞬時功率",
+    "平衡三相：線路阻抗、\\(\\Delta\\) 與 Y 負載並聯",
+    "求電流、總 \\(P,Q,S\\)、功因"
+   ],
+   "firstMove": "\\(S=VI^*=P+jQ\\)（有效值相量）；三相取單相等效（\\(Z_\\Delta\\to Z_\\Delta/3\\)），\\(S_{3\\phi}=3|I_L|^2Z_{in}\\)；\\(p(t)\\) 用積化和差拆成平均項與兩倍頻項",
+   "prereqs": [
+    "ct-complex-power",
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "ps-pa-gen-infinite-bus",
+    "ps-tl-short-line"
+   ]
+  },
+  "ps-pa-gen-infinite-bus": {
+   "subject": "05",
+   "chapter": "ps-power-analysis",
+   "name": "同步機接無限匯流排",
+   "cues": [
+    "圓柱形轉子、給 \\(X_d\\)／\\(X_s\\)，經變壓器或並聯線接無限匯流排",
+    "給輸出 \\(P\\)、端電壓或電流功因",
+    "求內電勢、功率角、\\(Q\\)，或激磁改變後的 \\(\\delta\\)、\\(Q\\)"
+   ],
+   "firstMove": "畫 \\(E\\)—\\(jX\\)—\\(V_\\infty\\) 每相電路：\\(E=V+jXI\\)，\\(P=\\frac{|E||V|}{X}\\sin\\delta\\)，送端 \\(Q_S=\\frac{|E|^2-|E||V|\\cos\\delta}{X}\\)、受端 \\(Q_R=\\frac{|E||V|\\cos\\delta-|V|^2}{X}\\)（\\(P\\) 不變時 \\(E\\sin\\delta\\) 定值）；不同額定先換基準",
+   "prereqs": [
+    "emach-synchronous-generator-round",
+    "ps-per-unit"
+   ],
+   "confusers": [
+    "ps-pa-salient-two-reaction",
+    "ps-ts-equal-area"
+   ]
+  },
+  "ps-pa-parallel-transformers": {
+   "subject": "05",
+   "chapter": "ps-power-analysis",
+   "name": "並聯變壓器負載分擔",
+   "cues": [
+    "多台同電壓比變壓器並聯，阻抗不同",
+    "給負載 MVA 與低壓側電壓",
+    "求各台分擔、損失，或改兩台運轉"
+   ],
+   "firstMove": "統一基準，\\(I_L=(S_L/V_L)^*\\)，各台電流按導納分配 \\(I_i=\\frac{1/z_i}{\\sum_k1/z_k}I_L\\)，\\(E=V_L+z_{eq}I_L\\)",
+   "prereqs": [
+    "emach-single-phase-transformer",
+    "ct-divider-equiv"
+   ],
+   "confusers": [
+    "ps-pa-complex-power"
+   ]
+  },
+  "ps-pa-salient-two-reaction": {
+   "subject": "05",
+   "chapter": "ps-power-analysis",
+   "name": "凸極機雙反應功角",
+   "cues": [
+    "凸極機接無窮母線",
+    "給 \\(E\\)、\\(V\\)、\\(\\delta\\)、功因",
+    "求 \\(X_d\\)、\\(X_q\\)"
+   ],
+   "firstMove": "電流分 \\(I_d,I_q\\)，\\(E=V+jX_dI_d+jX_qI_q\\)；畫相量圖沿 q 軸與垂直 q 軸投影各得一式",
+   "prereqs": [
+    "emach-synchronous-salient-pole",
+    "ps-pa-gen-infinite-bus"
+   ],
+   "confusers": [
+    "ps-pa-gen-infinite-bus"
+   ]
+  },
+  "ps-prot-differential": {
+   "subject": "05",
+   "chapter": "ps-system-protection-relay",
+   "name": "差動保護電驛",
+   "cues": [
+    "CT 匝比、差動（動作）線圈與抑制線圈",
+    "變壓器或發電機繞組兩端 CT",
+    "區內／區外故障判斷、百分比差動"
+   ],
+   "firstMove": "CT 二次電流 \\(I'=I/n\\)，對電驛節點列 KCL 得差動電流 \\(I_1'-I_2'\\)；正常／外部故障時令其為 0（變壓器加安匝平衡 \\(N_1I_1=N_2I_2\\)）",
+   "prereqs": [
+    "ct-ohm-kcl-kvl",
+    "emach-single-phase-transformer"
+   ],
+   "confusers": [
+    "ps-sc-fortescue"
+   ]
+  },
+  "ps-sc-fortescue": {
+   "subject": "05",
+   "chapter": "ps-symmetrical-components",
+   "name": "對稱分量轉換",
+   "cues": [
+    "不平衡 Y 接負載（三相四線／三線）",
+    "非標準故障（如接地＋相間同時），給部分相電流",
+    "求序電流、序電壓、中性點電壓或零序電抗"
+   ],
+   "firstMove": "\\(\\begin{bmatrix}I_0\\\\I_1\\\\I_2\\end{bmatrix}=\\frac13\\begin{bmatrix}1&1&1\\\\1&a&a^2\\\\1&a^2&a\\end{bmatrix}\\begin{bmatrix}I_a\\\\I_b\\\\I_c\\end{bmatrix}\\)；故障題先寫相量邊界條件，三線制先用彌爾曼定理求 \\(V_N\\)",
+   "prereqs": [
+    "ps-symmetrical-components",
+    "ct-three-phase"
+   ],
+   "confusers": [
+    "ps-uf-slg",
+    "ps-uf-line-to-line"
+   ]
+  },
+  "ps-tl-bundle-gmd-gmr": {
+   "subject": "05",
+   "chapter": "ps-transmission-line-params",
+   "name": "束線電感電容計算",
+   "cues": [
+    "換位線、每相多分裂導線（束線）",
+    "給導線直徑、GMR、子導體間距與相間距",
+    "求每相每公里電感、電容"
+   ],
+   "firstMove": "\\(\\mathrm{GMD}=\\sqrt[3]{D_{ab}D_{bc}D_{ca}}\\)，束線 \\(D_{sL}\\) 用 GMR、\\(D_{sC}\\) 用半徑 \\(r\\)，\\(L=2\\times10^{-7}\\ln\\frac{\\mathrm{GMD}}{D_{sL}}\\)、\\(C=\\frac{2\\pi\\varepsilon_0}{\\ln(\\mathrm{GMD}/D_{sC})}\\)",
+   "prereqs": [
+    "ps-transmission-line-params"
+   ],
+   "confusers": [
+    "ps-tl-medium-long"
+   ]
+  },
+  "ps-tl-compensation": {
+   "subject": "05",
+   "chapter": "ps-transmission-line-models",
+   "name": "串並聯補償論述",
+   "cues": [
+    "論述題、無數據",
+    "串聯補償／並聯補償的目的與實施",
+    "提高最大傳送功率的原因"
+   ],
+   "firstMove": "寫 \\(P=\\frac{V_SV_R}{X}\\sin\\delta\\) 與 \\(\\Delta V\\approx\\frac{RP+XQ}{V_R}\\)：串聯電容使 \\(X_{eq}=(1-k)X_L\\)，並聯元件改變線路輸送的 \\(Q\\)",
+   "prereqs": [
+    "ps-tl-short-line",
+    "ps-pa-gen-infinite-bus"
+   ],
+   "confusers": [
+    "ps-tl-short-line",
+    "ps-ts-swing-equation"
+   ]
+  },
+  "ps-tl-medium-long": {
+   "subject": "05",
+   "chapter": "ps-transmission-line-models",
+   "name": "中長程線路模型",
+   "cues": [
+    "給 \\(A,B,C,D\\) 常數或由導體幾何建 π 模型",
+    "求送電端電壓電流、傳輸實功率",
+    "無載受電端電壓、電壓調整率"
+   ],
+   "firstMove": "每相 \\(V_S=AV_R+BI_R\\)、\\(I_S=CV_R+DI_R\\)（π 模型 \\(A=D=1+\\frac{YZ}{2},\\ B=Z\\)）；無損時 \\(P=\\frac{V_SV_R}{X}\\sin\\delta\\)，無載 \\(V_{R,NL}=V_S/A\\)",
+   "prereqs": [
+    "ct-two-port",
+    "ps-tl-bundle-gmd-gmr"
+   ],
+   "confusers": [
+    "ps-tl-short-line",
+    "ps-tl-bundle-gmd-gmr"
+   ]
+  },
+  "ps-tl-short-line": {
+   "subject": "05",
+   "chapter": "ps-transmission-line-models",
+   "name": "短線送受電端計算",
+   "cues": [
+    "短線模型（忽略並聯電容）或給線路 pu 阻抗",
+    "受電端負載 MVA 與功因、可能並聯電容器",
+    "求送電端電壓、功率、調整率、效率或損失"
+   ],
+   "firstMove": "取 \\(V_R\\) 為參考，受電端淨複功率 \\(S_R\\)（扣電容器 \\(-jQ_C\\)）得 \\(I=(S_R/V_R)^*\\)，\\(V_S=V_R+ZI\\)",
+   "prereqs": [
+    "ps-per-unit",
+    "ps-pa-complex-power"
+   ],
+   "confusers": [
+    "ps-tl-medium-long",
+    "ps-fault-xfmr-feeder"
+   ]
+  },
+  "ps-ts-equal-area": {
+   "subject": "05",
+   "chapter": "ps-transient-stability-equal-area",
+   "name": "等面積準則",
+   "cues": [
+    "慣性常數 \\(H\\)、雙迴線接無限匯流排",
+    "三相故障後清除：功角方程式、臨界清除角／時間",
+    "或機械輸入突增的最大允許值"
+   ],
+   "firstMove": "由故障前求 \\(E'=V_t+jX_d'I\\)、\\(\\delta_0\\)，寫故障前／中／後 \\(P_e=\\frac{|E'||V_\\infty|}{X_{12}}\\sin\\delta\\)，令加速面積 \\(A_1\\) = 減速面積 \\(A_2\\)",
+   "prereqs": [
+    "ps-pa-gen-infinite-bus",
+    "ps-ts-swing-equation"
+   ],
+   "confusers": [
+    "ps-ts-swing-equation",
+    "ps-pa-gen-infinite-bus"
+   ]
+  },
+  "ps-ts-swing-equation": {
+   "subject": "05",
+   "chapter": "ps-transient-stability-equal-area",
+   "name": "搖擺方程式與慣量",
+   "cues": [
+    "甩負載或擾動後轉子加速度、rpm",
+    "慣性常數 \\(H\\)、同步慣量比較",
+    "再生能源比例與暫態穩定論述"
+   ],
+   "firstMove": "\\(\\frac{2H}{\\omega_s}\\frac{d^2\\delta}{dt^2}=P_m-P_e\\)（pu，系統基準 \\(H_{sys}=\\frac{\\sum H_iS_i}{S_{sys}}\\)）；甩負載瞬間 \\(P_e=0\\)",
+   "prereqs": [
+    "ps-per-unit"
+   ],
+   "confusers": [
+    "ps-ts-equal-area",
+    "ps-lfc-droop"
+   ]
+  },
+  "ps-uf-line-to-line": {
+   "subject": "05",
+   "chapter": "ps-unsymmetrical-faults",
+   "name": "線間短路故障",
+   "cues": [
+    "b-c（B-C）線間故障",
+    "同題常另問三相故障",
+    "求故障相電流（實際值）"
+   ],
+   "firstMove": "換共同基準求故障點 \\(Z_1,Z_2\\)，正、負序網路並聯：\\(I_{a1}=-I_{a2}=\\frac{V_f}{Z_1+Z_2}\\)，\\(I_b=-j\\sqrt3I_{a1}\\)",
+   "prereqs": [
+    "ps-symmetrical-components",
+    "ps-fault-thevenin-zbus"
+   ],
+   "confusers": [
+    "ps-uf-slg",
+    "ps-fault-thevenin-zbus"
+   ]
+  },
+  "ps-uf-slg": {
+   "subject": "05",
+   "chapter": "ps-unsymmetrical-faults",
+   "name": "單線接地故障",
+   "cues": [
+    "單線（a 相）接地",
+    "表列 \\(X_1/X_2/X_0\\)、Y/Δ 接線與中性點接地阻抗",
+    "求故障相電流、零序電壓"
+   ],
+   "firstMove": "依接線畫三序網路（Y 接地側通、Δ 側斷開，中性點阻抗以 \\(3Z_n\\) 入零序），故障點串聯：\\(I_{a0}=I_{a1}=I_{a2}=\\frac{V_f}{Z_1+Z_2+Z_0}\\)（\\(Z_0\\) 已含 \\(3Z_n\\)），\\(I_a=3I_{a0}\\)",
+   "prereqs": [
+    "ps-symmetrical-components",
+    "ps-per-unit"
+   ],
+   "confusers": [
+    "ps-uf-line-to-line",
+    "ps-sc-fortescue"
+   ]
+  }
+ },
+ "questions": {
+  "EE-104-01-1": {
+   "type": "ct-tn-independent",
+   "secondary": [],
+   "chapter": "ct-thevenin-norton"
+  },
+  "EE-104-01-2": {
+   "type": "ct-mi-reflected-impedance",
+   "secondary": [],
+   "chapter": "ct-mutual-inductance"
+  },
+  "EE-104-01-3": {
+   "type": "ct-3p-parallel-load-power",
+   "secondary": [],
+   "chapter": "ct-three-phase"
+  },
+  "EE-104-01-4": {
+   "type": "ct-rlc-parallel-step",
+   "secondary": [
+    "ct-lap-dependent-source"
+   ],
+   "chapter": "ct-second-order-rlc"
+  },
+  "EE-104-01-5": {
+   "type": "ct-tp-param-definition",
+   "secondary": [],
+   "chapter": "ct-two-port"
+  },
+  "EE-104-02-1": {
+   "type": "el-mos-cs-degeneration",
+   "secondary": [
+    "el-af-time-constant"
+   ],
+   "chapter": "el-mosfet-bias-small-signal"
+  },
+  "EE-104-02-2": {
+   "type": "el-bjt-cb-amp",
+   "secondary": [],
+   "chapter": "el-bjt-bias-small-signal"
+  },
+  "EE-104-02-3": {
+   "type": "el-dr-3ph-rectifier",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-104-02-4": {
+   "type": "el-inv-square-transient",
+   "secondary": [],
+   "chapter": "el-pe-inverter-spwm"
+  },
+  "EE-104-02-5": {
+   "type": "el-af-rc-oscillator",
+   "secondary": [],
+   "chapter": "el-active-filter"
+  },
+  "EE-104-03-1": {
+   "type": "em-lap-s-differentiation",
+   "secondary": [],
+   "chapter": "em-laplace-transform"
+  },
+  "EE-104-03-2": {
+   "type": "em-eig-diagonalize",
+   "secondary": [],
+   "chapter": "em-eigen-diagonal"
+  },
+  "EE-104-03-3": {
+   "type": "em-cx-real-integral-residue",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-104-03-4": {
+   "type": "em-prob-joint-pdf",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-104-03-5": {
+   "type": "em-vec-line-integral",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-104-04-1": {
+   "type": "emach-mc-flux-calc",
+   "secondary": [],
+   "chapter": "emach-magnetic-circuits"
+  },
+  "EE-104-04-2": {
+   "type": "emach-tx-off-rated",
+   "secondary": [],
+   "chapter": "emach-single-phase-transformer"
+  },
+  "EE-104-04-3": {
+   "type": "emach-dc-fixed-flux",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-104-04-4": {
+   "type": "emach-im-start-current",
+   "secondary": [],
+   "chapter": "emach-induction-motor-equiv"
+  },
+  "EE-104-04-5": {
+   "type": "emach-sg-fixed-ef-load",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-104-05-1": {
+   "type": "ps-uf-slg",
+   "secondary": [],
+   "chapter": "ps-unsymmetrical-faults"
+  },
+  "EE-104-05-2": {
+   "type": "ps-pa-parallel-transformers",
+   "secondary": [],
+   "chapter": "ps-power-analysis"
+  },
+  "EE-104-05-3": {
+   "type": "ps-fault-prefault-emf",
+   "secondary": [],
+   "chapter": "ps-three-phase-fault"
+  },
+  "EE-104-05-4": {
+   "type": "ps-lf-ybus-build",
+   "secondary": [],
+   "chapter": "ps-load-flow-admittance"
+  },
+  "EE-104-06-1": {
+   "type": "dist-eq-supply-regulation",
+   "secondary": [],
+   "chapter": "dist-distribution-equipment"
+  },
+  "EE-104-06-2": {
+   "type": "dist-load-demand-chain",
+   "secondary": [],
+   "chapter": "dist-load-characteristics"
+  },
+  "EE-104-06-3": {
+   "type": "dist-pq-arc-resistive",
+   "secondary": [],
+   "chapter": "dist-harmonics-mitigation"
+  },
+  "EE-104-06-4": {
+   "type": "dist-sc-seq-from-mva",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-104-06-5": {
+   "type": "dist-pq-harmonic-current-source",
+   "secondary": [],
+   "chapter": "dist-harmonics-mitigation"
+  },
+  "EE-105-01-1": {
+   "type": "ct-nm-nodal",
+   "secondary": [],
+   "chapter": "ct-node-mesh"
+  },
+  "EE-105-01-2": {
+   "type": "ct-tn-test-source",
+   "secondary": [],
+   "chapter": "ct-thevenin-norton"
+  },
+  "EE-105-01-3": {
+   "type": "ct-cp-average-power",
+   "secondary": [],
+   "chapter": "ct-complex-power"
+  },
+  "EE-105-01-4": {
+   "type": "ct-3p-pf-correction",
+   "secondary": [],
+   "chapter": "ct-three-phase"
+  },
+  "EE-105-01-5": {
+   "type": "ct-ac-series-resonance",
+   "secondary": [],
+   "chapter": "ct-phasor-ac"
+  },
+  "EE-105-02-1": {
+   "type": "el-af-time-constant",
+   "secondary": [],
+   "chapter": "el-active-filter"
+  },
+  "EE-105-02-2": {
+   "type": "el-op-finite-gain",
+   "secondary": [],
+   "chapter": "el-opamp-ideal"
+  },
+  "EE-105-02-3": {
+   "type": "el-dr-opamp-limiter",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-105-02-4": {
+   "type": "el-dr-nonsinusoidal-power",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-105-02-5": {
+   "type": "el-dr-1ph-rectifier",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-105-03-1": {
+   "type": "em-ode2-const-homog",
+   "secondary": [],
+   "chapter": "em-second-order-ode-homogeneous"
+  },
+  "EE-105-03-2": {
+   "type": "em-lap-periodic",
+   "secondary": [],
+   "chapter": "em-laplace-transform"
+  },
+  "EE-105-03-3": {
+   "type": "em-cx-line-integral-param",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-105-03-4": {
+   "type": "em-cx-residue-contour",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-105-03-5": {
+   "type": "em-prob-cdf",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-105-03-6": {
+   "type": "em-prob-sampling",
+   "secondary": [
+    "em-prob-total-bayes"
+   ],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-105-03-7": {
+   "type": "em-mat-linear-transform",
+   "secondary": [],
+   "chapter": "em-matrix-det-inv"
+  },
+  "EE-105-03-8": {
+   "type": "em-eig-symmetric-orthogonal",
+   "secondary": [],
+   "chapter": "em-eigen-diagonal"
+  },
+  "EE-105-04-1": {
+   "type": "emach-mc-inductor-vi",
+   "secondary": [],
+   "chapter": "emach-magnetic-circuits"
+  },
+  "EE-105-04-2": {
+   "type": "emach-tx-off-rated",
+   "secondary": [],
+   "chapter": "emach-single-phase-transformer"
+  },
+  "EE-105-04-3": {
+   "type": "emach-im-start-modify",
+   "secondary": [],
+   "chapter": "emach-induction-motor-torque"
+  },
+  "EE-105-04-4": {
+   "type": "emach-sm-excitation-pf",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-105-04-5": {
+   "type": "emach-dc-flux-change",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-105-05-1": {
+   "type": "ps-tl-compensation",
+   "secondary": [],
+   "chapter": "ps-transmission-line-models"
+  },
+  "EE-105-05-2": {
+   "type": "ps-lf-gauss-seidel",
+   "secondary": [],
+   "chapter": "ps-load-flow-admittance"
+  },
+  "EE-105-05-3": {
+   "type": "ps-uf-slg",
+   "secondary": [],
+   "chapter": "ps-unsymmetrical-faults"
+  },
+  "EE-105-05-4": {
+   "type": "ps-ts-swing-equation",
+   "secondary": [],
+   "chapter": "ps-transient-stability-equal-area"
+  },
+  "EE-105-05-5": {
+   "type": "ps-ed-loss-coordination",
+   "secondary": [],
+   "chapter": "ps-economic-dispatch"
+  },
+  "EE-105-06-1": {
+   "type": "dist-gnd-neutral-open",
+   "secondary": [],
+   "chapter": "dist-grounding-system"
+  },
+  "EE-105-06-2": {
+   "type": "dist-motor-start-vdrop",
+   "secondary": [],
+   "chapter": "dist-motor-installation"
+  },
+  "EE-105-06-3": {
+   "type": "dist-sc-gen-parallel",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-105-06-4": {
+   "type": "dist-light-lumen-method",
+   "secondary": [],
+   "chapter": "dist-lighting-design"
+  },
+  "EE-105-06-5": {
+   "type": "dist-pq-parallel-resonance",
+   "secondary": [],
+   "chapter": "dist-harmonics-mitigation"
+  },
+  "EE-106-01-1": {
+   "type": "ct-lap-impulse-sources",
+   "secondary": [],
+   "chapter": "ct-laplace-circuit"
+  },
+  "EE-106-01-2": {
+   "type": "ct-state-equation",
+   "secondary": [],
+   "chapter": "ct-second-order-rlc"
+  },
+  "EE-106-01-3": {
+   "type": "ct-nm-opamp",
+   "secondary": [],
+   "chapter": "ct-node-mesh"
+  },
+  "EE-106-01-4": {
+   "type": "ct-sup-symmetry",
+   "secondary": [],
+   "chapter": "ct-superposition"
+  },
+  "EE-106-02-1": {
+   "type": "el-af-state-variable",
+   "secondary": [],
+   "chapter": "el-active-filter"
+  },
+  "EE-106-02-2": {
+   "type": "el-fb-topology",
+   "secondary": [
+    "el-diff-bjt-pair"
+   ],
+   "chapter": "el-feedback-stability"
+  },
+  "EE-106-02-3": {
+   "type": "el-bjt-hf-miller",
+   "secondary": [],
+   "chapter": "el-bjt-bias-small-signal"
+  },
+  "EE-106-02-4": {
+   "type": "el-dr-1ph-rectifier",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-106-02-5": {
+   "type": "el-pe-ccm-ripple",
+   "secondary": [],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-106-03-1": {
+   "type": "em-mat-inverse",
+   "secondary": [],
+   "chapter": "em-matrix-det-inv"
+  },
+  "EE-106-03-2": {
+   "type": "em-svd-least-squares",
+   "secondary": [],
+   "chapter": "em-svd-linear-systems"
+  },
+  "EE-106-03-3": {
+   "type": "em-ode2-variation-params",
+   "secondary": [],
+   "chapter": "em-second-order-ode-nonhomogeneous"
+  },
+  "EE-106-03-4": {
+   "type": "em-lap-convolution-integral-eq",
+   "secondary": [],
+   "chapter": "em-laplace-transform"
+  },
+  "EE-106-03-5": {
+   "type": "em-cx-polar-de-moivre",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-106-03-6": {
+   "type": "em-prob-continuous-pdf",
+   "secondary": [
+    "em-prob-cdf"
+   ],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-106-03-7": {
+   "type": "em-prob-discrete-moments",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-106-03-8": {
+   "type": "em-prob-discrete-moments",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-106-04-1": {
+   "type": "emach-mc-gap-force-energy",
+   "secondary": [],
+   "chapter": "emach-magnetic-circuits"
+  },
+  "EE-106-04-2": {
+   "type": "emach-auto-rating",
+   "secondary": [],
+   "chapter": "emach-autotransformer"
+  },
+  "EE-106-04-3": {
+   "type": "emach-dc-shunt-motor",
+   "secondary": [
+    "emach-dc-fixed-flux"
+   ],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-106-04-4": {
+   "type": "emach-im-power-flow",
+   "secondary": [],
+   "chapter": "emach-induction-motor-equiv"
+  },
+  "EE-106-04-5": {
+   "type": "emach-sg-ef-regulation",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-106-05-1": {
+   "type": "ps-tl-short-line",
+   "secondary": [],
+   "chapter": "ps-transmission-line-models"
+  },
+  "EE-106-05-2": {
+   "type": "ps-fault-thevenin-zbus",
+   "secondary": [],
+   "chapter": "ps-three-phase-fault"
+  },
+  "EE-106-05-3": {
+   "type": "ps-lf-pf-equations",
+   "secondary": [
+    "ps-lf-ybus-build"
+   ],
+   "chapter": "ps-load-flow-admittance"
+  },
+  "EE-106-05-4": {
+   "type": "ps-prot-differential",
+   "secondary": [],
+   "chapter": "ps-system-protection-relay"
+  },
+  "EE-106-06-1": {
+   "type": "dist-sc-purpose-essay",
+   "secondary": [
+    "dist-gnd-essay"
+   ],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-106-06-2": {
+   "type": "dist-sc-1ph-ll",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-106-06-3": {
+   "type": "dist-eq-3ph-bank-tap",
+   "secondary": [],
+   "chapter": "dist-distribution-equipment"
+  },
+  "EE-106-06-4": {
+   "type": "dist-prot-diff-ct",
+   "secondary": [],
+   "chapter": "dist-protection-coordination"
+  },
+  "EE-106-06-5": {
+   "type": "dist-pq-parallel-resonance",
+   "secondary": [],
+   "chapter": "dist-harmonics-mitigation"
+  },
+  "EE-107-01-1": {
+   "type": "ct-nm-nodal",
+   "secondary": [],
+   "chapter": "ct-node-mesh"
+  },
+  "EE-107-01-2": {
+   "type": "ct-fo-rl-natural",
+   "secondary": [],
+   "chapter": "ct-first-order-rc-rl"
+  },
+  "EE-107-01-3": {
+   "type": "ct-ac-delta-y-bridge",
+   "secondary": [],
+   "chapter": "ct-phasor-ac"
+  },
+  "EE-107-01-4": {
+   "type": "ct-mp-transformer",
+   "secondary": [],
+   "chapter": "ct-max-power"
+  },
+  "EE-107-01-5": {
+   "type": "ct-3p-per-phase-equiv",
+   "secondary": [],
+   "chapter": "ct-three-phase"
+  },
+  "EE-107-02-1": {
+   "type": "el-dr-pn-junction",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-107-02-2": {
+   "type": "el-mos-square-law-param",
+   "secondary": [],
+   "chapter": "el-mosfet-bias-small-signal"
+  },
+  "EE-107-02-3": {
+   "type": "el-pe-mode-boundary",
+   "secondary": [
+    "el-pe-ccm-ripple"
+   ],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-107-02-4": {
+   "type": "el-pe-two-inductor",
+   "secondary": [],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-107-03-1": {
+   "type": "em-ode1-separable",
+   "secondary": [],
+   "chapter": "em-first-order-ode"
+  },
+  "EE-107-03-2": {
+   "type": "em-eig-diagonalize",
+   "secondary": [],
+   "chapter": "em-eigen-diagonal"
+  },
+  "EE-107-03-3": {
+   "type": "em-vec-divergence-theorem",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-107-03-4": {
+   "type": "em-fs-general",
+   "secondary": [],
+   "chapter": "em-fourier-series"
+  },
+  "EE-107-03-5": {
+   "type": "em-prob-sampling",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-107-04-1": {
+   "type": "emach-3tx-bank",
+   "secondary": [],
+   "chapter": "emach-three-phase-transformer"
+  },
+  "EE-107-04-2": {
+   "type": "emach-dc-series-motor",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-107-04-3": {
+   "type": "emach-im-loop-torque",
+   "secondary": [],
+   "chapter": "emach-induction-motor-equiv"
+  },
+  "EE-107-04-4": {
+   "type": "emach-sg-ef-regulation",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-107-04-5": {
+   "type": "emach-im-vf-control",
+   "secondary": [],
+   "chapter": "emach-induction-motor-torque"
+  },
+  "EE-107-05-1": {
+   "type": "ps-tl-short-line",
+   "secondary": [],
+   "chapter": "ps-transmission-line-models"
+  },
+  "EE-107-05-2": {
+   "type": "ps-fault-xfmr-feeder",
+   "secondary": [],
+   "chapter": "ps-three-phase-fault"
+  },
+  "EE-107-05-3": {
+   "type": "ps-pa-gen-infinite-bus",
+   "secondary": [],
+   "chapter": "ps-power-analysis"
+  },
+  "EE-107-05-4": {
+   "type": "ps-sc-fortescue",
+   "secondary": [],
+   "chapter": "ps-symmetrical-components"
+  },
+  "EE-107-06-1": {
+   "type": "dist-load-demand-chain",
+   "secondary": [],
+   "chapter": "dist-load-characteristics"
+  },
+  "EE-107-06-2": {
+   "type": "dist-vd-3ph-approx",
+   "secondary": [],
+   "chapter": "dist-voltage-drop"
+  },
+  "EE-107-06-3": {
+   "type": "dist-prot-diff-ct",
+   "secondary": [],
+   "chapter": "dist-protection-coordination"
+  },
+  "EE-107-06-4": {
+   "type": "dist-motor-branch-feeder",
+   "secondary": [],
+   "chapter": "dist-motor-installation"
+  },
+  "EE-107-06-5": {
+   "type": "dist-pfc-kvar-sizing",
+   "secondary": [],
+   "chapter": "dist-power-factor-correction"
+  },
+  "EE-108-01-1": {
+   "type": "ct-sup-multi-frequency",
+   "secondary": [],
+   "chapter": "ct-superposition"
+  },
+  "EE-108-01-2": {
+   "type": "ct-nm-nodal",
+   "secondary": [],
+   "chapter": "ct-node-mesh"
+  },
+  "EE-108-01-3": {
+   "type": "ct-3p-parallel-load-power",
+   "secondary": [],
+   "chapter": "ct-three-phase"
+  },
+  "EE-108-01-4": {
+   "type": "ct-mi-mesh-dot",
+   "secondary": [],
+   "chapter": "ct-mutual-inductance"
+  },
+  "EE-108-02-1": {
+   "type": "el-af-opamp-bode",
+   "secondary": [],
+   "chapter": "el-active-filter"
+  },
+  "EE-108-02-2": {
+   "type": "el-dr-3ph-rectifier",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-108-02-3": {
+   "type": "el-fb-topology",
+   "secondary": [
+    "el-mos-cs-degeneration"
+   ],
+   "chapter": "el-feedback-stability"
+  },
+  "EE-108-02-4": {
+   "type": "el-af-gic",
+   "secondary": [],
+   "chapter": "el-active-filter"
+  },
+  "EE-108-02-5": {
+   "type": "el-pe-interleaved",
+   "secondary": [],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-108-03-1": {
+   "type": "em-ode2-euler-cauchy",
+   "secondary": [
+    "em-ode2-undetermined"
+   ],
+   "chapter": "em-second-order-ode-nonhomogeneous"
+  },
+  "EE-108-03-2": {
+   "type": "em-eig-diagonalize",
+   "secondary": [],
+   "chapter": "em-eigen-diagonal"
+  },
+  "EE-108-03-3": {
+   "type": "em-vec-directional-derivative",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-108-03-4": {
+   "type": "em-vec-divergence-theorem",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-108-03-5": {
+   "type": "em-cx-residue-contour",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-108-03-6": {
+   "type": "em-prob-discrete-moments",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-108-04-1": {
+   "type": "emach-auto-rating",
+   "secondary": [],
+   "chapter": "emach-autotransformer"
+  },
+  "EE-108-04-2": {
+   "type": "emach-dc-fixed-flux",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-108-04-3": {
+   "type": "emach-im-equiv-solve",
+   "secondary": [],
+   "chapter": "emach-induction-motor-equiv"
+  },
+  "EE-108-04-4": {
+   "type": "emach-sm-phasor-delta",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-108-04-5": {
+   "type": "emach-special-machine-essay",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-108-05-1": {
+   "type": "ps-pa-gen-infinite-bus",
+   "secondary": [],
+   "chapter": "ps-power-analysis"
+  },
+  "EE-108-05-2": {
+   "type": "ps-lf-fast-decoupled",
+   "secondary": [],
+   "chapter": "ps-load-flow-admittance"
+  },
+  "EE-108-05-3": {
+   "type": "ps-uf-line-to-line",
+   "secondary": [
+    "ps-fault-thevenin-zbus"
+   ],
+   "chapter": "ps-unsymmetrical-faults"
+  },
+  "EE-108-05-4": {
+   "type": "ps-prot-differential",
+   "secondary": [],
+   "chapter": "ps-system-protection-relay"
+  },
+  "EE-108-05-5": {
+   "type": "ps-ts-equal-area",
+   "secondary": [],
+   "chapter": "ps-transient-stability-equal-area"
+  },
+  "EE-108-06-1": {
+   "type": "dist-prot-cvt-ratio",
+   "secondary": [],
+   "chapter": "dist-protection-coordination"
+  },
+  "EE-108-06-2": {
+   "type": "dist-pq-arc-flicker",
+   "secondary": [],
+   "chapter": "dist-harmonics-mitigation"
+  },
+  "EE-108-06-3": {
+   "type": "dist-eq-open-delta",
+   "secondary": [],
+   "chapter": "dist-distribution-equipment"
+  },
+  "EE-108-06-4": {
+   "type": "dist-sc-motor-contribution",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-108-06-5": {
+   "type": "dist-pfc-benefit",
+   "secondary": [
+    "dist-vd-3ph-approx"
+   ],
+   "chapter": "dist-power-factor-correction"
+  },
+  "EE-109-01-1": {
+   "type": "ct-nm-opamp",
+   "secondary": [],
+   "chapter": "ct-node-mesh"
+  },
+  "EE-109-01-2": {
+   "type": "ct-lap-pole-stability",
+   "secondary": [],
+   "chapter": "ct-laplace-circuit"
+  },
+  "EE-109-01-3": {
+   "type": "ct-nm-dual-network",
+   "secondary": [],
+   "chapter": "ct-node-mesh"
+  },
+  "EE-109-01-4": {
+   "type": "ct-rlc-impulse-init",
+   "secondary": [],
+   "chapter": "ct-second-order-rlc"
+  },
+  "EE-109-02-1": {
+   "type": "el-bjt-sat-switch",
+   "secondary": [],
+   "chapter": "el-bjt-bias-small-signal"
+  },
+  "EE-109-02-2": {
+   "type": "el-pe-ccm-ripple",
+   "secondary": [
+    "el-pe-mode-boundary"
+   ],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-109-02-3": {
+   "type": "el-pe-isolated",
+   "secondary": [
+    "el-pe-mode-boundary"
+   ],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-109-02-4": {
+   "type": "el-mos-square-law-param",
+   "secondary": [],
+   "chapter": "el-mosfet-bias-small-signal"
+  },
+  "EE-109-03-1": {
+   "type": "em-ode2-undetermined",
+   "secondary": [],
+   "chapter": "em-second-order-ode-nonhomogeneous"
+  },
+  "EE-109-03-2": {
+   "type": "em-vec-double-integral-order",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-109-03-3": {
+   "type": "em-prob-joint-pdf",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-109-03-4": {
+   "type": "em-fs-symmetry",
+   "secondary": [],
+   "chapter": "em-fourier-series"
+  },
+  "EE-109-03-5": {
+   "type": "em-mat-inverse",
+   "secondary": [],
+   "chapter": "em-matrix-det-inv"
+  },
+  "EE-109-04-1": {
+   "type": "emach-tx-reluctance-model",
+   "secondary": [],
+   "chapter": "emach-single-phase-transformer"
+  },
+  "EE-109-04-2": {
+   "type": "emach-dc-fixed-flux",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-109-04-3": {
+   "type": "emach-im-loop-torque",
+   "secondary": [],
+   "chapter": "emach-induction-motor-equiv"
+  },
+  "EE-109-04-4": {
+   "type": "emach-rotating-field-sum",
+   "secondary": [],
+   "chapter": "emach-single-phase-rotating-field"
+  },
+  "EE-109-04-5": {
+   "type": "emach-vr-inductance-coenergy",
+   "secondary": [],
+   "chapter": "emach-reluctance-motor"
+  },
+  "EE-109-05-1": {
+   "type": "ps-pa-complex-power",
+   "secondary": [],
+   "chapter": "ps-power-analysis"
+  },
+  "EE-109-05-2": {
+   "type": "ps-tl-medium-long",
+   "secondary": [
+    "ps-tl-bundle-gmd-gmr"
+   ],
+   "chapter": "ps-transmission-line-models"
+  },
+  "EE-109-05-3": {
+   "type": "ps-lf-newton-raphson",
+   "secondary": [],
+   "chapter": "ps-load-flow-admittance"
+  },
+  "EE-109-05-4": {
+   "type": "ps-uf-line-to-line",
+   "secondary": [
+    "ps-fault-thevenin-zbus"
+   ],
+   "chapter": "ps-unsymmetrical-faults"
+  },
+  "EE-109-05-5": {
+   "type": "ps-ed-loss-coordination",
+   "secondary": [],
+   "chapter": "ps-economic-dispatch"
+  },
+  "EE-109-05-6": {
+   "type": "ps-lfc-droop",
+   "secondary": [],
+   "chapter": "ps-economic-dispatch"
+  },
+  "EE-109-06-1": {
+   "type": "dist-load-contract-essay",
+   "secondary": [],
+   "chapter": "dist-load-characteristics"
+  },
+  "EE-109-06-2": {
+   "type": "dist-vd-3ph-approx",
+   "secondary": [],
+   "chapter": "dist-voltage-drop"
+  },
+  "EE-109-06-3": {
+   "type": "dist-sc-pu-radial",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-109-06-4": {
+   "type": "dist-light-lumen-method",
+   "secondary": [],
+   "chapter": "dist-lighting-design"
+  },
+  "EE-109-06-5": {
+   "type": "dist-pfc-kvar-sizing",
+   "secondary": [],
+   "chapter": "dist-power-factor-correction"
+  },
+  "EE-110-01-1": {
+   "type": "ct-mi-mesh-dot",
+   "secondary": [
+    "ct-mi-reflected-impedance"
+   ],
+   "chapter": "ct-mutual-inductance"
+  },
+  "EE-110-01-2": {
+   "type": "ct-tp-abcd-cascade",
+   "secondary": [],
+   "chapter": "ct-two-port"
+  },
+  "EE-110-01-3": {
+   "type": "ct-ac-series-resonance",
+   "secondary": [],
+   "chapter": "ct-phasor-ac"
+  },
+  "EE-110-01-4": {
+   "type": "ct-3p-unbalanced-4wire",
+   "secondary": [],
+   "chapter": "ct-three-phase"
+  },
+  "EE-110-02-1": {
+   "type": "el-bjt-bias-stability",
+   "secondary": [],
+   "chapter": "el-bjt-bias-small-signal"
+  },
+  "EE-110-02-2": {
+   "type": "el-diff-cmrr",
+   "secondary": [],
+   "chapter": "el-diff-amp"
+  },
+  "EE-110-02-3": {
+   "type": "el-dr-1ph-rectifier",
+   "secondary": [
+    "el-dr-nonsinusoidal-power"
+   ],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-110-02-4": {
+   "type": "el-inv-square-harmonic",
+   "secondary": [
+    "el-inv-square-transient"
+   ],
+   "chapter": "el-pe-inverter-spwm"
+  },
+  "EE-110-03-1": {
+   "type": "em-lap-convolution-integral-eq",
+   "secondary": [],
+   "chapter": "em-laplace-transform"
+  },
+  "EE-110-03-2": {
+   "type": "em-ode1-separable",
+   "secondary": [],
+   "chapter": "em-first-order-ode"
+  },
+  "EE-110-03-3": {
+   "type": "em-fs-symmetry",
+   "secondary": [],
+   "chapter": "em-fourier-series"
+  },
+  "EE-110-03-4": {
+   "type": "em-vec-line-integral",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-110-03-5": {
+   "type": "em-vec-directional-derivative",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-110-03-6": {
+   "type": "em-eig-diagonalize",
+   "secondary": [],
+   "chapter": "em-eigen-diagonal"
+  },
+  "EE-110-03-7": {
+   "type": "em-prob-continuous-pdf",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-110-04-1": {
+   "type": "emach-mc-flux-calc",
+   "secondary": [],
+   "chapter": "emach-magnetic-circuits"
+  },
+  "EE-110-04-2": {
+   "type": "emach-auto-rating",
+   "secondary": [
+    "emach-3tx-bank"
+   ],
+   "chapter": "emach-autotransformer"
+  },
+  "EE-110-04-3": {
+   "type": "emach-sm-phasor-delta",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-110-04-4": {
+   "type": "emach-dc-fixed-flux",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-110-04-5": {
+   "type": "emach-im-start-modify",
+   "secondary": [],
+   "chapter": "emach-induction-motor-torque"
+  },
+  "EE-110-05-1": {
+   "type": "ps-pa-salient-two-reaction",
+   "secondary": [
+    "ps-pa-gen-infinite-bus"
+   ],
+   "chapter": "ps-power-analysis"
+  },
+  "EE-110-05-2": {
+   "type": "ps-lf-fast-decoupled",
+   "secondary": [
+    "ps-lf-pf-equations"
+   ],
+   "chapter": "ps-load-flow-admittance"
+  },
+  "EE-110-05-3": {
+   "type": "ps-sc-fortescue",
+   "secondary": [],
+   "chapter": "ps-symmetrical-components"
+  },
+  "EE-110-05-4": {
+   "type": "ps-ed-loss-coordination",
+   "secondary": [],
+   "chapter": "ps-economic-dispatch"
+  },
+  "EE-110-05-5": {
+   "type": "ps-ts-equal-area",
+   "secondary": [
+    "ps-pa-gen-infinite-bus"
+   ],
+   "chapter": "ps-transient-stability-equal-area"
+  },
+  "EE-110-06-1": {
+   "type": "dist-pfc-benefit",
+   "secondary": [
+    "dist-sc-rl-dc-offset"
+   ],
+   "chapter": "dist-power-factor-correction"
+  },
+  "EE-110-06-2": {
+   "type": "dist-load-demand-chain",
+   "secondary": [],
+   "chapter": "dist-load-characteristics"
+  },
+  "EE-110-06-3": {
+   "type": "dist-pfc-capacity-limit",
+   "secondary": [],
+   "chapter": "dist-power-factor-correction"
+  },
+  "EE-110-06-4": {
+   "type": "dist-pq-arc-flicker",
+   "secondary": [],
+   "chapter": "dist-harmonics-mitigation"
+  },
+  "EE-110-06-5": {
+   "type": "dist-sc-motor-contribution",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-111-01-1": {
+   "type": "ct-ac-phasor-node",
+   "secondary": [
+    "ct-nm-opamp"
+   ],
+   "chapter": "ct-phasor-ac"
+  },
+  "EE-111-01-2": {
+   "type": "ct-mi-mesh-dot",
+   "secondary": [],
+   "chapter": "ct-mutual-inductance"
+  },
+  "EE-111-01-3": {
+   "type": "ct-ac-filter-bandwidth",
+   "secondary": [],
+   "chapter": "ct-phasor-ac"
+  },
+  "EE-111-01-4": {
+   "type": "ct-tp-param-definition",
+   "secondary": [],
+   "chapter": "ct-two-port"
+  },
+  "EE-111-02-1": {
+   "type": "el-dr-fourier-harmonic",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-111-02-2": {
+   "type": "el-pe-two-inductor",
+   "secondary": [],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-111-02-3": {
+   "type": "el-mos-cs-degeneration",
+   "secondary": [],
+   "chapter": "el-mosfet-bias-small-signal"
+  },
+  "EE-111-02-4": {
+   "type": "el-fb-topology",
+   "secondary": [],
+   "chapter": "el-feedback-stability"
+  },
+  "EE-111-03-1": {
+   "type": "em-ode2-reduction-order",
+   "secondary": [],
+   "chapter": "em-second-order-ode-nonhomogeneous"
+  },
+  "EE-111-03-2": {
+   "type": "em-lap-s-differentiation",
+   "secondary": [],
+   "chapter": "em-laplace-transform"
+  },
+  "EE-111-03-3": {
+   "type": "em-cx-residue-contour",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-111-03-4": {
+   "type": "em-svd-singular-values",
+   "secondary": [
+    "em-eig-symmetric-orthogonal"
+   ],
+   "chapter": "em-svd-linear-systems"
+  },
+  "EE-111-03-5": {
+   "type": "em-vec-line-integral",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-111-03-6": {
+   "type": "em-prob-continuous-pdf",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-111-04-1": {
+   "type": "emach-mc-inductance",
+   "secondary": [],
+   "chapter": "emach-magnetic-circuits"
+  },
+  "EE-111-04-2": {
+   "type": "emach-im-rotor-resistance",
+   "secondary": [],
+   "chapter": "emach-induction-motor-torque"
+  },
+  "EE-111-04-3": {
+   "type": "emach-dc-compound-gen",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-111-04-4": {
+   "type": "emach-sg-ef-regulation",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-111-04-5": {
+   "type": "emach-sm-condenser",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-111-05-1": {
+   "type": "ps-tl-compensation",
+   "secondary": [],
+   "chapter": "ps-transmission-line-models"
+  },
+  "EE-111-05-2": {
+   "type": "ps-fault-thevenin-zbus",
+   "secondary": [],
+   "chapter": "ps-three-phase-fault"
+  },
+  "EE-111-05-3": {
+   "type": "ps-ts-equal-area",
+   "secondary": [],
+   "chapter": "ps-transient-stability-equal-area"
+  },
+  "EE-111-05-4": {
+   "type": "ps-tl-medium-long",
+   "secondary": [],
+   "chapter": "ps-transmission-line-models"
+  },
+  "EE-111-06-1": {
+   "type": "dist-prot-ct-burden",
+   "secondary": [],
+   "chapter": "dist-protection-coordination"
+  },
+  "EE-111-06-2": {
+   "type": "dist-motor-start-vdrop",
+   "secondary": [],
+   "chapter": "dist-motor-installation"
+  },
+  "EE-111-06-3": {
+   "type": "dist-sc-motor-contribution",
+   "secondary": [
+    "dist-sc-gen-parallel"
+   ],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-111-06-4": {
+   "type": "dist-motor-branch-feeder",
+   "secondary": [],
+   "chapter": "dist-motor-installation"
+  },
+  "EE-111-06-5": {
+   "type": "dist-gnd-nr-resistor",
+   "secondary": [
+    "dist-sc-pu-radial"
+   ],
+   "chapter": "dist-grounding-system"
+  },
+  "EE-112-01-1": {
+   "type": "ct-eq-delta-y-bridge",
+   "secondary": [],
+   "chapter": "ct-divider-equiv"
+  },
+  "EE-112-01-2": {
+   "type": "ct-mi-mesh-dot",
+   "secondary": [],
+   "chapter": "ct-mutual-inductance"
+  },
+  "EE-112-01-3": {
+   "type": "ct-tn-voc-isc",
+   "secondary": [],
+   "chapter": "ct-thevenin-norton"
+  },
+  "EE-112-01-4": {
+   "type": "ct-rlc-parallel-step",
+   "secondary": [],
+   "chapter": "ct-second-order-rlc"
+  },
+  "EE-112-02-1": {
+   "type": "el-bjt-cb-amp",
+   "secondary": [
+    "el-bjt-hf-miller"
+   ],
+   "chapter": "el-bjt-bias-small-signal"
+  },
+  "EE-112-02-2": {
+   "type": "el-op-schmitt-relaxation",
+   "secondary": [],
+   "chapter": "el-opamp-ideal"
+  },
+  "EE-112-02-3": {
+   "type": "el-pe-ccm-ripple",
+   "secondary": [],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-112-02-4": {
+   "type": "el-dr-fourier-harmonic",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-112-03-1": {
+   "type": "em-lap-step-forcing-ode",
+   "secondary": [],
+   "chapter": "em-laplace-transform"
+  },
+  "EE-112-03-2": {
+   "type": "em-fs-symmetry",
+   "secondary": [],
+   "chapter": "em-fourier-series"
+  },
+  "EE-112-03-3": {
+   "type": "em-prob-total-bayes",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-112-03-4": {
+   "type": "em-cx-cauchy-riemann",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-112-03-5": {
+   "type": "em-vec-curve-geometry",
+   "secondary": [],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-112-03-6": {
+   "type": "em-eig-diagonalize",
+   "secondary": [
+    "em-svd-complete-solution"
+   ],
+   "chapter": "em-eigen-diagonal"
+  },
+  "EE-112-04-1": {
+   "type": "emach-mc-inductance",
+   "secondary": [],
+   "chapter": "emach-magnetic-circuits"
+  },
+  "EE-112-04-2": {
+   "type": "emach-tx-test-vr",
+   "secondary": [],
+   "chapter": "emach-single-phase-transformer"
+  },
+  "EE-112-04-3": {
+   "type": "emach-sm-phasor-delta",
+   "secondary": [
+    "emach-sm-excitation-pf"
+   ],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-112-04-4": {
+   "type": "emach-im-start-capacitor",
+   "secondary": [],
+   "chapter": "emach-induction-motor-equiv"
+  },
+  "EE-112-04-5": {
+   "type": "emach-dc-shunt-motor",
+   "secondary": [],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-112-05-1": {
+   "type": "ps-tl-bundle-gmd-gmr",
+   "secondary": [],
+   "chapter": "ps-transmission-line-params"
+  },
+  "EE-112-05-2": {
+   "type": "ps-ed-lossless",
+   "secondary": [],
+   "chapter": "ps-economic-dispatch"
+  },
+  "EE-112-05-3": {
+   "type": "ps-lf-ybus-build",
+   "secondary": [],
+   "chapter": "ps-load-flow-admittance"
+  },
+  "EE-112-05-4": {
+   "type": "ps-ts-equal-area",
+   "secondary": [],
+   "chapter": "ps-transient-stability-equal-area"
+  },
+  "EE-112-06-1": {
+   "type": "dist-gnd-essay",
+   "secondary": [],
+   "chapter": "dist-grounding-system"
+  },
+  "EE-112-06-2": {
+   "type": "dist-load-demand-chain",
+   "secondary": [],
+   "chapter": "dist-load-characteristics"
+  },
+  "EE-112-06-3": {
+   "type": "dist-sc-mva-method",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-112-06-4": {
+   "type": "dist-sc-pu-radial",
+   "secondary": [
+    "dist-prot-relay-tcc"
+   ],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-112-06-5": {
+   "type": "dist-prot-metering-wiring",
+   "secondary": [],
+   "chapter": "dist-protection-coordination"
+  },
+  "EE-113-01-1": {
+   "type": "ct-kcl-single-node",
+   "secondary": [],
+   "chapter": "ct-ohm-kcl-kvl"
+  },
+  "EE-113-01-2": {
+   "type": "ct-ac-phasor-node",
+   "secondary": [],
+   "chapter": "ct-phasor-ac"
+  },
+  "EE-113-01-3": {
+   "type": "ct-mi-coupled-delta",
+   "secondary": [
+    "ct-3p-per-phase-equiv"
+   ],
+   "chapter": "ct-mutual-inductance"
+  },
+  "EE-113-01-4": {
+   "type": "ct-tp-param-definition",
+   "secondary": [],
+   "chapter": "ct-two-port"
+  },
+  "EE-113-02-1": {
+   "type": "el-dr-diode-state",
+   "secondary": [],
+   "chapter": "el-diode-rectifier"
+  },
+  "EE-113-02-2": {
+   "type": "el-bjt-cb-amp",
+   "secondary": [],
+   "chapter": "el-bjt-bias-small-signal"
+  },
+  "EE-113-02-3": {
+   "type": "el-pe-mode-boundary",
+   "secondary": [
+    "el-pe-ccm-ripple"
+   ],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-113-02-4": {
+   "type": "el-pe-isolated",
+   "secondary": [
+    "el-pe-mode-boundary"
+   ],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-113-03-1": {
+   "type": "em-ode2-variation-params",
+   "secondary": [],
+   "chapter": "em-second-order-ode-nonhomogeneous"
+  },
+  "EE-113-03-2": {
+   "type": "em-lap-s-differentiation",
+   "secondary": [],
+   "chapter": "em-laplace-transform"
+  },
+  "EE-113-03-3": {
+   "type": "em-cx-real-integral-residue",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-113-03-4": {
+   "type": "em-mat-lyapunov",
+   "secondary": [
+    "em-eig-diagonalize"
+   ],
+   "chapter": "em-matrix-det-inv"
+  },
+  "EE-113-03-5": {
+   "type": "em-vec-divergence-theorem",
+   "secondary": [
+    "em-vec-curve-geometry"
+   ],
+   "chapter": "em-vector-analysis"
+  },
+  "EE-113-03-6": {
+   "type": "em-prob-joint-pdf",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-113-04-1": {
+   "type": "emach-tx-reluctance-model",
+   "secondary": [],
+   "chapter": "emach-single-phase-transformer"
+  },
+  "EE-113-04-2": {
+   "type": "emach-sg-rating-pu",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-113-04-3": {
+   "type": "emach-dc-series-motor",
+   "secondary": [
+    "emach-dc-flux-change"
+   ],
+   "chapter": "emach-dc-motor-generator"
+  },
+  "EE-113-04-4": {
+   "type": "emach-im-equiv-solve",
+   "secondary": [
+    "emach-im-start-current"
+   ],
+   "chapter": "emach-induction-motor-equiv"
+  },
+  "EE-113-04-5": {
+   "type": "emach-1ph-cap-start",
+   "secondary": [],
+   "chapter": "emach-single-phase-rotating-field"
+  },
+  "EE-113-05-1": {
+   "type": "ps-pa-complex-power",
+   "secondary": [],
+   "chapter": "ps-power-analysis"
+  },
+  "EE-113-05-2": {
+   "type": "ps-fault-prefault-emf",
+   "secondary": [],
+   "chapter": "ps-three-phase-fault"
+  },
+  "EE-113-05-3": {
+   "type": "ps-ed-lossless",
+   "secondary": [],
+   "chapter": "ps-economic-dispatch"
+  },
+  "EE-113-05-4": {
+   "type": "ps-lfc-droop",
+   "secondary": [],
+   "chapter": "ps-economic-dispatch"
+  },
+  "EE-113-06-1": {
+   "type": "dist-load-curve-energy",
+   "secondary": [],
+   "chapter": "dist-load-characteristics"
+  },
+  "EE-113-06-2": {
+   "type": "dist-vd-pf-backsolve",
+   "secondary": [],
+   "chapter": "dist-voltage-drop"
+  },
+  "EE-113-06-3": {
+   "type": "dist-pq-arc-flicker",
+   "secondary": [],
+   "chapter": "dist-harmonics-mitigation"
+  },
+  "EE-113-06-4": {
+   "type": "dist-sc-motor-contribution",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-113-06-5": {
+   "type": "dist-prot-relay-tcc",
+   "secondary": [],
+   "chapter": "dist-protection-coordination"
+  },
+  "EE-114-01-1": {
+   "type": "ct-nm-nodal",
+   "secondary": [],
+   "chapter": "ct-node-mesh"
+  },
+  "EE-114-01-2": {
+   "type": "ct-tn-voc-isc",
+   "secondary": [],
+   "chapter": "ct-thevenin-norton"
+  },
+  "EE-114-01-3": {
+   "type": "ct-rlc-switch-series",
+   "secondary": [],
+   "chapter": "ct-second-order-rlc"
+  },
+  "EE-114-01-4": {
+   "type": "ct-sup-multi-frequency",
+   "secondary": [],
+   "chapter": "ct-superposition"
+  },
+  "EE-114-01-5": {
+   "type": "ct-lap-dependent-source",
+   "secondary": [],
+   "chapter": "ct-laplace-circuit"
+  },
+  "EE-114-02-1": {
+   "type": "el-diff-bjt-pair",
+   "secondary": [],
+   "chapter": "el-diff-amp"
+  },
+  "EE-114-02-2": {
+   "type": "el-af-time-constant",
+   "secondary": [],
+   "chapter": "el-active-filter"
+  },
+  "EE-114-02-3": {
+   "type": "el-pe-chopper-rl",
+   "secondary": [],
+   "chapter": "el-pe-buck-boost"
+  },
+  "EE-114-02-4": {
+   "type": "el-thy-snubber",
+   "secondary": [],
+   "chapter": "el-pe-thyristor-rectifier"
+  },
+  "EE-114-03-1": {
+   "type": "em-prob-total-bayes",
+   "secondary": [],
+   "chapter": "em-probability-statistics"
+  },
+  "EE-114-03-2": {
+   "type": "em-cx-laurent-residue",
+   "secondary": [],
+   "chapter": "em-complex-cauchy-residue"
+  },
+  "EE-114-03-3": {
+   "type": "em-ode2-const-homog",
+   "secondary": [],
+   "chapter": "em-second-order-ode-homogeneous"
+  },
+  "EE-114-03-4": {
+   "type": "em-fs-general",
+   "secondary": [],
+   "chapter": "em-fourier-series"
+  },
+  "EE-114-03-5": {
+   "type": "em-svd-complete-solution",
+   "secondary": [],
+   "chapter": "em-svd-linear-systems"
+  },
+  "EE-114-04-1": {
+   "type": "emach-mc-inductance",
+   "secondary": [
+    "emach-mc-flux-calc"
+   ],
+   "chapter": "emach-magnetic-circuits"
+  },
+  "EE-114-04-2": {
+   "type": "emach-tx-impedance-match",
+   "secondary": [],
+   "chapter": "emach-single-phase-transformer"
+  },
+  "EE-114-04-3": {
+   "type": "emach-rotating-field-sum",
+   "secondary": [],
+   "chapter": "emach-single-phase-rotating-field"
+  },
+  "EE-114-04-4": {
+   "type": "emach-sg-ef-regulation",
+   "secondary": [],
+   "chapter": "emach-synchronous-generator-round"
+  },
+  "EE-114-04-5": {
+   "type": "emach-reluctance-torque-flux",
+   "secondary": [],
+   "chapter": "emach-reluctance-motor"
+  },
+  "EE-114-05-1": {
+   "type": "ps-pa-complex-power",
+   "secondary": [],
+   "chapter": "ps-power-analysis"
+  },
+  "EE-114-05-2": {
+   "type": "ps-lf-newton-raphson",
+   "secondary": [
+    "ps-lf-pf-equations"
+   ],
+   "chapter": "ps-load-flow-admittance"
+  },
+  "EE-114-05-3": {
+   "type": "ps-ed-lossless",
+   "secondary": [],
+   "chapter": "ps-economic-dispatch"
+  },
+  "EE-114-05-4": {
+   "type": "ps-fault-thevenin-zbus",
+   "secondary": [],
+   "chapter": "ps-three-phase-fault"
+  },
+  "EE-114-05-5": {
+   "type": "ps-ts-swing-equation",
+   "secondary": [],
+   "chapter": "ps-transient-stability-equal-area"
+  },
+  "EE-114-06-1": {
+   "type": "dist-eq-open-delta",
+   "secondary": [],
+   "chapter": "dist-distribution-equipment"
+  },
+  "EE-114-06-2": {
+   "type": "dist-pq-arc-flicker",
+   "secondary": [],
+   "chapter": "dist-harmonics-mitigation"
+  },
+  "EE-114-06-3": {
+   "type": "dist-sc-gen-parallel",
+   "secondary": [],
+   "chapter": "dist-short-circuit-capacity"
+  },
+  "EE-114-06-4": {
+   "type": "dist-motor-branch-feeder",
+   "secondary": [],
+   "chapter": "dist-motor-installation"
+  },
+  "EE-114-06-5": {
+   "type": "dist-pfc-kvar-sizing",
+   "secondary": [],
+   "chapter": "dist-power-factor-correction"
+  }
+ }
+}

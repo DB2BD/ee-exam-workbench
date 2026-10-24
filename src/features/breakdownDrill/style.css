@@ -96,3 +96,8 @@
 .bd-logic ol { list-style: decimal; }
 .bd-logic ul { list-style: disc; }
 .bd-logic li { margin: 2px 0; }
+.bd-cues { margin: 0; padding-left: 1.4em; list-style: disc; line-height: 1.6; }
+.bd-first { line-height: 1.7; overflow-x: auto; padding: 8px 10px; background: var(--accent-light); border-radius: var(--radius-sm); }
+.bd-first p { margin: 0; }
+.bd-prereqs { margin: 0; color: var(--ink-light); }
+.bd-verdict small { display: inline-block; }

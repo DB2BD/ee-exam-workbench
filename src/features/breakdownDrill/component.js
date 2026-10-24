@@ -26,6 +26,16 @@ function breakdownDrillChapterName(chapterId) {
   return node && node.name ? node.name : String(chapterId || '');
 }
 
+function breakdownDrillTypes_() {
+  return typeof BREAKDOWN_DRILL_TYPES !== 'undefined' && BREAKDOWN_DRILL_TYPES ? BREAKDOWN_DRILL_TYPES : {};
+}
+
+/** Name of a 題型 id, or of a chapter id (options and prerequisites may be either). */
+function breakdownDrillLabel(id) {
+  const t = breakdownDrillTypes_()[id];
+  return t && t.name ? t.name : breakdownDrillChapterName(id);
+}
+
 function breakdownDrillSubjectName(subjectId) {
   const alloc = typeof TARGET_ALLOCATION !== 'undefined' && TARGET_ALLOCATION && TARGET_ALLOCATION.subjects;
   return alloc && alloc[subjectId] && alloc[subjectId].name ? alloc[subjectId].name : String(subjectId || '');
@@ -70,7 +80,7 @@ function breakdownDrillBank() {
   const held = breakdownDrillHeldQids_();
   const papers = breakdownDrillHeldPapers_();
   return rows.filter(q => q.crop && !held.has(q.id) && !papers.has(q.year + '-' + q.subject) && data[q.id] && data[q.id].logicMd && data[q.id].chapter && dag[data[q.id].chapter])
-    .map(q => ({ id: q.id, subject: q.subject, year: q.year, chapter: data[q.id].chapter }));
+    .map(q => ({ id: q.id, subject: q.subject, year: q.year, chapter: data[q.id].chapter, type: data[q.id].type || '' }));
 }
 
 function breakdownDrillMastery_() {
@@ -124,7 +134,7 @@ function breakdownDrillBeginQuestion_() {
   const question = v.bank.find(q => q.id === qid);
   if (!question) { v.active.index += 1; breakdownDrillBeginQuestion_(); return; }  // held back since the round began
   Object.assign(v, {
-    phase: 'ask', question, options: breakdownDrillOptions(question, v.bank),
+    phase: 'ask', question, options: breakdownDrillOptions(question, v.bank, undefined, breakdownDrillTypes_()),
     picked: '', firstStep: '', startMs: Date.now(), remaining: BREAKDOWN_DRILL_SECONDS, timedOut: false, typeOk: false
   });
   breakdownDrillRender();
@@ -167,10 +177,15 @@ function breakdownDrillReveal(timedOut) {
   const note = document.getElementById('bd-first-step');
   v.firstStep = note ? note.value.trim() : '';
   v.timedOut = timedOut === true;
-  v.typeOk = v.picked === v.question.chapter;
+  v.typeOk = v.picked === breakdownDrillAnswer_(v.question);
   v.secs = Math.min(BREAKDOWN_DRILL_SECONDS, Math.round((Date.now() - v.startMs) / 1000));
   v.phase = 'reveal';
   breakdownDrillRender();
+}
+
+/** The right option: the question's 題型 when it has one in the table, else its chapter. */
+function breakdownDrillAnswer_(question) {
+  return question.type && breakdownDrillTypes_()[question.type] ? question.type : question.chapter;
 }
 
 function breakdownDrillRate(startOk) {
@@ -179,7 +194,7 @@ function breakdownDrillRate(startOk) {
   const at = Date.now();
   const record = {
     id: 'bd-' + at + '-' + v.question.id + '-' + Math.random().toString(36).slice(2, 8),
-    qid: v.question.id, at, chapter: v.question.chapter, picked: v.picked,
+    qid: v.question.id, at, chapter: v.question.chapter, type: v.question.type || '', picked: v.picked,
     typeOk: v.typeOk, startOk: startOk === true, timedOut: v.timedOut, secs: v.secs
   };
   const state = loadBreakdownDrillState();
@@ -239,7 +254,7 @@ function breakdownDrillHeadHtml_(v) {
 
 function breakdownDrillAskHtml_(v) {
   const options = v.options.map((ch, i) => '<button type="button" class="bd-option" aria-pressed="false" onclick="breakdownDrillPick(' + i + ')">'
-    + '<span class="bd-option-key">' + 'ABCD'.charAt(i) + '</span>' + breakdownDrillEscape_(breakdownDrillChapterName(ch)) + '</button>').join('');
+    + '<span class="bd-option-key">' + 'ABCD'.charAt(i) + '</span>' + breakdownDrillEscape_(breakdownDrillLabel(ch)) + '</button>').join('');
   return breakdownDrillHeadHtml_(v)
     + '<div class="bd-stem">' + breakdownDrillCropHtml_(v.question.id) + '</div>'
     + '<p class="bd-step-label">① 這題是哪一型？</p><div class="bd-options">' + options + '</div>'
@@ -250,20 +265,31 @@ function breakdownDrillAskHtml_(v) {
 
 function breakdownDrillRevealHtml_(v) {
   const q = v.question;
+  const md = text => (typeof processMarkdownWithMath === 'function' ? processMarkdownWithMath(text) : breakdownDrillEscape_(text));
+  const inline = text => (typeof renderInlineMarkdownWithMath === 'function' ? renderInlineMarkdownWithMath(text) : breakdownDrillEscape_(text));
+  const answer = breakdownDrillAnswer_(q);
+  const type = breakdownDrillTypes_()[answer] || null;
   const node = typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG ? KNOWLEDGE_DAG[q.chapter] : null;
-  const formula = node && node.coreFormula && typeof renderCoreFormulaHtml === 'function' ? renderCoreFormulaHtml(node.coreFormula, true) : '';
-  const logicMd = BREAKDOWN_DRILL[q.id].logicMd;
-  const logic = typeof processMarkdownWithMath === 'function' ? processMarkdownWithMath(logicMd) : breakdownDrillEscape_(logicMd);
+  const formula = !type && node && node.coreFormula && typeof renderCoreFormulaHtml === 'function' ? renderCoreFormulaHtml(node.coreFormula, true) : '';
+  const logic = md(BREAKDOWN_DRILL[q.id].logicMd);
+  const chapterNote = type ? '<small>章節：' + breakdownDrillEscape_(breakdownDrillChapterName(q.chapter)) + '</small>' : '';
   const verdict = v.typeOk
-    ? '<p class="bd-verdict bd-verdict--ok">' + (typeof uiIcon === 'function' ? uiIcon('check') : '') + ' 題型正確：' + breakdownDrillEscape_(breakdownDrillChapterName(q.chapter)) + '</p>'
-    : '<p class="bd-verdict bd-verdict--miss">題型：' + breakdownDrillEscape_(breakdownDrillChapterName(q.chapter))
-      + (v.picked ? '<small>你選：' + breakdownDrillEscape_(breakdownDrillChapterName(v.picked)) + '</small>' : '<small>' + (v.timedOut ? '時間到，未選題型' : '未選題型') + '</small>') + '</p>';
+    ? '<p class="bd-verdict bd-verdict--ok">' + (typeof uiIcon === 'function' ? uiIcon('check') : '') + ' 題型正確：' + breakdownDrillEscape_(breakdownDrillLabel(answer)) + chapterNote + '</p>'
+    : '<p class="bd-verdict bd-verdict--miss">題型：' + breakdownDrillEscape_(breakdownDrillLabel(answer))
+      + (v.picked ? '<small>你選：' + breakdownDrillEscape_(breakdownDrillLabel(v.picked)) + '</small>' : '<small>' + (v.timedOut ? '時間到，未選題型' : '未選題型') + '</small>') + '</p>';
+  const cues = type && Array.isArray(type.cues) && type.cues.length
+    ? '<div class="bd-block"><h4>題目線索</h4><ul class="bd-cues">' + type.cues.map(c => '<li>' + inline(c) + '</li>').join('') + '</ul></div>' : '';
+  const first = type && type.firstMove ? '<div class="bd-block"><h4>第一步</h4><div class="bd-first">' + md(type.firstMove) + '</div></div>' : '';
+  const prereqs = type && Array.isArray(type.prereqs) && type.prereqs.length
+    ? '<div class="bd-block"><h4>卡住時先複習</h4><p class="bd-prereqs">' + type.prereqs.map(id => breakdownDrillEscape_(breakdownDrillLabel(id))).join('、') + '</p></div>' : '';
   const mine = v.firstStep ? '<div class="bd-block"><h4>你寫的第一步</h4><p class="bd-mine">' + breakdownDrillEscape_(v.firstStep) + '</p></div>' : '';
   return breakdownDrillHeadHtml_(v)
     + '<details class="bd-stem-again"><summary>再看一次題目</summary>' + breakdownDrillCropHtml_(q.id) + '</details>'
     + verdict
+    + cues + first
     + (formula ? '<div class="bd-block"><h4>核心公式</h4><div class="bd-formula">' + formula + '</div></div>' : '')
     + '<div class="bd-block"><h4>解題邏輯</h4><div class="bd-logic">' + logic + '</div></div>'
+    + prereqs
     + mine
     + '<p class="bd-step-label">③ 你的起手方向對嗎？</p>'
     + '<div class="bd-actions bd-actions--rate">'
@@ -277,7 +303,7 @@ function breakdownDrillSummaryHtml_(v) {
   const startHits = recs.filter(r => r.startOk).length;
   const exp = breakdownDrillExp(recs);
   const misses = recs.filter(r => !r.typeOk || !r.startOk).map(r => '<li><span class="bd-qid">' + breakdownDrillEscape_(r.qid) + '</span>'
-    + breakdownDrillEscape_(breakdownDrillChapterName(r.chapter))
+    + breakdownDrillEscape_(breakdownDrillLabel(r.type && breakdownDrillTypes_()[r.type] ? r.type : r.chapter))
     + '<small>' + (r.typeOk ? '' : '題型錯') + (!r.typeOk && !r.startOk ? '、' : '') + (r.startOk ? '' : '起手式錯') + '</small></li>').join('');
   return '<div class="bd-head"><div class="bd-title"><strong>破題訓練完成</strong><span>' + recs.length + ' 題</span></div>'
     + '<button type="button" class="bd-quit" onclick="breakdownDrillQuit()" aria-label="關閉">' + (typeof uiIcon === 'function' ? uiIcon('x') : '×') + '</button></div>'

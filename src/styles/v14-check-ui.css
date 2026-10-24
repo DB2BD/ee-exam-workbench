@@ -183,3 +183,9 @@
     padding-top: 6px; box-shadow: 0 -6px 8px -6px rgba(0, 0, 0, 0.14);
   }
 }
+
+/* 驗算／失分點 folded in the solution pane (solutionModalTidySections) */
+.solution-content details.solution-fold { margin: 18px 0; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+.solution-content details.solution-fold > summary { cursor: pointer; padding: 10px 14px; font-weight: 700; color: var(--accent-dark); list-style-position: inside; }
+.solution-content details.solution-fold[open] > summary { border-bottom: 1px solid var(--line); }
+.solution-content details.solution-fold > :not(summary) { margin-left: 14px; margin-right: 14px; }

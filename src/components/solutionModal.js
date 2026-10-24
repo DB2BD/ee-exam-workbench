@@ -1477,6 +1477,7 @@ function solutionModalQuestionPeekHtml(qid) {
 function renderSubQuestionContent(markdownChunk, qRecord) {
   const rightPane = document.getElementById('modal-right-content');
   if (!rightPane) return;
+  let trapsShownInRecallBox = false;
   if (isActiveRecallMode) {
     const isGK = currentModalQid && currentModalQid.startsWith('GK-');
     const recallHints = typeof getRecallHintBundle === 'function'
@@ -1489,6 +1490,8 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     // heuristically exposing a "stem" prefix (which could contain equations
     // when a note has no conventional solution heading).
     const fullSolutionHtml = resolveRenderedImageSources(processMarkdownWithMath(markdownChunk), isGK, currentModalQid);
+    // Only this question's own 失分點 (recall hints from its note) replace the section below; generic chapter traps do not.
+    trapsShownInRecallBox = !!recallHints.trapsMd;
     const scenarioMatrixHtml = renderScenarioMatrix(currentModalQid);
 
     let dagHtml = '';
@@ -1557,6 +1560,8 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
     if (currentSolutionRecallEntry && currentRecallAchievedLevel >= 4) openRecallResultCard();
   }
 
+  solutionModalTidySections(rightPane, { hideTraps: trapsShownInRecallBox });
+
   // Auto-render any remaining math formulas
   if (typeof bindImageLoadFallbacks === 'function') {
     bindImageLoadFallbacks(rightPane, {
@@ -1577,6 +1582,44 @@ function renderSubQuestionContent(markdownChunk, qRecord) {
   // K1: banner is inserted after KaTeX so old/new answer text stays literal.
   // Recall mode must not leak the answer, so the banner waits for the full solution.
   if (!isActiveRecallMode && typeof insertAnswerCorrectionBanner === 'function') insertAnswerCorrectionBanner(rightPane, currentModalQid);
+}
+
+/**
+ * 驗算 is folded into a closed <details> (opened only on request).  失分點 already shows in the recall box's step ③, so in
+ * recall mode it is removed from the full solution below; in browse mode (no recall box) it is folded like 驗算.
+ * A section = the heading plus every following sibling up to the next heading of the same or a higher level.
+ */
+function solutionModalTidySections(root, options) {
+  if (!root || typeof root.querySelectorAll !== 'function' || typeof document === 'undefined') return;
+  const hideTraps = !!(options && options.hideTraps);
+  const level = el => /^H([1-6])$/.test(el.tagName) ? Number(el.tagName.charAt(1)) : 0;
+  Array.from(root.querySelectorAll('h2, h3, h4')).forEach(head => {
+    if (!head.parentNode || head.closest('details.solution-fold')) return;
+    const title = head.textContent.replace(/\s+/g, '');
+    const isCheck = /^驗算/.test(title);
+    const isTraps = /^(本題)?失分點/.test(title);
+    if (!isCheck && !isTraps) return;
+    const own = level(head);
+    const body = [];
+    for (let el = head.nextElementSibling; el; el = el.nextElementSibling) {
+      const l = level(el);
+      if (l && l <= own) break;
+      body.push(el);
+    }
+    if (isTraps && hideTraps) {
+      body.forEach(el => el.remove());
+      head.remove();
+      return;
+    }
+    const fold = document.createElement('details');
+    fold.className = 'solution-fold';
+    const summary = document.createElement('summary');
+    summary.textContent = isCheck ? '驗算（點開查看）' : '失分點（點開查看）';
+    fold.appendChild(summary);
+    head.parentNode.insertBefore(fold, head);
+    head.remove();
+    body.forEach(el => fold.appendChild(el));
+  });
 }
 
 function syncRecallRevealPresentation() {

@@ -44,8 +44,8 @@ class TestTopicFrequencyReport(unittest.TestCase):
 
     def test_top_chapters_use_year_coverage_then_question_count(self):
         expected = (
-            "| 1 | 二階 RLC 暫態分析 | 7 | 7 年",
-            "| 1 | 二極體整流與濾波電路 | 10 | 9 年",
+            "| 1 | 節點電壓法與網目電流法 | 7 | 6 年",  # 2026-10-24 chapter corrections moved resonance/state-equation questions out of RLC
+            "| 1 | 二極體整流與濾波電路 | 11 | 9 年",
             "| 1 | 機率與統計 | 14 | 11 年",
             "| 1 | 直流電機 (分激/串激特性與調速) | 11 | 10 年",
             "| 1 | 電力潮流與導納矩陣 | 8 | 8 年",
@@ -56,8 +56,8 @@ class TestTopicFrequencyReport(unittest.TestCase):
                 self.assertIn(row_start, self.source)
 
     def test_power_quality_count_does_not_claim_all_questions_are_harmonics(self):
-        self.assertIn("| 2 | 電力品質：電壓閃爍與諧波分析 | 7 | 6 年", self.source)
-        self.assertIn("電弧爐電壓閃爍／變動 4 題、諧波／共振 3 題", self.source)
+        self.assertIn("| 2 | 電力品質：電壓閃爍與諧波分析 | 8 | 7 年", self.source)
+        self.assertIn("電弧爐電壓閃爍／變動 5 題、諧波／共振 3 題", self.source)
         self.assertNotIn("| 2 | 非線性負載諧波分析與抑制", self.source)
 
     def test_dc_dc_count_excludes_the_switching_rl_question_from_converter_claims(self):

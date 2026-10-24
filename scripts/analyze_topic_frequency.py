@@ -40,7 +40,7 @@ SUBJECT_NAMES = {
     "06": "工業配電",
 }
 
-DIST_FLICKER_QIDS = {"EE-104-06-3", "EE-110-06-4", "EE-113-06-3", "EE-114-06-2"}
+DIST_FLICKER_QIDS = {"EE-104-06-3", "EE-108-06-2", "EE-110-06-4", "EE-113-06-3", "EE-114-06-2"}
 DIST_HARMONIC_QIDS = {"EE-104-06-5", "EE-105-06-5", "EE-106-06-5"}
 DC_DC_CONVERTER_QIDS = {
     "EE-106-02-5", "EE-107-02-3", "EE-107-02-4", "EE-108-02-5",
@@ -192,7 +192,8 @@ def build_report() -> str:
                 raise ValueError("industrial power-quality subtopic register is stale")
             lines.append("")
             lines.append(
-                f"註：第 2 名是廣義電力品質統計，共 {len(quality_qids)} 題；其中電弧爐電壓閃爍／變動 {len(DIST_FLICKER_QIDS)} 題、諧波／共振 {len(DIST_HARMONIC_QIDS)} 題。這不表示單獨的諧波方法覆蓋 6 個年度。"
+                f"註：第 2 名是廣義電力品質統計，共 {len(quality_qids)} 題；其中電弧爐電壓閃爍／變動 {len(DIST_FLICKER_QIDS)} 題、諧波／共振 {len(DIST_HARMONIC_QIDS)} 題。這不表示單獨的諧波方法覆蓋 "
+                f"{len({row[2] for row in chapter_questions['dist-harmonics-mitigation']})} 個年度。"
             )
 
     lines.extend(

@@ -4,7 +4,8 @@
  * and round selection.
  *
  * Storage key EE_EXAM_BREAKDOWN_DRILL_V1 = { version: 1, records: [...], active: {...} | null }
- *   record = { id, qid, at, chapter, picked, typeOk, startOk, timedOut, secs }
+ *   record = { id, qid, at, chapter, type, picked, typeOk, startOk, timedOut, secs }
+ *   (`type` = the question's 題型 id, `picked` = the chosen 題型 id; records before 題型 existed have chapter ids)
  *   records are append-only (merge = union by id); `active` (the round in progress) is per-device and is
  *   never written into a backup.
  *
@@ -47,6 +48,7 @@ function breakdownDrillValidRecord(value) {
     qid: value.qid,
     at,
     chapter: typeof value.chapter === 'string' ? value.chapter : '',
+    type: typeof value.type === 'string' ? value.type : '',
     picked: typeof value.picked === 'string' ? value.picked : '',
     typeOk: value.typeOk === true,
     startOk: value.startOk === true,
@@ -239,9 +241,27 @@ function breakdownDrillBuildRound(input) {
   return breakdownDrillSpread(picked).map(q => q.id);
 }
 
-/** Four chapter options for a question: its own chapter plus other chapters of the same subject, shuffled. */
-function breakdownDrillOptions(question, bank, rng) {
+/**
+ * Four options for a question.  With a 題型 table (`types`, BREAKDOWN_DRILL_TYPES shape) and a question type: the right
+ * 題型, then its confusers, then other 題型 of the same chapter, then of the same subject (each group shuffled, in that
+ * priority; all options stay in the question's subject).  Without one: the question's chapter plus other chapters of the same subject.
+ */
+function breakdownDrillOptions(question, bank, rng, types) {
   const random = typeof rng === 'function' ? rng : Math.random;
+  const table = breakdownDrillIsPlain_(types) ? types : null;
+  if (table && question.type && table[question.type]) {
+    const own = table[question.type];
+    const ids = Object.keys(table).sort();
+    const picked = [];
+    // Every option is of the question's subject (the drill shows the subject, so another subject's 題型 would give itself away).
+    const take = list => breakdownDrillShuffle_(list.filter(id => id !== question.type && picked.indexOf(id) < 0 && table[id]
+      && table[id].subject === own.subject), random)
+      .forEach(id => { if (picked.length < BREAKDOWN_DRILL_OPTIONS - 1) picked.push(id); });
+    take(Array.isArray(own.confusers) ? own.confusers.slice().sort() : []);
+    take(ids.filter(id => table[id].chapter === own.chapter));
+    take(ids.filter(id => table[id].subject === own.subject));
+    return breakdownDrillShuffle_(picked.concat([question.type]), random);
+  }
   const others = [];
   (Array.isArray(bank) ? bank : []).forEach(q => {
     if (q && q.subject === question.subject && q.chapter && q.chapter !== question.chapter && others.indexOf(q.chapter) < 0) others.push(q.chapter);

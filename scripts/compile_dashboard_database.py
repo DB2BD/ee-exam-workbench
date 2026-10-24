@@ -424,6 +424,25 @@ for qid, evidence in CANONICAL_TOPIC_METADATA.items():
             'noteTitle': evidence.get('title', ''),
         }
 
+# Reviewed primary-chapter corrections (2026-10-24 題型 review, applied at the
+# learner's request).  They override the canonical keyword/title resolution;
+# a learner-confirmed manual label below still has the final word.
+CHAPTER_CORRECTIONS_SOURCE = os.path.join('data', 'taxonomy', 'chapter-corrections.json')
+if os.path.exists(CHAPTER_CORRECTIONS_SOURCE):
+    with open(CHAPTER_CORRECTIONS_SOURCE, 'r', encoding='utf-8') as f:
+        for correction in json.load(f).get('corrections', []):
+            qid = correction['qid']
+            if qid not in QUESTION_TAXONOMY_MAP:
+                raise RuntimeError(f'Chapter correction references unmapped question: {qid}')
+            evidence = QUESTION_TAXONOMY_MAP[qid]
+            if evidence['primaryChapter'] != correction['from']:
+                raise RuntimeError(
+                    f"Chapter correction for {qid} expects {correction['from']}, found {evidence['primaryChapter']}"
+                )
+            evidence['primaryChapter'] = correction['to']
+            evidence['source'] = 'chapter-correction'
+            evidence['correctedFrom'] = correction['from']
+
 # Overlay the explicit labels recorded by the website review workflow.  Keep
 # the canonical chapter as evidence while making the user-confirmed choice
 # the database's primary chapter.  Topic confirmation is orthogonal to the

@@ -1,0 +1,127 @@
+{
+ "schemaVersion": "1.0.0",
+ "reviewedAt": "2026-10-24",
+ "description": "Primary-chapter corrections from the 2026-10-24 題型 review. Applied to the 題型 layer (question-types.json), the knowledge-graph question links and, at the learner's request (2026-10-24), QUESTION_TAXONOMY_MAP (anchor / mastery statistics) via scripts/compile_dashboard_database.py. A learner-confirmed label in src/data/manualTopicLabels.js still wins.",
+ "corrections": [
+  {
+   "qid": "EE-105-01-5",
+   "from": "ct-second-order-rlc",
+   "to": "ct-phasor-ac",
+   "reason": "串聯 RLC 帶通濾波器設計（共振頻率與頻寬），屬弦波穩態頻率響應，與二階暫態無關；無「諧振與頻率響應」章，最接近者為交流穩態相量與阻抗分析"
+  },
+  {
+   "qid": "EE-105-02-4",
+   "from": "el-active-filter",
+   "to": "el-diode-rectifier",
+   "reason": "題目是非線性負載電流含直流與三次諧波的功率、功率因數、失真因數與 THD，屬電力電子功率品質，與主動濾波器無關；現有章中與之最近者為二極體整流章（EE-110-02-3、EE-111-02-1 同為非正弦電流功因計算）。"
+  },
+  {
+   "qid": "EE-106-01-2",
+   "from": "ct-first-order-rc-rl",
+   "to": "ct-second-order-rlc",
+   "reason": "三電容三電感的狀態方程式建立，不是一階三要素；無狀態空間章，最接近者為多儲能元件的 ct-second-order-rlc（EE-109-01-4 亦以狀態變數求解）"
+  },
+  {
+   "qid": "EE-106-03-2",
+   "from": "em-matrix-det-inv",
+   "to": "em-svd-linear-systems",
+   "reason": "超定系統的最小平方解（正規方程 \\(A^TAx=A^Tb\\)），屬線性方程組／擬反矩陣範疇；em-svd-linear-systems 的 coreFormula 已含 \\(A^+\\)，比反矩陣章貼切。"
+  },
+  {
+   "qid": "EE-107-05-4",
+   "from": "ps-unsymmetrical-faults",
+   "to": "ps-symmetrical-components",
+   "reason": "不平衡 Y 接負載的序電流與中性點偏移，沒有任何故障；核心是對稱分量變換與彌爾曼定理。"
+  },
+  {
+   "qid": "EE-108-01-1",
+   "from": "ct-phasor-ac",
+   "to": "ct-superposition",
+   "reason": "直流 6 A 與 ω=5 交流源並存，核心是不同頻率電源的重疊（與 EE-114-01-4 同型），相量只是分量計算工具"
+  },
+  {
+   "qid": "EE-108-05-5",
+   "from": "ps-three-phase-fault",
+   "to": "ps-transient-stability-equal-area",
+   "reason": "只問故障前、中、後三段功率角方程式（給 H、清除週期），是暫態穩定度的第一步；未求任何短路電流。"
+  },
+  {
+   "qid": "EE-108-06-1",
+   "from": "dist-distribution-equipment",
+   "to": "dist-protection-coordination",
+   "reason": "電容式比壓器 CVT 是儀表用比壓器（PT），解法為電容分壓戴維寧＋補償電抗，與配電變壓器接線無關；無儀表變壓器專章，最接近者為已收 CT/PT 題（EE-111-06-1、EE-112-06-5）的保護章。"
+  },
+  {
+   "qid": "EE-109-01-3",
+   "from": "ct-superposition",
+   "to": "ct-node-mesh",
+   "reason": "題目要求寫節點電壓方程（超節點）並轉為對偶網路，完全沒有用到重疊定理"
+  },
+  {
+   "qid": "EE-109-04-4",
+   "from": "emach-induction-motor-equiv",
+   "to": "emach-single-phase-rotating-field",
+   "reason": "三相繞組合成旋轉磁動勢的空間向量和，未用任何等效電路；現有章中只有單相二相旋轉磁場章談旋轉磁場向量合成，第一步完全相同"
+  },
+  {
+   "qid": "EE-109-04-5",
+   "from": "emach-synchronous-salient-pole",
+   "to": "emach-reluctance-motor",
+   "reason": "可變磁阻結構 L(θ) 與 T=½i²dL/dθ 共能轉矩，屬磁阻電動機；與凸極同步機 Xd/Xq 雙反應無關"
+  },
+  {
+   "qid": "EE-109-05-4",
+   "from": "ps-symmetrical-components",
+   "to": "ps-unsymmetrical-faults",
+   "reason": "畫三序網路求 Z1/Z2/Z0 後算三相與 b-c 線間故障電流，核心是不對稱故障；與同型的 EE-108-05-3、EE-104-05-1 同章。"
+  },
+  {
+   "qid": "EE-109-05-6",
+   "from": "ps-transient-stability-equal-area",
+   "to": "ps-economic-dispatch",
+   "reason": "負載頻率控制（調速機下垂、頻率響應 β），與等面積準則無關；05 科無頻率控制章，現有章中最接近者為發電運轉與控制同一單元的經濟調度。"
+  },
+  {
+   "qid": "EE-110-01-3",
+   "from": "ct-second-order-rlc",
+   "to": "ct-phasor-ac",
+   "reason": "串聯 RLC 諧振、品質因數與 v_C/v_L 最大頻率，全為弦波穩態阻抗隨頻率變化，非暫態；最接近者為 ct-phasor-ac"
+  },
+  {
+   "qid": "EE-110-05-1",
+   "from": "ps-transient-stability-equal-area",
+   "to": "ps-power-analysis",
+   "reason": "求穩態功率角與凸極機 Xd、Xq（雙反應理論），無擾動、無等面積；與 EE-108-05-1 同屬同步機接無窮母線的穩態相量／功角分析。"
+  },
+  {
+   "qid": "EE-111-01-3",
+   "from": "ct-second-order-rlc",
+   "to": "ct-phasor-ac",
+   "reason": "求 H(s) 後算帶拒濾波器頻寬與半功率頻率，屬頻率響應；與暫態無關。亦可考慮 ct-laplace-circuit，但核心是 |H(jω)| 的頻寬，與另兩題諧振題同放 ct-phasor-ac"
+  },
+  {
+   "qid": "EE-113-03-1",
+   "from": "em-first-order-ode",
+   "to": "em-second-order-ode-nonhomogeneous",
+   "reason": "二階常係數非齊次 ODE（右側 \\(e^{2x}\\csc x\\)）以參數變異法求特解，與一階 ODE 無關；應歸二階非齊次章。"
+  },
+  {
+   "qid": "EE-113-04-5",
+   "from": "emach-induction-motor-equiv",
+   "to": "emach-single-phase-rotating-field",
+   "reason": "單相電容啟動感應馬達：主、輔繞組電流相差 90° 的電容設計與啟動扭力比，屬單相電動機二相旋轉磁場，與三相等效電路無關"
+  },
+  {
+   "qid": "EE-113-05-4",
+   "from": "ps-transient-stability-equal-area",
+   "to": "ps-economic-dispatch",
+   "reason": "同上：速度調節率與頻率偏移，屬負載頻率控制；暫放經濟調度章。"
+  },
+  {
+   "qid": "EE-114-02-2",
+   "from": "el-mosfet-bias-small-signal",
+   "to": "el-active-filter",
+   "reason": "題目只給 \\(G_m\\)、\\(R\\)、\\(C\\) 的抽象受控源模型，無 MOSFET 偏壓或平方律，核心是零點與開路時間常數法求 \\(\\omega_H\\)，與 EE-105-02-1 同型；KNOWLEDGE_DAG 中『頻率響應』歸在 el-active-filter（主動濾波器與頻率響應）。"
+  }
+ ]
+}

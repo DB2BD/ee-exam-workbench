@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "PE 非工程數學 104-114",
-  "generated_at": "2026-10-18",
+  "generated_at": "2026-10-24",
   "status_policy": [
     "verified",
     "reference_book_verified",
@@ -3317,7 +3317,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-04",
       "method": "gauss_seidel_two_iterations_vs_equation_residual_and_converged_reference",
-      "solution_hash": "2524d181ec778aa4ba6cff0214bf2683035e5846556c5d60b11da35563869905",
+      "solution_hash": "ff0d8820ee99cdd2642ef90586ebcd2f062840e0d4438b12f8fd86462139bb0a",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/05_電力系統/images/questions/PE_105年_電力系統_Q02.png"
     },

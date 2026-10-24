@@ -708,9 +708,34 @@ function homeDueReviewRefresh() {
   const button = document.getElementById('home-action-due');
   if (!button) return;
   const due = typeof getDueQuestionsList === 'function' ? getDueQuestionsList().length : 0;
+  const quota = typeof reviewDailyQuota === 'function' ? reviewDailyQuota() : 15;
+  const done = homeDueReviewedToday_();
   button.disabled = due <= 0;
   if (button.setAttribute) button.setAttribute('aria-disabled', due > 0 ? 'false' : 'true');
-  button.innerHTML = '<span class="ui-ico">' + uiIcon('rotate-ccw') + '</span><strong>' + (due > 0 ? '到期複習（' + due + ' 題）' : '到期複習') + '</strong><small>' + (due > 0 ? '用間隔重複複習今天到期的題目' : '今天沒有到期題') + '</small>';
+  let title = '到期複習';
+  let note = '今天沒有到期題';
+  if (due > 0 && done >= quota) {
+    title = '今日份已完成・再來 ' + Math.min(quota, due) + ' 題';
+    note = '還有 ' + due + ' 題到期，留到明天也可以';
+  } else if (due > 0) {
+    title = '到期複習（今日 ' + Math.min(quota, due) + ' 題）';
+    note = '共 ' + due + ' 題到期' + (done ? '・今天已複習 ' + done + ' 題' : '');
+  }
+  button.innerHTML = '<span class="ui-ico">' + uiIcon('rotate-ccw') + '</span><strong>' + title + '</strong><small>' + note + '</small>';
+}
+
+/** Distinct questions saved from 到期複習 today (result cards with source 'review'); counts toward the daily block. */
+function homeDueReviewedToday_() {
+  try {
+    if (typeof getResultRecords !== 'function') return 0;
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const qids = new Set();
+    getResultRecords().forEach(r => { if (r && r.source === 'review' && Number(r.at) >= start) qids.add(r.qid); });
+    return qids.size;
+  } catch (_) {
+    return 0;
+  }
 }
 
 function homeStartDueReview() {

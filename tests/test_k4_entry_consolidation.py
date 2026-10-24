@@ -68,13 +68,17 @@ const mk = n => {{ global.getDueQuestionsList = () => new Array(n).fill('x');
   global.document = {{ getElementById: () => global.btn }};
   global.btn = {{ disabled: null, innerHTML: '', setAttribute() {{}} }};
   homeDueReviewRefresh(); return {{ d: global.btn.disabled, h: global.btn.innerHTML }}; }};
-console.log(JSON.stringify([mk(0), mk(5)]));
+console.log(JSON.stringify([mk(0), mk(5), mk(40)]));
 """
-        zero, five = run_node(script)
+        zero, five, forty = run_node(script)
         self.assertTrue(zero["d"])
         self.assertIn("今天沒有到期題", zero["h"])
         self.assertFalse(five["d"])
-        self.assertIn("到期複習（5 題）", five["h"])
+        # v1.7.1: the round is one daily block of at most 15
+        self.assertIn("到期複習（今日 5 題）", five["h"])
+        self.assertIn("共 5 題到期", five["h"])
+        self.assertIn("到期複習（今日 15 題）", forty["h"])
+        self.assertIn("共 40 題到期", forty["h"])
 
 
 class TestMaintGate(unittest.TestCase):

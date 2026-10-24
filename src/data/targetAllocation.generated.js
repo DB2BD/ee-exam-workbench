@@ -86,7 +86,6 @@ const TARGET_ALLOCATION = {
         "emach-autotransformer",
         "emach-reluctance-motor",
         "emach-single-phase-rotating-field",
-        "emach-synchronous-salient-pole",
         "emach-three-phase-transformer"
       ]
     },
@@ -358,11 +357,6 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "emach-single-phase-rotating-field": {
-      "subject": "04",
-      "tier": "basic",
-      "shared": false
-    },
-    "emach-synchronous-salient-pole": {
       "subject": "04",
       "tier": "basic",
       "shared": false
@@ -676,7 +670,7 @@ const TARGET_ALLOCATION = {
     "EE-105-01-5": {
       "tier": "main",
       "subject": "01",
-      "chapter": "ct-second-order-rlc",
+      "chapter": "ct-phasor-ac",
       "shared": false
     },
     "EE-105-02-1": {
@@ -698,9 +692,9 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-105-02-4": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "02",
-      "chapter": "el-active-filter",
+      "chapter": "el-diode-rectifier",
       "shared": false
     },
     "EE-105-02-5": {
@@ -854,9 +848,9 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-106-01-2": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "01",
-      "chapter": "ct-first-order-rc-rl",
+      "chapter": "ct-second-order-rlc",
       "shared": false
     },
     "EE-106-01-3": {
@@ -910,7 +904,7 @@ const TARGET_ALLOCATION = {
     "EE-106-03-2": {
       "tier": "basic",
       "subject": "03",
-      "chapter": "em-matrix-det-inv",
+      "chapter": "em-svd-linear-systems",
       "shared": false
     },
     "EE-106-03-3": {
@@ -1166,10 +1160,10 @@ const TARGET_ALLOCATION = {
       "shared": true
     },
     "EE-107-05-4": {
-      "tier": "main",
+      "tier": "basic",
       "subject": "05",
-      "chapter": "ps-unsymmetrical-faults",
-      "shared": true
+      "chapter": "ps-symmetrical-components",
+      "shared": false
     },
     "EE-107-06-1": {
       "tier": "main",
@@ -1202,9 +1196,9 @@ const TARGET_ALLOCATION = {
       "shared": true
     },
     "EE-108-01-1": {
-      "tier": "main",
+      "tier": "basic",
       "subject": "01",
-      "chapter": "ct-phasor-ac",
+      "chapter": "ct-superposition",
       "shared": false
     },
     "EE-108-01-2": {
@@ -1348,19 +1342,19 @@ const TARGET_ALLOCATION = {
     "EE-108-05-5": {
       "tier": "main",
       "subject": "05",
-      "chapter": "ps-three-phase-fault",
-      "shared": true
+      "chapter": "ps-transient-stability-equal-area",
+      "shared": false
     },
     "EE-108-06-1": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "06",
-      "chapter": "dist-distribution-equipment",
-      "shared": false
+      "chapter": "dist-protection-coordination",
+      "shared": true
     },
     "EE-108-06-2": {
       "tier": "main",
       "subject": "06",
-      "chapter": "dist-voltage-drop",
+      "chapter": "dist-harmonics-mitigation",
       "shared": false,
       "override": true
     },
@@ -1395,9 +1389,9 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-109-01-3": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "01",
-      "chapter": "ct-superposition",
+      "chapter": "ct-node-mesh",
       "shared": false
     },
     "EE-109-01-4": {
@@ -1479,15 +1473,15 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-109-04-4": {
-      "tier": "main",
+      "tier": "basic",
       "subject": "04",
-      "chapter": "emach-induction-motor-equiv",
+      "chapter": "emach-single-phase-rotating-field",
       "shared": false
     },
     "EE-109-04-5": {
       "tier": "basic",
       "subject": "04",
-      "chapter": "emach-synchronous-salient-pole",
+      "chapter": "emach-reluctance-motor",
       "shared": false
     },
     "EE-109-05-1": {
@@ -1509,10 +1503,10 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-109-05-4": {
-      "tier": "basic",
+      "tier": "main",
       "subject": "05",
-      "chapter": "ps-symmetrical-components",
-      "shared": false
+      "chapter": "ps-unsymmetrical-faults",
+      "shared": true
     },
     "EE-109-05-5": {
       "tier": "basic",
@@ -1521,9 +1515,9 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-109-05-6": {
-      "tier": "main",
+      "tier": "basic",
       "subject": "05",
-      "chapter": "ps-transient-stability-equal-area",
+      "chapter": "ps-economic-dispatch",
       "shared": false
     },
     "EE-109-06-1": {
@@ -1571,7 +1565,7 @@ const TARGET_ALLOCATION = {
     "EE-110-01-3": {
       "tier": "main",
       "subject": "01",
-      "chapter": "ct-second-order-rlc",
+      "chapter": "ct-phasor-ac",
       "shared": false
     },
     "EE-110-01-4": {
@@ -1679,8 +1673,8 @@ const TARGET_ALLOCATION = {
     "EE-110-05-1": {
       "tier": "main",
       "subject": "05",
-      "chapter": "ps-transient-stability-equal-area",
-      "shared": false
+      "chapter": "ps-power-analysis",
+      "shared": true
     },
     "EE-110-05-2": {
       "tier": "main",
@@ -1752,7 +1746,7 @@ const TARGET_ALLOCATION = {
     "EE-111-01-3": {
       "tier": "main",
       "subject": "01",
-      "chapter": "ct-second-order-rlc",
+      "chapter": "ct-phasor-ac",
       "shared": false
     },
     "EE-111-01-4": {
@@ -2124,7 +2118,7 @@ const TARGET_ALLOCATION = {
     "EE-113-03-1": {
       "tier": "basic",
       "subject": "03",
-      "chapter": "em-first-order-ode",
+      "chapter": "em-second-order-ode-nonhomogeneous",
       "shared": false
     },
     "EE-113-03-2": {
@@ -2182,9 +2176,9 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-113-04-5": {
-      "tier": "main",
+      "tier": "basic",
       "subject": "04",
-      "chapter": "emach-induction-motor-equiv",
+      "chapter": "emach-single-phase-rotating-field",
       "shared": false
     },
     "EE-113-05-1": {
@@ -2206,9 +2200,9 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-113-05-4": {
-      "tier": "main",
+      "tier": "basic",
       "subject": "05",
-      "chapter": "ps-transient-stability-equal-area",
+      "chapter": "ps-economic-dispatch",
       "shared": false
     },
     "EE-113-06-1": {
@@ -2279,9 +2273,9 @@ const TARGET_ALLOCATION = {
       "shared": false
     },
     "EE-114-02-2": {
-      "tier": "main",
+      "tier": "basic",
       "subject": "02",
-      "chapter": "el-mosfet-bias-small-signal",
+      "chapter": "el-active-filter",
       "shared": false
     },
     "EE-114-02-3": {

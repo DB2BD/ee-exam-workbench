@@ -34,7 +34,7 @@ const MANUAL_TOPIC_LABEL_SEED = {
   'EE-111-06-3': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed' },
   'EE-111-06-4': { chapterId: 'dist-motor-installation', source: 'user-confirmed' },
   'EE-110-06-5': { chapterId: 'dist-short-circuit-capacity', source: 'user-confirmed', secondaryTopicIds: ['dist-motor-installation'] },
-  'EE-108-06-2': { chapterId: 'dist-voltage-drop', source: 'user-confirmed' },
+  'EE-108-06-2': { chapterId: 'dist-harmonics-mitigation', source: 'user-confirmed', secondaryTopicIds: ['dist-voltage-drop'] },
   'EE-109-02-3': { chapterId: 'el-pe-buck-boost', source: 'user-confirmed' },
   'EE-109-02-2': { chapterId: 'el-pe-buck-boost', source: 'audit-confirmed' },
   'EE-113-02-4': { chapterId: 'el-pe-buck-boost', source: 'audit-confirmed' },

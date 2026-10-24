@@ -20,7 +20,6 @@ ROOT = HERE.parents[2]
 CANONICAL_GLOB = "02_題解/技師題解/0*/canonical/EE-*.md"
 DASHBOARD_DATA = ROOT / "dashboard-data.js"
 QUESTION_TYPES = ROOT / "data" / "taxonomy" / "question-types.json"
-CORRECTIONS = ROOT / "data" / "taxonomy" / "chapter-corrections.json"
 OUTPUT = HERE / "data.generated.js"
 
 LOGIC_RE = re.compile(r"^\*\*解題邏輯\*\*：(.*?)(?=\n\s*\n|\Z)", re.M | re.S)
@@ -49,7 +48,6 @@ def question_types():
 def build():
     tax = taxonomy()
     types, typed = question_types()
-    corrected = {c["qid"]: c["to"] for c in json.loads(CORRECTIONS.read_text(encoding="utf-8"))["corrections"]}
     out = {}
     problems = []
     for path in sorted(ROOT.glob(CANONICAL_GLOB)):
@@ -63,10 +61,8 @@ def build():
         qtype = (typed.get(qid) or {}).get("type", "")
         if qtype not in types:
             problems.append(f"{qid}: no 題型 in question-types.json")
-        elif types[qtype]["chapter"] != chapter and (tax.get(qid) or {}).get("source") != "manual-topic-confirmed" \
-                and corrected.get(qid) != types[qtype]["chapter"]:
-            # The 題型 chapter may differ from the statistics chapter only for a learner-confirmed label or a reviewed
-            # correction (data/taxonomy/chapter-corrections.json) that is not yet applied to the statistics.
+        elif types[qtype]["chapter"] != chapter and (tax.get(qid) or {}).get("source") != "manual-topic-confirmed":
+            # The 題型 chapter may differ from the statistics chapter only for a learner-confirmed label.
             problems.append(f"{qid}: 題型 {qtype} is in {types[qtype]['chapter']}, question chapter is {chapter}")
         out[qid] = {"chapter": chapter, "type": qtype, "logicMd": logic}
     return out, types, problems

@@ -1,7 +1,7 @@
 {
  "schemaVersion": "1.0.0",
  "reviewedAt": "2026-10-24",
- "description": "Primary-chapter corrections from the 2026-10-24 題型 review. Applied to the 題型 layer (question-types.json) and the knowledge-graph question links; NOT yet applied to QUESTION_TAXONOMY_MAP (anchor / mastery statistics), pending the learner's decision because it would change the anchor chapters mid-schedule.",
+ "description": "Primary-chapter corrections from the 2026-10-24 題型 review. Applied to the 題型 layer (question-types.json), the knowledge-graph question links and, at the learner's request (2026-10-24), QUESTION_TAXONOMY_MAP (anchor / mastery statistics) via scripts/compile_dashboard_database.py. A learner-confirmed label in src/data/manualTopicLabels.js still wins.",
  "corrections": [
   {
    "qid": "EE-105-01-5",

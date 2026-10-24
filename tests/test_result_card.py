@@ -92,7 +92,7 @@ class TestStore(unittest.TestCase):
         self.assertEqual(rec["estimate"], 10)  # 20*0.5 + 10*0
         self.assertEqual(rec["source"], "random")
         self.assertEqual(len(res["all"]), 1)
-        self.assertEqual(res["sm2"]["interval"], 1)
+        self.assertEqual(res["sm2"]["interval"], 2)  # v1.7.1: × comes back after 2 days
         self.assertEqual(res["sm2"]["repetitions"], 0)  # x -> 忘記 (rating 1)
         stored = json.loads(out["storage"][KEY])
         self.assertEqual(stored["version"], 1)

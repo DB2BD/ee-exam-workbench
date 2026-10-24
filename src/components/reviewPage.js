@@ -384,14 +384,15 @@ function getReviewQuestionsForScope(questions, options = {}) {
   return scope === 'due' ? reviewSortDueByAnchor(filtered, options) : filtered;
 }
 
-// v1.3.8: same due questions, new order (anchor chapters first, × before △ before ○, earlier due date, qid).
-// options.anchorCtx overrides the anchor context (tests); without anchorSelection.js the order is unchanged.
+// v1.7.1: same due questions in daily order (anchorDailyDue: priority = need × value × overdue, questions reviewed in
+// the last 2 days and today's skips go last, blocks of 15 with at most 4 per subject and neighbours in different
+// subjects).  options.anchorCtx overrides the anchor context (tests); without anchorSelection.js the order is unchanged.
 function reviewSortDueByAnchor(list, options = {}) {
-  if (list.length < 2 || typeof anchorSortDue !== 'function' || typeof anchorContext !== 'function') return list;
+  if (list.length < 2 || typeof anchorDailyDue !== 'function' || typeof anchorContext !== 'function') return list;
   try {
     const ids = list.map(q => getReviewRecord(q).id);
-    const ctx = options.anchorCtx || anchorContext({ dueQids: options.dueIds });
-    const sorted = anchorSortDue(ids, ctx);
+    const ctx = options.anchorCtx || anchorContext({ dueQids: options.dueIds, skipped: reviewSkippedToday() });
+    const sorted = anchorDailyDue(ids, ctx).order;
     const rank = {};
     sorted.forEach((qid, i) => { rank[qid] = i; });
     return list.map((q, i) => ({ q, i, r: rank[ids[i]] }))
@@ -635,6 +636,36 @@ var currentReviewSessionQueue = currentReviewSessionQueue || [];
 var currentReviewSessionIndex = currentReviewSessionIndex || 0;
 var currentReviewSessionResults = currentReviewSessionResults || { rated: [], skipped: [] };
 
+// 「略過」 in a due-review round: remembered for the rest of the day so the question goes last (per device, not backed up).
+const REVIEW_SKIPPED_KEY = 'EE_EXAM_REVIEW_SKIPPED_V1';
+
+function reviewTodayKey_() {
+  return typeof formatLocalCalendarDate === 'function' ? formatLocalCalendarDate(new Date()) : new Date().toISOString().slice(0, 10);
+}
+
+function reviewSkippedToday() {
+  try {
+    const raw = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem(REVIEW_SKIPPED_KEY) || 'null') : null;
+    return raw && raw.date === reviewTodayKey_() && Array.isArray(raw.qids) ? raw.qids.filter(q => typeof q === 'string') : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function reviewRememberSkip(qid) {
+  try {
+    if (typeof localStorage === 'undefined' || !qid) return;
+    const qids = reviewSkippedToday();
+    if (qids.indexOf(qid) < 0) qids.push(qid);
+    localStorage.setItem(REVIEW_SKIPPED_KEY, JSON.stringify({ date: reviewTodayKey_(), qids }));
+  } catch (_) { /* skipping still works for this round */ }
+}
+
+/** Due-review round size (anchorDailyDue quota). */
+function reviewDailyQuota() {
+  return typeof DUE_DAILY_QUOTA !== 'undefined' ? DUE_DAILY_QUOTA : 15;
+}
+
 function reviewSessionQuestionId(question) {
   return question && (question.id || question[0]) || '';
 }
@@ -663,7 +694,8 @@ function startReviewSession() {
     if (typeof showToast === 'function') showToast('今日沒有待提取的到期題目');
     return;
   }
-  currentReviewSessionQueue = questions;
+  // One daily block per round; 「再來 15 題」 starts the next block (reviewed questions are no longer due).
+  currentReviewSessionQueue = questions.slice(0, reviewDailyQuota());
   currentReviewSessionIndex = 0;
   currentReviewSessionResults = { rated: [], skipped: [], marks: {} };
   const oldSummary = typeof document !== 'undefined' ? document.getElementById('home-due-summary') : null;
@@ -733,6 +765,7 @@ function skipCurrentReviewSessionItem() {
   const qid = reviewSessionQuestionId(current);
   if (qid && !(currentReviewSessionResults.rated || []).includes(qid)) {
     currentReviewSessionResults.skipped = [...new Set([...(currentReviewSessionResults.skipped || []), qid])];
+    reviewRememberSkip(qid);
   }
   advanceReviewSessionItem();
 }

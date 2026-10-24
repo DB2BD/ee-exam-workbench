@@ -415,6 +415,89 @@ class TestAnchorSortDue(unittest.TestCase):
         self.assertEqual(out["n"], 4)
 
 
+class TestDailyDue(unittest.TestCase):
+    """v1.7.1 每日到期複習：priority = need × value × overdue, rest 2 days, skips last, blocks with subject cap."""
+
+    SETUP = """
+const day = n => anchorDayKey_(NOW - n * DAY);
+const ids = ch => BANK.filter(q => q.chapter === ch).sort((x, y) => y.year - x.year).map(q => q.id);
+"""
+
+    def test_priority_parts(self):
+        out = run("""(() => {
+          const qa = ids('ch-01-a'), qd = ids('ch-01-d');
+          const records = [rec(qa[0], 'x'), rec(qa[1], 'tri'), rec(qd[0], 'o')];
+          const dueDates = {[qa[0]]: day(10), [qa[1]]: day(0), [qd[0]]: day(3), [qa[2]]: day(1)};
+          const c = mk({records, dueDates, dueQids: Object.keys(dueDates), lastReviewed: {}});
+          const st = anchorChapterStats(c);
+          const p = {}; anchorDuePriority(Object.keys(dueDates), c).forEach(e => { p[e.qid] = e; });
+          return {a0: p[qa[0]], a1: p[qa[1]], d0: p[qd[0]], a2: p[qa[2]], freqA: st['ch-01-a'].freq, freqD: st['ch-01-d'].freq,
+                  anchors: anchorChaptersFor('01', st)};
+        })()""", setup=self.SETUP)
+        self.assertIn("ch-01-a", out["anchors"])
+        self.assertEqual((out["a0"]["need"], out["a0"]["overdue"]), (1.0, 2))  # ×, 10 days late (capped at 2)
+        self.assertAlmostEqual(out["a0"]["value"], out["freqA"])  # anchor tier 1.0
+        self.assertEqual((out["a1"]["need"], out["a1"]["overdue"]), (0.6, 1))  # △ due today
+        self.assertEqual(out["a2"]["need"], 0.7)  # no record
+        self.assertAlmostEqual(out["a2"]["overdue"], 1 + 1 / 7)
+        self.assertAlmostEqual(out["d0"]["value"], 0.6 * out["freqD"])  # 基本分 chapter
+        self.assertEqual(out["d0"]["need"], 0.3)
+
+    def test_old_non_anchor_miss_beats_fresh_anchor_partial(self):
+        out = run("""(() => {
+          const qa = ids('ch-01-a'), qd = ids('ch-01-d');
+          const records = [rec(qa[1], 'tri'), rec(qd[0], 'x')];
+          const dueDates = {[qa[1]]: day(0), [qd[0]]: day(14)};
+          const c = mk({records, dueDates, dueQids: Object.keys(dueDates), lastReviewed: {}});
+          return {order: anchorDailyDue(Object.keys(dueDates), c).order, expect: [qd[0], qa[1]],
+                  old: anchorSortDue(Object.keys(dueDates), c)};
+        })()""", setup=self.SETUP)
+        self.assertEqual(out["order"], out["expect"])
+        self.assertEqual(out["old"], list(reversed(out["expect"])))  # the v1.3.8 strict tiers put the anchor △ first
+
+    def test_rested_after_fresh_and_skipped_last(self):
+        out = run("""(() => {
+          const qa = ids('ch-01-a'), qb = ids('ch-02-b');
+          const records = [rec(qa[0], 'x'), rec(qa[1], 'x'), rec(qb[0], 'o')];
+          const dueDates = {[qa[0]]: day(5), [qa[1]]: day(5), [qb[0]]: day(0)};
+          const c = mk({records, dueDates, dueQids: Object.keys(dueDates), lastReviewed: {[qa[0]]: day(1)}, skipped: [qa[1]]});
+          return {order: anchorDailyDue(Object.keys(dueDates), c).order, expect: [qb[0], qa[0], qa[1]],
+                  restedTwoDaysAgo: anchorDuePriority([qa[0]], mk({records, dueDates, lastReviewed: {[qa[0]]: day(2)}}))[0].rested};
+        })()""", setup=self.SETUP)
+        self.assertEqual(out["order"], out["expect"])  # reviewed yesterday rests; skipped today goes last
+        self.assertFalse(out["restedTwoDaysAgo"])
+
+    def test_blocks_cap_subjects_and_alternate(self):
+        out = run("""(() => {
+          const due = BANK.map(q => q.id);
+          const dueDates = {}; due.forEach(q => { dueDates[q] = day(3); });
+          // subject 01 is all ×, so it has the highest scores
+          const records = BANK.filter(q => q.subject === '01').map(q => rec(q.id, 'x'));
+          const c = mk({records, dueDates, dueQids: due, lastReviewed: {}});
+          const r = anchorDailyDue(due.slice().reverse(), c, {quota: 9});
+          const r2 = anchorDailyDue(due, c, {quota: 9});
+          const block = r.today.map(q => q.split('-')[2]);
+          return {n: r.order.length, total: r.total, uniq: new Set(r.order).size, today: r.today.length,
+                  count01: block.filter(s => s === '01').length, adjacent: block.some((s, i) => i && s === block[i - 1]),
+                  first: block[0], stable: JSON.stringify(r.order) === JSON.stringify(r2.order),
+                  defaultToday: anchorDailyDue(due, c).today.length};
+        })()""", setup=self.SETUP)
+        self.assertEqual((out["n"], out["total"], out["uniq"]), (48, 48, 48))
+        self.assertEqual(out["today"], 9)
+        self.assertEqual(out["first"], "01")
+        self.assertLessEqual(out["count01"], 4)  # DUE_SUBJECT_CAP
+        self.assertFalse(out["adjacent"])
+        self.assertTrue(out["stable"])  # input order does not matter
+        self.assertEqual(out["defaultToday"], 15)
+
+    def test_parameters(self):
+        src = (ROOT / ANCHOR).read_text(encoding="utf-8")
+        for line in ("const DUE_DAILY_QUOTA = 15;", "const DUE_SUBJECT_CAP = 4;", "const DUE_REST_DAYS = 2;",
+                     "const DUE_NEED = { x: 1.0, none: 0.7, tri: 0.6, o: 0.3 };",
+                     "const DUE_TIER = { anchor: 1.0, main: 0.8, other: 0.6 };", "const DUE_OVERDUE_CAP = 2;"):
+            self.assertIn(line, src)
+
+
 class TestPracticeQueues(unittest.TestCase):
     """practiceStore wired to the anchor queues (weighted / balanced / reinforce)."""
 

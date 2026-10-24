@@ -80,16 +80,22 @@ function saveSM2Store(nextSchedule) {
   }
 }
 
+// v1.7.1: × and a first △ come back after 2 days (was 1) and a second △ after 4 (was 3): a next-day repeat mostly
+// tests memory of the answer, and with a backlog the 1-day items crowded every daily review.  ○ is unchanged.
+const SM2_FAIL_INTERVAL = 2;
+const SM2_HARD_FIRST_INTERVAL = 2;
+const SM2_HARD_SECOND_INTERVAL = 4;
+
 function calculateSM2ReviewItem(currentItem, rating, nowValue) {
   const now = nowValue instanceof Date ? new Date(nowValue.getTime()) : new Date(nowValue || Date.now());
   const todayStr = formatLocalCalendarDate(now);
   const item = currentItem || { repetitions: 0, interval: 0, easeFactor: 2.5, lastReviewed: null, nextReviewDate: todayStr };
   let { repetitions, interval, easeFactor } = item;
   if (rating < 3) {
-    repetitions = 0; interval = 1; easeFactor = Math.max(1.3, easeFactor - 0.2);
+    repetitions = 0; interval = SM2_FAIL_INTERVAL; easeFactor = Math.max(1.3, easeFactor - 0.2);
   } else if (rating === 3) {
-    if (repetitions === 0) interval = 1;
-    else if (repetitions === 1) interval = 3;
+    if (repetitions === 0) interval = SM2_HARD_FIRST_INTERVAL;
+    else if (repetitions === 1) interval = SM2_HARD_SECOND_INTERVAL;
     else interval = Math.max(1, Math.round(interval * 1.2));
     repetitions += 1; easeFactor = Math.max(1.3, easeFactor - 0.05);
   } else {

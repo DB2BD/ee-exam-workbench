@@ -96,6 +96,33 @@ async function main() {
       await page.evaluate(() => closeModal());
     });
 
+    // --- solution pane: 驗算 folded closed; 失分點 only in the recall box (folded in browse mode) ------
+    await step('modal: 驗算 and 失分點 folded closed in browse mode', async () => {
+      await page.evaluate(() => {
+        const r = findQuestionRecord('EE-105-05-2');
+        openSolutionModal(null, r[6], 'EE-105-05-2', r[3], { mode: 'browse' });
+      });
+      await page.waitForSelector('#solution-modal.show');
+      const folds = await page.$$eval('#modal-pane-right details.solution-fold', ds => ds.map(d => [d.querySelector('summary').textContent, d.open]));
+      assert.deepEqual(folds, [['驗算（點開查看）', false], ['失分點（點開查看）', false]]);
+      assert.equal(await page.isVisible('#modal-pane-right details.solution-fold >> text=兩次疊代尚未收斂'), false, '驗算 body hidden until opened');
+      await page.click('#modal-pane-right details.solution-fold >> summary >> nth=0');
+      assert.equal(await page.isVisible('#modal-pane-right details.solution-fold >> text=兩次疊代尚未收斂'), true, '驗算 opens on click');
+      await page.evaluate(() => closeModal());
+    });
+    await step('modal: recall mode shows 失分點 only in step ③', async () => {
+      await page.evaluate(() => {
+        const r = findQuestionRecord('EE-105-05-2');
+        openSolutionModal(null, r[6], 'EE-105-05-2', r[3], { mode: 'due-review', recall: true });
+      });
+      await page.waitForSelector('#recall-layer-3', { state: 'attached' });
+      assert.match(await page.innerHTML('#recall-layer-3'), /本題失分點/);
+      const full = await page.textContent('#recall-full-section');
+      assert.ok(!/失分點/.test(full), 'no second 失分點 below');
+      assert.deepEqual(await page.$$eval('#recall-full-section details.solution-fold summary', s => s.map(x => x.textContent)), ['驗算（點開查看）']);
+      await page.evaluate(() => closeModal());
+    });
+
     // --- mock exam: two-step submit, session restore, summary ----------------------------
     await step('mock: 交卷 two-step with 取消 and session persisted', async () => {
       await page.evaluate(() => switchTab('mock'));

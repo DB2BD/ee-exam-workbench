@@ -181,7 +181,9 @@ async function main() {
       page.setDefaultTimeout(15000);
       try {
         await page.goto(url);
-        const chapters = ['dist-short-circuit-capacity', 'dist-load-characteristics'];
+        // The 配電 anchor chapters as computed from the bank (they follow QUESTION_TAXONOMY_MAP, so read them, don't pin them).
+        const chapters = await page.evaluate(() => anchorChaptersFor('06', anchorChapterStats(anchorContext({ records: [] }))));
+        assert.equal(chapters.length, 2, '配電 must have two anchor chapters');
         // Seed 2 non-legacy records per anchor chapter (一個 × 觀念錯、一個 △ 計算錯), 3–6 days old (past the 2-day cooldown).
         const seeded = await page.evaluate(chapters => {
           const day = 86400000;

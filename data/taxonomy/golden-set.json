@@ -74,11 +74,11 @@
     {"subjectId":"06","chapterId":"dist-lighting-design","questionIds":["EE-109-06-4","EE-105-06-4"],"rationale":"題幹明確涉及照度、照明率或燈具配置。"},
     {"subjectId":"06","chapterId":"dist-distribution-equipment","questionIds":["EE-114-06-1","EE-112-06-5","EE-108-06-3"],"rationale":"題幹明確涉及配電變壓器、V-V 或供電接線。"},
     {"subjectId":"06","chapterId":"dist-motor-installation","questionIds":["EE-114-06-4","EE-111-06-2","EE-111-06-4","EE-107-06-4"],"rationale":"題幹以電動機配線或啟動設計為主要任務；故障時馬達貢獻不歸入此 primary。"},
-    {"subjectId":"06","chapterId":"dist-voltage-drop","questionIds":["EE-109-06-2","EE-108-06-2","EE-107-06-2"],"rationale":"題幹明確涉及電壓降、電壓突降或導線選用。"},
+    {"subjectId":"06","chapterId":"dist-voltage-drop","questionIds":["EE-109-06-2","EE-107-06-2"],"rationale":"題幹明確涉及電壓降、電壓突降或導線選用。"},
     {"subjectId":"06","chapterId":"dist-power-factor-correction","questionIds":["EE-114-06-5","EE-113-06-2","EE-110-06-3","EE-109-06-5","EE-108-06-5","EE-107-06-5"],"rationale":"題幹明確涉及功率因數改善或並聯電容。"},
     {"subjectId":"06","chapterId":"dist-short-circuit-capacity","questionIds":["EE-114-06-3","EE-113-06-4","EE-112-06-3","EE-111-06-3","EE-110-06-5","EE-105-06-3"],"rationale":"題幹明確指定短路容量、MVA 法、故障電流或斷路器瞬時容量；EE-110-06-5 的馬達僅是故障電流貢獻來源。"},
     {"subjectId":"06","chapterId":"dist-protection-coordination","questionIds":["EE-113-06-5","EE-112-06-4","EE-111-06-1","EE-107-06-3","EE-106-06-4"],"rationale":"題幹明確涉及過電流電驛、TCC 或保護協調。"},
-    {"subjectId":"06","chapterId":"dist-harmonics-mitigation","questionIds":["EE-114-06-2","EE-113-06-3","EE-110-06-4","EE-106-06-5","EE-105-06-5"],"rationale":"題幹明確涉及諧波、諧波共振或電力品質。"}
+    {"subjectId":"06","chapterId":"dist-harmonics-mitigation","questionIds":["EE-114-06-2","EE-113-06-3","EE-110-06-4","EE-108-06-2","EE-106-06-5","EE-105-06-5"],"rationale":"題幹明確涉及諧波、諧波共振、電壓閃爍或電力品質。"}
   ],
   "hardNegatives": [
     {"questionId":"EE-105-01-5","subjectId":"01","actualChapterId":"ct-second-order-rlc","confusableWith":"ct-complex-power","rationale":"題幹關鍵字含功率，但主要要求帶通濾波器共振頻率與頻寬。"},
@@ -140,7 +140,7 @@
     "dist-lighting-design": "PE 題庫目前兩題可明確人工確認。",
     "dist-distribution-equipment": "PE 題庫目前三題可明確人工確認。",
     "dist-motor-installation": "PE 題庫目前四題可明確人工確認。",
-    "dist-voltage-drop": "PE 題庫目前三題可明確人工確認。",
+    "dist-voltage-drop": "PE 題庫目前兩題可明確人工確認。",
     "dist-arc-flash-ieee80": "PE 題庫目前無可明確人工確認正例。"
   }
 }

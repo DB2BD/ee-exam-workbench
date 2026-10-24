@@ -1450,35 +1450,11 @@
     {
       "from": "ps-three-phase-fault",
       "relation": "prerequisite",
-      "to": "ps-state-estimation-wls",
-      "why": "掌握「電力系統狀態估計 (WLS 與壞資料檢測)」前，先建立「對稱三相短路計算」這個前置概念。",
-      "confidence": 0.95,
-      "evidence": [
-        "src/data/knowledge-dag.js:ps-state-estimation-wls",
-        "migration:explicit-legacy-prereq"
-      ],
-      "reviewStatus": "approved"
-    },
-    {
-      "from": "ps-three-phase-fault",
-      "relation": "prerequisite",
       "to": "ps-symmetrical-components",
       "why": "Sequence-network fault analysis uses the balanced system and base fault model.",
       "confidence": 0.96,
       "evidence": [
         "src/data/knowledge-dag.js:ps-symmetrical-components"
-      ],
-      "reviewStatus": "approved"
-    },
-    {
-      "from": "ps-transmission-line-models",
-      "relation": "prerequisite",
-      "to": "ps-transient-stability-equal-area",
-      "why": "掌握「暫態穩定度與等面積準則 (Equal-Area)」前，先建立「輸電線路中長程模型 (ABCD 參數)」這個前置概念。",
-      "confidence": 0.95,
-      "evidence": [
-        "src/data/knowledge-dag.js:ps-transient-stability-equal-area",
-        "migration:explicit-legacy-prereq"
       ],
       "reviewStatus": "approved"
     },
@@ -1514,6 +1490,174 @@
       "evidence": [
         "src/data/knowledge-dag.js:ps-system-protection-relay",
         "migration:explicit-legacy-prereq"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-first-order-rc-rl",
+      "relation": "prerequisite",
+      "to": "el-pe-inverter-spwm",
+      "why": "本章兩題（EE-104-02-4、EE-110-02-4）都以 RL 一階指數解求方波逆變器週期穩態電流，一階暫態是直接前置。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-complex-power",
+      "relation": "prerequisite",
+      "to": "el-diode-rectifier",
+      "why": "本章多題（EE-106-02-4、EE-110-02-3、EE-111-02-1、EE-105-02-4 移入後）問平均功率、視在功率與功率因數，需先會 P、S、PF 定義；目前 prereqs 為空。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-phasor-ac",
+      "relation": "prerequisite",
+      "to": "emach-synchronous-generator-round",
+      "why": "本章全部是相量圖與 E_f=V+jX_sI 相量運算，現僅以單相變壓器為先修，缺交流相量",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-phasor-ac",
+      "relation": "prerequisite",
+      "to": "emach-single-phase-rotating-field",
+      "why": "移入的電容啟動題需繞組電流相角運算；旋轉磁場題亦需正弦時相",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-power-analysis",
+      "relation": "prerequisite",
+      "to": "ps-transient-stability-equal-area",
+      "why": "等面積準則與功角方程需要的是 P=EV/X sinδ 與同步機內電勢（ps-power-analysis），題目中的線路都只是串聯電抗，不用 ABCD／中長程模型。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-three-phase-fault",
+      "relation": "prerequisite",
+      "to": "ps-system-protection-relay",
+      "why": "本章實際考題為差動保護（CT 匝比、KCL）與距離電驛設定，直接依賴故障電流與線路阻抗（三相短路）；現只掛不對稱故障。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-node-mesh",
+      "relation": "prerequisite",
+      "to": "ps-load-flow-admittance",
+      "why": "Y_bus 即節點分析的矩陣形式，潮流方程由 S=VI* 展開。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-complex-power",
+      "relation": "prerequisite",
+      "to": "ps-load-flow-admittance",
+      "why": "Y_bus 即節點分析的矩陣形式，潮流方程由 S=VI* 展開。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-load-flow-admittance",
+      "relation": "prerequisite",
+      "to": "ps-state-estimation-wls",
+      "why": "狀態估計的量測函數 h(x) 就是潮流方程與 Y_bus，與短路計算無關。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ps-per-unit",
+      "relation": "prerequisite",
+      "to": "dist-short-circuit-capacity",
+      "why": "12 題中 9 題以標么法換基準（X=S_b/S_sc、變壓器換基準）為第一步，現 prereqs 為空。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-short-circuit-capacity",
+      "relation": "prerequisite",
+      "to": "dist-harmonics-mitigation",
+      "why": "電弧爐閃爍與諧波共振都先由短路容量求系統電抗（X_S=S_b/S_sc、h_r=√(S_sc/Q_c)）。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "dist-short-circuit-capacity",
+      "relation": "prerequisite",
+      "to": "dist-motor-installation",
+      "why": "啟動壓降題（EE-105-06-2、EE-111-06-2）由責任分界點短路容量求電源電抗後分壓。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "emach-three-phase-transformer",
+      "relation": "prerequisite",
+      "to": "dist-protection-coordination",
+      "why": "差動保護 CT 接法依 Y–Δ 變壓器 30° 相移補償（EE-106-06-4、EE-107-06-3）。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
+      ],
+      "reviewStatus": "approved"
+    },
+    {
+      "from": "ct-complex-power",
+      "relation": "prerequisite",
+      "to": "dist-power-factor-correction",
+      "why": "所有功因題以功率三角形 P、Q、S 為第一步，現 prereqs 為空。",
+      "confidence": 0.9,
+      "evidence": [
+        "data/taxonomy/question-types.json",
+        "type-review:2026-10-24"
       ],
       "reviewStatus": "approved"
     }

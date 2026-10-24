@@ -167,6 +167,38 @@ class TestRound(unittest.TestCase):
         self.assertTrue(r)
 
 
+class TestTypeOptions(unittest.TestCase):
+    def test_type_options_prefer_confusers_then_chapter_then_subject(self):
+        r = run_js("""(() => {
+          const T = { a: {subject: '05', chapter: 'c1', confusers: ['b']}, b: {subject: '05', chapter: 'c1', confusers: ['a']},
+                      c: {subject: '05', chapter: 'c1', confusers: ['a']}, d: {subject: '05', chapter: 'c2', confusers: ['a']},
+                      e: {subject: '05', chapter: 'c3', confusers: ['a']}, z: {subject: '04', chapter: 'x', confusers: ['a']} };
+          const runs = [];
+          for (let i = 1; i <= 30; i++) runs.push(breakdownDrillOptions({ subject: '05', chapter: 'c1', type: 'a' }, [], seeded((i * 2654435761) >>> 0), T).slice().sort().join(''));
+          const solo = breakdownDrillOptions({ subject: '04', chapter: 'x', type: 'z' }, [], seeded(1), T);
+          return { runs: Array.from(new Set(runs)).sort(), solo };
+        })()""")
+        # b (confuser) and c (same chapter) always present; the 4th is d or e (same subject); never z (other subject)
+        self.assertEqual(r["runs"], ["abcd", "abce"])
+        self.assertEqual(r["solo"], ["z"])  # nothing else in the subject: only the answer
+
+    def test_real_types_give_four_distinct_same_subject_options(self):
+        r = run_js("""(() => {
+          const out = [];
+          Object.keys(BREAKDOWN_DRILL).forEach((qid, i) => {
+            const q = { subject: qid.split('-')[2], chapter: BREAKDOWN_DRILL[qid].chapter, type: BREAKDOWN_DRILL[qid].type };
+            const o = breakdownDrillOptions(q, [], seeded(i + 1), BREAKDOWN_DRILL_TYPES);
+            const own = BREAKDOWN_DRILL_TYPES[q.type];
+            out.push(o.length === 4 && new Set(o).size === 4 && o.includes(q.type)
+              && o.every(id => BREAKDOWN_DRILL_TYPES[id].subject === own.subject)
+              && own.confusers.filter(c => BREAKDOWN_DRILL_TYPES[c].subject === own.subject).slice(0, 3).every(c => o.includes(c)));
+          });
+          return { n: out.length, ok: out.every(Boolean) };
+        })()""")
+        self.assertEqual(r["n"], 323)
+        self.assertTrue(r["ok"])
+
+
 class TestRecordsAndBackup(unittest.TestCase):
     def test_normalize_merge_and_exp(self):
         r = run_js("""(() => {

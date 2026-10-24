@@ -6587,10 +6587,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "110 年電路學第 4 題｜Y–Y 不平衡三相四線制總功率"
   },
   "EE-108-01-1": {
-    "primaryChapter": "ct-phasor-ac",
-    "source": "canonical-title-override",
+    "primaryChapter": "ct-superposition",
+    "source": "chapter-correction",
     "canonicalChapter": "正弦穩態與直流疊加",
-    "noteTitle": "108 年電路學第 1 題｜正弦穩態電流與 1 Ω 電阻功率"
+    "noteTitle": "108 年電路學第 1 題｜正弦穩態電流與 1 Ω 電阻功率",
+    "correctedFrom": "ct-phasor-ac"
   },
   "EE-114-01-2": {
     "primaryChapter": "ct-thevenin-norton",
@@ -6691,10 +6692,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "112 年電路學第 4 題｜並聯 RLC 步階響應"
   },
   "EE-106-01-2": {
-    "primaryChapter": "ct-first-order-rc-rl",
-    "source": "canonical-chapter",
+    "primaryChapter": "ct-second-order-rlc",
+    "source": "chapter-correction",
     "canonicalChapter": "狀態空間模型：電容電壓與電感電流",
-    "noteTitle": "106 年電路學第 2 題｜\\(dv_{C3}/dt\\) 狀態方程式"
+    "noteTitle": "106 年電路學第 2 題｜\\(dv_{C3}/dt\\) 狀態方程式",
+    "correctedFrom": "ct-first-order-rc-rl"
   },
   "EE-107-01-3": {
     "primaryChapter": "ct-phasor-ac",
@@ -6775,10 +6777,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "105 年電路學第 1 題｜多網目直流電路節點分析"
   },
   "EE-111-01-3": {
-    "primaryChapter": "ct-second-order-rlc",
-    "source": "canonical-chapter",
+    "primaryChapter": "ct-phasor-ac",
+    "source": "chapter-correction",
     "canonicalChapter": "二階 RLC 頻率響應與帶拒濾波器",
-    "noteTitle": "111 年電路學第 3 題｜RLC 轉移函數與截止頻率"
+    "noteTitle": "111 年電路學第 3 題｜RLC 轉移函數與截止頻率",
+    "correctedFrom": "ct-second-order-rlc"
   },
   "EE-110-01-2": {
     "primaryChapter": "ct-two-port",
@@ -6787,10 +6790,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "110 年電路學第 2 題｜雙埠網路傳輸參數矩陣"
   },
   "EE-105-01-5": {
-    "primaryChapter": "ct-second-order-rlc",
-    "source": "canonical-chapter",
+    "primaryChapter": "ct-phasor-ac",
+    "source": "chapter-correction",
     "canonicalChapter": "串聯 RLC 帶通濾波器設計",
-    "noteTitle": "105 年電路學第 5 題｜串聯 RLC 帶通濾波器設計"
+    "noteTitle": "105 年電路學第 5 題｜串聯 RLC 帶通濾波器設計",
+    "correctedFrom": "ct-second-order-rlc"
   },
   "EE-114-01-4": {
     "primaryChapter": "ct-superposition",
@@ -6811,10 +6815,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "111 年電路學第 2 題｜互感耦合電路"
   },
   "EE-110-01-3": {
-    "primaryChapter": "ct-second-order-rlc",
-    "source": "canonical-chapter",
+    "primaryChapter": "ct-phasor-ac",
+    "source": "chapter-correction",
     "canonicalChapter": "串聯 RLC 諧振與選頻特性",
-    "noteTitle": "110 年電路學第 3 題｜串聯 RLC 諧振與元件端電壓極值"
+    "noteTitle": "110 年電路學第 3 題｜串聯 RLC 諧振與元件端電壓極值",
+    "correctedFrom": "ct-second-order-rlc"
   },
   "EE-105-01-4": {
     "primaryChapter": "ct-three-phase",
@@ -6841,10 +6846,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "108 年電路學第 2 題｜含相依源直流電路"
   },
   "EE-109-01-3": {
-    "primaryChapter": "ct-superposition",
-    "source": "canonical-chapter",
+    "primaryChapter": "ct-node-mesh",
+    "source": "chapter-correction",
     "canonicalChapter": "節點分析與對偶網路",
-    "noteTitle": "109 年電路學第 3 題｜節點電壓方程式與對偶網路"
+    "noteTitle": "109 年電路學第 3 題｜節點電壓方程式與對偶網路",
+    "correctedFrom": "ct-superposition"
   },
   "EE-114-01-1": {
     "primaryChapter": "ct-node-mesh",
@@ -6897,10 +6903,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "110 年電子學第 3 題｜半波整流器"
   },
   "EE-105-02-4": {
-    "primaryChapter": "el-active-filter",
-    "source": "canonical-title-override",
+    "primaryChapter": "el-diode-rectifier",
+    "source": "chapter-correction",
     "canonicalChapter": "非線性負載諧波功率與功率因數",
-    "noteTitle": "105 年電子學（含電力電子）第 4 題｜非線性負載諧波功率與功率因數"
+    "noteTitle": "105 年電子學（含電力電子）第 4 題｜非線性負載諧波功率與功率因數",
+    "correctedFrom": "el-active-filter"
   },
   "EE-104-02-5": {
     "primaryChapter": "el-active-filter",
@@ -7133,10 +7140,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "104 年電子學（含電力電子）第 2 題｜BJT 共基極偏壓與中頻增益"
   },
   "EE-114-02-2": {
-    "primaryChapter": "el-mosfet-bias-small-signal",
-    "source": "canonical-title-override",
+    "primaryChapter": "el-active-filter",
+    "source": "chapter-correction",
     "canonicalChapter": "MOS 小訊號與頻率響應",
-    "noteTitle": "114 年電子學第 2 題｜零點與開路時間常數"
+    "noteTitle": "114 年電子學第 2 題｜零點與開路時間常數",
+    "correctedFrom": "el-mosfet-bias-small-signal"
   },
   "EE-105-02-3": {
     "primaryChapter": "el-diode-rectifier",
@@ -7412,10 +7420,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "106 年第 6 題｜密度常數與 CDF"
   },
   "EE-113-03-1": {
-    "primaryChapter": "em-first-order-ode",
-    "source": "canonical-chapter",
+    "primaryChapter": "em-second-order-ode-nonhomogeneous",
+    "source": "chapter-correction",
     "canonicalChapter": "常微分方程／參數變異法",
-    "noteTitle": "113 年第 1 題｜變係數法"
+    "noteTitle": "113 年第 1 題｜變係數法",
+    "correctedFrom": "em-first-order-ode"
   },
   "EE-107-03-3": {
     "primaryChapter": "em-vector-analysis",
@@ -7424,10 +7433,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "107 年第 3 題｜圓錐閉曲面通量"
   },
   "EE-106-03-2": {
-    "primaryChapter": "em-matrix-det-inv",
-    "source": "canonical-chapter",
+    "primaryChapter": "em-svd-linear-systems",
+    "source": "chapter-correction",
     "canonicalChapter": "線性代數／最小平方法",
-    "noteTitle": "106 年第 2 題｜線性系統的最小平方解"
+    "noteTitle": "106 年第 2 題｜線性系統的最小平方解",
+    "correctedFrom": "em-matrix-det-inv"
   },
   "EE-113-03-5": {
     "primaryChapter": "em-vector-analysis",
@@ -7778,10 +7788,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "110 年電機機械第 1 題｜串聯繞組磁路"
   },
   "EE-109-04-5": {
-    "primaryChapter": "emach-synchronous-salient-pole",
-    "source": "canonical-title-override",
+    "primaryChapter": "emach-reluctance-motor",
+    "source": "chapter-correction",
     "canonicalChapter": "可變磁阻電磁系統電感與共能轉矩",
-    "noteTitle": "109 年電機機械第 5 題｜可變磁阻電感與電磁扭力"
+    "noteTitle": "109 年電機機械第 5 題｜可變磁阻電感與電磁扭力",
+    "correctedFrom": "emach-synchronous-salient-pole"
   },
   "EE-108-04-4": {
     "primaryChapter": "emach-synchronous-generator-round",
@@ -7796,10 +7807,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "111 年電機機械第 1 題｜環形鐵心電感與提高電感值的方法"
   },
   "EE-109-04-4": {
-    "primaryChapter": "emach-induction-motor-equiv",
-    "source": "canonical-title-override",
+    "primaryChapter": "emach-single-phase-rotating-field",
+    "source": "chapter-correction",
     "canonicalChapter": "三相繞組旋轉磁動勢與空間向量",
-    "noteTitle": "109 年電機機械第 4 題｜三相旋轉磁動勢"
+    "noteTitle": "109 年電機機械第 4 題｜三相旋轉磁動勢",
+    "correctedFrom": "emach-induction-motor-equiv"
   },
   "EE-108-04-5": {
     "primaryChapter": "emach-dc-motor-generator",
@@ -7856,10 +7868,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "112 年電機機械第 4 題｜Δ 接電容降低感應電動機啟動電流"
   },
   "EE-113-04-5": {
-    "primaryChapter": "emach-induction-motor-equiv",
-    "source": "canonical-chapter",
+    "primaryChapter": "emach-single-phase-rotating-field",
+    "source": "chapter-correction",
     "canonicalChapter": "單相感應馬達與電容啟動",
-    "noteTitle": "113 年電機機械第 5 題｜電容啟動單相感應馬達"
+    "noteTitle": "113 年電機機械第 5 題｜電容啟動單相感應馬達",
+    "correctedFrom": "emach-induction-motor-equiv"
   },
   "EE-106-04-2": {
     "primaryChapter": "emach-autotransformer",
@@ -7912,10 +7925,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "106 年電力系統第 1 題｜短線電壓調整率與效率"
   },
   "EE-107-05-4": {
-    "primaryChapter": "ps-unsymmetrical-faults",
-    "source": "canonical-chapter",
+    "primaryChapter": "ps-symmetrical-components",
+    "source": "chapter-correction",
     "canonicalChapter": "不平衡三相系統對稱成分與中性點偏移",
-    "noteTitle": "107 年電力系統第 4 題｜三相四線／三線不平衡負載"
+    "noteTitle": "107 年電力系統第 4 題｜三相四線／三線不平衡負載",
+    "correctedFrom": "ps-unsymmetrical-faults"
   },
   "EE-112-05-3": {
     "primaryChapter": "ps-load-flow-admittance",
@@ -7973,10 +7987,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "105 年電力系統第 5 題｜經濟調度罰點因數與增量損失"
   },
   "EE-109-05-6": {
-    "primaryChapter": "ps-transient-stability-equal-area",
-    "source": "canonical-title-override",
+    "primaryChapter": "ps-economic-dispatch",
+    "source": "chapter-correction",
     "canonicalChapter": "負載頻率控制與一次調速器響應",
-    "noteTitle": "109 年電力系統第 6 題｜負載頻率控制與穩態頻率偏差"
+    "noteTitle": "109 年電力系統第 6 題｜負載頻率控制與穩態頻率偏差",
+    "correctedFrom": "ps-transient-stability-equal-area"
   },
   "EE-110-05-2": {
     "primaryChapter": "ps-load-flow-admittance",
@@ -8089,16 +8104,18 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "110 年電力系統第 4 題｜含線路損耗的經濟調度與增量損失"
   },
   "EE-108-05-5": {
-    "primaryChapter": "ps-three-phase-fault",
-    "source": "canonical-chapter",
+    "primaryChapter": "ps-transient-stability-equal-area",
+    "source": "chapter-correction",
     "canonicalChapter": "雙迴線輸電系統故障與功率角方程式",
-    "noteTitle": "108 年電力系統第 5 題｜雙迴線三相故障之功率角方程式"
+    "noteTitle": "108 年電力系統第 5 題｜雙迴線三相故障之功率角方程式",
+    "correctedFrom": "ps-three-phase-fault"
   },
   "EE-109-05-4": {
-    "primaryChapter": "ps-symmetrical-components",
-    "source": "canonical-title-override",
+    "primaryChapter": "ps-unsymmetrical-faults",
+    "source": "chapter-correction",
     "canonicalChapter": "對稱成分與故障分析",
-    "noteTitle": "109 年電力系統第 4 題｜三相與線間故障電流"
+    "noteTitle": "109 年電力系統第 4 題｜三相與線間故障電流",
+    "correctedFrom": "ps-symmetrical-components"
   },
   "EE-111-05-1": {
     "primaryChapter": "ps-transmission-line-models",
@@ -8119,10 +8136,11 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "109 年電力系統第 5 題｜含輸電損失的經濟調度"
   },
   "EE-110-05-1": {
-    "primaryChapter": "ps-transient-stability-equal-area",
-    "source": "canonical-title-override",
+    "primaryChapter": "ps-power-analysis",
+    "source": "chapter-correction",
     "canonicalChapter": "同步機功角特性與雙反應理論",
-    "noteTitle": "110 年電力系統第 1 題｜同步發電機功角與雙反應理論"
+    "noteTitle": "110 年電力系統第 1 題｜同步發電機功角與雙反應理論",
+    "correctedFrom": "ps-transient-stability-equal-area"
   },
   "EE-105-05-2": {
     "primaryChapter": "ps-load-flow-admittance",
@@ -8180,10 +8198,11 @@ const QUESTION_TAXONOMY_MAP = {
     "manualChapter": "ps-load-flow-admittance"
   },
   "EE-113-05-4": {
-    "primaryChapter": "ps-transient-stability-equal-area",
-    "source": "canonical-title-override",
+    "primaryChapter": "ps-economic-dispatch",
+    "source": "chapter-correction",
     "canonicalChapter": "發電機調速與負載頻率控制",
-    "noteTitle": "113 年電力系統第 4 題｜速度調節率"
+    "noteTitle": "113 年電力系統第 4 題｜速度調節率",
+    "correctedFrom": "ps-transient-stability-equal-area"
   },
   "EE-107-05-3": {
     "primaryChapter": "ps-power-analysis",
@@ -8372,10 +8391,11 @@ const QUESTION_TAXONOMY_MAP = {
     "manualChapter": "dist-harmonics-mitigation"
   },
   "EE-108-06-1": {
-    "primaryChapter": "dist-distribution-equipment",
-    "source": "canonical-chapter",
+    "primaryChapter": "dist-protection-coordination",
+    "source": "chapter-correction",
     "canonicalChapter": "電容式比壓器 CVT 比壓與補償電抗",
-    "noteTitle": "108 年工業配電第 1 題｜電容式比壓器比壓式"
+    "noteTitle": "108 年工業配電第 1 題｜電容式比壓器比壓式",
+    "correctedFrom": "dist-distribution-equipment"
   },
   "EE-111-06-5": {
     "primaryChapter": "dist-grounding-system",
@@ -8444,11 +8464,14 @@ const QUESTION_TAXONOMY_MAP = {
     "noteTitle": "109 年工業配電第 3 題｜主幹線三相短路"
   },
   "EE-108-06-2": {
-    "primaryChapter": "dist-voltage-drop",
+    "primaryChapter": "dist-harmonics-mitigation",
     "source": "manual-topic-confirmed",
     "canonicalChapter": "工業配電系統電壓降與串聯電抗器",
     "noteTitle": "108 年工業配電第 2 題｜電弧爐電壓突降與串聯電抗器",
-    "manualChapter": "dist-voltage-drop"
+    "manualChapter": "dist-harmonics-mitigation",
+    "secondaryTopicIds": [
+      "dist-voltage-drop"
+    ]
   },
   "EE-105-06-1": {
     "primaryChapter": "dist-grounding-system",

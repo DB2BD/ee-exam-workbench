@@ -82,7 +82,7 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             self.assertEqual(self.dag[chapter], row[1], qid)
             self.assertIn(
                 evidence.get("source"),
-                {"canonical-chapter", "canonical-title-override", "manual-topic-confirmed"},
+                {"canonical-chapter", "canonical-title-override", "chapter-correction", "manual-topic-confirmed"},
                 qid,
             )
             self.assertIn("noteTitle", evidence, qid)
@@ -102,8 +102,9 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             self.assertEqual(self.dag[chapter], self.question_by_id[qid][1], qid)
 
         self.assertEqual(self.audit_statuses["EE-108-06-2"], "verified")
-        self.assertEqual(self.manual_labels["EE-108-06-2"], "dist-voltage-drop")
-        self.assertEqual(self.taxonomy["EE-108-06-2"]["primaryChapter"], "dist-voltage-drop")
+        # learner re-confirmed 2026-10-24: arc-furnace voltage flicker (series-reactor drop is secondary)
+        self.assertEqual(self.manual_labels["EE-108-06-2"], "dist-harmonics-mitigation")
+        self.assertEqual(self.taxonomy["EE-108-06-2"]["primaryChapter"], "dist-harmonics-mitigation")
 
     def test_reviewed_question_primary_chapters_are_materialized(self):
         """Independently reviewed primary labels must survive compilation."""
@@ -119,7 +120,7 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             "EE-111-06-3": "dist-short-circuit-capacity",
             "EE-111-06-4": "dist-motor-installation",
             "EE-110-06-5": "dist-short-circuit-capacity",
-            "EE-108-06-2": "dist-voltage-drop",
+            "EE-108-06-2": "dist-harmonics-mitigation",
             "EE-109-02-3": "el-pe-buck-boost",
             "EE-107-06-2": "dist-voltage-drop",
             "EE-106-02-2": "el-feedback-stability",
@@ -165,7 +166,7 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             "EE-107-04-3": "emach-induction-motor-equiv",
             "EE-108-04-2": "emach-dc-motor-generator",
             "EE-109-04-3": "emach-induction-motor-equiv",
-            "EE-109-04-5": "emach-synchronous-salient-pole",
+            "EE-109-04-5": "emach-reluctance-motor",  # 2026-10-24 chapter correction (was emach-synchronous-salient-pole)
             "EE-110-04-4": "emach-dc-motor-generator",
             "EE-113-04-4": "emach-induction-motor-equiv",
             "EE-114-04-3": "emach-single-phase-rotating-field",
@@ -173,8 +174,8 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             "EE-105-05-3": "ps-unsymmetrical-faults",
             "EE-106-05-4": "ps-system-protection-relay",
             "EE-107-05-1": "ps-transmission-line-models",
-            "EE-109-05-4": "ps-symmetrical-components",
-            "EE-109-05-6": "ps-transient-stability-equal-area",
+            "EE-109-05-4": "ps-unsymmetrical-faults",  # 2026-10-24 chapter correction (was ps-symmetrical-components)
+            "EE-109-05-6": "ps-economic-dispatch",  # 2026-10-24 chapter correction (was ps-transient-stability-equal-area)
             "EE-110-05-3": "ps-symmetrical-components",
             "EE-111-05-2": "ps-three-phase-fault",
             "EE-104-06-3": "dist-harmonics-mitigation",
@@ -184,7 +185,7 @@ class TestQuestionTaxonomyAlignment(unittest.TestCase):
             "EE-112-06-4": "dist-short-circuit-capacity",
             "EE-113-06-2": "dist-voltage-drop",
             "EE-112-06-5": "dist-protection-coordination",
-            "EE-114-02-2": "el-mosfet-bias-small-signal",
+            "EE-114-02-2": "el-active-filter",  # 2026-10-24 chapter correction (was el-mosfet-bias-small-signal)
         }
         for qid, chapter in expected.items():
             self.assertEqual(self.taxonomy[qid]["primaryChapter"], chapter, qid)

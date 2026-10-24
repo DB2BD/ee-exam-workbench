@@ -45,24 +45,27 @@ class TestQuestionTypes(unittest.TestCase):
         for qid, q in TYPES["questions"].items():
             self.assertEqual(TYPES["types"][q["type"]]["chapter"], q["chapter"], qid)
             built = TAX[qid]
-            corrected = {c["qid"]: c["to"] for c in CORRECTIONS}
-            if qid in corrected:
-                self.assertEqual(q["chapter"], corrected[qid], qid)
-            elif built["source"] != "manual-topic-confirmed":
+            if built["source"] != "manual-topic-confirmed":
                 self.assertEqual(built["primaryChapter"], q["chapter"], qid)
 
-    def test_corrections_are_pending_for_statistics_but_in_graph_links(self):
+    def test_corrections_are_applied_to_statistics_and_graph_links(self):
         links = json.loads((ROOT / "data" / "knowledge" / "question-links.json").read_text(encoding="utf-8"))["links"]
         self.assertTrue(CORRECTIONS)
         for c in CORRECTIONS:
             self.assertIn(c["to"], DAG_IDS)
             self.assertTrue(c["reason"].strip())
-            # statistics (anchors, mastery) keep the old chapter until the learner decides
-            self.assertEqual(TAX[c["qid"]]["primaryChapter"], c["from"], c["qid"])
-            self.assertNotEqual(TAX[c["qid"]]["source"], "manual-topic-confirmed", c["qid"])
-            # the 觀念相依 tracer already uses the corrected chapter
+            # statistics (anchors, mastery) use the corrected chapter (learner's decision, 2026-10-24)
+            self.assertEqual(TAX[c["qid"]]["primaryChapter"], c["to"], c["qid"])
+            self.assertEqual(TAX[c["qid"]]["source"], "chapter-correction", c["qid"])
+            self.assertEqual(TAX[c["qid"]]["correctedFrom"], c["from"], c["qid"])
+            self.assertEqual(TYPES["questions"][c["qid"]]["chapter"], c["to"], c["qid"])
+            # the 觀念相依 tracer uses the same chapter
             self.assertEqual(links["PE:" + c["qid"]]["nodeIds"][0], c["to"], c["qid"])
 
+    def test_ee_108_06_2_is_learner_confirmed_flicker(self):
+        self.assertEqual(TAX["EE-108-06-2"]["primaryChapter"], "dist-harmonics-mitigation")
+        self.assertEqual(TAX["EE-108-06-2"]["source"], "manual-topic-confirmed")
+        self.assertEqual(TYPES["questions"]["EE-108-06-2"]["type"], "dist-pq-arc-flicker")
 
 if __name__ == "__main__":
     unittest.main()

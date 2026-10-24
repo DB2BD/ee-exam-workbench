@@ -106,15 +106,20 @@ class TestScoreOrientedCorePath(unittest.TestCase):
         # When chapters tie on year coverage at the cut-off, any of them may
         # be chosen (user decision 2026-10-04: 工數 keeps 複變與留數, tied with
         # 向量分析 at 8 years, so the in-progress path is not reshuffled).
+        # The path was built and completed under the taxonomy of that time.  A
+        # later reviewed chapter correction (2026-10-24) moves single questions,
+        # so the historical path is checked against the pre-correction chapter.
+        def path_chapter(qid):
+            return self.taxonomy[qid].get("correctedFrom") or self.taxonomy[qid]["primaryChapter"]
+
         chapter_years = defaultdict(set)
         for row in self.questions:
-            chapter = self.taxonomy[row[0]]["primaryChapter"]
-            chapter_years[(row[1], chapter)].add(row[2])
+            chapter_years[(row[1], path_chapter(row[0]))].add(row[2])
 
         selected = defaultdict(Counter)
         for qid in COMPLETED_QIDS:
             subject = qid.split("-")[2]
-            selected[subject][self.taxonomy[qid]["primaryChapter"]] += 1
+            selected[subject][path_chapter(qid)] += 1
 
         self.assertEqual(set(selected), {"01", "02", "03", "04", "05", "06"})
         for subject, chosen in selected.items():

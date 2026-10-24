@@ -4490,12 +4490,13 @@
       "qid": "EE-108-06-2",
       "examFamily": "PE",
       "nodeIds": [
+        "dist-harmonics-mitigation",
         "dist-voltage-drop"
       ],
       "confidence": 0.96,
       "evidence": [
         "dashboard-data.js:EE-108-06-2",
-        "data/taxonomy/alias-map.json:dist-voltage-drop"
+        "src/data/manualTopicLabels.js:EE-108-06-2"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "manual"

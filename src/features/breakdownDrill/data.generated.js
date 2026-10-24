@@ -167,7 +167,7 @@ const BREAKDOWN_DRILL = {
   "type": "ct-3p-pf-correction"
  },
  "EE-105-01-5": {
-  "chapter": "ct-second-order-rlc",
+  "chapter": "ct-phasor-ac",
   "logicMd": "\\(C\\)、\\(L\\)、\\(R\\) 串聯且輸出取自 \\(R\\)，是串聯 RLC 帶通濾波器。共振時 \\(\\omega_0L=\\dfrac1{\\omega_0C}\\)，電抗抵消、阻抗只剩 \\(R\\)，輸出最大；頻寬是半功率點（增益降為 \\(1/\\sqrt2\\)）\\(\\omega_1\\)、\\(\\omega_2\\) 之間的寬度，串聯 RLC 為 \\(B=R/L\\)。先由共振條件求 \\(L\\)，再由頻寬求 \\(R\\)。電源視為理想電壓源，輸出端開路（不接負載）。",
   "type": "ct-ac-series-resonance"
  },
@@ -187,7 +187,7 @@ const BREAKDOWN_DRILL = {
   "type": "el-dr-opamp-limiter"
  },
  "EE-105-02-4": {
-  "chapter": "el-active-filter",
+  "chapter": "el-diode-rectifier",
   "logicMd": "電壓只有基波，電流含直流、基波、三次諧波三個分量。不同頻率的電壓、電流相乘在一週期內平均為零，所以實功只由「同頻率」的電壓電流配對產生；而 rms 值是各分量 rms 的平方和開根號。先求各分量 rms 與總 $I_{\\mathrm{rms}}$（步驟 1），再依定義：$P$ 只取基波配對，$PF=P/S$，失真因數 $DF=I_1/I_{\\mathrm{rms}}$，$THD=I_h/I_1$。前提：$v$、$i$ 皆為穩態週期量，$\\sin$ 的峰值除以 $\\sqrt2$ 即 rms。",
   "type": "el-dr-nonsinusoidal-power"
  },
@@ -317,7 +317,7 @@ const BREAKDOWN_DRILL = {
   "type": "ct-lap-impulse-sources"
  },
  "EE-106-01-2": {
-  "chapter": "ct-first-order-rc-rl",
+  "chapter": "ct-second-order-rlc",
   "logicMd": "狀態方程式的右邊只能有狀態量（各電容電壓 \\(v_{C1},v_{C2},v_{C3}\\)、各電感電流 \\(i_{L1},i_{L2},i_{L3}\\)）與電源。做法：電容視為已知電壓源、電感視為已知電流源（此瞬間值由狀態量給定），對 \\(C_3\\) 下端節點 \\(BM\\) 列 KCL 得 \\(C_3\\,dv_{C3}/dt\\)；式中出現的非狀態節點電壓 \\(V_{BL}\\)（左側）與 \\(V_{BR}\\)（右側）分別用 \\(BL\\) 節點 KCL 與右側超節點 KCL 消去。題圖未標狀態量方向，以下自行定義（方向改變只影響正負號）。",
   "type": "ct-state-equation"
  },
@@ -362,7 +362,7 @@ const BREAKDOWN_DRILL = {
   "type": "em-mat-inverse"
  },
  "EE-106-03-2": {
-  "chapter": "em-matrix-det-inv",
+  "chapter": "em-svd-linear-systems",
   "logicMd": "\\(Ax=b\\) 是 4 條方程、2 個未知數的超定系統，一般無解；最小平方解使 \\(\\lVert b-Ax\\rVert^2\\) 最小，等價於殘差 \\(b-Ax\\) 與 \\(A\\) 的行空間正交，即 \\(A^T(b-Ax)=\\mathbf 0\\)，得正規方程 \\(A^TAx=A^Tb\\)。\\(A\\) 的兩行不成比例（線性獨立），\\(A^TA\\) 可逆，解唯一。依序算 \\(A^TA\\)、\\(A^Tb\\)、\\((A^TA)^{-1}\\)，再相乘。",
   "type": "em-svd-least-squares"
  },
@@ -577,7 +577,7 @@ const BREAKDOWN_DRILL = {
   "type": "ps-pa-gen-infinite-bus"
  },
  "EE-107-05-4": {
-  "chapter": "ps-unsymmetrical-faults",
+  "chapter": "ps-symmetrical-components",
   "logicMd": "兩問的差別只在負載中性點 \\(N\\) 有沒有接回電源中性點 \\(n\\)。前提：電源為理想對稱 Y 接、導線與中性線阻抗為零；\\(a=1\\angle120^\\circ\\)，\\(a^2=1\\angle240^\\circ=1\\angle-120^\\circ\\)。\n1. （一）四線制 \\(V_N=0\\)，每相負載直接承受相電壓，先求三相電流。\n2. 再用對稱分量變換求 \\(I_{a0},I_{a1},I_{a2}\\)，中性線電流 \\(I_n=3I_{a0}\\)。\n3. （二）三線制 \\(N\\) 浮接，先用彌爾曼定理（以 \\(n\\) 為參考、只有 \\(N\\) 一個未知節點）求 \\(V_N\\)。\n4. 再求線電流 \\(I_k'=(V_k-V_N)/Z_k\\)、取最大值。\n5. 最後求序電流（三線制必 \\(I_{a0}'=0\\)）。",
   "type": "ps-sc-fortescue"
  },
@@ -607,7 +607,7 @@ const BREAKDOWN_DRILL = {
   "type": "dist-pfc-kvar-sizing"
  },
  "EE-108-01-1": {
-  "chapter": "ct-phasor-ac",
+  "chapter": "ct-superposition",
   "logicMd": "電路同時有直流 6 A 電流源與 \\(\\omega=5\\ \\mathrm{rad/s}\\) 的交流電壓源，頻率不同，不能放進同一個相量方程，必須用疊加：直流單獨作用（電壓源短路）求 \\(I_\\mathrm{dc}\\)，交流單獨作用（電流源開路）用相量求 \\(\\mathbf I_\\mathrm{ac}\\)，相加得 \\(i(t)\\)。功率則因直流與交流交叉項的平均值為零，可把兩個分量的功率分別相加。前提：穩態；直流時電感短路、電容開路；交流以 \\(\\cos\\) 為基準的峰值相量 \\(\\mathbf V=12\\angle0^\\circ\\ \\mathrm V\\)。",
   "type": "ct-sup-multi-frequency"
  },
@@ -727,17 +727,17 @@ const BREAKDOWN_DRILL = {
   "type": "ps-prot-differential"
  },
  "EE-108-05-5": {
-  "chapter": "ps-three-phase-fault",
+  "chapter": "ps-transient-stability-equal-area",
   "logicMd": "功率角方程式為 \\(P_e=\\dfrac{|E'||V_\\infty|}{X_{12}}\\sin\\delta\\)，三個時段的 \\(|E'|\\) 與 \\(V_\\infty=1\\) 不變，只有 \\(E'\\) 到無限匯流排的轉移電抗 \\(X_{12}\\) 改變。先用故障前的端電壓與輸出功率回推暫態電抗後的內電勢 \\(|E'|\\)（步驟 1），再分別求故障前（雙線並聯）、故障中（Y-Δ 轉換）、清除後（單線）的 \\(X_{12}\\)。共用前提：\\(|V_t|=|V_\\infty|=1.0\\) pu，\\(V_\\infty=1\\angle0^\\circ\\) 為參考相量。",
   "type": "ps-ts-equal-area"
  },
  "EE-108-06-1": {
-  "chapter": "dist-distribution-equipment",
+  "chapter": "dist-protection-coordination",
   "logicMd": "所求比壓式是 \\(V_2/V_1\\)。前提：正弦穩態（相量、\\(s=j\\omega\\)），\\(C_1\\)、\\(C_2\\)、\\(L\\) 為理想元件（不計 \\(L\\) 的電阻與電容漏電），\\(Z_B\\) 為任意負擔阻抗。\n1. \\(C_1\\)、\\(C_2\\) 構成電容分壓器，中點 \\(a\\) 經補償電抗器 \\(L\\) 串接負擔 \\(Z_B\\) 到地；把 \\(L\\)–\\(Z_B\\) 支路拿掉，對中點 \\(a\\) 作戴維寧等效（\\(V_{th}\\)、\\(Z_{th}\\)）。\n2. 再接回 \\(L\\)、\\(Z_B\\) 串聯支路，\\(V_2\\) 就是 \\(Z_B\\) 上的分壓。依序先求 \\(V_{th}\\)，再求 \\(Z_{th}\\)。\n3. 求 \\(V_2/V_1\\) 並化簡成 \\(s\\) 多項式。\n4. 求工頻下補償電抗的條件。",
   "type": "dist-prot-cvt-ratio"
  },
  "EE-108-06-2": {
-  "chapter": "dist-voltage-drop",
+  "chapter": "dist-harmonics-mitigation",
   "logicMd": "前提：題圖只給電抗，忽略全部電阻；電源視為理想電動勢串短路電抗。\n1. （一）把單線圖每個設備換成同一基準（\\(S_b=30\\,\\mathrm{MVA}\\)）的標么電抗，串成「電源—測定點—線路—主變—11.4 kV 母線—爐變—電弧爐」的阻抗圖。\n2. （二）電弧爐以其標示阻抗 \\(Z_F=8\\%\\) 當定阻抗負載，測定點電壓 \\(V_M\\) 是電源電動勢 \\(E=1\\angle0^\\circ\\) 在測定點下游總電抗上的分壓，突降百分率 \\(=X_S/(X_S+X_{down})\\)。\n3. （三）串聯電抗器裝在 11.4 kV 側，屬測定點下游，只增加分母。\n4. 令突降 \\(=1.5\\%\\) 解出 \\(X_R\\)，再乘 11.4 kV 側阻抗基準換成歐姆。",
   "type": "dist-pq-arc-flicker"
  },
@@ -767,7 +767,7 @@ const BREAKDOWN_DRILL = {
   "type": "ct-lap-pole-stability"
  },
  "EE-109-01-3": {
-  "chapter": "ct-superposition",
+  "chapter": "ct-node-mesh",
   "logicMd": "中心節點接地，兩個浮接電壓源各自把相鄰兩節點併成超節點。\n1. 節點方程為「兩條電壓約束＋兩個超節點 KCL」，解出 \\(V_1\\sim V_4\\)。\n2. 平面電路的對偶把節點 KCL 換成網目 KVL：節點電壓 \\(\\leftrightarrow\\) 網目電流、電導 \\(G\\ (\\mathrm S)\\leftrightarrow\\) 電阻 \\(R'=G\\ (\\Omega)\\)、電壓源 \\(\\leftrightarrow\\) 電流源、電流源 \\(\\leftrightarrow\\) 電壓源、接地節點 \\(\\leftrightarrow\\) 外圍網目。\n3. 方程同形，解也相同。\n4. 依對偶方程畫出對偶網路，並以節點法回解確認元件值與極性。",
   "type": "ct-nm-dual-network"
  },
@@ -837,12 +837,12 @@ const BREAKDOWN_DRILL = {
   "type": "emach-im-loop-torque"
  },
  "EE-109-04-4": {
-  "chapter": "emach-induction-motor-equiv",
+  "chapter": "emach-single-phase-rotating-field",
   "logicMd": "各相磁動勢是空間向量：大小 \\(N|i|\\)，方向在該相相軸上，電流為正時指向相軸正方向、為負時指向反方向（角度加 \\(180^\\circ\\)）。某一瞬間的合成磁動勢＝三相磁動勢向量和：先代入該瞬間求三相電流，再把三個向量化成直角分量相加，最後寫出大小與角度。（三）由一般時刻的合成向量角度隨時間變化的速率得旋轉頻率。記號：\\(\\mathbf F_a,\\mathbf F_b,\\mathbf F_c\\) 為各相磁動勢向量，\\(\\mathbf F\\) 為合成。",
   "type": "emach-rotating-field-sum"
  },
  "EE-109-04-5": {
-  "chapter": "emach-synchronous-salient-pole",
+  "chapter": "emach-reluctance-motor",
   "logicMd": "鐵心 \\(\\mu_r\\to\\infty\\)，磁阻只剩兩個氣隙：磁通由定子一極穿過氣隙進入轉子，再穿過另一端氣隙回到定子，兩氣隙串聯；每個氣隙的截面積是「重疊弧長 \\(r_1\\theta\\) × 厚度 \\(h\\)」，所以磁阻隨 \\(\\theta\\) 變。前提：忽略邊緣效應與漏磁，氣隙面積以轉子半徑 \\(r_1\\) 計（\\(g\\ll r_1\\)）；\\(\\theta\\) 以弧度計，且在部分重疊範圍內（重疊面積與 \\(\\theta\\) 成正比）。\n1. （一）\\(L=N^2/\\mathcal R(\\theta)\\)。\n2. （二）磁路線性，用共能 \\(W'=\\tfrac12L(\\theta)i^2\\)。\n3. 在電流固定下對 \\(\\theta\\) 微分得扭力。",
   "type": "emach-vr-inductance-coenergy"
  },
@@ -862,7 +862,7 @@ const BREAKDOWN_DRILL = {
   "type": "ps-lf-newton-raphson"
  },
  "EE-109-05-4": {
-  "chapter": "ps-symmetrical-components",
+  "chapter": "ps-unsymmetrical-faults",
   "logicMd": "先依表列電抗與變壓器接線畫出正、負、零序網路，從匯流排 1 看入（電源短路）求三個戴維寧相序阻抗 \\(Z_1,Z_2,Z_0\\)。三相故障只用正序網路：\\(I_f=V_f/Z_1\\)；b-c 線間故障把正、負序網路在故障點並聯（零序不參與），求出 \\(I_{a1}\\) 後以對稱成分轉回相電流 \\(I_b=(a^2-a)I_{a1}\\)。共用前提：故障前電壓 \\(V_f=1\\angle0^\\circ\\) pu。",
   "type": "ps-uf-line-to-line"
  },
@@ -872,7 +872,7 @@ const BREAKDOWN_DRILL = {
   "type": "ps-ed-loss-coordination"
  },
  "EE-109-05-6": {
-  "chapter": "ps-transient-stability-equal-area",
+  "chapter": "ps-economic-dispatch",
   "logicMd": "負載突增後，兩機調速器依下垂特性（droop）增加出力，穩態時兩機同在一個頻率。主線：把各機的速率調整率 \\(R_i\\)（以自身額定為基準）換成以 MW/Hz 表示的頻率響應 \\(\\beta_i\\) → 系統總響應 \\(\\beta=\\beta_1+\\beta_2+D\\) → 由「發電增量 = 負載增量」求 \\(\\Delta f\\) → 各機增量 \\(\\Delta P_i=-\\beta_i\\Delta f\\)，加回原出力。前提：只有一次（調速器）控制、無二次控制（AGC）把頻率拉回；\\(D=0\\)；\\(f_0=60\\) Hz。",
   "type": "ps-lfc-droop"
  },
@@ -912,7 +912,7 @@ const BREAKDOWN_DRILL = {
   "type": "ct-tp-abcd-cascade"
  },
  "EE-110-01-3": {
-  "chapter": "ct-second-order-rlc",
+  "chapter": "ct-phasor-ac",
   "logicMd": "題給的 \\(X_L\\)、\\(X_C\\) 是 5 kHz 時的值，先用 \\(X_L\\propto f\\)、\\(X_C\\propto1/f\\) 換到任意頻率，令兩者相等求 \\(f_0\\)，再得 \\(Q_0=X_{L0}/R\\) 與諧振時各端電壓（此時 \\(Z=R\\)）。\\(v_C\\)、\\(v_L\\) 的最大值不在 \\(f_0\\)：把 \\(|V_C|\\)、\\(|V_L|\\) 寫成正規化頻率 \\(u=f/f_0\\) 的函數，對分母求極小。前提：\\(R\\) 不隨頻率變；電源振幅固定為峰值 \\(V_m=100\\ \\mathrm V\\)，所求「端電壓峰值」即振幅。",
   "type": "ct-ac-series-resonance"
  },
@@ -1002,7 +1002,7 @@ const BREAKDOWN_DRILL = {
   "type": "emach-im-start-modify"
  },
  "EE-110-05-1": {
-  "chapter": "ps-transient-stability-equal-area",
+  "chapter": "ps-power-analysis",
   "logicMd": "兩小題都忽略電阻。\n1. （一）圓型轉子機只有一個同步電抗，\\(E\\) 與無窮母線 \\(V\\) 之間的總串聯電抗 \\(X\\)（同步電抗 + 兩線並聯）決定功率傳輸 \\(P=\\dfrac{EV}{X}\\sin\\delta\\)，反求 \\(\\delta\\)。\n2. （二）凸極機用雙反應理論：電流分成 q 軸分量 \\(I_q\\) 與 d 軸分量 \\(I_d\\)，相量關係 \\(E=V+jX_dI_d+jX_qI_q\\)。\n3. 功因 1 時電流與 \\(V\\) 同相，所以電流與 q 軸（\\(E\\) 的方向）夾角就是 \\(\\delta\\)。\n4. 把相量圖分別投影到「垂直 q 軸」與「沿 q 軸」兩個方向，各得一條只含 \\(X_q\\) 或 \\(X_d\\) 的方程。",
   "type": "ps-pa-salient-two-reaction"
  },
@@ -1062,7 +1062,7 @@ const BREAKDOWN_DRILL = {
   "type": "ct-mi-mesh-dot"
  },
  "EE-111-01-3": {
-  "chapter": "ct-second-order-rlc",
+  "chapter": "ct-phasor-ac",
   "logicMd": "\\(v_o\\) 是 \\(R\\) 與串聯 \\(LC\\) 並聯後的節點電壓；電路為初始能量為零的線性非時變網路，\\(H(s)\\) 以零初值的 \\(s\\) 域阻抗求得。\n1. 先在 \\(s\\) 域把 \\(Z_{LC}=sL+\\frac1{sC}\\) 與 \\(R\\) 並聯成 \\(Z_p\\)。\n2. 再由 \\(R_o\\) 與 \\(Z_p\\) 分壓得 \\(H(s)\\)，整理成標準二階帶拒形式並讀出 \\(\\omega_0^2\\)、\\(\\alpha\\)。\n3. （二）代入元件值，以「\\(|H(j\\omega)|\\) 降為通帶增益的 \\(1/\\sqrt2\\)」為截止條件。\n4. 解兩個二次式得 \\(\\omega_1,\\omega_2\\)，相減即頻寬。",
   "type": "ct-ac-filter-bandwidth"
  },
@@ -1372,7 +1372,7 @@ const BREAKDOWN_DRILL = {
   "type": "el-pe-isolated"
  },
  "EE-113-03-1": {
-  "chapter": "em-first-order-ode",
+  "chapter": "em-second-order-ode-nonhomogeneous",
   "logicMd": "二階常係數線性方程，右邊含 \\(\\csc x\\)，不屬於待定係數法可猜的形式，故用參數變異法。依序：特徵方程求齊次解 \\(y_1,y_2\\) → Wronskian \\(W\\) → \\(u_1'=-y_2g/W\\)、\\(u_2'=y_1g/W\\)（方程已是 \\(y''\\) 係數為 1 的標準式，\\(g=e^{2x}\\csc x\\)）→ 積分得 \\(u_1,u_2\\) → \\(y_p=u_1y_1+u_2y_2\\) → \\(y=y_h+y_p\\)。\\(\\csc x\\) 在 \\(\\sin x=0\\) 處無定義，解只在不含 \\(x=k\\pi\\) 的區間上成立。",
   "type": "em-ode2-variation-params"
  },
@@ -1422,7 +1422,7 @@ const BREAKDOWN_DRILL = {
   "type": "emach-im-equiv-solve"
  },
  "EE-113-04-5": {
-  "chapter": "emach-induction-motor-equiv",
+  "chapter": "emach-single-phase-rotating-field",
   "logicMd": "前提為轉子靜止（啟動瞬間）、兩繞組空間相隔 \\(90^\\circ\\)、取 \\(\\underline V=240\\angle0^\\circ\\) V 為相位參考；扭力常數 \\(K\\) 與電容無關；題給 4 極只影響轉速，與啟動電容、扭力比無關。兩繞組並聯接同一電源 \\(\\underline V\\)，各繞組電流 \\(\\underline I=\\underline V/Z\\)，電流相角＝阻抗角的負值。\n1. 先求主繞組電流與其相角（步驟 1）、無電容時輔助繞組電流（步驟 2）。\n2. 輔助繞組串聯電容 \\(C\\) 後阻抗變為 \\(Z_a-jX_C\\)，令其電流超前 \\(\\underline I_m\\) 共 \\(90^\\circ\\) 解出 \\(X_C\\)，再換成 \\(C\\)。\n3. 啟動扭力 \\(T_{st}=K|I_m||I_a|\\sin\\alpha\\)（\\(\\alpha\\) 為兩電流相角差）。\n4. 有、無電容兩情形 \\(K\\)、\\(|I_m|\\) 相同，相除即得比值。",
   "type": "emach-1ph-cap-start"
  },
@@ -1442,7 +1442,7 @@ const BREAKDOWN_DRILL = {
   "type": "ps-ed-lossless"
  },
  "EE-113-05-4": {
-  "chapter": "ps-transient-stability-equal-area",
+  "chapter": "ps-economic-dispatch",
   "logicMd": "速度調節率描述調速機的下垂特性：轉速（頻率）分數偏差與機械功率偏差成正比、方向相反，\\(\\Delta\\omega/\\omega=-R\\,\\Delta P_M\\)。同步機轉速與電氣頻率成正比，故 \\(\\Delta\\omega/\\omega=\\Delta f/f_0\\)。（一）由頻率偏差反求 \\(\\Delta P_M\\)；（二）由 \\(\\Delta P_M=1\\) 求 \\(\\Delta f\\)。前提：\\(P_M\\) 標么值以發電機額定 500 MW 為基準；分數偏差的分母取額定頻率 \\(f_0=60\\) Hz；下垂特性為直線、調速機無死區且不做補充（二次）控制。",
   "type": "ps-lfc-droop"
  },
@@ -1502,7 +1502,7 @@ const BREAKDOWN_DRILL = {
   "type": "el-diff-bjt-pair"
  },
  "EE-114-02-2": {
-  "chapter": "el-mosfet-bias-small-signal",
+  "chapter": "el-active-filter",
   "logicMd": "電路為線性小訊號模型，前提：直流時電容開路；$\\omega_z\\gg\\omega_H$（題設），$\\omega_H$ 由主極點決定，可用開路時間常數法（OCTC）近似。$A_{vo}$：電容開路後，$R_s$–$R_a$ 分壓得 $v_a$，受控電流流過 $R_L$ 得 $v_o$。$\\omega_z$：輸出節點 KCL 令 $v_o=0$，$C_a$ 前饋電流與 $G_mv_a$ 相消的頻率即零點。$\\omega_H$：令 $v_s=0$，逐一求 $C_a$、$C_L$ 所見電阻（其餘電容開路），$\\omega_H\\simeq1/(\\tau_a+\\tau_L)$。",
   "type": "el-af-time-constant"
  },

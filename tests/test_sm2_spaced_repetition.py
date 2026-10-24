@@ -32,9 +32,20 @@ process.stdout.write(JSON.stringify(result));
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
 
+    def test_v171_fail_and_hard_intervals(self):
+        result = self.run_store("""(() => { const now = new Date(2026, 9, 24, 12);
+          const x = calculateSM2ReviewItem({repetitions: 3, interval: 11, easeFactor: 2.6}, 1, now);
+          const tri1 = calculateSM2ReviewItem(null, 3, now);
+          const tri2 = calculateSM2ReviewItem(tri1, 3, now);
+          const o1 = calculateSM2ReviewItem(null, 5, now);
+          const o2 = calculateSM2ReviewItem(o1, 5, now);
+          return [x.interval, x.repetitions, x.nextReviewDate, tri1.interval, tri2.interval, o1.interval, o2.interval]; })()""")
+        self.assertEqual(result, [2, 0, "2026-10-26", 2, 4, 1, 4])  # × 2, △ 2 then 4, ○ unchanged (1 then 4)
+
     def test_calendar_dates_follow_browser_timezone_across_midnight(self):
         result = self.run_store("(() => { const now=new Date('2026-09-06T16:30:00.000Z'); const next=calculateSM2ReviewItem(null,3,now); return {today:formatLocalCalendarDate(now),last:next.lastReviewed,next:next.nextReviewDate}; })()")
-        self.assertEqual(result, {"today": "2026-09-07", "last": "2026-09-07", "next": "2026-09-08"})
+        # v1.7.1: a first △ (rating 3) comes back after 2 local days
+        self.assertEqual(result, {"today": "2026-09-07", "last": "2026-09-07", "next": "2026-09-09"})
 
     def test_due_list_uses_the_same_local_calendar_day(self):
         result = self.run_store("(() => { sm2Schedule={due:{nextReviewDate:'2026-09-07'},future:{nextReviewDate:'2026-09-08'}}; return getDueQuestionsList(new Date('2026-09-06T16:30:00.000Z')); })()")

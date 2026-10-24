@@ -165,7 +165,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '電子學',
     name: '二極體整流與濾波電路',
     level: 1,
-    prereqs: [],
+    prereqs: ['ct-complex-power'],
     coreFormula: 'V_{dc} = \\frac{2 V_m}{\\pi}, V_{r(p-p)} = \\frac{V_m}{2 f R_L C}',
     keyTrap: '全波橋式整流二極體 PIV = $V_m$，中點抽頭 PIV = $2V_m$。'
   },
@@ -255,7 +255,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '電力電子',
     name: '全橋變流器與 SPWM 調變',
     level: 4,
-    prereqs: ['el-pe-buck-boost'],
+    prereqs: ['el-pe-buck-boost', 'ct-first-order-rc-rl'],
     coreFormula: 'm_a = \\frac{V_{\\text{control}}}{V_{\\text{tri}}}, V_{o1} = m_a V_d',
     keyTrap: 'SPWM 調變指標 $m_a \\le 1.0$ 為線性區；上下臂切換需設置死區時間 (Dead-time)。'
   },
@@ -463,7 +463,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '電機機械',
     name: '單相感應電動機二相旋轉磁場',
     level: 2,
-    prereqs: ['emach-magnetic-circuits'],
+    prereqs: ['emach-magnetic-circuits', 'ct-phasor-ac'],
     coreFormula: '\\boldsymbol{\\Phi}=\\Phi_m(\\cos\\omega t\\,\\hat x+\\sin\\omega t\\,\\hat y)',
     keyTrap: '圖上兩繞組電流同時為峰值的 $1/\\sqrt{2}$ 時，合成磁通在 45° 斜向，不在單一繞組軸上。'
   },
@@ -483,7 +483,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '電機機械',
     name: '隱極同步發電機功角與相量圖',
     level: 3,
-    prereqs: ['emach-single-phase-transformer'],
+    prereqs: ['emach-single-phase-transformer', 'ct-phasor-ac'],
     coreFormula: '\\mathbf{E}_f = \\mathbf{V}_t + j I_a X_s, P = \\frac{E_f V_t}{X_s} \\sin\\delta',
     keyTrap: '滯後功因時 $E_f > V_t$ (過激發提供虛功)；超前功因時 $E_f < V_t$ (欠激發吸收虛功)。'
   },
@@ -527,7 +527,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '電力系統',
     name: '電力潮流與導納矩陣',
     level: 2,
-    prereqs: ['ps-per-unit'],
+    prereqs: ['ps-per-unit', 'ct-node-mesh', 'ct-complex-power'],
     coreFormula: 'P_i = \\sum_j |V_i||V_j||Y_{ij}|\\cos(\\theta_i-\\theta_j-\\angle Y_{ij})',
     keyTrap: 'PV、PQ 與 swing 匯流排的已知量不同，反覆計算時不可混用。'
   },
@@ -607,7 +607,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '電力系統',
     name: '暫態穩定度與等面積準則 (Equal-Area)',
     level: 3,
-    prereqs: ['ps-transmission-line-models'],
+    prereqs: ['ps-power-analysis'],
     coreFormula: 'M \\frac{d^2\\delta}{dt^2} = P_m - P_e, \\int_{\\delta_0}^{\\delta_{cr}} (P_m - P_{e\\text{, fault}}) d\\delta = \\int_{\\delta_{cr}}^{\\delta_{\\max}} (P_{e\\text{, post}} - P_m) d\\delta',
     keyTrap: '臨界清除角 $\\delta_{cr}$ 滿足加速面積 $A_1$ 等於最大可減速面積 $A_2$。'
   },
@@ -617,7 +617,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '電力系統',
     name: '距離保護電驛三段式規劃',
     level: 4,
-    prereqs: ['ps-unsymmetrical-faults'],
+    prereqs: ['ps-unsymmetrical-faults', 'ps-three-phase-fault'],
     coreFormula: 'Z_{R1} = 0.8 \\sim 0.85 Z_L (0\\text{s}), Z_{R2} = Z_L + 0.5 Z_{\\text{next}} (0.3\\text{s}), Z_{R3} = Z_L + 1.2 Z_{\\text{next}} (0.8\\text{s})',
     keyTrap: 'Zone 1 嚴禁設置 100% 線路以避免超越 (Overreach)；Zone 2/3 需配合延時保護相鄰線路。'
   },
@@ -627,7 +627,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '電力系統',
     name: '電力系統狀態估計 (WLS 與壞資料檢測)',
     level: 5,
-    prereqs: ['ps-three-phase-fault'],
+    prereqs: ['ps-load-flow-admittance'],
     coreFormula: 'z = h(x) + e, \\hat{x} = (H^T R^{-1} H)^{-1} H^T R^{-1} z, J(\\hat{x}) = r^T R^{-1} r \\sim \\chi^2(m-n)',
     keyTrap: '殘差 J(x) 大於卡方分布臨界值時判定存在壞資料 (Bad Data)，透過標準化殘差法剔除。'
   },
@@ -681,7 +681,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '工業配電',
     name: '電動機配線與啟動',
     level: 2,
-    prereqs: ['dist-load-characteristics'],
+    prereqs: ['dist-load-characteristics', 'dist-short-circuit-capacity'],
     coreFormula: 'I_{start} = k I_{FL}, \\quad S_{motor} = \\frac{P_{out}}{\\eta \\cos\\phi}',
     keyTrap: '導線安培容量與啟動壓降需按連續運轉及啟動電流分別校核。'
   },
@@ -701,7 +701,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '工業配電',
     name: '功率因數改善與電容器組容量',
     level: 2,
-    prereqs: [],
+    prereqs: ['ct-complex-power'],
     coreFormula: 'Q_C = P (\\tan\\theta_1 - \\tan\\theta_2), I_{\\text{line, new}} = I_{\\text{line, old}} \\frac{\\cos\\theta_1}{\\cos\\theta_2}',
     keyTrap: '改善功因可釋放變壓器容量與減少線路損失：$\\Delta P_{\\text{loss}} \\propto (1/\\cos\\theta)^2$。'
   },
@@ -711,7 +711,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '工業配電',
     name: '短路容量計算 (MVA 法)',
     level: 3,
-    prereqs: [],
+    prereqs: ['ps-per-unit'],
     coreFormula: '\\frac{1}{\\text{MVA}_{sc, \\text{total}}} = \\frac{1}{\\text{MVA}_1} + \\frac{1}{\\text{MVA}_2} \\text{ (串聯)}, \\text{MVA}_{\\text{parallel}} = \\sum \\text{MVA}_k',
     keyTrap: 'MVA 法中元件「串聯」計算方式類似電阻並聯；「並聯」直接相加！'
   },
@@ -721,7 +721,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '工業配電',
     name: '過電流電驛與保護協調 (TCC 曲線)',
     level: 4,
-    prereqs: ['dist-short-circuit-capacity'],
+    prereqs: ['dist-short-circuit-capacity', 'emach-three-phase-transformer'],
     coreFormula: 't = \\text{TMS} \\times \\left( \\frac{A}{(I/I_s)^p - 1} + B \\right) \\text{ (IEC 60255 標準反時限)}',
     keyTrap: '上下游保護電驛之協調時間間隔 (Coordination Time Interval, CTI) 通常需維持 0.3 ~ 0.4 秒。'
   },
@@ -731,7 +731,7 @@ const KNOWLEDGE_DAG = {
     subjectName: '工業配電',
     name: '電力品質：電壓閃爍與諧波分析',
     level: 4,
-    prereqs: ['dist-power-factor-correction'],
+    prereqs: ['dist-power-factor-correction', 'dist-short-circuit-capacity'],
     coreFormula: '\\Delta V_f=\\frac{X_{\\mathrm{up}}}{X_{\\mathrm{up}}+X_{\\mathrm{down}}},\\quad \\mathrm{THD}_V=\\frac{\\sqrt{\\sum_{h=2}^{\\infty}V_h^2}}{V_1}\\times100\\%,\\quad h_r=\\frac{1}{\\sqrt{p}}\\ (p=X_{L,1}/X_{C,1})',
     keyTrap: '先辨認題目是電弧爐閃爍或諧波共振：純電抗斷弧／導通模型才用分壓比例；含電阻時改用複數阻抗。諧波題須依頻率換算阻抗並檢查共振；串聯電抗器限制諧波放大，不代表消除全部諧波。'
   },

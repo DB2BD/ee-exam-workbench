@@ -2885,12 +2885,13 @@
       "qid": "EE-105-01-5",
       "examFamily": "PE",
       "nodeIds": [
-        "ct-second-order-rlc"
+        "ct-phasor-ac"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-105-01-5",
-        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+        "data/taxonomy/alias-map.json:ct-second-order-rlc",
+        "data/taxonomy/chapter-corrections.json:EE-105-01-5"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -2941,12 +2942,13 @@
       "qid": "EE-105-02-4",
       "examFamily": "PE",
       "nodeIds": [
-        "el-active-filter"
+        "el-diode-rectifier"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-105-02-4",
-        "data/taxonomy/alias-map.json:el-active-filter"
+        "data/taxonomy/alias-map.json:el-active-filter",
+        "data/taxonomy/chapter-corrections.json:EE-105-02-4"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -3305,12 +3307,13 @@
       "qid": "EE-106-01-2",
       "examFamily": "PE",
       "nodeIds": [
-        "ct-first-order-rc-rl"
+        "ct-second-order-rlc"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-106-01-2",
-        "data/taxonomy/alias-map.json:ct-first-order-rc-rl"
+        "data/taxonomy/alias-map.json:ct-first-order-rc-rl",
+        "data/taxonomy/chapter-corrections.json:EE-106-01-2"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -3432,12 +3435,13 @@
       "qid": "EE-106-03-2",
       "examFamily": "PE",
       "nodeIds": [
-        "em-matrix-det-inv"
+        "em-svd-linear-systems"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-106-03-2",
-        "data/taxonomy/alias-map.json:em-matrix-det-inv"
+        "data/taxonomy/alias-map.json:em-matrix-det-inv",
+        "data/taxonomy/chapter-corrections.json:EE-106-03-2"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4034,12 +4038,13 @@
       "qid": "EE-107-05-4",
       "examFamily": "PE",
       "nodeIds": [
-        "ps-unsymmetrical-faults"
+        "ps-symmetrical-components"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-107-05-4",
-        "data/taxonomy/alias-map.json:ps-unsymmetrical-faults"
+        "data/taxonomy/alias-map.json:ps-unsymmetrical-faults",
+        "data/taxonomy/chapter-corrections.json:EE-107-05-4"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4118,12 +4123,13 @@
       "qid": "EE-108-01-1",
       "examFamily": "PE",
       "nodeIds": [
-        "ct-phasor-ac"
+        "ct-superposition"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-108-01-1",
-        "data/taxonomy/alias-map.json:ct-phasor-ac"
+        "data/taxonomy/alias-map.json:ct-phasor-ac",
+        "data/taxonomy/chapter-corrections.json:EE-108-01-1"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4454,12 +4460,13 @@
       "qid": "EE-108-05-5",
       "examFamily": "PE",
       "nodeIds": [
-        "ps-three-phase-fault"
+        "ps-transient-stability-equal-area"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-108-05-5",
-        "data/taxonomy/alias-map.json:ps-three-phase-fault"
+        "data/taxonomy/alias-map.json:ps-three-phase-fault",
+        "data/taxonomy/chapter-corrections.json:EE-108-05-5"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4468,12 +4475,13 @@
       "qid": "EE-108-06-1",
       "examFamily": "PE",
       "nodeIds": [
-        "dist-distribution-equipment"
+        "dist-protection-coordination"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-108-06-1",
-        "data/taxonomy/alias-map.json:dist-distribution-equipment"
+        "data/taxonomy/alias-map.json:dist-distribution-equipment",
+        "data/taxonomy/chapter-corrections.json:EE-108-06-1"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4566,12 +4574,13 @@
       "qid": "EE-109-01-3",
       "examFamily": "PE",
       "nodeIds": [
-        "ct-superposition"
+        "ct-node-mesh"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-109-01-3",
-        "data/taxonomy/alias-map.json:ct-superposition"
+        "data/taxonomy/alias-map.json:ct-superposition",
+        "data/taxonomy/chapter-corrections.json:EE-109-01-3"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4762,12 +4771,13 @@
       "qid": "EE-109-04-4",
       "examFamily": "PE",
       "nodeIds": [
-        "emach-induction-motor-equiv"
+        "emach-single-phase-rotating-field"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-109-04-4",
-        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv",
+        "data/taxonomy/chapter-corrections.json:EE-109-04-4"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4776,12 +4786,13 @@
       "qid": "EE-109-04-5",
       "examFamily": "PE",
       "nodeIds": [
-        "emach-synchronous-salient-pole"
+        "emach-reluctance-motor"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-109-04-5",
-        "data/taxonomy/alias-map.json:emach-synchronous-salient-pole"
+        "data/taxonomy/alias-map.json:emach-synchronous-salient-pole",
+        "data/taxonomy/chapter-corrections.json:EE-109-04-5"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4832,12 +4843,14 @@
       "qid": "EE-109-05-4",
       "examFamily": "PE",
       "nodeIds": [
+        "ps-unsymmetrical-faults",
         "ps-symmetrical-components"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-109-05-4",
-        "data/taxonomy/alias-map.json:ps-symmetrical-components"
+        "data/taxonomy/alias-map.json:ps-symmetrical-components",
+        "data/taxonomy/chapter-corrections.json:EE-109-05-4"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4860,12 +4873,13 @@
       "qid": "EE-109-05-6",
       "examFamily": "PE",
       "nodeIds": [
-        "ps-transient-stability-equal-area"
+        "ps-economic-dispatch"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-109-05-6",
-        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area",
+        "data/taxonomy/chapter-corrections.json:EE-109-05-6"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -4972,12 +4986,13 @@
       "qid": "EE-110-01-3",
       "examFamily": "PE",
       "nodeIds": [
-        "ct-second-order-rlc"
+        "ct-phasor-ac"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-110-01-3",
-        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+        "data/taxonomy/alias-map.json:ct-second-order-rlc",
+        "data/taxonomy/chapter-corrections.json:EE-110-01-3"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -5224,12 +5239,13 @@
       "qid": "EE-110-05-1",
       "examFamily": "PE",
       "nodeIds": [
-        "ps-transient-stability-equal-area"
+        "ps-power-analysis"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-110-05-1",
-        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area",
+        "data/taxonomy/chapter-corrections.json:EE-110-05-1"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -5393,12 +5409,13 @@
       "qid": "EE-111-01-3",
       "examFamily": "PE",
       "nodeIds": [
-        "ct-second-order-rlc"
+        "ct-phasor-ac"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-111-01-3",
-        "data/taxonomy/alias-map.json:ct-second-order-rlc"
+        "data/taxonomy/alias-map.json:ct-second-order-rlc",
+        "data/taxonomy/chapter-corrections.json:EE-111-01-3"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -6267,7 +6284,8 @@
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-113-03-1",
-        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous"
+        "data/taxonomy/alias-map.json:em-second-order-ode-nonhomogeneous",
+        "data/taxonomy/chapter-corrections.json:EE-113-03-1"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -6402,12 +6420,13 @@
       "qid": "EE-113-04-5",
       "examFamily": "PE",
       "nodeIds": [
-        "emach-induction-motor-equiv"
+        "emach-single-phase-rotating-field"
       ],
       "confidence": 0.9,
       "evidence": [
         "dashboard-data.js:EE-113-04-5",
-        "data/taxonomy/alias-map.json:emach-induction-motor-equiv"
+        "data/taxonomy/alias-map.json:emach-induction-motor-equiv",
+        "data/taxonomy/chapter-corrections.json:EE-113-04-5"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -6458,12 +6477,13 @@
       "qid": "EE-113-05-4",
       "examFamily": "PE",
       "nodeIds": [
-        "ps-transient-stability-equal-area"
+        "ps-economic-dispatch"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-113-05-4",
-        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area"
+        "data/taxonomy/alias-map.json:ps-transient-stability-equal-area",
+        "data/taxonomy/chapter-corrections.json:EE-113-05-4"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"
@@ -6626,12 +6646,13 @@
       "qid": "EE-114-02-2",
       "examFamily": "PE",
       "nodeIds": [
-        "el-mosfet-bias-small-signal"
+        "el-active-filter"
       ],
       "confidence": 0.92,
       "evidence": [
         "dashboard-data.js:EE-114-02-2",
-        "data/taxonomy/alias-map.json:el-mosfet-bias-small-signal"
+        "data/taxonomy/alias-map.json:el-mosfet-bias-small-signal",
+        "data/taxonomy/chapter-corrections.json:EE-114-02-2"
       ],
       "reviewStatus": "approved",
       "sourcePriority": "deterministic"

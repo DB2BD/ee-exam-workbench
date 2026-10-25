@@ -384,6 +384,13 @@ function dailyPracticeGetCurrentQuestionId() {
   return session && session.questionIds ? session.questionIds[session.currentIndex] || null : null;
 }
 
+// 「第 1／3 題」 for the solution modal header; '' outside an active session.
+function dailyPracticeGetProgressText() {
+  const session = dailyPracticeState && dailyPracticeState.activeSession;
+  if (!session || !Array.isArray(session.questionIds) || !session.questionIds.length) return '';
+  return '第 ' + (Number(session.currentIndex || 0) + 1) + '／' + session.questionIds.length + ' 題';
+}
+
 function dailyPracticeGetModalState(qid) {
   const session = dailyPracticeState && dailyPracticeState.activeSession;
   const value = session && session.modalByQuestion && session.modalByQuestion[qid];
@@ -718,8 +725,8 @@ function homeDueReviewRefresh() {
     title = '今日份已完成・再來 ' + Math.min(quota, due) + ' 題';
     note = '還有 ' + due + ' 題到期，留到明天也可以';
   } else if (due > 0) {
-    title = '到期複習（今日 ' + Math.min(quota, due) + ' 題）';
-    note = '共 ' + due + ' 題到期' + (done ? '・今天已複習 ' + done + ' 題' : '');
+    title = '到期複習 ' + Math.min(quota, due) + ' 題';
+    note = '今天的份量（共 ' + due + ' 題到期）' + (done ? '・已複習 ' + done + ' 題' : '');
   }
   button.innerHTML = '<span class="ui-ico">' + uiIcon('rotate-ccw') + '</span><strong>' + title + '</strong><small>' + note + '</small>';
 }

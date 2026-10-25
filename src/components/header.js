@@ -21,7 +21,7 @@ function updateQuestionCountLabels() {
   return peCount;
 }
 
-/** 「今天：<今天任務代碼或 已完成>｜到期 N 題｜<成績一行>」 */
+/** 「今天：<今天任務名稱或 已完成>｜<成績一行>」; the due-review count lives on the 到期複習 card only. */
 function headerTodayLabel() {
   try {
     if (typeof todayTaskViewModel !== 'function' || typeof loadTodayTaskState !== 'function') return '—';
@@ -29,18 +29,17 @@ function headerTodayLabel() {
     if (vm.mode === 'done') return '已完成';
     if (vm.mode === 'exam-check') return '考前確認';
     if (vm.mode === 'stop') return '停止新增練習';
-    return vm.code || '已完成';
+    if (vm.primaryAction === 'resume' && vm.activeTitle) return vm.activeTitle;
+    return vm.title || vm.code || '已完成';
   } catch (_) {
     return '—';
   }
 }
 
 function headerSummaryText() {
-  let due = 0;
-  try { due = typeof getDueQuestionsList === 'function' ? getDueQuestionsList().length : 0; } catch (_) { due = 0; }
   let score = '估計總分：尚無資料';
   try { if (typeof scoreboardSummaryLine === 'function') score = scoreboardSummaryLine(); } catch (_) { /* keep default */ }
-  return `今天：${headerTodayLabel()}｜到期 ${due} 題｜${score}`;
+  return `今天：${headerTodayLabel()}｜${score}`;
 }
 
 function updateHeaderSummary() {

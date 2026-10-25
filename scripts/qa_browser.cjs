@@ -286,7 +286,7 @@ async function main() {
         assert.deepEqual(await rows.locator('td.sb-pace-num:nth-child(3)').allInnerTexts(), ['10/12', '10/12', '10/13', '10/13']);
         assert(/^落後約 \d+(\.\d+)? 小時（4 項未按日程完成）$/.test((await pace.locator('.sb-pace-line').innerText()).trim()), 'Status line');
         assert(/^下一關卡 10\/17 核心收尾關卡：剩 \d+ 項，需 [\d.]+ 小時／可用 [\d.]+ 小時$/.test((await pace.locator('.sb-pace-next').innerText()).trim()), 'Next milestone line');
-        assert.equal(await pace.locator('details.sb-pace-cut').getAttribute('open'), null, '已自動刪減 starts collapsed');
+        assert.equal(await pace.locator('details.sb-pace-cut').getAttribute('open'), null, '先跳過 starts collapsed');
         const overflow = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
         assert(overflow.scroll <= overflow.client, `No horizontal scroll at 390px (${overflow.scroll} > ${overflow.client})`);
         await pace.screenshot({ path: path.join(artifacts, 'scoreboard-pace-390.png') });
@@ -458,6 +458,54 @@ async function main() {
       } catch (error) {
         await pageB.screenshot({ path: path.join(artifacts, 'failure-cross-tab.png'), fullPage: true }).catch(() => {});
         results.push({ scenario: 'cross-tab-sync', passed: false, error: String(error), browserErrors: errors });
+        throw error;
+      } finally {
+        await context.close();
+      }
+    }
+    // v1.8.5 返回鍵: back closes the solution window first, then walks back through the tabs; it never leaves the
+    // workbench. A window closed with its own button leaves no extra back step behind.
+    {
+      const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', error => errors.push(String(error)));
+      await context.route('**/*', route => route.request().url().startsWith(url) ? route.continue() : route.abort());
+      page.setDefaultTimeout(15000);
+      try {
+        await page.goto(url);
+        await page.locator('#today-task-card .today-task-card').waitFor();
+        const activeTab = () => page.evaluate(() => document.querySelector('.main-tab-btn.active').id);
+        const modalOpen = () => page.evaluate(() => document.getElementById('solution-modal').classList.contains('show'));
+        const openFirst = () => page.evaluate(() => {
+          const r = toQuestionRecord(DB_DATA.questions[0], 'PE');
+          openSolutionModal(null, r.solutionLink, r.id, r.number, { mode: 'browse' });
+        });
+        await page.click('#tab-btn-scoreboard');
+        assert.equal(await page.getAttribute('#tab-btn-scoreboard', 'aria-current'), 'page');
+        assert.equal(await page.getAttribute('#tab-btn-practice', 'aria-current'), null);
+        await openFirst();
+        assert.ok(await modalOpen(), 'solution window opens');
+        await page.goBack();
+        await page.waitForFunction(() => !document.getElementById('solution-modal').classList.contains('show'));
+        assert.equal(await activeTab(), 'tab-btn-scoreboard', 'back closed the window and stayed on 成績');
+        await page.goBack();
+        await page.waitForFunction(() => document.querySelector('.main-tab-btn.active').id === 'tab-btn-practice');
+        assert.ok(page.url().startsWith(url), 'still on the workbench');
+        // Closed with its own button, then reopened before the history step lands (保存並下一題): one entry, one back.
+        await openFirst();
+        await page.evaluate(() => { closeModal(); const r = toQuestionRecord(DB_DATA.questions[1], 'PE'); openSolutionModal(null, r.solutionLink, r.id, r.number, { mode: 'browse' }); });
+        await page.waitForTimeout(300);
+        assert.ok(await modalOpen(), 'reopened window stays open after the pending back step');
+        await page.goBack();
+        await page.waitForFunction(() => !document.getElementById('solution-modal').classList.contains('show'));
+        assert.ok(page.url().startsWith(url), 'one back closes the reopened window, still on the workbench');
+        assert.deepEqual(errors, []);
+        results.push({ width: 390, scenario: 'back-button', passed: true });
+        console.log('PASS back button 390px: closes the solution window, then 成績 -> 今天, never leaves; aria-current follows the tab');
+      } catch (error) {
+        await page.screenshot({ path: path.join(artifacts, 'failure-back-button.png'), fullPage: true }).catch(() => {});
+        results.push({ scenario: 'back-button', passed: false, error: String(error), browserErrors: errors });
         throw error;
       } finally {
         await context.close();
@@ -676,7 +724,7 @@ async function main() {
         assert.equal(await host.locator('.hs-attr').count(), 6, 'Six subject attributes');
         assert.deepEqual(await host.locator('.hs-attr-k').allInnerTexts(), ['電路', '電子', '工數', '電機', '電力', '配電']);
         // the header one-liner and the window agree
-        assert((await page.locator('#header-summary-line').innerText()).includes(`估計總分 ${expected.score.total}／${expected.score.target}`));
+        assert((await page.locator('#header-summary-line').textContent()).includes(`估計總分 ${expected.score.total}／${expected.score.target}`));
         // collapsible: phones start collapsed, desktop expanded; the toggle flips it and keeps aria in sync
         const toggle = page.locator('#hs-toggle');
         const startsCollapsed = width < 641;

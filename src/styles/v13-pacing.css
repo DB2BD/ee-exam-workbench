@@ -9,6 +9,7 @@
   overflow-wrap: anywhere;
 }
 .today-pacing-milestone,
+.today-pacing-pace,
 .today-pacing-cut,
 .today-pacing-suggestion {
   grid-column: 1 / -1;
@@ -21,7 +22,11 @@
 }
 .today-pacing-milestone { background: var(--surface); border: 1px solid var(--line); color: var(--accent-dark); font-weight: 700; }
 .today-pacing-milestone.is-missed { background: var(--review-light); border-color: var(--review); color: var(--review); }
-.today-pacing-cut { background: var(--warn-light); border: 1px solid var(--warn); color: var(--ink); }
+.today-pacing-cut { background: var(--bg-secondary); border: 1px solid var(--line); color: var(--ink-light); }
+.today-pacing-pace { margin: 0; padding: 0 2px; font-size: .88rem; line-height: 1.5; color: var(--ink-light); }
+.today-pacing-pace.is-behind { color: var(--warn-ink); font-weight: 700; }
+.today-pacing-pace.is-ahead { color: var(--accent-dark); font-weight: 700; }
+.today-task-code { margin-left: 4px; padding: 1px 6px; border-radius: var(--radius-sm); background: var(--bg-secondary); color: var(--ink-light); font-family: var(--font-mono); font-size: .72rem; font-weight: 600; vertical-align: middle; white-space: nowrap; }
 .today-pacing-suggestion { background: var(--success-light); border: 1px solid var(--success); color: var(--ink); }
 .today-task-launch { display: flex; }
 .today-task-launch .today-task-start { width: 100%; }

@@ -123,6 +123,9 @@
   #solution-modal .modal-actions { flex-wrap: nowrap; flex: 0 0 auto; gap: 4px; }
   #solution-modal .modal-actions button { padding: 0; min-width: 40px; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
   #solution-modal .modal-actions .sm-lbl { display: none; }
+  /* The status toggle is the one icon whose meaning is not obvious (a bare dot): keep its word. */
+  #solution-modal .modal-actions #modal-status-btn { padding: 0 8px; }
+  #solution-modal .modal-actions #modal-status-btn .sm-lbl { display: inline; font-size: .78rem; }
   #solution-modal .modal-actions .sm-ico { font-size: 1.1rem; line-height: 1; }
   #solution-modal #btn-active-recall { display: none; }
   #solution-modal.sm-recall-entry #btn-modal-active-recall { display: none; }

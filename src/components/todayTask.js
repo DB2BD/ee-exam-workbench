@@ -373,14 +373,20 @@ function todayTaskDueCount(now) {
   try { return getDueQuestionsList(now).length; } catch (e) { return 0; }
 }
 
-// The single status line: 已完成 N／總數｜milestone｜pace｜到期複習 N 題 (empty parts are skipped).
+// The progress line: 已完成 N／總數｜milestone (empty parts are skipped). The pace sits on its own line
+// (todayTaskPaceHtml) and the due-review count only on the 到期複習 card, so each number appears once.
 function todayTaskStatusLine(vm) {
   const parts = [];
   if (vm.total) parts.push('已完成 ' + vm.doneCount + '／' + vm.total);
   if (vm.milestoneText) parts.push(vm.milestoneText);
-  if (vm.paceText) parts.push(vm.paceText);
-  if (vm.dueCount > 0) parts.push('到期複習 ' + vm.dueCount + ' 題');
   return parts.join('｜');
+}
+
+// 「落後約 N 小時（…）」／「照日程」／「超前約 N 小時」 as its own line, toned by direction.
+function todayTaskPaceHtml(vm) {
+  if (!vm.paceText) return '';
+  const tone = vm.pacing && vm.pacing.behindCount > 0 ? ' is-behind' : vm.paceText.indexOf('超前') === 0 ? ' is-ahead' : '';
+  return '<p class="today-pacing-pace' + tone + '">' + todayTaskEscape(vm.paceText) + '</p>';
 }
 
 function todayTaskCutNote(pacing) {
@@ -391,7 +397,7 @@ function todayTaskCutNote(pacing) {
 function todayTaskCutText(pacing) {
   if (!pacing.cut.length) return '';
   const note = todayTaskCutNote(pacing);
-  return '已自動刪減：' + todayTaskCompressCodes(pacing.cut) + '（有空再做）' + (note ? '；' + note : '');
+  return '今天先跳過：' + todayTaskCompressCodes(pacing.cut) + '（有空再做）' + (note ? '；' + note : '');
 }
 
 // Card html for the cut line: few ranges stay inline; a long list collapses into a <details> under a short summary.
@@ -402,7 +408,7 @@ function todayTaskCutHtml(vm) {
   const ranges = todayTaskCompressCodes(pacing.cut);
   if (ranges.split('、').length <= 3) return '<p class="today-pacing-cut">' + todayTaskEscape(vm.cutText) + '</p>';
   const note = todayTaskCutNote(pacing);
-  return '<div class="today-pacing-cut"><details><summary>已自動刪減 ' + pacing.cut.length + ' 項（有空再做）</summary><p>' + todayTaskEscape(ranges) + '</p></details>' +
+  return '<div class="today-pacing-cut"><details><summary>今天先跳過 ' + pacing.cut.length + ' 項（有空再做）</summary><p>' + todayTaskEscape(ranges) + '</p></details>' +
     (note ? '<p>' + todayTaskEscape(note) + '</p>' : '') + '</div>';
 }
 
@@ -499,7 +505,7 @@ function todayTaskViewModel(state, now, options) {
     text: (state.active.holdDate >= todayIso ? '今天的閉卷已完成，明天接續 ' : '接續 ') + state.active.code + '：核對＋修復',
   } : null;
   const restText = rest.length
-    ? '今天還有：' + rest.map(i => i.code + (i.partText ? '（' + i.partText + '）' : '') + '｜' + i.title).join('；') : '';
+    ? '今天還有：' + rest.map(i => i.title + (i.partText ? '（' + i.partText + '）' : '') + '（' + i.code + '）').join('；') : '';
   return {
     mode,
     todayIso,
@@ -573,6 +579,7 @@ function todayTaskCardHtml(vm) {
   const plan = restDay ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
   const pacingLines = restDay ? '' :
     (todayTaskStatusLine(vm) ? '<p class="today-pacing-milestone' + (vm.pacing && vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(todayTaskStatusLine(vm)) + '</p>' : '') +
+    todayTaskPaceHtml(vm) +
     todayTaskCutHtml(vm) +
     (vm.suggestion ? '<p class="today-pacing-suggestion">' + esc(vm.suggestion) + '</p>' : '');
   let body;
@@ -584,21 +591,23 @@ function todayTaskCardHtml(vm) {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">全部完成</span><strong>日程的 ' + vm.total + ' 個任務都完成了</strong><p class="today-task-note">可改用下方「隨機練習 3 題」或到期複習，維持手感即可。</p></div>';
   } else if (vm.mode === 'day-done') {
     const extra = vm.code
-      ? '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' 選做下一個：' + esc(vm.code) + '</button></div>' : '';
+      ? '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' 選做下一個</button></div>' : '';
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天的份量已完成，可以收工</strong>' +
-      '<p class="today-task-note">還有餘力可選做下一個（' + esc(vm.code ? vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
+      '<p class="today-task-note">還有餘力可選做下一個（' + esc(vm.code ? vm.title + ' · ' + vm.totalMinutes + ' 分鐘，' + vm.code : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
   } else if (vm.mode === 'idle') {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可用下方「隨機練習 3 題」維持手感。</p></div>';
   } else {
     const resume = vm.primaryAction === 'resume';
     const dayNote = vm.part === 'closed' ? '（今天閉卷，明天核對＋修復）' : '';
-    let label;
-    if (resume && vm.held) label = vm.held.text;
-    else if (resume) label = '進行中：' + vm.active.code + '｜' + vm.activeTitle + '（' + vm.active.label + '）';
-    else label = '下一個任務：' + vm.code + '｜' + vm.title + ' · ' + vm.totalMinutes + ' 分鐘' + dayNote;
+    // The title leads; the schedule code (BLIND108-01, FOCUS-07…) is a small tag after it.
+    const codeTag = code => ' <code class="today-task-code">' + esc(code) + '</code>';
+    let eyebrow, label;
+    if (resume && vm.held) { eyebrow = '進行中'; label = esc(vm.held.text); }
+    else if (resume) { eyebrow = '進行中'; label = esc(vm.activeTitle + '（' + vm.active.label + '）') + codeTag(vm.active.code); }
+    else { eyebrow = '下一個任務'; label = esc(vm.title + ' · ' + vm.totalMinutes + ' 分鐘' + dayNote) + codeTag(vm.code); }
     const rest = vm.restText ? '<p class="today-pacing-rest">' + esc(vm.restText) + '</p>' : '';
     const buttonText = resume ? (vm.held ? (vm.held.sameDay ? '現在就核對' : '開始核對') : '繼續') : '開始';
-    body = '<div class="today-task-main"><span class="today-task-eyebrow">一鍵開始今天</span><strong>' + esc(label) + '</strong>' +
+    body = '<div class="today-task-main"><span class="today-task-eyebrow">' + eyebrow + '</span><strong>' + label + '</strong>' +
       rest + '</div>' +
       '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' ' + buttonText + '</button></div>';
   }

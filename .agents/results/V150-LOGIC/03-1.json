@@ -1,8 +1,0 @@
-[
-  {"qid": "EE-114-03-1", "logic_added": true, "steps_added": "步驟 1 事件定義與分割確認（權重和 = 1）；步驟 2 全機率公式，三條路徑乘積各一行再相加；科學記號改為一般小數", "figures": ["EE-114-03-1-tree.svg"], "test_string_updates": [], "suspected_answer_issue": "", "notes": "樹狀圖放在結果之後（圖上有路徑乘積數值）"},
-  {"qid": "EE-113-03-5", "logic_added": true, "steps_added": "（一）冪次法則逐分量、長度平方逐項、||r'|| >= 3 說明 T 處處有定義；（二）散度定理條件（封閉、向外、連續可微）、三個偏導各一行、球體積代入、常數提出", "figures": ["EE-113-03-5-sphere.svg"], "test_string_updates": [], "suspected_answer_issue": "", "notes": "子題標題補配分（10 分）；圖放在散度算出之後"},
-  {"qid": "EE-113-03-3", "logic_added": true, "steps_added": "步驟 1 換元；步驟 2 1+z^4=0 四根與上下半平面篩選；步驟 3 圍道與 ML 估計弧積分 -> 0；步驟 4 單極點留數 P/Q'、e^{-i3pi/4}、e^{-ipi/4} 直角座標分行相加；步驟 5 i^2 = -1 化簡", "figures": ["EE-113-03-3-contour.svg"], "test_string_updates": [], "suspected_answer_issue": "", "notes": "保留測試斷言的 boxed 字串，框外補 ≈1.57"},
-  {"qid": "EE-112-03-5", "logic_added": true, "steps_added": "移除 compact（10 分）；補已知與所求、失分點；步驟 1 乘積法則逐分量；步驟 2 速率（cos^2+sin^2=1）；T、kappa 各有邏輯行；t = 0 無定義前提", "figures": [], "test_string_updates": [], "suspected_answer_issue": "", "notes": "曲線幾何無得分所需的圖"},
-  {"qid": "EE-112-03-3", "logic_added": true, "steps_added": "步驟 1 事件、N = 163、發數比例權重；步驟 2 共用的 n_i p_i 各一行與總和；（一）全機率、化整數與約分分行；（二）貝氏、N 約去、318 約分", "figures": ["EE-112-03-3-tree.svg"], "test_string_updates": [], "suspected_answer_issue": "", "notes": "圖只標題給權重與符號，數值在步驟 2 之後推導；保留 5883/8150、12/37、(1-p_X)^{n} 斷言字串"},
-  {"qid": "EE-111-03-6", "logic_added": true, "steps_added": "步驟 1 分段積分通式與總面積 = 1 檢查；三子題各段上下限代入、通分各一行；中間值改為精確分數（移除兩位小數近似）", "figures": ["EE-111-03-6-pdf.svg"], "test_string_updates": [], "suspected_answer_issue": "", "notes": ""}
-]

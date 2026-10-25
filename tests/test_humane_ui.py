@@ -38,6 +38,21 @@ class TestHumaneUi(unittest.TestCase):
         self.assertIn('class="today-pacing-pace">照日程', even)
         self.assertEqual(node(src, "todayTaskPaceHtml({ paceText: '' })"), "")
 
+    def test_day_done_without_extra_task_offers_buttons_not_empty_parens(self):
+        src = ["src/components/icons.js", "src/components/todayTask.js"]
+        base = "{mode:'day-done', code:'', planText:'今天的份量已完成', total:67, doneCount:54, milestoneText:'', paceText:'超前約 18.5 小時', pacing:{behindCount:0, cut:[]}, suggestion:'12 份模考卷已全部完成，可加做 113 年整卷（選做，不影響日程）。', suggestionYear:%s}"
+        card = node(src, "todayTaskCardHtml(" + base % "113" + ")")
+        self.assertNotIn("（）", card)
+        self.assertIn('onclick="todayTaskOpenOptionalPaper(113)"', card)
+        self.assertIn("加做 113 年模考</button>", card)
+        self.assertIn('onclick="dailyPracticePrepareNewRound()"', card)
+        self.assertEqual(card.count("今天的份量已完成"), 1)  # title only, no repeated plan line
+        no_paper = node(src, "todayTaskCardHtml(" + base % "null" + ")")
+        self.assertNotIn("todayTaskOpenOptionalPaper", no_paper)
+        self.assertIn('class="today-task-start" id="today-task-start" onclick="dailyPracticePrepareNewRound()"', no_paper)
+        idle = node(src, "todayTaskCardHtml({mode:'idle', planText:'', pacing:{cut:[]}, suggestionYear:null})")
+        self.assertIn("隨機練習 3 題</button>", idle)
+
     def test_practice_progress_text(self):
         src = ["src/components/dailyPractice.js"]
         self.assertEqual(node(src, "(dailyPracticeState = { activeSession: { questionIds: ['a', 'b', 'c'], currentIndex: 0 } }, dailyPracticeGetProgressText())"), "第 1／3 題")

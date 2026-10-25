@@ -1526,6 +1526,19 @@ select:focus {
   cursor: pointer;
 }
 .today-task-start:hover, .today-task-start:focus-visible { background: var(--accent); }
+.today-task-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.today-task-secondary {
+  min-height: 44px;
+  padding: 8px 18px;
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.today-task-secondary:hover, .today-task-secondary:focus-visible { background: var(--surface-hover); }
 .today-task-overlay {
   display: none;
   position: fixed;
@@ -1576,7 +1589,7 @@ select:focus {
 .today-task-check { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--muted); }
 @media (max-width: 640px) {
   .today-task-card { grid-template-columns: 1fr; }
-  .today-task-start { width: 100%; }
+  .today-task-start, .today-task-secondary { width: 100%; }
   .today-task-timer { font-size: 1.6rem; }
   .today-task-foot .today-task-start { width: auto; flex: 1 1 100%; }
 }

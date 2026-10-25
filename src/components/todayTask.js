@@ -521,6 +521,7 @@ function todayTaskViewModel(state, now, options) {
     freshStart,
     cutText: freshStart ? '' : todayTaskCutText(pacing),
     suggestion: pacing.suggestion,
+    suggestionYear: pacing.suggestionYear || null,
     status: pacing.status,
     held,
     completedMap: state.completed,
@@ -571,12 +572,36 @@ function todayTaskQuestionImage(qid) {
   return typeof resolveImageMapUrl === 'function' ? resolveImageMapUrl(crop, isGK, qid) : crop;
 }
 
+// Optional work when no scheduled task is open: the suggested extra paper (模考分頁, year preselected) and 隨機練習 3 題.
+function todayTaskOptionalActionsHtml(vm) {
+  const paper = vm.suggestionYear
+    ? '<button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOpenOptionalPaper(' + Number(vm.suggestionYear) + ')">' + uiIcon('file-text') + ' 加做 ' + Number(vm.suggestionYear) + ' 年模考</button>' : '';
+  const round = '<button type="button" class="' + (paper ? 'today-task-secondary' : 'today-task-start') + '"' + (paper ? '' : ' id="today-task-start"') +
+    ' onclick="dailyPracticePrepareNewRound()">' + uiIcon('shuffle') + ' 隨機練習 3 題</button>';
+  return '<div class="today-task-actions">' + paper + round + '</div>';
+}
+
+// 模考分頁 with `year` preselected (a paper already in progress there is left as it is).
+function todayTaskOpenOptionalPaper(year) {
+  if (typeof switchTab === 'function') switchTab('mock');
+  if (typeof mockExamState !== 'undefined' && typeof mockExamRender === 'function') {
+    if (!mockExamState) mockExamRender();
+    if (mockExamState && !mockExamState.loaded) {
+      mockExamState.year = String(year);
+      mockExamRender();
+    }
+  }
+  const root = typeof document !== 'undefined' ? document.getElementById('mock-exam-root') : null;
+  if (root && root.scrollIntoView) root.scrollIntoView({ block: 'start' });
+}
+
 // Pure: the card's inner HTML for a view model (tested without a DOM).
 function todayTaskCardHtml(vm) {
   const esc = todayTaskEscape;
   // 11/12 考前確認、11/13 起停止: no study hours, so no budget / milestone / cut lines (they would read 「今天預算 2 小時」 or 「仍剩 N 份卷」).
   const restDay = vm.mode === 'exam-check' || vm.mode === 'stop';
-  const plan = restDay ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
+  // day-done already says 「今天的份量已完成」 in its title; the plan line would repeat it.
+  const plan = restDay || vm.mode === 'day-done' ? '' : '<p class="today-task-plan">' + esc(vm.planText) + '</p>';
   const pacingLines = restDay ? '' :
     (todayTaskStatusLine(vm) ? '<p class="today-pacing-milestone' + (vm.pacing && vm.pacing.hardMilestone && vm.pacing.hardMilestone.missed ? ' is-missed' : '') + '">' + esc(todayTaskStatusLine(vm)) + '</p>' : '') +
     todayTaskPaceHtml(vm) +
@@ -590,12 +615,18 @@ function todayTaskCardHtml(vm) {
   } else if (vm.mode === 'done') {
     body = '<div class="today-task-main"><span class="today-task-eyebrow">全部完成</span><strong>日程的 ' + vm.total + ' 個任務都完成了</strong><p class="today-task-note">可改用下方「隨機練習 3 題」或到期複習，維持手感即可。</p></div>';
   } else if (vm.mode === 'day-done') {
-    const extra = vm.code
-      ? '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' 選做下一個</button></div>' : '';
-    body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天的份量已完成，可以收工</strong>' +
-      '<p class="today-task-note">還有餘力可選做下一個（' + esc(vm.code ? vm.title + ' · ' + vm.totalMinutes + ' 分鐘，' + vm.code : '') + '），會讓之後的日程變鬆。</p></div>' + extra;
+    if (vm.code) {
+      body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天的份量已完成，可以收工</strong>' +
+        '<p class="today-task-note">還有餘力可選做下一個（' + esc(vm.title + ' · ' + vm.totalMinutes + ' 分鐘，' + vm.code) + '），會讓之後的日程變鬆。</p></div>' +
+        '<div class="today-task-actions"><button type="button" class="today-task-start" id="today-task-start" onclick="todayTaskOnStart()">' + uiIcon('play') + ' 選做下一個</button></div>';
+    } else {
+      // Nothing schedulable is left for today: offer the optional paper and a short round instead of a dead end.
+      body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天的份量已完成，可以收工</strong>' +
+        '<p class="today-task-note">還有餘力的話，可以加做一份模考或練幾題維持手感（都不影響日程）。</p></div>' + todayTaskOptionalActionsHtml(vm);
+    }
   } else if (vm.mode === 'idle') {
-    body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可用下方「隨機練習 3 題」維持手感。</p></div>';
+    body = '<div class="today-task-main"><span class="today-task-eyebrow">今天</span><strong>今天沒有待做的必做任務</strong><p class="today-task-note">進度已超前日程；下一階段的任務到期才會排入。可以練幾題維持手感。</p></div>' +
+      todayTaskOptionalActionsHtml(vm);
   } else {
     const resume = vm.primaryAction === 'resume';
     const dayNote = vm.part === 'closed' ? '（今天閉卷，明天核對＋修復）' : '';

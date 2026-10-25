@@ -1286,7 +1286,7 @@
       "audit_status": "reference_book_verified",
       "verified_at": "2026-10-02",
       "method": "relay_pickup_burden_voltage_on_digitized_100_5_excitation_curve_with_fault_current_load_line_cross_check",
-      "solution_hash": "d75da58c2da10b6bd3bf4ff6bb4123e7aef340ef79571844c42966650ee3f2c4",
+      "solution_hash": "1f1ceded7d36e945e2366d88c4de707ea97e8156eaced4218d70e7220b70a349",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/06_工業配電/images/questions/PE_111年_工業配電_Q01.png",
       "review_evidence": "官方原卷第 3-1 頁（檔案頁 1）為含完整曲線的官方裁切圖；以 PDF 內嵌原圖（JPX 825 px 寬兩段拼接）去除格線後數位化 100:5 曲線，7.056 V 讀得 I_e≈0.37～0.40 A，曲線末端 I_e=30 A 時 E'≈22 V；與參考書數值作主解一致。",

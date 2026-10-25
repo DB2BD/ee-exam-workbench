@@ -503,7 +503,7 @@ function scoreboardPaceHtml_(model) {
     parts.push(`<p class="sb-pace-next${n.atRisk ? ' sb-gap' : ''}">${e(text)}</p>`);
   }
   if (m.cut && m.cut.length) {
-    parts.push(`<details class="sb-pace-cut"><summary>已自動刪減</summary>${scoreboardPaceTableHtml_(m.cut, 'cut')}</details>`);
+    parts.push(`<details class="sb-pace-cut"><summary>先跳過（有空再做）</summary>${scoreboardPaceTableHtml_(m.cut, 'cut')}</details>`);
   }
   return `<section class="sb-pace" aria-label="日程進度">${parts.join('')}</section>`;
 }

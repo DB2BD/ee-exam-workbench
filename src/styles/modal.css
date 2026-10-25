@@ -459,6 +459,11 @@
 }
 
 .question-crop-preview:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+/* Until the scan arrives, hold its place with a soft pulsing block instead of an empty pane. */
+.question-crop-preview:not(.is-loaded) { min-height: 140px; width: 100%; background: linear-gradient(90deg, #e9e6df 0%, #f6f4ef 50%, #e9e6df 100%); background-size: 200% 100%; animation: question-crop-loading 1.4s ease-in-out infinite; }
+@keyframes question-crop-loading { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .question-crop-preview:not(.is-loaded) { animation: none; } }
+.modal-progress-chip { margin-left: 6px; padding: 1px 8px; border-radius: var(--radius-pill); background: var(--accent-light); color: var(--accent-dark); font-size: .8rem; font-weight: 700; white-space: nowrap; }
 .question-crop-hint { margin: 8px 0 0; color: rgba(255,255,255,.86); font-size: .78rem; text-align: center; }
 .question-crop-fallback .btn-pdf { display: inline-flex; margin: 8px 0 0 8px; }
 

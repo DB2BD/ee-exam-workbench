@@ -16,7 +16,7 @@ def head():
 
 
 def main_tabs():
-    start = INDEX.index('<div class="main-tabs">')
+    start = INDEX.index('<nav class="main-tabs"')
     end = INDEX.index("<!-- TAB 0: Daily Practice -->", start)
     return INDEX[start:end]
 
@@ -57,8 +57,9 @@ class TestV12Shell(unittest.TestCase):
         self.assertIn('id="header-summary-line"', INDEX)
         for old in ("stats-grid", 'class="stat-card', 'id="stat-total"', 'id="bar-mastered"', "onDueFlashcardsClick"):
             self.assertNotIn(old, INDEX, old)
-        for piece in ("今天：", "｜到期 ", "scoreboardSummaryLine()", "function updateHeaderSummary", "result-card-saved"):
+        for piece in ("今天：", "scoreboardSummaryLine()", "function updateHeaderSummary", "result-card-saved"):
             self.assertIn(piece, INDEX, piece)
+        self.assertNotIn("｜到期 ", INDEX)  # the due count is on the 到期複習 card, not repeated in the header
         store = (ROOT / "src/state/resultCardStore.js").read_text(encoding="utf-8")
         self.assertIn("new CustomEvent('result-card-saved'", store)
 

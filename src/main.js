@@ -7,7 +7,7 @@ function switchTab(tabId) {
   // Only the panes that still exist in the shell are routable (今天 / 模考 / 成績 / 題庫瀏覽).
   const activePane = document.getElementById('tab-pane-' + tabId);
   if (!activePane) return;
-  document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.main-tab-btn').forEach(btn => { btn.classList.remove('active'); btn.removeAttribute('aria-current'); });
   document.querySelectorAll('.tab-pane').forEach(pane => pane.style.display = 'none');
 
   // A tool selected from the compact 更多 menu should leave the menu closed, so
@@ -19,8 +19,9 @@ function switchTab(tabId) {
   }
 
   const activeBtn = document.getElementById('tab-btn-' + tabId);
-  if (activeBtn) activeBtn.classList.add('active');
+  if (activeBtn) { activeBtn.classList.add('active'); activeBtn.setAttribute('aria-current', 'page'); }
   activePane.style.display = 'block';
+  if (document.body) document.body.dataset.tab = tabId;
 
   if (tabId === 'scoreboard' && typeof renderScoreboard === 'function') {
     renderScoreboard(document.getElementById('scoreboard-container'));
@@ -33,6 +34,71 @@ function switchTab(tabId) {
     }
   }
   if (typeof updateHeaderSummary === 'function') updateHeaderSummary();
+  appHistoryPushTab(tabId);
+}
+
+// ---------- 返回鍵／滑動返回 ----------
+// Tab switches and the solution modal each leave one history entry (same URL, state only), so the
+// browser's back closes the modal first and then walks back through the tabs instead of leaving the
+// workbench. A programmatic close steps back over the modal entry; if the modal reopens before that
+// step lands (保存並下一題), the entry is pushed again once it has.
+let appHistoryApplying = false;
+let appHistoryBackPending = false;
+let appHistoryReopenPending = false;
+
+function appHistoryAvailable() {
+  return typeof history !== 'undefined' && typeof history.pushState === 'function';
+}
+
+function appHistoryCurrentTab() {
+  const btn = typeof document !== 'undefined' ? document.querySelector('.main-tab-btn.active') : null;
+  return btn && btn.id ? btn.id.replace('tab-btn-', '') : 'practice';
+}
+
+function appHistoryPushTab(tabId) {
+  if (appHistoryApplying || !appHistoryAvailable()) return;
+  const state = history.state || {};
+  if (state.eeModal || state.eeTab === tabId) return;
+  history.pushState({ eeTab: tabId }, '');
+}
+
+function appHistoryModalOpened() {
+  if (appHistoryApplying || !appHistoryAvailable()) return;
+  if (appHistoryBackPending) { appHistoryReopenPending = true; return; }
+  if (history.state && history.state.eeModal) return;
+  history.pushState({ eeTab: appHistoryCurrentTab(), eeModal: true }, '');
+}
+
+function appHistoryModalClosed() {
+  if (appHistoryApplying || !appHistoryAvailable()) return;
+  if (history.state && history.state.eeModal) {
+    appHistoryBackPending = true;
+    history.back();
+  }
+}
+
+function appHistoryOnPopState(event) {
+  const state = (event && event.state) || {};
+  const modal = document.getElementById('solution-modal');
+  const modalOpen = !!(modal && modal.classList.contains('show'));
+  if (appHistoryBackPending) {
+    appHistoryBackPending = false;
+    if (appHistoryReopenPending && modalOpen) history.pushState({ eeTab: appHistoryCurrentTab(), eeModal: true }, '');
+    appHistoryReopenPending = false;
+    return;
+  }
+  appHistoryApplying = true;
+  try {
+    if (modalOpen && !state.eeModal && typeof closeModal === 'function') closeModal();
+    if (state.eeTab && state.eeTab !== appHistoryCurrentTab()) switchTab(state.eeTab);
+  } finally {
+    appHistoryApplying = false;
+  }
+}
+
+if (typeof window !== 'undefined' && appHistoryAvailable()) {
+  if (!history.state || !history.state.eeTab) history.replaceState({ eeTab: 'practice' }, '');
+  window.addEventListener('popstate', appHistoryOnPopState);
 }
 
 

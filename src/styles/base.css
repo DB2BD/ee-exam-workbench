@@ -15,6 +15,7 @@
   --accent-dark: #365c6b;
   --warn: #c47c5d;         /* 莫蘭迪陶土赭紅 */
   --warn-light: #faeee7;
+  --warn-ink: #9a5134;     /* 警示文字：與 --warn 同色相、亮底對比 ≥ 4.5 */
   --success: #5f8d64;      /* 莫蘭迪灰綠 (掌握) */
   --success-light: #eef5ef;
   --review: #b85d58;       /* 莫蘭迪磚紅 (需二刷) */
@@ -46,6 +47,7 @@
   --accent-dark: #8ab6c6;
   --warn: #d49377;
   --warn-light: #3d2b24;
+  --warn-ink: #d49377;
   --success: #78a87d;
   --success-light: #233326;
   --review: #cc746f;

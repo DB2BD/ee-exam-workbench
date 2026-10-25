@@ -162,7 +162,7 @@ def build_workbench():
 </style>
 </head>
 
-<body>
+<body data-tab="practice">
 <div class="container">
 
   <!-- Header Dashboard -->
@@ -182,13 +182,13 @@ def build_workbench():
     <!-- v1.4.0 status window: level, EXP, streak, exam countdown, tasks, result cards, score, six subject attributes -->
     <section class="hs" id="home-status" aria-label="狀態視窗"></section>
 
-    <!-- One-line summary: 今天 / 到期 / 成績 -->
-    <p class="header-summary" id="header-summary-line" role="status" aria-live="polite">今天：—｜到期 0 題｜估計總分：尚無資料</p>
+    <!-- One-line summary: 今天 / 成績 -->
+    <p class="header-summary" id="header-summary-line" role="status" aria-live="polite">今天：—｜估計總分：尚無資料</p>
   </header>
 
   <!-- Main Navigation: three entries plus a collapsed 更多 -->
-  <div class="main-tabs">
-    <button class="main-tab-btn active" id="tab-btn-practice" onclick="switchTab('practice')">
+  <nav class="main-tabs" aria-label="主要分頁">
+    <button class="main-tab-btn active" id="tab-btn-practice" aria-current="page" onclick="switchTab('practice')">
       <span><span class="ui-ico" data-ui-icon="calendar"></span> 今天</span>
     </button>
     <button class="main-tab-btn" id="tab-btn-mock" onclick="switchTab('mock')">
@@ -205,7 +205,7 @@ def build_workbench():
         <button class="main-tab-btn" id="tab-btn-backup" onclick="openBackupModal()"><span><span class="ui-ico" data-ui-icon="download"></span> 備份／還原</span></button>
       </div>
     </details>
-  </div>
+  </nav>
 
   <!-- TAB 0: Daily Practice -->
   <div class="tab-pane" id="tab-pane-practice" style="display: block;">

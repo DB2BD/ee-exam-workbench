@@ -313,7 +313,7 @@ class TestScoreboardPace(unittest.TestCase):
           return scoreboardPaceHtml_(scoreboardPaceModel(p, S, null));
         })()""", pace=True)
         self.assertIn('class="sb-pace-next sb-gap"', r)
-        self.assertIn('<details class="sb-pace-cut"><summary>已自動刪減</summary>', r)
+        self.assertIn('<details class="sb-pace-cut"><summary>先跳過（有空再做）</summary>', r)
         self.assertNotIn("<details open", r)
         self.assertNotIn("<img", r)
         self.assertIn("&lt;img onerror=x&gt;", r)

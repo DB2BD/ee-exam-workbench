@@ -164,7 +164,7 @@ class TestTodayTaskStore(unittest.TestCase):
         self.assertEqual(res["code"], "CORE-03")
         self.assertEqual(res["mode"], "task")
         self.assertEqual(res["status"], "behind")
-        self.assertTrue(res["cut"].startswith("已自動刪減："), res["cut"])
+        self.assertTrue(res["cut"].startswith("今天先跳過："), res["cut"])
         self.assertIn("（有空再做）", res["cut"])
         self.assertIn("模考卷照順序做，做不完的排到 11/01 緩衝日補考", res["cut"])  # hours still short after every allowed cut
 
@@ -203,7 +203,8 @@ class TestTodayTaskStore(unittest.TestCase):
         self.assertEqual(res["two"], "今天的份量已完成")
         self.assertEqual(res["mode"], "day-done")
         self.assertEqual(res["extra"], "CORE-09")  # optional extra work stays one click away
-        self.assertIn("選做下一個：CORE-09", res["html"])
+        self.assertIn("選做下一個</button>", res["html"])
+        self.assertIn("分鐘，CORE-09）", res["html"])
 
     def test_resume_computes_remaining_time(self):
         started = local_ms(2026, 10, 3, 9, 0)
@@ -399,11 +400,15 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 4))
         self.assertEqual(res["code"], "CORE-07")
         self.assertEqual(res["items"], ["CORE-07", "CORE-08", "CORE-09", "CORE-10", "CORE-11"])  # Sunday: 5 h budget
-        self.assertTrue(res["rest"].startswith("今天還有：CORE-08｜"), res["rest"])
-        self.assertIn("CORE-11｜", res["rest"])
+        self.assertTrue(res["rest"].startswith("今天還有："), res["rest"])
+        self.assertIn("（CORE-08）", res["rest"])
+        self.assertIn("（CORE-11）", res["rest"])
+        self.assertNotIn("CORE-08｜", res["rest"])  # the title leads, the code follows
         self.assertNotIn("弱題分析", res["rest"])
         self.assertIn("今天還有：", res["html"])
-        self.assertLess(res["html"].index("下一個任務：CORE-07"), res["html"].index("今天還有："))
+        self.assertIn('<span class="today-task-eyebrow">下一個任務</span>', res["html"])
+        self.assertIn('<code class="today-task-code">CORE-07</code>', res["html"])
+        self.assertLess(res["html"].index('<code class="today-task-code">CORE-07</code>'), res["html"].index("今天還有："))
         self.assertIn("</svg> 開始<", res["html"])
 
     def test_milestone_line_counts_days_and_papers(self):
@@ -436,14 +441,14 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         self.assertGreater(res["h"], 0)
         self.assertAlmostEqual(res["h"], res["sum"])
 
-    def test_card_has_one_merged_status_line_with_due_count(self):
+    def test_card_status_line_pace_line_and_no_due_count(self):
         res = self.vm(DONE_ONE_TO_SIX, local_ms(2026, 10, 5))
         card = run_node(
             f"todayTaskCardHtml(todayTaskViewModel({{completed:{json.dumps(DONE_ONE_TO_SIX)}, active:null}}, {local_ms(2026, 10, 5)}, {{dueCount: 4}}))")["result"]
         self.assertEqual(card.count("已完成 "), 1)
-        self.assertIn("到期複習 4 題", card)
-        self.assertRegex(card, r'class="today-pacing-milestone">已完成 6／\d+｜距 10/17')
-        self.assertTrue(re.search(r"(照日程|落後約|超前約)", card))
+        self.assertNotIn("到期複習 4 題", card)  # the due count lives on the 到期複習 card only
+        self.assertRegex(card, r'class="today-pacing-milestone">已完成 6／\d+｜距 10/17[^<]*</p>')
+        self.assertTrue(re.search(r'class="today-pacing-pace[^"]*">(照日程|落後約|超前約)', card))
         none = run_node(
             f"todayTaskCardHtml(todayTaskViewModel({{completed:{json.dumps(DONE_ONE_TO_SIX)}, active:null}}, {local_ms(2026, 10, 5)}, {{dueCount: 0}}))")["result"]
         self.assertNotIn("到期複習", none)
@@ -454,7 +459,7 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         done = {c: "x" for c in order[:order.index("CORE-16")]}
         res = self.vm(done, local_ms(2026, 10, 16))
         self.assertEqual(res["status"], "behind")
-        self.assertTrue(res["cut"].startswith("已自動刪減："), res["cut"])
+        self.assertTrue(res["cut"].startswith("今天先跳過："), res["cut"])
         self.assertTrue(res["cut"].endswith("（有空再做）"), res["cut"])
         self.assertIn("FOCUS-", res["cut"])
         self.assertNotIn("WEAK", res["cut"])
@@ -478,14 +483,14 @@ class TestTodayTaskPacingCard(unittest.TestCase):
             f"const v = todayTaskViewModel(s, {local_ms(2026, 10, 20)}); return todayTaskCardHtml(v); }})()")["result"]
         self.assertIn("<details>", res)
         self.assertNotIn("<details open", res)
-        self.assertRegex(res, r"<summary>已自動刪減 \d+ 項（有空再做）</summary>")
+        self.assertRegex(res, r"<summary>今天先跳過 \d+ 項（有空再做）</summary>")
         self.assertIn("FOCUS-12", res)
         self.assertIn("11/01 緩衝日補考", res)
         short = run_node(
-            "todayTaskCardHtml({mode:'task', pacing:{cut:['FOCUS-07','FOCUS-08','FOCUS-09'], overload:false, hardMilestone:null}, cutText:'已自動刪減：FOCUS-07～09（有空再做）', planText:'', milestoneText:'', suggestion:'', items:[], rest:[], restText:'', completedMap:{}, doneCount:0, total:1})")["result"]
-        self.assertIn('<p class="today-pacing-cut">已自動刪減：FOCUS-07～09（有空再做）</p>', short)
+            "todayTaskCardHtml({mode:'task', pacing:{cut:['FOCUS-07','FOCUS-08','FOCUS-09'], overload:false, hardMilestone:null}, cutText:'今天先跳過：FOCUS-07～09（有空再做）', planText:'', milestoneText:'', suggestion:'', items:[], rest:[], restText:'', completedMap:{}, doneCount:0, total:1})")["result"]
+        self.assertIn('<p class="today-pacing-cut">今天先跳過：FOCUS-07～09（有空再做）</p>', short)
         self.assertNotIn("<p class=\"today-pacing-cut\"><details", short)
-        self.assertNotIn("<summary>已自動刪減", short)
+        self.assertNotIn("<summary>今天先跳過", short)
 
     def test_ahead_after_all_mocks_suggests_113(self):
         order = run_node("DAILY_SCHEDULE.order")["result"]
@@ -1133,7 +1138,7 @@ class TestG2aFixes(unittest.TestCase):
     def test_fresh_user_sees_prompt_not_cut_line(self):
         t = local_ms(2026, 10, 4, 9, 0)
         fresh = run_node(f"todayTaskCardHtml(todayTaskViewModel({{completed:{{}}, active:null}}, {t}))")["result"]
-        self.assertNotIn("已自動刪減", fresh)
+        self.assertNotIn("今天先跳過", fresh)
         self.assertIn("先設定已在紙本做過的任務，再排今天", fresh)
         self.assertIn("today-task-from is-prompt", fresh)
         set_up = run_node(

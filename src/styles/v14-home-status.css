@@ -353,7 +353,11 @@ header.hs-header .pill { position: relative; z-index: 3; }
 /* ---------- phones ---------- */
 @media (max-width: 640px) {
   header.hs-header { padding: 10px 12px 12px; }
-  .hs-scene { margin: 0 -12px; }
+  /* A thin strip of the scene on phones, so 下一個任務 + 開始 stays in the top half of the first screen. */
+  .hs-scene { margin: 0 -12px; height: calc(var(--px) * 44); }
+  header.hs-header .header-summary { white-space: normal; overflow: visible; text-overflow: clip; }
+  /* On 今天 the task card right below already says all of it. */
+  body[data-tab="practice"] header.hs-header .header-summary { display: none; }
   .hs-inner { padding: 10px 11px 12px; }
   .hs-head { gap: 9px; }
   .hs-lv { padding: 6px 9px 5px; }

@@ -711,11 +711,15 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   // 1. Update Title
   const titleEl = document.getElementById('modal-title');
   if (titleEl) {
+    // Where am I in this round (隨機練習／到期複習 第 N／M 題): visible on phones too.
+    const progressText = currentSolutionSourceMode === 'daily-practice' && typeof dailyPracticeGetProgressText === 'function'
+      ? dailyPracticeGetProgressText() : '';
     titleEl.innerHTML = `
       <span style="color: var(--accent-dark); font-weight: 800; font-family: var(--font-mono);">${safeQid}</span>
       <span style="font-size: 0.9rem; color: var(--muted); font-weight: 500;">
         · ${meta.icon} ${meta.name}（${yr} 年第 ${curQnum} 大題）
       </span>
+      ${progressText ? `<span class="modal-progress-chip">${solutionModalEscape(progressText)}</span>` : ''}
     `;
   }
 
@@ -730,7 +734,7 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   if (leftContent) {
     const sourcePreview = questionCropSrc
       ? `<div class="question-crop-wrap">
-          <img class="question-crop-preview" data-question-crop-image src="${safeQuestionCropSrc}" alt="${safeQid} 本題裁切圖；按 Enter 或點擊放大" loading="eager" tabindex="0" role="button" />
+          <img class="question-crop-preview" data-question-crop-image src="${safeQuestionCropSrc}" alt="${safeQid} 本題裁切圖；按 Enter 或點擊放大" loading="eager" tabindex="0" role="button" onload="this.classList.add('is-loaded')" onerror="this.classList.add('is-loaded')" />
           <p class="question-crop-hint">點擊、觸控或按 Enter 放大；放大後可用 +／−、鍵盤或按鈕調整。</p>
         </div>`
       : `<div class="question-crop-fallback">尚未建立本題裁切圖，以下保留官方 PDF 預覽。</div>
@@ -800,7 +804,9 @@ function openSolutionModal(event, solLink, qid, qnum, options = {}) {
   }
 
   updateModalStatusButtons(qid);
+  const wasOpen = modal.classList.contains('show');
   modal.classList.add('show');
+  if (!wasOpen && typeof appHistoryModalOpened === 'function') appHistoryModalOpened();
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
   const firstFocus = modal.querySelector('button, [href], select, input, textarea, [tabindex]:not([tabindex="-1"])');
@@ -1652,7 +1658,9 @@ function closeModal() {
   solutionModalReadingTimer = null;
   persistSolutionModalReadingState(false);
   const modal = document.getElementById('solution-modal');
+  const wasOpen = !!(modal && modal.classList.contains('show'));
   if (modal) modal.classList.remove('show');
+  if (wasOpen && typeof appHistoryModalClosed === 'function') appHistoryModalClosed();
   document.body.style.overflow = '';
   if (modal) { modal.classList.remove('sm-recall-entry'); modal.classList.remove('sm-no-nav'); }
   currentModalQid = null;

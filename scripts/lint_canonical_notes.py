@@ -6,7 +6,7 @@ Notes migrated to the lean template (frontmatter ``template: lean-v1``) are
 additionally held to the section, metadata and redundancy rules of
 the lean-v1 題解版型 (internal work record, unpublished).
 
-Answer-sheet rules (v1.9.0, on by default; ``--no-answer-style`` disables
+Answer-sheet rules (v1.8.2, on by default; ``--no-answer-style`` disables
 them): 「考場標準作答」 is written the way an examinee writes the answer sheet, so
 it carries no ``**解題邏輯**`` paragraph and no ``**邏輯**：`` label (the
 assumptions and choices live in plain sentences inside the steps), and

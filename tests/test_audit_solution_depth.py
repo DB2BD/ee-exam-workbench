@@ -76,7 +76,7 @@ class AuditV150FlagTests(unittest.TestCase):
             self.assertFalse(flags & {"no-logic", "orphan-number"})
 
     def test_no_logic_flag_is_retired(self):
-        # v1.9.0: 解題邏輯／邏輯 labels are gone; a note without them is not flagged.
+        # v1.8.2: 解題邏輯／邏輯 labels are gone; a note without them is not flagged.
         body = GOOD.replace("**解題邏輯**：", "").replace("**邏輯**：歐姆定律。", "")
         note = self.audit_text(body)
         self.assertEqual(note["note_flags"], [])

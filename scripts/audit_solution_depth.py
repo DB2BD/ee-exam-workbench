@@ -17,7 +17,7 @@ a concept-sentence heuristic and body characters per mark, and raises flags:
     too-short         body characters per mark below the corpus threshold
 
 v1.5.0 solution-logic flag (WORKPLAN_v1.5.0; the former ``no-logic`` flag was
-retired in v1.9.0, when the 解題邏輯／邏輯 labels gave way to answer-sheet prose):
+retired in v1.8.2, when the 解題邏輯／邏輯 labels gave way to answer-sheet prose):
 
     orphan-number     a number (integers <= 3, subscripts, exponents and unit
                       scalers ignored) in the first substitution of a display

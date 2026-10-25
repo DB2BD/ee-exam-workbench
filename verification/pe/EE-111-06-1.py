@@ -68,6 +68,9 @@ for zb, lo_ok, hi_ok, detect in ((0.8, 0.40, 0.46, True), (3.0, 3.2, 3.8, False)
     vals = [intersect(zb, s) for s in (1 - READ_TOL, 1.0, 1 + READ_TOL)]
     assert all(lo_ok < v < hi_ok for v in vals), (zb, vals)
     assert all(((I2 - v) >= I_PICKUP) == detect for v in vals)
+    # CT error at the 200 A operating point (stated in 條件與疑義): about 4.29 % and 35.50 %
+    err_lo, err_hi = (0.040, 0.046) if detect else (0.32, 0.38)
+    assert all(err_lo < v / I2 < err_hi for v in vals), (zb, [v / I2 for v in vals])
     print(f"Z_B={zb}: Ie={vals[1]:.3f} A (band {min(vals):.2f}-{max(vals):.2f}), I'={I2-vals[1]:.2f} A")
 assert I2 - 2.0 == I_PICKUP    # threshold Ie <= 2.0 A for a 200 A fault
 print(f"pickup route: Ie(7.056 V)={ie1:.3f} A band {ie1_band[0]:.3f}-{ie1_band[1]:.3f}")

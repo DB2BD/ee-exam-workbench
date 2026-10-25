@@ -35,6 +35,7 @@ Va = sp.symbols("Va")
 sol = sp.solve(sp.Eq(6, Va / 2 + Va / 1), Va)[0]
 I_dc = -sol / 1                   # current rightward through the 1 ohm is opposite to Va/1
 assert I_dc == -4
+I_dc = float(I_dc)                # plain float, so the sampled waveform below stays a numpy float array
 
 # --- power in 1 ohm by numerical averaging over one period
 T = 2 * np.pi / 5

@@ -123,10 +123,10 @@ function recordSM2Review(qid, rating) {
   sm2Schedule = nextSchedule;
   sm2StoreLoadError = null;
 
-  // Also sync with progressState (1: Mastered if rating 5, 2: Review if rating 1)
+  // Also sync with progressState (1: 已掌握 if rating 5, 2: 需二刷 if rating 1 or 3)
   if (typeof progressState !== 'undefined') {
     if (rating === 5) progressState[qid] = 1;
-    else if (rating === 1) progressState[qid] = 2;
+    else if (rating === 1 || rating === 3) progressState[qid] = 2;
     if (typeof saveProgress === 'function') saveProgress();
   }
   if (typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();

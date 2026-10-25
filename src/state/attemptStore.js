@@ -347,7 +347,7 @@ function submitLearningAttempt(input, dependencies) {
     }
     nextProgressAll = Object.assign({}, storedProgress);
     if (rating === 5) nextProgressAll[qid] = 1;
-    else if (rating === 1) nextProgressAll[qid] = 2;
+    else if (rating === 1 || rating === 3) nextProgressAll[qid] = 2;
     writes.push([SM2_STORAGE_KEY, JSON.stringify(nextSM2All)]);
     writes.push([progressKey, JSON.stringify(nextProgressAll)]);
   }

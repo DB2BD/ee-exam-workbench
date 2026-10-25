@@ -395,6 +395,11 @@ function applyImportedBackupJSON(mode) {
     ? applyUserDataBackup(textarea.value.trim(), selectedMode)
     : { success: false, error: '備份還原功能尚未載入。' };
   if (res.success) {
+    // An imported backup's statuses may predate the result-card rule; re-derive them from its cards.
+    // (Only for an explicit import: cloud-sync merges also go through applyUserDataBackup.)
+    if (typeof reconcileProgressWithResultCards === 'function') {
+      try { reconcileProgressWithResultCards({ force: true }); } catch (_) { /* best effort */ }
+    }
     try { if (preImport && typeof snapshotSaveCaptured === 'function') snapshotSaveCaptured(preImport).catch(() => {}); } catch (_) { /* snapshots never block an import */ }
     if (typeof initDailyPracticeHome === 'function') initDailyPracticeHome();
     updateStatsAndBar();

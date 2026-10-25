@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 
@@ -19,7 +22,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(source + chr(10) + 'globalThis.__result = (' + expression + ');', ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify(context.__result));
 """
-        result = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
+        result = node_runner.run(script, cwd=WORKSPACE, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         return json.loads(result.stdout)
 

@@ -2,7 +2,6 @@
 """Per-question hints for the four-stage recall reveal (stages ② and ③)."""
 
 import json
-import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -11,6 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import build_recall_hints as brh  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 GENERATED = ROOT / "src" / "data" / "recallHints.generated.js"
 
@@ -27,7 +29,7 @@ def run_node(expression, setup=""):
     )
     # Feed the script on stdin: the generated data exceeds Linux's 128 KiB
     # per-argument limit, so `node -e <script>` fails in CI.
-    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
     if done.returncode:
         raise AssertionError(done.stderr)
     return json.loads(done.stdout)

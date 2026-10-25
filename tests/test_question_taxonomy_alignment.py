@@ -4,11 +4,14 @@
 import json
 import re
 import shutil
-import subprocess
 import unittest
 from pathlib import Path
 
 from scripts.question_schema import load_questions_from_bundle
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -225,8 +228,7 @@ const result = vm.runInContext(`DB_DATA.questions.map(q => ({
 })).filter(x => x.expected !== x.actual)`, ctx);
 process.stdout.write(JSON.stringify(result));
 '''
-        completed = subprocess.run(
-            ["node", "-"], input=script,
+        completed = node_runner.run(script,
             cwd=ROOT,
             check=True,
             capture_output=True,

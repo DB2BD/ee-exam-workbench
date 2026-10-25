@@ -3,9 +3,12 @@
 due-review summary, backup preview text.  Node runs via stdin; no browser."""
 import json
 import re
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 FILES = [
@@ -25,7 +28,7 @@ vm.runInContext({json.dumps(extra, ensure_ascii=False)}, ctx);
 const out = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, ctx);
 process.stdout.write(JSON.stringify(out));
 """
-    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
     if done.returncode:
         raise AssertionError(done.stderr)
     return json.loads(done.stdout)
@@ -178,7 +181,7 @@ class CheatsheetLock(unittest.TestCase):
         const {{ renderCheatsheetSectionHtml }} = require({json.dumps(str(ROOT / 'src/components/passbookGenerator.js'))});
         process.stdout.write(renderCheatsheetSectionHtml({json.dumps(data, ensure_ascii=False)}, {{ lockedQids: {json.dumps(locked)} }}));
         """
-        done = subprocess.run(["node", "-"], input=script, capture_output=True, text=True)
+        done = node_runner.run(script, capture_output=True, text=True)
         self.assertEqual(done.returncode, 0, done.stderr)
         return done.stdout
 
@@ -204,7 +207,7 @@ class CheatsheetLock(unittest.TestCase):
         const {{ renderCheatsheetSectionHtml }} = require({json.dumps(str(ROOT / 'src/components/passbookGenerator.js'))});
         process.stdout.write(JSON.stringify(renderCheatsheetSectionHtml({json.dumps(data)}, {{ lockedQids: ['EE-114-01-1'] }})));
         """
-        done = subprocess.run(["node", "-"], input=script, capture_output=True, text=True)
+        done = node_runner.run(script, capture_output=True, text=True)
         self.assertEqual(json.loads(done.stdout), "")
 
 
@@ -217,7 +220,7 @@ def load_fn(path, name):
 
 class DueReviewSummaryAndBackupText(unittest.TestCase):
     def node(self, body):
-        done = subprocess.run(["node", "-"], input=body, capture_output=True, text=True)
+        done = node_runner.run(body, capture_output=True, text=True)
         self.assertEqual(done.returncode, 0, done.stderr)
         return json.loads(done.stdout)
 

@@ -3,9 +3,12 @@
 Node runs via stdin; the schedule comes from the generated data file."""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 SCHEDULE_JS = WORKSPACE / "src/data/dailySchedule.generated.js"
@@ -22,7 +25,7 @@ vm.runInContext({json.dumps(src, ensure_ascii=False)} + '\\nglobalThis.S = DAILY
 const out = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, ctx);
 process.stdout.write(JSON.stringify(out));
 """
-    done = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=WORKSPACE, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 

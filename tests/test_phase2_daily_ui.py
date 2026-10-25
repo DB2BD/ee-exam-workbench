@@ -2,9 +2,12 @@
 """第二階段 C 批次：每日練習入口與 session UI 行為契約。"""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -55,8 +58,7 @@ vm.runInThisContext({json.dumps(daily_ui, ensure_ascii=False)});
 globalThis.initDailyPracticeHome();
 {expression}
 """
-        completed = subprocess.run(
-            ["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True,
+        completed = node_runner.run(script, cwd=ROOT, capture_output=True, text=True,
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
@@ -147,8 +149,7 @@ const html = node('daily-practice-container').innerHTML;
 const visible = html.replace(/<annotation[\s\S]*?<\/annotation>/g,'').replace(/<[^>]+>/g,'');
 process.stdout.write(JSON.stringify({html,visible}));
 '''
-        completed = subprocess.run(
-            ["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True,
+        completed = node_runner.run(script, cwd=ROOT, capture_output=True, text=True,
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         result = json.loads(completed.stdout)

@@ -9,8 +9,11 @@ import unittest
 import json
 import datetime
 import os
-import subprocess
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -28,7 +31,7 @@ process.stdout.write(JSON.stringify(result));
 """
         env = os.environ.copy()
         env["TZ"] = timezone
-        completed = subprocess.run(["node", "-"], input=script, cwd=ROOT, env=env, capture_output=True, text=True)
+        completed = node_runner.run(script, cwd=ROOT, env=env, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
 

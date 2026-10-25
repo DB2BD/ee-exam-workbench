@@ -6,6 +6,10 @@ import re
 import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 SOURCES = [
@@ -31,7 +35,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(code, ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify(context.__result === undefined ? null : context.__result));
 """
-    done = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=WORKSPACE, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 

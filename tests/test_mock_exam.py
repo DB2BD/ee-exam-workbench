@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """WP5b：模考分頁純函式測試（node 以 stdin 執行，無瀏覽器）。"""
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 FILES = ["src/data/questionPoints.generated.js", "src/components/mockExam.js"]
@@ -21,7 +24,7 @@ vm.runInContext({json.dumps(ROWS_SETUP)}, ctx);
 const out = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, ctx);
 process.stdout.write(JSON.stringify(out));
 """
-    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
     if done.returncode:
         raise AssertionError(done.stderr)
     return json.loads(done.stdout)

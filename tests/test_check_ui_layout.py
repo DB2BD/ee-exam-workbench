@@ -1,9 +1,12 @@
 """v1.4.0 核對題解＋作答結果卡介面：結果卡是版面內的停靠列，不再以浮層覆蓋題解。"""
 import json
 import re
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = (ROOT / "scripts/build_workbench.py").read_text(encoding="utf-8")
@@ -101,7 +104,7 @@ vm.runInContext({json.dumps(setup)}, context);
 vm.runInContext({json.dumps(source, ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify(vm.runInContext({json.dumps(expression)}, context)));
 """
-        done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+        done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(done.returncode, 0, done.stderr)
         self.assertEqual(json.loads(done.stdout), {"solution-only": "solution-only", "exam-only": "exam-only", "split": "split"})
 

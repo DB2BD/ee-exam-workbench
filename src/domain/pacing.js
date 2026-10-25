@@ -236,8 +236,10 @@ function pacingPlan(input) {
   let status = 'on';
   if (cut.length || overload) status = 'behind';
   else if (!behindCodes.length && aheadCodes.length) status = 'ahead';
-  const suggestion = allPapersDone && hard && !hard.passed
-    ? '12 份模考卷已全部完成，可加做 113 年整卷（選做，不影響日程）。' : '';
+  // Optional extra paper once all scheduled papers are done (the card offers a button to it).
+  const suggestionYear = allPapersDone && hard && !hard.passed ? 113 : null;
+  const suggestion = suggestionYear
+    ? '12 份模考卷已全部完成，可加做 ' + suggestionYear + ' 年整卷（選做，不影響日程）。' : '';
 
   return {
     today, weekend, holiday: pacingHolidayList(holidays).indexOf(today) >= 0, budgetHours: dayBudget, spentHours: spent, planHours: used,
@@ -249,6 +251,6 @@ function pacingPlan(input) {
     remainingHours: uncompleted.filter(c => !cutSet.has(c)).reduce((n, c) => n + remainingOf(c), 0),
     status, behindCount: behindCodes.length, aheadCount: aheadCodes.length, behindHours, aheadHours,
     behindCodes, cut, cutDetail, overload, shortHours,
-    suggestion, allDone: uncompleted.length === 0, allPapersDone,
+    suggestion, suggestionYear, allDone: uncompleted.length === 0, allPapersDone,
   };
 }

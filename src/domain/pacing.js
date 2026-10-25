@@ -71,21 +71,43 @@ function pacingMinutesFrom(task, phaseIndex) {
 }
 
 // Hours a task still needs (full task, or the remaining phases of a started one).
-function pacingRemainingHours(task, partial) {
-  const idx = partial && partial.code === task.code ? partial.phaseIndex : 0;
-  return pacingMinutesFrom(task, idx) / 60;
+function pacingRemainingHours(task, partial, papersDone) {
+  return pacingMinutesFrom(task, pacingStartPhase(task, partial, papersDone)) / 60;
+}
+
+// --- dynamic unlock -------------------------------------------------------------------------
+// 補強 tasks (BUFFER, REINF-*) open on their date or as soon as every mock paper is done, whichever comes first:
+// their only input is the marked papers, so finishing the papers early should not leave the days before 11/01 idle.
+// 收尾 (WRAP-*) keeps its date: it is meant to be fresh right before the exam.
+const PACING_BUFFER_CODE = 'BUFFER';
+
+function pacingIsReinforce(task) {
+  return !!task && task.launch === 'random-reinforce';
+}
+
+function pacingIsOpen(task, today, papersDone) {
+  if (!task || !task.notBefore) return true;
+  if (papersDone && pacingIsReinforce(task)) return true;
+  return pacingDaysBetween(task.notBefore, today) >= 0;
+}
+
+// Phase a task starts from: the next phase of the one in flight; BUFFER skips its 補考 phase once every paper is done.
+function pacingStartPhase(task, partial, papersDone) {
+  if (partial && partial.code === task.code) return partial.phaseIndex;
+  return papersDone && task.code === PACING_BUFFER_CODE && task.phases.length > 1 ? 1 : 0;
 }
 
 // What the task costs on a given day.  A weekday paper is split: closed phase on day 1,
 // 核對＋修復 on day 2; on a weekend or holiday (`weekend` = rest day) it is done in one sitting.
-function pacingCost(task, partial, weekend) {
-  const started = partial && partial.code === task.code ? partial.phaseIndex : 0;
+function pacingCost(task, partial, weekend, papersDone) {
+  const inFlight = !!partial && partial.code === task.code;
+  const started = pacingStartPhase(task, partial, papersDone);
   if (pacingIsPaper(task)) {
     if (started > 0) return { hours: pacingMinutesFrom(task, started) / 60, part: 'review', phaseIndex: started };
     if (weekend) return { hours: pacingMinutesFrom(task, 0) / 60, part: 'full', phaseIndex: 0 };
     return { hours: task.phases[0].minutes / 60, part: 'closed', phaseIndex: 0 };
   }
-  return { hours: pacingMinutesFrom(task, started) / 60, part: started > 0 ? 'rest' : 'full', phaseIndex: started };
+  return { hours: pacingMinutesFrom(task, started) / 60, part: inFlight && started > 0 ? 'rest' : 'full', phaseIndex: started };
 }
 
 function pacingAvailableHours(fromIso, toIso, budget, firstIso, holidays) {
@@ -145,7 +167,9 @@ function pacingPlan(input) {
   const roomToday = Math.max(0, dayBudget - spent);
   const milestones = (schedule.milestones || []).slice();
   const uncompleted = order.filter(c => !completed[c]);
-  const remainingOf = c => pacingRemainingHours(tasks[c], partial);
+  const papers = order.filter(c => pacingIsPaper(tasks[c]));
+  const allPapersDone = papers.length > 0 && papers.every(c => completed[c]);
+  const remainingOf = c => pacingRemainingHours(tasks[c], partial, allPapersDone);
 
   // --- cuts: hours are enforced at the hard (不可延後) milestone and at the milestones after it; earlier milestones
   // are soft (reported with their hours, never a reason to cut by themselves).  Cumulative, so later milestones see earlier cuts.
@@ -188,8 +212,8 @@ function pacingPlan(input) {
     const effective = uncompleted.filter(c => !cutSet.has(c));
     for (let i = 0; i < effective.length; i++) {
       const task = tasks[effective[i]];
-      if (task.notBefore && pacingDaysBetween(task.notBefore, today) < 0) break;
-      const cost = pacingCost(task, partial, weekend);
+      if (!pacingIsOpen(task, today, allPapersDone)) break;
+      const cost = pacingCost(task, partial, weekend, allPapersDone);
       const inFlight = !!partial && partial.code === task.code;
       // A task in flight is always shown; otherwise stop once today's budget (after what is already done) is used up.
       if (plan.length || (spent > 0 && !inFlight)) {
@@ -202,7 +226,6 @@ function pacingPlan(input) {
   }
 
   // --- milestone info -----------------------------------------------------------------------
-  const papers = order.filter(c => pacingIsPaper(tasks[c]));
   const milestoneInfo = m => {
     const scope = order.filter(c => m.codes.indexOf(c) >= 0 && !completed[c]);
     const remaining = scope.filter(c => !cutSet.has(c));
@@ -232,7 +255,6 @@ function pacingPlan(input) {
   const behindHours = behindCodes.reduce((n, c) => n + remainingOf(c), 0);
   const aheadHours = order.filter(c => completed[c] && due[c] && due[c] > today).reduce((n, c) => n + pacingMinutesFrom(tasks[c], 0) / 60, 0);
   const aheadCodes = order.filter(c => completed[c] && due[c] && due[c] > today);
-  const allPapersDone = papers.length > 0 && papers.every(c => completed[c]);
   let status = 'on';
   if (cut.length || overload) status = 'behind';
   else if (!behindCodes.length && aheadCodes.length) status = 'ahead';

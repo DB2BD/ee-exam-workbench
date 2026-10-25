@@ -498,8 +498,8 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         res = self.vm(done, local_ms(2026, 10, 28))
         self.assertEqual(res["status"], "ahead")
         self.assertIn("113 年整卷", res["suggestion"])
-        self.assertEqual(res["mode"], "idle")  # BUFFER/REINF are not due yet
-        self.assertIn("今天沒有待做的必做任務", res["html"])
+        self.assertEqual(res["mode"], "task")  # every paper done: 補強 opens before its 11/01 date
+        self.assertEqual(res["code"], "BUFFER")
         self.assertIn("today-pacing-suggestion", res["html"])
 
     def test_weekday_mock_day_one_is_closed_and_stops_the_day(self):

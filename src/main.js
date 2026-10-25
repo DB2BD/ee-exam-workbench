@@ -133,6 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Restore category & populate category dropdown options first
   // PE only: the GK switcher is gone and its data is not preloaded.
   switchExamCategory('PE', true);
+  // 2b. One-time: 學習狀態 follows the latest result card (△ now counts as 需二刷; legacy cards included).
+  if (typeof reconcileProgressWithResultCards === 'function') reconcileProgressWithResultCards();
 
   // 3. Restore persisted filter selections
   const savedSub = localStorage.getItem('filter-subject');

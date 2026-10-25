@@ -95,6 +95,13 @@ function resultCardSM2Rating(marks) {
   return 5;
 }
 
+/** 學習狀態 for a result-card rating: all ○ → 1 (已掌握); any × or △ → 2 (需二刷). */
+function resultCardProgressStatus(rating) {
+  if (rating === 5) return 1;
+  if (rating === 1 || rating === 3) return 2;
+  return null;
+}
+
 function resultCardEmptyState_() {
   return { version: 1, records: [] };
 }
@@ -272,10 +279,48 @@ function migrateLegacyResultRecords(options) {
   return { ok: true, migrated: added.length, already: false };
 }
 
+const RESULT_CARD_PROGRESS_RECONCILED_KEY = 'EE_EXAM_PROGRESS_RECONCILED_V1';
+
+/**
+ * Sets the PE 學習狀態 of every question that has a result card to the status of its latest card
+ * (legacy cards included). Runs once per device (marker key), and again with `force` after a backup
+ * import. Questions without a card keep their status; afterwards only new cards and manual taps change it.
+ */
+function reconcileProgressWithResultCards(options) {
+  const storage = resultCardStorage_(options);
+  if (!storage) return { ok: false, changed: 0, error: 'no_storage' };
+  const force = !!(options && options.force);
+  resultCardEnsureMigrated_(options);
+  try { if (!force && storage.getItem(RESULT_CARD_PROGRESS_RECONCILED_KEY)) return { ok: true, changed: 0, already: true }; } catch (_) { return { ok: false, changed: 0, error: 'no_storage' }; }
+  const loaded = loadResultCardState({ storage });
+  if (!loaded.ok) return { ok: false, changed: 0, error: loaded.error };
+  const latest = {};
+  loaded.state.records.forEach(r => {
+    if (!/^EE-/.test(r.qid)) return;
+    if (!latest[r.qid] || r.at >= latest[r.qid].at) latest[r.qid] = r;
+  });
+  let progress = {};
+  try { progress = JSON.parse(storage.getItem('EE_EXAM_PROGRESS_V1') || '{}') || {}; } catch (_) { return { ok: false, changed: 0, error: 'invalid_progress' }; }
+  let changed = 0;
+  Object.keys(latest).forEach(qid => {
+    const status = resultCardProgressStatus(resultCardSM2Rating(latest[qid].parts.map(p => p.mark)));
+    if (status !== null && Number(progress[qid] || 0) !== status) { progress[qid] = status; changed += 1; }
+  });
+  try {
+    if (changed) storage.setItem('EE_EXAM_PROGRESS_V1', JSON.stringify(progress));
+    storage.setItem(RESULT_CARD_PROGRESS_RECONCILED_KEY, new Date().toISOString());
+  } catch (_) { return { ok: false, changed: 0, error: 'write_failed' }; }
+  if (changed && typeof progressState !== 'undefined' && typeof currentExamCategory !== 'undefined' && currentExamCategory === 'PE') {
+    progressState = progress;
+  }
+  if (changed && typeof cloudSyncMarkDirty === 'function') cloudSyncMarkDirty();
+  return { ok: true, changed, already: false };
+}
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     RESULT_CARD_STORAGE_KEY, RESULT_CARD_ERROR_CODES, RESULT_CARD_ERROR_LABELS,
-    buildResultModel, scoreResult, resultCardSM2Rating, saveResultRecord, getResultRecords,
-    latestRecordFor, loadResultCardState, migrateLegacyResultRecords
+    buildResultModel, scoreResult, resultCardSM2Rating, resultCardProgressStatus, saveResultRecord, getResultRecords,
+    latestRecordFor, loadResultCardState, migrateLegacyResultRecords, reconcileProgressWithResultCards
   };
 }

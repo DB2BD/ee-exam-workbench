@@ -35,6 +35,9 @@ assert abs(abs(zf) - 0.04285) / 0.04285 < 5e-4
 i_sym = I_BASE / abs(zf) / 1e3
 assert abs(i_sym - 7.956) / 7.956 < 5e-4                    # boxed symmetrical
 assert abs(K * i_sym - 9.946) / 9.946 < 5e-4                # boxed asymmetrical
+# X/R-based half-cycle multiplier (stated in 條件與疑義): K ~ 1.014 -> about 8.07 kA
+k_xr = math.sqrt(1 + 2 * math.exp(-2 * math.pi * zf.real / zf.imag))
+assert abs(k_xr - 1.0139) < 5e-4 and abs(k_xr * i_sym - 8.067) < 2e-3
 
 # ---- independent route: ohms on the 220 V side ----
 a = (220.0 / 380.0) ** 2

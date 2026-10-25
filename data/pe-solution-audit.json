@@ -1631,7 +1631,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "sympy_dsolve_rl_switching_transient_with_ode_backsubstitution_and_tariff_clause_check",
-      "solution_hash": "2799b266099d27dd42d1756c2c0da6217fd1a230ddbb3aa9661edf4f99a9c135",
+      "solution_hash": "02197dbf75e6e22af7e630ea1392e2032f20b9023517e12e6124fb38fd25a416",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/06_工業配電/images/questions/PE_110年_工業配電_Q01.png"
     },
@@ -3014,7 +3014,7 @@
       "audit_status": "needs_manual_review",
       "verified_at": null,
       "method": "stem_data_line_to_line_loop_z1_plus_z2_on_75kva_220v_base_with_ohm_crosscheck_and_book_value_comparison",
-      "solution_hash": "31338c35b3ec1b38e94406f35eab4048094aad8f999494e59b2b40a9b807bdfc",
+      "solution_hash": "0fe5559cbf4a624966a429968c00c60bfd9fa53e0059775b023e5cec2cee3a46",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/06_工業配電/images/questions/PE_106年_工業配電_Q02.png",
       "review_disposition": "reference_book_conflict",

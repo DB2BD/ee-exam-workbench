@@ -80,8 +80,8 @@
 .bd-block { margin-top: 12px; }
 .bd-block h4 { margin: 0 0 6px; font-size: 0.8125rem; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; }
 .bd-formula { overflow-x: auto; padding: 6px 0; }
-.bd-logic { line-height: 1.7; color: var(--ink); overflow-x: auto; }
-.bd-logic p { margin: 0 0 6px; }
+.bd-route { margin: 0; padding-left: 1.6em; list-style: decimal; line-height: 1.7; color: var(--ink); overflow-x: auto; }
+.bd-route li { margin: 2px 0; }
 .bd-mine { margin: 0; padding: 8px 10px; background: var(--bg); border-radius: var(--radius-sm); white-space: pre-wrap; }
 
 .bd-stats { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0; margin: 4px 0 8px; }
@@ -92,10 +92,6 @@
 .bd-misses li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 6px 0; border-top: 1px solid var(--line); }
 .bd-misses small { color: var(--review); }
 .bd-qid { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
-.bd-logic ol, .bd-logic ul { margin: 4px 0 6px; padding-left: 1.6em; }
-.bd-logic ol { list-style: decimal; }
-.bd-logic ul { list-style: disc; }
-.bd-logic li { margin: 2px 0; }
 .bd-cues { margin: 0; padding-left: 1.4em; list-style: disc; line-height: 1.6; }
 .bd-first { line-height: 1.7; overflow-x: auto; padding: 8px 10px; background: var(--accent-light); border-radius: var(--radius-sm); }
 .bd-first p { margin: 0; }

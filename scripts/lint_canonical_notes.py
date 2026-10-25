@@ -6,27 +6,18 @@ Notes migrated to the lean template (frontmatter ``template: lean-v1``) are
 additionally held to the section, metadata and redundancy rules of
 the lean-v1 題解版型 (internal work record, unpublished).
 
-v1.5.0 solution-logic rules (switchable, ``--require-logic``): a non-compact
-note needs a ``**解題邏輯**：`` paragraph before its first ### heading in
-「考場標準作答」, every scored sub-question heading（（一）… with 「N 分」）needs a
-``**邏輯**：`` line, and ``compact: true`` is allowed only when the total marks
-are <= 5 (this replaces the legacy 700-character rule).  The default is
-``REQUIRE_LOGIC_DEFAULT``; flip it once every note has been rewritten.
-
-Permanent enforcement: when ``require_logic`` is not given explicitly, the
-logic rules apply automatically to every QID listed in
-``data/solution-logic-registry.json`` (notes already rewritten); other notes
-keep ``REQUIRE_LOGIC_DEFAULT``.  ``--require-logic`` forces the rules for any
-QID, ``--no-require-logic`` disables them.  After rewriting notes run
-``python3 scripts/update_solution_logic_registry.py`` so they get registered
-(``--check`` fails when the registry is stale; tests/test_lint_canonical_notes.py
-lints every registered note).
+Answer-sheet rules (v1.9.0, on by default; ``--no-answer-style`` disables
+them): 「考場標準作答」 is written the way an examinee writes the answer sheet, so
+it carries no ``**解題邏輯**`` paragraph and no ``**邏輯**：`` label (the
+assumptions and choices live in plain sentences inside the steps), and
+``compact: true`` is allowed only when the total marks are <= 5.
+``--require-logic`` / ``--no-require-logic`` are kept as aliases.
 
 Usage::
 
     python3 scripts/lint_canonical_notes.py              # summary of all notes
     python3 scripts/lint_canonical_notes.py --strict     # fail on any lean-v1 violation
-    python3 scripts/lint_canonical_notes.py EE-106-05-2 --strict --require-logic
+    python3 scripts/lint_canonical_notes.py EE-106-05-2 --strict
     python3 scripts/lint_canonical_notes.py EE-114-05-3 --json
 """
 
@@ -49,13 +40,11 @@ REQUIRED_SECTIONS = ("已知與所求", "考場標準作答", "驗算", "失分�
 COMPACT_SECTIONS = ("考場標準作答", "驗算")
 COMPACT_MAX_POINTS = 10
 COMPACT_MAX_CHARS = 700
-# v1.5.0: with --require-logic compact is only for questions worth <= 5 marks.
+# Answer-sheet rules: compact is only for questions worth <= 5 marks.
 COMPACT_LOGIC_MAX_POINTS = 5
-REQUIRE_LOGIC_DEFAULT = False
-REGISTRY = ROOT / "data/solution-logic-registry.json"
-LOGIC_OVERALL = "**解題邏輯**："
-LOGIC_SUB = "**邏輯**："
-SCORED_HEADING = re.compile(r"^(#{3,4})\s+(\*{0,2}\s*[（(]\s*([一二三四五六七八九十])\s*[）)][^\n]*?[（(]\s*\d+\s*分\s*[）)][^\n]*)$", re.M)
+ANSWER_STYLE_DEFAULT = True
+# Labels that previewed the working; the answer sheet states assumptions inside the steps instead.
+LOGIC_LABELS = (("解題邏輯", "**解題邏輯**"), ("邏輯", "**邏輯**："))
 OPTIONAL_SECTIONS = ("條件與疑義", "計算機按法")
 REQUIRED_FRONTMATTER = ("qid", "year", "subject", "audit_status", "verified_at", "method", "source_crop")
 # Audit history belongs to frontmatter / data/pe-solution-audit.json, not the
@@ -126,43 +115,18 @@ def standard_answer(body: str) -> str:
     return match.group(1) if match else ""
 
 
-def logic_errors(body: str) -> list[str]:
-    """v1.5.0 rules for a non-compact note: overall 解題邏輯 and per-sub-question 邏輯."""
+def label_errors(body: str) -> list[str]:
+    """Answer-sheet rule: no 解題邏輯 paragraph and no 邏輯 label in 「考場標準作答」."""
 
     section = strip_code(standard_answer(body))
-    errors: list[str] = []
-    first_heading = re.search(r"^#{3,4}\s", section, re.M)
-    lead = section[:first_heading.start()] if first_heading else section
-    if LOGIC_OVERALL not in lead:
-        errors.append("no-logic:解題邏輯")
-    heads = list(re.finditer(r"^(#{3,4})\s+(.+?)\s*$", section, re.M))
-    for index, match in enumerate(heads):
-        scored = SCORED_HEADING.match(match.group(0))
-        if not scored:
-            continue
-        level = len(match.group(1))
-        end = len(section)
-        for later in heads[index + 1:]:
-            if len(later.group(1)) <= level:
-                end = later.start()
-                break
-        if LOGIC_SUB not in section[match.end():end]:
-            errors.append(f"no-logic:（{scored.group(3)}）")
-    return errors
-
-
-def registered_qids() -> set[str]:
-    """QIDs whose notes were rewritten to the v1.5.0 logic standard."""
-    if not REGISTRY.exists():
-        return set()
-    return set(json.loads(REGISTRY.read_text(encoding="utf-8")).get("qids", []))
+    return [f"logic-label:{name}" for name, label in LOGIC_LABELS if label in section]
 
 
 def lint(path: Path, stem: str, require_logic: bool | None = None) -> dict:
     text = path.read_text(encoding="utf-8")
     fields, body = frontmatter(text)
     if require_logic is None:
-        require_logic = REQUIRE_LOGIC_DEFAULT or fields.get("qid", path.stem) in registered_qids() or path.stem in registered_qids()
+        require_logic = ANSWER_STYLE_DEFAULT
     prose = strip_code(body)
     errors: list[str] = []
     warnings: list[str] = []
@@ -206,8 +170,8 @@ def lint(path: Path, stem: str, require_logic: bool | None = None) -> dict:
                     errors.append(f"compact-not-allowed:{points}分")
             elif points > COMPACT_MAX_POINTS and len(body.strip()) > COMPACT_MAX_CHARS:
                 errors.append(f"compact-not-allowed:{points}分")
-        if require_logic and not compact:
-            errors.extend(logic_errors(body))
+        if require_logic:
+            errors.extend(label_errors(body))
         for heading in COMPACT_SECTIONS if compact else REQUIRED_SECTIONS:
             if heading not in found:
                 errors.append(f"section-missing:{heading}")
@@ -257,10 +221,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("qids", nargs="*", help="limit to these QIDs")
     parser.add_argument("--strict", action="store_true", help="exit 1 when any checked note has an error")
     parser.add_argument("--json", action="store_true", help="print per-note results as JSON")
-    parser.add_argument("--require-logic", dest="require_logic", action="store_true", default=None,
-                        help="enforce the v1.5.0 解題邏輯／邏輯 rules and the <=5 mark compact limit")
-    parser.add_argument("--no-require-logic", dest="require_logic", action="store_false",
-                        help="disable the v1.5.0 solution-logic rules")
+    parser.add_argument("--answer-style", "--require-logic", dest="require_logic", action="store_true", default=None,
+                        help="enforce the answer-sheet rules (no 解題邏輯／邏輯 labels, compact <= 5 marks); the default")
+    parser.add_argument("--no-answer-style", "--no-require-logic", dest="require_logic", action="store_false",
+                        help="disable the answer-sheet rules")
     args = parser.parse_args(argv)
 
     stem_map = stems()

@@ -16,10 +16,9 @@ a concept-sentence heuristic and body characters per mark, and raises flags:
                       lies between the substitution and the answer
     too-short         body characters per mark below the corpus threshold
 
-v1.5.0 solution-logic flags (WORKPLAN_v1.5.0):
+v1.5.0 solution-logic flag (WORKPLAN_v1.5.0; the former ``no-logic`` flag was
+retired in v1.8.2, when the 解題邏輯／邏輯 labels gave way to answer-sheet prose):
 
-    no-logic          non-compact note without ``**解題邏輯**：`` (flag on the
-                      first sub-question) or a sub-question without ``**邏輯**：``
     orphan-number     a number (integers <= 3, subscripts, exponents and unit
                       scalers ignored) in the first substitution of a display
                       equation that appears neither earlier in the note nor in the
@@ -65,7 +64,6 @@ WEIGHTS = {
 }
 # v1.5.0 flags are scored on top of the v1.4.0 weights.
 LOGIC_WEIGHTS = {
-    "no-logic": 2.0,
     "orphan-number": 2.0,
 }
 ORPHAN_IGNORED = {"10", "100", "1000", "180", "360"}   # unit scalers / half and full turns
@@ -448,7 +446,6 @@ def describe(flag: str, metrics: dict) -> str:
         "jump": f"跳步（{metrics['jump_windows']} 個 boxed 直接接符號式）",
         "no-intermediate": f"缺中間結果（{metrics['worst_ops']} 個運算一步到位）",
         "too-short": f"過短（{metrics['chars']} 字，{metrics['chars_per_mark']} 字/分）",
-        "no-logic": "缺邏輯句",
         "orphan-number": "來源不明數字：" + "、".join(metrics.get("orphan_numbers", [])),
     }[flag]
 
@@ -626,11 +623,7 @@ def audit_note(path: Path, stem: str, subject: str) -> dict:
     chunks = merge_boxless(chunks)
     preamble_concept = has_concept(prose_of(preamble))
     compact = fields.get("compact") == "true"
-    section = standard_section(body)
-    lead = section[:HEADING.search(section).start()] if HEADING.search(section) else section
     note_flags = []
-    if not compact and lint.LOGIC_OVERALL not in lead:
-        note_flags.append("no-logic")
     seen = given_numbers(stem, section_text(body, "已知與所求")) | numbers_in(preamble)
     unlabeled = [c for c in chunks if c["label"] not in per_label]
     rest = total - sum(per_label[c["label"]] for c in chunks if c["label"] in per_label)
@@ -652,8 +645,6 @@ def audit_note(path: Path, stem: str, subject: str) -> dict:
         metrics["orphan_numbers"] = orphans[:10]
         if orphans:
             metrics["flags"].append("orphan-number")
-        if not compact and chunk["heading"] and lint.LOGIC_SUB not in chunk["text"]:
-            metrics["flags"].append("no-logic")
         subs.append(metrics)
     severity = 0.0
     for sub in subs:
@@ -661,7 +652,6 @@ def audit_note(path: Path, stem: str, subject: str) -> dict:
         if "no-substitution" in active:
             active.discard("jump")       # same defect, count once
         severity += sum({**WEIGHTS, **LOGIC_WEIGHTS}[f] for f in active) * sub["marks"] / 10.0
-    severity += LOGIC_WEIGHTS["no-logic"] * len(note_flags) * total / 10.0
     chars = sum(s["chars"] for s in subs)
     return {
         "qid": fields.get("qid", path.stem),
@@ -715,8 +705,6 @@ def candidate_record(note: dict) -> dict:
         flags_by_sub[key] = sub["flags"]
         title = re.sub(r"^\s*[（(][一二三四五六七八九十][）)]\s*", "", sub["heading"])[:18]
         notes.append(f"{key}{title}：" + "；".join(describe(f, sub) for f in sub["flags"]))
-    if note["note_flags"]:
-        notes.insert(0, "整題缺解題邏輯")
     return {
         "qid": note["qid"],
         "subject": subject_key(note["subject"]),

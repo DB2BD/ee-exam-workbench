@@ -1,7 +1,7 @@
 // src/features/breakdownDrill/component.js
 /**
  * 破題訓練 (optional feature — delete src/features/breakdownDrill/ to remove it): look at a stem for at most 2 minutes, pick its type (chapter) from four options of the same
- * subject, optionally write the first step, then reveal the chapter, its core formula and the note's 「解題邏輯」
+ * subject, optionally write the first step, then reveal the chapter, its core formula and the note's solution route (its step headings)
  * and self-rate the first step.  Records, spacing and round selection live in store.js next to this file.
  *
  * Depends (call time): BREAKDOWN_DRILL, KNOWLEDGE_DAG, TARGET_ALLOCATION, QUESTION_CROP_MAP, anchorBankFromGlobals_,
@@ -70,7 +70,7 @@ function breakdownDrillHeldPapers_() {
 }
 
 /**
- * Drillable questions: PE questions with a crop, a 解題邏輯 paragraph and a named chapter, minus the questions held
+ * Drillable questions: PE questions with a crop, step headings and a named chapter, minus the questions held
  * back for unfinished mock / blind-test papers and fixed schedule tasks (seeing their stems would spoil them).
  */
 function breakdownDrillBank() {
@@ -79,7 +79,7 @@ function breakdownDrillBank() {
   const dag = typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG ? KNOWLEDGE_DAG : {};
   const held = breakdownDrillHeldQids_();
   const papers = breakdownDrillHeldPapers_();
-  return rows.filter(q => q.crop && !held.has(q.id) && !papers.has(q.year + '-' + q.subject) && data[q.id] && data[q.id].logicMd && data[q.id].chapter && dag[data[q.id].chapter])
+  return rows.filter(q => q.crop && !held.has(q.id) && !papers.has(q.year + '-' + q.subject) && data[q.id] && Array.isArray(data[q.id].route) && data[q.id].route.length && data[q.id].chapter && dag[data[q.id].chapter])
     .map(q => ({ id: q.id, subject: q.subject, year: q.year, chapter: data[q.id].chapter, type: data[q.id].type || '' }));
 }
 
@@ -271,7 +271,7 @@ function breakdownDrillRevealHtml_(v) {
   const type = breakdownDrillTypes_()[answer] || null;
   const node = typeof KNOWLEDGE_DAG !== 'undefined' && KNOWLEDGE_DAG ? KNOWLEDGE_DAG[q.chapter] : null;
   const formula = !type && node && node.coreFormula && typeof renderCoreFormulaHtml === 'function' ? renderCoreFormulaHtml(node.coreFormula, true) : '';
-  const logic = md(BREAKDOWN_DRILL[q.id].logicMd);
+  const route = (BREAKDOWN_DRILL[q.id].route || []).map(step => '<li>' + inline(step) + '</li>').join('');
   const chapterNote = type ? '<small>章節：' + breakdownDrillEscape_(breakdownDrillChapterName(q.chapter)) + '</small>' : '';
   const verdict = v.typeOk
     ? '<p class="bd-verdict bd-verdict--ok">' + (typeof uiIcon === 'function' ? uiIcon('check') : '') + ' 題型正確：' + breakdownDrillEscape_(breakdownDrillLabel(answer)) + chapterNote + '</p>'
@@ -288,7 +288,7 @@ function breakdownDrillRevealHtml_(v) {
     + verdict
     + cues + first
     + (formula ? '<div class="bd-block"><h4>核心公式</h4><div class="bd-formula">' + formula + '</div></div>' : '')
-    + '<div class="bd-block"><h4>解題邏輯</h4><div class="bd-logic">' + logic + '</div></div>'
+    + '<div class="bd-block"><h4>解題路線</h4><ol class="bd-route">' + route + '</ol></div>'
     + prereqs
     + mine
     + '<p class="bd-step-label">③ 你的起手方向對嗎？</p>'

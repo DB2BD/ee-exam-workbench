@@ -1,12 +1,12 @@
 # 破題訓練（選用功能）
 
-看題目 2 分鐘內選出題型、寫下第一步，翻答案後對照該題「解題邏輯」並自評。這個功能的所有程式、資料與樣式都在這個資料夾，核心程式不直接引用它。
+看題目 2 分鐘內選出題型、寫下第一步，翻答案後對照該題的解題路線（詳解的步驟標題）並自評。這個功能的所有程式、資料與樣式都在這個資料夾，核心程式不直接引用它。
 
 | 檔案 | 用途 |
 | --- | --- |
 | `feature.json` | 告訴 `scripts/build_workbench.py` 要載入哪些檔案、順序為何 |
 | `build.py` | 從 canonical 題解產生 `data.generated.js`（`npm run check` 透過 `scripts/build_features.py` 執行） |
-| `data.generated.js` | 323 題的章節與解題邏輯 |
+| `data.generated.js` | 323 題的章節、題型與解題路線 |
 | `store.js` | 作答紀錄、間隔複習、抽題；向備份註冊 `breakdownDrill` 欄位 |
 | `component.js` | 畫面；自行在首頁加入入口按鈕，並向狀態視窗註冊經驗值 |
 | `style.css` | 樣式 |

@@ -57,11 +57,11 @@ LEAN_BODY = r"""
 
 
 class LintCanonicalNotesTests(unittest.TestCase):
-    def run_lint(self, body, stem="（一）求 P。（二）求 λ。", front=FRONT):
+    def run_lint(self, body, stem="（一）求 P。（二）求 λ。", front=FRONT, require=None):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "EE-999-05-1.md"
             path.write_text(front + body, encoding="utf-8")
-            return lint.lint(path, stem)["errors"]
+            return lint.lint(path, stem, require)["errors"]
 
     def test_clean_lean_note_passes(self):
         self.assertEqual(self.run_lint(LEAN_BODY), [])
@@ -95,14 +95,15 @@ class LintCanonicalNotesTests(unittest.TestCase):
         self.assertIn("too-many-traps>3", self.run_lint(body))
 
     def test_compact_short_question_may_omit_givens_and_traps(self):
+        # Legacy compact rule (answer-sheet rules off): <= 10 marks, or a short body.
         front = FRONT.replace("template: lean-v1\n", "template: lean-v1\ncompact: true\n")
         body = re.sub(r"## 已知與所求.*?(?=## 考場標準作答)", "", LEAN_BODY, flags=re.S)
         body = body.split("## 失分點")[0]
-        self.assertEqual(self.run_lint(body, stem="（一）求 P。（二）求 λ。（10 分）", front=front), [])
+        self.assertEqual(self.run_lint(body, stem="（一）求 P。（二）求 λ。（10 分）", front=front, require=False), [])
         long_stem = "（一）求 P。（二）求 λ。（20 分）"
-        self.assertEqual(self.run_lint(body, stem=long_stem, front=front), [])  # still short body
+        self.assertEqual(self.run_lint(body, stem=long_stem, front=front, require=False), [])  # still short body
         padded = body + "\n" + "說明。" * 400
-        self.assertIn("compact-not-allowed:20分", self.run_lint(padded, stem=long_stem, front=front))
+        self.assertIn("compact-not-allowed:20分", self.run_lint(padded, stem=long_stem, front=front, require=False))
 
     def test_total_points_reads_shared_marks(self):
         self.assertEqual(lint.total_points("（每小題 10 分，共 20 分）"), 20)
@@ -125,88 +126,45 @@ LOGIC_BODY = LEAN_BODY.replace(
 )
 
 
-class RequireLogicTests(unittest.TestCase):
-    def run_lint(self, body, stem="（一）求 P。（二）求 λ。", front=FRONT, require=True):
+class AnswerStyleTests(unittest.TestCase):
+    def run_lint(self, body, stem="（一）求 P。（二）求 λ。", front=FRONT, require=None):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "EE-999-05-1.md"
             path.write_text(front + body, encoding="utf-8")
             return lint.lint(path, stem, require)["errors"]
 
-    def test_default_is_off_so_legacy_notes_still_pass(self):
-        self.assertFalse(lint.REQUIRE_LOGIC_DEFAULT)
-        self.assertEqual(self.run_lint(LEAN_BODY, require=False), [])
+    def test_default_is_on(self):
+        self.assertTrue(lint.ANSWER_STYLE_DEFAULT)
+        self.assertEqual(self.run_lint(LEAN_BODY), [])
 
-    def test_complete_logic_note_passes(self):
-        self.assertEqual(self.run_lint(LOGIC_BODY), [])
+    def test_logic_labels_are_errors(self):
+        errors = self.run_lint(LOGIC_BODY)
+        self.assertIn("logic-label:解題邏輯", errors)
+        self.assertIn("logic-label:邏輯", errors)
+        self.assertEqual(self.run_lint(LOGIC_BODY, require=False), [])
 
-    def test_missing_overall_logic_is_an_error(self):
-        body = LOGIC_BODY.replace("**解題邏輯**：", "")
-        self.assertIn("no-logic:解題邏輯", self.run_lint(body))
+    def test_sub_label_alone_is_an_error(self):
+        body = LOGIC_BODY.replace("**解題邏輯**：等增量成本加功率平衡，先求 \\(P_1\\) 再求 \\(\\lambda\\)。\n", "")
+        self.assertEqual(self.run_lint(body), ["logic-label:邏輯"])
 
-    def test_overall_logic_must_precede_first_subheading(self):
-        body = LOGIC_BODY.replace("**解題邏輯**：", "").replace("## 驗算", "**解題邏輯**：太晚。\n\n## 驗算")
-        self.assertIn("no-logic:解題邏輯", self.run_lint(body))
-
-    def test_scored_subquestion_needs_its_own_logic_line(self):
-        body = LOGIC_BODY.replace("**邏輯**：代回任一機組。", "")
-        errors = self.run_lint(body)
-        self.assertIn("no-logic:（二）", errors)
-        self.assertNotIn("no-logic:（一）", errors)
-
-    def test_unscored_headings_do_not_need_logic(self):
-        self.assertEqual(self.run_lint(LOGIC_BODY.replace("（10 分）", "")), [])
-
-    def test_legacy_note_fails_with_both_codes(self):
-        errors = self.run_lint(LEAN_BODY.replace("### （一）", "### （一）出力（10 分）"))
-        self.assertIn("no-logic:解題邏輯", errors)
-        self.assertIn("no-logic:（一）", errors)
+    def test_plain_sentences_and_other_bold_labels_pass(self):
+        body = LEAN_BODY.replace("### （一）\n", "### （一）\n\n設各機組皆未達出力上下限。**功率平衡**：\n")
+        self.assertEqual(self.run_lint(body), [])
 
     def test_compact_limit_is_five_marks_and_ignores_length(self):
         front = FRONT.replace("template: lean-v1\n", "template: lean-v1\ncompact: true\n")
         body = re.sub(r"## 已知與所求.*?(?=## 考場標準作答)", "", LEAN_BODY, flags=re.S).split("## 失分點")[0]
         self.assertEqual(self.run_lint(body, stem="求 P。（5 分）", front=front), [])
         self.assertIn("compact-not-allowed:6分", self.run_lint(body, stem="求 P。（6 分）", front=front))
-        # Without the flag the legacy 700-character rule still governs.
+        # With the rules off the legacy 700-character rule still governs.
         self.assertEqual(self.run_lint(body, stem="求 P。（6 分）", front=front, require=False), [])
 
-
-class RegistryEnforcementTests(unittest.TestCase):
-    def lint_with_registry(self, body, registered, **kwargs):
-        original = lint.registered_qids
-        lint.registered_qids = lambda: {"EE-999-05-1"} if registered else set()
-        try:
-            with tempfile.TemporaryDirectory() as tmp:
-                path = Path(tmp) / "EE-999-05-1.md"
-                path.write_text(FRONT + body, encoding="utf-8")
-                return lint.lint(path, "（一）求 P。（二）求 λ。", **kwargs)["errors"]
-        finally:
-            lint.registered_qids = original
-
-    def test_registered_note_missing_logic_is_an_error(self):
-        errors = self.lint_with_registry(LEAN_BODY, True)
-        self.assertIn("no-logic:解題邏輯", errors)
-
-    def test_unregistered_note_missing_logic_is_ignored(self):
-        self.assertEqual(self.lint_with_registry(LEAN_BODY, False), [])
-
-    def test_explicit_flags_override_registry(self):
-        self.assertEqual(self.lint_with_registry(LEAN_BODY, True, require_logic=False), [])
-        self.assertIn("no-logic:解題邏輯", self.lint_with_registry(LEAN_BODY, False, require_logic=True))
-
-    def test_all_registered_notes_pass_lint(self):
-        qids = sorted(lint.registered_qids())
-        self.assertTrue(qids)
+    def test_all_notes_pass_lint(self):
         stem_map = lint.stems()
-        by_qid = {p.stem: p for p in lint.canonical_paths(qids)}
-        self.assertEqual(sorted(by_qid), qids)
-        bad = {q: r["errors"] for q, p in by_qid.items()
-               if (r := lint.lint(p, stem_map.get(q, ""))) and r["errors"]}
+        paths = lint.canonical_paths([])
+        self.assertEqual(len(paths), 323)
+        bad = {p.stem: r["errors"] for p in paths if (r := lint.lint(p, stem_map.get(p.stem, ""))) and r["errors"]}
         self.assertEqual(bad, {})
-
-    def test_registry_is_up_to_date(self):
-        import update_solution_logic_registry as reg
-        self.assertEqual(reg.main(["--check"]), 0)
-
 
 if __name__ == "__main__":
     unittest.main()

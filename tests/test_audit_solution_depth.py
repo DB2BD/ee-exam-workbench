@@ -69,23 +69,20 @@ class AuditV150FlagTests(unittest.TestCase):
     def orphans(self, note):
         return [number for sub in note["subs"] for number in sub["orphan_numbers"]]
 
-    def test_complete_note_has_no_logic_or_orphan_flags(self):
+    def test_complete_note_has_no_orphan_flags(self):
         note = self.audit_text(GOOD)
         self.assertEqual(note["note_flags"], [])
         for flags in self.flags(note).values():
             self.assertFalse(flags & {"no-logic", "orphan-number"})
 
-    def test_missing_overall_and_sub_logic_are_flagged(self):
+    def test_no_logic_flag_is_retired(self):
+        # v1.8.2: 解題邏輯／邏輯 labels are gone; a note without them is not flagged.
         body = GOOD.replace("**解題邏輯**：", "").replace("**邏輯**：歐姆定律。", "")
         note = self.audit_text(body)
-        self.assertEqual(note["note_flags"], ["no-logic"])
-        flags = self.flags(note)
-        self.assertIn("no-logic", flags["一"])
-        self.assertNotIn("no-logic", flags["二"])
-
-    def test_compact_note_is_exempt_from_no_logic(self):
-        note = self.audit_text(GOOD.replace("**解題邏輯**：", ""), extra="compact: true\n")
         self.assertEqual(note["note_flags"], [])
+        self.assertNotIn("no-logic", audit.LOGIC_WEIGHTS)
+        for flags in self.flags(note).values():
+            self.assertNotIn("no-logic", flags)
 
     def test_orphan_number_in_display_substitution_is_flagged(self):
         body = GOOD.replace(r"P=I^2R=20^2\times12=400\times12=4800", r"P=I^2R=20^2\times15=400\times15=6000")

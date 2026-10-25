@@ -56,11 +56,11 @@ def run_js(expression):
 
 
 class TestGeneratedData(unittest.TestCase):
-    def test_every_pe_note_has_chapter_and_logic(self):
+    def test_every_pe_note_has_chapter_and_route(self):
         r = run_js("""(() => {
           const ids = Object.keys(BREAKDOWN_DRILL);
           return { n: ids.length,
-            missing: ids.filter(q => !BREAKDOWN_DRILL[q].chapter || !BREAKDOWN_DRILL[q].logicMd || !KNOWLEDGE_DAG[BREAKDOWN_DRILL[q].chapter]),
+            missing: ids.filter(q => !BREAKDOWN_DRILL[q].chapter || !(BREAKDOWN_DRILL[q].route || []).length || !KNOWLEDGE_DAG[BREAKDOWN_DRILL[q].chapter]),
             subjects: Array.from(new Set(ids.map(q => q.split('-')[2]))).sort() }; })()""")
         self.assertEqual(r["n"], 323)
         self.assertEqual(r["missing"], [])

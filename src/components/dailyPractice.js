@@ -231,8 +231,9 @@ function dailyPracticeStart() {
 }
 
 // Start a round now in the given mode (schedule REINF／BUFFER tasks use this). The saved
-// selector choice is left alone; the session remembers the mode it was drawn with.
-function dailyPracticeStartWithMode(mode) {
+// selector choice is left alone; the session remembers the mode it was drawn with, and the
+// today-task phase that launched it ({ code, phaseIndex }) so finishing the round advances that phase.
+function dailyPracticeStartWithMode(mode, taskLink) {
   mode = dailyPracticeValidMode(String(mode)) ? String(mode) : dailyPracticeLoadMode();
   const category = 'PE';
   const broad = mode === 'all' || mode === 'weighted' || mode === 'balanced' || mode === 'reinforce' || mode === 'priority';
@@ -245,6 +246,9 @@ function dailyPracticeStartWithMode(mode) {
   }
   const session = createPracticeSession(category, subjectId, queue, { now: Date.now() });
   session.mode = mode;
+  if (taskLink && typeof taskLink.code === 'string' && Number.isInteger(taskLink.phaseIndex)) {
+    session.todayTask = { code: taskLink.code, phaseIndex: taskLink.phaseIndex };
+  }
   const result = typeof savePracticeSession === 'function' ? savePracticeSession(session) : { ok: false };
   if (!result.ok) {
     showToast(result.error || '練習進度無法儲存。');
@@ -436,8 +440,11 @@ function dailyPracticeFinishQuestion(session, qid) {
       completed: session.questionIds.length, qids: session.questionIds.slice(),
       modeLabel: '隨機練習・' + dailyPracticeSessionModeLabel(session)
     };
+    const taskNote = session.todayTask && typeof todayTaskCompleteLinkedPhase === 'function'
+      ? todayTaskCompleteLinkedPhase(session.todayTask) : '';
+    if (taskNote) dailyPracticeLastSummary.taskNote = taskNote;
     dailyPracticeHomeMode = 'summary';
-    showToast('本輪隨機練習已完成！');
+    showToast(taskNote || '本輪隨機練習已完成！');
   } else {
     dailyPracticeView = 'question';
     dailyPracticeHomeMode = 'continue';
@@ -599,6 +606,7 @@ function renderDailyPractice(container, error) {
     container.innerHTML = '<section class="daily-practice-shell daily-practice-summary" aria-live="polite">' +
       '<span class="eyebrow">本輪完成摘要</span><h2>完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
       '<p>' + dailyPracticeEscape(summary.category) + ' · ' + dailyPracticeEscape(summary.modeLabel || (summary.subjectId === 'all' ? '隨機練習' : dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
+      (summary.taskNote ? '<p class="daily-practice-task-note" role="status">' + dailyPracticeEscape(summary.taskNote) + '</p>' : '') +
       (summary.qids ? dailyPracticeSummaryEstimateRows(summary.qids) : dailyPracticeSummaryRows(summary.results)) +
       '<div class="daily-practice-actions">' + dailyPracticeModeSelectHtml() + '<button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
       ((summary.qids ? items.some(item => !item.full) : (summary.results || []).some(item => item.rating < 5)) ? '<button class="btn-pdf" type="button" onclick="dailyPracticeOpenErrorList()">查看需二刷題目</button>' : '') +

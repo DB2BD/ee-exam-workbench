@@ -251,8 +251,8 @@ def practice_tasks(days: list[dict]) -> list[dict]:
             "code": f"REINF-{n:02d}", "kind": "practice", "launch": LAUNCH_REINFORCE,
             "title": f"補強｜隨機練習 第 {n} 輪", "qids": [],
             "phases": [
-                {"label": "補強隨機練習（模考 △／× 題優先）", "minutes": 90, "closed": False, "launch": LAUNCH_REINFORCE,
-                 "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"},
+                {"label": "補強隨機練習（依上榜效益）", "minutes": 90, "closed": False, "launch": LAUNCH_REINFORCE,
+                 "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"},
                 {"label": "重做錯題與錯因回顧", "minutes": 30, "closed": False,
                  "note": "把這一輪做錯的題蓋牌重寫一次；時間到就停。"},
             ],
@@ -276,7 +276,7 @@ def practice_tasks(days: list[dict]) -> list[dict]:
             {"label": "補考：未完成的模考卷（沒有就跳過）", "minutes": 120, "closed": False,
              "note": "若 12 份卷還有沒做完的，到「模考」分頁補做；全部完成就直接進下一步。"},
             {"label": "補強隨機練習", "minutes": 120, "closed": False, "launch": LAUNCH_REINFORCE,
-             "note": "按「開啟補強練習」開始補強。"},
+             "note": "按「開啟補強練習」開始補強；做完一輪 3 題即記錄完成。"},
         ],
     })
     for t in tasks:

@@ -1154,6 +1154,45 @@ class TestG2aFixes(unittest.TestCase):
         self.assertEqual(res, {"plan": "今天預算 2 小時（平日）｜還要做約 2 小時", "code": "CORE-10", "mode": "task"})
 
 
+class TestPracticeRoundAdvancesTask(unittest.TestCase):
+    """A 補強練習 round launched from a task phase records that phase when the round is finished."""
+
+    def finish(self, active, link):
+        done = {c: "2026-10-20T10:00:00.000Z" for c in ["CORE-01"]}
+        store = {"EE_EXAM_TODAY_TASK_V1": json.dumps({"completed": done, "active": active})}
+        out = run_node(f"todayTaskCompleteLinkedPhase({json.dumps(link)})", storage=store)
+        return out["result"], json.loads(out["storage"]["EE_EXAM_TODAY_TASK_V1"])
+
+    def test_reinf_practice_phase_moves_to_the_redo_phase(self):
+        active = {"code": "REINF-01", "phaseIndex": 0, "phaseStartedAt": 0}
+        note, state = self.finish(active, {"code": "REINF-01", "phaseIndex": 0})
+        self.assertEqual(state["active"]["phaseIndex"], 1)
+        self.assertNotIn("REINF-01", state["completed"])
+        self.assertIn("下一段：重做錯題與錯因回顧", note)
+
+    def test_buffer_last_phase_is_recorded_done(self):
+        active = {"code": "BUFFER", "phaseIndex": 1, "phaseStartedAt": 0}
+        note, state = self.finish(active, {"code": "BUFFER", "phaseIndex": 1})
+        self.assertIsNone(state["active"])
+        self.assertIn("BUFFER", state["completed"])
+        self.assertIn("已記錄完成", note)
+
+    def test_stale_link_changes_nothing(self):
+        active = {"code": "REINF-02", "phaseIndex": 0, "phaseStartedAt": 0}
+        note, state = self.finish(active, {"code": "REINF-01", "phaseIndex": 0})
+        self.assertEqual(note, "")
+        self.assertEqual(state["active"]["code"], "REINF-02")
+        self.assertEqual(state["active"]["phaseIndex"], 0)
+
+    def test_launch_passes_the_active_phase_to_the_round(self):
+        store = {"EE_EXAM_TODAY_TASK_V1": json.dumps({"completed": {}, "active": {"code": "REINF-03", "phaseIndex": 0, "phaseStartedAt": 0}})}
+        res = run_node(
+            "(() => { const calls = []; globalThis.closeTodayTaskOverlay = () => {}; "
+            "globalThis.dailyPracticeStartWithMode = (m, link) => calls.push([m, link]); "
+            "todayTaskLaunchPractice('random-reinforce'); return calls; })()", storage=store)["result"]
+        self.assertEqual(res, [["priority", {"code": "REINF-03", "phaseIndex": 0}]])
+
+
 class TestDayChangeRerender(unittest.TestCase):
     def test_rerenders_only_when_local_date_moves_on(self):
         oct5 = local_ms(2026, 10, 5, 23, 59)

@@ -736,14 +736,31 @@ function todayTaskStartCodeNow(code) {
   return true;
 }
 
-// 開啟隨機練習 for REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
+// 開啟隨機練習 for REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode, taskLink); fall back to a fresh round.
+// The round carries the active phase, so finishing it advances the task (todayTaskCompleteLinkedPhase).
 function todayTaskLaunchPractice(launch) {
   const mode = launch === 'random-reinforce' ? 'priority' : 'balanced';
+  const active = (todayTaskState || todayTaskRefresh()).active;
+  const link = active ? { code: active.code, phaseIndex: active.phaseIndex } : null;
   closeTodayTaskOverlay();
   if (typeof switchTab === 'function' && typeof document !== 'undefined' && document.getElementById('tab-pane-practice')) switchTab('practice');
-  if (typeof dailyPracticeStartWithMode === 'function') dailyPracticeStartWithMode(mode);
+  if (typeof dailyPracticeStartWithMode === 'function') dailyPracticeStartWithMode(mode, link);
   else if (typeof dailyPracticePrepareNewRound === 'function') dailyPracticePrepareNewRound();
   if (typeof dailyPracticeScrollRoundIntoView === 'function') dailyPracticeScrollRoundIntoView();
+}
+
+// A practice round launched from a task phase has finished: advance that phase if it is still the active one.
+// Returns the message for the learner, or '' when the task moved on in the meantime.
+function todayTaskCompleteLinkedPhase(link) {
+  const state = todayTaskRefresh();
+  const a = state.active;
+  if (!link || !a || a.code !== link.code || a.phaseIndex !== link.phaseIndex) return '';
+  const task = DAILY_SCHEDULE.tasks[a.code];
+  const next = todayTaskAdvance(state, Date.now());
+  todayTaskCommit(next);
+  if (typeof renderTodayTaskCard === 'function' && typeof document !== 'undefined') renderTodayTaskCard();
+  if (!next.active) return '今日任務「' + task.title + '」已記錄完成。';
+  return '今日任務「' + task.title + '」練習段已完成，下一段：' + task.phases[next.active.phaseIndex].label + '（回今日任務卡繼續）。';
 }
 
 function todayTaskStopTimer() {

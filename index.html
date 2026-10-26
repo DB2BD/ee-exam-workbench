@@ -1514,6 +1514,7 @@ select:focus {
 .daily-practice-empty { padding: 48px 20px; text-align: center; color: var(--muted); }
 .daily-practice-summary { text-align: center; }
 .daily-practice-summary h2 { margin: 8px 0; color: var(--success); }
+.daily-practice-task-note { margin: 8px auto; padding: 6px 10px; max-width: 36rem; border-radius: var(--radius-sm); background: var(--success-light); border: 1px solid var(--success); color: var(--ink); font-weight: 700; }
 .daily-practice-result-list { display: grid; gap: 10px; margin: 18px 0; text-align: left; }
 .daily-practice-result-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
 .daily-practice-result-item > div { display: grid; gap: 3px; flex: 1; }
@@ -20587,11 +20588,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20611,11 +20612,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20635,11 +20636,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20659,11 +20660,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20683,11 +20684,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20707,11 +20708,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20731,11 +20732,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20755,11 +20756,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20779,11 +20780,11 @@ const DAILY_SCHEDULE = {
       "qids": [],
       "phases": [
         {
-          "label": "補強隨機練習（模考 △／× 題優先）",
+          "label": "補強隨機練習（依上榜效益）",
           "minutes": 90,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」：優先抽兩套模考標 △／× 的題與其同章同型題，其次成績頁錯因最多的章。"
+          "note": "按「開啟補強練習」：先練出題比重高、新題得分率低的章節（錯題重做與新題優先）。做完一輪 3 題自動進入下一段。"
         },
         {
           "label": "重做錯題與錯因回顧",
@@ -20879,7 +20880,7 @@ const DAILY_SCHEDULE = {
           "minutes": 120,
           "closed": false,
           "launch": "random-reinforce",
-          "note": "按「開啟補強練習」開始補強。"
+          "note": "按「開啟補強練習」開始補強；做完一輪 3 題即記錄完成。"
         }
       ],
       "hours": 4.0,
@@ -43996,8 +43997,9 @@ function dailyPracticeStart() {
 }
 
 // Start a round now in the given mode (schedule REINF／BUFFER tasks use this). The saved
-// selector choice is left alone; the session remembers the mode it was drawn with.
-function dailyPracticeStartWithMode(mode) {
+// selector choice is left alone; the session remembers the mode it was drawn with, and the
+// today-task phase that launched it ({ code, phaseIndex }) so finishing the round advances that phase.
+function dailyPracticeStartWithMode(mode, taskLink) {
   mode = dailyPracticeValidMode(String(mode)) ? String(mode) : dailyPracticeLoadMode();
   const category = 'PE';
   const broad = mode === 'all' || mode === 'weighted' || mode === 'balanced' || mode === 'reinforce' || mode === 'priority';
@@ -44010,6 +44012,9 @@ function dailyPracticeStartWithMode(mode) {
   }
   const session = createPracticeSession(category, subjectId, queue, { now: Date.now() });
   session.mode = mode;
+  if (taskLink && typeof taskLink.code === 'string' && Number.isInteger(taskLink.phaseIndex)) {
+    session.todayTask = { code: taskLink.code, phaseIndex: taskLink.phaseIndex };
+  }
   const result = typeof savePracticeSession === 'function' ? savePracticeSession(session) : { ok: false };
   if (!result.ok) {
     showToast(result.error || '練習進度無法儲存。');
@@ -44201,8 +44206,11 @@ function dailyPracticeFinishQuestion(session, qid) {
       completed: session.questionIds.length, qids: session.questionIds.slice(),
       modeLabel: '隨機練習・' + dailyPracticeSessionModeLabel(session)
     };
+    const taskNote = session.todayTask && typeof todayTaskCompleteLinkedPhase === 'function'
+      ? todayTaskCompleteLinkedPhase(session.todayTask) : '';
+    if (taskNote) dailyPracticeLastSummary.taskNote = taskNote;
     dailyPracticeHomeMode = 'summary';
-    showToast('本輪隨機練習已完成！');
+    showToast(taskNote || '本輪隨機練習已完成！');
   } else {
     dailyPracticeView = 'question';
     dailyPracticeHomeMode = 'continue';
@@ -44364,6 +44372,7 @@ function renderDailyPractice(container, error) {
     container.innerHTML = '<section class="daily-practice-shell daily-practice-summary" aria-live="polite">' +
       '<span class="eyebrow">本輪完成摘要</span><h2>完成 ' + summary.completed + ' / ' + summary.total + ' 題</h2>' +
       '<p>' + dailyPracticeEscape(summary.category) + ' · ' + dailyPracticeEscape(summary.modeLabel || (summary.subjectId === 'all' ? '隨機練習' : dailyPracticeSubjectLabel(summary.category, summary.subjectId))) + '</p>' +
+      (summary.taskNote ? '<p class="daily-practice-task-note" role="status">' + dailyPracticeEscape(summary.taskNote) + '</p>' : '') +
       (summary.qids ? dailyPracticeSummaryEstimateRows(summary.qids) : dailyPracticeSummaryRows(summary.results)) +
       '<div class="daily-practice-actions">' + dailyPracticeModeSelectHtml() + '<button class="btn-sol daily-practice-primary" type="button" onclick="dailyPracticePrepareNewRound()">再練 3 題</button>' +
       ((summary.qids ? items.some(item => !item.full) : (summary.results || []).some(item => item.rating < 5)) ? '<button class="btn-pdf" type="button" onclick="dailyPracticeOpenErrorList()">查看需二刷題目</button>' : '') +
@@ -45543,14 +45552,31 @@ function todayTaskStartCodeNow(code) {
   return true;
 }
 
-// 開啟隨機練習 for REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
+// 開啟隨機練習 for REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode, taskLink); fall back to a fresh round.
+// The round carries the active phase, so finishing it advances the task (todayTaskCompleteLinkedPhase).
 function todayTaskLaunchPractice(launch) {
   const mode = launch === 'random-reinforce' ? 'priority' : 'balanced';
+  const active = (todayTaskState || todayTaskRefresh()).active;
+  const link = active ? { code: active.code, phaseIndex: active.phaseIndex } : null;
   closeTodayTaskOverlay();
   if (typeof switchTab === 'function' && typeof document !== 'undefined' && document.getElementById('tab-pane-practice')) switchTab('practice');
-  if (typeof dailyPracticeStartWithMode === 'function') dailyPracticeStartWithMode(mode);
+  if (typeof dailyPracticeStartWithMode === 'function') dailyPracticeStartWithMode(mode, link);
   else if (typeof dailyPracticePrepareNewRound === 'function') dailyPracticePrepareNewRound();
   if (typeof dailyPracticeScrollRoundIntoView === 'function') dailyPracticeScrollRoundIntoView();
+}
+
+// A practice round launched from a task phase has finished: advance that phase if it is still the active one.
+// Returns the message for the learner, or '' when the task moved on in the meantime.
+function todayTaskCompleteLinkedPhase(link) {
+  const state = todayTaskRefresh();
+  const a = state.active;
+  if (!link || !a || a.code !== link.code || a.phaseIndex !== link.phaseIndex) return '';
+  const task = DAILY_SCHEDULE.tasks[a.code];
+  const next = todayTaskAdvance(state, Date.now());
+  todayTaskCommit(next);
+  if (typeof renderTodayTaskCard === 'function' && typeof document !== 'undefined') renderTodayTaskCard();
+  if (!next.active) return '今日任務「' + task.title + '」已記錄完成。';
+  return '今日任務「' + task.title + '」練習段已完成，下一段：' + task.phases[next.active.phaseIndex].label + '（回今日任務卡繼續）。';
 }
 
 function todayTaskStopTimer() {

@@ -1,9 +1,12 @@
 """v1.8.5 首頁與練習視窗的人性化調整：配速行語氣、練習進度、亮色警示字對比、返回鍵與目前分頁標記。"""
 import json
 import re
-import subprocess
+import sys
 import unittest
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -13,7 +16,8 @@ def node(sources, expression):
     script = ("const vm = require('vm'); const ctx = { console }; vm.createContext(ctx);"
               f"vm.runInContext({json.dumps(code + chr(10) + 'globalThis.__r = (' + expression + ');')}, ctx);"
               "process.stdout.write(JSON.stringify(ctx.__r));")
-    return json.loads(subprocess.run(["node", "-e", script], capture_output=True, text=True, check=True).stdout)
+    # Through stdin, not `node -e`: inlined sources can exceed Linux's 128 KB single-argument limit.
+    return json.loads(node_runner.run(script, check=True).stdout)
 
 
 def luminance(hex_color):

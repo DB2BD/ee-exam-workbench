@@ -2,10 +2,13 @@
 """v1.2 QA group G1: modal nesting, reserved mock/blind questions, mock scoring, passbook, theme."""
 
 import json
-import subprocess
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 VOID = {"meta", "link", "br", "img", "input", "hr", "source", "area", "base", "col", "embed", "param", "track", "wbr"}
@@ -54,7 +57,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(globals_js + chr(10) + sources + chr(10) + 'globalThis.__r = (' + expression + ');', ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify(context.__r));
 """
-    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 

@@ -63,3 +63,6 @@ SPEC_*.md
 workflows/
 pyrefly.toml
 /home-*.png
+
+# Local test caches
+.cache/

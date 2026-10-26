@@ -3,7 +3,6 @@
 
 import json
 import re
-import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -11,6 +10,9 @@ from pathlib import Path
 WORKSPACE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(WORKSPACE / "scripts"))
 import build_daily_schedule as bds  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 SCHEDULE_JS = WORKSPACE / "src/data/dailySchedule.generated.js"
 TODAY_JS = WORKSPACE / "src/components/todayTask.js"
@@ -34,16 +36,14 @@ vm.createContext(context);
 vm.runInContext({json.dumps(chr(10).join(sources) + chr(10) + 'globalThis.__result = (' + expression + ');', ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify({{result: context.__result, storage: data}}));
 """
-    done = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=WORKSPACE, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 
 
 def local_ms(y, m, d, hh=9, mm=0):
     # Mirror JS local-time Date so the test is timezone independent.
-    out = subprocess.run(
-        ["node", "-e", f"process.stdout.write(String(new Date({y},{m - 1},{d},{hh},{mm}).getTime()))"],
-        capture_output=True, text=True, check=True)
+    out = node_runner.run(f"process.stdout.write(String(new Date({y},{m - 1},{d},{hh},{mm}).getTime()))", check=True)
     return int(out.stdout)
 
 
@@ -498,8 +498,8 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         res = self.vm(done, local_ms(2026, 10, 28))
         self.assertEqual(res["status"], "ahead")
         self.assertIn("113 年整卷", res["suggestion"])
-        self.assertEqual(res["mode"], "idle")  # BUFFER/REINF are not due yet
-        self.assertIn("今天沒有待做的必做任務", res["html"])
+        self.assertEqual(res["mode"], "task")  # every paper done: 補強 opens before its 11/01 date
+        self.assertEqual(res["code"], "BUFFER")
         self.assertIn("today-pacing-suggestion", res["html"])
 
     def test_weekday_mock_day_one_is_closed_and_stops_the_day(self):

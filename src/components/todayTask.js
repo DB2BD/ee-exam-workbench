@@ -204,7 +204,8 @@ function todayTaskStart(state, now, code) {
     target = code;
   }
   if (!target) return state;
-  const active = { code: target, phaseIndex: 0, phaseStartedAt: now };
+  const papersDone = DAILY_SCHEDULE.order.filter(c => pacingIsPaper(tasks[c])).every(c => state.completed[c]);
+  const active = { code: target, phaseIndex: pacingStartPhase(tasks[target], null, papersDone), phaseStartedAt: now };
   if (todayTaskIsMockKind(tasks[target])) active.mockId = todayTaskMockId(tasks[target], now);
   const pick = todayTaskPickDynamic(tasks[target], state, now);
   if (pick) Object.assign(active, pick);
@@ -493,11 +494,11 @@ function todayTaskViewModel(state, now, options) {
   else mode = 'task';
   // Today's budget is used up: the next task stays available as optional extra work.
   const extraCode = mode === 'day-done' ? (DAILY_SCHEDULE.order.find(c => !state.completed[c] && pacing.cut.indexOf(c) < 0 &&
-    !(tasks[c].notBefore && tasks[c].notBefore > todayIso)) || null) : null;
+    pacingIsOpen(tasks[c], todayIso, pacing.allPapersDone)) || null) : null;
   // The card's primary task: the one in flight, else today's first planned task (or the optional extra one).
   const primary = view
     ? todayTaskPlanItem({ code: state.active.code, part: state.active.phaseIndex > 0 && todayTaskIsMockKind(activeTask) ? 'review' : 'full', hours: pacingRemainingHours(activeTask, { code: state.active.code, phaseIndex: state.active.phaseIndex }) })
-    : (items[0] || (extraCode ? todayTaskPlanItem(Object.assign({ code: extraCode }, pacingCost(tasks[extraCode], null, pacing.weekend))) : null));
+    : (items[0] || (extraCode ? todayTaskPlanItem(Object.assign({ code: extraCode }, pacingCost(tasks[extraCode], null, pacing.weekend, pacing.allPapersDone))) : null));
   const rest = view ? items.filter(i => i.code !== state.active.code) : items.slice(1);
   const held = state.active && state.active.holdDate ? {
     date: state.active.holdDate, sameDay: state.active.holdDate >= todayIso,

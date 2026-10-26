@@ -4,12 +4,15 @@
 import copy
 import json
 import os
-import subprocess
 import unittest
 from pathlib import Path
 
 from scripts import build_cheatsheet as bc
 from scripts import build_cheatsheet_sources as bcs
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -107,7 +110,7 @@ class TestPassbookSection(unittest.TestCase):
         const {{ renderCheatsheetSectionHtml }} = require({json.dumps(str(ROOT / 'src/components/passbookGenerator.js'))});
         console.log(JSON.stringify(renderCheatsheetSectionHtml({data_expr})));
         """
-        proc = subprocess.run(["node", "-"], input=script, capture_output=True, text=True)
+        proc = node_runner.run(script, capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         return json.loads(proc.stdout)
 
@@ -134,7 +137,7 @@ class TestPassbookSection(unittest.TestCase):
         vm.runInContext(fs.readFileSync({json.dumps(str(bc.OUT_JS))}, 'utf8') + '; this.n = CHEATSHEET_DATA.subjects.length;', ctx);
         console.log(ctx.n);
         """
-        proc = subprocess.run(["node", "-"], input=script, capture_output=True, text=True)
+        proc = node_runner.run(script, capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertGreaterEqual(int(proc.stdout.strip()), 0)
 

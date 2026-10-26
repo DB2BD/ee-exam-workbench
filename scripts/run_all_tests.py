@@ -10,11 +10,17 @@ Usage:
   python3 scripts/run_all_tests.py --jobs 1        # serial, single process
   python3 scripts/run_all_tests.py -k pacing       # name filter (repeatable)
   python3 scripts/run_all_tests.py --file test_pacing.py
+  python3 scripts/run_all_tests.py --no-cache      # also re-run unchanged heavy files
+
+Heavy files listed in CACHED_INPUTS are skipped locally when the test file and
+every declared input are byte-identical to their last passing run (record in
+.cache/tests/).  CI (the CI environment variable) always runs everything.
 """
 
 import argparse
 import concurrent.futures
 import glob
+import hashlib
 import os
 import re
 import subprocess
@@ -34,6 +40,58 @@ SERIAL_FILES = {
     'test_legacy_gk_generators_are_safe.py',
     'test_obsidian_knowledge_generation.py',
 }
+
+
+# Heavy, slow-changing checks and the inputs they read (globs relative to the
+# repository root, deliberately broad).  The test file itself is always part of
+# the key.  When a test starts reading something new, add it here.
+CACHED_INPUTS = {
+    'test_pe_question_crops.py': [
+        'scripts/crop_pe_questions.py', 'data/pe-question-crops.json', 'dashboard-data.js',
+        '01_原始試題/**/*',
+    ],
+    'test_today_task.py': [
+        'scripts/build_daily_schedule.py', 'scripts/build_workbench.py', 'src/**/*',
+        'dashboard-data.js', 'data/daily-schedule.json', 'docs/01_備考計畫/**/*',
+    ],
+    'test_math_render.py': [
+        'scripts/audit_math_render.cjs', 'src/**/*', 'libs/**/*', '*.js',
+    ],
+    'test_formula_format.py': [
+        'scripts/*.py', 'src/**/*', 'libs/**/*', '*.js',
+        '01_原始試題/依考科/**/*.md', '02_題解/**/*.md', '03_知識庫/**/*.md',
+    ],
+}
+CACHE_DIR = os.path.join(WORKSPACE, '.cache', 'tests')
+CHILD_ENV = dict(os.environ)  # --no-cache adds EE_NO_CACHE so in-test caches (run_verify_scripts) are off too
+
+
+def input_key(name):
+    digest = hashlib.sha256(sys.version.encode())
+    paths = {os.path.join('tests', name)}
+    for pattern in CACHED_INPUTS[name]:
+        paths.update(os.path.relpath(p, WORKSPACE) for p in glob.glob(os.path.join(WORKSPACE, pattern), recursive=True))
+    for rel in sorted(paths):
+        full = os.path.join(WORKSPACE, rel)
+        if os.path.isfile(full):
+            digest.update(rel.encode() + b'\0')
+            with open(full, 'rb') as fp:
+                digest.update(hashlib.sha256(fp.read()).digest())
+    return digest.hexdigest()
+
+
+def cached_pass(name, key):
+    try:
+        with open(os.path.join(CACHE_DIR, name + '.sha'), encoding='utf-8') as fp:
+            return fp.read().strip() == key
+    except OSError:
+        return False
+
+
+def record_pass(name, key):
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    with open(os.path.join(CACHE_DIR, name + '.sha'), 'w', encoding='utf-8') as fp:
+        fp.write(key)
 
 
 def test_files(selected):
@@ -64,13 +122,18 @@ def run_one(name, patterns):
     for p in patterns:
         cmd += ['-k', p]
     start = time.time()
-    done = subprocess.run(cmd, cwd=WORKSPACE, capture_output=True, text=True)
+    done = subprocess.run(cmd, cwd=WORKSPACE, capture_output=True, text=True, env=CHILD_ENV)
     out = done.stderr + done.stdout
     m = re.search(r'Ran (\d+) tests?', out)
     return name, done.returncode == 0, int(m.group(1)) if m else 0, time.time() - start, out
 
 
-def run_parallel(patterns, files, jobs):
+def run_parallel(patterns, files, jobs, use_cache):
+    keys = {}
+    if use_cache and not patterns:
+        keys = {f: input_key(f) for f in files if f in CACHED_INPUTS}
+    cached = sorted(f for f, key in keys.items() if cached_pass(f, key))
+    files = [f for f in files if f not in cached]
     print('Running %d test files with %d parallel jobs...' % (len(files), jobs))
     serial = [f for f in files if f in SERIAL_FILES]
     parallel = [f for f in files if f not in SERIAL_FILES]
@@ -94,9 +157,13 @@ def run_parallel(patterns, files, jobs):
         print('%s %-55s %4d tests %6.1fs' % ('ok  ' if ok else 'FAIL', name, count, secs))
         if not ok:
             failed.append((name, out))
+        elif name in keys:
+            record_pass(name, keys[name])
+    for name in cached:
+        print('ok   %-55s  unchanged since last pass (cached)' % name)
     for name, out in failed:
         print('\n===== %s =====\n%s' % (name, out))
-    print('\nRan %d tests in %d files; %d file(s) failed.' % (total, len(results), len(failed)))
+    print('\nRan %d tests in %d files (%d cached); %d file(s) failed.' % (total, len(results), len(cached), len(failed)))
     return not failed
 
 
@@ -108,6 +175,8 @@ def main():
                         help='only load this test file (repeatable)')
     parser.add_argument('--jobs', type=int, default=os.cpu_count() or 1,
                         help='parallel test files (default: cpu count; 1 = serial in-process)')
+    parser.add_argument('--no-cache', action='store_true',
+                        help='run CACHED_INPUTS files even when their inputs are unchanged')
     args = parser.parse_args()
 
     os.chdir(WORKSPACE)
@@ -116,7 +185,10 @@ def main():
     if args.jobs <= 1:
         ok = run_serial(args.patterns, files)
     else:
-        ok = run_parallel(args.patterns, files, args.jobs)
+        use_cache = not (args.no_cache or os.environ.get('CI'))
+        if not use_cache:
+            CHILD_ENV['EE_NO_CACHE'] = '1'
+        ok = run_parallel(args.patterns, files, args.jobs, use_cache)
     if not ok:
         print("Test suite failed!")
         sys.exit(1)

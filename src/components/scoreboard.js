@@ -440,10 +440,10 @@ function scoreboardPaceHours_(h) {
   return typeof todayTaskFormatHours === 'function' ? todayTaskFormatHours(n) : String(Math.round(n * 10) / 10);
 }
 
-function scoreboardTaskHours_(task, active) {
+function scoreboardTaskHours_(task, active, papersDone) {
   if (!task || !Array.isArray(task.phases)) return 0;
   if (typeof pacingRemainingHours === 'function') {
-    return pacingRemainingHours(task, active && active.code === task.code ? { code: active.code, phaseIndex: active.phaseIndex } : null);
+    return pacingRemainingHours(task, active && active.code === task.code ? { code: active.code, phaseIndex: active.phaseIndex } : null, papersDone);
   }
   return task.phases.reduce((n, p) => n + (Number(p.minutes) || 0), 0) / 60;
 }
@@ -459,7 +459,7 @@ function scoreboardPaceModel(pacing, schedule, active) {
   const due = (schedule && schedule.due) || {};
   const titleOf = code => (tasks[code] && tasks[code].title) || '';
   const rows = (Array.isArray(p.behindCodes) ? p.behindCodes : []).map(code => ({
-    code, title: titleOf(code), due: scoreboardMonthDay_(due[code]), hours: scoreboardTaskHours_(tasks[code], active)
+    code, title: titleOf(code), due: scoreboardMonthDay_(due[code]), hours: scoreboardTaskHours_(tasks[code], active, !!p.allPapersDone)
   }));
   const n = p.nextMilestone;
   return {

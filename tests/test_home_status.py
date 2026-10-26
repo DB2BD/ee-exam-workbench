@@ -4,9 +4,12 @@
 import json
 import os
 import re
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES = [
@@ -53,7 +56,7 @@ def run_node(expression, tz=None):
     env = dict(os.environ)
     if tz:
         env["TZ"] = tz
-    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True, env=env)
+    done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True, env=env)
     if done.returncode:
         raise AssertionError(done.stderr)
     return json.loads(done.stdout)

@@ -3,9 +3,12 @@
 
 import json
 import re
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 INDEX = WORKSPACE / "index.html"
@@ -27,7 +30,7 @@ def primary_section(pane):
 
 
 def run_node(source):
-    out = subprocess.run(["node", "-"], input=source, capture_output=True, text=True, timeout=30)
+    out = node_runner.run(source, capture_output=True, text=True, timeout=30)
     if out.returncode != 0:
         raise AssertionError(out.stderr)
     return json.loads(out.stdout)

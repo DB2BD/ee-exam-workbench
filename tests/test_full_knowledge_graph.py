@@ -2,11 +2,14 @@
 """Coverage and runtime contracts for the promoted PE/GK graph."""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
 
 from scripts.question_schema import load_questions_from_bundle
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,7 +57,7 @@ const mapped = module.exports.mapQuestionToDagNodes('01', '', '', 'GK-112-01-3')
 const otherSubject = module.exports.mapQuestionToDagNodes('02', '', '', 'GK-112-01-3');
 process.stdout.write(JSON.stringify({ mapped, otherSubject, enabled: sandbox.CANONICAL_GRAPH_ENABLED }));
 """
-        result = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True, check=True)
+        result = node_runner.run(script, cwd=ROOT, capture_output=True, text=True, check=True)
         payload = json.loads(result.stdout)
         self.assertEqual(payload["mapped"], ["gk-ct-divider-equiv"])
         self.assertEqual(payload["otherSubject"], [])

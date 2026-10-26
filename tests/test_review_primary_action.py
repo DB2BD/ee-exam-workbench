@@ -2,9 +2,12 @@
 """v1.3.6：複習頁單一主按鈕決策（node 以 stdin 執行）。"""
 import json
 import re
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -15,7 +18,7 @@ class ReviewPrimaryActionTests(unittest.TestCase):
         m = re.search(r"function reviewPrimaryAction\(.*?\n}\n", src, re.S)
         self.assertTrue(m)
         script = m.group(0) + "process.stdout.write(JSON.stringify([reviewPrimaryAction(12), reviewPrimaryAction(0), reviewPrimaryAction('x')]));"
-        done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+        done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(done.returncode, 0, done.stderr)
         out = json.loads(done.stdout)
         self.assertEqual(out[0], {"label": "開始複習 12 題", "action": "start"})

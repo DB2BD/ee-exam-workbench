@@ -2,9 +2,12 @@
 """v1.3 B：各科輪流／補強模式、依日期的預設與 dailyPracticeStartWithMode。"""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 STORE = (ROOT / "src/state/practiceStore.js").read_text(encoding="utf-8")
@@ -19,7 +22,7 @@ QUESTIONS = [
 
 
 def node(script):
-    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 

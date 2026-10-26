@@ -2,7 +2,6 @@
 """Study-plan tiers, practice weights and score factors (WP2)."""
 
 import json
-import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -11,6 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import build_target_allocation as bta  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 GENERATED = ROOT / "src" / "data" / "targetAllocation.generated.js"
 DOMAIN = ROOT / "src" / "domain" / "studyPlan.js"
@@ -23,7 +25,7 @@ def run_node(expression):
         + "".join(f"vm.runInContext({json.dumps(p.read_text(encoding='utf-8'))}, context);\n" for p in sources)
         + f"process.stdout.write(JSON.stringify(vm.runInContext({json.dumps(expression)}, context)));\n"
     )
-    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
     if done.returncode:
         raise AssertionError(done.stderr)
     return json.loads(done.stdout)

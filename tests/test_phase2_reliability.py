@@ -2,9 +2,12 @@
 """第二階段 A 批次：複習、詳解蓋牌與模考計時的行為契約。"""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,9 +24,7 @@ vm.runInContext({json.dumps(source, ensure_ascii=False)}, context);
 const result = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify(result));
 """
-    completed = subprocess.run(
-        ["node", "-"],
-        input=script,
+    completed = node_runner.run(script,
         cwd=ROOT,
         capture_output=True,
         text=True,

@@ -11,7 +11,16 @@ const artifacts = fs.mkdtempSync(path.join(root, '.qa-artifacts', 'browser-'));
 
 async function main() {
   assert(fs.existsSync(path.join(root, '_site/index.html')), 'Run python3 scripts/stage_pages_artifact.py first');
-  const server = spawn(process.env.PYTHON || 'python3', ['-u', '-m', 'http.server', '0', '--bind', '127.0.0.1', '--directory', path.join(root, '_site')]);
+  // http.server's default backlog of 5 drops connections when scenarios load pages at the same time.
+  const serve = [
+    'import functools, http.server, sys',
+    'class Server(http.server.ThreadingHTTPServer): request_queue_size = 256',
+    'handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=sys.argv[1])',
+    'with Server(("127.0.0.1", 0), handler) as httpd:',
+    '    print(f"Serving HTTP on 127.0.0.1 port {httpd.server_address[1]}", flush=True)',
+    '    httpd.serve_forever()',
+  ].join('\n');
+  const server = spawn(process.env.PYTHON || 'python3', ['-u', '-c', serve, path.join(root, '_site')]);
   let browser;
   const results = [];
   try {
@@ -29,7 +38,8 @@ async function main() {
       server.stderr.on('data', chunk => { stderr = (stderr + chunk).slice(-4000); });
     });
     browser = await chromium.launch({ headless: !process.env.QA_HEADED });
-    for (const [width, mode] of [[1440, 'weighted'], [390, 'weighted'], [1440, 'all'], [390, 'all']]) {
+    const scenarios = [];
+    for (const [width, mode] of [[1440, 'weighted'], [390, 'weighted'], [1440, 'all'], [390, 'all']]) scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width, height: 900 } });
       await context.addInitScript(() => { let seed = 42; Math.random = () => ((seed = (1664525 * seed + 1013904223) >>> 0) / 4294967296); });
       await context.tracing.start({ screenshots: true, snapshots: true });
@@ -123,9 +133,9 @@ async function main() {
         await context.tracing.stop({ path: path.join(artifacts, `trace-${mode}-${width}.zip`) });
         await context.close();
       }
-    }
+    });
     // v1.3.7 作答時間帽: a closed-book phase 6 minutes in shows the notice, the 起手式 toggle survives the tick, 16 minutes turns it firm.
-    {
+    scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
       const page = await context.newPage();
       const errors = [];
@@ -169,10 +179,10 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.3.8 動態 FOCUS: with result-card records in the 配電 anchor chapters, starting FOCUS-01 picks 例題＋新題 by
     // src/domain/anchorSelection.js; the overlay shows exactly those two and the 核對 phase result card lists only the 新題.
-    {
+    scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
       const page = await context.newPage();
       const errors = [];
@@ -258,9 +268,9 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.3.9 日程進度: completed up to CORE-20 on 10/14 -> the 成績 tab lists CORE-21～23 and FOCUS-01 as behind, plus the next milestone.
-    {
+    scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
       const page = await context.newPage();
       const errors = [];
@@ -300,9 +310,9 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.3.10 自動快照: seeded data -> one 每日 snapshot -> import (scoreboard redraws, 匯入前 snapshot) -> two-tap 還原 brings the data back.
-    {
+    scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
       const page = await context.newPage();
       const errors = [];
@@ -416,9 +426,9 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.3.10 多分頁同步: a change saved in tab A reaches tab B through the storage event (today task card, SM-2, recall).
-    {
+    scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 900 } });
       const pageA = await context.newPage();
       const pageB = await context.newPage();
@@ -462,10 +472,10 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.8.5 返回鍵: back closes the solution window first, then walks back through the tabs; it never leaves the
     // workbench. A window closed with its own button leaves no extra back step behind.
-    {
+    scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
       const page = await context.newPage();
       const errors = [];
@@ -510,11 +520,11 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.4.0 核對題解＋作答結果卡: the expanded result card is a row of the solution window (desktop: under the 詳解 column;
     // phone: bottom sheet), never an overlay. Bounding boxes: card and solution/question panes do not intersect, the pane
     // scrolls to its very end above the card, and the phone top bar has no vertical text.
-    for (const width of [1440, 390]) {
+    for (const width of [1440, 390]) scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width, height: width > 800 ? 900 : 844 } });
       const page = await context.newPage();
       const errors = [];
@@ -664,10 +674,10 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.4.0 首頁像素風狀態視窗: seeded stores -> window numbers match the stores, collapsible, never covers 今日任務, no horizontal scroll,
     // light and dark readable, reduced motion shows the final state; screenshots at 1440 and 390 (QA_HOME_STATUS_SHOT_DIR overrides the folder).
-    for (const width of [1440, 390]) {
+    for (const width of [1440, 390]) scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width, height: width > 600 ? 900 : 844 } });
       const page = await context.newPage();
       const errors = [];
@@ -801,9 +811,9 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.4.0 reduced motion: no animation on the window or the scene, everything already in its final state.
-    {
+    scenarios.push(async () => {
       const context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
       const page = await context.newPage();
       const errors = [];
@@ -838,10 +848,10 @@ async function main() {
       } finally {
         await context.close();
       }
-    }
+    });
     // v1.6.0 雲端同步: two devices (separate browser contexts) share one mocked GitHub gist API. Each saves one result card;
     // after syncing both devices hold both cards. The token never reaches the gist, backups or snapshots; no real network.
-    {
+    scenarios.push(async () => {
       const fakeToken = 'ghp_QAFAKEQAFAKEQAFAKEQAFAKEQAFAKE0001';
       const gists = [];
       const apiCalls = [];
@@ -990,7 +1000,15 @@ async function main() {
       } finally {
         for (const context of contexts) await context.close();
       }
-    }
+    });
+    // Scenarios are independent (own contexts, shared server and browser): run a few at once.
+    const failures = [];
+    const queue = scenarios.slice();
+    const lanes = Math.max(1, Number(process.env.QA_JOBS) || Math.min(4, Math.floor(require('node:os').cpus().length / 2)));
+    await Promise.all(Array.from({ length: lanes }, async () => {
+      while (queue.length) await queue.shift()().catch(error => failures.push(error));
+    }));
+    if (failures.length) throw failures[0];
   } finally {
     if (browser) await browser.close();
     if (server.exitCode === null && server.pid) {

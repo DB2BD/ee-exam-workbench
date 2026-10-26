@@ -3,9 +3,12 @@
 Node runs via stdin; the schedule comes from the generated data file."""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 SCHEDULE_JS = WORKSPACE / "src/data/dailySchedule.generated.js"
@@ -22,7 +25,7 @@ vm.runInContext({json.dumps(src, ensure_ascii=False)} + '\\nglobalThis.S = DAILY
 const out = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, ctx);
 process.stdout.write(JSON.stringify(out));
 """
-    done = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=WORKSPACE, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 
@@ -112,8 +115,10 @@ class TestPacingPlan(unittest.TestCase):
         for day in res:
             with self.subTest(day=day["date"]):
                 self.assertEqual(day["plan"][:len(day["table"])], day["table"])  # the dated rows are the on-time minimum
-                if day["date"] >= "2026-10-13":
+                if "2026-10-13" <= day["date"] <= "2026-10-31":
                     self.assertEqual(day["plan"], day["table"])  # from 10/13 the rows are full days
+                # From 11/01 every paper is done: BUFFER skips its 補考 phase and 補強 runs a day ahead of the table.
+                self.assertFalse(any(p.startswith("WRAP") for p in day["plan"]) and day["date"] < "2026-11-09", day["plan"])
                 self.assertEqual(day["cut"], [])
                 self.assertFalse(day["overload"])
                 self.assertIn(day["status"], ("on", "ahead"))
@@ -185,16 +190,20 @@ class TestPacingPlan(unittest.TestCase):
         self.assertEqual(r["codes"], ["BLIND108-05"])
         self.assertTrue(r["hard"]["missed"])
         self.assertEqual(r["hard"]["remainingPapers"], 2)
-        # all papers done -> BUFFER (4 h) opens reinforcement
-        b = js("const r = plan('2026-11-01', done('BUFFER')); return {codes: codes(r), hours: r.planHours, next: r.nextMilestone.label};")
-        self.assertEqual(b["codes"], ["BUFFER", "FOCUS-13"])  # 4 h buffer + 1 h FOCUS-13 = the 5 h Sunday
+        # all papers done -> BUFFER has nothing to make up: only its 2 h 補強 phase, then FOCUS-13 and REINF-01
+        b = js("const r = plan('2026-11-01', done('BUFFER')); return {codes: codes(r), hours: r.planHours, next: r.nextMilestone.label, buffer: r.plan[0]};")
+        self.assertEqual(b["codes"], ["BUFFER", "FOCUS-13", "REINF-01"])  # 2 h + 1 h + 2 h = the 5 h Sunday
         self.assertEqual(b["hours"], 5)
+        self.assertEqual((b["buffer"]["phaseIndex"], b["buffer"]["hours"]), (1, 2))
         self.assertEqual(b["next"], "補強完成")
 
     def test_late_phases_are_gated_until_their_date(self):
+        # Every paper done by 10/28: 補強 (BUFFER, REINF) opens early; the 2 h weekday holds BUFFER's 補強 phase.
         r = js("const r = plan('2026-10-28', done('BUFFER')); return {codes: codes(r), status: r.status, ahead: r.aheadCount};")
-        self.assertEqual(r["codes"], [])  # BUFFER / REINF / WRAP are not due yet
+        self.assertEqual(r["codes"], ["BUFFER"])
         self.assertEqual(r["status"], "ahead")
+        # 收尾 keeps its date (11/09) even when everything before it is done.
+        self.assertEqual(js("return codes(plan('2026-11-05', done('WRAP-01')));"), [])
         r = js("const r = plan('2026-11-03', done('REINF-02')); return codes(r);")
         self.assertEqual(r, ["REINF-02"])
         r = js("const r = plan('2026-11-09', done('WRAP-01')); return codes(r);")
@@ -229,8 +238,12 @@ class TestPacingDayByDayWalk(unittest.TestCase):
         for d in days:
             with self.subTest(day=d["date"]):
                 work_codes = [c for c in d["codes"] if c not in ("EXAM-CHECK", "STOP")]
-                self.assertEqual([code for code, _ in d["plan"]], work_codes)  # the day's code sequence is the dated row
-                self.assertEqual(d["plan"], d["table"])  # incl. weekday mock day 1 = closed, day 2 = review
+                if d["date"] <= "2026-10-31":
+                    self.assertEqual([code for code, _ in d["plan"]], work_codes)  # the day's code sequence is the dated row
+                    self.assertEqual(d["plan"], d["table"])  # incl. weekday mock day 1 = closed, day 2 = review
+                else:
+                    # Every paper is done: 補強 runs ahead of the dated rows (BUFFER is 2 h shorter); 收尾 keeps 11/09.
+                    self.assertFalse(d["date"] < "2026-11-09" and any(code.startswith("WRAP") for code, _ in d["plan"]), d["plan"])
                 self.assertEqual(d["cut"], [])
                 self.assertFalse(d["overload"])
                 self.assertEqual(d["shortHours"], 0)

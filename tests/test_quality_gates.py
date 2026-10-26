@@ -24,6 +24,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
+
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 
@@ -48,8 +51,7 @@ vm.runInContext(source, context, {{ filename: 'reviewPage.js' }});
 const result = ({expression});
 process.stdout.write(JSON.stringify(result));
 """
-        completed = subprocess.run(
-            ["node", "-"], input=script,
+        completed = node_runner.run(script,
             cwd=WORKSPACE,
             capture_output=True,
             text=True,
@@ -97,7 +99,7 @@ const source = {json.dumps(dag_source + chr(10) + review_source + chr(10) + "glo
 vm.runInContext(source, context);
 process.stdout.write(JSON.stringify(context.__missing));
 """
-        completed = subprocess.run(["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True)
+        completed = node_runner.run(script, cwd=WORKSPACE, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertEqual(json.loads(completed.stdout), [])
 

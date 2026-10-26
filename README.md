@@ -119,6 +119,8 @@ npm run check                             # 完整閘門（生成器、建置、
 npm run stage                             # 另外組出 _site（qa:browser 需要）
 ```
 
+本機加速：`run_all_tests.py` 對 `CACHED_INPUTS` 列出的重量級測試（裁切圖、公式渲染、今日任務等）比對輸入檔雜湊，與上次通過時完全相同就略過；驗算腳本也只重跑內容改過的。記錄放在 `.cache/`（不進版控）。`--no-cache` 強制全跑；GitHub Actions 設有 `CI`，一律全跑。測試中的 `node -` 呼叫走 `tests/node_runner.py` 的常駐 Node 程序，不再每次啟動新程序。
+
 推送到 `main` 後，GitHub Actions 會先建置並跑完整測試，再以 `scripts/stage_pages_artifact.py` 組出發布內容並部署到 GitHub Pages。`dashboard-data.js`、`solutions-bundle.js` 等為生成檔，請修改來源與編譯腳本，不要直接編輯。
 
 ## 附錄：路徑細節與其他入口

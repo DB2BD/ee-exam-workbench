@@ -2,9 +2,12 @@
 """WP4 結果卡: model, scoring, store + SM-2 mapping, legacy migration, backup, view-model."""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES = [
@@ -34,7 +37,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(sources + chr(10) + 'globalThis.__result = (' + expression + ');', ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify({{result: context.__result, storage: data}}));
 """
-    done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+    done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     return json.loads(done.stdout)
 
@@ -132,7 +135,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(sources + chr(10) + "globalThis.__r = [saveResultRecord({qid:'EE-114-01-2', parts:[{label:'整題', points:20, mark:'o'}]}).ok, getResultRecords({}).length, latestRecordFor('x')];")}, context);
 process.stdout.write(JSON.stringify(context.__r));
 """
-        done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+        done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(done.returncode, 0, done.stderr)
         self.assertEqual(json.loads(done.stdout), [False, 0, None])
 
@@ -292,7 +295,7 @@ class TestDockedCollapse(unittest.TestCase):
     def test_docked_card_starts_collapsed_inline_card_does_not(self):
         src = (ROOT / "src/components/resultCard.js").read_text(encoding="utf-8")
         self.assertIn("function resultCardStartsCollapsed", src)
-        out = subprocess.run(["node", "-"], input=src + "\nprocess.stdout.write(JSON.stringify([resultCardStartsCollapsed({}), resultCardStartsCollapsed({expanded:true}), resultCardStartsCollapsed({mount:{}})]));", capture_output=True, text=True)
+        out = node_runner.run(src + "\nprocess.stdout.write(JSON.stringify([resultCardStartsCollapsed({}), resultCardStartsCollapsed({expanded:true}), resultCardStartsCollapsed({mount:{}})]));", capture_output=True, text=True)
         self.assertEqual(out.returncode, 0, out.stderr)
         self.assertEqual(json.loads(out.stdout), [True, False, False])
         self.assertIn("做完了？記錄作答結果", src)
@@ -311,7 +314,7 @@ class TestResultCardEscapeHooks(unittest.TestCase):
             "{editable:false, hasDockedCard:false, dirty:true, collapsed:false}",
         ]
         script = fn + "\nprocess.stdout.write(JSON.stringify([" + ",".join("solutionModalEscapeAction(%s)" % c for c in cases) + "]));"
-        done = subprocess.run(["node", "-"], input=script, capture_output=True, text=True)
+        done = node_runner.run(script, capture_output=True, text=True)
         self.assertEqual(done.returncode, 0, done.stderr)
         self.assertEqual(json.loads(done.stdout), ["ignore", "collapse", "close", "close", "close"])
 

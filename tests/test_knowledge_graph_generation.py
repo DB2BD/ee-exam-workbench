@@ -8,6 +8,10 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -98,7 +102,7 @@ const unknown = module.exports.mapQuestionToDagNodes('01', '', '', 'EE-114-99-9'
 process.stdout.write(JSON.stringify({{mapped, unknown, enabled: sandbox.CANONICAL_GRAPH_ENABLED,
   canonicalProcedure: Boolean(sandbox.CANONICAL_KNOWLEDGE_GRAPH.nodes['ct-procedure-thevenin-controlled-source'])}}));
 """
-            result = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+            result = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             payload = json.loads(result.stdout)
             self.assertEqual(payload["mapped"], ["ct-thevenin-norton"])

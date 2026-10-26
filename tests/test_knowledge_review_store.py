@@ -3,9 +3,12 @@
 
 import json
 import os
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,7 +32,7 @@ vm.runInContext({json.dumps(setup, ensure_ascii=False)}, context);
 const result = vm.runInContext({json.dumps(expression, ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify({{result,data}}));
 """
-        completed = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+        completed = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)
 
@@ -95,7 +98,7 @@ const r = vm.runInContext("calculateKnowledgeReviewItem(null, 4, new Date('2026-
 process.stdout.write(JSON.stringify(r));
 """
         env = dict(os.environ, TZ="Asia/Taipei")
-        done = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True, env=env)
+        done = node_runner.run(script, cwd=ROOT, capture_output=True, text=True, env=env)
         self.assertEqual(done.returncode, 0, done.stderr)
         item = json.loads(done.stdout)
         self.assertEqual(item["lastReviewed"], "2026-10-05")

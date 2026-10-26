@@ -2,9 +2,12 @@
 """公共測試：每日練習抽題與練習紀錄儲存契約。"""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 WORKSPACE = Path(__file__).resolve().parents[1]
@@ -27,8 +30,7 @@ vm.createContext(context);
 vm.runInContext({json.dumps(source + chr(10) + 'globalThis.__result = (' + expression + ');', ensure_ascii=False)}, context);
 process.stdout.write(JSON.stringify({{result: context.__result, storage: data}}));
 """
-        completed = subprocess.run(
-            ["node", "-"], input=script, cwd=WORKSPACE, capture_output=True, text=True,
+        completed = node_runner.run(script, cwd=WORKSPACE, capture_output=True, text=True,
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         return json.loads(completed.stdout)

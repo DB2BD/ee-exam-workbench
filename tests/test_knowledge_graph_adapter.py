@@ -2,9 +2,12 @@
 """Behavioral tests for the canonical-to-legacy DAG adapter."""
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,7 +31,7 @@ const sandbox = {{ console, module,
 vm.runInNewContext(fs.readFileSync('src/data/knowledge-dag.js', 'utf8'), sandbox);
 process.stdout.write(JSON.stringify({expression}));
 """
-        result = subprocess.run(["node", "-"], input=script, cwd=ROOT, check=True, capture_output=True, text=True)
+        result = node_runner.run(script, cwd=ROOT, check=True, capture_output=True, text=True)
         return json.loads(result.stdout)
 
     def test_known_qid_uses_canonical_link(self):

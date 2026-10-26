@@ -5,6 +5,10 @@ import json
 import subprocess
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import node_runner  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -508,7 +512,7 @@ vm.runInContext("backupDownloadNow()", ctx);
 const after = vm.runInContext("getBackupMetadata().lastBackupAt || null", ctx);
 process.stdout.write(JSON.stringify({ type: vm.runInContext("typeof backupDownloadNow", ctx), before, after, clicked }));
 '''
-        completed = subprocess.run(["node", "-"], input=script, cwd=ROOT, capture_output=True, text=True)
+        completed = node_runner.run(script, cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         result = json.loads(completed.stdout.splitlines()[-1])
         self.assertEqual(result["type"], "function")

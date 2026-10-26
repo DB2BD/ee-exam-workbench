@@ -463,7 +463,7 @@ function todayTaskPhaseView(baseTask, a, now) {
     scoringNote: task.scoringNote || '',
     // One-line instruction for phases that otherwise show nothing (docs/01_備考計畫/預設24時段_核心題路徑.md: 5 分鐘只留一句下次動作).
     instruction: phase.note || (phase.label === '下次動作' ? TODAY_TASK_NEXT_ACTION_TEXT : ''),
-    // 隨機練習 launcher for REINF／BUFFER phases ('random-balanced' | 'random-reinforce').
+    // 隨機練習 launcher for REINF／BUFFER phases ('random-balanced' | 'random-reinforce' -> 依上榜效益).
     launch: phase.launch || '',
     // Weekday mock: after the closed phase the learner may stop and continue the next day.
     canHold: todayTaskIsMockKind(task) && a.phaseIndex === 1 && !a.holdDate && !a.heldFrom && !pacingIsRestDay(todayTaskLocalDate(now), DAILY_SCHEDULE.holidays),
@@ -738,7 +738,7 @@ function todayTaskStartCodeNow(code) {
 
 // 開啟隨機練習 for REINF／BUFFER: the random-practice owner exposes dailyPracticeStartWithMode(mode); fall back to a fresh round.
 function todayTaskLaunchPractice(launch) {
-  const mode = launch === 'random-reinforce' ? 'reinforce' : 'balanced';
+  const mode = launch === 'random-reinforce' ? 'priority' : 'balanced';
   closeTodayTaskOverlay();
   if (typeof switchTab === 'function' && typeof document !== 'undefined' && document.getElementById('tab-pane-practice')) switchTab('practice');
   if (typeof dailyPracticeStartWithMode === 'function') dailyPracticeStartWithMode(mode);

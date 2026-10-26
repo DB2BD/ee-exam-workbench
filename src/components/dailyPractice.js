@@ -23,7 +23,7 @@ function dailyPracticeDefaultMode() {
 }
 
 function dailyPracticeValidMode(value) {
-  return value === 'all' || value === 'weighted' || value === 'balanced' || value === 'reinforce'
+  return value === 'all' || value === 'weighted' || value === 'balanced' || value === 'reinforce' || value === 'priority'
     || (!!value && dailyPracticeSubjects('PE').some(item => String(item.id) === value));
 }
 
@@ -62,6 +62,7 @@ function dailyPracticeModeLabel(mode) {
   if (value === 'weighted') return '依目標分配';
   if (value === 'balanced') return '各科輪流';
   if (value === 'reinforce') return '補強（模考錯題）';
+  if (value === 'priority') return '依上榜效益';
   return '只練 ' + dailyPracticeSubjectLabel('PE', value);
 }
 
@@ -74,7 +75,7 @@ function dailyPracticeSyncModeSubtitle() {
 
 function dailyPracticeModeSelectHtml() {
   const mode = dailyPracticeLoadMode();
-  const opts = [['weighted', '依目標分配'], ['balanced', '各科輪流'], ['reinforce', '補強（模考錯題）'], ['all', '全部隨機']].concat(
+  const opts = [['priority', '依上榜效益'], ['weighted', '依目標分配'], ['balanced', '各科輪流'], ['reinforce', '補強（模考錯題）'], ['all', '全部隨機']].concat(
     dailyPracticeSubjects('PE').map(subject => [String(subject.id), '只練 ' + subject.name]));
   return '<label class="daily-practice-mode">選題方式<select id="daily-practice-mode" onchange="dailyPracticeSetMode(this.value)">' +
     opts.map(([value, label]) => '<option value="' + dailyPracticeEscape(value) + '"' + (value === mode ? ' selected' : '') + '>' + dailyPracticeEscape(label) + '</option>').join('') +
@@ -84,6 +85,7 @@ function dailyPracticeModeSelectHtml() {
 function dailyPracticeModeHint(mode) {
   if (mode === 'balanced') return '每輪 3 題來自 3 個不同科目，近 14 天練得少的科目優先。';
   if (mode === 'reinforce') return '先排到期複習與模考 △／× 的題，其次是各科穩拿題型的待補題；題目不足時改為各科輪流。';
+  if (mode === 'priority') return '先練出題比重高、新題得分率低的章節（錯題重做與新題優先，到期複習次之）；考前 7 天不開新題。';
   if (mode === 'weighted') return '弱科與久沒練的科目先排，每科從穩拿題型挑起。';
   if (mode === 'all') return '不分科目與章節，全部隨機。';
   return '只從這一科抽題。';
@@ -214,8 +216,11 @@ function dailyPracticeBuildQueue(mode, questions, loaded) {
   if (mode === 'reinforce' && typeof createReinforcePracticeQueue === 'function') {
     return createReinforcePracticeQueue(questions, base);
   }
+  if (mode === 'priority' && typeof createPriorityPracticeQueue === 'function') {
+    return createPriorityPracticeQueue(questions, base);
+  }
   if (typeof createDailyPracticeQueue !== 'function') return [];
-  const broad = mode === 'all' || mode === 'weighted' || mode === 'balanced' || mode === 'reinforce';
+  const broad = mode === 'all' || mode === 'weighted' || mode === 'balanced' || mode === 'reinforce' || mode === 'priority';
   return createDailyPracticeQueue(questions, Object.assign({ subjectId: broad ? 'all' : mode }, base));
 }
 
@@ -230,7 +235,7 @@ function dailyPracticeStart() {
 function dailyPracticeStartWithMode(mode) {
   mode = dailyPracticeValidMode(String(mode)) ? String(mode) : dailyPracticeLoadMode();
   const category = 'PE';
-  const broad = mode === 'all' || mode === 'weighted' || mode === 'balanced' || mode === 'reinforce';
+  const broad = mode === 'all' || mode === 'weighted' || mode === 'balanced' || mode === 'reinforce' || mode === 'priority';
   const subjectId = broad ? 'all' : mode;
   const loaded = dailyPracticeLoad();
   const queue = dailyPracticeBuildQueue(mode, dailyPracticeQuestions(category), loaded);

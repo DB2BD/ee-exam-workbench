@@ -637,6 +637,25 @@ function createReinforcePracticeQueue(questions, options = {}) {
   return practiceTopUpBalanced(chosen, questions, options, count, random, now);
 }
 
+// 依上榜效益 (src/domain/scorePriority.js): chapters ranked by expected exam points per minute; redo, new and
+// due-review items from the shared pool (locks and the 7-day window apply).  Short -> 各科輪流 top-up.
+function createPriorityPracticeQueue(questions, options = {}) {
+  const count = Number.isInteger(options.count) && options.count > 0 ? options.count : 3;
+  const now = practiceResolveNow(options.now);
+  const random = typeof options.random === 'function' ? options.random : Math.random;
+  if (typeof priorityRankCandidates !== 'function') return createBalancedPracticeQueue(questions, Object.assign({}, options, { count, random, now }));
+  const bank = [];
+  (Array.isArray(questions) ? questions : []).forEach(q => {
+    const c = practiceCandidate(q, options);
+    if (c && c.id.startsWith('EE-')) bank.push({ id: c.id, chapter: c.chapter, subjectId: practiceSubjectId(q) || (/^EE-\d+-(\d+)-\d+$/.exec(c.id) || [])[1] || '' });
+  });
+  const ranked = priorityRankCandidates(practicePool(questions, options, now), {
+    questions: bank, records: practiceRecordList(options), dueIds: practiceDueQids(options),
+    now, examDate: options.examDate, count,
+  });
+  return practiceTopUpBalanced(ranked.map(item => item.id), questions, options, count, random, now);
+}
+
 function practiceTopUpBalanced(chosen, questions, options, count, random, now) {
   if (chosen.length >= count) return chosen;
   const rest = (Array.isArray(questions) ? questions : []).filter(q => chosen.indexOf(practiceQuestionId(q)) < 0);

@@ -641,13 +641,13 @@ class TestTodayTaskPacingCard(unittest.TestCase):
         body = src.split("function todayTaskLaunchPractice(launch)")[1].split("\nfunction ")[0]
         self.assertIn("dailyPracticeStartWithMode", body)
         self.assertIn("dailyPracticePrepareNewRound", body)
-        self.assertIn("'random-reinforce' ? 'reinforce' : 'balanced'", body)
+        self.assertIn("'random-reinforce' ? 'priority' : 'balanced'", body)
         res = run_node(
             "(() => { const calls = []; globalThis.dailyPracticeStartWithMode = m => calls.push('mode:' + m); "
             "globalThis.dailyPracticePrepareNewRound = () => calls.push('new'); "
             "todayTaskLaunchPractice('random-reinforce'); todayTaskLaunchPractice('random-balanced'); "
             "delete globalThis.dailyPracticeStartWithMode; todayTaskLaunchPractice('random-balanced'); return calls; })()")["result"]
-        self.assertEqual(res, ["mode:reinforce", "mode:balanced", "new"])
+        self.assertEqual(res, ["mode:priority", "mode:balanced", "new"])
 
 
 class TestTodayTaskReviewResultCard(unittest.TestCase):

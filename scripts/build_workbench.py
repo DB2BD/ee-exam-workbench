@@ -92,6 +92,7 @@ def build_workbench():
         'src/data/targetAllocation.generated.js',
         'src/domain/studyPlan.js',
         'src/domain/anchorSelection.js',
+        'src/domain/scorePriority.js',
         'src/data/answerCorrections.generated.js',
         'src/state/store.js',
         'src/state/filterStore.js',

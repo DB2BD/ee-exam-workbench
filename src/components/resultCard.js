@@ -39,12 +39,12 @@ function resultCardFormatNumber(value) {
   return String(Math.round(value * 100) / 100);
 }
 
-// ○ wording: mock exams score 100/50/0 (○＝全對); basic-tier practice keeps 「骨架寫完」.
+// ○ is always 全對; in basic-tier practice △ also covers 「骨架寫完」 (列式／等效電路寫完拿一半).
 function resultCardMarkButtons(tier, source) {
   const basicPractice = tier === 'basic' && source !== 'mock';
   return RESULT_CARD_MARK_BUTTONS.map(b => ({
     mark: b.mark, symbol: b.symbol,
-    text: b.mark === 'o' && basicPractice ? '骨架寫完' : b.text
+    text: b.mark === 'tri' && basicPractice ? '骨架／部分' : b.text
   }));
 }
 
@@ -52,7 +52,7 @@ const RESULT_CARD_RUBRIC = '○ 數值與單位都對｜△ 列式、等效電�
 const RESULT_CARD_KEY_HINT = '鍵盤 1／2／3、0 全部○、Enter 儲存';
 
 function resultCardRubric(tier, source) {
-  return (source === 'mock' ? '模考 100／50／0：' : '') + RESULT_CARD_RUBRIC + (tier === 'basic' ? '（基本分題：骨架寫完即 ○）' : '');
+  return (source === 'mock' ? '模考 100／50／0：' : '') + RESULT_CARD_RUBRIC + (tier === 'basic' && source !== 'mock' ? '（基本分題：骨架寫完記 △，全對仍記 ○）' : '');
 }
 
 // Pure key mapping. state: { partCount, activeIndex, marks, canSave, collapsed, editable }
@@ -94,7 +94,7 @@ function resultCardViewModel(qid, marks, errors, source) {
     markButtons: resultCardMarkButtons(model.tier, source),
     rubric: resultCardRubric(model.tier, source),
     keyHint: RESULT_CARD_KEY_HINT,
-    hint: source === 'mock' ? '模考按 100／50／0 計分' : (model.tier === 'basic' ? '○＝骨架寫完' : ''),
+    hint: source === 'mock' ? '模考按 100／50／0 計分' : (model.tier === 'basic' ? '△＝骨架寫完' : ''),
     rows: model.parts.map((part, i) => ({
       index: i,
       label: part.label,

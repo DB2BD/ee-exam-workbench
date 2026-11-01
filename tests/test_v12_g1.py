@@ -173,7 +173,7 @@ class TestMockScoring(unittest.TestCase):
         })()""")
         self.assertEqual(out["tier"], "basic")
         self.assertEqual(out["mock"], out["total"])
-        self.assertEqual(out["practice"], out["total"] / 2)
+        self.assertEqual(out["practice"], out["total"])  # basic ○ is 全對 in practice too
 
     def test_saved_mock_record_is_marked_exam(self):
         out = run_node(self.FILES, """(() => {
@@ -188,7 +188,7 @@ class TestMockScoring(unittest.TestCase):
         self.assertEqual(out["mock"]["scoring"], "exam")
         self.assertEqual(out["mock"]["estimate"], out["total"])
         self.assertNotIn("scoring", out["prac"])
-        self.assertEqual(out["prac"]["estimate"], out["total"] / 2)
+        self.assertEqual(out["prac"]["estimate"], out["total"])
 
 
 class TestThemeAndCss(unittest.TestCase):

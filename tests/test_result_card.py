@@ -67,8 +67,8 @@ class TestModelAndScoring(unittest.TestCase):
           partial: scoreResult({tier:'main', total:30, parts:[{label:'a', points:20},{label:'b', points:10}]}, ['o', null]),
         })""")["result"]
         self.assertEqual(out["main"]["estimate"], 20)
-        self.assertEqual(out["basic"]["estimate"], 10)
-        self.assertEqual(out["basicTri"]["estimate"], 5)
+        self.assertEqual(out["basic"]["estimate"], 20)  # basic ○ is 全對 now, scored like main
+        self.assertEqual(out["basicTri"]["estimate"], 10)  # 骨架寫完 → △ → half
         self.assertEqual(out["mixed"]["estimate"], 25)
         self.assertTrue(out["mixed"]["complete"])
         self.assertFalse(out["partial"]["complete"])
@@ -92,7 +92,7 @@ class TestStore(unittest.TestCase):
         self.assertEqual(rec["errors"], ["C"])
         self.assertEqual(rec["total"], 30)
         self.assertEqual(rec["tier"], "basic")  # EE-114-03-5 is a 基本分 question
-        self.assertEqual(rec["estimate"], 10)  # 20*0.5 + 10*0
+        self.assertEqual(rec["estimate"], 20)  # 20*1 + 10*0
         self.assertEqual(rec["source"], "random")
         self.assertEqual(len(res["all"]), 1)
         self.assertEqual(res["sm2"]["interval"], 2)  # v1.7.1: × comes back after 2 days
@@ -254,29 +254,32 @@ class TestViewModel(unittest.TestCase):
         self.assertFalse(out["fresh"]["canSave"])
         self.assertEqual(out["fresh"]["errorChips"], [])
         self.assertEqual(out["ok"]["errorChips"], [])
-        self.assertEqual(out["ok"]["estimateText"], "估計 15／30 分")
+        self.assertEqual(out["ok"]["estimateText"], "估計 30／30 分")
         self.assertTrue(out["ok"]["canSave"])
         self.assertEqual([c["code"] for c in out["tri"]["errorChips"]], list("RSFCKUT"))
         self.assertTrue(next(c for c in out["tri"]["errorChips"] if c["code"] == "C")["selected"])
-        self.assertEqual(out["tri"]["estimateText"], "估計 12.5／30 分")
-        self.assertEqual(out["done"]["estimateText"], "估計 10／30 分")
+        self.assertEqual(out["tri"]["estimateText"], "估計 25／30 分")
+        self.assertEqual(out["done"]["estimateText"], "估計 20／30 分")
 
     def test_basic_header_hint(self):
         basic_qid = run_node("Object.keys(TARGET_ALLOCATION.questionTiers).find(q => TARGET_ALLOCATION.questionTiers[q].tier === 'basic')")["result"]
         out = run_node(f"resultCardViewModel('{basic_qid}', ['o'], [])")["result"]
         self.assertEqual(out["tierLabel"], "基本分")
-        self.assertEqual(out["hint"], "○＝骨架寫完")
+        self.assertEqual(out["hint"], "△＝骨架寫完")
         self.assertTrue(out["header"].endswith("基本分"))
-        self.assertEqual(out["estimate"], out["total"] / 2 if len(out["rows"]) == 1 else out["estimate"])
+        self.assertEqual(out["estimate"], out["total"] if len(out["rows"]) == 1 else out["estimate"])
 
     def test_mock_source_wording(self):
         basic_qid = run_node("Object.keys(TARGET_ALLOCATION.questionTiers).find(q => TARGET_ALLOCATION.questionTiers[q].tier === 'basic')")["result"]
         out = run_node(f"({{mock: resultCardViewModel('{basic_qid}', ['o'], [], 'mock'), today: resultCardViewModel('{basic_qid}', ['o'], [], 'today')}})")["result"]
-        o = lambda vm: next(b for b in vm["markButtons"] if b["mark"] == "o")["text"]
-        self.assertEqual(o(out["mock"]), "全對")
+        text = lambda vm, mark: next(b for b in vm["markButtons"] if b["mark"] == mark)["text"]
+        self.assertEqual(text(out["mock"], "o"), "全對")
+        self.assertEqual(text(out["mock"], "tri"), "部分")
         self.assertNotIn("骨架寫完", out["mock"]["hint"])
-        self.assertEqual(o(out["today"]), "骨架寫完")
-        self.assertEqual(out["today"]["hint"], "○＝骨架寫完")
+        self.assertNotIn("骨架寫完", out["mock"]["rubric"])
+        self.assertEqual(text(out["today"], "o"), "全對")  # a basic question solved fully can be recorded as 全對
+        self.assertEqual(text(out["today"], "tri"), "骨架／部分")
+        self.assertEqual(out["today"]["hint"], "△＝骨架寫完")
 
     def test_text_escaped(self):
         out = run_node("""[resultCardEscape('<img src=x onerror=alert(1)>&"\\''), (() => {
@@ -337,7 +340,7 @@ class TestRubricAndKeys(unittest.TestCase):
           return out;
         })()""")["result"]
         base = "○ 數值與單位都對｜△ 列式、等效電路或方程式正確但數值錯或未算完｜× 沒有起手式或空白"
-        self.assertEqual(r["basic"]["rubric"], base + "（基本分題：骨架寫完即 ○）")
+        self.assertEqual(r["basic"]["rubric"], base + "（基本分題：骨架寫完記 △，全對仍記 ○）")
         self.assertEqual(r["main"]["rubric"], "模考 100／50／0：" + base)
         self.assertIn("Enter 儲存", r["main"]["keyHint"])
 

@@ -48,10 +48,12 @@ function practiceWeightFor(qid) {
   return 0.5; // basic subject, basic chapter
 }
 
+// Both tiers score what was actually written: ○ 全對 1, △ (incl. 基本分題「骨架寫完」) 0.5, × 0.
+// Records saved before this keep the estimate stored with them (basic ○ was 0.5 then).
 function scoreFactorFor(tier, mark) {
   const table = {
     main: { o: 1, tri: 0.5, x: 0 },
-    basic: { o: 0.5, tri: 0.25, x: 0 }
+    basic: { o: 1, tri: 0.5, x: 0 }
   };
   const row = table[tier];
   if (!row || !(mark in row)) return 0;

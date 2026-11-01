@@ -156,7 +156,7 @@ class TestStudyPlan(unittest.TestCase):
     def test_score_factors(self):
         out = run_node("[['main','o'],['main','tri'],['main','x'],['basic','o'],['basic','tri'],['basic','x']]"
                        ".map(a=>scoreFactorFor(a[0],a[1]))")
-        self.assertEqual(out, [1, 0.5, 0, 0.5, 0.25, 0])
+        self.assertEqual(out, [1, 0.5, 0, 1, 0.5, 0])
 
     def test_all_weights_match_table(self):
         t = self.data["questionTiers"]

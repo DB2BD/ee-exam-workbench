@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "PE 非工程數學 104-114",
-  "generated_at": "2026-10-25",
+  "generated_at": "2026-11-08",
   "status_policy": [
     "verified",
     "reference_book_verified",
@@ -807,7 +807,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-02",
       "method": "fourier_harmonic_phasor_sum_root_find_with_periodic_ode_integration",
-      "solution_hash": "d133a154e11822aa5cf18faa7957539165b3f99e8e7821befecd51c925814e6e",
+      "solution_hash": "be0fce6e4d92411b470235e6ad7fefcc2c5ead4b4e786ea686cc0bbbb3fe2fa0",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/02_電子學_含電力電子/images/questions/PE_112年_電子學（包括電力電子學）_Q04.png"
     },
@@ -3195,7 +3195,7 @@
       "audit_status": "verified",
       "verified_at": "2026-10-04",
       "method": "official_crop_fourier_orthogonality_independent_fft_sampling",
-      "solution_hash": "04ae8c6acb972bb2a6c2e7596fe6625dfde931cabd68605fb1276edeba38fe14",
+      "solution_hash": "7a5352fec8c595376f48b10a2f0f88aa88536f6783f9f56c826447816de0abcf",
       "duplicate_qids": [],
       "source_crop": "01_原始試題/依考科/02_電子學_含電力電子/images/questions/PE_105年_電子學（包括電力電子學）_Q04.png"
     },

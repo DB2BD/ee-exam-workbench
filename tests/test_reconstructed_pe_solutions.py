@@ -1532,7 +1532,7 @@ class TestReconstructedPESolutions(unittest.TestCase):
         nonlinear_105 = (CANONICAL / "02_電子學_含電力電子" / "canonical" / "EE-105-02-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", nonlinear_105)
         self.assertIn("300\\sqrt{3}", nonlinear_105)
-        self.assertIn("92.42", nonlinear_105)
+        self.assertIn("THD=41.67", nonlinear_105)
 
         stability_105 = (CANONICAL / "05_電力系統" / "canonical" / "EE-105-05-4.md").read_text(encoding="utf-8")
         self.assertIn("audit_status: verified", stability_105)
